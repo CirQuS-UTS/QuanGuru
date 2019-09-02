@@ -10,7 +10,7 @@ import numpy as np
 import scipy.sparse as sp
 from QuantumToolbox.states import basis
 from multiprocessing import Pool, cpu_count
-from functools import partial
+#from functools import partial
 
 start = datetime.datetime.now()
 
