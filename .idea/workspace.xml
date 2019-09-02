@@ -4,7 +4,7 @@
     <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RabiModel/Unitary/DQRS.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Unitary/DQRS.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RabiModel/Unitary/test/savedStates.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Unitary/test/savedStates.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tryHere/tryHere.py" beforeDir="false" afterPath="$PROJECT_DIR$/tryHere/tryHere.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -181,7 +181,7 @@
       <updated>1567410170630</updated>
       <workItem from="1567410172916" duration="292000" />
       <workItem from="1567410801127" duration="3669000" />
-      <workItem from="1567414534191" duration="6204000" />
+      <workItem from="1567414534191" duration="8227000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -211,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567422117728</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="new script for long time and frequency range">
+      <created>1567423875081</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1567423875081</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +257,8 @@
     <MESSAGE value="saving states by converting sparse to array" />
     <MESSAGE value="compute and plot from saved states" />
     <MESSAGE value="new branch for messy development" />
-    <option name="LAST_COMMIT_MESSAGE" value="new branch for messy development" />
+    <MESSAGE value="new script for long time and frequency range" />
+    <option name="LAST_COMMIT_MESSAGE" value="new script for long time and frequency range" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/quantum_simulations$savedStates.coverage" NAME="savedStates Coverage Results" MODIFIED="1567423749745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary/test" />

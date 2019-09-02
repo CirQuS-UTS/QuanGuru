@@ -15,8 +15,8 @@ from functools import partial
 start = datetime.datetime.now()
 
 rabiParams = ParamObj('rabiParams')
-rabiParams.sweepMax = 60
-rabiParams.sweepMin = -60
+rabiParams.sweepMax = 3
+rabiParams.sweepMin = -3
 rabiParams.StepSize = 0.02
 rabiParams.sweepPerturbation = 0.01
 rabiParams.resonatorDimension = 20
