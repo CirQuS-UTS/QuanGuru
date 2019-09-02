@@ -64,6 +64,16 @@ class ParamObj(object):
     def unitary(self):
         pass
 
+    def statesToSave(self, states):
+        l1 = []
+        for ink in range(len(self.sweepList)):
+            l2 = []
+            for kni in range(len(self.times)):
+                print(ink, kni)
+                l2.append((states[ink][kni]).toarray())
+            l1.append(l2)
+        self.results['states'] = l1
+
     @property
     def times(self):
         return np.arange(self.StepSize, self.finalTime + (1 * self.StepSize), self.StepSize)

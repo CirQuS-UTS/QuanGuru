@@ -10,24 +10,20 @@ def saveData(dictionary, timestamp='', irregular=False, RootPath='/Users/cahitka
     path = RootPath + date_time
 
     if timestamp == '':
-        timestamp = str(datetime.timestamp(now))
+        timestamp =datetime.timestamp(now)
 
     if not os.path.isdir(path):
         os.mkdir(path)
 
-    file = h5py.File(path + '/' + timestamp + '.h5', 'w')
+    file = h5py.File(path + '/' + str(timestamp) + '.h5', 'w')
 
     if irregular == True:
         for key, value in dictionary.items():
             k = file.create_group(key)
             for i in range(len(value)):
-                if sp.isspmatrix(value):
-                    value = value.toarray()
                 k.create_dataset(str(i), data=value[i])
     else:
         for key, value in dictionary.items():
-            if sp.isspmatrix(value):
-                value = value.toarray()
             file.create_dataset(key, data=value)
 
     file.close()

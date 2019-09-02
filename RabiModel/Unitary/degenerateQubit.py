@@ -10,6 +10,7 @@ import numpy as np
 import scipy.sparse as sp
 from QuantumToolbox.states import basis
 from multiprocessing import Pool, cpu_count
+from functools import partial
 
 
 start = datetime.datetime.now()
@@ -54,7 +55,11 @@ def ex(states):
 p = Pool(processes=cpu_count())
 
 states = p.map(ev, rabiParams.sweepList)
+rabiParams.statesToSave(states)
 parity = p.map(ex, states)
+p.close()
+p.join()
+rabiParams.save()
 ##### parallel comp #####
 
 
