@@ -39,6 +39,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitlabProjectsProjectSettings">
+    <option name="lastMergedBranch" value="master" />
+    <option name="deleteMergedBranch" value="false" />
+    <option name="mergeAsWorkInProgress" value="false" />
+    <option name="projectIdMap">
+      <map>
+        <entry key="-1337453664" value="697" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectId" id="1QGwJluiLxqLEcgYLUqT62HVwXt" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -51,7 +61,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
+    <property name="settings.editor.selected.configurable" value="GitLabConfigurableProvider" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -161,8 +171,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.savedStates" />
         <item itemvalue="Python.DQRS" />
+        <item itemvalue="Python.savedStates" />
         <item itemvalue="Python.degenerateQubit" />
         <item itemvalue="Python.tryHere" />
       </list>
@@ -181,6 +191,8 @@
       <workItem from="1567410172916" duration="292000" />
       <workItem from="1567410801127" duration="3669000" />
       <workItem from="1567414534191" duration="9037000" />
+      <workItem from="1567434646556" duration="398000" />
+      <workItem from="1567435165663" duration="600000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -284,7 +296,7 @@
     <SUITE FILE_PATH="coverage/quantum_simulations$savedStates.coverage" NAME="savedStates Coverage Results" MODIFIED="1567423749745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary/test" />
     <SUITE FILE_PATH="coverage/quantum_simulations$tryHere.coverage" NAME="tryHere Coverage Results" MODIFIED="1567414701258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere" />
     <SUITE FILE_PATH="coverage/Gamma_1_5$degenerateQubit.coverage" NAME="degenerateQubit Coverage Results" MODIFIED="1567410328714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
-    <SUITE FILE_PATH="coverage/quantum_simulations$DQRS.coverage" NAME="DQRS Coverage Results" MODIFIED="1567423474967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$DQRS.coverage" NAME="DQRS Coverage Results" MODIFIED="1567434707262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$degenerateQubit.coverage" NAME="degenerateQubit Coverage Results" MODIFIED="1567417784083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
   </component>
 </project>

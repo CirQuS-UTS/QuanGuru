@@ -28,25 +28,6 @@ rabiParams.unitary = digitalRabi
 parityOp = parityEXP(rabiParams.HamiltonianCavity)
 states = []
 
-##### loop comp #####
-"""def ex(states):
-    par = []
-    for j in range(len(states)):
-        par.append(expectationSparse(parityOp, states[j]))
-    return par
-
-for i in range(len(rabiParams.sweepList)):
-    rabiParams.resonatorFrequency = rabiParams.sweepList[i]
-    state = timeEvolve(rabiParams)
-    states.append(state)
-
-parity = []
-for k in range(len(states)):
-    parity.append(ex(states[k]))"""
-
-
-##### loop comp #####
-
 ##### parallel comp #####
 def ev(sweep):
     rabiParams.resonatorFrequency = sweep
