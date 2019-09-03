@@ -17,6 +17,8 @@ from Plotting.Functions import createMAP, normalizeCMAP
 start = datetime.datetime.now()
 
 rabiParams = ParamObj('rabiParams')
+rabiParams.bitflipTime = 0.04
+rabiParams.offset = 1000
 rabiParams.initialState = sp.kron(basis(rabiParams.resonatorDimension, 0), basis(2, 1), format='csc')
 Hamiltonians(rabiParams, resonatorDimension=rabiParams.resonatorDimension)
 rabiParams.unitary = digitalRabi

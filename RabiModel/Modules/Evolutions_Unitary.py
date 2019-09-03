@@ -22,7 +22,7 @@ def digitalRabi(obj,stepSize):
              (
                 ((obj.offset + (obj.resonatorFrequency / obj.ratio)) * obj.HamiltonianCavity) +
                 ((obj.offset + obj.qubitFreqJC) * obj.HamiltonianQubit) +
-                ((obj.offset + obj.g) * obj.couplingJC)
+                (obj.g * obj.couplingJC)
              )
              )
 
@@ -34,7 +34,7 @@ def digitalRabi(obj,stepSize):
                   (
                           ((obj.offset + (obj.resonatorFrequency / obj.ratio)) * obj.HamiltonianCavity) +
                           ((obj.offset + obj.qubitFreqAJC) * obj.HamiltonianQubit) +
-                          ((obj.offset + obj.g) * obj.couplingJC)
+                          (obj.g * obj.couplingJC)
                   )
                   )
         UnitaryAJC = liou.Liouvillian(HamAJC, timeStep=stepSize)
@@ -42,13 +42,12 @@ def digitalRabi(obj,stepSize):
     if obj.offset == 0:
         Unitary = UnitaryJC @ obj.sigmaX @ UnitaryAJC @ obj.sigmaX @ UnitaryJC
     else:
-        HamJC = (2 * np.pi *
+        half_flip = (2 * np.pi *
                  (
                          ((obj.offset + (obj.resonatorFrequency / obj.ratio)) * obj.HamiltonianCavity) +
-                         ((obj.offset + obj.g) * obj.couplingJC)
+                         (obj.g * obj.couplingJC)
                  )
                  )
-        half_flip = liou.Liouvillian(HamJC)
         UnitaryFlip = liou.Liouvillian(half_flip,timeStep=(obj.bitflipTime/2))
         Unitary = UnitaryJC @ UnitaryFlip @ obj.sigmaX @ UnitaryFlip @ UnitaryAJC @ UnitaryFlip @ obj.sigmaX @ UnitaryFlip @ UnitaryJC
 

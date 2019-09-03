@@ -30,7 +30,6 @@ class ParamObj(object):
         self.constantTrotterStep = True             # is Trotter step size constant at each step
         self.TrotterStepList = self.StepSizeList    # list of Trotter steps if bot constant at each step
         self.bitflipTime = 0
-        self.ratio = ((2 * (self.TrotterStep + self.bitflipTime))/self.TrotterStep)
 
         # sweep parameters
         self.sweepKey = ''
@@ -80,6 +79,10 @@ class ParamObj(object):
     @property
     def times(self):
         return np.arange(self.StepSize, self.finalTime + (1 * self.StepSize), self.StepSize)
+
+    @property
+    def ratio(self):
+        return ((2 * (self.TrotterStep + self.bitflipTime))/self.TrotterStep)
 
     @property
     def TrotterTimes(self):
