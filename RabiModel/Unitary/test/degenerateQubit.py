@@ -11,6 +11,7 @@ import scipy.sparse as sp
 from QuantumToolbox.states import basis
 from multiprocessing import Pool, cpu_count
 from functools import partial
+from Plotting.Functions import createMAP, normalizeCMAP
 
 
 start = datetime.datetime.now()
@@ -71,6 +72,7 @@ Z = parity
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-surf1 = ax.pcolormesh(X, Y, Z, cmap="inferno")
+cmap =createMAP('PuYlGn')
+surf1 = ax.pcolormesh(X, Y, Z, cmap=cmap, norm=normalizeCMAP(cmap, -1, 1))
 cbar = plt.colorbar(surf1)
 plt.show()

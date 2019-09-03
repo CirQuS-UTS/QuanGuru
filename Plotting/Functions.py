@@ -1,6 +1,8 @@
 ##################  plotting libraries ################## 
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.ticker import MaxNLocator
+from matplotlib.colors import BoundaryNorm
 
 def __txtTocdict(file):
     list1 = []
@@ -24,3 +26,8 @@ def createMAP(name):
     else:
         cmap = plt.get_cmap(name)
     return cmap
+
+def normalizeCMAP(cmap, llim, ulim):
+    levels = MaxNLocator(nbins=999).tick_values(llim, ulim)
+    norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
+    return norm
