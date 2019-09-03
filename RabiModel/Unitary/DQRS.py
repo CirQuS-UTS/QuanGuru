@@ -15,13 +15,15 @@ from multiprocessing import Pool, cpu_count
 start = datetime.datetime.now()
 
 rabiParams = ParamObj('rabiParams')
-rabiParams.sweepMax = 3
-rabiParams.sweepMin = -3
+rabiParams.bitflipTime = 0.04
+rabiParams.offset = 1000
+rabiParams.sweepMax = 0
+rabiParams.sweepMin = -60
 rabiParams.StepSize = 0.02
-rabiParams.sweepPerturbation = 0.01
+rabiParams.sweepPerturbation = 0.05
 rabiParams.resonatorDimension = 20
 rabiParams.sweepKey = 'resonator Frequency'
-rabiParams.finalTime = 18
+rabiParams.finalTime = 3.6
 rabiParams.initialState = sp.kron(basis(rabiParams.resonatorDimension, 0), basis(2, 1), format='csc')
 Hamiltonians(rabiParams, resonatorDimension=rabiParams.resonatorDimension)
 rabiParams.unitary = digitalRabi
