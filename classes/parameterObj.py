@@ -17,7 +17,7 @@ class ParamObj(object):
         self.qubitFreqJC = 0
         self.qubitFreqAJC = 0
         self.qubitFreq = 0
-        self.offset = 1000
+        self.offset = 0
 
         ################ Default Simulation Parameters ##################
         # time parameters
@@ -29,7 +29,7 @@ class ParamObj(object):
         self.TrotterStep = self.StepSize            # Trotter step size in DQS
         self.constantTrotterStep = True             # is Trotter step size constant at each step
         self.TrotterStepList = self.StepSizeList    # list of Trotter steps if bot constant at each step
-        self.bitflipTime = 0.04
+        self.bitflipTime = 0
         self.ratio = ((2 * (self.TrotterStep + self.bitflipTime))/self.TrotterStep)
 
         # sweep parameters
