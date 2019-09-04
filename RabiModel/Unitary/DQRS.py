@@ -17,13 +17,10 @@ from Plotting.Functions import createMAP, normalizeCMAP
 start = datetime.datetime.now()
 ################## Simulation Parameters ##################
 rabiParams = ParamObj('rabiParams')
-rabiParams.offset = 1000
+rabiParams.offset = 0
 rabiParams.sweepMax = 2.4
 rabiParams.sweepMin = -2.4
 rabiParams.StepSize = 0.01
-#rabiParams.bitflipTime = 2*rabiParams.StepSize
-rabiParams.bitflipTime = 0.04
-rabiParams.sweepPerturbation = 0.05
 rabiParams.resonatorDimension = 200
 rabiParams.sweepKey = 'resonator Frequency'
 rabiParams.finalTime = 1.2

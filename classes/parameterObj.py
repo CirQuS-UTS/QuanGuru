@@ -29,7 +29,7 @@ class ParamObj(object):
         self.trotterStep = self.StepSize            # Trotter step size in DQS
         self.constantTrotterStep = True             # is Trotter step size constant at each step
         self.TrotterStepList = self.StepSizeList    # list of Trotter steps if bot constant at each step
-        self.bitflipTime = 0
+        self.bitflipTime = 0.04
 
         # sweep parameters
         self.sweepKey = ''
@@ -86,7 +86,7 @@ class ParamObj(object):
 
     @property
     def ratio(self):
-        return ((2 * (self.TrotterStep + self.bitflipTime))/self.TrotterStep)
+        return ((2 * (self.TrotterStep + self.bitflipTime))/self.TrotterStep) if self.offset != 0 else 2
 
     @property
     def TrotterTimes(self):
