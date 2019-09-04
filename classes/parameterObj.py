@@ -82,7 +82,7 @@ class ParamObj(object):
 
     @property
     def times(self):
-        return np.arange(self.StepSize, self.finalTime + (1 * self.StepSize), self.StepSize)
+        return np.arange(0, self.finalTime, self.StepSize)
 
     @property
     def ratio(self):
@@ -94,7 +94,7 @@ class ParamObj(object):
 
     @property
     def sweepList(self):
-        return np.arange(self.sweepMin, self.sweepMax + (1 * self.sweepPerturbation), self.sweepPerturbation)
+        return np.arange(self.sweepMin, self.sweepMax + self.sweepPerturbation, self.sweepPerturbation)
 
     @classmethod
     def addMethod(cls, func):

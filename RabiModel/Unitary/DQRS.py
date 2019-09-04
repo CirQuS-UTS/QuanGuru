@@ -23,7 +23,7 @@ rabiParams.sweepMin = -2.4
 rabiParams.StepSize = 0.01
 rabiParams.resonatorDimension = 200
 rabiParams.sweepKey = 'resonator Frequency'
-rabiParams.finalTime = 1.2
+rabiParams.finalTime = 5
 
 rabiParams.initialState = sp.kron(basis(rabiParams.resonatorDimension, 0), basis(2, 1), format='csc')
 Hamiltonians(rabiParams, resonatorDimension=rabiParams.resonatorDimension)
@@ -45,12 +45,6 @@ def ex(operator,states):
         par.append(expectationSparse(operator, states[j]))
     return par
 
-def fid(lis):
-    fid = []
-    for imn in range(len(lis[0])):
-        fid.append(fidelitySparse(lis[0][imn], lis[1][imn]))
-    return fid
-
 
 ################## Simulation ##################
 p = Pool(processes=cpu_count())
@@ -71,9 +65,6 @@ rabiParams.results['Parity Ideal'] = parityIdeal
 rabiParams.results['Photon Digital'] = photonDigital
 rabiParams.results['Photon Ideal'] = photonIdeal
 
-
-
-
 SimulationFidelity = []
 for i in range(len(statesDigital)):
     fid = []
@@ -81,6 +72,16 @@ for i in range(len(statesDigital)):
         fid.append(fidelitySparse(statesDigital[i][k], statesIdeal[i][k]))
     SimulationFidelity.append(fid)
 
+pertFidelityDigital = []
+pertFidelityIdeal = []
+for h in range(len(statesDigital)):
+    fidD = []
+    fidI = []
+    for bb in range(len(statesDigital[0])):
+        fidD.append(fidelitySparse(statesDigital[h][bb], statesDigital[h-1][bb]))
+        fidI.append(fidelitySparse(statesIdeal[h][bb], statesIdeal[h-1][bb]))
+    pertFidelityDigital.append(fidD)
+    pertFidelityIdeal.append(fidI)
 
 p.close()
 p.join()
@@ -90,8 +91,11 @@ end = datetime.datetime.now()
 print(end - start)
 
 ################## Plotting Function ##################
-def plot(Z,min, max):
-    Y, X = np.meshgrid(rabiParams.times, rabiParams.sweepList)
+def plot(Z,min, max, x = None):
+    if not isinstance(x, list):
+        Y, X = np.meshgrid(rabiParams.times, rabiParams.sweepList)
+    else:
+        Y, X = np.meshgrid(rabiParams.times, x)
     fig = plt.figure()
     ax = fig.add_subplot(111)
     plottingSet(ax)
@@ -104,6 +108,8 @@ def plot(Z,min, max):
 
 
 ################## Plotting ##################
+plot(pertFidelityIdeal, 0, 1)
+plot(pertFidelityDigital, 0, 1)
 plot(SimulationFidelity, 0,1)
 plot(parityDigital, -1, 1)
 plot(parityIdeal, -1, 1)
