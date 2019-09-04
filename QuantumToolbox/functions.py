@@ -21,9 +21,9 @@ def fidelitySparse(state1, state2, ket=True):
     """
 
     if ket:
-        fidelityA = np.array(((state1.getH()) @ state2).diagonal).sum()
+        fidelityA = np.array(((state1.getH()) @ state2).diagonal()).sum()
     else:
-        fidelityA = np.array((state1 @ state2).diagonal).sum()
+        fidelityA = np.array((state1 @ state2).diagonal()).sum()
 
     return np.sqrt(np.real(fidelityA * np.conj(fidelityA))) if ket else np.sqrt(np.real(fidelityA))
 

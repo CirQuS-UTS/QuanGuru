@@ -26,7 +26,7 @@ class ParamObj(object):
         self.constantStepSize = True                # is sampling time step constant at each step
         self.StepSizeList = [0.02]                  # list of sampling time steps if sampling is not constant
         self.subTrotter = False                     # is each sampling step composed of multiple DQS steps
-        self.TrotterStep = self.StepSize            # Trotter step size in DQS
+        self.trotterStep = self.StepSize            # Trotter step size in DQS
         self.constantTrotterStep = True             # is Trotter step size constant at each step
         self.TrotterStepList = self.StepSizeList    # list of Trotter steps if bot constant at each step
         self.bitflipTime = 0
@@ -63,6 +63,7 @@ class ParamObj(object):
             f.write(' '.join(["%s = %s" % (k, v) for k, v in dic.items()]))
         return self.__del__()
 
+    @classmethod
     def unitary(self):
         pass
 
@@ -74,6 +75,10 @@ class ParamObj(object):
                 l2.append((states[ink][kni]).toarray())
             l1.append(l2)
         self.results['states'] = l1
+
+    @property
+    def TrotterStep(self):
+        return self.StepSize if not self.subTrotter else self.trotterStep
 
     @property
     def times(self):
