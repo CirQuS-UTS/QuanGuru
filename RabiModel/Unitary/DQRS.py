@@ -11,6 +11,7 @@ import scipy.sparse as sp
 from QuantumToolbox.states import basis
 from multiprocessing import Pool, cpu_count
 #from functools import partial
+from Plotting.plottingSettings import plottingSet
 
 start = datetime.datetime.now()
 
@@ -18,7 +19,7 @@ rabiParams = ParamObj('rabiParams')
 rabiParams.bitflipTime = 0.04
 rabiParams.offset = 1000
 rabiParams.sweepMax = 0
-rabiParams.sweepMin = -60
+rabiParams.sweepMin = -1
 rabiParams.StepSize = 0.02
 rabiParams.sweepPerturbation = 0.05
 rabiParams.resonatorDimension = 20
@@ -47,12 +48,12 @@ def ex(states):
 p = Pool(processes=cpu_count())
 
 states = p.map(ev, rabiParams.sweepList)
-rabiParams.statesToSave(states)
+#rabiParams.statesToSave(states)
 parity = p.map(ex, states)
 rabiParams.results['Parity'] = parity
 p.close()
 p.join()
-rabiParams.save()
+#rabiParams.save()
 ##### parallel comp #####
 
 
@@ -64,6 +65,7 @@ Z = parity
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
+plottingSet(ax)
 surf1 = ax.pcolormesh(X, Y, Z, cmap="inferno")
 cbar = plt.colorbar(surf1)
 plt.show()

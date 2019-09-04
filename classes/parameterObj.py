@@ -71,7 +71,6 @@ class ParamObj(object):
         for ink in range(len(self.sweepList)):
             l2 = []
             for kni in range(len(self.times)):
-                print(ink, kni)
                 l2.append((states[ink][kni]).toarray())
             l1.append(l2)
         self.results['states'] = l1
