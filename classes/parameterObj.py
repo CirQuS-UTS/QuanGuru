@@ -82,7 +82,7 @@ class ParamObj(object):
 
     @property
     def times(self):
-        return np.arange(0, self.finalTime, self.StepSize)
+        return np.arange(0, self.finalTime + self.StepSize, self.StepSize)
 
     @property
     def ratio(self):
@@ -90,7 +90,7 @@ class ParamObj(object):
 
     @property
     def TrotterTimes(self):
-        return np.arange(self.TrotterStep, self.StepSize + self.TrotterStep, self.TrotterStep)
+        return np.arange(0, self.StepSize + self.TrotterStep, self.TrotterStep)
 
     @property
     def sweepList(self):

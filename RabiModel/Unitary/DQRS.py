@@ -17,11 +17,13 @@ from Plotting.Functions import createMAP, normalizeCMAP
 start = datetime.datetime.now()
 ################## Simulation Parameters ##################
 rabiParams = ParamObj('rabiParams')
-rabiParams.offset = 0
-rabiParams.sweepMax = 2.4
-rabiParams.sweepMin = -2.4
-rabiParams.StepSize = 0.01
-rabiParams.resonatorDimension = 200
+rabiParams.offset = 1000
+rabiParams.sweepMax = 1
+rabiParams.g = 1
+rabiParams.sweepMin = -51
+rabiParams.StepSize = 0.02
+rabiParams.sweepPerturbation = 0.01
+rabiParams.resonatorDimension = 20
 rabiParams.sweepKey = 'resonator Frequency'
 rabiParams.finalTime = 5
 
@@ -59,6 +61,8 @@ parityDigital = p.map(partial(ex, parityOp),statesDigital)
 parityIdeal = p.map(partial(ex, parityOp),statesIdeal)
 photonDigital = p.map(partial(ex, photonN),statesDigital)
 photonIdeal = p.map(partial(ex, photonN),statesIdeal)
+p.close()
+p.join()
 
 rabiParams.results['Parity Digital'] = parityDigital
 rabiParams.results['Parity Ideal'] = parityIdeal
@@ -72,6 +76,8 @@ for i in range(len(statesDigital)):
         fid.append(fidelitySparse(statesDigital[i][k], statesIdeal[i][k]))
     SimulationFidelity.append(fid)
 
+rabiParams.results['Simulation Fidelity'] = SimulationFidelity
+
 pertFidelityDigital = []
 pertFidelityIdeal = []
 for h in range(len(statesDigital)):
@@ -83,8 +89,11 @@ for h in range(len(statesDigital)):
     pertFidelityDigital.append(fidD)
     pertFidelityIdeal.append(fidI)
 
-p.close()
-p.join()
+rabiParams.results['Pertubation Fidelity Digital'] = pertFidelityDigital
+rabiParams.results['Pertubation Fidelity Ideal'] = pertFidelityIdeal
+rabiParams.results['x'] = rabiParams.sweepList
+rabiParams.results['y'] = rabiParams.times
+rabiParams.save()
 
 
 end = datetime.datetime.now()
