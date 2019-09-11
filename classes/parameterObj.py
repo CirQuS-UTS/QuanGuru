@@ -52,7 +52,7 @@ class ParamObj(object):
     def save(self):
         now = datetime.now()
         timestamp = datetime.timestamp(now)
-        path = saveData(self.results, timestamp)
+        path = saveData(self.results, timestamp, self.irregular)
         saveName = path + '/' + str(timestamp) + '.txt'
         with open(saveName, 'w') as f:
             dic = {'g': self.g, 'resonator Dimension': self.resonatorDimension,
@@ -67,14 +67,18 @@ class ParamObj(object):
     def unitary(self):
         pass
 
-    def statesToSave(self, states):
+    def statesToSave(self, states, key):
         l1 = []
         for ink in range(len(self.sweepList)):
             l2 = []
             for kni in range(len(self.times)):
                 l2.append((states[ink][kni]).toarray())
             l1.append(l2)
-        self.results['states'] = l1
+        self.results[key] = l1
+
+    @property
+    def irregular(self):
+        return True if self.sweepKey == 'Step Size' else False
 
     @property
     def TrotterStep(self):

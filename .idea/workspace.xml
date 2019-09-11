@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plotting/Functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plotting/Functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RabiModel/Unitary/DQRS.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Unitary/DQRS.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RabiModel/Unitary/test/savedStates.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Unitary/test/savedStates.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuantumToolbox/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/QuantumToolbox/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/parameterObj.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/parameterObj.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tryHere/tryHere.py" beforeDir="false" afterPath="$PROJECT_DIR$/tryHere/tryHere.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +81,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Saved">
+  <component name="RunManager" selected="Python.cleanDQRS">
     <configuration name="DQRS" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Gamma 1.5" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -129,7 +126,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="degenerateQubit" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="cleanDQRS" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Gamma 1.5" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -142,7 +139,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RabiModel/Unitary/test/degenerateQubit.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RabiModel/Unitary/cleanDQRS.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -197,11 +194,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.cleanDQRS" />
+        <item itemvalue="Python.DQRS" />
         <item itemvalue="Python.Saved" />
         <item itemvalue="Python.savedStates" />
         <item itemvalue="Python.tryHere" />
-        <item itemvalue="Python.DQRS" />
-        <item itemvalue="Python.degenerateQubit" />
       </list>
     </recent_temporary>
   </component>
@@ -223,7 +220,8 @@
       <workItem from="1567463905785" duration="76000" />
       <workItem from="1567464012899" duration="6264000" />
       <workItem from="1567481736250" duration="12227000" />
-      <workItem from="1567567696138" duration="22198000" />
+      <workItem from="1567567696138" duration="36183000" />
+      <workItem from="1568163367809" duration="11889000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -337,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567582338364</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="function to create n-by-m plot grid">
+      <created>1567645991327</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1567645991327</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,14 +406,27 @@
     <MESSAGE value="modified name of several variables" />
     <MESSAGE value="ratio in PlotObj returns conditioned on offset" />
     <MESSAGE value="start and end of times and sweepList of ParamObj are modified" />
-    <option name="LAST_COMMIT_MESSAGE" value="start and end of times and sweepList of ParamObj are modified" />
+    <MESSAGE value="function to create n-by-m plot grid" />
+    <option name="LAST_COMMIT_MESSAGE" value="function to create n-by-m plot grid" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/RabiModel/Unitary/DQRS.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/quantum_simulations$savedStates.coverage" NAME="savedStates Coverage Results" MODIFIED="1567643361718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary/test" />
     <SUITE FILE_PATH="coverage/quantum_simulations$tryHere.coverage" NAME="tryHere Coverage Results" MODIFIED="1567643353334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere" />
     <SUITE FILE_PATH="coverage/Gamma_1_5$degenerateQubit.coverage" NAME="degenerateQubit Coverage Results" MODIFIED="1567410328714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
-    <SUITE FILE_PATH="coverage/quantum_simulations$DQRS.coverage" NAME="DQRS Coverage Results" MODIFIED="1567641089510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
-    <SUITE FILE_PATH="coverage/quantum_simulations$Saved.coverage" NAME="Saved Coverage Results" MODIFIED="1567645950039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$cleanDQRS.coverage" NAME="cleanDQRS Coverage Results" MODIFIED="1568179352603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$Saved.coverage" NAME="Saved Coverage Results" MODIFIED="1568013899897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$DQRS.coverage" NAME="DQRS Coverage Results" MODIFIED="1568173025262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$degenerateQubit.coverage" NAME="degenerateQubit Coverage Results" MODIFIED="1567482296871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
   </component>
 </project>

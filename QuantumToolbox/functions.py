@@ -25,7 +25,8 @@ def fidelitySparse(state1, state2, ket=True):
     else:
         fidelityA = np.array((state1 @ state2).diagonal()).sum()
 
-    return np.sqrt(np.real(fidelityA * np.conj(fidelityA))) if ket else np.sqrt(np.real(fidelityA))
+    #return np.sqrt(np.real(fidelityA * np.conj(fidelityA))) if ket else np.sqrt(np.real(fidelityA))
+    return np.real(fidelityA * np.conj(fidelityA)) if ket else np.real(fidelityA)
 
 
 def entropy(psi, ket = True, base2 = False):
