@@ -13,10 +13,10 @@ def Rabi(dims):
     qubitFreq = 0
     gg = g
     qf = 1
-    HamiltonianCavity = sp.kron(oper.number(resonatorDimension), oper.identity(2))
-    HamiltonianQubit = sp.kron(oper.identity(resonatorDimension), oper.number(2))
-    couplingJC = (sp.kron(oper.create(resonatorDimension), oper.sigmax())
-                  + sp.kron(oper.destroy(resonatorDimension), oper.sigmax())).tocsc()
+    HamiltonianCavity = sp.kron(oper.number(resonatorDimension), oper.identity(2), format='csc')
+    HamiltonianQubit = sp.kron(oper.identity(resonatorDimension), oper.number(2), format='csc')
+    couplingJC = (sp.kron(oper.create(resonatorDimension), oper.sigmax(), format='csc')
+                  + sp.kron(oper.destroy(resonatorDimension), oper.sigmax(), format='csc'))
 
     rescale = 1 / (resonatorDimension * gg * qf * 2)
     Num = int(1.5 * resonatorDimension)

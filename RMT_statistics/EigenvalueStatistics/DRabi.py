@@ -16,11 +16,11 @@ def DRabi(dims):
     gg = g
     qf = 1
 
-    HamiltonianCavity = sp.kron(oper.number(resonatorDimension), oper.identity(2))
-    HamiltonianQubit = sp.kron(oper.identity(resonatorDimension), oper.sigmaz())
-    couplingJC = (sp.kron(oper.create(resonatorDimension), oper.destroy(2))
-                  + sp.kron(oper.destroy(resonatorDimension), oper.create(2))).tocsc()
-    sigmaX = sp.kron(oper.identity(resonatorDimension), oper.sigmax())
+    HamiltonianCavity = sp.kron(oper.number(resonatorDimension), oper.identity(2), format='csc')
+    HamiltonianQubit = sp.kron(oper.identity(resonatorDimension), oper.sigmaz(), format='csc')
+    couplingJC = (sp.kron(oper.create(resonatorDimension), oper.destroy(2), format='csc')
+                  + sp.kron(oper.destroy(resonatorDimension), oper.create(2), format='csc'))
+    sigmaX = sp.kron(oper.identity(resonatorDimension), oper.sigmax(), format='csc')
 
     rescale = 1 / (resonatorDimension * gg * qf)
     Num = int(1.5 * resonatorDimension)
