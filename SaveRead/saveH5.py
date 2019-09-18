@@ -1,7 +1,6 @@
 import h5py
 import os
 from datetime import datetime
-import scipy.sparse as sp
 
 
 def saveData(dictionary, timestamp='', irregular=False, RootPath='/Users/cahitkargi/Dropbox/PhD/Numerical Results/'):
@@ -30,7 +29,9 @@ def saveData(dictionary, timestamp='', irregular=False, RootPath='/Users/cahitka
     return path
 
 
-def readData(timestamp, key = '', RootPath='/Users/cahitkargi/Dropbox/PhD/Numerical Results/2019-09-02'):
-    path = RootPath + '/' + str(timestamp) + '.h5'
+def readData(timestamp, key = '', RootPath='/Users/cahitkargi/Dropbox/PhD/Numerical Results/'):
+    fdate = datetime.fromtimestamp(timestamp)
+    date = fdate.strftime("%Y-%m-%d")
+    path = RootPath + '/' + date + '/'+ str(timestamp) + '.h5'
     f = h5py.File(path, 'r')
     return f if key == '' else list(f[key])

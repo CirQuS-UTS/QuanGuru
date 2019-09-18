@@ -26,10 +26,10 @@ class ParamObj(object):
         self.constantStepSize = True                # is sampling time step constant at each step
         self.StepSizeList = [0.02]                  # list of sampling time steps if sampling is not constant
         self.subTrotter = False                     # is each sampling step composed of multiple DQS steps
-        self.TrotterStep = self.StepSize            # Trotter step size in DQS
+        self.trotterStep = self.StepSize            # Trotter step size in DQS
         self.constantTrotterStep = True             # is Trotter step size constant at each step
         self.TrotterStepList = self.StepSizeList    # list of Trotter steps if bot constant at each step
-        self.bitflipTime = 0
+        self.bitflipTime = 0.04
 
         # sweep parameters
         self.sweepKey = ''
@@ -44,7 +44,7 @@ class ParamObj(object):
 
 
         ###################### Default Phase-space ########################
-        self.xvec = np.linspace(-7, 7, 400)
+        self.xvec = np.linspace(-4, 4, 80)
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -52,7 +52,7 @@ class ParamObj(object):
     def save(self):
         now = datetime.now()
         timestamp = datetime.timestamp(now)
-        path = saveData(self.results, timestamp)
+        path = saveData(self.results, timestamp, self.irregular)
         saveName = path + '/' + str(timestamp) + '.txt'
         with open(saveName, 'w') as f:
             dic = {'g': self.g, 'resonator Dimension': self.resonatorDimension,
@@ -63,34 +63,42 @@ class ParamObj(object):
             f.write(' '.join(["%s = %s" % (k, v) for k, v in dic.items()]))
         return self.__del__()
 
+    @classmethod
     def unitary(self):
         pass
 
-    def statesToSave(self, states):
+    def statesToSave(self, states, key):
         l1 = []
         for ink in range(len(self.sweepList)):
             l2 = []
             for kni in range(len(self.times)):
-                print(ink, kni)
                 l2.append((states[ink][kni]).toarray())
             l1.append(l2)
-        self.results['states'] = l1
+        self.results[key] = l1
+
+    @property
+    def irregular(self):
+        return True if self.sweepKey == 'Step Size' else False
+
+    @property
+    def TrotterStep(self):
+        return self.StepSize if not self.subTrotter else self.trotterStep
 
     @property
     def times(self):
-        return np.arange(self.StepSize, self.finalTime + (1 * self.StepSize), self.StepSize)
+        return np.arange(0, self.finalTime + self.StepSize, self.StepSize)
 
     @property
     def ratio(self):
-        return ((2 * (self.TrotterStep + self.bitflipTime))/self.TrotterStep)
+        return ((2 * (self.TrotterStep + self.bitflipTime))/self.TrotterStep) if self.offset != 0 else 2
 
     @property
     def TrotterTimes(self):
-        return np.arange(self.TrotterStep, self.StepSize + self.TrotterStep, self.TrotterStep)
+        return np.arange(0, self.StepSize + self.TrotterStep, self.TrotterStep)
 
     @property
     def sweepList(self):
-        return np.arange(self.sweepMin, self.sweepMax + (1 * self.sweepPerturbation), self.sweepPerturbation)
+        return np.arange(self.sweepMin, self.sweepMax + self.sweepPerturbation, self.sweepPerturbation)
 
     @classmethod
     def addMethod(cls, func):

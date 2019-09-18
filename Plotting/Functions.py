@@ -31,3 +31,11 @@ def normalizeCMAP(cmap, llim, ulim):
     levels = MaxNLocator(nbins=999).tick_values(llim, ulim)
     norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
     return norm
+
+def grid(n,m):
+    axList = []
+    for i in range(n):
+        for j in range(m):
+            ax = plt.subplot2grid((n, m), (i, j), colspan=1)
+            axList.append(ax)
+    return axList

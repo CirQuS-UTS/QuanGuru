@@ -8,11 +8,10 @@ def idealRabi(obj,stepSize):
     HamRabi = (2 * np.pi *
                (
                 (obj.resonatorFrequency * obj.HamiltonianCavity)
-                + (obj.qubitFreqJC * obj.HamiltonianQubit)
+                + (obj.qubitFreq * obj.HamiltonianQubit)
                 + (obj.g * obj.couplingHamiltonian)
                )
                )
-
 
     Unitary = liou.Liouvillian(HamRabi, timeStep=stepSize)
     return Unitary

@@ -9,9 +9,11 @@ from QuantumToolbox.operators import parityEXP
 from classes.parameterObj import ParamObj
 import scipy.sparse as sp
 
-data = readData(1567423427.773038, 'states')
+timestamp = 1567583365.299213
+data = readData(timestamp, '')
+print(data.keys())
 
-parityOp = parityEXP(sp.kron(number(20), identity(2), format='csc')).toarray()
+"""parityOp = parityEXP(sp.kron(number(20), identity(2), format='csc')).toarray()
 
 def ex(states):
     par = []
@@ -23,22 +25,14 @@ p = Pool(processes=cpu_count())
 
 parity = p.map(ex, data)
 p.close()
-p.join()
+p.join()"""
 ##### parallel comp #####
 
 
 end = datetime.datetime.now()
 
-rabiParams = ParamObj('rabiParams')
-rabiParams.sweepMax = 3
-rabiParams.sweepMin = -3
-rabiParams.StepSize = 0.02
-rabiParams.sweepPerturbation = 0.01
-rabiParams.resonatorDimension = 20
-rabiParams.sweepKey = 'resonator Frequency'
-rabiParams.finalTime = 6
-Y, X = np.meshgrid(rabiParams.times, rabiParams.sweepList)
-Z = parity
+Y, X = np.meshgrid(data['y'], data['x'])
+Z = data['Pertubation Fidelity Digital']
 
 fig = plt.figure()
 ax = fig.add_subplot(111)

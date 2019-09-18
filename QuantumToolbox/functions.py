@@ -21,14 +21,15 @@ def fidelitySparse(state1, state2, ket=True):
     """
 
     if ket:
-        fidelityA = np.array(((state1.getH()) @ state2).diagonal).sum()
+        fidelityA = np.array(((state1.getH()) @ state2).diagonal()).sum()
     else:
-        fidelityA = np.array((state1 @ state2).diagonal).sum()
+        fidelityA = np.array((state1 @ state2).diagonal()).sum()
 
-    return np.sqrt(np.real(fidelityA * np.conj(fidelityA))) if ket else np.sqrt(np.real(fidelityA))
+    #return np.sqrt(np.real(fidelityA * np.conj(fidelityA))) if ket else np.sqrt(np.real(fidelityA))
+    return np.real(fidelityA * np.conj(fidelityA)) if ket else np.real(fidelityA)
 
 
-def entropy(psi, ket = True, base2 = False):
+def entropy(psi, ket=True, base2=False):
     if ket:
         densMat = densityMatrix(psi)
     else:
@@ -49,7 +50,7 @@ def entropy(psi, ket = True, base2 = False):
     return S
 
 
-def partial_trace(rho, keep, dims, optimize=False):
+def partial_trace(keep, dims,rho):
     """
     Found on: https://scicomp.stackexchange.com/questions/30052/calculate-partial-trace-of-an-outer-product-in-python
     Calculate the partial trace
@@ -89,5 +90,5 @@ def partial_trace(rho, keep, dims, optimize=False):
     idx1 = [i for i in range(Ndim)]
     idx2 = [Ndim+i if i in keep else i for i in range(Ndim)]
     rho_a = rho.reshape(np.tile(dims,2))
-    rho_a = np.einsum(rho_a, idx1+idx2, optimize=optimize)
+    rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)
     return rho_a.reshape(Nkeep, Nkeep)
