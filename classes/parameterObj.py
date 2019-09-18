@@ -50,16 +50,17 @@ class ParamObj(object):
         class_name = self.__class__.__name__
 
     def save(self):
+        dic = {'g': self.g, 'resonator Dimension': self.resonatorDimension,
+               'resonator Frequency': self.resonatorFrequency, 'qubit frequency': self.qubitFreq,
+               'step size': self.StepSize, 'qubitFreqJC': self.qubitFreqJC, 'qubitFreqAJC': self.qubitFreqAJC,
+               'finalTime': self.finalTime, 'StepSize': self.StepSize, 'sweepMax': self.sweepMax,
+               'sweepMin': self.sweepMin, 'sweepPerturbation': self.sweepPerturbation, 'sweepKey': self.sweepKey}
+
         now = datetime.now()
         timestamp = datetime.timestamp(now)
         path = saveData(self.results, timestamp, self.irregular)
         saveName = path + '/' + str(timestamp) + '.txt'
         with open(saveName, 'w') as f:
-            dic = {'g': self.g, 'resonator Dimension': self.resonatorDimension,
-                   'resonator Frequency': self.resonatorFrequency, 'qubit frequency': self.qubitFreq,
-                   'step size': self.StepSize, 'qubitFreqJC': self.qubitFreqJC, 'qubitFreqAJC': self.qubitFreqAJC,
-                   'finalTime': self.finalTime, 'StepSize': self.StepSize, 'sweepMax': self.sweepMax,
-                   'sweepMin': self.sweepMin, 'sweepPerturbation': self.sweepPerturbation, 'sweepKey': self.sweepKey}
             f.write(' '.join(["%s = %s" % (k, v) for k, v in dic.items()]))
         return self.__del__()
 

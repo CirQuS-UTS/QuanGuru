@@ -87,28 +87,28 @@ def squeeze(alpha, dim,sparse=True):
 
 def Jz(j,sparse=True):
     d = int(2*j)
-    data = [j-i for i in range(d + 1)]
-    rows = range(0,d+1)
-    columns = range(0,d+1)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(d + 1, d + 1))
+    data = [j-i for i in range(d)]
+    rows = range(0,d)
+    columns = range(0,d)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
 def Jp(j,sparse=True):
     d = int(2*j)
-    m = [j-i for i in range(d + 1)]
+    m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
-    rows = range(0,d)
-    columns = range(1,d+1)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(d + 1, d + 1))
+    rows = range(0,d-1)
+    columns = range(1,d)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
 def Jm(j,sparse=True):
     d = int(2*j)
-    m = [j-i for i in range(d + 1)]
+    m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
-    rows = range(1,d+1)
-    columns = range(0,d)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(d + 1, d + 1))
+    rows = range(1,d)
+    columns = range(0,d-1)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
 def Jx(j,sparse=True):
