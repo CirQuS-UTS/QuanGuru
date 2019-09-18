@@ -44,7 +44,7 @@ class ParamObj(object):
 
 
         ###################### Default Phase-space ########################
-        self.xvec = np.linspace(-7, 7, 400)
+        self.xvec = np.linspace(-4, 4, 80)
 
     def __del__(self):
         class_name = self.__class__.__name__

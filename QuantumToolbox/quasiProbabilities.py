@@ -7,7 +7,7 @@ from scipy.special import factorial
 import scipy.linalg as la
 from QuantumToolbox.states import densityMatrix
 
-def Wigner(rho,xvec, g=np.sqrt(2)):
+def Wigner(xvec, rho, g=np.sqrt(2)):
     """
         Using an iterative method to evaluate the wigner functions for the Fock
         state :math:`|m><n|`.

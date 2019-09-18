@@ -1,7 +1,6 @@
 import h5py
 import os
 from datetime import datetime
-import scipy.sparse as sp
 
 
 def saveData(dictionary, timestamp='', irregular=False, RootPath='/Users/cahitkargi/Dropbox/PhD/Numerical Results/'):
