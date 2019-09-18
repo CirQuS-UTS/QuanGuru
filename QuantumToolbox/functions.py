@@ -92,3 +92,20 @@ def partial_trace(keep, dims,rho):
     rho_a = rho.reshape(np.tile(dims,2))
     rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)
     return rho_a.reshape(Nkeep, Nkeep)
+
+
+def InverseParticipationRatio(basis, state):
+    """
+
+    :param basis:
+    :param state:
+    :return: IPR and list of components
+    """
+    npc = 0
+    comps = []
+    for khyu in range(len(basis)):
+        fid = fidelitySparse(basis[khyu], state)
+        comps.append(fid)
+        npc += (fid**2)
+    bo = [1/npc, comps]
+    return bo
