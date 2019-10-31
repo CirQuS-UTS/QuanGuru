@@ -4,25 +4,31 @@ from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.ticker import MaxNLocator
 from matplotlib.colors import BoundaryNorm
 
-def __txtTocdict(file):
+def __txtTocdict(file, half=False):
     list1 = []
     with open(file, "r") as inputfile:
+        ina = 0
         for line in inputfile:
-            list2 = []
-            for i in range(3):
-                list2.append(float(line.strip().split(',')[i]))
-            list1.append(list2)
+            if ina < 128:
+                list2 = []
+                for i in range(3):
+                    list2.append(float(line.strip().split(',')[i]))
+                list1.append(list2)
+                if half == True:
+                    ina += 1
+            else:
+                break
     return list1
 
-def createMAP(name):
+def createMAP(name, half=False):
     if name == 'GnYlPu':
-        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/PycharmProjects/quantum-simulations/Plotting/colormaps/GnYlPu.txt"))
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/Dropbox/CodeBackUp/qs_v/quantum-simulations/Plotting/colormaps/GnYlPu.txt", half))
     elif name == 'PuYlGn':
-        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/PycharmProjects/quantum-simulations/Plotting/colormaps/PuYlGn.txt"))
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/Dropbox/CodeBackUp/qs_v/quantum-simulations/Plotting/colormaps/PuYlGn.txt", half))
     elif name == 'YlPu':
-        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/PycharmProjects/quantum-simulations/Plotting/colormaps/YlPu.txt"))
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/Dropbox/CodeBackUp/qs_v/quantum-simulations/Plotting/colormaps/YlPu.txt", half))
     elif name == 'PuYl':
-        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/PycharmProjects/quantum-simulations/Plotting/colormaps/PuYl.txt"))
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/Dropbox/CodeBackUp/qs_v/quantum-simulations/Plotting/colormaps/PuYl.txt", half))
     else:
         cmap = plt.get_cmap(name)
     return cmap
