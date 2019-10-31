@@ -1,49 +1,58 @@
-def __Unitary(states, Unitary, loop, times):
-    if loop:
-        for ijkn in range(len(times) - 1):
-            state = Unitary @ states[-1]
-            states.append(state)
-    else:
-        state = Unitary @ states[-1]
-        states.append(state)
-    return states
-
-
-def __evolTime(obj, states, unitary, loop, times):
-    if not obj.subTrotter:
-        stepSize = obj.StepSize
-        Unitary = unitary(obj, stepSize)
-        states = __Unitary(states, Unitary, loop, times)
-    else:
-        if obj.constantTrotterStep:
-            stepSize = obj.TrotterStep
-            Unitary = unitary(obj, stepSize)
-            for kngd in range(len(times)):
-                states = __Unitary(states, Unitary, loop, times)
-        else:
-            for kngd in range(len(times)):
-                stepSize = obj.TrotterStep
-                Unitary = unitary(obj, stepSize)
-                states = __Unitary(states, Unitary, loop, times)
-    return states
-
-
-def timeEvolve(obj):
+def evolveTimeIndep(obj, sweep):
+    setattr(obj, obj.sweepKey, sweep)
     unitary = obj.unitary
-    states = [obj.initialState]
-    timeDepHam = obj.timeDepHam
-    if not timeDepHam:
-        states = __evolTime(obj, states, unitary, True, obj.times)
+    state = obj.initialState
+    stepSize = obj.StepSize
+    Unitary = unitary(obj, stepSize)
+    if obj.allStates:
+        states = [state]
+        for ijkn in range(len(obj.times) - 1):
+            state = Unitary @ state
+            states.append(state)
+        return states
     else:
-        timeKey = obj.timeKey
-        constStep = obj.constantStepSize
-        if constStep:
-            for ifrt in range(len(obj.timeDepParam)):
-                setattr(obj, timeKey, obj.timeDepParam[ifrt])
-                states = __evolTime(obj, states, unitary, False, obj.TrotterTimes)
-        else:
-            for ifrt in range(len(obj.timeDepParam)):
-                setattr(obj, timeKey, obj.timeDepParam[ifrt])
-                setattr(obj, 'StepSize', obj.StepSizeList[ifrt])
-                states = __evolTime(obj, states, unitary, False, obj.TrotterTimes)
-    return states
+        for ijkn in range(len(obj.times) - 1):
+            state = Unitary @ state
+        return state
+
+
+def evolveTimeDep(obj, allStates = True):
+    unitary = obj.unitary
+    state = obj.initialState
+    stepSize = obj.StepSize
+    timeKey = obj.timeKey
+    if allStates:
+        states = [state]
+        for ijkn in range(len(obj.times) - 1):
+            state = __timeDepEvol(obj,timeKey,obj.timeDepParam[ijkn],unitary,stepSize,state)
+            states.append(state)
+        return states
+    else:
+        for ijkn in range(len(obj.times) - 1):
+            state = __timeDepEvol(obj,timeKey,obj.timeDepParam[ijkn],unitary,stepSize,state)
+        return state
+
+
+def evolveVaryingStep(obj, allStates = True):
+    unitary = obj.unitary
+    state = obj.initialState
+    timeKey = obj.timeKey
+    if allStates:
+        states = [state]
+        for ijkn in range(len(obj.times) - 1):
+            stepSize = obj.StepSizeList[ijkn]
+            state = __timeDepEvol(obj,timeKey,obj.timeDepParam[ijkn],unitary,stepSize,state)
+            states.append(state)
+        return states
+    else:
+        for ijkn in range(len(obj.times) - 1):
+            stepSize = obj.StepSizeList[ijkn]
+            state = __timeDepEvol(obj,timeKey,obj.timeDepParam[ijkn],unitary,stepSize,state)
+        return state
+
+
+def __timeDepEvol(obj, timeKey, timeDepParam, unitary, stepSize, state):
+    setattr(obj, timeKey, timeDepParam)
+    Unitary = unitary(obj, stepSize)
+    stateF = Unitary @ state
+    return stateF
