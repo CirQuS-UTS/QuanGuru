@@ -11,10 +11,6 @@ from functools import partial
 import QuantumToolbox.functions as qFncs
 import QuantumToolbox.quasiProbabilities as qProb
 
-"""
-Calculating everything as a fnc of trotter step size
-"""
-
 start = datetime.datetime.now()
 ################## Simulation Parameters ##################
 rabiParams = pObj.Rabi('rabiParams')

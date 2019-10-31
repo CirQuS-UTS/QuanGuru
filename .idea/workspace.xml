@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/QuantumToolbox/quasiProbabilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/QuantumToolbox/quasiProbabilities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RabiModel/Modules/Evolutions_Unitary.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Modules/Evolutions_Unitary.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RabiModel/Modules/Hamiltonians.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Modules/Hamiltonians.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RabiModel/Unitary/DQRS.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Unitary/DQRS.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RabiModel/Unitary/test/degenerateQubit.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Unitary/test/Simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RabiModel/Unitary/test/savedStates.py" beforeDir="false" afterPath="$PROJECT_DIR$/RabiModel/Unitary/test/PlotFromSaved.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SaveRead/saveH5.py" beforeDir="false" afterPath="$PROJECT_DIR$/SaveRead/saveH5.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +84,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.HeisenbergModel">
+  <component name="RunManager" selected="Python.PlotFromSaved">
+    <configuration name="DQRS" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Gamma 1.5" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RabiModel/Unitary" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RabiModel/Unitary/DQRS.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="DRabi (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Gamma 1.5" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -97,28 +121,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics/DRabi.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="EigenvectorDistributions" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Gamma 1.5" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RMT_statistics/Modules" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RMT_statistics/Modules/Distributions.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -149,7 +151,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Saved" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="PlotFromSaved" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Gamma 1.5" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -157,12 +159,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RabiModel/Unitary" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RabiModel/Unitary/test" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RabiModel/Unitary/Saved.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RabiModel/Unitary/test/PlotFromSaved.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -195,11 +197,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.PlotFromSaved" />
+        <item itemvalue="Python.DQRS" />
         <item itemvalue="Python.HeisenbergModel" />
         <item itemvalue="Python.DRabi (1)" />
         <item itemvalue="Python.kickedTop" />
-        <item itemvalue="Python.Saved" />
-        <item itemvalue="Python.EigenvectorDistributions" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +231,7 @@
       <workItem from="1568269818318" duration="12880000" />
       <workItem from="1568671804128" duration="5170000" />
       <workItem from="1568677563504" duration="27960000" />
-      <workItem from="1572500367537" duration="1466000" />
+      <workItem from="1572500367537" duration="2100000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -434,7 +436,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572502285622</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="changes in namespaces and naming things">
+      <created>1572502428080</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1572502428080</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,7 +492,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new script for long time and frequency range" />
     <MESSAGE value="add DQRS.py" />
     <MESSAGE value="merging from pycharm" />
     <MESSAGE value="plotting folder with a function to create colormap from txt" />
@@ -508,7 +516,8 @@
     <MESSAGE value="namespace changes" />
     <MESSAGE value="bra basis is added" />
     <MESSAGE value="Time evolution function is divided instead of using booleans" />
-    <option name="LAST_COMMIT_MESSAGE" value="Time evolution function is divided instead of using booleans" />
+    <MESSAGE value="changes in namespaces and naming things" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes in namespaces and naming things" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/quantum_simulations$tryHere.coverage" NAME="tryHere Coverage Results" MODIFIED="1568187674827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere" />
@@ -520,13 +529,14 @@
     <SUITE FILE_PATH="coverage/quantum_simulations$DQRS_Chaos.coverage" NAME="DQRS_Chaos Coverage Results" MODIFIED="1568554782867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel" />
     <SUITE FILE_PATH="coverage/quantum_simulations$savedStates.coverage" NAME="savedStates Coverage Results" MODIFIED="1567643361718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary/test" />
     <SUITE FILE_PATH="coverage/quantum_simulations$DRabi__1_.coverage" NAME="DRabi (1) Coverage Results" MODIFIED="1568783871492" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$PlotFromSaved.coverage" NAME="PlotFromSaved Coverage Results" MODIFIED="1572503062053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary/test" />
     <SUITE FILE_PATH="coverage/quantum_simulations$JC.coverage" NAME="JC Coverage Results" MODIFIED="1568675157641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$DRabi.coverage" NAME="DRabi Coverage Results" MODIFIED="1568677004407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$HarmonicOscillator.coverage" NAME="HarmonicOscillator Coverage Results" MODIFIED="1568673175335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$kickedTop.coverage" NAME="kickedTop Coverage Results" MODIFIED="1568783676883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$EigenvectorDistributions.coverage" NAME="EigenvectorDistributions Coverage Results" MODIFIED="1568764612565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/Modules" />
-    <SUITE FILE_PATH="coverage/quantum_simulations$DQRS.coverage" NAME="DQRS Coverage Results" MODIFIED="1568626594653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$Saved.coverage" NAME="Saved Coverage Results" MODIFIED="1568780152509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$DQRS.coverage" NAME="DQRS Coverage Results" MODIFIED="1572503057727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$degenerateQubit.coverage" NAME="degenerateQubit Coverage Results" MODIFIED="1567482296871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
   </component>
 </project>
