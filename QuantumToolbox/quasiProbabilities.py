@@ -5,7 +5,7 @@ import scipy.sparse as sp
 from scipy import (zeros, array, arange, exp, real, conj, pi,copy, sqrt, meshgrid, size, polyval, fliplr, conjugate)
 from scipy.special import factorial
 import scipy.linalg as la
-from QuantumToolbox.states import densityMatrix
+import QuantumToolbox.states as states
 
 def Wigner(xvec, rho, g=np.sqrt(2)):
     """
@@ -27,7 +27,7 @@ def Wigner(xvec, rho, g=np.sqrt(2)):
         rho = rho.toarray()
 
     if rho.shape[0] != rho.shape[1]:
-        rho = densityMatrix(rho)
+        rho = states.densityMatrix(rho)
 
     M = np.prod(rho.shape[0])
     X, Y = meshgrid(xvec, xvec)
