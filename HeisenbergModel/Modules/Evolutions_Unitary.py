@@ -1,21 +1,20 @@
-from QuantumToolbox.liouvillian import Liouvillian
+import QuantumToolbox.liouvillian as liou
 
 def DigitalTwo(obj, stepSize):
-    UnitaryDigital = Liouvillian(obj.hXY, timeStep=stepSize) @ Liouvillian(obj.hXZ, timeStep=stepSize) @\
-                     Liouvillian(obj.hYZ, timeStep=stepSize)
+    UnitaryDigital = liou.Liouvillian(obj.hXY, timeStep=stepSize) @ liou.Liouvillian(obj.hXZ, timeStep=stepSize) @\
+                     liou.Liouvillian(obj.hYZ, timeStep=stepSize)
     return UnitaryDigital
 
-def IdealTwo(obj):
-    UnitaryIdeal = Liouvillian(obj.hH, timeStep=obj.StepSize)
+def IdealTwo(obj,stepSize):
+    UnitaryIdeal = liou.Liouvillian(obj.hH, timeStep=stepSize)
     return UnitaryIdeal
 
-def DigitalThree(obj):
-    UnitaryDigital = Liouvillian(obj.hXY3, timeStep=obj.StepSize) @ Liouvillian(obj.h1XY, timeStep=obj.StepSize) @ \
-                     Liouvillian(obj.hXZ3, timeStep=obj.StepSize) @ Liouvillian(obj.h1XZ, timeStep=obj.StepSize) @ \
-                     Liouvillian(obj.hYZ3, timeStep=obj.StepSize) @ Liouvillian(obj.h1YZ, timeStep=obj.StepSize)
+def DigitalThree(obj,stepSize):
+    UnitaryDigital = liou.Liouvillian(obj.hXY3, timeStep=stepSize) @ liou.Liouvillian(obj.h1XY, timeStep=stepSize) @ \
+                     liou.Liouvillian(obj.hXZ3, timeStep=stepSize) @ liou.Liouvillian(obj.h1XZ, timeStep=stepSize) @ \
+                     liou.Liouvillian(obj.hYZ3, timeStep=stepSize) @ liou.Liouvillian(obj.h1YZ, timeStep=stepSize)
     return UnitaryDigital
 
-def IdealThree(obj):
-    UnitaryIdeal = Liouvillian(obj.hH3, timeStep=obj.StepSize)
+def IdealThree(obj,stepSize):
+    UnitaryIdeal = liou.Liouvillian(obj.hH3, timeStep=stepSize)
     return UnitaryIdeal
-
