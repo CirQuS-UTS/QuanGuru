@@ -3,34 +3,35 @@ import scipy.linalg as lina
 from QuantumToolbox.states import densityMatrix
 
 
-def expectationSparse(operator, state, ket=True):
-    if ket:
-        expc = np.array(((state.getH()) @ operator @ state).diagonal()).sum()
-    else:
-        expc = np.array((operator @ state).diagonal()).sum()
+def expectationKet(operator, state):
+    expc = (((state.conj().T) @ operator @ state).diagonal()).sum()
     return np.real(expc)
 
+def expectationMat(operator, state):
+    expc = ((operator @ state).diagonal()).sum()
+    return np.real(expc)
 
-def fidelitySparse(state1, state2, ket=True):
-    """
-    Fidelity between two PURE states
-    :param state1: ket or density matrix of PURE state1
-    :param state2: ket or density matrix of PURE state1
-    :param ket: are given PURE states ket (True) or density matrix (False)
-    :return: overlap fidelity
-    """
-
-    if ket:
-        fidelityA = np.array(((state1.getH()) @ state2).diagonal()).sum()
+def expectationList(operator, states):
+    expectations = []
+    if states[0].shape[0] != states[0].shape[1]:
+        for state in states:
+            expectations.append((((state.getH()) @ operator @ state).diagonal()).sum())
     else:
-        fidelityA = np.array((state1 @ state2).diagonal()).sum()
+        for state in states:
+            expectations.append(((operator @ state).diagonal()).sum())
+    return expectations
 
-    #return np.sqrt(np.real(fidelityA * np.conj(fidelityA))) if ket else np.sqrt(np.real(fidelityA))
-    return np.real(fidelityA * np.conj(fidelityA)) if ket else np.real(fidelityA)
+def fidelityKet(state1, state2):
+    herm = state1.conj().T
+    fidelityA = ((herm @ state2).diagonal()).sum()
+    return np.real(fidelityA * np.conj(fidelityA))
 
+def fidelityPureMat(state1, state2):
+    fidelityA = ((state1 @ state2).diagonal()).sum()
+    return np.real(fidelityA)
 
-def entropy(psi, ket=True, base2=False):
-    if ket:
+def entropy(psi, base2=False):
+    if psi.shape[0] != psi.shape[1]:
         densMat = densityMatrix(psi)
     else:
         densMat = psi
@@ -48,7 +49,6 @@ def entropy(psi, ket=True, base2=False):
 
     S = float(np.real(-sum(nzvals * logvals)))
     return S
-
 
 def partial_trace(keep, dims,rho):
     """
@@ -76,11 +76,11 @@ def partial_trace(keep, dims,rho):
     ρ_a : 2D array
         Traced matrix
     """
-    if not isinstance(rho, np.ndarray):
-        rho = rho.toarray()
-
     if rho.shape[0] != rho.shape[1]:
         rho = densityMatrix(rho)
+
+    if not isinstance(rho, np.ndarray):
+        rho = rho.toarray()
 
     keep = np.asarray(keep)
     dims = np.asarray(dims)
@@ -93,19 +93,15 @@ def partial_trace(keep, dims,rho):
     rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)
     return rho_a.reshape(Nkeep, Nkeep)
 
-
-def InverseParticipationRatio(basis, state):
+def IPRket(basis, state):
     """
-
-    :param basis:
-    :param state:
-    :return: IPR and list of components
+    :param basis: A generic BRA basis
+    :param state: in ket
+    :return: IPR
     """
     npc = 0
-    comps = []
     for khyu in range(len(basis)):
-        fid = fidelitySparse(basis[khyu], state)
-        comps.append(fid)
+        fidelityA = ((basis[khyu] @ state).diagonal()).sum()
+        fid = np.real(fidelityA * np.conj(fidelityA))
         npc += (fid**2)
-    bo = [1/npc, comps]
-    return bo
+    return 1/npc
