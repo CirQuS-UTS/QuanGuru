@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HeisenbergModel/Modules/Evolutions_Unitary.py" beforeDir="false" afterPath="$PROJECT_DIR$/HeisenbergModel/Modules/Evolutions_Unitary.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HeisenbergModel/Modules/Hamiltonians.py" beforeDir="false" afterPath="$PROJECT_DIR$/HeisenbergModel/Modules/Hamiltonians.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuantumToolbox/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/QuantumToolbox/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuantumToolbox/liouvillian.py" beforeDir="false" afterPath="$PROJECT_DIR$/QuantumToolbox/liouvillian.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -229,7 +228,7 @@
       <workItem from="1568269818318" duration="12880000" />
       <workItem from="1568671804128" duration="5170000" />
       <workItem from="1568677563504" duration="27960000" />
-      <workItem from="1572500367537" duration="915000" />
+      <workItem from="1572500367537" duration="1176000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -385,7 +384,35 @@
       <option name="project" value="LOCAL" />
       <updated>1572501356787</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="changes in the namespace usage">
+      <created>1572501882391</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1572501882391</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Half a colormap option included">
+      <created>1572501922353</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1572501922353</updated>
+    </task>
+    <task id="LOCAL-00025" summary="some default plotting parameters changed">
+      <created>1572501958027</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1572501958028</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Quantum functions are generalised to work efficiently with sparse and non-sparse in parallel computing">
+      <created>1572502039220</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1572502039220</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -455,7 +482,11 @@
     <MESSAGE value="Eigenvalue and eigenvector statistics" />
     <MESSAGE value="Inverse participation function added into QuantumToolbox" />
     <MESSAGE value="modifications in parameter object" />
-    <option name="LAST_COMMIT_MESSAGE" value="modifications in parameter object" />
+    <MESSAGE value="changes in the namespace usage" />
+    <MESSAGE value="Half a colormap option included" />
+    <MESSAGE value="some default plotting parameters changed" />
+    <MESSAGE value="Quantum functions are generalised to work efficiently with sparse and non-sparse in parallel computing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Quantum functions are generalised to work efficiently with sparse and non-sparse in parallel computing" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/quantum_simulations$tryHere.coverage" NAME="tryHere Coverage Results" MODIFIED="1568187674827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere" />

@@ -7,11 +7,10 @@ import scipy.linalg as linA
 def Liouvillian(Hamiltonian, collapseOperators = [], decayRates = [], exp = True, timeStep = 1.0):
     sparse = sp.issparse(Hamiltonian)
     if len(collapseOperators) != 0:
+        dimensionOfHilbertSpace = Hamiltonian.shape[0]
         if sparse == False:
-            dimensionOfHilbertSpace = len(Hamiltonian)
             identity = np.identity(dimensionOfHilbertSpace)
         elif sparse == True:
-            dimensionOfHilbertSpace = Hamiltonian.shape[0]
             identity = sp.identity(dimensionOfHilbertSpace, format="csc")
         hamPart1 = __preSO(Hamiltonian, identity, sparse)
         hamPart2 = __posSO(Hamiltonian, identity, sparse)
@@ -44,17 +43,13 @@ def Liouvillian(Hamiltonian, collapseOperators = [], decayRates = [], exp = True
 def dissipator(collapseOperator, identity = []):
     sparse = sp.issparse(collapseOperator)
     if identity == []:
+        dimension = collapseOperator.shape[0]
         if sparse == True:
-            dimension = collapseOperator.shape[0]
             identity = sp.identity(dimension, format="csc")
         else:
-            dimension = len(collapseOperator)
             identity = np.identity(dimension)
 
-    if sparse == True:
-        dagger = collapseOperator.getH()
-    else:
-        dagger = np.transpose(np.conjugate(collapseOperator))
+    dagger = collapseOperator.conj().T
 
     number = dagger @ collapseOperator
     part1 = __preposSO(collapseOperator,sparse)

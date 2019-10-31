@@ -1,6 +1,6 @@
 import scipy as np
 import scipy.linalg as lina
-from QuantumToolbox.states import densityMatrix
+import QuantumToolbox.states as states
 
 
 def expectationKet(operator, state):
@@ -32,7 +32,7 @@ def fidelityPureMat(state1, state2):
 
 def entropy(psi, base2=False):
     if psi.shape[0] != psi.shape[1]:
-        densMat = densityMatrix(psi)
+        densMat = states.densityMatrix(psi)
     else:
         densMat = psi
 
@@ -77,7 +77,7 @@ def partial_trace(keep, dims,rho):
         Traced matrix
     """
     if rho.shape[0] != rho.shape[1]:
-        rho = densityMatrix(rho)
+        rho = states.densityMatrix(rho)
 
     if not isinstance(rho, np.ndarray):
         rho = rho.toarray()
