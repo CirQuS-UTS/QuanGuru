@@ -1,61 +1,50 @@
-from HeisenbergModel.Modules.Evolutions_Unitary import DigitalTwo, DigitalThree, IdealTwo, IdealThree
-from HeisenbergModel.Modules.Hamiltonians import twoQubitHeisenberg, threeQubitHeisenberg
-from classes.parameterObj import ParamObj
-from QuantumToolbox.TimeEvolution import timeEvolve
-from QuantumToolbox.functions import expectationSparse, fidelitySparse
+import HeisenbergModel.Modules.Evolutions_Unitary as uniEvo
+import HeisenbergModel.Modules.Hamiltonians as hams
+import classes.parameterObj as pObj
+import QuantumToolbox.TimeEvolution as tEvo
+import QuantumToolbox.functions as qFncs
 import scipy.sparse as sp
-from QuantumToolbox.operators import sigmaz, identity
-from QuantumToolbox.states import basis
+import QuantumToolbox.operators as qOps
+import QuantumToolbox.states as states
 import datetime
 from multiprocessing import Pool, cpu_count
 from functools import partial
-from Plotting.plottingSettings import plottingSet
-from Plotting.Functions import createMAP, normalizeCMAP
+import Plotting.plottingSettings as pltSet
+import Plotting.Functions as pltFncs
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
 start = datetime.datetime.now()
 
-heisenbergParams = ParamObj('heisenbergParams')
+heisenbergParams = pObj.ParamObj('heisenbergParams')
+heisenbergParams.sweepKey = 'StepSize'
 heisenbergParams.g = 2
 heisenbergParams.finalTime = 5
 heisenbergParams.sweepMax = 2
-heisenbergParams.sweepMin = 0.001
-heisenbergParams.sweepPerturbation = 0.001
+heisenbergParams.sweepMin = 0.01
+heisenbergParams.sweepPerturbation = 0.01
 
 heisenbergParams.results['x'] = []
 heisenbergParams.results['y'] = []
 
-twoQubitHeisenberg(heisenbergParams)
-threeQubitHeisenberg(heisenbergParams)
+hams.twoQubitHeisenberg(heisenbergParams)
+hams.threeQubitHeisenberg(heisenbergParams)
 
-population1 = sp.kron(sigmaz(), identity(2), format='csc')
+population1 = sp.kron(qOps.sigmaz(), qOps.identity(2), format='csc')
 
-heisenbergParams.initialState = sp.kron(basis(2,1), basis(2,0), format='csc')
+heisenbergParams.initialState = sp.kron(states.basis(2,1), states.basis(2,0), format='csc')
 
-def evolution(obj, sweep):
-    obj.StepSize = sweep
-    stat = timeEvolve(obj)
-    return stat
-
-
-def expectation(operator,states):
-    par = []
-    for j in range(len(states)):
-        print(states[j])
-        par.append(expectationSparse(operator, states[j]))
-    return par
 
 p = Pool(processes=cpu_count())
-heisenbergParams.unitary = DigitalTwo
-statesDigital = p.map(partial(evolution, heisenbergParams), heisenbergParams.sweepList)
+heisenbergParams.unitary = uniEvo.DigitalTwo
+statesDigital = p.map(partial(tEvo.evolveTimeIndep, heisenbergParams), heisenbergParams.sweepList)
 for i in range(len(statesDigital)):
     heisenbergParams.StepSize = heisenbergParams.sweepList[i]
     heisenbergParams.results['x'].append([heisenbergParams.sweepList[i], heisenbergParams.sweepList[i] + heisenbergParams.sweepPerturbation])
     heisenbergParams.results['y'].append(heisenbergParams.times)
 
-populationTwo = p.map(partial(expectation, population1),statesDigital)
+populationTwo = p.map(partial(qFncs.expectationList, population1),statesDigital)
 p.close()
 p.join()
 
@@ -63,12 +52,12 @@ end = datetime.datetime.now()
 print(end - start)
 def plot(x, y, Z, min, max, ax):
     X, Y = np.meshgrid(x, y)
-    plottingSet(ax)
+    pltSet.plottingSet(ax)
     if min == 0:
-        cmap = createMAP('PuYlGn')
+        cmap = pltFncs.createMAP('PuYlGn')
     else:
-        cmap = createMAP('PuYlGn')
-    surf1 = ax.pcolormesh(X, Y, Z, cmap=cmap, norm=normalizeCMAP(cmap, min, max))
+        cmap = pltFncs.createMAP('PuYlGn')
+    surf1 = ax.pcolormesh(X, Y, Z, cmap=cmap, norm=pltFncs.normalizeCMAP(cmap, min, max))
     return surf1
 
 fig = plt.figure()

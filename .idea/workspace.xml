@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics/kickedTop.py" beforeDir="false" afterPath="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics/kickedTop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HeisenbergModel/DSHM.py" beforeDir="false" afterPath="$PROJECT_DIR$/HeisenbergModel/DSHM.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +80,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.kickedTop">
+  <component name="RunManager" selected="Python.HeisenbergModel">
     <configuration name="DQRS" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Gamma 1.5" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -193,10 +193,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.HeisenbergModel" />
         <item itemvalue="Python.kickedTop" />
         <item itemvalue="Python.PlotFromSaved" />
         <item itemvalue="Python.DQRS" />
-        <item itemvalue="Python.HeisenbergModel" />
         <item itemvalue="Python.DRabi (1)" />
       </list>
     </recent_temporary>
@@ -227,7 +227,7 @@
       <workItem from="1568269818318" duration="12880000" />
       <workItem from="1568671804128" duration="5170000" />
       <workItem from="1568677563504" duration="27960000" />
-      <workItem from="1572500367537" duration="2562000" />
+      <workItem from="1572500367537" duration="3328000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -446,7 +446,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572503186269</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="namespace changes and extensions in kickedTop script">
+      <created>1572503606538</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1572503606538</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -495,7 +502,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="merging from pycharm" />
     <MESSAGE value="plotting folder with a function to create colormap from txt" />
     <MESSAGE value="a function to normalize colormaps btw two values" />
     <MESSAGE value="txt files for colormaps" />
@@ -520,13 +526,14 @@
     <MESSAGE value="Time evolution function is divided instead of using booleans" />
     <MESSAGE value="changes in namespaces and naming things" />
     <MESSAGE value="changes in namespaces, some filenames, and extending DQRS script" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes in namespaces, some filenames, and extending DQRS script" />
+    <MESSAGE value="namespace changes and extensions in kickedTop script" />
+    <option name="LAST_COMMIT_MESSAGE" value="namespace changes and extensions in kickedTop script" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/quantum_simulations$tryHere.coverage" NAME="tryHere Coverage Results" MODIFIED="1568187674827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere" />
     <SUITE FILE_PATH="coverage/quantum_simulations$Rabi.coverage" NAME="Rabi Coverage Results" MODIFIED="1568676571161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
     <SUITE FILE_PATH="coverage/Gamma_1_5$degenerateQubit.coverage" NAME="degenerateQubit Coverage Results" MODIFIED="1567410328714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
-    <SUITE FILE_PATH="coverage/quantum_simulations$HeisenbergModel.coverage" NAME="HeisenbergModel Coverage Results" MODIFIED="1572501733705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/HeisenbergModel" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$HeisenbergModel.coverage" NAME="HeisenbergModel Coverage Results" MODIFIED="1572504269896" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/HeisenbergModel" />
     <SUITE FILE_PATH="coverage/quantum_simulations$cleanDQRS.coverage" NAME="cleanDQRS Coverage Results" MODIFIED="1568671926953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$allInOne.coverage" NAME="allInOne Coverage Results" MODIFIED="1568679778574" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/EigenvalueStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$DQRS_Chaos.coverage" NAME="DQRS_Chaos Coverage Results" MODIFIED="1568554782867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel" />
