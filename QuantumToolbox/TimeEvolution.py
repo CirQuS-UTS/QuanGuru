@@ -1,10 +1,10 @@
 def evolveTimeIndep(obj, sweep):
-    setattr(obj, obj.sweepKey, sweep)
+    setattr(obj, obj.simulationParameters.sweepKey, sweep)
     unitary = obj.unitary
     state = obj.initialState
-    stepSize = obj.StepSize
+    stepSize = obj.simulationParameters.StepSize
     Unitary = unitary(obj, stepSize)
-    if obj.allStates:
+    if obj.simulationParameters.allStates:
         states = [state]
         for ijkn in range(len(obj.times) - 1):
             state = Unitary @ state

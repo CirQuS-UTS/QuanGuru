@@ -21,14 +21,15 @@ def __txtTocdict(file, half=False):
     return list1
 
 def createMAP(name, half=False):
+    root = '/Users/cahitkargi/PycharmProjects/quantum-simulations'
     if name == 'GnYlPu':
-        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/Dropbox/CodeBackUp/qs_v/quantum-simulations/Plotting/colormaps/GnYlPu.txt", half))
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict(root+ "/Plotting/colormaps/GnYlPu.txt", half))
     elif name == 'PuYlGn':
-        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/Dropbox/CodeBackUp/qs_v/quantum-simulations/Plotting/colormaps/PuYlGn.txt", half))
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict(root+"/Plotting/colormaps/PuYlGn.txt", half))
     elif name == 'YlPu':
-        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/Dropbox/CodeBackUp/qs_v/quantum-simulations/Plotting/colormaps/YlPu.txt", half))
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict(root+"/Plotting/colormaps/YlPu.txt", half))
     elif name == 'PuYl':
-        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict("/Users/cahitkargi/Dropbox/CodeBackUp/qs_v/quantum-simulations/Plotting/colormaps/PuYl.txt", half))
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict(root+"/Plotting/colormaps/PuYl.txt", half))
     else:
         cmap = plt.get_cmap(name)
     return cmap

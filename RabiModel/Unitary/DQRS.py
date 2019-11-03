@@ -17,35 +17,35 @@ Calculating everything as a fnc of trotter step size
 
 start = datetime.datetime.now()
 ################## Simulation Parameters ##################
-rabiParams = pObj.Rabi('rabiParams')
-rabiParams.sweepKey = 'StepSize'
-rabiParams.sweepMin = 0.005
-rabiParams.sweepMax = 0.1
-rabiParams.sweepPerturbation = 0.005
-rabiParams.resonatorFrequency = 0.1
-rabiParams.qubitFreqJC = 2
-rabiParams.qubitFreq = 2
-rabiParams.finalTime = 2
-rabiParams.resonatorDimension = 10
-rabiParams.Note = ' Threshold in tau for non-degenerate qubit case'
+rabiParams = pObj.Model()
+rabiParams.simulationParameters.sweepKey = 'StepSize'
+rabiParams.simulationParameters.sweepMin = 0.005
+rabiParams.simulationParameters.sweepMax = 0.1
+rabiParams.simulationParameters.sweepPerturbation = 0.005
+rabiParams.systemParameters.resonatorFrequency = 0.1
+rabiParams.systemParameters.qubitFreqJC = 2
+rabiParams.systemParameters.qubitFreq = 2
+rabiParams.simulationParameters.finalTime = 2
+rabiParams.systemParameters.resonatorDimension = 10
+rabiParams.systemParameters.Note = ' Threshold in tau for non-degenerate qubit case'
 rabiParams.saveParameters()
 
-rabiParams.initialState = sp.kron(states.basis(rabiParams.resonatorDimension, 0), states.basis(2, 1), format='csc')
+rabiParams.initialState = sp.kron(states.basis(rabiParams.systemParameters.resonatorDimension, 0), states.basis(2, 1), format='csc')
 hams.Hamiltonians(rabiParams)
 cavParity = qOps.parityEXP(rabiParams.HamiltonianCavity)
 photonN = rabiParams.HamiltonianCavity
 
 
-bas = states.genericBasisBra(2*rabiParams.resonatorDimension)
+bas = states.genericBasisBra(2*rabiParams.systemParameters.resonatorDimension)
 
-if rabiParams.sweepKey == 'StepSize':
+if rabiParams.simulationParameters.sweepKey == 'StepSize':
     for step in rabiParams.sweepList:
-        rabiParams.StepSize = step
-        rabiParams.results['y'].append(rabiParams.times)
-        rabiParams.results['x'].append([step, step+rabiParams.sweepPerturbation])
-elif rabiParams.sweepKey == 'resonatorFrequency':
-    rabiParams.results['y'] = rabiParams.times
-    rabiParams.results['x'] = rabiParams.sweepList
+        rabiParams.simulationParameters.StepSize = step
+        rabiParams.simulationParameters.results['y'].append(rabiParams.times)
+        rabiParams.simulationParameters.results['x'].append([step, step+rabiParams.simulationParameters.sweepPerturbation])
+elif rabiParams.simulationParameters.sweepKey == 'resonatorFrequency':
+    rabiParams.simulationParameters.results['y'] = rabiParams.times
+    rabiParams.simulationParameters.results['x'] = rabiParams.sweepList
 
 ################## Simulation ##################
 p = Pool(processes=cpu_count())
@@ -64,10 +64,10 @@ print('Calculating Photon Number')
 photonNumberDigital = p.map(partial(qFncs.expectationList, photonN),statesDigital)
 photonNumberIdeal = p.map(partial(qFncs.expectationList, photonN),statesIdeal)
 
-rabiParams.results['Parity Digital'] = parityDigital
-rabiParams.results['Parity Ideal'] = parityIdeal
-rabiParams.results['Photon Ideal'] = photonNumberIdeal
-rabiParams.results['Photon Digital'] = photonNumberDigital
+rabiParams.simulationParameters.results['Parity Digital'] = parityDigital
+rabiParams.simulationParameters.results['Parity Ideal'] = parityIdeal
+rabiParams.simulationParameters.results['Photon Ideal'] = photonNumberIdeal
+rabiParams.simulationParameters.results['Photon Digital'] = photonNumberDigital
 
 print('Simulation fidelity')
 simFid = []
@@ -92,11 +92,11 @@ for qraa in range(len(statesDigital)):
     ipri = p.map(partial(qFncs.IPRket,bas),statesIdeal[qraa])
     IPRide.append(ipri)
 
-rabiParams.results['Simulation Fidelity'] = simFid
-rabiParams.results['Loschmidt Echo Digital'] = losEchoDig
-rabiParams.results['Loschmidt Echo Ideal'] = losEchoIde
-rabiParams.results['IPR Digital'] = IPRdig
-rabiParams.results['IPR Ideal'] = IPRide
+rabiParams.simulationParameters.results['Simulation Fidelity'] = simFid
+rabiParams.simulationParameters.results['Loschmidt Echo Digital'] = losEchoDig
+rabiParams.simulationParameters.results['Loschmidt Echo Ideal'] = losEchoIde
+rabiParams.simulationParameters.results['IPR Digital'] = IPRdig
+rabiParams.simulationParameters.results['IPR Ideal'] = IPRide
 print(len(statesDigital))
 #rabiParams.statesToSave(statesDigital, 'Digital States')
 #rabiParams.statesToSave(statesIdeal, 'Ideal States')
@@ -110,8 +110,8 @@ leng = len(statesDigital)
 for aste in range(leng):
     """redcd = p.map(partial(partial(qFncs.partial_trace, [0]), [rabiParams.resonatorDimension, 2]), statesDigital[0])
     redci = p.map(partial(partial(qFncs.partial_trace, [0]), [rabiParams.resonatorDimension, 2]), statesIdeal[0])"""
-    redqd = p.map(partial(partial(qFncs.partial_trace, [1]), [rabiParams.resonatorDimension, 2]), statesDigital[0])
-    redqi = p.map(partial(partial(qFncs.partial_trace, [1]), [rabiParams.resonatorDimension, 2]), statesIdeal[0])
+    redqd = p.map(partial(partial(qFncs.partial_trace, [1]), [rabiParams.systemParameters.resonatorDimension, 2]), statesDigital[0])
+    redqi = p.map(partial(partial(qFncs.partial_trace, [1]), [rabiParams.systemParameters.resonatorDimension, 2]), statesIdeal[0])
     """reducedCavDig.append(redcd)
     reducedCavIde.append(redci)"""
     reducedQubDig.append(redqd)
@@ -135,10 +135,10 @@ for rtav in range(len(reducedQubDig)):
     entDig.append(entd)
 
 #rabiParams.results['Wigner Ideal'] = WigIde
-rabiParams.results['Entropy Ideal'] = entIde
+rabiParams.simulationParameters.results['Entropy Ideal'] = entIde
 #rabiParams.results['Wigner Digital'] = WigDig
-rabiParams.results['Entropy Digital'] = entDig
-rabiParams.irregular = True
+rabiParams.simulationParameters.results['Entropy Digital'] = entDig
+rabiParams.simulationParameters.irregular = True
 rabiParams. saveResults()
 
 p.close()
