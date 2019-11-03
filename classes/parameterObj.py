@@ -30,11 +30,24 @@ class Simulation(object):
         class_name = self.__class__.__name__
 
 class SystemParameters(object):
-    def __init__(self, diction={'g' : 1.79, 'resonatorDimension' : 200, 'resonatorFrequency' : 2, 'qubitFreqJC' : 0,
+    """def __init__(self, diction={'g' : 1.79, 'resonatorDimension' : 200, 'resonatorFrequency' : 2, 'qubitFreqJC' : 0,
                                 'qubitFreqAJC' : 0 ,'qubitFreq' : 0, 'offset' : 0, 'bitflipTime' : 0.04}):
         #ParamObj.__init__(self, name)
         ################# Default System Parameters #################
-        self.__dict__ = diction
+        self.__dict__ = diction"""
+    def __init__(self):
+        #ParamObj.__init__(self, name)
+        ################# Default System Parameters #################
+        self.g = 1.79
+        self.resonatorDimension = 200
+        self.resonatorFrequency = 2
+        self.qubitFreqJC = 0
+        self.qubitFreqAJC = 0
+        self.qubitFreq = 0
+        self.offset = 0
+        self.bitflipTime = 0.04
+
+
 
     @property
     def ratio(self):

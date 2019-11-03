@@ -18,7 +18,7 @@ def makeDir(timestamp='', RootPath='/Users/cahitkargi/Dropbox/PhD/Numerical Resu
 
     return path
 
-def saveData(dictionary, timestamp='', irregular=False,attribbutes={}):
+def saveData(dictionary, timestamp='', irregular=False, attribbutes={}):
     if timestamp == '':
         now = datetime.now()
         timestamp = datetime.timestamp(now)
@@ -31,8 +31,8 @@ def saveData(dictionary, timestamp='', irregular=False,attribbutes={}):
     if irregular == True:
         for key, value in dictionary.items():
             k = file.create_group(key)
-            for i in range(len(value)):
-                k.create_dataset(str(i), data=value[i])
+            for irty in range(len(value)):
+                k.create_dataset(str(irty), data=value[irty])
     else:
         for key, value in dictionary.items():
             file.create_dataset(key, data=value)
