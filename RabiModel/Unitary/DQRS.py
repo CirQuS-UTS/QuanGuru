@@ -22,13 +22,13 @@ rabiParams.simulationParameters.sweepKey = 'StepSize'
 rabiParams.simulationParameters.sweepMin = 0.005
 rabiParams.simulationParameters.sweepMax = 0.1
 rabiParams.simulationParameters.sweepPerturbation = 0.005
-rabiParams.systemParameters.resonatorFrequency = 0.1
-rabiParams.systemParameters.qubitFreqJC = 2
-rabiParams.systemParameters.qubitFreq = 2
+rabiParams.systemParameters.resonatorFrequency = 2
+rabiParams.systemParameters.qubitFreqJC = 0
+rabiParams.systemParameters.qubitFreq = 0
 rabiParams.simulationParameters.finalTime = 2
-rabiParams.systemParameters.resonatorDimension = 10
+rabiParams.systemParameters.resonatorDimension = 50
+rabiParams.simulationParameters.irregular = True
 rabiParams.systemParameters.Note = ' Threshold in tau for non-degenerate qubit case'
-rabiParams.saveParameters()
 
 rabiParams.initialState = sp.kron(states.basis(rabiParams.systemParameters.resonatorDimension, 0), states.basis(2, 1), format='csc')
 hams.Hamiltonians(rabiParams)
@@ -41,11 +41,11 @@ bas = states.genericBasisBra(2*rabiParams.systemParameters.resonatorDimension)
 if rabiParams.simulationParameters.sweepKey == 'StepSize':
     for step in rabiParams.sweepList:
         rabiParams.simulationParameters.StepSize = step
-        rabiParams.simulationParameters.results['y'].append(rabiParams.times)
-        rabiParams.simulationParameters.results['x'].append([step, step+rabiParams.simulationParameters.sweepPerturbation])
+        rabiParams.results['y'].append(rabiParams.times)
+        rabiParams.results['x'].append([step, step+rabiParams.simulationParameters.sweepPerturbation])
 elif rabiParams.simulationParameters.sweepKey == 'resonatorFrequency':
-    rabiParams.simulationParameters.results['y'] = rabiParams.times
-    rabiParams.simulationParameters.results['x'] = rabiParams.sweepList
+    rabiParams.results['y'] = rabiParams.times
+    rabiParams.results['x'] = rabiParams.sweepList
 
 ################## Simulation ##################
 p = Pool(processes=cpu_count())
@@ -64,10 +64,10 @@ print('Calculating Photon Number')
 photonNumberDigital = p.map(partial(qFncs.expectationList, photonN),statesDigital)
 photonNumberIdeal = p.map(partial(qFncs.expectationList, photonN),statesIdeal)
 
-rabiParams.simulationParameters.results['Parity Digital'] = parityDigital
-rabiParams.simulationParameters.results['Parity Ideal'] = parityIdeal
-rabiParams.simulationParameters.results['Photon Ideal'] = photonNumberIdeal
-rabiParams.simulationParameters.results['Photon Digital'] = photonNumberDigital
+rabiParams.results['Parity Digital'] = parityDigital
+rabiParams.results['Parity Ideal'] = parityIdeal
+rabiParams.results['Photon Ideal'] = photonNumberIdeal
+rabiParams.results['Photon Digital'] = photonNumberDigital
 
 print('Simulation fidelity')
 simFid = []
@@ -92,11 +92,11 @@ for qraa in range(len(statesDigital)):
     ipri = p.map(partial(qFncs.IPRket,bas),statesIdeal[qraa])
     IPRide.append(ipri)
 
-rabiParams.simulationParameters.results['Simulation Fidelity'] = simFid
-rabiParams.simulationParameters.results['Loschmidt Echo Digital'] = losEchoDig
-rabiParams.simulationParameters.results['Loschmidt Echo Ideal'] = losEchoIde
-rabiParams.simulationParameters.results['IPR Digital'] = IPRdig
-rabiParams.simulationParameters.results['IPR Ideal'] = IPRide
+rabiParams.results['Simulation Fidelity'] = simFid
+rabiParams.results['Loschmidt Echo Digital'] = losEchoDig
+rabiParams.results['Loschmidt Echo Ideal'] = losEchoIde
+rabiParams.results['IPR Digital'] = IPRdig
+rabiParams.results['IPR Ideal'] = IPRide
 print(len(statesDigital))
 #rabiParams.statesToSave(statesDigital, 'Digital States')
 #rabiParams.statesToSave(statesIdeal, 'Ideal States')
@@ -135,12 +135,11 @@ for rtav in range(len(reducedQubDig)):
     entDig.append(entd)
 
 #rabiParams.results['Wigner Ideal'] = WigIde
-rabiParams.simulationParameters.results['Entropy Ideal'] = entIde
+rabiParams.results['Entropy Ideal'] = entIde
 #rabiParams.results['Wigner Digital'] = WigDig
-rabiParams.simulationParameters.results['Entropy Digital'] = entDig
-rabiParams.simulationParameters.irregular = True
-rabiParams. saveResults()
-
+rabiParams.results['Entropy Digital'] = entDig
+rabiParams.saveResults()
+rabiParams.saveParameters()
 p.close()
 p.join()
 

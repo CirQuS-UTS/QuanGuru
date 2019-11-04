@@ -6,8 +6,6 @@ import types
 
 class Simulation(object):
     def __init__(self):
-        self.results = {}
-        self.states = []
         self.allStates = True
         ################ Time Dependent Hamiltonian ################
         self.timeKey = ''
@@ -56,24 +54,21 @@ class SystemParameters(object):
 
 class Model(object):
     def __init__(self):
+        self.results = {}
         self.simulationParameters = Simulation()
         self.systemParameters = SystemParameters()
-        self.simulationParameters.results['y'] = []
-        self.simulationParameters.results['x'] = []
+        self.results['y'] = []
+        self.results['x'] = []
+        self.timestamp = datetime.timestamp(datetime.now())
 
     def __del__(self):
         class_name = self.__class__.__name__
 
     def saveResults(self):
-        saveh.saveData(self.simulationParameters.results, self.timestamp, self.simulationParameters.irregular, self.simple)
+        saveh.saveData(self.results, self.timestamp, self.simulationParameters.irregular, self.simple)
         return self.__del__()
 
     def saveParameters(self):
-        dict1 = self.systemParameters.__dict__
-        dict2 = self.simulationParameters.__dict__
-        self.simple = {**dict2, **dict1}
-        now = datetime.now()
-        self.timestamp = datetime.timestamp(now)
         path = saveh.makeDir()
         saveName = path + '/' + str(self.timestamp) + '.txt'
         with open(saveName, 'w') as f:
@@ -92,6 +87,12 @@ class Model(object):
                 l2.append((states[ink][kni]).toarray())
             l1.append(l2)
         self.results[key] = l1
+
+    @property
+    def simple(self):
+        dict1 = self.systemParameters.__dict__
+        dict2 = self.simulationParameters.__dict__
+        return {**dict2, **dict1}
 
     @property
     def times(self):

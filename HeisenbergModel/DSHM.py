@@ -25,8 +25,8 @@ heisenbergParams.simulationParameters.sweepMax = 2
 heisenbergParams.simulationParameters.sweepMin = 0.01
 heisenbergParams.simulationParameters.sweepPerturbation = 0.01
 
-heisenbergParams.simulationParameters.results['x'] = []
-heisenbergParams.simulationParameters.results['y'] = []
+heisenbergParams.results['x'] = []
+heisenbergParams.results['y'] = []
 
 hams.twoQubitHeisenberg(heisenbergParams)
 hams.threeQubitHeisenberg(heisenbergParams)
@@ -40,11 +40,10 @@ p = Pool(processes=cpu_count())
 heisenbergParams.unitary = uniEvo.DigitalTwo
 statesDigital = p.map(partial(tEvo.evolveTimeIndep, heisenbergParams), heisenbergParams.sweepList)
 for i in range(len(statesDigital)):
-    heisenbergParams.StepSize = heisenbergParams.sweepList[i]
-    heisenbergParams.simulationParameters.results['x'].append([heisenbergParams.sweepList[i],
-                                                           heisenbergParams.sweepList[i] +
-                                                           heisenbergParams.simulationParameters.sweepPerturbation])
-    heisenbergParams.simulationParameters.results['y'].append(heisenbergParams.times)
+    heisenbergParams.simulationParameters.StepSize = heisenbergParams.sweepList[i]
+    heisenbergParams.results['x'].append([heisenbergParams.sweepList[i], heisenbergParams.sweepList[i] + heisenbergParams.simulationParameters.sweepPerturbation])
+    print(len(heisenbergParams.times),len(statesDigital[i]),heisenbergParams.sweepList[i],)
+    heisenbergParams.results['y'].append(heisenbergParams.times)
 
 populationTwo = p.map(partial(qFncs.expectationList, population1),statesDigital)
 p.close()
@@ -64,13 +63,13 @@ def plot(x, y, Z, min, max, ax):
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-for hdgf in range(len(heisenbergParams.simulationParameters.results['x'])):
+for hdgf in range(len(heisenbergParams.results['x'])):
     Z = []
-    for bkg in range(len(heisenbergParams.simulationParameters.results['y'][hdgf])):
+    for bkg in range(len(heisenbergParams.results['y'][hdgf])):
         z = []
         z.append(populationTwo[hdgf][bkg])
         Z.append(z)
-    surf1 = plot(heisenbergParams.simulationParameters.results['x'][hdgf], heisenbergParams.simulationParameters.results['y'][hdgf], Z, 0, 1, ax)
+    surf1 = plot(heisenbergParams.results['x'][hdgf], heisenbergParams.results['y'][hdgf], Z, 0, 1, ax)
 cbar = plt.colorbar(surf1)
 ax.set_xscale("log", nonposx='clip')
 ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: ('{{:.{:1d}f}}'.format(int(np.maximum(-np.log10(x), 0)))).format(x)))

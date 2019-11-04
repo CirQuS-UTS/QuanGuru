@@ -9,7 +9,7 @@ import Plotting.Functions as pltFncs
 A terrible script that just works to test saved data
 """
 
-timestamp10ns = 1572503034.870196
+timestamp10ns = 1572826474.854685
 data10ns = resa.readData(timestamp10ns, '')
 print(data10ns.keys())
 print(data10ns.attrs['Note'])
