@@ -18,16 +18,16 @@ Calculating everything as a fnc of trotter step size
 start = datetime.datetime.now()
 ################## Simulation Parameters ##################
 rabiParams = pObj.Model()
-rabiParams.simulationParameters.sweepKey = 'StepSize'
-rabiParams.simulationParameters.sweepMin = 0.005
-rabiParams.simulationParameters.sweepMax = 0.1
-rabiParams.simulationParameters.sweepPerturbation = 0.005
+rabiParams.simulationParameters.sweepKey = 'resonatorFrequency'
+rabiParams.simulationParameters.sweepMin = -3
+rabiParams.simulationParameters.sweepMax = 3
+rabiParams.simulationParameters.sweepPerturbation = 0.1
 rabiParams.systemParameters.resonatorFrequency = 2
 rabiParams.systemParameters.qubitFreqJC = 0
 rabiParams.systemParameters.qubitFreq = 0
 rabiParams.simulationParameters.finalTime = 2
-rabiParams.systemParameters.resonatorDimension = 50
-rabiParams.simulationParameters.irregular = True
+rabiParams.systemParameters.resonatorDimension = 200
+rabiParams.simulationParameters.irregular = False
 rabiParams.systemParameters.Note = ' Threshold in tau for non-degenerate qubit case'
 
 rabiParams.initialState = sp.kron(states.basis(rabiParams.systemParameters.resonatorDimension, 0), states.basis(2, 1), format='csc')

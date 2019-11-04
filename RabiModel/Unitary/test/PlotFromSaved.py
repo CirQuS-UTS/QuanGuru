@@ -9,7 +9,7 @@ import Plotting.Functions as pltFncs
 A terrible script that just works to test saved data
 """
 
-timestamp10ns = 1572826474.854685
+timestamp10ns = 1572838506.189308
 data10ns = resa.readData(timestamp10ns, '')
 print(data10ns.keys())
 print(data10ns.attrs['Note'])
@@ -36,8 +36,10 @@ def plotLine(x,y,ax,color,style,labbel):
 ################## Plotting ##################
 
 fig = plt.figure(figsize=(12,9))
-ax = pltFncs.grid(6,2)
-for hdgf in range(len(data10ns['x'])-1):
+ax = pltFncs.grid(1,1)
+
+plotR(data10ns['x'],data10ns['y'],data10ns['Parity Digital'],-1,1,ax[0])
+"""for hdgf in range(len(data10ns['x'])-1):
     Z0 = []
     Z1 = []
     Z2 = []
@@ -95,7 +97,7 @@ for hdgf in range(len(data10ns['x'])-1):
     surf10 = plot(data10ns['x'][str(hdgf)], data10ns['y'][str(hdgf)], Z9, 0, 1, ax[9])
     surf11 = plot(data10ns['x'][str(hdgf)], data10ns['y'][str(hdgf)], Z10, 0, 1, ax[10])
 
-
+"""
 def cb(cbar, ticks):
     cbar.ax.tick_params(labelsize=20)
 
@@ -103,7 +105,7 @@ def cb(cbar, ticks):
         l.set_weight("bold")
     cbar.set_ticks(ticks)
 
-cbar1 = plt.colorbar(surf1, ax=ax[0])
+"""cbar1 = plt.colorbar(surf1, ax=ax[0])
 cb(cbar1,[-1,0,1])
 cbar2 = plt.colorbar(surf2, ax=ax[1])
 cb(cbar2,[-1,0,1])
@@ -124,9 +126,9 @@ cb(cbar9,[0,0.5,1])
 cbar10 = plt.colorbar(surf10, ax=ax[9])
 cb(cbar10,[0,0.5,1])
 cbar11 = plt.colorbar(surf11, ax=ax[10])
-cb(cbar11,[0,0.5,1])
+cb(cbar11,[0,0.5,1])"""
 
-
+"""
 def axL(ax, y=False,x=False):
     ax.set_ylim([0, 2])
     ax.set_xlim([0.001, 0.1])
@@ -152,5 +154,5 @@ axL(ax=ax[8], y=True)
 axL(ax=ax[9], x=True)
 axL(ax=ax[10], y=True, x=True)
 ax[11].set_axis_off()
-
+"""
 plt.show()

@@ -44,6 +44,7 @@ class SystemParameters(object):
         self.qubitFreq = 0
         self.offset = 0
         self.bitflipTime = 0.04
+        self.StepSize = 0.02
 
 
 
