@@ -2,7 +2,7 @@ def evolveTimeIndep(obj, sweep):
     setattr(obj.systemParameters, obj.simulationParameters.sweepKey, sweep)
     unitary = obj.unitary
     state = obj.initialState
-    stepSize = obj.simulationParameters.StepSize
+    stepSize = obj.systemParameters.StepSize
     Unitary = unitary(obj, stepSize)
     if obj.simulationParameters.allStates:
         states = [state]

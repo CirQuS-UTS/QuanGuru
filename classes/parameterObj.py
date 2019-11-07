@@ -97,7 +97,7 @@ class Model(object):
 
     @property
     def times(self):
-        return np.arange(0, self.simulationParameters.finalTime + self.simulationParameters.StepSize, self.simulationParameters.StepSize)
+        return np.arange(0, self.simulationParameters.finalTime + self.systemParameters.StepSize, self.systemParameters.StepSize)
 
     @property
     def xvec(self, min=-4, max=4, steps=80):

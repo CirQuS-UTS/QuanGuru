@@ -24,6 +24,7 @@ heisenbergParams.simulationParameters.finalTime = 5
 heisenbergParams.simulationParameters.sweepMax = 2
 heisenbergParams.simulationParameters.sweepMin = 0.01
 heisenbergParams.simulationParameters.sweepPerturbation = 0.01
+print(heisenbergParams.systemParameters.StepSize)
 
 heisenbergParams.results['x'] = []
 heisenbergParams.results['y'] = []
@@ -40,9 +41,11 @@ p = Pool(processes=cpu_count())
 heisenbergParams.unitary = uniEvo.DigitalTwo
 statesDigital = p.map(partial(tEvo.evolveTimeIndep, heisenbergParams), heisenbergParams.sweepList)
 for i in range(len(statesDigital)):
-    heisenbergParams.simulationParameters.StepSize = heisenbergParams.sweepList[i]
+    print(heisenbergParams.sweepList[i])
+    heisenbergParams.systemParameters.StepSize = heisenbergParams.sweepList[i]
+    print(heisenbergParams.systemParameters.StepSize)
     heisenbergParams.results['x'].append([heisenbergParams.sweepList[i], heisenbergParams.sweepList[i] + heisenbergParams.simulationParameters.sweepPerturbation])
-    print(len(heisenbergParams.times),len(statesDigital[i]),heisenbergParams.sweepList[i],)
+    print(len(heisenbergParams.times),len(statesDigital[i]),heisenbergParams.sweepList[i],heisenbergParams.systemParameters.StepSize)
     heisenbergParams.results['y'].append(heisenbergParams.times)
 
 populationTwo = p.map(partial(qFncs.expectationList, population1),statesDigital)

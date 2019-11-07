@@ -15,10 +15,10 @@ def expectationList(operator, states):
     expectations = []
     if states[0].shape[0] != states[0].shape[1]:
         for state in states:
-            expectations.append((((state.getH()) @ operator @ state).diagonal()).sum())
+            expectations.append(np.real((((state.getH()) @ operator @ state).diagonal()).sum()))
     else:
         for state in states:
-            expectations.append(((operator @ state).diagonal()).sum())
+            expectations.append(np.real(((operator @ state).diagonal()).sum()))
     return expectations
 
 def fidelityKet(state1, state2):

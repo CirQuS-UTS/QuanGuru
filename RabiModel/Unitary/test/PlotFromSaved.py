@@ -9,16 +9,16 @@ import Plotting.Functions as pltFncs
 A terrible script that just works to test saved data
 """
 
-timestamp10ns = 1572838506.189308
+timestamp10ns = 1573097557.095013
 data10ns = resa.readData(timestamp10ns, '')
 print(data10ns.keys())
 print(data10ns.attrs['Note'])
 
 ################## Plotting Function ##################
-def plot(x, y, Z, min, max, ax, cmapN = 'PuYlGn'):
+def plot(x, y, Z, min, max, ax, map = 'PuYlGn'):
     X, Y = np.meshgrid(x, y)
     pltSet.plottingSet(ax)
-    cmap = pltFncs.createMAP(cmapN)
+    cmap = pltFncs.createMAP(map)
     surf1 = ax.pcolormesh(X, Y, Z, cmap=cmap, norm=pltFncs.normalizeCMAP(cmap, min, max))
     return surf1
 
@@ -27,7 +27,7 @@ def plotR(x, y, Z, min, max, ax, map = 'PuYlGn'):
     Y, X = np.meshgrid(y, x)
     pltSet.plottingSet(ax)
     cmap = pltFncs.createMAP(map)
-    surf1 = ax.pcolormesh(X, Y, Z, cmap=cmap, norm=pltFncs.normalizeCMAP(cmap, min, max))
+    surf1 = ax.pcolormesh(X, Y, Z, cmap=cmap)
     return surf1
 
 def plotLine(x,y,ax,color,style,labbel):
@@ -36,10 +36,15 @@ def plotLine(x,y,ax,color,style,labbel):
 ################## Plotting ##################
 
 fig = plt.figure(figsize=(12,9))
-ax = pltFncs.grid(1,1)
-
-plotR(data10ns['x'],data10ns['y'],data10ns['Parity Digital'],-1,1,ax[0])
-"""for hdgf in range(len(data10ns['x'])-1):
+ax = pltFncs.grid(6,2)
+"""print(list(data10ns['Photon Digital']))
+plotR(data10ns['x'], data10ns['y'], data10ns['Loschmidt Echo Digital'], 0, 1, ax[0], map='PuYl')
+plotR(data10ns['x'], data10ns['y'], data10ns['Loschmidt Echo Ideal'], 0, 1, ax[1], map='PuYl')
+plotR(data10ns['x'], data10ns['y'], np.real(np.array(data10ns['Photon Digital'])), 0, 1, ax[2], map='PuYl')
+surf = plotR(data10ns['x'], data10ns['y'], np.real(np.array(data10ns['Photon Ideal'])), 0, 1, ax[3], map='PuYl')
+cbar2 = plt.colorbar(surf, ax=ax[3])
+plotR(data10ns['x'], data10ns['y'], data10ns['Simulation Fidelity'], 0, 1, ax[4], map='PuYl')"""
+for hdgf in range(len(data10ns['x'])-1):
     Z0 = []
     Z1 = []
     Z2 = []
@@ -63,14 +68,14 @@ plotR(data10ns['x'],data10ns['y'],data10ns['Parity Digital'],-1,1,ax[0])
         z8 = []
         z9 = []
         z10 = []
-        z0.append(data10ns['Parity Digital'][str(hdgf)][bkg])
-        z1.append(data10ns['Parity Ideal'][str(hdgf)][bkg])
+        z0.append(data10ns['Photon Digital'][str(hdgf)][bkg])
+        z1.append(data10ns['Photon Ideal'][str(hdgf)][bkg])
         z2.append(data10ns['Photon Digital'][str(hdgf)][bkg])
         z3.append(data10ns['Photon Ideal'][str(hdgf)][bkg])
-        z4.append(data10ns['Entropy Digital'][str(hdgf)][bkg])
-        z5.append(data10ns['Entropy Ideal'][str(hdgf)][bkg])
-        z6.append(data10ns['IPR Digital'][str(hdgf)][bkg])
-        z7.append(data10ns['IPR Ideal'][str(hdgf)][bkg])
+        z4.append(data10ns['Photon Digital'][str(hdgf)][bkg])
+        z5.append(data10ns['Photon Ideal'][str(hdgf)][bkg])
+        z6.append(data10ns['Photon Digital'][str(hdgf)][bkg])
+        z7.append(data10ns['Photon Ideal'][str(hdgf)][bkg])
         z8.append(data10ns['Loschmidt Echo Digital'][str(hdgf)][bkg])
         z9.append(data10ns['Loschmidt Echo Ideal'][str(hdgf)][bkg])
         z10.append(data10ns['Simulation Fidelity'][str(hdgf)][bkg])
@@ -97,7 +102,7 @@ plotR(data10ns['x'],data10ns['y'],data10ns['Parity Digital'],-1,1,ax[0])
     surf10 = plot(data10ns['x'][str(hdgf)], data10ns['y'][str(hdgf)], Z9, 0, 1, ax[9])
     surf11 = plot(data10ns['x'][str(hdgf)], data10ns['y'][str(hdgf)], Z10, 0, 1, ax[10])
 
-"""
+
 def cb(cbar, ticks):
     cbar.ax.tick_params(labelsize=20)
 
@@ -105,7 +110,7 @@ def cb(cbar, ticks):
         l.set_weight("bold")
     cbar.set_ticks(ticks)
 
-"""cbar1 = plt.colorbar(surf1, ax=ax[0])
+cbar1 = plt.colorbar(surf1, ax=ax[0])
 cb(cbar1,[-1,0,1])
 cbar2 = plt.colorbar(surf2, ax=ax[1])
 cb(cbar2,[-1,0,1])
@@ -126,9 +131,9 @@ cb(cbar9,[0,0.5,1])
 cbar10 = plt.colorbar(surf10, ax=ax[9])
 cb(cbar10,[0,0.5,1])
 cbar11 = plt.colorbar(surf11, ax=ax[10])
-cb(cbar11,[0,0.5,1])"""
+cb(cbar11,[0,0.5,1])
 
-"""
+
 def axL(ax, y=False,x=False):
     ax.set_ylim([0, 2])
     ax.set_xlim([0.001, 0.1])
@@ -154,5 +159,5 @@ axL(ax=ax[8], y=True)
 axL(ax=ax[9], x=True)
 axL(ax=ax[10], y=True, x=True)
 ax[11].set_axis_off()
-"""
+
 plt.show()

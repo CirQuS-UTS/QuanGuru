@@ -14,7 +14,7 @@ def JC(dims):
     gg = 1
     qf = 1
     HamiltonianCavity = sp.kron(oper.number(resonatorDimension), oper.identity(2), format='csc')
-    HamiltonianQubit = sp.kron(oper.identity(resonatorDimension), oper.number(2), format='csc')
+    HamiltonianQubit = sp.kron(oper.identity(resonatorDimension), oper.sigmaz(), format='csc')
     couplingJC = (sp.kron(oper.create(resonatorDimension), oper.destroy(2), format='csc') +
                   sp.kron(oper.destroy(resonatorDimension),oper.create(2), format='csc'))
     rescale = 1 / (resonatorDimension * gg * qf)

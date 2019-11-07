@@ -7,7 +7,7 @@ import scipy.sparse as sp
 def Hamiltonians(obj):
     resonatorDimension = obj.systemParameters.resonatorDimension
     obj.HamiltonianCavity = sp.kron(oper.number(resonatorDimension),oper.identity(2), format='csc')
-    obj.HamiltonianQubit = sp.kron(oper.identity(resonatorDimension),oper.number(2), format='csc')
+    obj.HamiltonianQubit = sp.kron(oper.identity(resonatorDimension),oper.sigmaz(), format='csc')
     obj.couplingHamiltonian = (sp.kron(oper.create(resonatorDimension), oper.sigmax(), format='csc')
                                + sp.kron(oper.destroy(resonatorDimension), oper.sigmax(), format='csc'))
     obj.couplingJC = (sp.kron(oper.create(resonatorDimension), oper.destroy(2), format='csc')
