@@ -42,11 +42,11 @@ def saveData(dictionary, timestamp='', irregular=False, attribbutes={}):
 
 
 def writeAttr(k, attribbutes):
-    for kkk, vvv in attribbutes.items():
-        if isinstance(vvv, dict):
+    for kk, vv in attribbutes.items():
+        if isinstance(vv, dict):
             pass
         else:
-            k.attrs[kkk] = vvv
+            k.attrs[kk] = vv
 
 def readData(timestamp, key = '', RootPath='/Users/cahitkargi/Dropbox/PhD/Numerical Results/'):
     fdate = datetime.fromtimestamp(timestamp)

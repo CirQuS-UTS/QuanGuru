@@ -19,8 +19,8 @@ def evolveTimeIndep(obj, sweep):
 def evolveTimeDep(obj, allStates = True):
     unitary = obj.unitary
     state = obj.initialState
-    stepSize = obj.StepSize
-    timeKey = obj.timeKey
+    stepSize = obj.systemParameters.StepSize
+    timeKey = obj.simulationParameters.timeKey
     if allStates:
         states = [state]
         for ijkn in range(len(obj.times) - 1):
@@ -36,7 +36,7 @@ def evolveTimeDep(obj, allStates = True):
 def evolveVaryingStep(obj, allStates = True):
     unitary = obj.unitary
     state = obj.initialState
-    timeKey = obj.timeKey
+    timeKey = obj.simulationParameters.timeKey
     if allStates:
         states = [state]
         for ijkn in range(len(obj.times) - 1):
@@ -52,7 +52,7 @@ def evolveVaryingStep(obj, allStates = True):
 
 
 def __timeDepEvol(obj, timeKey, timeDepParam, unitary, stepSize, state):
-    setattr(obj, timeKey, timeDepParam)
+    setattr(obj.systemParameters, timeKey, timeDepParam)
     Unitary = unitary(obj, stepSize)
     stateF = Unitary @ state
     return stateF

@@ -30,6 +30,8 @@ def createMAP(name, half=False):
         cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict(root+"/Plotting/colormaps/YlPu.txt", half))
     elif name == 'PuYl':
         cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict(root+"/Plotting/colormaps/PuYl.txt", half))
+    elif name == 'GrYl':
+        cmap = LinearSegmentedColormap.from_list('my_map', __txtTocdict(root + "/Plotting/colormaps/GnYlPu.txt", True))
     else:
         cmap = plt.get_cmap(name)
     return cmap
