@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tryHere/test/test_QuantumToolbox/test_operators.py" beforeDir="false" afterPath="$PROJECT_DIR$/tryHere/test/test_QuantumToolbox/test_operators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics/ZollerPapers.py" beforeDir="false" afterPath="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics/ZollerPapers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tryHere/tryHere.py" beforeDir="false" afterPath="$PROJECT_DIR$/tryHere/tryHere.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +82,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test_operators">
+  <component name="RunManager" selected="Python.tryHere">
     <configuration name="EigVecRabi" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Gamma 1.5" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -194,9 +195,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_operators" />
-        <item itemvalue="Python.ZollerPapers" />
         <item itemvalue="Python.tryHere" />
+        <item itemvalue="Python.ZollerPapers" />
+        <item itemvalue="Python.test_operators" />
         <item itemvalue="Python.EigVecRabi" />
         <item itemvalue="Python.PlotFromSaved" />
       </list>
@@ -231,7 +232,7 @@
       <workItem from="1572500367537" duration="3695000" />
       <workItem from="1572577695894" duration="11412000" />
       <workItem from="1572830355919" duration="40485000" />
-      <workItem from="1573422118404" duration="5658000" />
+      <workItem from="1573422118404" duration="13458000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -506,7 +507,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573423712413</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Eigenvector statistics for kicked-top paper by Sieberer et. al.">
+      <created>1573442571977</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1573442571977</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -555,7 +563,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="overall settings for plotting is included" />
     <MESSAGE value="modified name of several variables" />
     <MESSAGE value="ratio in PlotObj returns conditioned on offset" />
     <MESSAGE value="start and end of times and sweepList of ParamObj are modified" />
@@ -580,15 +587,16 @@
     <MESSAGE value="Time evolution key is modified" />
     <MESSAGE value="Addition of Hamiltonian functions into QuantumToolbox" />
     <MESSAGE value="Time dependent evolution functions are updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Time dependent evolution functions are updated" />
+    <MESSAGE value="Eigenvector statistics for kicked-top paper by Sieberer et. al." />
+    <option name="LAST_COMMIT_MESSAGE" value="Eigenvector statistics for kicked-top paper by Sieberer et. al." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/quantum_simulations$tryHere.coverage" NAME="tryHere Coverage Results" MODIFIED="1573211078753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$tryHere.coverage" NAME="tryHere Coverage Results" MODIFIED="1573454922983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere" />
     <SUITE FILE_PATH="coverage/quantum_simulations$Rabi.coverage" NAME="Rabi Coverage Results" MODIFIED="1568676571161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$EigVecRabi.coverage" NAME="EigVecRabi Coverage Results" MODIFIED="1573180649045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics" />
     <SUITE FILE_PATH="coverage/Gamma_1_5$degenerateQubit.coverage" NAME="degenerateQubit Coverage Results" MODIFIED="1567410328714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$HeisenbergModel.coverage" NAME="HeisenbergModel Coverage Results" MODIFIED="1572828983349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/HeisenbergModel" />
-    <SUITE FILE_PATH="coverage/quantum_simulations$test_operators.coverage" NAME="test_operators Coverage Results" MODIFIED="1573442368049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere/test/test_QuantumToolbox" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$test_operators.coverage" NAME="test_operators Coverage Results" MODIFIED="1573442813013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere/test/test_QuantumToolbox" />
     <SUITE FILE_PATH="coverage/quantum_simulations$cleanDQRS.coverage" NAME="cleanDQRS Coverage Results" MODIFIED="1568671926953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$saveH5.coverage" NAME="saveH5 Coverage Results" MODIFIED="1572826267472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SaveRead" />
     <SUITE FILE_PATH="coverage/quantum_simulations$allInOne.coverage" NAME="allInOne Coverage Results" MODIFIED="1568679778574" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/EigenvalueStatistics" />
@@ -598,7 +606,7 @@
     <SUITE FILE_PATH="coverage/quantum_simulations$PlotFromSaved.coverage" NAME="PlotFromSaved Coverage Results" MODIFIED="1573170418742" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary/test" />
     <SUITE FILE_PATH="coverage/quantum_simulations$JC.coverage" NAME="JC Coverage Results" MODIFIED="1568675157641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$DRabi.coverage" NAME="DRabi Coverage Results" MODIFIED="1568677004407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
-    <SUITE FILE_PATH="coverage/quantum_simulations$ZollerPapers.coverage" NAME="ZollerPapers Coverage Results" MODIFIED="1573441859520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$ZollerPapers.coverage" NAME="ZollerPapers Coverage Results" MODIFIED="1573453648556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$DSHM.coverage" NAME="DSHM Coverage Results" MODIFIED="1573096638917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/HeisenbergModel" />
     <SUITE FILE_PATH="coverage/quantum_simulations$HarmonicOscillator.coverage" NAME="HarmonicOscillator Coverage Results" MODIFIED="1568673175335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
     <SUITE FILE_PATH="coverage/quantum_simulations$kickedTop.coverage" NAME="kickedTop Coverage Results" MODIFIED="1572830491353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RMT_statistics/EigenvectorStatistics" />
