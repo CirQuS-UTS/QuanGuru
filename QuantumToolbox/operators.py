@@ -70,9 +70,9 @@ def basis(dimension, state, sparse=True):
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse == True else n.toarray()
 
-def maxLevel(resonatorDimension, sparse=True):
-    n = (basis(resonatorDimension, resonatorDimension - 1, sparse=True) @
-          (basis(resonatorDimension, resonatorDimension - 1, sparse=True).getH()))
+def maxLevel(dimension, sparse=True):
+    n = (basis(dimension, dimension - 1, sparse=True) @
+          (basis(dimension, dimension - 1, sparse=True).getH()))
     return n if sparse == True else n.toarray()
 
 def displacement(alpha, dim, sparse=True):

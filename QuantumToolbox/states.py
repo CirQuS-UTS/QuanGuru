@@ -2,10 +2,17 @@ import scipy.sparse as sp
 import numpy as np
 
 def genericBasis(n,sparse=True):
-    basisStates = []
+    """
+    genericBasis @ (ket or matrix of kets in COLUMNs) will give matrix of coefficients, which can be flattened
+    and squared to get list of probabilities
+    :param n: dimension
+    :param sparse: or not
+    :return: matrix of basis elements in ROWs
+    """
+    basisStates = np.empty((n,n))
     for i in range(n):
         b = basis(n,i,sparse)
-        basisStates.append(b)
+        basisStates[i] = b.flatten()
     return basisStates
 
 def genericBasisBra(n,sparse=True):
