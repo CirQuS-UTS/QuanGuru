@@ -155,8 +155,11 @@ class qSystem:
                 return h
         
     def freeMat(self):
-        self.Matrix = hams.compositeOp(self.operator(self.dimension), self.dimsBefore, self.dimsAfter)
-        return self.Matrix
+        if self.Matrix == None:
+            self.Matrix = hams.compositeOp(self.operator(self.dimension), self.dimsBefore, self.dimsAfter)
+            return self.Matrix
+        else:
+            return self.Matrix
 
 
 class Qubit(qSystem):

@@ -12,7 +12,7 @@ class Simulation(object):
         ################ Default Simulation Parameters ##################
         # time parameters
         self.finalTime = 1.2  # total time of simulation
-        self.StepSize = 0.02  # sampling time step
+        self.StepSize = 0.005  # sampling time step
 
         # sweep parameters
         self.sweepKey = ''
@@ -36,7 +36,7 @@ class Simulation(object):
 
     def evolveTimeIndep(self, QSys, sweep):
         setattr(QSys, self.sweepKey, sweep)
-        print(QSys.frequency)
+
         if self.qSys.Unitaries == None:
             unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.StepSize)
         else:
