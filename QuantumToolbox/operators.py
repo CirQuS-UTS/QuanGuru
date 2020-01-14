@@ -26,21 +26,21 @@ def create(N, sparse=True):
 def identity(N, sparse=True):
     return sp.identity(N, format="csc") if sparse == True else np.identity(N)
 
-def sigmay(sparse=True):
+def sigmay(N=2, sparse=True):
     data = [-1j, 1j]
     rows = [0, 1]
     columns = [1, 0]
     n =  sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse == True else n.toarray()
 
-def sigmax(sparse=True):
+def sigmax(N=2, sparse=True):
     data = [1, 1]
     rows = [0, 1]
     columns = [1, 0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse == True else n.toarray()
 
-def sigmaz(sparse=True):
+def sigmaz(N=2, sparse=True):
     data = [1, -1]
     rows = [0, 1]
     columns = [0, 1]
