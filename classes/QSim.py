@@ -17,9 +17,9 @@ class Simulation(object):
 
         # sweep parameters
         self.sweepKey = ''
-        self.sweepMax = 3
-        self.sweepMin = -3
-        self.sweepPerturbation = 0.05
+        self.sweepMax = 0.1
+        self.sweepMin = 0.005
+        self.sweepPerturbation = 0.005
 
         ###################### Saving Options ########################
         self.irregular = False
@@ -36,7 +36,13 @@ class Simulation(object):
         return np.arange(self.sweepMin, self.sweepMax + self.sweepPerturbation, self.sweepPerturbation)
 
     def evolveTimeIndep(self, QSys, sweep):
-        setattr(QSys, self.sweepKey, sweep)
+        if hasattr(QSys, self.sweepKey):
+            setattr(QSys, self.sweepKey, sweep)
+        elif hasattr(self, self.sweepKey):
+            setattr(self, self.sweepKey, sweep)
+        else:
+            print("no attribute")
+
         if self.qSys.Unitaries == None:
             unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.StepSize)
         else:

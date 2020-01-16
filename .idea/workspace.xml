@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="demo of the new object">
-      <change afterPath="$PROJECT_DIR$/.ipynb_checkpoints/NewObjectDemo-checkpoint.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewObjectDemo.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Plotting/SimplePlots.py" afterDir="false" />
+    <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demos/DemoTry.py" beforeDir="false" afterPath="$PROJECT_DIR$/Demos/DemoTry.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuantumToolbox/TimeEvolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/QuantumToolbox/TimeEvolution.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewObjectDemo.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/NewObjectDemo.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plotting/SimplePlots.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plotting/SimplePlots.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/QSim.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/QSim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/QSys.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/QSys.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +246,7 @@
       <workItem from="1574031656224" duration="5751000" />
       <workItem from="1578957007811" duration="1432000" />
       <workItem from="1578960271602" duration="1375000" />
-      <workItem from="1578963059734" duration="42370000" />
+      <workItem from="1578963059734" duration="44544000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -553,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579037885552</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="demo of the new object">
+      <created>1579136060533</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1579136060533</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,30 +637,30 @@
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="729" y="153" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1578960173021" />
-    <state x="550" y="214" key="CommitChangelistDialog2" timestamp="1579136023488">
+    <state x="550" y="214" key="CommitChangelistDialog2" timestamp="1579136060303">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state x="550" y="214" key="CommitChangelistDialog2/0.23.1920.1177@0.23.1920.1177" timestamp="1579136023488" />
+    <state x="550" y="214" key="CommitChangelistDialog2/0.23.1920.1177@0.23.1920.1177" timestamp="1579136060303" />
     <state x="748" y="372" key="FileChooserDialogImpl" timestamp="1578957898694">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="748" y="372" key="FileChooserDialogImpl/0.23.1920.1177@0.23.1920.1177" timestamp="1578957898694" />
-    <state width="1878" height="328" key="GridCell.Tab.0.bottom" timestamp="1579132735599">
+    <state width="1878" height="328" key="GridCell.Tab.0.bottom" timestamp="1579136063128">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="328" key="GridCell.Tab.0.bottom/0.23.1920.1177@0.23.1920.1177" timestamp="1579132735599" />
-    <state width="1878" height="328" key="GridCell.Tab.0.center" timestamp="1579132735598">
+    <state width="1878" height="328" key="GridCell.Tab.0.bottom/0.23.1920.1177@0.23.1920.1177" timestamp="1579136063128" />
+    <state width="1878" height="328" key="GridCell.Tab.0.center" timestamp="1579136063127">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="328" key="GridCell.Tab.0.center/0.23.1920.1177@0.23.1920.1177" timestamp="1579132735598" />
-    <state width="1878" height="328" key="GridCell.Tab.0.left" timestamp="1579132735597">
+    <state width="1878" height="328" key="GridCell.Tab.0.center/0.23.1920.1177@0.23.1920.1177" timestamp="1579136063127" />
+    <state width="1878" height="328" key="GridCell.Tab.0.left" timestamp="1579136063126">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="328" key="GridCell.Tab.0.left/0.23.1920.1177@0.23.1920.1177" timestamp="1579132735597" />
-    <state width="1878" height="328" key="GridCell.Tab.0.right" timestamp="1579132735598">
+    <state width="1878" height="328" key="GridCell.Tab.0.left/0.23.1920.1177@0.23.1920.1177" timestamp="1579136063126" />
+    <state width="1878" height="328" key="GridCell.Tab.0.right" timestamp="1579136063127">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="328" key="GridCell.Tab.0.right/0.23.1920.1177@0.23.1920.1177" timestamp="1579132735598" />
+    <state width="1878" height="328" key="GridCell.Tab.0.right/0.23.1920.1177@0.23.1920.1177" timestamp="1579136063127" />
     <state width="1878" height="405" key="GridCell.Tab.1.bottom" timestamp="1579058332087">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
