@@ -10,9 +10,11 @@ def colorPlot(x,y, z, irregular=False):
         surf2 = ax2.pcolormesh(X, Y, z, cmap=cm, norm=pltFncs.normalizeCMAP(cm, -1, 1))
         cbar = plt.colorbar(surf2)
         plt.show()
+        print('s')
         return surf2
     else:
-        colorPlotIreg(x,y[-1],z)
+        surf2 = colorPlotIreg(x, y[-1], z)
+        return surf2
 
 def colorPlotIreg(x, y, z):
     fig2, ax2 = plt.subplots()
@@ -29,3 +31,4 @@ def colorPlotIreg(x, y, z):
         X, Y = np.meshgrid(X0, Y0)
         cm = plt.get_cmap('inferno')
         surf2 = ax2.pcolormesh(X, Y, Z0, cmap=cm, norm=pltFncs.normalizeCMAP(cm, -1, 1))
+    return surf2
