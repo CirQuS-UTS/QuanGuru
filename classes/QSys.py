@@ -2,16 +2,28 @@ import QuantumToolbox.operators as qOps
 import QuantumToolbox.Hamiltonians as hams
 from datetime import datetime
 
+""" *** under construction *** """
 
 class QuantumSystem:
+    """
+    An object for a composite Quantum System
+    """
     def __init__(self):
         self.subSystems = []
-        self.couplings = []
-        self.cMatrices = []
+        self.__cFncs = []
+        self.Couplings = {}
+        self.__cMatrices = []
         self.Unitaries = None
         self.initialState = None
+        self.couplingName = None
 
     def addSubSys(self, subSys, **kwargs):
+        """
+        function to add the given subSys or an instance of the given subSystem class
+        :param subSys: either an instance of subSystem classes or the class itself
+        :param kwargs: variables to be changed from the default values or included in the new instance
+        :return: the new subSystem
+        """
         if isinstance(subSys, qSystem):
             newSub = self.__addSub(subSys)
         else:
@@ -20,6 +32,11 @@ class QuantumSystem:
         return newSub
 
     def __addSub(self, subSys):
+        """
+        an internal function to update the subSystems and self accordingly with the newly added subSys
+        :param subSys: an instance of the new subSys
+        :return: the new subSys
+        """
         subSys.ind = len(self.subSystems)
         for subS in self.subSystems:
             subSys.dimsBefore *= subS.dimension
@@ -28,6 +45,13 @@ class QuantumSystem:
         return subSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
+        """
+        A function to create and add n number of new subSystems from a given class
+        :param subClass: class for the new subSystem/s
+        :param n: how many copies of the new subSystem is added
+        :param kwargs: variables to be changed from the default values or included in the new instance
+        :return: the new subSys or list of new subSystems
+        """
         if n == 1:
             newSub = self.__addSub(subClass(**kwargs))
             return newSub
@@ -40,6 +64,9 @@ class QuantumSystem:
 
     @property
     def totalDim(self):
+        """
+        :return: total dimension of the composite system Hilbert space
+        """
         tDim = 1
         for subSys in self.subSystems:
             tDim *= subSys.dimension
@@ -47,6 +74,9 @@ class QuantumSystem:
 
     @property
     def freeHam(self):
+        """
+        :return: free Hamiltonian (i.e. no coupling) of the composite system
+        """
         st = datetime.now()
         ham = self.subSystems[0].freeHam
         for subSys in self.subSystems[1:]:
@@ -61,39 +91,47 @@ class QuantumSystem:
 
     @property
     def couplingHam(self):
-        if len(self.cMatrices) == 0:
+        if len(self.__cMatrices) == 0:
             st = datetime.now()
-            #print('cF')
             coupled = self.__getCoupling(0)
-            cHam = self.couplings[0][0] * coupled
-            self.cMatrices.append(coupled)
-            for ind in range(len(self.couplings) - 1):
-                coupled = self.__getCoupling(ind+1)
-                cHam += self.couplings[ind + 1][0] * coupled
-                self.cMatrices.append(coupled)
+            cHam = self.__cFncs[0][0] * coupled
+            self.__cMatrices.append(coupled)
+            for ind in range(len(self.__cFncs) - 1):
+                coupled = self.__getCoupling(ind + 1)
+                cHam += self.__cFncs[ind + 1][0] * coupled
+                self.__cMatrices.append(coupled)
             end = datetime.now()
-            #print(end - st)
+            # print(end - st)
             return cHam
         else:
             st = datetime.now()
-            #print('cL')
-            coupled = self.cMatrices[0]
-            cHam = self.couplings[0][0] * coupled
-            for ind in range(len(self.couplings) - 1):
-                coupled = self.cMatrices[ind + 1]
-                cHam += self.couplings[ind + 1][0] * coupled
+            coupled = self.__cMatrices[0]
+            cHam = self.__cFncs[0][0] * coupled
+            for ind in range(len(self.__cFncs) - 1):
+                coupled = self.__cMatrices[ind + 1]
+                cHam += self.__cFncs[ind + 1][0] * coupled
             end = datetime.now()
-            #print(end - st)
+            # print(end - st)
             return cHam
 
     def addCoupling(self, qsystems, couplingOps, couplingStrength):
+        if (self.couplingName == None) or (isinstance(self.couplingName, str) == False):
+            self.couplingName = len(self.Couplings)
+
         orders = []
         for qsys in range(len(qsystems)):
-            setattr(self, qsystems[qsys].name + str(len(self.couplings)), couplingOps[qsys])
+            setattr(self, qsystems[qsys].name + str(self.couplingName) + str(len(self.__cFncs)), couplingOps[qsys])
             orders.append(qsystems[qsys].ind)
-        self.couplings.append([couplingStrength, orders])
+        self.__cFncs.append([couplingStrength, orders])
         return 'nothing'
 
+    def coupleBy(self, subSys1, subSys2, cType, cStrength):
+        qsystems = [subSys1, subSys2]
+        if cType == 'JC':
+            self.couplingName = 'JC'
+            self.addCoupling(qsystems, [qOps.destroy, qOps.create], cStrength)
+            self.addCoupling(qsystems, [qOps.create, qOps.destroy], cStrength)
+            return 'nothing'
 
     def __coupOrdering(self, qts):
         sorted(qts, key=lambda x: x[0], reverse=False)
@@ -102,17 +140,53 @@ class QuantumSystem:
             oper = oper @ qts[ops+1][1]
         return oper
 
-
     def __getCoupling(self, ind):
         qts = []
-        for order in self.couplings[ind][1]:
+
+
+        for order in self.__cFncs[ind][1]:
             sys = self.subSystems[order]
-            oper = getattr(self, sys.name + str(ind))
+            oper = getattr(self, sys.name + str(self.couplingName) + str(ind))
             cHam = hams.compositeOp(oper(sys.dimension), sys.dimsBefore, sys.dimsAfter)
             ts = [order, cHam]
             qts.append(ts)
         cHam = self.__coupOrdering(qts)
         return cHam
+
+    def reset(self, to=None):
+        if to == None:
+            self.__keepOld()
+
+            self.__cFncs = []
+            self.__cMatrices = []
+            self.Unitaries = None
+            self.couplingName = None
+            return 0
+        else:
+            self.__keepOld()
+
+            self.couplingName = to
+            self.__cFncs = self.Couplings[to][0]
+            self.__cMatrices = []
+            self.Unitaries = self.Couplings[to][1]
+            return 0
+
+    def __keepOld(self):
+        name = self.couplingName
+        if name in self.Couplings:
+            if self.Unitaries != self.Couplings[name][1]:
+                name = len(self.Couplings)
+                for qs in self.subSystems:
+                    ind = qs.ind
+                    aaa = 0
+                    for order in self.__cFncs[ind][1]:
+                        sys = self.subSystems[order]
+                        oper = getattr(self, sys.name + str(self.couplingName) + str(ind))
+                        setattr(self, qs.name + str(name) + str(aaa), oper)
+                        aaa += 1
+                self.Couplings[name] = [self.__cFncs, self.Unitaries]
+        else:
+            self.Couplings[name] = [self.__cFncs, self.Unitaries]
 
 
 
@@ -163,7 +237,7 @@ class qSystem:
 
 
 class Qubit(qSystem):
-    def __init__(self,**kwargs):
+    def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.sigmaz
         for key, value in kwargs.items():

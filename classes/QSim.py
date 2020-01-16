@@ -1,6 +1,7 @@
 import QuantumToolbox.liouvillian as lio
 import numpy as np
 
+""" under construction """
 
 class Simulation(object):
     def __init__(self, QSys):
@@ -11,8 +12,8 @@ class Simulation(object):
 
         ################ Default Simulation Parameters ##################
         # time parameters
-        self.finalTime = 1.2  # total time of simulation
-        self.StepSize = 0.005  # sampling time step
+        self.finalTime = 1  # total time of simulation
+        self.StepSize = 0.02  # sampling time step
 
         # sweep parameters
         self.sweepKey = ''
@@ -36,7 +37,6 @@ class Simulation(object):
 
     def evolveTimeIndep(self, QSys, sweep):
         setattr(QSys, self.sweepKey, sweep)
-
         if self.qSys.Unitaries == None:
             unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.StepSize)
         else:
