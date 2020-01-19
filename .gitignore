@@ -7,6 +7,9 @@ __pycache__/
 # macOs file
 .DS_Store
 
+# pycharm file
+*.iml
+
 # C extensions
 *.so
 
