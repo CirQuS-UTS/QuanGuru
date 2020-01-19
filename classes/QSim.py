@@ -17,9 +17,9 @@ class Simulation(object):
 
         # sweep parameters
         self.sweepKey = ''
-        self.sweepMax = 0.1
-        self.sweepMin = 0.005
-        self.sweepPerturbation = 0.005
+        self.sweepMax = 3
+        self.sweepMin = -3
+        self.sweepPerturbation = 0.05
 
         ###################### Saving Options ########################
         self.irregular = False

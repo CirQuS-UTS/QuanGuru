@@ -9,11 +9,14 @@ def colorPlot(x,y, z, irregular=False):
         Y, X = np.meshgrid(y, x)
         surf2 = ax2.pcolormesh(X, Y, z, cmap=cm, norm=pltFncs.normalizeCMAP(cm, -1, 1))
         cbar = plt.colorbar(surf2)
+        cbar.set_ticks([-1,0,1])
         plt.show()
         print('s')
         return surf2
     else:
         surf2 = colorPlotIreg(x, y[-1], z)
+        cbar = plt.colorbar(surf2)
+        cbar.set_ticks([-1, 0, 1])
         return surf2
 
 def colorPlotIreg(x, y, z):

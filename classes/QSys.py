@@ -2,12 +2,8 @@ import QuantumToolbox.operators as qOps
 import QuantumToolbox.Hamiltonians as hams
 from datetime import datetime
 
-""" *** under construction *** """
 
 class QuantumSystem:
-    """
-    An object for a composite Quantum System
-    """
     def __init__(self):
         self.subSystems = []
         self.__cFncs = []
@@ -18,12 +14,6 @@ class QuantumSystem:
         self.couplingName = None
 
     def addSubSys(self, subSys, **kwargs):
-        """
-        function to add the given subSys or an instance of the given subSystem class
-        :param subSys: either an instance of subSystem classes or the class itself
-        :param kwargs: variables to be changed from the default values or included in the new instance
-        :return: the new subSystem
-        """
         if isinstance(subSys, qSystem):
             newSub = self.__addSub(subSys)
         else:
@@ -32,11 +22,6 @@ class QuantumSystem:
         return newSub
 
     def __addSub(self, subSys):
-        """
-        an internal function to update the subSystems and self accordingly with the newly added subSys
-        :param subSys: an instance of the new subSys
-        :return: the new subSys
-        """
         subSys.ind = len(self.subSystems)
         for subS in self.subSystems:
             subSys.dimsBefore *= subS.dimension
@@ -45,13 +30,6 @@ class QuantumSystem:
         return subSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
-        """
-        A function to create and add n number of new subSystems from a given class
-        :param subClass: class for the new subSystem/s
-        :param n: how many copies of the new subSystem is added
-        :param kwargs: variables to be changed from the default values or included in the new instance
-        :return: the new subSys or list of new subSystems
-        """
         if n == 1:
             newSub = self.__addSub(subClass(**kwargs))
             return newSub
@@ -64,9 +42,6 @@ class QuantumSystem:
 
     @property
     def totalDim(self):
-        """
-        :return: total dimension of the composite system Hilbert space
-        """
         tDim = 1
         for subSys in self.subSystems:
             tDim *= subSys.dimension
@@ -74,15 +49,9 @@ class QuantumSystem:
 
     @property
     def freeHam(self):
-        """
-        :return: free Hamiltonian (i.e. no coupling) of the composite system
-        """
-        st = datetime.now()
         ham = self.subSystems[0].freeHam
         for subSys in self.subSystems[1:]:
             ham += subSys.freeHam
-        end = datetime.now()
-        #print(end-st)
         return ham
 
     @property
@@ -92,7 +61,6 @@ class QuantumSystem:
     @property
     def couplingHam(self):
         if len(self.__cMatrices) == 0:
-            st = datetime.now()
             coupled = self.__getCoupling(0)
             cHam = self.__cFncs[0][0] * coupled
             self.__cMatrices.append(coupled)
@@ -100,18 +68,13 @@ class QuantumSystem:
                 coupled = self.__getCoupling(ind + 1)
                 cHam += self.__cFncs[ind + 1][0] * coupled
                 self.__cMatrices.append(coupled)
-            end = datetime.now()
-            # print(end - st)
             return cHam
         else:
-            st = datetime.now()
             coupled = self.__cMatrices[0]
             cHam = self.__cFncs[0][0] * coupled
             for ind in range(len(self.__cFncs) - 1):
                 coupled = self.__cMatrices[ind + 1]
                 cHam += self.__cFncs[ind + 1][0] * coupled
-            end = datetime.now()
-            # print(end - st)
             return cHam
 
     def addCoupling(self, qsystems, couplingOps, couplingStrength):
@@ -214,18 +177,11 @@ class qSystem:
         if self.operator is None:
             raise ValueError('No operator is given for free Hamiltonian')
         else:
-            st = datetime.now()
             if self.Matrix != None:
-                #print('from Mat')
                 h = self.frequency * self.Matrix
-                end = datetime.now()
-                #print(end - st)
                 return h
             else:
-                #print('create the Mat')
                 h = self.frequency * self.freeMat()
-                end = datetime.now()
-                #print(end - st)
                 return h
         
     def freeMat(self):
@@ -243,6 +199,21 @@ class Qubit(qSystem):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+class Jmomentum(qSystem):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.operator = qOps.Jz
+        self.jValue = 1
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+        self.dimension = (self.jValue-1)/2
+
+    def freeMat(self):
+        if self.Matrix == None:
+            self.Matrix = hams.compositeOp(self.operator(self.jValue), self.dimsBefore, self.dimsAfter)
+            return self.Matrix
+        else:
+            return self.Matrix
 
 class Cavity(qSystem):
     def __init__(self, **kwargs):
