@@ -10,6 +10,9 @@ __pycache__/
 # pycharm file
 *.iml
 
+# VSC files
+*.json
+
 # C extensions
 *.so
 

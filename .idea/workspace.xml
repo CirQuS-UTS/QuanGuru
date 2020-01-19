@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0abda64-7acb-49fb-aa2d-f6f88aacd1db" name="Default Changelist" comment="can sweep any key">
-      <change beforePath="$PROJECT_DIR$/.idea/Gamma 1.5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Gamma 1.5.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewObjectDemo.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/NewObjectDemo.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plotting/SimplePlots.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plotting/SimplePlots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/QSim.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/QSim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/QSys.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/QSys.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tryHere/tryHere.py" beforeDir="false" afterPath="$PROJECT_DIR$/tryHere/tryHere.py" afterDir="false" />
     </list>
     <list id="fc0d8d1d-0efd-4e26-bfa9-f6138bd33c4d" name="VSC" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -265,6 +259,9 @@
       <workItem from="1579223396052" duration="21000" />
       <workItem from="1579223456385" duration="50000" />
       <workItem from="1579243475282" duration="302000" />
+      <workItem from="1579475091024" duration="23000" />
+      <workItem from="1579475114448" duration="133000" />
+      <workItem from="1579475299205" duration="56000" />
     </task>
     <task id="LOCAL-00001" summary="saving states by converting sparse to array">
       <created>1567416693193</created>
@@ -670,22 +667,22 @@
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="748" y="372" key="FileChooserDialogImpl/0.23.1920.1177@0.23.1920.1177" timestamp="1579221209750" />
-    <state width="1878" height="328" key="GridCell.Tab.0.bottom" timestamp="1579221278287">
+    <state width="925" height="325" key="GridCell.Tab.0.bottom" timestamp="1579475354999">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="328" key="GridCell.Tab.0.bottom/0.23.1920.1177@0.23.1920.1177" timestamp="1579221278287" />
-    <state width="1878" height="328" key="GridCell.Tab.0.center" timestamp="1579221278286">
+    <state width="925" height="325" key="GridCell.Tab.0.bottom/0.23.1920.1177@0.23.1920.1177" timestamp="1579475354999" />
+    <state width="925" height="325" key="GridCell.Tab.0.center" timestamp="1579475354998">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="328" key="GridCell.Tab.0.center/0.23.1920.1177@0.23.1920.1177" timestamp="1579221278286" />
-    <state width="1878" height="328" key="GridCell.Tab.0.left" timestamp="1579221278286">
+    <state width="925" height="325" key="GridCell.Tab.0.center/0.23.1920.1177@0.23.1920.1177" timestamp="1579475354998" />
+    <state width="925" height="325" key="GridCell.Tab.0.left" timestamp="1579475354998">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="328" key="GridCell.Tab.0.left/0.23.1920.1177@0.23.1920.1177" timestamp="1579221278286" />
-    <state width="1878" height="328" key="GridCell.Tab.0.right" timestamp="1579221278286">
+    <state width="925" height="325" key="GridCell.Tab.0.left/0.23.1920.1177@0.23.1920.1177" timestamp="1579475354998" />
+    <state width="925" height="325" key="GridCell.Tab.0.right" timestamp="1579475354999">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="328" key="GridCell.Tab.0.right/0.23.1920.1177@0.23.1920.1177" timestamp="1579221278286" />
+    <state width="925" height="325" key="GridCell.Tab.0.right/0.23.1920.1177@0.23.1920.1177" timestamp="1579475354999" />
     <state width="1878" height="405" key="GridCell.Tab.1.bottom" timestamp="1579150470931">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
@@ -714,11 +711,11 @@
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="811" y="534" key="VCS.ChangelistChooser/0.23.1920.1177@0.23.1920.1177" timestamp="1579142583503" />
-    <state x="616" y="445" key="com.intellij.ide.util.TipDialog" timestamp="1579472132468">
+    <state x="616" y="445" key="com.intellij.ide.util.TipDialog" timestamp="1579475801014">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="411" y="302" key="com.intellij.ide.util.TipDialog/0.23.1280.777@0.23.1280.777" timestamp="1579243475394" />
-    <state x="616" y="445" key="com.intellij.ide.util.TipDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1579472132468" />
+    <state x="616" y="445" key="com.intellij.ide.util.TipDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1579475801014" />
     <state x="552" y="199" width="816" height="825" key="find.popup" timestamp="1579059602946">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
@@ -740,7 +737,7 @@
     <SUITE FILE_PATH="coverage/quantum_simulations$tryHere.coverage" NAME="tryHere Coverage Results" MODIFIED="1579149736839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tryHere" />
     <SUITE FILE_PATH="coverage/Gamma_1_5$degenerateQubit.coverage" NAME="degenerateQubit Coverage Results" MODIFIED="1567410328714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$DQRS.coverage" NAME="DQRS Coverage Results" MODIFIED="1579132735588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
-    <SUITE FILE_PATH="coverage/quantum_simulations$DemoTry.coverage" NAME="DemoTry Coverage Results" MODIFIED="1579221261727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Demos" />
+    <SUITE FILE_PATH="coverage/quantum_simulations$DemoTry.coverage" NAME="DemoTry Coverage Results" MODIFIED="1579475805975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Demos" />
     <SUITE FILE_PATH="coverage/quantum_simulations$QSys.coverage" NAME="QSys Coverage Results" MODIFIED="1579056762025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/classes" />
     <SUITE FILE_PATH="coverage/quantum_simulations$cleanDQRS.coverage" NAME="cleanDQRS Coverage Results" MODIFIED="1568671926953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RabiModel/Unitary" />
     <SUITE FILE_PATH="coverage/quantum_simulations$JC.coverage" NAME="JC Coverage Results" MODIFIED="1568675157641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LevelStatistics" />
