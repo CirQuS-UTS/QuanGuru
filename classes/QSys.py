@@ -155,15 +155,21 @@ class QuantumSystem:
 
 class qSystem:
     def __init__(self, name=None, **kwargs):
-        self.ind = None
+        self.__ind = None
         self.name = name
+
         self.dimension = 2
-        self.dimsBefore = 1
-        self.dimsAfter = 1
         self.frequency = 1
+
         self.operator = None
-        self.Matrix = None
+        self.__Matrix = None
+
+        self.__dimsBefore = 1
+        self.__dimsAfter = 1
+
         for key, value in kwargs.items():
+            if hasattr(self, key) is False:
+                print('New attribute added:' + key)
             setattr(self, key, value)
 
         if self.name is None:
@@ -177,19 +183,20 @@ class qSystem:
         if self.operator is None:
             raise ValueError('No operator is given for free Hamiltonian')
         else:
-            if self.Matrix != None:
-                h = self.frequency * self.Matrix
+            if self.__Matrix != None:
+                h = self.frequency * self.__Matrix
                 return h
             else:
-                h = self.frequency * self.freeMat()
+                h = self.frequency * self.freeMat
                 return h
         
+    @property
     def freeMat(self):
-        if self.Matrix == None:
-            self.Matrix = hams.compositeOp(self.operator(self.dimension), self.dimsBefore, self.dimsAfter)
-            return self.Matrix
+        if self.__Matrix == None:
+            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
+            return self.__Matrix
         else:
-            return self.Matrix
+            return self.__Matrix
 
 
 class Qubit(qSystem):
@@ -199,21 +206,22 @@ class Qubit(qSystem):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-class Jmomentum(qSystem):
+class Spin(qSystem):
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.Jz
         self.jValue = 1
         for key, value in kwargs.items():
             setattr(self, key, value)
-        self.dimension = (self.jValue-1)/2
+        self.dimension = ((2*self.jValue) + 1)
 
+    @property
     def freeMat(self):
-        if self.Matrix == None:
-            self.Matrix = hams.compositeOp(self.operator(self.jValue), self.dimsBefore, self.dimsAfter)
-            return self.Matrix
+        if self._qSystem__Matrix == None:
+            self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+            return self._qSystem__Matrix
         else:
-            return self.Matrix
+            return self.__Matrix
 
 class Cavity(qSystem):
     def __init__(self, **kwargs):
