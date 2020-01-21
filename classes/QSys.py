@@ -102,7 +102,6 @@ class QuantumSystem:
             couplingObj._qCoupling__qSys.append(qsystems)
         return couplingObj
 
-
     def reset(self, to=None):
         if to == None:
             self.__keepOld()
@@ -203,8 +202,6 @@ class sysCoupling(qCoupling):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    
-
 class qSystem(object):
     __slots__ = ['__ind', 'name', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
     def __init__(self, name=None, **kwargs):
@@ -263,7 +260,6 @@ class qSystem(object):
         newSub.dimension = qSystem.dimension
         newSub.operator = qSystem.operator
         return newSub
-
 
 class Qubit(qSystem):
     #__slots__ = ['label']
