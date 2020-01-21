@@ -28,8 +28,10 @@ JCSys.couplingName = 'JC'
 
 cav = qsys.Cavity(dimension=resonatorDimension, frequency=resFreq)
 JCSys.addSubSys(cav)
+print(cav.__dict__)
 
-qub = JCSys.createSubSys(subClass=qsys.Qubit,frequency=qfreq)
+qub = JCSys.createSubSys(subClass=qsys.Qubit(),frequency=qfreq)
+print(qub.frequency)
 """print(qub1.frequency)
 
 
@@ -62,7 +64,7 @@ def digitalRabi(obj, stepSize):
 qSim = qsim.Simulation(JCSys)
 qSim.sweepKey = 'frequency'
 
-cavParity = qOps.parityEXP(cav.freeMat())
+cavParity = qOps.parityEXP(cav.freeMat)
 p = Pool(processes=cpu_count())
 """print('simulating Ideal')
 statesIdeal = p.map(partial(qSim.evolveTimeIndep, cav1), qSim.sweepList)
