@@ -1,11 +1,13 @@
 import QuantumToolbox.operators as qOps
 import QuantumToolbox.Hamiltonians as hams
 from datetime import datetime
+import copy
 
 
 class QuantumSystem:
     def __init__(self):
-        self.subSystems = []
+        super().__init__()
+        self.subSystems = {}
         self.__cFncs = []
         self.Couplings = {}
         self.__cMatrices = []
@@ -15,18 +17,28 @@ class QuantumSystem:
 
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
-            newSub = self.__addSub(subSys)
+            if subSys.inComposite == False:
+                newSub = self.__addSub(subSys)
+                return newSub
+            elif subSys.inComposite == True:
+                newSub = subSys.createCopy(subSys)
+                newSub = self.__addSub(newSub)
+                print(newSub.__dict__)
+                print('the qSytem ' + subSys.name + ' was already in the composite, an exact copy of it is created and included in the composite system (named: ' + newSub.name + ' s)')
+                return newSub
         else:
             newSub = subSys(**kwargs)
             self.__addSub(newSub)
-        return newSub
+            return newSub
 
     def __addSub(self, subSys):
-        subSys.ind = len(self.subSystems)
-        for subS in self.subSystems:
-            subSys.dimsBefore *= subS.dimension
-            subS.dimsAfter *= subSys.dimension
-        self.subSystems.append(subSys)
+        subSys._qSystem__ind = len(self.subSystems)
+        for key, subS in self.subSystems.items():
+            subSys._qSystem__dimsBefore *= subS.dimension
+            subS._qSystem__dimsAfter *= subSys.dimension
+        subSys.inComposite = True
+        subSys.name = subSys._qSystem__name
+        self.subSystems[subSys.name] = subSys
         return subSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
@@ -49,9 +61,10 @@ class QuantumSystem:
 
     @property
     def freeHam(self):
-        ham = self.subSystems[0].freeHam
-        for subSys in self.subSystems[1:]:
-            ham += subSys.freeHam
+        freeHams = []
+        for key, val in self.subSystems.items():
+            freeHams.append(val.freeHam)
+        ham = sum(freeHams)
         return ham
 
     @property
@@ -84,7 +97,7 @@ class QuantumSystem:
         orders = []
         for qsys in range(len(qsystems)):
             setattr(self, qsystems[qsys].name + str(self.couplingName) + str(len(self.__cFncs)), couplingOps[qsys])
-            orders.append(qsystems[qsys].ind)
+            orders.append(qsystems[qsys]._qSystem__ind)
         self.__cFncs.append([couplingStrength, orders])
         return 'nothing'
 
@@ -105,12 +118,10 @@ class QuantumSystem:
 
     def __getCoupling(self, ind):
         qts = []
-
-
         for order in self.__cFncs[ind][1]:
-            sys = self.subSystems[order]
+            sys = self.subSystems[str(order)]
             oper = getattr(self, sys.name + str(self.couplingName) + str(ind))
-            cHam = hams.compositeOp(oper(sys.dimension), sys.dimsBefore, sys.dimsAfter)
+            cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
             ts = [order, cHam]
             qts.append(ts)
         cHam = self.__coupOrdering(qts)
@@ -155,6 +166,7 @@ class QuantumSystem:
 
 class qSystem:
     def __init__(self, name=None, **kwargs):
+        super().__init__()
         self.__ind = None
         self.name = name
 
@@ -166,14 +178,12 @@ class qSystem:
 
         self.__dimsBefore = 1
         self.__dimsAfter = 1
+        self.inComposite = False
 
         for key, value in kwargs.items():
             if hasattr(self, key) is False:
                 print('New attribute added:' + key)
             setattr(self, key, value)
-
-        if self.name is None:
-            self.name = str(datetime.timestamp(datetime.now()))
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -198,6 +208,22 @@ class qSystem:
         else:
             return self.__Matrix
 
+    @property
+    def __name(self):
+        if self.name == None:
+            return str(self.__ind)
+        else:
+            return self.name
+
+    @staticmethod
+    def createCopy(qSystem):
+        sysClass = qSystem.__class__
+        newSub = sysClass()
+        newSub.frequency = qSystem.frequency
+        newSub.dimension = qSystem.dimension
+        newSub.operator = qSystem.operator
+        return newSub
+
 
 class Qubit(qSystem):
     def __init__(self, **kwargs):
@@ -205,6 +231,15 @@ class Qubit(qSystem):
         self.operator = qOps.sigmaz
         for key, value in kwargs.items():
             setattr(self, key, value)
+
+    @property
+    def freeHam(self):
+        if self._qSystem__Matrix != None:
+            h = self.frequency * self._qSystem__Matrix
+            return 0.5*h
+        else:
+            h = self.frequency * self.freeMat
+            return 0.5*h
 
 class Spin(qSystem):
     def __init__(self, **kwargs):
