@@ -23,7 +23,6 @@ class QuantumSystem:
             elif subSys.inComposite == True:
                 newSub = subSys.createCopy(subSys)
                 newSub = self.__addSub(newSub)
-                print(newSub.__dict__)
                 print('the qSytem ' + subSys.name + ' was already in the composite, an exact copy of it is created and included in the composite system (named: ' + newSub.name + ' s)')
                 return newSub
         else:
@@ -42,20 +41,28 @@ class QuantumSystem:
         return subSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
-        if n == 1:
-            newSub = self.__addSub(subClass(**kwargs))
+        if isinstance(subClass, qSystem):
+            newSub = subClass.createCopy(subClass)
+            newSub = self.__addSub(newSub)
+            print('Instead of the class, an instance is given, but we are cool')
+            for key, value in kwargs.items():
+                setattr(newSub, key, value)
             return newSub
         else:
-            newSubs = []
-            for nnn in range(n):
+            if n == 1:
                 newSub = self.__addSub(subClass(**kwargs))
-                newSubs.append(newSub)
-            return newSubs
+                return newSub
+            else:
+                newSubs = []
+                for nnn in range(n):
+                    newSub = self.__addSub(subClass(**kwargs))
+                    newSubs.append(newSub)
+                return newSubs
 
     @property
     def totalDim(self):
         tDim = 1
-        for subSys in self.subSystems:
+        for key, subSys in self.subSystems.items():
             tDim *= subSys.dimension
         return tDim
 
@@ -162,9 +169,26 @@ class QuantumSystem:
         else:
             self.Couplings[name] = [self.__cFncs, self.Unitaries]
 
+class qCoupling(object):
+     __slots__ = ['name']
+    def __init__(self):
+        super().__init__()
+        self.name = None
 
+class envCoupling(qCoupling):
+     __slots__ = ['superOp']
+    def __init__(self):
+        super().__init__()
+        self.superOp = 'yes'
 
-class qSystem:
+class sysCoupling(qCoupling):
+     __slots__ = ['coupling']
+    def __init__(self):
+        super().__init__()
+        self.coupling = 'yes'
+
+class qSystem(object):
+    __slots__ = ['__ind', 'name', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
     def __init__(self, name=None, **kwargs):
         super().__init__()
         self.__ind = None
@@ -226,6 +250,7 @@ class qSystem:
 
 
 class Qubit(qSystem):
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.sigmaz
@@ -242,6 +267,7 @@ class Qubit(qSystem):
             return 0.5*h
 
 class Spin(qSystem):
+    __slots__ = ['jValue']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.Jz
@@ -259,6 +285,7 @@ class Spin(qSystem):
             return self.__Matrix
 
 class Cavity(qSystem):
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.number
