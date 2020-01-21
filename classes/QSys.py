@@ -87,8 +87,8 @@ class QuantumSystem:
 
     def addSysCoupling(self, qsystems, couplingOps, couplingStrength):
         couplingObj = sysCoupling(couplingStrength=couplingStrength)
-        couplingObj._qCoupling__cFncs = couplingOps 
-        couplingObj._qCoupling__qSys = qsystems
+        couplingObj._qCoupling__cFncs.append(couplingOps)
+        couplingObj._qCoupling__qSys.append(qsystems)
         couplingObj.name = len(self.Couplings)
         self.Couplings[couplingObj.name] = couplingObj
         return couplingObj
@@ -97,30 +97,17 @@ class QuantumSystem:
         qsystems = [subSys1, subSys2]
         if cType == 'JC':
             self.couplingName = 'JC'
-            self.addSysCoupling(qsystems, [qOps.destroy, qOps.create], cStrength)
-            self.addSysCoupling(qsystems, [qOps.create, qOps.destroy], cStrength)
+            couplingObj = self.addSysCoupling(qsystems, [qOps.destroy, qOps.create], cStrength)
+            couplingObj._qCoupling__cFncs.append([qOps.create, qOps.destroy])
+            couplingObj._qCoupling__qSys.append(qsystems)
+        return couplingObj
 
-    """def __coupOrdering(self, qts):
-        sorted(qts, key=lambda x: x[0], reverse=False)
-        oper = qts[0][1]
-        for ops in range(len(qts)-1):
-            oper = oper @ qts[ops+1][1]
-        return oper
-
-    def __getCoupling(self, ind):
-        qts = []
-        for order in self.__cFncs[ind][1]:
-            sys = self.subSystems[str(order)]
-            oper = getattr(self, sys.name + str(self.couplingName) + str(ind))
-            cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
-            ts = [order, cHam]
-            qts.append(ts)
-        cHam = self.__coupOrdering(qts)
-        return cHam"""
 
     def reset(self, to=None):
         if to == None:
             self.__keepOld()
+            for key, val in self.Couplings.items():
+                val._qCoupling__cMatrix = None
 
             self.Couplings = {}
             self.Unitaries = None
@@ -138,7 +125,7 @@ class QuantumSystem:
         name = self.couplingName
         if name in self.__kept.keys():
             if self.Unitaries != self.__kept[name][1]:
-                name = len(self.Couplings)
+                name = len(self.__kept)
                 self.__kept[name] = [self.Couplings, self.Unitaries]
             else:
                 return 'nothing'
@@ -185,15 +172,18 @@ class qCoupling(object):
         return oper
 
     def __getCoupling(self):
-        qts = []
-        for indx in range(len(self.__qSys)):
-            sys = self.__qSys[indx]
-            order = sys._qSystem__ind
-            oper = self.__cFncs[indx]
-            cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
-            ts = [order, cHam]
-            qts.append(ts)
-        cHam = self.__coupOrdering(qts)
+        cMats = []
+        for ind in range(len(self.__cFncs)):
+            qts = []
+            for indx in range(len(self.__qSys[ind])):
+                sys = self.__qSys[ind][indx]
+                order = sys._qSystem__ind
+                oper = self.__cFncs[ind][indx]
+                cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
+                ts = [order, cHam]
+                qts.append(ts)
+            cMats.append(self.__coupOrdering(qts))
+        cHam = sum(cMats)
         return cHam
 
 class envCoupling(qCoupling):
