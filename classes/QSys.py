@@ -139,7 +139,7 @@ class QuantumSystem:
         if name in self.__kept.keys():
             if self.Unitaries != self.__kept[name][1]:
                 name = len(self.Couplings)
-                self.Couplings[name] = [self.Couplings, self.Unitaries]
+                self.__kept[name] = [self.Couplings, self.Unitaries]
             else:
                 return 'nothing'
         else:
@@ -188,7 +188,6 @@ class qCoupling(object):
         qts = []
         for indx in range(len(self.__qSys)):
             sys = self.__qSys[indx]
-            print(sys)
             order = sys._qSystem__ind
             oper = self.__cFncs[indx]
             cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
