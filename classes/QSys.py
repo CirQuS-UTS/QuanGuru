@@ -98,9 +98,6 @@ class QuantumSystem:
             return cHam
 
     def addCoupling(self, qsystems, couplingOps, couplingStrength):
-        if (self.couplingName == None) or (isinstance(self.couplingName, str) == False):
-            self.couplingName = len(self.Couplings)
-
         orders = []
         for qsys in range(len(qsystems)):
             setattr(self, qsystems[qsys].name + str(self.couplingName) + str(len(self.__cFncs)), couplingOps[qsys])
@@ -157,11 +154,11 @@ class QuantumSystem:
         if name in self.Couplings:
             if self.Unitaries != self.Couplings[name][1]:
                 name = len(self.Couplings)
-                for qs in self.subSystems:
-                    ind = qs.ind
+                for key, qs in self.subSystems.items():
+                    ind = qs._qSystem__ind
                     aaa = 0
                     for order in self.__cFncs[ind][1]:
-                        sys = self.subSystems[order]
+                        sys = self.subSystems[str(order)]
                         oper = getattr(self, sys.name + str(self.couplingName) + str(ind))
                         setattr(self, qs.name + str(name) + str(aaa), oper)
                         aaa += 1
@@ -170,22 +167,24 @@ class QuantumSystem:
             self.Couplings[name] = [self.__cFncs, self.Unitaries]
 
 class qCoupling(object):
-     __slots__ = ['name']
+    __slots__ = ['name']
     def __init__(self):
         super().__init__()
         self.name = None
 
 class envCoupling(qCoupling):
-     __slots__ = ['superOp']
+    __slots__ = ['superOp']
     def __init__(self):
         super().__init__()
         self.superOp = 'yes'
 
 class sysCoupling(qCoupling):
-     __slots__ = ['coupling']
+    __slots__ = ['coupling']
     def __init__(self):
         super().__init__()
-        self.coupling = 'yes'
+        self.couplingName = None
+
+    
 
 class qSystem(object):
     __slots__ = ['__ind', 'name', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
@@ -250,10 +249,11 @@ class qSystem(object):
 
 
 class Qubit(qSystem):
-    __slots__ = []
+    #__slots__ = ['label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.sigmaz
+        self.label = 'Qubit'
         for key, value in kwargs.items():
             setattr(self, key, value)
 
@@ -267,11 +267,12 @@ class Qubit(qSystem):
             return 0.5*h
 
 class Spin(qSystem):
-    __slots__ = ['jValue']
+    #__slots__ = ['jValue', 'label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.Jz
         self.jValue = 1
+        self.label = 'Spin'
         for key, value in kwargs.items():
             setattr(self, key, value)
         self.dimension = ((2*self.jValue) + 1)
@@ -285,9 +286,10 @@ class Spin(qSystem):
             return self.__Matrix
 
 class Cavity(qSystem):
-    __slots__ = []
+    #__slots__ = ['label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.number
+        self.label = 'Cavity'
         for key, value in kwargs.items():
             setattr(self, key, value)
