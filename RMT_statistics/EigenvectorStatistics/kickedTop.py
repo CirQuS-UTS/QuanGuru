@@ -25,14 +25,15 @@ U_op = liou.Liouvillian(v_op)@U_ho
 
 vecso = lina.eig(U_o.toarray())[1]
 #basiso = lina.eig(U_op.toarray())[1]
-basiso = states.genericBasis(int((2*j)),sparse=True)
+basiso = states.genericBasis(int((2*j + 1)))
+print(basiso[0])
 
 compso = []
 for i in range(len(vecso)):
     bra = np.transpose(np.conjugate(vecso[i]))
     print(i)
     for k in range(int(len(basiso))):
-        overlap1 = (bra@(basiso[k]))[0]
+        overlap1 = (bra@(basiso[k]))
         p1 = np.real(np.conjugate(overlap1)*overlap1)
         compso.append(p1)
 fig = plt.figure()
@@ -40,9 +41,9 @@ ax = plt.subplot2grid((1, 1), (0, 0), colspan=1)
 pltSet.plottingSet(ax)
 plt.hist(compso, bins=50, density=True)
 x = np.arange(0.00001, 0.05, 0.00001)
-COE = [RMTdist.EigenVectorDist(X, int(2*j), 1) for X in x]
-CUE = [RMTdist.EigenVectorDist(X, int(2*j), 2) for X in x]
-CSE = [RMTdist.EigenVectorDist(X, int(2*j), 4) for X in x]
+COE = [RMTdist.EigenVectorDist(X, int(2*j) + 1, 1) for X in x]
+CUE = [RMTdist.EigenVectorDist(X, int(2*j) + 1, 2) for X in x]
+CSE = [RMTdist.EigenVectorDist(X, int(2*j) + 1, 4) for X in x]
 plt.plot(x, COE, 'r-', label=r'COE ($\beta = 1$)')
 plt.plot(x, CUE, 'g-', label=r'CUE ($\beta = 2$)')
 plt.plot(x, CSE, 'b-', label=r'CSE ($\beta = 4$)')
