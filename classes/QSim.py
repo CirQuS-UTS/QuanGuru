@@ -8,10 +8,10 @@ class Simulation(object):
     def __init__(self, QSys):
         self.qSys = QSys
         self.allStates = True
-        ################ Time Dependent Hamiltonian ################
+        # Time Dependent Hamiltonian
         self.timeKey = ''
 
-        ################ Default Simulation Parameters ##################
+        # Default Simulation Parameters
         # time parameters
         self.finalTime = 1  # total time of simulation
         self.StepSize = 0.02  # sampling time step
@@ -22,7 +22,7 @@ class Simulation(object):
         self.sweepMin = -3
         self.sweepPerturbation = 0.05
 
-        ###################### Saving Options ########################
+        # Saving Options
         self.irregular = False
 
     def __del__(self):
@@ -43,7 +43,7 @@ class Simulation(object):
         elif hasattr(self, self.sweepKey):
             setattr(self, self.sweepKey, sweep)
         else:
-            print("no attribute")
+            print("Key is not an atribute")
 
         if self.qSys.Unitaries is None:
             unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
@@ -67,8 +67,7 @@ class Simulation(object):
         state = self.qSys.initialState
         states = [state]
         for value in sweep:
-            setattr(Qsys, self.sweepKey, value)
-
+            setattr(Qsys, self.timeKey, value)
             unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
                                       timeStep=self.StepSize)
 
@@ -77,18 +76,18 @@ class Simulation(object):
 
         return states
 
-    def evolveTimeDep2(self, Qsys, sweep):
-        state = self.initialState
-        states = [state]
+    # def evolveTimeDep2(self, Qsys, sweep):
+    #     state = self.initialState
+    #     states = [state]
 
-        for value in sweep:
-            for ii, qsys in enumerate(Qsys):
-                setattr(qsys, self.sweepKey, value[ii])
+    #     for value in sweep:
+    #         for ii, qsys in enumerate(Qsys):
+    #             setattr(qsys, self.sweepKey, value[ii])
 
-            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
-                                      timeStep=self.StepSize)
-            print(unitary)
-            state = unitary @ state
-            states.append(state)
+    #         unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
+    #                                   timeStep=self.StepSize)
+    #         print(unitary)
+    #         state = unitary @ state
+    #         states.append(state)
 
-        return states
+    #     return states

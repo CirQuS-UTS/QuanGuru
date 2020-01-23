@@ -23,7 +23,7 @@ class QuantumSystem:
 
                 newSub = subSys.createCopy(subSys)
                 newSub = self.__addSub(newSub)
-                print('the qSytem ' + subSys.name + ' was already in the composite, an exact copy of it is created and included in the composite system (named: ' + newSub.name + ' s)')
+                print('Sub system is already in the composite, copy created and added')
                 return newSub
         else:
             newSub = subSys(**kwargs)
@@ -96,24 +96,8 @@ class QuantumSystem:
         return couplingObj
 
     def addSysCoupling(self, couplingObj):
-        couplingObj.name = len(self.Couplings)
         self.Couplings[couplingObj.name] = couplingObj
-        if len(self.__cMatrices) == 0:
-            coupled = self.__getCoupling(0)
-            cHam = self.__cFncs[0][0] * coupled
-            self.__cMatrices.append(coupled)
-            for ind in range(len(self.__cFncs) - 1):
-                coupled = self.__getCoupling(ind + 1)
-                cHam += self.__cFncs[ind + 1][0] * coupled
-                self.__cMatrices.append(coupled)
-            return cHam
-        else:
-            coupled = self.__cMatrices[0]
-            cHam = self.__cFncs[0][0] * coupled
-            for ind in range(len(self.__cFncs) - 1):
-                coupled = self.__cMatrices[ind + 1]
-                cHam += self.__cFncs[ind + 1][0] * coupled
-            return cHam
+        return couplingObj
 
     def addCoupling(self, qsystems, couplingOps, couplingStrength):
         orders = []
@@ -310,7 +294,7 @@ class qSystem(object):
         if self.operator is None:
             raise ValueError('No operator is given for free Hamiltonian')
         else:
-            if self.__Matrix is None:
+            if self.__Matrix is not None:
                 h = self.frequency * self.__Matrix
                 return h
             else:
@@ -320,7 +304,11 @@ class qSystem(object):
     @property
     def freeMat(self):
         if self.__Matrix is None:
-            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
+            self.__Matrix = hams.compositeOp(
+                self.operator(self.dimension),
+                self.__dimsBefore,
+                self.__dimsAfter)
+
             return self.__Matrix
         else:
             return self.__Matrix
