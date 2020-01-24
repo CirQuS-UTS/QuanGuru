@@ -74,13 +74,13 @@ def __pltEig(xax, Dims, Bins=None, x=None, Step=False, logScale=False, ax=None, 
         ax.step(x, CUE, 'g-', label=r'CUE ($\beta = 2$)')
         ax.step(x, CSE, 'b-', label=r'CSE ($\beta = 4$)')
 
-    pltSet.plottingSet(ax)
+    ax = pltSet.plottingSet(ax)
     
     if logScale == True:
         ax.set_xscale('log')
         ax.set_yscale('log')
-        plt.xlim([0.00001, 1])
-        plt.ylim([0.1, 10*Dims])
+        ax.set_xlim([0.00001, 1])
+        ax.set_ylim([0.1, 10*Dims])
     elif logScale == False:
         ax.set_ylim([0, Dims])
         ax.set_xlim([0, xlim])
@@ -88,7 +88,9 @@ def __pltEig(xax, Dims, Bins=None, x=None, Step=False, logScale=False, ax=None, 
         ax.set_xticks([0.0, xlim/2, xlim])
 
     if Legend == True:
-        plt.legend(loc='upper right', fontsize='x-large')
+        ax.legend(loc='upper right', fontsize='x-large')
+
+    return 'nothing'
 
 def _pltEig(xax, Dims, ax, Bins=None, Step=False, logScale=True, lvl=True, Legend=True, xLim=0.04):
     if lvl == True:
@@ -98,8 +100,9 @@ def _pltEig(xax, Dims, ax, Bins=None, Step=False, logScale=True, lvl=True, Legen
         else:
             x = np.arange(0.00001, 1, 0.00001)
             __pltEig(xax, Dims, Bins, x, Step, logScale, ax, Legend, xLim)
+        return 'nothing'
     else:
-        plt.hist(xax, density=True)
+        ax.hist(xax, density=True)
         return 'nothing'
 
 def pltEig(xax, Dims, Bins=None, Step=False, logScale=True, lvl=True, ax=None, Legend=True, xlim=0.04):
@@ -108,7 +111,8 @@ def pltEig(xax, Dims, Bins=None, Step=False, logScale=True, lvl=True, ax=None, L
         _pltEig(xax, Dims, ax, Bins, Step, logScale, lvl, Legend, xlim)
         fig.text(0.5, 0.01, r'$|c_n|^2$', ha='center', fontsize=24)
         fig.text(0.005, 0.5, r'# of $|c_n|^2$', va='center', rotation='vertical', fontsize=24)
+        plt.show()
+        return 'nothing'
     else:
         _pltEig(xax, Dims, ax, Bins, Step, logScale, lvl, Legend, xlim)
-
-    
+        return 'nothing'
