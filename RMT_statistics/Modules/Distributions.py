@@ -12,7 +12,8 @@ def EigenVectorDist(x, dim, beta=1):
     elif beta == 4:
         coef = (dim - 1)*(dim - 2)
         dist = x*((1-x)**(dim - 1))
-    return coef*dist
+    val = coef*dist
+    return val if val != 0 else 10**-30
 
 
 def WignerDyson(x, beta=1):
@@ -25,7 +26,8 @@ def WignerDyson(x, beta=1):
     elif beta == 4:
         coef = (2**18)/((3**6)*(pi**3))
         dist = (x ** beta) * (e ** (-(64 * (x ** 2)) / (9*pi)))
-    return coef*dist
+    val = coef*dist
+    return val if val != 0 else 10**-30
 
 
 def Poissonian(x, lam):
