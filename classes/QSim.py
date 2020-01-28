@@ -9,7 +9,7 @@ class Simulation(object):
         self.allStates = True
         ################ Time Dependent Hamiltonian ################
         self.timeKey = ''
-
+        self.yData = []
         ################ Default Simulation Parameters ##################
         # time parameters
         self.finalTime = 1  # total time of simulation
@@ -58,5 +58,31 @@ class Simulation(object):
             return states
         else:
             for ijkn in range(len(self.times) - 1):
+                state = unitary @ state
+            return state
+
+    def randStep(self, QSys, sweep):
+        if hasattr(QSys, self.sweepKey):
+            setattr(QSys, self.sweepKey, sweep)
+        elif hasattr(self, self.sweepKey):
+            setattr(self, self.sweepKey, sweep)
+        else:
+            print("no attribute")
+
+        UnitaryList = []
+        for stepSize in self.yData:
+            UnitaryList.append(self.qSys.Unitaries(self.qSys, stepSize))
+
+        state = self.qSys.initialState
+        if self.allStates:
+            states = [state]
+            for ijkn in range(len(UnitaryList)):
+                unitary = UnitaryList[ijkn]
+                state = unitary @ state
+                states.append(state)
+            return states
+        else:
+            for ijkn in range(UnitaryList):
+                unitary = UnitaryList[ijkn]
                 state = unitary @ state
             return state
