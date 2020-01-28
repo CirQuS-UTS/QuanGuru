@@ -18,7 +18,7 @@ def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False):
 
     if irregular == False:
         cm = pltFncs.createMAP(mapC)
-        fig2, ax2 = plt.subplots()
+        fig2, ax2 = plt.subplots(figsize=(12, 9))
         pltSet.plottingSet(ax2)
         Y, X = np.meshgrid(y, x)
         surf2 = ax2.pcolormesh(X, Y, z, cmap=cm, norm=pltFncs.normalizeCMAP(cm, minC, maxC))
@@ -34,7 +34,7 @@ def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False):
 
 
 def colorPlotIreg(x, y, z, maxC=1, minC=-1, mapC = 'PuYlGn'):
-    fig2, ax2 = plt.subplots()
+    fig2, ax2 = plt.subplots(figsize=(12, 9))
     pltSet.plottingSet(ax2)
     for hdgf in range(len(x) - 1):
         StepSize = x[hdgf]
@@ -66,9 +66,9 @@ def __pltEig(xax, Dims, Bins=None, x=None, Step=False, logScale=False, ax=None, 
     CSE = [RMTdist.EigenVectorDist(X, int(Dims), 4) for X in x]
 
     if Step == False:
-        ax.plot(x, COE, 'r-', label=r'COE ($\beta = 1$)')
-        ax.plot(x, CUE, 'g-', label=r'CUE ($\beta = 2$)')
-        ax.plot(x, CSE, 'b-', label=r'CSE ($\beta = 4$)')
+        ax.plot(x, COE, 'r-', label=r'COE ($\beta = 1$)', linewidth=3)
+        ax.plot(x, CUE, 'g-', label=r'CUE ($\beta = 2$)', linewidth=3)
+        ax.plot(x, CSE, 'b-', label=r'CSE ($\beta = 4$)', linewidth=3)
     elif Step == True:
         ax.step(x, COE, 'r-', label=r'COE ($\beta = 1$)')
         ax.step(x, CUE, 'g-', label=r'CUE ($\beta = 2$)')

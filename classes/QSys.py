@@ -97,8 +97,8 @@ class QuantumSystem:
         qsystems = [subSys1, subSys2]
         if cType == 'JC':
             self.couplingName = 'JC'
-            couplingObj = self.addSysCoupling(qsystems, [qOps.destroy, qOps.create], cStrength)
-            couplingObj._qCoupling__cFncs.append([qOps.create, qOps.destroy])
+            couplingObj = self.addSysCoupling(qsystems, [qOps.destroy, qOps.sigmap], cStrength)
+            couplingObj._qCoupling__cFncs.append([qOps.create, qOps.sigmam])
             couplingObj._qCoupling__qSys.append(qsystems)
         return couplingObj
 
