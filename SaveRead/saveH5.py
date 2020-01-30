@@ -3,15 +3,31 @@ import os
 from datetime import datetime
 
 
+def __dirNew(subs,rootDir):
+    if isinstance(subs, str) == True:
+        if not os.path.isdir(path):
+            os.mkdir(path)
+    else:
+        for subDir in subs:
+            __dirNew(subDir)
+        
+
+
 def makeDir(timestamp='', RootPath='/Users/cahitkargi/Dropbox/PhD/Numerical Results/'):
     if timestamp == '':
         now = datetime.now()
         date_time = now.strftime("%Y-%m-%d")
+        year = fdate.strftime("%Y")
     else:
         fdate = datetime.fromtimestamp(timestamp)
+        year = fdate.strftime("%Y")
         date_time = fdate.strftime("%Y-%m-%d")
 
-    path = RootPath + date_time
+    path = RootPath + year
+    if not os.path.isdir(path):
+        os.mkdir(path)
+
+    path = path + date_time
 
     if not os.path.isdir(path):
         os.mkdir(path)
@@ -51,6 +67,7 @@ def writeAttr(k, attribbutes):
 def readData(timestamp, key = '', RootPath='/Users/cahitkargi/Dropbox/PhD/Numerical Results/'):
     fdate = datetime.fromtimestamp(timestamp)
     date = fdate.strftime("%Y-%m-%d")
-    path = RootPath + '/' + date + '/'+ str(timestamp) + '.h5'
+    year = fdate.strftime("%Y")
+    path = RootPath + '/'+ year + '/' + date + '/' + str(timestamp) + '.h5'
     f = h5py.File(path, 'r')
     return f if key == '' else list(f[key])
