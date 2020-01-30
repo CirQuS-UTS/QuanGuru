@@ -65,7 +65,7 @@ class Simulation(object):
 
     def evolveTimeDep1(self, Qsys, sweep):
         state = self.qSys.initialState
-        states = [state]
+        states = []
         for value in sweep:
             setattr(Qsys, self.timeKey, value)
             unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,

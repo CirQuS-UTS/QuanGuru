@@ -24,6 +24,15 @@ def expectationList(operator, states):
     return expectations
 
 
+def expectationCollList(operator, states):
+    '''
+        Calculates the expectation values of a list of collumn
+        states thru matrix multiplication
+    '''
+    expMat = states.conj().T @ operator @ states
+    return expMat.diagonal()
+
+
 def fidelityKet(state1, state2):
     herm = state1.conj().T
     fidelityA = ((herm @ state2).diagonal()).sum()
