@@ -4,7 +4,7 @@ import numpy as np
 import Plotting.plottingSettings as pltSet
 import RMT_statistics.Modules.Distributions as RMTdist
 
-def cb(cbar, ticks):
+def cb(cbar, ticks,ax):
     cbar.ax.tick_params(labelsize=20)
 
     for l in cbar.ax.yaxis.get_ticklabels():
@@ -12,30 +12,32 @@ def cb(cbar, ticks):
     cbar.set_ticks(ticks)
 
 
-def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False):
+def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False, ax=None, logScaleX=False):
     if (mapC == 'PuYlGn') and (minC == 0):
         mapC == 'PuYl'
 
     if irregular == False:
         cm = pltFncs.createMAP(mapC)
-        fig2, ax2 = plt.subplots(figsize=(12, 9))
-        pltSet.plottingSet(ax2)
+        if ax == None:
+            fig2, ax = plt.subplots(figsize=(12, 9))
+        pltSet.plottingSet(ax)
         Y, X = np.meshgrid(y, x)
-        surf2 = ax2.pcolormesh(X, Y, z, cmap=cm, norm=pltFncs.normalizeCMAP(cm, minC, maxC))
+        surf2 = ax.pcolormesh(X, Y, z, cmap=cm, norm=pltFncs.normalizeCMAP(cm, minC, maxC))
         cbar = plt.colorbar(surf2)
-        cb(cbar,[minC,(minC+maxC)/2,maxC])
+        cb(cbar,[minC,(minC+maxC)/2,maxC],ax)
         plt.show()
         return surf2
     else:
-        surf2 = colorPlotIreg(x, y[-1], z, maxC, minC, mapC)
+        surf2 = colorPlotIreg(x, y[-1], z, maxC, minC, mapC, ax, logScaleX)
         cbar = plt.colorbar(surf2)
-        cb(cbar,[minC,(minC+maxC)/2,maxC])
+        cb(cbar,[minC,(minC+maxC)/2,maxC],ax)
         return surf2
 
 
-def colorPlotIreg(x, y, z, maxC=1, minC=-1, mapC = 'PuYlGn'):
-    fig2, ax2 = plt.subplots(figsize=(12, 9))
-    pltSet.plottingSet(ax2)
+def colorPlotIreg(x, y, z, maxC=1, minC=-1, mapC = 'PuYlGn', ax=None, logScaleX=False):
+    if ax == None:
+        fig2, ax = plt.subplots(figsize=(12, 9))
+    pltSet.plottingSet(ax)
     for hdgf in range(len(x) - 1):
         StepSize = x[hdgf]
         Y0 = np.arange(0, y + StepSize, StepSize)
@@ -48,7 +50,14 @@ def colorPlotIreg(x, y, z, maxC=1, minC=-1, mapC = 'PuYlGn'):
 
         X, Y = np.meshgrid(X0, Y0)
         cm = pltFncs.createMAP(mapC)
-        surf2 = ax2.pcolormesh(X, Y, Z0, cmap=cm, norm=pltFncs.normalizeCMAP(cm, minC, maxC))
+        surf2 = ax.pcolormesh(X, Y, Z0, cmap=cm, norm=pltFncs.normalizeCMAP(cm, minC, maxC))
+
+    if logScaleX == True:
+        ax.set_xscale('log')
+    
+    """if logScaleY == True:
+        ax.set_yscale('log')"""
+
     return surf2
 
 
