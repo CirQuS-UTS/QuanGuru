@@ -76,18 +76,24 @@ class Simulation(object):
 
         return states
 
-    # def evolveTimeDep2(self, Qsys, sweep):
-    #     state = self.initialState
-    #     states = [state]
+    def evolveTD_get_excitations(self, Qsys, sweep):
+        state = self.qSys.initialState
+        states = []
+        excitations_sweep = []
 
-    #     for value in sweep:
-    #         for ii, qsys in enumerate(Qsys):
-    #             setattr(qsys, self.sweepKey, value[ii])
+        for value in sweep:
+            setattr(Qsys, self.timeKey, value)
+            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
+                                      timeStep=self.StepSize)
+            state = unitary @ state
+            states.append(state)
 
-    #         unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
-    #                                   timeStep=self.StepSize)
-    #         print(unitary)
-    #         state = unitary @ state
-    #         states.append(state)
+            eigen_values, eigen_states = np.linalg.eig(self.qSys.totalHam.A)
 
-    #     return states
+            sort = np.argsort(eigen_values)
+            eigen_states = np.transpose(eigen_states.conj())[sort]
+
+            excitations = np.abs(np.transpose(eigen_states @ state))**2
+            excitations_sweep.append(excitations)
+
+        return excitations_sweep
