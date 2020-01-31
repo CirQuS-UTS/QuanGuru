@@ -78,7 +78,6 @@ class Simulation(object):
 
     def evolveTD_get_excitations(self, Qsys, sweep):
         state = self.qSys.initialState
-        states = []
         excitations_sweep = []
 
         for value in sweep:
@@ -86,7 +85,6 @@ class Simulation(object):
             unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
                                       timeStep=self.StepSize)
             state = unitary @ state
-            states.append(state)
 
             eigen_values, eigen_states = np.linalg.eig(self.qSys.totalHam.A)
 
@@ -96,4 +94,4 @@ class Simulation(object):
             excitations = np.abs(np.transpose(eigen_states @ state))**2
             excitations_sweep.append(excitations)
 
-        return excitations_sweep
+        return np.transpose(excitations_sweep)
