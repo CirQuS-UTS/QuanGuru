@@ -14,7 +14,7 @@ def cb(cbar, ticks,ax):
 
 def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False, ax=None, logScaleX=False):
     if (mapC == 'PuYlGn') and (minC == 0):
-        mapC == 'PuYl'
+        mapC == 'GrYl'
 
     if irregular == False:
         cm = pltFncs.createMAP(mapC)
@@ -23,13 +23,13 @@ def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False, ax=None
         pltSet.plottingSet(ax)
         Y, X = np.meshgrid(y, x)
         surf2 = ax.pcolormesh(X, Y, z, cmap=cm, norm=pltFncs.normalizeCMAP(cm, minC, maxC))
-        cbar = plt.colorbar(surf2)
+        cbar = plt.colorbar(surf2, ax=ax)
         cb(cbar,[minC,(minC+maxC)/2,maxC],ax)
         plt.show()
         return surf2
     else:
         surf2 = colorPlotIreg(x, y[-1], z, maxC, minC, mapC, ax, logScaleX)
-        cbar = plt.colorbar(surf2)
+        cbar = plt.colorbar(surf2, ax=ax)
         cb(cbar,[minC,(minC+maxC)/2,maxC],ax)
         return surf2
 
