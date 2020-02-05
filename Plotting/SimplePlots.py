@@ -12,9 +12,9 @@ def cb(cbar, ticks,ax):
     cbar.set_ticks(ticks)
 
 
-def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False, ax=None, logScaleX=False):
+def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False, ax=None, logScaleX=False, steps=None):
     if (mapC == 'PuYlGn') and (minC == 0):
-        mapC == 'GrYl'
+        mapC = 'GrYl'
 
     if irregular == False:
         cm = pltFncs.createMAP(mapC)
@@ -25,21 +25,24 @@ def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False, ax=None
         surf2 = ax.pcolormesh(X, Y, z, cmap=cm, norm=pltFncs.normalizeCMAP(cm, minC, maxC))
         cbar = plt.colorbar(surf2, ax=ax)
         cb(cbar,[minC,(minC+maxC)/2,maxC],ax)
-        plt.show()
+        if logScaleX == True:
+            ax.set_xscale('log')
         return surf2
     else:
-        surf2 = colorPlotIreg(x, y[-1], z, maxC, minC, mapC, ax, logScaleX)
-        cbar = plt.colorbar(surf2, ax=ax)
-        cb(cbar,[minC,(minC+maxC)/2,maxC],ax)
+        surf2 = colorPlotIreg(x, y[-1], z, maxC, minC, mapC, ax, logScaleX, steps)
         return surf2
 
 
-def colorPlotIreg(x, y, z, maxC=1, minC=-1, mapC = 'PuYlGn', ax=None, logScaleX=False):
+def colorPlotIreg(x, y, z, maxC=1, minC=-1, mapC = 'PuYlGn', ax=None, logScaleX=False, steps=None):
     if ax == None:
         fig2, ax = plt.subplots(figsize=(12, 9))
     pltSet.plottingSet(ax)
     for hdgf in range(len(x) - 1):
-        StepSize = x[hdgf]
+        
+        if isinstance(steps, np.ndarray) == True:
+            StepSize = steps[hdgf]
+        else:
+            StepSize = x[hdgf]
         Y0 = np.arange(0, y + StepSize, StepSize)
         X0 = [StepSize, StepSize + x[hdgf + 1] - x[hdgf]]
         Z0 = []
@@ -54,6 +57,11 @@ def colorPlotIreg(x, y, z, maxC=1, minC=-1, mapC = 'PuYlGn', ax=None, logScaleX=
 
     if logScaleX == True:
         ax.set_xscale('log')
+
+    ax.set_ylim([0, y])
+
+    cbar = plt.colorbar(surf2, ax=ax)
+    cb(cbar,[minC,(minC+maxC)/2,maxC],ax)
     
     """if logScaleY == True:
         ax.set_yscale('log')"""
