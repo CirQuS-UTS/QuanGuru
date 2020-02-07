@@ -111,6 +111,7 @@ class QuantumSystem:
             if subSys2.operator == qOps.sigmaz:
                 print('sigmaz')
                 couplingObj = self.createSysCoupling(qsystems, [qOps.destroy, qOps.sigmap], cStrength)
+                # below line can be replaced with add_term,but lets keep as it is for the moment
                 couplingObj._qCoupling__cFncs.append([qOps.create, qOps.sigmam])
             else:
                 print('number')
