@@ -26,7 +26,7 @@ def expectationList(operator, states):
 
 def expectationCollList(operator, states):
     '''
-        Calculates the expectation values of a list of collumn
+        Calculates the expectation values of a list of column
         states thru matrix multiplication
     '''
     expMat = states.conj().T @ operator @ states
