@@ -1,6 +1,6 @@
 import QuantumToolbox.liouvillian as lio
 import numpy as np
-
+import scipy as sp
 """ under construction """
 
 
@@ -63,7 +63,7 @@ class Simulation(object):
                 state = unitary @ state
             return state
 
-    def evolveTimeDep1(self, Qsys, sweep):
+    def evolveTimeDep(self, Qsys, sweep):
         state = self.qSys.initialState
         states = []
         for value in sweep:
@@ -86,12 +86,12 @@ class Simulation(object):
                                       timeStep=self.StepSize)
             state = unitary @ state
 
-            eigen_values, eigen_states = np.linalg.eig(self.qSys.totalHam.A)
+            eigen_values, eigen_states = sp.linalg.eig(self.qSys.totalHam.A)
 
             sort = np.argsort(eigen_values)
             eigen_states = np.transpose(eigen_states.conj())[sort]
 
-            excitations = np.abs(np.transpose(eigen_states @ state))**2
+            excitations = (np.abs(np.transpose(eigen_states @ state))**2)[0]
             excitations_sweep.append(excitations)
 
         return np.transpose(excitations_sweep)
