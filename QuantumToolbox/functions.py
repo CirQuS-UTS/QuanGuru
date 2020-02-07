@@ -7,9 +7,11 @@ def expectationKet(operator, state):
     expc = (((state.conj().T) @ operator @ state).diagonal()).sum()
     return np.real(expc)
 
+
 def expectationMat(operator, state):
     expc = ((operator @ state).diagonal()).sum()
     return np.real(expc)
+
 
 def expectationList(operator, states):
     expectations = []
@@ -21,14 +23,26 @@ def expectationList(operator, states):
             expectations.append(np.real(((operator @ state).diagonal()).sum()))
     return expectations
 
+
+def expectationCollList(operator, states):
+    '''
+        Calculates the expectation values of a list of collumn
+        states thru matrix multiplication
+    '''
+    expMat = states.conj().T @ operator @ states
+    return expMat.diagonal()
+
+
 def fidelityKet(state1, state2):
     herm = state1.conj().T
     fidelityA = ((herm @ state2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
 
+
 def fidelityPureMat(state1, state2):
     fidelityA = ((state1 @ state2).diagonal()).sum()
     return np.real(fidelityA)
+
 
 def entropy(psi, base2=False):
     if psi.shape[0] != psi.shape[1]:
@@ -50,7 +64,8 @@ def entropy(psi, base2=False):
     S = float(np.real(-sum(nzvals * logvals)))
     return S
 
-def partial_trace(keep, dims,rho):
+
+def partial_trace(keep, dims, rho):
     """
     Found on: https://scicomp.stackexchange.com/questions/30052/calculate-partial-trace-of-an-outer-product-in-python
     Calculate the partial trace
@@ -89,9 +104,10 @@ def partial_trace(keep, dims,rho):
 
     idx1 = [i for i in range(Ndim)]
     idx2 = [Ndim+i if i in keep else i for i in range(Ndim)]
-    rho_a = rho.reshape(np.tile(dims,2))
+    rho_a = rho.reshape(np.tile(dims, 2))
     rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)
     return rho_a.reshape(Nkeep, Nkeep)
+
 
 def IPRket(basis, state):
     """
