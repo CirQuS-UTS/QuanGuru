@@ -41,10 +41,10 @@ def normalizeCMAP(cmap, llim, ulim):
     norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
     return norm
 
-def grid(n,m):
+def grid(n,m, fig=None):
     axList = []
     for i in range(n):
         for j in range(m):
-            ax = plt.subplot2grid((n, m), (i, j), colspan=1)
+            ax = plt.subplot2grid((n, m), (i, j), colspan=1 ,fig=fig)
             axList.append(ax)
     return axList

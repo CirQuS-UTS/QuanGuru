@@ -1,7 +1,5 @@
 import QuantumToolbox.operators as qOps
 import QuantumToolbox.Hamiltonians as hams
-# from datetime import datetime
-# import copy
 
 
 class QuantumSystem:
@@ -87,6 +85,7 @@ class QuantumSystem:
         cham = sum(cHams)
         return cham
 
+
     def createSysCoupling(self, qsystems, couplingOps, couplingStrength):
         couplingObj = sysCoupling(couplingStrength=couplingStrength)
         couplingObj._qCoupling__cFncs.append(couplingOps)
@@ -94,19 +93,11 @@ class QuantumSystem:
         couplingObj.name = len(self.Couplings)
         self.Couplings[couplingObj.name] = couplingObj
         return couplingObj
+        
 
     def addSysCoupling(self, couplingObj):
         self.Couplings[couplingObj.name] = couplingObj
         return couplingObj
-
-    def addCoupling(self, qsystems, couplingOps, couplingStrength):
-        orders = []
-        for qsys in range(len(qsystems)):
-            setattr(self, qsystems[qsys].name + str(self.couplingName) +
-                    str(len(self.__cFncs)), couplingOps[qsys])
-            orders.append(qsystems[qsys]._qSystem__ind)
-        self.__cFncs.append([couplingStrength, orders])
-        return 'nothing'
 
     def coupleBy(self, subSys1, subSys2, cType, cStrength):
         '''
@@ -117,33 +108,16 @@ class QuantumSystem:
         qsystems = [subSys1, subSys2]
         if cType == 'JC':
             self.couplingName = 'JC'
-            couplingObj = self.addSysCoupling(
-                qsystems, [qOps.destroy, qOps.create], cStrength)
-            couplingObj._qCoupling__cFncs.append([qOps.create, qOps.destroy])
+            if subSys2.operator == qOps.sigmaz:
+                print('sigmaz')
+                couplingObj = self.addSysCoupling(qsystems, [qOps.destroy, qOps.sigmap], cStrength)
+                couplingObj._qCoupling__cFncs.append([qOps.create, qOps.sigmam])
+            else:
+                print('number')
+                couplingObj = self.addSysCoupling(qsystems, [qOps.destroy, qOps.create], cStrength)
+                couplingObj._qCoupling__cFncs.append([qOps.create, qOps.destroy])
             couplingObj._qCoupling__qSys.append(qsystems)
         return couplingObj
-
-    def __coupOrdering(self, qts):
-        sorted(qts, key=lambda x: x[0], reverse=False)
-        oper = qts[0][1]
-        for ops in range(len(qts)-1):
-            oper = oper @ qts[ops+1][1]
-        return oper
-
-    def __getCoupling(self, ind):
-        qts = []
-        for order in self.__cFncs[ind][1]:
-            sys = self.subSystems[str(order)]
-            oper = getattr(self, sys.name + str(self.couplingName) + str(ind))
-            cHam = hams.compositeOp(
-                oper(sys.dimension),
-                sys._qSystem__dimsBefore,
-                sys._qSystem__dimsAfter)
-
-            ts = [order, cHam]
-            qts.append(ts)
-        cHam = self.__coupOrdering(qts)
-        return cHam
 
     def reset(self, to=None):
         if to is None:
@@ -169,6 +143,8 @@ class QuantumSystem:
             if self.Unitaries != self.__kept[name][1]:
                 name = len(self.__kept)
                 self.__kept[name] = [self.Couplings, self.Unitaries]
+            else:
+                return 'nothing'
         else:
             self.__kept[name] = [self.Couplings, self.Unitaries]
 
@@ -226,7 +202,7 @@ class qCoupling(object):
                     oper(sys.dimension),
                     sys._qSystem__dimsBefore,
                     sys._qSystem__dimsAfter)
-
+                    
                 ts = [order, cHam]
                 qts.append(ts)
             cMats.append(self.__coupOrdering(qts))
@@ -249,7 +225,6 @@ class envCoupling(qCoupling):
         self.label = 'Environment'
         for key, value in kwargs.items():
             setattr(self, key, value)
-
 
 class sysCoupling(qCoupling):
     __slots__ = ['couplingName', 'label']
@@ -282,8 +257,6 @@ class qSystem(object):
         self.inComposite = False
 
         for key, value in kwargs.items():
-            if hasattr(self, key) is False:
-                print('New attribute added:' + key)
             setattr(self, key, value)
 
     def __del__(self):
@@ -328,7 +301,6 @@ class qSystem(object):
         newSub.dimension = qSystem.dimension
         newSub.operator = qSystem.operator
         return newSub
-
 
 class Qubit(qSystem):
     # __slots__ = ['label']

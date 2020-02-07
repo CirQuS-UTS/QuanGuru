@@ -47,6 +47,20 @@ def sigmaz(N=2, sparse=True):
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse == True else n.toarray()
 
+def sigmap(N=2, sparse=True):
+    data = [1]
+    rows = [0]
+    columns = [1]
+    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
+    return n if sparse == True else n.toarray()
+
+def sigmam(N=2, sparse=True):
+    data = [1]
+    rows = [1]
+    columns = [0]
+    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
+    return n if sparse == True else n.toarray()
+
 def paritySUM(N, sparse=True):
     a = np.empty((N,))
     a[::2] = 1

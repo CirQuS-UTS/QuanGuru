@@ -39,6 +39,14 @@ def fidelityKet(state1, state2):
     return np.real(fidelityA * np.conj(fidelityA))
 
 
+def fidelityKetLists(zippedStatesList):
+    fidelities = []
+    for ind in range(len(zippedStatesList[0])):
+        herm = zippedStatesList[0][ind].conj().T
+        fidelityA = ((herm @ zippedStatesList[1][ind]).diagonal()).sum()
+        fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
+    return fidelities
+
 def fidelityPureMat(state1, state2):
     fidelityA = ((state1 @ state2).diagonal()).sum()
     return np.real(fidelityA)

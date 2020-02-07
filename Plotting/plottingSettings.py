@@ -16,3 +16,4 @@ def plottingSet(ax):
     #######
     ax.ticklabel_format(axis='y', style='plain')
     ax.ticklabel_format(axis='x', style='plain')
+    return ax
