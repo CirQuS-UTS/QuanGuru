@@ -124,3 +124,4 @@ dmypy.json
 
 # my local notebooks
 2020/
+.ipynb_checkpoints
