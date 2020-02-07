@@ -1,7 +1,5 @@
 import QuantumToolbox.operators as qOps
 import QuantumToolbox.Hamiltonians as hams
-from datetime import datetime
-import copy
 
 
 class QuantumSystem:
@@ -16,13 +14,14 @@ class QuantumSystem:
 
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
-            if subSys.inComposite == False:
+            if subSys.inComposite is False:
                 newSub = self.__addSub(subSys)
                 return newSub
-            elif subSys.inComposite == True:
+            elif subSys.inComposite is True:
+
                 newSub = subSys.createCopy(subSys)
                 newSub = self.__addSub(newSub)
-                print('the qSytem ' + subSys.name + ' was already in the composite, an exact copy of it is created and included in the composite system (named: ' + newSub.name + ' s)')
+                print('Sub system is already in the composite, copy created and added')
                 return newSub
         else:
             newSub = subSys(**kwargs)
@@ -43,7 +42,8 @@ class QuantumSystem:
         if isinstance(subClass, qSystem):
             newSub = subClass.createCopy(subClass)
             newSub = self.__addSub(newSub)
-            print('Instead of the class, an instance is given, but we are cool')
+            print('Instead of the class, an instance is given')
+
             for key, value in kwargs.items():
                 setattr(newSub, key, value)
             return newSub
@@ -85,15 +85,26 @@ class QuantumSystem:
         cham = sum(cHams)
         return cham
 
-    def addSysCoupling(self, qsystems, couplingOps, couplingStrength):
+
+    def createSysCoupling(self, qsystems, couplingOps, couplingStrength):
         couplingObj = sysCoupling(couplingStrength=couplingStrength)
         couplingObj._qCoupling__cFncs.append(couplingOps)
         couplingObj._qCoupling__qSys.append(qsystems)
         couplingObj.name = len(self.Couplings)
         self.Couplings[couplingObj.name] = couplingObj
         return couplingObj
+        
+
+    def addSysCoupling(self, couplingObj):
+        self.Couplings[couplingObj.name] = couplingObj
+        return couplingObj
 
     def coupleBy(self, subSys1, subSys2, cType, cStrength):
+        '''
+        These options should be located in a  seperate file, in which case
+        cType would be a function
+        '''
+
         qsystems = [subSys1, subSys2]
         if cType == 'JC':
             self.couplingName = 'JC'
@@ -109,7 +120,7 @@ class QuantumSystem:
         return couplingObj
 
     def reset(self, to=None):
-        if to == None:
+        if to is None:
             self.__keepOld()
             for key, val in self.Couplings.items():
                 val._qCoupling__cMatrix = None
@@ -137,8 +148,11 @@ class QuantumSystem:
         else:
             self.__kept[name] = [self.Couplings, self.Unitaries]
 
+
 class qCoupling(object):
-    __slots__ = ['name', '__cFncs', 'couplingStrength', '__cOrders', '__cMatrix', '__qSys']
+    __slots__ = ['name', '__cFncs', 'couplingStrength',
+                 '__cOrders', '__cMatrix', '__qSys']
+
     def __init__(self, **kwargs):
         super().__init__()
         self.name = None
@@ -151,18 +165,18 @@ class qCoupling(object):
 
     @property
     def couplingMat(self):
-        if self.__cMatrix == None:
+        if self.__cMatrix is None:
             self.__cMatrix = self.__getCoupling()
             return self.__cMatrix
         else:
             return self.__cMatrix
-    
+
     @property
     def couplingHam(self):
         if len(self.__cFncs) == 0:
             raise ValueError('No operator is given for coupling Hamiltonian')
         else:
-            if self.__cMatrix != None:
+            if self.__cMatrix is not None:
                 h = self.couplingStrength * self.__cMatrix
                 return h
             else:
@@ -184,15 +198,28 @@ class qCoupling(object):
                 sys = self.__qSys[ind][indx]
                 order = sys._qSystem__ind
                 oper = self.__cFncs[ind][indx]
-                cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
+                cHam = hams.compositeOp(
+                    oper(sys.dimension),
+                    sys._qSystem__dimsBefore,
+                    sys._qSystem__dimsAfter)
+                    
                 ts = [order, cHam]
                 qts.append(ts)
             cMats.append(self.__coupOrdering(qts))
         cHam = sum(cMats)
         return cHam
 
+    def add_term(self, qsystems, couplingOps):
+
+        self._qCoupling__cFncs.append(couplingOps)
+        self._qCoupling__qSys.append(qsystems)
+
+        return self
+
+
 class envCoupling(qCoupling):
     __slots__ = ['label']
+
     def __init__(self, **kwargs):
         super().__init__()
         self.label = 'Environment'
@@ -201,6 +228,7 @@ class envCoupling(qCoupling):
 
 class sysCoupling(qCoupling):
     __slots__ = ['couplingName', 'label']
+
     def __init__(self, **kwargs):
         super().__init__()
         self.couplingName = None
@@ -208,8 +236,11 @@ class sysCoupling(qCoupling):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+
 class qSystem(object):
-    __slots__ = ['__ind', 'name', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
+    __slots__ = ['__ind', 'name', 'dimension', 'frequency', 'operator',
+                 '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
+
     def __init__(self, name=None, **kwargs):
         super().__init__()
         self.__ind = None
@@ -236,24 +267,28 @@ class qSystem(object):
         if self.operator is None:
             raise ValueError('No operator is given for free Hamiltonian')
         else:
-            if self.__Matrix != None:
+            if self.__Matrix is not None:
                 h = self.frequency * self.__Matrix
                 return h
             else:
                 h = self.frequency * self.freeMat
                 return h
-        
+
     @property
     def freeMat(self):
-        if self.__Matrix == None:
-            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
+        if self.__Matrix is None:
+            self.__Matrix = hams.compositeOp(
+                self.operator(self.dimension),
+                self.__dimsBefore,
+                self.__dimsAfter)
+
             return self.__Matrix
         else:
             return self.__Matrix
 
     @property
     def __name(self):
-        if self.name == None:
+        if self.name is None:
             return str(self.__ind)
         else:
             return self.name
@@ -268,7 +303,8 @@ class qSystem(object):
         return newSub
 
 class Qubit(qSystem):
-    #__slots__ = ['label']
+    # __slots__ = ['label']
+
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.sigmaz
@@ -278,15 +314,16 @@ class Qubit(qSystem):
 
     @property
     def freeHam(self):
-        if self._qSystem__Matrix != None:
+        if self._qSystem__Matrix is not None:
             h = self.frequency * self._qSystem__Matrix
             return 0.5*h
         else:
             h = self.frequency * self.freeMat
             return 0.5*h
 
+
 class Spin(qSystem):
-    #__slots__ = ['jValue', 'label']
+    # __slots__ = ['jValue', 'label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.Jz
@@ -298,14 +335,20 @@ class Spin(qSystem):
 
     @property
     def freeMat(self):
-        if self._qSystem__Matrix == None:
-            self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+        if self._qSystem__Matrix is None:
+            self._qSystem__Matrix = hams.compositeOp(
+                self.operator(self.jValue),
+                self._qSystem__dimsBefore,
+                self._qSystem__dimsAfter)
+
             return self._qSystem__Matrix
         else:
             return self.__Matrix
 
+
 class Cavity(qSystem):
-    #__slots__ = ['label']
+    # __slots__ = ['label']
+
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.number

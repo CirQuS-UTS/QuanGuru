@@ -27,6 +27,7 @@ def colorPlot(x,y, z, maxC=1, minC=-1, mapC = 'PuYlGn', irregular=False, ax=None
         cb(cbar,[minC,(minC+maxC)/2,maxC],ax)
         if logScaleX == True:
             ax.set_xscale('log')
+
         return surf2
     else:
         surf2 = colorPlotIreg(x, y[-1], z, maxC, minC, mapC, ax, logScaleX, steps)
@@ -37,6 +38,7 @@ def colorPlotIreg(x, y, z, maxC=1, minC=-1, mapC = 'PuYlGn', ax=None, logScaleX=
     if ax == None:
         fig2, ax = plt.subplots(figsize=(12, 9))
     pltSet.plottingSet(ax)
+    
     for hdgf in range(len(x) - 1):
         
         if isinstance(steps, np.ndarray) == True:
