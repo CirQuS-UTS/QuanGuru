@@ -33,12 +33,11 @@ class QuantumSystem:
             return newSub
 
     def __addSub(self, subSys, **kwargs):
-        subSys._qSystem__ind = len(self.subSystems)
+        subSys.ind = len(self.subSystems)
         for key, subS in self.subSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
         subSys.inComposite = True
-        subSys.name = subSys._qSystem__name
         subSys._qSystem__setKwargs(**kwargs)
         self.subSystems[subSys.name] = subSys
         return subSys
@@ -236,6 +235,18 @@ class qSystem(qUniversal):
         self.inComposite = False
 
         self._qUniversal__setKwargs(**kwargs)
+
+    @qUniversal.name.getter
+    def name(self):
+        return self._qUniversal__name if self._qUniversal__name is not None else self.ind
+    
+    @property
+    def ind(self):
+        return self.__ind
+
+    @ind.setter
+    def ind(self, numb):
+        self.__ind = numb
 
     @property
     def freeHam(self):
