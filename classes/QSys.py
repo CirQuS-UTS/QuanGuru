@@ -42,22 +42,11 @@ class QuantumSystem:
         return subSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
-        if isinstance(subClass, qSystem):
-            newSubs = []
-            for ind in range(n):
-                newSub = newSubs.append(self.addSubSys(subClass))
-                newSub._qSystem__setKwargs(**kwargs)
-            return newSubs if n > 1 else newSub
-        else:
-            if n == 1:
-                newSub = self.__addSub(subClass(**kwargs))
-                return newSub
-            else:
-                newSubs = []
-                for nnn in range(n):
-                    newSub = self.__addSub(subClass(**kwargs))
-                    newSubs.append(newSub)
-                return newSubs
+        newSubs = []
+        for ind in range(n):
+            newSub = newSubs.append(self.addSubSys(subClass))
+            newSub._qSystem__setKwargs(**kwargs)
+        return newSubs if n > 1 else newSub
 
     @property
     def totalDim(self):
