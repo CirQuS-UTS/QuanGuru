@@ -38,7 +38,7 @@ class QuantumSystem:
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
         subSys.inComposite = True
-        subSys._qSystem__setKwargs(**kwargs)
+        subSys._qUniversal__setKwargs(**kwargs)
         self.subSystems[subSys.name] = subSys
         return subSys
 
@@ -46,7 +46,7 @@ class QuantumSystem:
         newSubs = []
         for ind in range(n):
             newSub = newSubs.append(self.addSubSys(subClass, **kwargs))
-        return newSubs if n > 1 else newSub
+        return newSubs if n > 1 else newSubs[0]
 
     # total dimensions, free, coupling, and total hamiltonians of the composite system
     @property
@@ -86,7 +86,10 @@ class QuantumSystem:
         return couplingObj
         
     def addSysCoupling(self, couplingObj):
-        self.Couplings[couplingObj.name] = couplingObj
+        if isinstance(couplingObj, qCoupling):
+            self.Couplings[couplingObj.name] = couplingObj
+        else:
+            print('not an instance of qCoupling')
         return couplingObj
 
     def coupleBy(self, subSys1, subSys2, cType, cStrength):
@@ -185,7 +188,7 @@ class qCoupling(qUniversal):
             qts = []
             for indx in range(len(self.__qSys[ind])):
                 sys = self.__qSys[ind][indx]
-                order = sys._qSystem__ind
+                order = sys.ind
                 oper = self.__cFncs[ind][indx]
                 cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
                 ts = [order, cHam]
