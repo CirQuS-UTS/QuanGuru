@@ -2,6 +2,7 @@ class qUniversal:
     def __init__(self, **kwargs):
         super().__init__()
         self.__name = None
+        self.__ind = None
         self.__setKwargs(**kwargs)
 
 
@@ -13,9 +14,16 @@ class qUniversal:
             setattr(self, key, value)
 
     @property
-    def name(self):
-        return self.__name
+    def ind(self):
+        return self.__ind
 
+    @ind.setter
+    def ind(self, numb):
+        self.__ind = numb
+
+    @property
+    def name(self):
+        return self._qUniversal__name if self._qUniversal__name is not None else self.ind
     @name.setter
     def name(self, name):
         self.__name = name

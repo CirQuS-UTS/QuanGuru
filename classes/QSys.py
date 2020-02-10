@@ -81,7 +81,7 @@ class QuantumSystem:
         couplingObj = sysCoupling(couplingStrength=couplingStrength, **kwargs)
         couplingObj._qCoupling__cFncs.append(couplingOps)
         couplingObj._qCoupling__qSys.append(qsystems)
-        couplingObj.name = len(self.Couplings)
+        couplingObj.ind = len(self.Couplings)
         self.Couplings[couplingObj.name] = couplingObj
         return couplingObj
         
@@ -218,11 +218,10 @@ class sysCoupling(qCoupling):
 
 # quantum system objects
 class qSystem(qUniversal):
-    __slots__ = ['__ind', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
+    __slots__ = ['dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
     def __init__(self, name=None, **kwargs):
         super().__init__()
         self._qUniversal__name = name
-        self.__ind = None
 
         self.dimension = 2
         self.frequency = 1
@@ -235,18 +234,6 @@ class qSystem(qUniversal):
         self.inComposite = False
 
         self._qUniversal__setKwargs(**kwargs)
-
-    @qUniversal.name.getter
-    def name(self):
-        return self._qUniversal__name if self._qUniversal__name is not None else self.ind
-    
-    @property
-    def ind(self):
-        return self.__ind
-
-    @ind.setter
-    def ind(self, numb):
-        self.__ind = numb
 
     @property
     def freeHam(self):
