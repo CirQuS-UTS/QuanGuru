@@ -7,10 +7,14 @@ class QuantumSystem:
         super().__init__()
         self.subSystems = {}
         self.Couplings = {}
-        self.Unitaries = None
-        self.initialState = None
+
         self.couplingName = None
         self.__kept = {}
+
+        # these should not necessarily be in here
+        self.Unitaries = None
+        self.initialState = None
+        
 
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
@@ -18,7 +22,6 @@ class QuantumSystem:
                 newSub = self.__addSub(subSys)
                 return newSub
             elif subSys.inComposite is True:
-
                 newSub = subSys.createCopy(subSys)
                 newSub = self.__addSub(newSub)
                 print('Sub system is already in the composite, copy created and added')
@@ -40,13 +43,11 @@ class QuantumSystem:
 
     def createSubSys(self, subClass, n=1, **kwargs):
         if isinstance(subClass, qSystem):
-            newSub = subClass.createCopy(subClass)
-            newSub = self.__addSub(newSub)
-            print('Instead of the class, an instance is given')
-
-            for key, value in kwargs.items():
-                setattr(newSub, key, value)
-            return newSub
+            newSubs = []
+            for ind in range(n):
+                newSub = newSubs.append(self.addSubSys(subClass))
+                newSub._qSystem__setKwargs(**kwargs)
+            return newSubs if n > 1 else newSub
         else:
             if n == 1:
                 newSub = self.__addSub(subClass(**kwargs))
@@ -111,7 +112,7 @@ class QuantumSystem:
             if subSys2.operator == qOps.sigmaz:
                 print('sigmaz')
                 couplingObj = self.createSysCoupling(qsystems, [qOps.destroy, qOps.sigmap], cStrength)
-                # below line can be replaced with add_term,but lets keep as it is for the moment
+                # below line can be replaced with add_term, but lets keep as it is for the moment
                 couplingObj._qCoupling__cFncs.append([qOps.create, qOps.sigmam])
             else:
                 print('number')
@@ -257,8 +258,7 @@ class qSystem(object):
         self.__dimsAfter = 1
         self.inComposite = False
 
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        self._qSystem__setKwargs(**kwargs)
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -303,15 +303,17 @@ class qSystem(object):
         newSub.operator = qSystem.operator
         return newSub
 
+    def __setKwargs(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
 class Qubit(qSystem):
     # __slots__ = ['label']
-
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.sigmaz
         self.label = 'Qubit'
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        self._qSystem__setKwargs(**kwargs)
 
     @property
     def freeHam(self):
@@ -330,18 +332,13 @@ class Spin(qSystem):
         self.operator = qOps.Jz
         self.jValue = 1
         self.label = 'Spin'
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        self._qSystem__setKwargs(**kwargs)
         self.dimension = ((2*self.jValue) + 1)
 
     @property
     def freeMat(self):
         if self._qSystem__Matrix is None:
-            self._qSystem__Matrix = hams.compositeOp(
-                self.operator(self.jValue),
-                self._qSystem__dimsBefore,
-                self._qSystem__dimsAfter)
-
+            self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
             return self._qSystem__Matrix
         else:
             return self.__Matrix
@@ -349,10 +346,8 @@ class Spin(qSystem):
 
 class Cavity(qSystem):
     # __slots__ = ['label']
-
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.number
         self.label = 'Cavity'
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        self._qSystem__setKwargs(**kwargs)
