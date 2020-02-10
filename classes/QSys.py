@@ -15,7 +15,7 @@ class QuantumSystem:
         self.Unitaries = None
         self.initialState = None
         
-
+    # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
             if subSys.inComposite is False:
@@ -48,6 +48,7 @@ class QuantumSystem:
             newSub = newSubs.append(self.addSubSys(subClass, **kwargs))
         return newSubs if n > 1 else newSub
 
+    # total dimensions, free, coupling, and total hamiltonians of the composite system
     @property
     def totalDim(self):
         tDim = 1
@@ -75,7 +76,7 @@ class QuantumSystem:
         cham = sum(cHams)
         return cham
 
-
+    # adding or creating a new couplings
     def createSysCoupling(self, qsystems, couplingOps, couplingStrength):
         couplingObj = sysCoupling(couplingStrength=couplingStrength)
         couplingObj._qCoupling__cFncs.append(couplingOps)
@@ -141,9 +142,7 @@ class QuantumSystem:
 
 
 class qCoupling(object):
-    __slots__ = ['name', '__cFncs', 'couplingStrength',
-                 '__cOrders', '__cMatrix', '__qSys']
-
+    __slots__ = ['name', '__cFncs', 'couplingStrength', '__cOrders', '__cMatrix', '__qSys']
     def __init__(self, **kwargs):
         super().__init__()
         self.name = None
@@ -151,8 +150,7 @@ class qCoupling(object):
         self.__qSys = []
         self.couplingStrength = 0
         self.__cMatrix = None
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        self.__setKwargs(**kwargs)
 
     @property
     def couplingMat(self):
@@ -189,11 +187,7 @@ class qCoupling(object):
                 sys = self.__qSys[ind][indx]
                 order = sys._qSystem__ind
                 oper = self.__cFncs[ind][indx]
-                cHam = hams.compositeOp(
-                    oper(sys.dimension),
-                    sys._qSystem__dimsBefore,
-                    sys._qSystem__dimsAfter)
-                    
+                cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
                 ts = [order, cHam]
                 qts.append(ts)
             cMats.append(self.__coupOrdering(qts))
@@ -201,37 +195,33 @@ class qCoupling(object):
         return cHam
 
     def add_term(self, qsystems, couplingOps):
-
-        self._qCoupling__cFncs.append(couplingOps)
-        self._qCoupling__qSys.append(qsystems)
-
+        self.__cFncs.append(couplingOps)
+        self.__qSys.append(qsystems)
         return self
+
+    def __setKwargs(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
 
 class envCoupling(qCoupling):
     __slots__ = ['label']
-
     def __init__(self, **kwargs):
         super().__init__()
         self.label = 'Environment'
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        self._qCoupling__setKwargs(**kwargs)
 
 class sysCoupling(qCoupling):
     __slots__ = ['couplingName', 'label']
-
     def __init__(self, **kwargs):
         super().__init__()
         self.couplingName = None
         self.label = 'System Coupling'
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        self._qCoupling__setKwargs(**kwargs)
 
 
 class qSystem(object):
-    __slots__ = ['__ind', 'name', 'dimension', 'frequency', 'operator',
-                 '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
-
+    __slots__ = ['__ind', 'name', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
     def __init__(self, name=None, **kwargs):
         super().__init__()
         self.__ind = None
@@ -247,7 +237,7 @@ class qSystem(object):
         self.__dimsAfter = 1
         self.inComposite = False
 
-        self._qSystem__setKwargs(**kwargs)
+        self.__setKwargs(**kwargs)
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -267,11 +257,7 @@ class qSystem(object):
     @property
     def freeMat(self):
         if self.__Matrix is None:
-            self.__Matrix = hams.compositeOp(
-                self.operator(self.dimension),
-                self.__dimsBefore,
-                self.__dimsAfter)
-
+            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
             return self.__Matrix
         else:
             return self.__Matrix
@@ -330,7 +316,7 @@ class Spin(qSystem):
             self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
             return self._qSystem__Matrix
         else:
-            return self.__Matrix
+            return self._qSystem__Matrix
 
 
 class Cavity(qSystem):
