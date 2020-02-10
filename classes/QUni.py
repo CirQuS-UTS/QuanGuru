@@ -4,6 +4,9 @@ class qUniversal:
         self.__name = None
         self.__setKwargs(**kwargs)
 
+
+    def __del__(self):
+        class_name = self.__class__.__name__
     
     def __setKwargs(self, **kwargs):
         for key, value in kwargs.items():
@@ -16,4 +19,3 @@ class qUniversal:
     @name.setter
     def name(self, name):
         self.__name = name
-        

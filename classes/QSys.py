@@ -142,16 +142,17 @@ class QuantumSystem:
             self.__kept[name] = [self.Couplings, self.Unitaries]
 
 
-class qCoupling(object):
-    __slots__ = ['name', '__cFncs', 'couplingStrength', '__cOrders', '__cMatrix', '__qSys']
-    def __init__(self, **kwargs):
+# quantum coupling object
+class qCoupling(qUniversal):
+    __slots__ = ['__cFncs', 'couplingStrength', '__cOrders', '__cMatrix', '__qSys']
+    def __init__(self, name=None, **kwargs):
         super().__init__()
-        self.name = None
+        self._qUniversal__name = name
         self.__cFncs = []
         self.__qSys = []
         self.couplingStrength = 0
         self.__cMatrix = None
-        self.__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)
 
     @property
     def couplingMat(self):
@@ -195,14 +196,10 @@ class qCoupling(object):
         cHam = sum(cMats)
         return cHam
 
-    def add_term(self, qsystems, couplingOps):
+    def addTerm(self, qsystems, couplingOps):
         self.__cFncs.append(couplingOps)
         self.__qSys.append(qsystems)
         return self
-
-    def __setKwargs(self, **kwargs):
-        for key, value in kwargs.items():
-            setattr(self, key, value)
 
 
 class envCoupling(qCoupling):
@@ -210,15 +207,14 @@ class envCoupling(qCoupling):
     def __init__(self, **kwargs):
         super().__init__()
         self.label = 'Environment'
-        self._qCoupling__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)
 
 class sysCoupling(qCoupling):
-    __slots__ = ['couplingName', 'label']
+    __slots__ = ['label']
     def __init__(self, **kwargs):
         super().__init__()
-        self.couplingName = None
         self.label = 'System Coupling'
-        self._qCoupling__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)
 
 
 # quantum system objects
@@ -226,7 +222,7 @@ class qSystem(qUniversal):
     __slots__ = ['__ind', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
     def __init__(self, name=None, **kwargs):
         super().__init__()
-        self.name = name
+        self._qUniversal__name = name
         self.__ind = None
 
         self.dimension = 2
@@ -240,9 +236,6 @@ class qSystem(qUniversal):
         self.inComposite = False
 
         self._qUniversal__setKwargs(**kwargs)
-
-    def __del__(self):
-        class_name = self.__class__.__name__
 
     @property
     def freeHam(self):
