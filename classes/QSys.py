@@ -85,7 +85,6 @@ class QuantumSystem:
         self.Couplings[couplingObj.name] = couplingObj
         return couplingObj
         
-
     def addSysCoupling(self, couplingObj):
         self.Couplings[couplingObj.name] = couplingObj
         return couplingObj
@@ -95,7 +94,6 @@ class QuantumSystem:
         These options should be located in a  seperate file, in which case
         cType would be a function
         '''
-
         qsystems = [subSys1, subSys2]
         if cType == 'JC':
             self.couplingName = 'JC'
@@ -111,6 +109,7 @@ class QuantumSystem:
             couplingObj._qCoupling__qSys.append(qsystems)
         return couplingObj
 
+    # reset and keepOld
     def reset(self, to=None):
         if to is None:
             self.__keepOld()
@@ -205,7 +204,7 @@ class envCoupling(qCoupling):
     __slots__ = ['label']
     def __init__(self, **kwargs):
         super().__init__()
-        self.label = 'Environment'
+        self.label = 'Environment Coupling'
         self._qUniversal__setKwargs(**kwargs)
 
 class sysCoupling(qCoupling):
@@ -265,7 +264,7 @@ class qSystem(qUniversal):
         return newSub
 
 class Qubit(qSystem):
-    # __slots__ = ['label']
+    __slots__ = ['label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.sigmaz
@@ -283,7 +282,7 @@ class Qubit(qSystem):
 
 
 class Spin(qSystem):
-    # __slots__ = ['jValue', 'label']
+    __slots__ = ['jValue', 'label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.Jz
@@ -302,7 +301,7 @@ class Spin(qSystem):
 
 
 class Cavity(qSystem):
-    # __slots__ = ['label']
+    __slots__ = ['label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.number
