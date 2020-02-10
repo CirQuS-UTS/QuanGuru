@@ -19,11 +19,11 @@ class QuantumSystem:
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
             if subSys.inComposite is False:
-                newSub = self.__addSub(subSys)
+                newSub = self.__addSub(subSys, **kwargs)
                 return newSub
             elif subSys.inComposite is True:
                 newSub = subSys.createCopy(subSys)
-                newSub = self.__addSub(newSub)
+                newSub = self.__addSub(newSub, **kwargs)
                 print('Sub system is already in the composite, copy created and added')
                 return newSub
         else:
@@ -31,21 +31,21 @@ class QuantumSystem:
             self.__addSub(newSub)
             return newSub
 
-    def __addSub(self, subSys):
+    def __addSub(self, subSys, **kwargs):
         subSys._qSystem__ind = len(self.subSystems)
         for key, subS in self.subSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
         subSys.inComposite = True
         subSys.name = subSys._qSystem__name
+        subSys._qSystem__setKwargs(**kwargs)
         self.subSystems[subSys.name] = subSys
         return subSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
         newSubs = []
         for ind in range(n):
-            newSub = newSubs.append(self.addSubSys(subClass))
-            newSub._qSystem__setKwargs(**kwargs)
+            newSub = newSubs.append(self.addSubSys(subClass, **kwargs))
         return newSubs if n > 1 else newSub
 
     @property
