@@ -19,10 +19,10 @@ class QuantumSystem:
     # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
-            if subSys.inComposite is False:
+            if subSys._qSystem__inComposite is False:
                 newSub = self.__addSub(subSys, **kwargs)
                 return newSub
-            elif subSys.inComposite is True:
+            elif subSys._qSystem__inComposite is True:
                 newSub = subSys.createCopy(subSys)
                 newSub = self.__addSub(newSub, **kwargs)
                 print('Sub system is already in the composite, copy created and added')
@@ -37,7 +37,7 @@ class QuantumSystem:
         for key, subS in self.subSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
-        subSys.inComposite = True
+        subSys._qSystem__inComposite = True
         subSys._qUniversal__setKwargs(**kwargs)
         self.subSystems[subSys.name] = subSys
         return subSys
@@ -220,42 +220,49 @@ class sysCoupling(qCoupling):
 
 # quantum system objects
 class qSystem(qUniversal):
-    __slots__ = ['dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
+    __slots__ = ['dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__inComposite']
     def __init__(self, name=None, **kwargs):
         super().__init__()
         self._qUniversal__name = name
 
         self.dimension = 2
         self.frequency = 1
-
         self.operator = None
-        self.__Matrix = None
 
+        self.__Matrix = None
         self.__dimsBefore = 1
         self.__dimsAfter = 1
-        self.inComposite = False
+        self.__inComposite = False
 
         self._qUniversal__setKwargs(**kwargs)
 
     @property
     def freeHam(self):
-        if self.operator is None:
-            raise ValueError('No operator is given for free Hamiltonian')
-        else:
-            if self.__Matrix is not None:
-                h = self.frequency * self.__Matrix
-                return h
-            else:
-                h = self.frequency * self.freeMat
-                return h
+        h = self.frequency * self.freeMat
+        return h
+
+    @freeHam.setter
+    def freeHam(self, qOpsFunc):
+        self.freeMat = qOpsFunc
 
     @property
     def freeMat(self):
-        if self.__Matrix is None:
-            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
+        if self.__Matrix is not None:
             return self.__Matrix
         else:
-            return self.__Matrix
+            if self.operator is None:
+                raise ValueError('No operator is given for free Hamiltonian')
+            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
+             return self.__Matrix
+
+    @freeMat.setter
+    def freeMat(self, qOpsFunc):
+        self.operator = qOpsFunc
+        if callable(qOpsFunc):
+            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
+        else:
+            self.__Matrix = qOpsFunc
+        
 
     @staticmethod
     def createCopy(qSystem):
