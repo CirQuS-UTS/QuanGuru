@@ -14,6 +14,6 @@ class qUniversal:
         return self.__name
 
     @name.setter
-    def __name(self, name):
+    def name(self, name):
         self.__name = name
         

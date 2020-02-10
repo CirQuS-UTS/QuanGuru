@@ -1,5 +1,6 @@
 import QuantumToolbox.operators as qOps
 import QuantumToolbox.Hamiltonians as hams
+from classes.QUni import qUniversal
 
 
 class QuantumSystem:
@@ -220,12 +221,13 @@ class sysCoupling(qCoupling):
         self._qCoupling__setKwargs(**kwargs)
 
 
-class qSystem(object):
-    __slots__ = ['__ind', 'name', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
+# quantum system objects
+class qSystem(qUniversal):
+    __slots__ = ['__ind', 'dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', 'inComposite']
     def __init__(self, name=None, **kwargs):
         super().__init__()
-        self.__ind = None
         self.name = name
+        self.__ind = None
 
         self.dimension = 2
         self.frequency = 1
@@ -237,7 +239,7 @@ class qSystem(object):
         self.__dimsAfter = 1
         self.inComposite = False
 
-        self.__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -262,13 +264,6 @@ class qSystem(object):
         else:
             return self.__Matrix
 
-    @property
-    def __name(self):
-        if self.name is None:
-            return str(self.__ind)
-        else:
-            return self.name
-
     @staticmethod
     def createCopy(qSystem):
         sysClass = qSystem.__class__
@@ -278,17 +273,13 @@ class qSystem(object):
         newSub.operator = qSystem.operator
         return newSub
 
-    def __setKwargs(self, **kwargs):
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-
 class Qubit(qSystem):
     # __slots__ = ['label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.sigmaz
         self.label = 'Qubit'
-        self._qSystem__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)
 
     @property
     def freeHam(self):
@@ -307,7 +298,7 @@ class Spin(qSystem):
         self.operator = qOps.Jz
         self.jValue = 1
         self.label = 'Spin'
-        self._qSystem__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)
         self.dimension = ((2*self.jValue) + 1)
 
     @property
@@ -325,4 +316,4 @@ class Cavity(qSystem):
         super().__init__()
         self.operator = qOps.number
         self.label = 'Cavity'
-        self._qSystem__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)
