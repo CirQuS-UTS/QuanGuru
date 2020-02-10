@@ -77,8 +77,8 @@ class QuantumSystem:
         return cham
 
     # adding or creating a new couplings
-    def createSysCoupling(self, qsystems, couplingOps, couplingStrength):
-        couplingObj = sysCoupling(couplingStrength=couplingStrength)
+    def createSysCoupling(self, qsystems, couplingOps, couplingStrength, **kwargs):
+        couplingObj = sysCoupling(couplingStrength=couplingStrength, **kwargs)
         couplingObj._qCoupling__cFncs.append(couplingOps)
         couplingObj._qCoupling__qSys.append(qsystems)
         couplingObj.name = len(self.Couplings)
