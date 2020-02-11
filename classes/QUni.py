@@ -3,6 +3,7 @@ class qUniversal:
         super().__init__()
         self.__name = None
         self.__ind = None
+        self.superSys = None
         self.__setKwargs(**kwargs)
 
 

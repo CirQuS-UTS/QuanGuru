@@ -19,10 +19,10 @@ class QuantumSystem:
     # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
-            if subSys._qSystem__inComposite is False:
+            if subSys.superSys is None:
                 newSub = self.__addSub(subSys, **kwargs)
                 return newSub
-            elif subSys._qSystem__inComposite is True:
+            elif subSys.superSys is self:
                 newSub = qUniversal.createCopy(subSys, frequency=subSys.frequency, dimension=subSys.dimension, operator=subSys.operator)
                 newSub = self.__addSub(newSub, **kwargs)
                 print('Sub system is already in the composite, copy created and added')
@@ -37,9 +37,9 @@ class QuantumSystem:
         for key, subS in self.subSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
-        subSys._qSystem__inComposite = True
         subSys._qUniversal__setKwargs(**kwargs)
         self.subSystems[subSys.name] = subSys
+        subSys.superSys = self
         return subSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
@@ -140,25 +140,23 @@ class QuantumSystem:
             self.__kept[name] = [self.Couplings, self.Unitaries]
 
     # construct the matrices
-    def constructCompSys(self):
-        for qSys in self.subSystems.values():
+    @staticmethod
+    def constructCompSys(compSys):
+        for qSys in compSys.subSystems.values():
             qSys.freeMat = None
-        for coupl in self.Couplings.values():
+        for coupl in compSys.Couplings.values():
             coupl.couplingMat = None
 
-
-    def updateDimension(self, qSys, newDimVal):
+    @staticmethod
+    def updateDimension(compSys, qSys, newDimVal):
         ind = qSys.ind
-        for qS in self.subSystems.values():
+        for qS in compSys.subSystems.values():
             if qS.ind < ind:
                 dimA = int((qS._qSystem__dimsAfter*newDimVal)/qSys.dimension)
                 qS._qSystem__dimsAfter = dimA
             elif qS.ind > ind:
                 dimB = int((qS._qSystem__dimsBefore*newDimVal)/qSys.dimension)
-                qS._qSystem__dimsBefore = dimA
-        qSys.dimension = newDimVal
-        if qSys._qSystem__Matrix is not None:
-            self.constructCompSys()
+                qS._qSystem__dimsBefore = dimB
         return qSys
 
 
@@ -238,53 +236,36 @@ class sysCoupling(qCoupling):
 
 # quantum system objects
 class qSystem(qUniversal):
-    __slots__ = ['dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__inComposite']
+    __slots__ = ['__dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter']
     def __init__(self, name=None, **kwargs):
         super().__init__()
         self._qUniversal__name = name
 
-        self._dimension = 2
+        self.__dimension = 2
         self.frequency = 1
         self.operator = None
 
         self.__Matrix = None
         self.__dimsBefore = 1
         self.__dimsAfter = 1
-        self.__inComposite = False
 
         self._qUniversal__setKwargs(**kwargs)
 
     @property
     def dimension(self):
-        return self._dimension
+        return self.__dimension
 
     @dimension.setter
     def dimension(self, newDimVal):
-        if self.__inComposite == False:
-            if not isinstance(newDimVal, int):
-                raise ValueError('System not in a composite, dimension is not int')
-            self._dimension = newDimVal
-            return self
-        elif isinstance(newDimVal, tuple):
-            if isinstance(newDimVal[0], QuantumSystem):
-                compSys = newDimVal[0]
-                if isinstance(newDimVal[1], int) == False:
-                    raise ValueError('Dimension is not int')
-                dimVal = newDimVal[1]
-            elif isinstance(newDimVal[0], int):
-                dimVal = newDimVal[0]
-                if isinstance(newDimVal[1], QuantumSystem) == False:
-                    raise ValueError('Composite System is not QuantumSystem')
-                compSys = newDimVal[1]
+        if not isinstance(newDimVal, int):
+            raise ValueError('Dimension is not int')
 
-            if self.__inComposite == False:
-                print('qSystem included into the composite')
-                compSys.addSubSys(self)
-            else:
-                compSys.updateDimension(self, dimVal)
-        else:
-            raise ValueError('argument should be int for single sys, tuple for subSys of composite')
-        return self
+        if self.superSys is None:
+            self.__dimension = newDimVal
+        elif isinstance(self.superSys, QuantumSystem):
+            QuantumSystem.updateDimension(self.superSys, self, newDimVal)
+            self.__dimension = newDimVal
+            
 
     @property
     def freeHam(self):
@@ -337,7 +318,7 @@ class Spin(qSystem):
         self.jValue = 1
         self.label = 'Spin'
         self._qUniversal__setKwargs(**kwargs)
-        self.dimension = ((2*self.jValue) + 1)
+        self._dimension = ((2*self.jValue) + 1)
 
     def constructSubMat(self):
         self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
