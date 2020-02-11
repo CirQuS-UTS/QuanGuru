@@ -1,6 +1,8 @@
 import scipy as np
 import scipy.linalg as lina
+import scipy.sparse as sp
 import QuantumToolbox.states as states
+import QuantumToolbox.operators as qOps
 
 
 def expectationKet(operator, state):
@@ -14,6 +16,9 @@ def expectationMat(operator, state):
 
 
 def expectationList(operator, states):
+    if callable(operator):
+        operator = qOps.parityEXP(sp.kron(operator(int((states[0].shape[0])/2)), qOps.identity(2), format='csc'))
+
     expectations = []
     if states[0].shape[0] != states[0].shape[1]:
         for state in states:
