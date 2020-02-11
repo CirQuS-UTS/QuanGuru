@@ -110,6 +110,7 @@ class QuantumSystem:
                 couplingObj = self.createSysCoupling(qsystems, [qOps.destroy, qOps.create], cStrength)
                 couplingObj._qCoupling__cFncs.append([qOps.create, qOps.destroy])
             couplingObj._qCoupling__qSys.append(qsystems)
+            couplingObj.name = 'JCcoupling'
         return couplingObj
 
     # reset and keepOld
@@ -253,7 +254,7 @@ class qSystem(qUniversal):
             if self.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
             self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
-             return self.__Matrix
+            return self.__Matrix
 
     @freeMat.setter
     def freeMat(self, qOpsFunc):
@@ -281,14 +282,10 @@ class Qubit(qSystem):
         self.label = 'Qubit'
         self._qUniversal__setKwargs(**kwargs)
 
-    @property
+    @qSystem.freeHam.getter
     def freeHam(self):
-        if self._qSystem__Matrix is not None:
-            h = self.frequency * self._qSystem__Matrix
-            return 0.5*h
-        else:
-            h = self.frequency * self.freeMat
-            return 0.5*h
+        h = qSystem.freeHam.fget(self)
+        return h if self.operator is qOps.number else 0.5*h
 
 
 class Spin(qSystem):
@@ -301,12 +298,12 @@ class Spin(qSystem):
         self._qUniversal__setKwargs(**kwargs)
         self.dimension = ((2*self.jValue) + 1)
 
-    @property
+    @qSystem.freeMat.getter
     def freeMat(self):
-        if self._qSystem__Matrix is None:
-            self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+        if self._qSystem__Matrix is not None:
             return self._qSystem__Matrix
         else:
+            self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
             return self._qSystem__Matrix
 
 
