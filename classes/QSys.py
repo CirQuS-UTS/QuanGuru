@@ -311,17 +311,25 @@ class Qubit(qSystem):
 
 
 class Spin(qSystem):
-    __slots__ = ['jValue', 'label']
+    __slots__ = ['_jValue', 'label']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.Jz
-        self.jValue = 1
+        self._jValue = 1
         self.label = 'Spin'
         self._qUniversal__setKwargs(**kwargs)
-        self._dimension = ((2*self.jValue) + 1)
 
+    @property
+    def jValue(self):
+        return ((self.dimension-1)/2)
+
+    @jValue.setter
+    def jValue(self, value):
+        self._jValue = value
+        self.dimension = int((2*value) + 1)
+    
     def constructSubMat(self):
-        self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+        self._qSystem__Matrix = hams.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
 class Cavity(qSystem):
