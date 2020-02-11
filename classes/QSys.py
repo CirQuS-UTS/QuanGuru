@@ -135,7 +135,6 @@ class QuantumSystem:
 
     # construct the matrices
     def constructSystem(self):
-        print('construct called')
         for qSys in self.subSystems.values():
             qSys.freeMat = qSys._qSystem__Matrix
         for coupl in self.Couplings.values():
@@ -251,15 +250,16 @@ class qSystem(qUniversal):
     def freeMat(self, qOpsFunc):
         if callable(qOpsFunc):
             self.operator = qOpsFunc
-            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
+            self.__createMat()
         elif qOpsFunc is not None:
             self.__Matrix = qOpsFunc
         else:
             if self.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
-            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
-            print('actually constructed')
+            self.__createMat()
 
+    def __createMat(self):
+        self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
 
 class Qubit(qSystem):
     __slots__ = ['label']
@@ -285,13 +285,8 @@ class Spin(qSystem):
         self._qUniversal__setKwargs(**kwargs)
         self.dimension = ((2*self.jValue) + 1)
 
-    @qSystem.freeMat.setter
-    def freeMat(self, qOpsFunc):
-        if qOpsFunc is not None:
-            qSystem.freeHam.fget(self)
-        else:
-            self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
-
+    def _qSystem__createMat(self):
+        self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
 
 class Cavity(qSystem):
     __slots__ = ['label']
