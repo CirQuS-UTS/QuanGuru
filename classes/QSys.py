@@ -58,10 +58,7 @@ class QuantumSystem:
 
     @property
     def freeHam(self):
-        freeHams = []
-        for key, val in self.subSystems.items():
-            freeHams.append(val.freeHam)
-        ham = sum(freeHams)
+        ham = sum([val.freeHam for val in self.subSystems.values()])
         return ham
 
     @property
@@ -70,10 +67,7 @@ class QuantumSystem:
 
     @property
     def couplingHam(self):
-        cHams = []
-        for key, val in self.Couplings.items():
-            cHams.append(val.couplingHam)
-        cham = sum(cHams)
+        cham = sum([val.couplingHam for val in self.Couplings.values()])
         return cham
 
     # adding or creating a new couplings
@@ -243,6 +237,7 @@ class qSystem(qUniversal):
 
     @property
     def freeMat(self):
+        #return self.__Matrix
         if self.__Matrix is not None:
             return self.__Matrix
         else:
