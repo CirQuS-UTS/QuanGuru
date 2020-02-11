@@ -99,15 +99,20 @@ def squeeze(alpha, dim,sparse=True):
     n = linA.expm(0.5*(oper.toarray()))
     return sp.csc_matrix(n) if sparse == True else n
 
-def Jz(j,sparse=True):
+def Jz(j,sparse=True, isDim=False):
     d = int((2*j) + 1)
+    if isDim == True:
+        d = j
     data = [j-i for i in range(d)]
     rows = range(0,d)
     columns = range(0,d)
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
-def Jp(j,sparse=True):
+def Jp(j,sparse=True, isDim=False):
+    d = int((2*j) + 1)
+    if isDim == True:
+        d = j
     d = int((2*j) + 1)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
@@ -116,7 +121,10 @@ def Jp(j,sparse=True):
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
-def Jm(j,sparse=True):
+def Jm(j,sparse=True, isDim=False):
+    d = int((2*j) + 1)
+    if isDim == True:
+        d = j
     d = int((2*j) + 1)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
@@ -125,14 +133,14 @@ def Jm(j,sparse=True):
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
-def Jx(j,sparse=True):
-    n = 0.5*(Jp(j) + Jm(j))
+def Jx(j,sparse=True, isDim=False):
+    n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
     return n if sparse == True else n.toarray()
 
-def Jy(k,sparse=True):
-    n = (1/(2j))*(Jp(k) - Jm(k))
+def Jy(k,sparse=True, isDim=False):
+    n = (1/(2j))*(Jp(k, isDim=isDim) - Jm(k, isDim=isDim))
     return n if sparse == True else n.toarray()
 
-def Js(j,sparse=True):
-    n = (Jx(j)@Jx(j)) + (Jy(j)@Jy(j)) + (Jz(j)@Jz(j))
+def Js(j,sparse=True, isDim=False):
+    n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
     return n if sparse == True else n.toarray()
