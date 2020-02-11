@@ -1,6 +1,8 @@
 import QuantumToolbox.liouvillian as lio
 import numpy as np
-import scipy as sp
+import scipy.sparse as sp
+from classes.QSys import QuantumSystem
+import QuantumToolbox.states as qSt
 """ under construction """
 
 
@@ -35,7 +37,7 @@ class Simulation(object):
 
     @qSys.setter
     def qSys(self, val):
-        val.constructCompSys()
+        QuantumSystem.constructCompSys(val)
         self.__qSys = val
 
     @property
@@ -56,8 +58,7 @@ class Simulation(object):
             print("Key is not an atribute")
 
         if self.qSys.Unitaries is None:
-            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
-                                      timeStep=self.StepSize)
+            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.StepSize)
         else:
             unitary = self.qSys.Unitaries(self.qSys, self.StepSize)
 
