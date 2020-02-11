@@ -111,16 +111,12 @@ class QuantumSystem:
     def reset(self, to=None):
         if to is None:
             self.__keepOld()
-            for key, val in self.Couplings.items():
-                val._qCoupling__cMatrix = None
-
             self.Couplings = {}
             self.Unitaries = None
             self.couplingName = None
             return 0
         else:
             self.__keepOld()
-
             self.couplingName = to
             self.Couplings = self.__kept[to][0]
             self.Unitaries = self.__kept[to][1]
@@ -137,6 +133,15 @@ class QuantumSystem:
         else:
             self.__kept[name] = [self.Couplings, self.Unitaries]
 
+    # construct the matrices
+    def constructSystem(self):
+        print('construct called')
+        for qSys in self.subSystems.values():
+            qSys.freeMat = qSys._qSystem__Matrix
+        for coupl in self.Couplings.values():
+            coupl.couplingMat = coupl._qCoupling__cMatrix
+
+
 
 # quantum coupling object
 class qCoupling(qUniversal):
@@ -152,13 +157,16 @@ class qCoupling(qUniversal):
 
     @property
     def couplingMat(self):
-        if self.__cMatrix is not None:
-            return self.__cMatrix
+        return self.__cMatrix
+
+    @couplingMat.setter
+    def couplingMat(self, qMat):
+        if qMat is not None:
+            self.__cMatrix = qMat
         else:
             if len(self.__cFncs) == 0:
                 raise ValueError('No operator is given for coupling Hamiltonian')
             self.__cMatrix = self.__getCoupling()
-            return self.__cMatrix
 
     @property
     def couplingHam(self):
@@ -237,22 +245,20 @@ class qSystem(qUniversal):
 
     @property
     def freeMat(self):
-        #return self.__Matrix
-        if self.__Matrix is not None:
-            return self.__Matrix
+        return self.__Matrix
+
+    @freeMat.setter
+    def freeMat(self, qOpsFunc):
+        if callable(qOpsFunc):
+            self.operator = qOpsFunc
+            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
+        elif qOpsFunc is not None:
+            self.__Matrix = qOpsFunc
         else:
             if self.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
             self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
-            return self.__Matrix
-
-    @freeMat.setter
-    def freeMat(self, qOpsFunc):
-        self.operator = qOpsFunc
-        if callable(qOpsFunc):
-            self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
-        else:
-            self.__Matrix = qOpsFunc
+            print('actually constructed')
 
 
 class Qubit(qSystem):
@@ -279,13 +285,12 @@ class Spin(qSystem):
         self._qUniversal__setKwargs(**kwargs)
         self.dimension = ((2*self.jValue) + 1)
 
-    @qSystem.freeMat.getter
-    def freeMat(self):
-        if self._qSystem__Matrix is not None:
-            return self._qSystem__Matrix
+    @qSystem.freeMat.setter
+    def freeMat(self, qOpsFunc):
+        if qOpsFunc is not None:
+            qSystem.freeHam.fget(self)
         else:
             self._qSystem__Matrix = hams.compositeOp(self.operator(self.jValue), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
-            return self._qSystem__Matrix
 
 
 class Cavity(qSystem):

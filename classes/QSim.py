@@ -5,7 +5,7 @@ import scipy as sp
 
 
 class Simulation(object):
-    def __init__(self, QSys):
+    def __init__(self, QSys=None):
         self.qSys = QSys
         self.allStates = True
         # Time Dependent Hamiltonian
@@ -27,6 +27,16 @@ class Simulation(object):
 
     def __del__(self):
         class_name = self.__class__.__name__
+
+
+    @property
+    def qSys(self):
+        return self.__qSys
+
+    @qSys.setter
+    def qSys(self, val):
+        val.constructSystem()
+        self.__qSys = val
 
     @property
     def times(self):
