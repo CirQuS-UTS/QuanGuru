@@ -23,7 +23,7 @@ class QuantumSystem:
                 newSub = self.__addSub(subSys, **kwargs)
                 return newSub
             elif subSys._qSystem__inComposite is True:
-                newSub = subSys.createCopy(subSys)
+                newSub = qUniversal.createCopy(subSys, frequency=subSys.frequency, dimension=subSys.dimension, operator=subSys.operator)
                 newSub = self.__addSub(newSub, **kwargs)
                 print('Sub system is already in the composite, copy created and added')
                 return newSub
@@ -253,15 +253,7 @@ class qSystem(qUniversal):
             self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
         else:
             self.__Matrix = qOpsFunc
-        
-    @staticmethod
-    def createCopy(qSystem):
-        sysClass = qSystem.__class__
-        newSub = sysClass()
-        newSub.frequency = qSystem.frequency
-        newSub.dimension = qSystem.dimension
-        newSub.operator = qSystem.operator
-        return newSub
+
 
 class Qubit(qSystem):
     __slots__ = ['label']

@@ -27,3 +27,9 @@ class qUniversal:
     @name.setter
     def name(self, name):
         self.__name = name
+
+    @staticmethod
+    def createCopy(qUninstance, **kwargs):
+        sysClass = qUninstance.__class__
+        newSub = sysClass(**kwargs)
+        return newSub
