@@ -158,23 +158,18 @@ class qCoupling(qUniversal):
 
     @property
     def couplingMat(self):
-        if self.__cMatrix is None:
-            self.__cMatrix = self.__getCoupling()
+        if self.__cMatrix is not None:
             return self.__cMatrix
         else:
+            if len(self.__cFncs) == 0:
+                raise ValueError('No operator is given for coupling Hamiltonian')
+            self.__cMatrix = self.__getCoupling()
             return self.__cMatrix
 
     @property
     def couplingHam(self):
-        if len(self.__cFncs) == 0:
-            raise ValueError('No operator is given for coupling Hamiltonian')
-        else:
-            if self.__cMatrix is not None:
-                h = self.couplingStrength * self.__cMatrix
-                return h
-            else:
-                h = self.couplingStrength * self.couplingMat
-                return h
+        h = self.couplingStrength * self.couplingMat
+        return h
 
     def __coupOrdering(self, qts):
         sorted(qts, key=lambda x: x[0], reverse=False)
@@ -264,7 +259,6 @@ class qSystem(qUniversal):
         else:
             self.__Matrix = qOpsFunc
         
-
     @staticmethod
     def createCopy(qSystem):
         sysClass = qSystem.__class__
