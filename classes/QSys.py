@@ -147,6 +147,21 @@ class QuantumSystem:
             coupl.couplingMat = None
 
 
+    def updateDimension(self, qSys, newDimVal):
+        ind = qSys.ind
+        for qS in self.subSystems.values():
+            if qS.ind < ind:
+                dimA = int((qS._qSystem__dimsAfter*newDimVal)/qSys.dimension)
+                qS._qSystem__dimsAfter = dimA
+            elif qS.ind > ind:
+                dimB = int((qS._qSystem__dimsBefore*newDimVal)/qSys.dimension)
+                qS._qSystem__dimsBefore = dimA
+        qSys.dimension = newDimVal
+        if qSys._qSystem__Matrix is not None:
+            self.constructCompSys()
+        return qSys
+
+
 
 # quantum coupling object
 class qCoupling(qUniversal):
@@ -228,7 +243,7 @@ class qSystem(qUniversal):
         super().__init__()
         self._qUniversal__name = name
 
-        self.dimension = 2
+        self._dimension = 2
         self.frequency = 1
         self.operator = None
 
@@ -238,6 +253,36 @@ class qSystem(qUniversal):
         self.__inComposite = False
 
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def dimension(self):
+        return self._dimension
+
+    @dimension.setter
+    def dimension(self, newDimVal):
+        if self.__inComposite == False:
+            if not isinstance(newDimVal, int):
+                raise ValueError('System not in a composite, dimension is not int')
+            self._dimension = newDimVal
+            return self
+        elif isinstance(newDimVal, tuple):
+            if isinstance(newDimVal[0], QuantumSystem):
+                compSys = newDimVal[0]
+                if isinstance(newDimVal[1], int) == False:
+                    raise ValueError('Dimension is not int')
+                dimVal = newDimVal[1]
+            elif isinstance(newDimVal[0], int):
+                dimVal = newDimVal[0]
+                if isinstance(newDimVal[1], QuantumSystem) == False:
+                    raise ValueError('Composite System is not QuantumSystem')
+                compSys = newDimVal[1]
+
+            if self.__inComposite == False:
+                print('qSystem included into the composite')
+                compSys.addSubSys(self)
+            else:
+                compSys.updateDimension(self, dimVal)
+        return self
 
     @property
     def freeHam(self):
