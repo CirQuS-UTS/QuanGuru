@@ -282,6 +282,8 @@ class qSystem(qUniversal):
                 compSys.addSubSys(self)
             else:
                 compSys.updateDimension(self, dimVal)
+        else:
+            raise ValueError('argument should be int for single sys, tuple for subSys of composite')
         return self
 
     @property
