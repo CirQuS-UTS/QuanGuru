@@ -35,7 +35,7 @@ class Simulation(object):
 
     @qSys.setter
     def qSys(self, val):
-        val.constructSystem()
+        val.constructCompSys()
         self.__qSys = val
 
     @property
