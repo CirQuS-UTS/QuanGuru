@@ -3,7 +3,48 @@ import numpy as np
 import scipy.sparse as sp
 from classes.QSys import QuantumSystem
 import QuantumToolbox.states as qSt
+from classes.QUni import qUniversal
 """ under construction """
+
+
+class _sweep(qUniversal):
+    __slots__ = ['Label', 'sweepMax', 'sweepMin', 'sweepPert']
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.superSys = None
+        self.Label = None
+        self.sweepMax = 1
+        self.sweepMin = 0
+        self.sweepPert = 0.1
+
+        self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def sweepList(self):
+        return np.arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
+
+
+class Sweep(qUniversal):
+    # __slots__ = []
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.__Systems = {}
+        self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def Systems(self):
+        return self.__Systems
+
+    @Systems.setter
+    def Systems(self, dict):
+        self.__Systems = {}
+        for key, val in dict.items():
+            self.addSystem(val, key)
+
+    def addSystem(self, sys, label, **kwargs):
+        newSweep = _sweep(superSys=sys, Label=label, **kwargs)
+        self.__Systems[sys] = newSweep
+        return newSweep
 
 
 class Simulation(object):
@@ -46,8 +87,7 @@ class Simulation(object):
 
     @property
     def sweepList(self):
-        return np.arange(self.sweepMin, self.sweepMax + self.sweepPerturbation,
-                         self.sweepPerturbation)
+        return np.arange(self.sweepMin, self.sweepMax + self.sweepPerturbation, self.sweepPerturbation)
 
     def evolveTimeIndep(self, QSys, sweep):
         if hasattr(QSys, self.sweepKey):
@@ -105,8 +145,7 @@ class Simulation(object):
         states = []
         for value in sweep:
             setattr(Qsys, self.timeKey, value)
-            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
-                                      timeStep=self.StepSize)
+            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.StepSize)
 
             state = unitary @ state
             states.append(state)
@@ -119,8 +158,7 @@ class Simulation(object):
 
         for value in sweep:
             setattr(Qsys, self.timeKey, value)
-            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam,
-                                      timeStep=self.StepSize)
+            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.StepSize)
             state = unitary @ state
 
             eigen_values, eigen_states = sp.linalg.eig(self.qSys.totalHam.A)
