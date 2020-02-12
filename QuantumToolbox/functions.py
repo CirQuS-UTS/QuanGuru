@@ -118,8 +118,9 @@ def partialTrace(keep, dims, state):
         Traced matrix
     """
     if not isinstance(state, np.ndarray):
-        rho = state.toarray()
+        state = state.toarray()
 
+    rho = state
     if rho.shape[0] != rho.shape[1]:
         rho = (rho @ (rho.conj().T))
 
