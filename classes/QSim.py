@@ -1,13 +1,15 @@
 import QuantumToolbox.liouvillian as lio
 import numpy as np
 import scipy.sparse as sp
-from classes.QSys import QuantumSystem
 import QuantumToolbox.states as qSt
+from classes.QSys import QuantumSystem
 from classes.QUni import qUniversal
 """ under construction """
 
 
 class _sweep(qUniversal):
+    instances = 0
+    label = '_sweep'
     __slots__ = ['Label', 'sweepMax', 'sweepMin', 'sweepPert']
     def __init__(self, **kwargs):
         super().__init__()
@@ -16,6 +18,7 @@ class _sweep(qUniversal):
         self.sweepMax = 1
         self.sweepMin = 0
         self.sweepPert = 0.1
+        self._qUniversal__setKwargs(**kwargs)
 
         self._qUniversal__setKwargs(**kwargs)
 
@@ -25,7 +28,9 @@ class _sweep(qUniversal):
 
 
 class Sweep(qUniversal):
-    # __slots__ = []
+    instances = 0
+    label = 'Sweep'
+    __slots__ = ['__Systems', '__sweepFuncs', '__sweepFunc']
     def __init__(self, **kwargs):
         super().__init__()
         self.__Systems = {}
@@ -72,8 +77,12 @@ class Sweep(qUniversal):
 
 
 class Simulation(object):
+    instances = 0
+    label = 'Simulation'
     def __init__(self, QSys=None):
         self.qSys = QSys
+        self.sweep = Sweep(superSys=self)
+        self.sequence = qSequence(superSys=self)
         self.allStates = True
         # Time Dependent Hamiltonian
         self.timeKey = ''
@@ -109,9 +118,11 @@ class Simulation(object):
     def times(self):
         return np.arange(0, self.finalTime + self.StepSize, self.StepSize)
 
-    @property
-    def sweepList(self):
-        return np.arange(self.sweepMin, self.sweepMax + self.sweepPerturbation, self.sweepPerturbation)
+ 
+
+
+
+ 
 
     def evolveTimeIndep(self, QSys, sweep):
         if hasattr(QSys, self.sweepKey):
