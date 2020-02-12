@@ -1,8 +1,6 @@
 import scipy as np
 import scipy.linalg as lina
 import scipy.sparse as sp
-import QuantumToolbox.states as qSta
-import QuantumToolbox.operators as qOps
 
 
 # Functions for expectation value
@@ -12,7 +10,7 @@ def expectationMat(operator, denMat):
 
 
 def expectationKet(operator, ket):
-    denMat = qSta.densityMatrix(ket)
+    denMat = ket @ (ket.conj().T)
     return expectationMat(operator, denMat)
 
 
@@ -34,7 +32,7 @@ def expectationColList(operator, states):
     '''
         Calculates the expectation values of a list of column
         states by matrix multiplication.
-        Note: introduced to use with eigenvectors, 
+        Note: introduced to be used with eigenvectors, 
         needs to be tested for non-mutually orthogonal states
     '''
     expMat = states.conj().T @ operator @ states
@@ -88,7 +86,7 @@ def entropyKet(ket, base2=False):
     This function should not exist at all,
     ket is always a pure state
     '''
-    denMat = qSta.densityMatrix(ket)
+    denMat = ket @ (ket.conj().T)
     S = entropy(denMat, base2)
     return S
 
@@ -123,7 +121,7 @@ def partialTrace(keep, dims, state):
         rho = state.toarray()
 
     if rho.shape[0] != rho.shape[1]:
-        rho = qSta.densityMatrix(rho)
+        rho = (rho @ (rho.conj().T))
 
     keep = np.asarray(keep)
     dims = np.asarray(dims)
