@@ -1,50 +1,62 @@
 import scipy as np
 import scipy.linalg as lina
 import scipy.sparse as sp
-import QuantumToolbox.states as states
+import QuantumToolbox.states as qSta
 import QuantumToolbox.operators as qOps
 
 
-def expectationKet(operator, state):
-    expc = (((state.conj().T) @ operator @ state).diagonal()).sum()
+# Functions for expectation value
+def expectationMat(operator, denMat):
+    expc = ((operator @ denMat).diagonal()).sum()
     return np.real(expc)
 
 
-def expectationMat(operator, state):
-    expc = ((operator @ state).diagonal()).sum()
-    return np.real(expc)
+def expectationKet(operator, ket):
+    denMat = qSta.densityMatrix(ket)
+    return expectationMat(operator, denMat)
 
 
-def expectationList(operator, states):
-    if callable(operator):
-        operator = qOps.parityEXP(sp.kron(operator(int((states[0].shape[0])/2)), qOps.identity(2), format='csc'))
-
+def expectationKetList(operator, kets):
     expectations = []
-    if states[0].shape[0] != states[0].shape[1]:
-        for state in states:
-            expectations.append(np.real((((state.getH()) @ operator @ state).diagonal()).sum()))
-    else:
-        for state in states:
-            expectations.append(np.real(((operator @ state).diagonal()).sum()))
+    for ket in kets:
+        expectations.append(expectationKet(operator, ket))
     return expectations
 
 
-def expectationCollList(operator, states):
+def expectationMatList(operator, denMats):
+    expectations = []
+    for denMat in denMats:
+        expectations.append(expectationMat(operator, denMat))
+    return expectations
+
+
+def expectationColList(operator, states):
     '''
-        Calculates the expectation values of a list of collumn
-        states thru matrix multiplication
+        Calculates the expectation values of a list of column
+        states by matrix multiplication.
+        Note: introduced to use with eigenvectors, 
+        needs to be tested for non-mutually orthogonal states
     '''
     expMat = states.conj().T @ operator @ states
     return expMat.diagonal()
 
 
-def fidelityKet(state1, state2):
-    herm = state1.conj().T
-    fidelityA = ((herm @ state2).diagonal()).sum()
+# Functions for fidelity (currently only for pure states)
+def fidelityKet(ket1, ket2):
+    herm = ket1.conj().T
+    fidelityA = ((herm @ ket2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
 
 
+def fidelityPureMat(denMat1, denMat2):
+    fidelityA = ((denMat1 @ denMat2).diagonal()).sum()
+    return np.real(fidelityA)
+
+
 def fidelityKetLists(zippedStatesList):
+    '''
+    This is currently too specific
+    '''
     fidelities = []
     for ind in range(len(zippedStatesList[0])):
         herm = zippedStatesList[0][ind].conj().T
@@ -52,19 +64,12 @@ def fidelityKetLists(zippedStatesList):
         fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
     return fidelities
 
-def fidelityPureMat(state1, state2):
-    fidelityA = ((state1 @ state2).diagonal()).sum()
-    return np.real(fidelityA)
-
-
-def entropy(psi, base2=False):
-    if psi.shape[0] != psi.shape[1]:
-        densMat = states.densityMatrix(psi)
-    else:
-        densMat = psi
-
+    
+# Entropy function
+def entropy(densMat, base2=False):
+    # converts sparse into array (and has to)
     if not isinstance(densMat, np.ndarray):
-        densMat = densMat.toarray()
+        densMat = densMat.A
 
     vals = lina.eig(densMat)[0]
     nzvals = vals[vals != 0]
@@ -78,7 +83,17 @@ def entropy(psi, base2=False):
     return S
 
 
-def partial_trace(keep, dims, rho):
+def entropyKet(ket, base2=False):
+    '''
+    This function should not exist at all,
+    ket is always a pure state
+    '''
+    denMat = qSta.densityMatrix(ket)
+    S = entropy(denMat, base2)
+    return S
+
+
+def partialTrace(keep, dims, state):
     """
     Found on: https://scicomp.stackexchange.com/questions/30052/calculate-partial-trace-of-an-outer-product-in-python
     Calculate the partial trace
@@ -104,11 +119,11 @@ def partial_trace(keep, dims, rho):
     ρ_a : 2D array
         Traced matrix
     """
-    if rho.shape[0] != rho.shape[1]:
-        rho = states.densityMatrix(rho)
+    if not isinstance(state, np.ndarray):
+        rho = state.toarray()
 
-    if not isinstance(rho, np.ndarray):
-        rho = rho.toarray()
+    if rho.shape[0] != rho.shape[1]:
+        rho = qSta.densityMatrix(rho)
 
     keep = np.asarray(keep)
     dims = np.asarray(dims)
@@ -122,15 +137,73 @@ def partial_trace(keep, dims, rho):
     return rho_a.reshape(Nkeep, Nkeep)
 
 
-def IPRket(basis, state):
-    """
-    :param basis: A generic BRA basis
-    :param state: in ket
-    :return: IPR
-    """
+# Delocalisation measure for various cases
+def iprKet(basis, ket):
     npc = 0
-    for khyu in range(len(basis)):
-        fidelityA = ((basis[khyu] @ state).diagonal()).sum()
-        fid = np.real(fidelityA * np.conj(fidelityA))
+    for basKet in range(len(basis)):
+        fid = fidelityKet(basKet, ket)
         npc += (fid**2)
     return 1/npc
+
+
+def iprKetList(basis, kets):
+    npcs = []
+    for ket in kets:
+        npcs.append(iprKet(basis, ket))
+    return npcs
+
+
+def iprKetNB(ket):
+    return 1/np.sum(np.power((np.abs(ket.A.flatten())),4))
+
+
+def iprKetNBList(kets):
+    IPRatio = []
+    for ket in kets:
+        IPRatio.append(iprKetNB(ket))
+    return IPRatio
+
+
+def iprPureMat(basis, denMat):
+    npc = 0
+    for basKet in range(len(basis)):
+        fid = fidelityPureMat(basKet, denMat)
+        npc += (fid**2)
+    return 1/npc
+
+
+# Eigenvalue/vector functions
+def sortedEigens(totalHam):
+    if not isinstance(totalHam, np.ndarray):
+        totalHam = totalHam.A
+
+    eigVals, eigVecs = lina.eig(totalHam)
+    idx = eigVals.argsort()
+    sortedVals = eigVals[idx]
+    sortedVecs = eigVecs[:,idx]
+    return sortedVals, sortedVecs
+
+
+def eigVecStatKet(basis, ket):
+    comps = []
+    for basKet in range(len(basis)):
+        comps.append(fidelityKet(basKet, ket))
+    return comps
+
+
+def eigVecStatKetList(basis, kets):
+    compsList = []
+    for ket in kets:
+        compsList.append(eigVecStatKet(basis, ket))
+    return compsList
+
+
+def eigVecStatKetNB(ket):
+    return 1/np.sum(np.power((np.abs(ket.A.flatten())),2))
+
+
+def eigVecStatKetNBList(kets):
+    compList = []
+    for ket in kets:
+        compList.append(eigVecStatKetNB(ket))
+    return compList

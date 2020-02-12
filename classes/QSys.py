@@ -147,6 +147,7 @@ class QuantumSystem:
         for coupl in compSys.Couplings.values():
             coupl.couplingMat = None
 
+    # update the dimension of a subSystem
     @staticmethod
     def updateDimension(compSys, qSys, newDimVal):
         ind = qSys.ind
