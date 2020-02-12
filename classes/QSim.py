@@ -7,7 +7,7 @@ from classes.QUni import qUniversal
 """ under construction """
 
 
-class _evolve:
+"""class _evolve:
     def __init__(self, func):
         self.func = func
 
@@ -15,22 +15,20 @@ class _evolve:
         ind = labels.index('parallel')
         obj.__run(obj, labels[:ind])
         results = obj.parallel(obj.__run(obj, labels[(ind+1):]))
-        return results
+        return results"""
 
 
 class _sweep(qUniversal):
     instances = 0
     label = '_sweep'
-    __slots__ = ['Label', 'sweepMax', 'sweepMin', 'sweepPert']
+    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert']
     def __init__(self, **kwargs):
         super().__init__()
         self.superSys = None
-        self.Label = None
+        self.sweepKey = None
         self.sweepMax = 1
         self.sweepMin = 0
         self.sweepPert = 0.1
-        self._qUniversal__setKwargs(**kwargs)
-
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -45,8 +43,10 @@ class Sweep(qUniversal):
     def __init__(self, **kwargs):
         super().__init__()
         self.__Systems = {}
-        self.__sweepFuncs = {}
-        self.__sweepFunc = None
+        #self.__sweepFuncs = {}
+        #self.__sweepFunc = None
+        self.__system = None
+        self.__key = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -73,7 +73,7 @@ class Sweep(qUniversal):
             self.__Systems[sys] = newSweep
         return newSweep
 
-    @property
+    """@property
     def sweepFnc(self):
         return self.__sweepFunc
 
@@ -84,10 +84,10 @@ class Sweep(qUniversal):
                 self.__sweepFuncs[len(self.__sweepFuncs)] = self.__sweepFunc
             else:
                 self.__sweepFuncs[self.__sweepFunc.__name__] = self.__sweepFunc
-        self.__sweepFunc = fnc
+        self.__sweepFunc = fnc"""
 
 
-class qSequence(qUniversal):
+"""class qSequence(qUniversal):
     instances = 0
     label = 'qSequence'
 
@@ -112,7 +112,7 @@ class qSequence(qUniversal):
                 else:
                     self.update(sweep, sweep.Label)
         else:
-            self.update(self.superSys.Sweep.__Systems[obj], key)
+            self.update(self.superSys.Sweep.__Systems[obj], key)"""
 
 
 class Simulation(object):
@@ -121,7 +121,7 @@ class Simulation(object):
     def __init__(self, QSys=None):
         self.qSys = QSys
         self.sweep = Sweep(superSys=self)
-        self.sequence = qSequence(superSys=self)
+        #self.sequence = qSequence(superSys=self)
         self.allStates = True
         # Time Dependent Hamiltonian
         self.timeKey = ''
