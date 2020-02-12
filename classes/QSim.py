@@ -36,14 +36,23 @@ class Sweep(qUniversal):
         return self.__Systems
 
     @Systems.setter
-    def Systems(self, dict):
+    def Systems(self, sysDict):
         self.__Systems = {}
-        for key, val in dict.items():
+        for key, val in sysDict.items():
             self.addSystem(val, key)
 
     def addSystem(self, sys, label, **kwargs):
         newSweep = _sweep(superSys=sys, Label=label, **kwargs)
-        self.__Systems[sys] = newSweep
+        if sys in self.__Systems.keys():
+            if isinstance(self.__Systems[sys], dict):
+                self.__Systems[sys][label] = newSweep
+            else:
+                oldSw = self.__Systems[sys]
+                self.__Systems[sys] = {}
+                self.__Systems[sys][oldSw.Label] = oldSw
+                self.__Systems[sys][label] = newSweep
+        else:
+            self.__Systems[sys] = newSweep
         return newSweep
 
 
