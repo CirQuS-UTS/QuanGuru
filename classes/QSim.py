@@ -29,6 +29,8 @@ class Sweep(qUniversal):
     def __init__(self, **kwargs):
         super().__init__()
         self.__Systems = {}
+        self.__sweepFuncs = {}
+        self.__sweepFunc = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -54,6 +56,17 @@ class Sweep(qUniversal):
         else:
             self.__Systems[sys] = newSweep
         return newSweep
+
+    @property
+    def sweepFnc(self):
+        return self.__sweepFunc
+
+    @sweepFnc.setter
+    def sweepFnc(self, fnc):
+        if self.__sweepFunc is not None:
+            if self.__sweepFunc.__name__ in self.__sweepFuncs.keys():
+                self.__sweepFuncs[self.__sweepFunc.__name__] = self.__sweepFunc
+        self.__sweepFunc = fnc
 
 
 class Simulation(object):
