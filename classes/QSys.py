@@ -164,7 +164,6 @@ class qCoupling(qUniversal):
         super().__init__()
         self.couplingStrength = 0
 
-        self._qUniversal__name = None
         self.__cFncs = []
         self.__qSys = []
         self.__cMatrix = None
@@ -217,18 +216,20 @@ class qCoupling(qUniversal):
 
 
 class envCoupling(qCoupling):
-    __slots__ = ['label']
+    instances = 0
+    label = 'EnvironmentCoupling'
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
-        self.label = 'Environment Coupling'
         self._qUniversal__setKwargs(**kwargs)
 
 
 class sysCoupling(qCoupling):
-    __slots__ = ['label']
+    instances = 0
+    label = 'SystemCoupling'
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
-        self.label = 'System Coupling'
         self._qUniversal__setKwargs(**kwargs)
 
 
@@ -240,7 +241,6 @@ class qSystem(qUniversal):
         self.frequency = 1
         self.operator = None
 
-        self._qUniversal__name = None
         self.__dimension = 2
         self.__Matrix = None
         self.__dimsBefore = 1
@@ -295,11 +295,12 @@ class qSystem(qUniversal):
 
 
 class Qubit(qSystem):
-    __slots__ = ['label']
+    instances = 0
+    label = 'Qubit'
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.sigmaz
-        self.label = 'Qubit'
         self._qUniversal__setKwargs(**kwargs)
 
     @qSystem.freeHam.getter
@@ -309,11 +310,12 @@ class Qubit(qSystem):
 
 
 class Spin(qSystem):
-    __slots__ = ['_jValue', 'label']
+    instances = 0
+    label = 'Spin'
+    __slots__ = ['_jValue']
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.Jz
-        self.label = 'Spin'
         self._jValue = 1
         self._qUniversal__setKwargs(**kwargs)
 
@@ -332,9 +334,10 @@ class Spin(qSystem):
 
 
 class Cavity(qSystem):
-    __slots__ = ['label']
+    instances = 0
+    label = 'Cavity'
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.number
-        self.label = 'Cavity'
         self._qUniversal__setKwargs(**kwargs)
