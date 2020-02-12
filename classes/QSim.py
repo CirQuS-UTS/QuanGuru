@@ -7,6 +7,17 @@ from classes.QUni import qUniversal
 """ under construction """
 
 
+class _evolve:
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self, obj, labels):
+        ind = labels.index('parallel')
+        obj.__run(obj, labels[:ind])
+        results = obj.parallel(obj.__run(obj, labels[(ind+1):]))
+        return results
+
+
 class _sweep(qUniversal):
     instances = 0
     label = '_sweep'
