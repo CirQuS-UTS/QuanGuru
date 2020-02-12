@@ -157,15 +157,14 @@ class QuantumSystem:
         return qSys
 
 
-
 # quantum coupling object
 class qCoupling(qUniversal):
     __slots__ = ['__cFncs', 'couplingStrength', '__cOrders', '__cMatrix', '__qSys']
-    def __init__(self, name=None, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__()
         self.couplingStrength = 0
 
-        self._qUniversal__name = name
+        self._qUniversal__name = None
         self.__cFncs = []
         self.__qSys = []
         self.__cMatrix = None
@@ -224,6 +223,7 @@ class envCoupling(qCoupling):
         self.label = 'Environment Coupling'
         self._qUniversal__setKwargs(**kwargs)
 
+
 class sysCoupling(qCoupling):
     __slots__ = ['label']
     def __init__(self, **kwargs):
@@ -235,12 +235,12 @@ class sysCoupling(qCoupling):
 # quantum system objects
 class qSystem(qUniversal):
     __slots__ = ['__dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter']
-    def __init__(self, name=None, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__()
         self.frequency = 1
         self.operator = None
 
-        self._qUniversal__name = name
+        self._qUniversal__name = None
         self.__dimension = 2
         self.__Matrix = None
         self.__dimsBefore = 1
@@ -293,6 +293,7 @@ class qSystem(qUniversal):
         self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
         return self.__Matrix
 
+
 class Qubit(qSystem):
     __slots__ = ['label']
     def __init__(self, **kwargs):
@@ -328,6 +329,7 @@ class Spin(qSystem):
     def constructSubMat(self):
         self._qSystem__Matrix = hams.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
+
 
 class Cavity(qSystem):
     __slots__ = ['label']
