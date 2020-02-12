@@ -164,6 +164,13 @@ def iprKetNBList(kets):
     return IPRatio
 
 
+def iprKetNBmat(kets):
+    IPRatio = []
+    for ind in range(len(kets)):
+        IPRatio.append(iprKetNB(kets[:,ind]))
+    return IPRatio
+
+
 def iprPureMat(basis, denMat):
     npc = 0
     for basKet in range(len(basis)):
@@ -172,7 +179,7 @@ def iprPureMat(basis, denMat):
     return 1/npc
 
 
-# Eigenvalue/vector functions
+# Eigenvector statistics
 def sortedEigens(totalHam):
     if not isinstance(totalHam, np.ndarray):
         totalHam = totalHam.A
@@ -200,10 +207,3 @@ def eigVecStatKetList(basis, kets):
 
 def eigVecStatKetNB(ket):
     return 1/np.sum(np.power((np.abs(ket.A.flatten())),2))
-
-
-def eigVecStatKetNBList(kets):
-    compList = []
-    for ket in kets:
-        compList.append(eigVecStatKetNB(ket))
-    return compList
