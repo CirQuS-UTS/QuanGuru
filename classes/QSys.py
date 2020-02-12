@@ -5,11 +5,10 @@ from classes.QUni import qUniversal
 
 class QuantumSystem:
     def __init__(self):
-        super().__init__()
         self.subSystems = {}
         self.Couplings = {}
-
         self.couplingName = None
+
         self.__kept = {}
 
         # these should not necessarily be in here
@@ -73,8 +72,7 @@ class QuantumSystem:
     # adding or creating a new couplings
     def createSysCoupling(self, qsystems, couplingOps, couplingStrength, **kwargs):
         couplingObj = sysCoupling(couplingStrength=couplingStrength, **kwargs)
-        couplingObj._qCoupling__cFncs.append(couplingOps)
-        couplingObj._qCoupling__qSys.append(qsystems)
+        couplingObj.addTerm(qsystems, couplingOps)
         couplingObj.ind = len(self.Couplings)
         self.Couplings[couplingObj.name] = couplingObj
         return couplingObj
@@ -97,13 +95,11 @@ class QuantumSystem:
             if subSys2.operator == qOps.sigmaz:
                 print('sigmaz')
                 couplingObj = self.createSysCoupling(qsystems, [qOps.destroy, qOps.sigmap], cStrength)
-                # below line can be replaced with add_term, but lets keep as it is for the moment
-                couplingObj._qCoupling__cFncs.append([qOps.create, qOps.sigmam])
+                couplingObj.addTerm(qsystems,[qOps.create, qOps.sigmam])
             else:
                 print('number')
                 couplingObj = self.createSysCoupling(qsystems, [qOps.destroy, qOps.create], cStrength)
-                couplingObj._qCoupling__cFncs.append([qOps.create, qOps.destroy])
-            couplingObj._qCoupling__qSys.append(qsystems)
+                couplingObj.addTerm(qsystems,[qOps.create, qOps.destroy])
             couplingObj.name = 'JCcoupling'
         return couplingObj
 
@@ -167,10 +163,11 @@ class qCoupling(qUniversal):
     __slots__ = ['__cFncs', 'couplingStrength', '__cOrders', '__cMatrix', '__qSys']
     def __init__(self, name=None, **kwargs):
         super().__init__()
+        self.couplingStrength = 0
+
         self._qUniversal__name = name
         self.__cFncs = []
         self.__qSys = []
-        self.couplingStrength = 0
         self.__cMatrix = None
         self._qUniversal__setKwargs(**kwargs)
 
@@ -240,12 +237,11 @@ class qSystem(qUniversal):
     __slots__ = ['__dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter']
     def __init__(self, name=None, **kwargs):
         super().__init__()
-        self._qUniversal__name = name
-
-        self.__dimension = 2
         self.frequency = 1
         self.operator = None
 
+        self._qUniversal__name = name
+        self.__dimension = 2
         self.__Matrix = None
         self.__dimsBefore = 1
         self.__dimsAfter = 1
@@ -316,8 +312,8 @@ class Spin(qSystem):
     def __init__(self, **kwargs):
         super().__init__()
         self.operator = qOps.Jz
-        self._jValue = 1
         self.label = 'Spin'
+        self._jValue = 1
         self._qUniversal__setKwargs(**kwargs)
 
     @property

@@ -24,7 +24,7 @@ class qUniversal:
 
     @property
     def name(self):
-        return self._qUniversal__name if self._qUniversal__name is not None else self.ind
+        return self.__name if self.__name is not None else self.ind
     @name.setter
     def name(self, name):
         self.__name = name
