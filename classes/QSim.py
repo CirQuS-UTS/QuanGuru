@@ -65,6 +65,8 @@ class Sweep(qUniversal):
     def sweepFnc(self, fnc):
         if self.__sweepFunc is not None:
             if self.__sweepFunc.__name__ in self.__sweepFuncs.keys():
+                self.__sweepFuncs[len(self.__sweepFuncs)] = self.__sweepFunc
+            else:
                 self.__sweepFuncs[self.__sweepFunc.__name__] = self.__sweepFunc
         self.__sweepFunc = fnc
 
