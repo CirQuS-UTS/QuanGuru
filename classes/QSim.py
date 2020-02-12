@@ -76,6 +76,34 @@ class Sweep(qUniversal):
         self.__sweepFunc = fnc
 
 
+class qSequence(qUniversal):
+    instances = 0
+    label = 'qSequence'
+
+    __slots__ = ['__labels', '__objects']
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.__labels = []
+        self.__objects = []
+        self._qUniversal__setKwargs(**kwargs)
+
+    def update(self, obj, key):
+        if isinstance(obj, _sweep):
+            self.__objects.append(obj)
+            if key != obj.Label:
+                raise ValueError('keys does not match')
+            self.__labels.append(obj.Label)
+        elif isinstance(obj, Sweep):
+            for sweep in Sweep.__Systems.vals():
+                if isinstance(sweep, dict):
+                    for key, val in sweep.items():
+                        self.update(val, key)
+                else:
+                    self.update(sweep, sweep.Label)
+        else:
+            self.update(self.superSys.Sweep.__Systems[obj], key)
+
+
 class Simulation(object):
     instances = 0
     label = 'Simulation'
