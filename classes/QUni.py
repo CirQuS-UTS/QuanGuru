@@ -1,8 +1,10 @@
 class qUniversal:
+    instances = 0
+    label = 'universal'
     def __init__(self, **kwargs):
         super().__init__()
-        self.__name = None
-        self.__ind = None
+        self._incrementInstances()
+        self.__name = self.__namer()
         self.superSys = None
         self.__setKwargs(**kwargs)
 
@@ -24,7 +26,7 @@ class qUniversal:
 
     @property
     def name(self):
-        return self.__name if self.__name is not None else self.ind
+        return self.__name
         
     @name.setter
     def name(self, name):
@@ -35,3 +37,22 @@ class qUniversal:
         sysClass = qUninstance.__class__
         newSub = sysClass(**kwargs)
         return newSub
+        
+    def __namer(self):
+        name = self.clsLabel() + str(self.clsInstances())
+        return name
+
+    @classmethod
+    def _incrementInstances(cls):
+        cls.instances += 1
+
+    @classmethod
+    def clsInstances(cls):
+        """Return the current number of instances of this class,
+        useful for auto naming."""
+        return cls.instances
+
+    @classmethod
+    def clsLabel(cls):
+        """Return the prefix to use for auto naming."""
+        return cls.label
