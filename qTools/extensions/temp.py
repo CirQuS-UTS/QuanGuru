@@ -1,27 +1,26 @@
 import qTools.QuantumToolbox.liouvillian as lio
 import numpy as np
 import scipy.sparse as sp
-from qTools.classes.QSim import Simulation
 
 
-def evolveTimeIndep(self, obj, sweep):
-    setattr(obj, self.sweep._Sweep__Systems[obj].sweepKey, sweep)
+def evolveTimeIndep(obj, sweep):
+    setattr(obj, obj.superSys.superSys.sweep._Sweep__Systems[obj].sweepKey, sweep)
 
 
-    if self.qSys.Unitaries is None:
-        unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.timeSweep.sweepPert)
+    if obj.superSys.superSys.qSys.Unitaries is None:
+        unitary = lio.Liouvillian(2 * np.pi * obj.superSys.superSys.qSys.totalHam, timeStep=obj.superSys.superSys.timeSweep.sweepPert)
     else:
-        unitary = self.qSys.Unitaries(self.qSys, self.timeSweep.sweepPert)
+        unitary = obj.superSys.superSys.qSys.Unitaries(obj.superSys.superSys.qSys, obj.superSys.superSys.timeSweep.sweepPert)
 
-    state = self.qSys.initialState
-    if self.allStates:
+    state = obj.superSys.superSys.qSys.initialState
+    if obj.superSys.superSys.allStates:
         states = [state]
-        for ii in range(len(self.times) - 1):
+        for ii in range(len(obj.superSys.superSys.times) - 1):
             state = unitary @ state
             states.append(state)
         return states
     else:
-        for ii in range(len(self.times) - 1):
+        for ii in range(len(obj.superSys.superSys.times) - 1):
             state = unitary @ state
         return state
 
