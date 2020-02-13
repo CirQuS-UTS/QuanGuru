@@ -1,9 +1,9 @@
-import QuantumToolbox.liouvillian as lio
+import qTools.QuantumToolbox.liouvillian as lio
 import numpy as np
 import scipy.sparse as sp
-import QuantumToolbox.states as qSt
-from classes.QSys import QuantumSystem
-from classes.QUni import qUniversal
+import qTools.QuantumToolbox.states as qSt
+from qTools.classes.QSys import QuantumSystem
+from qTools.classes.QUni import qUniversal
 """ under construction """
 
 
@@ -26,14 +26,27 @@ class _sweep(qUniversal):
         super().__init__()
         self.superSys = None
         self.sweepKey = None
-        self.sweepMax = 1
-        self.sweepMin = 0
-        self.sweepPert = 0.1
+        self.sweepMax = None
+        self.sweepMin = None
+        self.sweepPert = None
+        self.__sweepList = None
+        self.logSweep = False
         self._qUniversal__setKwargs(**kwargs)
 
     @property
     def sweepList(self):
-        return np.arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
+        if self.__sweepList is None:
+            if self.logSweep is False:
+                return np.arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
+            elif self.logSweep is True:
+                return np.logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
+        else:
+            return self.__sweepList
+
+    @sweepList.setter
+    def sweepList(self, sList):
+        self.__sweepList = sList
+
 
 
 class Sweep(qUniversal):

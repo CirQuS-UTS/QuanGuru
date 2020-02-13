@@ -1,4 +1,4 @@
-import QuantumToolbox.operators as ops
+import qTools.QuantumToolbox.operators as ops
 import scipy.sparse as sp
 
 

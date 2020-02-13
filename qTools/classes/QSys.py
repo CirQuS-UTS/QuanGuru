@@ -1,6 +1,6 @@
-import QuantumToolbox.operators as qOps
-import QuantumToolbox.Hamiltonians as hams
-from classes.QUni import qUniversal
+import qTools.QuantumToolbox.operators as qOps
+import qTools.QuantumToolbox.Hamiltonians as hams
+from qTools.classes.QUni import qUniversal
 
 
 class QuantumSystem:

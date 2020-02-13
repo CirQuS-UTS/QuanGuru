@@ -5,7 +5,7 @@ import scipy.sparse as sp
 from scipy import (zeros, array, arange, exp, real, conj, pi,copy, sqrt, meshgrid, size, polyval, fliplr, conjugate)
 from scipy.special import factorial
 import scipy.linalg as la
-import QuantumToolbox.states as states
+import qTools.QuantumToolbox.states as states
 
 def Wigner(xvec, rho, g=np.sqrt(2)):
     """

@@ -1,4 +1,4 @@
-from classes.QSys import QuantumSystem
+from qTools.classes.QSys import Qubit
 
 
 # below is an example of the idea for this script
@@ -8,4 +8,4 @@ from classes.QSys import QuantumSystem
 def maFnc(x):
     print(x)
 
-QuantumSystem.x = maFnc
+Qubit.x = maFnc
