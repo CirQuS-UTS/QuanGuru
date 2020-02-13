@@ -84,25 +84,6 @@ class QuantumSystem:
             print('not an instance of qCoupling')
         return couplingObj
 
-    def coupleBy(self, subSys1, subSys2, cType, cStrength):
-        '''
-        These options should be located in a  seperate file, in which case
-        cType would be a function
-        '''
-        qsystems = [subSys1, subSys2]
-        if cType == 'JC':
-            self.couplingName = 'JC'
-            if subSys2.operator == qOps.sigmaz:
-                print('sigmaz')
-                couplingObj = self.createSysCoupling(qsystems, [qOps.destroy, qOps.sigmap], cStrength)
-                couplingObj.addTerm(qsystems,[qOps.create, qOps.sigmam])
-            else:
-                print('number')
-                couplingObj = self.createSysCoupling(qsystems, [qOps.destroy, qOps.create], cStrength)
-                couplingObj.addTerm(qsystems,[qOps.create, qOps.destroy])
-            couplingObj.name = 'JCcoupling'
-        return couplingObj
-
     # reset and keepOld
     def reset(self, to=None):
         if to is None:
