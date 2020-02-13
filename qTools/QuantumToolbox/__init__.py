@@ -1,4 +1,4 @@
-from .operators import *
+from .functions import *
 from .Hamiltonians import *
 from .liouvillian import *
 from .operators import *
