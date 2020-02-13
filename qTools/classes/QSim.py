@@ -162,7 +162,7 @@ class Simulation(qUniversal):
     def times(self):
         return self.timeSweep.sweepList
 
-    @property.setter
+    @times.setter
     def times(self, tList):
         self.timeSweep.sweepList = tList
  
