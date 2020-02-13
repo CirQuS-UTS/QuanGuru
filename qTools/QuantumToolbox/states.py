@@ -41,8 +41,13 @@ def normalise(psi):
 
 def superPos(dimension, excitations, sparse=True):
     sts = []
-    for exc in excitations:
-        sts.append(basis(dimension, exc, sparse))
+    if isinstance(excitations, dict):
+        for key, val in excitations.items():
+            print(key)
+            sts.append(np.sqrt(val)*basis(dimension, key, sparse))
+    else:
+        for val in excitations:
+            sts.append(basis(dimension, val, sparse))
     sta = normalise(sum(sts))
     return sta
 
