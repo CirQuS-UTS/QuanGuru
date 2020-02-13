@@ -7,7 +7,7 @@ from classes.QUni import qUniversal
 """ under construction """
 
 
-"""class _evolve:
+class _evolve:
     def __init__(self, func):
         self.func = func
 
@@ -15,7 +15,7 @@ from classes.QUni import qUniversal
         ind = labels.index('parallel')
         obj.__run(obj, labels[:ind])
         results = obj.parallel(obj.__run(obj, labels[(ind+1):]))
-        return results"""
+        return results
 
 
 class _sweep(qUniversal):
@@ -59,8 +59,8 @@ class Sweep(qUniversal):
         for key, val in sysDict.items():
             self.addSystem(val, key)
 
-    def addSystem(self, sys, label, **kwargs):
-        newSweep = _sweep(superSys=sys, Label=label, **kwargs)
+    def addSweep(self, sys, label, **kwargs):
+        newSweep = _sweep(superSys=sys, sweepKey=label, **kwargs)
         if sys in self.__Systems.keys():
             if isinstance(self.__Systems[sys], dict):
                 self.__Systems[sys][label] = newSweep
@@ -87,7 +87,7 @@ class Sweep(qUniversal):
         self.__sweepFunc = fnc"""
 
 
-"""class qSequence(qUniversal):
+class qSequence(qUniversal):
     instances = 0
     label = 'qSequence'
 
@@ -112,33 +112,21 @@ class Sweep(qUniversal):
                 else:
                     self.update(sweep, sweep.Label)
         else:
-            self.update(self.superSys.Sweep.__Systems[obj], key)"""
+            self.update(self.superSys.Sweep.__Systems[obj], key)
 
 
-class Simulation(object):
+class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
-    def __init__(self, QSys=None):
-        self.qSys = QSys
+    def __init__(self, **kwargs):
+        self.__qSys = QuantumSystem()
         self.sweep = Sweep(superSys=self)
-        #self.sequence = qSequence(superSys=self)
+        self.timeSweep = self.sweep.addSweep(sys=self, label='time')
+        self.timeSweep.sweepMax = 1
+        self.timeSweep.sweepMin = 0
+        self.timeSweep.sweepPert = 0.02
         self.allStates = True
-        # Time Dependent Hamiltonian
-        self.timeKey = ''
-
-        # Default Simulation Parameters
-        # time parameters
-        self.finalTime = 1  # total time of simulation
-        self.StepSize = 0.02  # sampling time step
-
-        # sweep parameters
-        self.sweepKey = ''
-        self.sweepMax = 3
-        self.sweepMin = -3
-        self.sweepPerturbation = 0.05
-
-        # Saving Options
-        self.irregular = False
+        self._qUniversal__setKwargs(**kwargs)
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -155,26 +143,22 @@ class Simulation(object):
 
     @property
     def times(self):
-        return np.arange(0, self.finalTime + self.StepSize, self.StepSize)
+        return self.timeSweep.sweepList
 
  
-
-
-
+    def addSweep(self, obj, label):
+        newSwe = self.sweep.addSweep(sys=obj, label=label)
+        return newSwe
  
 
-    def evolveTimeIndep(self, QSys, sweep):
-        if hasattr(QSys, self.sweepKey):
-            setattr(QSys, self.sweepKey, sweep)
-        elif hasattr(self, self.sweepKey):
-            setattr(self, self.sweepKey, sweep)
-        else:
-            print("Key is not an atribute")
+    def evolveTimeIndep(self, obj, sweep):
+        setattr(obj, self.sweep._Sweep__Systems[obj].sweepKey, sweep)
+
 
         if self.qSys.Unitaries is None:
-            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.StepSize)
+            unitary = lio.Liouvillian(2 * np.pi * self.qSys.totalHam, timeStep=self.timeSweep.sweepPert)
         else:
-            unitary = self.qSys.Unitaries(self.qSys, self.StepSize)
+            unitary = self.qSys.Unitaries(self.qSys, self.timeSweep.sweepPert)
 
         state = self.qSys.initialState
         if self.allStates:
