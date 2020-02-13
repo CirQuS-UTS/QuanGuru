@@ -86,20 +86,21 @@ class QuantumSystem:
 
     # reset and keepOld
     def reset(self, to=None):
-        if to is None:
-            for coupl in self.Couplings.values():
+        for coupl in self.Couplings.values():
                 coupl._qCoupling__cMatrix = None
 
-            for qSys in self.subSystems.values():
-                qSys._qSystem__Matrix = None
+        for qSys in self.subSystems.values():
+            qSys._qSystem__Matrix = None
 
-            self.__keepOld()
+        self.__keepOld()
+
+        self.__constructed = False
+        if to is None:
             self.Couplings = {}
             self.Unitaries = None
             self.couplingName = None
             return 0
         else:
-            self.__keepOld()
             self.couplingName = to
             self.Couplings = self.__kept[to][0]
             self.Unitaries = self.__kept[to][1]
