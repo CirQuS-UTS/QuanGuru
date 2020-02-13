@@ -150,6 +150,7 @@ class Simulation(qUniversal):
 
     @property
     def qSys(self):
+        self.__qSys.superSys = self
         return self.__qSys
 
     @qSys.setter
@@ -160,6 +161,10 @@ class Simulation(qUniversal):
     @property
     def times(self):
         return self.timeSweep.sweepList
+
+    @property.setter
+    def times(self, tList):
+        self.timeSweep.sweepList = tList
  
     def addSweep(self, obj, label):
         newSwe = self.sweep.addSweep(sys=obj, label=label)
@@ -169,7 +174,7 @@ class Simulation(qUniversal):
     def tProtocol(self):
         return self.__tProtocol
 
-    @tProtocol.getter
+    @tProtocol.setter
     def tProtocol(self, protoc):
         self.__tProtocol = protoc
 
