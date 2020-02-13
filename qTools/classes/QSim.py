@@ -11,11 +11,13 @@ class _evolve:
     def __init__(self, func):
         self.func = func
 
-    def __call__(self, obj, labels):
-        ind = labels.index('parallel')
-        obj.__run(obj, labels[:ind])
-        results = obj.parallel(obj.__run(obj, labels[(ind+1):]))
+    def __call__(self, obj):
+        ind = obj._qSequence__labels.index('parallel')
+        for i in range(ind):
+            func(obj._qSequence__labels[i], obj._qSequence__objects[i])
+        results = obj.parallel(ind)
         return results
+
 
 
 class _sweep(qUniversal):
@@ -111,21 +113,21 @@ class qSequence(qUniversal):
         self.__objects = []
         self._qUniversal__setKwargs(**kwargs)
 
-    def update(self, obj, key):
+    def addStep(self, obj, label=None, key=None, loop=False, p=None):
         if isinstance(obj, _sweep):
             self.__objects.append(obj)
-            if key != obj.Label:
-                raise ValueError('keys does not match')
+            if key != obj.sweepKey:
+                print('keys does not match')
             self.__labels.append(obj.Label)
         elif isinstance(obj, Sweep):
-            for sweep in Sweep.__Systems.vals():
+            for sweep in Sweep.Systems.values():
                 if isinstance(sweep, dict):
                     for key, val in sweep.items():
-                        self.update(val, key)
+                        self.addStep(val, key)
                 else:
-                    self.update(sweep, sweep.Label)
+                    self.addStep(sweep, sweep.Label)
         else:
-            self.update(self.superSys.Sweep.__Systems[obj], key)
+            self.addStep(self.superSys.Sweep.__Systems[obj], key)
 
 
 class Simulation(qUniversal):
@@ -162,7 +164,6 @@ class Simulation(qUniversal):
     def addSweep(self, obj, label):
         newSwe = self.sweep.addSweep(sys=obj, label=label)
         return newSwe
- 
 
     def evolveTimeIndep(self, obj, sweep):
         setattr(obj, self.sweep._Sweep__Systems[obj].sweepKey, sweep)
