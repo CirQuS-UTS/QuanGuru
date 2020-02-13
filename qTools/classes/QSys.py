@@ -10,7 +10,7 @@ class QuantumSystem:
         self.couplingName = None
 
         self.__kept = {}
-
+        self.__constructed = False
         # these should not necessarily be in here
         self.Unitaries = None
         self.initialState = None
@@ -117,24 +117,26 @@ class QuantumSystem:
             self.__kept[name] = [self.Couplings, self.Unitaries]
 
     # construct the matrices
-    @staticmethod
-    def constructCompSys(compSys):
-        for qSys in compSys.subSystems.values():
+    def constructCompSys(self):
+        for qSys in self.subSystems.values():
             qSys.freeMat = None
-        for coupl in compSys.Couplings.values():
+        for coupl in self.Couplings.values():
             coupl.couplingMat = None
+        self.__constructed = True
 
     # update the dimension of a subSystem
-    @staticmethod
-    def updateDimension(compSys, qSys, newDimVal):
+    def updateDimension(self, qSys, newDimVal):
         ind = qSys.ind
-        for qS in compSys.subSystems.values():
+        for qS in self.subSystems.values():
             if qS.ind < ind:
                 dimA = int((qS._qSystem__dimsAfter*newDimVal)/qSys.dimension)
                 qS._qSystem__dimsAfter = dimA
             elif qS.ind > ind:
                 dimB = int((qS._qSystem__dimsBefore*newDimVal)/qSys.dimension)
                 qS._qSystem__dimsBefore = dimB
+
+        if self.__constructed is True:
+            self.constructCompSys()
         return qSys
 
 
