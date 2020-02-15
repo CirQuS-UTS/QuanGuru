@@ -3,26 +3,21 @@ import numpy as np
 import scipy.sparse as sp
 
 
-def evolveTimeIndep(obj, sweep):
-    setattr(obj, obj.superSys.superSys.sweep._Sweep__Systems[obj].sweepKey, sweep)
+def evolveTimeIndep(qSim, sweep, value):
+    setattr(sweep.superSys, sweep.sweepKey, value)
 
 
-    if obj.superSys.superSys.qSys.Unitaries is None:
-        unitary = lio.Liouvillian(2 * np.pi * obj.superSys.superSys.qSys.totalHam, timeStep=obj.superSys.superSys.timeSweep.sweepPert)
+    if qSim.qSys.Unitaries is None:
+        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize)
     else:
-        unitary = obj.superSys.superSys.qSys.Unitaries(obj.superSys.superSys.qSys, obj.superSys.superSys.timeSweep.sweepPert)
+        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize)
 
-    state = obj.superSys.superSys.qSys.initialState
-    if obj.superSys.superSys.allStates:
-        states = [state]
-        for ii in range(len(obj.superSys.superSys.times) - 1):
-            state = unitary @ state
-            states.append(state)
-        return states
-    else:
-        for ii in range(len(obj.superSys.superSys.times) - 1):
-            state = unitary @ state
-        return state
+    state = qSim.qSys.initialState
+    states = [state]
+    for ii in range(len(qSim.times) - 1):
+        state = unitary @ state
+        states.append(state)
+    return states
 
 def randStep(self, QSys, sweep):
     if hasattr(QSys, self.sweepKey):
