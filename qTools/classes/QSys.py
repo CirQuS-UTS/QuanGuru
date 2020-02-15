@@ -173,11 +173,10 @@ class QuantumSystem(qUniversal):
 class qCoupling(qUniversal):
     instances = 0
     label = 'qCoupling'
-    __slots__ = ['__cFncs', 'couplingStrength', '__cOrders', '__cMatrix', '__qSys']
+    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__cMatrix', '__qSys']
     def __init__(self, **kwargs):
-        super().__init__()
-        self.couplingStrength = 0
-
+        super().__init__(**kwargs)
+        self.__couplingStrength = 0
         self.__cFncs = []
         self.__qSys = []
         self.__cMatrix = None
@@ -186,6 +185,14 @@ class qCoupling(qUniversal):
 
     # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
     # so these should be generalised and explicit ones moved into sysCoupling
+    @property
+    def couplingStrength(self):
+        return self.__couplingStrength
+
+    @couplingStrength.setter
+    def couplingStrength(self, strength):
+        self.__couplingStrength = strength
+
     @property
     def couplingMat(self):
         return self.__cMatrix
@@ -238,7 +245,7 @@ class envCoupling(qCoupling):
     label = 'EnvironmentCoupling'
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         self._qUniversal__setKwargs(**kwargs)
 
 
@@ -247,7 +254,7 @@ class sysCoupling(qCoupling):
     label = 'SystemCoupling'
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         self._qUniversal__setKwargs(**kwargs)
 
 
