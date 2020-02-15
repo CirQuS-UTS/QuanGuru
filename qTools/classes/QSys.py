@@ -9,10 +9,11 @@ from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 class QuantumSystem(qUniversal):
     instances = 0
     label = 'Composite Quantum System'
-    __slots__ = ['subSystems', 'Couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState']
+    __slots__ = ['Couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState']
     def __init__(self, **kwargs):
-        super().__init__()
-        self.subSystems = {}
+        super().__init__(**kwargs)
+        # TODO make these property
+        #self.subSystems = {}
         self.Couplings = {}
         self.couplingName = None
 
@@ -176,13 +177,15 @@ class qCoupling(qUniversal):
     __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__cMatrix', '__qSys']
 
     @qCouplingInitErrors
-    def __init__(self,*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
-        self.__couplingStrength = 0
+        self.__couplingStrength = None
+        # TODO functions and systems are not available to outside, make them!
         self.__cFncs = []
         self.__qSys = []
         self.__cMatrix = None
         self._qUniversal__setKwargs(**kwargs)
+        # FIXME if nor args given should not create a problem
         self.addTerm(*args)
 
 
@@ -236,10 +239,13 @@ class qCoupling(qUniversal):
         cHam = sum(cMats)
         return cHam
 
-    def addTerm(self, qsystems, couplingOps):
-        self.__cFncs.append(couplingOps)
-        self.__qSys.append(qsystems)
-        self.superSys._QuantumSystem__constructed = False
+    # TODO make it as in qSystem for possiblity of differnet g acd copy
+    def addTerm(self, *args):
+        # TODO might be turn into 0-1 independent
+        if len(args) > 0:
+            self.__cFncs.append(args[1])
+            self.__qSys.append(args[0])
+            self.superSys._QuantumSystem__constructed = False
         return self
 
 
@@ -247,8 +253,8 @@ class envCoupling(qCoupling):
     instances = 0
     label = 'EnvironmentCoupling'
     __slots__ = []
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._qUniversal__setKwargs(**kwargs)
 
 
@@ -256,8 +262,8 @@ class sysCoupling(qCoupling):
     instances = 0
     label = 'SystemCoupling'
     __slots__ = []
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._qUniversal__setKwargs(**kwargs)
 
 
@@ -369,9 +375,8 @@ class Qubit(qSystem):
     label = 'Qubit'
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__(dimension=2, **kwargs)
         self.operator = qOps.sigmaz
-        self.dimension = 2
         self._qUniversal__setKwargs(**kwargs)
 
     @qSystem.freeHam.getter
