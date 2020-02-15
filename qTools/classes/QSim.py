@@ -8,9 +8,9 @@ from functools import partial
 """ under construction """
 
 
-class sweep(qUniversal):
+class Sweep(qUniversal):
     instances = 0
-    label = 'sweep'
+    label = 'Sweep'
     __parallel = None
     __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep', '_parallel']
     # TODO write exceptions if gone keep
@@ -40,75 +40,66 @@ class sweep(qUniversal):
 
     @property
     def sweepList(self):
-        if self.__sweepList is None:
-            if self.logSweep is False:
-                return np.arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
-            elif self.logSweep is True:
-                return np.logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
-        else:
-            return self.__sweepList
+        return self.__sweepList
 
     @sweepList.setter
     def sweepList(self, sList):
-        self.__sweepList = sList
-
+        if sList is None:
+            if self.logSweep is False:
+                self.__sweepList = np.arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
+            elif self.logSweep is True:
+                self.__sweepList = np.logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
+        else:
+            self.__sweepList = sList
 
 
 class qSequence(qUniversal):
     instances = 0
     label = '_sweep'
-    __slots__ = ['__Systems', '__system','__key']
+    __slots__ = ['__Sweeps','__key']
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.__Systems = {}
-        self.__system = None
+        self.__Sweeps = {}
         self.__key = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
-    def Systems(self):
-        return self.__Systems
+    def sweeps(self):
+        return self.__sweeps
 
-    @Systems.setter
-    def Systems(self, sysDict):
-        self.__Systems = {}
+    @sweeps.setter
+    def sweeps(self, sysDict):
+        self.__Sweeps = {}
         for key, val in sysDict.items():
             self.addSweep(val, key)
 
     def addSweep(self, sys, label, **kwargs):
         newSweep = sweep(superSys=sys, sweepKey=label, **kwargs)
-        if sys in self.__Systems.keys():
-            if isinstance(self.__Systems[sys], dict):
-                self.__Systems[sys][label] = newSweep
+        if sys in self.__Sweeps.keys():
+            if isinstance(self.__Sweeps[sys], dict):
+                self.__Sweeps[sys][label] = newSweep
             else:
-                oldSw = self.__Systems[sys]
-                self.__Systems[sys] = {}
-                self.__Systems[sys][oldSw.sweepKey] = oldSw
-                self.__Systems[sys][label] = newSweep
+                oldSw = self.__Sweeps[sys]
+                self.__Sweeps[sys] = {}
+                self.__Sweeps[sys][oldSw.sweepKey] = oldSw
+                self.__Sweeps[sys][label] = newSweep
         else:
-            self.__Systems[sys] = newSweep
+            self.__Sweeps[sys] = newSweep
         return newSweep
 
 
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
-    __slots__ = ['__qSys','sweep','sequence','timeSweep','__stepSize','finalTime','allStates','__tProtocol']
+    __slots__ = ['__qSys', 'sequence', '__stepSize', 'finalTime']
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.__qSys = QuantumSystem()
-        self.sweep = Sweep(superSys=self)
         self.sequence = qSequence(superSys=self)
-        self.timeSweep = self.sweep.addSweep(sys=self, label='time')
-        self.timeSweep.sweepMax = 1
-        self.timeSweep.sweepMin = 0
-        self.timeSweep.sweepPert = 0.02
         self.__stepSize = 0.01
         self.finalTime = 1.5
-        self.allStates = True
-        self.__tProtocol = None
         self._qUniversal__setKwargs(**kwargs)
 
     def __del__(self):
@@ -127,22 +118,6 @@ class Simulation(qUniversal):
     @property
     def times(self):
         return np.arange(0, self.finalTime+self.stepSize, self.stepSize)
-
-    """@times.setter
-    def times(self, tList):
-        self.timeSweep.sweepList = tList"""
- 
-    def addSweep(self, obj, label, **kwargs):
-        newSwe = self.sweep.addSweep(sys=obj, label=label, **kwargs)
-        return newSwe
-
-    @property
-    def tProtocol(self):
-        return self.__tProtocol
-
-    @tProtocol.setter
-    def tProtocol(self, protoc):
-        self.__tProtocol = protoc
 
     @property
     def stepSize(self):
@@ -168,22 +143,6 @@ class Simulation(qUniversal):
     def __update(Sweep, value):
         for system in Sweep.Systems:
             setattr(sweep.superSys, sweep.sweepKey, value)
-
-    @staticmethod
-    def __timeEvolveStates(state, times):
-        states[state]
-        for ii in range(len(times) - 1):
-            state = unitary @ state
-            states.append(state)
-        return state
-
-    @staticmethod
-    def __timeEvolveCompute(state, times):
-        states[state]
-        for ii in range(len(times) - 1):
-            state = unitary @ state
-            states.append(state)
-        return state
 
     @staticmethod
     def __timeEvolveStates(state, times):
