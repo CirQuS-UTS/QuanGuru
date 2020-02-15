@@ -31,13 +31,13 @@ class qUniversal:
         if isinstance(subS, qUniversal):
             self._qUniversal__subSys[subS.name] = subS
         elif isinstance(subS, str):
-            self.addSubSys(self.instNames[subS])
+            self.__addSubSys(self.instNames[subS])
         elif isinstance(subS, dict):
             for sys in subS.values():
-                self.addSubSys(subS)
+                self.__addSubSys(subS)
         else:
             for sys in subS:
-                self.addSubSys(subS)
+                self.__addSubSys(subS)
         return subS
 
     @property
@@ -47,7 +47,8 @@ class qUniversal:
     @superSys.setter
     def superSys(self, supSys):
         self.__superSys = supSys
-        supSys.subSystems = self
+        # FIXME Creates problem in QuantumSystem 
+        #supSys.subSystems = self
 
     @property
     def ind(self):
