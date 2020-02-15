@@ -15,11 +15,11 @@ def JC(obj, subSys1, subSys2, cStrength):
     obj.couplingName = 'JC'
     if qsystems[1].operator == sigmaz:
         print('sigmaz')
-        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmap], cStrength)
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmap], cStrength, superSys=obj)
         couplingObj.addTerm(qsystems,[create, sigmam])
     else:
         print('number')
-        couplingObj = obj.createSysCoupling(qsystems, [destroy, create], cStrength)
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, create], cStrength, superSys=obj)
         couplingObj.addTerm(qsystems,[create, destroy])
     couplingObj.name = 'JCcoupling'
     return couplingObj
