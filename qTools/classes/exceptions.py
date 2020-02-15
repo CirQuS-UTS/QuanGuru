@@ -28,3 +28,19 @@ def qCouplingInitErrors(init):
                 print(className + ' requires same number of systems as coupling functions')
 
     return new_function
+
+
+def sweepInitError(init):
+    def new_function(obj, **kwargs):
+        init(obj, **kwargs)
+        if obj.sweepList is None:
+            className = obj.__class__.__name__
+            print(className + ' requires either a list or relevant info, here are givens' 
+            + '\n' + 
+            'sweepList: ', obj.sweepList, '\n' +
+            'sweepMax: ', obj.sweepMax, '\n' +
+            'sweepMin: ',obj.sweepMin, '\n' +
+            'sweepPert: ', obj.sweepPert, '\n' +
+            'logSweep: ', obj.logSweep)
+
+    return new_function

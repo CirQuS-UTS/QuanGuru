@@ -5,6 +5,7 @@ import qTools.QuantumToolbox.states as qSt
 from qTools.classes.QSys import QuantumSystem
 from qTools.classes.QUni import qUniversal
 from functools import partial
+from qTools.classes.exceptions import sweepInitError
 """ under construction """
 
 
@@ -14,6 +15,7 @@ class Sweep(qUniversal):
     __parallel = None
     __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep', '_parallel']
     # TODO write exceptions if gone keep
+    @sweepInitError
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # TODO make these properties
