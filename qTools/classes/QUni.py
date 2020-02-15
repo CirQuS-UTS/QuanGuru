@@ -20,16 +20,16 @@ class qUniversal:
             setattr(self, key, value)
 
     @property
-    def subSys(self):
+    def subSystems(self):
         return self.__subSys
 
-    @subSys.setter
-    def subSys(self, subS):
-        self.addSubSys(subS)
+    @subSystems.setter
+    def subSystems(self, subS):
+        self.__addSubSys(subS)
              
-    def addSubSys(self, subS):
+    def __addSubSys(self, subS):
         if isinstance(subS, qUniversal):
-            self.__subSys[subS.name] = subS
+            self._qUniversal__subSys[subS.name] = subS
         elif isinstance(subS, str):
             self.addSubSys(self.instNames[subS])
         elif isinstance(subS, dict):
@@ -46,8 +46,8 @@ class qUniversal:
 
     @superSys.setter
     def superSys(self, supSys):
-        supSys.subSys = self
         self.__superSys = supSys
+        supSys.subSystems = self
 
     @property
     def ind(self):
@@ -69,7 +69,8 @@ class qUniversal:
     def updateNames(cls, obj, name):
         if name in cls.instNames.keys():
             name += str(obj.__class__.instances)
-            print('You have created a duplicate name ' + name)
+            print('You have given a duplicate name,' + '\n' +
+            'it is changed to ' + name)
         cls.instNames[name] = obj
         return name
 
