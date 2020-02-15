@@ -2,12 +2,14 @@ class qUniversal:
     instances = 0
     label = 'universal'
     instNames = {}
-
+    __slots__ = ['__name','__superSys', '__ind','__subSys']
     def __init__(self, **kwargs):
         super().__init__()
         self._incrementInstances()
         self.__name = self.__namer()
-        self.superSys = None
+        self.__superSys = None
+        self.__subSys = {}
+        self.__ind = None
         self.__setKwargs(**kwargs)
 
     def __del__(self):
@@ -16,6 +18,15 @@ class qUniversal:
     def __setKwargs(self, **kwargs):
         for key, value in kwargs.items():
             setattr(self, key, value)
+
+    @property
+    def superSys(self):
+        return self.__superSys
+
+    @superSys.setter
+    def superSys(self, supSys):
+        supSys.subSys[self.name] = self
+        self.__superSys = supSys
 
     @property
     def ind(self):
@@ -31,14 +42,15 @@ class qUniversal:
         
     @name.setter
     def name(self, name):
-        self.__name = name
-        qUniversal.updateNames(self)
+        self.__name = qUniversal.updateNames(self, name)
 
     @classmethod
-    def updateNames(cls, obj):
-        if obj.name in cls.instNames.values():
-            print('You have created a duplicate name')
-        cls.instNames[obj] = obj.name
+    def updateNames(cls, obj, name):
+        if name in cls.instNames.keys():
+            name += str(obj.__class__.instances)
+            print('You have created a duplicate name ' + name)
+        cls.instNames[name] = obj
+        return name
 
     @staticmethod
     def createCopy(qUninstance, **kwargs):
@@ -56,8 +68,7 @@ class qUniversal:
 
     @classmethod
     def clsInstances(cls):
-        """Return the current number of instances of this class,
-        useful for auto naming."""
+        """Return the current number of instances of this class, useful for auto naming."""
         return cls.instances
 
     @classmethod
