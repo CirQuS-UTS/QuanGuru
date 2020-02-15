@@ -2,11 +2,16 @@ import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.Hamiltonians as hams
 from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
+from qTools.classes.exceptions import qSystemInitErrors
 
 
 # Composite Quantum system
-class QuantumSystem:
-    def __init__(self):
+class QuantumSystem(qUniversal):
+    instances = 0
+    label = 'Composite Quantum System'
+    __slots__ = ['subSystems', 'Couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState']
+    def __init__(self, **kwargs):
+        super().__init__()
         self.subSystems = {}
         self.Couplings = {}
         self.couplingName = None
@@ -14,8 +19,18 @@ class QuantumSystem:
         self.__kept = {}
         self.__constructed = False
         # these should not necessarily be in here
-        self.Unitaries = None
+        self.__Unitaries = None
         self.__initialState = None
+        self._qUniversal__setKwargs(**kwargs)
+
+    # Unitary property and setter
+    @property
+    def Unitaries(self):
+        return self.__Unitaries
+
+    @Unitaries.setter
+    def Unitaries(self, uni):
+        self.__Unitaries = uni 
         
     # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
@@ -156,6 +171,8 @@ class QuantumSystem:
 
 # quantum coupling object
 class qCoupling(qUniversal):
+    instances = 0
+    label = 'qCoupling'
     __slots__ = ['__cFncs', 'couplingStrength', '__cOrders', '__cMatrix', '__qSys']
     def __init__(self, **kwargs):
         super().__init__()
@@ -166,6 +183,9 @@ class qCoupling(qUniversal):
         self.__cMatrix = None
         self._qUniversal__setKwargs(**kwargs)
 
+
+    # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
+    # so these should be generalised and explicit ones moved into sysCoupling
     @property
     def couplingMat(self):
         return self.__cMatrix
@@ -233,18 +253,39 @@ class sysCoupling(qCoupling):
 
 # quantum system objects
 class qSystem(qUniversal):
-    __slots__ = ['__dimension', 'frequency', 'operator', '__Matrix', '__dimsBefore', '__dimsAfter']
+    instances = 0
+    label = 'qSystem'
+    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms']
+
+    @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__()
-        self.frequency = 1
-        self.operator = None
-
-        self.__dimension = 2
+        self.__frequency = None
+        self.__operator = None
+        self.__dimension = None
         self.__Matrix = None
         self.__dimsBefore = 1
         self.__dimsAfter = 1
-
+        self.__terms = [self]
         self._qUniversal__setKwargs(**kwargs)
+        self.__singleSystem()
+        
+    @property
+    def frequency(self):
+        return self.__frequency
+
+    @frequency.setter
+    def frequency(self, freq):
+        self.__frequency = freq
+
+    @property
+    def operator(self):
+        return self.__operator
+
+    @operator.setter
+    def operator(self, op):
+        self.__operator = op
+        self.__singleSystem()
 
     @property
     def dimension(self):
@@ -261,15 +302,15 @@ class qSystem(qUniversal):
             QuantumSystem.updateDimension(self.superSys, self, newDimVal)
             self.__dimension = newDimVal
             
-
     @property
     def freeHam(self):
-        h = self.frequency * self.freeMat
+        h = sum([(obj.frequency * obj.freeMat) for obj in self.__terms])
         return h
 
     @freeHam.setter
     def freeHam(self, qOpsFunc):
         self.freeMat = qOpsFunc
+        self.__freeMat = ((1/self.frequency)*(self.freeMat))
 
     @property
     def freeMat(self):
@@ -291,11 +332,23 @@ class qSystem(qUniversal):
         self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
         return self.__Matrix
 
+    def __singleSystem(self):
+        if (self.superSys is None) and (self.__operator is not None):
+            mat = self.__constructSubMat()
+
+    def addTerm(self, op, freq):
+        copySys = self.copy(operator=op, frequency=freq)
+        self.__terms.append(copySys)
+        self.__singleSystem()
+        return copySys
+
     def copy(self, **kwargs):
-        copySys = qUniversal.createCopy(self)
-        copySys.dimension = self.dimension
-        copySys.frequency = self.frequency
-        copySys.operator = self.operator
+        if 'superSys' in kwargs.keys():
+            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension,
+             frequency = self.frequency, operator = self.operator)
+        else:
+            copySys = qUniversal.createCopy(self, dimension = self.dimension,
+             frequency = self.frequency, operator = self.operator)
         copySys._qUniversal__setKwargs(**kwargs)
         return copySys
 
@@ -306,8 +359,10 @@ class Qubit(qSystem):
     label = 'Qubit'
     __slots__ = []
     def __init__(self, **kwargs):
-        self.operator = qOps.sigmaz
         super().__init__(**kwargs)
+        self.operator = qOps.sigmaz
+        self.dimension = 2
+        self._qUniversal__setKwargs(**kwargs)
 
     @qSystem.freeHam.getter
     def freeHam(self):
@@ -320,9 +375,10 @@ class Spin(qSystem):
     label = 'Spin'
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
-        self.operator = qOps.Jz
-        self.__jValue = 1
         super().__init__(**kwargs)
+        self.operator = qOps.Jz
+        self.__jValue = None
+        self._qUniversal__setKwargs(**kwargs)
 
     @property
     def jValue(self):
@@ -333,7 +389,7 @@ class Spin(qSystem):
         self.__jValue = value
         self.dimension = int((2*value) + 1)
     
-    def constructSubMat(self):
+    def __constructSubMat(self):
         self._qSystem__Matrix = hams.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
@@ -343,5 +399,6 @@ class Cavity(qSystem):
     label = 'Cavity'
     __slots__ = []
     def __init__(self, **kwargs):
-        self.operator = qOps.number
         super().__init__(**kwargs)
+        self.operator = qOps.number
+        self._qUniversal__setKwargs(**kwargs)
