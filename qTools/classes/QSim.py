@@ -8,26 +8,14 @@ from functools import partial
 """ under construction """
 
 
-class _evolve:
-    def __init__(self, func):
-        self.func = func
-
-    def __call__(self, obj):
-        ind = obj._qSequence__labels.index('parallel')
-        for i in range(ind):
-            func(obj._qSequence__labels[i], obj._qSequence__objects[i])
-        results = obj.parallel(ind)
-        return results
-
-
-
 class sweep(qUniversal):
     instances = 0
-    label = '_sweep'
-    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert']
+    label = 'sweep'
+    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep']
+    # TODO write exceptions if gone keep
     def __init__(self, **kwargs):
-        super().__init__()
-        self.superSys = None
+        super().__init__(**kwargs)
+        # TODO make these properties
         self.sweepKey = None
         self.sweepMax = None
         self.sweepMin = None
@@ -55,9 +43,10 @@ class sweep(qUniversal):
 class Sweep(qUniversal):
     instances = 0
     label = 'Sweep'
-    __slots__ = ['__Systems', '__sweepFuncs', '__sweepFunc']
+    __slots__ = ['__Systems', '__sweepFuncs', '__sweepFunc', '__system','__key']
+    # TODO Same as previous 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         self.__Systems = {}
         #self.__sweepFuncs = {}
         #self.__sweepFunc = None
@@ -108,8 +97,9 @@ class qSequence(qUniversal):
     label = 'qSequence'
 
     __slots__ = ['__labels', '__objects']
+    # TODO Same as previous 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         self.__labels = []
         self.__objects = []
         self._qUniversal__setKwargs(**kwargs)
@@ -143,7 +133,10 @@ class qSequence(qUniversal):
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
+    __slots__ = ['__qSys','sweep','sequence','timeSweep','__stepSize','finalTime','allStates','__tProtocol']
+    # TODO Same as previous 
     def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.__qSys = QuantumSystem()
         self.sweep = Sweep(superSys=self)
         self.sequence = qSequence(superSys=self)
