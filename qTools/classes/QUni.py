@@ -20,12 +20,33 @@ class qUniversal:
             setattr(self, key, value)
 
     @property
+    def subSys(self):
+        return self.__subSys
+
+    @subSys.setter
+    def subSys(self, subS):
+        self.addSubSys(subS)
+             
+    def addSubSys(self, subS):
+        if isinstance(subS, qUniversal):
+            self.__subSys[subS.name] = subS
+        elif isinstance(subS, str):
+            self.addSubSys(self.instNames[subS])
+        elif isinstance(subS, dict):
+            for sys in subS.values():
+                self.addSubSys(subS)
+        else:
+            for sys in subS:
+                self.addSubSys(subS)
+        return subS
+
+    @property
     def superSys(self):
         return self.__superSys
 
     @superSys.setter
     def superSys(self, supSys):
-        supSys.subSys[self.name] = self
+        supSys.subSys = self
         self.__superSys = supSys
 
     @property
