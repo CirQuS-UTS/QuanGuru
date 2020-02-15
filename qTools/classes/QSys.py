@@ -4,6 +4,7 @@ from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 
 
+# Composite Quantum system
 class QuantumSystem:
     def __init__(self):
         self.subSystems = {}
@@ -48,7 +49,7 @@ class QuantumSystem:
             newSub = newSubs.append(self.addSubSys(subClass, **kwargs))
         return newSubs if n > 1 else newSubs[0]
 
-    # total dimensions, free, coupling, and total hamiltonians of the composite system
+    # total dimensions, free, coupling, and total Hamiltonians of the composite system
     @property
     def totalDim(self):
         tDim = 1
@@ -278,17 +279,26 @@ class qSystem(qUniversal):
     def freeMat(self, qOpsFunc):
         if callable(qOpsFunc):
             self.operator = qOpsFunc
-            self.constructSubMat()
+            self.__constructSubMat()
         elif qOpsFunc is not None:
             self.__Matrix = qOpsFunc
         else:
             if self.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
-            self.constructSubMat()
+            self.__constructSubMat()
 
-    def constructSubMat(self):
+    def __constructSubMat(self):
         self.__Matrix = hams.compositeOp(self.operator(self.dimension), self.__dimsBefore, self.__dimsAfter)
         return self.__Matrix
+
+    def copy(self, **kwargs):
+        copySys = qUniversal.createCopy(self)
+        copySys.dimension = self.dimension
+        copySys.frequency = self.frequency
+        copySys.operator = self.operator
+        copySys._qUniversal__setKwargs(**kwargs)
+        return copySys
+
 
 
 class Qubit(qSystem):
@@ -296,9 +306,8 @@ class Qubit(qSystem):
     label = 'Qubit'
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
         self.operator = qOps.sigmaz
-        self._qUniversal__setKwargs(**kwargs)
+        super().__init__(**kwargs)
 
     @qSystem.freeHam.getter
     def freeHam(self):
@@ -309,12 +318,11 @@ class Qubit(qSystem):
 class Spin(qSystem):
     instances = 0
     label = 'Spin'
-    __slots__ = ['_jValue']
+    __slots__ = ['__jValue']
     def __init__(self, **kwargs):
-        super().__init__()
         self.operator = qOps.Jz
-        self._jValue = 1
-        self._qUniversal__setKwargs(**kwargs)
+        self.__jValue = 1
+        super().__init__(**kwargs)
 
     @property
     def jValue(self):
@@ -322,7 +330,7 @@ class Spin(qSystem):
 
     @jValue.setter
     def jValue(self, value):
-        self._jValue = value
+        self.__jValue = value
         self.dimension = int((2*value) + 1)
     
     def constructSubMat(self):
@@ -335,6 +343,5 @@ class Cavity(qSystem):
     label = 'Cavity'
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
         self.operator = qOps.number
-        self._qUniversal__setKwargs(**kwargs)
+        super().__init__(**kwargs)
