@@ -1,6 +1,7 @@
 import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.Hamiltonians as hams
 from qTools.classes.QUni import qUniversal
+import qTools.QuantumToolbox.states as qSta
 
 
 class QuantumSystem:
@@ -13,7 +14,7 @@ class QuantumSystem:
         self.__constructed = False
         # these should not necessarily be in here
         self.Unitaries = None
-        self.initialState = None
+        self.__initialState = None
         
     # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
@@ -140,6 +141,17 @@ class QuantumSystem:
             self.constructCompSys()
         return qSys
 
+    # initial state
+    @property
+    def initialState(self):
+        return self.__initialState
+
+    @initialState.setter
+    def initialState(self, inp):
+        if len(inp) == len(self.subSystems):
+            dims = [val.dimension for val in self.subSystems.values()]
+            self.__initialState = qSta.compositeState(dims, inp)
+
 
 # quantum coupling object
 class qCoupling(qUniversal):
@@ -196,6 +208,7 @@ class qCoupling(qUniversal):
     def addTerm(self, qsystems, couplingOps):
         self.__cFncs.append(couplingOps)
         self.__qSys.append(qsystems)
+        self.superSys._QuantumSystem__constructed = False
         return self
 
 

@@ -2,13 +2,13 @@ class qUniversal:
     instances = 0
     label = 'universal'
     instNames = {}
+
     def __init__(self, **kwargs):
         super().__init__()
         self._incrementInstances()
         self.__name = self.__namer()
         self.superSys = None
         self.__setKwargs(**kwargs)
-
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -34,13 +34,11 @@ class qUniversal:
         self.__name = name
         qUniversal.updateNames(self)
 
-
     @classmethod
     def updateNames(cls, obj):
         if obj.name in cls.instNames.values():
             print('You have created a duplicate name')
         cls.instNames[obj] = obj.name
-
 
     @staticmethod
     def createCopy(qUninstance, **kwargs):
