@@ -54,9 +54,9 @@ class sweep(qUniversal):
 
 
 
-class Sweep(qUniversal):
+class qSequence(qUniversal):
     instances = 0
-    label = 'Sweep'
+    label = '_sweep'
     __slots__ = ['__Systems', '__system','__key']
     # TODO Same as previous 
     def __init__(self, **kwargs):
@@ -89,57 +89,6 @@ class Sweep(qUniversal):
         else:
             self.__Systems[sys] = newSweep
         return newSweep
-
-    """@property
-    def sweepFnc(self):
-        return self.__sweepFunc
-
-    @sweepFnc.setter
-    def sweepFnc(self, fnc):
-        if self.__sweepFunc is not None:
-            if self.__sweepFunc.__name__ in self.__sweepFuncs.keys():
-                self.__sweepFuncs[len(self.__sweepFuncs)] = self.__sweepFunc
-            else:
-                self.__sweepFuncs[self.__sweepFunc.__name__] = self.__sweepFunc
-        self.__sweepFunc = fnc"""
-
-
-class qSequence(qUniversal):
-    instances = 0
-    label = 'qSequence'
-
-    __slots__ = ['__labels', '__objects']
-    # TODO Same as previous 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.__labels = []
-        self.__objects = []
-        self._qUniversal__setKwargs(**kwargs)
-
-
-    @property
-    def sweep(self):
-        return self.__labels
-
-    @sweep.setter
-    def sweep(self, lab):
-        self.__labels = 2
-
-    """def addStep(self, obj, label=None, key=None, loop=False, p=None):
-        if isinstance(obj, _sweep):
-            self.__objects.append(obj)
-            if key != obj.sweepKey:
-                print('keys does not match')
-            self.__labels.append(obj.Label)
-        elif isinstance(obj, Sweep):
-            for sweep in Sweep.Systems.values():
-                if isinstance(sweep, dict):
-                    for key, val in sweep.items():
-                        self.addStep(val, key)
-                else:
-                    self.addStep(sweep, sweep.Label)
-        else:
-            self.addStep(self.superSys.Sweep.__Systems[obj], key)"""
 
 
 class Simulation(qUniversal):
