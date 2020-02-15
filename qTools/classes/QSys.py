@@ -2,7 +2,7 @@ import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.Hamiltonians as hams
 from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
-from qTools.classes.exceptions import qSystemInitErrors
+from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 
 
 # Composite Quantum system
@@ -174,13 +174,16 @@ class qCoupling(qUniversal):
     instances = 0
     label = 'qCoupling'
     __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__cMatrix', '__qSys']
-    def __init__(self, **kwargs):
+
+    @qCouplingInitErrors
+    def __init__(self,*args, **kwargs):
         super().__init__(**kwargs)
         self.__couplingStrength = 0
         self.__cFncs = []
         self.__qSys = []
         self.__cMatrix = None
         self._qUniversal__setKwargs(**kwargs)
+        self.addTerm(*args)
 
 
     # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
