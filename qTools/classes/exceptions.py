@@ -13,8 +13,8 @@ def qSystemInitErrors(init):
 
 
 def qCouplingInitErrors(init):
-    def new_function(obj, *args):
-        init(obj, *args)
+    def new_function(obj, *args, **kwargs):
+        init(obj, *args, **kwargs)
         if obj._qCoupling__cFncs is None:
             className = obj.__class__.__name__
             print(className + ' requires a coupling functions')
