@@ -11,7 +11,8 @@ from functools import partial
 class sweep(qUniversal):
     instances = 0
     label = 'sweep'
-    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep']
+    __parallel = None
+    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep', '_parallel']
     # TODO write exceptions if gone keep
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -22,7 +23,20 @@ class sweep(qUniversal):
         self.sweepPert = None
         self.__sweepList = None
         self.logSweep = False
+        self._parallel = False
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def parallel(self):
+        return self._parallel
+
+    @parallel.setter
+    def parallel(self, val):
+        if self.__parallel is not None:
+            raise ValueError('Dude!')
+        else:
+            self._parallel = True
+            self.__parallel = self
 
     @property
     def sweepList(self):
@@ -43,13 +57,11 @@ class sweep(qUniversal):
 class Sweep(qUniversal):
     instances = 0
     label = 'Sweep'
-    __slots__ = ['__Systems', '__sweepFuncs', '__sweepFunc', '__system','__key']
+    __slots__ = ['__Systems', '__system','__key']
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.__Systems = {}
-        #self.__sweepFuncs = {}
-        #self.__sweepFunc = None
         self.__system = None
         self.__key = None
         self._qUniversal__setKwargs(**kwargs)
@@ -62,7 +74,7 @@ class Sweep(qUniversal):
     def Systems(self, sysDict):
         self.__Systems = {}
         for key, val in sysDict.items():
-            self.addSystem(val, key)
+            self.addSweep(val, key)
 
     def addSweep(self, sys, label, **kwargs):
         newSweep = sweep(superSys=sys, sweepKey=label, **kwargs)
@@ -191,9 +203,48 @@ class Simulation(qUniversal):
     def stepSize(self, stepsize):
         self.__stepSize = stepsize
     
-    def run(self, p, sweep):
+    def run(self, p=None):
         if self.qSys._QuantumSystem__constructed == False:
             self.qSys.constructCompSys()
-        states = p.map(partial(partial(self.tProtocol, self), sweep), sweep.sweepList)
+
+        if p is None:
+            self.__update(self.sweepBefore)
+            self.__timeEvolve()
+            self.__compute()
+        else:
+            states = p.map(partial(partial(self.tProtocol, self), sweep), sweep.sweepList)
         return states
+
+    @staticmethod
+    def __update(Sweep, value):
+        for system in Sweep.Systems:
+            setattr(sweep.superSys, sweep.sweepKey, value)
+
+    @staticmethod
+    def __timeEvolveStates(state, times):
+        states[state]
+        for ii in range(len(times) - 1):
+            state = unitary @ state
+            states.append(state)
+        return state
+
+    @staticmethod
+    def __timeEvolveCompute(state, times):
+        states[state]
+        for ii in range(len(times) - 1):
+            state = unitary @ state
+            states.append(state)
+        return state
+
+    @staticmethod
+    def __timeEvolveStates(state, times):
+        states[state]
+        for ii in range(len(times) - 1):
+            state = unitary @ state
+            states.append(state)
+        return state
+
+    @staticmethod
+    def __compute(func, state):
+        return func(state)
 
