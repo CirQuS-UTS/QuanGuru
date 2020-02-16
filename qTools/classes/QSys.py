@@ -5,6 +5,7 @@ import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 
 
+
 # Composite Quantum system
 class QuantumSystem(qUniversal):
     instances = 0
@@ -90,6 +91,7 @@ class QuantumSystem(qUniversal):
     # adding or creating a new couplings
     def createSysCoupling(self, qsystems, couplingOps, couplingStrength, **kwargs):
         couplingObj = sysCoupling(couplingStrength=couplingStrength, **kwargs)
+        couplingObj.superSys = self
         couplingObj.addTerm(qsystems, couplingOps)
         couplingObj.ind = len(self.Couplings)
         self.Couplings[couplingObj.name] = couplingObj

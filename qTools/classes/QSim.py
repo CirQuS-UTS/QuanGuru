@@ -33,7 +33,6 @@ def runSequence(qSeq):
 
 def runSimulation(qSim, p):
     condition = qSim.beforeLoop.lCount
-    print(condition, len(qSim.beforeLoop.sweeps[0].sweepList))
     runSequence(qSim.beforeLoop)
     runLoop(qSim, p)
     if len(qSim.beforeLoop.sweeps) > 0:
