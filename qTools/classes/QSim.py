@@ -17,11 +17,13 @@ def __timeEvol(qSim):
 
     state = qSim.qSys.initialState
     states = [state]
+    results = [qSim._Simulation__compute(qSim.qSys, state)]
     for ii in range(len(qSim.times) - 1):
         state = unitary @ state
         states.append(state)
-        qSim.compute(qSim.qSys, state)
-    return states
+        result = qSim._Simulation__compute(qSim.qSys, state)
+        results.append(result)
+    return [states, results]
 
 
 def runSweep(swe, ind):
@@ -36,43 +38,49 @@ def runSequence(qSeq):
 def runSimulation(qSim, p):
     condition = qSim.beforeLoop.lCount
     runSequence(qSim.beforeLoop)
-    states = runLoop(qSim, p)
+    res = runLoop(qSim, p)
     if len(qSim.beforeLoop.sweeps) > 0:
         if condition < (len(qSim.beforeLoop.sweeps[0].sweepList)-1):
             qSim._Simulation__res(qSim.Loop)
             qSim._Simulation__res(qSim.whileLoop)
             return runSimulation(qSim, p)
         else:
-            return states
+            return res
     else:
-        return states
+        return res
 
 def runLoop(qSim, p):
+    states = []
+    results = []
     if p is None:
-        states = []
         for ind in range(len(qSim.Loop.sweeps[0].sweepList)-1):
-            states.append(runTime(qSim, ind))
+            res = runTime(qSim, ind)
+            states.append(res[0])
+            results.append(res[1])
     else:
-        states = p.map(partial(runTime, qSim), range(len(qSim.Loop.sweeps[0].sweepList)-1))
-    return states
+        res = p.map(partial(runTime, qSim), range(len(qSim.Loop.sweeps[0].sweepList)-1))
+        for ind in range(len(qSim.Loop.sweeps[0].sweepList)-1):
+            states.append(res[ind][0])
+            results.append(res[ind][1])
+    return [states, results]
 
 def runTime(qSim, ind):
     for sw in qSim.Loop.sweeps:
         runSweep(sw, ind)
-    states = runEvolve(qSim)
-    return states
+    res = runEvolve(qSim)
+    return res
 
 def runEvolve(qSim):
     conditionW = qSim.whileLoop.lCount
     runSequence(qSim.whileLoop)
-    states = __timeEvol(qSim)
+    res = __timeEvol(qSim)
     if len(qSim.whileLoop.sweeps) > 0:
         if conditionW < (len(qSim.whileLoop.sweeps[0].sweepList)-1):
             return runEvolve(qSim)
         else:
-            return states
+            return res
     else:
-        return states
+        return res
 
 class Sweep(qUniversal):
     # TODO can be included to qSystems by a method
@@ -168,12 +176,15 @@ class qSequence(qUniversal):
     def lCount(self,val):
         self.__swCount = val
 
+# FIXME remove this somehow
+def comp(qSim, state):
+    Simulation._Simulation__compute += 1
 
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
     __compute = 0
-    __slots__ = ['__qSys', 'sequence', '__stepSize', 'finalTime', '__times', 'states', 'beforeLoop', 'Loop', 'whileLoop']
+    __slots__ = ['__qSys', 'sequence', '__stepSize', 'finalTime', '__times', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute']
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -185,11 +196,12 @@ class Simulation(qUniversal):
         self.__stepSize = 0.01
         self.finalTime = 1.5
         self.states = []
+        self.compute = comp
         self._qUniversal__setKwargs(**kwargs)
-
-    @staticmethod
-    def compute(qSys, state):
-        Simulation._Simulation__compute += 1
+    
+    def __compute(self, qSys, state):
+        res = self.compute(qSys, state)
+        return res
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -228,8 +240,8 @@ class Simulation(qUniversal):
         self.__res(self.Loop)
         self.__res(self.whileLoop)
 
-        states = runSimulation(self, p)
-        return states
+        res = runSimulation(self, p)
+        return res[0], res[1]
 
     @staticmethod
     def __res(seq):
