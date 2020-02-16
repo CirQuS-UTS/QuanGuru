@@ -23,43 +23,55 @@ def __timeEvol(qSim):
     return states
 
 
-def runSweep(swe):
-    val = swe.sweepList[swe.lCounts]
+def runSweep(swe, ind):
+    val = swe.sweepList[ind]
     setattr(swe.superSys, swe.sweepKey, val)
 
 def runSequence(qSeq):
     for sweep in qSeq.sweeps:
-        runSweep(sweep)
+        ind = sweep.lCounts
+        runSweep(sweep, ind)
 
 def runSimulation(qSim, p):
     condition = qSim.beforeLoop.lCount
     runSequence(qSim.beforeLoop)
-    runLoop(qSim, p)
+    states = runLoop(qSim, p)
     if len(qSim.beforeLoop.sweeps) > 0:
         if condition < (len(qSim.beforeLoop.sweeps[0].sweepList)-1):
             qSim._Simulation__res(qSim.Loop)
             qSim._Simulation__res(qSim.whileLoop)
-            runSimulation(qSim, p)
+            return runSimulation(qSim, p)
+        else:
+            return states
+    else:
+        return states
 
 def runLoop(qSim, p):
     if p is None:
+        states = []
         for ind in range(len(qSim.Loop.sweeps[0].sweepList)-1):
-            runTime(qSim, ind)
+            states.append(runTime(qSim, ind))
     else:
-        p.map(partial(runTime, qSim), range(len(qSim.Loop.sweeps[0].sweepList)-1))
+        states = p.map(partial(runTime, qSim), range(len(qSim.Loop.sweeps[0].sweepList)-1))
+    return states
 
 def runTime(qSim, ind):
     for sw in qSim.Loop.sweeps:
-        runSweep(sw)
-        runEvolve(qSim)
+        runSweep(sw, ind)
+    states = runEvolve(qSim)
+    return states
 
 def runEvolve(qSim):
     conditionW = qSim.whileLoop.lCount
     runSequence(qSim.whileLoop)
-    qSim.states.append(__timeEvol(qSim))
+    states = __timeEvol(qSim)
     if len(qSim.whileLoop.sweeps) > 0:
         if conditionW < (len(qSim.whileLoop.sweeps[0].sweepList)-1):
-            runEvolve(qSim)
+            return runEvolve(qSim)
+        else:
+            return states
+    else:
+        return states
 
 class Sweep(qUniversal):
     # TODO can be included to qSystems by a method
@@ -211,7 +223,8 @@ class Simulation(qUniversal):
         self.__res(self.Loop)
         self.__res(self.whileLoop)
 
-        runSimulation(self, p)
+        states = runSimulation(self, p)
+        return states
 
     @staticmethod
     def __res(seq):
