@@ -9,11 +9,118 @@ from qTools.classes.exceptions import sweepInitError
 """ under construction """
 
 
+def __timeEvol(qSim):
+    if qSim.qSys.Unitaries is None:
+        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize)
+    else:
+        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize)
+
+    state = qSim.qSys.initialState
+    states = [state]
+    for ii in range(len(qSim.times) - 1):
+        state = unitary @ state
+        states.append(state)
+    
+    print('states in __timeEvol', len(states))
+    return states
+
+
+def updateParams(Sweeps):
+    for sweep in Sweeps:
+        val = sweep.sweepList[sweep.lCounts]
+        setattr(sweep.superSys, sweep.sweepKey, val)
+
+
+def updateBefore(sequence, qSim=None):
+    num = sequence.lCount
+    if num < len(sequence.sweeps):
+        updateParams(sequence.sweeps[num])
+        updateBefore(sequence)
+
+
+def updateParamsEvolve(Sweeps, sequence, qSim):
+    for sweep in Sweeps:
+        val = sweep.sweepList[sweep.lCounts]
+        setattr(sweep.superSys, sweep.sweepKey, val)
+        print("here", val)
+    updateBeforeEvolve(sequence, qSim)
+    
+
+def updateBeforeEvolve(sequence, qSim):
+    num = sequence.lCount
+    if num < len(sequence.sweeps):
+        updateParamsEvolve(sequence.sweeps[num], sequence, qSim)
+    else:
+        states = __timeEvol(qSim)
+        print('len states in updateBeforeEvolve', len(states))
+        return states
+
+def timeEvol(qSim, p=None):
+    qSeq = qSim.beforeLoop
+    updateBefore(qSeq)
+    states = __parOrNot(qSeq.superSys, p)
+    return states
+
+
+def __parOrNot(qSim, p):
+    if p is None:
+        states = []
+        for ind in range(len(qSim.Loop.sweeps[0][0].sweepList)):
+            for sw in qSim.Loop.sweeps:
+                updateParams(sw)
+            print('cav freq is', qSim.qSys.subSystems['Cavity1'].frequency)
+            states.append(__tEvol(qSim, ind))
+        return states
+
+
+def __tEvol(qSim, ind):
+    states = updateBeforeEvolve(qSim.whileLoop, qSim=qSim)
+    #print('states in __tEvol', len(states))
+    return states
+
+
+    
+
+
+'''def timeEvolAfter(qSim, vaL):
+    if vaL < (len(qSim.sequence.sweeps)-1):
+        lx = qSim.sequence.sweeps[lc][0].lCounts
+        sw = qSim.sequence.sweeps[lx]
+        for ind in range(len(sw)):
+            setattr(sw[ind].superSys, sw[ind].sweepKey, sw[ind].sweepList[lx])
+        timeEvolAfter(qSim, vaL+1)
+    else:
+        states = []
+        lx = qSim.sequence.sweeps[lc][0].lCounts
+        sw = qSim.sequence.sweeps[lx]
+        for ind in range(len(sw[0].sweepList)):
+            states.append(__timeEvol(qSim, sw))
+        print('states in timeEvolveAfter', len(states))
+        return states
+
+
+def __pTimeEvol(qSim, p, lc):
+    vaL = lc
+    if p is None:
+        states = []
+        for ind in range(len(qSim.sequence.sweeps[vaL][0].sweepList)):
+            lx = qSim.sequence.sweeps[vaL][0].lCounts
+            for swe in qSim.sequence.sweeps[vaL]:
+                setattr(swe.superSys, swe.sweepKey, swe.sweepList[lx])
+                states.append(__timeEvol(qSim, vaL))
+        print('states in __pTimeEvol', len(states))
+        return states
+    else:
+        states = p.map(partial(timeEvolAfter, qSim), [x for x in range(len(Sweep.Paral.sweepList)-1)])
+        return states
+'''
+
 class Sweep(qUniversal):
+    # TODO can be included to qSystems by a method
     instances = 0
     label = 'Sweep'
-    __parallel = None
-    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep', '_parallel']
+    Paral = None
+    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep', '_parallel', 'loop', '__lCount']
     # TODO write exceptions if gone keep
     @sweepInitError
     def __init__(self, **kwargs):
@@ -26,6 +133,8 @@ class Sweep(qUniversal):
         self.__sweepList = None
         self.logSweep = False
         self._parallel = False
+        self.loop = 0
+        self.__lCount = 0
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -34,11 +143,12 @@ class Sweep(qUniversal):
 
     @parallel.setter
     def parallel(self, val):
-        if self.__parallel is not None:
-            raise ValueError('Dude!')
+        if Sweep.Paral is not None:
+            # FIXME should raise an error but then two **kwargs in init calls this twice
+            pass
         else:
             self._parallel = True
-            self.__parallel = self
+            Sweep.Paral = self
 
     @property
     def sweepList(self):
@@ -54,21 +164,30 @@ class Sweep(qUniversal):
         else:
             self.__sweepList = sList
 
+    @property
+    def lCounts(self):
+        self.__lCount += 1
+        return self.__lCount - 1
+
+    @lCounts.setter
+    def lCounts(self,val):
+        self.__lCount = val
+
 
 class qSequence(qUniversal):
     instances = 0
     label = '_sweep'
-    __slots__ = ['__Sweeps','__key']
+    __slots__ = ['__Sweeps', '__swCount']
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.__Sweeps = {}
-        self.__key = None
+        self.__Sweeps = [[]]
+        self.__swCount = 0
         self._qUniversal__setKwargs(**kwargs)
 
     @property
     def sweeps(self):
-        return self.__sweeps
+        return self.__Sweeps
 
     @sweeps.setter
     def sweeps(self, sysDict):
@@ -76,32 +195,40 @@ class qSequence(qUniversal):
         for key, val in sysDict.items():
             self.addSweep(val, key)
 
-    def addSweep(self, sys, label, **kwargs):
-        newSweep = sweep(superSys=sys, sweepKey=label, **kwargs)
-        if sys in self.__Sweeps.keys():
-            if isinstance(self.__Sweeps[sys], dict):
-                self.__Sweeps[sys][label] = newSweep
-            else:
-                oldSw = self.__Sweeps[sys]
-                self.__Sweeps[sys] = {}
-                self.__Sweeps[sys][oldSw.sweepKey] = oldSw
-                self.__Sweeps[sys][label] = newSweep
+    def addSweep(self, sys, sweepKey, **kwargs):
+        newSweep = Sweep(superSys=sys, sweepKey=sweepKey, **kwargs)
+        if newSweep.loop <= len(self.sweeps):
+            self.__Sweeps[newSweep.loop].append(newSweep)
         else:
-            self.__Sweeps[sys] = newSweep
+            self.__Sweeps.append([newSweep])
         return newSweep
+
+    @property
+    def lCount(self):
+        self.__swCount += 1
+        return self.__swCount - 1
+
+    @lCount.setter
+    def lCount(self,val):
+        self.__swCount = val
 
 
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
-    __slots__ = ['__qSys', 'sequence', '__stepSize', 'finalTime']
+    __slots__ = ['__qSys', 'sequence', 'compute', '__stepSize', 'finalTime', '__times', 'states', 'beforeLoop', 'Loop', 'whileLoop']
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.__qSys = QuantumSystem()
-        self.sequence = qSequence(superSys=self)
+        self.beforeLoop = qSequence(superSys=self)
+        self.Loop = qSequence(superSys=self)
+        self.whileLoop = qSequence(superSys=self)
+        self.compute = None
+        self.__times = None
         self.__stepSize = 0.01
         self.finalTime = 1.5
+        self.states = None
         self._qUniversal__setKwargs(**kwargs)
 
     def __del__(self):
@@ -120,6 +247,10 @@ class Simulation(qUniversal):
     @property
     def times(self):
         return np.arange(0, self.finalTime+self.stepSize, self.stepSize)
+    
+    @property
+    def times(self):
+        return self.__times
 
     @property
     def stepSize(self):
@@ -132,29 +263,19 @@ class Simulation(qUniversal):
     def run(self, p=None):
         if self.qSys._QuantumSystem__constructed == False:
             self.qSys.constructCompSys()
+        
+        self.__res(self.beforeLoop)
+        self.__res(self.Loop)
+        self.__res(self.whileLoop)
 
-        if p is None:
-            self.__update(self.sweepBefore)
-            self.__timeEvolve()
-            self.__compute()
-        else:
-            states = p.map(partial(partial(self.tProtocol, self), sweep), sweep.sweepList)
-        return states
+        self.states = timeEvol(self, p)
 
     @staticmethod
-    def __update(Sweep, value):
-        for system in Sweep.Systems:
-            setattr(sweep.superSys, sweep.sweepKey, value)
+    def __res(seq):
+        for ind in range(len(seq.sweeps)):
+            for ind2 in range(len(seq.sweeps[ind])):
+                seq.sweeps[ind][ind2].lCounts = 0
 
-    @staticmethod
-    def __timeEvolveStates(state, times):
-        states[state]
-        for ii in range(len(times) - 1):
-            state = unitary @ state
-            states.append(state)
-        return state
-
-    @staticmethod
-    def __compute(func, state):
-        return func(state)
-
+    @times.setter
+    def times(self, tlist):
+        self.__times = tlist
