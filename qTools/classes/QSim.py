@@ -20,6 +20,7 @@ def __timeEvol(qSim):
     for ii in range(len(qSim.times) - 1):
         state = unitary @ state
         states.append(state)
+        qSim.compute(qSim.qSys, state)
     return states
 
 
@@ -171,7 +172,8 @@ class qSequence(qUniversal):
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
-    __slots__ = ['__qSys', 'sequence', 'compute', '__stepSize', 'finalTime', '__times', 'states', 'beforeLoop', 'Loop', 'whileLoop']
+    __compute = 0
+    __slots__ = ['__qSys', 'sequence', '__stepSize', 'finalTime', '__times', 'states', 'beforeLoop', 'Loop', 'whileLoop']
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -179,12 +181,15 @@ class Simulation(qUniversal):
         self.beforeLoop = qSequence(superSys=self)
         self.Loop = qSequence(superSys=self)
         self.whileLoop = qSequence(superSys=self)
-        self.compute = None
         self.__times = None
         self.__stepSize = 0.01
         self.finalTime = 1.5
         self.states = []
         self._qUniversal__setKwargs(**kwargs)
+
+    @staticmethod
+    def compute(qSys, state):
+        Simulation._Simulation__compute += 1
 
     def __del__(self):
         class_name = self.__class__.__name__
