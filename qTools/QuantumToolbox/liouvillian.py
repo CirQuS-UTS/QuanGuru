@@ -2,7 +2,6 @@ import scipy.sparse as sp
 import scipy.sparse.linalg as slinA
 import numpy as np
 import scipy.linalg as linA
-#import copy
 
 def Liouvillian(Hamiltonian, collapseOperators = [], decayRates = [], exp = True, timeStep = 1.0):
     sparse = sp.issparse(Hamiltonian)
