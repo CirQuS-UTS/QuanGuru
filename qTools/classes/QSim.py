@@ -20,100 +20,47 @@ def __timeEvol(qSim):
     for ii in range(len(qSim.times) - 1):
         state = unitary @ state
         states.append(state)
-    
-    print('states in __timeEvol', len(states))
     return states
 
 
-def updateParams(Sweeps):
-    for sweep in Sweeps:
-        val = sweep.sweepList[sweep.lCounts]
-        setattr(sweep.superSys, sweep.sweepKey, val)
+def runSweep(swe):
+    val = swe.sweepList[swe.lCounts]
+    setattr(swe.superSys, swe.sweepKey, val)
 
+def runSequence(qSeq):
+    for sweep in qSeq.sweeps:
+        runSweep(sweep)
 
-def updateBefore(sequence, qSim=None):
-    num = sequence.lCount
-    if num < len(sequence.sweeps):
-        updateParams(sequence.sweeps[num])
-        updateBefore(sequence)
+def runSimulation(qSim, p):
+    condition = qSim.beforeLoop.lCount
+    print(condition, len(qSim.beforeLoop.sweeps[0].sweepList))
+    runSequence(qSim.beforeLoop)
+    runLoop(qSim, p)
+    if len(qSim.beforeLoop.sweeps) > 0:
+        if condition < (len(qSim.beforeLoop.sweeps[0].sweepList)-1):
+            qSim._Simulation__res(qSim.Loop)
+            qSim._Simulation__res(qSim.whileLoop)
+            runSimulation(qSim, p)
 
-
-def updateParamsEvolve(Sweeps, sequence, qSim):
-    for sweep in Sweeps:
-        val = sweep.sweepList[sweep.lCounts]
-        setattr(sweep.superSys, sweep.sweepKey, val)
-        print("here", val)
-    updateBeforeEvolve(sequence, qSim)
-    
-
-def updateBeforeEvolve(sequence, qSim):
-    num = sequence.lCount
-    if num < len(sequence.sweeps):
-        updateParamsEvolve(sequence.sweeps[num], sequence, qSim)
-    else:
-        states = __timeEvol(qSim)
-        print('len states in updateBeforeEvolve', len(states))
-        return states
-
-def timeEvol(qSim, p=None):
-    qSeq = qSim.beforeLoop
-    updateBefore(qSeq)
-    states = __parOrNot(qSeq.superSys, p)
-    return states
-
-
-def __parOrNot(qSim, p):
+def runLoop(qSim, p):
     if p is None:
-        states = []
-        for ind in range(len(qSim.Loop.sweeps[0][0].sweepList)):
-            for sw in qSim.Loop.sweeps:
-                updateParams(sw)
-            print('cav freq is', qSim.qSys.subSystems['Cavity1'].frequency)
-            states.append(__tEvol(qSim, ind))
-        return states
-
-
-def __tEvol(qSim, ind):
-    states = updateBeforeEvolve(qSim.whileLoop, qSim=qSim)
-    #print('states in __tEvol', len(states))
-    return states
-
-
-    
-
-
-'''def timeEvolAfter(qSim, vaL):
-    if vaL < (len(qSim.sequence.sweeps)-1):
-        lx = qSim.sequence.sweeps[lc][0].lCounts
-        sw = qSim.sequence.sweeps[lx]
-        for ind in range(len(sw)):
-            setattr(sw[ind].superSys, sw[ind].sweepKey, sw[ind].sweepList[lx])
-        timeEvolAfter(qSim, vaL+1)
+        for ind in range(len(qSim.Loop.sweeps[0].sweepList)-1):
+            runTime(qSim, ind)
     else:
-        states = []
-        lx = qSim.sequence.sweeps[lc][0].lCounts
-        sw = qSim.sequence.sweeps[lx]
-        for ind in range(len(sw[0].sweepList)):
-            states.append(__timeEvol(qSim, sw))
-        print('states in timeEvolveAfter', len(states))
-        return states
+        p.map(partial(runTime, qSim), range(len(qSim.Loop.sweeps[0].sweepList)-1))
 
+def runTime(qSim, ind):
+    for sw in qSim.Loop.sweeps:
+        runSweep(sw)
+        runEvolve(qSim)
 
-def __pTimeEvol(qSim, p, lc):
-    vaL = lc
-    if p is None:
-        states = []
-        for ind in range(len(qSim.sequence.sweeps[vaL][0].sweepList)):
-            lx = qSim.sequence.sweeps[vaL][0].lCounts
-            for swe in qSim.sequence.sweeps[vaL]:
-                setattr(swe.superSys, swe.sweepKey, swe.sweepList[lx])
-                states.append(__timeEvol(qSim, vaL))
-        print('states in __pTimeEvol', len(states))
-        return states
-    else:
-        states = p.map(partial(timeEvolAfter, qSim), [x for x in range(len(Sweep.Paral.sweepList)-1)])
-        return states
-'''
+def runEvolve(qSim):
+    conditionW = qSim.whileLoop.lCount
+    runSequence(qSim.whileLoop)
+    qSim.states.append(__timeEvol(qSim))
+    if len(qSim.whileLoop.sweeps) > 0:
+        if conditionW < (len(qSim.whileLoop.sweeps[0].sweepList)-1):
+            runEvolve(qSim)
 
 class Sweep(qUniversal):
     # TODO can be included to qSystems by a method
@@ -167,7 +114,7 @@ class Sweep(qUniversal):
     @property
     def lCounts(self):
         self.__lCount += 1
-        return self.__lCount - 1
+        return self.__lCount-1
 
     @lCounts.setter
     def lCounts(self,val):
@@ -181,7 +128,7 @@ class qSequence(qUniversal):
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.__Sweeps = [[]]
+        self.__Sweeps = []
         self.__swCount = 0
         self._qUniversal__setKwargs(**kwargs)
 
@@ -197,16 +144,13 @@ class qSequence(qUniversal):
 
     def addSweep(self, sys, sweepKey, **kwargs):
         newSweep = Sweep(superSys=sys, sweepKey=sweepKey, **kwargs)
-        if newSweep.loop <= len(self.sweeps):
-            self.__Sweeps[newSweep.loop].append(newSweep)
-        else:
-            self.__Sweeps.append([newSweep])
+        self.__Sweeps.append(newSweep)
         return newSweep
 
     @property
     def lCount(self):
         self.__swCount += 1
-        return self.__swCount - 1
+        return self.__swCount-1
 
     @lCount.setter
     def lCount(self,val):
@@ -228,7 +172,7 @@ class Simulation(qUniversal):
         self.__times = None
         self.__stepSize = 0.01
         self.finalTime = 1.5
-        self.states = None
+        self.states = []
         self._qUniversal__setKwargs(**kwargs)
 
     def __del__(self):
@@ -268,13 +212,12 @@ class Simulation(qUniversal):
         self.__res(self.Loop)
         self.__res(self.whileLoop)
 
-        self.states = timeEvol(self, p)
+        runSimulation(self, p)
 
     @staticmethod
     def __res(seq):
         for ind in range(len(seq.sweeps)):
-            for ind2 in range(len(seq.sweeps[ind])):
-                seq.sweeps[ind][ind2].lCounts = 0
+            seq.sweeps[ind].lCounts = 0
 
     @times.setter
     def times(self, tlist):
