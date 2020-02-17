@@ -1,3 +1,4 @@
+# FIXME take of name mangling so that child classes can be modified, do this in all scripts
 class qUniversal:
     instances = 0
     label = 'qUniversal'
@@ -64,7 +65,7 @@ class qUniversal:
         
     @name.setter
     def name(self, name):
-        self.__name = qUniversal.updateNames(self, name)
+        self._qUniversal__name = qUniversal.updateNames(self, name)
 
     @classmethod
     def updateNames(cls, obj, name):
