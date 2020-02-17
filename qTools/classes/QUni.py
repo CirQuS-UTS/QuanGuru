@@ -1,6 +1,6 @@
 class qUniversal:
     instances = 0
-    label = 'universal'
+    label = 'qUniversal'
     instNames = {}
     __slots__ = ['__name','__superSys', '__ind','__subSys']
     def __init__(self, **kwargs):
@@ -76,9 +76,15 @@ class qUniversal:
         return name
 
     @staticmethod
-    def createCopy(qUninstance, **kwargs):
+    def createCopy(qUninstance, simple=False, **kwargs):
         sysClass = qUninstance.__class__
-        newSub = sysClass(**kwargs)
+        lb = sysClass.label
+        if not simple:
+            newSub = sysClass(**kwargs)
+        else:
+            st =  'Simple' + lb
+            cl = globals()[st]
+            newSub = cl(**kwargs)
         return newSub
         
     def __namer(self):
@@ -98,3 +104,9 @@ class qUniversal:
     def clsLabel(cls):
         """Return the prefix to use for auto naming."""
         return cls.label
+
+
+class SimpleqUniversal(qUniversal):
+    label = 'SimpleqUniversal'
+    def __init__(self):
+        super().__init__()
