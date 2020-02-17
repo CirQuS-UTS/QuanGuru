@@ -9,32 +9,6 @@ from qTools.classes.exceptions import sweepInitError
 """ under construction """
 
 
-def __timeEvol(qSim):
-    if qSim.qSys.Unitaries is None:
-        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize)
-    else:
-        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize)
-
-    state = qSim.qSys.initialState
-    states = [state]
-    results = [qSim._Simulation__compute(qSim.qSys, state)]
-    for ii in range(len(qSim.times) - 1):
-        state = unitary @ state
-        states.append(state)
-        result = qSim._Simulation__compute(qSim.qSys, state)
-        results.append(result)
-    return [states, results]
-
-
-def runSweep(swe, ind):
-    val = swe.sweepList[ind]
-    setattr(swe.superSys, swe.sweepKey, val)
-
-def runSequence(qSeq):
-    for sweep in qSeq.sweeps:
-        ind = sweep.lCounts
-        runSweep(sweep, ind)
-
 def runSimulation(qSim, p):
     condition = qSim.beforeLoop.lCount
     runSequence(qSim.beforeLoop)
@@ -49,38 +23,89 @@ def runSimulation(qSim, p):
     else:
         return res
 
+
 def runLoop(qSim, p):
     states = []
     results = []
     if p is None:
         for ind in range(len(qSim.Loop.sweeps[0].sweepList)-1):
             res = runTime(qSim, ind)
-            states.append(res[0])
-            results.append(res[1])
+            # FIXME make this more elegent
+            st1 = [qSim.qSys.initialState]
+            rs1 = [qSim._Simulation__compute(qSim.qSys, qSim.qSys.initialState)]
+            for ind0 in range(len(res[0])):
+                st1.append(res[0][ind0])
+                rs1.append(res[1][ind0])
+            states.append(st1)
+            results.append(rs1)
     else:
         res = p.map(partial(runTime, qSim), range(len(qSim.Loop.sweeps[0].sweepList)-1))
+        # FIXME make this more elegent
         for ind in range(len(qSim.Loop.sweeps[0].sweepList)-1):
-            states.append(res[ind][0])
-            results.append(res[ind][1])
+            st1 = [qSim.qSys.initialState]
+            rs1 = [qSim._Simulation__compute(qSim.qSys, qSim.qSys.initialState)]
+            for ind0 in range(len(res[ind][0])):
+                st1.append(res[ind][0][ind0])
+                rs1.append(res[ind][1][ind0])
+            states.append(st1)
+            results.append(rs1)
+        
+
     return [states, results]
+
 
 def runTime(qSim, ind):
     for sw in qSim.Loop.sweeps:
         runSweep(sw, ind)
+    qSim.qSys.lastState = qSim.qSys.initialState
+    qSim._Simulation__res(qSim.whileLoop)
     res = runEvolve(qSim)
     return res
+
 
 def runEvolve(qSim):
     conditionW = qSim.whileLoop.lCount
     runSequence(qSim.whileLoop)
     res = __timeEvol(qSim)
     if len(qSim.whileLoop.sweeps) > 0:
+        print('here')
         if conditionW < (len(qSim.whileLoop.sweeps[0].sweepList)-1):
             return runEvolve(qSim)
         else:
             return res
     else:
         return res
+
+
+def __timeEvol(qSim):
+    if qSim.qSys.Unitaries is None:
+        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize/(qSim.steps/qSim.samples))
+    else:
+        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize/(qSim.steps/qSim.samples))
+    
+    state = qSim.qSys.lastState
+    states = []
+    results = []
+    for ii in range(qSim.samples):
+        state = unitary @ state
+        states.append(state)
+        result = qSim._Simulation__compute(qSim.qSys, state)
+        results.append(result)
+    return [states, results]
+
+
+
+def runSweep(swe, ind):
+    val = swe.sweepList[ind]
+    setattr(swe.superSys, swe.sweepKey, val)
+
+
+def runSequence(qSeq):
+    for sweep in qSeq.sweeps:
+        ind = sweep.lCounts
+        runSweep(sweep, ind)
+
+
 
 class Sweep(qUniversal):
     # TODO can be included to qSystems by a method
@@ -89,7 +114,8 @@ class Sweep(qUniversal):
     Paral = None
     __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep', '_parallel', 'loop', '__lCount']
     # TODO write exceptions if gone keep
-    @sweepInitError
+    # FIXME enable this
+    #@sweepInitError
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # TODO make these properties
@@ -170,7 +196,7 @@ class qSequence(qUniversal):
     @property
     def lCount(self):
         self.__swCount += 1
-        return self.__swCount-1
+        return self.__swCount - 1
 
     @lCount.setter
     def lCount(self,val):
@@ -184,7 +210,7 @@ class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
     __compute = 0
-    __slots__ = ['__qSys', 'sequence', '__stepSize', 'finalTime', '__times', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute']
+    __slots__ = ['__qSys', 'sequence', '__stepSize', 'finalTime', '__times', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step']
     # TODO Same as previous 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -193,11 +219,34 @@ class Simulation(qUniversal):
         self.Loop = qSequence(superSys=self)
         self.whileLoop = qSequence(superSys=self)
         self.__times = None
-        self.__stepSize = 0.01
+        self.__stepSize = 0.02
+        # FIXME current scheme does not require final time, but it's given, it should handle
         self.finalTime = 1.5
         self.states = []
         self.compute = comp
+        self.__sample = 1
+        self.__step = None
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def steps(self):
+        return self.__step
+
+    @steps.setter
+    def steps(self, num):
+        self.__step = num
+
+    @property
+    def samples(self):
+        if len(self.whileLoop.sweeps) == 0:
+            return self.steps
+        else:
+            return self.__sample
+
+    @samples.setter
+    def samples(self, num):
+        self.__sample = num
+
     
     def __compute(self, qSys, state):
         res = self.compute(qSys, state)
