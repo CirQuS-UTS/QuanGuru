@@ -10,7 +10,7 @@ from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 class QuantumSystem(qUniversal):
     instances = 0
     label = 'Composite Quantum System'
-    __slots__ = ['Couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState']
+    __slots__ = ['Couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState', '__lastState']
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # TODO make these property
@@ -23,6 +23,7 @@ class QuantumSystem(qUniversal):
         # these should not necessarily be in here
         self.__Unitaries = None
         self.__initialState = None
+        self.__lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
     # Unitary property and setter
@@ -170,6 +171,14 @@ class QuantumSystem(qUniversal):
         if len(inp) == len(self.subSystems):
             dims = [val.dimension for val in self.subSystems.values()]
             self.__initialState = qSta.compositeState(dims, inp)
+
+    @property
+    def lastState(self):
+        return self.__lastState
+
+    @initialState.setter
+    def lastState(self, inp):
+        self.__lastState = inp
 
 
 # quantum coupling object
