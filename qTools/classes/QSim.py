@@ -10,18 +10,21 @@ from qTools.classes.exceptions import sweepInitError
 
 """ under construction be careful """
 
-
-def runSimulation(qSim, p):
+# TODO mutable arguments can be used cleverly
+def runSimulation(qSim, p, statesList=[], resultsList=[]):
     condition = qSim.beforeLoop.lCount
+    print(condition,len(qSim.beforeLoop.sweeps[0].sweepList))
     runSequence(qSim.beforeLoop)
     res = runLoop(qSim, p)
     if len(qSim.beforeLoop.sweeps) > 0:
+        statesList.append(res[0])
+        resultsList.append(res[1])
         if condition < (len(qSim.beforeLoop.sweeps[0].sweepList)-1):
             qSim._Simulation__res(qSim.Loop)
             qSim._Simulation__res(qSim.whileLoop)
             return runSimulation(qSim, p)
         else:
-            return res
+            return [statesList, resultsList]
     else:
         return res
 
@@ -290,12 +293,14 @@ class Simulation(qUniversal):
         self.__res(self.beforeLoop)
         self.__res(self.Loop)
         self.__res(self.whileLoop)
-
+        '''statesList = [] 
+        resultsList = []'''
         res = runSimulation(self, p)
         return res[0], res[1]
 
     @staticmethod
     def __res(seq):
+        seq.lCount = 0
         for ind in range(len(seq.sweeps)):
             seq.sweeps[ind].lCounts = 0
 
