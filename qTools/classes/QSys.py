@@ -9,7 +9,7 @@ from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 # Composite Quantum system
 class QuantumSystem(qUniversal):
     instances = 0
-    label = 'Composite Quantum System'
+    label = 'QuantumSystem'
     __slots__ = ['Couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState', '__lastState']
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -262,7 +262,7 @@ class qCoupling(qUniversal):
 
 class envCoupling(qCoupling):
     instances = 0
-    label = 'EnvironmentCoupling'
+    label = 'envCoupling'
     __slots__ = []
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -271,7 +271,7 @@ class envCoupling(qCoupling):
 
 class sysCoupling(qCoupling):
     instances = 0
-    label = 'SystemCoupling'
+    label = 'sysCoupling'
     __slots__ = []
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
