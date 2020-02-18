@@ -150,26 +150,26 @@ class Sweep(qUniversal):
 
     @property
     def sweepList(self):
-        return self.__sweepList
+        return self._Sweep__sweepList
 
     @sweepList.setter
     def sweepList(self, sList):
         if sList is None:
             if self.logSweep is False:
-                self.__sweepList = np.arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
+                self._Sweep__sweepList = np.arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
             elif self.logSweep is True:
-                self.__sweepList = np.logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
+                self._Sweep__sweepList = np.logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
         else:
-            self.__sweepList = sList
+            self._Sweep__sweepList = sList
 
     @property
     def lCounts(self):
-        self.__lCount += 1
-        return self.__lCount-1
+        self._Sweep__lCount += 1
+        return self._Sweep__lCount-1
 
     @lCounts.setter
     def lCounts(self,val):
-        self.__lCount = val
+        self._Sweep__lCount = val
 
 
 class qSequence(qUniversal):
@@ -185,27 +185,27 @@ class qSequence(qUniversal):
 
     @property
     def sweeps(self):
-        return self.__Sweeps
+        return self._qSequence__Sweeps
 
     @sweeps.setter
     def sweeps(self, sysDict):
-        self.__Sweeps = {}
+        self._qSequence__Sweeps = {}
         for key, val in sysDict.items():
             self.addSweep(val, key)
 
     def addSweep(self, sys, sweepKey, **kwargs):
         newSweep = Sweep(superSys=sys, sweepKey=sweepKey, **kwargs)
-        self.__Sweeps.append(newSweep)
+        self._qSequence__Sweeps.append(newSweep)
         return newSweep
 
     @property
     def lCount(self):
-        self.__swCount += 1
-        return self.__swCount - 1
+        self._qSequence__swCount += 1
+        return self._qSequence__swCount - 1
 
     @lCount.setter
     def lCount(self,val):
-        self.__swCount = val
+        self._qSequence__swCount = val
 
 # FIXME remove this somehow
 def comp(qSim, state):
@@ -235,22 +235,22 @@ class Simulation(qUniversal):
 
     @property
     def steps(self):
-        return self.__step
+        return self._Simulation__step
 
     @steps.setter
     def steps(self, num):
-        self.__step = num
+        self._Simulation__step = num
 
     @property
     def samples(self):
         if len(self.whileLoop.sweeps) == 0:
             return self.steps
         else:
-            return self.__sample
+            return self._Simulation__sample
 
     @samples.setter
     def samples(self, num):
-        self.__sample = num
+        self._Simulation__sample = num
 
     
     def __compute(self, qSys, state):
@@ -262,13 +262,13 @@ class Simulation(qUniversal):
 
     @property
     def qSys(self):
-        self.__qSys.superSys = self
-        return self.__qSys
+        self._Simulation__qSys.superSys = self
+        return self._Simulation__qSys
 
     @qSys.setter
     def qSys(self, val):
         QuantumSystem.constructCompSys(val)
-        self.__qSys = val
+        self._Simulation__qSys = val
 
     @property
     def times(self):
@@ -276,23 +276,23 @@ class Simulation(qUniversal):
     
     @property
     def times(self):
-        return self.__times
+        return self._Simulation__times
 
     @property
     def stepSize(self):
-        return self.__stepSize
+        return self._Simulation__stepSize
 
     @stepSize.setter
     def stepSize(self, stepsize):
-        self.__stepSize = stepsize
+        self._Simulation__stepSize = stepsize
     
     def run(self, p=None):
         if self.qSys._QuantumSystem__constructed == False:
             self.qSys.constructCompSys()
         
-        self.__res(self.beforeLoop)
-        self.__res(self.Loop)
-        self.__res(self.whileLoop)
+        self._Simulation__res(self.beforeLoop)
+        self._Simulation__res(self.Loop)
+        self._Simulation__res(self.whileLoop)
         '''statesList = [] 
         resultsList = []'''
         res = runSimulation(self, p)
@@ -306,4 +306,4 @@ class Simulation(qUniversal):
 
     @times.setter
     def times(self, tlist):
-        self.__times = tlist
+        self._Simulation__times = tlist
