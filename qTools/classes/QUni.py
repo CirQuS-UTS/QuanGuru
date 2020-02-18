@@ -75,7 +75,7 @@ class qUniversal:
         return name
 
     @staticmethod
-    def createCopy(qUninstance, simple=False, **kwargs):
+    def createCopy(qUninstance, **kwargs):
         sysClass = qUninstance.__class__
         newSub = sysClass(**kwargs)
         return newSub

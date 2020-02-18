@@ -377,11 +377,10 @@ class qSystem(qUniversal):
         if not isinstance(newDimVal, int):
             raise ValueError('Dimension is not int')
 
-        if self.superSys is None:
-            self._qSystem__dimension = newDimVal
-        elif isinstance(self.superSys, QuantumSystem):
+        if isinstance(self.superSys, QuantumSystem):
             QuantumSystem.updateDimension(self.superSys, self, newDimVal)
-            self._qSystem__dimension = newDimVal
+
+        self._qSystem__dimension = newDimVal
             
     @property
     def freeHam(self):
@@ -410,7 +409,8 @@ class qSystem(qUniversal):
             self._qSystem__constructSubMat()
 
     def __constructSubMat(self):
-        self._qSystem__Matrix = hams.compositeOp(self.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+        for sys in self._qSystem__terms:
+            sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
     def __singleSystem(self):
@@ -418,18 +418,18 @@ class qSystem(qUniversal):
             mat = self._qSystem__constructSubMat()
 
     def addTerm(self, op, freq):
-        copySys = self.copy(operator=op, frequency=freq)
+        copySys = self.copy(operator=op, frequency=freq, superSys=self)
         self._qSystem__terms.append(copySys)
         self._qSystem__singleSystem()
         return copySys
 
     def copy(self, **kwargs):
         if 'superSys' in kwargs.keys():
-            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension,
-             frequency = self.frequency, operator = self.operator)
+            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension, 
+            frequency = self.frequency, operator = self.operator)
         else:
-            copySys = qUniversal.createCopy(self, dimension = self.dimension,
-             frequency = self.frequency, operator = self.operator)
+            copySys = qUniversal.createCopy(self, dimension = self.dimension, 
+            frequency = self.frequency, operator = self.operator)
         copySys._qUniversal__setKwargs(**kwargs)
         return copySys
 
@@ -440,7 +440,8 @@ class Qubit(qSystem):
     label = 'Qubit'
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__(dimension=2, **kwargs)
+        kwargs['dimension'] = 2
+        super().__init__(**kwargs)
         self.operator = qOps.sigmaz
         self._qUniversal__setKwargs(**kwargs)
 

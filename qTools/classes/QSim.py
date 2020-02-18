@@ -2,7 +2,7 @@ import qTools.QuantumToolbox.liouvillian as lio
 import numpy as np
 import scipy.sparse as sp
 import qTools.QuantumToolbox.states as qSt
-from qTools.classes.QSys import QuantumSystem
+from qTools.classes.QSys import QuantumSystem, qSystem
 from qTools.classes.QUni import qUniversal
 from functools import partial
 from qTools.classes.exceptions import sweepInitError
@@ -13,7 +13,6 @@ from qTools.classes.exceptions import sweepInitError
 # TODO mutable arguments can be used cleverly
 def runSimulation(qSim, p, statesList=[], resultsList=[]):
     condition = qSim.beforeLoop.lCount
-    print(condition,len(qSim.beforeLoop.sweeps[0].sweepList))
     runSequence(qSim.beforeLoop)
     res = runLoop(qSim, p)
     if len(qSim.beforeLoop.sweeps) > 0:
@@ -73,7 +72,6 @@ def runEvolve(qSim):
     runSequence(qSim.whileLoop)
     res = __timeEvol(qSim)
     if len(qSim.whileLoop.sweeps) > 0:
-        print('here')
         if conditionW < (len(qSim.whileLoop.sweeps[0].sweepList)-1):
             return runEvolve(qSim)
         else:
@@ -267,7 +265,8 @@ class Simulation(qUniversal):
 
     @qSys.setter
     def qSys(self, val):
-        QuantumSystem.constructCompSys(val)
+        if val is isinstance(QuantumSystem):
+            QuantumSystem.constructCompSys(val)
         self._Simulation__qSys = val
 
     @property
@@ -287,8 +286,7 @@ class Simulation(qUniversal):
         self._Simulation__stepSize = stepsize
     
     def run(self, p=None):
-        if self.qSys._QuantumSystem__constructed == False:
-            self.qSys.constructCompSys()
+        self.qSys.constructCompSys()
         
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
