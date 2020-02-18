@@ -101,9 +101,9 @@ class QuantumSystem(qUniversal):
         elif isinstance(coupl, dict):
             self._QuantumSystem__couplings = coupl
 
-    def createSysCoupling(self, qsystems, couplingOps, couplingStrength, **kwargs):
-        couplingObj = sysCoupling(couplingStrength=couplingStrength, **kwargs)
-        couplingObj.addTerm(qsystems, couplingOps)
+    def createSysCoupling(self, couplingStrength, *args, **kwargs):
+        couplingObj = sysCoupling(couplingStrength=couplingStrength, *args, **kwargs)
+        #couplingObj.addTerm(qsystems, couplingOps)
         couplingObj.ind = len(self.couplings)
         self.couplings[couplingObj.name] = couplingObj
         couplingObj.superSys = couplingObj._qCoupling__qSys
@@ -276,15 +276,29 @@ class qCoupling(qUniversal):
         return cHam
 
     def addTerm(self, *args):
-        if len(args) > 0:
-            if isinstance(args[0][0], qSystem):
-                self._qCoupling__cFncs.append(args[1])
-                self._qCoupling__qSys.append(args[0])
-                args[0][0].superSys._QuantumSystem__constructed = False
-            elif isinstance(args[1][0], qSystem):
-                self._qCoupling__cFncs.append(args[0])
-                self._qCoupling__qSys.append(args[1])
-                args[1][0].superSys._QuantumSystem__constructed = False
+        counter = 0
+        while counter in range(len(args)):
+            if isinstance(args[counter][0], qSystem):
+                print("term added")
+                self._qCoupling__cFncs.append(args[counter + 1])
+                self._qCoupling__qSys.append(args[counter])
+                args[counter][0].superSys._QuantumSystem__constructed = False
+                counter += 2
+            elif isinstance(args[counter][1], qSystem):
+                self._qCoupling__cFncs.append(args[counter + 1])
+                self._qCoupling__qSys.append(args[counter])
+                args[counter][1].superSys._QuantumSystem__constructed = False
+                counter += 2
+            elif isinstance(args[counter][0][0],qSystem):
+                self._qCoupling__cFncs.append(args[counter][1])
+                self._qCoupling__qSys.append(args[counter][0])
+                args[counter][0][0].superSys._QuantumSystem__constructed = False
+                counter += 1
+            elif isinstance(args[counter][0][1],qSystem):
+                self._qCoupling__cFncs.append(args[counter][0])
+                self._qCoupling__qSys.append(args[counter][1])
+                args[counter][0][1].superSys._QuantumSystem__constructed = False
+                counter += 1
         return self
 
 
