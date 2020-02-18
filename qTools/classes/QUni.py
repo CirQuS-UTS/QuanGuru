@@ -1,4 +1,3 @@
-# FIXME take of name mangling so that child classes can be modified, do this in all scripts
 class qUniversal:
     instances = 0
     label = 'qUniversal'
@@ -11,7 +10,7 @@ class qUniversal:
         self.__superSys = None
         self.__subSys = {}
         self.__ind = None
-        self.__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -22,46 +21,46 @@ class qUniversal:
 
     @property
     def subSystems(self):
-        return self.__subSys
+        return self._qUniversal__subSys
 
     @subSystems.setter
     def subSystems(self, subS):
-        self.__addSubSys(subS)
+        self._qUniversal__addSubSys(subS)
              
     def __addSubSys(self, subS):
         if isinstance(subS, qUniversal):
             self._qUniversal__subSys[subS.name] = subS
         elif isinstance(subS, str):
-            self.__addSubSys(self.instNames[subS])
+            self._qUniversal__addSubSys(self.instNames[subS])
         elif isinstance(subS, dict):
             for sys in subS.values():
-                self.__addSubSys(subS)
+                self._qUniversal__addSubSys(subS)
         else:
             for sys in subS:
-                self.__addSubSys(subS)
+                self._qUniversal__addSubSys(subS)
         return subS
 
     @property
     def superSys(self):
-        return self.__superSys
+        return self._qUniversal__superSys
 
     @superSys.setter
     def superSys(self, supSys):
-        self.__superSys = supSys
+        self._qUniversal__superSys = supSys
         # FIXME Creates problem in QuantumSystem 
         #supSys.subSystems = self
 
     @property
     def ind(self):
-        return self.__ind
+        return self._qUniversal__ind
 
     @ind.setter
     def ind(self, numb):
-        self.__ind = numb
+        self._qUniversal__ind = numb
 
     @property
     def name(self):
-        return self.__name
+        return self._qUniversal__name
         
     @name.setter
     def name(self, name):
@@ -79,13 +78,7 @@ class qUniversal:
     @staticmethod
     def createCopy(qUninstance, simple=False, **kwargs):
         sysClass = qUninstance.__class__
-        lb = sysClass.label
-        if not simple:
-            newSub = sysClass(**kwargs)
-        else:
-            st =  'Simple' + lb
-            cl = globals()[st]
-            newSub = cl(**kwargs)
+        newSub = sysClass(**kwargs)
         return newSub
         
     def __namer(self):
@@ -105,9 +98,3 @@ class qUniversal:
     def clsLabel(cls):
         """Return the prefix to use for auto naming."""
         return cls.label
-
-
-class SimpleqUniversal(qUniversal):
-    label = 'SimpleqUniversal'
-    def __init__(self):
-        super().__init__()
