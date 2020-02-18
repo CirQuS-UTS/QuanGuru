@@ -77,7 +77,7 @@ class QuantumSystem(qUniversal):
 
     @property
     def freeHam(self):
-        ham = sum([val.freeHam for val in self.subSystems.values()])
+        ham = sum([val.totalHam for val in self.subSystems.values()])
         return ham
 
     @property
@@ -324,7 +324,7 @@ class sysCoupling(qCoupling):
 class qSystem(qUniversal):
     instances = 0
     label = 'qSystem'
-    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', '__initialState']
+    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', '__initialState', '__lastState', 'Unitaries']
 
     @qSystemInitErrors
     def __init__(self, **kwargs):
@@ -337,8 +337,18 @@ class qSystem(qUniversal):
         self.__dimsAfter = 1
         self.__terms = [self]
         self.__initialState = None
+        self.__lastState = None
+        self.Unitaries = None
         self._qUniversal__setKwargs(**kwargs)
         self._qSystem__singleSystem()
+
+    @property
+    def lastState(self):
+        return self._qSystem__lastState
+
+    @lastState.setter
+    def lastState(self, inp):
+        self._qSystem__lastState = inp
 
     @property
     def initialState(self):
@@ -348,6 +358,8 @@ class qSystem(qUniversal):
     def initialState(self, state):
         if sp.issparse(state):
             self._qSystem__initialState = state
+        elif isinstance(state, int):
+            self._qSystem__initialState = qSta.basis(self.dimension, state)
         else:
             self._qSystem__initialState = qSta.superPos(self.dimension, state)
 
@@ -383,12 +395,12 @@ class qSystem(qUniversal):
         self._qSystem__dimension = newDimVal
             
     @property
-    def freeHam(self):
+    def totalHam(self):
         h = sum([(obj.frequency * obj.freeMat) for obj in self._qSystem__terms])
         return h
 
-    @freeHam.setter
-    def freeHam(self, qOpsFunc):
+    @totalHam.setter
+    def totalHam(self, qOpsFunc):
         self.freeMat = qOpsFunc
         self._qSystem__freeMat = ((1/self.frequency)*(self.freeMat))
 
@@ -445,9 +457,9 @@ class Qubit(qSystem):
         self.operator = qOps.sigmaz
         self._qUniversal__setKwargs(**kwargs)
 
-    @qSystem.freeHam.getter
-    def freeHam(self):
-        h = qSystem.freeHam.fget(self)
+    @qSystem.totalHam.getter
+    def totalHam(self):
+        h = qSystem.totalHam.fget(self)
         return h if self.operator is qOps.number else 0.5*h
 
 

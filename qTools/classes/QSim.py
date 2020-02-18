@@ -265,7 +265,7 @@ class Simulation(qUniversal):
 
     @qSys.setter
     def qSys(self, val):
-        if val is isinstance(QuantumSystem):
+        if isinstance(val, QuantumSystem):
             QuantumSystem.constructCompSys(val)
         self._Simulation__qSys = val
 
@@ -286,7 +286,8 @@ class Simulation(qUniversal):
         self._Simulation__stepSize = stepsize
     
     def run(self, p=None):
-        self.qSys.constructCompSys()
+        if isinstance(self.qSys, QuantumSystem):
+            self.qSys.constructCompSys()
         
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
