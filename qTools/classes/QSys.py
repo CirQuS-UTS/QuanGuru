@@ -7,8 +7,44 @@ import scipy.sparse as sp
 
 
 
+class genericQSys(qUniversal):
+    instances = 0
+    label = 'genericQSys'
+    __slots__ = ['__constructed', '__initialState', '__lastState', '__Unitaries']
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.__constructed = False
+        self.__initialState = None
+        self.__lastState = None
+        self.__Unitaries = None
+
+    
+    # Unitary property and setter
+    @property
+    def Unitaries(self):
+        return self._genericQSys__Unitaries
+
+    @Unitaries.setter
+    def Unitaries(self, uni):
+        self._genericQSys__Unitaries = uni
+
+    # initial state
+    @property
+    def initialState(self):
+        return self._genericQSys__initialState
+
+    @property
+    def lastState(self):
+        return self._genericQSys__lastState
+
+    @lastState.setter
+    def lastState(self, inp):
+        self._genericQSys__lastState = inp
+
+
+
 # Composite Quantum system
-class QuantumSystem(qUniversal):
+class QuantumSystem(genericQSys):
     instances = 0
     label = 'QuantumSystem'
     __slots__ = ['__couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState', '__lastState']
@@ -24,16 +60,6 @@ class QuantumSystem(qUniversal):
         self.__initialState = None
         self.__lastState = None
         self._qUniversal__setKwargs(**kwargs)
-
-
-    # Unitary property and setter
-    @property
-    def Unitaries(self):
-        return self._QuantumSystem__Unitaries
-
-    @Unitaries.setter
-    def Unitaries(self, uni):
-        self._QuantumSystem__Unitaries = uni 
         
     # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
@@ -172,159 +198,21 @@ class QuantumSystem(qUniversal):
             self.constructCompSys()
         return qSys
 
-    # initial state
-    @property
-    def initialState(self):
-        return self._QuantumSystem__initialState
-
-    @initialState.setter
+    @genericQSys.initialState.setter
     def initialState(self, inp):
         if sp.issparse(inp):
             # TODO if the dimensions does not match give error (possibly decoarete this and move all the ifs away)
-            self._QuantumSystem__initialState = inp
+            self._genericQSys__initialState = inp
         elif len(inp) == len(self.subSystems):
             dims = [val.dimension for val in self.subSystems.values()]
-            self._QuantumSystem__initialState = qSta.compositeState(dims, inp)
-
-    @property
-    def lastState(self):
-        return self._QuantumSystem__lastState
-
-    @lastState.setter
-    def lastState(self, inp):
-        self._QuantumSystem__lastState = inp
-
-
-# quantum coupling object
-class qCoupling(qUniversal):
-    instances = 0
-    label = 'qCoupling'
-    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__cMatrix', '__qSys']
-
-    @qCouplingInitErrors
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
-        self.__couplingStrength = None
-        self.__cFncs = []
-        self.__qSys = []
-        self.__cMatrix = None
-        self._qUniversal__setKwargs(**kwargs)
-        self.addTerm(*args)
-
-
-    # TODO might define setters
-    @property
-    def couplingOperators(self):
-        return self._qCoupling__cFncs
-
-    @property
-    def coupledSystems(self):
-        return self._qCoupling__qSys
-
-    @qUniversal.superSys.setter
-    def superSys(self, sys):
-        self._qUniversal__superSys = sys
-
-    # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
-    # so these should be generalised and explicit ones moved into sysCoupling
-    @property
-    def couplingStrength(self):
-        return self._qCoupling__couplingStrength
-
-    @couplingStrength.setter
-    def couplingStrength(self, strength):
-        self._qCoupling__couplingStrength = strength
-
-    @property
-    def couplingMat(self):
-        return self._qCoupling__cMatrix
-
-    @couplingMat.setter
-    def couplingMat(self, qMat):
-        if qMat is not None:
-            self._qCoupling__cMatrix = qMat
-        else:
-            if len(self._qCoupling__cFncs) == 0:
-                raise ValueError('No operator is given for coupling Hamiltonian')
-            self._qCoupling__cMatrix = self._qCoupling__getCoupling()
-
-    @property
-    def couplingHam(self):
-        h = self.couplingStrength * self.couplingMat
-        return h
-
-    def __coupOrdering(self, qts):
-        sorted(qts, key=lambda x: x[0], reverse=False)
-        oper = qts[0][1]
-        for ops in range(len(qts)-1):
-            oper = oper @ qts[ops+1][1]
-        return oper
-
-    def __getCoupling(self):
-        cMats = []
-        for ind in range(len(self._qCoupling__cFncs)):
-            qts = []
-            for indx in range(len(self._qCoupling__qSys[ind])):
-                sys = self._qCoupling__qSys[ind][indx]
-                order = sys.ind
-                oper = self._qCoupling__cFncs[ind][indx]
-                cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
-                ts = [order, cHam]
-                qts.append(ts)
-            cMats.append(self._qCoupling__coupOrdering(qts))
-        cHam = sum(cMats)
-        return cHam
-
-    def addTerm(self, *args):
-        counter = 0
-        while counter in range(len(args)):
-            if isinstance(args[counter][0], qSystem):
-                print("term added")
-                self._qCoupling__cFncs.append(args[counter + 1])
-                self._qCoupling__qSys.append(args[counter])
-                args[counter][0].superSys._QuantumSystem__constructed = False
-                counter += 2
-            elif isinstance(args[counter][1], qSystem):
-                self._qCoupling__cFncs.append(args[counter + 1])
-                self._qCoupling__qSys.append(args[counter])
-                args[counter][1].superSys._QuantumSystem__constructed = False
-                counter += 2
-            elif isinstance(args[counter][0][0],qSystem):
-                self._qCoupling__cFncs.append(args[counter][1])
-                self._qCoupling__qSys.append(args[counter][0])
-                args[counter][0][0].superSys._QuantumSystem__constructed = False
-                counter += 1
-            elif isinstance(args[counter][0][1],qSystem):
-                self._qCoupling__cFncs.append(args[counter][0])
-                self._qCoupling__qSys.append(args[counter][1])
-                args[counter][0][1].superSys._QuantumSystem__constructed = False
-                counter += 1
-        return self
-
-
-class envCoupling(qCoupling):
-    instances = 0
-    label = 'envCoupling'
-    __slots__ = []
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._qUniversal__setKwargs(**kwargs)
-
-
-class sysCoupling(qCoupling):
-    instances = 0
-    label = 'sysCoupling'
-    __slots__ = []
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._qUniversal__setKwargs(**kwargs)
+            self._genericQSys__initialState = qSta.compositeState(dims, inp)
 
 
 # quantum system objects
-class qSystem(qUniversal):
+class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
-    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', '__initialState', '__lastState', 'Unitaries']
+    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms']
 
     @qSystemInitErrors
     def __init__(self, **kwargs):
@@ -336,32 +224,18 @@ class qSystem(qUniversal):
         self.__dimsBefore = 1
         self.__dimsAfter = 1
         self.__terms = [self]
-        self.__initialState = None
-        self.__lastState = None
-        self.Unitaries = None
         self._qUniversal__setKwargs(**kwargs)
         self._qSystem__singleSystem()
 
-    @property
-    def lastState(self):
-        return self._qSystem__lastState
 
-    @lastState.setter
-    def lastState(self, inp):
-        self._qSystem__lastState = inp
-
-    @property
-    def initialState(self):
-        return self._qSystem__initialState
-
-    @initialState.setter
+    @genericQSys.initialState.setter
     def initialState(self, state):
         if sp.issparse(state):
-            self._qSystem__initialState = state
+            self._genericQSys__initialState = state
         elif isinstance(state, int):
-            self._qSystem__initialState = qSta.basis(self.dimension, state)
+            self._genericQSys__initialState = qSta.basis(self.dimension, state)
         else:
-            self._qSystem__initialState = qSta.superPos(self.dimension, state)
+            self._genericQSys__initialState = qSta.superPos(self.dimension, state)
 
     @property
     def frequency(self):
@@ -495,3 +369,129 @@ class Cavity(qSystem):
         super().__init__(**kwargs)
         self.operator = qOps.number
         self._qUniversal__setKwargs(**kwargs)
+
+
+# quantum coupling object
+class qCoupling(qUniversal):
+    instances = 0
+    label = 'qCoupling'
+    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__cMatrix', '__qSys']
+
+    @qCouplingInitErrors
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.__couplingStrength = None
+        self.__cFncs = []
+        self.__qSys = []
+        self.__cMatrix = None
+        self._qUniversal__setKwargs(**kwargs)
+        self.addTerm(*args)
+
+
+    # TODO might define setters
+    @property
+    def couplingOperators(self):
+        return self._qCoupling__cFncs
+
+    @property
+    def coupledSystems(self):
+        return self._qCoupling__qSys
+
+    @qUniversal.superSys.setter
+    def superSys(self, sys):
+        self._qUniversal__superSys = sys
+
+    # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
+    # so these should be generalised and explicit ones moved into sysCoupling
+    @property
+    def couplingStrength(self):
+        return self._qCoupling__couplingStrength
+
+    @couplingStrength.setter
+    def couplingStrength(self, strength):
+        self._qCoupling__couplingStrength = strength
+
+    @property
+    def couplingMat(self):
+        return self._qCoupling__cMatrix
+
+    @couplingMat.setter
+    def couplingMat(self, qMat):
+        if qMat is not None:
+            self._qCoupling__cMatrix = qMat
+        else:
+            if len(self._qCoupling__cFncs) == 0:
+                raise ValueError('No operator is given for coupling Hamiltonian')
+            self._qCoupling__cMatrix = self._qCoupling__getCoupling()
+
+    @property
+    def couplingHam(self):
+        h = self.couplingStrength * self.couplingMat
+        return h
+
+    def __coupOrdering(self, qts):
+        sorted(qts, key=lambda x: x[0], reverse=False)
+        oper = qts[0][1]
+        for ops in range(len(qts)-1):
+            oper = oper @ qts[ops+1][1]
+        return oper
+
+    def __getCoupling(self):
+        cMats = []
+        for ind in range(len(self._qCoupling__cFncs)):
+            qts = []
+            for indx in range(len(self._qCoupling__qSys[ind])):
+                sys = self._qCoupling__qSys[ind][indx]
+                order = sys.ind
+                oper = self._qCoupling__cFncs[ind][indx]
+                cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
+                ts = [order, cHam]
+                qts.append(ts)
+            cMats.append(self._qCoupling__coupOrdering(qts))
+        cHam = sum(cMats)
+        return cHam
+
+    def addTerm(self, *args):
+        counter = 0
+        while counter in range(len(args)):
+            if isinstance(args[counter][0], qSystem):
+                print("term added")
+                self._qCoupling__cFncs.append(args[counter + 1])
+                self._qCoupling__qSys.append(args[counter])
+                args[counter][0].superSys._QuantumSystem__constructed = False
+                counter += 2
+            elif isinstance(args[counter][1], qSystem):
+                self._qCoupling__cFncs.append(args[counter + 1])
+                self._qCoupling__qSys.append(args[counter])
+                args[counter][1].superSys._QuantumSystem__constructed = False
+                counter += 2
+            elif isinstance(args[counter][0][0],qSystem):
+                self._qCoupling__cFncs.append(args[counter][1])
+                self._qCoupling__qSys.append(args[counter][0])
+                args[counter][0][0].superSys._QuantumSystem__constructed = False
+                counter += 1
+            elif isinstance(args[counter][0][1],qSystem):
+                self._qCoupling__cFncs.append(args[counter][0])
+                self._qCoupling__qSys.append(args[counter][1])
+                args[counter][0][1].superSys._QuantumSystem__constructed = False
+                counter += 1
+        return self
+
+
+class envCoupling(qCoupling):
+    instances = 0
+    label = 'envCoupling'
+    __slots__ = []
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._qUniversal__setKwargs(**kwargs)
+
+
+class sysCoupling(qCoupling):
+    instances = 0
+    label = 'sysCoupling'
+    __slots__ = []
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._qUniversal__setKwargs(**kwargs)
+
