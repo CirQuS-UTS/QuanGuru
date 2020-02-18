@@ -14,7 +14,6 @@ class QuantumSystem(qUniversal):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # TODO make these property
-        self.subSystems = {}
         self.__couplings = {}
         self.couplingName = None
 
@@ -28,32 +27,39 @@ class QuantumSystem(qUniversal):
 
     @property
     def couplings(self):
-        return self.__couplings
+        return self._QuantumSystem__couplings
+
+    @couplings.setter
+    def couplings(self, coupl):
+        if isinstance(coupl, qCoupling):
+            self._QuantumSystem__couplings[coupl.name] = coupl
+        elif isinstance(coupl, dict):
+            self._QuantumSystem__couplings = coupl
 
 
     # Unitary property and setter
     @property
     def Unitaries(self):
-        return self.__Unitaries
+        return self._QuantumSystem__Unitaries
 
     @Unitaries.setter
     def Unitaries(self, uni):
-        self.__Unitaries = uni 
+        self._QuantumSystem__Unitaries = uni 
         
     # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
             if subSys.superSys is None:
-                newSub = self.__addSub(subSys, **kwargs)
+                newSub = self._QuantumSystem__addSub(subSys, **kwargs)
                 return newSub
             elif subSys.superSys is self:
                 newSub = qUniversal.createCopy(subSys, frequency=subSys.frequency, dimension=subSys.dimension, operator=subSys.operator)
-                newSub = self.__addSub(newSub, **kwargs)
+                newSub = self._QuantumSystem__addSub(newSub, **kwargs)
                 print('Sub system is already in the composite, copy created and added')
                 return newSub
         else:
             newSub = subSys(**kwargs)
-            self.__addSub(newSub)
+            self._QuantumSystem__addSub(newSub)
             return newSub
 
     def __addSub(self, subSys, **kwargs):
@@ -128,20 +134,20 @@ class QuantumSystem(qUniversal):
             return 0
         else:
             self.couplingName = to
-            self.couplings = self.__kept[to][0]
-            self.Unitaries = self.__kept[to][1]
+            self.couplings = self._QuantumSystem__kept[to][0]
+            self.Unitaries = self._QuantumSystem__kept[to][1]
             return 0
 
     def __keepOld(self):
         name = self.couplingName
-        if name in self.__kept.keys():
-            if self.Unitaries != self.__kept[name][1]:
-                name = len(self.__kept)
-                self.__kept[name] = [self.couplings, self.Unitaries]
+        if name in self._QuantumSystem__kept.keys():
+            if self.Unitaries != self._QuantumSystem__kept[name][1]:
+                name = len(self._QuantumSystem__kept)
+                self._QuantumSystem__kept[name] = [self.couplings, self.Unitaries]
             else:
                 return 'nothing'
         else:
-            self.__kept[name] = [self.couplings, self.Unitaries]
+            self._QuantumSystem__kept[name] = [self.couplings, self.Unitaries]
 
     # construct the matrices
     def constructCompSys(self):
@@ -149,7 +155,7 @@ class QuantumSystem(qUniversal):
             qSys.freeMat = None
         for coupl in self.couplings.values():
             coupl.couplingMat = None
-        self.__constructed = True
+        self._QuantumSystem__constructed = True
 
     # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal):
@@ -169,21 +175,21 @@ class QuantumSystem(qUniversal):
     # initial state
     @property
     def initialState(self):
-        return self.__initialState
+        return self._QuantumSystem__initialState
 
     @initialState.setter
     def initialState(self, inp):
         if len(inp) == len(self.subSystems):
             dims = [val.dimension for val in self.subSystems.values()]
-            self.__initialState = qSta.compositeState(dims, inp)
+            self._QuantumSystem__initialState = qSta.compositeState(dims, inp)
 
     @property
     def lastState(self):
-        return self.__lastState
+        return self._QuantumSystem__lastState
 
     @initialState.setter
     def lastState(self, inp):
-        self.__lastState = inp
+        self._QuantumSystem__lastState = inp
 
 
 # quantum coupling object
