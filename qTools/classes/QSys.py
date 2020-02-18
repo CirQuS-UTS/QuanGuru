@@ -10,12 +10,12 @@ from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 class QuantumSystem(qUniversal):
     instances = 0
     label = 'QuantumSystem'
-    __slots__ = ['Couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState', '__lastState']
+    __slots__ = ['__couplings', 'couplingName', '__kept', '__constructed', '__Unitaries', '__initialState', '__lastState']
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # TODO make these property
-        #self.subSystems = {}
-        self.Couplings = {}
+        self.subSystems = {}
+        self.__couplings = {}
         self.couplingName = None
 
         self.__kept = {}
@@ -25,6 +25,11 @@ class QuantumSystem(qUniversal):
         self.__initialState = None
         self.__lastState = None
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def couplings(self):
+        return self.__couplings
+
 
     # Unitary property and setter
     @property
@@ -86,7 +91,7 @@ class QuantumSystem(qUniversal):
 
     @property
     def couplingHam(self):
-        cham = sum([val.couplingHam for val in self.Couplings.values()])
+        cham = sum([val.couplingHam for val in self.couplings.values()])
         return cham
 
     # adding or creating a new couplings
@@ -94,20 +99,20 @@ class QuantumSystem(qUniversal):
         couplingObj = sysCoupling(couplingStrength=couplingStrength, **kwargs)
         couplingObj.superSys = self
         couplingObj.addTerm(qsystems, couplingOps)
-        couplingObj.ind = len(self.Couplings)
-        self.Couplings[couplingObj.name] = couplingObj
+        couplingObj.ind = len(self.couplings)
+        self.couplings[couplingObj.name] = couplingObj
         return couplingObj
         
     def addSysCoupling(self, couplingObj):
         if isinstance(couplingObj, qCoupling):
-            self.Couplings[couplingObj.name] = couplingObj
+            self.couplings[couplingObj.name] = couplingObj
         else:
             print('not an instance of qCoupling')
         return couplingObj
 
     # reset and keepOld
     def reset(self, to=None):
-        for coupl in self.Couplings.values():
+        for coupl in self.couplings.values():
                 coupl._qCoupling__cMatrix = None
 
         for qSys in self.subSystems.values():
@@ -117,13 +122,13 @@ class QuantumSystem(qUniversal):
 
         self.__constructed = False
         if to is None:
-            self.Couplings = {}
+            self.couplings = {}
             self.Unitaries = None
             self.couplingName = None
             return 0
         else:
             self.couplingName = to
-            self.Couplings = self.__kept[to][0]
+            self.couplings = self.__kept[to][0]
             self.Unitaries = self.__kept[to][1]
             return 0
 
@@ -132,17 +137,17 @@ class QuantumSystem(qUniversal):
         if name in self.__kept.keys():
             if self.Unitaries != self.__kept[name][1]:
                 name = len(self.__kept)
-                self.__kept[name] = [self.Couplings, self.Unitaries]
+                self.__kept[name] = [self.couplings, self.Unitaries]
             else:
                 return 'nothing'
         else:
-            self.__kept[name] = [self.Couplings, self.Unitaries]
+            self.__kept[name] = [self.couplings, self.Unitaries]
 
     # construct the matrices
     def constructCompSys(self):
         for qSys in self.subSystems.values():
             qSys.freeMat = None
-        for coupl in self.Couplings.values():
+        for coupl in self.couplings.values():
             coupl.couplingMat = None
         self.__constructed = True
 
