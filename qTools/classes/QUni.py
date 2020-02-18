@@ -47,8 +47,7 @@ class qUniversal:
     @superSys.setter
     def superSys(self, supSys):
         self._qUniversal__superSys = supSys
-        # FIXME Creates problem in QuantumSystem 
-        #supSys.subSystems = self
+        supSys.subSystems = self
 
     @property
     def ind(self):

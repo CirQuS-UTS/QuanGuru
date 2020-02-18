@@ -25,17 +25,6 @@ class QuantumSystem(qUniversal):
         self.__lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
-    @property
-    def couplings(self):
-        return self._QuantumSystem__couplings
-
-    @couplings.setter
-    def couplings(self, coupl):
-        if isinstance(coupl, qCoupling):
-            self._QuantumSystem__couplings[coupl.name] = coupl
-        elif isinstance(coupl, dict):
-            self._QuantumSystem__couplings = coupl
-
 
     # Unitary property and setter
     @property
@@ -101,12 +90,23 @@ class QuantumSystem(qUniversal):
         return cham
 
     # adding or creating a new couplings
+    @property
+    def couplings(self):
+        return self._QuantumSystem__couplings
+
+    @couplings.setter
+    def couplings(self, coupl):
+        if isinstance(coupl, qCoupling):
+            self._QuantumSystem__couplings[coupl.name] = coupl
+        elif isinstance(coupl, dict):
+            self._QuantumSystem__couplings = coupl
+
     def createSysCoupling(self, qsystems, couplingOps, couplingStrength, **kwargs):
         couplingObj = sysCoupling(couplingStrength=couplingStrength, **kwargs)
-        couplingObj.superSys = self
         couplingObj.addTerm(qsystems, couplingOps)
         couplingObj.ind = len(self.couplings)
         self.couplings[couplingObj.name] = couplingObj
+        couplingObj.superSys = couplingObj._qCoupling__qSys
         return couplingObj
         
     def addSysCoupling(self, couplingObj):
@@ -210,6 +210,9 @@ class qCoupling(qUniversal):
         # FIXME if nor args given should not create a problem
         self.addTerm(*args)
 
+    @qUniversal.superSys.setter
+    def superSys(self, sys):
+        self._qUniversal__superSys = sys
 
     # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
     # so these should be generalised and explicit ones moved into sysCoupling
@@ -267,7 +270,7 @@ class qCoupling(qUniversal):
         if len(args) > 0:
             self.__cFncs.append(args[1])
             self.__qSys.append(args[0])
-            self.superSys._QuantumSystem__constructed = False
+            args[0][0].superSys._QuantumSystem__constructed = False
         return self
 
 
