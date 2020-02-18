@@ -90,10 +90,8 @@ class qUniversal:
 
     @classmethod
     def clsInstances(cls):
-        """Return the current number of instances of this class, useful for auto naming."""
         return cls.instances
 
     @classmethod
     def clsLabel(cls):
-        """Return the prefix to use for auto naming."""
         return cls.label

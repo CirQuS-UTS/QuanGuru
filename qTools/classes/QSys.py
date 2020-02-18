@@ -3,6 +3,7 @@ import qTools.QuantumToolbox.Hamiltonians as hams
 from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
+import scipy.sparse as sp
 
 
 
@@ -178,7 +179,10 @@ class QuantumSystem(qUniversal):
 
     @initialState.setter
     def initialState(self, inp):
-        if len(inp) == len(self.subSystems):
+        if sp.issparse(inp):
+            # TODO if the dimensions does not match give error (possibly decoarete this and move all the ifs away)
+            self._QuantumSystem__initialState = inp
+        elif len(inp) == len(self.subSystems):
             dims = [val.dimension for val in self.subSystems.values()]
             self._QuantumSystem__initialState = qSta.compositeState(dims, inp)
 
@@ -186,7 +190,7 @@ class QuantumSystem(qUniversal):
     def lastState(self):
         return self._QuantumSystem__lastState
 
-    @initialState.setter
+    @lastState.setter
     def lastState(self, inp):
         self._QuantumSystem__lastState = inp
 
@@ -321,7 +325,18 @@ class qSystem(qUniversal):
         self.__initialState = None
         self._qUniversal__setKwargs(**kwargs)
         self._qSystem__singleSystem()
-        
+
+    @property
+    def initialState(self):
+        return self._qSystem__initialState
+
+    @initialState.setter
+    def initialState(self, state):
+        if sp.issparse(state):
+            self._qSystem__initialState = state
+        else:
+            self._qSystem__initialState = qSta.superPos(self.dimension, state)
+
     @property
     def frequency(self):
         return self._qSystem__frequency
