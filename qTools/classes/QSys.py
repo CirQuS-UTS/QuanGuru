@@ -73,7 +73,6 @@ class QuantumSystem(genericQSys):
                 print('Object not valid.')
             
 
-
     # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
@@ -140,8 +139,8 @@ class QuantumSystem(genericQSys):
         elif isinstance(coupl, dict):
             self._QuantumSystem__couplings = coupl
 
-    def createSysCoupling(self, couplingStrength, *args, **kwargs):
-        couplingObj = sysCoupling(couplingStrength=couplingStrength, *args, **kwargs)
+    def createSysCoupling(self, *args, **kwargs):
+        couplingObj = sysCoupling(*args, **kwargs)
         #couplingObj.addTerm(qsystems, couplingOps)
         couplingObj.ind = len(self.couplings)
         self.couplings[couplingObj.name] = couplingObj
@@ -308,11 +307,13 @@ class qSystem(genericQSys):
             self._qSystem__constructSubMat()
 
     def __constructSubMat(self):
+        # FIXME Still tries to construcit if dim is None
         for sys in self._qSystem__terms:
             sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
     def __singleSystem(self):
+        # FIXME Find a better way of doing this
         if (self.superSys is None) and (self._qSystem__operator is not None) and (self._qSystem__dimension is not None):
             mat = self._qSystem__constructSubMat()
 
@@ -370,6 +371,7 @@ class Spin(qSystem):
         self.dimension = int((2*value) + 1)
     
     def __constructSubMat(self):
+        # FIXME This does not work, if J Ham has more than one term
         self._qSystem__Matrix = hams.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
@@ -464,20 +466,49 @@ class qCoupling(qUniversal):
         cHam = sum(cMats)
         return cHam
 
+
+    def __addTerm(self, count, ind, sys, *args):
+        if callable(args[count][ind]):
+            self._qCoupling__cFncs.append(args[count])
+            self._qCoupling__qSys.append(sys)
+            count += 1
+            if count < len(args):
+                count = self.__addTerm(count, ind, sys, *args)
+            else:
+                return count
+
+
     def addTerm(self, *args):
         counter = 0
         while counter in range(len(args)):
+            # TODO write this better with a decorator possibly
             if isinstance(args[counter][0], qSystem):
-                print("term added")
-                self._qCoupling__cFncs.append(args[counter + 1])
-                self._qCoupling__qSys.append(args[counter])
-                args[counter][0].superSys._QuantumSystem__constructed = False
-                counter += 2
+                qSystems = args[counter]
+                if qSystems[0].superSys is not None:
+                    qSystems[0].superSys._QuantumSystem__constructed = False
+
+                if callable(args[counter+1][1]):
+                    self._qCoupling__cFncs.append(args[counter + 1])
+                    self._qCoupling__qSys.append(qSystems)
+                    counter += 2
+                # TODO does not have to pass qSystem around
+                if counter < len(args):
+                    counter = self._qCoupling__addTerm(counter, 1, qSystems, *args)
+
+            # TODO write a generalisation for this one
             elif isinstance(args[counter][1], qSystem):
-                self._qCoupling__cFncs.append(args[counter + 1])
-                self._qCoupling__qSys.append(args[counter])
-                args[counter][1].superSys._QuantumSystem__constructed = False
-                counter += 2
+                qSystems = args[counter]
+                if qSystems.superSys is not None:
+                    qSystems.superSys._QuantumSystem__constructed = False
+
+                if callable(args[counter+1][1]):
+                    self._qCoupling__cFncs.append(args[counter + 1])
+                    self._qCoupling__qSys.append(qSystems)
+                    counter += 2
+                    
+                if counter < len(args):
+                    self._qCoupling__addTerm(counter, 0, qSystems, *args)
+            # TODO generalise this as above
             elif isinstance(args[counter][0][0],qSystem):
                 self._qCoupling__cFncs.append(args[counter][1])
                 self._qCoupling__qSys.append(args[counter][0])
