@@ -134,7 +134,10 @@ class Simulation(qUniversal):
 
     @property
     def samples(self):
-        return self._Simulation__sample
+        if len(self.whileLoop.sweeps) > 0:
+            return self._Simulation__sample
+        else:
+            return self.steps
 
     @samples.setter
     def samples(self, num):
@@ -213,7 +216,6 @@ def runSimulation(qSim, p, statesList=[], resultsList=[]):
 def runLoop(qSim, p):
     states = []
     results = []
-    qSim.qSys.lastState = qSim.qSys.initialState
     if len(qSim.Loop.sweeps) > 0:
         if p is None:
             for ind in range(len(qSim.Loop.sweeps[0].sweepList)-1):
@@ -221,7 +223,7 @@ def runLoop(qSim, p):
                 # FIXME make this more elegent
                 st1 = [qSim.qSys.initialState]
                 rs1 = [qSim._Simulation__compute(qSim.qSys, qSim.qSys.initialState)]
-                for ind0 in range(len(res[0])):
+                for ind0 in range(len(res[0])-1):
                     st1.append(res[0][ind0])
                     rs1.append(res[1][ind0])
                 states.append(st1)
@@ -232,7 +234,7 @@ def runLoop(qSim, p):
             for ind in range(len(qSim.Loop.sweeps[0].sweepList)-1):
                 st1 = [qSim.qSys.initialState]
                 rs1 = [qSim._Simulation__compute(qSim.qSys, qSim.qSys.initialState)]
-                for ind0 in range(len(res[ind][0])):
+                for ind0 in range(len(res[ind][0])-1):
                     st1.append(res[ind][0][ind0])
                     rs1.append(res[ind][1][ind0])
                 states.append(st1)
@@ -241,13 +243,18 @@ def runLoop(qSim, p):
         # TODO improve these parts in general, possibly decorate
         results = [qSim._Simulation__compute(qSim.qSys, qSim.qSys.initialState)]
         states = [qSim.qSys.initialState]
+        # TODO going to modify these for better, but take reseting the final state at the start of time evol into account
+        qSim.qSys.lastState = qSim.qSys.initialState
         res = runEvolve(qSim, states, results)
+        del results[-1]
+        del states[-1]
     return [states, results] if len(results) > 2 else res
 
 # TODO work on these to make them more compact
 def runTime(qSim, ind):
     for sw in qSim.Loop.sweeps:
         runSweep(sw, ind)
+    qSim.qSys.lastState = qSim.qSys.initialState
     qSim._Simulation__res(qSim.whileLoop)
     results = []
     states = []
@@ -262,6 +269,7 @@ def runEvolve(qSim, states, results):
     for ind in range(qSim.samples):
         results.append(res[1][ind])
         states.append(res[0][ind])
+        
     if len(qSim.whileLoop.sweeps) > 0:
         if conditionW < (len(qSim.whileLoop.sweeps[0].sweepList)-1):
             return runEvolve(qSim, states, results)
@@ -277,6 +285,7 @@ def __timeEvol(qSim):
         unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize/qSim.ratio)
     else:
         unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize/qSim.ratio)
+        
     state = qSim.qSys.lastState
     states = []
     results = []
