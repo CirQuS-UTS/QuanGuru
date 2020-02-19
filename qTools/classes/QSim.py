@@ -115,6 +115,13 @@ class Simulation(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
 
     @property
+    def ratio(self):
+        if len(self.whileLoop.sweeps) > 0:
+            return self.samples
+        else:
+            return self.steps/self.samples
+
+    @property
     def steps(self):
         if len(self.whileLoop.sweeps) > 0:
             return len(self.whileLoop.sweeps[0].sweepList)
@@ -127,10 +134,7 @@ class Simulation(qUniversal):
 
     @property
     def samples(self):
-        if len(self.whileLoop.sweeps) == 0:
-            return self.steps
-        else:
-            return self._Simulation__sample
+        return self._Simulation__sample
 
     @samples.setter
     def samples(self, num):
@@ -268,10 +272,11 @@ def runEvolve(qSim, states, results):
 
 
 def __timeEvol(qSim):
+    # TODO fix this ratio/sample/steps issue
     if qSim.qSys.Unitaries is None:
-        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize/(qSim.steps/qSim.samples))
+        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize/qSim.ratio)
     else:
-        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize/(qSim.steps/qSim.samples))
+        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize/qSim.ratio)
     state = qSim.qSys.lastState
     states = []
     results = []
