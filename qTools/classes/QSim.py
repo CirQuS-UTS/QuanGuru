@@ -161,6 +161,7 @@ class Simulation(qUniversal):
     
     def run(self, p=None):
         if isinstance(self.qSys, QuantumSystem):
+            # TODO Check first if constructed
             self.qSys.constructCompSys()
         
         self._Simulation__res(self.beforeLoop)
@@ -233,19 +234,21 @@ def runTime(qSim, ind):
         runSweep(sw, ind)
     qSim.qSys.lastState = qSim.qSys.initialState
     qSim._Simulation__res(qSim.whileLoop)
-    res = runEvolve(qSim)
+    results = []
+    res = runEvolve(qSim, results)
     return res
 
 
-def runEvolve(qSim):
+def runEvolve(qSim, results):
     conditionW = qSim.whileLoop.lCount
     runSequence(qSim.whileLoop)
     res = __timeEvol(qSim)
+    results.append(res)
     if len(qSim.whileLoop.sweeps) > 0:
         if conditionW < (len(qSim.whileLoop.sweeps[0].sweepList)-1):
-            return runEvolve(qSim)
+            return runEvolve(qSim, results)
         else:
-            return res
+            return results
     else:
         return res
 
