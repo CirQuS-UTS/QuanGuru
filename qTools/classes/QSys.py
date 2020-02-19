@@ -78,11 +78,11 @@ class QuantumSystem(genericQSys):
             return newSub
 
     def __addSub(self, subSys, **kwargs):
+        subSys._qUniversal__setKwargs(**kwargs)
         subSys.ind = len(self.subSystems)
         for key, subS in self.subSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
-        subSys._qUniversal__setKwargs(**kwargs)
         self.subSystems[subSys.name] = subSys
         subSys.superSys = self
         return subSys
@@ -295,12 +295,10 @@ class qSystem(genericQSys):
             self._qSystem__constructSubMat()
 
     def __constructSubMat(self):
-        for sys in self._qSystem__terms:
-            sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
     def __singleSystem(self):
-        if (self.superSys is None) and (self._qSystem__operator is not None):
+        if (self.superSys is None) and (self._qSystem__operator is not None) and (self._qSystem__dimension is not None):
             mat = self._qSystem__constructSubMat()
 
     def addTerm(self, op, freq):
