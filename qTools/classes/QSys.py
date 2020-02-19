@@ -60,7 +60,20 @@ class QuantumSystem(genericQSys):
         self.__initialState = None
         self.__lastState = None
         self._qUniversal__setKwargs(**kwargs)
-        
+    
+    def add(self, *args):
+        for system in args:
+            if isinstance(system, qSystem):
+                self.addSubSys(system)
+            elif isinstance(system, sysCoupling):
+                self.addSysCoupling(system)
+            elif isinstance(system, envCoupling):
+                print('Enviroment coupling currently not supported')
+            else:
+                print('Object not valid.')
+            
+
+
     # adding or creating a new sub system to composite system
     def addSubSys(self, subSys, **kwargs):
         if isinstance(subSys, qSystem):
