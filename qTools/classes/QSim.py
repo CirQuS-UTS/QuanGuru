@@ -234,12 +234,13 @@ def runLoop(qSim, p):
                 states.append(st1)
                 results.append(rs1)
     else:
+        # TODO improve these parts in general, possibly decorate
         results = [qSim._Simulation__compute(qSim.qSys, qSim.qSys.initialState)]
         states = [qSim.qSys.initialState]
         res = runEvolve(qSim, states, results)
     return [states, results] if len(results) > 2 else res
 
-
+# TODO work on these to make them more compact
 def runTime(qSim, ind):
     for sw in qSim.Loop.sweeps:
         runSweep(sw, ind)
