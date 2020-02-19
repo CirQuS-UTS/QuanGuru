@@ -90,7 +90,11 @@ class QuantumSystem(genericQSys):
     def createSubSys(self, subClass, n=1, **kwargs):
         newSubs = []
         for ind in range(n):
-            newSub = newSubs.append(self.addSubSys(subClass, **kwargs))
+            if isinstance(subClass, qSystem):
+                subCls = subClass.__class__
+            else:
+                subCls = subClass
+            newSub = newSubs.append(self.addSubSys(subCls, **kwargs))
         return newSubs if n > 1 else newSubs[0]
 
     # total dimensions, free, coupling, and total Hamiltonians of the composite system
