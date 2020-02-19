@@ -295,6 +295,8 @@ class qSystem(genericQSys):
             self._qSystem__constructSubMat()
 
     def __constructSubMat(self):
+        for sys in self._qSystem__terms:
+            sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
     def __singleSystem(self):
