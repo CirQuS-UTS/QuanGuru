@@ -69,8 +69,8 @@ class qUniversal:
     def updateNames(cls, obj, name):
         if name in cls.instNames.keys():
             name += str(obj.__class__.instances)
-            print('You have given a duplicate name,' + '\n' +
-            'it is changed to ' + name)
+            print('Duplicate name given,' + '\n' +
+            'name set to ' + name)
         cls.instNames[name] = obj
         return name
 
