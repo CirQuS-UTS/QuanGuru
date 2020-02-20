@@ -4,7 +4,7 @@ from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 import scipy.sparse as sp
-from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance
+from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance, constructConditions
 
 
 
@@ -49,7 +49,6 @@ class genericQSys(qUniversal):
     @lastState.setter
     def lastState(self, inp):
         self._genericQSys__lastState = inp
-
 
 
 # Composite Quantum system
@@ -218,7 +217,6 @@ class qSystem(genericQSys):
         self.__dimsAfter = 1
         self.__terms = [self]
         self._qUniversal__setKwargs(**kwargs)
-        self._qSystem__singleSystem()
 
 
     @genericQSys.initialState.setter
@@ -241,7 +239,6 @@ class qSystem(genericQSys):
     @operator.setter
     def operator(self, op):
         self._qSystem__operator = op
-        self._qSystem__singleSystem()
 
     @property
     def dimension(self):
@@ -285,22 +282,15 @@ class qSystem(genericQSys):
                 raise ValueError('No operator is given for free Hamiltonian')
             self._qSystem__constructSubMat()
 
+    @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
     def __constructSubMat(self):
-        # FIXME Still tries to construcit if dim is None
         for sys in self._qSystem__terms:
-            print(self._qSystem__dimsBefore, self._qSystem__dimsAfter)
             sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
-
-    def __singleSystem(self):
-        # FIXME Find a better way of doing this
-        if (self.superSys is None) and (self._qSystem__operator is not None) and (self._qSystem__dimension is not None):
-            mat = self._qSystem__constructSubMat()
 
     def addTerm(self, op, freq):
         copySys = self.copy(operator=op, frequency=freq, superSys=self)
         self._qSystem__terms.append(copySys)
-        self._qSystem__singleSystem()
         return copySys
 
     def copy(self, **kwargs):
