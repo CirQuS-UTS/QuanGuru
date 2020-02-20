@@ -99,9 +99,9 @@ class Simulation(qUniversal):
     __compute = 0
     __slots__ = ['__qSys', '__stepSize', 'finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step']
     # TODO Same as previous 
-    def __init__(self, **kwargs):
+    def __init__(self, system=None, **kwargs):
         super().__init__(**kwargs)
-        self.__qSys = QuantumSystem()
+        self.__qSys = None
         self.beforeLoop = qSequence(superSys=self)
         self.Loop = qSequence(superSys=self)
         self.whileLoop = qSequence(superSys=self)
@@ -112,7 +112,13 @@ class Simulation(qUniversal):
         self.compute = qUniversal.doNothing
         self.__sample = 1
         self.__step = 1
+        if ((system is not None) and ('qSys' in kwargs.keys())):
+            print('Two qSys given')
+        elif ((system is not None) and ('qSys' not in kwargs.keys())):
+            kwargs['qSys'] = system
         self._qUniversal__setKwargs(**kwargs)
+        if self.__qSys is None:
+            self.__qSys = QuantumSystem()
 
     def __compute(self, qSys, state):
         return self.compute(self, state)
