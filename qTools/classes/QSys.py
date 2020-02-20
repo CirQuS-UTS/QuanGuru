@@ -4,7 +4,7 @@ from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 import scipy.sparse as sp
-from qTools.classes.extensions import asignState
+from qTools.classes.extensions.QSysDecorators import asignState
 
 
 
