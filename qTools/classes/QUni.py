@@ -47,7 +47,6 @@ class qUniversal:
     @superSys.setter
     def superSys(self, supSys):
         self._qUniversal__superSys = supSys
-        supSys.subSystems = self
 
     @property
     def ind(self):
