@@ -4,6 +4,7 @@ from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 import scipy.sparse as sp
+from qTools.classes.extensions import asignState
 
 
 
@@ -18,6 +19,14 @@ class genericQSys(qUniversal):
         self.__lastState = None
         self.__Unitaries = None
 
+    # constructed boolean setter and getter
+    @property
+    def constructed(self):
+        return self._genericQSys__constructed
+    
+    @constructed.setter
+    def constructed(self, tf):
+        self._genericQSys__constructed = tf
     
     # Unitary property and setter
     @property
@@ -99,7 +108,7 @@ class QuantumSystem(genericQSys):
 
     # total dimensions, free, coupling, and total Hamiltonians of the composite system
     @property
-    def totalDim(self):
+    def dimension(self):
         tDim = 1
         for key, subSys in self.subSystems.items():
             tDim *= subSys.dimension
@@ -202,14 +211,11 @@ class QuantumSystem(genericQSys):
             self.constructCompSys()
         return qSys
 
+
     @genericQSys.initialState.setter
+    @asignState(qSta.compositeState)
     def initialState(self, inp):
-        if sp.issparse(inp):
-            # TODO if the dimensions does not match give error (possibly decoarete this and move all the ifs away)
-            self._genericQSys__initialState = inp
-        elif len(inp) == len(self.subSystems):
-            dims = [val.dimension for val in self.subSystems.values()]
-            self._genericQSys__initialState = qSta.compositeState(dims, inp)
+        pass
 
 
 # quantum system objects
@@ -233,13 +239,9 @@ class qSystem(genericQSys):
 
 
     @genericQSys.initialState.setter
+    @asignState(qSta.superPos)
     def initialState(self, state):
-        if sp.issparse(state):
-            self._genericQSys__initialState = state
-        elif isinstance(state, int):
-            self._genericQSys__initialState = qSta.basis(self.dimension, state)
-        else:
-            self._genericQSys__initialState = qSta.superPos(self.dimension, state)
+        pass
 
     @property
     def frequency(self):
