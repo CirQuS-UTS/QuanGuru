@@ -52,6 +52,7 @@ class Sweep(qUniversal):
     def lCounts(self,val):
         self._Sweep__lCount = val
 
+
 class qSequence(qUniversal):
     instances = 0
     label = '_sweep'
@@ -299,11 +300,12 @@ def __timeEvol(qSim):
     return [states, results]
 
 
+def runSweep(swe, ind):
+    val = swe.sweepList[ind]
+    setattr(swe.superSys, swe.sweepKey, val)
+
+
 def runSequence(qSeq):
     for sweep in qSeq.sweeps:
         ind = sweep.lCounts
         runSweep(sweep, ind)
-
-def runSweep(sweep, ind):
-    val = sweep.sweepList[ind]
-    setattr(sweep.superSys, sweep.sweepKey, val)
