@@ -53,6 +53,11 @@ class Sweep(qUniversal):
     def lCounts(self,val):
         self._Sweep__lCount = val
 
+    
+    def runSweep(self):
+        val = self.sweepList[self.lCounts]
+        setattr(self.superSys, self.sweepKey, val)
+
 
 class qSequence(qUniversal):
     instances = 0
@@ -107,12 +112,13 @@ class Simulation(qUniversal):
         self.whileLoop = qSequence(superSys=self)
         self.__stepSize = 0.02
         # FIXME current scheme does not require final time, but it's given, it should handle
-        self.finalTime = 1.5
+        self.finalTime = None
         self.states = []
         self.compute = comp
         self.__sample = 1
         self.__step = 1
         self._qUniversal__setKwargs(**kwargs)
+
 
     @property
     def ratio(self):
@@ -125,6 +131,8 @@ class Simulation(qUniversal):
     def steps(self):
         if len(self.whileLoop.sweeps) > 0:
             return len(self.whileLoop.sweeps[0].sweepList)
+        elif self.finalTime is not None:
+            return int(round(self.finalTime/self.stepSize))
         else:
             return self._Simulation__step
 
@@ -194,9 +202,9 @@ class Simulation(qUniversal):
 
 # TODO mutable arguments can be used cleverly
 def runSimulation(qSim, p, statesList=[], resultsList=[]):
-    if len(qSim.whileLoop.sweeps) > 0:
+    """if len(qSim.whileLoop.sweeps) > 0:
         if len(qSim.whileLoop.sweeps[0].sweepList) > 1500:
-            sys.setrecursionlimit(2*len(qSim.whileLoop.sweeps[0].sweepList))
+            sys.setrecursionlimit(2*len(qSim.whileLoop.sweeps[0].sweepList))"""
     condition = qSim.beforeLoop.lCount
     runSequence(qSim.beforeLoop)
     res = runLoop(qSim, p)
@@ -298,12 +306,6 @@ def __timeEvol(qSim):
     return [states, results]
 
 
-def runSweep(swe, ind):
-    val = swe.sweepList[ind]
-    setattr(swe.superSys, swe.sweepKey, val)
-
-
 def runSequence(qSeq):
     for sweep in qSeq.sweeps:
-        ind = sweep.lCounts
-        runSweep(sweep, ind)
+        sweep.runSweep()
