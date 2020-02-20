@@ -315,7 +315,6 @@ class qSystem(genericQSys):
     def __constructSubMat(self):
         # FIXME Still tries to construcit if dim is None
         for sys in self._qSystem__terms:
-            print(self._qSystem__dimsBefore, self._qSystem__dimsAfter)
             sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
