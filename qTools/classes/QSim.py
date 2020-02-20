@@ -8,7 +8,6 @@ from functools import partial
 from qTools.classes.exceptions import sweepInitError
 import sys
 
-
 """ under construction be careful """
 class Sweep(qUniversal):
     instances = 0
@@ -52,12 +51,6 @@ class Sweep(qUniversal):
     @lCounts.setter
     def lCounts(self,val):
         self._Sweep__lCount = val
-
-    
-    def runSweep(self):
-        val = self.sweepList[self.lCounts]
-        setattr(self.superSys, self.sweepKey, val)
-
 
 class qSequence(qUniversal):
     instances = 0
@@ -202,9 +195,9 @@ class Simulation(qUniversal):
 
 # TODO mutable arguments can be used cleverly
 def runSimulation(qSim, p, statesList=[], resultsList=[]):
-    """if len(qSim.whileLoop.sweeps) > 0:
+    if len(qSim.whileLoop.sweeps) > 0:
         if len(qSim.whileLoop.sweeps[0].sweepList) > 1500:
-            sys.setrecursionlimit(2*len(qSim.whileLoop.sweeps[0].sweepList))"""
+            sys.setrecursionlimit(2*len(qSim.whileLoop.sweeps[0].sweepList))
     condition = qSim.beforeLoop.lCount
     runSequence(qSim.beforeLoop)
     res = runLoop(qSim, p)
@@ -308,4 +301,9 @@ def __timeEvol(qSim):
 
 def runSequence(qSeq):
     for sweep in qSeq.sweeps:
-        sweep.runSweep()
+        ind = sweep.lCounts
+        runSweep(sweep, ind)
+
+def runSweep(sweep, ind):
+    val = sweep.sweepList[ind]
+    setattr(sweep.superSys, sweep.sweepKey, val)
