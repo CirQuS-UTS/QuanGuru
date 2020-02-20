@@ -46,3 +46,17 @@ def addCreateInstance(functionToCall):
             return newSub
         return wrapper
     return systemAddCreateDecorator
+
+
+def constructConditions(keyWords):
+    def constructDecorator(construct):
+        def wrapper(obj):
+            for key, val in keyWords.items():
+                if not isinstance(getattr(obj, key), val):
+                    print(key + ' is not given for ' + obj.name)
+                    return None
+            else:
+                contructedObj = construct(obj)
+            return contructedObj
+        return wrapper
+    return constructDecorator
