@@ -7,7 +7,6 @@ import scipy.sparse as sp
 from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance, constructConditions
 
 
-
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
@@ -65,7 +64,18 @@ class QuantumSystem(genericQSys):
 
         self.__kept = {}
         self._qUniversal__setKwargs(**kwargs)
-        
+
+    def add(self, *args):
+        for system in args:
+            if isinstance(system, qSystem):
+                self.addSubSys(system)
+            elif isinstance(system, sysCoupling):
+                self.addSysCoupling(system)
+            elif isinstance(system, envCoupling):
+                print('Enviroment coupling currently not supported')
+            else:
+                print('Object not valid.')
+
     # adding or creating a new sub system to composite system
     @property
     def qSystems(self):
@@ -135,7 +145,6 @@ class QuantumSystem(genericQSys):
             couplingObj = self._QuantumSystem__addCoupling(couplingObj)
         return couplingObj
 
-
     @addCreateInstance(_QuantumSystem__addCoupling)
     def createSysCoupling(self, *args, **kwargs):
         pass
@@ -193,7 +202,6 @@ class QuantumSystem(genericQSys):
             self.constructCompSys()
         return qSys
 
-
     @genericQSys.initialState.setter
     @asignState(qSta.compositeState)
     def initialState(self, inp):
@@ -205,7 +213,6 @@ class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
     __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms']
-
     @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__()
@@ -217,7 +224,6 @@ class qSystem(genericQSys):
         self.__dimsAfter = 1
         self.__terms = [self]
         self._qUniversal__setKwargs(**kwargs)
-
 
     @genericQSys.initialState.setter
     @asignState(qSta.superPos)
@@ -304,7 +310,6 @@ class qSystem(genericQSys):
         return copySys
 
 
-
 class Qubit(qSystem):
     instances = 0
     label = 'Qubit'
@@ -372,7 +377,6 @@ class qCoupling(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
         self.addTerm(*args)
 
-
     # TODO might define setters
     @property
     def couplingOperators(self):
@@ -432,7 +436,6 @@ class qCoupling(qUniversal):
         cHam = sum(cMats)
         return cHam
 
-
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
             self._qCoupling__cFncs.append(args[count])
@@ -442,7 +445,6 @@ class qCoupling(qUniversal):
                 count = self.__addTerm(count, ind, sys, *args)
             else:
                 return count
-
 
     def addTerm(self, *args):
         counter = 0
@@ -504,4 +506,3 @@ class sysCoupling(qCoupling):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._qUniversal__setKwargs(**kwargs)
-

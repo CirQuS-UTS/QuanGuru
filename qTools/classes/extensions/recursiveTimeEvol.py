@@ -64,7 +64,7 @@ def runLoop(qSim, p):
 # TODO work on these to make them more compact
 def runTime(qSim, ind):
     for sw in qSim.Loop.sweeps:
-        runSweep(sw, ind)
+        sw.runSweep(ind)
     qSim.qSys.lastState = qSim.qSys.initialState
     qSim._Simulation__res(qSim.whileLoop)
     results = []
@@ -109,12 +109,8 @@ def __timeEvol(qSim):
     return [states, results]
 
 
-def runSweep(swe, ind):
-    val = swe.sweepList[ind]
-    setattr(swe.superSys, swe.sweepKey, val)
-
 
 def runSequence(qSeq):
     for sweep in qSeq.sweeps:
         ind = sweep.lCounts
-        runSweep(sweep, ind)
+        sweep.runSweep(ind)
