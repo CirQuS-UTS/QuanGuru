@@ -95,6 +95,10 @@ class QuantumSystem(genericQSys):
         for key, subS in self.subSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
+        # TODO put this into a method that checks all the subs
+        if subSys._qSystem__Matrix is not None:
+            subSys._qSystem__Matrix = None
+
         self.subSystems[subSys.name] = subSys
         subSys.superSys = self
         return subSys
@@ -292,6 +296,8 @@ class qSystem(genericQSys):
 
     @property
     def freeMat(self):
+        if self._qSystem__Matrix is None:
+            self.freeMat = None
         return self._qSystem__Matrix
 
     @freeMat.setter
@@ -309,6 +315,7 @@ class qSystem(genericQSys):
     def __constructSubMat(self):
         # FIXME Still tries to construcit if dim is None
         for sys in self._qSystem__terms:
+            print(self._qSystem__dimsBefore, self._qSystem__dimsAfter)
             sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
@@ -428,6 +435,8 @@ class qCoupling(qUniversal):
 
     @property
     def couplingMat(self):
+        """if self._qCoupling__cMatrix is None:
+            self.couplingMat = None"""
         return self._qCoupling__cMatrix
 
     @couplingMat.setter
