@@ -29,7 +29,6 @@ def runSimulation(qSim, p):
                     if p is None:
                         mixedStRes = withLWnp(qSim)
                     else:
-                        print('here')
                         mixedStRes = withLWp(qSim, p)
                 else:
                     if p is None:
@@ -241,7 +240,7 @@ def withLWp(qSim, p):
     for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
         st1 = []
         rs1 = []
-        for ind1 in range(len(qSim.whileLoop.sweeps[0].sweepList)*qSim.samples):
+        for ind1 in range(len(mixedStRes[ind0][0])):
             st1.append(mixedStRes[ind0][0][ind1])
             rs1.append(mixedStRes[ind0][1][ind1])
         states.append(st1)
@@ -252,7 +251,7 @@ def withLOp(qSim, p):
     mixedStRes = p.map(partial(parallelSequenceO, qSim), range(len(qSim.Loop.sweeps[0].sweepList)))
     states = []
     results = []
-    for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
+    for ind0 in range(len(mixedStRes[ind0][0])):
         states.append(mixedStRes[ind0][0])
         results.append(mixedStRes[ind0][1])
     return [states, results]

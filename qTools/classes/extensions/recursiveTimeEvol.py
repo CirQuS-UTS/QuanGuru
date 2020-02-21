@@ -3,6 +3,13 @@ from functools import partial
 import numpy as np
 import sys
 
+
+'''
+Has some issues in the return parts, a bit slower than the new loop-based function
+No need to use this anymore, but I still want to keep this for a while
+'''
+
+
 # TODO mutable arguments can be used cleverly
 def runSimulation(qSim, p, statesList=[], resultsList=[]):
     if len(qSim.whileLoop.sweeps) > 0:

@@ -52,10 +52,15 @@ class Sweep(qUniversal):
         self._Sweep__lCount = val
 
     def runSweep(self, ind):
-        if self.sweepFunction is not None:
-            self.sweepFunction(self.superSys.superSys)
-        val = self.sweepList[ind]
-        setattr(self.superSys, self.sweepKey, val)
+        if self.sweepFunction is None:
+            val = self.sweepList[ind]
+            setattr(self.subSystems, self.sweepKey, val)
+        else:
+            self.sweepFunction(self, self.superSys.superSys)
+
+    @qUniversal.subSystems.setter
+    def subSystems(self, subS):
+        self._qUniversal__subSys = subS
 
 
 class qSequence(qUniversal):
@@ -81,7 +86,7 @@ class qSequence(qUniversal):
 
     # TODO Change name to create
     def addSweep(self, sys, sweepKey, **kwargs):
-        newSweep = Sweep(superSys=sys, sweepKey=sweepKey, **kwargs)
+        newSweep = Sweep(superSys=self, subSystems=sys, sweepKey=sweepKey, **kwargs)
         self._qSequence__Sweeps.append(newSweep)
         return newSweep
 
