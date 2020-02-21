@@ -36,7 +36,6 @@ def Rabi(obj, subSys1, subSys2, cStrength):
 
     obj.couplingName = 'Rabi'
     if qsystems[1].operator == sigmaz:
-        print('sigmaz')
         couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], superSys=obj, couplingStrength=cStrength)
         couplingObj.addTerm(qsystems,[create, sigmax])
     # else:
