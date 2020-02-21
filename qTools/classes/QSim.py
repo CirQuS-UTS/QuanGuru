@@ -4,7 +4,7 @@ import qTools.QuantumToolbox.states as qSt
 from qTools.classes.QSys import QuantumSystem, qSystem
 from qTools.classes.QUni import qUniversal
 from qTools.classes.exceptions import sweepInitError
-from qTools.classes.extensions import runSimulation
+from qTools.classes.extensions.timeEvolve import runSimulation
 
 
 """ under construction be careful """
@@ -17,7 +17,7 @@ class Sweep(qUniversal):
     #@sweepInitError
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # TODO make these properties
+        # TODO make these properties so that sweepList is dynamic
         self.sweepKey = None
         self.sweepMax = None
         self.sweepMin = None
@@ -25,7 +25,7 @@ class Sweep(qUniversal):
         self.__sweepList = None
         self.logSweep = False
         self.__lCount = 0
-        self.sweepFunction = qUniversal.doNothing
+        self.sweepFunction = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -52,7 +52,8 @@ class Sweep(qUniversal):
         self._Sweep__lCount = val
 
     def runSweep(self, ind):
-        self.doNothing(self.superSys.superSys)
+        if self.sweepFunction is not None:
+            self.sweepFunction(self.superSys.superSys)
         val = self.sweepList[ind]
         setattr(self.superSys, self.sweepKey, val)
 
@@ -78,6 +79,7 @@ class qSequence(qUniversal):
         for key, val in sysDict.items():
             self.addSweep(val, key)
 
+    # TODO Change name to create
     def addSweep(self, sys, sweepKey, **kwargs):
         newSweep = Sweep(superSys=sys, sweepKey=sweepKey, **kwargs)
         self._qSequence__Sweeps.append(newSweep)
@@ -97,21 +99,25 @@ class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
     __compute = 0
-    __slots__ = ['__qSys', '__stepSize', 'finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step']
+    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step', 'delState']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__(**kwargs)
         self.__qSys = None
+
         self.beforeLoop = qSequence(superSys=self)
         self.Loop = qSequence(superSys=self)
         self.whileLoop = qSequence(superSys=self)
+        
+        self.delState = False
+
+        self.__finalTime = None
         self.__stepSize = 0.02
-        # FIXME current scheme does not require final time, but it's given, it should handle
-        self.finalTime = None
-        self.states = []
-        self.compute = qUniversal.doNothing
         self.__sample = 1
         self.__step = 1
+
+        self.compute = None
+
         if ((system is not None) and ('qSys' in kwargs.keys())):
             print('Two qSys given')
         elif ((system is not None) and ('qSys' not in kwargs.keys())):
@@ -120,22 +126,29 @@ class Simulation(qUniversal):
         if self.__qSys is None:
             self.__qSys = QuantumSystem()
 
+    def __computeDel(self, qSys, state):
+        if self.compute is not None:
+            results = self.compute(self, state)
+        del(state)
+        return results
+
     def __compute(self, qSys, state):
-        return self.compute(self, state)
+        if self.compute is not None:
+            results = self.compute(self, state)
+        return results
 
     @property
-    def ratio(self):
-        if len(self.whileLoop.sweeps) > 0:
-            return self.samples
-        else:
-            return self.steps/self.samples
+    def finalTime(self):
+        self.__finalTime
+
+    @finalTime.setter
+    def finalTime(self, fTime):
+        self.steps = int(round(self.finalTime/self.stepSize))+1
 
     @property
     def steps(self):
         if len(self.whileLoop.sweeps) > 0:
             return len(self.whileLoop.sweeps[0].sweepList)
-        elif self.finalTime is not None:
-            return int(round(self.finalTime/self.stepSize))
         else:
             return self._Simulation__step
 
@@ -145,10 +158,7 @@ class Simulation(qUniversal):
 
     @property
     def samples(self):
-        if len(self.whileLoop.sweeps) > 0:
-            return self._Simulation__sample
-        else:
-            return self.steps
+        return self._Simulation__sample
 
     @samples.setter
     def samples(self, num):
@@ -164,8 +174,8 @@ class Simulation(qUniversal):
 
     @qSys.setter
     def qSys(self, val):
-        if isinstance(val, QuantumSystem):
-            QuantumSystem.constructCompSys(val)
+        """if isinstance(val, QuantumSystem):
+            QuantumSystem.constructCompSys(val)"""
         self._Simulation__qSys = val
 
     @property
@@ -187,7 +197,10 @@ class Simulation(qUniversal):
         '''statesList = [] 
         resultsList = []'''
         res = runSimulation(self, p)
-        return res[0], res[1]
+        if self.delState is True:
+            return res
+        else:
+            return res[0], res[1]
 
     @staticmethod
     def __res(seq):

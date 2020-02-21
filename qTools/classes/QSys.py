@@ -215,7 +215,7 @@ class qSystem(genericQSys):
     __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms']
     @qSystemInitErrors
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         self.__frequency = None
         self.__operator = None
         self.__dimension = None
@@ -292,6 +292,7 @@ class qSystem(genericQSys):
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
             sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+            sys._genericQSys__constructed = True
         return self._qSystem__Matrix
 
     def addTerm(self, op, freq):
@@ -443,13 +444,11 @@ class qCoupling(qUniversal):
             count += 1
             if count < len(args):
                 count = self.__addTerm(count, ind, sys, *args)
-            else:
-                return count
+        return count
 
     def addTerm(self, *args):
         counter = 0
         while counter in range(len(args)):
-            # TODO write this better with a decorator possibly
             if isinstance(args[counter][0], qSystem):
                 qSystems = args[counter]
                 if qSystems[0].superSys is not None:
@@ -463,7 +462,7 @@ class qCoupling(qUniversal):
                 if counter < len(args):
                     counter = self._qCoupling__addTerm(counter, 1, qSystems, *args)
 
-            # TODO write a generalisation for this one
+            """# TODO write a generalisation for this one
             elif isinstance(args[counter][1], qSystem):
                 qSystems = args[counter]
                 if qSystems.superSys is not None:
@@ -486,7 +485,7 @@ class qCoupling(qUniversal):
                 self._qCoupling__cFncs.append(args[counter][0])
                 self._qCoupling__qSys.append(args[counter][1])
                 args[counter][0][1].superSys._genericQSys__constructed = False
-                counter += 1
+                counter += 1"""
         return self
 
 

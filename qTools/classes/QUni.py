@@ -94,7 +94,4 @@ class qUniversal:
     @classmethod
     def clsLabel(cls):
         return cls.label
-
-    @staticmethod
-    def doNothing(*args):
-        pass
+        

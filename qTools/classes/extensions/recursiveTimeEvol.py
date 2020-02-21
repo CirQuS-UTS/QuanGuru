@@ -37,6 +37,10 @@ def runLoop(qSim, p):
                 for ind0 in range(len(res[0])-1):
                     st1.append(res[0][ind0])
                     rs1.append(res[1][ind0])
+
+                if len(qSim.whileLoop.sweeps) > 0:
+                    del st1[-1]
+                    del rs1[-1]
                 states.append(st1)
                 results.append(rs1)
         else:
@@ -48,6 +52,10 @@ def runLoop(qSim, p):
                 for ind0 in range(len(res[ind][0])-1):
                     st1.append(res[ind][0][ind0])
                     rs1.append(res[ind][1][ind0])
+
+                if len(qSim.whileLoop.sweeps) > 0:
+                    del st1[-1]
+                    del rs1[-1]
                 states.append(st1)
                 results.append(rs1)
     else:
@@ -57,8 +65,9 @@ def runLoop(qSim, p):
         # TODO going to modify these for better, but take reseting the final state at the start of time evol into account
         qSim.qSys.lastState = qSim.qSys.initialState
         res = runEvolve(qSim, states, results)
-        del results[-1]
-        del states[-1]
+        if len(qSim.whileLoop.sweeps) > 0:
+            del results[-1]
+            del states[-1]
     return [states, results] if len(results) > 2 else res
 
 # TODO work on these to make them more compact
@@ -93,9 +102,9 @@ def runEvolve(qSim, states, results):
 def __timeEvol(qSim):
     # TODO fix this ratio/sample/steps issue
     if qSim.qSys.Unitaries is None:
-        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize/qSim.ratio)
+        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize)
     else:
-        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize/qSim.ratio)
+        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize)
         
     state = qSim.qSys.lastState
     states = []
