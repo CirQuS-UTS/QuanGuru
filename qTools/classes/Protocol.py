@@ -1,6 +1,7 @@
 import qTools.QuantumToolbox.liouvillian as lio
 from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.Hamiltonians as hams
+from qTools.classes.extensions.ProtocolDecorators import getAsList, setAsList
 import numpy as np
 """ under construction """
 
@@ -45,45 +46,27 @@ class FreeEvolution(Step):
     # FIXME: There has to be a better way of guaranting the atributes are iterable!
     @property
     def system(self):
-        if len(self.__system)==1:
-            return self.__system[0]
-        else:
-            return self.__system
+        return getAsList(self._FreeEvolution__system)
     
     @system.setter
     def system(self, system):
-        if not hasattr(system, '__iter__'):
-            self.__system = [system]
-        else:
-            self.__system = system
+        self._FreeEvolution__system = setAsList(system)
 
     @property
     def key(self):
-        if len(self.__key)==1:
-            return self.__key[0]
-        else:
-            return self.__key
+        return getAsList(self._FreeEvolution__key)
     
     @key.setter
     def key(self, key):
-        if not hasattr(key, '__iter__'):
-            self.__key = [key]
-        else:
-            self.__key = key
+        self._FreeEvolution__key = setAsList(key)
 
     @property
     def value(self):
-        if len(self.__value)==1:
-            return self.__value[0]
-        else:
-            return self.__value
+        return getAsList(self._FreeEvolution__value)
     
     @value.setter
     def value(self, value):
-        if not hasattr(value, '__iter__'):
-            self.__value = [value]
-        else:
-            self.__value = value
+        self._FreeEvolution__value = setAsList(value)
 
     @property
     def unitary(self):
