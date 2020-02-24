@@ -1,9 +1,7 @@
 import numpy as np
-import scipy.sparse as sp
-import qTools.QuantumToolbox.states as qSt
-from qTools.classes.QSys import QuantumSystem, qSystem
+from qTools.classes.QSys import QuantumSystem
 from qTools.classes.QUni import qUniversal
-from qTools.classes.exceptions import sweepInitError
+#from qTools.classes.exceptions import sweepInitError
 from qTools.classes.extensions.timeEvolve import runSimulation
 
 
@@ -12,11 +10,10 @@ class Sweep(qUniversal):
     instances = 0
     label = 'Sweep'
     __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep', '__lCount', 'sweepFunction']
-    # TODO write exceptions if gone keep
-    # FIXME enable this
+    # FIXME enable this, but not necessarily this way
     #@sweepInitError
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         # TODO make these properties so that sweepList is dynamic
         self.sweepKey = None
         self.sweepMax = None
@@ -69,7 +66,7 @@ class qSequence(qUniversal):
     __slots__ = ['__Sweeps', '__swCount']
     # TODO Same as previous 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.__Sweeps = []
         self.__swCount = 0
         self._qUniversal__setKwargs(**kwargs)
@@ -107,7 +104,7 @@ class Simulation(qUniversal):
     __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step', 'delState']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.__qSys = None
 
         self.beforeLoop = qSequence(superSys=self)

@@ -36,9 +36,9 @@ def addCreateInstance(functionToCall):
                     newSub = functionToCall(obj, newSub, *args)
                     print('Sub system is already in the composite, copy created and added')
             elif isinstance(clsInst, list):
-                newSub = functionToCall(obj, 'qCoupling', clsInst, *args, **kwargs)
+                newSub = functionToCall(obj, 'qCoupling', clsInst, *args)
             else:
-                newSub = clsInst(*args, **kwargs)
+                newSub = clsInst(*args)
                 newSub =functionToCall(obj, newSub, *args)
             newSub._qUniversal__setKwargs(**kwargs)
             newSub.superSys = obj
