@@ -1,6 +1,6 @@
 import qTools.QuantumToolbox.liouvillian as lio
 from qTools.classes.QUni import qUniversal
-import qTools.QuantumToolbox.Hamiltonians as hams
+from qTools.QuantumToolbox.operators import compositeOp
 import numpy as np
 """ under construction """
 
@@ -104,7 +104,7 @@ class Gate(Step):
 
     def setUnitary(self):
         sys = self.superSys
-        unitary = hams.compositeOp(
+        unitary = compositeOp(
             self.operator(sys.dimension),
             sys._qSystem__dimsBefore,
             sys._qSystem__dimsAfter)

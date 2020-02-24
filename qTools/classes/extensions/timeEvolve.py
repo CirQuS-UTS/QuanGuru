@@ -372,7 +372,7 @@ def exponUni(qSim):
     if qSim.qSys.Unitaries is None:
         unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize/qSim.samples)
     else:
-        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize/qSim.samples)
+        unitary = qSim.qSys.Unitaries()
     return unitary
 
 def runSequence(qSeq, ind):
