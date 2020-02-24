@@ -1,14 +1,13 @@
 import qTools.QuantumToolbox.liouvillian as lio
 from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.Hamiltonians as hams
-from qTools.classes.extensions.ProtocolDecorators import getAsList, setAsList
 import numpy as np
 """ under construction """
 
 class Protocol(qUniversal):
     __slots__  = ['steps', 'system']
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.steps = []
         self._qUniversal__setKwargs(**kwargs)
 
@@ -23,76 +22,87 @@ class Protocol(qUniversal):
     def unitary(self):
         unitary = self.steps[0].unitary
         for step in self.steps[1:]:
-            unitary = unitary @ step.unitary
+            unitary = step.unitary @ unitary
         return unitary
 
 class Step(qUniversal):
     __slots__ = ['__unitary']
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.__unitary = None
         self._qUniversal__setKwargs(**kwargs)
         
 class FreeEvolution(Step):
-    __slots__  = ['time', '__system', '__key', '__value', '__unitary']
+    __slots__  = ['time', 'updates', 'getUnitary', '__fixed']
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.__system = []
-        self.__key = []
-        self.__value = []
+        super().__init__()
         self.time = 0
+        self.updates =  []
+        self.__fixed = False
+        self.getUnitary = self.getUnitaryNoUpdate
         self._qUniversal__setKwargs(**kwargs)
 
-    # FIXME: There has to be a better way of guaranting the atributes are iterable!
-    @property
-    def system(self):
-        return getAsList(self._FreeEvolution__system)
-    
-    @system.setter
-    def system(self, system):
-        self._FreeEvolution__system = setAsList(system)
-
-    @property
-    def key(self):
-        return getAsList(self._FreeEvolution__key)
-    
-    @key.setter
-    def key(self, key):
-        self._FreeEvolution__key = setAsList(key)
-
-    @property
-    def value(self):
-        return getAsList(self._FreeEvolution__value)
-    
-    @value.setter
-    def value(self, value):
-        self._FreeEvolution__value = setAsList(value)
-
-    @property
-    def unitary(self):
-        memory = []
-        for ii, system in enumerate(self.system):
-            memory.append(getattr(system, self.key[ii]))
-            setattr(system, self.key[ii], self.value[ii])
+    def getUnitaryNoUpdate(self):
+        unitary = lio.Liouvillian(
+            2 * np.pi * self.superSys.totalHam, timeStep=self.time)
+        self._Step__unitary = unitary
+        return unitary
         
+    def getUnitaryUpdate(self):
+        for update in self.updates:
+            update.setup() 
+
         unitary = lio.Liouvillian(
             2 * np.pi * self.superSys.totalHam, timeStep=self.time)
 
-        for ii, system in enumerate(self.system):
-            setattr(system, self.key[ii], memory[ii])
-        
+        for update in self.updates:
+            update.setback()
+
         self._Step__unitary = unitary
         return unitary
 
+    def getFixedUnitary(self):
+        return self._Step__unitary
+        
+    @property
+    def fixed(self):
+        return self._FreeEvolution__fixed
+    
+    @fixed.setter
+    def fixed(self, boollean):
+        if boollean:
+            self.getUnitary = self.getFixedUnitary
+        else:
+            if len(self.updates)==0:    
+                self.getUnitary = self.getUnitaryNoUpdate
+            else:
+                self.getUnitary = self.getUnitaryUpdate
+        self._FreeEvolution__fixed = boollean
+
+    def createUpdate(self, **kwargs):
+        update = Update(**kwargs)
+        self.addUpdate(update)
+        return update
+    
+    def addUpdate(self, *args):
+        for update in args:
+            self.updates.append(update)
+        self.getUnitary = self.getUnitaryUpdate
+
+    @property
+    def unitary(self):
+        return self.getUnitary()
+
 class Gate(Step):
     __slots__ =  ['operator','unitary']
-    def __init__(self, operator, superSys, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, superSys, operator, **kwargs):
+        super().__init__()
         self.operator = operator
         self.superSys = superSys
-        self.unitary = self.set_unitary()
+        self.unitary = self.setUnitary()
+        self._qUniversal__setKwargs(**kwargs)
 
-    def set_unitary(self):
+    def setUnitary(self):
         sys = self.superSys
         unitary = hams.compositeOp(
             self.operator(sys.dimension),
@@ -109,7 +119,19 @@ class CopyStep:
     def unitary(self):
         return self.superSys._Step__unitary
 
-# TODO: figure out how to do the fix
-class FixedStep:
-    def __init__ (self, step):
-        pass
+class Update(qUniversal):
+    slots = ['system', 'key', 'value', 'memory']
+    def __init__ (self, **kwargs):
+        super().__init__()
+        self.system = None
+        self.key = None
+        self.value = None
+        self.memory = None
+        self._qUniversal__setKwargs(**kwargs)
+
+    def setup(self):
+        self.memory = getattr(self.system, self.key)
+        setattr(self.system, self.key, self.value)
+    
+    def setback(self):
+        setattr(self.system, self.key, self.memory)
