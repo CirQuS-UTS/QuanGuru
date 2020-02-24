@@ -2,6 +2,16 @@ import scipy.sparse as sp
 import scipy.linalg as linA
 import numpy as np
 
+def compositeOp(operator, dimB, dimA):
+    if (dimB <= 1) and (dimA > 1):
+        return sp.kron(operator,sp.identity(dimA), format='csc')
+    elif (dimB > 1) and (dimA <= 1):
+        return sp.kron(sp.identity(dimB), operator, format='csc')
+    elif (dimB > 1) and (dimA > 1):
+        return sp.kron(sp.kron(sp.identity(dimB), operator, format='csc'), sp.identity(dimA), format='csc')
+    else:
+        return operator
+
 def number(N, sparse=True):
     data = [i for i in range(N)]
     rows = range(0, N)

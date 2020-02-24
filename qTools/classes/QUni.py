@@ -2,6 +2,7 @@ class qUniversal:
     instances = 0
     label = 'qUniversal'
     instNames = {}
+    
     __slots__ = ['__name','__superSys', '__ind','__subSys']
     def __init__(self, **kwargs):
         super().__init__()

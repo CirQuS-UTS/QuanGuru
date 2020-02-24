@@ -1,5 +1,4 @@
 import qTools.QuantumToolbox.operators as qOps
-import qTools.QuantumToolbox.Hamiltonians as hams
 from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
@@ -291,7 +290,7 @@ class qSystem(genericQSys):
     @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
-            sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+            sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
             sys._genericQSys__constructed = True
         return self._qSystem__Matrix
 
@@ -348,7 +347,7 @@ class Spin(qSystem):
     
     def __constructSubMat(self):
         # FIXME This does not work, if J Ham has more than one term
-        self._qSystem__Matrix = hams.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+        self._qSystem__Matrix = qOps.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
 
@@ -430,7 +429,7 @@ class qCoupling(qUniversal):
                 sys = self._qCoupling__qSys[ind][indx]
                 order = sys.ind
                 oper = self._qCoupling__cFncs[ind][indx]
-                cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
+                cHam = qOps.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
                 ts = [order, cHam]
                 qts.append(ts)
             cMats.append(self._qCoupling__coupOrdering(qts))
