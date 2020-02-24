@@ -81,6 +81,8 @@ class qUniversal:
         
     def __namer(self):
         name = self.clsLabel() + str(self.clsInstances())
+        # TODO might uncomment this to make all the names available, currently only speacial names are available
+        #qUniversal.instNames[name] = self
         return name
 
     @classmethod
@@ -94,3 +96,4 @@ class qUniversal:
     @classmethod
     def clsLabel(cls):
         return cls.label
+        

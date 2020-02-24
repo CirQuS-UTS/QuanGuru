@@ -7,7 +7,6 @@ import scipy.sparse as sp
 from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance, constructConditions
 
 
-
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
@@ -65,7 +64,7 @@ class QuantumSystem(genericQSys):
 
         self.__kept = {}
         self._qUniversal__setKwargs(**kwargs)
-    
+
     def add(self, *args):
         for system in args:
             if isinstance(system, qSystem):
@@ -76,7 +75,6 @@ class QuantumSystem(genericQSys):
                 print('Enviroment coupling currently not supported')
             else:
                 print('Object not valid.')
-            
 
     # adding or creating a new sub system to composite system
     @property
@@ -147,7 +145,6 @@ class QuantumSystem(genericQSys):
             couplingObj = self._QuantumSystem__addCoupling(couplingObj)
         return couplingObj
 
-
     @addCreateInstance(_QuantumSystem__addCoupling)
     def createSysCoupling(self, *args, **kwargs):
         pass
@@ -205,7 +202,6 @@ class QuantumSystem(genericQSys):
             self.constructCompSys()
         return qSys
 
-
     @genericQSys.initialState.setter
     @asignState(qSta.compositeState)
     def initialState(self, inp):
@@ -217,10 +213,9 @@ class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
     __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms']
-
     @qSystemInitErrors
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         self.__frequency = None
         self.__operator = None
         self.__dimension = None
@@ -229,7 +224,6 @@ class qSystem(genericQSys):
         self.__dimsAfter = 1
         self.__terms = [self]
         self._qUniversal__setKwargs(**kwargs)
-
 
     @genericQSys.initialState.setter
     @asignState(qSta.superPos)
@@ -298,6 +292,7 @@ class qSystem(genericQSys):
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
             sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+            sys._genericQSys__constructed = True
         return self._qSystem__Matrix
 
     def addTerm(self, op, freq):
@@ -314,7 +309,6 @@ class qSystem(genericQSys):
             frequency = self.frequency, operator = self.operator)
         copySys._qUniversal__setKwargs(**kwargs)
         return copySys
-
 
 
 class Qubit(qSystem):
@@ -384,7 +378,6 @@ class qCoupling(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
         self.addTerm(*args)
 
-
     # TODO might define setters
     @property
     def couplingOperators(self):
@@ -444,7 +437,6 @@ class qCoupling(qUniversal):
         cHam = sum(cMats)
         return cHam
 
-
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
             self._qCoupling__cFncs.append(args[count])
@@ -452,14 +444,11 @@ class qCoupling(qUniversal):
             count += 1
             if count < len(args):
                 count = self.__addTerm(count, ind, sys, *args)
-            else:
-                return count
-
+        return count
 
     def addTerm(self, *args):
         counter = 0
         while counter in range(len(args)):
-            # TODO write this better with a decorator possibly
             if isinstance(args[counter][0], qSystem):
                 qSystems = args[counter]
                 if qSystems[0].superSys is not None:
@@ -473,7 +462,7 @@ class qCoupling(qUniversal):
                 if counter < len(args):
                     counter = self._qCoupling__addTerm(counter, 1, qSystems, *args)
 
-            # TODO write a generalisation for this one
+            """# TODO write a generalisation for this one
             elif isinstance(args[counter][1], qSystem):
                 qSystems = args[counter]
                 if qSystems.superSys is not None:
@@ -496,7 +485,7 @@ class qCoupling(qUniversal):
                 self._qCoupling__cFncs.append(args[counter][0])
                 self._qCoupling__qSys.append(args[counter][1])
                 args[counter][0][1].superSys._genericQSys__constructed = False
-                counter += 1
+                counter += 1"""
         return self
 
 
@@ -516,4 +505,3 @@ class sysCoupling(qCoupling):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._qUniversal__setKwargs(**kwargs)
-
