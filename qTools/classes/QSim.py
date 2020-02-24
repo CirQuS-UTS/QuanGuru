@@ -4,7 +4,6 @@ from qTools.classes.QUni import qUniversal
 #from qTools.classes.exceptions import sweepInitError
 from qTools.classes.extensions.timeEvolve import runSimulation
 
-
 """ under construction be careful """
 class Sweep(qUniversal):
     instances = 0
