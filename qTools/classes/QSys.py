@@ -1,22 +1,22 @@
 import qTools.QuantumToolbox.operators as qOps
-import qTools.QuantumToolbox.Hamiltonians as hams
 from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
-import scipy.sparse as sp
 from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance, constructConditions
 
 
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
+    
     __slots__ = ['__constructed', '__initialState', '__lastState', '__Unitaries']
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.__constructed = False
         self.__initialState = None
         self.__lastState = None
         self.__Unitaries = None
+        self._qUniversal__setKwargs(**kwargs)
 
     # constructed boolean setter and getter
     @property
@@ -54,9 +54,10 @@ class genericQSys(qUniversal):
 class QuantumSystem(genericQSys):
     instances = 0
     label = 'QuantumSystem'
+
     __slots__ = ['__qCouplings', '__qSystems', 'couplingName', '__kept']
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.__qCouplings = {}
         self.__qSystems = {}
 
@@ -155,8 +156,11 @@ class QuantumSystem(genericQSys):
 
     # reset and keepOld
     def reset(self, to=None):
-        for qSys in self.subSystems.values():
+        for qSys in self.qSystems.values():
             qSys._qSystem__Matrix = None
+
+        for qCoupl in self.qCouplings.values():
+            qCoupl._qCoupling__Matrix = None
         self._QuantumSystem__keepOld()
         self._genericQSys__constructed = False
         if to is None:
@@ -212,10 +216,11 @@ class QuantumSystem(genericQSys):
 class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
+
     __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms']
     @qSystemInitErrors
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.__frequency = None
         self.__operator = None
         self.__dimension = None
@@ -265,10 +270,11 @@ class qSystem(genericQSys):
         h = sum([(obj.frequency * obj.freeMat) for obj in self._qSystem__terms])
         return h
 
-    @totalHam.setter
+    # I'm not sure to have this, freeMat setter covers all the cases and this one does not make much sense
+    """@totalHam.setter
     def totalHam(self, qOpsFunc):
         self.freeMat = qOpsFunc
-        self._qSystem__freeMat = ((1/self.frequency)*(self.freeMat))
+        self._qSystem__freeMat = ((1/self.frequency)*(self.freeMat))"""
 
     @property
     def freeMat(self):
@@ -291,7 +297,7 @@ class qSystem(genericQSys):
     @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
-            sys._qSystem__Matrix = hams.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+            sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
             sys._genericQSys__constructed = True
         return self._qSystem__Matrix
 
@@ -314,10 +320,11 @@ class qSystem(genericQSys):
 class Qubit(qSystem):
     instances = 0
     label = 'Qubit'
+
     __slots__ = []
     def __init__(self, **kwargs):
+        super().__init__()
         kwargs['dimension'] = 2
-        super().__init__(**kwargs)
         self.operator = qOps.sigmaz
         self._qUniversal__setKwargs(**kwargs)
 
@@ -330,9 +337,10 @@ class Qubit(qSystem):
 class Spin(qSystem):
     instances = 0
     label = 'Spin'
+
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.operator = qOps.Jz
         self.__jValue = None
         self._qUniversal__setKwargs(**kwargs)
@@ -348,16 +356,17 @@ class Spin(qSystem):
     
     def __constructSubMat(self):
         # FIXME This does not work, if J Ham has more than one term
-        self._qSystem__Matrix = hams.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+        self._qSystem__Matrix = qOps.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
         return self._qSystem__Matrix
 
 
 class Cavity(qSystem):
     instances = 0
     label = 'Cavity'
+
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.operator = qOps.number
         self._qUniversal__setKwargs(**kwargs)
 
@@ -366,11 +375,11 @@ class Cavity(qSystem):
 class qCoupling(qUniversal):
     instances = 0
     label = 'qCoupling'
-    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys']
 
+    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys']
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__()
         self.__couplingStrength = None
         self.__cFncs = []
         self.__qSys = []
@@ -430,7 +439,7 @@ class qCoupling(qUniversal):
                 sys = self._qCoupling__qSys[ind][indx]
                 order = sys.ind
                 oper = self._qCoupling__cFncs[ind][indx]
-                cHam = hams.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
+                cHam = qOps.compositeOp(oper(sys.dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
                 ts = [order, cHam]
                 qts.append(ts)
             cMats.append(self._qCoupling__coupOrdering(qts))
@@ -492,9 +501,10 @@ class qCoupling(qUniversal):
 class envCoupling(qCoupling):
     instances = 0
     label = 'envCoupling'
+
     __slots__ = []
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self._qUniversal__setKwargs(**kwargs)
 
 
@@ -502,6 +512,7 @@ class sysCoupling(qCoupling):
     instances = 0
     label = 'sysCoupling'
     __slots__ = []
+    
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self._qUniversal__setKwargs(**kwargs)

@@ -2,6 +2,7 @@ class qUniversal:
     instances = 0
     label = 'qUniversal'
     instNames = {}
+    
     __slots__ = ['__name','__superSys', '__ind','__subSys']
     def __init__(self, **kwargs):
         super().__init__()
@@ -67,9 +68,11 @@ class qUniversal:
     @classmethod
     def updateNames(cls, obj, name):
         if name in cls.instNames.keys():
-            if cls.instNames[name] is not obj:
-                name += str(obj.__class__.instances)
-                print('You have given a duplicate name,' + '\n' + 'it is changed to ' + name)
+            name += str(obj.__class__.instances)
+            print('You have given a duplicate name,' + '\n' + 'it is changed to ' + name)
+        
+        if obj in cls.instNames.values():
+            cls.instNames[name] = cls.instNames.pop(obj.name)
         cls.instNames[name] = obj
         return name
 
@@ -81,8 +84,7 @@ class qUniversal:
         
     def __namer(self):
         name = self.clsLabel() + str(self.clsInstances())
-        # TODO might uncomment this to make all the names available, currently only speacial names are available
-        #qUniversal.instNames[name] = self
+        qUniversal.instNames[name] = self
         return name
 
     @classmethod

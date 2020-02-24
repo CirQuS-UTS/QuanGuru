@@ -251,7 +251,7 @@ def withLOp(qSim, p):
     mixedStRes = p.map(partial(parallelSequenceO, qSim), range(len(qSim.Loop.sweeps[0].sweepList)))
     states = []
     results = []
-    for ind0 in range(len(mixedStRes[ind0][0])):
+    for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
         states.append(mixedStRes[ind0][0])
         results.append(mixedStRes[ind0][1])
     return [states, results]

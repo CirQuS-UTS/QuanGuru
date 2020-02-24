@@ -1,5 +1,5 @@
 from qTools.classes import QuantumSystem, Qubit, Cavity
-from qTools.QuantumToolbox.operators import sigmaz, number, sigmam, sigmap, create, destroy, sigmax
+from qTools.QuantumToolbox.operators import sigmaz, sigmam, sigmap, create, destroy
 
 
 def JC(obj, subSys1, subSys2, cStrength):

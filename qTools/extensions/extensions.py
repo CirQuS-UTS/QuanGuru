@@ -1,5 +1,4 @@
 from qTools.classes.QSys import Qubit
-from multiprocessing import Pool, cpu_count
 
 
 # below is an example of the idea for this script
