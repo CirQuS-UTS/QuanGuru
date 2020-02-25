@@ -231,6 +231,13 @@ class qSystem(genericQSys):
         self.order = 1
         self._qUniversal__setKwargs(**kwargs)
 
+    @property
+    def terms(self):
+        if not isinstance(self.superSys, qSystem):
+            return self._qSystem__terms
+        else:
+            print('This is a term in ', self.superSys)
+
     @genericQSys.initialState.setter
     @asignState(qSta.superPos)
     def initialState(self, state):
