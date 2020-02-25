@@ -127,12 +127,6 @@ class Simulation(qUniversal):
         if self.__qSys is None:
             self.__qSys = QuantumSystem()
 
-    def __computeDel(self, qSys, state):
-        if self.compute is not None:
-            results = self.compute(self, state)
-        del(state)
-        return results
-
     def __compute(self, qSys, state):
         if self.compute is not None:
             results = self.compute(self, state)
@@ -140,22 +134,31 @@ class Simulation(qUniversal):
 
     @property
     def finalTime(self):
-        self.__finalTime
+        return self._Simulation__finalTime
 
     @finalTime.setter
     def finalTime(self, fTime):
-        self.steps = int(round(self.finalTime/self.stepSize))+1
+        self._Simulation__finalTime = fTime
+        self._Simulation__step = int(round(fTime/self.stepSize))+1
 
     @property
     def steps(self):
-        if len(self.whileLoop.sweeps) > 0:
-            return len(self.whileLoop.sweeps[0].sweepList)
-        else:
-            return self._Simulation__step
+        return self._Simulation__step
 
     @steps.setter
     def steps(self, num):
         self._Simulation__step = num
+        print(self.finalTime, num)
+        self._Simulation__stepSize = self.finalTime/num
+
+    @property
+    def stepSize(self):
+        return self._Simulation__stepSize
+
+    @stepSize.setter
+    def stepSize(self, stepsize):
+        self._Simulation__stepSize = stepsize
+        self._Simulation__step = int(round(self.finalTime/stepsize))+1
 
     @property
     def samples(self):
@@ -178,14 +181,6 @@ class Simulation(qUniversal):
         """if isinstance(val, QuantumSystem):
             QuantumSystem.constructCompSys(val)"""
         self._Simulation__qSys = val
-
-    @property
-    def stepSize(self):
-        return self._Simulation__stepSize
-
-    @stepSize.setter
-    def stepSize(self, stepsize):
-        self._Simulation__stepSize = stepsize
     
     def run(self, p=None):
         if isinstance(self.qSys, QuantumSystem):
