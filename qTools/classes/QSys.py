@@ -217,7 +217,7 @@ class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
 
-    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms']
+    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', 'order']
     @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__()
@@ -228,6 +228,7 @@ class qSystem(genericQSys):
         self.__dimsBefore = 1
         self.__dimsAfter = 1
         self.__terms = [self]
+        self.order = 1
         self._qUniversal__setKwargs(**kwargs)
 
     @genericQSys.initialState.setter
@@ -297,12 +298,14 @@ class qSystem(genericQSys):
     @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
-            sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+            print(sys.operator)
+            sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             sys._genericQSys__constructed = True
         return self._qSystem__Matrix
 
-    def addTerm(self, op, freq):
+    def addTerm(self, op, freq, order=1):
         copySys = self.copy(operator=op, frequency=freq, superSys=self)
+        copySys.order = order
         self._qSystem__terms.append(copySys)
         return copySys
 
@@ -353,11 +356,6 @@ class Spin(qSystem):
     def jValue(self, value):
         self._Spin__jValue = value
         self.dimension = int((2*value) + 1)
-    
-    def __constructSubMat(self):
-        # FIXME This does not work, if J Ham has more than one term
-        self._qSystem__Matrix = qOps.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
-        return self._qSystem__Matrix
 
 
 class Cavity(qSystem):
