@@ -1,7 +1,7 @@
 import qTools.QuantumToolbox.liouvillian as lio
 from functools import partial
 import numpy as np
-import copy
+from copy import deepcopy
 
 
 def runSimulation(qSim, p):
@@ -118,7 +118,6 @@ def withBLWp(qSim, p):
 
 def withBLOnp(qSim):
     states = []
-    results = []
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
@@ -181,7 +180,6 @@ def withBLOpDel(qSim, p):
         withLOpDel(qSim, p)
 
 def withBOWDel(qSim):
-    results = []
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
@@ -223,10 +221,13 @@ def withLOnp(qSim):
 def withLWp(qSim, p):
     mixedStRes = p.map(partial(parallelSequenceW, qSim), range(len(qSim.Loop.sweeps[0].sweepList)))
     states = []
+    for ind in range(len(mixedStRes[0][1])):
+        qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
+
     for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
         states.append(mixedStRes[ind0][0])
         for ind1 in range(len(mixedStRes[ind0][1])):
-            qSim.qRes.results[ind1][qSim.qRes.indB][ind0] = mixedStRes[ind0][1][ind1]
+            qSim.qRes._qResults__multiResults[ind1][qSim.qRes.indB][ind0] = mixedStRes[ind0][1][ind1]
     return states
  
 def parallelSequenceW(qSim, ind):
@@ -238,10 +239,13 @@ def parallelSequenceW(qSim, ind):
 def withLOp(qSim, p):
     mixedStRes = p.map(partial(parallelSequenceO, qSim), range(len(qSim.Loop.sweeps[0].sweepList)))
     states = []
+    for ind in range(len(mixedStRes[0][1])):
+        qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
+
     for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
         states.append(mixedStRes[ind0][0])
         for ind1 in range(len(mixedStRes[ind0][1])):
-            qSim.qRes.results[ind1][qSim.qRes.indB][ind0] = mixedStRes[ind0][1][ind1]
+            qSim.qRes._qResults__multiResults[ind1][qSim.qRes.indB][ind0] = mixedStRes[ind0][1][ind1]
     return states
 
 def parallelSequenceO(qSim, ind):
@@ -249,12 +253,10 @@ def parallelSequenceO(qSim, ind):
     runSequence(qSim.Loop, ind)
     qSim.qSys.lastState = qSim.qSys.initialState
     states = []
-    results = []
     unitary = exponUni(qSim)
     for ii in range(qSim.steps):
         mixedStRes = __timeEvol(qSim, unitary)
         states.extend(mixedStRes[0])
-        results.extend(mixedStRes[1])
     return [states, qSim.qRes._qResults__last]
 
 # with Del
@@ -265,7 +267,6 @@ def withLWnpDel(qSim):
         withWDel(qSim)
 
 def withLOnpDel(qSim):
-    results = []
     for ind in range(len(qSim.Loop.sweeps[0].sweepList)):
         qSim.qRes.indL = ind
         runSequence(qSim.Loop, ind)
@@ -276,9 +277,12 @@ def withLOnpDel(qSim):
 
 def withLWpDel(qSim, p):
     results = p.map(partial(parallelSequenceWDel, qSim), range(len(qSim.Loop.sweeps[0].sweepList)))
+    for ind in range(len(results[0])):
+        qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
+        
     for ind0 in range(results[0]):
         for ind1 in range(len(qSim.Loop.sweeps[0].sweepList)):
-            qSim.qRes.results[ind0][qSim.qRes.indB][ind1] = results[ind0][ind1]
+            qSim.qRes._qResults__multiResults[ind0][qSim.qRes.indB][ind1] = results[ind0][ind1]
 
 def parallelSequenceWDel(qSim, ind):
     qSim.qRes.indL = ind
@@ -288,9 +292,12 @@ def parallelSequenceWDel(qSim, ind):
     
 def withLOpDel(qSim, p):
     results = p.map(partial(parallelSequenceODel, qSim), range(len(qSim.Loop.sweeps[0].sweepList)))
+    for ind in range(len(results[0])):
+        qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
+
     for ind0 in range(results[0]):
         for ind1 in range(len(qSim.Loop.sweeps[0].sweepList)):
-            qSim.qRes.results[ind0][qSim.qRes.indB][ind1] = results[ind0][ind1]
+            qSim.qRes._qResults__multiResults[ind0][qSim.qRes.indB][ind1] = results[ind0][ind1]
 
 
 def parallelSequenceODel(qSim, ind):
