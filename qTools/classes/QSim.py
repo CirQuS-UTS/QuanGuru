@@ -3,6 +3,7 @@ from qTools.classes.QSys import QuantumSystem
 from qTools.classes.QUni import qUniversal
 #from qTools.classes.exceptions import sweepInitError
 from qTools.classes.extensions.timeEvolve import runSimulation
+from qTools.classes.QRes import qResults
 
 """ under construction be careful """
 class Sweep(qUniversal):
@@ -109,6 +110,8 @@ class Simulation(qUniversal):
         self.beforeLoop = qSequence(superSys=self)
         self.Loop = qSequence(superSys=self)
         self.whileLoop = qSequence(superSys=self)
+        # TODO assign supersys ?
+        self.qRes = qResults()
         
         self.delState = False
 
@@ -139,7 +142,7 @@ class Simulation(qUniversal):
     @finalTime.setter
     def finalTime(self, fTime):
         self._Simulation__finalTime = fTime
-        self._Simulation__step = int(round(fTime/self.stepSize))+1
+        self._Simulation__step = int(fTime//self.stepSize + 1)
 
     @property
     def steps(self):
@@ -148,7 +151,6 @@ class Simulation(qUniversal):
     @steps.setter
     def steps(self, num):
         self._Simulation__step = num
-        print(self.finalTime, num)
         self._Simulation__stepSize = self.finalTime/num
 
     @property
@@ -158,7 +160,7 @@ class Simulation(qUniversal):
     @stepSize.setter
     def stepSize(self, stepsize):
         self._Simulation__stepSize = stepsize
-        self._Simulation__step = int(round(self.finalTime/stepsize))+1
+        self._Simulation__step = int(self.finalTime//stepsize + 1)
 
     @property
     def samples(self):
@@ -186,6 +188,16 @@ class Simulation(qUniversal):
         if isinstance(self.qSys, QuantumSystem):
             # TODO Check first if constructed
             self.qSys.constructCompSys()
+
+        bLength = 0
+        lLength = 0
+        if len(self.beforeLoop.sweeps) > 0:
+            bLength = self.beforeLoop.sweeps[0].sweepList
+
+        if len(self.Loop.sweeps) > 0:
+            lLength = self.Loop.sweeps[0].sweepList
+
+        qSys.qRes.createList(bLength, lLength)
         
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)

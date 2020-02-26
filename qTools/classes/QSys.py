@@ -278,7 +278,7 @@ class qSystem(genericQSys):
         h = sum([(obj.frequency * obj.freeMat) for obj in self._qSystem__terms])
         return h
 
-    # I'm not sure to have this, freeMat setter covers all the cases and this one does not make much sense
+    # I'm not sure to keep this, freeMat setter covers all the cases and this one does not make much sense
     """@totalHam.setter
     def totalHam(self, qOpsFunc):
         self.freeMat = qOpsFunc
@@ -305,7 +305,6 @@ class qSystem(genericQSys):
     @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
-            print(sys.operator)
             sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             sys._genericQSys__constructed = True
         return self._qSystem__Matrix
