@@ -1,4 +1,4 @@
-
+from copy import deepcopy
 
 class qResults:
     def __init__(self):
@@ -6,39 +6,45 @@ class qResults:
         self.__results = []
         self.__indB = 0
         self.__indL = 0
-        #self.__indW = 0
         self.__multiResults = []
         self.__resTotCount = 0
         self.__prevRes = False
         self.__resCount = 0
+        self.__last = []
 
     @property
     def results(self):
         return self._qResults__results
 
     @results.setter
-    def results(self, val):
+    def result(self, val):
         if self._qResults__prevRes is True:
             self._qResults__multiResults[self._qResults__resCount][self.indB][self.indL].append(val)
-            self._qResult__resCount += 1
+            self._qResults__last[self._qResults__resCount].append(val)
+            self._qResults__resCount += 1
         elif self._qResults__prevRes is False:
-            self._qResults__multiResults.append(self._qResults__results)
+            self._qResults__last.append([])
+            self._qResults__multiResults.append(deepcopy(self._qResults__results))
             self._qResults__multiResults[self._qResults__resTotCount][self.indB][self.indL].append(val)
+            self._qResults__last[self._qResults__resTotCount].append(val)
             self._qResults__resTotCount += 1
 
     def createList(self, bLength, lLength):
         newList = []
         lList = []
-        for indl in range(lLength):
+        if lLength > 0:
+            for indl in range(lLength):
+                lList.append([])
+        else:
             lList.append([])
 
         if bLength > 0:
             bList = []
             for indn in range(bLength):
-                bList.append(lList)
+                bList.append(deepcopy(lList))
             newList = bList
         else:
-            newList = [lList]
+            newList = [deepcopy(lList)]
 
         self._qResults__results = newList
 
@@ -59,12 +65,4 @@ class qResults:
     @indL.setter
     def indL(self, ii):
         self._qResults__indL = ii
-
-    '''@property
-    def indW(self):
-        return self._qResults__indW'''
-
-    '''@ind.setter
-    def indW(self, ii):
-        self._qResults__indW = ii'''
 
