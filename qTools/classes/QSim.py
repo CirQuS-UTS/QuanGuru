@@ -101,7 +101,7 @@ class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
     __compute = 0
-    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step', 'delState']
+    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step', 'delState', 'qRes']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
@@ -195,9 +195,9 @@ class Simulation(qUniversal):
             bLength = self.beforeLoop.sweeps[0].sweepList
 
         if len(self.Loop.sweeps) > 0:
-            lLength = self.Loop.sweeps[0].sweepList
+            lLength = len(self.Loop.sweeps[0].sweepList)
 
-        qSys.qRes.createList(bLength, lLength)
+        self.qRes.createList(bLength, lLength)
         
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
@@ -205,10 +205,7 @@ class Simulation(qUniversal):
         '''statesList = [] 
         resultsList = []'''
         res = runSimulation(self, p)
-        if self.delState is True:
-            return res
-        else:
-            return res[0], res[1]
+        return res
 
     @staticmethod
     def __res(seq):

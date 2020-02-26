@@ -14,7 +14,7 @@ class qResults:
 
     @property
     def results(self):
-        return self._qResults__results
+        return self._qResults__multiResults
 
     @results.setter
     def result(self, val):
