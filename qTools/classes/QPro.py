@@ -43,7 +43,7 @@ class qProtocol(qUniversal):
     @unitary.setter
     def unitary(self, uni):
         # TODO generalise this
-        if uni == None:
+        if uni is None:
             self.createUnitary()
 
     def createUnitary(self):
@@ -80,40 +80,55 @@ class copyStep(Step):
 class freeEvolution(Step):
     instances = 0
     label = 'freeEvolution'
-    __slots__  = ['__stepSize', '__updates', 'getUnitary', '__fixed']
+    __slots__  = ['__stepSize', '__updates', 'getUnitary', '__fixed', '__sample']
     def __init__(self, **kwargs):
         super().__init__()
         self.__stepSize = 0
+        self.__sample = 1
         self.__updates =  []
         self.__fixed = False
         self.getUnitary = self.getUnitaryNoUpdate
         self._qUniversal__setKwargs(**kwargs)
 
+    @property
+    def stepSize(self):
+        return self._freeEvolution__stepSize
+
+    @stepSize.setter
+    def stepSize(self, val):
+        self._freeEvolution__stepSize = val
+
+    @property
+    def sample(self):
+        return self._freeEvolution__sample
+
+    @sample.setter
+    def sample(self, val):
+        self._freeEvolution__sample = val
+
     def getUnitaryNoUpdate(self):
-        unitary = lio.Liouvillian(
-            2 * np.pi * self.superSys.totalHam, timeStep=self.time)
+        unitary = lio.Liouvillian(2 * np.pi * self.superSys.totalHam, timeStep=(self.stepSize/self.sample))
         self._Step__unitary = unitary
         return unitary
         
     def getUnitaryUpdate(self):
         for update in self.updates:
             update.setup() 
-
-        unitary = lio.Liouvillian(
-            2 * np.pi * self.superSys.totalHam, timeStep=self.time)
-
+        unitary = self.getUnitaryNoUpdate()
         for update in self.updates:
             update.setback()
-
-        self._Step__unitary = unitary
         return unitary
 
     def getFixedUnitary(self):
         return self._Step__unitary
+
+    def createFixed(self):
+        unitary = self.getUnitaryNoUpdate()
+        return unitary
         
     @property
     def fixed(self):
-        return self._FreeEvolution__fixed
+        return self._freeEvolution__fixed
     
     @fixed.setter
     def fixed(self, cond):
@@ -124,7 +139,7 @@ class freeEvolution(Step):
                 self.getUnitary = self.getUnitaryNoUpdate
             else:
                 self.getUnitary = self.getUnitaryUpdate
-        self._FreeEvolution__fixed = cond
+        self._freeEvolution__fixed = cond
 
     def createUpdate(self, **kwargs):
         update = Update(**kwargs)
@@ -136,9 +151,21 @@ class freeEvolution(Step):
             self.updates.append(update)
         self.getUnitary = self.getUnitaryUpdate
 
+    def createUnitary(self):
+        unitary = self.getUnitary()
+        return unitary
+
     @property
     def unitary(self):
-        return self.getUnitary()
+        if self._Step__unitary is not None:
+            return self._qProtocol__unitary
+        else:
+            return self.createUnitary()
+
+    @unitary.setter
+    def unitary(self, uni):
+        if uni is None:
+            self.createUnitary()
 
 class Gate(Step):
     instances = 0
