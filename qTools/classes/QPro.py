@@ -7,17 +7,18 @@ import numpy as np
 class qProtocol(qUniversal):
     instances = 0
     label = 'qProtocol'
-    __slots__  = ['__steps']
+    __slots__  = ['__steps', '__unitary']
     def __init__(self, **kwargs):
         super().__init__()
         self.__steps = []
+        self.__unitary = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
     def steps(self):
         return self._qProtocol__steps
 
-    def add(self, *args):
+    def addStep(self, *args):
         for ii, step in enumerate(args):
             if step in self.steps:
                 self.steps.append(copyStep(step))
@@ -25,10 +26,31 @@ class qProtocol(qUniversal):
                 step.superSys = self.superSys
                 self.steps.append(step)
 
+    def createStep(self, n=1):
+        newSteps = []
+        for ind in range(n):
+            newSteps.append(Step())
+        self._qProtocol__steps.extend(newSteps)
+        return newSteps if n > 1 else newSteps[0]
+
+    @property
     def unitary(self):
+        if self._qProtocol__unitary is not None:
+            return self._qProtocol__unitary
+        else:
+            return self.createUnitary()
+
+    @unitary.setter
+    def unitary(self, uni):
+        # TODO generalise this
+        if uni == None:
+            self.createUnitary()
+
+    def createUnitary(self):
         unitary = self.steps[0].unitary
         for step in self.steps[1:]:
             unitary = step.unitary @ unitary
+        self._qProtocol__unitary = unitary
         return unitary
 
 class Step(qUniversal):
@@ -133,7 +155,7 @@ class Gate(Step):
     def implementation(self):
         return self._Gate__implementation
 
-    @property
+    @implementation.setter
     def implementation(self, typeStr):
         if self._Gate__implementation == None:
             print('No implementation')
