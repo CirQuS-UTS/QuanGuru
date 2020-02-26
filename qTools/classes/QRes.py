@@ -1,6 +1,10 @@
 from copy import deepcopy
+from qTools.classes.QUni import qUniversal
 
-class qResults:
+class qResults(qUniversal):
+    instances = 0
+    label = 'qUniversal'
+    __slots__ = ['__results', '__indB', '__indL', '__multiResults', '__resTotCount', '__prevRes', '__resCount', '__last', '__states']
     def __init__(self):
         super().__init__()
         self.__results = []
@@ -11,6 +15,7 @@ class qResults:
         self.__prevRes = False
         self.__resCount = 0
         self.__last = []
+        self.__states = []
 
     @property
     def results(self):
@@ -28,6 +33,14 @@ class qResults:
             self._qResults__multiResults[self._qResults__resTotCount][self.indB][self.indL].append(val)
             self._qResults__last[self._qResults__resTotCount].append(val)
             self._qResults__resTotCount += 1
+
+    @property
+    def states(self):
+        return self._qResults__states
+
+    @states.setter
+    def state(self, st):
+        self._qResults__states[self.indB][self.indL].append(st)
 
     def createList(self, bLength, lLength):
         newList = []
@@ -47,8 +60,19 @@ class qResults:
             newList = [deepcopy(lList)]
 
         self._qResults__results = newList
-
+        self._qResults__states = deepcopy(newList)
         
+    def reset(self):
+        self._qResults__results = []
+        self._qResults__indB = 0
+        self._qResults__indL = 0
+        self._qResults__multiResults = []
+        self._qResults__resTotCount = 0
+        self._qResults__prevRes = False
+        self._qResults__resCount = 0
+        self._qResults__last = []
+        self._qResults__states = []
+
 
     @property
     def indB(self):
