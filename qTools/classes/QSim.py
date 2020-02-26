@@ -134,6 +134,9 @@ class Simulation(qUniversal):
     def __compute(self, qSys, state):
         if self.compute is not None:
             results = self.compute(self, state)
+        else:
+            # FIXME assumed this is going to return a thing a that will be appended, if not ?
+            results = None
         return results
 
     @property
@@ -190,6 +193,8 @@ class Simulation(qUniversal):
             # TODO Check first if constructed
             self.qSys.constructCompSys()
 
+        self.qRes.reset()
+
         bLength = 0
         lLength = 0
         if len(self.beforeLoop.sweeps) > 0:
@@ -203,8 +208,7 @@ class Simulation(qUniversal):
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
-        '''statesList = [] 
-        resultsList = []'''
+
         res = runSimulation(self, p)
 
         unnested = []
@@ -221,7 +225,7 @@ class Simulation(qUniversal):
             unnested = self.qRes.results
 
         self.qRes._qResults__multiResults = unnested
-        return res
+        return self.qRes
 
     @staticmethod
     def __res(seq):

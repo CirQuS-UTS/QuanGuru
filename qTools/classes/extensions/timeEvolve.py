@@ -210,6 +210,9 @@ def withLWp(qSim, p):
 def parallelSequenceW(qSim, ind):
     qSim.qRes.indL = ind
     runSequence(qSim.Loop, ind)
+    qSim.qRes._qResults__last = []
+    qSim.qRes._qResults__prevRes = False
+    qSim.qRes._qResults__resTotCount = 0
     withW(qSim)
     return [qSim.qRes._qResults__states, qSim.qRes._qResults__last]
 
@@ -228,6 +231,9 @@ def parallelSequenceO(qSim, ind):
     runSequence(qSim.Loop, ind)
     qSim.qSys.lastState = qSim.qSys.initialState
     unitary = exponUni(qSim)
+    qSim.qRes._qResults__last = []
+    qSim.qRes._qResults__prevRes = False
+    qSim.qRes._qResults__resTotCount = 0
     for ii in range(qSim.steps):
         __timeEvol(qSim, unitary)
     return [qSim.qRes._qResults__states, qSim.qRes._qResults__last]
@@ -254,12 +260,15 @@ def withLWpDel(qSim, p):
         qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
         
     for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
-        for ind1 in range(len(results[0])):
-            qSim.qRes._qResults__multiResults[ind1][qSim.qRes.indB][ind0] = results[ind1][ind0]
+        for ind1 in range(len(results[ind0])):
+            qSim.qRes._qResults__multiResults[ind1][qSim.qRes.indB][ind0] = results[ind0][ind1]
 
 def parallelSequenceWDel(qSim, ind):
     qSim.qRes.indL = ind
     runSequence(qSim.Loop, ind)
+    qSim.qRes._qResults__last = []
+    qSim.qRes._qResults__prevRes = False
+    qSim.qRes._qResults__resTotCount = 0
     withWDel(qSim)
     return qSim.qRes._qResults__last
     
@@ -268,15 +277,18 @@ def withLOpDel(qSim, p):
     for ind in range(len(results[0])):
         qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
 
-    for ind0 in range(len(results[0])):
-        for ind1 in range(len(qSim.Loop.sweeps[0].sweepList)):
-            qSim.qRes._qResults__multiResults[ind0][qSim.qRes.indB][ind1] = results[ind0][ind1]
+    for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
+        for ind1 in range(len(results[ind0])):
+            qSim.qRes._qResults__multiResults[ind1][qSim.qRes.indB][ind0] = results[ind0][ind1]
 
 def parallelSequenceODel(qSim, ind):
     qSim.qRes.indL = ind
     runSequence(qSim.Loop, ind)
     qSim.qSys.lastState = qSim.qSys.initialState
     unitary = exponUni(qSim)
+    qSim.qRes._qResults__last = []
+    qSim.qRes._qResults__prevRes = False
+    qSim.qRes._qResults__resTotCount = 0
     for ii in range(qSim.steps):
         __timeEvolDel(qSim, unitary)
     return qSim.qRes._qResults__last
