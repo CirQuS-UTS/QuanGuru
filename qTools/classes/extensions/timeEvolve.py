@@ -2,6 +2,7 @@ import qTools.QuantumToolbox.liouvillian as lio
 from functools import partial
 import numpy as np
 from copy import deepcopy
+import datetime
 
 
 def runSimulation(qSim, p):
@@ -10,47 +11,46 @@ def runSimulation(qSim, p):
             if len(qSim.Loop.sweeps) > 0:
                 if len(qSim.whileLoop.sweeps) > 0:
                     if p is None:
-                        states = withBLWnp(qSim)
+                        withBLWnp(qSim)
                     else:
-                        states = withBLWp(qSim, p)
+                        withBLWp(qSim, p)
                 else:
                     if p is None:
-                        states = withBLOnp(qSim)
+                        withBLOnp(qSim)
                     else:
-                        states = withBLOp(qSim, p)
+                        withBLOp(qSim, p)
             else:
                 if len(qSim.whileLoop.sweeps) > 0:
-                    states = withBOW(qSim)
+                    withBOW(qSim)
                 else:
-                    states = withBOO(qSim)
+                    withBOO(qSim)
         else:
             if len(qSim.Loop.sweeps) > 0:
                 if len(qSim.whileLoop.sweeps) > 0:
                     if p is None:
                         qSim.qRes.indB = 0
-                        states = withLWnp(qSim)
+                        withLWnp(qSim)
                     else:
                         qSim.qRes.indB = 0
-                        states = withLWp(qSim, p)
+                        withLWp(qSim, p)
                 else:
                     if p is None:
                         qSim.qRes.indB = 0
-                        states = withLOnp(qSim)
+                        withLOnp(qSim)
                     else:
                         qSim.qRes.indB = 0
-                        states = withLOp(qSim, p)
+                        withLOp(qSim, p)
             else:
                 if len(qSim.whileLoop.sweeps) > 0:
                     qSim.qRes.indB = 0
                     qSim.qRes.indL = 0
-                    states = withW(qSim)
+                    withW(qSim)
                 else:
                     qSim.qSys.lastState = qSim.qSys.initialState
                     unitary = exponUni(qSim)
                     qSim.qRes.indB = 0
                     qSim.qRes.indL = 0
-                    states = __timeEvol(qSim, unitary)
-        return states
+                    __timeEvol(qSim, unitary)
     else:
         if len(qSim.beforeLoop.sweeps) > 0:
             if len(qSim.Loop.sweeps) > 0:
@@ -96,63 +96,48 @@ def runSimulation(qSim, p):
                     qSim.qRes.indB = 0
                     qSim.qRes.indL = 0
                     __timeEvolDel(qSim, unitary)
-        return None
+
 """
 STAGE 1 POSSIBILITIES
 """
 def withBLWnp(qSim):
-    states = []
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
-        states.append(withLWnp(qSim))
-    return states
+        withLWnp(qSim)
 
 def withBLWp(qSim, p):
-    states = []
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
-        states.append(withLWp(qSim, p))
-    return states
+        withLWp(qSim, p)
 
 def withBLOnp(qSim):
-    states = []
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
-        states.append(withLOnp(qSim))
-    return states
+        withLOnp(qSim)
 
 def withBLOp(qSim, p):
-    states = []
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
-        mixedStRes = withLOp(qSim, p)
-        states.append(mixedStRes[0])
-    return states
+        withLOp(qSim, p)
 
 def withBOW(qSim):
-    states = []
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
-        states.append(withW(qSim))
-    return states
+        withW(qSim)
 
 def withBOO(qSim):
-    states = []
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
         qSim.qSys.lastState = qSim.qSys.initialState
-        st1 = []
         unitary = exponUni(qSim)
         for ii in range(qSim.steps):
-            st1.extend(__timeEvol(qSim, unitary))
-        states.append(st1)
-    return states
+            __timeEvol(qSim, unitary)
 
 # with Del
 def withBLWnpDel(qSim):
@@ -198,66 +183,54 @@ def withBOODel(qSim):
 STAGE 2 POSSIBILITIES
 """
 def withLWnp(qSim):
-    states = []
     for ind in range(len(qSim.Loop.sweeps[0].sweepList)):
         qSim.qRes.indL = ind
         runSequence(qSim.Loop, ind)
-        states.append(withW(qSim))
-    return states
+        withW(qSim)
 
 def withLOnp(qSim):
-    states = []
     for ind in range(len(qSim.Loop.sweeps[0].sweepList)):
         qSim.qRes.indL = ind
         runSequence(qSim.Loop, ind)
         qSim.qSys.lastState = qSim.qSys.initialState
-        st1 = []
         unitary = exponUni(qSim)
         for ii in range(qSim.steps):
-            st1.extend(__timeEvol(qSim, unitary))
-        states.append(st1)
-    return states
+            __timeEvol(qSim, unitary)
 
 def withLWp(qSim, p):
     mixedStRes = p.map(partial(parallelSequenceW, qSim), range(len(qSim.Loop.sweeps[0].sweepList)))
-    states = []
     for ind in range(len(mixedStRes[0][1])):
         qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
 
     for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
-        states.append(mixedStRes[ind0][0])
+        qSim.qRes._qResults__states[qSim.qRes.indB][ind0] = mixedStRes[ind0][0]
         for ind1 in range(len(mixedStRes[ind0][1])):
             qSim.qRes._qResults__multiResults[ind1][qSim.qRes.indB][ind0] = mixedStRes[ind0][1][ind1]
-    return states
  
 def parallelSequenceW(qSim, ind):
     qSim.qRes.indL = ind
     runSequence(qSim.Loop, ind)
-    mixedStRes = withW(qSim)
-    return [mixedStRes[0], qSim.qRes._qResults__last]
+    withW(qSim)
+    return [qSim.qRes._qResults__states, qSim.qRes._qResults__last]
 
 def withLOp(qSim, p):
     mixedStRes = p.map(partial(parallelSequenceO, qSim), range(len(qSim.Loop.sweeps[0].sweepList)))
-    states = []
     for ind in range(len(mixedStRes[0][1])):
         qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
 
     for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
-        states.append(mixedStRes[ind0][0])
+        qSim.qRes._qResults__states[qSim.qRes.indB][ind0] = mixedStRes[ind0][0]
         for ind1 in range(len(mixedStRes[ind0][1])):
             qSim.qRes._qResults__multiResults[ind1][qSim.qRes.indB][ind0] = mixedStRes[ind0][1][ind1]
-    return states
 
 def parallelSequenceO(qSim, ind):
     qSim.qRes.indL = ind
     runSequence(qSim.Loop, ind)
     qSim.qSys.lastState = qSim.qSys.initialState
-    states = []
     unitary = exponUni(qSim)
     for ii in range(qSim.steps):
-        mixedStRes = __timeEvol(qSim, unitary)
-        states.extend(mixedStRes[0])
-    return [states, qSim.qRes._qResults__last]
+        __timeEvol(qSim, unitary)
+    return [qSim.qRes._qResults__states, qSim.qRes._qResults__last]
 
 # with Del
 def withLWnpDel(qSim):
@@ -280,9 +253,9 @@ def withLWpDel(qSim, p):
     for ind in range(len(results[0])):
         qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
         
-    for ind0 in range(results[0]):
-        for ind1 in range(len(qSim.Loop.sweeps[0].sweepList)):
-            qSim.qRes._qResults__multiResults[ind0][qSim.qRes.indB][ind1] = results[ind0][ind1]
+    for ind0 in range(len(qSim.Loop.sweeps[0].sweepList)):
+        for ind1 in range(len(results[0])):
+            qSim.qRes._qResults__multiResults[ind1][qSim.qRes.indB][ind0] = results[ind1][ind0]
 
 def parallelSequenceWDel(qSim, ind):
     qSim.qRes.indL = ind
@@ -295,10 +268,9 @@ def withLOpDel(qSim, p):
     for ind in range(len(results[0])):
         qSim.qRes._qResults__multiResults.append(deepcopy(qSim.qRes._qResults__results))
 
-    for ind0 in range(results[0]):
+    for ind0 in range(len(results[0])):
         for ind1 in range(len(qSim.Loop.sweeps[0].sweepList)):
             qSim.qRes._qResults__multiResults[ind0][qSim.qRes.indB][ind1] = results[ind0][ind1]
-
 
 def parallelSequenceODel(qSim, ind):
     qSim.qRes.indL = ind
@@ -313,13 +285,11 @@ def parallelSequenceODel(qSim, ind):
 STAGE 3 POSSIBILITIES
 """
 def withW(qSim):
-    states = []
     qSim.qSys.lastState = qSim.qSys.initialState
     for ind in range(len(qSim.whileLoop.sweeps[0].sweepList)):
         runSequence(qSim.whileLoop, ind)
         unitary = exponUni(qSim)
-        states.extend(__timeEvol(qSim, unitary))
-    return states
+        __timeEvol(qSim, unitary)
 
 # with Del
 def withWDel(qSim):
@@ -339,16 +309,13 @@ def __timeEvolDel(qSim, unitary):
         qSim._Simulation__compute(qSim.qSys, qSim.qSys.lastState)
         qSim.qRes._qResults__prevRes = True
         
-
-def __timeEvol(qSim, unitary):    
-    states = []
+def __timeEvol(qSim, unitary):
     for ii in range(qSim.samples):
         qSim.qSys.lastState = unitary @ qSim.qSys.lastState
-        states.append(qSim.qSys.lastState)
+        qSim.qRes.state = qSim.qSys.lastState
         qSim.qRes._qResults__resCount = 0
         qSim._Simulation__compute(qSim.qSys, qSim.qSys.lastState)
         qSim.qRes._qResults__prevRes = True
-    return states
 
 def exponUni(qSim):
     if qSim.qSys.Unitaries is None:
