@@ -60,12 +60,13 @@ class qProtocol(qUniversal):
             if not isinstance(step, copyStep):
                 step.prepare(obj)
                 if step.fixed is True:
-                    step.createFixed()
+                    step.createUnitary()
+                    step.createUnitary = step.createUnitaryFixedFunc
 
 class Step(qUniversal):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound']
+    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary']
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = None
@@ -76,6 +77,7 @@ class Step(qUniversal):
         self.__fixed = False
         self.__bound = self
         self.getUnitary = None
+        self.createUnitary = self.createUnitaryFunc
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -110,13 +112,12 @@ class Step(qUniversal):
     def samples(self, val):
         self._Step__samples = val
 
-    def createUnitary(self):
+    def createUnitaryFunc(self):
         unitary = self.getUnitary()
         return unitary
 
-    def createFixed(self):
-        # TODO Might make this more meaningful
-        pass
+    def createUnitaryFixedFunc(self):
+        return self._Step__unitary
 
     @property
     def unitary(self):
@@ -154,7 +155,7 @@ class copyStep(Step):
     __slots__ = []
     def __init__(self, superSys):
         self.superSys = superSys
-        self.getUnitary = self.unitaryCopy
+        self.createUnitary = self.unitaryCopy
     
     def unitaryCopy(self):
         return self.superSys._Step__unitary
@@ -177,7 +178,7 @@ class freeEvolution(Step):
                 self.getUnitary = self.getUnitaryNoUpdate
             else:
                 self.getUnitary = self.getUnitaryUpdate
-        self._freeEvolution__fixed = cond
+        self._Step__fixed = cond
 
     def getUnitaryNoUpdate(self):
         unitary = lio.Liouvillian(2 * np.pi * self.superSys.totalHam, timeStep=((self.bound.stepSize*self.ratio)/self.bound.samples))
@@ -194,10 +195,6 @@ class freeEvolution(Step):
 
     def getFixedUnitary(self):
         return self._Step__unitary
-
-    def createFixed(self):
-        unitary = self.getUnitaryNoUpdate()
-        return unitary
 
     def addUpdate(self, *args):
         for update in args:

@@ -34,10 +34,6 @@ class xGate(Gate):
             self.getUnitary = self.instantFlip
             self._Gate__implementation = typeStr
 
-    def createUnitary(self):
-        unitary = self.getUnitary()
-        return unitary
-
     @Gate.unitary.getter
     def unitary(self):
         if self._Step__unitary is not None:
