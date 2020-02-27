@@ -170,12 +170,10 @@ class freeEvolution(Step):
 class Gate(Step):
     instances = 0
     label = 'Gate'
-    __slots__ =  ['__implementation','unitary']
+    __slots__ =  ['__implementation']
     def __init__(self, **kwargs):
         super().__init__()
         self.__implementation = None
-        self.superSys = superSys
-        self.unitary = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
