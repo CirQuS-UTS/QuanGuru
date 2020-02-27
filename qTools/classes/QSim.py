@@ -194,16 +194,8 @@ class Simulation(qUniversal):
             self.qSys.constructCompSys()
 
         self.qRes.reset()
-
-        bLength = 0
-        lLength = 0
-        if len(self.beforeLoop.sweeps) > 0:
-            bLength = self.beforeLoop.sweeps[0].sweepList
-
-        if len(self.Loop.sweeps) > 0:
-            lLength = len(self.Loop.sweeps[0].sweepList)
-
-        self.qRes.createList(bLength, lLength)
+        self.qRes._prepare()
+        self.qRes.createList()
         
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
@@ -212,21 +204,8 @@ class Simulation(qUniversal):
         self.qSys.unitary.prepare(self)
 
         res = runSimulation(self, p)
-
-        unnested = []
-        if ((bLength == 0) and (lLength != 0)):
-            unnested = [list(chain(*sub)) for sub in self.qRes.results]
-        elif ((bLength == 0) and (lLength == 0)):
-            for ind in range(len(self.qRes.results)):
-                nested = [list(chain(*sub)) for sub in self.qRes.results[ind]]
-                unnested = [list(chain(*sub)) for sub in nested]
-        elif ((bLength != 0) and (lLength == 0)):
-            for ind in range(len(self.qRes.results)):
-                unnested.append([list(chain(*sub)) for sub in self.qRes.results[ind]])
-        elif ((bLength != 0) and (lLength != 0)):
-            unnested = self.qRes.results
-
-        self.qRes._qResults__multiResults = unnested
+        
+        self.qRes._unpack()
         return self.qRes
 
     @staticmethod

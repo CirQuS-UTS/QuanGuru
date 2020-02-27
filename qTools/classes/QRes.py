@@ -1,10 +1,11 @@
 from copy import deepcopy
+from itertools import chain
 from qTools.classes.QUni import qUniversal
 
 class qResults(qUniversal):
     instances = 0
     label = 'qUniversal'
-    __slots__ = ['__results', '__indB', '__indL', '__multiResults', '__resTotCount', '__prevRes', '__resCount', '__last', '__states']
+    __slots__ = ['__results', '__indB', '__indL', '__multiResults', '__resTotCount', '__prevRes', '__resCount', '__last', '__states', '__bLength', '__lLength']
     def __init__(self):
         super().__init__()
         self.__results = []
@@ -16,6 +17,8 @@ class qResults(qUniversal):
         self.__resCount = 0
         self.__last = []
         self.__states = []
+        self.__bLength = 0
+        self.__lLength = 0
 
     @property
     def results(self):
@@ -42,18 +45,18 @@ class qResults(qUniversal):
     def state(self, st):
         self._qResults__states[self.indB][self.indL].append(st)
 
-    def createList(self, bLength, lLength):
+    def _createList(self):
         newList = []
         lList = []
-        if lLength > 0:
-            for indl in range(lLength):
+        if self._qResults__lLength > 0:
+            for indl in range(self._qResults__lLength):
                 lList.append([])
         else:
             lList.append([])
 
-        if bLength > 0:
+        if self._qResults__bLength > 0:
             bList = []
-            for indn in range(bLength):
+            for indn in range(self._qResults__bLength):
                 bList.append(deepcopy(lList))
             newList = bList
         else:
@@ -89,4 +92,29 @@ class qResults(qUniversal):
     @indL.setter
     def indL(self, ii):
         self._qResults__indL = ii
+
+    def _unpack(self):
+        unnested = []
+        if ((self._qResults__bLength == 0) and (self._qResults__lLength != 0)):
+            unnested = [list(chain(*sub)) for sub in self.results]
+        elif ((self._qResults__bLength == 0) and (self._qResults__lLength == 0)):
+            for ind in range(len(self.results)):
+                nested = [list(chain(*sub)) for sub in self.results[ind]]
+                unnested = [list(chain(*sub)) for sub in nested]
+        elif ((self._qResults__bLength != 0) and (self._qResults__lLength == 0)):
+            for ind in range(len(self.results)):
+                unnested.append([list(chain(*sub)) for sub in self.results[ind]])
+        elif ((self._qResults__bLength != 0) and (self._qResults__lLength != 0)):
+            unnested = self.results
+
+        self._qResults__multiResults = unnested
+        return self.result
+
+    def _prepare(self, qSim):
+        if len(qSim.beforeLoop.sweeps) > 0:
+            self._qResults__bLength = qSim.beforeLoop.sweeps[0].sweepList
+
+        if len(qSim.Loop.sweeps) > 0:
+            self._qResults__lLength = len(qSim.Loop.sweeps[0].sweepList)
+
 
