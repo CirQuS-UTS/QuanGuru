@@ -113,7 +113,11 @@ class Step(qUniversal):
         self._Step__samples = val
 
     def createUnitaryFunc(self):
-        unitary = self.getUnitary()
+        if self.superSys._paramUpdated is True:
+            unitary = self.getUnitary()
+            self.superSys._paramUpdated = False
+        else:
+            unitary = self._Step__unitary
         return unitary
 
     def createUnitaryFixedFunc(self):
@@ -122,7 +126,11 @@ class Step(qUniversal):
     @property
     def unitary(self):
         if self._Step__unitary is not None:
-            return self._Step__unitary
+            if self.superSys._paramUpdated is False:
+                unitary = self._Step__unitary
+            else:
+                unitary = self.createUnitary()
+            return unitary
         else:
             return self.createUnitary()
 

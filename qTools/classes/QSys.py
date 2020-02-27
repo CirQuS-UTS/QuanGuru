@@ -9,7 +9,7 @@ from qTools.classes.QPro import freeEvolution
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
-    __slots__ = ['__constructed', '__initialState', '__lastState', '__unitary', '__initialStateInput']
+    __slots__ = ['__constructed', '__initialState', '__lastState', '__unitary', '__initialStateInput', '__paramUpdated']
     def __init__(self, **kwargs):
         super().__init__()
         self.__constructed = False
@@ -17,8 +17,16 @@ class genericQSys(qUniversal):
         self.__lastState = None
         self.__unitary = freeEvolution(superSys=self)
         self.__initialStateInput = None
+        self.__paramUpdated = True
         self._qUniversal__setKwargs(**kwargs)
         
+    @property
+    def _paramUpdated(self):
+        return self._genericQSys__paramUpdated
+
+    @_paramUpdated.setter
+    def _paramUpdated(self, boolean):
+        self._genericQSys__paramUpdated = boolean
 
     # constructed boolean setter and getter
     @property
@@ -203,6 +211,7 @@ class QuantumSystem(genericQSys):
                 dimB = int((qS._qSystem__dimsBefore*newDimVal)/qSys.dimension)
                 qS._qSystem__dimsBefore = dimB
         self.initialState = self._genericQSys__initialStateInput
+        self._paramUpdated = True
         if self._genericQSys__constructed is True:
             self.constructCompSys()
         return qSys
@@ -250,6 +259,9 @@ class qSystem(genericQSys):
 
     @frequency.setter
     def frequency(self, freq):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
         self._qSystem__frequency = freq
 
     @property
@@ -258,6 +270,9 @@ class qSystem(genericQSys):
 
     @operator.setter
     def operator(self, op):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
         self._qSystem__operator = op
 
     @property
@@ -271,7 +286,9 @@ class qSystem(genericQSys):
         self._qSystem__dimension = newDimVal
         if isinstance(self.superSys, QuantumSystem):
             QuantumSystem.updateDimension(self.superSys, self, newDimVal)
-
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
         if self.constructed is True:
             self.initialState = self._genericQSys__initialStateInput
             
@@ -382,7 +399,7 @@ class qCoupling(qUniversal):
     instances = 0
     label = 'qCoupling'
 
-    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys']
+    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys', '__paramUpdated']
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -390,8 +407,17 @@ class qCoupling(qUniversal):
         self.__cFncs = []
         self.__qSys = []
         self.__Matrix = None
+        self.__paramUpdated = True
         self._qUniversal__setKwargs(**kwargs)
         self.addTerm(*args)
+
+    @property
+    def _paramUpdated(self):
+        return self._qCoupling__paramUpdated
+
+    @_paramUpdated.setter
+    def _paramUpdated(self, boolean):
+        self._qCoupling__paramUpdated = boolean
 
     # TODO might define setters
     @property
@@ -410,6 +436,9 @@ class qCoupling(qUniversal):
 
     @couplingStrength.setter
     def couplingStrength(self, strength):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
         self._qCoupling__couplingStrength = strength
 
     @property
