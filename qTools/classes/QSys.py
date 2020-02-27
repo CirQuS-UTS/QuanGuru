@@ -3,20 +3,22 @@ from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance, constructConditions
+from qTools.classes.QPro import freeEvolution
 
 
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
-    
-    __slots__ = ['__constructed', '__initialState', '__lastState', '__Unitaries']
+    __slots__ = ['__constructed', '__initialState', '__lastState', '__unitary', '__initialStateInput']
     def __init__(self, **kwargs):
         super().__init__()
         self.__constructed = False
         self.__initialState = None
         self.__lastState = None
-        self.__Unitaries = None
+        self.__unitary = None
+        self.___initialStateInput = None
         self._qUniversal__setKwargs(**kwargs)
+        
 
     # constructed boolean setter and getter
     @property
@@ -29,12 +31,12 @@ class genericQSys(qUniversal):
     
     # Unitary property and setter
     @property
-    def Unitaries(self):
-        return self._genericQSys__Unitaries
+    def unitary(self):
+        return self._genericQSys__unitary
 
-    @Unitaries.setter
-    def Unitaries(self, uni):
-        self._genericQSys__Unitaries = uni
+    @unitary.setter
+    def unitary(self, uni):
+        self._genericQSys__unitary = uni
 
     # initial state
     @property
@@ -165,25 +167,23 @@ class QuantumSystem(genericQSys):
         self._genericQSys__constructed = False
         if to is None:
             self.qCouplings = {}
-            self.Unitaries = None
+            self.unitary = None
             self.couplingName = None
-            return 0
         else:
             self.couplingName = to
             self.qCouplings = self._QuantumSystem__kept[to][0]
-            self.Unitaries = self._QuantumSystem__kept[to][1]
-            return 0
+            self.unitary = self._QuantumSystem__kept[to][1]
 
     def __keepOld(self):
         name = self.couplingName
         if name in self._QuantumSystem__kept.keys():
-            if self.Unitaries != self._QuantumSystem__kept[name][1]:
+            if self.unitary != self._QuantumSystem__kept[name][1]:
                 name = len(self._QuantumSystem__kept)
-                self._QuantumSystem__kept[name] = [self.qCouplings, self.Unitaries]
+                self._QuantumSystem__kept[name] = [self.qCouplings, self.unitary]
             else:
                 return 'nothing'
         else:
-            self._QuantumSystem__kept[name] = [self.qCouplings, self.Unitaries]
+            self._QuantumSystem__kept[name] = [self.qCouplings, self.unitary]
 
     # construct the matrices
     def constructCompSys(self):
@@ -201,7 +201,7 @@ class QuantumSystem(genericQSys):
             elif qS.ind > ind:
                 dimB = int((qS._qSystem__dimsBefore*newDimVal)/qSys.dimension)
                 qS._qSystem__dimsBefore = dimB
-
+        self.initialState = self._genericQSys___initialStateInput
         if self._genericQSys__constructed is True:
             self.constructCompSys()
         return qSys
@@ -267,11 +267,11 @@ class qSystem(genericQSys):
     def dimension(self, newDimVal):
         if not isinstance(newDimVal, int):
             raise ValueError('Dimension is not int')
-
+        self._qSystem__dimension = newDimVal
         if isinstance(self.superSys, QuantumSystem):
             QuantumSystem.updateDimension(self.superSys, self, newDimVal)
-
-        self._qSystem__dimension = newDimVal
+        else:
+            self.initialState = self._genericQSys___initialStateInput
             
     @property
     def totalHam(self):
