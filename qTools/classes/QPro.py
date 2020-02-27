@@ -184,33 +184,24 @@ class Gate(Step):
 
     @implementation.setter
     def implementation(self, typeStr):
-        if self._Gate__implementation == None:
-            print('No implementation')
+        self._Gate__implementation = typeStr
 
-    def instantGate(self):
-        sys = self.superSys
-        unitary = compositeOp(
-            self.operator(sys.dimension),
-            sys._qSystem__dimsBefore,
-            sys._qSystem__dimsAfter)
-        self._Step__unitary = unitary
-        return unitary
 
 class Update(qUniversal):
     instances = 0
     label = 'Update'
-    slots = ['system', 'key', 'value', 'memory']
+    slots = ['system', 'key', 'value', '__memory']
     def __init__ (self, **kwargs):
         super().__init__()
         self.system = None
         self.key = None
         self.value = None
-        self.memory = None
+        self.__memory = None
         self._qUniversal__setKwargs(**kwargs)
 
     def setup(self):
-        self.memory = getattr(self.system, self.key)
+        self._Update__memory = getattr(self.system, self.key)
         setattr(self.system, self.key, self.value)
     
     def setback(self):
-        setattr(self.system, self.key, self.memory)
+        setattr(self.system, self.key, self._Update__memory)
