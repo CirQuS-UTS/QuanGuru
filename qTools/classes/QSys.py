@@ -15,8 +15,8 @@ class genericQSys(qUniversal):
         self.__constructed = False
         self.__initialState = None
         self.__lastState = None
-        self.__unitary = None
-        self.___initialStateInput = None
+        self.__unitary = freeEvolution(superSys=self)
+        self.__initialStateInput = None
         self._qUniversal__setKwargs(**kwargs)
         
 
@@ -201,7 +201,7 @@ class QuantumSystem(genericQSys):
             elif qS.ind > ind:
                 dimB = int((qS._qSystem__dimsBefore*newDimVal)/qSys.dimension)
                 qS._qSystem__dimsBefore = dimB
-        self.initialState = self._genericQSys___initialStateInput
+        self.initialState = self._genericQSys__initialStateInput
         if self._genericQSys__constructed is True:
             self.constructCompSys()
         return qSys
@@ -270,8 +270,9 @@ class qSystem(genericQSys):
         self._qSystem__dimension = newDimVal
         if isinstance(self.superSys, QuantumSystem):
             QuantumSystem.updateDimension(self.superSys, self, newDimVal)
-        else:
-            self.initialState = self._genericQSys___initialStateInput
+
+        if self.constructed is True:
+            self.initialState = self._genericQSys__initialStateInput
             
     @property
     def totalHam(self):

@@ -1,4 +1,5 @@
 from qTools.classes.QPro import Gate
+from qTools.classes.QSys import genericQSys
 from qTools.QuantumToolbox import operators, operations
 from numpy import pi
 
@@ -41,4 +42,8 @@ class xGate(Gate):
         else:
             return self.createUnitary()
 
+def xGate(obj, *args):
+    for arg in args:
+        newXGate = xGate(superSys=arg)
+        obj._genericQSys__qProtocol.add(newXGate)
 

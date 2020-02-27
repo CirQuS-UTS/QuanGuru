@@ -102,7 +102,7 @@ class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
     __compute = 0
-    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step', 'delState', 'qRes']
+    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
@@ -118,7 +118,7 @@ class Simulation(qUniversal):
 
         self.__finalTime = None
         self.__stepSize = 0.02
-        self.__sample = 1
+        self.__samples = 1
         self.__step = 1
 
         self.compute = None
@@ -168,11 +168,11 @@ class Simulation(qUniversal):
 
     @property
     def samples(self):
-        return self._Simulation__sample
+        return self._Simulation__samples
 
     @samples.setter
     def samples(self, num):
-        self._Simulation__sample = num
+        self._Simulation__samples = num
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -208,6 +208,8 @@ class Simulation(qUniversal):
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
+
+        self.qSys.unitary.prepare(self.stepSize, self.samples)
 
         res = runSimulation(self, p)
 

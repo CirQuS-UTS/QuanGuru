@@ -330,10 +330,7 @@ def __timeEvol(qSim, unitary):
         qSim.qRes._qResults__prevRes = True
 
 def exponUni(qSim):
-    if qSim.qSys.Unitaries is None:
-        unitary = lio.Liouvillian(2 * np.pi * qSim.qSys.totalHam, timeStep=qSim.stepSize/qSim.samples)
-    else:
-        unitary = qSim.qSys.Unitaries(qSim.qSys, qSim.stepSize/qSim.samples)
+    unitary = qSim.qSys.unitary.createUnitary()
     return unitary
 
 def runSequence(qSeq, ind):
