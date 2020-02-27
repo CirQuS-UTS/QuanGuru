@@ -209,7 +209,7 @@ class Simulation(qUniversal):
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
 
-        self.qSys.unitary.prepare(self.stepSize, self.samples)
+        self.qSys.unitary.prepare(self)
 
         res = runSimulation(self, p)
 

@@ -23,8 +23,10 @@ class qProtocol(qUniversal):
             if step in self.steps:
                 self.steps.append(copyStep(step))
             else:
-                step.superSys = self.superSys
                 self.steps.append(step)
+                # TODO is this really necessary ?
+                if step.superSys is None:
+                    step.superSys = self.superSys
 
     def createStep(self, n=1):
         newSteps = []
@@ -53,24 +55,26 @@ class qProtocol(qUniversal):
         self._qProtocol__unitary = unitary
         return unitary
 
-    def prepare(self):
+    def prepare(self, obj):
         for step in self.steps:
-            step.prepare()
-            if step.fixed is True:
-                step.createFixed()
+            if not isinstance(step, copyStep):
+                step.prepare(obj)
+                if step.fixed is True:
+                    step.createFixed()
 
 class Step(qUniversal):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary']
+    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound']
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = None
         self.__stepSize = None
         self.__samples = None
         self.__ratio = None
-        self.__updates =  []
+        self.__updates = []
         self.__fixed = False
+        self.__bound = self
         self.getUnitary = None
         self._qUniversal__setKwargs(**kwargs)
 
@@ -130,15 +134,19 @@ class Step(qUniversal):
         for update in args:
             self.updates.append(update)
 
-    def prepare(self, stSize, samp, ):
+    def prepare(self, obj):
         if self.stepSize is None:
-            self.stepSize = stSize
-        
+            self._Step__bound = obj
+
         if self.samples is None:
-            self.samples = samp
+            self.samples = obj.samples
 
         if self.ratio is None:
             self.ratio = 1
+
+    @property
+    def bound(self):
+        return self._Step__bound
 
 class copyStep(Step):
     instances = 0
@@ -146,9 +154,9 @@ class copyStep(Step):
     __slots__ = []
     def __init__(self, superSys):
         self.superSys = superSys
+        self.getUnitary = self.unitaryCopy
     
-    @Step.unitary.getter
-    def unitary(self):
+    def unitaryCopy(self):
         return self.superSys._Step__unitary
         
 class freeEvolution(Step):
@@ -172,7 +180,7 @@ class freeEvolution(Step):
         self._freeEvolution__fixed = cond
 
     def getUnitaryNoUpdate(self):
-        unitary = lio.Liouvillian(2 * np.pi * self.superSys.totalHam, timeStep=((self.stepSize*self.ratio)/self.samples))
+        unitary = lio.Liouvillian(2 * np.pi * self.superSys.totalHam, timeStep=((self.bound.stepSize*self.ratio)/self.bound.samples))
         self._Step__unitary = unitary
         return unitary
         

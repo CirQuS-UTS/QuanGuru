@@ -167,7 +167,7 @@ class QuantumSystem(genericQSys):
         self._genericQSys__constructed = False
         if to is None:
             self.qCouplings = {}
-            self.unitary = None
+            self.unitary = freeEvolution(superSys=self)
             self.couplingName = None
         else:
             self.couplingName = to

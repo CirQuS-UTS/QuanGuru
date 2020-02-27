@@ -5,8 +5,10 @@ from numpy import pi
 
 class xGate(Gate):
     instances = 0
-    label = 'qUniversal'
+    label = 'xGate'
+    __slots__ = ['__angle']
     def __init__(self, **kwargs):
+        print(kwargs)
         super().__init__()
         self.__angle = None
         self.getUnitary = None
@@ -28,6 +30,7 @@ class xGate(Gate):
     @Gate.implementation.setter
     def implementation(self, typeStr):
         if typeStr.lower() == 'instant':
+            # FIXME creates the matrix everytime its called
             self.getUnitary = self.instantFlip
             self._Gate__implementation = typeStr
 
@@ -42,8 +45,8 @@ class xGate(Gate):
         else:
             return self.createUnitary()
 
-def xGate(obj, *args):
+'''def xGate(obj, *args):
     for arg in args:
         newXGate = xGate(superSys=arg)
-        obj._genericQSys__qProtocol.add(newXGate)
+        obj._genericQSys__qProtocol.add(newXGate)'''
 
