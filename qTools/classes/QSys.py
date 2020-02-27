@@ -158,6 +158,7 @@ class QuantumSystem(genericQSys):
 
     # reset and keepOld
     def reset(self, to=None):
+        # TODO make sure that the kept protocols deletes their matrices and different sweeps ?
         for qSys in self.qSystems.values():
             qSys._qSystem__Matrix = None
 

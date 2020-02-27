@@ -194,8 +194,8 @@ class Simulation(qUniversal):
             self.qSys.constructCompSys()
 
         self.qRes.reset()
-        self.qRes._prepare()
-        self.qRes.createList()
+        self.qRes._prepare(self)
+        self.qRes._createList()
         
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
@@ -204,7 +204,7 @@ class Simulation(qUniversal):
         self.qSys.unitary.prepare(self)
 
         res = runSimulation(self, p)
-        
+
         self.qRes._unpack()
         return self.qRes
 
