@@ -212,5 +212,5 @@ class Simulation(qUniversal):
     @staticmethod
     def __res(seq):
         seq.lCount = 0
-        for ind in range(len(seq.sweeps)):
-            seq.sweeps[ind].lCounts = 0
+        for sweep in seq.sweeps:
+            sweep.lCounts = 0

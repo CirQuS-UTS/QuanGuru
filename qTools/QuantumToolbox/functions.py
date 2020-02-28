@@ -226,7 +226,7 @@ def iprKet(basis, ket):
     :return: inverse participation ratio
     """
     npc = 0
-    for basKet in range(len(basis)):
+    for basKet in basis:
         fid = fidelityKet(basKet, ket)
         npc += (fid**2)
     return 1/npc
@@ -298,7 +298,7 @@ def iprPureDenMat(basis, denMat):
     :return: inverse participation ratio
     """
     npc = 0
-    for basKet in range(len(basis)):
+    for basKet in basis:
         fid = fidelityPureMat(basKet, denMat)
         npc += (fid**2)
     return 1/npc
@@ -332,7 +332,7 @@ def eigVecStatKet(basis, ket):
     :return: list of component values in the basis
     """
     comps = []
-    for basKet in range(len(basis)):
+    for basKet in basis:
         comps.append(fidelityKet(basKet, ket))
     return comps
 

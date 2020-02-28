@@ -7,9 +7,9 @@ def Liouvillian(Hamiltonian, collapseOperators = [], decayRates = [], exp = True
     sparse = sp.issparse(Hamiltonian)
     if len(collapseOperators) != 0:
         dimensionOfHilbertSpace = Hamiltonian.shape[0]
-        if sparse == False:
+        if sparse is False:
             identity = np.identity(dimensionOfHilbertSpace)
-        elif sparse == True:
+        elif sparse is True:
             identity = sp.identity(dimensionOfHilbertSpace, format="csc")
         hamPart1 = __preSO(Hamiltonian, identity, sparse)
         hamPart2 = __posSO(Hamiltonian, identity, sparse)
@@ -22,15 +22,15 @@ def Liouvillian(Hamiltonian, collapseOperators = [], decayRates = [], exp = True
             else:
                 liouvillian += collapsePart
 
-        if exp == True:
-            if sparse == True:
+        if exp is True:
+            if sparse is True:
                 liouvillianEXP = slinA.expm(liouvillian * timeStep)
-            elif sparse == False:
+            elif sparse is False:
                 liouvillianEXP = linA.expm(liouvillian * timeStep)
         else:
             liouvillianEXP = liouvillian
     else:
-        if sparse == True:
+        if sparse is True:
             liouvillianEXP = slinA.expm(-1j * Hamiltonian * timeStep)
             """h = copy.copy(Hamiltonian)
             l = linA.expm(-1j * h * timeStep)
@@ -43,7 +43,7 @@ def dissipator(collapseOperator, identity = []):
     sparse = sp.issparse(collapseOperator)
     if identity == []:
         dimension = collapseOperator.shape[0]
-        if sparse == True:
+        if sparse is True:
             identity = sp.identity(dimension, format="csc")
         else:
             identity = np.identity(dimension)
@@ -57,19 +57,19 @@ def dissipator(collapseOperator, identity = []):
     return part1 - (0.5 * (part2 + part3))
 
 def __preSO(operator, identity, sparse):
-    if sparse == True:
+    if sparse is True:
         return sp.kron(identity, operator, format='csc')
     else:
         return np.kron(identity, operator)
 
 def __posSO(operator, identity, sparse):
-    if sparse == True:
+    if sparse is True:
         return sp.kron(operator.transpose(), identity, format='csc')
     else:
         return np.kron(np.transpose(operator), identity)
 
 def __preposSO(operator,sparse):
-    if sparse == True:
+    if sparse is True:
         return sp.kron(operator.conj(), operator, format='csc')
     else:
         return np.kron(np.conjugate(operator), operator)
