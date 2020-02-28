@@ -7,11 +7,12 @@ import numpy as np
 class qProtocol(qUniversal):
     instances = 0
     label = 'qProtocol'
-    __slots__  = ['__steps', '__unitary']
+    __slots__  = ['__steps', '__unitary', 'lastState']
     def __init__(self, **kwargs):
         super().__init__()
         self.__steps = []
         self.__unitary = None
+        self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -66,7 +67,7 @@ class qProtocol(qUniversal):
 class Step(qUniversal):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary']
+    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState']
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = None
@@ -78,6 +79,7 @@ class Step(qUniversal):
         self.__bound = self
         self.getUnitary = None
         self.createUnitary = self.createUnitaryFunc
+        self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property

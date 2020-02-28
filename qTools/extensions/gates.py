@@ -8,7 +8,6 @@ class xGate(Gate):
     label = 'xGate'
     __slots__ = ['__angle']
     def __init__(self, **kwargs):
-        print(kwargs)
         super().__init__()
         self.__angle = None
         self.getUnitary = None

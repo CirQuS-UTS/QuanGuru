@@ -9,7 +9,7 @@ from qTools.classes.QPro import freeEvolution
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
-    __slots__ = ['__constructed', '__initialState', '__lastState', '__unitary', '__initialStateInput', '__paramUpdated']
+    __slots__ = ['__constructed', '__initialState', '__lastState', '__unitary', '__initialStateInput', '__paramUpdated', '__lastStateList']
     def __init__(self, **kwargs):
         super().__init__()
         self.__constructed = False
@@ -18,6 +18,7 @@ class genericQSys(qUniversal):
         self.__unitary = freeEvolution(superSys=self)
         self.__initialStateInput = None
         self.__paramUpdated = True
+        self.__lastStateList = []
         self._qUniversal__setKwargs(**kwargs)
         
     @property
@@ -58,6 +59,15 @@ class genericQSys(qUniversal):
     @lastState.setter
     def lastState(self, inp):
         self._genericQSys__lastState = inp
+
+    def __prepareLastStateList(self):
+        self._genericQSys__lastStateList = []
+        if isinstance(self.unitary, qUniversal):
+            self._genericQSys__lastStateList.append(self.initialState)
+        elif isinstance(self.unitary, list):
+            for ind in range(len(self.unitary)):
+                self._genericQSys__lastStateList.append(self.initialState)
+
 
 
 # Composite Quantum system
