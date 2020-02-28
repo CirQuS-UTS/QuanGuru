@@ -164,7 +164,8 @@ class Simulation(qUniversal):
     @stepSize.setter
     def stepSize(self, stepsize):
         self._Simulation__stepSize = stepsize
-        self._Simulation__step = int(self.finalTime//stepsize + 1)
+        if self.finalTime is not None:
+            self._Simulation__step = int(self.finalTime//stepsize + 1)
 
     @property
     def samples(self):
@@ -201,7 +202,7 @@ class Simulation(qUniversal):
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
 
-        self.qSys.unitary.prepare(self)
+        self.qSys._genericQSys__unitary.prepare(self)
 
         res = runSimulation(self, p)
 

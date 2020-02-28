@@ -41,7 +41,19 @@ class genericQSys(qUniversal):
     # Unitary property and setter
     @property
     def unitary(self):
-        return self._genericQSys__unitary
+        if isinstance(self._genericQSys__unitary, qUniversal):
+            unitary = self._genericQSys__unitary.createUnitary()
+        elif isinstance(self._genericQSys__unitary, list):
+            unitary = []
+            for protocol in self._genericQSys__unitary:
+                unitary.append(protocol.createUnitary())
+        self._paramUpdated = False
+        return unitary
+
+    @unitary.setter
+    def unitary(self, protocols):
+        self._genericQSys__unitary = protocols
+
 
     @unitary.setter
     def unitary(self, uni):
@@ -62,9 +74,9 @@ class genericQSys(qUniversal):
 
     def __prepareLastStateList(self):
         self._genericQSys__lastStateList = []
-        if isinstance(self.unitary, qUniversal):
+        if isinstance(self._genericQSys__unitary, qUniversal):
             self._genericQSys__lastStateList.append(self.initialState)
-        elif isinstance(self.unitary, list):
+        elif isinstance(self._genericQSys__unitary, list):
             for ind in range(len(self.unitary)):
                 self._genericQSys__lastStateList.append(self.initialState)
 
@@ -361,6 +373,7 @@ class Qubit(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
+        print(kwargs)
         super().__init__()
         kwargs['dimension'] = 2
         self.operator = qOps.sigmaz

@@ -83,6 +83,10 @@ class Step(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
 
     @property
+    def updates(self):
+       return self._Step__updates
+
+    @property
     def ratio(self):
         return self._Step__ratio
 
@@ -117,7 +121,6 @@ class Step(qUniversal):
     def createUnitaryFunc(self):
         if self.superSys._paramUpdated is True:
             unitary = self.getUnitary()
-            self.superSys._paramUpdated = False
         else:
             unitary = self._Step__unitary
         return unitary
@@ -143,7 +146,7 @@ class Step(qUniversal):
     
     def addUpdate(self, *args):
         for update in args:
-            self.updates.append(update)
+            self._Step__updates.append(update)
 
     def prepare(self, obj):
         if self.stepSize is None:
@@ -184,7 +187,7 @@ class freeEvolution(Step):
         if cond:
             self.getUnitary = self.getFixedUnitary
         else:
-            if len(self.updates) == 0:    
+            if len(self._Step__updates) == 0:    
                 self.getUnitary = self.getUnitaryNoUpdate
             else:
                 self.getUnitary = self.getUnitaryUpdate
@@ -196,10 +199,10 @@ class freeEvolution(Step):
         return unitary
         
     def getUnitaryUpdate(self):
-        for update in self.updates:
+        for update in self._Step__updates:
             update.setup() 
         unitary = self.getUnitaryNoUpdate()
-        for update in self.updates:
+        for update in self._Step__updates:
             update.setback()
         return unitary
 
@@ -208,7 +211,7 @@ class freeEvolution(Step):
 
     def addUpdate(self, *args):
         for update in args:
-            self.updates.append(update)
+            self._Step__updates.append(update)
         self.getUnitary = self.getUnitaryUpdate
 
 class Gate(Step):

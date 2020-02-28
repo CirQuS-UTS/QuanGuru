@@ -321,7 +321,7 @@ def __timeEvolDel(qSim, unitaryList):
             qSim.qSys._genericQSys__lastStateList[ind] = unitary @ qSim.qSys._genericQSys__lastStateList[ind]
 
         qSim.qRes._qResults__resCount = 0
-        qSim._Simulation__compute(qSim.qSys, *qSim.qSys._genericQSys__lastStateList[ind])
+        qSim._Simulation__compute(qSim.qSys, *qSim.qSys._genericQSys__lastStateList)
         qSim.qRes._qResults__prevRes = True
         """qSim.qSys.lastState = unitary @ qSim.qSys.lastState
             qSim.qRes._qResults__resCount = 0
@@ -344,12 +344,16 @@ def __timeEvol(qSim, unitaryList):
         qSim.qRes._qResults__prevRes = True"""
 
 def exponUni(qSim):
-    if isinstance(qSim.qSys.unitary, qUniversal):
-        unitary = [qSim.qSys.unitary.createUnitary()]
-    elif isinstance(qSim.qSim.unitary, list):
+    unitary = qSim.qSys.unitary
+    """if isinstance(qSim.qSys._genericQSys__unitary, qUniversal):
+        unitary = [qSim.qSys.unitary]
+    elif isinstance(qSim.qSim._genericQSys__unitary, list):
         unitary = []
-        for protocol in qSim.qSim.unitary:
+        for protocol in qSim.qSim._genericQSys__unitary:
             unitary.append(protocol.createUnitary())
+        qSim.qSys._paramUpdated = False"""
+    if not isinstance(unitary, list):
+        unitary = [unitary]
     return unitary
 
 def runSequence(qSeq, ind):
