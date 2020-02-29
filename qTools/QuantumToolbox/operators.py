@@ -109,21 +109,24 @@ def squeeze(alpha, dim,sparse=True):
     n = linA.expm(0.5*(oper.toarray()))
     return sp.csc_matrix(n) if sparse == True else n
 
-def Jz(j,sparse=True, isDim=False):
-    d = int((2*j) + 1)
-    if isDim == True:
+def Jz(j,sparse=True, isDim=True):
+    if isDim == False:
+        d = int((2*j) + 1)
+    elif isDim == True:
         d = j
+        j = ((d-1)/2)
     data = [j-i for i in range(d)]
     rows = range(0,d)
     columns = range(0,d)
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
-def Jp(j,sparse=True, isDim=False):
-    d = int((2*j) + 1)
-    if isDim == True:
+def Jp(j,sparse=True, isDim=True):
+    if isDim == False:
+        d = int((2*j) + 1)
+    elif isDim == True:
         d = j
-    d = int((2*j) + 1)
+        j = ((d-1)/2)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
     rows = range(0,d-1)
@@ -131,11 +134,12 @@ def Jp(j,sparse=True, isDim=False):
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
-def Jm(j,sparse=True, isDim=False):
-    d = int((2*j) + 1)
-    if isDim == True:
+def Jm(j, sparse=True, isDim=True):
+    if isDim == False:
+        d = int((2*j) + 1)
+    elif isDim == True:
         d = j
-    d = int((2*j) + 1)
+        j = ((d-1)/2)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
     rows = range(1,d)
@@ -143,14 +147,18 @@ def Jm(j,sparse=True, isDim=False):
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse == True else n.toarray()
 
-def Jx(j,sparse=True, isDim=False):
+def Jx(j,sparse=True, isDim=True):
     n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
     return n if sparse == True else n.toarray()
 
-def Jy(k,sparse=True, isDim=False):
+def Jy(k,sparse=True, isDim=True):
     n = (1/(2j))*(Jp(k, isDim=isDim) - Jm(k, isDim=isDim))
     return n if sparse == True else n.toarray()
 
-def Js(j,sparse=True, isDim=False):
+def Js(j,sparse=True, isDim=True):
     n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
     return n if sparse == True else n.toarray()
+
+
+def operatorPow(op, dim, power, sparse=True):
+    return op(dim, sparse)**power

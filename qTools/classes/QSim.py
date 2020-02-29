@@ -3,6 +3,8 @@ from qTools.classes.QSys import QuantumSystem
 from qTools.classes.QUni import qUniversal
 #from qTools.classes.exceptions import sweepInitError
 from qTools.classes.extensions.timeEvolve import runSimulation
+from qTools.classes.QRes import qResults
+from itertools import chain
 
 """ under construction be careful """
 class Sweep(qUniversal):
@@ -100,7 +102,7 @@ class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
     __compute = 0
-    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__sample', '__step', 'delState']
+    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
@@ -109,12 +111,14 @@ class Simulation(qUniversal):
         self.beforeLoop = qSequence(superSys=self)
         self.Loop = qSequence(superSys=self)
         self.whileLoop = qSequence(superSys=self)
+        # TODO assign supersys ?
+        self.qRes = qResults()
         
         self.delState = False
 
         self.__finalTime = None
         self.__stepSize = 0.02
-        self.__sample = 1
+        self.__samples = 1
         self.__step = 1
 
         self.compute = None
@@ -127,43 +131,49 @@ class Simulation(qUniversal):
         if self.__qSys is None:
             self.__qSys = QuantumSystem()
 
-    def __computeDel(self, qSys, state):
-        if self.compute is not None:
-            results = self.compute(self, state)
-        del(state)
-        return results
-
     def __compute(self, qSys, state):
         if self.compute is not None:
             results = self.compute(self, state)
+        else:
+            # FIXME assumed this is going to return a thing a that will be appended, if not ?
+            results = None
         return results
 
     @property
     def finalTime(self):
-        self.__finalTime
+        return self._Simulation__finalTime
 
     @finalTime.setter
     def finalTime(self, fTime):
-        self.steps = int(round(self.finalTime/self.stepSize))+1
+        self._Simulation__finalTime = fTime
+        self._Simulation__step = int(fTime//self.stepSize + 1)
 
     @property
     def steps(self):
-        if len(self.whileLoop.sweeps) > 0:
-            return len(self.whileLoop.sweeps[0].sweepList)
-        else:
-            return self._Simulation__step
+        return self._Simulation__step
 
     @steps.setter
     def steps(self, num):
         self._Simulation__step = num
+        self._Simulation__stepSize = self.finalTime/num
+
+    @property
+    def stepSize(self):
+        return self._Simulation__stepSize
+
+    @stepSize.setter
+    def stepSize(self, stepsize):
+        self._Simulation__stepSize = stepsize
+        if self.finalTime is not None:
+            self._Simulation__step = int(self.finalTime//stepsize + 1)
 
     @property
     def samples(self):
-        return self._Simulation__sample
+        return self._Simulation__samples
 
     @samples.setter
     def samples(self, num):
-        self._Simulation__sample = num
+        self._Simulation__samples = num
 
     def __del__(self):
         class_name = self.__class__.__name__
@@ -178,30 +188,26 @@ class Simulation(qUniversal):
         """if isinstance(val, QuantumSystem):
             QuantumSystem.constructCompSys(val)"""
         self._Simulation__qSys = val
-
-    @property
-    def stepSize(self):
-        return self._Simulation__stepSize
-
-    @stepSize.setter
-    def stepSize(self, stepsize):
-        self._Simulation__stepSize = stepsize
     
     def run(self, p=None):
         if isinstance(self.qSys, QuantumSystem):
             # TODO Check first if constructed
             self.qSys.constructCompSys()
+
+        self.qRes.reset()
+        self.qRes._prepare(self)
+        self.qRes._createList()
         
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
-        '''statesList = [] 
-        resultsList = []'''
+
+        self.qSys._genericQSys__unitary.prepare(self)
+
         res = runSimulation(self, p)
-        if self.delState is True:
-            return res
-        else:
-            return res[0], res[1]
+
+        self.qRes._unpack()
+        return self.qRes
 
     @staticmethod
     def __res(seq):

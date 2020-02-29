@@ -3,20 +3,31 @@ from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance, constructConditions
+from qTools.classes.QPro import freeEvolution
 
 
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
-    
-    __slots__ = ['__constructed', '__initialState', '__lastState', '__Unitaries']
+    __slots__ = ['__constructed', '__initialState', '__lastState', '__unitary', '__initialStateInput', '__paramUpdated', '__lastStateList']
     def __init__(self, **kwargs):
         super().__init__()
         self.__constructed = False
         self.__initialState = None
         self.__lastState = None
-        self.__Unitaries = None
+        self.__unitary = freeEvolution(superSys=self)
+        self.__initialStateInput = None
+        self.__paramUpdated = True
+        self.__lastStateList = []
         self._qUniversal__setKwargs(**kwargs)
+        
+    @property
+    def _paramUpdated(self):
+        return self._genericQSys__paramUpdated
+
+    @_paramUpdated.setter
+    def _paramUpdated(self, boolean):
+        self._genericQSys__paramUpdated = boolean
 
     # constructed boolean setter and getter
     @property
@@ -29,12 +40,24 @@ class genericQSys(qUniversal):
     
     # Unitary property and setter
     @property
-    def Unitaries(self):
-        return self._genericQSys__Unitaries
+    def unitary(self):
+        if isinstance(self._genericQSys__unitary, qUniversal):
+            unitary = self._genericQSys__unitary.createUnitary()
+        elif isinstance(self._genericQSys__unitary, list):
+            unitary = []
+            for protocol in self._genericQSys__unitary:
+                unitary.append(protocol.createUnitary())
+        self._paramUpdated = False
+        return unitary
 
-    @Unitaries.setter
-    def Unitaries(self, uni):
-        self._genericQSys__Unitaries = uni
+    @unitary.setter
+    def unitary(self, protocols):
+        self._genericQSys__unitary = protocols
+
+
+    @unitary.setter
+    def unitary(self, uni):
+        self._genericQSys__unitary = uni
 
     # initial state
     @property
@@ -48,6 +71,15 @@ class genericQSys(qUniversal):
     @lastState.setter
     def lastState(self, inp):
         self._genericQSys__lastState = inp
+
+    def __prepareLastStateList(self):
+        self._genericQSys__lastStateList = []
+        if isinstance(self._genericQSys__unitary, qUniversal):
+            self._genericQSys__lastStateList.append(self.initialState)
+        elif isinstance(self._genericQSys__unitary, list):
+            for ind in range(len(self.unitary)):
+                self._genericQSys__lastStateList.append(self.initialState)
+
 
 
 # Composite Quantum system
@@ -156,6 +188,7 @@ class QuantumSystem(genericQSys):
 
     # reset and keepOld
     def reset(self, to=None):
+        # TODO make sure that the kept protocols deletes their matrices and different sweeps ?
         for qSys in self.qSystems.values():
             qSys._qSystem__Matrix = None
 
@@ -165,25 +198,23 @@ class QuantumSystem(genericQSys):
         self._genericQSys__constructed = False
         if to is None:
             self.qCouplings = {}
-            self.Unitaries = None
+            self.unitary = freeEvolution(superSys=self)
             self.couplingName = None
-            return 0
         else:
             self.couplingName = to
             self.qCouplings = self._QuantumSystem__kept[to][0]
-            self.Unitaries = self._QuantumSystem__kept[to][1]
-            return 0
+            self.unitary = self._QuantumSystem__kept[to][1]
 
     def __keepOld(self):
         name = self.couplingName
         if name in self._QuantumSystem__kept.keys():
-            if self.Unitaries != self._QuantumSystem__kept[name][1]:
+            if self.unitary != self._QuantumSystem__kept[name][1]:
                 name = len(self._QuantumSystem__kept)
-                self._QuantumSystem__kept[name] = [self.qCouplings, self.Unitaries]
+                self._QuantumSystem__kept[name] = [self.qCouplings, self.unitary]
             else:
                 return 'nothing'
         else:
-            self._QuantumSystem__kept[name] = [self.qCouplings, self.Unitaries]
+            self._QuantumSystem__kept[name] = [self.qCouplings, self.unitary]
 
     # construct the matrices
     def constructCompSys(self):
@@ -201,7 +232,8 @@ class QuantumSystem(genericQSys):
             elif qS.ind > ind:
                 dimB = int((qS._qSystem__dimsBefore*newDimVal)/qSys.dimension)
                 qS._qSystem__dimsBefore = dimB
-
+        self.initialState = self._genericQSys__initialStateInput
+        self._paramUpdated = True
         if self._genericQSys__constructed is True:
             self.constructCompSys()
         return qSys
@@ -217,7 +249,7 @@ class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
 
-    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms']
+    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', 'order']
     @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__()
@@ -228,7 +260,15 @@ class qSystem(genericQSys):
         self.__dimsBefore = 1
         self.__dimsAfter = 1
         self.__terms = [self]
+        self.order = 1
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def terms(self):
+        if not isinstance(self.superSys, qSystem):
+            return self._qSystem__terms
+        else:
+            print('This is a term in ', self.superSys)
 
     @genericQSys.initialState.setter
     @asignState(qSta.superPos)
@@ -241,6 +281,9 @@ class qSystem(genericQSys):
 
     @frequency.setter
     def frequency(self, freq):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
         self._qSystem__frequency = freq
 
     @property
@@ -249,6 +292,9 @@ class qSystem(genericQSys):
 
     @operator.setter
     def operator(self, op):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
         self._qSystem__operator = op
 
     @property
@@ -259,18 +305,21 @@ class qSystem(genericQSys):
     def dimension(self, newDimVal):
         if not isinstance(newDimVal, int):
             raise ValueError('Dimension is not int')
-
+        self._qSystem__dimension = newDimVal
         if isinstance(self.superSys, QuantumSystem):
             QuantumSystem.updateDimension(self.superSys, self, newDimVal)
-
-        self._qSystem__dimension = newDimVal
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
+        if self.constructed is True:
+            self.initialState = self._genericQSys__initialStateInput
             
     @property
     def totalHam(self):
         h = sum([(obj.frequency * obj.freeMat) for obj in self._qSystem__terms])
         return h
 
-    # I'm not sure to have this, freeMat setter covers all the cases and this one does not make much sense
+    # I'm not sure to keep this, freeMat setter covers all the cases and this one does not make much sense
     """@totalHam.setter
     def totalHam(self, qOpsFunc):
         self.freeMat = qOpsFunc
@@ -297,12 +346,13 @@ class qSystem(genericQSys):
     @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
-            sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
+            sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             sys._genericQSys__constructed = True
         return self._qSystem__Matrix
 
-    def addTerm(self, op, freq):
+    def addTerm(self, op, freq, order=1):
         copySys = self.copy(operator=op, frequency=freq, superSys=self)
+        copySys.order = order
         self._qSystem__terms.append(copySys)
         return copySys
 
@@ -323,6 +373,7 @@ class Qubit(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
+        print(kwargs)
         super().__init__()
         kwargs['dimension'] = 2
         self.operator = qOps.sigmaz
@@ -353,11 +404,6 @@ class Spin(qSystem):
     def jValue(self, value):
         self._Spin__jValue = value
         self.dimension = int((2*value) + 1)
-    
-    def __constructSubMat(self):
-        # FIXME This does not work, if J Ham has more than one term
-        self._qSystem__Matrix = qOps.compositeOp(self.operator(self.dimension, isDim=True), self._qSystem__dimsBefore, self._qSystem__dimsAfter)
-        return self._qSystem__Matrix
 
 
 class Cavity(qSystem):
@@ -376,7 +422,7 @@ class qCoupling(qUniversal):
     instances = 0
     label = 'qCoupling'
 
-    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys']
+    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys', '__paramUpdated']
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -384,8 +430,17 @@ class qCoupling(qUniversal):
         self.__cFncs = []
         self.__qSys = []
         self.__Matrix = None
+        self.__paramUpdated = True
         self._qUniversal__setKwargs(**kwargs)
         self.addTerm(*args)
+
+    @property
+    def _paramUpdated(self):
+        return self._qCoupling__paramUpdated
+
+    @_paramUpdated.setter
+    def _paramUpdated(self, boolean):
+        self._qCoupling__paramUpdated = boolean
 
     # TODO might define setters
     @property
@@ -404,6 +459,9 @@ class qCoupling(qUniversal):
 
     @couplingStrength.setter
     def couplingStrength(self, strength):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
         self._qCoupling__couplingStrength = strength
 
     @property

@@ -5,11 +5,12 @@ from qTools.classes.QUni import qUniversal
 def asignState(stateCreationFunc):
     def InitialStateDecorator(initialState):
         def wrapper(obj, inp):
+            obj._genericQSys__initialStateInput = inp
             if sp.issparse(inp):
                 if inp.shape[0] == obj.dimension:
                     obj._genericQSys__initialState = inp
                 else:
-                    raise Exception('Initial state dimensions are incorrect')
+                    print('Dimension mismatch')
             elif isinstance(inp, int):
                 obj._genericQSys__initialState = stateCreationFunc(obj.dimension, inp)
             elif len(inp) == len(obj.qSystems):

@@ -44,7 +44,6 @@ def superPos(dimension, excitations, sparse=True):
     sts = []
     if isinstance(excitations, dict):
         for key, val in excitations.items():
-            print(key)
             sts.append(np.sqrt(val)*basis(dimension, key, sparse))
     elif isinstance(excitations, int):
         sts = [basis(dimension, excitations)]
