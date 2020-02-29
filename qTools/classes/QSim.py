@@ -165,6 +165,7 @@ class Simulation(qUniversal):
     def stepSize(self, stepsize):
         self._Simulation__stepSize = stepsize
         if self.finalTime is not None:
+            # TODO print a message here
             self._Simulation__step = int(self.finalTime//stepsize + 1)
 
     @property
@@ -180,7 +181,7 @@ class Simulation(qUniversal):
 
     @property
     def qSys(self):
-        self._Simulation__qSys.superSys = self
+        #self._Simulation__qSys.superSys = self
         return self._Simulation__qSys
 
     @qSys.setter

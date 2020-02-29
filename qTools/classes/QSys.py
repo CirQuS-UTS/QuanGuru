@@ -54,11 +54,6 @@ class genericQSys(qUniversal):
     def unitary(self, protocols):
         self._genericQSys__unitary = protocols
 
-
-    @unitary.setter
-    def unitary(self, uni):
-        self._genericQSys__unitary = uni
-
     # initial state
     @property
     def initialState(self):
@@ -198,23 +193,23 @@ class QuantumSystem(genericQSys):
         self._genericQSys__constructed = False
         if to is None:
             self.qCouplings = {}
-            self.unitary = freeEvolution(superSys=self)
+            self._genericQSys__unitary = freeEvolution(superSys=self)
             self.couplingName = None
         else:
             self.couplingName = to
             self.qCouplings = self._QuantumSystem__kept[to][0]
-            self.unitary = self._QuantumSystem__kept[to][1]
+            self._genericQSys__unitary = self._QuantumSystem__kept[to][1]
 
     def __keepOld(self):
         name = self.couplingName
         if name in self._QuantumSystem__kept.keys():
-            if self.unitary != self._QuantumSystem__kept[name][1]:
+            if self._genericQSys__unitary != self._QuantumSystem__kept[name][1]:
                 name = len(self._QuantumSystem__kept)
-                self._QuantumSystem__kept[name] = [self.qCouplings, self.unitary]
+                self._QuantumSystem__kept[name] = [self.qCouplings, self._genericQSys__unitary]
             else:
                 return 'nothing'
         else:
-            self._QuantumSystem__kept[name] = [self.qCouplings, self.unitary]
+            self._QuantumSystem__kept[name] = [self.qCouplings, self._genericQSys__unitary]
 
     # construct the matrices
     def constructCompSys(self):
