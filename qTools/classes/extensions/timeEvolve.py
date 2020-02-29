@@ -329,8 +329,8 @@ TIME EVOLVE
 """
 def __timeEvolDel(qSim, unitaryList):
     for ii in range(qSim.samples):
-        for qSys in qSim.subSystems.values():
-            for ind, unitary in enumerate(unitaryList):
+        for idx, qSys in enumerate(qSim.subSystems.values()):
+            for ind, unitary in enumerate(unitaryList[idx]):
                 qSys._genericQSys__lastStateList[ind] = unitary @ qSys._genericQSys__lastStateList[ind]
         qSim.qRes._qResults__resCount = 0
         qSim._Simulation__compute()
@@ -338,8 +338,8 @@ def __timeEvolDel(qSim, unitaryList):
         
 def __timeEvol(qSim, unitaryList):
     for ii in range(qSim.samples):
-        for qSys in qSim.subSystems.values():
-            for ind, unitary in enumerate(unitaryList):
+        for idx, qSys in enumerate(qSim.subSystems.values()):
+            for ind, unitary in enumerate(unitaryList[idx]):
                 qSys._genericQSys__lastStateList[ind] = unitary @ qSys._genericQSys__lastStateList[ind]
             qSim.qRes.state = qSys._genericQSys__lastStateList
         qSim.qRes._qResults__resCount = 0
@@ -351,9 +351,9 @@ def exponUni(qSim):
     for qSys in qSim.subSystems.values():
         subUni = qSys.unitary
         if not isinstance(subUni, list):
-            unitary.append(subUni)
+            unitary.append([subUni])
         else:
-            unitary.extend(subUni)
+            unitary.append(subUni)
     return unitary
 
 def runSequence(qSeq, ind):

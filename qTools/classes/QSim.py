@@ -198,9 +198,11 @@ class Simulation(qUniversal):
         self.subSystems = val
     
     def run(self, p=None):
-        if isinstance(self.qSys, QuantumSystem):
-            # TODO Check first if constructed
-            self.qSys.constructCompSys()
+        for qSys in self.subSystems.values():
+            if isinstance(self.qSys, QuantumSystem):
+                # TODO Check first if constructed
+                qSys.constructCompSys()
+            qSys._genericQSys__unitary.prepare(self)
 
         self.qRes.reset()
         self.qRes._prepare(self)
@@ -209,8 +211,6 @@ class Simulation(qUniversal):
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
-
-        self.qSys._genericQSys__unitary.prepare(self)
 
         res = runSimulation(self, p)
 
