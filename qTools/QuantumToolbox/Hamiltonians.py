@@ -1,18 +1,6 @@
 import qTools.QuantumToolbox.operators as ops
 import scipy.sparse as sp
 
-
-def compositeOp(operator,dimB,dimA):
-    if (dimB <= 1) and (dimA > 1):
-        return sp.kron(operator,sp.identity(dimA), format='csc')
-    elif (dimB > 1) and (dimA <= 1):
-        return sp.kron(sp.identity(dimB), operator, format='csc')
-    elif (dimB > 1) and (dimA > 1):
-        return sp.kron(sp.kron(sp.identity(dimB), operator, format='csc'), sp.identity(dimA), format='csc')
-    else:
-        return operator
-
-
 def cavQubFreeHam(cavFreq,qubFreq,cavDim):
     cavHam = cavFreq * sp.kron(ops.number(cavDim), ops.identity(2), format='csc')
     qubHam = qubFreq * sp.kron(ops.identity(cavDim), ops.sigmaz(), format='csc')
