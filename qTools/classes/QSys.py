@@ -233,6 +233,12 @@ class QuantumSystem(genericQSys):
             self.constructCompSys()
         return qSys
 
+    def copy(self, **kwargs):
+        newSys = QuantumSystem(**kwargs)
+        for qSys in self.qSystems.values():
+            newSys.addSubSys(qSys.copy())
+        return newSys
+
     @genericQSys.initialState.setter
     @asignState(qSta.compositeState)
     def initialState(self, inp):
@@ -352,6 +358,7 @@ class qSystem(genericQSys):
         return copySys
 
     def copy(self, **kwargs):
+        # TODO should copy the terms as well
         if 'superSys' in kwargs.keys():
             copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension, 
             frequency = self.frequency, operator = self.operator)

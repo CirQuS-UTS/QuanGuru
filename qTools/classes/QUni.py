@@ -36,6 +36,8 @@ class qUniversal:
         elif isinstance(subS, dict):
             for sys in subS.values():
                 self._qUniversal__addSubSys(subS)
+        elif subS is None:
+            self._qUniversal__addSubSys = {}
         else:
             for sys in subS:
                 self._qUniversal__addSubSys(subS)

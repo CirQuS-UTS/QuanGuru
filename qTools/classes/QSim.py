@@ -130,10 +130,15 @@ class Simulation(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
         if self.__qSys is None:
             self.__qSys = QuantumSystem()
+            self.subSystems = self.qSys
 
-    def __compute(self, qSys, state):
+    def __compute(self, *args):
+        states = []
+        for qSys in self.subSystems.values():
+            states.extend(qSys._genericQSys__lastStateList)
+
         if self.compute is not None:
-            results = self.compute(self, state)
+            results = self.compute(self, *states)
         else:
             # FIXME assumed this is going to return a thing a that will be appended, if not ?
             results = None
@@ -189,11 +194,15 @@ class Simulation(qUniversal):
         """if isinstance(val, QuantumSystem):
             QuantumSystem.constructCompSys(val)"""
         self._Simulation__qSys = val
+        self.subSystems = None
+        self.subSystems = val
     
     def run(self, p=None):
-        if isinstance(self.qSys, QuantumSystem):
-            # TODO Check first if constructed
-            self.qSys.constructCompSys()
+        for qSys in self.subSystems.values():
+            if isinstance(self.qSys, QuantumSystem):
+                # TODO Check first if constructed
+                qSys.constructCompSys()
+            qSys._genericQSys__unitary.prepare(self)
 
         self.qRes.reset()
         self.qRes._prepare(self)
@@ -202,8 +211,6 @@ class Simulation(qUniversal):
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
-
-        self.qSys._genericQSys__unitary.prepare(self)
 
         res = runSimulation(self, p)
 
