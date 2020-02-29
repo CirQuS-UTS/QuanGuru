@@ -22,10 +22,10 @@ def qCouplingInitErrors(init):
             className = obj.__class__.__name__
             print(className + ' requires a coupling systems')
         
-        for ind in range(len(obj._qCoupling__qSys)):
+        '''for ind in range(len(obj._qCoupling__qSys)):
             if len(obj._qCoupling__cFncs) != len(obj._qCoupling__qSys):
                 className = obj.__class__.__name__
-                print(className + ' requires same number of systems as coupling functions')
+                print(className + ' requires same number of systems as coupling functions')'''
 
     return new_function
 

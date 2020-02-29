@@ -98,12 +98,12 @@ class qResults(qUniversal):
         if ((self._qResults__bLength == 0) and (self._qResults__lLength != 0)):
             unnested = [list(chain(*sub)) for sub in self.results]
         elif ((self._qResults__bLength == 0) and (self._qResults__lLength == 0)):
-            for ind in range(len(self.results)):
-                nested = [list(chain(*sub)) for sub in self.results[ind]]
+            for result in self.results:
+                nested = [list(chain(*sub)) for sub in result]
                 unnested = [list(chain(*sub)) for sub in nested]
         elif ((self._qResults__bLength != 0) and (self._qResults__lLength == 0)):
-            for ind in range(len(self.results)):
-                unnested.append([list(chain(*sub)) for sub in self.results[ind]])
+            for result in self.results:
+                unnested.append([list(chain(*sub)) for sub in result])
         elif ((self._qResults__bLength != 0) and (self._qResults__lLength != 0)):
             unnested = self.results
 

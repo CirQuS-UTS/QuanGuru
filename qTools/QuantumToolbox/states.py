@@ -7,7 +7,7 @@ def basis(dimension, state, sparse=True):
     rows = [state]
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
-    return n if sparse == True else n.A
+    return n if sparse else n.A
 
 def basisBra(dimension, state, sparse=True):
     n = basis(dimension,state,sparse).T
@@ -18,7 +18,7 @@ def zeros(dimension, sparse=True):
     rows = [0]
     columns = [0]
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
-    return Zeros if sparse == True else Zeros.A
+    return Zeros if sparse else Zeros.A
 
 def densityMatrix(ket):
     return (ket @ (ket.conj().T))
@@ -56,13 +56,13 @@ def superPos(dimension, excitations, sparse=True):
 
 def compositeState(dimensions, excitations, sparse=True):
     if isinstance(excitations[0], int):
-        st = basis(dimensions[0], excitations[0], True)
+        st = basis(dimensions[0], excitations[0], sparse)
     else:
-        st = superPos(dimensions[0], excitations[0], True)
+        st = superPos(dimensions[0], excitations[0], sparse)
 
     for ind in range(len(dimensions)-1):
         if isinstance(excitations[ind+1], int):
-            st = sp.kron(st, basis(dimensions[ind+1], excitations[ind+1], True), format='csc')
+            st = sp.kron(st, basis(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
         else:
-            st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], True), format='csc')
-    return st if sparse == True else st.A
+            st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
+    return st if sparse else st.A
