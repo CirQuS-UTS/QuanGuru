@@ -47,7 +47,8 @@ def runSimulation(qSim, p):
                     qSim.qRes.indL = 0
                     withW(qSim)
                 else:
-                    qSim.qSys._genericQSys__prepareLastStateList()
+                    for qSys in qSim.subSystems.values():
+                        qSys._genericQSys__prepareLastStateList()
                     unitary = exponUni(qSim)
                     qSim.qRes.indB = 0
                     qSim.qRes.indL = 0
@@ -92,7 +93,8 @@ def runSimulation(qSim, p):
                     qSim.qRes.indL = 0
                     withWDel(qSim)
                 else:
-                    qSim.qSys._genericQSys__prepareLastStateList()
+                    for qSys in qSim.subSystems.values():
+                        qSys._genericQSys__prepareLastStateList()
                     unitary = exponUni(qSim)
                     qSim.qRes.indB = 0
                     qSim.qRes.indL = 0
@@ -135,7 +137,8 @@ def withBOO(qSim):
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
-        qSim.qSys._genericQSys__prepareLastStateList()
+        for qSys in qSim.subSystems.values():
+            qSys._genericQSys__prepareLastStateList()
         unitary = exponUni(qSim)
         for ii in range(qSim.steps):
             __timeEvol(qSim, unitary)
@@ -175,7 +178,8 @@ def withBOODel(qSim):
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
         runSequence(qSim.beforeLoop, ind)
-        qSim.qSys._genericQSys__prepareLastStateList()
+        for qSys in qSim.subSystems.values():
+            qSys._genericQSys__prepareLastStateList()
         unitary = exponUni(qSim)
         for ii in range(qSim.steps):
             __timeEvol(qSim, unitary)
@@ -193,7 +197,8 @@ def withLOnp(qSim):
     for ind in range(len(qSim.Loop.sweeps[0].sweepList)):
         qSim.qRes.indL = ind
         runSequence(qSim.Loop, ind)
-        qSim.qSys._genericQSys__prepareLastStateList()
+        for qSys in qSim.subSystems.values():
+            qSys._genericQSys__prepareLastStateList()
         unitary = exponUni(qSim)
         for ii in range(qSim.steps):
             __timeEvol(qSim, unitary)
@@ -230,7 +235,8 @@ def withLOp(qSim, p):
 def parallelSequenceO(qSim, ind):
     qSim.qRes.indL = ind
     runSequence(qSim.Loop, ind)
-    qSim.qSys._genericQSys__prepareLastStateList()
+    for qSys in qSim.subSystems.values():
+        qSys._genericQSys__prepareLastStateList()
     unitary = exponUni(qSim)
     qSim.qRes._qResults__last = []
     qSim.qRes._qResults__prevRes = False
@@ -250,7 +256,8 @@ def withLOnpDel(qSim):
     for ind in range(len(qSim.Loop.sweeps[0].sweepList)):
         qSim.qRes.indL = ind
         runSequence(qSim.Loop, ind)
-        qSim.qSys._genericQSys__prepareLastStateList()
+        for qSys in qSim.subSystems.values():
+            qSys._genericQSys__prepareLastStateList()
         unitary = exponUni(qSim)
         for ii in range(qSim.steps):
             __timeEvolDel(qSim, unitary)
@@ -285,7 +292,8 @@ def withLOpDel(qSim, p):
 def parallelSequenceODel(qSim, ind):
     qSim.qRes.indL = ind
     runSequence(qSim.Loop, ind)
-    qSim.qSys._genericQSys__prepareLastStateList()
+    for qSys in qSim.subSystems.values():
+        qSys._genericQSys__prepareLastStateList()
     unitary = exponUni(qSim)
     qSim.qRes._qResults__last = []
     qSim.qRes._qResults__prevRes = False
@@ -298,7 +306,9 @@ def parallelSequenceODel(qSim, ind):
 STAGE 3 POSSIBILITIES
 """
 def withW(qSim):
-    qSim.qSys._genericQSys__prepareLastStateList()
+    for qSys in qSim.subSystems.values():
+        qSys._genericQSys__prepareLastStateList()
+
     for ind in range(len(qSim.whileLoop.sweeps[0].sweepList)):
         runSequence(qSim.whileLoop, ind)
         unitary = exponUni(qSim)
@@ -306,7 +316,9 @@ def withW(qSim):
 
 # with Del
 def withWDel(qSim):
-    qSim.qSys._genericQSys__prepareLastStateList()
+    for qSys in qSim.subSystems.values():
+        qSys._genericQSys__prepareLastStateList()
+
     for ind in range(len(qSim.whileLoop.sweeps[0].sweepList)):
         runSequence(qSim.whileLoop, ind)
         unitary = exponUni(qSim)
@@ -317,43 +329,31 @@ TIME EVOLVE
 """
 def __timeEvolDel(qSim, unitaryList):
     for ii in range(qSim.samples):
-        for ind, unitary in enumerate(unitaryList):
-            qSim.qSys._genericQSys__lastStateList[ind] = unitary @ qSim.qSys._genericQSys__lastStateList[ind]
-
+        for qSys in qSim.subSystems.values():
+            for ind, unitary in enumerate(unitaryList):
+                qSys._genericQSys__lastStateList[ind] = unitary @ qSys._genericQSys__lastStateList[ind]
         qSim.qRes._qResults__resCount = 0
-        qSim._Simulation__compute(qSim.qSys, *qSim.qSys._genericQSys__lastStateList)
+        qSim._Simulation__compute()
         qSim.qRes._qResults__prevRes = True
-        """qSim.qSys.lastState = unitary @ qSim.qSys.lastState
-            qSim.qRes._qResults__resCount = 0
-            qSim._Simulation__compute(qSim.qSys, qSim.qSys.lastState)
-            qSim.qRes._qResults__prevRes = True"""
         
 def __timeEvol(qSim, unitaryList):
     for ii in range(qSim.samples):
+        for qSys in qSim.subSystems.values():
             for ind, unitary in enumerate(unitaryList):
-                qSim.qSys._genericQSys__lastStateList[ind] = unitary @ qSim.qSys._genericQSys__lastStateList[ind]
-            qSim.qRes.state = qSim.qSys._genericQSys__lastStateList
-            qSim.qRes._qResults__resCount = 0
-            qSim._Simulation__compute(qSim.qSys, *qSim.qSys._genericQSys__lastStateList)
-            qSim.qRes._qResults__prevRes = True
-
-    """qSim.qSys.lastState = unitary @ qSim.qSys.lastState
-        qSim.qRes.state = qSim.qSys.lastState
+                qSys._genericQSys__lastStateList[ind] = unitary @ qSys._genericQSys__lastStateList[ind]
+            qSim.qRes.state = qSys._genericQSys__lastStateList
         qSim.qRes._qResults__resCount = 0
-        qSim._Simulation__compute(qSim.qSys, qSim.qSys.lastState)
-        qSim.qRes._qResults__prevRes = True"""
+        qSim._Simulation__compute()
+        qSim.qRes._qResults__prevRes = True
 
 def exponUni(qSim):
-    unitary = qSim.qSys.unitary
-    """if isinstance(qSim.qSys._genericQSys__unitary, qUniversal):
-        unitary = [qSim.qSys.unitary]
-    elif isinstance(qSim.qSim._genericQSys__unitary, list):
-        unitary = []
-        for protocol in qSim.qSim._genericQSys__unitary:
-            unitary.append(protocol.createUnitary())
-        qSim.qSys._paramUpdated = False"""
-    if not isinstance(unitary, list):
-        unitary = [unitary]
+    unitary = []
+    for qSys in qSim.subSystems.values():
+        subUni = qSys.unitary
+        if not isinstance(subUni, list):
+            unitary.append(subUni)
+        else:
+            unitary.extend(subUni)
     return unitary
 
 def runSequence(qSeq, ind):
