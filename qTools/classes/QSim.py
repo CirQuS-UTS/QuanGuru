@@ -202,7 +202,7 @@ class Simulation(qUniversal):
         self.subSystems = None
         self.subSystems = val
     
-    def run(self, p=None, coreNum=None):
+    def run(self, p=None, coreCount=None):
         for qSys in self.subSystems.values():
             if isinstance(self.qSys, QuantumSystem):
                 # TODO Check first if constructed
@@ -217,7 +217,7 @@ class Simulation(qUniversal):
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
 
-        _poolMemory.run(self, p, coreNum)
+        _poolMemory.run(self, p, coreCount)
 
         self.qRes._unpack()
 
@@ -251,16 +251,16 @@ class _poolMemory:
     pool = None
     
     @classmethod
-    def run(cls, qSim, p, coreNum):
+    def run(cls, qSim, p, coreCount):
         if p is True:
-            if coreNum is None:
+            if coreCount is None:
                 if _poolMemory.pool is None:
                     p1 = Pool(processes=cpu_count()-1)
                 else:
                     p1 = _poolMemory.pool
-            elif isinstance(coreNum, int):
-                p1 = Pool(processes=coreNum)
-            elif coreNum.lower() == 'all':
+            elif isinstance(coreCount, int):
+                p1 = Pool(processes=coreCount)
+            elif coreCount.lower() == 'all':
                 p1 = Pool(processes=cpu_count())
         elif p is False:
             p1 = None
