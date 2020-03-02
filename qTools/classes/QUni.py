@@ -3,7 +3,8 @@ class qUniversal:
     label = 'qUniversal'
     instNames = {}
     
-    __slots__ = ['__name','__superSys', '__ind','__subSys']
+    __slots__ = ['__name', '__superSys', '__ind', '__subSys']
+
     def __init__(self, **kwargs):
         super().__init__()
         self._incrementInstances()
@@ -37,7 +38,7 @@ class qUniversal:
             for sys in subS.values():
                 self._qUniversal__addSubSys(subS)
         elif subS is None:
-            self._qUniversal__addSubSys = {}
+            self._qUniversal__subSys = {}
         else:
             for sys in subS:
                 self._qUniversal__addSubSys(subS)

@@ -5,6 +5,7 @@ from qTools.classes.QUni import qUniversal
 from qTools.classes.extensions.timeEvolve import runSimulation
 from qTools.classes.QRes import qResults
 from itertools import chain
+from multiprocessing import Pool, cpu_count
 
 """ under construction be careful """
 class Sweep(qUniversal):
@@ -52,13 +53,16 @@ class Sweep(qUniversal):
     def runSweep(self, ind):
         if self.sweepFunction is None:
             val = self.sweepList[ind]
-            setattr(self.subSystems, self.sweepKey, val)
+            for subSys in self.subSystems.values():
+                setattr(subSys, self.sweepKey, val)
+            # TODO Decide if single or multiple subbSys
+            #setattr(self.subSystems, self.sweepKey, val)
         else:
             self.sweepFunction(self, self.superSys.superSys)
-
-    @qUniversal.subSystems.setter
+    # TODO Decide if single or multiple subbSys
+    """@qUniversal.subSystems.setter
     def subSystems(self, subS):
-        self._qUniversal__subSys = subS
+        self._qUniversal__subSys = subS"""
 
 
 class qSequence(qUniversal):
@@ -102,7 +106,7 @@ class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
     __compute = 0
-    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes']
+    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes', 'pool']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
@@ -122,6 +126,7 @@ class Simulation(qUniversal):
         self.__step = 1
 
         self.compute = None
+        self.pool = None
 
         if ((system is not None) and ('qSys' in kwargs.keys())):
             print('Two qSys given')
@@ -197,7 +202,7 @@ class Simulation(qUniversal):
         self.subSystems = None
         self.subSystems = val
     
-    def run(self, p=None):
+    def run(self, p=None, coreNum=None):
         for qSys in self.subSystems.values():
             if isinstance(self.qSys, QuantumSystem):
                 # TODO Check first if constructed
@@ -212,13 +217,63 @@ class Simulation(qUniversal):
         self._Simulation__res(self.Loop)
         self._Simulation__res(self.whileLoop)
 
-        res = runSimulation(self, p)
+        _poolMemory.run(self, p, coreNum)
 
         self.qRes._unpack()
+
         return self.qRes
+
+    def removeSys(self, sys):
+        if isinstance(sys, qUniversal):
+            if isinstance(sys, QuantumSystem):
+                for qSys in sys.subSystems.values():
+                    for ind, sw in enumerate(self.Loop.sweeps):
+                        if qSys.name in sw.subSystems.keys():
+                            del self.Loop.sweeps[ind]
+            del self.subSystems[sys.name]
+        elif isinstance(sys, str):
+            del self.subSystems[sys]
 
     @staticmethod
     def __res(seq):
         seq.lCount = 0
         for sweep in seq.sweeps:
             sweep.lCounts = 0
+
+
+class _poolMemory:
+    pool = None
+    
+    @classmethod
+    def run(cls, qSim, p, coreNum):
+        if p is True:
+            if coreNum is None:
+                if _poolMemory.pool is None:
+                    p1 = Pool(processes=cpu_count()-1)
+                else:
+                    p1 = _poolMemory.pool
+            elif isinstance(coreNum, int):
+                p1 = Pool(processes=coreNum)
+            elif coreNum.lower() == 'all':
+                p1 = Pool(processes=cpu_count())
+        elif p is False:
+            p1 = None
+        elif p is not None:
+            numb = p._processes
+            p1 = Pool(processes=numb)
+        elif p is None:
+            if _poolMemory.pool is not None:
+                numb = _poolMemory.pool._processes
+                p1 = Pool(processes=numb)
+            else:
+                p1 = _poolMemory.pool
+        _poolMemory.pool = p1
+
+        res = runSimulation(qSim, p1)
+
+        if p1 is not None:
+            numb = p1._processes
+            p1.close()
+            p1.join()
+            _poolMemory.pool = Pool(processes=numb)
+
