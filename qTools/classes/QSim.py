@@ -225,14 +225,20 @@ class Simulation(qUniversal):
 
     def removeSys(self, sys):
         if isinstance(sys, qUniversal):
-            if isinstance(sys, QuantumSystem):
-                for qSys in sys.subSystems.values():
-                    for ind, sw in enumerate(self.Loop.sweeps):
-                        if qSys.name in sw.subSystems.keys():
-                            del self.Loop.sweeps[ind]
+            self.removeSweeps(sys)
             del self.subSystems[sys.name]
         elif isinstance(sys, str):
+            self.removeSweeps(self.subSystems[sys])
             del self.subSystems[sys]
+        return self
+
+    def removeSweeps(self, sys):
+        if isinstance(sys, QuantumSystem):
+            for qSys in sys.subSystems.values():
+                for ind, sw in enumerate(self.Loop.sweeps):
+                    if qSys.name in sw.subSystems.keys():
+                        del self.Loop.sweeps[ind]
+        return self
 
     @staticmethod
     def __res(seq):
@@ -276,4 +282,3 @@ class _poolMemory:
             p1.close()
             p1.join()
             _poolMemory.pool = Pool(processes=numb)
-
