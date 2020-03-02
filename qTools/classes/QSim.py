@@ -105,7 +105,6 @@ class qSequence(qUniversal):
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
-    __compute = 0
     __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes', 'pool']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
