@@ -101,6 +101,21 @@ def fidelityKet(ket1, ket2):
     fidelityA = ((herm @ ket2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
 
+def fidelityKetList(ket1, ket2):
+    """
+    Calculates the fidelity between two ket states
+    
+    :param ket1: ket state 1
+    :param ket2: ket state 2
+    :return: fidelity between the given states
+    """
+    fidelities = []
+    herm = ket1.conj().T
+    for ket in ket2:
+        fidelityA = ((herm @ ket).diagonal()).sum()
+        fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
+    return fidelities
+
 
 def fidelityPureMat(denMat1, denMat2):
     """

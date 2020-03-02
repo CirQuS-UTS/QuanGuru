@@ -52,7 +52,11 @@ class genericQSys(qUniversal):
 
     @unitary.setter
     def unitary(self, protocols):
-        self._genericQSys__unitary = protocols
+        if protocols is not None:
+            self._genericQSys__unitary = protocols
+        elif protocols is None:
+            self._genericQSys__unitary = freeEvolution(superSys=self)
+
 
     # initial state
     @property
@@ -360,11 +364,9 @@ class qSystem(genericQSys):
     def copy(self, **kwargs):
         # TODO should copy the terms as well
         if 'superSys' in kwargs.keys():
-            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension, 
-            frequency = self.frequency, operator = self.operator)
+            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension, frequency = self.frequency, operator = self.operator)
         else:
-            copySys = qUniversal.createCopy(self, dimension = self.dimension, 
-            frequency = self.frequency, operator = self.operator)
+            copySys = qUniversal.createCopy(self, dimension = self.dimension, frequency = self.frequency, operator = self.operator)
         copySys._qUniversal__setKwargs(**kwargs)
         return copySys
 
@@ -425,6 +427,7 @@ class qCoupling(qUniversal):
     label = 'qCoupling'
 
     __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys', '__paramUpdated']
+
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
         super().__init__()
