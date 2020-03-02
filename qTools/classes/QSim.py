@@ -207,7 +207,12 @@ class Simulation(qUniversal):
             if isinstance(self.qSys, QuantumSystem):
                 # TODO Check first if constructed
                 qSys.constructCompSys()
-            qSys._genericQSys__unitary.prepare(self)
+            
+            if isinstance(qSys._genericQSys__unitary, qUniversal):
+                qSys._genericQSys__unitary.prepare(self)
+            elif isinstance(qSys._genericQSys__unitary, list):
+                for protocol in qSys._genericQSys__unitary:
+                    protocol.prepare(self)
 
         self.qRes.reset()
         self.qRes._prepare(self)
