@@ -52,7 +52,11 @@ class genericQSys(qUniversal):
 
     @unitary.setter
     def unitary(self, protocols):
-        self._genericQSys__unitary = protocols
+        if protocols is not None:
+            self._genericQSys__unitary = protocols
+        elif protocols is None:
+            self._genericQSys__unitary = freeEvolution(superSys=self)
+
 
     # initial state
     @property
