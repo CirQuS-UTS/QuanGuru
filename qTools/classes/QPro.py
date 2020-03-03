@@ -67,7 +67,8 @@ class qProtocol(qUniversal):
     def delMatrices(self):
         self._qProtocol__unitary = None
         for step in self.steps:
-            step.delMatrices()
+            if not isinstance(step, copyStep):
+                step.delMatrices()
 
 
 
@@ -170,6 +171,8 @@ class Step(qUniversal):
         return self._Step__bound
 
     def delMatrices(self):
+        if self.fixed is True:
+            self.createUnitary = self.createUnitaryFunc
         self._Step__unitary = None
 
 class copyStep(Step):

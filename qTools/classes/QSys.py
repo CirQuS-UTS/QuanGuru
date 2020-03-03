@@ -181,27 +181,37 @@ class QuantumSystem(genericQSys):
 
     # reset and keepOld
     def reset(self, to=None):
-        # TODO make sure that the kept protocols deletes their matrices and different sweeps ?
+        # TODO make sure that the kept protocols deletes their matrices and different sweeps ? delMatrices
         for qSys in self.qSystems.values():
             qSys._qSystem__Matrix = None
 
         for qCoupl in self.qCouplings.values():
             qCoupl._qCoupling__Matrix = None
+
+        if isinstance(self._genericQSys__unitary, list):
+            for protoc in self._genericQSys__unitary:
+                protoc.delMatrices()
+        else:
+            self._genericQSys__unitary.delMatrices()
+        
         self._QuantumSystem__keepOld()
         self._constructed = False
+        self._paramUpdated = True
         if to is None:
-            self.qCouplings = {}
+            self._QuantumSystem__qCouplings = {}
             self._genericQSys__unitary = freeEvolution(superSys=self)
             self.couplingName = None
         else:
             self.couplingName = to
-            self.qCouplings = self._QuantumSystem__kept[to][0]
+            self._QuantumSystem__qCouplings = self._QuantumSystem__kept[to][0]
             self._genericQSys__unitary = self._QuantumSystem__kept[to][1]
 
     def __keepOld(self):
         name = self.couplingName
         if name in self._QuantumSystem__kept.keys():
+            print(name)
             if self._genericQSys__unitary != self._QuantumSystem__kept[name][1]:
+                print('here')
                 name = len(self._QuantumSystem__kept)
                 self._QuantumSystem__kept[name] = [self.qCouplings, self._genericQSys__unitary]
             else:
