@@ -1,3 +1,7 @@
+__all__ = [
+    'qUniversal'
+]
+
 def checkClass(classOf):
     def addDecorator(addRemoveFunction):
         def wrapper(obj, inp, **kwargs):
@@ -7,7 +11,11 @@ def checkClass(classOf):
                 addRemoveFunction(obj, inp, **kwargs)
                 return inp
             elif isinstance(inp, str):
-                inp = wrapper(obj, cls1.instNames[inp], **kwargs)
+                if str in cls1.instNames.keys():
+                    inp = wrapper(obj, cls1.instNames[inp], **kwargs)
+                else:
+                    cls2 = globals()[inp]
+                    inp = wrapper(obj, cls2, **kwargs)
             elif isinstance(inp, dict):
                 for sys in inp.values():
                     # TODO what to do with the keys?
