@@ -13,6 +13,10 @@ def checkClass(classOf):
                     wrapper(obj, sys)
             elif inp is None:
                 addRemoveFunction(obj, inp)
+            elif inp.__class__ is type:
+                newSys = inp()
+                addRemoveFunction(obj, newSys)
+                return newSys
             else:
                 for sys in inp:
                     wrapper(obj, sys)
@@ -61,6 +65,10 @@ class qUniversal:
     def removeSubSys(self, subS):
         obj = self._qUniversal__subSys.pop(subS.name)
         print(obj.name + ' is removed from subSys of ' + self.name)
+        
+    @checkClass('qUniversal')
+    def createSubSys(self, subSysClass):
+        self._qUniversal__subSys[subSysClass.name] = subSysClass
 
     @property
     def superSys(self):
