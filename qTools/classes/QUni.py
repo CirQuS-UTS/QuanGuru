@@ -87,8 +87,7 @@ class qUniversal:
         self._qUniversal__name = qUniversal.updateNames(self, name)
 
     @classmethod
-    def updateNames(cls, obj, name):
-        duplicate = False
+    def updateNames(cls, obj, name, duplicate=False):
         if name in cls.instNames.keys():
             duplicate = True
             if obj is cls.instNames[name]:
@@ -96,7 +95,7 @@ class qUniversal:
                 return name
             else:
                 name += str(obj.__class__.instances)
-                return cls.updateNames(obj, name)
+                return cls.updateNames(obj, name, duplicate)
         else:
             if duplicate is True:
                 print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
@@ -113,7 +112,11 @@ class qUniversal:
         for ind in range(n):
             sysClass = self.__class__
             newSystems.append(sysClass(**kwargs))
-        return tuple(newSystems)
+
+        if len(newSystems) == 1:
+            return newSystems[0]
+        else:
+            return (*newSystems,)
         
     def __namer(self):
         name = self.clsLabel() + str(self.clsInstances())
