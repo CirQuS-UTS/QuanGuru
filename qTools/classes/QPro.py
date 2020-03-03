@@ -64,6 +64,13 @@ class qProtocol(qUniversal):
                     step.createUnitary()
                     step.createUnitary = step.createUnitaryFixedFunc
 
+    def delMatrices(self):
+        self._qProtocol__unitary = None
+        for step in self.steps:
+            step.delMatrices()
+
+
+
 class Step(qUniversal):
     instances = 0
     label = 'Step'
@@ -161,6 +168,9 @@ class Step(qUniversal):
     @property
     def bound(self):
         return self._Step__bound
+
+    def delMatrices(self):
+        self._Step__unitary = None
 
 class copyStep(Step):
     instances = 0
