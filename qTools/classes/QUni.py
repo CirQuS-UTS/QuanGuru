@@ -1,25 +1,27 @@
 def checkClass(classOf):
     def addDecorator(addRemoveFunction):
-        def wrapper(obj, inp):
+        def wrapper(obj, inp, **kwargs):
             cls1 = globals()[classOf]
-
             if isinstance(inp, cls1):
-                addRemoveFunction(obj, inp)
+                inp._qUniversal__setKwargs(**kwargs)
+                addRemoveFunction(obj, inp, **kwargs)
+                return inp
             elif isinstance(inp, str):
-                addRemoveFunction(obj, cls1.instNames[inp])
+                inp = wrapper(obj, cls1.instNames[inp], **kwargs)
             elif isinstance(inp, dict):
                 for sys in inp.values():
                     # TODO what to do with the keys?
-                    wrapper(obj, sys)
+                    inp = wrapper(obj, sys, **kwargs)
             elif inp is None:
-                addRemoveFunction(obj, inp)
+                obj._qUniversal__subSys = {}
+                return obj._qUniversal__subSys
             elif inp.__class__ is type:
                 newSys = inp()
-                addRemoveFunction(obj, newSys)
-                return newSys
+                inp = wrapper(obj, newSys, **kwargs)
             else:
                 for sys in inp:
-                    wrapper(obj, sys)
+                    inp = wrapper(obj, sys, **kwargs)
+            return inp
         return wrapper
     return addDecorator
 
@@ -55,20 +57,18 @@ class qUniversal:
         self.addSubSys(subS)
              
     @checkClass('qUniversal')         
-    def addSubSys(self, subS):
-        if subS is not None:
-            self._qUniversal__subSys[subS.name] = subS
-        elif subS is None:
-            self._qUniversal__subSys = {}
+    def addSubSys(self, subS, **kwargs):
+        self._qUniversal__subSys[subS.name] = subS
     
     @checkClass('qUniversal')
-    def removeSubSys(self, subS):
+    def removeSubSys(self, subS, **kwargs):
         obj = self._qUniversal__subSys.pop(subS.name)
         print(obj.name + ' is removed from subSys of ' + self.name)
         
     @checkClass('qUniversal')
-    def createSubSys(self, subSysClass):
+    def createSubSys(self, subSysClass, **kwargs):
         self._qUniversal__subSys[subSysClass.name] = subSysClass
+        
 
     @property
     def superSys(self):
