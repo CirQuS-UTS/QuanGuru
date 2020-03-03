@@ -88,14 +88,24 @@ class qUniversal:
 
     @classmethod
     def updateNames(cls, obj, name):
+        duplicate = False
         if name in cls.instNames.keys():
-            name += str(obj.__class__.instances)
-            print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
-        
-        if obj in cls.instNames.values():
-            cls.instNames[name] = cls.instNames.pop(obj.name)
-        cls.instNames[name] = obj
-        return name
+            duplicate = True
+            if obj is cls.instNames[name]:
+                cls.instNames[name] = cls.instNames.pop(obj.name)
+                return name
+            else:
+                name += str(obj.__class__.instances)
+                return cls.updateNames(obj, name)
+        else:
+            if duplicate is True:
+                print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
+
+            if obj in cls.instNames.values():
+                cls.instNames[name] = cls.instNames.pop(obj.name)
+            else:
+                cls.instNames[name] = obj
+            return name
 
     def copy(self, n=1, **kwargs):
         newSystems = [] 
