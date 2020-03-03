@@ -8,7 +8,7 @@ class qUniversal:
     def __init__(self, **kwargs):
         super().__init__()
         self._incrementInstances()
-        self.__name = self.__namer()
+        self.__name = self._qUniversal__namer()
         self.__superSys = None
         self.__subSys = {}
         self.__ind = None
@@ -22,11 +22,11 @@ class qUniversal:
             setattr(self, key, value)
 
     @property
-    def subSystems(self):
+    def subSys(self):
         return self._qUniversal__subSys
 
-    @subSystems.setter
-    def subSystems(self, subS):
+    @subSys.setter
+    def subSys(self, subS):
         self._qUniversal__addSubSys(subS)
              
     def __addSubSys(self, subS):
@@ -36,12 +36,12 @@ class qUniversal:
             self._qUniversal__addSubSys(self.instNames[subS])
         elif isinstance(subS, dict):
             for sys in subS.values():
-                self._qUniversal__addSubSys(subS)
+                self._qUniversal__addSubSys(sys)
         elif subS is None:
             self._qUniversal__subSys = {}
         else:
             for sys in subS:
-                self._qUniversal__addSubSys(subS)
+                self._qUniversal__addSubSys(sys)
         return subS
 
     @property
@@ -80,7 +80,7 @@ class qUniversal:
         return name
 
     @staticmethod
-    def createCopy(qUninstance, **kwargs):
+    def copy(qUninstance, **kwargs):
         sysClass = qUninstance.__class__
         newSub = sysClass(**kwargs)
         return newSub
@@ -101,4 +101,3 @@ class qUniversal:
     @classmethod
     def clsLabel(cls):
         return cls.label
-        
