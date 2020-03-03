@@ -112,7 +112,7 @@ class qResults(qUniversal):
 
     def _prepare(self, qSim):
         if len(qSim.beforeLoop.sweeps) > 0:
-            self._qResults__bLength = qSim.beforeLoop.sweeps[0].sweepList
+            self._qResults__bLength = len(qSim.beforeLoop.sweeps[0].sweepList)
 
         if len(qSim.Loop.sweeps) > 0:
             self._qResults__lLength = len(qSim.Loop.sweeps[0].sweepList)

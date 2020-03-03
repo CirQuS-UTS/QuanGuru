@@ -254,7 +254,7 @@ class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
 
-    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', 'order']
+    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', '__order']
     @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__()
@@ -265,8 +265,17 @@ class qSystem(genericQSys):
         self.__dimsBefore = 1
         self.__dimsAfter = 1
         self.__terms = [self]
-        self.order = 1
+        self.__order = 1
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def order(self):
+        return self._qSystem__order
+
+    @order.setter
+    def order(self, ordVal):
+        self._qSystem__order = ordVal
+        self.freeMat = None
 
     @property
     def terms(self):
