@@ -6,7 +6,7 @@ class qResults(qUniversal):
     instances = 0
     label = 'qUniversal'
     __slots__ = ['__results', '__indB', '__indL', '__multiResults', '__resTotCount', '__prevRes', '__resCount', '__last', '__states', '__bLength', '__lLength']
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
         self.__results = []
         self.__indB = 0
@@ -19,6 +19,7 @@ class qResults(qUniversal):
         self.__states = []
         self.__bLength = 0
         self.__lLength = 0
+        self._qUniversal__setKwargs(**kwargs)
 
     @property
     def results(self):

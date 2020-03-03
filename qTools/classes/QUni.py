@@ -48,7 +48,7 @@ class qUniversal:
 
     @subSys.setter
     def subSys(self, subS):
-        self._qUniversal__addSubSys(subS)
+        self.addSubSys(subS)
              
     @checkClass('qUniversal')         
     def addSubSys(self, subS):
@@ -102,6 +102,7 @@ class qUniversal:
                 print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
 
             if obj in cls.instNames.values():
+                # TODO can skip this and keep two keys for a system
                 cls.instNames[name] = cls.instNames.pop(obj.name)
             else:
                 cls.instNames[name] = obj

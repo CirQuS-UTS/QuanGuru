@@ -53,15 +53,15 @@ class Sweep(qUniversal):
     def runSweep(self, ind):
         if self.sweepFunction is None:
             val = self.sweepList[ind]
-            for subSys in self.subSystems.values():
+            for subSys in self.subSys.values():
                 setattr(subSys, self.sweepKey, val)
             # TODO Decide if single or multiple subbSys
-            #setattr(self.subSystems, self.sweepKey, val)
+            #setattr(self.subSys, self.sweepKey, val)
         else:
             self.sweepFunction(self, self.superSys.superSys)
     # TODO Decide if single or multiple subbSys
-    """@qUniversal.subSystems.setter
-    def subSystems(self, subS):
+    """@qUniversal.subSys.setter
+    def subSys(self, subS):
         self._qUniversal__subSys = subS"""
 
 
@@ -88,7 +88,7 @@ class qSequence(qUniversal):
 
     # TODO Change name to create
     def addSweep(self, sys, sweepKey, **kwargs):
-        newSweep = Sweep(superSys=self, subSystems=sys, sweepKey=sweepKey, **kwargs)
+        newSweep = Sweep(superSys=self, subSys=sys, sweepKey=sweepKey, **kwargs)
         self._qSequence__Sweeps.append(newSweep)
         return newSweep
 
@@ -134,11 +134,11 @@ class Simulation(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
         if self.__qSys is None:
             self.__qSys = QuantumSystem()
-            self.subSystems = self.qSys
+            self.subSys = self.qSys
 
     def __compute(self, *args):
         states = []
-        for qSys in self.subSystems.values():
+        for qSys in self.subSys.values():
             states.extend(qSys._genericQSys__lastStateList)
 
         if self.compute is not None:
@@ -198,11 +198,11 @@ class Simulation(qUniversal):
         """if isinstance(val, QuantumSystem):
             QuantumSystem.constructCompSys(val)"""
         self._Simulation__qSys = val
-        self.subSystems = None
-        self.subSystems = val
+        self.subSys = None
+        self.subSys = val
     
     def run(self, p=None, coreCount=None):
-        for qSys in self.subSystems.values():
+        for qSys in self.subSys.values():
             if isinstance(self.qSys, QuantumSystem):
                 # TODO Check first if constructed
                 qSys.constructCompSys()
@@ -230,17 +230,17 @@ class Simulation(qUniversal):
     def removeSys(self, sys):
         if isinstance(sys, qUniversal):
             self.removeSweeps(sys)
-            del self.subSystems[sys.name]
+            del self.subSys[sys.name]
         elif isinstance(sys, str):
-            self.removeSweeps(self.subSystems[sys])
-            del self.subSystems[sys]
+            self.removeSweeps(self.subSys[sys])
+            del self.subSys[sys]
         return self
 
     def removeSweeps(self, sys):
         if isinstance(sys, QuantumSystem):
-            for qSys in sys.subSystems.values():
+            for qSys in sys.subSys.values():
                 for ind, sw in enumerate(self.Loop.sweeps):
-                    if qSys.name in sw.subSystems.keys():
+                    if qSys.name in sw.subSys.keys():
                         del self.Loop.sweeps[ind]
         return self
 

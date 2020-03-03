@@ -31,11 +31,11 @@ class genericQSys(qUniversal):
 
     # constructed boolean setter and getter
     @property
-    def constructed(self):
+    def constructed(self) -> bool:
         return self._genericQSys__constructed
     
     @constructed.setter
-    def constructed(self, tf):
+    def constructed(self, tf:bool):
         self._genericQSys__constructed = tf
     
     # Unitary property and setter
@@ -194,7 +194,7 @@ class QuantumSystem(genericQSys):
         for qCoupl in self.qCouplings.values():
             qCoupl._qCoupling__Matrix = None
         self._QuantumSystem__keepOld()
-        self._genericQSys__constructed = False
+        self.constructed = False
         if to is None:
             self.qCouplings = {}
             self._genericQSys__unitary = freeEvolution(superSys=self)
@@ -217,9 +217,9 @@ class QuantumSystem(genericQSys):
 
     # construct the matrices
     def constructCompSys(self):
-        for qSys in self.subSystems.values():
+        for qSys in self.subSys.values():
             qSys.freeMat = None
-        self._genericQSys__constructed = True
+        self.constructed = True
 
     # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal):
@@ -233,7 +233,7 @@ class QuantumSystem(genericQSys):
                 qS._qSystem__dimsBefore = dimB
         self.initialState = self._genericQSys__initialStateInput
         self._paramUpdated = True
-        if self._genericQSys__constructed is True:
+        if self.constructed is True:
             self.constructCompSys()
         return qSys
 
@@ -352,7 +352,7 @@ class qSystem(genericQSys):
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
             sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
-            sys._genericQSys__constructed = True
+            sys.constructed = True
         return self._qSystem__Matrix
 
     def addTerm(self, op, freq, order=1):
@@ -364,9 +364,11 @@ class qSystem(genericQSys):
     def copy(self, **kwargs):
         # TODO should copy the terms as well
         if 'superSys' in kwargs.keys():
-            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension, frequency = self.frequency, operator = self.operator)
+            copySys, = super().copy(superSys=kwargs['superSys'], dimension = self.dimension, frequency = self.frequency, operator = self.operator)
         else:
-            copySys = qUniversal.createCopy(self, dimension = self.dimension, frequency = self.frequency, operator = self.operator)
+            copySys, = super().copy(dimension = self.dimension, frequency = self.frequency, operator = self.operator)
+        
+        print(copySys)
         copySys._qUniversal__setKwargs(**kwargs)
         return copySys
 
@@ -524,7 +526,7 @@ class qCoupling(qUniversal):
             if isinstance(args[counter][0], qSystem):
                 qSystems = args[counter]
                 if qSystems[0].superSys is not None:
-                    qSystems[0].superSys._genericQSys__constructed = False
+                    qSystems[0].superSys.constructed = False
 
                 if callable(args[counter+1][1]):
                     self._qCoupling__cFncs.append(args[counter + 1])
@@ -538,7 +540,7 @@ class qCoupling(qUniversal):
             elif isinstance(args[counter][1], qSystem):
                 qSystems = args[counter]
                 if qSystems.superSys is not None:
-                    qSystems.superSys._genericQSys__constructed = False
+                    qSystems.superSys.constructed = False
 
                 if callable(args[counter+1][1]):
                     self._qCoupling__cFncs.append(args[counter + 1])
@@ -551,12 +553,12 @@ class qCoupling(qUniversal):
             elif isinstance(args[counter][0][0],qSystem):
                 self._qCoupling__cFncs.append(args[counter][1])
                 self._qCoupling__qSys.append(args[counter][0])
-                args[counter][0][0].superSys._genericQSys__constructed = False
+                args[counter][0][0].superSys.constructed = False
                 counter += 1
             elif isinstance(args[counter][0][1],qSystem):
                 self._qCoupling__cFncs.append(args[counter][0])
                 self._qCoupling__qSys.append(args[counter][1])
-                args[counter][0][1].superSys._genericQSys__constructed = False
+                args[counter][0][1].superSys.constructed = False
                 counter += 1"""
         return self
 
