@@ -8,7 +8,7 @@ class qUniversal:
     def __init__(self, **kwargs):
         super().__init__()
         self._incrementInstances()
-        self.__name = self.__namer()
+        self.__name = self._qUniversal__namer()
         self.__superSys = None
         self.__subSys = {}
         self.__ind = None
