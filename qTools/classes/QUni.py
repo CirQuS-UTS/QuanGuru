@@ -1,3 +1,24 @@
+def checkClass(classOf):
+    def addDecorator(addRemoveFunction):
+        def wrapper(obj, inp):
+            cls1 = globals()[classOf]
+
+            if isinstance(inp, cls1):
+                addRemoveFunction(obj, inp)
+            elif isinstance(inp, str):
+                addRemoveFunction(obj, cls1.instNames[inp])
+            elif isinstance(inp, dict):
+                for sys in inp.values():
+                    # TODO what to do with the keys?
+                    wrapper(obj, sys)
+            elif inp is None:
+                addRemoveFunction(obj, inp)
+            else:
+                for sys in inp:
+                    wrapper(obj, sys)
+        return wrapper
+    return addDecorator
+
 class qUniversal:
     instances = 0
     label = 'qUniversal'
@@ -8,7 +29,7 @@ class qUniversal:
     def __init__(self, **kwargs):
         super().__init__()
         self._incrementInstances()
-        self.__name = self.__namer()
+        self.__name = self._qUniversal__namer()
         self.__superSys = None
         self.__subSys = {}
         self.__ind = None
@@ -22,27 +43,24 @@ class qUniversal:
             setattr(self, key, value)
 
     @property
-    def subSystems(self):
+    def subSys(self):
         return self._qUniversal__subSys
 
-    @subSystems.setter
-    def subSystems(self, subS):
+    @subSys.setter
+    def subSys(self, subS):
         self._qUniversal__addSubSys(subS)
              
-    def __addSubSys(self, subS):
-        if isinstance(subS, qUniversal):
+    @checkClass('qUniversal')         
+    def addSubSys(self, subS):
+        if subS is not None:
             self._qUniversal__subSys[subS.name] = subS
-        elif isinstance(subS, str):
-            self._qUniversal__addSubSys(self.instNames[subS])
-        elif isinstance(subS, dict):
-            for sys in subS.values():
-                self._qUniversal__addSubSys(subS)
         elif subS is None:
             self._qUniversal__subSys = {}
-        else:
-            for sys in subS:
-                self._qUniversal__addSubSys(subS)
-        return subS
+    
+    @checkClass('qUniversal')
+    def removeSubSys(self, subS):
+        obj = self._qUniversal__subSys.pop(subS.name)
+        print(obj.name + ' is removed from subSys of ' + self.name)
 
     @property
     def superSys(self):
@@ -72,18 +90,19 @@ class qUniversal:
     def updateNames(cls, obj, name):
         if name in cls.instNames.keys():
             name += str(obj.__class__.instances)
-            print('You have given a duplicate name,' + '\n' + 'it is changed to ' + name)
+            print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
         
         if obj in cls.instNames.values():
             cls.instNames[name] = cls.instNames.pop(obj.name)
         cls.instNames[name] = obj
         return name
 
-    @staticmethod
-    def createCopy(qUninstance, **kwargs):
-        sysClass = qUninstance.__class__
-        newSub = sysClass(**kwargs)
-        return newSub
+    def copy(self, n=1, **kwargs):
+        newSystems = [] 
+        for ind in range(n):
+            sysClass = self.__class__
+            newSystems.append(sysClass(**kwargs))
+        return tuple(newSystems)
         
     def __namer(self):
         name = self.clsLabel() + str(self.clsInstances())
@@ -101,4 +120,3 @@ class qUniversal:
     @classmethod
     def clsLabel(cls):
         return cls.label
-        
