@@ -3,9 +3,11 @@ from qTools.classes.QSys import QuantumSystem
 from qTools.classes.QUni import qUniversal
 #from qTools.classes.exceptions import sweepInitError
 from qTools.classes.extensions.timeEvolve import runSimulation
-from qTools.classes.QRes import qResults
+from qTools.classes.QResDict import qResults
 from itertools import chain
 from multiprocessing import Pool, cpu_count
+import qTools.classes.extensions.modularSweep as modularRun
+from functools import reduce
 
 """ under construction be careful """
 class Sweep(qUniversal):
@@ -105,7 +107,7 @@ class qSequence(qUniversal):
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
-    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes', 'pool']
+    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes', 'inds', 'indMultip']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
@@ -125,7 +127,8 @@ class Simulation(qUniversal):
         self.__step = 1
 
         self.compute = None
-        self.pool = None
+        self.inds = []
+        self.indMultip = None
 
         if ((system is not None) and ('qSys' in kwargs.keys())):
             print('Two qSys given')
@@ -136,6 +139,8 @@ class Simulation(qUniversal):
             self.__qSys = QuantumSystem()
             self.subSys = self.qSys
 
+    
+    #def __compute(self, results, *args):
     def __compute(self, *args):
         states = []
         for qSys in self.subSys.values():
@@ -143,6 +148,7 @@ class Simulation(qUniversal):
 
         if self.compute is not None:
             results = self.compute(self, *states)
+            #results = self.compute(self,results, *states)
         else:
             # FIXME assumed this is going to return a thing a that will be appended, if not ?
             results = None
@@ -213,9 +219,15 @@ class Simulation(qUniversal):
                 for protocol in qSys._genericQSys__unitary:
                     protocol.prepare(self)
 
+        if len(self.Loop.sweeps)>0:
+            self.inds = [0 for i in range(len(self.Loop.sweeps))]
+            for sweep in self.Loop.sweeps:
+                self.inds[-(sweep.ind+1)] = len(sweep.sweepList)-1
+            self.indMultip = reduce(lambda x, y: x*y, self.inds)
+
         self.qRes.reset()
-        self.qRes._prepare(self)
-        self.qRes._createList()
+        #self.qRes._prepare(self)
+        #self.qRes._createList()
         
         self._Simulation__res(self.beforeLoop)
         self._Simulation__res(self.Loop)
@@ -223,7 +235,7 @@ class Simulation(qUniversal):
 
         _poolMemory.run(self, p, coreCount)
 
-        self.qRes._unpack()
+        #self.qRes._unpack()
 
         return self.qRes
 
@@ -279,7 +291,8 @@ class _poolMemory:
                 p1 = _poolMemory.pool
         _poolMemory.pool = p1
 
-        res = runSimulation(qSim, p1)
+        res = modularRun.withLOpDel(qSim, p1)
+        #res = runSimulation(qSim, p1)
 
         if p1 is not None:
             numb = p1._processes
