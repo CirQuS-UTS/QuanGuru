@@ -2,6 +2,7 @@ from copy import deepcopy
 from itertools import chain
 from qTools.classes.QUni import qUniversal
 from collections import defaultdict
+from numpy import reshape, array
 
 class qResults(qUniversal):
     instances = 0
@@ -37,4 +38,12 @@ class qResults(qUniversal):
         self._qResults__lastRes = defaultdict(list)
         self._qResults__lastSta = defaultdict(list)
 
+    def _organiseRes(self, results, inds, steps):
+        for res in results:
+            for key, val in res.items():
+                self._qResults__results[key].append(val)
+        
+        for key, val in self._qResults__results.items():
+            lenOfVal = len(array(val).flatten())
+            self._qResults__results[key] = reshape(val, (*list(reversed(inds)), int(lenOfVal/steps),))
 
