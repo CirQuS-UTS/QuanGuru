@@ -50,7 +50,7 @@ class FreeEvolution(Step):
         
     def getUnitaryUpdate(self):
         for update in self.updates:
-            update.setup() 
+            update.setup()
 
         unitary = lio.Liouvillian(
             2 * np.pi * self.superSys.totalHam, timeStep=self.time)
@@ -135,3 +135,4 @@ class Update(qUniversal):
     
     def setback(self):
         setattr(self.system, self.key, self.memory)
+        self.memory = None

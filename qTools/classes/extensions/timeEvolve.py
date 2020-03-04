@@ -277,14 +277,14 @@ def parallelSequenceO(qSim, ind):
 def withLWnpDel(qSim):
     results = []
     for ind in range(len(qSim.Loop.sweeps[0].sweepList)):
-        runSequence(qSim.beforeLoop, ind)
+        runSequence(qSim.Loop, ind)
         results.append(withWDel(qSim))
     return results
 
 def withLOnpDel(qSim):
     results = []
     for ind in range(len(qSim.Loop.sweeps[0].sweepList)):
-        runSequence(qSim.beforeLoop, ind)
+        runSequence(qSim.Loop, ind)
         qSim.qSys.lastState = qSim.qSys.initialState
         result = []
         unitary = exponUni(qSim)
