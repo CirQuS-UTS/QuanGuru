@@ -1,3 +1,21 @@
+def checkClass(classOf, universal):
+    def addDecorator(addRemoveFunction):
+        def wrapper(obj, inp):
+            if isinstance(inp, classOf):
+                addRemoveFunction(inp)
+            elif isinstance(inp, str):
+                addRemoveFunction(obj.addSubSys(universal.instNames[inp]))
+            elif isinstance(inp, dict):
+                for sys in inp.values():
+                    addRemoveFunction(sys)
+            elif inp is None:
+                addRemoveFunction(inp)
+            else:
+                for sys in inp:
+                    addRemoveFunction(sys)
+        return wrapper
+    return addDecorator
+
 class qUniversal:
     instances = 0
     label = 'qUniversal'
@@ -29,20 +47,28 @@ class qUniversal:
     def subSys(self, subS):
         self._qUniversal__addSubSys(subS)
              
-    def __addSubSys(self, subS):
-        if isinstance(subS, qUniversal):
+    @checkClass(qUniversal, qUniversal)         
+    def addSubSys(self, subS):
+        if subS is not None:
             self._qUniversal__subSys[subS.name] = subS
+        elif subS is None:
+            self._qUniversal__subSys = {}
+        
+
+    def removeSubSys(self, subS):
+        if isinstance(subS, qUniversal):
+            obj = self._qUniversal__subSys.pop(subS.name)
+            print(obj.name + ' is removed from subSys of ' + self.name)
         elif isinstance(subS, str):
-            self._qUniversal__addSubSys(self.instNames[subS])
+            self.removeSubSys(self.instNames[subS])
         elif isinstance(subS, dict):
             for sys in subS.values():
-                self._qUniversal__addSubSys(sys)
+                self.removeSubSys(sys)
         elif subS is None:
             self._qUniversal__subSys = {}
         else:
             for sys in subS:
-                self._qUniversal__addSubSys(sys)
-        return subS
+                self.removeSubSys(sys)
 
     @property
     def superSys(self):

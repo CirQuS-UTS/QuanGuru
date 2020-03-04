@@ -46,7 +46,7 @@ class genericQSys(qUniversal):
         if isinstance(self._genericQSys__unitary, qUniversal):
             unitary = self._genericQSys__unitary.createUnitary()
         elif isinstance(self._genericQSys__unitary, list):
-            # TODO is list idea the option ?
+            # TODO is list idea the best option ?
             unitary = []
             for protocol in self._genericQSys__unitary:
                 unitary.append(protocol.createUnitary())
@@ -80,7 +80,6 @@ class genericQSys(qUniversal):
         elif isinstance(self._genericQSys__unitary, list):
             for ind in range(len(self.unitary)):
                 self._genericQSys__lastStateList.append(self.initialState)
-
 
 
 # Composite Quantum system
@@ -209,9 +208,7 @@ class QuantumSystem(genericQSys):
     def __keepOld(self):
         name = self.couplingName
         if name in self._QuantumSystem__kept.keys():
-            print(name)
             if self._genericQSys__unitary != self._QuantumSystem__kept[name][1]:
-                print('here')
                 name = len(self._QuantumSystem__kept)
                 self._QuantumSystem__kept[name] = [self.qCouplings, self._genericQSys__unitary]
             else:
@@ -230,6 +227,7 @@ class QuantumSystem(genericQSys):
 
     # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal):
+        qSys._qSystem__dimension = newDimVal
         ind = qSys.ind
         for qS in self.qSystems.values():
             if qS.ind < ind:
@@ -262,6 +260,7 @@ class qSystem(genericQSys):
     label = 'qSystem'
 
     __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', 'order']
+
     @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__()
@@ -331,7 +330,7 @@ class qSystem(genericQSys):
         h = sum([(obj.frequency * obj.freeMat) for obj in self._qSystem__terms])
         return h
 
-    # I'm not sure to keep this, freeMat setter covers all the cases and this one does not make much sense
+    # I'm not sure on keeping this, freeMat setter covers all the cases and this one does not make much sense
     """@totalHam.setter
     def totalHam(self, qOpsFunc):
         self.freeMat = qOpsFunc
