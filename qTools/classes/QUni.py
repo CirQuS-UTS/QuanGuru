@@ -8,6 +8,7 @@ def checkClass(classOf):
             cls1 = globals()[classOf]
             if isinstance(inp, cls1):
                 inp._qUniversal__setKwargs(**kwargs)
+                inp._qUniversal__ind = len(obj._qUniversal__subSys)
                 addRemoveFunction(obj, inp, **kwargs)
                 return inp
             elif isinstance(inp, str):
@@ -89,10 +90,6 @@ class qUniversal:
     @property
     def ind(self):
         return self._qUniversal__ind
-
-    @ind.setter
-    def ind(self, numb):
-        self._qUniversal__ind = numb
 
     @property
     def name(self):
