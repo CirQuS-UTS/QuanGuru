@@ -4,9 +4,11 @@ from qTools.classes.QUni import qUniversal
 from collections import defaultdict
 from numpy import reshape, array
 
-class qResults(qUniversal):
+class qResultsContainer(qUniversal):
     instances = 0
     label = 'qUniversal'
+    qResults = {}
+
     __slots__ = ['__results', '__lastSta', '__lastRes', '__states']
     def __init__(self, **kwargs):
         super().__init__()
@@ -48,3 +50,15 @@ class qResults(qUniversal):
             lenOfVal = len(array(val).flatten())
             self._qResults__results[key] = reshape(val, (*list(reversed(inds)), int(lenOfVal/steps),))
 
+
+
+class qResults(qResultsContainer):
+    instances = 0
+    label = 'qResultsContainer'
+
+    __slots__ = []
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        qResultsContainer.qResults[self.superSys.name] = self
+        self._qUniversal__setKwargs(**kwargs)  
