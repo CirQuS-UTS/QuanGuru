@@ -291,7 +291,7 @@ class _poolMemory:
                 p1 = _poolMemory.pool
         _poolMemory.pool = p1
 
-        res = modularRun.withLOpDel(qSim, p1)
+        res = modularRun.runSimulation(qSim, p1)
         #res = runSimulation(qSim, p1)
 
         if p1 is not None:

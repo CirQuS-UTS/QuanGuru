@@ -14,10 +14,11 @@ class qResults(qUniversal):
         self.__lastRes = defaultdict(list)
         self.__states = defaultdict(list)
         self.__lastSta = defaultdict(list)
-        self._qUniversal__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs)   
 
     @property
     def results(self):
+        # TODO After eveything is done, make this the same as results
         return self._qResults__lastRes
 
     @property
