@@ -67,18 +67,18 @@ def indicesForSweep(ind, *args):
 
 def withLWnpDel(qSim):
     results = []
-    for ind in range(qSim.indMultip):
-        indices = indicesForSweep(ind, *qSim.inds)
+    for ind in range(qSim.Loop.indMultip):
+        indices = indicesForSweep(ind, *qSim.Loop.inds)
         runSweep(qSim.Loop, indices)
         qSim.qRes.resetLast()
         withWDel(qSim)
         results.append(qSim.qRes.results)
-    qSim.qRes._organiseRes(results, qSim.inds, qSim.indMultip)
+    qSim.qRes._organiseRes(results, qSim.Loop.inds, qSim.Loop.indMultip)
 
 def withLOnpDel(qSim):
     results = []
-    for ind in range(qSim.indMultip):
-        indices = indicesForSweep(ind, *qSim.inds)
+    for ind in range(qSim.Loop.indMultip):
+        indices = indicesForSweep(ind, *qSim.Loop.inds)
         runSweep(qSim.Loop, indices)
         for qSys in qSim.subSys.values():
             qSys._genericQSys__prepareLastStateList()
@@ -87,15 +87,15 @@ def withLOnpDel(qSim):
         for ii in range(qSim.steps):
             __timeEvol(qSim, unitary)
         results.append(qSim.qRes.results)
-    qSim.qRes._organiseRes(results, qSim.inds, qSim.indMultip)
+    qSim.qRes._organiseRes(results, qSim.Loop.inds, qSim.Loop.indMultip)
 
 def withLWpDel(qSim, p):
-    results = p.map(partial(parallelSequenceWDel, qSim), range(qSim.indMultip))
-    qSim.qRes._organiseRes(results, qSim.inds, qSim.indMultip)
+    results = p.map(partial(parallelSequenceWDel, qSim), range(qSim.Loop.indMultip))
+    qSim.qRes._organiseRes(results, qSim.Loop.inds, qSim.Loop.indMultip)
             
 
 def parallelSequenceWDel(qSim, ind):
-    indices = indicesForSweep(ind, *qSim.inds)
+    indices = indicesForSweep(ind, *qSim.Loop.inds)
     runSweep(qSim.Loop, indices)
     qSim.qRes.resetLast()
     withWDel(qSim)
@@ -104,13 +104,13 @@ def parallelSequenceWDel(qSim, ind):
 
 def withLOpDel(qSim, p):
     nw = datetime.datetime.now()
-    results = p.map(partial(parallelSequenceODel, qSim), range(qSim.indMultip))
+    results = p.map(partial(parallelSequenceODel, qSim), range(qSim.Loop.indMultip))
     en = datetime.datetime.now()
-    qSim.qRes._organiseRes(results, qSim.inds, qSim.indMultip)
+    qSim.qRes._organiseRes(results, qSim.Loop.inds, qSim.Loop.indMultip)
 
 
 def parallelSequenceODel(qSim, ind):
-    indices = indicesForSweep(ind, *qSim.inds)
+    indices = indicesForSweep(ind, *qSim.Loop.inds)
     runSweep(qSim.Loop, indices)
     for qSys in qSim.subSys.values():
         qSys._genericQSys__prepareLastStateList()
