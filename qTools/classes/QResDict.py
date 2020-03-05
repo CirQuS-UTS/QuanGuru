@@ -50,6 +50,9 @@ class qResultsContainer(qUniversal):
             lenOfVal = len(array(val).flatten())
             self._qResults__results[key] = reshape(val, (*list(reversed(inds)), int(lenOfVal/steps),))
 
+    @classmethod
+    def allResults(cls):
+        return cls.qResults
 
 
 class qResults(qResultsContainer):

@@ -9,11 +9,10 @@ from multiprocessing import Pool, cpu_count
 import qTools.classes.extensions.modularSweep as modularRun
 from functools import reduce
 
-""" under construction be careful """
 class Sweep(qUniversal):
     instances = 0
-    label = 'Sweep'
-    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepPert', '__sweepList', 'logSweep', '__lCount', 'sweepFunction']
+    label = '_sweep'
+    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepStep', '__sweepList', 'logSweep', 'sweepFunction']
     # FIXME enable this, but not necessarily this way
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -22,12 +21,15 @@ class Sweep(qUniversal):
         self.sweepKey = None
         self.sweepMax = None
         self.sweepMin = None
-        self.sweepPert = None
+        self.sweepStep = None
         self.__sweepList = None
         self.logSweep = False
-        self.__lCount = 0
         self.sweepFunction = None
         self._qUniversal__setKwargs(**kwargs)
+
+    @qUniversal.subSys.setter
+    def subSys(self, subSys):
+        super().addSubSys(subSys)
 
     @property
     def sweepList(self):
@@ -37,83 +39,73 @@ class Sweep(qUniversal):
     def sweepList(self, sList):
         if sList is None:
             if self.logSweep is False:
-                self._Sweep__sweepList = np.arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
+                self._Sweep__sweepList = arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
             elif self.logSweep is True:
-                self._Sweep__sweepList = np.logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
+                self._Sweep__sweepList = logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
         else:
             self._Sweep__sweepList = sList
-
-    @property
-    def lCounts(self):
-        self._Sweep__lCount += 1
-        return self._Sweep__lCount-1
-
-    @lCounts.setter
-    def lCounts(self,val):
-        self._Sweep__lCount = val
 
     def runSweep(self, ind):
         if self.sweepFunction is None:
             val = self.sweepList[ind]
             for subSys in self.subSys.values():
                 setattr(subSys, self.sweepKey, val)
-            # TODO Decide if single or multiple subbSys
-            #setattr(self.subSys, self.sweepKey, val)
         else:
             self.sweepFunction(self, self.superSys.superSys)
-    # TODO Decide if single or multiple subbSys
-    """@qUniversal.subSys.setter
-    def subSys(self, subS):
-        self._qUniversal__subSys = subS"""
 
 
 class qSequence(qUniversal):
     instances = 0
-    label = '_sweep'
-    __slots__ = ['__Sweeps', '__swCount']
-    # TODO Same as previous 
+    label = 'Sweep'
+    __slots__ = ['__inds', '__indMultip', 'compute', 'calculate']
+    # TODO init errors
     def __init__(self, **kwargs):
         super().__init__()
-        self.__Sweeps = []
-        self.__swCount = 0
+        self.compute = None
+        # TODO Behaviour of calculate ?
+        self.calculate = None
+        self.__inds = []
+        self.__indMultip = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
+    def inds(self):
+        return self._qSequence__inds
+
+    @property
+    def indMultip(self):
+        return self._qSequence__indMultip
+
+    @property
     def sweeps(self):
-        return self._qSequence__Sweeps
+        return self._qUniversal__subSys
 
     @sweeps.setter
     def sweeps(self, sysDict):
-        self._qSequence__Sweeps = {}
-        for key, val in sysDict.items():
-            self.addSweep(val, key)
+        super().subSys = sysDict
 
-    # TODO Change name to create
-    def addSweep(self, sys, sweepKey, **kwargs):
+    def createSweep(self, sys, sweepKey, **kwargs):
         newSweep = Sweep(superSys=self, subSys=sys, sweepKey=sweepKey, **kwargs)
-        self._qSequence__Sweeps.append(newSweep)
+        super().addSubSys(newSweep)
         return newSweep
 
-    @property
-    def lCount(self):
-        self._qSequence__swCount += 1
-        return self._qSequence__swCount - 1
-
-    @lCount.setter
-    def lCount(self,val):
-        self._qSequence__swCount = val
+    def prepare(self):
+        if len(self.subSys) > 0:
+            self._qSequence__inds = [0 for i in range(len(self.subSys))]
+            for sweep in self.subSys.values():
+                self._qSequence__inds[-(sweep.ind+1)] = len(sweep.sweepList)-1
+            self._qSequence__indMultip = reduce(lambda x, y: x*y, self._qSequence__inds)
 
 
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
-    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes', 'inds', 'indMultip']
+    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
         self.__qSys = None
 
-        self.beforeLoop = qSequence(superSys=self)
         self.Loop = qSequence(superSys=self)
         self.whileLoop = qSequence(superSys=self)
         # TODO assign supersys ?
@@ -127,8 +119,6 @@ class Simulation(qUniversal):
         self.__step = 1
 
         self.compute = None
-        self.inds = []
-        self.indMultip = None
 
         if ((system is not None) and ('qSys' in kwargs.keys())):
             print('Two qSys given')
@@ -219,19 +209,10 @@ class Simulation(qUniversal):
                 for protocol in qSys._genericQSys__unitary:
                     protocol.prepare(self)
 
-        if len(self.Loop.sweeps)>0:
-            self.inds = [0 for i in range(len(self.Loop.sweeps))]
-            for sweep in self.Loop.sweeps:
-                self.inds[-(sweep.ind+1)] = len(sweep.sweepList)-1
-            self.indMultip = reduce(lambda x, y: x*y, self.inds)
+        self.Loop.prepare()
 
         self.qRes.reset()
-        #self.qRes._prepare(self)
-        #self.qRes._createList()
-        
-        self._Simulation__res(self.beforeLoop)
-        self._Simulation__res(self.Loop)
-        self._Simulation__res(self.whileLoop)
+
 
         _poolMemory.run(self, p, coreCount)
 
@@ -255,12 +236,6 @@ class Simulation(qUniversal):
                     if qSys.name in sw.subSys.keys():
                         del self.Loop.sweeps[ind]
         return self
-
-    @staticmethod
-    def __res(seq):
-        seq.lCount = 0
-        for sweep in seq.sweeps:
-            sweep.lCounts = 0
 
 
 class _poolMemory:

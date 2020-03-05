@@ -2,17 +2,19 @@ import qTools.QuantumToolbox.liouvillian as lio
 from qTools.classes.QUni import qUniversal
 from qTools.QuantumToolbox.operators import compositeOp, identity
 import numpy as np
+from qTools.classes.QResDict import qResults
 """ under construction """
 
 class qProtocol(qUniversal):
     instances = 0
     label = 'qProtocol'
-    __slots__  = ['__steps', '__unitary', 'lastState']
+    __slots__  = ['__steps', '__unitary', 'lastState', 'results']
     def __init__(self, **kwargs):
         super().__init__()
         self.__steps = []
         self.__unitary = None
         self.lastState = None
+        self.results = qResults(superSys=self)
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -75,7 +77,7 @@ class qProtocol(qUniversal):
 class Step(qUniversal):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState']
+    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState', 'results']
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = None
@@ -88,6 +90,7 @@ class Step(qUniversal):
         self.getUnitary = None
         self.createUnitary = self.createUnitaryFunc
         self.lastState = None
+        self.results = qResults(superSys=self)
         self._qUniversal__setKwargs(**kwargs)
 
     @property

@@ -113,7 +113,6 @@ class QuantumSystem(genericQSys):
         return self._qUniversal__subSys
 
     def __addSub(self, subSys):
-        subSys.ind = len(self._QuantumSystem__qSystems)
         for key, subS in self._QuantumSystem__qSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
@@ -167,7 +166,7 @@ class QuantumSystem(genericQSys):
 
     def __addCoupling(self, couplingObj, *args, **kwargs):
         self._QuantumSystem__qCouplings[couplingObj.name] = couplingObj
-        couplingObj.ind = len(self.qCouplings)
+        couplingObj._qUniversal__ind = len(self.qCouplings)
         return couplingObj
 
     def createSysCoupling(self, *args, **kwargs):
