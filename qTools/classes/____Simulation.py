@@ -10,10 +10,11 @@ class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
     
-    __slots__ = ['Sweep', 'timeDependency',  'qRes', 'delStates', '__finalTime', '__stepSize', '__samples', '__step', 'compute']
+    __slots__ = ['Sweep', 'timeDependency',  'qRes', 'delStates', '__finalTime', '__stepSize', '__samples', '__step', 'compute', '__protocols']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
+        self.__protocols = {}
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
@@ -30,23 +31,30 @@ class Simulation(qUniversal):
 
         if system is None:
             self.addSubSys(QuantumSystem())
+        else:
+            self.addQSystems(system)
 
         self._qUniversal__setKwargs(**kwargs)
+    
+    @property
+    def protocols(self):
+        return (*list(self._Simulation__protocols.values()),)
 
     @property
     def qSystems(self):
         return (*list(self.subSys.values()),)
 
     def addQSystems(self, subS, Protocol=None):
-        if Protocol is not None:
-            self._qUniversal__subSys[Protocol.name] = self._qUniversal__subSys.pop(subS.name)
-        elif Protocol is None:
-            freeEvol = freeEvolution(superSys=subS)
-            self._qUniversal__subSys[freeEvol.name] = self._qUniversal__subSys.pop(subS.name)
+        if Protocol is None:
+            Protocol = freeEvolution(superSys=subS)
+        self._qUniversal__subSys[Protocol.name] = self._qUniversal__subSys.pop(subS.name)
+        self._Simulation__protocols[Protocol.name] = Protocol
+        return (subS, Protocol)
         
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
         newSys = super().createSubSys(subSysClass, **kwargs)
-        self.addQSystems(newSys, Protocol)
+        newSys, Protocol = self.addQSystems(newSys, Protocol)
+        return (newSys, Protocol)
 
     def removeQSystems(self, subS):
         for key, subSys in self._qUniversal__subSys.items():
@@ -55,16 +63,24 @@ class Simulation(qUniversal):
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
        
     def removeProtocol(self, Protocol):
-        del self._qUniversal__subSys[Protocol]
+        if Protocol is not None:
+            del self._qUniversal__subSys[Protocol]
+
+    def addProtocol(self, sys, protocolAdd, protocolRemove=None):
+        self.addSubSys(sys, protocolAdd)
+        self.removeProtocol(Protocol=protocolRemove)
+        return protocolAdd
 
     # overwriting methods from qUniversal
     def addSubSys(self, subS, Protocol=None, **kwargs):
         newSys = super().addSubSys(subS, **kwargs)
-        self.addQSystems(self, subS, **kwargs)
+        newSys, Protocol = self.addQSystems(self, subS, **kwargs)
+        return (newSys, Protocol)
 
     def createSubSys(self, subSysClass, Protocol=None, **kwargs):
         newSys = super().createSubSys(subSysClass, **kwargs)
-        self.createQSystems(self, newSys, **kwargs)
+        newSys, Protocol = self.createQSystems(self, newSys, **kwargs)
+        return (newSys, Protocol)
     
     def removeSubSys(self, subS):
         self.removeQSystems(self, subS)
