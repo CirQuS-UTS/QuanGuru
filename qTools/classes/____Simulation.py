@@ -1,4 +1,8 @@
 from qTools.classes.____Sweep import Sweep
+from multiprocessing import Pool, cpu_count
+from qTools.classes.extensions.modularSweep import runSimulation
+from qTools.classes.QSys import QuantumSystem
+from qTools.classes.QUni import qUniversal
 
 class Simulation(qUniversal):
     instances = 0
@@ -96,8 +100,6 @@ class Simulation(qUniversal):
 
     @qSys.setter
     def qSys(self, val):
-        """if isinstance(val, QuantumSystem):
-            QuantumSystem.constructCompSys(val)"""
         self._Simulation__qSys = val
         self.subSys = None
         self.subSys = val
@@ -114,18 +116,10 @@ class Simulation(qUniversal):
                 for protocol in qSys._genericQSys__unitary:
                     protocol.prepare(self)
 
-        if len(self.Loop.sweeps)>0:
-            self.inds = [0 for i in range(len(self.Loop.sweeps))]
-            for sweep in self.Loop.sweeps.values():
-                self.inds[-(sweep.ind+1)] = len(sweep.sweepList)-1
-            self.indMultip = reduce(lambda x, y: x*y, self.inds)
-
+        self.Sweep.prepare()
         self.qRes.reset()
 
-
         _poolMemory.run(self, p, coreCount)
-
-        #self.qRes._unpack()
 
         return self.qRes
 
@@ -141,23 +135,23 @@ class Simulation(qUniversal):
     def removeSweeps(self, sys):
         if isinstance(sys, QuantumSystem):
             for qSys in sys.subSys.values():
-                for ind, sw in enumerate(self.Loop.sweeps):
-                    if qSys.name in sw.subSys.keys():
-                        del self.Loop.sweeps[ind]
+                for key, val in self.Sweep.sweeps.items():
+                    if qSys.name in val.subSys.keys():
+                        del self.Loop.sweeps[key]
         return self
 
 
 class _poolMemory:
-    pool = None
+    coreCount = None
     
     @classmethod
     def run(cls, qSim, p, coreCount):
         if p is True:
             if coreCount is None:
-                if _poolMemory.pool is None:
+                if _poolMemory.coreCount is None:
                     p1 = Pool(processes=cpu_count()-1)
                 else:
-                    p1 = _poolMemory.pool
+                    p1 =p1 = Pool(processes=_poolMemory.coreCount)
             elif isinstance(coreCount, int):
                 p1 = Pool(processes=coreCount)
             elif coreCount.lower() == 'all':
@@ -168,18 +162,14 @@ class _poolMemory:
             numb = p._processes
             p1 = Pool(processes=numb)
         elif p is None:
-            if _poolMemory.pool is not None:
-                numb = _poolMemory.pool._processes
-                p1 = Pool(processes=numb)
+            if _poolMemory.coreCount is not None:
+                p1 = Pool(processes=_poolMemory.coreCount)
             else:
-                p1 = _poolMemory.pool
-        _poolMemory.pool = p1
+                p1 = None
 
-        res = modularRun.runSimulation(qSim, p1)
-        #res = runSimulation(qSim, p1)
+        res = runSimulation(qSim, p1)
 
         if p1 is not None:
-            numb = p1._processes
+            _poolMemory.coreCount = p1._processes
             p1.close()
             p1.join()
-            _poolMemory.pool = Pool(processes=numb)
