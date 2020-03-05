@@ -9,7 +9,7 @@ __all__ = [
 class _sweep(qUniversal):
     instances = 0
     label = '_sweep'
-    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepStep', '__sweepList', 'logSweep', 'sweepFunction']
+    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'sweepFunction']
     # FIXME enable this, but not necessarily this way
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -19,7 +19,7 @@ class _sweep(qUniversal):
         self.sweepMax = None
         self.sweepMin = None
         self.sweepStep = None
-        self.__sweepList = None
+        self._sweepList = None
         self.logSweep = False
         self.sweepFunction = None
         self._qUniversal__setKwargs(**kwargs)
@@ -30,17 +30,17 @@ class _sweep(qUniversal):
 
     @property
     def sweepList(self):
-        return self._Sweep__sweepList
+        return self._sweepList
 
     @sweepList.setter
     def sweepList(self, sList):
         if sList is None:
             if self.logSweep is False:
-                self._Sweep__sweepList = arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
+                self._sweepList = arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
             elif self.logSweep is True:
-                self._Sweep__sweepList = logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
+                self._sweepList = logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
         else:
-            self._Sweep__sweepList = sList
+            self._sweepList = sList
 
     def runSweep(self, ind):
         if self.sweepFunction is None:

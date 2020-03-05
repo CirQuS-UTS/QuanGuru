@@ -1,4 +1,4 @@
-from qTools.classes.____Sweep import Sweep
+from qTools.classes.Sweep import Sweep
 from multiprocessing import Pool, cpu_count
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.QSys import QuantumSystem
@@ -19,7 +19,6 @@ class Simulation(qUniversal):
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
 
-        self.qRes = qResultsContainer()
         self.delStates = False
 
         self.__finalTime = None
@@ -29,25 +28,27 @@ class Simulation(qUniversal):
 
         self.compute = None
 
-        if system is None:
-            self.addSubSys(QuantumSystem())
-        else:
+        if system is not None:
             self.addQSystems(system)
 
         self._qUniversal__setKwargs(**kwargs)
+        self.qRes = qResultsContainer(superSys=self)
     
     @property
     def protocols(self):
-        return (*list(self._Simulation__protocols.values()),)
+        protocs = list(self._Simulation__protocols.values())
+        return (*protocs,) if len(protocs) > 1 else protocs[0]
 
     @property
     def qSystems(self):
-        return (*list(self.subSys.values()),)
+        qSys =  list(self.subSys.values())
+        return (*qSys,) if len(qSys) > 1 else qSys[0]
 
     def addQSystems(self, subS, Protocol=None):
+        subS = super().addSubSys(subS)
         if Protocol is None:
             Protocol = freeEvolution(superSys=subS)
-        self._qUniversal__subSys[Protocol.name] = self._qUniversal__subSys.pop(subS.name)
+        self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name)
         self._Simulation__protocols[Protocol.name] = Protocol
         return (subS, Protocol)
         
@@ -67,30 +68,30 @@ class Simulation(qUniversal):
             del self._qUniversal__subSys[Protocol]
 
     def addProtocol(self, sys, protocolAdd, protocolRemove=None):
-        self.addSubSys(sys, protocolAdd)
+        self.addSubSys(protocolAdd.superSys, protocolAdd)
         self.removeProtocol(Protocol=protocolRemove)
         return protocolAdd
 
     # overwriting methods from qUniversal
     def addSubSys(self, subS, Protocol=None, **kwargs):
         newSys = super().addSubSys(subS, **kwargs)
-        newSys, Protocol = self.addQSystems(self, subS, **kwargs)
+        newSys, Protocol = self.addQSystems(subS, Protocol, **kwargs)
         return (newSys, Protocol)
 
     def createSubSys(self, subSysClass, Protocol=None, **kwargs):
         newSys = super().createSubSys(subSysClass, **kwargs)
-        newSys, Protocol = self.createQSystems(self, newSys, **kwargs)
+        newSys, Protocol = self.createQSystems(newSys, Protocol, **kwargs)
         return (newSys, Protocol)
     
     def removeSubSys(self, subS):
-        self.removeQSystems(self, subS)
+        self.removeQSystems(subS)
         
     
     # TODO DECIDE
     def __compute(self, *args):
         states = []
-        for qSys in self.subSys.values():
-            states.extend(qSys._genericQSys__lastStateList)
+        for protoc in self._Simulation__protocols.values():
+            states.append(protoc.lastState)
 
         if self.compute is not None:
             self.compute(self, *states)
@@ -102,16 +103,18 @@ class Simulation(qUniversal):
     @finalTime.setter
     def finalTime(self, fTime):
         self._Simulation__finalTime = fTime
-        self._Simulation__step = int(fTime//self.stepSize + 1)
+        if self.stepSize is not None:
+            self._Simulation__step = int((fTime//self.stepSize) + 1)
 
     @property
     def steps(self):
-        return self._Simulation__step
+        return int((self.finalTime//self.stepSize) + 1)
 
     @steps.setter
     def steps(self, num):
         self._Simulation__step = num
-        self._Simulation__stepSize = self.finalTime/num
+        if finalTime is not None:
+            self._Simulation__stepSize = self.finalTime/num
 
     @property
     def stepSize(self):
@@ -121,7 +124,7 @@ class Simulation(qUniversal):
     def stepSize(self, stepsize):
         self._Simulation__stepSize = stepsize
         if self.finalTime is not None:
-            self._Simulation__step = int(self.finalTime//stepsize + 1)
+            self._Simulation__step = int((self.finalTime//stepsize) + 1)
 
     @property
     def samples(self):
@@ -146,18 +149,17 @@ class Simulation(qUniversal):
     
     def run(self, p=None, coreCount=None):
         for qSys in self.subSys.values():
-            if isinstance(self.qSys, QuantumSystem):
+            if isinstance(qSys, QuantumSystem):
                 # TODO Check first if constructed
                 qSys.constructCompSys()
-            
-            if isinstance(qSys._genericQSys__unitary, qUniversal):
-                qSys._genericQSys__unitary.prepare(self)
-            elif isinstance(qSys._genericQSys__unitary, list):
-                for protocol in qSys._genericQSys__unitary:
-                    protocol.prepare(self)
+
+        for protoc in self._Simulation__protocols.values():
+            protoc.prepare(self)
+
 
         self.Sweep.prepare()
-        self.qRes.reset()
+        for qres in self.qRes.qResults.values():
+            qres.reset()
 
         _poolMemory.run(self, p, coreCount)
 
