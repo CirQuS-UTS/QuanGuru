@@ -16,7 +16,7 @@ class genericQSys(qUniversal):
         super().__init__()
         self.__constructed = False
         self.__paramUpdated = True
-        self.__unitary = freeEvolution(superSys=self)
+        #self.__unitary = freeEvolution(superSys=self)
         self.__initialState = None
         self.__initialStateInput = None
         self.__lastState = None
