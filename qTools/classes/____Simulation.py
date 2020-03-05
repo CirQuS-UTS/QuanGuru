@@ -3,38 +3,73 @@ from multiprocessing import Pool, cpu_count
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.QSys import QuantumSystem
 from qTools.classes.QUni import qUniversal
-from qTools.classes.QResDict import qResults
+from qTools.classes.QResDict import qResultsContainer
+from qTools.classes.QPro import freeEvolution
 
 class Simulation(qUniversal):
     instances = 0
     label = 'Simulation'
-    __slots__ = ['__qSys', '__stepSize', '__finalTime', 'compute', '__samples', '__step', 'delState', 'qRes',]
+    
+    __slots__ = ['Sweep', 'timeDependency',  'qRes', 'delStates', '__finalTime', '__stepSize', '__samples', '__step', 'compute']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
+
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
-        # TODO assign supersys ?
-        self.qRes = qResults()
-        
-        self.delState = False
+
+        self.qRes = qResultsContainer()
+        self.delStates = False
 
         self.__finalTime = None
-        self.__stepSize = 0.02
+        self.__stepSize = None
         self.__samples = 1
-        self.__step = 1
+        self.__step = None
 
         self.compute = None
 
-        if ((system is not None) and ('qSys' in kwargs.keys())):
-            print('Two qSys given')
-        elif ((system is not None) and ('qSys' not in kwargs.keys())):
-            kwargs['qSys'] = system
-        self._qUniversal__setKwargs(**kwargs)
-        if self.__qSys is None:
-            self.__qSys = QuantumSystem()
-            self.subSys = self.qSys
+        if system is None:
+            self.addSubSys(QuantumSystem())
 
+        self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def qSystems(self):
+        return (*list(self.subSys.values()),)
+
+    def addQSystems(self, subS, Protocol=None):
+        if Protocol is not None:
+            self._qUniversal__subSys[Protocol.name] = self._qUniversal__subSys.pop(subS.name)
+        elif Protocol is None:
+            freeEvol = freeEvolution(superSys=subS)
+            self._qUniversal__subSys[freeEvol.name] = self._qUniversal__subSys.pop(subS.name)
+        
+    def createQSystems(self, subSysClass, Protocol=None, **kwargs):
+        newSys = super().createSubSys(subSysClass, **kwargs)
+        self.addQSystems(newSys, Protocol)
+
+    def removeQSystems(self, subS):
+        for key, subSys in self._qUniversal__subSys.items():
+            if subSys == subS:
+                del self._qUniversal__subSys[key]
+                print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
+       
+    def removeProtocol(self, Protocol):
+        del self._qUniversal__subSys[Protocol]
+
+    # overwriting methods from qUniversal
+    def addSubSys(self, subS, Protocol=None, **kwargs):
+        newSys = super().addSubSys(subS, **kwargs)
+        self.addQSystems(self, subS, **kwargs)
+
+    def createSubSys(self, subSysClass, Protocol=None, **kwargs):
+        newSys = super().createSubSys(subSysClass, **kwargs)
+        self.createQSystems(self, newSys, **kwargs)
+    
+    def removeSubSys(self, subS):
+        self.removeQSystems(self, subS)
+        
+    
     # TODO DECIDE
     def __compute(self, *args):
         states = []
@@ -43,8 +78,6 @@ class Simulation(qUniversal):
 
         if self.compute is not None:
             self.compute(self, *states)
-        else:
-            pass
 
     @property
     def finalTime(self):
