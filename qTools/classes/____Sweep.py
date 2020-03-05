@@ -1,5 +1,10 @@
 from numpy import arange, logspace
+from functools import reduce
+from qTools.classes.QUni import qUniversal
 
+__all__ = [
+    'Sweep'
+]
 
 class _sweep(qUniversal):
     instances = 0
@@ -49,11 +54,24 @@ class _sweep(qUniversal):
 class Sweep(qUniversal):
     instances = 0
     label = 'Sweep'
-    __slots__ = []
+    __slots__ = ['__inds', '__indMultip', 'compute', 'calculate']
     # TODO init errors
     def __init__(self, **kwargs):
         super().__init__()
+        self.compute = None
+        # TODO Behaviour of calculate ?
+        self.calculate = None
+        self.__inds = []
+        self.__indMultip = None
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def inds(self):
+        return self._Sweep__inds
+
+    @property
+    def indMultip(self):
+        return self._Sweep__indMultip
 
     @property
     def sweeps(self):
@@ -68,3 +86,9 @@ class Sweep(qUniversal):
         super().addSubSys(newSweep)
         return newSweep
 
+    def prepare(self):
+        if len(self.subSys) > 0:
+            self._Sweep__inds = [0 for i in range(len(self.subSys))]
+            for sweep in self.subSys.values():
+                self._Sweep__inds[-(sweep.ind+1)] = len(sweep.sweepList)-1
+            self._Sweep__indMultip = reduce(lambda x, y: x*y, self._Sweep__inds)
