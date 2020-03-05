@@ -69,7 +69,7 @@ def withLWnpDel(qSim):
     results = []
     for ind in range(qSim.indMultip):
         indices = indicesForSweep(ind, *qSim.inds)
-        runSequence(qSim.Loop, indices)
+        runSweep(qSim.Loop, indices)
         qSim.qRes.resetLast()
         withWDel(qSim)
         results.append(qSim.qRes.results)
@@ -79,7 +79,7 @@ def withLOnpDel(qSim):
     results = []
     for ind in range(qSim.indMultip):
         indices = indicesForSweep(ind, *qSim.inds)
-        runSequence(qSim.Loop, indices)
+        runSweep(qSim.Loop, indices)
         for qSys in qSim.subSys.values():
             qSys._genericQSys__prepareLastStateList()
         unitary = exponUni(qSim)
@@ -96,7 +96,7 @@ def withLWpDel(qSim, p):
 
 def parallelSequenceWDel(qSim, ind):
     indices = indicesForSweep(ind, *qSim.inds)
-    runSequence(qSim.Loop, indices)
+    runSweep(qSim.Loop, indices)
     qSim.qRes.resetLast()
     withWDel(qSim)
     return qSim.qRes.results
@@ -111,7 +111,7 @@ def withLOpDel(qSim, p):
 
 def parallelSequenceODel(qSim, ind):
     indices = indicesForSweep(ind, *qSim.inds)
-    runSequence(qSim.Loop, indices)
+    runSweep(qSim.Loop, indices)
     for qSys in qSim.subSys.values():
         qSys._genericQSys__prepareLastStateList()
     unitary = exponUni(qSim)
@@ -126,7 +126,7 @@ def parallelSequenceODel(qSim, ind):
         qSys._genericQSys__prepareLastStateList()
 
     for ind in range(len(qSim.whileLoop.sweeps[0].sweepList)):
-        runSequence(qSim.whileLoop, ind)
+        runSweep(qSim.whileLoop, ind)
         unitary = exponUni(qSim)
         __timeEvol(qSim, unitary)'''
 
@@ -135,7 +135,7 @@ def withWDel(qSim):
         qSys._genericQSys__prepareLastStateList()
 
     for ind in range(len(qSim.whileLoop.sweeps[0].sweepList)):
-        runSequence(qSim.whileLoop, ind)
+        runSweep(qSim.whileLoop, ind)
         unitary = exponUni(qSim)
         __timeEvol(qSim, unitary)
 
@@ -157,6 +157,6 @@ def exponUni(qSim):
             unitary.append(subUni)
     return unitary
 
-def runSequence(qSeq, ind):
-    for i, sweep in enumerate(qSeq.sweeps):
+def runSweep(qSeq, ind):
+    for sweep in qSeq.sweeps.values():
         sweep.runSweep(ind[sweep.ind])
