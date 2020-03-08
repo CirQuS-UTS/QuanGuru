@@ -1,16 +1,16 @@
 from qTools.classes.Sweep import Sweep
 from multiprocessing import Pool, cpu_count
 from qTools.classes.extensions.modularSweep import runSimulation
-from qTools.classes.QSys import QuantumSystem
-from qTools.classes.QUni import qUniversal
+from qTools.classes.QSys import QuantumSystem, genericQSys
+from qTools.classes.timeInfoBase import timeBase
 from qTools.classes.QResDict import qResultsContainer
 from qTools.classes.QPro import freeEvolution
 
-class Simulation(qUniversal):
+class Simulation(timeBase):
     instances = 0
     label = 'Simulation'
     
-    __slots__ = ['Sweep', 'timeDependency',  'qRes', 'delStates', '__finalTime', '__stepSize', '__samples', '__step', 'compute', '__protocols']
+    __slots__ = ['Sweep', 'timeDependency',  'qRes', '__protocols']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
@@ -18,15 +18,6 @@ class Simulation(qUniversal):
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
-
-        self.delStates = False
-
-        self.__finalTime = None
-        self.__stepSize = None
-        self.__samples = 1
-        self.__step = None
-
-        self.compute = None
 
         if system is not None:
             self.addQSystems(system)
@@ -63,7 +54,8 @@ class Simulation(qUniversal):
             if subSys == subS:
                 del self._qUniversal__subSys[key]
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
-       
+
+    # add/remove protocol  
     def removeProtocol(self, Protocol):
         if Protocol is not None:
             del self._qUniversal__subSys[Protocol]
@@ -87,7 +79,6 @@ class Simulation(qUniversal):
     def removeSubSys(self, subS):
         self.removeQSystems(subS)
         
-    
     # TODO DECIDE
     def __compute(self, *args):
         # TODO avoid this by making last-states the key or storing them in a class attribute list
@@ -98,49 +89,6 @@ class Simulation(qUniversal):
         if self.compute is not None:
             self.compute(self, *states)
 
-    @property
-    def finalTime(self):
-        return self._Simulation__finalTime
-
-    @finalTime.setter
-    def finalTime(self, fTime):
-        self._Simulation__finalTime = fTime
-        if self.stepSize is not None:
-            self._Simulation__step = int((fTime//self.stepSize) + 1)
-
-    @property
-    def steps(self):
-        if self.finalTime is None:
-            self._Simulation__finalTime = self._Simulation__step * self.stepSize
-        return int((self.finalTime//self.stepSize) + 1)
-
-    @steps.setter
-    def steps(self, num):
-        self._Simulation__step = num
-        if self.finalTime is not None:
-            self._Simulation__stepSize = self.finalTime/num
-
-    @property
-    def stepSize(self):
-        return self._Simulation__stepSize
-
-    @stepSize.setter
-    def stepSize(self, stepsize):
-        self._Simulation__stepSize = stepsize
-        if self.finalTime is not None:
-            self._Simulation__step = int((self.finalTime//stepsize) + 1)
-
-    @property
-    def samples(self):
-        return self._Simulation__samples
-
-    @samples.setter
-    def samples(self, num):
-        self._Simulation__samples = num
-
-    def __del__(self):
-        class_name = self.__class__.__name__
-    
     def run(self, p=None, coreCount=None):
         for protocol, qSys in self.subSys.items():
             if isinstance(qSys, QuantumSystem):
@@ -163,20 +111,23 @@ class Simulation(qUniversal):
         return self.qRes
 
     def removeSys(self, sys):
-        if isinstance(sys, qUniversal):
+        if isinstance(sys, genericQSys):
             self.removeSweeps(sys)
             del self.subSys[sys.name]
         elif isinstance(sys, str):
             self.removeSweeps(self.subSys[sys])
             del self.subSys[sys]
         return self
+    
     # TODO remove a specific sweep
     def removeSweeps(self, sys):
-        if isinstance(sys, QuantumSystem):
+        # TODO type is not valid for single systems
+        if isinstance(sys, genericQSys):
             for qSys in sys.subSys.values():
                 for key, val in self.Sweep.sweeps.items():
                     if qSys.name in val.subSys.keys():
                         del self.Loop.sweeps[key]
+        #elif sys.__class__.__name__ == '_sweep':
         return self
 
 

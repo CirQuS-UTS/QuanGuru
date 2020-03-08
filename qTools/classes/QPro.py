@@ -1,11 +1,12 @@
 import qTools.QuantumToolbox.liouvillian as lio
 from qTools.classes.QUni import qUniversal
+from qTools.classes.timeInfoBase import timeBase
 from qTools.QuantumToolbox.operators import compositeOp, identity
 import numpy as np
 from qTools.classes.QResDict import qResults
 """ under construction """
 
-class qProtocol(qUniversal):
+class qProtocol(timeBase):
     instances = 0
     label = 'qProtocol'
     __slots__  = ['__steps', '__unitary', 'lastState', 'results']
@@ -56,6 +57,10 @@ class qProtocol(qUniversal):
         for step in self.steps:
             unitary = step.createUnitary() @ unitary
         self._qProtocol__unitary = unitary
+        '''unitaries = []
+        for step in self.steps:
+            unitaries.append(step.createUnitary())
+        self._qProtocol__unitary = unitaries'''
         return unitary
 
     def prepare(self, obj):
@@ -74,15 +79,13 @@ class qProtocol(qUniversal):
 
 
 
-class Step(qUniversal):
+class Step(timeBase):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState', 'results']
+    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState', 'results']
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = None
-        self.__stepSize = None
-        self.__samples = None
         self.__ratio = None
         self.__updates = []
         self.__fixed = False

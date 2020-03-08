@@ -1,4 +1,4 @@
-import numpy as np
+from numpy import arange, logspace
 from qTools.classes.QSys import QuantumSystem
 from qTools.classes.QUni import qUniversal
 #from qTools.classes.exceptions import sweepInitError
