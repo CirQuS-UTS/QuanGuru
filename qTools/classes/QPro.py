@@ -1,9 +1,9 @@
 import qTools.QuantumToolbox.liouvillian as lio
-from qTools.classes.QUni import qUniversal
 from qTools.classes.timeInfoBase import timeBase
 from qTools.QuantumToolbox.operators import compositeOp, identity
 import numpy as np
 from qTools.classes.QResDict import qResults
+from qTools.classes.updateBase import updateBase
 """ under construction """
 
 class qProtocol(timeBase):
@@ -234,21 +234,27 @@ class Gate(Step):
         self._Gate__implementation = typeStr
 
 
-class Update(qUniversal):
+class Update(updateBase):
     instances = 0
     label = 'Update'
-    slots = ['system', 'key', 'value', '__memory']
+    slots = ['value', '__memory']
     def __init__ (self, **kwargs):
         super().__init__()
-        self.system = None
-        self.key = None
         self.value = None
         self.__memory = None
         self._qUniversal__setKwargs(**kwargs)
+        
+    @property
+    def key(self):
+        return self._updateBase__key
+
+    @key.setter
+    def key(self, keyStr):
+        self._updateBase__key = keyStr
 
     def setup(self):
         self._Update__memory = getattr(self.system, self.key)
-        setattr(self.system, self.key, self.value)
+        super()._runUpdate(self.value)
     
     def setback(self):
-        setattr(self.system, self.key, self._Update__memory)
+        super()._runUpdate(self._Update__memory)

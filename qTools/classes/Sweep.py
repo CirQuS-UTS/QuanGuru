@@ -1,21 +1,21 @@
 from numpy import arange, logspace
 from functools import reduce
 from qTools.classes.QUni import qUniversal
+from qTools.classes.updateBase import updateBase
 
 __all__ = [
     'Sweep'
 ]
 
-class _sweep(qUniversal):
+class _sweep(updateBase):
     instances = 0
     label = '_sweep'
-    __slots__ = ['sweepKey', 'sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'sweepFunction']
+    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'sweepFunction']
     # FIXME enable this, but not necessarily this way
     #@sweepInitError
     def __init__(self, **kwargs):
         super().__init__()
         # TODO make these properties so that sweepList is dynamic ?
-        self.sweepKey = None
         self.sweepMax = None
         self.sweepMin = None
         self.sweepStep = None
@@ -24,9 +24,13 @@ class _sweep(qUniversal):
         self.sweepFunction = None
         self._qUniversal__setKwargs(**kwargs)
 
-    @qUniversal.subSys.setter
-    def subSys(self, subSys):
-        super().addSubSys(subSys)
+    @property
+    def sweepKey(self):
+        return self._updateBase__key
+
+    @sweepKey.setter
+    def sweepKey(self, keyStr):
+        self._updateBase__key = keyStr
 
     @property
     def sweepList(self):
@@ -81,8 +85,8 @@ class Sweep(qUniversal):
     def sweeps(self, sysDict):
         super().subSys = sysDict
     # TODO remove a specific sweep or all the sweep for a specific system
-    def createSweep(self, sys, sweepKey, **kwargs):
-        newSweep = _sweep(superSys=self, subSys=sys, sweepKey=sweepKey, **kwargs)
+    def createSweep(self, system, sweepKey, **kwargs):
+        newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
         super().addSubSys(newSweep)
         return newSweep
 
