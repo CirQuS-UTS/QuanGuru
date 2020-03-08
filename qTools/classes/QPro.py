@@ -9,13 +9,12 @@ from qTools.classes.QResDict import qResults
 class qProtocol(timeBase):
     instances = 0
     label = 'qProtocol'
-    __slots__  = ['__steps', '__unitary', 'lastState', 'results']
+    __slots__  = ['__steps', '__unitary', 'lastState']
     def __init__(self, **kwargs):
         super().__init__()
         self.__steps = []
         self.__unitary = None
         self.lastState = None
-        self.results = qResults(superSys=self)
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -82,7 +81,7 @@ class qProtocol(timeBase):
 class Step(timeBase):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState', 'results']
+    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState']
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = None
@@ -93,7 +92,6 @@ class Step(timeBase):
         self.getUnitary = None
         self.createUnitary = self.createUnitaryFunc
         self.lastState = None
-        self.results = qResults(superSys=self)
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -116,21 +114,6 @@ class Step(timeBase):
     def fixed(self, boolean):
         self._Step__fixed = boolean
 
-    @property
-    def stepSize(self):
-        return self._Step__stepSize
-
-    @stepSize.setter
-    def stepSize(self, val):
-        self._Step__stepSize = val
-
-    @property
-    def samples(self):
-        return self._Step__samples
-
-    @samples.setter
-    def samples(self, val):
-        self._Step__samples = val
 
     def createUnitaryFunc(self):
         if self.superSys._paramUpdated is True:

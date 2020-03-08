@@ -3,14 +3,13 @@ from multiprocessing import Pool, cpu_count
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.QSys import QuantumSystem, genericQSys
 from qTools.classes.timeInfoBase import timeBase
-from qTools.classes.QResDict import qResultsContainer
 from qTools.classes.QPro import freeEvolution
 
 class Simulation(timeBase):
     instances = 0
     label = 'Simulation'
     
-    __slots__ = ['Sweep', 'timeDependency',  'qRes', '__protocols']
+    __slots__ = ['Sweep', 'timeDependency', '__protocols']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
@@ -23,7 +22,6 @@ class Simulation(timeBase):
             self.addQSystems(system)
 
         self._qUniversal__setKwargs(**kwargs)
-        self.qRes = qResultsContainer(superSys=self)
     
     @property
     def protocols(self):

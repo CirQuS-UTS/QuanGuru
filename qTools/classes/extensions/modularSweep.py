@@ -70,7 +70,7 @@ def withLWnpDel(qSim):
     results = []
     for ind in range(qSim.Sweep.indMultip):
         indices = indicesForSweep(ind, *qSim.Sweep.inds)
-        runSweep(qSim.Sweep, indices)
+        qSim.Sweep.runSweep(indices)
         qSim.qRes.resetLast()
         withWDel(qSim)
         results.append(qSim.qRes.results)
@@ -80,7 +80,7 @@ def withLOnpDel(qSim):
     results = []
     for ind in range(qSim.Sweep.indMultip):
         indices = indicesForSweep(ind, *qSim.Sweep.inds)
-        runSweep(qSim.Sweep, indices)
+        qSim.Sweep.runSweep(indices)
         for protoc, qSys in qSim.subSys.items():
             protoc.lastState = qSys.initialState
             #qSim._Simulation__compute()
@@ -98,7 +98,7 @@ def withLWpDel(qSim, p):
 
 def parallelSequenceWDel(qSim, ind):
     indices = indicesForSweep(ind, *qSim.Sweep.inds)
-    runSweep(qSim.Sweep, indices)
+    qSim.Sweep.runSweep(indices)
     qSim.qRes.resetLast()
     withWDel(qSim)
     return qSim.qRes.results
@@ -113,7 +113,7 @@ def withLOpDel(qSim, p):
 
 def parallelSequenceODel(qSim, ind):
     indices = indicesForSweep(ind, *qSim.Sweep.inds)
-    runSweep(qSim.Sweep, indices)
+    qSim.Sweep.runSweep(indices)
     for protoc, qSys in qSim.subSys.items():
         protoc.lastState = qSys.initialState
         #qSim._Simulation__compute()
@@ -130,7 +130,7 @@ def parallelSequenceODel(qSim, ind):
         qSim._Simulation__compute()
 
     for ind in range(len(qSim.timeDependency.sweeps[0].sweepList)):
-        runSweep(qSim.timeDependency, ind)
+        qSim.timeDependency.runSweep(ind)
         unitary = exponUni(qSim)
         __timeEvol(qSim, unitary)'''
 
@@ -140,7 +140,7 @@ def withWDel(qSim):
         #qSim._Simulation__compute()
 
     for ind in range(len(qSim.timeDependency.sweeps[0].sweepList)):
-        runSweep(qSim.timeDependency, ind)
+        qSim.timeDependency.runSweep(ind)
         unitary = exponUni(qSim)
         __timeEvolDel(qSim, unitary)
 
@@ -164,7 +164,3 @@ def exponUni(qSim):
     for protocol in qSim._Simulation__protocols.values():
         unitary.append([protocol, protocol.createUnitary()])
     return unitary
-
-def runSweep(qSeq, ind):
-    for sweep in qSeq.sweeps.values():
-        sweep.runSweep(ind[sweep.ind])
