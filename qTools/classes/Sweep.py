@@ -92,3 +92,7 @@ class Sweep(qUniversal):
             for sweep in self.subSys.values():
                 self._Sweep__inds[-(sweep.ind+1)] = len(sweep.sweepList)-1
             self._Sweep__indMultip = reduce(lambda x, y: x*y, self._Sweep__inds)
+
+    def runSweep(self, ind):
+        for sweep in self.sweeps.values():
+            sweep.runSweep(ind[sweep.ind])
