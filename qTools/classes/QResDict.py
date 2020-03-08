@@ -6,8 +6,9 @@ from numpy import reshape, array
 
 class qResultsContainer(qUniversal):
     instances = 0
-    label = 'qUniversal'
+    label = 'qResultsContainer'
     qResults = {}
+    lastResults = {}
 
     __slots__ = ['__results', '__lastSta', '__lastRes', '__states']
     def __init__(self, **kwargs):
@@ -57,11 +58,11 @@ class qResultsContainer(qUniversal):
 
 class qResults(qResultsContainer):
     instances = 0
-    label = 'qResultsContainer'
+    label = 'qResults'
 
     __slots__ = []
 
     def __init__(self, **kwargs):
         super().__init__()
+        self._qUniversal__setKwargs(**kwargs)
         qResultsContainer.qResults[self.superSys] = self
-        self._qUniversal__setKwargs(**kwargs)  

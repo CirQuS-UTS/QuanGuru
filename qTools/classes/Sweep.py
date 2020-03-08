@@ -80,7 +80,7 @@ class Sweep(qUniversal):
     @sweeps.setter
     def sweeps(self, sysDict):
         super().subSys = sysDict
-
+    # TODO remove a specific sweep
     def createSweep(self, sys, sweepKey, **kwargs):
         newSweep = _sweep(superSys=self, subSys=sys, sweepKey=sweepKey, **kwargs)
         super().addSubSys(newSweep)
@@ -88,7 +88,7 @@ class Sweep(qUniversal):
 
     def prepare(self):
         if len(self.subSys) > 0:
-            self._Sweep__inds = [0 for i in range(len(self.subSys))]
+            self._Sweep__inds = [None for i in range(len(self.subSys))]
             for sweep in self.subSys.values():
                 self._Sweep__inds[-(sweep.ind+1)] = len(sweep.sweepList)-1
             self._Sweep__indMultip = reduce(lambda x, y: x*y, self._Sweep__inds)

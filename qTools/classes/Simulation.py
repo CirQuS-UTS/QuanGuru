@@ -46,9 +46,10 @@ class Simulation(qUniversal):
 
     def addQSystems(self, subS, Protocol=None):
         subS = super().addSubSys(subS)
-        if Protocol is None:
-            Protocol = freeEvolution(superSys=subS)
+        '''if Protocol is None:
+            Protocol = freeEvolution(superSys=subS)'''
         self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name)
+        # TODO Find a use for this key
         self._Simulation__protocols[Protocol.name] = Protocol
         return (subS, Protocol)
         
@@ -89,6 +90,7 @@ class Simulation(qUniversal):
     
     # TODO DECIDE
     def __compute(self, *args):
+        # TODO avoid this by making last-states the key or storing them in a class attribute list
         states = []
         for protoc in self._Simulation__protocols.values():
             states.append(protoc.lastState)
@@ -108,12 +110,14 @@ class Simulation(qUniversal):
 
     @property
     def steps(self):
+        if self.finalTime is None:
+            self._Simulation__finalTime = self._Simulation__step * self.stepSize
         return int((self.finalTime//self.stepSize) + 1)
 
     @steps.setter
     def steps(self, num):
         self._Simulation__step = num
-        if finalTime is not None:
+        if self.finalTime is not None:
             self._Simulation__stepSize = self.finalTime/num
 
     @property
@@ -136,22 +140,15 @@ class Simulation(qUniversal):
 
     def __del__(self):
         class_name = self.__class__.__name__
-
-    '''@property
-    def qSys(self):
-        return self._Simulation__qSys'''
-
-    '''@qSys.setter
-    def qSys(self, val):
-        self._Simulation__qSys = val
-        self.subSys = None
-        self.subSys = val'''
     
     def run(self, p=None, coreCount=None):
-        for qSys in self.subSys.values():
+        for protocol, qSys in self.subSys.items():
             if isinstance(qSys, QuantumSystem):
                 # TODO Check first if constructed
                 qSys.constructCompSys()
+
+            if protocol is None:
+                protocol = freeEvolution(superSys=qSys)
 
         for protoc in self._Simulation__protocols.values():
             protoc.prepare(self)
@@ -173,7 +170,7 @@ class Simulation(qUniversal):
             self.removeSweeps(self.subSys[sys])
             del self.subSys[sys]
         return self
-
+    # TODO remove a specific sweep
     def removeSweeps(self, sys):
         if isinstance(sys, QuantumSystem):
             for qSys in sys.subSys.values():
