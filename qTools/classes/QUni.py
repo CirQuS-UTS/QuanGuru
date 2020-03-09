@@ -57,6 +57,9 @@ class qUniversal:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+    def resetSubSys(self):
+        self._qUniversal__subSys = {}
+
     @property
     def subSys(self):
         return self._qUniversal__subSys

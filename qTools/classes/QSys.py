@@ -10,17 +10,15 @@ class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
 
-    __slots__ = ['__constructed', '__paramUpdated', '__unitary', '__initialState', '__initialStateInput', '__lastState', '__lastStateList']
+    __slots__ = ['__constructed', '__paramUpdated', '__unitary', '__initialState', '__initialStateInput']
 
     def __init__(self, **kwargs):
         super().__init__()
         self.__constructed = False
         self.__paramUpdated = True
-        #self.__unitary = freeEvolution(superSys=self)
+        self.__unitary = freeEvolution(superSys=self)
         self.__initialState = None
         self.__initialStateInput = None
-        self.__lastState = None
-        self.__lastStateList = []
         self._qUniversal__setKwargs(**kwargs)
         
     @property
@@ -41,6 +39,7 @@ class genericQSys(qUniversal):
         self._genericQSys__constructed = tf
     
     # Unitary property and setter
+    # TODO should this always be the freeEvolution
     @property
     def unitary(self):
         if isinstance(self._genericQSys__unitary, qUniversal):
@@ -60,26 +59,10 @@ class genericQSys(qUniversal):
         elif protocols is None:
             self._genericQSys__unitary = freeEvolution(superSys=self)
 
-
     # initial state
     @property
     def initialState(self):
         return self._genericQSys__initialState
-
-    @property
-    def lastState(self):
-        if len(self._genericQSys__lastStateList) == 1:
-            return self._genericQSys__lastStateList[0]
-        else:
-            return self._genericQSys__lastStateList
-
-    def __prepareLastStateList(self):
-        self._genericQSys__lastStateList = []
-        if isinstance(self._genericQSys__unitary, qUniversal):
-            self._genericQSys__lastStateList.append(self.initialState)
-        elif isinstance(self._genericQSys__unitary, list):
-            for ind in range(len(self.unitary)):
-                self._genericQSys__lastStateList.append(self.initialState)
 
 
 # Composite Quantum system
