@@ -45,6 +45,11 @@ class qResultsContainer(qUniversal):
         for key, val in self._qResultsContainer__results.items():
             self._qResultsContainer__results[key] = reshape(val, (*list(reversed(inds)), int(len(val)/steps),))
 
+    def saveResults(self):
+        pass
+
+    def _saveResults(self):
+        pass
 
     @classmethod
     def allResults(cls):
