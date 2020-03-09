@@ -14,15 +14,13 @@ class qResultsContainer(qUniversal):
     def __init__(self, **kwargs):
         super().__init__()
         self.__results = defaultdict(list)
-        self.__lastRes = defaultdict(list)
         self.__states = defaultdict(list)
-        self.__lastSta = defaultdict(list)
         self._qUniversal__setKwargs(**kwargs)   
 
     @property
     def results(self):
         # TODO After eveything is done, make this the same as results
-        return self._qResultsContainer__lastRes
+        return self._qResultsContainer__results
 
     @property
     def resres(self):
@@ -30,26 +28,23 @@ class qResultsContainer(qUniversal):
 
     @property
     def states(self):
-        return self._qResultsContainer__lastSta
+        return self._qResultsContainer__states
         
     def reset(self):
         self._qResultsContainer__results = defaultdict(list)
-        self._qResultsContainer__lastRes = defaultdict(list)
         self._qResultsContainer__states = defaultdict(list)
-        self._qResultsContainer__lastSta = defaultdict(list)
 
-    def resetLast(self):
-        self._qResultsContainer__lastRes = defaultdict(list)
-        self._qResultsContainer__lastSta = defaultdict(list)
-
-    def _organiseRes(self, results, inds, steps):
+    def _organiseMultiProcRes(self, results, inds, steps):
         for res in results:
             for key, val in res.items():
-                self._qResultsContainer__results[key].append(val)
+                self._qResultsContainer__results[key].extend(val)
         
+        self._organiseSingleProcRes(inds, steps)
+
+    def _organiseSingleProcRes(self, inds, steps):
         for key, val in self._qResultsContainer__results.items():
-            lenOfVal = len(array(val).flatten())
-            self._qResultsContainer__results[key] = reshape(val, (*list(reversed(inds)), int(lenOfVal/steps),))
+            self._qResultsContainer__results[key] = reshape(val, (*list(reversed(inds)), int(len(val)/steps),))
+
 
     @classmethod
     def allResults(cls):
