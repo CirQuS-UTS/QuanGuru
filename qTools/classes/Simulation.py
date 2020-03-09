@@ -9,11 +9,10 @@ class Simulation(timeBase):
     instances = 0
     label = 'Simulation'
     
-    __slots__ = ['Sweep', 'timeDependency', '__protocols']
+    __slots__ = ['Sweep', 'timeDependency']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
         super().__init__()
-        self.__protocols = {}
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
@@ -25,8 +24,13 @@ class Simulation(timeBase):
     
     @property
     def protocols(self):
-        protocs = list(self._Simulation__protocols.values())
+        protocs = list(self.subSys.keys())
         return (*protocs,) if len(protocs) > 1 else protocs[0]
+
+    def _freeEvol(self):
+        for protocol, qSys in self.subSys.items():
+            if isinstance(protocol, genericQSys):
+                self.subSys[freeEvolution(superSys=qSys)] = self.subSys.pop(protocol)
 
     @property
     def qSystems(self):
@@ -35,11 +39,9 @@ class Simulation(timeBase):
 
     def addQSystems(self, subS, Protocol=None):
         subS = super().addSubSys(subS)
-        '''if Protocol is None:
-            Protocol = freeEvolution(superSys=subS)'''
+        if Protocol is None:
+            Protocol = subS
         self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name)
-        # TODO Find a use for this key
-        self._Simulation__protocols[Protocol.name] = Protocol
         return (subS, Protocol)
         
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
@@ -49,19 +51,34 @@ class Simulation(timeBase):
 
     def removeQSystems(self, subS):
         for key, subSys in self._qUniversal__subSys.items():
-            if subSys == subS:
+            if subSys is subS:
                 del self._qUniversal__subSys[key]
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
 
     # add/remove protocol  
     def removeProtocol(self, Protocol):
-        if Protocol is not None:
+        if isinstance(Protocol, timeBase):
             del self._qUniversal__subSys[Protocol]
+        else:
+            raise ValueError('?')
 
-    def addProtocol(self, sys, protocolAdd, protocolRemove=None):
-        self.addSubSys(protocolAdd.superSys, protocolAdd)
-        self.removeProtocol(Protocol=protocolRemove)
-        return protocolAdd
+    def addProtocol(self, protocol=None, sys=None, protocolRemove=None):
+        # TODO Decorate this
+        if sys is None:
+            if protocol is None:
+                raise ValueError('?')
+            elif isinstance(protocol, timeBase):
+                if isinstance(protocol.superSys, genericQSys):
+                    protocol = self.addProtocol(protocol.superSys, protocol, protocolRemove)
+                else:
+                    raise ValueError('?')
+        elif isinstance(sys, genericQSys):
+            if sys is protocol.superSys:
+                self.addSubSys(sys, protocol)
+                self.removeProtocol(Protocol=protocolRemove)
+            else:
+                raise ValueError('?')
+        return protocol
 
     # overwriting methods from qUniversal
     def addSubSys(self, subS, Protocol=None, **kwargs):
@@ -81,7 +98,7 @@ class Simulation(timeBase):
     def __compute(self, *args):
         # TODO avoid this by making last-states the key or storing them in a class attribute list
         states = []
-        for protoc in self._Simulation__protocols.values():
+        for protoc in self.subSys.keys():
             states.append(protoc.lastState)
 
         if self.compute is not None:
@@ -92,20 +109,15 @@ class Simulation(timeBase):
             if isinstance(qSys, QuantumSystem):
                 # TODO Check first if constructed
                 qSys.constructCompSys()
-
             if protocol is None:
                 protocol = freeEvolution(superSys=qSys)
-
-        for protoc in self._Simulation__protocols.values():
+        for protoc in self.subSys.keys():
             protoc.prepare(self)
-
-
+        self._freeEvol()
         self.Sweep.prepare()
         for qres in self.qRes.qResults.values():
             qres.reset()
-
         _poolMemory.run(self, p, coreCount)
-
         return self.qRes
 
     def removeSys(self, sys):
