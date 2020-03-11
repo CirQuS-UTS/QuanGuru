@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 __all__ = [
     'qUniversal'
 ]
@@ -46,7 +48,7 @@ class qUniversal:
         self._incrementInstances()
         self.__name = self._qUniversal__namer()
         self.__superSys = None
-        self.__subSys = {}
+        self.__subSys = OrderedDict()
         self.__ind = None
         if kwargs['name'] is not None:
             self._qUniversal__setKwargs(name=kwargs.pop('name'), **kwargs)
