@@ -1,7 +1,8 @@
 from functools import partial
 import numpy as np
 import datetime
-
+from copy import deepcopy
+#from qTools.classes.QResDict import qResultsContainer
 
 def runSimulation(qSim, p):
     '''if qSim.delState is False:
@@ -121,7 +122,8 @@ def parallelSequenceODel(qSim, ind):
     qSim.qRes.reset()
     for ii in range(qSim.steps):
         __timeEvolDel(qSim)
-    return qSim.qRes.results
+    #return qSim.qRes.results
+    return deepcopy(qSim.qRes.allResults)
 
 # Time evolution POSSIBILITIES
 '''def withW(qSim):

@@ -4,15 +4,13 @@ from qTools.classes.QUni import qUniversal
 from collections import defaultdict
 from numpy import reshape, array
 
-class qResultsContainer(qUniversal):
+class qResBase(qUniversal):
     instances = 0
-    label = 'qResultsContainer'
-    qResults = {}
-    lastResults = {}
+    label = 'qResBase'
 
-    __slots__ = ['__results', '__lastSta', '__lastRes', '__states']
+    __slots__ = ['__results', '__states']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__results = defaultdict(list)
         self.__states = defaultdict(list)
         self._qUniversal__setKwargs(**kwargs)   
@@ -20,49 +18,48 @@ class qResultsContainer(qUniversal):
     @property
     def results(self):
         # TODO After eveything is done, make this the same as results
-        return self._qResultsContainer__results
-
-    @property
-    def resres(self):
-        return self._qResultsContainer__results
+        return self._qResBase__results
 
     @property
     def states(self):
-        return self._qResultsContainer__states
-        
-    def reset(self):
-        self._qResultsContainer__results = defaultdict(list)
-        self._qResultsContainer__states = defaultdict(list)
-
-    def _organiseMultiProcRes(self, results, inds, steps):
-        for res in results:
-            for key, val in res.items():
-                self._qResultsContainer__results[key].extend(val)
-        
-        self._organiseSingleProcRes(inds, steps)
-
-    def _organiseSingleProcRes(self, inds, steps):
-        for key, val in self._qResultsContainer__results.items():
-            self._qResultsContainer__results[key] = reshape(val, (*list(reversed(inds)), int(len(val)/steps),))
+        return self._qResBase__states
 
     def saveResults(self):
         pass
 
     def _saveResults(self):
         pass
+    
 
-    @classmethod
-    def allResults(cls):
-        return cls.qResults
-
-
-class qResults(qResultsContainer):
+class qResults(qResBase):
     instances = 0
     label = 'qResults'
+    _allResults = {}
 
-    __slots__ = []
+    __slots__ = ['allResults']
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
-        qResultsContainer.qResults[self.superSys] = self
+        self.allResults = qResults._allResults
+        self.allResults[self.superSys.name] = self
+
+    def reset(self):
+        for qRes in self.allResults.values():
+            qRes._qResBase__results = defaultdict(list)
+            qRes._qResBase__states = defaultdict(list)
+
+    def _organiseMultiProcRes(self, results, inds, steps):
+        for res in results:
+            for keyUni, valUni in res.items():
+                for key, val in valUni.results.items():
+                    self.allResults[keyUni]._qResBase__results[key].extend(val)
+        
+        self._organiseSingleProcRes(inds, steps)
+
+    
+    def _organiseSingleProcRes(self, inds, steps):
+        for keyUni, valUni in self.allResults.items():
+            for key, val in valUni.results.items():
+                self.allResults[keyUni]._qResBase__results[key] = reshape(val, (*list(reversed(inds)), int(len(val)/steps),))
+                #cls._qResultsContainer__results[key] = reshape(val, (*list(reversed(inds)), int(len(val)/steps),))
