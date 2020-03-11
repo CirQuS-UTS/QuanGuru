@@ -17,7 +17,6 @@ class qResBase(qUniversal):
 
     @property
     def results(self):
-        # TODO After eveything is done, make this the same as results
         return self._qResBase__results
 
     @property
