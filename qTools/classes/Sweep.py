@@ -10,7 +10,7 @@ __all__ = [
 class _sweep(updateBase):
     instances = 0
     label = '_sweep'
-    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'sweepFunction']
+    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'sweepFunction', 'multiParam']
     # FIXME enable this, but not necessarily this way
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -22,6 +22,7 @@ class _sweep(updateBase):
         self._sweepList = None
         self.logSweep = False
         self.sweepFunction = None
+        self.multiParam = False
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -92,11 +93,17 @@ class Sweep(qUniversal):
 
     def prepare(self):
         if len(self.subSys) > 0:
-            self._Sweep__inds = [None for i in range(len(self.subSys))]
-            for sweep in self.subSys.values():
-                self._Sweep__inds[-(sweep.ind+1)] = len(sweep.sweepList)-1
+            self._Sweep__inds = []
+            for indx, sweep in enumerate(self.subSys.values()):
+                if sweep.multiParam is True:
+                    self._Sweep__inds.insert(0,len(sweep.sweepList))
+                elif indx == 0:
+                    self._Sweep__inds.insert(0,len(sweep.sweepList))
             self._Sweep__indMultip = reduce(lambda x, y: x*y, self._Sweep__inds)
 
     def runSweep(self, ind):
+        indx = 0
         for sweep in self.sweeps.values():
-            sweep.runSweep(ind[sweep.ind])
+            if sweep.multiParam is True:
+                indx += 1
+            sweep.runSweep(ind[indx])
