@@ -81,6 +81,8 @@ class qUniversal:
     @checkClass('qUniversal')
     def removeSubSys(self, subS, **kwargs):
         obj = self._qUniversal__subSys.pop(subS.name)
+        for ind, obj in enumerate(self._qUniversal__subSys):
+            obj.ind = ind
         print(obj.name + ' is removed from subSys of ' + self.name)
         
     @checkClass('qUniversal')
