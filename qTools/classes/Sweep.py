@@ -14,7 +14,7 @@ class _sweep(updateBase):
     # FIXME enable this, but not necessarily this way
     #@sweepInitError
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         # TODO make these properties so that sweepList is dynamic ?
         self.sweepMax = None
         self.sweepMin = None
@@ -61,7 +61,7 @@ class Sweep(qUniversal):
     __slots__ = ['__inds', '__indMultip', 'compute', 'calculate']
     # TODO init errors
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.compute = None
         # TODO Behaviour of calculate ?
         self.calculate = None

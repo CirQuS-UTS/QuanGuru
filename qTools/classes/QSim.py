@@ -16,7 +16,7 @@ class Sweep(qUniversal):
     # FIXME enable this, but not necessarily this way
     #@sweepInitError
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name'))
         # TODO make these properties so that sweepList is dynamic
         self.sweepKey = None
         self.sweepMax = None
@@ -60,7 +60,7 @@ class qSequence(qUniversal):
     __slots__ = ['__inds', '__indMultip', 'compute', 'calculate']
     # TODO init errors
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name'))
         self.compute = None
         # TODO Behaviour of calculate ?
         self.calculate = None
@@ -103,7 +103,7 @@ class Simulation(qUniversal):
     __slots__ = ['__qSys', '__stepSize', '__finalTime', 'states', 'beforeLoop', 'Loop', 'whileLoop', 'compute', '__samples', '__step', 'delState', 'qRes']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name'))
         self.__qSys = None
 
         self.Loop = qSequence(superSys=self)

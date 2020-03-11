@@ -13,7 +13,7 @@ class genericQSys(qUniversal):
     __slots__ = ['__constructed', '__paramUpdated', '__unitary', '__initialState', '__initialStateInput']
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__constructed = False
         self.__paramUpdated = True
         self.__unitary = freeEvolution(superSys=self)
@@ -73,7 +73,7 @@ class QuantumSystem(genericQSys):
     __slots__ = ['__qCouplings', '__qSystems', 'couplingName', '__kept']
     
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__qCouplings = {}
         self.__qSystems = {}
 
@@ -245,7 +245,7 @@ class qSystem(genericQSys):
 
     @qSystemInitErrors
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__frequency = None
         self.__operator = None
         self.__dimension = None
@@ -375,7 +375,7 @@ class Qubit(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         kwargs['dimension'] = 2
         self.operator = qOps.sigmaz
         self._qUniversal__setKwargs(**kwargs)
@@ -392,7 +392,7 @@ class Spin(qSystem):
 
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.operator = qOps.Jz
         self.__jValue = None
         self._qUniversal__setKwargs(**kwargs)
@@ -413,7 +413,7 @@ class Cavity(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.operator = qOps.number
         self._qUniversal__setKwargs(**kwargs)
 
@@ -427,7 +427,7 @@ class qCoupling(qUniversal):
 
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__couplingStrength = None
         self.__cFncs = []
         self.__qSys = []
@@ -564,7 +564,7 @@ class envCoupling(qCoupling):
 
     __slots__ = []
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
 
 
@@ -574,5 +574,5 @@ class sysCoupling(qCoupling):
     __slots__ = []
     
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)

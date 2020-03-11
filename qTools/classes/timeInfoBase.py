@@ -8,7 +8,7 @@ class timeBase(qUniversal):
     __slots__ = ['delStates', '__finalTime', '__stepSize', '__samples', '__step', 'compute', 'calculate', 'qRes']
     
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
 
         self.delStates = False
 

@@ -48,7 +48,11 @@ class qUniversal:
         self.__superSys = None
         self.__subSys = {}
         self.__ind = None
-        self._qUniversal__setKwargs(**kwargs)
+        if kwargs['name'] is not None:
+            self._qUniversal__setKwargs(name=kwargs.pop('name'), **kwargs)
+        else:
+            kwargs.pop('name')
+            self._qUniversal__setKwargs(**kwargs)
 
     def __del__(self):
         class_name = self.__class__.__name__

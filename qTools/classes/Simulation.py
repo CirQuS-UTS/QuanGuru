@@ -12,7 +12,7 @@ class Simulation(timeBase):
     __slots__ = ['Sweep', 'timeDependency']
     # TODO Same as previous 
     def __init__(self, system=None, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
@@ -115,7 +115,7 @@ class Simulation(timeBase):
             protoc.prepare(self)
         self._freeEvol()
         self.Sweep.prepare()
-        for qres in self.qRes.qResults.values():
+        for qres in self.qRes.allResults.values():
             qres.reset()
         _poolMemory.run(self, p, coreCount)
         return self.qRes

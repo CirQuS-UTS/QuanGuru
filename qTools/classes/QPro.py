@@ -11,7 +11,7 @@ class qProtocol(timeBase):
     label = 'qProtocol'
     __slots__  = ['__steps', '__unitary', 'lastState']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__steps = []
         self.__unitary = None
         self.lastState = None
@@ -83,7 +83,7 @@ class Step(timeBase):
     label = 'Step'
     __slots__ = ['__unitary', '__ratio', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__unitary = None
         self.__ratio = None
         self.__updates = []
@@ -180,7 +180,7 @@ class freeEvolution(Step):
     label = 'freeEvolution'
     __slots__  = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.getUnitary = self.getUnitaryNoUpdate
         self._qUniversal__setKwargs(**kwargs)
     
@@ -221,7 +221,7 @@ class Gate(Step):
     label = 'Gate'
     __slots__ =  ['__implementation']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__implementation = None
         self._qUniversal__setKwargs(**kwargs)
 
@@ -239,7 +239,7 @@ class Update(updateBase):
     label = 'Update'
     slots = ['value', '__memory']
     def __init__ (self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.value = None
         self.__memory = None
         self._qUniversal__setKwargs(**kwargs)
