@@ -116,6 +116,8 @@ class Simulation(timeBase):
         for qres in self.qRes.allResults.values():
             qres.reset()
         _poolMemory.run(self, p, coreCount)
+        for key, val in self.qRes.states.items():
+            self.qRes.allResults[key]._qResBase__states[key] = val
         return self.qRes
 
     def removeSys(self, sys):
