@@ -94,15 +94,11 @@ class Simulation(timeBase):
     def removeSubSys(self, subS):
         self.removeQSystems(subS)
         
-    # TODO DECIDE
-    def __compute(self, *args):
-        # TODO avoid this by making last-states the key or storing them in a class attribute list
+    def __compute(self):
         states = []
         for protoc in self.subSys.keys():
             states.append(protoc.lastState)
-
-        if self.compute is not None:
-            self.compute(self, *states)
+        super()._timeBase__compute(states)
 
     def run(self, p=None, coreCount=None):
         for protocol, qSys in self.subSys.items():

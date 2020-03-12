@@ -17,6 +17,12 @@ class qProtocol(timeBase):
         self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
+    '''def __compute(self):
+        states = []
+        for protoc in self.subSys.keys():
+            states.append(protoc.lastState)
+        super()._timeBase__compute(states)'''
+
     @property
     def steps(self):
         return self._qProtocol__steps

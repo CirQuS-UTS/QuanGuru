@@ -62,3 +62,7 @@ class timeBase(qUniversal):
     @samples.setter
     def samples(self, num):
         self._timeBase__samples = num
+
+    def __compute(self, states):
+        if self.compute is not None:
+            self.compute(self, *states)
