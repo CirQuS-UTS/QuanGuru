@@ -4,21 +4,20 @@ import sys
 from datetime import datetime
 from qTools.classes.QResDict import qResults
 
-def makeDir(RootPath=None):
-    if RootPath is None:
-        RootPath = sys.path[0]
+def makeDir(path=None):
+    if path is None:
+        path = sys.path[0]
+    print(path)
+    if not os.path.isdir(path):
+        os.mkdir(path)
 
-    if not os.path.isdir(RootPath):
-        os.mkdir(RootPath)
+    return path
 
-    return RootPath
-
-def saveH5(dictionary, fileName=None, attributes=dict, RootPath=None, irregular=False):
+def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=False):
     if fileName is None:
         now = datetime.now()
         fileName = datetime.timestamp(now)
-
-    path = makeDir(RootPath)
+    path = makeDir(path)
 
     file = h5py.File(path + '/' + str(fileName) + '.h5', 'w')
     if isinstance(attributes, dict):
@@ -63,18 +62,19 @@ def readAll(path, fileName):
     f = h5py.File(path, 'r')
     resDict = {}
     for key, val in f.items():
-        rDict =  {}
-        for key1, val1 in val.items():
-            rDict[key1] = list(val1)
-        resDict[key] = rDict
+        if len(val) > 0:
+            rDict =  {}
+            for key1, val1 in val.items():
+                rDict[key1] = list(val1)
+            resDict[key] = rDict
     return resDict
 
-def saveAll(qRes, fileName=None, irregular=False, attributes=dict, RootPath=None):
+def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
     if fileName is None:
         now = datetime.now()
         fileName = datetime.timestamp(now)
 
-    path = makeDir(RootPath)
+    path = makeDir(path)
 
     file = h5py.File(path + '/' + str(fileName) + '.h5', 'w')
     if isinstance(attributes, dict):
@@ -98,9 +98,10 @@ def saveAll(qRes, fileName=None, irregular=False, attributes=dict, RootPath=None
 
 
 
-def _qResSaveH5(qRes, fileName=None, irregular=False, attributes=dict, RootPath=None):
-    path, fileName = saveH5(qRes.results, fileName, irregular, attributes, RootPath)
-    return path, fileName
+def _qResSaveH5(qRes, fileName=None, attributes=dict, path=None, irregular=False):
+    print(path)
+    p, f = saveH5(qRes.results, fileName, attributes, path, irregular)
+    return p, f
 
 qResults.saveAll = saveAll
 qResults.saveH5 = _qResSaveH5
