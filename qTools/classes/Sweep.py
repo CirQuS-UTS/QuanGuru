@@ -10,8 +10,9 @@ __all__ = [
 class _sweep(updateBase):
     instances = 0
     label = '_sweep'
+
     __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam']
-    # FIXME enable this, but not necessarily this way
+   
     #@sweepInitError
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -88,6 +89,7 @@ class Sweep(qUniversal):
     @sweeps.setter
     def sweeps(self, sysDict):
         super().subSys = sysDict
+        
     # TODO remove a specific sweep or all the sweep for a specific system
     def createSweep(self, system, sweepKey, **kwargs):
         newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
