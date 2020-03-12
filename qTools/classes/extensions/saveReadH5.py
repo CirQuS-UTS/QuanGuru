@@ -7,7 +7,7 @@ from qTools.classes.QResDict import qResults
 def makeDir(path=None):
     if path is None:
         path = sys.path[0]
-    print(path)
+    
     if not os.path.isdir(path):
         os.mkdir(path)
 
@@ -30,7 +30,7 @@ def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=Fals
                 k.create_dataset(str(irty), data=value[irty])
     else:
         for key, value in dictionary.items():
-            print(key)
+            
             file.create_dataset(key, data=value)
 
     file.close()
@@ -99,7 +99,6 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
 
 
 def _qResSaveH5(qRes, fileName=None, attributes=dict, path=None, irregular=False):
-    print(path)
     p, f = saveH5(qRes.results, fileName, attributes, path, irregular)
     return p, f
 

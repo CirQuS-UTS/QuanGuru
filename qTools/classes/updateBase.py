@@ -30,4 +30,4 @@ class updateBase(qUniversal):
                 setattr(subSys, self._updateBase__key, val)
         else:
             # TODO track this part
-            self._updateBase__function(self, self.superSys.superSys)
+            self._updateBase__function(self, self.superSys.superSys, val)

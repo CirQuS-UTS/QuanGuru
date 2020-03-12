@@ -10,7 +10,7 @@ __all__ = [
 class _sweep(updateBase):
     instances = 0
     label = '_sweep'
-    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'sweepFunction', 'multiParam']
+    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam']
     # FIXME enable this, but not necessarily this way
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -21,9 +21,16 @@ class _sweep(updateBase):
         self.sweepStep = None
         self._sweepList = None
         self.logSweep = False
-        self.sweepFunction = None
         self.multiParam = False
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def sweepFunction(self):
+        return self._updateBase__function
+
+    @sweepFunction.setter
+    def sweepFunction(self, func):
+        self._updateBase__function = func
 
     @property
     def sweepKey(self):
@@ -48,12 +55,8 @@ class _sweep(updateBase):
             self._sweepList = sList
 
     def runSweep(self, ind):
-        if self.sweepFunction is None:
-            val = self.sweepList[ind]
-            for subSys in self.subSys.values():
-                setattr(subSys, self.sweepKey, val)
-        else:
-            self.sweepFunction(self, self.superSys.superSys)
+        val = self.sweepList[ind]
+        super()._runUpdate(val)
 
 
 class Sweep(qUniversal):
