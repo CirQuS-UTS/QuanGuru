@@ -4,6 +4,10 @@ from qTools.classes.QUni import qUniversal
 from collections import defaultdict
 from numpy import reshape, array
 
+__all__ = [
+    'qResults'
+]
+
 class qResBase(qUniversal):
     instances = 0
     label = 'qResBase'
