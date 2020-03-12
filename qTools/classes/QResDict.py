@@ -57,7 +57,9 @@ class qResults(qResBase):
             for keyUni, valUni in res.items():
                 for key, val in valUni.results.items():
                     self.allResults[keyUni]._qResBase__results[key].extend(val)
-        
+                
+                for key1, val1 in valUni.states.items():
+                    self.allResults[keyUni]._qResBase__states[key1].extend(val1)
         self._organiseSingleProcRes(inds, steps)
 
     
@@ -65,4 +67,7 @@ class qResults(qResBase):
         for keyUni, valUni in self.allResults.items():
             for key, val in valUni.results.items():
                 self.allResults[keyUni]._qResBase__results[key] = reshape(val, (*list(reversed(inds)), int(len(val)/steps),))
+            
+            for key1, val1, in valUni.states.items():
+                self.allResults[keyUni]._qResBase__states[key1] = reshape(val1, (*list(reversed(inds)), int(len(val1)/steps),))
                 #cls._qResultsContainer__results[key] = reshape(val, (*list(reversed(inds)), int(len(val)/steps),))

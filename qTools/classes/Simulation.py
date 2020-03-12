@@ -96,9 +96,11 @@ class Simulation(timeBase):
         
     def __compute(self):
         states = []
+        keys = []
         for protoc in self.subSys.keys():
             states.append(protoc.lastState)
-        super()._timeBase__compute(states)
+            keys.append(protoc.name)
+        super()._timeBase__compute(states, keys)
 
     def run(self, p=None, coreCount=None):
         for protocol, qSys in self.subSys.items():
