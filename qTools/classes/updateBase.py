@@ -12,7 +12,6 @@ class updateBase(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
         self.__key = None
         self.__function = None
-        self._updateBase__function = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -29,5 +28,5 @@ class updateBase(qUniversal):
             for subSys in self.subSys.values():
                 setattr(subSys, self._updateBase__key, val)
         else:
-            # TODO track this part
+            # TODO track this part: self.superSys.superSys
             self._updateBase__function(self, self.superSys.superSys, val)

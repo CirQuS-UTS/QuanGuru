@@ -68,9 +68,6 @@ class Sweep(computeBase):
     # TODO init errors
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        #self.compute = None
-        # TODO Behaviour of calculate ?
-        #self.calculate = None
         self.__inds = []
         self.__indMultip = None
         self._qUniversal__setKwargs(**kwargs)
@@ -91,7 +88,13 @@ class Sweep(computeBase):
     def sweeps(self, sysDict):
         super().subSys = sysDict
         
-    # TODO remove a specific sweep or all the sweep for a specific system
+    def removeSweep(self, sys):
+        if isinstance(sys, _sweep):
+            self.removeSubSys(sys)
+        else:
+            for sweep in self.subSys.values():
+                sweep.removeSubSys(sys)
+
     def createSweep(self, system, sweepKey, **kwargs):
         newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
         super().addSubSys(newSweep)

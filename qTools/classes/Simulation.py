@@ -10,7 +10,7 @@ class Simulation(timeBase):
     label = 'Simulation'
     
     __slots__ = ['Sweep', 'timeDependency']
-    # TODO Same as previous 
+    # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
 
@@ -45,7 +45,7 @@ class Simulation(timeBase):
         return (*qSys,) if len(qSys) > 1 else qSys[0]
 
     def addQSystems(self, subS, Protocol=None):
-        # TODO raise an error, if the same system included more than once without giving a protocol
+        # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS)
         if Protocol is not None:
             self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name)
@@ -62,17 +62,11 @@ class Simulation(timeBase):
                 del self._qUniversal__subSys[key]
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
                 self._updateInd()
-                self.removeSweeps(subSys)
+                self.removeSweep(subSys)
     
-    def removeSweeps(self, sys):
-        if isinstance(sys, genericQSys):
-            for sweep in self.Sweep.sweeps:
-                sweep.removeSubSys(sys)
-            for sweep1 in self.timeDependency.sweeps:
-                sweep1.removeSubSys(sys)
-        elif sys.__class__.__name__ == '_sweep':
-            self.Sweep.removeSubSys(sys)
-            self.timeDependency.removeSubSys(sys)
+    def removeSweep(self, sys):
+        self.Sweep.removeSweep(sys)
+        self.timeDependency.removeSweep(sys)
         return sys
 
     # add/remove protocol  
