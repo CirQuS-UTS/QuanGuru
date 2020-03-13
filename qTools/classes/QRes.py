@@ -96,12 +96,13 @@ class qResults(qResBase):
         if counter < (len(inds)-1):
             counter += 1
             for indx in range(inds[counter-1]):
-                newList.append(qResults._reShape(lis, inds, counter, totalCount))
+                nList, totalCount = qResults._reShape(lis, inds, counter, totalCount)
+                newList.append(nList)
         else:
             for indx in range(inds[counter]):
                 newList.append(lis[totalCount])
                 totalCount += 1
-            return newList
+            return (newList, totalCount)
         return newList
 
 
