@@ -2,6 +2,7 @@ from numpy import arange, logspace
 from functools import reduce
 from qTools.classes.QUni import qUniversal
 from qTools.classes.updateBase import updateBase
+from qTools.classes.computeBase import computeBase
 
 __all__ = [
     'Sweep'
@@ -60,16 +61,16 @@ class _sweep(updateBase):
         super()._runUpdate(val)
 
 
-class Sweep(qUniversal):
+class Sweep(computeBase):
     instances = 0
     label = 'Sweep'
-    __slots__ = ['__inds', '__indMultip', 'compute', 'calculate']
+    __slots__ = ['__inds', '__indMultip']
     # TODO init errors
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.compute = None
+        #self.compute = None
         # TODO Behaviour of calculate ?
-        self.calculate = None
+        #self.calculate = None
         self.__inds = []
         self.__indMultip = None
         self._qUniversal__setKwargs(**kwargs)

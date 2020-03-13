@@ -2,7 +2,7 @@ from qTools.classes.Sweep import Sweep
 from multiprocessing import Pool, cpu_count
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.QSys import QuantumSystem, genericQSys
-from qTools.classes.timeInfoBase import timeBase
+from qTools.classes.timeBase import timeBase
 from qTools.classes.QPro import freeEvolution
 
 class Simulation(timeBase):
@@ -21,6 +21,13 @@ class Simulation(timeBase):
             self.addQSystems(system)
 
         self._qUniversal__setKwargs(**kwargs)
+
+    @timeBase.delStates.setter
+    def delStates(self, boolean):
+        timeBase.delStates.fset(self, boolean)
+        for qres in self.qRes.allResults.values():
+            if qres is not self.qRes:
+                qres.superSys.delStates = boolean
     
     @property
     def protocols(self):
@@ -96,11 +103,16 @@ class Simulation(timeBase):
         
     def __compute(self):
         states = []
-        keys = []
         for protoc in self.subSys.keys():
             states.append(protoc.lastState)
-            keys.append(protoc.name)
-        super()._timeBase__compute(states, keys)
+        super()._computeBase__compute(states)
+        self._Simulation__saveStates()
+
+    def __saveStates(self):
+        for key in self.subSys.keys():
+            if key.delStates is False:
+                self.qRes.states[key.name].append(key.lastState)
+            
 
     def run(self, p=None, coreCount=None):
         for protocol, qSys in self.subSys.items():

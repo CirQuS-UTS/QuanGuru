@@ -1,5 +1,5 @@
 import qTools.QuantumToolbox.liouvillian as lio
-from qTools.classes.timeInfoBase import timeBase
+from qTools.classes.timeBase import timeBase
 from qTools.QuantumToolbox.operators import compositeOp, identity
 import numpy as np
 from qTools.classes.QResDict import qResults
@@ -16,12 +16,6 @@ class qProtocol(timeBase):
         self.__unitary = None
         self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
-
-    '''def __compute(self):
-        states = []
-        for protoc in self.subSys.keys():
-            states.append(protoc.lastState)
-        super()._timeBase__compute(states)'''
 
     @property
     def steps(self):
