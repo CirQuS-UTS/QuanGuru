@@ -57,8 +57,11 @@ class _sweep(updateBase):
             self._sweepList = sList
 
     def runSweep(self, ind):
-        val = self.sweepList[ind]
-        super()._runUpdate(val)
+        if self._updateBase__function is None:
+            val = self.sweepList[ind]
+            super()._runUpdate(val)
+        else:
+            self._updateBase__function(self, self.superSys.superSys, ind)
 
 
 class Sweep(computeBase):

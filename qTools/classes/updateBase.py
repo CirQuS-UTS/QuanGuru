@@ -24,9 +24,5 @@ class updateBase(qUniversal):
         super().addSubSys(qSys)
 
     def _runUpdate(self, val):
-        if self._updateBase__function is None:
-            for subSys in self.subSys.values():
-                setattr(subSys, self._updateBase__key, val)
-        else:
-            # TODO track this part: self.superSys.superSys
-            self._updateBase__function(self, self.superSys.superSys, val)
+        for subSys in self.subSys.values():
+            setattr(subSys, self._updateBase__key, val)
