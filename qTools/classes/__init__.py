@@ -4,4 +4,4 @@ from .QSys import QuantumSystem, qCoupling, envCoupling, sysCoupling, qSystem, Q
 from .QUni import qUniversal
 from .QPro import qProtocol, Gate, freeEvolution
 from .Sweep import Sweep
-from .QResDict import qResults
+from .QRes import qResults

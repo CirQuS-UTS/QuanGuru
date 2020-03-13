@@ -2,7 +2,6 @@ import qTools.QuantumToolbox.liouvillian as lio
 from qTools.classes.timeBase import timeBase
 from qTools.QuantumToolbox.operators import compositeOp, identity
 import numpy as np
-from qTools.classes.QResDict import qResults
 from qTools.classes.updateBase import updateBase
 """ under construction """
 

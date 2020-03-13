@@ -1,5 +1,5 @@
 from qTools.classes.QUni import qUniversal
-from qTools.classes.QResDict import qResults
+from qTools.classes.QRes import qResults
 
 class computeBase(qUniversal):
     instances = 0

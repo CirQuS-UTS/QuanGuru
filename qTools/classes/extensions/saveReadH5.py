@@ -2,7 +2,7 @@ import h5py
 import os
 import sys
 from datetime import datetime
-from qTools.classes.QResDict import qResults
+from qTools.classes.QRes import qResults
 
 def makeDir(path=None):
     if path is None:

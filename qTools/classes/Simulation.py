@@ -35,7 +35,7 @@ class Simulation(timeBase):
         return (*protocs,) if len(protocs) > 1 else protocs[0]
 
     def _freeEvol(self):
-        for protocol in self.subSys.keys():
+        for protocol, qSys in self.subSys.items():
             if isinstance(protocol, str):
                 self.subSys[freeEvolution(superSys=qSys)] = self.subSys.pop(protocol)
 
@@ -118,6 +118,7 @@ class Simulation(timeBase):
         super()._computeBase__compute(states)
             
     def run(self, p=None, coreCount=None):
+        self._freeEvol()
         for qSys in self.subSys.values():
             # TODO this will be modified after the structural changes of qSys objects
             if isinstance(qSys, QuantumSystem):
@@ -126,7 +127,6 @@ class Simulation(timeBase):
         for protoc in self.subSys.keys():
             # TODO tihis will be modified after the structural changes of qPro objects
             protoc.prepare(self)
-        self._freeEvol()
         self.Sweep.prepare()
         for qres in self.qRes.allResults.values():
             qres.reset()
