@@ -34,6 +34,7 @@ def nonParalEvol(qSim):
     for ind in range(qSim.Sweep.indMultip):
         _runSweepAndPrep(qSim, ind, evolFunc)
         qSim.qRes._organiseSingleProcRes()
+    qSim.qRes._finaliseAll(qSim.Sweep.inds)
 
 
 def paralEvol(qSim, p):
@@ -47,26 +48,23 @@ def parallelTimeEvol(qSim, evolFunc, ind):
     _runSweepAndPrep(qSim, ind, evolFunc)
     return deepcopy(qSim.qRes.allResults)
 
-'''def parallelTimeIndep(qSim, ind):
-    _runSweepAndPrep(qSim, ind, _timeEvol)
-    return deepcopy(qSim.qRes.allResults)'''
-
 def _runSweepAndPrep(qSim, ind, evolFunc):
     qSim.Sweep.runSweep(indicesForSweep(ind, *qSim.Sweep.inds))
     for protoc, qSys in qSim.subSys.items():
         protoc.lastState = qSys.initialState
     qSim.qRes.resetLast()
-    evolFunc(qSim, qSim.steps)
+    evolFunc(qSim)
 
-def timeDependent(qSim, stepsCount=1):
+def timeDependent(qSim):
     qSim.timeDependency.prepare()
     for ind in range(qSim.timeDependency.indMultip):
         qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
-        _timeEvol(qSim, 1)
+        exponUni(qSim)
+        __timeEvol(qSim)
 
-def _timeEvol(qSim, stepNumber):
+def _timeEvol(qSim):
     exponUni(qSim)
-    for ii in range(stepNumber):
+    for ii in range(qSim.steps):
         __timeEvol(qSim)
         
 def exponUni(qSim):
