@@ -1,15 +1,16 @@
 import qTools.QuantumToolbox.liouvillian as lio
-from qTools.classes.QUni import qUniversal
+from qTools.classes.timeBase import timeBase
 from qTools.QuantumToolbox.operators import compositeOp, identity
 import numpy as np
+from qTools.classes.updateBase import updateBase
 """ under construction """
 
-class qProtocol(qUniversal):
+class qProtocol(timeBase):
     instances = 0
     label = 'qProtocol'
     __slots__  = ['__steps', '__unitary', 'lastState']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__steps = []
         self.__unitary = None
         self.lastState = None
@@ -54,6 +55,10 @@ class qProtocol(qUniversal):
         for step in self.steps:
             unitary = step.createUnitary() @ unitary
         self._qProtocol__unitary = unitary
+        '''unitaries = []
+        for step in self.steps:
+            unitaries.append(step.createUnitary())
+        self._qProtocol__unitary = unitaries'''
         return unitary
 
     def prepare(self, obj):
@@ -64,15 +69,21 @@ class qProtocol(qUniversal):
                     step.createUnitary()
                     step.createUnitary = step.createUnitaryFixedFunc
 
-class Step(qUniversal):
+    def delMatrices(self):
+        self._qProtocol__unitary = None
+        for step in self.steps:
+            if not isinstance(step, copyStep):
+                step.delMatrices()
+
+
+
+class Step(timeBase):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__stepSize', '__samples', '__ratio', '__time', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState']
+    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__unitary = None
-        self.__stepSize = None
-        self.__samples = None
         self.__ratio = None
         self.__updates = []
         self.__fixed = False
@@ -102,21 +113,6 @@ class Step(qUniversal):
     def fixed(self, boolean):
         self._Step__fixed = boolean
 
-    @property
-    def stepSize(self):
-        return self._Step__stepSize
-
-    @stepSize.setter
-    def stepSize(self, val):
-        self._Step__stepSize = val
-
-    @property
-    def samples(self):
-        return self._Step__samples
-
-    @samples.setter
-    def samples(self, val):
-        self._Step__samples = val
 
     def createUnitaryFunc(self):
         if self.superSys._paramUpdated is True:
@@ -162,6 +158,11 @@ class Step(qUniversal):
     def bound(self):
         return self._Step__bound
 
+    def delMatrices(self):
+        if self.fixed is True:
+            self.createUnitary = self.createUnitaryFunc
+        self._Step__unitary = None
+
 class copyStep(Step):
     instances = 0
     label = 'copyStep'
@@ -178,7 +179,7 @@ class freeEvolution(Step):
     label = 'freeEvolution'
     __slots__  = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.getUnitary = self.getUnitaryNoUpdate
         self._qUniversal__setKwargs(**kwargs)
     
@@ -219,7 +220,7 @@ class Gate(Step):
     label = 'Gate'
     __slots__ =  ['__implementation']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__implementation = None
         self._qUniversal__setKwargs(**kwargs)
 
@@ -232,21 +233,27 @@ class Gate(Step):
         self._Gate__implementation = typeStr
 
 
-class Update(qUniversal):
+class Update(updateBase):
     instances = 0
     label = 'Update'
-    slots = ['system', 'key', 'value', '__memory']
+    slots = ['value', '__memory']
     def __init__ (self, **kwargs):
-        super().__init__()
-        self.system = None
-        self.key = None
+        super().__init__(name=kwargs.pop('name', None))
         self.value = None
         self.__memory = None
         self._qUniversal__setKwargs(**kwargs)
+        
+    @property
+    def key(self):
+        return self._updateBase__key
+
+    @key.setter
+    def key(self, keyStr):
+        self._updateBase__key = keyStr
 
     def setup(self):
         self._Update__memory = getattr(self.system, self.key)
-        setattr(self.system, self.key, self.value)
+        super()._runUpdate(self.value)
     
     def setback(self):
-        setattr(self.system, self.key, self._Update__memory)
+        super()._runUpdate(self._Update__memory)

@@ -39,7 +39,7 @@ def addCreateInstance(functionToCall):
                 newSub =functionToCall(obj, newSub, *args)
             newSub._qUniversal__setKwargs(**kwargs)
             newSub.superSys = obj
-            obj.subSystems[newSub.name] = newSub
+            #obj.subSys[newSub.name] = newSub
             return newSub
         return wrapper
     return systemAddCreateDecorator

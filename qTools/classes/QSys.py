@@ -9,16 +9,16 @@ from qTools.classes.QPro import freeEvolution
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
-    __slots__ = ['__constructed', '__initialState', '__lastState', '__unitary', '__initialStateInput', '__paramUpdated', '__lastStateList']
+
+    __slots__ = ['__constructed', '__paramUpdated', '__unitary', '__initialState', '__initialStateInput']
+
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__constructed = False
-        self.__initialState = None
-        self.__lastState = None
-        self.__unitary = freeEvolution(superSys=self)
-        self.__initialStateInput = None
         self.__paramUpdated = True
-        self.__lastStateList = []
+        self.__unitary = freeEvolution(superSys=self)
+        self.__initialState = None
+        self.__initialStateInput = None
         self._qUniversal__setKwargs(**kwargs)
         
     @property
@@ -31,19 +31,21 @@ class genericQSys(qUniversal):
 
     # constructed boolean setter and getter
     @property
-    def constructed(self):
+    def _constructed(self) -> bool:
         return self._genericQSys__constructed
     
-    @constructed.setter
-    def constructed(self, tf):
+    @_constructed.setter
+    def _constructed(self, tf:bool):
         self._genericQSys__constructed = tf
     
     # Unitary property and setter
+    # TODO should this always be the freeEvolution
     @property
     def unitary(self):
         if isinstance(self._genericQSys__unitary, qUniversal):
             unitary = self._genericQSys__unitary.createUnitary()
         elif isinstance(self._genericQSys__unitary, list):
+            # TODO is list idea the best option ?
             unitary = []
             for protocol in self._genericQSys__unitary:
                 unitary.append(protocol.createUnitary())
@@ -57,28 +59,10 @@ class genericQSys(qUniversal):
         elif protocols is None:
             self._genericQSys__unitary = freeEvolution(superSys=self)
 
-
     # initial state
     @property
     def initialState(self):
         return self._genericQSys__initialState
-
-    @property
-    def lastState(self):
-        return self._genericQSys__lastState
-
-    @lastState.setter
-    def lastState(self, inp):
-        self._genericQSys__lastState = inp
-
-    def __prepareLastStateList(self):
-        self._genericQSys__lastStateList = []
-        if isinstance(self._genericQSys__unitary, qUniversal):
-            self._genericQSys__lastStateList.append(self.initialState)
-        elif isinstance(self._genericQSys__unitary, list):
-            for ind in range(len(self.unitary)):
-                self._genericQSys__lastStateList.append(self.initialState)
-
 
 
 # Composite Quantum system
@@ -87,8 +71,9 @@ class QuantumSystem(genericQSys):
     label = 'QuantumSystem'
 
     __slots__ = ['__qCouplings', '__qSystems', 'couplingName', '__kept']
+    
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__qCouplings = {}
         self.__qSystems = {}
 
@@ -99,22 +84,18 @@ class QuantumSystem(genericQSys):
 
     def add(self, *args):
         for system in args:
-            if isinstance(system, qSystem):
-                self.addSubSys(system)
-            elif isinstance(system, sysCoupling):
-                self.addSysCoupling(system)
-            elif isinstance(system, envCoupling):
-                print('Enviroment coupling currently not supported')
-            else:
-                print('Object not valid.')
+            self.addSubSys(system)
 
+    def create(self, n=1, *args):
+        # TODO how to use or to use n ?
+        for sysClass in args:
+            self.addSubSys(sysClass)
     # adding or creating a new sub system to composite system
     @property
     def qSystems(self):
-        return self._QuantumSystem__qSystems
+        return self._qUniversal__subSys
 
-    def __addSub(self, subSys, **kwargs):
-        subSys.ind = len(self._QuantumSystem__qSystems)
+    def __addSub(self, subSys):
         for key, subS in self._QuantumSystem__qSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
@@ -123,17 +104,22 @@ class QuantumSystem(genericQSys):
             subSys._qSystem__Matrix = None
 
         self._QuantumSystem__qSystems[subSys.name] = subSys
+        subSys.superSys = self
         return subSys
 
-    @addCreateInstance(_QuantumSystem__addSub)
     def addSubSys(self, subSys, **kwargs):
-        pass
+        newSys = super().addSubSys(subSys, **kwargs)
+        if isinstance(newSys, qSystem):
+            self._QuantumSystem__addSub(newSys)
+        elif isinstance(newSys, qCoupling):
+            self._QuantumSystem__addCoupling(self._qUniversal__subSys.pop(newSys.name))
+        return newSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
         newSubs = []
         for ind in range(n):
-            newSub = newSubs.append(self.addSubSys(subClass, **kwargs))
-        return newSubs if n > 1 else newSubs[0]
+            newSubs.append(self.addSubSys(subClass, **kwargs))
+        return (*newSubs,) if n > 1 else newSubs[0]
 
     # total dimensions, free, coupling, and total Hamiltonians of the composite system
     @property
@@ -161,47 +147,44 @@ class QuantumSystem(genericQSys):
     def qCouplings(self):
         return self._QuantumSystem__qCouplings
 
-    @qCouplings.setter
-    def qCouplings(self, coupl):
-        self._QuantumSystem__addCoupling(coupl)
-        
-
     def __addCoupling(self, couplingObj, *args, **kwargs):
-        if isinstance(couplingObj, qCoupling):
-            self._QuantumSystem__qCouplings[couplingObj.name] = couplingObj
-            couplingObj.ind = len(self.qCouplings)
-        elif isinstance(couplingObj, dict):
-            self._QuantumSystem__qCouplings = couplingObj
-        elif couplingObj == 'qCoupling':
-            couplingObj = qCoupling(*args, **kwargs)
-            couplingObj = self._QuantumSystem__addCoupling(couplingObj)
+        self._QuantumSystem__qCouplings[couplingObj.name] = couplingObj
+        couplingObj._qUniversal__ind = len(self.qCouplings)
         return couplingObj
 
-    @addCreateInstance(_QuantumSystem__addCoupling)
     def createSysCoupling(self, *args, **kwargs):
-        pass
+        newCoupling = self.createSubSys(qCoupling, **kwargs)
+        newCoupling.addTerm(*args)
+        return newCoupling
         
-    @addCreateInstance(_QuantumSystem__addCoupling)
     def addSysCoupling(self, couplingObj):
-        pass
+        self.addSubSys(couplingObj)
 
     # reset and keepOld
     def reset(self, to=None):
-        # TODO make sure that the kept protocols deletes their matrices and different sweeps ?
+        # TODO make sure that the kept protocols deletes their matrices and different sweeps ? delMatrices
         for qSys in self.qSystems.values():
             qSys._qSystem__Matrix = None
 
         for qCoupl in self.qCouplings.values():
             qCoupl._qCoupling__Matrix = None
+
+        if isinstance(self._genericQSys__unitary, list):
+            for protoc in self._genericQSys__unitary:
+                protoc.delMatrices()
+        else:
+            self._genericQSys__unitary.delMatrices()
+        
         self._QuantumSystem__keepOld()
-        self._genericQSys__constructed = False
+        self._constructed = False
+        self._paramUpdated = True
         if to is None:
-            self.qCouplings = {}
+            self._QuantumSystem__qCouplings = {}
             self._genericQSys__unitary = freeEvolution(superSys=self)
             self.couplingName = None
         else:
             self.couplingName = to
-            self.qCouplings = self._QuantumSystem__kept[to][0]
+            self._QuantumSystem__qCouplings = self._QuantumSystem__kept[to][0]
             self._genericQSys__unitary = self._QuantumSystem__kept[to][1]
 
     def __keepOld(self):
@@ -217,12 +200,16 @@ class QuantumSystem(genericQSys):
 
     # construct the matrices
     def constructCompSys(self):
-        for qSys in self.subSystems.values():
+        for qSys in self.subSys.values():
             qSys.freeMat = None
-        self._genericQSys__constructed = True
+
+        for qSys in self.qCouplings.values():
+            qSys.freeMat = None
+        self._constructed = True
 
     # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal):
+        qSys._qSystem__dimension = newDimVal
         ind = qSys.ind
         for qS in self.qSystems.values():
             if qS.ind < ind:
@@ -233,7 +220,7 @@ class QuantumSystem(genericQSys):
                 qS._qSystem__dimsBefore = dimB
         self.initialState = self._genericQSys__initialStateInput
         self._paramUpdated = True
-        if self._genericQSys__constructed is True:
+        if self._constructed is True:
             self.constructCompSys()
         return qSys
 
@@ -257,7 +244,7 @@ class qSystem(genericQSys):
     __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', '__order']
     @qSystemInitErrors
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__frequency = None
         self.__operator = None
         self.__dimension = None
@@ -325,7 +312,7 @@ class qSystem(genericQSys):
         self._paramUpdated = True
         if self.superSys is not None:
             self.superSys._paramUpdated = True
-        if self.constructed is True:
+        if self._constructed is True:
             self.initialState = self._genericQSys__initialStateInput
             
     @property
@@ -333,7 +320,7 @@ class qSystem(genericQSys):
         h = sum([(obj.frequency * obj.freeMat) for obj in self._qSystem__terms])
         return h
 
-    # I'm not sure to keep this, freeMat setter covers all the cases and this one does not make much sense
+    # I'm not sure on keeping this, freeMat setter covers all the cases and this one does not make much sense
     """@totalHam.setter
     def totalHam(self, qOpsFunc):
         self.freeMat = qOpsFunc
@@ -361,7 +348,7 @@ class qSystem(genericQSys):
     def __constructSubMat(self):
         for sys in self._qSystem__terms:
             sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
-            sys._genericQSys__constructed = True
+            sys._constructed = True
         return self._qSystem__Matrix
 
     def addTerm(self, op, freq, order=1):
@@ -373,9 +360,10 @@ class qSystem(genericQSys):
     def copy(self, **kwargs):
         # TODO should copy the terms as well
         if 'superSys' in kwargs.keys():
-            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension, frequency = self.frequency, operator = self.operator)
+            copySys = super().copy(superSys=kwargs['superSys'], dimension = self.dimension, frequency = self.frequency, operator = self.operator)
         else:
-            copySys = qUniversal.createCopy(self, dimension = self.dimension, frequency = self.frequency, operator = self.operator)
+            copySys = super().copy(dimension = self.dimension, frequency = self.frequency, operator = self.operator)
+
         copySys._qUniversal__setKwargs(**kwargs)
         return copySys
 
@@ -386,8 +374,7 @@ class Qubit(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        print(kwargs)
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         kwargs['dimension'] = 2
         self.operator = qOps.sigmaz
         self._qUniversal__setKwargs(**kwargs)
@@ -404,7 +391,7 @@ class Spin(qSystem):
 
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.operator = qOps.Jz
         self.__jValue = None
         self._qUniversal__setKwargs(**kwargs)
@@ -425,7 +412,7 @@ class Cavity(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.operator = qOps.number
         self._qUniversal__setKwargs(**kwargs)
 
@@ -439,7 +426,7 @@ class qCoupling(qUniversal):
 
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self.__couplingStrength = None
         self.__cFncs = []
         self.__qSys = []
@@ -533,7 +520,7 @@ class qCoupling(qUniversal):
             if isinstance(args[counter][0], qSystem):
                 qSystems = args[counter]
                 if qSystems[0].superSys is not None:
-                    qSystems[0].superSys._genericQSys__constructed = False
+                    qSystems[0].superSys._constructed = False
 
                 if callable(args[counter+1][1]):
                     self._qCoupling__cFncs.append(args[counter + 1])
@@ -547,7 +534,7 @@ class qCoupling(qUniversal):
             elif isinstance(args[counter][1], qSystem):
                 qSystems = args[counter]
                 if qSystems.superSys is not None:
-                    qSystems.superSys._genericQSys__constructed = False
+                    qSystems.superSys._constructed = False
 
                 if callable(args[counter+1][1]):
                     self._qCoupling__cFncs.append(args[counter + 1])
@@ -560,12 +547,12 @@ class qCoupling(qUniversal):
             elif isinstance(args[counter][0][0],qSystem):
                 self._qCoupling__cFncs.append(args[counter][1])
                 self._qCoupling__qSys.append(args[counter][0])
-                args[counter][0][0].superSys._genericQSys__constructed = False
+                args[counter][0][0].superSys._constructed = False
                 counter += 1
             elif isinstance(args[counter][0][1],qSystem):
                 self._qCoupling__cFncs.append(args[counter][0])
                 self._qCoupling__qSys.append(args[counter][1])
-                args[counter][0][1].superSys._genericQSys__constructed = False
+                args[counter][0][1].superSys._constructed = False
                 counter += 1"""
         return self
 
@@ -576,7 +563,7 @@ class envCoupling(qCoupling):
 
     __slots__ = []
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
 
 
@@ -586,5 +573,5 @@ class sysCoupling(qCoupling):
     __slots__ = []
     
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)

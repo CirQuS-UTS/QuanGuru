@@ -1,120 +1,112 @@
 from copy import deepcopy
 from itertools import chain
 from qTools.classes.QUni import qUniversal
+from collections import defaultdict
+from numpy import reshape, array
 
-class qResults(qUniversal):
+__all__ = [
+    'qResults'
+]
+
+class qResBase(qUniversal):
     instances = 0
-    label = 'qUniversal'
-    __slots__ = ['__results', '__indB', '__indL', '__multiResults', '__resTotCount', '__prevRes', '__resCount', '__last', '__states', '__bLength', '__lLength']
-    def __init__(self):
-        super().__init__()
-        self.__results = []
-        self.__indB = 0
-        self.__indL = 0
-        self.__multiResults = []
-        self.__resTotCount = 0
-        self.__prevRes = False
-        self.__resCount = 0
-        self.__last = []
-        self.__states = []
-        self.__bLength = 0
-        self.__lLength = 0
+    label = 'qResBase'
+
+    __slots__ = ['__results', '__states', '__resultsLast', '__statesLast']
+    def __init__(self, **kwargs):
+        super().__init__(name=kwargs.pop('name', None))
+        self.__results = defaultdict(list)
+        self.__resultsLast = defaultdict(list)
+        self.__states = defaultdict(list)
+        self.__statesLast = defaultdict(list)
+        self._qUniversal__setKwargs(**kwargs)   
 
     @property
     def results(self):
-        return self._qResults__multiResults
-
-    @results.setter
-    def result(self, val):
-        if self._qResults__prevRes is True:
-            self._qResults__multiResults[self._qResults__resCount][self.indB][self.indL].append(val)
-            self._qResults__last[self._qResults__resCount].append(val)
-            self._qResults__resCount += 1
-        elif self._qResults__prevRes is False:
-            self._qResults__last.append([])
-            self._qResults__multiResults.append(deepcopy(self._qResults__results))
-            self._qResults__multiResults[self._qResults__resTotCount][self.indB][self.indL].append(val)
-            self._qResults__last[self._qResults__resTotCount].append(val)
-            self._qResults__resTotCount += 1
+        return self._qResBase__resultsLast
 
     @property
     def states(self):
-        return self._qResults__states
+        return self._qResBase__statesLast
 
-    @states.setter
-    def state(self, st):
-        self._qResults__states[self.indB][self.indL].append(st)
+    def saveResults(self):
+        pass
 
-    def _createList(self):
-        newList = []
-        lList = []
-        if self._qResults__lLength > 0:
-            for indl in range(self._qResults__lLength):
-                lList.append([])
-        else:
-            lList.append([])
+    def _saveResults(self):
+        pass
+    
 
-        if self._qResults__bLength > 0:
-            bList = []
-            for indn in range(self._qResults__bLength):
-                bList.append(deepcopy(lList))
-            newList = bList
-        else:
-            newList = [deepcopy(lList)]
+class qResults(qResBase):
+    instances = 0
+    label = 'qResults'
+    _allResults = {}
 
-        self._qResults__results = newList
-        self._qResults__states = deepcopy(newList)
+    __slots__ = ['allResults']
+
+    def __init__(self, **kwargs):
+        super().__init__(name=kwargs.pop('name', None))
+        self._qUniversal__setKwargs(**kwargs)
+        self.allResults = qResults._allResults
+        self.allResults[self.superSys.name] = self
+
+    def _reset(self):
+        for qRes in self.allResults.values():
+            qRes._qResBase__results = defaultdict(list)
+            qRes._qResBase__states = defaultdict(list)
+            qRes._qResBase__resultsLast = defaultdict(list)
+            qRes._qResBase__statesLast = defaultdict(list)
+
+    def _resetLast(self):
+        for qRes in self.allResults.values():
+            qRes._qResBase__resultsLast = defaultdict(list)
+            qRes._qResBase__statesLast = defaultdict(list)
+
+    def _organiseMultiProcRes(self, results, inds):
+        for res in results:
+            for keyUni, valUni in res.items():
+                self._organise(keyUni, valUni, inds)
+
+        self._finaliseAll(inds)
+
+    @classmethod
+    def _finaliseAll(cls, inds):
+        for qres in cls._allResults.values():
+            qres._finalise(inds)
+
+    @staticmethod
+    def _organise(keyUni, valUni, inds):
+        for key, val in valUni.results.items():
+            qResults._allResults[keyUni]._qResBase__results[key].append(val)
         
-    def reset(self):
-        self._qResults__results = []
-        self._qResults__indB = 0
-        self._qResults__indL = 0
-        self._qResults__multiResults = []
-        self._qResults__resTotCount = 0
-        self._qResults__prevRes = False
-        self._qResults__resCount = 0
-        self._qResults__last = []
-        self._qResults__states = []
+        for key1, val1, in valUni.states.items():
+            qResults._allResults[keyUni]._qResBase__states[key1].append(val1)
+        
+    def _organiseSingleProcRes(self, inds):
+        for keyUni, valUni in self.allResults.items():
+            self._organise(keyUni, valUni, inds)
 
+    def _finalise(self, inds):
+        for key, val in self._qResBase__results.items():
+            self._qResBase__results[key], _ = self._reShape(val, list(reversed(inds)))
 
-    @property
-    def indB(self):
-        return self._qResults__indB
+        for key1, val1 in self._qResBase__states.items():
+            self._qResBase__states[key1], _ = self._reShape(val1, list(reversed(inds)))
+        self._qResBase__resultsLast = self._qResBase__results
+        self._qResBase__statesLast = self._qResBase__states
 
-    @indB.setter
-    def indB(self, ii):
-        self._qResults__indB = ii
-
-    @property
-    def indL(self):
-        return self._qResults__indL
-
-    @indL.setter
-    def indL(self, ii):
-        self._qResults__indL = ii
-
-    def _unpack(self):
-        unnested = []
-        if ((self._qResults__bLength == 0) and (self._qResults__lLength != 0)):
-            unnested = [list(chain(*sub)) for sub in self.results]
-        elif ((self._qResults__bLength == 0) and (self._qResults__lLength == 0)):
-            for result in self.results:
-                nested = [list(chain(*sub)) for sub in result]
-                unnested = [list(chain(*sub)) for sub in nested]
-        elif ((self._qResults__bLength != 0) and (self._qResults__lLength == 0)):
-            for result in self.results:
-                unnested.append([list(chain(*sub)) for sub in result])
-        elif ((self._qResults__bLength != 0) and (self._qResults__lLength != 0)):
-            unnested = self.results
-
-        self._qResults__multiResults = unnested
-        return self.result
-
-    def _prepare(self, qSim):
-        if len(qSim.beforeLoop.sweeps) > 0:
-            self._qResults__bLength = len(qSim.beforeLoop.sweeps[0].sweepList)
-
-        if len(qSim.Loop.sweeps) > 0:
-            self._qResults__lLength = len(qSim.Loop.sweeps[0].sweepList)
+    @staticmethod
+    def _reShape(lis, inds, counter=0, totalCount=0):
+        newList = []
+        if counter < (len(inds)-1):
+            counter += 1
+            for indx in range(inds[counter-1]):
+                nList, totalCount = qResults._reShape(lis, inds, counter, totalCount)
+                newList.append(nList)
+        else:
+            for indx in range(inds[counter]):
+                newList.append(lis[totalCount])
+                totalCount += 1
+            return (newList, totalCount)
+        return (newList, totalCount)
 
 
