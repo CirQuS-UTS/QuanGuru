@@ -160,16 +160,19 @@ class _poolMemory:
                 if _poolMemory.coreCount is None:
                     p1 = Pool(processes=cpu_count()-1)
                 else:
-                    p1 =p1 = Pool(processes=_poolMemory.coreCount)
+                    p1 = Pool(processes=_poolMemory.coreCount)
             elif isinstance(coreCount, int):
                 p1 = Pool(processes=coreCount)
             elif coreCount.lower() == 'all':
                 p1 = Pool(processes=cpu_count())
+            else:
+                # FIXME should raise error
+                print('error')
         elif p is False:
             p1 = None
         elif p is not None:
-            numb = p._processes
-            p1 = Pool(processes=numb)
+            # FIXME if p is not a pool, this should raise error
+            p1 = Pool(processes=p._processes)
         elif p is None:
             if _poolMemory.coreCount is not None:
                 p1 = Pool(processes=_poolMemory.coreCount)
