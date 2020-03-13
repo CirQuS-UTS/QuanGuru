@@ -1,42 +1,20 @@
-from qTools.classes.QUni import qUniversal
-from qTools.classes.QResDict import qResults
+from qTools.classes.computeBase import computeBase
 
-class timeBase(qUniversal):
+class timeBase(computeBase):
     instances = 0
     label = 'timeBase'
     
-    __slots__ = ['__delStates', '__finalTime', '__stepSize', '__samples', '__step', 'compute', 'calculate', 'qRes', '__compute']
+    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step']
     
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-
-        self.__delStates = False
 
         self.__finalTime = None
         self.__stepSize = None
         self.__samples = 1
         self.__step = None
 
-        self.compute = None
-        self.calculate = None
-
-        self.__compute = self._computeSave
-
         self._qUniversal__setKwargs(**kwargs)
-        self.qRes = qResults(superSys=self)
-        
-
-    @property
-    def delStates(self):
-        return self._timeBase__delStates
-
-    @delStates.setter
-    def delStates(self, boolean):
-        if boolean is True:
-            self._timeBase__compute = self._computeDel
-        elif boolean is False:
-            self._timeBase__compute = self._computeSave
-        self._timeBase__delStates = boolean
 
     @property
     def finalTime(self):
@@ -77,14 +55,3 @@ class timeBase(qUniversal):
     @samples.setter
     def samples(self, num):
         self._timeBase__samples = num
-
-    def _computeDel(self, states, keys):
-        if self.compute is not None:
-            self.compute(self, *states)
-
-    def _computeSave(self, states, keys):
-        for ind, key in enumerate(keys):
-            self.qRes.states[key].append(states[ind])
-
-        if self.compute is not None:
-            self.compute(self, *states)
