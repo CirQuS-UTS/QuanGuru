@@ -92,7 +92,6 @@ class qUniversal:
     def createSubSys(self, subSysClass, **kwargs):
         self._qUniversal__subSys[subSysClass.name] = subSysClass
         
-
     @property
     def superSys(self):
         return self._qUniversal__superSys
