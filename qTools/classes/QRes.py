@@ -65,8 +65,12 @@ class qResults(qResBase):
         for res in results:
             for keyUni, valUni in res.items():
                 self._organise(keyUni, valUni, inds)
-        
-        for qres in qResults._allResults.values():
+
+        self._finaliseAll(inds)
+
+    @classmethod
+    def _finaliseAll(cls, inds):
+        for qres in cls._allResults.values():
             qres._finalise(inds)
 
     @staticmethod
@@ -83,10 +87,10 @@ class qResults(qResBase):
 
     def _finalise(self, inds):
         for key, val in self._qResBase__results.items():
-            self._qResBase__results[key] = self._reShape(val, list(reversed(inds)))
+            self._qResBase__results[key], _ = self._reShape(val, list(reversed(inds)))
 
         for key1, val1 in self._qResBase__states.items():
-            self._qResBase__states[key1] = self._reShape(val1, list(reversed(inds)))
+            self._qResBase__states[key1], _ = self._reShape(val1, list(reversed(inds)))
         self._qResBase__resultsLast = self._qResBase__results
         self._qResBase__statesLast = self._qResBase__states
 
@@ -103,6 +107,6 @@ class qResults(qResBase):
                 newList.append(lis[totalCount])
                 totalCount += 1
             return (newList, totalCount)
-        return newList
+        return (newList, totalCount)
 
 
