@@ -58,33 +58,26 @@ class Simulation(timeBase):
 
     def removeQSystems(self, subS):
         for key, subSys in self._qUniversal__subSys.items():
-            if subSys is subS:
+            if ((subSys is subS) or (subSys.name == subS)):
                 del self._qUniversal__subSys[key]
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
-
-
-    def removeSys(self, sys):
-        if isinstance(sys, genericQSys):
-            self.removeSweeps(sys)
-            del self.subSys[sys.name]
-        elif isinstance(sys, str):
-            self.removeSweeps(self.subSys[sys])
-            del self.subSys[sys]
-        return self
+                self._updateInd()
+                self.removeSweeps(subSys)
     
-    # TODO remove a specific sweep
     def removeSweeps(self, sys):
-        # TODO type is not valid for single systems
         if isinstance(sys, genericQSys):
-            for qSys in sys.subSys.values():
-                for key, val in self.Sweep.sweeps.items():
-                    if qSys.name in val.subSys.keys():
-                        del self.Loop.sweeps[key]
-        #elif sys.__class__.__name__ == '_sweep':
-        return self
+            for sweep in self.Sweep.sweeps:
+                sweep.removeSubSys(sys)
+            for sweep1 in self.timeDependency.sweeps:
+                sweep1.removeSubSys(sys)
+        elif sys.__class__.__name__ == '_sweep':
+            self.Sweep.removeSubSys(sys)
+            self.timeDependency.removeSubSys(sys)
+        return sys
 
     # add/remove protocol  
     def removeProtocol(self, Protocol):
+        # FIXME what if freeEvol case, protocol then corresponds to sys.name before simulation run or a freeEvol obj after run
         if isinstance(Protocol, timeBase):
             del self._qUniversal__subSys[Protocol]
         else:
@@ -102,7 +95,7 @@ class Simulation(timeBase):
                     raise ValueError('?')
         elif isinstance(sys, genericQSys):
             if sys is protocol.superSys:
-                self.addSubSys(sys, protocol)
+                self.addQSystems(sys, protocol)
                 self.removeProtocol(Protocol=protocolRemove)
             else:
                 raise ValueError('?')
@@ -112,12 +105,12 @@ class Simulation(timeBase):
     def addSubSys(self, subS, Protocol=None, **kwargs):
         newSys = super().addSubSys(subS, **kwargs)
         newSys, Protocol = self.addQSystems(subS, Protocol, **kwargs)
-        return (newSys, Protocol)
+        return newSys
 
     def createSubSys(self, subSysClass, Protocol=None, **kwargs):
         newSys = super().createSubSys(subSysClass, **kwargs)
         newSys, Protocol = self.createQSystems(newSys, Protocol, **kwargs)
-        return (newSys, Protocol)
+        return newSys
     
     def removeSubSys(self, subS):
         self.removeQSystems(subS)

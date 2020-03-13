@@ -10,12 +10,9 @@ def checkClass(classOf):
             cls1 = globals()[classOf]
             if isinstance(inp, cls1):
                 inp._qUniversal__setKwargs(**kwargs)
-                if inp not in obj._qUniversal__subSys.values():
-                    inp._qUniversal__ind = len(obj._qUniversal__subSys)
-                    addRemoveFunction(obj, inp, **kwargs)
-                    return inp
-                else:
-                    print(inp.name + ' cannot be added/removed from ' + obj.name)
+                inp._qUniversal__ind = len(obj._qUniversal__subSys)
+                addRemoveFunction(obj, inp, **kwargs)
+                return inp
             elif isinstance(inp, str):
                 if str in cls1.instNames.keys():
                     inp = wrapper(obj, cls1.instNames[inp], **kwargs)
@@ -84,9 +81,12 @@ class qUniversal:
     @checkClass('qUniversal')
     def removeSubSys(self, subS, **kwargs):
         obj = self._qUniversal__subSys.pop(subS.name)
+        self._updateInd()
+        print(obj.name + ' is removed from subSys of ' + self.name)
+
+    def _updateInd(self):
         for ind, obj in enumerate(self._qUniversal__subSys):
             obj.ind = ind
-        print(obj.name + ' is removed from subSys of ' + self.name)
         
     @checkClass('qUniversal')
     def createSubSys(self, subSysClass, **kwargs):
