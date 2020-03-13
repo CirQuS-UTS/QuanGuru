@@ -52,7 +52,7 @@ def _runSweepAndPrep(qSim, ind, evolFunc):
     qSim.Sweep.runSweep(indicesForSweep(ind, *qSim.Sweep.inds))
     for protoc, qSys in qSim.subSys.items():
         protoc.lastState = qSys.initialState
-    qSim.qRes.resetLast()
+    qSim.qRes._resetLast()
     evolFunc(qSim)
 
 def timeDependent(qSim):

@@ -49,14 +49,14 @@ class qResults(qResBase):
         self.allResults = qResults._allResults
         self.allResults[self.superSys.name] = self
 
-    def reset(self):
+    def _reset(self):
         for qRes in self.allResults.values():
             qRes._qResBase__results = defaultdict(list)
             qRes._qResBase__states = defaultdict(list)
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)
 
-    def resetLast(self):
+    def _resetLast(self):
         for qRes in self.allResults.values():
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)

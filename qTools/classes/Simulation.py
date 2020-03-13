@@ -129,7 +129,7 @@ class Simulation(timeBase):
             protoc.prepare(self)
         self.Sweep.prepare()
         for qres in self.qRes.allResults.values():
-            qres.reset()
+            qres._reset()
         _poolMemory.run(self, p, coreCount)
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
