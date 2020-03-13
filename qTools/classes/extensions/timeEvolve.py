@@ -3,7 +3,6 @@ from qTools.classes.QUni import qUniversal
 from functools import partial
 import numpy as np
 from copy import deepcopy
-import datetime
 
 
 def runSimulation(qSim, p):
@@ -100,9 +99,7 @@ def runSimulation(qSim, p):
                     qSim.qRes.indL = 0
                     __timeEvolDel(qSim, unitary)
 
-"""
-STAGE 1 POSSIBILITIES
-"""
+# STAGE 1 POSSIBILITIES
 def withBLWnp(qSim):
     for ind in range(len(qSim.beforeLoop.sweeps[0].sweepList)):
         qSim.qRes.indB = ind
@@ -184,9 +181,7 @@ def withBOODel(qSim):
         for ii in range(qSim.steps):
             __timeEvol(qSim, unitary)
      
-"""
-STAGE 2 POSSIBILITIES
-"""
+# STAGE 2 POSSIBILITIES
 def withLWnp(qSim):
     for ind in range(len(qSim.Loop.sweeps[0].sweepList)):
         qSim.qRes.indL = ind
@@ -302,9 +297,7 @@ def parallelSequenceODel(qSim, ind):
         __timeEvolDel(qSim, unitary)
     return qSim.qRes._qResults__last
 
-"""
-STAGE 3 POSSIBILITIES
-"""
+# STAGE 3 POSSIBILITIES
 def withW(qSim):
     for qSys in qSim.subSystems.values():
         qSys._genericQSys__prepareLastStateList()
@@ -324,9 +317,7 @@ def withWDel(qSim):
         unitary = exponUni(qSim)
         __timeEvolDel(qSim, unitary)
 
-"""
-TIME EVOLVE
-"""
+# TIME EVOLVE
 def __timeEvolDel(qSim, unitaryList):
     for ii in range(qSim.samples):
         for idx, qSys in enumerate(qSim.subSystems.values()):

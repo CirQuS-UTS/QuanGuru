@@ -1,5 +1,8 @@
 import scipy as np
+from typing import Union
 import scipy.linalg as lina
+from numpy import ndarray
+from scipy.sparse import spmatrix
 
 """
 The reason having several functions for a task, for example calculating expectation value, is to improve performance 
@@ -7,7 +10,7 @@ The reason having several functions for a task, for example calculating expectat
 
 
 # Functions for expectation value
-def expectationMat(operator, denMat):
+def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, ndarray]) -> float:
     """
     Calculates the expectation value of an operator for a given density matrix
     Works with both sparse and array
@@ -22,11 +25,11 @@ def expectationMat(operator, denMat):
     return np.real(expc)
 
 
-def expectationKet(operator, ket):
+def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the expectation value of an operator for a given ket
-    Calculates the density matrix and calls the expectationMat
-    Computationally the same as using (bra @ operator @ ket)
+    Calculates the expectation value of an operator for a given ket \\
+    Calculates the density matrix and calls the expectationMat \\
+    Computationally the same as using (bra @ operator @ ket) \\
     TODO is the same as expectationMat
 
     :param operator: matrix of the operator
@@ -98,6 +101,21 @@ def fidelityKet(ket1, ket2):
     fidelityA = ((herm @ ket2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
 
+def fidelityKetList(ket1, ket2):
+    """
+    Calculates the fidelity between two ket states
+    
+    :param ket1: ket state 1
+    :param ket2: ket state 2
+    :return: fidelity between the given states
+    """
+    fidelities = []
+    herm = ket1.conj().T
+    for ket in ket2:
+        fidelityA = ((herm @ ket).diagonal()).sum()
+        fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
+    return fidelities
+
 
 def fidelityPureMat(denMat1, denMat2):
     """
@@ -124,7 +142,7 @@ def fidelityKetLists(zippedStatesList):
         fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
     return fidelities
 
-    
+
 # Entropy function
 def entropy(densMat, base2=False):
     """

@@ -52,7 +52,11 @@ class genericQSys(qUniversal):
 
     @unitary.setter
     def unitary(self, protocols):
-        self._genericQSys__unitary = protocols
+        if protocols is not None:
+            self._genericQSys__unitary = protocols
+        elif protocols is None:
+            self._genericQSys__unitary = freeEvolution(superSys=self)
+
 
     # initial state
     @property
@@ -250,7 +254,7 @@ class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
 
-    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', 'order']
+    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', '__order']
     @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__()
@@ -261,8 +265,17 @@ class qSystem(genericQSys):
         self.__dimsBefore = 1
         self.__dimsAfter = 1
         self.__terms = [self]
-        self.order = 1
+        self.__order = 1
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def order(self):
+        return self._qSystem__order
+
+    @order.setter
+    def order(self, ordVal):
+        self._qSystem__order = ordVal
+        self.freeMat = None
 
     @property
     def terms(self):
@@ -360,11 +373,9 @@ class qSystem(genericQSys):
     def copy(self, **kwargs):
         # TODO should copy the terms as well
         if 'superSys' in kwargs.keys():
-            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension, 
-            frequency = self.frequency, operator = self.operator)
+            copySys = qUniversal.createCopy(self, superSys=kwargs['superSys'], dimension = self.dimension, frequency = self.frequency, operator = self.operator)
         else:
-            copySys = qUniversal.createCopy(self, dimension = self.dimension, 
-            frequency = self.frequency, operator = self.operator)
+            copySys = qUniversal.createCopy(self, dimension = self.dimension, frequency = self.frequency, operator = self.operator)
         copySys._qUniversal__setKwargs(**kwargs)
         return copySys
 
@@ -425,6 +436,7 @@ class qCoupling(qUniversal):
     label = 'qCoupling'
 
     __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys', '__paramUpdated']
+
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
         super().__init__()

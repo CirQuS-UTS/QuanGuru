@@ -22,7 +22,7 @@ class xGate(Gate):
         self._xGate__angle = val
 
     def instantFlip(self):
-        flipOp = operators.compositeOp(operations.xRotation(pi/2), self.superSys._qSystem__dimsBefore, self.superSys._qSystem__dimsAfter)
+        flipOp = operators.compositeOp(operators.sigmax(), self.superSys._qSystem__dimsBefore, self.superSys._qSystem__dimsAfter)
         self._Step__unitary = flipOp
         return flipOp
 
