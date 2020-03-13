@@ -10,9 +10,12 @@ def checkClass(classOf):
             cls1 = globals()[classOf]
             if isinstance(inp, cls1):
                 inp._qUniversal__setKwargs(**kwargs)
-                inp._qUniversal__ind = len(obj._qUniversal__subSys)
-                addRemoveFunction(obj, inp, **kwargs)
-                return inp
+                if inp not in obj._qUniversal__subSys.values():
+                    inp._qUniversal__ind = len(obj._qUniversal__subSys)
+                    addRemoveFunction(obj, inp, **kwargs)
+                    return inp
+                else:
+                    print(inp.name + ' cannot be added/removed from ' + obj.name)
             elif isinstance(inp, str):
                 if str in cls1.instNames.keys():
                     inp = wrapper(obj, cls1.instNames[inp], **kwargs)
