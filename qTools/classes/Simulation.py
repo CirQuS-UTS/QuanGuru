@@ -35,7 +35,7 @@ class Simulation(timeBase):
         return (*protocs,) if len(protocs) > 1 else protocs[0]
 
     def _freeEvol(self):
-        for protocol, qSys in self.subSys.items():
+        for protocol in self.subSys.keys():
             if isinstance(protocol, str):
                 self.subSys[freeEvolution(superSys=qSys)] = self.subSys.pop(protocol)
 
@@ -61,6 +61,27 @@ class Simulation(timeBase):
             if subSys is subS:
                 del self._qUniversal__subSys[key]
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
+
+
+    def removeSys(self, sys):
+        if isinstance(sys, genericQSys):
+            self.removeSweeps(sys)
+            del self.subSys[sys.name]
+        elif isinstance(sys, str):
+            self.removeSweeps(self.subSys[sys])
+            del self.subSys[sys]
+        return self
+    
+    # TODO remove a specific sweep
+    def removeSweeps(self, sys):
+        # TODO type is not valid for single systems
+        if isinstance(sys, genericQSys):
+            for qSys in sys.subSys.values():
+                for key, val in self.Sweep.sweeps.items():
+                    if qSys.name in val.subSys.keys():
+                        del self.Loop.sweeps[key]
+        #elif sys.__class__.__name__ == '_sweep':
+        return self
 
     # add/remove protocol  
     def removeProtocol(self, Protocol):
@@ -109,16 +130,14 @@ class Simulation(timeBase):
                 self.qRes.states[protoc.name].append(protoc.lastState)
         super()._computeBase__compute(states)
             
-            
-
     def run(self, p=None, coreCount=None):
-        for protocol, qSys in self.subSys.items():
+        for qSys in self.subSys.values():
+            # TODO this will be modified after the structural changes of qSys objects
             if isinstance(qSys, QuantumSystem):
                 # TODO Check first if constructed
                 qSys.constructCompSys()
-            if protocol is None:
-                protocol = freeEvolution(superSys=qSys)
         for protoc in self.subSys.keys():
+            # TODO tihis will be modified after the structural changes of qPro objects
             protoc.prepare(self)
         self._freeEvol()
         self.Sweep.prepare()
@@ -128,26 +147,6 @@ class Simulation(timeBase):
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         return self.qRes
-
-    def removeSys(self, sys):
-        if isinstance(sys, genericQSys):
-            self.removeSweeps(sys)
-            del self.subSys[sys.name]
-        elif isinstance(sys, str):
-            self.removeSweeps(self.subSys[sys])
-            del self.subSys[sys]
-        return self
-    
-    # TODO remove a specific sweep
-    def removeSweeps(self, sys):
-        # TODO type is not valid for single systems
-        if isinstance(sys, genericQSys):
-            for qSys in sys.subSys.values():
-                for key, val in self.Sweep.sweeps.items():
-                    if qSys.name in val.subSys.keys():
-                        del self.Loop.sweeps[key]
-        #elif sys.__class__.__name__ == '_sweep':
-        return self
 
 
 class _poolMemory:
