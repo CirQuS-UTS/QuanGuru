@@ -36,7 +36,7 @@ class Simulation(timeBase):
 
     def _freeEvol(self):
         for protocol, qSys in self.subSys.items():
-            if isinstance(protocol, genericQSys):
+            if isinstance(protocol, str):
                 self.subSys[freeEvolution(superSys=qSys)] = self.subSys.pop(protocol)
 
     @property
@@ -45,10 +45,10 @@ class Simulation(timeBase):
         return (*qSys,) if len(qSys) > 1 else qSys[0]
 
     def addQSystems(self, subS, Protocol=None):
+        # TODO raise an error, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS)
-        if Protocol is None:
-            Protocol = subS
-        self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name)
+        if Protocol is not None:
+            self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name)
         return (subS, Protocol)
         
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
@@ -105,13 +105,10 @@ class Simulation(timeBase):
         states = []
         for protoc in self.subSys.keys():
             states.append(protoc.lastState)
+            if protoc.delStates is False:
+                self.qRes.states[protoc.name].append(protoc.lastState)
         super()._computeBase__compute(states)
-        self._Simulation__saveStates()
-
-    def __saveStates(self):
-        for key in self.subSys.keys():
-            if key.delStates is False:
-                self.qRes.states[key.name].append(key.lastState)
+            
             
 
     def run(self, p=None, coreCount=None):
