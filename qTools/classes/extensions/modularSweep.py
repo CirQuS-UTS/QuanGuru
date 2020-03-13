@@ -1,64 +1,17 @@
 from functools import partial
-import numpy as np
-import datetime
 from copy import deepcopy
-#from qTools.classes.QResDict import qResultsContainer
 
 def runSimulation(qSim, p):
-    '''if qSim.delState is False:
-        if len(qSim.Loop.sweeps) > 0:
-            if len(qSim.timeDependency.sweeps) > 0:
-                if p is None:
-                    qSim.qRes.indB = 0
-                    withLWnp(qSim)
-                else:
-                    qSim.qRes.indB = 0
-                    withLWp(qSim, p)
-            else:
-                if p is None:
-                    qSim.qRes.indB = 0
-                    withLOnp(qSim)
-                else:
-                    qSim.qRes.indB = 0
-                    withLOp(qSim, p)
-        else:
-            if len(qSim.timeDependency.sweeps) > 0:
-                qSim.qRes.indB = 0
-                qSim.qRes.indL = 0
-                withW(qSim)
-            else:
-                for protoc, qSys in qSim.subSys.items():
-                    protoc.lastState = qSys.initialState
-                exponUni(qSim)
-                qSim.qRes.indB = 0
-                qSim.qRes.indL = 0
-                __timeEvol(qSim)
-    else:'''
     if len(qSim.Sweep.sweeps) > 0:
-        if len(qSim.timeDependency.sweeps) > 0:
-            if p is None:
-                pass
-                #withLWnpDel(qSim)
-            else:
-                pass
-                withLOpDel(qSim, p)
+        if p is None:
+            nonParalEvol(qSim)
         else:
-            if p is None:
-                pass
-                #withLOnpDel(qSim)
-            else:
-                withLOpDel(qSim, p)
+            paralEvol(qSim, p)
     else:
         if len(qSim.timeDependency.sweeps) > 0:
-            pass
-            #withWDel(qSim)
+            timeDependent(qSim)
         else:
-            pass
-            '''for protoc, qSys in qSim.subSys.items():
-                protoc.lastState = qSys.initialState
-               #qSim._Simulation__compute()
-            exponUni(qSim)
-            __timeEvolDel(qSim)'''
+            __timeEvol(qSim, qSim.steps)
 
 
 def indicesForSweep(ind, *args):
@@ -72,96 +25,56 @@ def indicesForSweep(ind, *args):
     return indices
 
 
-'''def withLWnpDel(qSim):
-    results = []
-    for ind in range(qSim.Sweep.indMultip):
-        indices = indicesForSweep(ind, *qSim.Sweep.inds)
-        qSim.Sweep.runSweep(indices)
-        #qSim.qRes.resetLast()
-        withWDel(qSim)
-        results.append(qSim.qRes.results)
-    qSim.qRes._organiseSingleProcRes(qSim.Sweep.inds, qSim.Sweep.indMultip)
-
-def withLOnpDel(qSim):
-    results = []
-    for ind in range(qSim.Sweep.indMultip):
-        indices = indicesForSweep(ind, *qSim.Sweep.inds)
-        qSim.Sweep.runSweep(indices)
-        for protoc, qSys in qSim.subSys.items():
-            protoc.lastState = qSys.initialState
-            #qSim._Simulation__compute()
-        exponUni(qSim)
-        #qSim.qRes.resetLast()
-        for ii in range(qSim.steps):
-            __timeEvolDel(qSim)
-        results.append(qSim.qRes.results)
-    qSim.qRes._organiseSingleProcRes(qSim.Sweep.inds, qSim.Sweep.indMultip)'''
-
-def withLWpDel(qSim, p):
-    results = p.map(partial(parallelSequenceWDel, qSim), range(qSim.Sweep.indMultip))
-    qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds, qSim.Sweep.indMultip)
-
-
-def withLOpDel(qSim, p):
+def nonParalEvol(qSim):
     if len(qSim.timeDependency.sweeps) > 0:
-        print('here')
-        results = p.map(partial(parallelSequenceWDel, qSim), range(qSim.Sweep.indMultip))
+        evolFunc = timeDependent
     else:
-        print('here2')
-        results = p.map(partial(parallelSequenceODel, qSim), range(qSim.Sweep.indMultip))
-    qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds, qSim.Sweep.indMultip)
+        evolFunc = _timeEvol
 
-def parallelSequenceWDel(qSim, ind):
+    for ind in range(qSim.Sweep.indMultip):
+        _runSweepAndPrep(qSim, ind, evolFunc)
+        qSim.qRes._organiseSingleProcRes()
+
+
+def paralEvol(qSim, p):
+    if len(qSim.timeDependency.sweeps) > 0:
+        results = p.map(partial(partial(parallelTimeEvol, qSim), timeDependent),range(qSim.Sweep.indMultip))
+    else:
+        results = p.map(partial(partial(parallelTimeEvol, qSim), _timeEvol),range(qSim.Sweep.indMultip))
+    qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds)
+
+def parallelTimeEvol(qSim, evolFunc, ind):
+    _runSweepAndPrep(qSim, ind, evolFunc)
+    return deepcopy(qSim.qRes.allResults)
+
+'''def parallelTimeIndep(qSim, ind):
+    _runSweepAndPrep(qSim, ind, _timeEvol)
+    return deepcopy(qSim.qRes.allResults)'''
+
+def _runSweepAndPrep(qSim, ind, evolFunc):
     qSim.Sweep.runSweep(indicesForSweep(ind, *qSim.Sweep.inds))
     for protoc, qSys in qSim.subSys.items():
         protoc.lastState = qSys.initialState
-    qSim.qRes.reset()
+    qSim.qRes.resetLast()
+    evolFunc(qSim, qSim.steps)
+
+def timeDependent(qSim, stepsCount=1):
     qSim.timeDependency.prepare()
-    withWDel(qSim)
-    return deepcopy(qSim.qRes.allResults)
-
-def parallelSequenceODel(qSim, ind):
-    qSim.Sweep.runSweep(indicesForSweep(ind, *qSim.Sweep.inds))
-    for protoc, qSys in qSim.subSys.items():
-        protoc.lastState = qSys.initialState
-    exponUni(qSim)
-    qSim.qRes.reset()
-    for ii in range(qSim.steps):
-        __timeEvolDel(qSim)
-    return deepcopy(qSim.qRes.allResults)
-
-# Time evolution POSSIBILITIES
-'''def withW(qSim):
-    for protoc, qSys in qSim.subSys.items():
-        protoc.lastState = qSys.initialState
-        qSim._Simulation__compute()
-
-    for ind in range(len(qSim.timeDependency.sweeps[0].sweepList)):
-        qSim.timeDependency.runSweep(ind)
-        exponUni(qSim)
-        __timeEvol(qSim)'''
-
-def withWDel(qSim):
     for ind in range(qSim.timeDependency.indMultip):
         qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
-        exponUni(qSim)
-        __timeEvolDel(qSim)
+        _timeEvol(qSim, 1)
 
-def __timeEvolDel(qSim):
-    for protocol in qSim.subSys.keys():
-        for ii in range(protocol.samples):
-            qSim._Simulation__compute()
-            protocol.lastState = protocol.unitary @ protocol.lastState
-            #qSys.qRes.states[qSys.name + str(ind)] = qSys._genericQSys__lastStateList[ind]
-
-
-'''def __timeEvol(qSim, unitaryList):
-    for protocol in qSim.subSys.keys():
-        for ii in range(protocol.samples):
-            qSim._Simulation__compute()
-            protocol.lastState = protocol.unitary @ protocol.lastState
-            #qSys.qRes.states[qSys.name + str(ind)] = qSys._genericQSys__lastStateList[ind]'''
-
+def _timeEvol(qSim, stepNumber):
+    exponUni(qSim)
+    for ii in range(stepNumber):
+        __timeEvol(qSim)
+        
 def exponUni(qSim):
     for protocol in qSim.subSys.keys():
         protocol.createUnitary()
+
+def __timeEvol(qSim):
+    for protocol in qSim.subSys.keys():
+        qSim._Simulation__compute()
+        for ii in range(protocol.samples):
+            protocol.lastState = protocol.unitary @ protocol.lastState
