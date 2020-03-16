@@ -9,9 +9,10 @@ class updateBase(qUniversal):
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self._qUniversal__setKwargs(**kwargs)
+
         self.__key = None
         self.__function = None
+        
         self._qUniversal__setKwargs(**kwargs)
 
     @property
