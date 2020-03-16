@@ -17,6 +17,7 @@ class _sweep(updateBase):
     #@sweepInitError
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
+        
         self._updateBase__function = self._defSweep
 
         self.sweepMax = None
@@ -74,8 +75,10 @@ class Sweep(computeBase):
     # TODO init errors
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
+
         self.__inds = []
         self.__indMultip = None
+
         self._qUniversal__setKwargs(**kwargs)
 
     @property
