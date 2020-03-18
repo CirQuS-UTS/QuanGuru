@@ -81,18 +81,18 @@ class Simulation(timeBase):
         # TODO Decorate this
         if sys is None:
             if protocol is None:
-                raise ValueError('?')
+                raise TypeError('?')
             elif isinstance(protocol, timeBase):
                 if isinstance(protocol.superSys, genericQSys):
                     protocol = self.addProtocol(protocol.superSys, protocol, protocolRemove)
                 else:
-                    raise ValueError('?')
+                    raise TypeError('?')
         elif isinstance(sys, genericQSys):
             if sys is protocol.superSys:
                 self.addQSystems(sys, protocol)
                 self.removeProtocol(Protocol=protocolRemove)
             else:
-                raise ValueError('?')
+                raise TypeError('?')
         return protocol
 
     # overwriting methods from qUniversal

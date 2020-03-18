@@ -95,7 +95,7 @@ class Sweep(computeBase):
 
     @sweeps.setter
     def sweeps(self, sysDict):
-        super().subSys = sysDict
+        super().addSubSys(sysDict)
         
     def removeSweep(self, sys):
         if isinstance(sys, _sweep):

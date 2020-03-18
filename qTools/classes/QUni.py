@@ -24,7 +24,7 @@ def checkClass(classOf):
                     # TODO what to do with the keys?
                     inp = wrapper(obj, sys, **kwargs)
             elif inp is None:
-                obj._qUniversal__subSys = {}
+                obj._qUniversal__subSys = OrderedDict()
                 return obj._qUniversal__subSys
             elif inp.__class__ is type:
                 newSys = inp()
@@ -64,7 +64,7 @@ class qUniversal:
             setattr(self, key, value)
 
     def resetSubSys(self):
-        self._qUniversal__subSys = {}
+        self._qUniversal__subSys = OrderedDict()
 
     @property
     def subSys(self):
