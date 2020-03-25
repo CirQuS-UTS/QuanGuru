@@ -11,7 +11,8 @@ def runSimulation(qSim, p):
         if len(qSim.timeDependency.sweeps) > 0:
             timeDependent(qSim)
         else:
-            __timeEvol(qSim, qSim.steps)
+            #timeEvolBase(qSim, qSim.steps)
+            qSim.evolFunc(qSim)
 
 
 def indicesForSweep(ind, *args):
@@ -29,7 +30,7 @@ def nonParalEvol(qSim):
     if len(qSim.timeDependency.sweeps) > 0:
         evolFunc = timeDependent
     else:
-        evolFunc = _timeEvol
+        evolFunc = timeEvolBase
 
     for ind in range(qSim.Sweep.indMultip):
         _runSweepAndPrep(qSim, ind, evolFunc)
@@ -41,7 +42,7 @@ def paralEvol(qSim, p):
     if len(qSim.timeDependency.sweeps) > 0:
         results = p.map(partial(partial(parallelTimeEvol, qSim), timeDependent),range(qSim.Sweep.indMultip))
     else:
-        results = p.map(partial(partial(parallelTimeEvol, qSim), _timeEvol),range(qSim.Sweep.indMultip))
+        results = p.map(partial(partial(parallelTimeEvol, qSim), timeEvolBase),range(qSim.Sweep.indMultip))
     qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds)
 
 def parallelTimeEvol(qSim, evolFunc, ind):
@@ -53,26 +54,27 @@ def _runSweepAndPrep(qSim, ind, evolFunc):
     for protoc, qSys in qSim.subSys.items():
         protoc.lastState = qSys.initialState
     qSim.qRes._resetLast()
-    evolFunc(qSim)
+    evolFunc(qSim, qSim.steps)
 
-def timeDependent(qSim):
+def timeDependent(qSim, steps):
     qSim.timeDependency.prepare()
     for ind in range(qSim.timeDependency.indMultip):
         qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
-        exponUni(qSim)
-        __timeEvol(qSim)
+        #exponUni(qSim)
+        #timeEvolBase(qSim)
+        qSim.evolFunc(qSim, 1)
 
-def _timeEvol(qSim):
-    exponUni(qSim)
-    for ii in range(qSim.steps):
-        __timeEvol(qSim)
+'''def _timeEvol(qSim):
+    qSim.evolFunc(qSim, qSim.steps)'''
         
 def exponUni(qSim):
     for protocol in qSim.subSys.keys():
         protocol.createUnitary()
 
-def __timeEvol(qSim):
-    for protocol in qSim.subSys.keys():
-        qSim._Simulation__compute()
-        for ii in range(protocol.samples):
-            protocol.lastState = protocol.unitary @ protocol.lastState
+def timeEvolBase(qSim, steps):
+    exponUni(qSim)
+    for ii in range(steps):
+        for protocol in qSim.subSys.keys():
+            qSim._Simulation__compute()
+            for ii in range(protocol.samples):
+                protocol.lastState = protocol.unitary @ protocol.lastState

@@ -4,18 +4,21 @@ from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.QSys import QuantumSystem, genericQSys
 from qTools.classes.timeBase import timeBase
 from qTools.classes.QPro import freeEvolution
+from qTools.classes.extensions.modularSweep import timeEvolBase
 
 class Simulation(timeBase):
     instances = 0
     label = 'Simulation'
     
-    __slots__ = ['Sweep', 'timeDependency']
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc']
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
+
+        self.evolFunc = timeEvolBase
 
         if system is not None:
             self.addQSystems(system)
