@@ -33,11 +33,18 @@ def vec2mat(vec):
     mat = vec.reshape((n, n)).T
     return mat
 
-def normalise(psi):
-    mag = (((psi.conj().T) @ psi).diagonal()).sum()
-    psin = (1 / np.sqrt(mag)) * psi
-    return psin
+def normalise(state):
+    if state.shape[0] != state.shape[1]:
+        mag = (((state.conj().T) @ state).diagonal()).sum()
+    else:
+        mag = (state.diagonal()).sum()
+    staten = (1 / np.sqrt(mag)) * state
+    return staten
 
+def normaliseKet(ket):
+    return 0
+def normaliseMat(denMat):
+    return 0
 
 def superPos(dimension, excitations, sparse=True):
     # TODO write this better to handle int cases
@@ -52,7 +59,6 @@ def superPos(dimension, excitations, sparse=True):
             sts.append(basis(dimension, val, sparse))
     sta = normalise(sum(sts))
     return sta
-
 
 def compositeState(dimensions, excitations, sparse=True):
     if isinstance(excitations[0], int):
