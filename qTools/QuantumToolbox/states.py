@@ -279,6 +279,47 @@ def compositeState(dimensions:list, excitations:list, sparse:bool=True) -> Union
             st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
     return st if sparse else st.A
 
+def partialTrace(keep:Union[ndarray, list], dimsUnion:[ndarray, list], state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Calculates the partial trace of a `density matrix` of composite state.
+    ρ_a = Tr_b(ρ)
+
+    Found on: https://scicomp.stackexchange.com/questions/30052/calculate-partial-trace-of-an-outer-product-in-python
+
+    Parameters
+    ----------
+    :param `ρ` : Matrix to trace
+    :param `keep` : An array of indices of the spaces to keep after being traced. For instance, if the space is
+        A x B x C x D and we want to trace out B and D, keep = [0,2]
+    dims : An array of the dimensions of each space. For instance, if the space is A x B x C x D,
+        dims = [dim_A, dim_B, dim_C, dim_D]
+
+    Returns
+    -------
+    ρ_a : Traced matrix
+
+    Examples
+    --------
+    # TODO Create some examples with dict, list, and int mixtures, and both in here and the demo script
+    """
+    if not isinstance(state, np.ndarray):
+        state = state.toarray()
+
+    rho = state
+    if rho.shape[0] != rho.shape[1]:
+        rho = (rho @ (rho.conj().T))
+
+    keep = np.asarray(keep)
+    dims = np.asarray(dims)
+    Ndim = dims.size
+    Nkeep = np.prod(dims[keep])
+
+    idx1 = [i for i in range(Ndim)]
+    idx2 = [Ndim+i if i in keep else i for i in range(Ndim)]
+    rho_a = rho.reshape(np.tile(dims, 2))
+    rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)
+    return rho_a.reshape(Nkeep, Nkeep)
+
 def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     """
     Converts density matrix into density vector (used in super-operator respresentation)
