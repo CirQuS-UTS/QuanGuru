@@ -1,30 +1,65 @@
+"""
+Functions to calculate expectations, fidelities, entorpy etc. from quantum states
+
+The reason for having several functions for the same task is to improve performance
+For example, an if statement can be avioded using ``expectationMat/expectationKet`` for
+``density matrices/ket states``, or
+``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
+"""
 import scipy as np
 from typing import Union
 import scipy.linalg as lina
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
-"""
-The reason having several functions for a task, for example calculating expectation value, is to improve performance 
-"""
-
 
 # Functions for expectation value
-def expectation(operator, state):
+def expectation(operator: Union[spmatrix, ndarray], state: Union[spmatrix, ndarray]) -> float:
+    """
+    Function to calculate the expectation value of an `operator` for a given `state`
+
+    State can either be a `ket` or ``density matrix``.
+    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
+    TODO a possible improvement is to create decorator for similar functions to get function reference as input.
+    State and operator can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `state` : a quantum state
+
+    Returns
+    -------
+    :return: expectation value of the `operator` for the `state`
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
     if state.shape[0] != state.shape[1]:
         state = state @ (state.conj().T)
     return expectationMat(operator, state)
 
 def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the expectation value of an operator for a given density matrix
-    Works with both sparse and array
-    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox
-    TODO a possible improvement is to create decorator for similar functions to get function reference as input
+    Calculates the expectation value of an `operator` for a given ``density matrix``
 
-    :param operator: matrix of the operator
-    :param denMat: density matrix  
-    :return: expectation value
+    Works with both sparse and array
+    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
+    State and operator can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `denMat` : density matrix
+
+    Returns
+    -------  
+    :return: expectation value of the `operator` for the ``density matrix``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     expc = ((operator @ denMat).diagonal()).sum()
     return np.real(expc)
