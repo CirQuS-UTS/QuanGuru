@@ -1,3 +1,6 @@
+"""
+    A module of functions to create and/or normalise quantum states
+"""
 import scipy.sparse as sp
 import numpy as np
 from typing import Union
@@ -262,7 +265,7 @@ def compositeState(dimensions:list, excitations:list, sparse:bool=True) -> Union
 
     Examples
     --------
-    # TODO Create some examples with dict, list, and int mixtures
+    # TODO Create some examples with dict, list, and int mixtures, and both in here and the demo script
     """
     if isinstance(excitations[0], int):
         st = basis(dimensions[0], excitations[0], sparse)
@@ -290,7 +293,7 @@ def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples with dict, list, and int mixtures
+    # TODO Create some examples both in here and the demo script
     """
     vec = densityMatrix.T.reshape(np.prod(np.shape(densityMatrix)), 1)
     return vec
@@ -309,7 +312,7 @@ def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples with dict, list, and int mixtures
+    # TODO Create some examples both in here and the demo script
     """
     a = vec.shape
     n = int(np.sqrt(a[0]))
