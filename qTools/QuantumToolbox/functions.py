@@ -20,7 +20,7 @@ def expectation(operator: Union[spmatrix, ndarray], state: Union[spmatrix, ndarr
 
     State can either be a `ket` or ``density matrix``.
     Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
-    TODO a possible improvement is to create decorator for similar functions to get function reference as input.
+    TODO is the same as expectationMat.
     State and operator can both be sparse or array or any combination of the two.
 
     Parameters
@@ -44,8 +44,9 @@ def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, n
     """
     Calculates the expectation value of an `operator` for a given ``density matrix``
 
-    Works with both sparse and array
+    Works with both sparse and array.
     Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
+    TODO a possible improvement is to create decorator for similar functions to get function reference as input.
     State and operator can both be sparse or array or any combination of the two.
 
     Parameters
@@ -67,14 +68,26 @@ def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, n
 
 def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the expectation value of an operator for a given ket \\
-    Calculates the density matrix and calls the expectationMat \\
-    Computationally the same as using (bra @ operator @ ket) \\
+    Calculates the expectation value of an `operator` for a given `ket`
+
+    Calculates the density matrix and calls the expectationMat.
+    Computationally the same as using (bra @ operator @ ket).
+    Works with both sparse and array.
+    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
     TODO is the same as expectationMat
 
-    :param operator: matrix of the operator
-    :param ket: ket state
-    :return: expectation value
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `ket` : ket state
+
+    Returns
+    -------
+    :return: expectation value of the `operator` for the `ket` state
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     denMat = ket @ (ket.conj().T)
     return expectationMat(operator, denMat)
@@ -82,14 +95,24 @@ def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndar
 
 def expectationKetList(operator, kets):
     """
-    Calculates the expectation value of an operator for a given list of ket states
-    Simply calls the expectationKet in a loop
-    This function exist for easy use in parallel calculation
+    Calculates the expectation value of an `operator` for a given list of `ket` states
+
+    Simply calls the `expectationKet` in a loop.
+    This function exist for easy use in multi-processing.
     TODO is the same as expectationMat
 
-    :param operator: matrix of the operator
-    :param kets: list of ket states
-    :return: list of expectation values
+    Parameters
+    ----------
+    :param `operator`: matrix of a Hermitian operator
+    :param `kets` : list of ket states
+
+    Returns
+    -------
+    :return: list of expectation values of the `operator` for the list of `ket` states
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     expectations = []
     for ket in kets:
@@ -99,14 +122,24 @@ def expectationKetList(operator, kets):
 
 def expectationMatList(operator, denMats):
     """
-    Calculates the expectation value of an operator for a given list of density matrices
-    Simply calls the expectationMat in a loop
-    This function exist for easy use in parallel calculation
+    Calculates the expectation value of an `operator` for a given list of ``density matrices``
+
+    Simply calls the `expectationMat` in a loop.
+    This function exist for easy use in multi-processing.
     TODO is the same as expectationMat
 
-    :param operator: matrix of the operator
-    :param denMats: list of density matrices
-    :return: list of expectation values
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `denMats` : list of density matrices
+
+    Returns
+    -------
+    :return: list of expectation values of the `operator` for the list of ``density matrices``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     expectations = []
     for denMat in denMats:
@@ -116,13 +149,26 @@ def expectationMatList(operator, denMats):
 
 def expectationColList(operator, states):
     """
-    Calculates the expectation values of a list of column states by matrix multiplication.
-    For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form
-    TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states
+    Calculates the expectation values of an `operator` for a list/matrix of ``ket (column) states`` by matrix multiplication.
 
-    :param operator: matrix of the operator
-    :param states: ket states as the columns in the input matrix
-    :return: list of expectation values
+    The `list` here is effectivly a matrix whose columns are `ket` states for which we want the expextation values.
+    For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
+    TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.
+    So, it relies on states being orthonormal, if not there will be off-diagonal elements in the resultant matrix,
+    but still the diagonal elements are the expectation values, meaning it should work!
+
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `states` : ket states as the columns in the input matrix
+
+    Returns
+    -------
+    :return: list of expectation values of the `operator` for a matrix of `ket` states
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     expMat = states.conj().T @ operator @ states
     return expMat.diagonal()
