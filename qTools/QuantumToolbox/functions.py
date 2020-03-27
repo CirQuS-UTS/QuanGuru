@@ -176,8 +176,8 @@ def fidelity(state1: Union[spmatrix, ndarray], state2: Union[spmatrix, ndarray])
 
     Parameters
     ----------
-    :param state1: `ket` state or ``density matrix``
-    :param state2: `ket` state or ``density matrix``
+    :param `state1`: `ket` state or ``density matrix``
+    :param `state2` : `ket` state or ``density matrix``
 
     Returns
     -------
@@ -209,8 +209,8 @@ def fidelityKet(ket1: Union[spmatrix, ndarray], ket2: Union[spmatrix, ndarray]) 
 
     Parameters
     ----------
-    :param ket1: `ket` state
-    :param ket2: `ket` state
+    :param `ket1` : ket state
+    :param `ket2` : ket state
 
     Returns
     -------
@@ -232,8 +232,8 @@ def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: Union[list, ndarray
 
     Parameters
     ----------
-    :param ket1: `ket` state
-    :param ketList: `list` of ket states
+    :param `ket1` : ket state
+    :param `ketList` : `list` of ket states
 
     Returns
     -------
@@ -250,7 +250,7 @@ def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: Union[list, ndarray
         fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
     return fidelities
 
-def fidelityPureMat(denMat1, denMat2):
+def fidelityPureMat(denMat1: Union[spmatrix, ndarray], denMat2: Union[spmatrix, ndarray]) -> float:
     """
     Calculates `fidelity` between two (pure) ``density matrices``
 
@@ -258,8 +258,8 @@ def fidelityPureMat(denMat1, denMat2):
 
     Parameters
     ----------
-    :param denMat1: (pure) ``density matrix``
-    :param denMat2: (pure) ``density matrix``
+    :param `denMat1` : (pure) density matrix
+    :param `denMat2` : (pure) density matrix
 
     Returns
     -------
@@ -272,11 +272,10 @@ def fidelityPureMat(denMat1, denMat2):
     fidelityA = ((denMat1 @ denMat2).diagonal()).sum()
     return np.real(fidelityA)
 
-def fidelityKetLists(zippedStatesList):
+def fidelityKetLists(zippedStatesList: zip) -> list:
     """
-    Created to be used in ``multi-processing`` calculations
+    Created to be used in ``multi-processing`` calculations of two lists of kets states
 
-    
     FIXME too specific, requires zipping
     """
     fidelities = []
@@ -287,15 +286,26 @@ def fidelityKetLists(zippedStatesList):
     return fidelities
 
 # Entropy function
-def entropy(densMat, base2=False):
+# TODO may create a function specifically for sparse input
+def entropy(densMat: Union[spmatrix, ndarray], base2:bool=False) -> float:
     """
-    Calculates the entropy of a given state
-    Input should be a density matrix by definition of entropy
-    Uses exponential basis as default
+    Calculates the `entropy` of a given ``density matrix``
 
-    :param densMat: a density matrix
-    :param base2: option to calculate in base 2
-    :return: the entropy of the given density matrix
+    Input should be a density matrix by definition of entropy.
+    Uses exponential basis as default.
+
+    Parameters
+    ----------
+    :param `densMat`: a density matrix
+    :param `base2`: option to calculate in base 2
+
+    Returns
+    -------
+    :return: the `entropy` of the given ``density matrix``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
 
     # converts sparse into array (and has to)
@@ -313,24 +323,31 @@ def entropy(densMat, base2=False):
     S = float(np.real(-sum(nzvals * logvals)))
     return S
 
-
-def entropyKet(ket, base2=False):
+def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> 0:
     """
     Calculates the entropy of a given ket state
 
-    This function should not exist at all, ket is always a pure state
+    This function should not exist at all, ket is always a pure state.
 
-    Input should be a density matrix by definition of entropy
-    Uses exponential basis as default
+    Input should be a density matrix by definition of entropy.
+    Uses exponential basis as default.
 
-    :param ket: a ket state
-    :param base2: option to calculate in base 2
-    :return: the entropy of the given density matrix
+    Parameters
+    ----------
+    :param `ket` : a ket state
+    :param `base2` : option to calculate in base 2
+
+    Returns
+    -------
+    :return: the `entropy` of the given ``density matrix``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     denMat = ket @ (ket.conj().T)
     S = entropy(denMat, base2)
     return S
-
 
 # Delocalisation measure for various cases
 def iprKet(basis, ket):
@@ -347,7 +364,6 @@ def iprKet(basis, ket):
         npc += (fid**2)
     return 1/npc
 
-
 def iprKetList(basis, kets):
     """
     Calculates the inverse participation ratio (a delocalisation measure) of a list kets in a given basis
@@ -362,7 +378,6 @@ def iprKetList(basis, kets):
         npcs.append(iprKet(basis, ket))
     return npcs
 
-
 def iprKetNB(ket):
     """
     Calculates the inverse participation ratio (a delocalisation measure) of a ket
@@ -372,7 +387,6 @@ def iprKetNB(ket):
     :return: inverse participation ratio
     """
     return 1/np.sum(np.power((np.abs(ket.A.flatten())),4))
-
 
 def iprKetNBList(kets):
     """
@@ -387,7 +401,6 @@ def iprKetNBList(kets):
     for ket in kets:
         IPRatio.append(iprKetNB(ket))
     return IPRatio
-
 
 def iprKetNBmat(kets):
     """
@@ -404,7 +417,6 @@ def iprKetNBmat(kets):
         IPRatio.append(iprKetNB(kets[:,ind]))
     return IPRatio
 
-
 def iprPureDenMat(basis, denMat):
     """
     Calculates the inverse participation ratio (a delocalisation measure) of a density matrix in a given basis
@@ -418,7 +430,6 @@ def iprPureDenMat(basis, denMat):
         fid = fidelityPureMat(basKet, denMat)
         npc += (fid**2)
     return 1/npc
-
 
 # Eigenvector statistics
 def sortedEigens(Ham):
@@ -437,7 +448,6 @@ def sortedEigens(Ham):
     sortedVecs = eigVecs[:,idx]
     return sortedVals, sortedVecs
 
-
 def eigVecStatKet(basis, ket):
     """
     Calculates the list of components of a ket in a basis
@@ -452,7 +462,6 @@ def eigVecStatKet(basis, ket):
         comps.append(fidelityKet(basKet, ket))
     return comps
 
-
 def eigVecStatKetList(basis, kets):
     """
     Calculates the list components of a list of ket states
@@ -466,7 +475,6 @@ def eigVecStatKetList(basis, kets):
     for ket in kets:
         compsList.append(eigVecStatKet(basis, ket))
     return compsList
-
 
 def eigVecStatKetNB(ket):
     """
