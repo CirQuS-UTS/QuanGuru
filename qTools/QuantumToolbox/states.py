@@ -7,18 +7,19 @@ from scipy.sparse import spmatrix
 
 def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
-    Creates a `ket` state either as sparse (sparse=True) or array (sparse=False) 
+    Creates a `ket` state 
+    
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
 
     Parameters
     ----------
-    dimension: int 
-        dimension of Hilbert space
-    :param state: index number for the populated state
-    :param sparse: boolean for sparse or not (array)
+    :param `dimension` : dimension of Hilbert space
+    :param `state` : index number for the populated state
+    :param `sparse` : boolean for sparse or not (array)
 
     Returns
     -------
-    :return: ket state
+    :return : `ket` state
 
     Examples
     --------
@@ -36,7 +37,9 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray
 
 def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
-    Creates a bra state either as sparse (sparse=True) or array (sparse=False) 
+    Creates a bra state
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
 
     Parameters
     ----------
