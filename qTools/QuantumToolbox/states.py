@@ -35,16 +35,23 @@ def vec2mat(vec):
 
 def normalise(state):
     if state.shape[0] != state.shape[1]:
-        mag = (((state.conj().T) @ state).diagonal()).sum()
+        return normaliseKet(state)
+        #mag = 1 / np.sqrt((((state.conj().T) @ state).diagonal()).sum())
     else:
-        mag = (state.diagonal()).sum()
-    staten = (1 / np.sqrt(mag)) * state
-    return staten
+        return normaliseMat(state)
+        #mag = 1 / (state.diagonal()).sum()
+    '''staten = mag * state
+    return staten'''
 
 def normaliseKet(ket):
-    return 0
+    mag = 1 / np.sqrt((((ket.conj().T) @ ket).diagonal()).sum())
+    ketn = mag * ket
+    return ketn
+
 def normaliseMat(denMat):
-    return 0
+    mag = 1 / (denMat.diagonal()).sum()
+    denMatn = mag * denMat
+    return denMatn
 
 def superPos(dimension, excitations, sparse=True):
     # TODO write this better to handle int cases
