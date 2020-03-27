@@ -10,6 +10,11 @@ The reason having several functions for a task, for example calculating expectat
 
 
 # Functions for expectation value
+def expectation(operator, state):
+    if state.shape[0] != state.shape[1]:
+        state = state @ (state.conj().T)
+    return expectationMat(operator, state)
+
 def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, ndarray]) -> float:
     """
     Calculates the expectation value of an operator for a given density matrix
