@@ -7,12 +7,26 @@ from scipy.sparse import spmatrix
 
 def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
-    Creates a ket state either as sparse (sparse=True) or array (sparse=False) 
+    Creates a `ket` state either as sparse (sparse=True) or array (sparse=False) 
 
-    :param dimension: dimension of Hilbert space
+    Parameters
+    ----------
+    dimension: int 
+        dimension of Hilbert space
     :param state: index number for the populated state
     :param sparse: boolean for sparse or not (array)
+
+    Returns
+    -------
     :return: ket state
+
+    Examples
+    --------
+    >>> basis(2, 1)
+    (0, 0)	1
+    >>> basis(2, 1, sparse=False)
+    [[1]
+    [0]]
     """
     data = [1]
     rows = [state]
@@ -24,15 +38,27 @@ def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndar
     """
     Creates a bra state either as sparse (sparse=True) or array (sparse=False) 
 
+    Parameters
+    ----------
     :param dimension: dimension of Hilbert space
     :param state: index number for the populated state
     :param sparse: boolean for sparse or not (array)
+
+    Returns
+    -------
     :return: bra state
+
+    Examples
+    --------
+    >>> basisBra(2, 1)
+    (0, 0)	1
+    >>> basisBra(2, 1, sparse=False)
+    [[1 0]]
     """
     n = basis(dimension,state,sparse).T
     return n
 
-def zeros(dimension:int, sparse:bool=True):
+def zeros(dimension:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
     Creates a column matrix of zeros, either as sparse (sparse=True) or array (sparse=False) 
 
@@ -102,7 +128,7 @@ def normaliseKet(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
 
 def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     """
-    Function to normalise a density matrix)
+    Function to normalise a density matrix
 
     :param state: density matrix to be normalised
     :return: normalised density matrix
@@ -123,8 +149,6 @@ def superPos(dimension:int, excitations:Union[dict, list, int], sparse:bool=True
         3) an integer, which is equivalent to basis function
     :return: a superposition KET state
     """
-
-    # TODO write this better to handle int cases
     sts = []
     if isinstance(excitations, dict):
         for key, val in excitations.items():
