@@ -1,59 +1,129 @@
 import scipy.sparse as sp
 import numpy as np
+from typing import Union
+from numpy import ndarray
+from scipy.sparse import spmatrix
 
 
-def basis(dimension, state, sparse=True):
+def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates a ket state either as sparse (sparse=True) or array (sparse=False) 
+
+    :param dimension: dimension of Hilbert space
+    :param state: index number for the populated state
+    :param sparse: boolean for sparse or not (array)
+    :return: ket state
+    """
     data = [1]
     rows = [state]
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse else n.A
 
-def basisBra(dimension, state, sparse=True):
+def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates a bra state either as sparse (sparse=True) or array (sparse=False) 
+
+    :param dimension: dimension of Hilbert space
+    :param state: index number for the populated state
+    :param sparse: boolean for sparse or not (array)
+    :return: bra state
+    """
     n = basis(dimension,state,sparse).T
     return n
 
-def zeros(dimension, sparse=True):
+def zeros(dimension:int, sparse:bool=True):
+    """
+    Creates a column matrix of zeros, either as sparse (sparse=True) or array (sparse=False) 
+
+    :param dimension: dimension of Hilbert space
+    :return: bra state
+    """
     data = [0]
     rows = [0]
     columns = [0]
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return Zeros if sparse else Zeros.A
 
-def densityMatrix(ket):
+def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Converts a ket state into density matrix \\
+    Keeps the sparse/array as sparse/array
+
+    :param ket: ket state
+    :return: density Matrix
+    """
     return (ket @ (ket.conj().T))
 
-def mat2Vec(densityMatrix):
+def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Converts density matrix into density vector (used in super-operator respresentation)
+
+    :param densityMatrix: density matrix to be converted
+    :return: density vector
+    """
     vec = densityMatrix.T.reshape(np.prod(np.shape(densityMatrix)), 1)
     return vec
 
-def vec2mat(vec):
+def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Converts density vector into density matrix
+
+    :param vec: density vector to be converted
+    :return: density matrix
+    """
     a = vec.shape
     n = int(np.sqrt(a[0]))
     mat = vec.reshape((n, n)).T
     return mat
 
-def normalise(state):
+def normalise(state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Function to normalise any state (ket or density matrix)
+
+    :param state: state to be normalised
+    :return: normalised state
+    """
     if state.shape[0] != state.shape[1]:
         return normaliseKet(state)
-        #mag = 1 / np.sqrt((((state.conj().T) @ state).diagonal()).sum())
     else:
         return normaliseMat(state)
-        #mag = 1 / (state.diagonal()).sum()
-    '''staten = mag * state
-    return staten'''
 
-def normaliseKet(ket):
+def normaliseKet(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Function to normalise ket state
+
+    :param state: ket state to be normalised
+    :return: normalised ket state
+    """
     mag = 1 / np.sqrt((((ket.conj().T) @ ket).diagonal()).sum())
     ketn = mag * ket
     return ketn
 
-def normaliseMat(denMat):
+def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Function to normalise a density matrix)
+
+    :param state: density matrix to be normalised
+    :return: normalised density matrix
+    """
     mag = 1 / (denMat.diagonal()).sum()
     denMatn = mag * denMat
     return denMatn
 
-def superPos(dimension, excitations, sparse=True):
+def superPos(dimension:int, excitations:Union[dict, list, int], sparse:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Function to create a superposition KET state from a given dictionary or list, \\
+    or ket state from a given integer (in this case, it is equivalent to basis function)
+
+    :param dimension: dimension of Hilbert space
+    :excitations: There are 3 possible uses of this \\
+        1) a dictionary with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4} \\
+        2) a list (e.g. [0,1,2]) for equally populated super-position \\
+        3) an integer, which is equivalent to basis function
+    :return: a superposition KET state
+    """
+
     # TODO write this better to handle int cases
     sts = []
     if isinstance(excitations, dict):
@@ -67,7 +137,17 @@ def superPos(dimension, excitations, sparse=True):
     sta = normalise(sum(sts))
     return sta
 
-def compositeState(dimensions, excitations, sparse=True):
+def compositeState(dimensions:list, excitations:list, sparse:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Function to create composite ket states
+
+    :param dimensions: list of dimensions for each sub-system of the composite quantum system
+    :param excitations: list of state information for sub-systems \\
+        This list can have mixture of dict, list, and int values, 
+        which are used to create a superposition state for the corresponding sub-system
+    :param sparse: boolean for sparse or not (array)
+    :return: composite ket state 
+    """
     if isinstance(excitations[0], int):
         st = basis(dimensions[0], excitations[0], sparse)
     else:
