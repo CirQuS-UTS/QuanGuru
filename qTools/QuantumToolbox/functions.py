@@ -12,6 +12,8 @@ import scipy.linalg as lina
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
+# TODO a possible improvement is to create decorator for similar functions to get function reference as input.
+# Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
 
 # Functions for expectation value
 def expectation(operator: Union[spmatrix, ndarray], state: Union[spmatrix, ndarray]) -> float:
@@ -20,7 +22,6 @@ def expectation(operator: Union[spmatrix, ndarray], state: Union[spmatrix, ndarr
 
     State can either be a `ket` or ``density matrix``.
     Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
-    TODO is the same as expectationMat.
     State and operator can both be sparse or array or any combination of the two.
 
     Parameters
@@ -46,7 +47,6 @@ def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, n
 
     Works with both sparse and array.
     Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
-    TODO a possible improvement is to create decorator for similar functions to get function reference as input.
     State and operator can both be sparse or array or any combination of the two.
 
     Parameters
@@ -65,7 +65,6 @@ def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, n
     expc = ((operator @ denMat).diagonal()).sum()
     return np.real(expc)
 
-
 def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndarray]) -> float:
     """
     Calculates the expectation value of an `operator` for a given `ket`
@@ -74,7 +73,6 @@ def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndar
     Computationally the same as using (bra @ operator @ ket).
     Works with both sparse and array.
     Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
-    TODO is the same as expectationMat
 
     Parameters
     ----------
@@ -92,14 +90,12 @@ def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndar
     denMat = ket @ (ket.conj().T)
     return expectationMat(operator, denMat)
 
-
-def expectationKetList(operator, kets):
+def expectationKetList(operator: Union[spmatrix, ndarray], kets: Union[list, ndarray]) -> list:
     """
     Calculates the expectation value of an `operator` for a given list of `ket` states
 
     Simply calls the `expectationKet` in a loop.
     This function exist for easy use in multi-processing.
-    TODO is the same as expectationMat
 
     Parameters
     ----------
@@ -108,7 +104,7 @@ def expectationKetList(operator, kets):
 
     Returns
     -------
-    :return: list of expectation values of the `operator` for the list of `ket` states
+    :return: `list` of expectation values of the `operator` for the list of `ket` states
 
     Examples
     --------
@@ -119,14 +115,12 @@ def expectationKetList(operator, kets):
         expectations.append(expectationKet(operator, ket))
     return expectations
 
-
-def expectationMatList(operator, denMats):
+def expectationMatList(operator: Union[spmatrix, ndarray], denMats: Union[list, ndarray]) -> list:
     """
     Calculates the expectation value of an `operator` for a given list of ``density matrices``
 
     Simply calls the `expectationMat` in a loop.
     This function exist for easy use in multi-processing.
-    TODO is the same as expectationMat
 
     Parameters
     ----------
@@ -135,7 +129,7 @@ def expectationMatList(operator, denMats):
 
     Returns
     -------
-    :return: list of expectation values of the `operator` for the list of ``density matrices``
+    :return: `list` of expectation values of the `operator` for the list of ``density matrices``
 
     Examples
     --------
@@ -146,8 +140,7 @@ def expectationMatList(operator, denMats):
         expectations.append(expectationMat(operator, denMat))
     return expectations
 
-
-def expectationColList(operator, states):
+def expectationColList(operator: Union[spmatrix, ndarray], states: Union[list, ndarray]) -> list:
     """
     Calculates the expectation values of an `operator` for a list/matrix of ``ket (column) states`` by matrix multiplication.
 
@@ -164,7 +157,7 @@ def expectationColList(operator, states):
 
     Returns
     -------
-    :return: list of expectation values of the `operator` for a matrix of `ket` states
+    :return: `list` of expectation values of the `operator` for a matrix of `ket` states
 
     Examples
     --------
@@ -173,52 +166,117 @@ def expectationColList(operator, states):
     expMat = states.conj().T @ operator @ states
     return expMat.diagonal()
 
-
 # Functions for fidelity (currently only for pure states)
-def fidelityKet(ket1, ket2):
+def fidelity(state1: Union[spmatrix, ndarray], state2: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the fidelity between two ket states
-    
-    :param ket1: ket state 1
-    :param ket2: ket state 2
-    :return: fidelity between the given states
+    Calculates `fidelity` between ``two states``
+
+    States can either be a `ket` or ``density matrix``,
+    and they can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param state1: `ket` state or ``density matrix``
+    :param state2: `ket` state or ``density matrix``
+
+    Returns
+    -------
+    :return: `fidelity` between any ``two states``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+    if state1.shape[0] != state1.shape[1]:
+        if state2.shape[0] != state2.shape[1]:
+            return fidelityKet(state1, state2)
+        else:
+            state1 = (state1 @ (state1.conj().T))
+            return fidelityPureMat(state1, state2)
+    else:
+        if state2.shape[0] != state2.shape[1]:
+            state2 = (state2 @ (state2.conj().T))
+            return fidelityPureMat(state1, state2)
+        else:
+            state1 = (state1 @ (state1.conj().T))
+            return fidelityPureMat(state1, state2)
+
+def fidelityKet(ket1: Union[spmatrix, ndarray], ket2: Union[spmatrix, ndarray]) -> float:
+    """
+    Calculates `fidelity` between two `ket` states
+
+    States can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param ket1: `ket` state
+    :param ket2: `ket` state
+
+    Returns
+    -------
+    :return: `fidelity` between two ``ket states``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     herm = ket1.conj().T
     fidelityA = ((herm @ ket2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
 
-def fidelityKetList(ket1, ket2):
+def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: Union[list, ndarray]) -> list:
     """
-    Calculates the fidelity between two ket states
-    
-    :param ket1: ket state 1
-    :param ket2: ket state 2
-    :return: fidelity between the given states
+    Calculates `fidelity` between ``a ket state`` and ``list of ket states``
+
+    States can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param ket1: `ket` state
+    :param ketList: `list` of ket states
+
+    Returns
+    -------
+    :return: `list` of fidelities between ``a ket state`` and ``list of ket states``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     fidelities = []
     herm = ket1.conj().T
-    for ket in ket2:
+    for ket in ketList:
         fidelityA = ((herm @ ket).diagonal()).sum()
         fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
     return fidelities
 
-
 def fidelityPureMat(denMat1, denMat2):
     """
-    Calculates the fidelity between two density matrices
-    TODO implement the fidelity for mixed states
+    Calculates `fidelity` between two (pure) ``density matrices``
 
-    :param denMat1: density matrix 1
-    :param denMat2: density matrix 2
-    :return: fidelity between the given states
+    States can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param denMat1: (pure) ``density matrix``
+    :param denMat2: (pure) ``density matrix``
+
+    Returns
+    -------
+    :return: `fidelity` between two (pure) ``density matrices``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     fidelityA = ((denMat1 @ denMat2).diagonal()).sum()
     return np.real(fidelityA)
 
-
 def fidelityKetLists(zippedStatesList):
     """
-    Created to be useful in parallel calculations, but
+    Created to be used in ``multi-processing`` calculations
+
+    
     FIXME too specific, requires zipping
     """
     fidelities = []
@@ -227,7 +285,6 @@ def fidelityKetLists(zippedStatesList):
         fidelityA = ((herm @ zippedStatesList[1][ind]).diagonal()).sum()
         fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
     return fidelities
-
 
 # Entropy function
 def entropy(densMat, base2=False):
