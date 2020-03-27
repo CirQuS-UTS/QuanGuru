@@ -37,19 +37,19 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray
 
 def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
-    Creates a bra state
+    Creates a `bra` state
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
 
     Parameters
     ----------
-    :param dimension: dimension of Hilbert space
-    :param state: index number for the populated state
-    :param sparse: boolean for sparse or not (array)
+    :param `dimension` : dimension of Hilbert space
+    :param `state` : index number for the populated state
+    :param `sparse` : boolean for sparse or not (array)
 
     Returns
     -------
-    :return: bra state
+    :return: `bra` state
 
     Examples
     --------
@@ -63,10 +63,25 @@ def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndar
 
 def zeros(dimension:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
-    Creates a column matrix of zeros, either as sparse (sparse=True) or array (sparse=False) 
+    Creates a column matrix of zeros
 
-    :param dimension: dimension of Hilbert space
-    :return: bra state
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+
+    Parameters
+    ---------- 
+    :param `dimension` : dimension of Hilbert space
+
+    Returns
+    -------
+    :return: ket of zeros
+
+    Examples
+    --------
+    >>> zeros(2)
+    (0, 0)	0
+    >>> zeros(2, sparse=False)
+    [[0]
+    [0]]
     """
     data = [0]
     rows = [0]
@@ -74,83 +89,36 @@ def zeros(dimension:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return Zeros if sparse else Zeros.A
 
-def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
-    """
-    Converts a ket state into density matrix \\
-    Keeps the sparse/array as sparse/array
-
-    :param ket: ket state
-    :return: density Matrix
-    """
-    return (ket @ (ket.conj().T))
-
-def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
-    """
-    Converts density matrix into density vector (used in super-operator respresentation)
-
-    :param densityMatrix: density matrix to be converted
-    :return: density vector
-    """
-    vec = densityMatrix.T.reshape(np.prod(np.shape(densityMatrix)), 1)
-    return vec
-
-def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
-    """
-    Converts density vector into density matrix
-
-    :param vec: density vector to be converted
-    :return: density matrix
-    """
-    a = vec.shape
-    n = int(np.sqrt(a[0]))
-    mat = vec.reshape((n, n)).T
-    return mat
-
-def normalise(state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
-    """
-    Function to normalise any state (ket or density matrix)
-
-    :param state: state to be normalised
-    :return: normalised state
-    """
-    if state.shape[0] != state.shape[1]:
-        return normaliseKet(state)
-    else:
-        return normaliseMat(state)
-
-def normaliseKet(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
-    """
-    Function to normalise ket state
-
-    :param state: ket state to be normalised
-    :return: normalised ket state
-    """
-    mag = 1 / np.sqrt((((ket.conj().T) @ ket).diagonal()).sum())
-    ketn = mag * ket
-    return ketn
-
-def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
-    """
-    Function to normalise a density matrix
-
-    :param state: density matrix to be normalised
-    :return: normalised density matrix
-    """
-    mag = 1 / (denMat.diagonal()).sum()
-    denMatn = mag * denMat
-    return denMatn
-
 def superPos(dimension:int, excitations:Union[dict, list, int], sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
-    Function to create a superposition KET state from a given dictionary or list, \\
-    or ket state from a given integer (in this case, it is equivalent to basis function)
+    Creates a `ket` state
 
-    :param dimension: dimension of Hilbert space
-    :excitations: There are 3 possible uses of this \\
-        1) a dictionary with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4} \\
-        2) a list (e.g. [0,1,2]) for equally populated super-position \\
-        3) an integer, which is equivalent to basis function
-    :return: a superposition KET state
+    Function to create a ``superposition ket`` state from a given `dictionary` or `list`, \\
+    or `ket` state from a given `integer` (in this case, it is equivalent to basis function)
+
+    Parameters
+    ----------
+    :param `dimension`: dimension of Hilbert space
+    :param `excitations`: There are 3 possible uses of this \\
+        1) a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4} \\
+        2) a `list` (e.g. [0,1,2]) for equally populated super-position \\
+        3) an `integer`, which is equivalent to basis function
+
+    Returns
+    -------
+    :return: a superposition `ket` state
+
+    Examples
+    --------
+    >>> ket = superPos(2, {0:0.2, 1:0.8}, sparse=False)
+    [[0.4472136 ]
+    [0.89442719]]
+    >>> ket = superPos(2, [0,1], sparse=False)
+    [[0.70710678]
+    [0.70710678]]
+    >>> ket = superPos(2, 1, sparse=False)
+    [[0.]
+    [1.]]
     """
     sts = []
     if isinstance(excitations, dict):
@@ -164,16 +132,137 @@ def superPos(dimension:int, excitations:Union[dict, list, int], sparse:bool=True
     sta = normalise(sum(sts))
     return sta
 
+def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Converts a ket state into density matrix 
+
+    Keeps the sparse/array as sparse/array
+
+    Parameters
+    ----------
+    :param `ket` : ket state
+
+    Returns
+    -------
+    :return: density Matrix
+
+    Examples
+    --------
+    >>> ket = basis(2, 0)
+    >>> mat = densityMatrix(ket)
+    (0, 0)	1
+    >>> ket = basis(2, 0, False)
+    >>> mat = densityMatrix(ket)
+    [[1 0]
+    [0 0]]
+    >>> ket = superPos(2, [0,1], sparse=False)
+    >>> mat = densityMatrix(ket)
+    [[0.5 0.5]
+    [0.5 0.5]]
+    >>> ket = superPos(2, {0:0.2, 1:0.8}, sparse=False)
+    >>> mat = densityMatrix(ket)
+    [[0.2 0.4]
+    [0.4 0.8]]
+    """
+    return (ket @ (ket.conj().T))
+
+def normalise(state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Function to normalise `any` state (ket or density matrix)
+
+    Parameters
+    ----------
+    :param `state` : state to be normalised
+
+    Returns
+    -------
+    :return: normalised state
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> nonNormalisedKet = np.sqrt(0.2)*basis(2,1) + np.sqrt(0.8)*basis(2,0)
+    >>> normalisedKet = normalise(nonNormalisedKet)
+    [[0.89442719]
+    [0.4472136 ]]
+    >>> nonNormalisedMat = qStates.densityMatrix(nonNormalisedKet)
+    >>> normalisedMat = qStates.normalise(nonNormalisedMat)
+    [[0.8 0.4]
+    [0.4 0.2]]
+    """
+    if state.shape[0] != state.shape[1]:
+        return normaliseKet(state)
+    else:
+        return normaliseMat(state)
+
+def normaliseKet(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Function to normalise `ket` state
+
+    Parameters
+    ----------
+    :param `state` : ket state to be normalised
+
+    Returns
+    -------
+    :return: normalised `ket` state
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> nonNormalisedKet = np.sqrt(0.2)*basis(2,1) + np.sqrt(0.8)*basis(2,0)
+    >>> normalisedKet = normaliseKet(nonNormalisedKet)
+    [[0.89442719]
+    [0.4472136 ]]
+    """
+    mag = 1 / np.sqrt((((ket.conj().T) @ ket).diagonal()).sum())
+    ketn = mag * ket
+    return ketn
+
+def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Function to normalise a ``density matrix``
+
+    Parameters
+    ----------
+    :param `state` : ``density matrix`` to be normalised
+
+    Returns
+    -------
+    :return: normalised ``density matrix``
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> nonNormalisedMat = qStates.densityMatrix(nonNormalisedKet)
+    >>> normalisedMat = qStates.normalise(nonNormalisedMat)
+    [[0.8 0.4]
+    [0.4 0.2]]
+    """
+    mag = 1 / (denMat.diagonal()).sum()
+    denMatn = mag * denMat
+    return denMatn
+
 def compositeState(dimensions:list, excitations:list, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
     Function to create composite ket states
 
-    :param dimensions: list of dimensions for each sub-system of the composite quantum system
-    :param excitations: list of state information for sub-systems \\
+    Parameters
+    ----------
+    :param `dimensions` : list of dimensions for each sub-system of the composite quantum system
+    :param `excitations` : list of state information for sub-systems \\
         This list can have mixture of dict, list, and int values, 
-        which are used to create a superposition state for the corresponding sub-system
-    :param sparse: boolean for sparse or not (array)
-    :return: composite ket state 
+        which are used to create a superposition state for the corresponding sub-system \\
+        See: `superPos` function
+    :param `sparse`: boolean for sparse or not (array)
+
+    Returns
+    -------
+    :return: composite ket state
+
+    Examples
+    --------
+    # TODO Create some examples with dict, list, and int mixtures
     """
     if isinstance(excitations[0], int):
         st = basis(dimensions[0], excitations[0], sparse)
@@ -186,3 +275,43 @@ def compositeState(dimensions:list, excitations:list, sparse:bool=True) -> Union
         else:
             st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
     return st if sparse else st.A
+
+def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Converts density matrix into density vector (used in super-operator respresentation)
+
+    Parameters
+    ----------
+    :param `densityMatrix`: density matrix to be converted
+
+    Parameters
+    ----------
+    :return: density vector
+
+    Examples
+    --------
+    # TODO Create some examples with dict, list, and int mixtures
+    """
+    vec = densityMatrix.T.reshape(np.prod(np.shape(densityMatrix)), 1)
+    return vec
+
+def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+    """
+    Converts density vector into density matrix
+
+    Parameters
+    ----------
+    :param `vec`: density vector to be converted
+
+    Parameters
+    ----------
+    :return: density matrix
+
+    Examples
+    --------
+    # TODO Create some examples with dict, list, and int mixtures
+    """
+    a = vec.shape
+    n = int(np.sqrt(a[0]))
+    mat = vec.reshape((n, n)).T
+    return mat
