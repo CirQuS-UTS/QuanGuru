@@ -3,7 +3,8 @@
 """
 import scipy.sparse as sp
 import numpy as np
-from typing import Union
+
+from typing import Union, Dict, List
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
@@ -92,7 +93,7 @@ def zeros(dimension:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return Zeros if sparse else Zeros.A
 
-def superPos(dimension:int, excitations:Union[dict, list, int], sparse:bool=True) -> Union[spmatrix, ndarray]:
+def superPos(dimension:int, excitations:Union[Dict[int, float], List[int], int], sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
     Creates a `ket` state
 
@@ -246,7 +247,7 @@ def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     denMatn = mag * denMat
     return denMatn
 
-def compositeState(dimensions:list, excitations:list, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def compositeState(dimensions:List[int], excitations:List[int], sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
     Function to create composite ket states
 
@@ -279,7 +280,7 @@ def compositeState(dimensions:list, excitations:list, sparse:bool=True) -> Union
             st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
     return st if sparse else st.A
 
-def partialTrace(keep:Union[ndarray, list], dimsUnion:[ndarray, list], state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]], state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     """
     Calculates the partial trace of a `density matrix` of composite state.
     ρ_a = Tr_b(ρ)
