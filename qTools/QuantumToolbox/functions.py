@@ -7,7 +7,7 @@ For example, an if statement can be avioded using ``expectationMat/expectationKe
 ``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
 """
 import scipy as np
-from typing import Union
+from typing import Union, Tuple
 import scipy.linalg as lina
 from numpy import ndarray
 from scipy.sparse import spmatrix
@@ -489,12 +489,21 @@ def iprPureDenMat(basis: list, denMat: Union[spmatrix, ndarray]) -> float:
     return 1/npc
 
 # Eigenvector statistics
-def sortedEigens(Ham):
+def sortedEigens(Ham: Union[list, ndarray]) -> Tuple[list, list]:
     """
-    Calculates the eigenvalues and eigenvectors of a given Hamiltonian and sorts them
+    Calculates the ``eigenvalues and eigenvectors`` of a given Hamiltonian and `sorts` them
 
-    :param Ham: the Hamiltoniam
-    :return: sorted eigenvalues and eigenvectors
+    Parameters
+    ----------
+    :param `Ham` : the Hamiltoniam
+
+    Returns
+    -------
+    :return: `sorted` eigenvalues and eigenvectors
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     if not isinstance(Ham, np.ndarray):
         Ham = Ham.A
@@ -505,40 +514,67 @@ def sortedEigens(Ham):
     sortedVecs = eigVecs[:,idx]
     return sortedVals, sortedVecs
 
-def eigVecStatKet(basis, ket):
+def eigVecStatKet(basis: list, ket: Union[spmatrix, ndarray]) -> list:
     """
-    Calculates the list of components of a ket in a basis
-    Mainly useful in eigenvector statistics
+    Calculates components of a `ket` in a basis.
+    Main use is in eigenvector statistics.
 
-    :param basis: a complete basis
-    :param ket: the ket state
-    :return: list of component values in the basis
+    Parameters
+    ----------
+    :param `basis` : a complete basis
+    :param `ket` : the ket state
+
+    Returns
+    -------
+    :return: `list` of component values in the basis
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     comps = []
     for basKet in basis:
         comps.append(fidelityKet(basKet, ket))
     return comps
 
-def eigVecStatKetList(basis, kets):
+def eigVecStatKetList(basis: list, kets: list) -> list:
     """
-    Calculates the list components of a list of ket states
-    Mainly useful in eigenvector statistics
+    Calculates components of a ``list of ket states``.
+    Main use is in eigenvector statistics.
 
-    :param basis: a complete basis
-    :param ket: list of ket states
-    :return: list of component values in the basis
+    Parameters
+    ----------
+    :param `basis` : a complete basis
+    :param `kets` : `list` of ket states
+
+    Returns
+    -------
+    :return: `list` of component values in the basis
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     compsList = []
     for ket in kets:
         compsList.append(eigVecStatKet(basis, ket))
     return compsList
 
-def eigVecStatKetNB(ket):
+def eigVecStatKetNB(ket: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the components of a ket
-    Assumes the basis is of the free Hamiltonian
+    Calculates the components of a ket by
+    assuming that the basis is of the free Hamiltonian.
 
-    :param ket: a ket state or list of ket states
+    Parameters
+    ----------
+    :param `ket`: a ket state or list of ket states
+
+    Returns
+    -------
     return: list of components
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     return 1/np.sum(np.power((np.abs(ket.A.flatten())),2))
