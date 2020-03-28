@@ -90,7 +90,7 @@ def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndar
     denMat = ket @ (ket.conj().T)
     return expectationMat(operator, denMat)
 
-def expectationKetList(operator: Union[spmatrix, ndarray], kets: Union[list, ndarray]) -> list:
+def expectationKetList(operator: Union[spmatrix, ndarray], kets: list) -> list:
     """
     Calculates the expectation value of an `operator` for a given list of `ket` states
 
@@ -115,7 +115,7 @@ def expectationKetList(operator: Union[spmatrix, ndarray], kets: Union[list, nda
         expectations.append(expectationKet(operator, ket))
     return expectations
 
-def expectationMatList(operator: Union[spmatrix, ndarray], denMats: Union[list, ndarray]) -> list:
+def expectationMatList(operator: Union[spmatrix, ndarray], denMats: list) -> list:
     """
     Calculates the expectation value of an `operator` for a given list of ``density matrices``
 
@@ -140,7 +140,7 @@ def expectationMatList(operator: Union[spmatrix, ndarray], denMats: Union[list, 
         expectations.append(expectationMat(operator, denMat))
     return expectations
 
-def expectationColList(operator: Union[spmatrix, ndarray], states: Union[list, ndarray]) -> list:
+def expectationColList(operator: Union[spmatrix, ndarray], states: list) -> list:
     """
     Calculates the expectation values of an `operator` for a list/matrix of ``ket (column) states`` by matrix multiplication.
 
@@ -224,7 +224,7 @@ def fidelityKet(ket1: Union[spmatrix, ndarray], ket2: Union[spmatrix, ndarray]) 
     fidelityA = ((herm @ ket2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
 
-def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: Union[list, ndarray]) -> list:
+def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: list) -> list:
     """
     Calculates `fidelity` between ``a ket state`` and ``list of ket states``
 
@@ -325,7 +325,7 @@ def entropy(densMat: Union[spmatrix, ndarray], base2:bool=False) -> float:
 
 def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> 0:
     """
-    Calculates the entropy of a given ket state
+    Calculates the `entropy` of a given `ket` state
 
     This function should not exist at all, ket is always a pure state.
 
@@ -349,14 +349,23 @@ def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> 0:
     S = entropy(denMat, base2)
     return S
 
-# Delocalisation measure for various cases
-def iprKet(basis, ket):
+# Delocalisation measures for various cases
+def iprKet(basis: list, ket: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a ket in a given basis
+    Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.
 
-    :param ket: a ket state
-    :param basis: a complete basis
+    Parameters
+    ----------
+    :param `ket` : a ket state
+    :param `basis` : a complete basis
+
+    Returns
+    -------
     :return: inverse participation ratio
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     npc = 0
     for basKet in basis:
@@ -364,66 +373,114 @@ def iprKet(basis, ket):
         npc += (fid**2)
     return 1/npc
 
-def iprKetList(basis, kets):
+def iprKetList(basis: list, kets: list) -> list:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a list kets in a given basis
-    Simply calls iprKet in a loop
+    Calculates the inverse participation ratio (a delocalisation measure) of a ``list of ket`` states in a given basis.
 
-    :param kets: a list of ket states
-    :param basis: a complete basis
-    :return: a list of inverse participation ratios
+    Simply calls iprKet in a loop.
+
+    Parameters
+    ----------
+    :param `kets` : a `list` of ket states
+    :param `basis` : a complete basis
+
+    Returns
+    -------
+    :return: a `list` of inverse participation ratios for the given list of ket states
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     npcs = []
     for ket in kets:
         npcs.append(iprKet(basis, ket))
     return npcs
 
-def iprKetNB(ket):
+def iprKetNB(ket: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a ket
-    This assumes the basis is of the free Hamiltonian
+    Calculates the inverse participation ratio (a delocalisation measure) of a ket by assuming that 
+    the basis is of the free Hamiltonian.
 
-    :param ket: a ket state
+    Parameters
+    ----------
+    :param `ket` : a ket state
+
+    Returns
+    -------
     :return: inverse participation ratio
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     return 1/np.sum(np.power((np.abs(ket.A.flatten())),4))
 
-def iprKetNBList(kets):
+def iprKetNBList(kets: list) -> list:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a list kets in a given basis
-    This assumes the basis is of the free Hamiltonian
-    Simply calls iprKetNB in a loop
+    Calculates the inverse participation ratio (a delocalisation measure) of a list kets by assuming that 
+    the basis is of the free Hamiltonian.
 
-    :param kets: a list of ket states
-    :return: a list of inverse participation ratios
+    Simply calls iprKetNB in a loop.
+
+    Parameters
+    ----------
+    :param kets: a `list` of ket states
+
+    Returns
+    -------
+    :return: a `list` of inverse participation ratios
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     IPRatio = []
     for ket in kets:
         IPRatio.append(iprKetNB(ket))
     return IPRatio
 
-def iprKetNBmat(kets):
+def iprKetNBmat(kets: Union[list, ndarray]) -> list:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a matrix of ket states as the column
-    For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form
-    TODO use if you know what you are doing
-    This assumes the basis is of the free Hamiltonian
+    Calculates the inverse participation ratio (a delocalisation measure) of ``a matrix of ket states as the column``
 
+    For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
+    TODO use if you know what you are doing.
+    This assumes the basis is of the free Hamiltonian.
+
+    Parameters
+    ----------
     :param ket: a density matrix
-    :return: inverse participation ratio
+
+    Returns
+    -------
+    :return: a `list` of inverse participation ratios
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     IPRatio = []
     for ind in range(len(kets)):
         IPRatio.append(iprKetNB(kets[:,ind]))
     return IPRatio
 
-def iprPureDenMat(basis, denMat):
+def iprPureDenMat(basis: list, denMat: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a density matrix in a given basis
+    Calculates the inverse participation ratio (a delocalisation measure) of a ``density matrix`` in a given `basis`
 
-    :param denMat: a density matrix
-    :param basis: a complete basis
+    Parameters
+    ----------
+    :param `denMat` : a density matrix
+    :param `basis` : a complete basis
+
+    Returns
+    -------
     :return: inverse participation ratio
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     npc = 0
     for basKet in basis:
