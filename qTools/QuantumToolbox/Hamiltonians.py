@@ -1,5 +1,5 @@
 """
-    Module for functions to create some standard Hamiltonians.
+    Module of functions to create some standard Hamiltonians.
 """
 import qTools.QuantumToolbox.operators as ops
 import scipy.sparse as sp

@@ -1,5 +1,5 @@
 """
-    A module of functions to create and/or normalise quantum states
+    Module of functions to create and/or normalise quantum states
 """
 import scipy.sparse as sp
 import numpy as np

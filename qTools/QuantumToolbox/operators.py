@@ -1,5 +1,5 @@
 """
-    A module of functions to create and/or manipulate quantum operators
+    Module of functions to create and/or manipulate quantum operators
 """
 import scipy.sparse as sp
 import scipy.linalg as linA

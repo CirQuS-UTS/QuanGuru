@@ -1,5 +1,5 @@
 """
-A module for quasi-probablity distributions (adapted from qutip).
+    Module of functions to calculate quasi-probablity distributions (adapted from qutip).
 """
 
 import numpy as np

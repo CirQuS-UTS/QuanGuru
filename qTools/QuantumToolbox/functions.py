@@ -1,10 +1,10 @@
 """
-Functions to calculate expectations, fidelities, entorpy etc. from quantum states
+    Module of functions to calculate expectations, fidelities, entorpy etc. from quantum states
 
-The reason for having several functions for the same task is to improve performance
-For example, an if statement can be avioded using ``expectationMat/expectationKet`` for
-``density matrices/ket states``, or
-``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
+    The reason for having several functions for the same task is to improve performance
+    For example, an if statement can be avioded using ``expectationMat/expectationKet`` for
+    ``density matrices/ket states``, or
+    ``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
 """
 import scipy as np
 import scipy.linalg as lina
