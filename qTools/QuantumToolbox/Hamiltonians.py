@@ -8,6 +8,8 @@ from typing import Union, Tuple
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
+
+# TODO currently, there is no option for sparse or not
 def cavQubFreeHam(cavFreq:float, qubFreq:float, cavDim:int) -> Tuple[Union[spmatrix, ndarray], Union[spmatrix, ndarray]]:
     """
     Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension.
