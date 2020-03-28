@@ -4,7 +4,10 @@
 import scipy.sparse as sp
 import scipy.linalg as linA
 import numpy as np
+
 from typing import Union, Callable
+from numpy import ndarray
+from scipy.sparse import spmatrix
 
 def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union[spmatrix, ndarray]:
     """
@@ -410,7 +413,7 @@ def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
-        d = j
+        d = int(j)
         j = ((d-1)/2)
     data = [j-i for i in range(d)]
     rows = range(0,d)
@@ -441,7 +444,7 @@ def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
-        d = j
+        d = int(j)
         j = ((d-1)/2)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
@@ -473,7 +476,7 @@ def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
-        d = j
+        d = int(j)
         j = ((d-1)/2)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
