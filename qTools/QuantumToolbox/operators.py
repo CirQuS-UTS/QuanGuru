@@ -284,6 +284,340 @@ def sigmam(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
+def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+
+    Parameters
+    ----------
+    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
+    :param `sparse` : boolean for sparse or not (array)
+    :param isDim: boolean for whether j is spin quantum number of dimension
+
+    Returns
+    -------
+    :return: Angular momentum (spin) Z operator
+
+    Examples
+    --------
+    >>> jz0 = qOperators.Jz(j=2, isDim=False, sparse=False)
+    [[ 2  0  0  0  0]
+    [ 0  1  0  0  0]
+    [ 0  0  0  0  0]
+    [ 0  0  0 -1  0]
+    [ 0  0  0  0 -2]]
+    >>> jz0 = qOperators.Jz(j=2, isDim=False)
+    (0, 0)	2
+    (1, 1)	1
+    (2, 2)	0
+    (3, 3)	-1
+    (4, 4)	-2
+    >>> jz1 = qOperators.Jz(j=5, sparse=False)
+    [[ 2.  0.  0.  0.  0.]
+    [ 0.  1.  0.  0.  0.]
+    [ 0.  0.  0.  0.  0.]
+    [ 0.  0.  0. -1.  0.]
+    [ 0.  0.  0.  0. -2.]]
+    >>> jz1 = qOperators.Jz(j=5, isDim=True)
+    (0, 0)	2.0
+    (1, 1)	1.0
+    (2, 2)	0.0
+    (3, 3)	-1.0
+    (4, 4)	-2.0
+    """
+    if not isDim:
+        d = int((2*j) + 1)
+    elif isDim:
+        d = int(j)
+        j = ((d-1)/2)
+    data = [j-i for i in range(d)]
+    rows = range(0,d)
+    columns = range(0,d)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
+    return n if sparse else n.toarray()
+
+def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+
+    Parameters
+    ----------
+    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
+    :param `sparse` : boolean for sparse or not (array)
+    :param isDim: boolean for whether j is spin quantum number of dimension
+
+    Returns
+    -------
+    :return: Angular momentum (spin) creation operator
+
+    Examples
+    --------
+    >>> jp0 = qOperators.Jp(j=2, isDim=False, sparse=False)
+    [[0.         2.         0.         0.         0.        ]
+    [0.         0.         2.44948974 0.         0.        ]
+    [0.         0.         0.         2.44948974 0.        ]
+    [0.         0.         0.         0.         2.        ]
+    [0.         0.         0.         0.         0.        ]]
+    >>> jp0 = qOperators.Jp(j=2, isDim=False)
+    (0, 1)	2.0
+    (1, 2)	2.449489742783178
+    (2, 3)	2.449489742783178
+    (3, 4)	2.0
+    >>> jp1 = qOperators.Jp(j=5, sparse=False)
+    [[0.         2.         0.         0.         0.        ]
+    [0.         0.         2.44948974 0.         0.        ]
+    [0.         0.         0.         2.44948974 0.        ]
+    [0.         0.         0.         0.         2.        ]
+    [0.         0.         0.         0.         0.        ]]
+    >>> jp1 = qOperators.Jp(j=5, isDim=True)
+    (0, 1)	2.0
+    (1, 2)	2.449489742783178
+    (2, 3)	2.449489742783178
+    (3, 4)	2.0
+    """
+    if not isDim:
+        d = int((2*j) + 1)
+    elif isDim:
+        d = int(j)
+        j = ((d-1)/2)
+    m = [j-i for i in range(d)]
+    data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
+    rows = range(0,d-1)
+    columns = range(1,d)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
+    return n if sparse else n.toarray()
+
+def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+
+    Parameters
+    ----------
+    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
+    :param `sparse` : boolean for sparse or not (array)
+    :param isDim: boolean for whether j is spin quantum number of dimension
+
+    Returns
+    -------
+    :return: Angular momentum (spin) destruction operator
+
+    Examples
+    --------
+    >>> jm0 = qOperators.Jm(j=2, isDim=False, sparse=False)
+    [[0.         0.         0.         0.         0.        ]
+    [2.         0.         0.         0.         0.        ]
+    [0.         2.44948974 0.         0.         0.        ]
+    [0.         0.         2.44948974 0.         0.        ]
+    [0.         0.         0.         2.         0.        ]]
+    >>> jm0 = qOperators.Jm(j=2, isDim=False)
+    (1, 0)	2.0
+    (2, 1)	2.449489742783178
+    (3, 2)	2.449489742783178
+    (4, 3)	2.0
+    >>> jm1 = qOperators.Jm(j=5, sparse=False)
+    [[0.         0.         0.         0.         0.        ]
+    [2.         0.         0.         0.         0.        ]
+    [0.         2.44948974 0.         0.         0.        ]
+    [0.         0.         2.44948974 0.         0.        ]
+    [0.         0.         0.         2.         0.        ]]
+    >>> jm1 = qOperators.Jm(j=5, isDim=True)
+    (1, 0)	2.0
+    (2, 1)	2.449489742783178
+    (3, 2)	2.449489742783178
+    (4, 3)	2.0
+    """
+    if not isDim:
+        d = int((2*j) + 1)
+    elif isDim:
+        d = int(j)
+        j = ((d-1)/2)
+    m = [j-i for i in range(d)]
+    data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
+    rows = range(1,d)
+    columns = range(0,d-1)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
+    return n if sparse else n.toarray()
+
+def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates the angular momentum (spin) `X` operator for a given spin quantum number j.
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+
+    Parameters
+    ----------
+    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
+    :param `sparse` : boolean for sparse or not (array)
+    :param isDim: boolean for whether j is spin quantum number of dimension
+
+    Returns
+    -------
+    :return: Angular momentum (spin) X operator
+
+    Examples
+    --------
+    >>> jx0 = qOperators.Jx(j=2, isDim=False, sparse=False)
+    [[0.         1.         0.         0.         0.        ]
+    [1.         0.         1.22474487 0.         0.        ]
+    [0.         1.22474487 0.         1.22474487 0.        ]
+    [0.         0.         1.22474487 0.         1.        ]
+    [0.         0.         0.         1.         0.        ]]
+    >>> jx0 = qOperators.Jx(j=2, isDim=False)
+    (1, 0)	1.0
+    (0, 1)	1.0
+    (2, 1)	1.224744871391589
+    (1, 2)	1.224744871391589
+    (3, 2)	1.224744871391589
+    (2, 3)	1.224744871391589
+    (4, 3)	1.0
+    (3, 4)	1.0
+    >>> jx1 = qOperators.Jx(j=5, sparse=False)
+    [[0.         1.         0.         0.         0.        ]
+    [1.         0.         1.22474487 0.         0.        ]
+    [0.         1.22474487 0.         1.22474487 0.        ]
+    [0.         0.         1.22474487 0.         1.        ]
+    [0.         0.         0.         1.         0.        ]]
+    >>> jx1 = qOperators.Jx(j=5, isDim=True)
+    (1, 0)	1.0
+    (0, 1)	1.0
+    (2, 1)	1.224744871391589
+    (1, 2)	1.224744871391589
+    (3, 2)	1.224744871391589
+    (2, 3)	1.224744871391589
+    (4, 3)	1.0
+    (3, 4)	1.0
+    """
+    n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
+    return n if sparse else n.toarray()
+
+def Jy(j, sparse=True, isDim=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+
+    Parameters
+    ----------
+    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
+    :param `sparse` : boolean for sparse or not (array)
+    :param isDim: boolean for whether j is spin quantum number of dimension
+
+    Returns
+    -------
+    :return: Angular momentum (spin) Y operator
+
+    Examples
+    --------
+    >>> jy0 = qOperators.Jy(j=2, isDim=False, sparse=False)
+    [[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]
+    [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]
+    [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]
+    [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]
+    [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]
+    >>> jy0 = qOperators.Jy(j=2, isDim=False)
+    (1, 0)	1j
+    (0, 1)	-1j
+    (2, 1)	1.224744871391589j
+    (1, 2)	-1.224744871391589j
+    (3, 2)	1.224744871391589j
+    (2, 3)	-1.224744871391589j
+    (4, 3)	1j
+    (3, 4)	-1j
+    >>> jy1 = qOperators.Jy(j=5, sparse=False)
+    [[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]
+    [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]
+    [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]
+    [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]
+    [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]
+    >>> jy1 = qOperators.Jy(j=5, isDim=True)
+    (1, 0)	1j
+    (0, 1)	-1j
+    (2, 1)	1.224744871391589j
+    (1, 2)	-1.224744871391589j
+    (3, 2)	1.224744871391589j
+    (2, 3)	-1.224744871391589j
+    (4, 3)	1j
+    (3, 4)	-1j
+    """
+    n = (1/(2j))*(Jp(j, isDim=isDim) - Jm(j, isDim=isDim))
+    return n if sparse else n.toarray()
+
+def Js(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates the total angular momentum (spin) operator for a given spin quantum number j.
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+
+    Parameters
+    ----------
+    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
+    :param `sparse` : boolean for sparse or not (array)
+    :param isDim: boolean for whether j is spin quantum number of dimension
+
+    Returns
+    -------
+    :return: Total angular momentum (spin) operator
+
+    Examples
+    --------
+    >>> js0 = qOperators.Js(j=2, isDim=False, sparse=False)
+    [[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
+    [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
+    [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
+    [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
+    [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
+    >>> js0 = qOperators.Js(j=2, isDim=False)
+    (0, 0)	(6+0j)
+    (1, 1)	(6+0j)
+    (2, 2)	(5.999999999999999+0j)
+    (3, 3)	(6+0j)
+    (4, 4)	(6+0j)
+    >>> js1 = qOperators.Js(j=5, sparse=False)
+    [[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
+    [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
+    [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
+    [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
+    [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
+    >>> js1 = qOperators.Js(j=5, isDim=True)
+    (0, 0)	(6+0j)
+    (1, 1)	(6+0j)
+    (2, 2)	(5.999999999999999+0j)
+    (3, 3)	(6+0j)
+    (4, 4)	(6+0j)
+    """
+    n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
+    return n if sparse else n.toarray()
+
+def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates a quantum operator for given function reference `op` and raises to a `power`.
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+
+    Parameters
+    ----------
+    :param `op` : reference to the function (in here) for the operator
+    :param `dim` : dimension of the Hilbert space
+    :param `power` : power that the operator to be raised
+    :param `sparse` : boolean for sparse or not (array)
+
+    Returns
+    -------
+    :return: an operator raised to a power
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+    return op(dim, sparse)**power
+
+
 def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
     Creates the parity operator by explicity placing alternating +/- into a matrix.
@@ -412,193 +746,6 @@ def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, ndarray
     oper = -(alpha * (create(dim)@create(dim))) + (np.conj(alpha) * (destroy(dim)@destroy(dim)))
     n = linA.expm(0.5*(oper.toarray()))
     return sp.csc_matrix(n) if sparse else n
-
-def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
-    """
-    Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.
-
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
-
-    Parameters
-    ----------
-    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-    :param `sparse` : boolean for sparse or not (array)
-    :param isDim: boolean for whether j is spin quantum number of dimension
-
-    Returns
-    -------
-    :return: Angular momentum (spin) Z operator
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    if not isDim:
-        d = int((2*j) + 1)
-    elif isDim:
-        d = int(j)
-        j = ((d-1)/2)
-    data = [j-i for i in range(d)]
-    rows = range(0,d)
-    columns = range(0,d)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
-    return n if sparse else n.toarray()
-
-def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
-    """
-    Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.
-
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
-
-    Parameters
-    ----------
-    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-    :param `sparse` : boolean for sparse or not (array)
-    :param isDim: boolean for whether j is spin quantum number of dimension
-
-    Returns
-    -------
-    :return: Angular momentum (spin) creation operator
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    if not isDim:
-        d = int((2*j) + 1)
-    elif isDim:
-        d = int(j)
-        j = ((d-1)/2)
-    m = [j-i for i in range(d)]
-    data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
-    rows = range(0,d-1)
-    columns = range(1,d)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
-    return n if sparse else n.toarray()
-
-def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
-    """
-    Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.
-
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
-
-    Parameters
-    ----------
-    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-    :param `sparse` : boolean for sparse or not (array)
-    :param isDim: boolean for whether j is spin quantum number of dimension
-
-    Returns
-    -------
-    :return: Angular momentum (spin) destruction operator
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    if not isDim:
-        d = int((2*j) + 1)
-    elif isDim:
-        d = int(j)
-        j = ((d-1)/2)
-    m = [j-i for i in range(d)]
-    data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
-    rows = range(1,d)
-    columns = range(0,d-1)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
-    return n if sparse else n.toarray()
-
-def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
-    """
-    Creates the angular momentum (spin) `X` operator for a given spin quantum number j.
-
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
-
-    Parameters
-    ----------
-    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-    :param `sparse` : boolean for sparse or not (array)
-    :param isDim: boolean for whether j is spin quantum number of dimension
-
-    Returns
-    -------
-    :return: Angular momentum (spin) X operator
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
-    return n if sparse else n.toarray()
-
-def Jy(k,sparse=True, isDim=True) -> Union[spmatrix, ndarray]:
-    """
-    Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.
-
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
-
-    Parameters
-    ----------
-    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-    :param `sparse` : boolean for sparse or not (array)
-    :param isDim: boolean for whether j is spin quantum number of dimension
-
-    Returns
-    -------
-    :return: Angular momentum (spin) Y operator
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    n = (1/(2j))*(Jp(k, isDim=isDim) - Jm(k, isDim=isDim))
-    return n if sparse else n.toarray()
-
-def Js(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
-    """
-    Creates the total angular momentum (spin) operator for a given spin quantum number j.
-
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
-
-    Parameters
-    ----------
-    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-    :param `sparse` : boolean for sparse or not (array)
-    :param isDim: boolean for whether j is spin quantum number of dimension
-
-    Returns
-    -------
-    :return: Total angular momentum (spin) operator
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
-    return n if sparse else n.toarray()
-
-def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
-    """
-    Creates a quantum operator for given function reference `op` and raises to a `power`.
-
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
-
-    Parameters
-    ----------
-    :param `op` : reference to the function (in here) for the operator
-    :param `dim` : dimension of the Hilbert space
-    :param `power` : power that the operator to be raised
-    :param `sparse` : boolean for sparse or not (array)
-
-    Returns
-    -------
-    :return: an operator raised to a power
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    return op(dim, sparse)**power
 
 # TODO Does this really work with ndarray ?
 def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union[spmatrix, ndarray]:
