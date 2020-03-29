@@ -9,6 +9,7 @@ from typing import Union, Callable
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
+# TODO Does this really work with ndarray ?
 def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union[spmatrix, ndarray]:
     """
     Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB & dimA

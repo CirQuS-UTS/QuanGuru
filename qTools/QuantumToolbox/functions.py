@@ -324,7 +324,7 @@ def entropy(densMat: Union[spmatrix, ndarray], base2:bool=False) -> float:
     S = float(np.real(-sum(nzvals * logvals)))
     return S
 
-def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> int:
+def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> float:
     """
     Calculates the `entropy` of a given `ket` state
 
