@@ -614,7 +614,18 @@ def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Union[spm
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> squareSigmaX = qOperators.operatorPow(op=qOperators.sigmax, dim=2, power=2, sparse=False)
+    [[1 0]
+    [0 1]]
+    >>> squareSigmaX = qOperators.operatorPow(op=qOperators.sigmax, dim=2, power=2)
+    (0, 0)	1
+    (1, 1)	1
+    >>> cubedSigmaX = qOperators.operatorPow(op=qOperators.sigmax, dim=2, power=3, sparse=False)
+    [[0 1]
+    [1 0]]
+    >>> cubedSigmaX = qOperators.operatorPow(op=qOperators.sigmax, dim=2, power=3)
+    (1, 0)	1
+    (0, 1)	1
     """
     return op(dim, sparse)**power
 
@@ -636,7 +647,18 @@ def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> paritySum = qOperators.paritySUM(N=5, sparse=False)
+    [[ 1.  0.  0.  0.  0.]
+    [ 0. -1.  0.  0.  0.]
+    [ 0.  0.  1.  0.  0.]
+    [ 0.  0.  0. -1.  0.]
+    [ 0.  0.  0.  0.  1.]]
+    >>> paritySum = qOperators.paritySUM(N=5)
+    (0, 0)	1.0
+    (1, 1)	-1.0
+    (2, 2)	1.0
+    (3, 3)	-1.0
+    (4, 4)	1.0
     """
     a = np.empty((N,))
     a[::2] = 1
@@ -663,7 +685,24 @@ def parityEXP(HamiltonianCavity: Union[spmatrix, ndarray]) -> Union[spmatrix, nd
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ham = qOperators.number(N=5, sparse=False)
+    >>> parityEXP = qOperators.parityEXP(HamiltonianCavity=ham) # returns an array since ham is an array
+    [[ 1.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
+    [ 0.+0.0000000e+00j -1.+1.2246468e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
+    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j]
+    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  -1.+3.6739404e-16j  0.+0.0000000e+00j]
+    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  1.-4.8985872e-16j]]
+    >>> ham = qOperators.number(N=5)
+    >>> parityEXP = qOperators.parityEXP(HamiltonianCavity=ham) # returns a sparse since ham is a sparse
+    (0, 0)	(1+0j)
+    (0, 1)	0j
+    (1, 1)	(-1+1.2246467991473532e-16j)
+    (1, 2)	-0j
+    (2, 2)	(1-2.4492935982947064e-16j)
+    (2, 3)	0j
+    (3, 3)	(-1+3.6739403974420594e-16j)
+    (3, 4)	-0j
+    (4, 4)	(1-4.898587196589413e-16j)
     """
     sparse = sp.isspmatrix(HamiltonianCavity)
     parEX = ((1j * np.pi) * HamiltonianCavity)
@@ -717,7 +756,28 @@ def displacement(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, nd
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> disp = qOperators.displacement(alpha=1j, dim=4, sparse=False)
+    [[ 0.60605894+0.j          0.        +0.6100857j  -0.41242505+0.j       0.        -0.30065525j]
+    [ 0.        +0.6100857j   0.02280184+0.j          0.        +0.34204129j        -0.71434114+0.j]
+    [-0.41242505+0.j          0.        +0.34204129j -0.56045527+0.j        0.        +0.63150869j]
+    [ 0.        -0.30065525j -0.71434114+0.j          0.        +0.63150869j        0.02280184+0.j]]
+    >>> disp = qOperators.displacement(alpha=1j, dim=4)
+    (0, 0)	(0.6060589372864117+0j)
+    (1, 0)	0.610085698426889j
+    (2, 0)	(-0.41242505189886125+0j)
+    (3, 0)	(-0-0.3006552538647247j)
+    (0, 1)	0.610085698426889j
+    (1, 1)	(0.02280183542861441+0j)
+    (2, 1)	0.3420412936689465j
+    (3, 1)	(-0.7143411442030587+0j)
+    (0, 2)	(-0.4124250518988613+0j)
+    (1, 2)	0.34204129366894637j
+    (2, 2)	(-0.5604552664291825+0j)
+    (3, 2)	0.6315086890322961j
+    (0, 3)	-0.3006552538647247j
+    (1, 3)	(-0.7143411442030586+0j)
+    (2, 3)	0.6315086890322962j
+    (3, 3)	(0.02280183542861464+0j)
     """
     oper = (alpha * create(dim)) - (np.conj(alpha) * destroy(dim))
     n = linA.expm(oper.toarray())
@@ -741,7 +801,20 @@ def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, ndarray
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> squeeze = qOperators.squeeze(alpha=1j, dim=4, sparse=False)
+    [[0.7602446 +0.j         0.        +0.j         0.        -0.64963694j      0.        +0.j        ]
+    [0.        +0.j         0.33918599+0.j         0.        +0.j               0.        -0.94071933j]
+    [0.        -0.64963694j 0.        +0.j         0.7602446 +0.j               0.        +0.j        ]
+    [0.        +0.j         0.        -0.94071933j 0.        +0.j               0.33918599+0.j        ]]
+    >>> squeeze = qOperators.squeeze(alpha=1j, dim=4)
+    (0, 0)	(0.7602445970756301+0j)
+    (2, 0)	-0.6496369390800625j
+    (1, 1)	(0.3391859889869473+0j)
+    (3, 1)	-0.940719333741444j
+    (0, 2)	-0.6496369390800625j
+    (2, 2)	(0.7602445970756302+0j)
+    (1, 3)	-0.9407193337414442j
+    (3, 3)	(0.33918598898694713+0j)
     """
     oper = -(alpha * (create(dim)@create(dim))) + (np.conj(alpha) * (destroy(dim)@destroy(dim)))
     n = linA.expm(0.5*(oper.toarray()))
