@@ -189,8 +189,8 @@ def normalise(state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     >>> normalisedKet = normalise(nonNormalisedKet)
     [[0.89442719]
     [0.4472136 ]]
-    >>> nonNormalisedMat = qStates.densityMatrix(nonNormalisedKet)
-    >>> normalisedMat = qStates.normalise(nonNormalisedMat)
+    >>> nonNormalisedMat = densityMatrix(nonNormalisedKet)
+    >>> normalisedMat = normalise(nonNormalisedMat)
     [[0.8 0.4]
     [0.4 0.2]]
     """
@@ -238,8 +238,8 @@ def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     Examples
     --------
     >>> import numpy as np
-    >>> nonNormalisedMat = qStates.densityMatrix(nonNormalisedKet)
-    >>> normalisedMat = qStates.normalise(nonNormalisedMat)
+    >>> nonNormalisedMat = densityMatrix(nonNormalisedKet)
+    >>> normalisedMat = normalise(nonNormalisedMat)
     [[0.8 0.4]
     [0.4 0.2]]
     """
@@ -266,7 +266,21 @@ def compositeState(dimensions:List[int], excitations:List[Union[Dict[int, float]
 
     Examples
     --------
-    # TODO Create some examples with dict, list, and int mixtures, and both in here and the demo script
+    >>> compositeState0 = compositeState(dimensions=[2, 2], excitations=[0,1], sparse=False)
+    [[0]
+    [1]
+    [0]
+    [0]]
+    >>> compositeState1 = compositeState(dimensions=[2, 2], excitations=[[0,1],1], sparse=False)
+    [[0.        ]
+    [0.70710678]
+    [0.        ]
+    [0.70710678]]
+    >>> compositeState2 = compositeState(dimensions=[2, 2], excitations=[0,{0:0.2, 1:0.8}], sparse=False)
+    [[0.4472136 ]
+    [0.89442719]
+    [0.        ]
+    [0.        ]]
     """
     if isinstance(excitations[0], int):
         st = basis(dimensions[0], excitations[0], sparse)
@@ -301,7 +315,27 @@ def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]],
 
     Examples
     --------
-    # TODO Create some examples with dict, list, and int mixtures, and both in here and the demo script
+    >>> compositeState0 = compositeState(dimensions=[2, 2], excitations=[0,1], sparse=False)
+    >>> stateFirstSystem0 = partialTrace(keep=[0], dims=[2, 2], state=compositeState0)
+    [[1 0]
+    [0 0]]
+    >>> stateSecondSystem0 = partialTrace(keep=[1], dims=[2, 2], state=compositeState0)
+    [[0 0]
+    [0 1]]
+    >>> compositeState1 = compositeState(dimensions=[2, 2], excitations=[[0,1],1], sparse=False)
+    [[0. 0.]
+    [0. 1.]]
+    >>> stateFirstSystem1 = partialTrace(keep=[0], dims=[2, 2], state=compositeState1)
+    [[0.5 0.5]
+    [0.5 0.5]]
+    >>> stateSecondSystem1 = partialTrace(keep=[1], dims=[2, 2], state=compositeState1)
+    >>> compositeState2 = compositeState(dimensions=[2, 2], excitations=[0,{0:0.2, 1:0.8}], sparse=False)
+    >>> stateFirstSystem2 = partialTrace(keep=[0], dims=[2, 2], state=compositeState2)
+    [[1. 0.]
+    [0. 0.]]
+    >>> stateSecondSystem2 = partialTrace(keep=[1], dims=[2, 2], state=compositeState2)
+    [[0.2 0.4]
+    [0.4 0.8]]
     """
     if not isinstance(state, np.ndarray):
         state = state.toarray()
@@ -335,7 +369,12 @@ def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> denMat = qStates.densityMatrix(ket=qStates.basis(dimension=2, state=1, sparse=True))
+    >>> denVec = qStates.mat2Vec(densityMatrix=denMat)
+    [[0]
+    [0]
+    [0]
+    [1]]
     """
     vec = densityMatrix.T.reshape(np.prod(np.shape(densityMatrix)), 1)
     return vec
@@ -354,7 +393,13 @@ def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> denMat = qStates.densityMatrix(ket=qStates.basis(dimension=2, state=1, sparse=True))
+    [[0 0]
+    [0 1]]
+    >>> denVec = qStates.mat2Vec(densityMatrix=denMat)
+    >>> denMatConverted = qStates.vec2mat(vec=denVec)
+    [[0 0]
+    [0 1]]
     """
     a = vec.shape
     n = int(np.sqrt(a[0]))
