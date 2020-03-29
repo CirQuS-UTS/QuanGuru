@@ -149,7 +149,12 @@ def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> sz = qOperators.sigmaz(sparse=False)
+    [[ 1  0]
+    [ 0 -1]]
+    >>> sz = qOperators.sigmaz()
+    (0, 0)	1
+    (1, 1)	-1
     """
     data = [1, -1]
     rows = [0, 1]
@@ -175,7 +180,12 @@ def sigmay(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> sy = qOperators.sigmay(sparse=False)
+    [[0.+0.j 0.-1.j]
+    [0.+1.j 0.+0.j]]
+    >>> sy = qOperators.sigmay()
+    (1, 0)	1j
+    (0, 1)	(-0-1j)
     """
     data = [-1j, 1j]
     rows = [0, 1]
@@ -201,7 +211,12 @@ def sigmax(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> sx = qOperators.sigmax(sparse=False)
+    [[0 1]
+    [1 0]]
+    >>> sx = qOperators.sigmax()
+    (1, 0)	1
+    (0, 1)	1
     """
     data = [1, 1]
     rows = [0, 1]
@@ -227,7 +242,11 @@ def sigmap(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> sp = qOperators.sigmap(sparse=False)
+    [[0 1]
+    [0 0]]
+    >>> sp = qOperators.sigmap()
+    (0, 1)	1
     """
     data = [1]
     rows = [0]
@@ -253,7 +272,11 @@ def sigmam(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> sm = qOperators.sigmam(sparse=False)
+    [[0 0]
+    [1 0]]
+    >>> sm = qOperators.sigmam()
+    (1, 0)	1
     """
     data = [1]
     rows = [1]
