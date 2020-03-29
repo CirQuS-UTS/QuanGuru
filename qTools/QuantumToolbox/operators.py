@@ -26,7 +26,14 @@ def number(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> numberArray = qOperators.number(N=3, sparse=False)
+    [[0 0 0]
+    [0 1 0]
+    [0 0 2]]
+    >>> numberSparse = qOperators.number(3)
+    (0, 0)	0
+    (1, 1)	1
+    (2, 2)	2
     """
     data = [i for i in range(N)]
     rows = range(0, N)
@@ -51,7 +58,13 @@ def destroy(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> annihilation = qOperators.destroy(N=3)
+    (0, 1)	1.0
+    (1, 2)	1.4142135623730951
+    >>> annihilation = qOperators.destroy(3, sparse=False)
+    [[0.         1.         0.        ]
+    [0.         0.         1.41421356]
+    [0.         0.         0.        ]]
     """
     data = [np.sqrt(i+1) for i in range(N-1)]
     rows = range(0,N-1)
@@ -76,7 +89,13 @@ def create(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> create = qOperators.create(3)
+    (1, 0)	1.0
+    (2, 1)	1.4142135623730951
+    >>> create = qOperators.create(3, sparse=False)
+    [[0.         0.         0.        ]
+    [1.         0.         0.        ]
+    [0.         1.41421356 0.        ]]
     """
     data = [np.sqrt(i+1) for i in range(N-1)]
     rows = range(1,N)
@@ -101,9 +120,42 @@ def identity(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> identity = qOperators.identity(3)
+    (0, 0)	1.0
+    (1, 1)	1.0
+    (2, 2)	1.0
+    >>> identity = qOperators.identity(3, sparse=False)
+    [[1. 0. 0.]
+    [0. 1. 0.]
+    [0. 0. 1.]]
     """
     return sp.identity(N, format="csc") if sparse else np.identity(N)
+
+def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
+    """
+    Creates the `Pauli` sigma z operator.
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+
+    Parameters
+    ----------
+    # FIXME N is meaningles, it is introduces to make objects more uniform, might remove later
+    :param `N` : dimension of the Hilbert space (2 by default)
+    :param `sparse` : boolean for sparse or not (array)
+
+    Returns
+    -------
+    :return: `Pauli` sigma z operator
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+    data = [1, -1]
+    rows = [0, 1]
+    columns = [0, 1]
+    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
+    return n if sparse else n.toarray()
 
 def sigmay(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
@@ -154,32 +206,6 @@ def sigmax(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     data = [1, 1]
     rows = [0, 1]
     columns = [1, 0]
-    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
-    return n if sparse else n.toarray()
-
-def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
-    """
-    Creates the `Pauli` sigma z operator.
-
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
-
-    Parameters
-    ----------
-    # FIXME N is meaningles, it is introduces to make objects more uniform, might remove later
-    :param `N` : dimension of the Hilbert space (2 by default)
-    :param `sparse` : boolean for sparse or not (array)
-
-    Returns
-    -------
-    :return: `Pauli` sigma z operator
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    data = [1, -1]
-    rows = [0, 1]
-    columns = [0, 1]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
