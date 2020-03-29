@@ -836,7 +836,19 @@ def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    TODO Update these 
+    >>> szQ1 = qOperators.compositeOp(operator=qOperators.sigmaz(), dimB=0, dimA=2)
+    >>> szQ2 = qOperators.compositeOp(operator=qOperators.sigmaz(), dimB=2, dimA=0)
+    >>> print(szQ1.A)
+    [[ 1.  0.  0.  0.]
+    [ 0.  1.  0.  0.]
+    [ 0.  0. -1.  0.]
+    [ 0.  0.  0. -1.]]
+    >>> print(szQ2.A)
+    [[ 1.  0.  0.  0.]
+    [ 0. -1.  0.  0.]
+    [ 0.  0.  1.  0.]
+    [ 0.  0.  0. -1.]]
     """
     if (dimB <= 1) and (dimA > 1):
         return sp.kron(operator,sp.identity(dimA), format='csc')
