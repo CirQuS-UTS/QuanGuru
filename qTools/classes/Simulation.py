@@ -4,18 +4,21 @@ from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.QSys import QuantumSystem, genericQSys
 from qTools.classes.timeBase import timeBase
 from qTools.classes.QPro import freeEvolution
+from qTools.classes.extensions.modularSweep import timeEvolBase
 
 class Simulation(timeBase):
     instances = 0
     label = 'Simulation'
     
-    __slots__ = ['Sweep', 'timeDependency']
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc']
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
+
+        self.evolFunc = timeEvolBase
 
         if system is not None:
             self.addQSystems(system)
@@ -81,18 +84,18 @@ class Simulation(timeBase):
         # TODO Decorate this
         if sys is None:
             if protocol is None:
-                raise ValueError('?')
+                raise TypeError('?')
             elif isinstance(protocol, timeBase):
                 if isinstance(protocol.superSys, genericQSys):
                     protocol = self.addProtocol(protocol.superSys, protocol, protocolRemove)
                 else:
-                    raise ValueError('?')
+                    raise TypeError('?')
         elif isinstance(sys, genericQSys):
             if sys is protocol.superSys:
                 self.addQSystems(sys, protocol)
                 self.removeProtocol(Protocol=protocolRemove)
             else:
-                raise ValueError('?')
+                raise TypeError('?')
         return protocol
 
     # overwriting methods from qUniversal

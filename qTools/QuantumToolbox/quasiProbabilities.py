@@ -1,4 +1,6 @@
-"""Copied from Qutip"""
+"""
+    Module of functions to calculate quasi-probablity distributions (adapted from qutip).
+"""
 
 import numpy as np
 from scipy import (zeros, array, arange, exp, real, conj, pi,copy, sqrt, meshgrid, size, polyval, fliplr, conjugate)
@@ -6,21 +8,30 @@ from scipy.special import factorial
 import scipy.linalg as la
 import qTools.QuantumToolbox.states as states
 
-def Wigner(xvec, rho, g=np.sqrt(2)):
+from typing import Union
+from numpy import ndarray
+from scipy.sparse import spmatrix
+
+def Wigner(rho: Union[ndarray, spmatrix], xvec: Union[ndarray, list], g:float=np.sqrt(2)) -> ndarray:
     """
-        Using an iterative method to evaluate the wigner functions for the Fock
-        state :math:`|m><n|`.
+    Using an iterative method to evaluate the wigner functions for the Fock
+    state :math:`|m><n|`.
 
-        The Wigner function is calculated as
-        :math:`W = \sum_{mn} \\rho_{mn} W_{mn}` where :math:`W_{mn}` is the Wigner
-        function for the density matrix :math:`|m><n|`.
+    The Wigner function is calculated as
+    :math:`W = \sum_{mn} \\rho_{mn} W_{mn}` where :math:`W_{mn}` is the Wigner
+    function for the density matrix :math:`|m><n|`.
 
-        In this implementation, for each row m, Wlist contains the Wigner functions
-        Wlist = [0, ..., W_mm, ..., W_mN]. As soon as one W_mn Wigner function is
-        calculated, the corresponding contribution is added to the total Wigner
-        function, weighted by the corresponding element in the density matrix
-        :math:`rho_{mn}`.
-        """
+    In this implementation, for each row m, Wlist contains the Wigner functions
+    Wlist = [0, ..., W_mm, ..., W_mN]. As soon as one W_mn Wigner function is
+    calculated, the corresponding contribution is added to the total Wigner
+    function, weighted by the corresponding element in the density matrix
+    :math:`rho_{mn}`.
+
+    Parameters
+    ----------
+    :param `rho` : density matrix or ket state
+    :param `xvec` : multi-dimensional array for the (coarse-grained) Phase space 
+    """
 
     if not isinstance(rho, np.ndarray):
         rho = rho.toarray()
@@ -50,7 +61,7 @@ def Wigner(xvec, rho, g=np.sqrt(2)):
             W += 2 * real(rho[m, n] * Wlist[n])
     return W * g ** 2
 
-def HusimiQ(state, xvec, g=sqrt(2)):
+def HusimiQ(state: Union[ndarray, spmatrix], xvec: Union[ndarray, list], g:float=sqrt(2)) -> ndarray:
     """Q-function of a given state vector or density matrix
     at points `xvec + i * yvec`.
 
@@ -96,7 +107,7 @@ def HusimiQ(state, xvec, g=sqrt(2)):
     qmat = 0.25 * qmat * g ** 2
     return qmat
 
-def _qfunc_pure(psi, alpha_mat):
+def _qfunc_pure(psi: Union[ndarray, spmatrix], alpha_mat: ndarray) -> ndarray:
     """
     Calculate the Q-function for a pure state.
     """

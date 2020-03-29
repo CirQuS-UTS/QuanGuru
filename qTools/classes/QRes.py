@@ -64,7 +64,7 @@ class qResults(qResBase):
     def _organiseMultiProcRes(self, results, inds):
         for res in results:
             for keyUni, valUni in res.items():
-                self._organise(keyUni, valUni, inds)
+                self._organise(keyUni, valUni)
 
         self._finaliseAll(inds)
 
@@ -74,16 +74,16 @@ class qResults(qResBase):
             qres._finalise(inds)
 
     @staticmethod
-    def _organise(keyUni, valUni, inds):
+    def _organise(keyUni, valUni):
         for key, val in valUni.results.items():
             qResults._allResults[keyUni]._qResBase__results[key].append(val)
         
         for key1, val1, in valUni.states.items():
             qResults._allResults[keyUni]._qResBase__states[key1].append(val1)
         
-    def _organiseSingleProcRes(self, inds):
+    def _organiseSingleProcRes(self):
         for keyUni, valUni in self.allResults.items():
-            self._organise(keyUni, valUni, inds)
+            self._organise(keyUni, valUni)
 
     def _finalise(self, inds):
         for key, val in self._qResBase__results.items():

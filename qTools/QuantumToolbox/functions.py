@@ -1,138 +1,282 @@
+"""
+    Module of functions to calculate expectations, fidelities, entorpy etc. from quantum states
+
+    The reason for having several functions for the same task is to improve performance
+    For example, an if statement can be avioded using ``expectationMat/expectationKet`` for
+    ``density matrices/ket states``, or
+    ``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
+"""
 import scipy as np
-from typing import Union
 import scipy.linalg as lina
+
+from typing import Union, Tuple, Any, List
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
-"""
-The reason having several functions for a task, for example calculating expectation value, is to improve performance 
-"""
-
+# TODO a possible improvement is to create decorator for similar functions to get function reference as input.
+# Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
 
 # Functions for expectation value
+def expectation(operator: Union[spmatrix, ndarray], state: Union[spmatrix, ndarray]) -> float:
+    """
+    Function to calculate the expectation value of an `operator` for a given `state`
+
+    State can either be a `ket` or ``density matrix``.
+    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
+    State and operator can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `state` : a quantum state
+
+    Returns
+    -------
+    :return: expectation value of the `operator` for the `state`
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+    if state.shape[0] != state.shape[1]:
+        state = state @ (state.conj().T)
+    return expectationMat(operator, state)
+
 def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the expectation value of an operator for a given density matrix
-    Works with both sparse and array
-    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox
-    TODO a possible improvement is to create decorator for similar functions to get function reference as input
+    Calculates the expectation value of an `operator` for a given ``density matrix``
 
-    :param operator: matrix of the operator
-    :param denMat: density matrix  
-    :return: expectation value
+    Works with both sparse and array.
+    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
+    State and operator can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `denMat` : density matrix
+
+    Returns
+    -------  
+    :return: expectation value of the `operator` for the ``density matrix``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     expc = ((operator @ denMat).diagonal()).sum()
     return np.real(expc)
 
-
 def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the expectation value of an operator for a given ket \\
-    Calculates the density matrix and calls the expectationMat \\
-    Computationally the same as using (bra @ operator @ ket) \\
-    TODO is the same as expectationMat
+    Calculates the expectation value of an `operator` for a given `ket`
 
-    :param operator: matrix of the operator
-    :param ket: ket state
-    :return: expectation value
+    Calculates the density matrix and calls the expectationMat.
+    Computationally the same as using (bra @ operator @ ket).
+    Works with both sparse and array.
+    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
+
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `ket` : ket state
+
+    Returns
+    -------
+    :return: expectation value of the `operator` for the `ket` state
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     denMat = ket @ (ket.conj().T)
     return expectationMat(operator, denMat)
 
-
-def expectationKetList(operator, kets):
+def expectationKetList(operator: Union[spmatrix, ndarray], kets: List[Union[spmatrix, ndarray]]) -> List[float]:
     """
-    Calculates the expectation value of an operator for a given list of ket states
-    Simply calls the expectationKet in a loop
-    This function exist for easy use in parallel calculation
-    TODO is the same as expectationMat
+    Calculates the expectation value of an `operator` for a given list of `ket` states
 
-    :param operator: matrix of the operator
-    :param kets: list of ket states
-    :return: list of expectation values
+    Simply calls the `expectationKet` in a loop.
+    This function exist for easy use in multi-processing.
+
+    Parameters
+    ----------
+    :param `operator`: matrix of a Hermitian operator
+    :param `kets` : list of ket states
+
+    Returns
+    -------
+    :return: `list` of expectation values of the `operator` for the list of `ket` states
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     expectations = []
     for ket in kets:
         expectations.append(expectationKet(operator, ket))
     return expectations
 
-
-def expectationMatList(operator, denMats):
+def expectationMatList(operator: Union[spmatrix, ndarray], denMats:  List[Union[spmatrix, ndarray]]) -> List[float]:
     """
-    Calculates the expectation value of an operator for a given list of density matrices
-    Simply calls the expectationMat in a loop
-    This function exist for easy use in parallel calculation
-    TODO is the same as expectationMat
+    Calculates the expectation value of an `operator` for a given list of ``density matrices``
 
-    :param operator: matrix of the operator
-    :param denMats: list of density matrices
-    :return: list of expectation values
+    Simply calls the `expectationMat` in a loop.
+    This function exist for easy use in multi-processing.
+
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `denMats` : list of density matrices
+
+    Returns
+    -------
+    :return: `list` of expectation values of the `operator` for the list of ``density matrices``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     expectations = []
     for denMat in denMats:
         expectations.append(expectationMat(operator, denMat))
     return expectations
 
-
-def expectationColList(operator, states):
+def expectationColArr(operator: Union[spmatrix, ndarray], states: ndarray) -> List[float]:
     """
-    Calculates the expectation values of a list of column states by matrix multiplication.
-    For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form
-    TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states
+    Calculates the expectation values of an `operator` for a list/matrix of ``ket (column) states`` by matrix multiplication.
 
-    :param operator: matrix of the operator
-    :param states: ket states as the columns in the input matrix
-    :return: list of expectation values
+    The `list` here is effectivly a matrix whose columns are `ket` states for which we want the expextation values.
+    For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
+    TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.
+    So, it relies on states being orthonormal, if not there will be off-diagonal elements in the resultant matrix,
+    but still the diagonal elements are the expectation values, meaning it should work!
+
+    Parameters
+    ----------
+    :param `operator` : matrix of a Hermitian operator
+    :param `states` : ket states as the columns in the input matrix
+
+    Returns
+    -------
+    :return: `list` of expectation values of the `operator` for a matrix of `ket` states
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     expMat = states.conj().T @ operator @ states
     return expMat.diagonal()
 
-
 # Functions for fidelity (currently only for pure states)
-def fidelityKet(ket1, ket2):
+def fidelity(state1: Union[spmatrix, ndarray], state2: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the fidelity between two ket states
-    
-    :param ket1: ket state 1
-    :param ket2: ket state 2
-    :return: fidelity between the given states
+    Calculates `fidelity` between ``two states``
+
+    States can either be a `ket` or ``density matrix``,
+    and they can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `state1`: `ket` state or ``density matrix``
+    :param `state2` : `ket` state or ``density matrix``
+
+    Returns
+    -------
+    :return: `fidelity` between any ``two states``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+    if state1.shape[0] != state1.shape[1]:
+        if state2.shape[0] != state2.shape[1]:
+            return fidelityKet(state1, state2)
+        else:
+            state1 = (state1 @ (state1.conj().T))
+            return fidelityPureMat(state1, state2)
+    else:
+        if state2.shape[0] != state2.shape[1]:
+            state2 = (state2 @ (state2.conj().T))
+            return fidelityPureMat(state1, state2)
+        else:
+            state1 = (state1 @ (state1.conj().T))
+            return fidelityPureMat(state1, state2)
+
+def fidelityKet(ket1: Union[spmatrix, ndarray], ket2: Union[spmatrix, ndarray]) -> float:
+    """
+    Calculates `fidelity` between two `ket` states
+
+    States can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `ket1` : ket state
+    :param `ket2` : ket state
+
+    Returns
+    -------
+    :return: `fidelity` between two ``ket states``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     herm = ket1.conj().T
     fidelityA = ((herm @ ket2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
 
-def fidelityKetList(ket1, ket2):
+def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: List[Union[spmatrix, ndarray]]) -> List[float]:
     """
-    Calculates the fidelity between two ket states
-    
-    :param ket1: ket state 1
-    :param ket2: ket state 2
-    :return: fidelity between the given states
+    Calculates `fidelity` between ``a ket state`` and ``list of ket states``
+
+    States can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `ket1` : ket state
+    :param `ketList` : `list` of ket states
+
+    Returns
+    -------
+    :return: `list` of fidelities between ``a ket state`` and ``list of ket states``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     fidelities = []
     herm = ket1.conj().T
-    for ket in ket2:
+    for ket in ketList:
         fidelityA = ((herm @ ket).diagonal()).sum()
         fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
     return fidelities
 
-
-def fidelityPureMat(denMat1, denMat2):
+def fidelityPureMat(denMat1: Union[spmatrix, ndarray], denMat2: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the fidelity between two density matrices
-    TODO implement the fidelity for mixed states
+    Calculates `fidelity` between two (pure) ``density matrices``
 
-    :param denMat1: density matrix 1
-    :param denMat2: density matrix 2
-    :return: fidelity between the given states
+    States can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `denMat1` : (pure) density matrix
+    :param `denMat2` : (pure) density matrix
+
+    Returns
+    -------
+    :return: `fidelity` between two (pure) ``density matrices``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     fidelityA = ((denMat1 @ denMat2).diagonal()).sum()
     return np.real(fidelityA)
 
-
-def fidelityKetLists(zippedStatesList):
+def fidelityKetLists(zippedStatesList: Any) -> List[float]:
     """
-    Created to be useful in parallel calculations, but
+    Created to be used in ``multi-processing`` calculations of two lists of kets states
+
     FIXME too specific, requires zipping
     """
     fidelities = []
@@ -142,17 +286,27 @@ def fidelityKetLists(zippedStatesList):
         fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
     return fidelities
 
-
 # Entropy function
-def entropy(densMat, base2=False):
+# TODO may create a function specifically for sparse input
+def entropy(densMat: Union[spmatrix, ndarray], base2:bool=False) -> float:
     """
-    Calculates the entropy of a given state
-    Input should be a density matrix by definition of entropy
-    Uses exponential basis as default
+    Calculates the `entropy` of a given ``density matrix``
 
-    :param densMat: a density matrix
-    :param base2: option to calculate in base 2
-    :return: the entropy of the given density matrix
+    Input should be a density matrix by definition of entropy.
+    Uses exponential basis as default.
+
+    Parameters
+    ----------
+    :param `densMat`: a density matrix
+    :param `base2`: option to calculate in base 2
+
+    Returns
+    -------
+    :return: the `entropy` of the given ``density matrix``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
 
     # converts sparse into array (and has to)
@@ -170,165 +324,187 @@ def entropy(densMat, base2=False):
     S = float(np.real(-sum(nzvals * logvals)))
     return S
 
-
-def entropyKet(ket, base2=False):
+def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> float:
     """
-    Calculates the entropy of a given ket state
+    Calculates the `entropy` of a given `ket` state
 
-    This function should not exist at all, ket is always a pure state
+    This function should not exist at all, ket is always a pure state.
 
-    Input should be a density matrix by definition of entropy
-    Uses exponential basis as default
+    Input should be a density matrix by definition of entropy.
+    Uses exponential basis as default.
 
-    :param ket: a ket state
-    :param base2: option to calculate in base 2
-    :return: the entropy of the given density matrix
+    Parameters
+    ----------
+    :param `ket` : a ket state
+    :param `base2` : option to calculate in base 2
+
+    Returns
+    -------
+    :return: the `entropy` of the given ``density matrix``
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     denMat = ket @ (ket.conj().T)
     S = entropy(denMat, base2)
     return S
 
-
-def partialTrace(keep, dims, state):
+# Delocalisation measures for various cases
+def iprKet(basis: List[Union[spmatrix, ndarray]], ket: Union[spmatrix, ndarray]) -> float:
     """
-    Found on: https://scicomp.stackexchange.com/questions/30052/calculate-partial-trace-of-an-outer-product-in-python
-    Calculate the partial trace
-
-    ρ_a = Tr_b(ρ)
+    Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.
 
     Parameters
     ----------
-    ρ : 2D array
-        Matrix to trace
-    keep : array
-        An array of indices of the spaces to keep after
-        being traced. For instance, if the space is
-        A x B x C x D and we want to trace out B and D,
-        keep = [0,2]
-    dims : array
-        An array of the dimensions of each space.
-        For instance, if the space is A x B x C x D,
-        dims = [dim_A, dim_B, dim_C, dim_D]
+    :param `ket` : a ket state
+    :param `basis` : a complete basis
 
     Returns
     -------
-    ρ_a : 2D array
-        Traced matrix
-    """
-    if not isinstance(state, np.ndarray):
-        state = state.toarray()
-
-    rho = state
-    if rho.shape[0] != rho.shape[1]:
-        rho = (rho @ (rho.conj().T))
-
-    keep = np.asarray(keep)
-    dims = np.asarray(dims)
-    Ndim = dims.size
-    Nkeep = np.prod(dims[keep])
-
-    idx1 = [i for i in range(Ndim)]
-    idx2 = [Ndim+i if i in keep else i for i in range(Ndim)]
-    rho_a = rho.reshape(np.tile(dims, 2))
-    rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)
-    return rho_a.reshape(Nkeep, Nkeep)
-
-
-# Delocalisation measure for various cases
-def iprKet(basis, ket):
-    """
-    Calculates the inverse participation ratio (a delocalisation measure) of a ket in a given basis
-
-    :param ket: a ket state
-    :param basis: a complete basis
     :return: inverse participation ratio
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
-    npc = 0
+    npc = 0.0
     for basKet in basis:
         fid = fidelityKet(basKet, ket)
         npc += (fid**2)
     return 1/npc
 
-
-def iprKetList(basis, kets):
+def iprKetList(basis: List[Union[spmatrix, ndarray]], kets: List[Union[spmatrix, ndarray]]) -> List[float]:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a list kets in a given basis
-    Simply calls iprKet in a loop
+    Calculates the inverse participation ratio (a delocalisation measure) of a ``list of ket`` states in a given basis.
 
-    :param kets: a list of ket states
-    :param basis: a complete basis
-    :return: a list of inverse participation ratios
+    Simply calls iprKet in a loop.
+
+    Parameters
+    ----------
+    :param `kets` : a `list` of ket states
+    :param `basis` : a complete basis
+
+    Returns
+    -------
+    :return: a `list` of inverse participation ratios for the given list of ket states
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     npcs = []
     for ket in kets:
         npcs.append(iprKet(basis, ket))
     return npcs
 
-
-def iprKetNB(ket):
+def iprKetNB(ket: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a ket
-    This assumes the basis is of the free Hamiltonian
+    Calculates the inverse participation ratio (a delocalisation measure) of a ket by assuming that 
+    the basis is of the free Hamiltonian.
 
-    :param ket: a ket state
+    Parameters
+    ----------
+    :param `ket` : a ket state
+
+    Returns
+    -------
     :return: inverse participation ratio
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     return 1/np.sum(np.power((np.abs(ket.A.flatten())),4))
 
-
-def iprKetNBList(kets):
+def iprKetNBList(kets: List[Union[spmatrix, ndarray]]) -> List[float]:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a list kets in a given basis
-    This assumes the basis is of the free Hamiltonian
-    Simply calls iprKetNB in a loop
+    Calculates the inverse participation ratio (a delocalisation measure) of a list kets by assuming that 
+    the basis is of the free Hamiltonian.
 
-    :param kets: a list of ket states
-    :return: a list of inverse participation ratios
+    Simply calls iprKetNB in a loop.
+
+    Parameters
+    ----------
+    :param kets: a `list` of ket states
+
+    Returns
+    -------
+    :return: a `list` of inverse participation ratios
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     IPRatio = []
     for ket in kets:
         IPRatio.append(iprKetNB(ket))
     return IPRatio
 
-
-def iprKetNBmat(kets):
+def iprKetNBmat(kets: ndarray) -> List[float]:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a matrix of ket states as the column
-    For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form
-    TODO use if you know what you are doing
-    This assumes the basis is of the free Hamiltonian
+    Calculates the inverse participation ratio (a delocalisation measure) of ``a matrix of ket states as the column``
 
+    For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
+    TODO use if you know what you are doing.
+    This assumes the basis is of the free Hamiltonian.
+
+    Parameters
+    ----------
     :param ket: a density matrix
-    :return: inverse participation ratio
+
+    Returns
+    -------
+    :return: a `list` of inverse participation ratios
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     IPRatio = []
     for ind in range(len(kets)):
         IPRatio.append(iprKetNB(kets[:,ind]))
     return IPRatio
 
-
-def iprPureDenMat(basis, denMat):
+def iprPureDenMat(basis: List[Union[spmatrix, ndarray]], denMat: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a density matrix in a given basis
+    Calculates the inverse participation ratio (a delocalisation measure) of a ``density matrix`` in a given `basis`
 
-    :param denMat: a density matrix
-    :param basis: a complete basis
+    Parameters
+    ----------
+    :param `denMat` : a density matrix
+    :param `basis` : a complete basis
+
+    Returns
+    -------
     :return: inverse participation ratio
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
-    npc = 0
+    npc = 0.0
     for basKet in basis:
         fid = fidelityPureMat(basKet, denMat)
         npc += (fid**2)
     return 1/npc
 
-
 # Eigenvector statistics
-def sortedEigens(Ham):
+def sortedEigens(Ham: Union[spmatrix, ndarray]) -> Tuple[List[float], List[ndarray]]:
     """
-    Calculates the eigenvalues and eigenvectors of a given Hamiltonian and sorts them
+    Calculates the ``eigenvalues and eigenvectors`` of a given Hamiltonian and `sorts` them
 
-    :param Ham: the Hamiltoniam
-    :return: sorted eigenvalues and eigenvectors
+    Parameters
+    ----------
+    :param `Ham` : the Hamiltoniam
+
+    Returns
+    -------
+    :return: `sorted` eigenvalues and eigenvectors
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     if not isinstance(Ham, np.ndarray):
         Ham = Ham.A
@@ -339,43 +515,67 @@ def sortedEigens(Ham):
     sortedVecs = eigVecs[:,idx]
     return sortedVals, sortedVecs
 
-
-def eigVecStatKet(basis, ket):
+def eigVecStatKet(basis: List[Union[spmatrix, ndarray]], ket: Union[spmatrix, ndarray]) -> List[float]:
     """
-    Calculates the list of components of a ket in a basis
-    Mainly useful in eigenvector statistics
+    Calculates components of a `ket` in a basis.
+    Main use is in eigenvector statistics.
 
-    :param basis: a complete basis
-    :param ket: the ket state
-    :return: list of component values in the basis
+    Parameters
+    ----------
+    :param `basis` : a complete basis
+    :param `ket` : the ket state
+
+    Returns
+    -------
+    :return: `list` of component values in the basis
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     comps = []
     for basKet in basis:
         comps.append(fidelityKet(basKet, ket))
     return comps
 
-
-def eigVecStatKetList(basis, kets):
+def eigVecStatKetList(basis: List[Union[spmatrix, ndarray]], kets: List[Union[spmatrix, ndarray]]) -> List[List[float]]:
     """
-    Calculates the list components of a list of ket states
-    Mainly useful in eigenvector statistics
+    Calculates components of a ``list of ket states``.
+    Main use is in eigenvector statistics.
 
-    :param basis: a complete basis
-    :param ket: list of ket states
-    :return: list of component values in the basis
+    Parameters
+    ----------
+    :param `basis` : a complete basis
+    :param `kets` : `list` of ket states
+
+    Returns
+    -------
+    :return: `list` of component values in the basis
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     compsList = []
     for ket in kets:
         compsList.append(eigVecStatKet(basis, ket))
     return compsList
 
-
-def eigVecStatKetNB(ket):
+def eigVecStatKetNB(ket: Union[spmatrix, ndarray]) -> float:
     """
-    Calculates the components of a ket
-    Assumes the basis is of the free Hamiltonian
+    Calculates the components of a ket by
+    assuming that the basis is of the free Hamiltonian.
 
-    :param ket: a ket state or list of ket states
+    Parameters
+    ----------
+    :param `ket`: a ket state or list of ket states
+
+    Returns
+    -------
     return: list of components
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
     return 1/np.sum(np.power((np.abs(ket.A.flatten())),2))

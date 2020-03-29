@@ -17,13 +17,16 @@ class _sweep(updateBase):
     #@sweepInitError
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        # TODO make these properties so that sweepList is dynamic ?
+        
+        self._updateBase__function = self._defSweep
+
         self.sweepMax = None
         self.sweepMin = None
         self.sweepStep = None
         self._sweepList = None
         self.logSweep = False
         self.multiParam = False
+        
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -56,12 +59,13 @@ class _sweep(updateBase):
         else:
             self._sweepList = sList
 
+    @staticmethod
+    def _defSweep(self, ind):
+        val = self.sweepList[ind]
+        self._runUpdate(val)
+
     def runSweep(self, ind):
-        if self._updateBase__function is None:
-            val = self.sweepList[ind]
-            super()._runUpdate(val)
-        else:
-            self._updateBase__function(self, self.superSys.superSys, ind)
+        self._updateBase__function(self, ind)
 
 
 class Sweep(computeBase):
@@ -71,8 +75,10 @@ class Sweep(computeBase):
     # TODO init errors
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
+
         self.__inds = []
         self.__indMultip = None
+
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -89,7 +95,7 @@ class Sweep(computeBase):
 
     @sweeps.setter
     def sweeps(self, sysDict):
-        super().subSys = sysDict
+        super().addSubSys(sysDict)
         
     def removeSweep(self, sys):
         if isinstance(sys, _sweep):
