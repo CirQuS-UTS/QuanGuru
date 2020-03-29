@@ -9,7 +9,7 @@
 import scipy as np
 import scipy.linalg as lina
 
-from typing import Union, Tuple, Any, Literal, List
+from typing import Union, Tuple, Any, List
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
@@ -324,7 +324,7 @@ def entropy(densMat: Union[spmatrix, ndarray], base2:bool=False) -> float:
     S = float(np.real(-sum(nzvals * logvals)))
     return S
 
-def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> Literal[0]:
+def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> int:
     """
     Calculates the `entropy` of a given `ket` state
 

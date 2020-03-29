@@ -4,7 +4,7 @@
 from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity
 from numpy import cos, sin
 
-from typing import Union, Tuple, Any, Literal, List
+from typing import Union
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
