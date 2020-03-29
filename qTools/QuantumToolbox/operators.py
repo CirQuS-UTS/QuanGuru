@@ -3,6 +3,7 @@
 """
 import scipy.sparse as sp
 import scipy.linalg as linA
+from scipy.sparse.linalg import expm
 import numpy as np
 
 from typing import Union, Callable
@@ -665,9 +666,8 @@ def parityEXP(HamiltonianCavity: Union[spmatrix, ndarray]) -> Union[spmatrix, nd
     # TODO Create some examples both in here and the demo script
     """
     sparse = sp.isspmatrix(HamiltonianCavity)
-    parEX = ((1j * np.pi) * HamiltonianCavity.toarray())
-    n = linA.expm(parEX)
-    return sp.csc_matrix(n) if sparse else n
+    parEX = ((1j * np.pi) * HamiltonianCavity)
+    return expm(parEX) if sparse else linA.expm(parEX)
 
 def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
