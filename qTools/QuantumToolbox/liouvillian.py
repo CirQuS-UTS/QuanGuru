@@ -1,4 +1,3 @@
-
 import scipy.sparse as sp
 import scipy.sparse.linalg as slinA
 import numpy as np
@@ -11,9 +10,12 @@ def Unitary(Hamiltonian, timeStep=1.0):
     else:
         liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep)
 
+def Liouvillian(Hamiltonian=None, collapseOperator=[], decayRates=[], timeStep=1.0):
+    if Hamiltonian is not None:
+        sparse = sp.issparse(Hamiltonian)
+    else:
+        sparse = sp.issparse(collapseOperators[0])
 
-def Liouvillian(Hamiltonian, collapseOperators = [], decayRates = [], exp = True, timeStep = 1.0):
-    sparse = sp.issparse(Hamiltonian)
     if len(collapseOperators) != 0:
         dimensionOfHilbertSpace = Hamiltonian.shape[0]
         if sparse is False:
@@ -31,6 +33,16 @@ def Liouvillian(Hamiltonian, collapseOperators = [], decayRates = [], exp = True
             else:
                 liouvillian += collapsePart
 
+        return liouvillian
+
+def LiouvillianExp(Hamiltonian=None, collapseOperators = [], decayRates = [], exp = True, timeStep = 1.0):
+    if Hamiltonian is not None:
+        sparse = sp.issparse(Hamiltonian)
+    else:
+        sparse = sp.issparse(collapseOperators[0])
+
+    if len(collapseOperators) != 0:
+        liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates, timeStep)
         if exp is True:
             if sparse is True:
                 liouvillianEXP = slinA.expm(liouvillian * timeStep)
