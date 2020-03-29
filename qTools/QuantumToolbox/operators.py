@@ -9,33 +9,6 @@ from typing import Union, Callable
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
-# TODO Does this really work with ndarray ?
-def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union[spmatrix, ndarray]:
-    """
-    Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB & dimA
-
-    Parameters
-    ----------
-    :param `operator` : operator of a sub-system
-    :param `dimB` : (total) dimension of the systems that appear `before` in the tensor product order
-    :param `dimA` : (total) dimension of the systems that appear `after` in the tensor product order
-
-    Returns:
-    :return: sub-system operator in the extended Hilbert space
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    if (dimB <= 1) and (dimA > 1):
-        return sp.kron(operator,sp.identity(dimA), format='csc')
-    elif (dimB > 1) and (dimA <= 1):
-        return sp.kron(sp.identity(dimB), operator, format='csc')
-    elif (dimB > 1) and (dimA > 1):
-        return sp.kron(sp.kron(sp.identity(dimB), operator, format='csc'), sp.identity(dimA), format='csc')
-    else:
-        return operator
-
 def number(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
     Creates the (bosonic) number operator.
@@ -577,3 +550,30 @@ def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Union[spm
     # TODO Create some examples both in here and the demo script
     """
     return op(dim, sparse)**power
+
+# TODO Does this really work with ndarray ?
+def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union[spmatrix, ndarray]:
+    """
+    Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB & dimA
+
+    Parameters
+    ----------
+    :param `operator` : operator of a sub-system
+    :param `dimB` : (total) dimension of the systems that appear `before` in the tensor product order
+    :param `dimA` : (total) dimension of the systems that appear `after` in the tensor product order
+
+    Returns:
+    :return: sub-system operator in the extended Hilbert space
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+    if (dimB <= 1) and (dimA > 1):
+        return sp.kron(operator,sp.identity(dimA), format='csc')
+    elif (dimB > 1) and (dimA <= 1):
+        return sp.kron(sp.identity(dimB), operator, format='csc')
+    elif (dimB > 1) and (dimA > 1):
+        return sp.kron(sp.kron(sp.identity(dimB), operator, format='csc'), sp.identity(dimA), format='csc')
+    else:
+        return operator
