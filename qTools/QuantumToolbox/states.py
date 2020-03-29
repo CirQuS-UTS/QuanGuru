@@ -247,7 +247,7 @@ def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     denMatn = mag * denMat
     return denMatn
 
-def compositeState(dimensions:List[int], excitations:List[int], sparse:bool=True) -> Union[spmatrix, ndarray]:
+def compositeState(dimensions:List[int], excitations:List[Union[Dict[int, float], List[int], int]], sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
     Function to create composite ket states
 
