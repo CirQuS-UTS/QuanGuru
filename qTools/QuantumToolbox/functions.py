@@ -36,25 +36,27 @@ def expectation(operator: Union[spmatrix, ndarray], state: Union[spmatrix, ndarr
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> import qTools.QuantumToolbox.operators as qOperators
     >>> ket = qStates.basis(dimension=2, state=1)
     >>> denMat = qStates.densityMatrix(ket)
     >>> sigmaz = qOperators.sigmaz()
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket)
+    >>> expectKet = expectation(operator=sigmaz, state=ket)
     -1
-    >>> expectMat = qFunctions.expectation(sigmaz, denMat)
+    >>> expectMat = expectation(sigmaz, denMat)
     -1
     >>> import numpy as np
     >>> ket1 = qStates.basis(dimension=2, state=0)
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket1)
+    >>> expectKet = expectation(operator=sigmaz, state=ket1)
     1
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket2)
+    >>> expectKet = expectation(operator=sigmaz, state=ket2)
     0
     >>> denMat1 = qStates.densityMatrix(ket1)
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=denMat1)
+    >>> expectKet = expectation(operator=sigmaz, state=denMat1)
     1
     >>> denMat2 = qStates.densityMatrix(ket2)
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=denMat2)
+    >>> expectKet = expectation(operator=sigmaz, state=denMat2)
     0
     """
     if state.shape[0] != state.shape[1]:
@@ -80,19 +82,21 @@ def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, n
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> import qTools.QuantumToolbox.operators as qOperators
     >>> ket = qStates.basis(dimension=2, state=1)
     >>> denMat = qStates.densityMatrix(ket)
     >>> sigmaz = qOperators.sigmaz()
-    >>> expectMat = qFunctions.expectation(sigmaz, denMat)
+    >>> expectMat = expectation(sigmaz, denMat)
     -1
     >>> import numpy as np
     >>> ket1 = qStates.basis(dimension=2, state=0)
     >>> denMat1 = qStates.densityMatrix(ket1)
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=denMat1)
+    >>> expectKet = expectation(operator=sigmaz, state=denMat1)
     1
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
     >>> denMat2 = qStates.densityMatrix(ket2)
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=denMat2)
+    >>> expectKet = expectation(operator=sigmaz, state=denMat2)
     0
     """
     expc = ((operator @ denMat).diagonal()).sum()
@@ -118,16 +122,18 @@ def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndar
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> import qTools.QuantumToolbox.operators as qOperators
     >>> ket = qStates.basis(dimension=2, state=1)
     >>> sigmaz = qOperators.sigmaz()
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket)
+    >>> expectKet = expectation(operator=sigmaz, state=ket)
     -1
     >>> import numpy as np
     >>> ket1 = qStates.basis(dimension=2, state=0)
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket1)
+    >>> expectKet = expectation(operator=sigmaz, state=ket1)
     1
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
-    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket2)
+    >>> expectKet = expectation(operator=sigmaz, state=ket2)
     0
     """
     denMat = ket @ (ket.conj().T)
@@ -151,11 +157,12 @@ def expectationKetList(operator: Union[spmatrix, ndarray], kets: List[Union[spma
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> ket0 = qStates.basis(dimension=2, state=1)
     >>> ket1 = qStates.basis(dimension=2, state=0)
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
     >>> ketList = [ket0, ket1, ket2]
-    >>> expectKetList = qFunctions.expectationKetList(operator=sigmaz, kets=ketList)
+    >>> expectKetList = expectationKetList(operator=sigmaz, kets=ketList)
     [-1, 1, 0.0]
     """
     expectations = []
@@ -181,6 +188,7 @@ def expectationMatList(operator: Union[spmatrix, ndarray], denMats:  List[Union[
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> ket0 = qStates.basis(dimension=2, state=1)
     >>> ket1 = qStates.basis(dimension=2, state=0)
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
@@ -188,7 +196,7 @@ def expectationMatList(operator: Union[spmatrix, ndarray], denMats:  List[Union[
     >>> denMat1 = qStates.densityMatrix(ket1)
     >>> denMat2 = qStates.densityMatrix(ket2)
     >>> denMatList = [denMat0, denMat1, denMat2]
-    >>> expectMatList = qFunctions.expectationMatList(sigmaz, denMats=denMatList)
+    >>> expectMatList = expectationMatList(sigmaz, denMats=denMatList)
     [-1, 1, 0.0]
     """
     expectations = []
@@ -217,13 +225,14 @@ def expectationColArr(operator: Union[spmatrix, ndarray], states: ndarray) -> Li
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.operators as qOperators
     >>> ham = qOperators.sigmaz(sparse=False)
     >>> eigVals, eigVecs = np.linalg.eig(ham)
     >>> sz = qOperators.sigmaz()
     >>> sx = qOperators.sigmax()
-    >>> expectZ = qFunctions.expectationColArr(sz, eigVecs)
+    >>> expectZ = expectationColArr(sz, eigVecs)
     [ 1. -1.]
-    >>>> expectX = qFunctions.expectationColArr(sx, eigVecs)
+    >>>> expectX = expectationColArr(sx, eigVecs)
     [0. 0.]
     """
     expMat = states.conj().T @ operator @ states
@@ -248,23 +257,24 @@ def fidelity(state1: Union[spmatrix, ndarray], state2: Union[spmatrix, ndarray])
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> ket0 = qStates.basis(dimension=2, state=1)
     >>> ket1 = qStates.basis(dimension=2, state=0)
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
     >>> denMat0 = qStates.densityMatrix(ket0)
     >>> denMat1 = qStates.densityMatrix(ket1)
     >>> denMat2 = qStates.densityMatrix(ket2)
-    >>> fidelityKet01 = qFunctions.fidelity(state1=ket0, state2=ket1)
+    >>> fidelityKet01 = fidelity(state1=ket0, state2=ket1)
     0.
-    >>> fidelityKet02 = qFunctions.fidelity(state1=ket0, state2=ket2)
+    >>> fidelityKet02 = fidelity(state1=ket0, state2=ket2)
     0.5
-    >>> fidelityKet12 = qFunctions.fidelity(state1=ket1, state2=ket2)
+    >>> fidelityKet12 = fidelity(state1=ket1, state2=ket2)
     0.5
-    >>> fidelityMat01 = qFunctions.fidelity(state1=denMat0, state2=denMat1)
+    >>> fidelityMat01 = fidelity(state1=denMat0, state2=denMat1)
     0
-    >>> fidelityMat02 = qFunctions.fidelity(state1=denMat0, state2=denMat2)
+    >>> fidelityMat02 = fidelity(state1=denMat0, state2=denMat2)
     0.5
-    >>> fidelityMat12 = qFunctions.fidelity(state1=denMat1, state2=denMat2)
+    >>> fidelityMat12 = fidelity(state1=denMat1, state2=denMat2)
     0.5
     """
     if state1.shape[0] != state1.shape[1]:
@@ -298,14 +308,15 @@ def fidelityKet(ket1: Union[spmatrix, ndarray], ket2: Union[spmatrix, ndarray]) 
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> ket0 = qStates.basis(dimension=2, state=1)
     >>> ket1 = qStates.basis(dimension=2, state=0)
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
-    >>> fidelityKet01 = qFunctions.fidelityKet(state1=ket0, state2=ket1)
+    >>> fidelityKet01 = fidelityKet(state1=ket0, state2=ket1)
     0.
-    >>> fidelityKet02 = qFunctions.fidelityKet(state1=ket0, state2=ket2)
+    >>> fidelityKet02 = fidelityKet(state1=ket0, state2=ket2)
     0.5
-    >>> fidelityKet12 = qFunctions.fidelityKet(state1=ket1, state2=ket2)
+    >>> fidelityKet12 = fidelityKet(state1=ket1, state2=ket2)
     0.5
     """
     herm = ket1.conj().T
@@ -329,17 +340,18 @@ def fidelityPureMat(denMat1: Union[spmatrix, ndarray], denMat2: Union[spmatrix, 
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> ket0 = qStates.basis(dimension=2, state=1)
     >>> ket1 = qStates.basis(dimension=2, state=0)
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
     >>> denMat0 = qStates.densityMatrix(ket0)
     >>> denMat1 = qStates.densityMatrix(ket1)
     >>> denMat2 = qStates.densityMatrix(ket2)
-    >>> fidelityMat01 = qFunctions.fidelityPureMat(state1=denMat0, state2=denMat1)
+    >>> fidelityMat01 = fidelityPureMat(state1=denMat0, state2=denMat1)
     0
-    >>> fidelityMat02 = qFunctions.fidelityPureMat(state1=denMat0, state2=denMat2)
+    >>> fidelityMat02 = fidelityPureMat(state1=denMat0, state2=denMat2)
     0.5
-    >>> fidelityMat12 = qFunctions.fidelityPureMat(state1=denMat1, state2=denMat2)
+    >>> fidelityMat12 = fidelityPureMat(state1=denMat1, state2=denMat2)
     0.5
     """
     fidelityA = ((denMat1 @ denMat2).diagonal()).sum()
@@ -362,11 +374,12 @@ def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: List[Union[spmatrix
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> ket0 = qStates.basis(dimension=2, state=1)
     >>> ket1 = qStates.basis(dimension=2, state=0)
     >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
     >>> ketList = [ket0, ket1, ket2]
-    >>> fidelityList = qFunctions.fidelityKetList(ket0, ketList)
+    >>> fidelityList = fidelityKetList(ket0, ketList)
     [1, 0, 0.5000000000000001]
     """
     fidelities = []
@@ -409,30 +422,31 @@ def entropy(densMat: Union[spmatrix, ndarray], base2:bool=False) -> float:
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> compositeStateKet = qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True)
-    >>> entropyKet = qFunctions.entropyKet(compositeStateKet)
+    >>> entropyKet = entropyKet(compositeStateKet)
     -0.0
     >>> compositeStateMat = qStates.densityMatrix(compositeStateKet)
-    >>> entropyMat = qFunctions.entropy(compositeStateMat)
+    >>> entropyMat = entropy(compositeStateMat)
     -0.0
     >>> stateFirstSystem = qStates.partialTrace(keep=[0], dims=[2, 2], state=compositeStateKet)
-    >>> entropy1 = qFunctions.entropy(stateFirstSystem)
+    >>> entropy1 = entropy(stateFirstSystem)
     -0.0
     >>> stateSecondSystem = qStates.partialTrace(keep=[1], dims=[2, 2], state=compositeStateKet)
-    >>> entropy2 = qFunctions.entropy(stateSecondSystem)
+    >>> entropy2 = entropy(stateSecondSystem)
     -0.0
     >>> entangledKet = qStates.normalise(qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True) 
     + qStates.compositeState(dimensions=[2, 2], excitations=[1,0], sparse=True))
-    >>> entropyKetEntangled = qFunctions.entropyKet(entangledKet)
+    >>> entropyKetEntangled = entropyKet(entangledKet)
     2.2204460492503126e-16
     >>> entangledMat = qStates.densityMatrix(entangledKet)
-    >>> entropyMatEntangled = qFunctions.entropy(entangledMat)
+    >>> entropyMatEntangled = entropy(entangledMat)
     2.2204460492503126e-16
     >>> stateFirstSystemEntangled = qStates.partialTrace(keep=[0], dims=[2, 2], state=entangledKet)
-    >>> entropy1Entangled = qFunctions.entropy(stateFirstSystemEntangled)
+    >>> entropy1Entangled = entropy(stateFirstSystemEntangled)
     0.6931471805599454
     >>> stateSecondSystemEntangled = qStates.partialTrace(keep=[1], dims=[2, 2], state=entangledMat)
-    >>> entropy2Entangled = qFunctions.entropy(stateSecondSystemEntangled)
+    >>> entropy2Entangled = entropy(stateSecondSystemEntangled)
     0.6931471805599454
     """
 
@@ -471,12 +485,13 @@ def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> float:
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> compositeStateKet = qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True)
-    >>> entropyKet = qFunctions.entropyKet(compositeStateKet)
+    >>> entropyKet = entropyKet(compositeStateKet)
     -0.0
     >>> entangledKet = qStates.normalise(qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True) 
     + qStates.compositeState(dimensions=[2, 2], excitations=[1,0], sparse=True))
-    >>> entropyKetEntangled = qFunctions.entropyKet(entangledKet)
+    >>> entropyKetEntangled = entropyKet(entangledKet)
     2.2204460492503126e-16
     """
     denMat = ket @ (ket.conj().T)
@@ -499,15 +514,16 @@ def iprKet(basis: List[Union[spmatrix, ndarray]], ket: Union[spmatrix, ndarray])
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> completeBasis = qStates.completeBasis(dimension=2)
     >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
-    >>> ipr0 = qFunctions.iprKet(completeBasis, state0)
+    >>> ipr0 = iprKet(completeBasis, state0)
     1.1245136186770428
     >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
-    >>> ipr1 = qFunctions.iprKet(completeBasis, state1)
+    >>> ipr1 = iprKet(completeBasis, state1)
     2.000000000000001
     >>> state2 = qStates.basis(2,1)
-    >>> ipr2 = qFunctions.iprKet(completeBasis, state2)
+    >>> ipr2 = iprKet(completeBasis, state2)
     1.0
     """
     npc = 0.0
@@ -539,7 +555,7 @@ def iprKetList(basis: List[Union[spmatrix, ndarray]], kets: List[Union[spmatrix,
     >>> state2 = qStates.basis(2,1)
     >>> state3 = qStates.basis(2,0)
     >>> stateList = [state0, state1, state2, state3]
-    >>> iprList = qFunctions.iprKetList(completeBasis, stateList)
+    >>> iprList = iprKetList(completeBasis, stateList)
     [1.1245136186770428, 2.000000000000001, 1.0, 1.0]
     """
     npcs = []
@@ -562,19 +578,21 @@ def iprKetNB(ket: Union[spmatrix, ndarray]) -> float:
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
-    >>> ipr0 = qFunctions.iprKetNB(state0)
+    >>> ipr0 = iprKetNB(state0)
     1.1245136186770428
     >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
-    >>> ipr1 = qFunctions.iprKetNB(state1)
+    >>> ipr1 = iprKetNB(state1)
     2.000000000000001
     >>> state2 = qStates.basis(2,1)
-    >>> ipr2 = qFunctions.iprKetNB(state2)
+    >>> ipr2 = iprKetNB(state2)
     1.0
     >>> state3 = qStates.basis(2,0)
-    >>> ipr3 = qFunctions.iprKetNB(state3)
+    >>> ipr3 = iprKetNB(state3)
     1.0
     """
+    # TODO Find a way around this
     if isinstance(ket, spmatrix):
         ket = ket.A
     return 1/np.sum(np.power((np.abs(ket.flatten())),4))
@@ -596,12 +614,13 @@ def iprKetNBList(kets: List[Union[spmatrix, ndarray]]) -> List[float]:
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
     >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
     >>> state2 = qStates.basis(2,1)
     >>> state3 = qStates.basis(2,0)
     >>> stateList = [state0, state1, state2, state3]
-    >>> iprList = qFunctions.iprKetNBList(stateList)
+    >>> iprList = iprKetNBList(stateList)
     [1.1245136186770428, 2.000000000000001, 1.0, 1.0]
     """
     IPRatio = []
@@ -627,13 +646,14 @@ def iprKetNBmat(kets: ndarray) -> List[float]:
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.operators as qOperators
     >>> ham = qOperators.sigmaz()
     >>> eigValsHam, eigVecsHams = np.linalg.eig(ham.A)
-    >>> iprHam = qFunctions.iprKetNBmat(eigVecsHams)
+    >>> iprHam = iprKetNBmat(eigVecsHams)
     [1.0, 1.0]
     >>> unitary = sp.sparse.linalg.expm(ham) 
     >>> eigValsUni, eigVecsUni = np.linalg.eig(unitary.A)
-    >>> iprUni = qFunctions.iprKetNBmat(eigVecsUni)
+    >>> iprUni = iprKetNBmat(eigVecsUni)
     [1.0, 1.0]
     """
     IPRatio = []
@@ -656,18 +676,19 @@ def iprPureDenMat(basis: List[Union[spmatrix, ndarray]], denMat: Union[spmatrix,
 
     Examples
     --------
+    >>> import qTools.QuantumToolbox.states as qStates
     >>> completeBasis = qStates.completeBasisMat(dimension=2)
     >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
     >>> denMat0 = qStates.densityMatrix(state0)
-    >>> ipr0 = qFunctions.iprPureDenMat(completeBasis, denMat0)
+    >>> ipr0 = iprPureDenMat(completeBasis, denMat0)
     1.1245136186770428
     >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
     >>> denMat1 = qStates.densityMatrix(state1)
-    >>> ipr1 = qFunctions.iprPureDenMat(completeBasis, denMat1)
+    >>> ipr1 = iprPureDenMat(completeBasis, denMat1)
     2.000000000000001
     >>> state2 = qStates.basis(2,1)
     >>> denMat2 = qStates.densityMatrix(state2)
-    >>> ipr2 = qFunctions.iprPureDenMat(completeBasis, denMat2)
+    >>> ipr2 = iprPureDenMat(completeBasis, denMat2)
     1.0
     """
     npc = 0.0
@@ -691,7 +712,18 @@ def sortedEigens(Ham: Union[spmatrix, ndarray]) -> Tuple[List[float], List[ndarr
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> import qTools.QuantumToolbox.operators as qOperators
+    >>> ham = qOperators.Jx(j=6)
+    >>> eigVals, eigVecs = sortedEigens(ham)
+    >>> print(eigVals)
+    [-2.5+0.j -1.5+0.j -0.5+0.j  0.5+0.j  1.5+0.j  2.5+0.j]
+    >>> print(eigVecs)
+    [[ 0.1767767   0.39528471  0.55901699  0.55901699 -0.39528471 -0.1767767 ]
+    [-0.39528471 -0.53033009 -0.25        0.25       -0.53033009 -0.39528471]
+    [ 0.55901699  0.25       -0.35355339 -0.35355339 -0.25       -0.55901699]
+    [-0.55901699  0.25        0.35355339 -0.35355339  0.25       -0.55901699]
+    [ 0.39528471 -0.53033009  0.25        0.25        0.53033009 -0.39528471]
+    [-0.1767767   0.39528471 -0.55901699  0.55901699  0.39528471 -0.1767767 ]]
     """
     if not isinstance(Ham, np.ndarray):
         Ham = Ham.A
@@ -702,6 +734,7 @@ def sortedEigens(Ham: Union[spmatrix, ndarray]) -> Tuple[List[float], List[ndarr
     sortedVecs = eigVecs[:,idx]
     return sortedVals, sortedVecs
 
+# TODO create the function for the result of eigenvec calculation
 def eigVecStatKet(basis: List[Union[spmatrix, ndarray]], ket: Union[spmatrix, ndarray]) -> List[float]:
     """
     Calculates components of a `ket` in a basis.
@@ -718,7 +751,11 @@ def eigVecStatKet(basis: List[Union[spmatrix, ndarray]], ket: Union[spmatrix, nd
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> ket = qStates.basis(2, 1)
+    >>> completeBasis = qStates.completeBasis(dimension=2)
+    >>> components = eigVecStatKet(basis=completeBasis, ket=ket)
+    [0, 1]
     """
     comps = []
     for basKet in basis:
@@ -741,7 +778,13 @@ def eigVecStatKetList(basis: List[Union[spmatrix, ndarray]], kets: List[Union[sp
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> ket0 = qStates.basis(2, 0)
+    >>> ket1 = qStates.basis(2, 1)
+    >>> ketList = [ket0, ket1]
+    >>> completeBasis = qStates.completeBasis(dimension=2)
+    >>> components = eigVecStatKetList(basis=completeBasis, kets=ketList)
+    [[1, 0], [0, 1]]
     """
     compsList = []
     for ket in kets:
@@ -763,8 +806,13 @@ def eigVecStatKetNB(ket: Union[spmatrix, ndarray]) -> float:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> ket = qStates.basis(2, 1)
+    >>> completeBasis = qStates.completeBasis(dimension=2)
+    >>> components = eigVecStatKetNB(ket=ket)
+    [0 1]
     """
+    # TODO Find a way around this
     if isinstance(ket, spmatrix):
         ket = ket.A
     return np.real(ket.flatten())
