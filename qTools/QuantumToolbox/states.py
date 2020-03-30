@@ -176,12 +176,14 @@ def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     """
     return (ket @ (ket.conj().T))
 
-def completeBasisMat(dimension:int, compKetBase:Optional[List[Union[spmatrix, ndarray]]]=None, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
+def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Union[spmatrix, ndarray]]]=None, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
     if compKetBase is None:
+        if dimension is None:
+            raise ValueError('err')
         compBase = completeBasis(dimension, sparse)
     else:
         compBase = compKetBase
-        
+
     for i, state in enumerate(compBase):
         compBase[i] = densityMatrix(state)
     return compBase
