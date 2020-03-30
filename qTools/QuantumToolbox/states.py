@@ -40,6 +40,35 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray
     return n if sparse else n.A
 
 def completeBasis(dimension:int, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
+    """
+    Creates a complete basis of `ket` states
+    
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+
+    Parameters
+    ----------
+    :param `dimension` : dimension of Hilbert space
+    :param `sparse` : boolean for sparse or not (array)
+
+    Returns
+    -------
+    :return : a list (complete basis) of `ket` states
+
+    Examples
+    --------
+    >>> completeBasis0 = qStates.completeBasis(2, sparse=False)
+    >>> for state in completeBasis0:
+    >>>    print(state)
+    [[1]
+    [0]]
+    [[0]
+    [1]]
+    >>> completeBasis1 = qStates.completeBasis(2)
+    >>> for state in completeBasis1:
+    >>>    print(state)
+    (0, 0)	1
+    (1, 0)	1
+    """
     compBasis = []
     for i in range(dimension):
         compBasis.append(basis(dimension, i, sparse))
@@ -177,6 +206,50 @@ def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     return (ket @ (ket.conj().T))
 
 def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Union[spmatrix, ndarray]]]=None, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
+    """
+    Creates a complete basis of ``density matrices`` or convert a ket basis to density matrix.
+    
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+
+    Parameters
+    ----------
+    :param `dimension` : dimension of Hilbert space (or default None if a ket basis is given)
+    :param `compKetBase`: a complete ket basis (or default None if dimension is given)
+    :param `sparse` : boolean for sparse or not (array)
+
+    Returns
+    -------
+    :return : a list (complete basis) of ``density matrices``
+
+    Examples
+    --------
+    >>> completeBasis0 = qStates.completeBasis(2, sparse=False)
+    >>> completeBasis1 = qStates.completeBasis(2)
+    >>> completeBasisMat0 = qStates.completeBasisMat(dimension=2, compKetBase=completeBasis0)
+    >>> for state in completeBasisMat0:
+    >>>    print(state)
+    [[1 0]
+    [0 0]]
+    [[0 0]
+    [0 1]]
+    >>> completeBasisMat1 = qStates.completeBasisMat(dimension=2, compKetBase=completeBasis1)
+    >>> for state in completeBasisMat1:
+    >>>    print(state)
+    (0, 0)	1
+    (1, 1)	1
+    >>> completeBasisMat01 = qStates.completeBasisMat(dimension=2, sparse=False)
+    >>> for state in completeBasisMat01:
+    >>>    print(state)
+    [[1 0]
+    [0 0]]
+    [[0 0]
+    [0 1]]
+    >>> completeBasisMat11 = qStates.completeBasisMat(dimension=2)
+    >>> for state in completeBasisMat11:
+    >>>    print(state)
+    (0, 0)	1
+    (1, 1)	1
+    """
     if compKetBase is None:
         if dimension is None:
             raise ValueError('err')
