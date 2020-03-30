@@ -6,7 +6,7 @@
     ``density matrices/ket states``, or
     ``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
 """
-import scipy as np
+import numpy as np
 import scipy.linalg as lina
 
 from typing import Union, Tuple, Any, List
