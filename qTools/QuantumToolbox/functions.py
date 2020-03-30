@@ -409,7 +409,31 @@ def entropy(densMat: Union[spmatrix, ndarray], base2:bool=False) -> float:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> compositeStateKet = qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True)
+    >>> entropyKet = qFunctions.entropyKet(compositeStateKet)
+    -0.0
+    >>> compositeStateMat = qStates.densityMatrix(compositeStateKet)
+    >>> entropyMat = qFunctions.entropy(compositeStateMat)
+    -0.0
+    >>> stateFirstSystem = qStates.partialTrace(keep=[0], dims=[2, 2], state=compositeStateKet)
+    >>> entropy1 = qFunctions.entropy(stateFirstSystem)
+    -0.0
+    >>> stateSecondSystem = qStates.partialTrace(keep=[1], dims=[2, 2], state=compositeStateKet)
+    >>> entropy2 = qFunctions.entropy(stateSecondSystem)
+    -0.0
+    >>> entangledKet = qStates.normalise(qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True) 
+    + qStates.compositeState(dimensions=[2, 2], excitations=[1,0], sparse=True))
+    >>> entropyKetEntangled = qFunctions.entropyKet(entangledKet)
+    2.2204460492503126e-16
+    >>> entangledMat = qStates.densityMatrix(entangledKet)
+    >>> entropyMatEntangled = qFunctions.entropy(entangledMat)
+    2.2204460492503126e-16
+    >>> stateFirstSystemEntangled = qStates.partialTrace(keep=[0], dims=[2, 2], state=entangledKet)
+    >>> entropy1Entangled = qFunctions.entropy(stateFirstSystemEntangled)
+    0.6931471805599454
+    >>> stateSecondSystemEntangled = qStates.partialTrace(keep=[1], dims=[2, 2], state=entangledMat)
+    >>> entropy2Entangled = qFunctions.entropy(stateSecondSystemEntangled)
+    0.6931471805599454
     """
 
     # converts sparse into array (and has to)
@@ -447,7 +471,13 @@ def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> float:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> compositeStateKet = qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True)
+    >>> entropyKet = qFunctions.entropyKet(compositeStateKet)
+    -0.0
+    >>> entangledKet = qStates.normalise(qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True) 
+    + qStates.compositeState(dimensions=[2, 2], excitations=[1,0], sparse=True))
+    >>> entropyKetEntangled = qFunctions.entropyKet(entangledKet)
+    2.2204460492503126e-16
     """
     denMat = ket @ (ket.conj().T)
     S = entropy(denMat, base2)
