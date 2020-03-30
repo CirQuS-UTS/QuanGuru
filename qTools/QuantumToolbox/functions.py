@@ -248,7 +248,24 @@ def fidelity(state1: Union[spmatrix, ndarray], state2: Union[spmatrix, ndarray])
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ket0 = qStates.basis(dimension=2, state=1)
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> denMat0 = qStates.densityMatrix(ket0)
+    >>> denMat1 = qStates.densityMatrix(ket1)
+    >>> denMat2 = qStates.densityMatrix(ket2)
+    >>> fidelityKet01 = qFunctions.fidelity(state1=ket0, state2=ket1)
+    0.
+    >>> fidelityKet02 = qFunctions.fidelity(state1=ket0, state2=ket2)
+    0.5
+    >>> fidelityKet12 = qFunctions.fidelity(state1=ket1, state2=ket2)
+    0.5
+    >>> fidelityMat01 = qFunctions.fidelity(state1=denMat0, state2=denMat1)
+    0
+    >>> fidelityMat02 = qFunctions.fidelity(state1=denMat0, state2=denMat2)
+    0.5
+    >>> fidelityMat12 = qFunctions.fidelity(state1=denMat1, state2=denMat2)
+    0.5
     """
     if state1.shape[0] != state1.shape[1]:
         if state2.shape[0] != state2.shape[1]:
@@ -281,37 +298,19 @@ def fidelityKet(ket1: Union[spmatrix, ndarray], ket2: Union[spmatrix, ndarray]) 
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ket0 = qStates.basis(dimension=2, state=1)
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> fidelityKet01 = qFunctions.fidelityKet(state1=ket0, state2=ket1)
+    0.
+    >>> fidelityKet02 = qFunctions.fidelityKet(state1=ket0, state2=ket2)
+    0.5
+    >>> fidelityKet12 = qFunctions.fidelityKet(state1=ket1, state2=ket2)
+    0.5
     """
     herm = ket1.conj().T
     fidelityA = ((herm @ ket2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
-
-def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: List[Union[spmatrix, ndarray]]) -> List[float]:
-    """
-    Calculates `fidelity` between ``a ket state`` and ``list of ket states``
-
-    States can both be sparse or array or any combination of the two.
-
-    Parameters
-    ----------
-    :param `ket1` : ket state
-    :param `ketList` : `list` of ket states
-
-    Returns
-    -------
-    :return: `list` of fidelities between ``a ket state`` and ``list of ket states``
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-    fidelities = []
-    herm = ket1.conj().T
-    for ket in ketList:
-        fidelityA = ((herm @ ket).diagonal()).sum()
-        fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
-    return fidelities
 
 def fidelityPureMat(denMat1: Union[spmatrix, ndarray], denMat2: Union[spmatrix, ndarray]) -> float:
     """
@@ -330,10 +329,52 @@ def fidelityPureMat(denMat1: Union[spmatrix, ndarray], denMat2: Union[spmatrix, 
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ket0 = qStates.basis(dimension=2, state=1)
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> denMat0 = qStates.densityMatrix(ket0)
+    >>> denMat1 = qStates.densityMatrix(ket1)
+    >>> denMat2 = qStates.densityMatrix(ket2)
+    >>> fidelityMat01 = qFunctions.fidelityPureMat(state1=denMat0, state2=denMat1)
+    0
+    >>> fidelityMat02 = qFunctions.fidelityPureMat(state1=denMat0, state2=denMat2)
+    0.5
+    >>> fidelityMat12 = qFunctions.fidelityPureMat(state1=denMat1, state2=denMat2)
+    0.5
     """
     fidelityA = ((denMat1 @ denMat2).diagonal()).sum()
     return np.real(fidelityA)
+
+def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: List[Union[spmatrix, ndarray]]) -> List[float]:
+    """
+    Calculates `fidelity` between ``a ket state`` and ``list of ket states``
+
+    States can both be sparse or array or any combination of the two.
+
+    Parameters
+    ----------
+    :param `ket1` : ket state
+    :param `ketList` : `list` of ket states
+
+    Returns
+    -------
+    :return: `list` of fidelities between ``a ket state`` and ``list of ket states``
+
+    Examples
+    --------
+    >>> ket0 = qStates.basis(dimension=2, state=1)
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> ketList = [ket0, ket1, ket2]
+    >>> fidelityList = qFunctions.fidelityKetList(ket0, ketList)
+    [1, 0, 0.5000000000000001]
+    """
+    fidelities = []
+    herm = ket1.conj().T
+    for ket in ketList:
+        fidelityA = ((herm @ ket).diagonal()).sum()
+        fidelities.append(np.real(fidelityA * np.conj(fidelityA)))
+    return fidelities
 
 def fidelityKetLists(zippedStatesList: Any) -> List[float]:
     """
