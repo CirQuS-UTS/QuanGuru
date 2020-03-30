@@ -27,11 +27,11 @@ def number(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> numberArray = qOperators.number(N=3, sparse=False)
+    >>> numberArray = number(N=3, sparse=False)
     [[0 0 0]
     [0 1 0]
     [0 0 2]]
-    >>> numberSparse = qOperators.number(3)
+    >>> numberSparse = number(3)
     (0, 0)	0
     (1, 1)	1
     (2, 2)	2
@@ -59,10 +59,10 @@ def destroy(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> annihilation = qOperators.destroy(N=3)
+    >>> annihilation = destroy(N=3)
     (0, 1)	1.0
     (1, 2)	1.4142135623730951
-    >>> annihilation = qOperators.destroy(3, sparse=False)
+    >>> annihilation = destroy(3, sparse=False)
     [[0.         1.         0.        ]
     [0.         0.         1.41421356]
     [0.         0.         0.        ]]
@@ -75,7 +75,7 @@ def destroy(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
 def create(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
-    Creates the bosonic `creation` operator.
+    Creates the bosonic `creation` ($\hat{a}^{\dagger}$) operator.
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -90,10 +90,10 @@ def create(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> create = qOperators.create(3)
+    >>> create = create(3)
     (1, 0)	1.0
     (2, 1)	1.4142135623730951
-    >>> create = qOperators.create(3, sparse=False)
+    >>> create = create(3, sparse=False)
     [[0.         0.         0.        ]
     [1.         0.         0.        ]
     [0.         1.41421356 0.        ]]
@@ -121,11 +121,11 @@ def identity(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> identity = qOperators.identity(3)
+    >>> identity = identity(3)
     (0, 0)	1.0
     (1, 1)	1.0
     (2, 2)	1.0
-    >>> identity = qOperators.identity(3, sparse=False)
+    >>> identity = identity(3, sparse=False)
     [[1. 0. 0.]
     [0. 1. 0.]
     [0. 0. 1.]]
@@ -150,10 +150,10 @@ def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> sz = qOperators.sigmaz(sparse=False)
+    >>> sz = sigmaz(sparse=False)
     [[ 1  0]
     [ 0 -1]]
-    >>> sz = qOperators.sigmaz()
+    >>> sz = sigmaz()
     (0, 0)	1
     (1, 1)	-1
     """
@@ -181,10 +181,10 @@ def sigmay(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> sy = qOperators.sigmay(sparse=False)
+    >>> sy = sigmay(sparse=False)
     [[0.+0.j 0.-1.j]
     [0.+1.j 0.+0.j]]
-    >>> sy = qOperators.sigmay()
+    >>> sy = sigmay()
     (1, 0)	1j
     (0, 1)	(-0-1j)
     """
@@ -212,10 +212,10 @@ def sigmax(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> sx = qOperators.sigmax(sparse=False)
+    >>> sx = sigmax(sparse=False)
     [[0 1]
     [1 0]]
-    >>> sx = qOperators.sigmax()
+    >>> sx = sigmax()
     (1, 0)	1
     (0, 1)	1
     """
@@ -243,10 +243,10 @@ def sigmap(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> sp = qOperators.sigmap(sparse=False)
+    >>> sp = sigmap(sparse=False)
     [[0 1]
     [0 0]]
-    >>> sp = qOperators.sigmap()
+    >>> sp = sigmap()
     (0, 1)	1
     """
     data = [1]
@@ -273,10 +273,10 @@ def sigmam(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> sm = qOperators.sigmam(sparse=False)
+    >>> sm = sigmam(sparse=False)
     [[0 0]
     [1 0]]
-    >>> sm = qOperators.sigmam()
+    >>> sm = sigmam()
     (1, 0)	1
     """
     data = [1]
@@ -303,25 +303,25 @@ def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> jz0 = qOperators.Jz(j=2, isDim=False, sparse=False)
+    >>> jz0 = Jz(j=2, isDim=False, sparse=False)
     [[ 2  0  0  0  0]
     [ 0  1  0  0  0]
     [ 0  0  0  0  0]
     [ 0  0  0 -1  0]
     [ 0  0  0  0 -2]]
-    >>> jz0 = qOperators.Jz(j=2, isDim=False)
+    >>> jz0 = Jz(j=2, isDim=False)
     (0, 0)	2
     (1, 1)	1
     (2, 2)	0
     (3, 3)	-1
     (4, 4)	-2
-    >>> jz1 = qOperators.Jz(j=5, sparse=False)
+    >>> jz1 = Jz(j=5, sparse=False)
     [[ 2.  0.  0.  0.  0.]
     [ 0.  1.  0.  0.  0.]
     [ 0.  0.  0.  0.  0.]
     [ 0.  0.  0. -1.  0.]
     [ 0.  0.  0.  0. -2.]]
-    >>> jz1 = qOperators.Jz(j=5, isDim=True)
+    >>> jz1 = Jz(j=5, isDim=True)
     (0, 0)	2.0
     (1, 1)	1.0
     (2, 2)	0.0
@@ -357,24 +357,24 @@ def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> jp0 = qOperators.Jp(j=2, isDim=False, sparse=False)
+    >>> jp0 = Jp(j=2, isDim=False, sparse=False)
     [[0.         2.         0.         0.         0.        ]
     [0.         0.         2.44948974 0.         0.        ]
     [0.         0.         0.         2.44948974 0.        ]
     [0.         0.         0.         0.         2.        ]
     [0.         0.         0.         0.         0.        ]]
-    >>> jp0 = qOperators.Jp(j=2, isDim=False)
+    >>> jp0 = Jp(j=2, isDim=False)
     (0, 1)	2.0
     (1, 2)	2.449489742783178
     (2, 3)	2.449489742783178
     (3, 4)	2.0
-    >>> jp1 = qOperators.Jp(j=5, sparse=False)
+    >>> jp1 = Jp(j=5, sparse=False)
     [[0.         2.         0.         0.         0.        ]
     [0.         0.         2.44948974 0.         0.        ]
     [0.         0.         0.         2.44948974 0.        ]
     [0.         0.         0.         0.         2.        ]
     [0.         0.         0.         0.         0.        ]]
-    >>> jp1 = qOperators.Jp(j=5, isDim=True)
+    >>> jp1 = Jp(j=5, isDim=True)
     (0, 1)	2.0
     (1, 2)	2.449489742783178
     (2, 3)	2.449489742783178
@@ -410,24 +410,24 @@ def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> jm0 = qOperators.Jm(j=2, isDim=False, sparse=False)
+    >>> jm0 = Jm(j=2, isDim=False, sparse=False)
     [[0.         0.         0.         0.         0.        ]
     [2.         0.         0.         0.         0.        ]
     [0.         2.44948974 0.         0.         0.        ]
     [0.         0.         2.44948974 0.         0.        ]
     [0.         0.         0.         2.         0.        ]]
-    >>> jm0 = qOperators.Jm(j=2, isDim=False)
+    >>> jm0 = Jm(j=2, isDim=False)
     (1, 0)	2.0
     (2, 1)	2.449489742783178
     (3, 2)	2.449489742783178
     (4, 3)	2.0
-    >>> jm1 = qOperators.Jm(j=5, sparse=False)
+    >>> jm1 = Jm(j=5, sparse=False)
     [[0.         0.         0.         0.         0.        ]
     [2.         0.         0.         0.         0.        ]
     [0.         2.44948974 0.         0.         0.        ]
     [0.         0.         2.44948974 0.         0.        ]
     [0.         0.         0.         2.         0.        ]]
-    >>> jm1 = qOperators.Jm(j=5, isDim=True)
+    >>> jm1 = Jm(j=5, isDim=True)
     (1, 0)	2.0
     (2, 1)	2.449489742783178
     (3, 2)	2.449489742783178
@@ -463,13 +463,13 @@ def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> jx0 = qOperators.Jx(j=2, isDim=False, sparse=False)
+    >>> jx0 = Jx(j=2, isDim=False, sparse=False)
     [[0.         1.         0.         0.         0.        ]
     [1.         0.         1.22474487 0.         0.        ]
     [0.         1.22474487 0.         1.22474487 0.        ]
     [0.         0.         1.22474487 0.         1.        ]
     [0.         0.         0.         1.         0.        ]]
-    >>> jx0 = qOperators.Jx(j=2, isDim=False)
+    >>> jx0 = Jx(j=2, isDim=False)
     (1, 0)	1.0
     (0, 1)	1.0
     (2, 1)	1.224744871391589
@@ -478,13 +478,13 @@ def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (2, 3)	1.224744871391589
     (4, 3)	1.0
     (3, 4)	1.0
-    >>> jx1 = qOperators.Jx(j=5, sparse=False)
+    >>> jx1 = Jx(j=5, sparse=False)
     [[0.         1.         0.         0.         0.        ]
     [1.         0.         1.22474487 0.         0.        ]
     [0.         1.22474487 0.         1.22474487 0.        ]
     [0.         0.         1.22474487 0.         1.        ]
     [0.         0.         0.         1.         0.        ]]
-    >>> jx1 = qOperators.Jx(j=5, isDim=True)
+    >>> jx1 = Jx(j=5, isDim=True)
     (1, 0)	1.0
     (0, 1)	1.0
     (2, 1)	1.224744871391589
@@ -515,13 +515,13 @@ def Jy(j, sparse=True, isDim=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> jy0 = qOperators.Jy(j=2, isDim=False, sparse=False)
+    >>> jy0 = Jy(j=2, isDim=False, sparse=False)
     [[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]
     [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]
     [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]
     [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]
     [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]
-    >>> jy0 = qOperators.Jy(j=2, isDim=False)
+    >>> jy0 = Jy(j=2, isDim=False)
     (1, 0)	1j
     (0, 1)	-1j
     (2, 1)	1.224744871391589j
@@ -530,13 +530,13 @@ def Jy(j, sparse=True, isDim=True) -> Union[spmatrix, ndarray]:
     (2, 3)	-1.224744871391589j
     (4, 3)	1j
     (3, 4)	-1j
-    >>> jy1 = qOperators.Jy(j=5, sparse=False)
+    >>> jy1 = Jy(j=5, sparse=False)
     [[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]
     [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]
     [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]
     [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]
     [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]
-    >>> jy1 = qOperators.Jy(j=5, isDim=True)
+    >>> jy1 = Jy(j=5, isDim=True)
     (1, 0)	1j
     (0, 1)	-1j
     (2, 1)	1.224744871391589j
@@ -567,25 +567,25 @@ def Js(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> js0 = qOperators.Js(j=2, isDim=False, sparse=False)
+    >>> js0 = Js(j=2, isDim=False, sparse=False)
     [[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
     [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
     [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
     [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
     [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
-    >>> js0 = qOperators.Js(j=2, isDim=False)
+    >>> js0 = Js(j=2, isDim=False)
     (0, 0)	(6+0j)
     (1, 1)	(6+0j)
     (2, 2)	(5.999999999999999+0j)
     (3, 3)	(6+0j)
     (4, 4)	(6+0j)
-    >>> js1 = qOperators.Js(j=5, sparse=False)
+    >>> js1 = Js(j=5, sparse=False)
     [[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
     [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
     [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
     [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
     [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
-    >>> js1 = qOperators.Js(j=5, isDim=True)
+    >>> js1 = Js(j=5, isDim=True)
     (0, 0)	(6+0j)
     (1, 1)	(6+0j)
     (2, 2)	(5.999999999999999+0j)
@@ -614,21 +614,20 @@ def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Union[spm
 
     Examples
     --------
-    >>> squareSigmaX = qOperators.operatorPow(op=qOperators.sigmax, dim=2, power=2, sparse=False)
+    >>> squareSigmaX = operatorPow(op=sigmax, dim=2, power=2, sparse=False)
     [[1 0]
     [0 1]]
-    >>> squareSigmaX = qOperators.operatorPow(op=qOperators.sigmax, dim=2, power=2)
+    >>> squareSigmaX = operatorPow(op=sigmax, dim=2, power=2)
     (0, 0)	1
     (1, 1)	1
-    >>> cubedSigmaX = qOperators.operatorPow(op=qOperators.sigmax, dim=2, power=3, sparse=False)
+    >>> cubedSigmaX = operatorPow(op=sigmax, dim=2, power=3, sparse=False)
     [[0 1]
     [1 0]]
-    >>> cubedSigmaX = qOperators.operatorPow(op=qOperators.sigmax, dim=2, power=3)
+    >>> cubedSigmaX = operatorPow(op=sigmax, dim=2, power=3)
     (1, 0)	1
     (0, 1)	1
     """
     return op(dim, sparse)**power
-
 
 def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
@@ -647,13 +646,13 @@ def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> paritySum = qOperators.paritySUM(N=5, sparse=False)
+    >>> paritySum = paritySUM(N=5, sparse=False)
     [[ 1.  0.  0.  0.  0.]
     [ 0. -1.  0.  0.  0.]
     [ 0.  0.  1.  0.  0.]
     [ 0.  0.  0. -1.  0.]
     [ 0.  0.  0.  0.  1.]]
-    >>> paritySum = qOperators.paritySUM(N=5)
+    >>> paritySum = paritySUM(N=5)
     (0, 0)	1.0
     (1, 1)	-1.0
     (2, 2)	1.0
@@ -685,15 +684,15 @@ def parityEXP(HamiltonianCavity: Union[spmatrix, ndarray]) -> Union[spmatrix, nd
 
     Examples
     --------
-    >>> ham = qOperators.number(N=5, sparse=False)
-    >>> parityEXP = qOperators.parityEXP(HamiltonianCavity=ham) # returns an array since ham is an array
+    >>> ham = number(N=5, sparse=False)
+    >>> parityEXP = parityEXP(HamiltonianCavity=ham) # returns an array since ham is an array
     [[ 1.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
     [ 0.+0.0000000e+00j -1.+1.2246468e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j]
     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  -1.+3.6739404e-16j  0.+0.0000000e+00j]
     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  1.-4.8985872e-16j]]
-    >>> ham = qOperators.number(N=5)
-    >>> parityEXP = qOperators.parityEXP(HamiltonianCavity=ham) # returns a sparse since ham is a sparse
+    >>> ham = number(N=5)
+    >>> parityEXP = parityEXP(HamiltonianCavity=ham) # returns a sparse since ham is a sparse
     (0, 0)	(1+0j)
     (0, 1)	0j
     (1, 1)	(-1+1.2246467991473532e-16j)
@@ -756,12 +755,12 @@ def displacement(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, nd
 
     Examples
     --------
-    >>> disp = qOperators.displacement(alpha=1j, dim=4, sparse=False)
+    >>> disp = displacement(alpha=1j, dim=4, sparse=False)
     [[ 0.60605894+0.j          0.        +0.6100857j  -0.41242505+0.j       0.        -0.30065525j]
     [ 0.        +0.6100857j   0.02280184+0.j          0.        +0.34204129j        -0.71434114+0.j]
     [-0.41242505+0.j          0.        +0.34204129j -0.56045527+0.j        0.        +0.63150869j]
     [ 0.        -0.30065525j -0.71434114+0.j          0.        +0.63150869j        0.02280184+0.j]]
-    >>> disp = qOperators.displacement(alpha=1j, dim=4)
+    >>> disp = displacement(alpha=1j, dim=4)
     (0, 0)	(0.6060589372864117+0j)
     (1, 0)	0.610085698426889j
     (2, 0)	(-0.41242505189886125+0j)
@@ -801,12 +800,12 @@ def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, ndarray
 
     Examples
     --------
-    >>> squeeze = qOperators.squeeze(alpha=1j, dim=4, sparse=False)
+    >>> squeeze = squeeze(alpha=1j, dim=4, sparse=False)
     [[0.7602446 +0.j         0.        +0.j         0.        -0.64963694j      0.        +0.j        ]
     [0.        +0.j         0.33918599+0.j         0.        +0.j               0.        -0.94071933j]
     [0.        -0.64963694j 0.        +0.j         0.7602446 +0.j               0.        +0.j        ]
     [0.        +0.j         0.        -0.94071933j 0.        +0.j               0.33918599+0.j        ]]
-    >>> squeeze = qOperators.squeeze(alpha=1j, dim=4)
+    >>> squeeze = squeeze(alpha=1j, dim=4)
     (0, 0)	(0.7602445970756301+0j)
     (2, 0)	-0.6496369390800625j
     (1, 1)	(0.3391859889869473+0j)
@@ -837,8 +836,8 @@ def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union
     Examples
     --------
     TODO Update these 
-    >>> szQ1 = qOperators.compositeOp(operator=qOperators.sigmaz(), dimB=0, dimA=2)
-    >>> szQ2 = qOperators.compositeOp(operator=qOperators.sigmaz(), dimB=2, dimA=0)
+    >>> szQ1 = compositeOp(operator=sigmaz(), dimB=0, dimA=2)
+    >>> szQ2 = compositeOp(operator=sigmaz(), dimB=2, dimA=0)
     >>> print(szQ1.A)
     [[ 1.  0.  0.  0.]
     [ 0.  1.  0.  0.]

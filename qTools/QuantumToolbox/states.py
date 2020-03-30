@@ -303,11 +303,11 @@ def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]],
 
     Parameters
     ----------
-    :param `ρ` : Matrix to trace
     :param `keep` : An array of indices of the spaces to keep after being traced. For instance, if the space is
         A x B x C x D and we want to trace out B and D, keep = [0,2]
     dims : An array of the dimensions of each space. For instance, if the space is A x B x C x D,
         dims = [dim_A, dim_B, dim_C, dim_D]
+    :param `state` : Matrix to trace
 
     Returns
     -------
