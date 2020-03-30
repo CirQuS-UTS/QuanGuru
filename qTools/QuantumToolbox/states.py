@@ -4,7 +4,7 @@
 import scipy.sparse as sp
 import numpy as np
 
-from typing import Union, Dict, List
+from typing import Union, Dict, List, Optional
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
@@ -175,6 +175,16 @@ def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [0.4 0.8]]
     """
     return (ket @ (ket.conj().T))
+
+def completeBasisMat(dimension:int, compKetBase:Optional[List[Union[spmatrix, ndarray]]]=None, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
+    if compKetBase is None:
+        compBase = completeBasis(dimension, sparse)
+    else:
+        compBase = compKetBase
+        
+    for i, state in enumerate(compBase):
+        compBase[i] = densityMatrix(state)
+    return compBase
 
 def normalise(state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     """
