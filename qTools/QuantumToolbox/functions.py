@@ -499,7 +499,16 @@ def iprKet(basis: List[Union[spmatrix, ndarray]], ket: Union[spmatrix, ndarray])
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> completeBasis = qStates.completeBasis(dimension=2)
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> ipr0 = qFunctions.iprKet(completeBasis, state0)
+    1.1245136186770428
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> ipr1 = qFunctions.iprKet(completeBasis, state1)
+    2.000000000000001
+    >>> state2 = qStates.basis(2,1)
+    >>> ipr2 = qFunctions.iprKet(completeBasis, state2)
+    1.0
     """
     npc = 0.0
     for basKet in basis:
@@ -524,7 +533,14 @@ def iprKetList(basis: List[Union[spmatrix, ndarray]], kets: List[Union[spmatrix,
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> completeBasis = qStates.completeBasis(dimension=2)
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> state2 = qStates.basis(2,1)
+    >>> state3 = qStates.basis(2,0)
+    >>> stateList = [state0, state1, state2, state3]
+    >>> iprList = qFunctions.iprKetList(completeBasis, stateList)
+    [1.1245136186770428, 2.000000000000001, 1.0, 1.0]
     """
     npcs = []
     for ket in kets:
@@ -546,9 +562,22 @@ def iprKetNB(ket: Union[spmatrix, ndarray]) -> float:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> ipr0 = qFunctions.iprKetNB(state0)
+    1.1245136186770428
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> ipr1 = qFunctions.iprKetNB(state1)
+    2.000000000000001
+    >>> state2 = qStates.basis(2,1)
+    >>> ipr2 = qFunctions.iprKetNB(state2)
+    1.0
+    >>> state3 = qStates.basis(2,0)
+    >>> ipr3 = qFunctions.iprKetNB(state3)
+    1.0
     """
-    return 1/np.sum(np.power((np.abs(ket.A.flatten())),4))
+    if isinstance(ket, spmatrix):
+        ket = ket.A
+    return 1/np.sum(np.power((np.abs(ket.flatten())),4))
 
 def iprKetNBList(kets: List[Union[spmatrix, ndarray]]) -> List[float]:
     """
@@ -567,7 +596,13 @@ def iprKetNBList(kets: List[Union[spmatrix, ndarray]]) -> List[float]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> state2 = qStates.basis(2,1)
+    >>> state3 = qStates.basis(2,0)
+    >>> stateList = [state0, state1, state2, state3]
+    >>> iprList = qFunctions.iprKetNBList(stateList)
+    [1.1245136186770428, 2.000000000000001, 1.0, 1.0]
     """
     IPRatio = []
     for ket in kets:
@@ -592,7 +627,14 @@ def iprKetNBmat(kets: ndarray) -> List[float]:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ham = qOperators.sigmaz()
+    >>> eigValsHam, eigVecsHams = np.linalg.eig(ham.A)
+    >>> iprHam = qFunctions.iprKetNBmat(eigVecsHams)
+    [1.0, 1.0]
+    >>> unitary = sp.sparse.linalg.expm(ham) 
+    >>> eigValsUni, eigVecsUni = np.linalg.eig(unitary.A)
+    >>> iprUni = qFunctions.iprKetNBmat(eigVecsUni)
+    [1.0, 1.0]
     """
     IPRatio = []
     for ind in range(len(kets)):
@@ -614,7 +656,19 @@ def iprPureDenMat(basis: List[Union[spmatrix, ndarray]], denMat: Union[spmatrix,
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> completeBasis = qStates.completeBasisMat(dimension=2)
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> denMat0 = qStates.densityMatrix(state0)
+    >>> ipr0 = qFunctions.iprPureDenMat(completeBasis, denMat0)
+    1.1245136186770428
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> denMat1 = qStates.densityMatrix(state1)
+    >>> ipr1 = qFunctions.iprPureDenMat(completeBasis, denMat1)
+    2.000000000000001
+    >>> state2 = qStates.basis(2,1)
+    >>> denMat2 = qStates.densityMatrix(state2)
+    >>> ipr2 = qFunctions.iprPureDenMat(completeBasis, denMat2)
+    1.0
     """
     npc = 0.0
     for basKet in basis:
