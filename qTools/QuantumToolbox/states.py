@@ -39,6 +39,12 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse else n.A
 
+def completeBasis(dimension:int, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
+    compBasis = []
+    for i in range(dimension):
+        compBasis.append(basis(dimension, i, sparse))
+    return compBasis
+
 def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     """
     Creates a `bra` state
