@@ -765,4 +765,6 @@ def eigVecStatKetNB(ket: Union[spmatrix, ndarray]) -> float:
     --------
     # TODO Create some examples both in here and the demo script
     """
-    return 1/np.sum(np.power((np.abs(ket.A.flatten())),2))
+    if isinstance(ket, spmatrix):
+        ket = ket.A
+    return np.real(ket.flatten())
