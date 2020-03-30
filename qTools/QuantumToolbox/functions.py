@@ -36,7 +36,26 @@ def expectation(operator: Union[spmatrix, ndarray], state: Union[spmatrix, ndarr
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ket = qStates.basis(dimension=2, state=1)
+    >>> denMat = qStates.densityMatrix(ket)
+    >>> sigmaz = qOperators.sigmaz()
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket)
+    -1
+    >>> expectMat = qFunctions.expectation(sigmaz, denMat)
+    -1
+    >>> import numpy as np
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket1)
+    1
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket2)
+    0
+    >>> denMat1 = qStates.densityMatrix(ket1)
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=denMat1)
+    1
+    >>> denMat2 = qStates.densityMatrix(ket2)
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=denMat2)
+    0
     """
     if state.shape[0] != state.shape[1]:
         state = state @ (state.conj().T)
@@ -61,7 +80,20 @@ def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, n
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ket = qStates.basis(dimension=2, state=1)
+    >>> denMat = qStates.densityMatrix(ket)
+    >>> sigmaz = qOperators.sigmaz()
+    >>> expectMat = qFunctions.expectation(sigmaz, denMat)
+    -1
+    >>> import numpy as np
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> denMat1 = qStates.densityMatrix(ket1)
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=denMat1)
+    1
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> denMat2 = qStates.densityMatrix(ket2)
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=denMat2)
+    0
     """
     expc = ((operator @ denMat).diagonal()).sum()
     return np.real(expc)
@@ -86,7 +118,17 @@ def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndar
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ket = qStates.basis(dimension=2, state=1)
+    >>> sigmaz = qOperators.sigmaz()
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket)
+    -1
+    >>> import numpy as np
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket1)
+    1
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> expectKet = qFunctions.expectation(operator=sigmaz, state=ket2)
+    0
     """
     denMat = ket @ (ket.conj().T)
     return expectationMat(operator, denMat)
@@ -109,7 +151,12 @@ def expectationKetList(operator: Union[spmatrix, ndarray], kets: List[Union[spma
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ket0 = qStates.basis(dimension=2, state=1)
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> ketList = [ket0, ket1, ket2]
+    >>> expectKetList = qFunctions.expectationKetList(operator=sigmaz, kets=ketList)
+    [-1, 1, 0.0]
     """
     expectations = []
     for ket in kets:
@@ -134,7 +181,15 @@ def expectationMatList(operator: Union[spmatrix, ndarray], denMats:  List[Union[
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ket0 = qStates.basis(dimension=2, state=1)
+    >>> ket1 = qStates.basis(dimension=2, state=0)
+    >>> ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)
+    >>> denMat0 = qStates.densityMatrix(ket0)
+    >>> denMat1 = qStates.densityMatrix(ket1)
+    >>> denMat2 = qStates.densityMatrix(ket2)
+    >>> denMatList = [denMat0, denMat1, denMat2]
+    >>> expectMatList = qFunctions.expectationMatList(sigmaz, denMats=denMatList)
+    [-1, 1, 0.0]
     """
     expectations = []
     for denMat in denMats:
@@ -162,7 +217,14 @@ def expectationColArr(operator: Union[spmatrix, ndarray], states: ndarray) -> Li
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> ham = qOperators.sigmaz(sparse=False)
+    >>> eigVals, eigVecs = np.linalg.eig(ham)
+    >>> sz = qOperators.sigmaz()
+    >>> sx = qOperators.sigmax()
+    >>> expectZ = qFunctions.expectationColArr(sz, eigVecs)
+    [ 1. -1.]
+    >>>> expectX = qFunctions.expectationColArr(sx, eigVecs)
+    [0. 0.]
     """
     expMat = states.conj().T @ operator @ states
     return expMat.diagonal()
