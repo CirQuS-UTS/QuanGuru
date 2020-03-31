@@ -26,7 +26,7 @@ class genericQSys(qUniversal):
         return self._genericQSys__paramUpdated
 
     @_paramUpdated.setter
-    def _paramUpdated(self, boolean):
+    def _paramUpdated(self, boolean): 
         self._genericQSys__paramUpdated = boolean
 
     # constructed boolean setter and getter
@@ -39,25 +39,11 @@ class genericQSys(qUniversal):
         self._genericQSys__constructed = tf
     
     # Unitary property and setter
-    # TODO should this always be the freeEvolution
     @property
     def unitary(self):
-        if isinstance(self._genericQSys__unitary, qUniversal):
-            unitary = self._genericQSys__unitary.createUnitary()
-        elif isinstance(self._genericQSys__unitary, list):
-            # TODO is list idea the best option ?
-            unitary = []
-            for protocol in self._genericQSys__unitary:
-                unitary.append(protocol.createUnitary())
+        unitary = self._genericQSys__unitary.createUnitary()
         self._paramUpdated = False
         return unitary
-
-    @unitary.setter
-    def unitary(self, protocols):
-        if protocols is not None:
-            self._genericQSys__unitary = protocols
-        elif protocols is None:
-            self._genericQSys__unitary = freeEvolution(superSys=self)
 
     # initial state
     @property
