@@ -6,7 +6,7 @@ import scipy.sparse.linalg as slinA
 import numpy as np
 import scipy.linalg as linA
 
-from typing import Union, Tuple, Any, List, Optional
+from typing import Union, Optional
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
@@ -37,7 +37,7 @@ def Unitary(Hamiltonian: Union[spmatrix, ndarray], timeStep:float=1.0) -> Union[
         liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep)
     return liouvillianEXP
 
-def Liouvillian(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, timeStep:float=1.0, collapseOperators:list=[], decayRates:list=[]) -> Union[spmatrix, ndarray]:
+def Liouvillian(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, collapseOperators:list=[], decayRates:list=[]) -> Union[spmatrix, ndarray]:
     """
     Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates).
 
@@ -108,7 +108,7 @@ def LiouvillianExp(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, timeStep
         sparse = sp.issparse(collapseOperators[0])
 
     if len(collapseOperators) != 0:
-        liouvillian = Liouvillian(Hamiltonian, timeStep, collapseOperators, decayRates)
+        liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates)
         if exp is True:
             if sparse is True:
                 liouvillianEXP = slinA.expm(liouvillian * timeStep)
