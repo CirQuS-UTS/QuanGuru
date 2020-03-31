@@ -140,7 +140,7 @@ def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Parameters
     ----------
-    # FIXME N is meaningles, it is introduces to make objects more uniform, might remove later
+    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
     :param `N` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
@@ -171,7 +171,7 @@ def sigmay(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Parameters
     ----------
-    # FIXME N is meaningles, it is introduces to make objects more uniform, might remove later
+    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
     :param `N` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
@@ -202,7 +202,7 @@ def sigmax(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Parameters
     ----------
-    # FIXME N is meaningles, it is introduces to make objects more uniform, might remove later
+    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
     :param `N` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
@@ -233,7 +233,7 @@ def sigmap(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Parameters
     ----------
-    # FIXME N is meaningles, it is introduces to make objects more uniform, might remove later
+    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
     :param `N` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
@@ -263,7 +263,7 @@ def sigmam(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
 
     Parameters
     ----------
-    # FIXME N is meaningles, it is introduces to make objects more uniform, might remove later
+    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
     :param `N` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 

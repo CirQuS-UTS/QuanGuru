@@ -1,6 +1,6 @@
 from numpy import arange, logspace
 from functools import reduce
-from qTools.classes.QUni import qUniversal
+
 from qTools.classes.updateBase import updateBase
 from qTools.classes.computeBase import computeBase
 

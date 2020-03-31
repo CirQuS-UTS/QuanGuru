@@ -16,10 +16,8 @@ def runSimulation(qSim, p):
 
 # function used in modular sweep
 def indicesForSweep(ind, *args):
-    remain = 0
     indices = []
     for arg in args:
-        #print(ind, arg)
         remain = ind%arg
         ind = (ind-remain)/arg
         indices.insert(0, int(remain))

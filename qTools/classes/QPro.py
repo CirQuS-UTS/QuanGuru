@@ -1,6 +1,6 @@
 import qTools.QuantumToolbox.evolution as lio
 from qTools.classes.timeBase import timeBase
-from qTools.QuantumToolbox.operators import compositeOp, identity
+from qTools.QuantumToolbox.operators import identity
 import numpy as np
 from qTools.classes.updateBase import updateBase
 """ under construction """

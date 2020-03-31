@@ -1,8 +1,5 @@
-from copy import deepcopy
-from itertools import chain
 from qTools.classes.QUni import qUniversal
 from collections import defaultdict
-from numpy import reshape, array
 
 __all__ = [
     'qResults'
