@@ -1,4 +1,8 @@
-from multiprocessing import Pool
+import qTools.QuantumToolbox.states as qStates
+
+ket =qStates.basis()
+
+'''from multiprocessing import Pool
 import datetime
 import time
 
@@ -34,4 +38,4 @@ if __name__ == '__main__':
     print(resMap0)
     print(resMap1)
     print(resMap2)
-    print(resMap3)
+    print(resMap3)'''
