@@ -54,11 +54,12 @@ class QuantumSystem(genericQSys):
     instances = 0
     label = 'QuantumSystem'
 
-    __slots__ = ['__qCouplings', 'couplingName', '__kept']
+    __slots__ = ['__qCouplings', '__qSystems', 'couplingName', '__kept']
     
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__qCouplings = {}
+        self.__qSystems = {}
 
         self.couplingName = None
 
@@ -79,14 +80,14 @@ class QuantumSystem(genericQSys):
         return self._qUniversal__subSys
 
     def __addSub(self, subSys):
-        for key, subS in self._qUniversal__subSys.items():
+        for key, subS in self._QuantumSystem__qSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
             
         if subSys._qSystem__Matrix is not None:
             subSys._qSystem__Matrix = None
 
-        #self._qUniversal__subSys[subSys.name] = subSys
+        self._QuantumSystem__qSystems[subSys.name] = subSys
         subSys.superSys = self
         return subSys
 
@@ -256,8 +257,9 @@ class qSystem(genericQSys):
             print('This is a term in ', self.superSys)
 
     @genericQSys.initialState.setter
+    @asignState(qSta.superPos)
     def initialState(self, state):
-        qSta.superPos(state)
+        pass
 
     @property
     def frequency(self):
