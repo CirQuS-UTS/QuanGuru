@@ -101,7 +101,10 @@ class QuantumSystem(genericQSys):
             raise TypeError('?')
         return newSys
 
-    def createSubSys(self, subClass, n=1, **kwargs):
+    def createSubSys(self, subClass=None, n=1, **kwargs):
+        if subClass is None:
+            subClass = qSystem
+
         newSubs = []
         for ind in range(n):
             newSubs.append(self.addSubSys(subClass, **kwargs))
