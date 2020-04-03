@@ -75,8 +75,6 @@ class qProtocol(timeBase):
             if not isinstance(step, copyStep):
                 step.delMatrices()
 
-
-
 class Step(timeBase):
     instances = 0
     label = 'Step'
@@ -231,7 +229,6 @@ class Gate(Step):
     @implementation.setter
     def implementation(self, typeStr):
         self._Gate__implementation = typeStr
-
 
 class Update(updateBase):
     instances = 0

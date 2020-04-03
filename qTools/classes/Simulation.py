@@ -138,7 +138,6 @@ class Simulation(timeBase):
             self.qRes.allResults[key]._qResBase__states[key] = val
         return self.qRes
 
-
 class _poolMemory:
     coreCount = None
     

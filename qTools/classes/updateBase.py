@@ -1,6 +1,5 @@
 from qTools.classes.QUni import qUniversal
 
-
 class updateBase(qUniversal):
     instances = 0
     label = 'updateBase'

@@ -12,8 +12,10 @@ def asignState(stateCreationFunc):
                 else:
                     print('Dimension mismatch')
             elif isinstance(inp, int):
+                # FIXME what if an int is given for a composite system
                 obj._genericQSys__initialState = stateCreationFunc(obj.dimension, inp)
-            elif len(inp) == len(obj.qSystems):
+            else:
+                # FIXME what if number of entries in the list/dict is not same as composite system, or the list/dict is for a single system super-position
                 dims = [val.dimension for val in obj.qSystems.values()]
                 obj._genericQSys__initialState = stateCreationFunc(dims, inp)
         return wrapper

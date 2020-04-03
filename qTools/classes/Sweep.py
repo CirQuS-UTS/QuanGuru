@@ -67,7 +67,6 @@ class _sweep(updateBase):
     def runSweep(self, ind):
         self._updateBase__function(self, ind)
 
-
 class Sweep(computeBase):
     instances = 0
     label = 'Sweep'

@@ -5,7 +5,6 @@ from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance, constructConditions
 from qTools.classes.QPro import freeEvolution
 
-
 class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
@@ -49,7 +48,6 @@ class genericQSys(qUniversal):
     @property
     def initialState(self):
         return self._genericQSys__initialState
-
 
 # Composite Quantum system
 class QuantumSystem(genericQSys):
@@ -221,7 +219,6 @@ class QuantumSystem(genericQSys):
     def initialState(self, inp):
         pass
 
-
 # quantum system objects
 class qSystem(genericQSys):
     instances = 0
@@ -258,9 +255,8 @@ class qSystem(genericQSys):
             print('This is a term in ', self.superSys)
 
     @genericQSys.initialState.setter
-    @asignState(qSta.superPos)
     def initialState(self, state):
-        pass
+        qSta.superPos(state)
 
     @property
     def frequency(self):
@@ -353,7 +349,6 @@ class qSystem(genericQSys):
         copySys._qUniversal__setKwargs(**kwargs)
         return copySys
 
-
 class Qubit(qSystem):
     instances = 0
     label = 'Qubit'
@@ -369,7 +364,6 @@ class Qubit(qSystem):
     def totalHam(self):
         h = qSystem.totalHam.fget(self)
         return h if self.operator is qOps.number else 0.5*h
-
 
 class Spin(qSystem):
     instances = 0
@@ -391,7 +385,6 @@ class Spin(qSystem):
         self._Spin__jValue = value
         self.dimension = int((2*value) + 1)
 
-
 class Cavity(qSystem):
     instances = 0
     label = 'Cavity'
@@ -401,7 +394,6 @@ class Cavity(qSystem):
         super().__init__(name=kwargs.pop('name', None))
         self.operator = qOps.number
         self._qUniversal__setKwargs(**kwargs)
-
 
 # quantum coupling object
 class qCoupling(qUniversal):
@@ -542,7 +534,6 @@ class qCoupling(qUniversal):
                 counter += 1"""
         return self
 
-
 class envCoupling(qCoupling):
     instances = 0
     label = 'envCoupling'
@@ -551,7 +542,6 @@ class envCoupling(qCoupling):
     def __init__(self, *args, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
-
 
 class sysCoupling(qCoupling):
     instances = 0
