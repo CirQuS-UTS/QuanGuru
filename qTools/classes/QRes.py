@@ -32,7 +32,6 @@ class qResBase(qUniversal):
     def _saveResults(self):
         pass
     
-
 class qResults(qResBase):
     instances = 0
     label = 'qResults'
@@ -105,5 +104,3 @@ class qResults(qResBase):
                 totalCount += 1
             return (newList, totalCount)
         return (newList, totalCount)
-
-
