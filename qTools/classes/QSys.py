@@ -86,16 +86,18 @@ class QuantumSystem(genericQSys):
         if subSys._qSystem__Matrix is not None:
             subSys._qSystem__Matrix = None
 
-        self._qUniversal__subSys[subSys.name] = subSys
+        #self._qUniversal__subSys[subSys.name] = subSys
         subSys.superSys = self
         return subSys
 
     def addSubSys(self, subSys, **kwargs):
         newSys = super().addSubSys(subSys, **kwargs)
-        if isinstance(newSys, qSystem):
-            self._QuantumSystem__addSub(newSys)
-        elif isinstance(newSys, qCoupling):
+        if isinstance(newSys, qCoupling):
             self._QuantumSystem__addCoupling(self._qUniversal__subSys.pop(newSys.name))
+        elif ((isinstance(newSys, qSystem)) or (isinstance(newSys, self.__class__))):
+            self._QuantumSystem__addSub(newSys)
+        else:
+            raise TypeError('?')
         return newSys
 
     def createSubSys(self, subClass, n=1, **kwargs):
