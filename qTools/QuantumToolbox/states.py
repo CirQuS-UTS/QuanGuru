@@ -56,14 +56,14 @@ def completeBasis(dimension:int, sparse:bool=True) -> List[Union[spmatrix, ndarr
 
     Examples
     --------
-    >>> completeBasis0 = qStates.completeBasis(2, sparse=False)
+    >>> completeBasis0 = completeBasis(2, sparse=False)
     >>> for state in completeBasis0:
     >>>    print(state)
     [[1]
     [0]]
     [[0]
     [1]]
-    >>> completeBasis1 = qStates.completeBasis(2)
+    >>> completeBasis1 = completeBasis(2)
     >>> for state in completeBasis1:
     >>>    print(state)
     (0, 0)	1
@@ -223,28 +223,28 @@ def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Uni
 
     Examples
     --------
-    >>> completeBasis0 = qStates.completeBasis(2, sparse=False)
-    >>> completeBasis1 = qStates.completeBasis(2)
-    >>> completeBasisMat0 = qStates.completeBasisMat(dimension=2, compKetBase=completeBasis0)
+    >>> completeBasis0 = completeBasis(2, sparse=False)
+    >>> completeBasis1 = completeBasis(2)
+    >>> completeBasisMat0 = completeBasisMat(dimension=2, compKetBase=completeBasis0)
     >>> for state in completeBasisMat0:
     >>>    print(state)
     [[1 0]
     [0 0]]
     [[0 0]
     [0 1]]
-    >>> completeBasisMat1 = qStates.completeBasisMat(dimension=2, compKetBase=completeBasis1)
+    >>> completeBasisMat1 = completeBasisMat(dimension=2, compKetBase=completeBasis1)
     >>> for state in completeBasisMat1:
     >>>    print(state)
     (0, 0)	1
     (1, 1)	1
-    >>> completeBasisMat01 = qStates.completeBasisMat(dimension=2, sparse=False)
+    >>> completeBasisMat01 = completeBasisMat(dimension=2, sparse=False)
     >>> for state in completeBasisMat01:
     >>>    print(state)
     [[1 0]
     [0 0]]
     [[0 0]
     [0 1]]
-    >>> completeBasisMat11 = qStates.completeBasisMat(dimension=2)
+    >>> completeBasisMat11 = completeBasisMat(dimension=2)
     >>> for state in completeBasisMat11:
     >>>    print(state)
     (0, 0)	1
@@ -460,8 +460,8 @@ def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> denMat = qStates.densityMatrix(ket=qStates.basis(dimension=2, state=1, sparse=True))
-    >>> denVec = qStates.mat2Vec(densityMatrix=denMat)
+    >>> denMat = densityMatrix(ket=basis(dimension=2, state=1, sparse=True))
+    >>> denVec = mat2Vec(densityMatrix=denMat)
     [[0]
     [0]
     [0]
@@ -484,11 +484,11 @@ def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
 
     Examples
     --------
-    >>> denMat = qStates.densityMatrix(ket=qStates.basis(dimension=2, state=1, sparse=True))
+    >>> denMat = densityMatrix(ket=basis(dimension=2, state=1, sparse=True))
     [[0 0]
     [0 1]]
-    >>> denVec = qStates.mat2Vec(densityMatrix=denMat)
-    >>> denMatConverted = qStates.vec2mat(vec=denVec)
+    >>> denVec = mat2Vec(densityMatrix=denMat)
+    >>> denMatConverted = vec2mat(vec=denVec)
     [[0 0]
     [0 1]]
     """
