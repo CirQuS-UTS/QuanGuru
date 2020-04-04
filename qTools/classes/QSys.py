@@ -49,6 +49,13 @@ class genericQSys(qUniversal):
     def initialState(self):
         return self._genericQSys__initialState
 
+    @property
+    def totalHam(self):
+        if hasattr(self, 'qCouplings'):
+            return self.freeHam + self.couplingHam
+        else:
+            return self.freeHam
+
 # Composite Quantum system
 class QuantumSystem(genericQSys):
     instances = 0
@@ -122,9 +129,10 @@ class QuantumSystem(genericQSys):
         ham = sum([val.totalHam for val in self.qSystems.values()])
         return ham
 
-    @property
+    """@genericQSys.totalHam.getter
     def totalHam(self):
-        return self.freeHam + self.couplingHam
+        super().totalHam
+        return self.freeHam + self.couplingHam"""
 
     @property
     def couplingHam(self):
@@ -239,7 +247,7 @@ class qSystem(genericQSys):
         self.__Matrix = None
         self.__dimsBefore = 1
         self.__dimsAfter = 1
-        self.__terms = [self]
+        self.addSubSys(self)
         self.__order = 1
         self._qUniversal__setKwargs(**kwargs)
 
@@ -254,10 +262,8 @@ class qSystem(genericQSys):
 
     @property
     def terms(self):
-        if not isinstance(self.superSys, qSystem):
-            return self._qSystem__terms
-        else:
-            print('This is a term in ', self.superSys)
+        qSys =  list(self.subSys.values())
+        return (*qSys,) if len(qSys) > 1 else qSys[0]
 
     @genericQSys.initialState.setter
     @asignState(qSta.superPos)
@@ -304,8 +310,8 @@ class qSystem(genericQSys):
             self.initialState = self._genericQSys__initialStateInput
             
     @property
-    def totalHam(self):
-        h = sum([(obj.frequency * obj.freeMat) for obj in self._qSystem__terms])
+    def freeHam(self):
+        h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
         return h
 
     # I'm not sure on keeping this, freeMat setter covers all the cases and this one does not make much sense
@@ -334,7 +340,7 @@ class qSystem(genericQSys):
 
     @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
     def __constructSubMat(self):
-        for sys in self._qSystem__terms:
+        for sys in self.subSys.values():
             sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             sys._constructed = True
         return self._qSystem__Matrix
@@ -342,7 +348,7 @@ class qSystem(genericQSys):
     def addTerm(self, op, freq, order=1):
         copySys = self.copy(operator=op, frequency=freq, superSys=self)
         copySys.order = order
-        self._qSystem__terms.append(copySys)
+        self.addSubSys(copySys)
         return copySys
 
     def copy(self, **kwargs):
