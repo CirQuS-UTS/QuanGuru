@@ -75,6 +75,9 @@ class genericQSys(universalQSys):
     def totalHam(self):
         pass
 
+    def dress(self):
+        pass
+
     def copy(self, **kwargs):
         try:
             newSys = super().copy(dimension = self.dimension, frequency = self.frequency, operator = self.operator)
@@ -360,9 +363,8 @@ class qSystem(genericQSys):
         return self._qSystem__Matrix
 
     def addTerm(self, op, freq, order=1):
-        copySys = self.copy(operator=op, frequency=freq)
+        copySys = super().addSubSys(self.__class__, operator=op, frequency=freq)
         copySys.order = order
-        self.addSubSys(copySys)
         return copySys
 
 class Qubit(qSystem):
