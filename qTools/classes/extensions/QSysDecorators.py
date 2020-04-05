@@ -24,7 +24,7 @@ def InitialStateDecorator(initialState):
             if inp.shape[0] == obj.dimension:
                 obj._genericQSys__initialState = inp
             else:
-                print('Dimension mismatch')
+                raise ValueError('Dimension mismatch')
         else:
             initialState(obj, inp)
     return wrapper
