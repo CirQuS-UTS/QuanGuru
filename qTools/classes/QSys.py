@@ -47,6 +47,11 @@ class genericQSys(qUniversal):
     # initial state
     @property
     def initialState(self):
+        if self._genericQSys__initialState is None:
+            try:
+                self._genericQSys__initialState = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()])
+            except AttributeError as expection:
+                raise ValueError(self.name + ' is not given an initial state')
         return self._genericQSys__initialState
 
     @property
@@ -74,8 +79,6 @@ class QuantumSystem(genericQSys):
     @InitialStateDecorator
     def initialState(self, inp):
         self._genericQSys__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()],inp)
-        """for qsys in self.subSys.values():
-            qsys.initialState = inp[qsys.ind]"""
 
     def add(self, *args):
         for system in args:
@@ -207,9 +210,7 @@ class QuantumSystem(genericQSys):
         for qSys in self.qCouplings.values():
             qSys.freeMat = None
         self._constructed = True
-
-        if self._genericQSys__initialState is None:
-            self._genericQSys__initialState = qSta.tensorProd(*[val.initialState for val in self.subSys.values()])
+        inSt = self.initialState
 
     # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal):
