@@ -15,6 +15,11 @@ class qProtocol(timeBase):
         self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
+    @timeBase.superSys.setter
+    def superSys(self, supSys):
+        timeBase.superSys.fset(self, supSys)
+        self.qRes.name = self.superSys.name + self.name + 'Results'
+
     @property
     def steps(self):
         return self._qUniversal__subSys
@@ -95,6 +100,11 @@ class Step(timeBase):
         self.createUnitary = self.createUnitaryFunc
         self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
+
+    @timeBase.superSys.setter
+    def superSys(self, supSys):
+        timeBase.superSys.fset(self, supSys)
+        self.qRes.name = self.superSys.name + self.name + 'Results'
 
     @property
     def updates(self):
