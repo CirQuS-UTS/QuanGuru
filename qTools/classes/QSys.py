@@ -208,6 +208,9 @@ class QuantumSystem(genericQSys):
             qSys.freeMat = None
         self._constructed = True
 
+        if self._genericQSys__initialState is None:
+            self._genericQSys__initialState = qSta.tensorProd(*[val.initialState for val in self.subSys.values()])
+
     # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal):
         qSys._qSystem__dimension = newDimVal
