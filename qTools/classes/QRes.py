@@ -41,9 +41,28 @@ class qResults(qResBase):
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self._qUniversal__setKwargs(**kwargs)
         self.allResults = qResults._allResults
-        self.allResults[self.superSys.name] = self
+        kwargs.pop('allResults', None)
+        self._qUniversal__setKwargs(**kwargs)
+        if self.superSys is not None:
+            self.allResults[self.superSys.name] = self
+
+    @qResBase.superSys.setter
+    def superSys(self, supSys):
+        removedFromAllRes = False
+        oldSupSys = self.superSys
+        qResBase.superSys.fset(self, supSys)
+        if oldSupSys is not None:
+            removedFromAllRes = True
+            removedSys = self.allResults.pop(oldSupSys.name)
+            assert removedSys is self
+
+        if supSys is not None:
+            removedFromAllRes = False
+            self.allResults[self.superSys.name] = self
+
+        if removedFromAllRes is True:
+            print('?')
 
     def _reset(self):
         for qRes in self.allResults.values():
