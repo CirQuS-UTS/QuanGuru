@@ -2,7 +2,7 @@ import scipy.sparse as sp
 from qTools.classes.QUni import qUniversal
 
 
-def asignState(stateCreationFunc):
+"""def asignState(stateCreationFunc):
     def InitialStateDecorator(initialState):
         def wrapper(obj, inp):
             obj._genericQSys__initialStateInput = inp
@@ -11,16 +11,23 @@ def asignState(stateCreationFunc):
                     obj._genericQSys__initialState = inp
                 else:
                     print('Dimension mismatch')
-            elif isinstance(inp, int):
-                # FIXME what if an int is given for a composite system
-                obj._genericQSys__initialState = stateCreationFunc(obj.dimension, inp)
             else:
-                # FIXME what if number of entries in the list/dict is not same as composite system, or the list/dict is for a single system super-position
-                dims = [val.dimension for val in obj.qSystems.values()]
-                obj._genericQSys__initialState = stateCreationFunc(dims, inp)
+                initialState(obj, inp)
         return wrapper
-    return InitialStateDecorator
+    return InitialStateDecorator"""
 
+
+def InitialStateDecorator(initialState):
+    def wrapper(obj, inp):
+        obj._genericQSys__initialStateInput = inp
+        if sp.issparse(inp):
+            if inp.shape[0] == obj.dimension:
+                obj._genericQSys__initialState = inp
+            else:
+                print('Dimension mismatch')
+        else:
+            initialState(obj, inp)
+    return wrapper
 
 def addCreateInstance(functionToCall):
     def systemAddCreateDecorator(addCreate):
