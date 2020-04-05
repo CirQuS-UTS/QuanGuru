@@ -2,7 +2,7 @@ import qTools.QuantumToolbox.operators as qOps
 from qTools.classes.QUni import qUniversal
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
-from qTools.classes.extensions.QSysDecorators import asignState, addCreateInstance, constructConditions
+from qTools.classes.extensions.QSysDecorators import InitialStateDecorator, addCreateInstance, constructConditions
 from qTools.classes.QPro import freeEvolution
 
 class genericQSys(qUniversal):
@@ -51,10 +51,7 @@ class genericQSys(qUniversal):
 
     @property
     def totalHam(self):
-        if hasattr(self, 'qCouplings'):
-            return self.freeHam + self.couplingHam
-        else:
-            return self.freeHam
+        pass
 
 # Composite Quantum system
 class QuantumSystem(genericQSys):
@@ -72,6 +69,13 @@ class QuantumSystem(genericQSys):
 
         self.__kept = {}
         self._qUniversal__setKwargs(**kwargs)
+
+    @genericQSys.initialState.setter
+    @InitialStateDecorator
+    def initialState(self, inp):
+        self._genericQSys__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()],inp)
+        """for qsys in self.subSys.values():
+            qsys.initialState = inp[qsys.ind]"""
 
     def add(self, *args):
         for system in args:
@@ -129,10 +133,10 @@ class QuantumSystem(genericQSys):
         ham = sum([val.totalHam for val in self.qSystems.values()])
         return ham
 
-    """@genericQSys.totalHam.getter
+    @genericQSys.totalHam.getter
     def totalHam(self):
         super().totalHam
-        return self.freeHam + self.couplingHam"""
+        return self.freeHam + self.couplingHam
 
     @property
     def couplingHam(self):
@@ -227,11 +231,6 @@ class QuantumSystem(genericQSys):
             newSys.addSubSys(qSys.copy())
         return newSys
 
-    @genericQSys.initialState.setter
-    @asignState(qSta.compositeState)
-    def initialState(self, inp):
-        pass
-
 # quantum system objects
 class qSystem(genericQSys):
     instances = 0
@@ -251,6 +250,11 @@ class qSystem(genericQSys):
         self.__order = 1
         self._qUniversal__setKwargs(**kwargs)
 
+    @genericQSys.initialState.setter
+    @InitialStateDecorator
+    def initialState(self, state):
+        self._genericQSys__initialState = qSta.compositeState([self.dimension], [state])
+
     @property
     def order(self):
         return self._qSystem__order
@@ -264,11 +268,6 @@ class qSystem(genericQSys):
     def terms(self):
         qSys =  list(self.subSys.values())
         return (*qSys,) if len(qSys) > 1 else qSys[0]
-
-    @genericQSys.initialState.setter
-    @asignState(qSta.superPos)
-    def initialState(self, state):
-        pass
 
     @property
     def frequency(self):
@@ -309,8 +308,9 @@ class qSystem(genericQSys):
         if self._constructed is True:
             self.initialState = self._genericQSys__initialStateInput
             
-    @property
-    def freeHam(self):
+    @genericQSys.totalHam.getter
+    def totalHam(self):
+        super().totalHam
         h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
         return h
 
