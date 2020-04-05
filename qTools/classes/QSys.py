@@ -35,7 +35,6 @@ class universalQSys(qUniversal):
     def _constructed(self, tf:bool):
         self._universalQSys__constructed = tf
 
-
 class genericQSys(universalQSys):
     instances = 0
     label = 'genericQSys'
@@ -49,6 +48,14 @@ class genericQSys(universalQSys):
         self.__initialStateInput = None
         self.__dimension = None
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def dimension(self):
+        return self._genericQSys__dimension
+
+    @property
+    def totalHam(self):
+        pass
     
     # Unitary property and setter
     @property
@@ -56,10 +63,6 @@ class genericQSys(universalQSys):
         unitary = self._genericQSys__unitary.createUnitary()
         self._paramUpdated = False
         return unitary
-
-    @property
-    def dimension(self):
-        return self._genericQSys__dimension
 
     # initial state
     @property
@@ -70,10 +73,6 @@ class genericQSys(universalQSys):
             except AttributeError as expection:
                 raise ValueError(self.name + ' is not given an initial state')
         return self._genericQSys__initialState
-
-    @property
-    def totalHam(self):
-        pass
 
     def dress(self):
         pass
@@ -106,11 +105,28 @@ class QuantumSystem(genericQSys):
         self.__kept = {}
         self._qUniversal__setKwargs(**kwargs)
 
+    # free, coupling, and total Hamiltonians of the composite system
+    @property
+    def freeHam(self):
+        ham = sum([val.totalHam for val in self.qSystems.values()])
+        return ham
+
+    @genericQSys.totalHam.getter
+    def totalHam(self):
+        super().totalHam
+        return self.freeHam + self.couplingHam
+
+    @property
+    def couplingHam(self):
+        cham = sum([val.totalHam for val in self.qCouplings.values()])
+        return cham
+
     @genericQSys.initialState.setter
     @InitialStateDecorator
     def initialState(self, inp):
-        self._genericQSys__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()],inp)
+        self._genericQSys__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()], inp)
 
+    # adding or creating a new sub system to composite system
     def add(self, *args):
         for system in args:
             self.addSubSys(system)
@@ -119,7 +135,7 @@ class QuantumSystem(genericQSys):
         # TODO how to use or to use n ?
         for sysClass in args:
             self.addSubSys(sysClass)
-    # adding or creating a new sub system to composite system
+
     @property
     def qSystems(self):
         return self._qUniversal__subSys
@@ -159,22 +175,6 @@ class QuantumSystem(genericQSys):
         for ind in range(n):
             newSubs.append(self.addSubSys(subClass, **kwargs))
         return (*newSubs,) if n > 1 else newSubs[0]
-
-    # free, coupling, and total Hamiltonians of the composite system
-    @property
-    def freeHam(self):
-        ham = sum([val.totalHam for val in self.qSystems.values()])
-        return ham
-
-    @genericQSys.totalHam.getter
-    def totalHam(self):
-        super().totalHam
-        return self.freeHam + self.couplingHam
-
-    @property
-    def couplingHam(self):
-        cham = sum([val.totalHam for val in self.qCouplings.values()])
-        return cham
 
     # adding or creating a new coupling
     @property
@@ -277,47 +277,6 @@ class qSystem(genericQSys):
         self.__order = 1
         self._qUniversal__setKwargs(**kwargs)
 
-    @genericQSys.initialState.setter
-    @InitialStateDecorator
-    def initialState(self, state):
-        self._genericQSys__initialState = qSta.compositeState([self.dimension], [state])
-
-    @property
-    def order(self):
-        return self._qSystem__order
-
-    @order.setter
-    def order(self, ordVal):
-        self._qSystem__order = ordVal
-        self.freeMat = None
-
-    @property
-    def terms(self):
-        qSys =  list(self.subSys.values())
-        return (*qSys,) if len(qSys) > 1 else qSys[0]
-
-    @property
-    def frequency(self):
-        return self._qSystem__frequency
-
-    @frequency.setter
-    def frequency(self, freq):
-        self._paramUpdated = True
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
-        self._qSystem__frequency = freq
-
-    @property
-    def operator(self):
-        return self._qSystem__operator
-
-    @operator.setter
-    def operator(self, op):
-        self._paramUpdated = True
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
-        self._qSystem__operator = op
-
     @genericQSys.dimension.setter
     def dimension(self, newDimVal):
         if not isinstance(newDimVal, int):
@@ -330,7 +289,7 @@ class qSystem(genericQSys):
             self.superSys._paramUpdated = True
         if self._constructed is True:
             self.initialState = self._genericQSys__initialStateInput
-            
+
     @genericQSys.totalHam.getter
     def totalHam(self):
         super().totalHam
@@ -355,17 +314,58 @@ class qSystem(genericQSys):
                 raise ValueError('No operator is given for free Hamiltonian')
             self._qSystem__constructSubMat()
 
+    @genericQSys.initialState.setter
+    @InitialStateDecorator
+    def initialState(self, state):
+        self._genericQSys__initialState = qSta.compositeState([self.dimension], [state])
+
+    @property
+    def operator(self):
+        return self._qSystem__operator
+
+    @operator.setter
+    def operator(self, op):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
+        self._qSystem__operator = op
+
+    @property
+    def frequency(self):
+        return self._qSystem__frequency
+
+    @frequency.setter
+    def frequency(self, freq):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
+        self._qSystem__frequency = freq
+
+    @property
+    def order(self):
+        return self._qSystem__order
+
+    @order.setter
+    def order(self, ordVal):
+        self._qSystem__order = ordVal
+        self.freeMat = None
+
+    @property
+    def terms(self):
+        qSys =  list(self.subSys.values())
+        return (*qSys,) if len(qSys) > 1 else qSys[0]
+
+    def addTerm(self, op, freq, order=1):
+        copySys = super().addSubSys(self.__class__, operator=op, frequency=freq)
+        copySys.order = order
+        return copySys
+
     @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
     def __constructSubMat(self):
         for sys in self.subSys.values():
             sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             sys._constructed = True
         return self._qSystem__Matrix
-
-    def addTerm(self, op, freq, order=1):
-        copySys = super().addSubSys(self.__class__, operator=op, frequency=freq)
-        copySys.order = order
-        return copySys
 
 class Qubit(qSystem):
     instances = 0
@@ -442,15 +442,9 @@ class qCoupling(universalQSys):
     # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
     # so these should be generalised and explicit ones moved into sysCoupling
     @property
-    def couplingStrength(self):
-        return self._qCoupling__couplingStrength
-
-    @couplingStrength.setter
-    def couplingStrength(self, strength):
-        self._paramUpdated = True
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
-        self._qCoupling__couplingStrength = strength
+    def totalHam(self):
+        h = self.couplingStrength * self.freeMat
+        return h
 
     @property
     def freeMat(self):
@@ -466,9 +460,15 @@ class qCoupling(universalQSys):
             self._qCoupling__Matrix = self._qCoupling__getCoupling()
 
     @property
-    def totalHam(self):
-        h = self.couplingStrength * self.freeMat
-        return h
+    def couplingStrength(self):
+        return self._qCoupling__couplingStrength
+
+    @couplingStrength.setter
+    def couplingStrength(self, strength):
+        self._paramUpdated = True
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
+        self._qCoupling__couplingStrength = strength
 
     def __coupOrdering(self, qts):
         sorted(qts, key=lambda x: x[0], reverse=False)
