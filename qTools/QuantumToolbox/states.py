@@ -385,6 +385,12 @@ def compositeState(dimensions:List[int], excitations:List[Union[Dict[int, float]
             st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
     return st if sparse else st.A
 
+def tensorProd(*args):
+    totalProd = args[0]
+    for ind in range(len(args)-1):
+        totalProd = sp.kron(totalProd, args[ind+1], format='csc')
+    return totalProd
+
 def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]], state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     """
     Calculates the partial trace of a `density matrix` of composite state.
