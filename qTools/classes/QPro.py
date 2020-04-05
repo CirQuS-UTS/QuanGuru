@@ -19,6 +19,10 @@ class qProtocol(timeBase):
     def steps(self):
         return self._qUniversal__subSys
 
+    @steps.setter
+    def steps(self, stps):
+        self.addStep(*stps)
+
     def addStep(self, *args):
         for ii, step in enumerate(args):
             if step in self.steps.values():
