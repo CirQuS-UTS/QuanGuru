@@ -58,6 +58,17 @@ class genericQSys(qUniversal):
     def totalHam(self):
         pass
 
+    def copy(self, **kwargs):
+        try:
+            newSys = super().copy(dimension = self.dimension, frequency = self.frequency, operator = self.operator)
+        except AttributeError as expection:
+            newSys = super().copy()
+        newSys._qUniversal__setKwargs(**kwargs)
+        for sys in self.subSys.values():
+            if sys is not self:
+                newSys.addSubSys(sys.copy())
+        return newSys
+
 # Composite Quantum system
 class QuantumSystem(genericQSys):
     instances = 0
@@ -229,12 +240,6 @@ class QuantumSystem(genericQSys):
             self.constructCompSys()
         return qSys
 
-    def copy(self, **kwargs):
-        newSys = QuantumSystem(**kwargs)
-        for qSys in self.qSystems.values():
-            newSys.addSubSys(qSys.copy())
-        return newSys
-
 # quantum system objects
 class qSystem(genericQSys):
     instances = 0
@@ -353,16 +358,6 @@ class qSystem(genericQSys):
         copySys = self.copy(operator=op, frequency=freq, superSys=self)
         copySys.order = order
         self.addSubSys(copySys)
-        return copySys
-
-    def copy(self, **kwargs):
-        # TODO should copy the terms as well
-        if 'superSys' in kwargs.keys():
-            copySys = super().copy(superSys=kwargs['superSys'], dimension = self.dimension, frequency = self.frequency, operator = self.operator)
-        else:
-            copySys = super().copy(dimension = self.dimension, frequency = self.frequency, operator = self.operator)
-
-        copySys._qUniversal__setKwargs(**kwargs)
         return copySys
 
 class Qubit(qSystem):
