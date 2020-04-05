@@ -5,38 +5,50 @@ from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import InitialStateDecorator, addCreateInstance, constructConditions
 from qTools.classes.QPro import freeEvolution
 
-class genericQSys(qUniversal):
-    instances = 0
-    label = 'genericQSys'
 
-    __slots__ = ['__constructed', '__paramUpdated', '__unitary', '__initialState', '__initialStateInput', '__dimension']
+class universalQSys(qUniversal):
+    instances = 0
+    label = 'universalQSys'
+
+    __slots__ = ['__constructed', '__paramUpdated']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__constructed = False
         self.__paramUpdated = True
+        self._qUniversal__setKwargs(**kwargs)
+        
+    @property
+    def _paramUpdated(self):
+        return self._universalQSys__paramUpdated
+
+    @_paramUpdated.setter
+    def _paramUpdated(self, boolean): 
+        self._universalQSys__paramUpdated = boolean
+
+    # constructed boolean setter and getter
+    @property
+    def _constructed(self) -> bool:
+        return self._universalQSys__constructed
+    
+    @_constructed.setter
+    def _constructed(self, tf:bool):
+        self._universalQSys__constructed = tf
+
+
+class genericQSys(universalQSys):
+    instances = 0
+    label = 'genericQSys'
+
+    __slots__ = ['__unitary', '__initialState', '__initialStateInput', '__dimension']
+
+    def __init__(self, **kwargs):
+        super().__init__(name=kwargs.pop('name', None))
         self.__unitary = freeEvolution(superSys=self)
         self.__initialState = None
         self.__initialStateInput = None
         self.__dimension = None
         self._qUniversal__setKwargs(**kwargs)
-        
-    @property
-    def _paramUpdated(self):
-        return self._genericQSys__paramUpdated
-
-    @_paramUpdated.setter
-    def _paramUpdated(self, boolean): 
-        self._genericQSys__paramUpdated = boolean
-
-    # constructed boolean setter and getter
-    @property
-    def _constructed(self) -> bool:
-        return self._genericQSys__constructed
-    
-    @_constructed.setter
-    def _constructed(self, tf:bool):
-        self._genericQSys__constructed = tf
     
     # Unitary property and setter
     @property
@@ -322,12 +334,6 @@ class qSystem(genericQSys):
         h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
         return h
 
-    # I'm not sure on keeping this, freeMat setter covers all the cases and this one does not make much sense
-    """@totalHam.setter
-    def totalHam(self, qOpsFunc):
-        self.freeMat = qOpsFunc
-        self._qSystem__freeMat = ((1/self.frequency)*(self.freeMat))"""
-
     @property
     def freeMat(self):
         if self._qSystem__Matrix is None:
@@ -406,11 +412,11 @@ class Cavity(qSystem):
         self._qUniversal__setKwargs(**kwargs)
 
 # quantum coupling object
-class qCoupling(qUniversal):
+class qCoupling(universalQSys):
     instances = 0
     label = 'qCoupling'
 
-    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys', '__paramUpdated']
+    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys']
 
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
@@ -419,17 +425,8 @@ class qCoupling(qUniversal):
         self.__cFncs = []
         self.__qSys = []
         self.__Matrix = None
-        self.__paramUpdated = True
         self._qUniversal__setKwargs(**kwargs)
         self.addTerm(*args)
-
-    @property
-    def _paramUpdated(self):
-        return self._qCoupling__paramUpdated
-
-    @_paramUpdated.setter
-    def _paramUpdated(self, boolean):
-        self._qCoupling__paramUpdated = boolean
 
     # TODO might define setters
     @property
