@@ -65,9 +65,10 @@ class qProtocol(timeBase):
         for step in self.steps.values():
             if not isinstance(step, copyStep):
                 step.prepare(obj)
-                if step.fixed is True:
-                    step.createUnitary()
-                    step.createUnitary = step.createUnitaryFixedFunc
+                if not isinstance(step, qProtocol):
+                    if step.fixed is True:
+                        step.createUnitary()
+                        step.createUnitary = step.createUnitaryFixedFunc
 
     def delMatrices(self):
         self._qProtocol__unitary = None
