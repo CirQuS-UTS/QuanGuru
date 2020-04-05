@@ -8,24 +8,25 @@ from qTools.classes.updateBase import updateBase
 class qProtocol(timeBase):
     instances = 0
     label = 'qProtocol'
-    __slots__  = ['__steps', '__unitary', 'lastState']
+    __slots__  = ['__unitary', 'lastState']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__steps = []
         self.__unitary = None
         self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
     @property
     def steps(self):
-        return self._qProtocol__steps
+        return self._qUniversal__subSys
 
     def addStep(self, *args):
         for ii, step in enumerate(args):
-            if step in self.steps:
-                self.steps.append(copyStep(step))
+            if step in self.steps.values():
+                #copiedStep = copyStep(step)
+                #print(dir(copiedStep))
+                super().addSubSys(copyStep(step))
             else:
-                self.steps.append(step)
+                super().addSubSys(step)
                 # TODO is this really necessary ?
                 if step.superSys is None:
                     step.superSys = self.superSys
@@ -33,8 +34,7 @@ class qProtocol(timeBase):
     def createStep(self, n=1):
         newSteps = []
         for ind in range(n):
-            newSteps.append(Step())
-        self._qProtocol__steps.extend(newSteps)
+            newSteps.append(super().createSubSys(Step()))
         return newSteps if n > 1 else newSteps[0]
 
     @property
@@ -52,7 +52,7 @@ class qProtocol(timeBase):
 
     def createUnitary(self):
         unitary = identity(self.superSys.dimension)
-        for step in self.steps:
+        for step in self.steps.values():
             unitary = step.createUnitary() @ unitary
         self._qProtocol__unitary = unitary
         '''unitaries = []
@@ -62,7 +62,7 @@ class qProtocol(timeBase):
         return unitary
 
     def prepare(self, obj):
-        for step in self.steps:
+        for step in self.steps.values():
             if not isinstance(step, copyStep):
                 step.prepare(obj)
                 if step.fixed is True:
@@ -71,7 +71,7 @@ class qProtocol(timeBase):
 
     def delMatrices(self):
         self._qProtocol__unitary = None
-        for step in self.steps:
+        for step in self.steps.valus():
             if not isinstance(step, copyStep):
                 step.delMatrices()
 
@@ -165,9 +165,11 @@ class copyStep(Step):
     instances = 0
     label = 'copyStep'
     __slots__ = []
-    def __init__(self, superSys):
+    def __init__(self, superSys, **kwargs):
+        super().__init__(name=kwargs.pop('name', None))
         self.superSys = superSys
         self.createUnitary = self.unitaryCopy
+        self._qUniversal__setKwargs(**kwargs)
     
     def unitaryCopy(self):
         return self.superSys._Step__unitary
