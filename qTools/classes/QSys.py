@@ -9,7 +9,7 @@ class genericQSys(qUniversal):
     instances = 0
     label = 'genericQSys'
 
-    __slots__ = ['__constructed', '__paramUpdated', '__unitary', '__initialState', '__initialStateInput']
+    __slots__ = ['__constructed', '__paramUpdated', '__unitary', '__initialState', '__initialStateInput', '__dimension']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -18,6 +18,7 @@ class genericQSys(qUniversal):
         self.__unitary = freeEvolution(superSys=self)
         self.__initialState = None
         self.__initialStateInput = None
+        self.__dimension = None
         self._qUniversal__setKwargs(**kwargs)
         
     @property
@@ -43,6 +44,10 @@ class genericQSys(qUniversal):
         unitary = self._genericQSys__unitary.createUnitary()
         self._paramUpdated = False
         return unitary
+
+    @property
+    def dimension(self):
+        return self._genericQSys__dimension
 
     # initial state
     @property
@@ -108,6 +113,11 @@ class QuantumSystem(genericQSys):
         for key, subS in self._QuantumSystem__qSystems.items():
             subSys._qSystem__dimsBefore *= subS.dimension
             subS._qSystem__dimsAfter *= subSys.dimension
+
+        if self._genericQSys__dimension is None:
+            self._genericQSys__dimension = subSys.dimension
+        else:
+            self._genericQSys__dimension *= subSys.dimension
             
         if subSys._qSystem__Matrix is not None:
             subSys._qSystem__Matrix = None
@@ -135,13 +145,7 @@ class QuantumSystem(genericQSys):
             newSubs.append(self.addSubSys(subClass, **kwargs))
         return (*newSubs,) if n > 1 else newSubs[0]
 
-    # total dimensions, free, coupling, and total Hamiltonians of the composite system
-    @property
-    def dimension(self):
-        sysList = list(self.qSystems.values())
-        tDim = (sysList[0]._qSystem__dimsBefore*sysList[0].dimension*sysList[0]._qSystem__dimsAfter)
-        return tDim
-
+    # free, coupling, and total Hamiltonians of the composite system
     @property
     def freeHam(self):
         ham = sum([val.totalHam for val in self.qSystems.values()])
@@ -225,7 +229,7 @@ class QuantumSystem(genericQSys):
 
     # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal):
-        qSys._qSystem__dimension = newDimVal
+        qSys._genericQSys__dimension = newDimVal
         ind = qSys.ind
         for qS in self.qSystems.values():
             if qS.ind < ind:
@@ -245,13 +249,12 @@ class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
 
-    __slots__ = ['__dimension', '__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', '__order']
+    __slots__ = ['__frequency', '__operator', '__Matrix', '__dimsBefore', '__dimsAfter', '__terms', '__order']
     @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__frequency = None
         self.__operator = None
-        self.__dimension = None
         self.__Matrix = None
         self.__dimsBefore = 1
         self.__dimsAfter = 1
@@ -300,15 +303,11 @@ class qSystem(genericQSys):
             self.superSys._paramUpdated = True
         self._qSystem__operator = op
 
-    @property
-    def dimension(self):
-        return self._qSystem__dimension
-
-    @dimension.setter
+    @genericQSys.dimension.setter
     def dimension(self, newDimVal):
         if not isinstance(newDimVal, int):
             raise ValueError('Dimension is not int')
-        self._qSystem__dimension = newDimVal
+        self._genericQSys__dimension = newDimVal
         if isinstance(self.superSys, QuantumSystem):
             QuantumSystem.updateDimension(self.superSys, self, newDimVal)
         self._paramUpdated = True
@@ -355,7 +354,7 @@ class qSystem(genericQSys):
         return self._qSystem__Matrix
 
     def addTerm(self, op, freq, order=1):
-        copySys = self.copy(operator=op, frequency=freq, superSys=self)
+        copySys = self.copy(operator=op, frequency=freq)
         copySys.order = order
         self.addSubSys(copySys)
         return copySys
