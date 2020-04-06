@@ -76,7 +76,7 @@ def exponUni(qSim):
 def timeEvolBase(qSim):
     exponUni(qSim)
     for ii in range(qSim._timeBase__step):
+        qSim._Simulation__compute()
         for protocol in qSim.subSys.keys():
-            qSim._Simulation__compute()
-            for ii in range(protocol.samples):
+            for jj in range(protocol.samples):
                 protocol.lastState = protocol.unitary @ protocol.lastState
