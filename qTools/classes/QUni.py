@@ -41,7 +41,7 @@ class qUniversal:
     label = 'qUniversal'
     instNames = {}
     
-    __slots__ = ['__name', '__superSys', '__ind', '__subSys']
+    __slots__ = ['__name', '__superSys', '__ind', '__subSys', '__allInstances']
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -50,6 +50,7 @@ class qUniversal:
         self.__superSys = None
         self.__subSys = OrderedDict()
         self.__ind = None
+        self.__allInstances = qUniversal.instNames
         if kwargs['name'] is not None:
             self._qUniversal__setKwargs(name=kwargs.pop('name'), **kwargs)
         else:
@@ -59,9 +60,8 @@ class qUniversal:
     def __del__(self):
         class_name = self.__class__.__name__
 
-    @classmethod
-    def getObjByName(cls, name):
-        return cls.instNames[name]
+    def getObjByName(self, name):
+        return self._qUniversal__allInstances[name]
     
     def __setKwargs(self, **kwargs):
         for key, value in kwargs.items():

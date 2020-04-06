@@ -18,9 +18,8 @@ class computeBase(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
         self.qRes = qResults(superSys=self)
         
-    @classmethod
-    def getResultByName(cls, name):
-        return cls.instNames[name]
+    def getResultByName(self, name):
+        return super().getObjByName(name)
 
     @property
     def delStates(self):
