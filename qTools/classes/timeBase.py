@@ -4,7 +4,7 @@ class timeBase(computeBase):
     instances = 0
     label = 'timeBase'
     
-    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step']
+    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound']
     
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -13,6 +13,7 @@ class timeBase(computeBase):
         self.__stepSize = None
         self.__samples = None
         self.__step = None
+        self.__bound = self
 
         self._qUniversal__setKwargs(**kwargs)
 
@@ -57,6 +58,9 @@ class timeBase(computeBase):
         self._timeBase__samples = num
 
     def prepare(self, obj):
+        if self.stepSize is None:
+            self._timeBase__bound = obj
+
         if self.samples is None:
             self.samples = obj.samples
 

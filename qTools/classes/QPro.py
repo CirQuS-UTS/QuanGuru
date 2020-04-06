@@ -31,8 +31,6 @@ class qProtocol(timeBase):
     def addStep(self, *args):
         for ii, step in enumerate(args):
             if step in self.steps.values():
-                #copiedStep = copyStep(step)
-                #print(dir(copiedStep))
                 super().addSubSys(copyStep(step))
             else:
                 super().addSubSys(step)
@@ -64,17 +62,13 @@ class qProtocol(timeBase):
         for step in self.steps.values():
             unitary = step.createUnitary() @ unitary
         self._qProtocol__unitary = unitary
-        '''unitaries = []
-        for step in self.steps:
-            unitaries.append(step.createUnitary())
-        self._qProtocol__unitary = unitaries'''
         return unitary
 
     def prepare(self, obj):
         super().prepare(obj)
         for step in self.steps.values():
             if not isinstance(step, copyStep):
-                step.prepare(obj)
+                step.prepare(self)
                 if not isinstance(step, qProtocol):
                     if step.fixed is True:
                         step.createUnitary()
@@ -166,9 +160,6 @@ class Step(timeBase):
 
     def prepare(self, obj):
         super().prepare(obj)
-        if self.stepSize is None:
-            self._Step__bound = obj
-
         if self.ratio is None:
             self.ratio = 1
 
