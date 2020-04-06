@@ -81,13 +81,13 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
         writeAttr(file, attributes)
 
     for key1, value1 in qRes.allResults.items():
-        k = file.create_group(key1)
+        k = file.create_group(value1.name)
         dictionary = value1.results
         if irregular is True:
             for key, value in dictionary.items():
-                k = file.create_group(key)
+                k2 = k.create_group(key)
                 for irty in range(len(value)):
-                    k.create_dataset(str(irty), data=value[irty])
+                    k2.create_dataset(str(irty), data=value[irty])
         else:
             for key, value in dictionary.items():
                 k.create_dataset(key, data=value)
