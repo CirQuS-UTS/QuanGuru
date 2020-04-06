@@ -104,7 +104,12 @@ class Step(timeBase):
     @timeBase.superSys.setter
     def superSys(self, supSys):
         timeBase.superSys.fset(self, supSys)
-        self.qRes.name = self.superSys.name + self.name + 'Results'
+        if supSys is not None:
+            if hasattr(self.superSys, '_genericQSys__unitary'):
+                if self is self.superSys._genericQSys__unitary:
+                    self.qRes.name = self.superSys.name + 'Results'
+            else:
+                self.qRes.name = self.superSys.name + self.name + 'Results'
 
     @property
     def updates(self):
@@ -144,6 +149,7 @@ class Step(timeBase):
                 unitary = self._Step__unitary
             else:
                 unitary = self.createUnitary()
+                self.superSys._paramUpdated = False
             return unitary
         else:
             return self.createUnitary()
