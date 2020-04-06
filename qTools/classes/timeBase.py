@@ -11,7 +11,7 @@ class timeBase(computeBase):
 
         self.__finalTime = None
         self.__stepSize = None
-        self.__samples = 1
+        self.__samples = None
         self.__step = None
 
         self._qUniversal__setKwargs(**kwargs)
