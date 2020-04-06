@@ -43,7 +43,8 @@ class genericQSys(universalQSys):
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__unitary = freeEvolution(superSys=self)
+        self.__unitary = freeEvolution()
+        self._genericQSys__unitary.superSys=self
         self.__initialState = None
         self.__initialStateInput = None
         self.__dimension = None
