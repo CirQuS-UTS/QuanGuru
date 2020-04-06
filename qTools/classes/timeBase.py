@@ -55,3 +55,10 @@ class timeBase(computeBase):
     @samples.setter
     def samples(self, num):
         self._timeBase__samples = num
+
+    def prepare(self, obj):
+        if self.samples is None:
+            self.samples = obj.samples
+
+        if self.stepSize is None:
+            self.stepSize = obj.stepSize

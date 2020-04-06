@@ -71,6 +71,7 @@ class qProtocol(timeBase):
         return unitary
 
     def prepare(self, obj):
+        super().prepare(obj)
         for step in self.steps.values():
             if not isinstance(step, copyStep):
                 step.prepare(obj)
@@ -78,12 +79,6 @@ class qProtocol(timeBase):
                     if step.fixed is True:
                         step.createUnitary()
                         step.createUnitary = step.createUnitaryFixedFunc
-
-        if self.samples is None:
-            self.samples = obj.samples
-
-        if self.stepSize is None:
-            self.stepSize = obj.stepSize
 
     def delMatrices(self):
         self._qProtocol__unitary = None
@@ -170,14 +165,9 @@ class Step(timeBase):
             self._Step__updates.append(update)
 
     def prepare(self, obj):
+        super().prepare(obj)
         if self.stepSize is None:
             self._Step__bound = obj
-
-        if self.samples is None:
-            self.samples = obj.samples
-
-        if self.stepSize is None:
-            self.stepSize = obj.stepSize
 
         if self.ratio is None:
             self.ratio = 1
@@ -225,7 +215,7 @@ class freeEvolution(Step):
         self._Step__fixed = cond
 
     def getUnitaryNoUpdate(self):
-        unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.stepSize*self.ratio)/self.samples))
+        unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.bound.stepSize*self.ratio)/self.bound.samples))
         self._Step__unitary = unitary
         return unitary
         
