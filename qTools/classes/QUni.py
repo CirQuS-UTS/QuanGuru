@@ -58,6 +58,10 @@ class qUniversal:
 
     def __del__(self):
         class_name = self.__class__.__name__
+
+    @classmethod
+    def getObjByName(cls, name):
+        return cls.instNames[name]
     
     def __setKwargs(self, **kwargs):
         for key, value in kwargs.items():
