@@ -126,10 +126,15 @@ class Step(timeBase):
         self._Step__fixed = boolean
 
     def createUnitary(self):
-        if len(self._Step__updates) == 0:
-            return self.getUnitary()
+        if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)):
+            self._paramUpdated = True
+
+        if self._paramUpdated is False:
+            return self._Step__unitary
         elif self.fixed is True:
             return self._Step__unitary
+        elif len(self._Step__updates) == 0:
+            return self.getUnitary()
         else:
             for update in self._Step__updates:
                 update.setup() 
