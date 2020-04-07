@@ -1,10 +1,11 @@
 from qTools.classes.computeBase import computeBase
+from collections import OrderedDict
 
 class timeBase(computeBase):
     instances = 0
     label = 'timeBase'
     
-    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound', '__paramUpdated']
+    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound', '__paramUpdated', '__inBound']
     
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -14,6 +15,7 @@ class timeBase(computeBase):
         self.__samples = None
         self.__step = None
         self.__bound = self
+        self.__inBound = OrderedDict()
 
         self._qUniversal__setKwargs(**kwargs)
 
@@ -25,7 +27,10 @@ class timeBase(computeBase):
             return self._timeBase__paramUpdated
 
     @_paramUpdated.setter
-    def _paramUpdated(self, boolean): 
+    def _paramUpdated(self, boolean):
+        for sys in self._timeBase__inBound.values():
+            if sys is not self:
+                sys._paramUpdated = boolean
         self._timeBase__paramUpdated = boolean
 
     @property
@@ -84,6 +89,8 @@ class timeBase(computeBase):
 
     def prepare(self, obj):
         if self.stepSize is None:
+            if hasattr(obj, '_timeBase__inBound'):
+                obj._timeBase__inBound[self.name] = self
             self._timeBase__bound = obj
 
         if self.samples is None:
