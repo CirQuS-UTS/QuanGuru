@@ -251,11 +251,12 @@ class Gate(Step):
 class Update(updateBase):
     instances = 0
     label = 'Update'
-    slots = ['value', '__memory']
+    slots = ['value', '__memoryValue', '__memoryBool']
     def __init__ (self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.value = None
-        self.__memory = None
+        self.__memoryValue = None
+        self.__memoryBool = None
         self._qUniversal__setKwargs(**kwargs)
         
     @property
@@ -268,7 +269,9 @@ class Update(updateBase):
 
     def setup(self):
         self._Update__memory = getattr(self.system, self.key)
+        self._Update__memoryBool = self.system._paramUpdated
         super()._runUpdate(self.value)
     
     def setback(self):
         super()._runUpdate(self._Update__memory)
+        self.system._paramUpdated = self._Update__memoryBool
