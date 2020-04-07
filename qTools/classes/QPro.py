@@ -84,7 +84,7 @@ class qProtocol(timeBase):
 class Step(timeBase):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed', 'getUnitary', '__bound', 'lastState']
+    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed','__bound', 'lastState']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__unitary = None
@@ -92,8 +92,6 @@ class Step(timeBase):
         self.__updates = []
         self.__fixed = False
         self.__bound = self
-        self.getUnitary = None
-        #self.createUnitary = self.createUnitaryFunc
         self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
@@ -125,41 +123,20 @@ class Step(timeBase):
 
     @fixed.setter
     def fixed(self, boolean):
-        '''if boolean:
-            self.getUnitary = self.getFixedUnitary
-        else:
-            if len(self._Step__updates) == 0:    
-                self.getUnitary = self.getUnitaryNoUpdate
-            else:
-                self.getUnitary = self.getUnitaryUpdate'''
         self._Step__fixed = boolean
-
-    '''def createUnitaryFunc(self):
-        if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)):
-            self._paramUpdated = True
-        
-        if self._timeBase__paramUpdated is True:
-            unitary = self.getUnitary()
-            self._paramUpdated = False
-        else:
-            unitary = self._Step__unitary
-        return unitary'''
 
     def createUnitary(self):
         if len(self._Step__updates) == 0:
-            return self.getUnitaryNoUpdate()
+            return self.getUnitary()
         elif self.fixed is True:
             return self._Step__unitary
         else:
             for update in self._Step__updates:
                 update.setup() 
-            unitary = self.getUnitaryNoUpdate()
+            unitary = self.getUnitary()
             for update in self._Step__updates:
                 update.setback()
             return unitary
-
-    '''def createUnitaryFixedFunc(self):
-        return self._Step__unitary'''
 
     @property
     def unitary(self):
@@ -188,19 +165,8 @@ class Step(timeBase):
             self._Step__updates.append(update)
         #self.getUnitary = self.getUnitaryUpdate
 
-    def getUnitaryNoUpdate(self):
+    def getUnitary(self):
         pass
-
-    '''def getUnitaryUpdate(self):
-        for update in self._Step__updates:
-            update.setup() 
-        unitary = self.getUnitaryNoUpdate()
-        for update in self._Step__updates:
-            update.setback()
-        return unitary
-
-    def getFixedUnitary(self):
-        return self._Step__unitary'''
 
     def prepare(self, obj):
         super().prepare(obj)
@@ -230,11 +196,10 @@ class freeEvolution(Step):
     __slots__  = []
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.getUnitary = self.getUnitaryNoUpdate
         self._qUniversal__setKwargs(**kwargs)
 
-    def getUnitaryNoUpdate(self):
-        super().getUnitaryNoUpdate()
+    def getUnitary(self):
+        super().getUnitary()
         unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.stepSize*self.ratio)/self.samples))
         self._Step__unitary = unitary
         return unitary

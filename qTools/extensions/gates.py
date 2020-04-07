@@ -10,7 +10,6 @@ class xGate(Gate):
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__angle = None
-        self.getUnitary = None
         self._qUniversal__setKwargs(**kwargs)
     
     @property
@@ -28,10 +27,12 @@ class xGate(Gate):
 
     @Gate.implementation.setter
     def implementation(self, typeStr):
-        if typeStr.lower() == 'instant':
-            # FIXME creates the matrix everytime its called
-            self.getUnitary = self.instantFlip
-            self._Gate__implementation = typeStr
+        self._Gate__implementation = typeStr
+
+    def getUnitary(self):
+        super().getUnitary()
+        if self.implementation == 'instant':
+            return self.instantFlip()
 
     def createUnitary(self):
         return self.getUnitary()
