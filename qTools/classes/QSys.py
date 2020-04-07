@@ -23,7 +23,9 @@ class universalQSys(qUniversal):
         return self._universalQSys__paramUpdated
 
     @_paramUpdated.setter
-    def _paramUpdated(self, boolean): 
+    def _paramUpdated(self, boolean):
+        if hasattr(self.superSys, '_paramUpdated'):
+            self.superSys._paramUpdated = boolean
         self._universalQSys__paramUpdated = boolean
 
     # constructed boolean setter and getter
@@ -286,8 +288,6 @@ class qSystem(genericQSys):
         if isinstance(self.superSys, QuantumSystem):
             QuantumSystem.updateDimension(self.superSys, self, newDimVal)
         self._paramUpdated = True
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
         if self._constructed is True:
             self.initialState = self._genericQSys__initialStateInput
 
@@ -327,8 +327,6 @@ class qSystem(genericQSys):
     @operator.setter
     def operator(self, op):
         self._paramUpdated = True
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
         self._qSystem__operator = op
 
     @property
@@ -338,8 +336,6 @@ class qSystem(genericQSys):
     @frequency.setter
     def frequency(self, freq):
         self._paramUpdated = True
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
         self._qSystem__frequency = freq
 
     @property
@@ -467,8 +463,6 @@ class qCoupling(universalQSys):
     @couplingStrength.setter
     def couplingStrength(self, strength):
         self._paramUpdated = True
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
         self._qCoupling__couplingStrength = strength
 
     def __coupOrdering(self, qts):
