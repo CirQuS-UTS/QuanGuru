@@ -21,17 +21,14 @@ class timeBase(computeBase):
 
     @property
     def _paramUpdated(self):
-        if self.bound is not self:
-            return self.bound._paramUpdated
-        else:
-            return self._timeBase__paramUpdated
+        return self._timeBase__paramUpdated
 
     @_paramUpdated.setter
     def _paramUpdated(self, boolean):
+        self._timeBase__paramUpdated = boolean
         for sys in self._timeBase__inBound.values():
             if sys is not self:
                 sys._paramUpdated = boolean
-        self._timeBase__paramUpdated = boolean
 
     @property
     def bound(self):
