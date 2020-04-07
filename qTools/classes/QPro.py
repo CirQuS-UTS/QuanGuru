@@ -244,10 +244,13 @@ class Update(updateBase):
         self._updateBase__key = keyStr
 
     def setup(self):
-        self._Update__memory = getattr(self.system, self.key)
-        self._Update__memoryBool = self.system._paramUpdated
+        for sys in self.subSys.values():
+            self._Update__memory = getattr(self.sys, self.key)
+            self._Update__memoryBool = self.sys._paramUpdated
         super()._runUpdate(self.value)
     
     def setback(self):
+        for sys in self.subSys.values():
+            self.system._paramUpdated = self._Update__memoryBool
         super()._runUpdate(self._Update__memory)
-        self.system._paramUpdated = self._Update__memoryBool
+        
