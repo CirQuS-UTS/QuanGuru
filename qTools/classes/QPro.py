@@ -36,6 +36,12 @@ class genericProtocol(timeBase):
         else:
             return self.createUnitary()
 
+    def prepare(self, obj):
+        super().prepare(obj)
+
+    def delMatrices(self):
+        self._genericProtocol__unitary = None
+
 class qProtocol(genericProtocol):
     instances = 0
     label = 'qProtocol'
@@ -90,7 +96,7 @@ class qProtocol(genericProtocol):
                         step.getUnitary()
 
     def delMatrices(self):
-        self._genericProtocol__unitary = None
+        super().delMatrices()
         for step in self.steps.valus():
             if not isinstance(step, copyStep):
                 step.delMatrices()
@@ -174,9 +180,6 @@ class Step(genericProtocol):
         super().prepare(obj)
         if self.ratio is None:
             self.ratio = 1
-
-    def delMatrices(self):
-        self._genericProtocol__unitary = None
 
 class copyStep(qUniversal):
     instances = 0
