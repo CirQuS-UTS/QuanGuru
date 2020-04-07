@@ -187,6 +187,7 @@ class QuantumSystem(genericQSys):
     def __addCoupling(self, couplingObj, *args, **kwargs):
         self._QuantumSystem__qCouplings[couplingObj.name] = couplingObj
         couplingObj._qUniversal__ind = len(self.qCouplings)
+        couplingObj.superSys = self
         return couplingObj
 
     def createSysCoupling(self, *args, **kwargs):
