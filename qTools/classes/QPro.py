@@ -166,6 +166,10 @@ class Step(timeBase):
     def addUpdate(self, *args):
         for update in args:
             self._Step__updates.append(update)
+        self.getUnitary = self.getUnitaryUpdate
+
+    def getUnitaryUpdate(self):
+        pass
 
     def prepare(self, obj):
         super().prepare(obj)
@@ -216,6 +220,7 @@ class freeEvolution(Step):
         return unitary
         
     def getUnitaryUpdate(self):
+        super().getUnitaryUpdate()
         for update in self._Step__updates:
             update.setup() 
         unitary = self.getUnitaryNoUpdate()
@@ -225,11 +230,6 @@ class freeEvolution(Step):
 
     def getFixedUnitary(self):
         return self._Step__unitary
-
-    def addUpdate(self, *args):
-        for update in args:
-            self._Step__updates.append(update)
-        self.getUnitary = self.getUnitaryUpdate
 
 class Gate(Step):
     instances = 0
