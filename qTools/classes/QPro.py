@@ -232,7 +232,7 @@ class Update(updateBase):
         super().__init__(name=kwargs.pop('name', None))
         self.value = None
         self.__memoryValue = None
-        self.__memoryBool = None
+        self.__memoryBool = []
         self._qUniversal__setKwargs(**kwargs)
         
     @property
@@ -244,13 +244,13 @@ class Update(updateBase):
         self._updateBase__key = keyStr
 
     def setup(self):
-        for sys in self.subSys.values():
-            self._Update__memory = getattr(self.sys, self.key)
-            self._Update__memoryBool = self.sys._paramUpdated
+        for ind, sys in enumerate(self.subSys.values()):
+            self._Update__memoryValue = getattr(self.sys, self.key)
+            self._Update__memoryBool[ind] = self.sys._paramUpdated
         super()._runUpdate(self.value)
     
     def setback(self):
-        for sys in self.subSys.values():
-            self.system._paramUpdated = self._Update__memoryBool
-        super()._runUpdate(self._Update__memory)
+        for ind, sys in enumerate(self.subSys.values()):
+            self.system._paramUpdated = self._Update__memoryBool[ind]
+        super()._runUpdate(self._Update__memoryValue)
         
