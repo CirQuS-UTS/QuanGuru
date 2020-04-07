@@ -52,13 +52,13 @@ class timeBase(computeBase):
             self._timeBase__step = int((fTime//self.stepSize) + 1)
 
     @property
-    def steps(self):
+    def stepCount(self):
         if self.finalTime is None:
             self._timeBase__finalTime = self._timeBase__step * self.stepSize
         return int((self.finalTime//self.stepSize) + 1)
 
-    @steps.setter
-    def steps(self, num):
+    @stepCount.setter
+    def stepCount(self, num):
         self._paramUpdated = True
         self._timeBase__step = num
         if self.finalTime is not None:
