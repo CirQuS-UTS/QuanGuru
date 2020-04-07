@@ -6,14 +6,24 @@ from qTools.classes.updateBase import updateBase
 from qTools.classes.QUni import qUniversal
 """ under construction """
 
-class qProtocol(timeBase):
+class genericProtocol(timeBase):
     instances = 0
-    label = 'qProtocol'
+    label = 'timeBase'
     __slots__  = ['__unitary', 'lastState']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__unitary = None
         self.lastState = None
+        self._qUniversal__setKwargs(**kwargs)
+
+    def createUnitary(self):
+        pass
+
+class qProtocol(genericProtocol):
+    instances = 0
+    label = 'qProtocol'
+    def __init__(self, **kwargs):
+        super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
 
     @timeBase.superSys.setter
@@ -59,6 +69,7 @@ class qProtocol(timeBase):
             self.createUnitary()
 
     def createUnitary(self):
+        super().createUnitary()
         unitary = identity(self.superSys.dimension)
         for step in self.steps.values():
             unitary = step.createUnitary() @ unitary
@@ -73,7 +84,6 @@ class qProtocol(timeBase):
                 if not isinstance(step, qProtocol):
                     if step.fixed is True:
                         step.getUnitary()
-                        #step.createUnitary = step.createUnitaryFixedFunc
 
     def delMatrices(self):
         self._qProtocol__unitary = None
@@ -81,18 +91,16 @@ class qProtocol(timeBase):
             if not isinstance(step, copyStep):
                 step.delMatrices()
 
-class Step(timeBase):
+class Step(genericProtocol):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed','__bound', 'lastState']
+    __slots__ = ['__ratio', '__updates', '__fixed','__bound']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__unitary = None
         self.__ratio = None
         self.__updates = []
         self.__fixed = False
         self.__bound = self
-        self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
     @timeBase.superSys.setter
@@ -126,6 +134,7 @@ class Step(timeBase):
         self._Step__fixed = boolean
 
     def createUnitary(self):
+        super().createUnitary()
         if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)):
             self._paramUpdated = True
 
@@ -170,7 +179,6 @@ class Step(timeBase):
     def addUpdate(self, *args):
         for update in args:
             self._Step__updates.append(update)
-        #self.getUnitary = self.getUnitaryUpdate
 
     def getUnitary(self):
         pass
