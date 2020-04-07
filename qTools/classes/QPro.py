@@ -55,6 +55,15 @@ class qProtocol(genericProtocol):
         self.qRes.name = self.superSys.name + self.name + 'Results'
 
     @property
+    def system(self):
+        return self.superSys
+
+    @system.setter
+    def system(self, supSys):
+        genericProtocol.superSys.fset(self, supSys)
+        self.superSys = supSys
+
+    @property
     def steps(self):
         return self._qUniversal__subSys
 
@@ -113,9 +122,23 @@ class Step(genericProtocol):
         self.__bound = self
         self._qUniversal__setKwargs(**kwargs)
 
-    @timeBase.superSys.setter
+    @property
+    def system(self):
+        return self.superSys
+
+    @system.setter
+    def system(self, supSys):
+        genericProtocol.superSys.fset(self, supSys)
+        if supSys is not None:
+            if hasattr(self.superSys, '_genericQSys__unitary'):
+                if self is self.superSys._genericQSys__unitary:
+                    self.qRes.name = self.superSys.name + 'Results'
+            else:
+                self.qRes.name = self.superSys.name + self.name + 'Results'
+
+    @genericProtocol.superSys.setter
     def superSys(self, supSys):
-        timeBase.superSys.fset(self, supSys)
+        genericProtocol.superSys.fset(self, supSys)
         if supSys is not None:
             if hasattr(self.superSys, '_genericQSys__unitary'):
                 if self is self.superSys._genericQSys__unitary:
