@@ -168,8 +168,19 @@ class Step(timeBase):
             self._Step__updates.append(update)
         self.getUnitary = self.getUnitaryUpdate
 
-    def getUnitaryUpdate(self):
+    def getUnitaryNoUpdate(self):
         pass
+
+    def getUnitaryUpdate(self):
+        for update in self._Step__updates:
+            update.setup() 
+        unitary = self.getUnitaryNoUpdate()
+        for update in self._Step__updates:
+            update.setback()
+        return unitary
+
+    def getFixedUnitary(self):
+        return self._Step__unitary
 
     def prepare(self, obj):
         super().prepare(obj)
@@ -215,21 +226,10 @@ class freeEvolution(Step):
         self._Step__fixed = cond
 
     def getUnitaryNoUpdate(self):
+        super().getUnitaryNoUpdate()
         unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.stepSize*self.ratio)/self.samples))
         self._Step__unitary = unitary
         return unitary
-        
-    def getUnitaryUpdate(self):
-        super().getUnitaryUpdate()
-        for update in self._Step__updates:
-            update.setup() 
-        unitary = self.getUnitaryNoUpdate()
-        for update in self._Step__updates:
-            update.setback()
-        return unitary
-
-    def getFixedUnitary(self):
-        return self._Step__unitary
 
 class Gate(Step):
     instances = 0
