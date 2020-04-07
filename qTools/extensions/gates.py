@@ -21,13 +21,10 @@ class xGate(Gate):
         self._xGate__angle = val
 
     def instantFlip(self):
-        flipOp = operators.compositeOp(operators.sigmax(), self.superSys._qSystem__dimsBefore, self.superSys._qSystem__dimsAfter)
-        self._Step__unitary = flipOp
-        return flipOp
-
-    @Gate.implementation.setter
-    def implementation(self, typeStr):
-        self._Gate__implementation = typeStr
+        if self._Step__unitary is None:
+            flipOp = operators.compositeOp(operators.sigmax(), self.superSys._qSystem__dimsBefore, self.superSys._qSystem__dimsAfter)
+            self._Step__unitary = flipOp
+        return self._Step__unitary
 
     def getUnitary(self):
         super().getUnitary()
@@ -43,9 +40,4 @@ class xGate(Gate):
             return self._Step__unitary
         else:
             return self.createUnitary()
-
-'''def xGate(obj, *args):
-    for arg in args:
-        newXGate = xGate(superSys=arg)
-        obj._genericQSys__qProtocol.add(newXGate)'''
 
