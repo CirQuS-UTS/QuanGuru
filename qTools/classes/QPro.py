@@ -57,8 +57,8 @@ class qProtocol(genericProtocol):
 
     @property
     def unitary(self):
-        if self._qProtocol__unitary is not None:
-            return self._qProtocol__unitary
+        if self._genericProtocol__unitary is not None:
+            return self._genericProtocol__unitary
         else:
             return self.createUnitary()
 
@@ -73,7 +73,7 @@ class qProtocol(genericProtocol):
         unitary = identity(self.superSys.dimension)
         for step in self.steps.values():
             unitary = step.createUnitary() @ unitary
-        self._qProtocol__unitary = unitary
+        self._genericProtocol__unitary = unitary
         return unitary
 
     def prepare(self, obj):
@@ -86,7 +86,7 @@ class qProtocol(genericProtocol):
                         step.getUnitary()
 
     def delMatrices(self):
-        self._qProtocol__unitary = None
+        self._genericProtocol__unitary = None
         for step in self.steps.valus():
             if not isinstance(step, copyStep):
                 step.delMatrices()
@@ -139,11 +139,11 @@ class Step(genericProtocol):
             self._paramUpdated = True
 
         if self._paramUpdated is False:
-            return self._Step__unitary
+            return self._genericProtocol__unitary
         elif self.fixed is True:
-            if self._Step__unitary is None:
-                self._Step__unitary = self.getUnitary()
-            return self._Step__unitary
+            if self._genericProtocol__unitary is None:
+                self._genericProtocol__unitary = self.getUnitary()
+            return self._genericProtocol__unitary
         elif len(self._Step__updates) == 0:
             return self.getUnitary()
         else:
@@ -156,12 +156,12 @@ class Step(genericProtocol):
 
     @property
     def unitary(self):
-        if self._Step__unitary is not None:
+        if self._genericProtocol__unitary is not None:
             if ((self.superSys._paramUpdated is False) and (self.bound._paramUpdated is False)):
                 self._paramUpdated = False
 
             if self._timeBase__paramUpdated is False:
-                unitary = self._Step__unitary
+                unitary = self._genericProtocol__unitary
             else:
                 unitary = self.createUnitary()
                 self._paramUpdated = False
@@ -189,7 +189,7 @@ class Step(genericProtocol):
             self.ratio = 1
 
     def delMatrices(self):
-        self._Step__unitary = None
+        self._genericProtocol__unitary = None
 
 class copyStep(qUniversal):
     instances = 0
@@ -201,7 +201,7 @@ class copyStep(qUniversal):
         self._qUniversal__setKwargs(**kwargs)
     
     def createUnitary(self):
-        return self.superSys._Step__unitary
+        return self.superSys._genericProtocol__unitary
         
 class freeEvolution(Step):
     instances = 0
@@ -214,7 +214,7 @@ class freeEvolution(Step):
     def getUnitary(self):
         super().getUnitary()
         unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.stepSize*self.ratio)/self.samples))
-        self._Step__unitary = unitary
+        self._genericProtocol__unitary = unitary
         return unitary
 
 class Gate(Step):

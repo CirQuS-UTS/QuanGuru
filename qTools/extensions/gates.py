@@ -21,10 +21,10 @@ class xGate(Gate):
         self._xGate__angle = val
 
     def instantFlip(self):
-        if self._Step__unitary is None:
+        if self._genericProtocol__unitary is None:
             flipOp = operators.compositeOp(operators.sigmax(), self.superSys._qSystem__dimsBefore, self.superSys._qSystem__dimsAfter)
-            self._Step__unitary = flipOp
-        return self._Step__unitary
+            self._genericProtocol__unitary = flipOp
+        return self._genericProtocol__unitary
 
     def getUnitary(self):
         super().getUnitary()
