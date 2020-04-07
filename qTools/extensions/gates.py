@@ -30,14 +30,3 @@ class xGate(Gate):
         super().getUnitary()
         if self.implementation == 'instant':
             return self.instantFlip()
-
-    def createUnitary(self):
-        return self.getUnitary()
-
-    @Gate.unitary.getter
-    def unitary(self):
-        if self._Step__unitary is not None:
-            return self._Step__unitary
-        else:
-            return self.createUnitary()
-
