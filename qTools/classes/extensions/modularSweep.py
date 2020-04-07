@@ -72,14 +72,7 @@ def timeDependent(qSim):
 def exponUni(qSim):
     for protocol in qSim.subSys.keys():
         protocol.createUnitary()
-
-    for sys in qSim.Sweep.sweeps.values():
-        for paramUpdateSys in sys.subSys.values():
-            paramUpdateSys._paramUpdated = False
-
-    for sys in qSim.timeDependency.sweeps.values():
-        for paramUpdateSys in sys.subSys.values():
-            paramUpdateSys._paramUpdated = False
+    qSim._paramsUsed()
 
 def timeEvolBase(qSim):
     exponUni(qSim)

@@ -111,7 +111,16 @@ class Simulation(timeBase):
     
     def removeSubSys(self, subS):
         self.removeQSystems(subS)
-        
+
+    def _paramsUsed(self):
+        for sys in self.Sweep.sweeps.values():
+            for paramUpdateSys in sys.subSys.values():
+                paramUpdateSys._paramUpdated = False
+
+        for sys in self.timeDependency.sweeps.values():
+            for paramUpdateSys in sys.subSys.values():
+                paramUpdateSys._paramUpdated = False
+
     def __compute(self):
         states = []
         for protoc in self.subSys.keys():
