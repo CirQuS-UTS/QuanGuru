@@ -128,8 +128,12 @@ class Step(timeBase):
 
 
     def createUnitaryFunc(self):
-        if self.superSys._paramUpdated is True:
+        if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)):
+                self._paramUpdated = True
+        
+        if self._timeBase__paramUpdated is True:
             unitary = self.getUnitary()
+            self._paramUpdated = False
         else:
             unitary = self._Step__unitary
         return unitary
@@ -140,11 +144,14 @@ class Step(timeBase):
     @property
     def unitary(self):
         if self._Step__unitary is not None:
-            if self.superSys._paramUpdated is False:
+            if ((self.superSys._paramUpdated is False) and (self.bound._paramUpdated is False)):
+                self._paramUpdated = False
+
+            if self._timeBase__paramUpdated is False:
                 unitary = self._Step__unitary
             else:
                 unitary = self.createUnitary()
-                self.superSys._paramUpdated = False
+                self._paramUpdated = False
             return unitary
         else:
             return self.createUnitary()
@@ -162,10 +169,6 @@ class Step(timeBase):
         super().prepare(obj)
         if self.ratio is None:
             self.ratio = 1
-
-    @property
-    def bound(self):
-        return self._Step__bound
 
     def delMatrices(self):
         if self.fixed is True:
