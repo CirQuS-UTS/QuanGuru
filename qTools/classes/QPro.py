@@ -19,6 +19,23 @@ class genericProtocol(timeBase):
     def createUnitary(self):
         pass
 
+    @property
+    def unitary(self):
+        if self._genericProtocol__unitary is not None:
+            if ((self.superSys._paramUpdated is False) and (self.bound._paramUpdated is False)):
+                self._paramUpdated = False
+
+            if self._timeBase__paramUpdated is False:
+                unitary = self._genericProtocol__unitary
+            else:
+                unitary = self.createUnitary()
+                self._paramUpdated = False
+                self.superSys._paramUpdated = False
+                self.bound._paramUpdated = False
+            return unitary
+        else:
+            return self.createUnitary()
+
 class qProtocol(genericProtocol):
     instances = 0
     label = 'qProtocol'
@@ -54,19 +71,6 @@ class qProtocol(genericProtocol):
         for ind in range(n):
             newSteps.append(super().createSubSys(Step()))
         return newSteps if n > 1 else newSteps[0]
-
-    @property
-    def unitary(self):
-        if self._genericProtocol__unitary is not None:
-            return self._genericProtocol__unitary
-        else:
-            return self.createUnitary()
-
-    @unitary.setter
-    def unitary(self, uni):
-        # TODO generalise this
-        if uni is None:
-            self.createUnitary()
 
     def createUnitary(self):
         super().createUnitary()
@@ -153,23 +157,6 @@ class Step(genericProtocol):
             for update in self._Step__updates:
                 update.setback()
             return unitary
-
-    @property
-    def unitary(self):
-        if self._genericProtocol__unitary is not None:
-            if ((self.superSys._paramUpdated is False) and (self.bound._paramUpdated is False)):
-                self._paramUpdated = False
-
-            if self._timeBase__paramUpdated is False:
-                unitary = self._genericProtocol__unitary
-            else:
-                unitary = self.createUnitary()
-                self._paramUpdated = False
-                self.superSys._paramUpdated = False
-                self.bound._paramUpdated = False
-            return unitary
-        else:
-            return self.createUnitary()
 
     def createUpdate(self, **kwargs):
         update = Update(**kwargs)
