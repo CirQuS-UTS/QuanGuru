@@ -3,6 +3,7 @@ from qTools.classes.timeBase import timeBase
 from qTools.QuantumToolbox.operators import identity
 import numpy as np
 from qTools.classes.updateBase import updateBase
+from qTools.classes.QUni import qUniversal
 """ under construction """
 
 class qProtocol(timeBase):
@@ -71,8 +72,8 @@ class qProtocol(timeBase):
                 step.prepare(self)
                 if not isinstance(step, qProtocol):
                     if step.fixed is True:
-                        step.createUnitary()
-                        step.createUnitary = step.createUnitaryFixedFunc
+                        step.getUnitary()
+                        #step.createUnitary = step.createUnitaryFixedFunc
 
     def delMatrices(self):
         self._qProtocol__unitary = None
@@ -83,7 +84,7 @@ class qProtocol(timeBase):
 class Step(timeBase):
     instances = 0
     label = 'Step'
-    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed', 'getUnitary', '__bound', 'createUnitary', 'lastState']
+    __slots__ = ['__unitary', '__ratio', '__updates', '__fixed', 'getUnitary', '__bound', 'lastState']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__unitary = None
@@ -92,7 +93,7 @@ class Step(timeBase):
         self.__fixed = False
         self.__bound = self
         self.getUnitary = None
-        self.createUnitary = self.createUnitaryFunc
+        #self.createUnitary = self.createUnitaryFunc
         self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
 
@@ -124,16 +125,16 @@ class Step(timeBase):
 
     @fixed.setter
     def fixed(self, boolean):
-        if boolean:
+        '''if boolean:
             self.getUnitary = self.getFixedUnitary
         else:
             if len(self._Step__updates) == 0:    
                 self.getUnitary = self.getUnitaryNoUpdate
             else:
-                self.getUnitary = self.getUnitaryUpdate
+                self.getUnitary = self.getUnitaryUpdate'''
         self._Step__fixed = boolean
 
-    def createUnitaryFunc(self):
+    '''def createUnitaryFunc(self):
         if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)):
             self._paramUpdated = True
         
@@ -142,10 +143,23 @@ class Step(timeBase):
             self._paramUpdated = False
         else:
             unitary = self._Step__unitary
-        return unitary
+        return unitary'''
 
-    def createUnitaryFixedFunc(self):
-        return self._Step__unitary
+    def createUnitary(self):
+        if len(self._Step__updates) == 0:
+            return self.getUnitaryNoUpdate()
+        elif self.fixed is True:
+            return self._Step__unitary
+        else:
+            for update in self._Step__updates:
+                update.setup() 
+            unitary = self.getUnitaryNoUpdate()
+            for update in self._Step__updates:
+                update.setback()
+            return unitary
+
+    '''def createUnitaryFixedFunc(self):
+        return self._Step__unitary'''
 
     @property
     def unitary(self):
@@ -172,12 +186,12 @@ class Step(timeBase):
     def addUpdate(self, *args):
         for update in args:
             self._Step__updates.append(update)
-        self.getUnitary = self.getUnitaryUpdate
+        #self.getUnitary = self.getUnitaryUpdate
 
     def getUnitaryNoUpdate(self):
         pass
 
-    def getUnitaryUpdate(self):
+    '''def getUnitaryUpdate(self):
         for update in self._Step__updates:
             update.setup() 
         unitary = self.getUnitaryNoUpdate()
@@ -186,7 +200,7 @@ class Step(timeBase):
         return unitary
 
     def getFixedUnitary(self):
-        return self._Step__unitary
+        return self._Step__unitary'''
 
     def prepare(self, obj):
         super().prepare(obj)
@@ -198,17 +212,16 @@ class Step(timeBase):
             self.createUnitary = self.createUnitaryFunc
         self._Step__unitary = None
 
-class copyStep(Step):
+class copyStep(qUniversal):
     instances = 0
     label = 'copyStep'
     __slots__ = []
     def __init__(self, superSys, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.superSys = superSys
-        self.createUnitary = self.unitaryCopy
         self._qUniversal__setKwargs(**kwargs)
     
-    def unitaryCopy(self):
+    def createUnitary(self):
         return self.superSys._Step__unitary
         
 class freeEvolution(Step):
