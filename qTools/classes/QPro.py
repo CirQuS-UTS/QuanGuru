@@ -132,6 +132,8 @@ class Step(timeBase):
         if self._paramUpdated is False:
             return self._Step__unitary
         elif self.fixed is True:
+            if self._Step__unitary is None:
+                self._Step__unitary = self.getUnitary()
             return self._Step__unitary
         elif len(self._Step__updates) == 0:
             return self.getUnitary()
@@ -179,8 +181,6 @@ class Step(timeBase):
             self.ratio = 1
 
     def delMatrices(self):
-        if self.fixed is True:
-            self.createUnitary = self.createUnitaryFunc
         self._Step__unitary = None
 
 class copyStep(qUniversal):
