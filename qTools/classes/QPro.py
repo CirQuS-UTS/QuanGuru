@@ -113,13 +113,12 @@ class qProtocol(genericProtocol):
 class Step(genericProtocol):
     instances = 0
     label = 'Step'
-    __slots__ = ['__ratio', '__updates', '__fixed','__bound']
+    __slots__ = ['__ratio', '__updates', '__fixed']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__ratio = None
         self.__updates = []
         self.__fixed = False
-        self.__bound = self
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -268,12 +267,13 @@ class Update(updateBase):
 
     def setup(self):
         for ind, sys in enumerate(self.subSys.values()):
-            self._Update__memoryValue = getattr(self.sys, self.key)
-            self._Update__memoryBool[ind] = self.sys._paramUpdated
+            self._Update__memoryValue = getattr(sys, self.key)
+            self._Update__memoryBool.append(sys._paramUpdated)
         super()._runUpdate(self.value)
     
     def setback(self):
         for ind, sys in enumerate(self.subSys.values()):
-            self.system._paramUpdated = self._Update__memoryBool[ind]
+            sys._paramUpdated = self._Update__memoryBool[ind]
+        self._Update__memoryBool = []
         super()._runUpdate(self._Update__memoryValue)
         
