@@ -209,7 +209,7 @@ class freeEvolution(Step):
         self._Step__fixed = cond
 
     def getUnitaryNoUpdate(self):
-        unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.bound.stepSize*self.ratio)/self.bound.samples))
+        unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.stepSize*self.ratio)/self.samples))
         self._Step__unitary = unitary
         return unitary
         
