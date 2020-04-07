@@ -129,7 +129,7 @@ class Step(timeBase):
 
     def createUnitaryFunc(self):
         if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)):
-                self._paramUpdated = True
+            self._paramUpdated = True
         
         if self._timeBase__paramUpdated is True:
             unitary = self.getUnitary()
@@ -152,6 +152,8 @@ class Step(timeBase):
             else:
                 unitary = self.createUnitary()
                 self._paramUpdated = False
+                self.superSys._paramUpdated = False
+                self.bound._paramUpdated = False
             return unitary
         else:
             return self.createUnitary()
