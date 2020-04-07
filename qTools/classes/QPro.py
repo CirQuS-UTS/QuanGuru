@@ -124,8 +124,14 @@ class Step(timeBase):
 
     @fixed.setter
     def fixed(self, boolean):
+        if boolean:
+            self.getUnitary = self.getFixedUnitary
+        else:
+            if len(self._Step__updates) == 0:    
+                self.getUnitary = self.getUnitaryNoUpdate
+            else:
+                self.getUnitary = self.getUnitaryUpdate
         self._Step__fixed = boolean
-
 
     def createUnitaryFunc(self):
         if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)):
@@ -213,17 +219,6 @@ class freeEvolution(Step):
         super().__init__(name=kwargs.pop('name', None))
         self.getUnitary = self.getUnitaryNoUpdate
         self._qUniversal__setKwargs(**kwargs)
-    
-    @Step.fixed.setter
-    def fixed(self, cond):
-        if cond:
-            self.getUnitary = self.getFixedUnitary
-        else:
-            if len(self._Step__updates) == 0:    
-                self.getUnitary = self.getUnitaryNoUpdate
-            else:
-                self.getUnitary = self.getUnitaryUpdate
-        self._Step__fixed = cond
 
     def getUnitaryNoUpdate(self):
         super().getUnitaryNoUpdate()
