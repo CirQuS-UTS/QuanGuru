@@ -9,7 +9,7 @@ class timeBase(computeBase):
     
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__paramUpdated = True
+        self.__paramUpdated = False
         self.__finalTime = None
         self.__stepSize = None
         self.__samples = None

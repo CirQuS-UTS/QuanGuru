@@ -15,7 +15,7 @@ class universalQSys(qUniversal):
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__constructed = False
-        self.__paramUpdated = True
+        self.__paramUpdated = False
         self._qUniversal__setKwargs(**kwargs)
         
     @property
