@@ -15,6 +15,7 @@ class genericProtocol(timeBase):
         super().__init__(name=kwargs.pop('name', None))
         self.__unitary = None
         self.lastState = None
+        self._allBools = genericProtocol._boolDict
         self._qUniversal__setKwargs(**kwargs)
         self._allBools = genericProtocol._boolDict
         self._allBools[self] = self._paramUpdated

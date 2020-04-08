@@ -42,6 +42,7 @@ class qResults(qResBase):
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         kwargs.pop('allResults', None)
+        self.allResults = qResults._allResults
         self._qUniversal__setKwargs(**kwargs)
         self.allResults = qResults._allResults
         if self.superSys is not None:
