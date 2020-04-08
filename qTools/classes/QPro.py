@@ -10,11 +10,12 @@ class genericProtocol(timeBase):
     instances = 0
     label = 'genericProtocol'
     _boolDict = {}
-    __slots__  = ['__unitary', 'lastState', '_allBools']
+    __slots__  = ['__unitary', 'lastState', '_allBools', '__inProtocol']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__unitary = None
         self.lastState = None
+        self.__inProtocol = False
         self._allBools = genericProtocol._boolDict
         self._qUniversal__setKwargs(**kwargs)
         self._allBools = genericProtocol._boolDict
@@ -83,10 +84,11 @@ class qProtocol(genericProtocol):
 
     def addStep(self, *args):
         for ii, step in enumerate(args):
-            if step in self.steps.values():
+            if step._genericProtocol__inProtocol:
                 super().addSubSys(copyStep(step))
             else:
                 super().addSubSys(step)
+                step._genericProtocol__inProtocol = True
                 # TODO is this really necessary ?
                 if step.superSys is None:
                     step.superSys = self.superSys
