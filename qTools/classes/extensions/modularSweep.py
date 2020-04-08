@@ -71,7 +71,7 @@ def timeDependent(qSim):
 # This flexibility should be reflected into protocol object
 def exponUni(qSim):
     for protocol in qSim.subSys.keys():
-        protocol.createUnitary()
+        protocol.getUnitary()
     qSim._paramsUsed()
 
 def timeEvolBase(qSim):

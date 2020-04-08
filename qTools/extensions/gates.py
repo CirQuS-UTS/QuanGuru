@@ -26,7 +26,7 @@ class xGate(Gate):
             self._genericProtocol__unitary = flipOp
         return self._genericProtocol__unitary
 
-    def getUnitary(self):
-        super().getUnitary()
+    def createUnitary(self):
+        super().createUnitary()
         if self.implementation == 'instant':
             return self.instantFlip()
