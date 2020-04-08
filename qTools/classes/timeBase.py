@@ -89,9 +89,8 @@ class timeBase(computeBase):
             if hasattr(obj, '_timeBase__inBound'):
                 obj._timeBase__inBound[self.name] = self
             self._timeBase__bound = obj
+            self.stepSize = obj.stepSize
 
         if self.samples is None:
             self.samples = obj.samples
-
-        if self.stepSize is None:
-            self.stepSize = obj.stepSize
+            
