@@ -9,12 +9,15 @@ from qTools.classes.QUni import qUniversal
 class genericProtocol(timeBase):
     instances = 0
     label = 'genericProtocol'
-    __slots__  = ['__unitary', 'lastState']
+    _boolDict = {}
+    __slots__  = ['__unitary', 'lastState', '_allBools']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__unitary = None
         self.lastState = None
         self._qUniversal__setKwargs(**kwargs)
+        self._allBools = genericProtocol._boolDict
+        self._allBools[self] = self._paramUpdated
 
     def getUnitary(self):
         pass
@@ -22,19 +25,26 @@ class genericProtocol(timeBase):
     @property
     def unitary(self):
         if self._genericProtocol__unitary is not None:
-            if ((self.superSys._paramUpdated is False) and (self.bound._paramUpdated is False)):
-                self._paramUpdated = False
+            if ((self.superSys._paramUpdated is True) and (self.bound._paramUpdated is True)):
+                self._timeBase__paramUpdated = True
+                self._allBools[self] = True
 
-            if self._timeBase__paramUpdated is False:
+            if self._paramUpdated is False:
                 unitary = self._genericProtocol__unitary
             else:
                 unitary = self.getUnitary()
-                self._paramUpdated = False
-                self.superSys._paramUpdated = False
-                self.bound._paramUpdated = False
-            return unitary
+                self._timeBase__paramUpdated = False
+                self._allBools[self] = False
         else:
-            return self.getUnitary()
+            self._timeBase__paramUpdated = False
+            self._allBools[self] = False
+            unitary = self.getUnitary()
+
+        if not any(list(self._allBools.values())):
+            for sys in self._allBools.values():
+                sys.superSys._paramUpdated = False
+                sys._paramUpdated = False
+        return unitary
 
     def prepare(self, obj):
         super().prepare(obj)
@@ -167,19 +177,24 @@ class Step(genericProtocol):
     def getUnitary(self):
         super().getUnitary()
         if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)):
-            self._paramUpdated = True
+            self._timeBase__paramUpdated = True
+            self._allBools[self] = True
 
         if self._paramUpdated is False:
             return self._genericProtocol__unitary
         elif self.fixed is True:
             if self._genericProtocol__unitary is None:
                 self._genericProtocol__unitary = self.createUnitary()
+            self._timeBase__paramUpdated = False
+            self._allBools[self] = False
             return self._genericProtocol__unitary
         elif len(self._Step__updates) == 0:
             self._timeBase__paramUpdated = False
+            self._allBools[self] = False
             return self.createUnitary()
         else:
-            self._timeBase__paramUpdated
+            self._timeBase__paramUpdated = False
+            self._allBools[self] = False
             for update in self._Step__updates:
                 update.setup() 
             unitary = self.createUnitary()
