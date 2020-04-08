@@ -8,7 +8,7 @@ from qTools.classes.QUni import qUniversal
 
 class genericProtocol(timeBase):
     instances = 0
-    label = 'timeBase'
+    label = 'genericProtocol'
     __slots__  = ['__unitary', 'lastState']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -49,9 +49,9 @@ class qProtocol(genericProtocol):
         super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
 
-    @timeBase.superSys.setter
+    @genericProtocol.superSys.setter
     def superSys(self, supSys):
-        timeBase.superSys.fset(self, supSys)
+        genericProtocol.superSys.fset(self, supSys)
         self.qRes.name = self.superSys.name + self.name + 'Results'
 
     @property
@@ -61,7 +61,6 @@ class qProtocol(genericProtocol):
     @system.setter
     def system(self, supSys):
         genericProtocol.superSys.fset(self, supSys)
-        self.superSys = supSys
 
     @property
     def steps(self):
