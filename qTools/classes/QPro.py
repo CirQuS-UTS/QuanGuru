@@ -42,7 +42,7 @@ class genericProtocol(timeBase):
             unitary = self.getUnitary()
 
         if not any(list(self._allBools.values())):
-            for sys in self._allBools.values():
+            for sys in self._allBools.keys():
                 sys.superSys._paramUpdated = False
                 sys._paramUpdated = False
         return unitary
