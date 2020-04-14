@@ -115,11 +115,17 @@ class Simulation(timeBase):
     def _paramsUsed(self):
         for sys in self.Sweep.sweeps.values():
             for paramUpdateSys in sys.subSys.values():
-                paramUpdateSys._paramUpdated = False
+                try:
+                    paramUpdateSys._paramUpdated = False
+                except:
+                    pass
 
         for sys in self.timeDependency.sweeps.values():
             for paramUpdateSys in sys.subSys.values():
-                paramUpdateSys._paramUpdated = False
+                try:
+                    paramUpdateSys._paramUpdated = False
+                except:
+                    pass
 
     def __compute(self):
         states = []
