@@ -22,6 +22,12 @@ class qResBase(qUniversal):
     def results(self):
         return self._qResBase__resultsLast
 
+    def resultsMethod(self, key, value):
+        if isinstance(key, str):
+            self._qResBase__resultsLast[key].append(value)
+        elif isinstance(value, str):
+            self._qResBase__resultsLast[value].append(key)
+
     @property
     def states(self):
         return self._qResBase__statesLast
