@@ -132,7 +132,7 @@ class qUniversal:
                 print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
 
             if obj in cls.instNames.values():
-                # TODO can skip this and keep two keys for a system
+                # TODO can skip this and keep two keys for a system?
                 cls.instNames[name] = cls.instNames.pop(obj.name)
             else:
                 cls.instNames[name] = obj

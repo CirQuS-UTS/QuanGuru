@@ -40,7 +40,7 @@ class Simulation(timeBase):
     def _freeEvol(self):
         for protocol, qSys in self.subSys.items():
             if isinstance(protocol, str):
-                self.subSys[freeEvolution(superSys=qSys)] = self.subSys.pop(protocol)
+                self.subSys[qSys._genericQSys__unitary] = self.subSys.pop(protocol)
 
     @property
     def qSystems(self):
