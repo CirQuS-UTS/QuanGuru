@@ -31,6 +31,23 @@ class qResBase(qUniversal):
     def resultsKeyValList(self, keyValList):
         self._qResBase__resultsLast[keyValList[0]].append(keyValList[1])
 
+    @resultsKeyValList.setter
+    def averageKeyVal(self, keyValList):
+        valCountPair = self._qResBase__average.pop(keyValList[0], None)
+        if valCountPair is not None:
+            val = valCountPair[0]
+            counter = valCountPair[1]
+            # FIXME does not work if storing say ndarray
+            avg = ((counter*val) + keyValList[1])/(counter + 1)
+            self._qResBase__average[keyValList[0]] = [avg, counter+1]
+            self._qResBase__resultsLast[keyValList[0]] = avg
+        else:
+            val = keyValList[1]
+            # FIXME does not work if storing say ndarray
+            self._qResBase__average[keyValList[0]] = [val, 1]
+            self._qResBase__resultsLast[keyValList[0]] = val
+
+
     def resultsMethod(self, key, value, average=False):
         if not average:
             if isinstance(key, str):
@@ -93,6 +110,7 @@ class qResults(qResBase):
     def _reset(self):
         for qRes in self.allResults.values():
             qRes._qResBase__results = defaultdict(list)
+            qRes._qResBase__average = defaultdict(list)
             qRes._qResBase__states = defaultdict(list)
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)
