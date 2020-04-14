@@ -9,10 +9,11 @@ class qResBase(qUniversal):
     instances = 0
     label = 'qResBase'
 
-    __slots__ = ['__results', '__states', '__resultsLast', '__statesLast']
+    __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__results = defaultdict(list)
+        self.__average = defaultdict(list)
         self.__resultsLast = defaultdict(list)
         self.__states = defaultdict(list)
         self.__statesLast = defaultdict(list)
@@ -22,11 +23,29 @@ class qResBase(qUniversal):
     def results(self):
         return self._qResBase__resultsLast
 
-    def resultsMethod(self, key, value):
-        if isinstance(key, str):
-            self._qResBase__resultsLast[key].append(value)
-        elif isinstance(value, str):
-            self._qResBase__resultsLast[value].append(key)
+    @property
+    def resultsKeyValList(self):
+        return self._qResBase__resultsLast
+
+    @resultsKeyValList.setter
+    def resultsKeyValList(self, keyValList):
+        self._qResBase__resultsLast[keyValList[0]].append(keyValList[1])
+
+    def resultsMethod(self, key, value, average=False):
+        if not average:
+            if isinstance(key, str):
+                self._qResBase__resultsLast[key].append(value)
+            elif isinstance(value, str):
+                self._qResBase__resultsLast[value].append(key)
+        '''else:
+            valCountPair = self._qResBase__average.pop(key, None)
+            if valCountPair is not None:
+                val = valCountPair[0]
+                counter = valCountPair[1]
+                # FIXME does not work if storing say ndarray
+                avg = ((counter*val) + value)/(counter + 1)
+                self._qResBase__average'''
+
 
     @property
     def states(self):
