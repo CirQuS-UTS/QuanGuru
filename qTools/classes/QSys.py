@@ -53,6 +53,10 @@ class genericQSys(universalQSys):
         self._qUniversal__setKwargs(**kwargs)
 
     @property
+    def subSysDimensions(self):
+        return [sys.dimension for sys in self.subSys.values()]
+
+    @property
     def dimension(self):
         return self._genericQSys__dimension
 
