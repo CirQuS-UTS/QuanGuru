@@ -119,6 +119,7 @@ class qResults(qResBase):
         for qRes in self.allResults.values():
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)
+            qRes._qResBase__average = defaultdict(list)
 
     def _organiseMultiProcRes(self, results, inds):
         for res in results:
