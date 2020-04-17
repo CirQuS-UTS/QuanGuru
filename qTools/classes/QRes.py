@@ -9,7 +9,7 @@ class qResBase(qUniversal):
     instances = 0
     label = 'qResBase'
 
-    __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average']
+    __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average', '__calculated']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__results = defaultdict(list)
@@ -17,7 +17,16 @@ class qResBase(qUniversal):
         self.__resultsLast = defaultdict(list)
         self.__states = defaultdict(list)
         self.__statesLast = defaultdict(list)
-        self._qUniversal__setKwargs(**kwargs)   
+        self.__calculated = defaultdict(list)
+        self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def calculated(self):
+        return self._qResBase__calculated
+
+    @calculated.setter
+    def calculated(self, keyValList):
+        self._qResBase__calculated[keyValList[0]].append(keyValList[1])
 
     @property
     def results(self):
@@ -114,12 +123,14 @@ class qResults(qResBase):
             qRes._qResBase__states = defaultdict(list)
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)
+            qRes._qResBase__calculated = defaultdict(list)
 
     def _resetLast(self):
         for qRes in self.allResults.values():
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)
             qRes._qResBase__average = defaultdict(list)
+            qRes._qResBase__calculated = defaultdict(list)
 
     def _organiseMultiProcRes(self, results, inds):
         for res in results:
