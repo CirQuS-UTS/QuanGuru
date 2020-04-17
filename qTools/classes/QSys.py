@@ -41,6 +41,8 @@ class genericQSys(universalQSys):
     instances = 0
     label = 'genericQSys'
 
+    toBeSaved = qUniversal.toBeSaved.extendedCopy(['dimension'])
+
     __slots__ = ['__unitary', '__initialState', '__initialStateInput', '__dimension']
 
     def __init__(self, **kwargs):
