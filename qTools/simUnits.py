@@ -2,7 +2,7 @@ import scipy.constants as sciConst
 
 __all__ = [
     'settings',
-    'units'
+    'constants'
 ]
 
 defaultVals = {
@@ -28,7 +28,7 @@ settings = _settings(
     }
 )
 
-class _units(dict):
+class _constants(dict):
     def __getitem__(self, key):
         if settings.trueVals:
             return trueValues[key]
@@ -38,4 +38,4 @@ class _units(dict):
     def __getattr__(self, name):
         return self.__getitem__(name)
 
-units = _units()
+constants = _constants()
