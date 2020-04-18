@@ -1,10 +1,6 @@
 """
     Module of functions to create and/or normalise quantum states.
 
-    Types
-    -----
-    :Matrix : A type which is either spmatrix or nparray (created using TypeVar)
-
     Methods
     -------
     :basis : Creates a `ket` state
@@ -22,6 +18,14 @@
     :partialTrace : Calculates the partial trace of a `density matrix` of composite state.
     :mat2Vec : Converts ``density matrix`` into ``density vector`` (used in super-operator respresentation)
     :vec2mat : Converts ``density vector`` into ``density matrix``
+
+    Types
+    -----
+    :Matrix : Type which is either spmatrix or nparray (created using TypeVar)
+    :intList : Type for a list of integers
+    :matrixList : Type for a list `Matrix` types
+    :supInp : Type from the union the types: int, `intList`, and a dict with int:float key:value combination
+    :ndOrList : Type from the union of ndarray and intList
 """
 
 import scipy.sparse as sp
@@ -31,11 +35,12 @@ from typing import Union, Dict, List, Optional, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
-Matrix = TypeVar('Matrix', spmatrix, ndarray)
-intList = List[int]
-matrixList = List[Matrix]
-supInp = Union[Dict[int, float], intList, int]
-ndOrList = Union[ndarray, intList]
+# These type aliases are used in type hinting of below methods
+Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+intList = List[int]                                 # Type for a list of integers
+matrixList = List[Matrix]                           # Type for a list `Matrix` types
+supInp = Union[Dict[int, float], intList, int]      # Type from the union the types: int, `intList`, and a dict with int:float key:value combination
+ndOrList = Union[ndarray, intList]                  # Type from the union of ndarray and intList
 
 def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     """
