@@ -12,6 +12,8 @@ class _sweep(updateBase):
     instances = 0
     label = '_sweep'
 
+    toBeSaved = updateBase.toBeSaved.extendedCopy(['sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep', 'multiParam'])
+
     __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam']
    
     #@sweepInitError
@@ -79,6 +81,14 @@ class Sweep(computeBase):
         self.__indMultip = None
 
         self._qUniversal__setKwargs(**kwargs)
+
+    def save(self):
+        saveDict = super().save()
+        sweepsDict = {}
+        for sw in self.subSys.values():
+            sweepsDict[sw.name] = sw.save()
+        saveDict['sweeps'] = sweepsDict
+        return saveDict
 
     @property
     def inds(self):
