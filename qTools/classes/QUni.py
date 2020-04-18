@@ -11,7 +11,8 @@ def checkClass(classOf):
             if isinstance(inp, cls1):
                 inp._qUniversal__setKwargs(**kwargs)
                 if inp._qUniversal__ind is None:
-                    inp._qUniversal__ind = len(obj._qUniversal__subSys)
+                    if obj is not inp:
+                        inp._qUniversal__ind = len(obj._qUniversal__subSys)
                 addRemoveFunction(obj, inp, **kwargs)
                 return inp
             elif isinstance(inp, str):
