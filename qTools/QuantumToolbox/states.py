@@ -32,6 +32,10 @@ from numpy import ndarray
 from scipy.sparse import spmatrix
 
 Matrix = TypeVar('Matrix', spmatrix, ndarray)
+intList = List[int]
+matrixList = List[Matrix]
+supInp = Union[Dict[int, float], intList, int]
+ndOrList = Union[ndarray, intList]
 
 def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     """
@@ -64,7 +68,7 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse else n.A
 
-def completeBasis(dimension:int, sparse:bool=True) -> List[Matrix]:
+def completeBasis(dimension:int, sparse:bool=True) -> matrixList:
     """
     Creates a complete basis of `ket` states
     
@@ -156,7 +160,7 @@ def zeros(dimension:int, sparse:bool=True) -> Matrix:
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return Zeros if sparse else Zeros.A
 
-def superPos(dimension:int, excitations:Union[Dict[int, float], List[int], int], sparse:bool=True) -> Matrix:
+def superPos(dimension:int, excitations:supInp, sparse:bool=True) -> Matrix:
     """
     Creates a `ket` superposition state
 
@@ -235,7 +239,7 @@ def densityMatrix(ket:Matrix) -> Matrix:
 
     return (ket @ (ket.conj().T))
 
-def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Matrix]]=None, sparse:bool=True) -> List[Matrix]:
+def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[matrixList]=None, sparse:bool=True) -> matrixList:
     """
     Creates a complete basis of ``density matrices`` or convert a ket basis to density matrix
     
@@ -384,7 +388,7 @@ def normaliseMat(denMat:Matrix) -> Matrix:
     denMatn = mag * denMat
     return denMatn
 
-def compositeState(dimensions:List[int], excitations:List[Union[int, Dict[int, float], List[int]]], sparse:bool=True) -> Matrix:
+def compositeState(dimensions:intList, excitations:List[supInp], sparse:bool=True) -> Matrix:
     """
     Function to create ``composite ket`` states
 
@@ -438,7 +442,7 @@ def tensorProd(*args):
         totalProd = sp.kron(totalProd, args[ind+1], format='csc')
     return totalProd
 
-def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]], state:Matrix) -> ndarray:
+def partialTrace(keep:ndOrList, dims:ndOrList, state:Matrix) -> ndarray:
     """
     Calculates the partial trace of a `density matrix` of composite state.
     ρ_a = Tr_b(ρ)
