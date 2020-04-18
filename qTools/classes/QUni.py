@@ -37,11 +37,23 @@ def checkClass(classOf):
         return wrapper
     return addDecorator
 
+
+class extendedList(list):
+    def extendedCopy(self, iterable):
+        baseList = []
+        for it in self:
+            baseList.append(it)
+        for exIt in iterable:
+            baseList.append(exIt)
+        return baseList
+
 class qUniversal:
     instances = 0
     label = 'qUniversal'
     instNames = {}
     
+    toBeSaved = extendedList(['name'])
+
     __slots__ = ['__name', '__superSys', '__ind', '__subSys', '__allInstances']
 
     def __init__(self, **kwargs):
@@ -60,6 +72,11 @@ class qUniversal:
 
     def __del__(self):
         class_name = self.__class__.__name__
+
+    def save(self):
+        for k in self.toBeSaved:
+            print(k, getattr(self, k))
+        return 2
 
     def getObjByName(self, name):
         return self._qUniversal__allInstances[name]
@@ -132,7 +149,7 @@ class qUniversal:
                 print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
 
             if obj in cls.instNames.values():
-                # TODO can skip this and keep two keys for a system
+                # TODO can skip this and keep two keys for a system?
                 cls.instNames[name] = cls.instNames.pop(obj.name)
             else:
                 cls.instNames[name] = obj

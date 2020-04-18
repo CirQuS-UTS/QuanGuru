@@ -41,6 +41,8 @@ class genericQSys(universalQSys):
     instances = 0
     label = 'genericQSys'
 
+    toBeSaved = qUniversal.toBeSaved.extendedCopy(['dimension'])
+
     __slots__ = ['__unitary', '__initialState', '__initialStateInput', '__dimension']
 
     def __init__(self, **kwargs):
@@ -51,6 +53,10 @@ class genericQSys(universalQSys):
         self.__initialStateInput = None
         self.__dimension = None
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def subSysDimensions(self):
+        return [sys.dimension for sys in self.subSys.values()]
 
     @property
     def dimension(self):
@@ -218,7 +224,8 @@ class QuantumSystem(genericQSys):
         self._paramUpdated = True
         if to is None:
             self._QuantumSystem__qCouplings = {}
-            self._genericQSys__unitary = freeEvolution(superSys=self)
+            self._genericQSys__unitary = freeEvolution()
+            self._genericQSys__unitary.superSys=self
             self.couplingName = None
         else:
             self.couplingName = to

@@ -2,6 +2,7 @@ from functools import partial
 from copy import deepcopy
 
 def runSimulation(qSim, p):
+    qSim._computeBase__calculate(qSim.qSystems, qSim.qEvolutions)
     if len(qSim.Sweep.sweeps) > 0:
         if p is None:
             nonParalEvol(qSim)
@@ -56,13 +57,15 @@ def _runSweepAndPrep(qSim, ind, evolFunc):
     qSim.Sweep.runSweep(indicesForSweep(ind, *qSim.Sweep.inds))
     for protoc, qSys in qSim.subSys.items():
         protoc.lastState = qSys.initialState
-    qSim.qRes._resetLast()
+    qSim.qRes._resetLast(calculateException=qSim.qRes)
+    qSim.Sweep._computeBase__calculate(qSim.qSystems, qSim.qEvolutions)
     evolFunc(qSim)
 
 def timeDependent(qSim):
     qSim.timeDependency.prepare()
     for ind in range(qSim.timeDependency.indMultip):
         qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
+        qSim.timeDependency._computeBase__calculate(qSim.qSystems, qSim.qEvolutions)
         qSim._timeBase__step = 1
         qSim.evolFunc(qSim)
         

@@ -9,18 +9,69 @@ class qResBase(qUniversal):
     instances = 0
     label = 'qResBase'
 
-    __slots__ = ['__results', '__states', '__resultsLast', '__statesLast']
+    __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average', '__calculated']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__results = defaultdict(list)
+        self.__average = defaultdict(list)
         self.__resultsLast = defaultdict(list)
         self.__states = defaultdict(list)
         self.__statesLast = defaultdict(list)
-        self._qUniversal__setKwargs(**kwargs)   
+        self.__calculated = defaultdict(list)
+        self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def calculated(self):
+        return self._qResBase__calculated
+
+    @calculated.setter
+    def calculated(self, keyValList):
+        self._qResBase__calculated[keyValList[0]].append(keyValList[1])
 
     @property
     def results(self):
         return self._qResBase__resultsLast
+
+    @property
+    def resultsKeyValList(self):
+        return self._qResBase__resultsLast
+
+    @resultsKeyValList.setter
+    def resultsKeyValList(self, keyValList):
+        self._qResBase__resultsLast[keyValList[0]].append(keyValList[1])
+
+    @resultsKeyValList.setter
+    def averageKeyVal(self, keyValList):
+        valCountPair = self._qResBase__average.pop(keyValList[0], None)
+        if valCountPair is not None:
+            val = valCountPair[0]
+            counter = valCountPair[1]
+            # FIXME does not work if storing say ndarray
+            avg = ((counter*val) + keyValList[1])/(counter + 1)
+            self._qResBase__average[keyValList[0]] = [avg, counter+1]
+            self._qResBase__resultsLast[keyValList[0]] = avg
+        else:
+            val = keyValList[1]
+            # FIXME does not work if storing say ndarray
+            self._qResBase__average[keyValList[0]] = [val, 1]
+            self._qResBase__resultsLast[keyValList[0]] = val
+
+
+    def resultsMethod(self, key, value, average=False):
+        if not average:
+            if isinstance(key, str):
+                self._qResBase__resultsLast[key].append(value)
+            elif isinstance(value, str):
+                self._qResBase__resultsLast[value].append(key)
+        '''else:
+            valCountPair = self._qResBase__average.pop(key, None)
+            if valCountPair is not None:
+                val = valCountPair[0]
+                counter = valCountPair[1]
+                # FIXME does not work if storing say ndarray
+                avg = ((counter*val) + value)/(counter + 1)
+                self._qResBase__average'''
+
 
     @property
     def states(self):
@@ -68,14 +119,19 @@ class qResults(qResBase):
     def _reset(self):
         for qRes in self.allResults.values():
             qRes._qResBase__results = defaultdict(list)
+            qRes._qResBase__average = defaultdict(list)
             qRes._qResBase__states = defaultdict(list)
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)
+            qRes._qResBase__calculated = defaultdict(list)
 
-    def _resetLast(self):
+    def _resetLast(self, calculateException):
         for qRes in self.allResults.values():
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)
+            qRes._qResBase__average = defaultdict(list)
+            if qRes is not calculateException:
+                qRes._qResBase__calculated = defaultdict(list)
 
     def _organiseMultiProcRes(self, results, inds):
         for res in results:

@@ -40,12 +40,19 @@ class Simulation(timeBase):
     def _freeEvol(self):
         for protocol, qSys in self.subSys.items():
             if isinstance(protocol, str):
-                self.subSys[freeEvolution(superSys=qSys)] = self.subSys.pop(protocol)
+                self.subSys[qSys._genericQSys__unitary] = self.subSys.pop(protocol)
 
     @property
     def qSystems(self):
-        qSys =  list(self.subSys.values())
-        return (*qSys,) if len(qSys) > 1 else qSys[0]
+        '''qSys =  list(self.subSys.values())
+        return (*qSys,) if len(qSys) > 1 else qSys[0]'''
+        return list(self.subSys.values())
+
+    @property
+    def qEvolutions(self):
+        '''qPros = list(self.subSys.keys())
+        return (*qPros,) if len(qPros) > 1 else qPros[0]'''
+        return list(self.subSys.keys())
 
     def addQSystems(self, subS, Protocol=None):
         # TODO print a message, if the same system included more than once without giving a protocol
@@ -115,11 +122,17 @@ class Simulation(timeBase):
     def _paramsUsed(self):
         for sys in self.Sweep.sweeps.values():
             for paramUpdateSys in sys.subSys.values():
-                paramUpdateSys._paramUpdated = False
+                try:
+                    paramUpdateSys._paramUpdated = False
+                except:
+                    pass
 
         for sys in self.timeDependency.sweeps.values():
             for paramUpdateSys in sys.subSys.values():
-                paramUpdateSys._paramUpdated = False
+                try:
+                    paramUpdateSys._paramUpdated = False
+                except:
+                    pass
 
     def __compute(self):
         states = []
