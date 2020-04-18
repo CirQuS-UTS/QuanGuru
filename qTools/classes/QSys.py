@@ -41,7 +41,7 @@ class genericQSys(universalQSys):
     instances = 0
     label = 'genericQSys'
 
-    toBeSaved = qUniversal.toBeSaved.extendedCopy(['dimension', '_genericQSys__initialStateInput'])
+    toBeSaved = qUniversal.toBeSaved.extendedCopy(['dimension'])
 
     __slots__ = ['__unitary', '__initialState', '__initialStateInput', '__dimension']
 
@@ -53,6 +53,15 @@ class genericQSys(universalQSys):
         self.__initialStateInput = None
         self.__dimension = None
         self._qUniversal__setKwargs(**kwargs)
+
+    def save(self):
+        saveDict = super().save()
+        if self._genericQSys__initialStateInput is not None:
+            if hasattr(self._genericQSys__initialStateInput, 'A'):
+                saveDict['_genericQSys__initialStateInput'] = self._genericQSys__initialStateInput.A
+            else:
+                saveDict['_genericQSys__initialStateInput'] = self._genericQSys__initialStateInput
+        return saveDict
 
     @property
     def subSysDimensions(self):
