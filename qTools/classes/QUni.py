@@ -41,7 +41,7 @@ def checkClass(classOf):
 
 class extendedList(list):
     def extendedCopy(self, iterable):
-        baseList = []
+        baseList = extendedList()
         for it in self:
             baseList.append(it)
         for exIt in iterable:
@@ -77,7 +77,9 @@ class qUniversal:
     def save(self):
         saveDict = {}
         for k in self.toBeSaved:
-            saveDict[k] = getattr(self, k)
+            val = getattr(self, k)
+            if val is not None:
+                saveDict[k] = val
         saveDict['class'] = self.__class__.__name__
         return saveDict
 
