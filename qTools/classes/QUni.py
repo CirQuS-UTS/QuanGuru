@@ -74,9 +74,11 @@ class qUniversal:
         class_name = self.__class__.__name__
 
     def save(self):
+        saveDict = {}
         for k in self.toBeSaved:
-            print(k, getattr(self, k))
-        return 2
+            saveDict[k] = getattr(self, k)
+        saveDict['class'] = self.__class__.__name__
+        return saveDict
 
     def getObjByName(self, name):
         return self._qUniversal__allInstances[name]
