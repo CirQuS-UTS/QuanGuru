@@ -21,7 +21,7 @@ def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=Fals
 
     file = h5py.File(path + '/' + str(fileName) + '.h5', 'w')
     if isinstance(attributes, dict):
-        writeAttr(file, attributes)
+        writeAttr(file, attributes, path, fileName)
 
     if irregular is True:
         for key, value in dictionary.items():
@@ -30,19 +30,42 @@ def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=Fals
                 k.create_dataset(str(irty), data=value[irty])
     else:
         for key, value in dictionary.items():
-            
             file.create_dataset(key, data=value)
 
     file.close()
     return path, fileName
 
 
-def writeAttr(k, attributes):
-    for kk, vv in attributes.items():
-        if isinstance(vv, dict):
-            writeAttr(k, vv)
+def _reDict(inp, i=0 , retDict ={}, keyDict=None):
+    for key, val in inp.items():
+        if key in retDict.keys():
+            key = key + keyDict
+            if key in retDict.keys():
+                key = key + keyDict + '_' + str(i)
+                i += 1
+
+        if isinstance(val, dict):
+            retDict[key + '_'] = '|'
+            _reDict(val, i, retDict, keyDict=key)
         else:
-            k.attrs[kk] = vv
+            retDict[key] = val
+    return retDict
+
+def writeToTxt(path, timestamp, saveDict):
+    saveName = path + '/' + str(timestamp) + '.txt'
+    with open(saveName, 'w') as f:
+        f.write(' \n'.join(["%s = %s" % (k, v) for k, v in saveDict.items()]))
+
+def writeAttr(k, attributes, path, name):
+    attributes = _reDict(attributes)
+    print(attributes)
+    writeToTxt(path, name, attributes)
+
+    for key, val in attributes.items():
+        #print(key, val)
+        if val != '|':
+            k.attrs[key] = val
+    return k
 
 def readH5(path, fileName, key = None):
     path = path + '/' + fileName + '.h5'
@@ -67,7 +90,7 @@ def readAll(path, fileName):
             for key1, val1 in val.items():
                 rDict[key1] = list(val1)
             resDict[key] = rDict
-    return resDict
+    return resDict, f.attrs
 
 def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
     if fileName is None:
@@ -78,7 +101,7 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
 
     file = h5py.File(path + '/' + str(fileName) + '.h5', 'w')
     if isinstance(attributes, dict):
-        writeAttr(file, attributes)
+        writeAttr(file, attributes, path, fileName)
 
     for key1, value1 in qRes.allResults.items():
         k = file.create_group(value1.name)
@@ -94,8 +117,6 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
 
     file.close()
     return path, fileName
-
-
 
 
 def _qResSaveH5(qRes, fileName=None, attributes=dict, path=None, irregular=False):

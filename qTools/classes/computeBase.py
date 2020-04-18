@@ -35,5 +35,4 @@ class computeBase(qUniversal):
 
     def __calculate(self, systems, evolutions):
         if self.calculate is not None:
-            print(self.name, self.calculate)
             self.calculate(self, systems, evolutions)

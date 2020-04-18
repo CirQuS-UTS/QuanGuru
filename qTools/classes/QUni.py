@@ -11,7 +11,8 @@ def checkClass(classOf):
             if isinstance(inp, cls1):
                 inp._qUniversal__setKwargs(**kwargs)
                 if inp._qUniversal__ind is None:
-                    inp._qUniversal__ind = len(obj._qUniversal__subSys)
+                    if obj is not inp:
+                        inp._qUniversal__ind = len(obj._qUniversal__subSys)
                 addRemoveFunction(obj, inp, **kwargs)
                 return inp
             elif isinstance(inp, str):
@@ -40,7 +41,7 @@ def checkClass(classOf):
 
 class extendedList(list):
     def extendedCopy(self, iterable):
-        baseList = []
+        baseList = extendedList()
         for it in self:
             baseList.append(it)
         for exIt in iterable:
@@ -74,9 +75,13 @@ class qUniversal:
         class_name = self.__class__.__name__
 
     def save(self):
+        saveDict = {}
         for k in self.toBeSaved:
-            print(k, getattr(self, k))
-        return 2
+            val = getattr(self, k)
+            if val is not None:
+                saveDict[k] = val
+        saveDict['class'] = self.__class__.__name__
+        return saveDict
 
     def getObjByName(self, name):
         return self._qUniversal__allInstances[name]

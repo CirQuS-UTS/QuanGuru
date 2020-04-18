@@ -5,6 +5,8 @@ class timeBase(computeBase):
     instances = 0
     label = 'timeBase'
     
+    toBeSaved = computeBase.toBeSaved.extendedCopy(['stepSize', 'finalTime', 'samples', 'stepCount'])
+
     __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound', '__paramUpdated', '__inBound']
     
     def __init__(self, **kwargs):
@@ -18,6 +20,17 @@ class timeBase(computeBase):
         self.__inBound = OrderedDict()
 
         self._qUniversal__setKwargs(**kwargs)
+
+    def save(self):
+        try:
+            saveDict = super().save()
+        except TypeError as typeEr:
+            saveDict = {}
+            
+        if self.superSys is not None:
+            saveDict['superSys'] = self.superSys.name
+        saveDict['bound'] = self.bound.name
+        return saveDict
 
     @property
     def _paramUpdated(self):
