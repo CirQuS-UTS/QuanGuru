@@ -241,6 +241,8 @@ def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Mat
     
     Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
 
+    If a complete basis is given, keeps the sparse/array as sparse/array
+
     Parameters
     ----------
     :param `dimension` : dimension of Hilbert space (or default None if a ket basis is given)
@@ -300,6 +302,8 @@ def normalise(state:Matrix) -> Matrix:
     """
     Function to normalise `any` state (ket or density matrix)
 
+    Keeps the sparse/array as sparse/array
+
     Parameters
     ----------
     :param `state` : state to be normalised
@@ -330,6 +334,8 @@ def normaliseKet(ket:Matrix) -> Matrix:
     """
     Function to normalise `ket` state
 
+    Keeps the sparse/array as sparse/array
+
     Parameters
     ----------
     :param `state` : ket state to be normalised
@@ -354,6 +360,8 @@ def normaliseKet(ket:Matrix) -> Matrix:
 def normaliseMat(denMat:Matrix) -> Matrix:
     """
     Function to normalise a ``density matrix``
+
+    Keeps the sparse/array as sparse/array
 
     Parameters
     ----------
@@ -430,7 +438,7 @@ def tensorProd(*args):
         totalProd = sp.kron(totalProd, args[ind+1], format='csc')
     return totalProd
 
-def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]], state:Matrix) -> Matrix:
+def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]], state:Matrix) -> ndarray:
     """
     Calculates the partial trace of a `density matrix` of composite state.
     ρ_a = Tr_b(ρ)
@@ -496,6 +504,8 @@ def mat2Vec(densityMatrix:Matrix) -> Matrix:
     """
     Converts ``density matrix`` into ``density vector`` (used in super-operator respresentation)
 
+    Keeps the sparse/array as sparse/array
+
     Parameters
     ----------
     :param `densityMatrix`: density matrix to be converted
@@ -520,6 +530,8 @@ def mat2Vec(densityMatrix:Matrix) -> Matrix:
 def vec2mat(vec:Matrix) -> Matrix:
     """
     Converts ``density vector`` into ``density matrix``
+
+    Keeps the sparse/array as sparse/array
 
     Parameters
     ----------
