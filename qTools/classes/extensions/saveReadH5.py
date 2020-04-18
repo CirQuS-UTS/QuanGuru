@@ -58,7 +58,7 @@ def writeToTxt(path, timestamp, saveDict):
 
 def writeAttr(k, attributes, path, name):
     attributes = _reDict(attributes)
-    print(attributes)
+    #print(attributes)
     writeToTxt(path, name, attributes)
 
     for key, val in attributes.items():

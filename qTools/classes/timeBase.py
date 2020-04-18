@@ -4,8 +4,6 @@ from collections import OrderedDict
 class timeBase(computeBase):
     instances = 0
     label = 'timeBase'
-    
-    toBeSaved = computeBase.toBeSaved.extendedCopy(['stepSize', 'finalTime', 'samples', 'stepCount'])
 
     __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound', '__paramUpdated', '__inBound']
     
@@ -22,6 +20,7 @@ class timeBase(computeBase):
         self._qUniversal__setKwargs(**kwargs)
 
     def save(self):
+        keys = ['_timeBase__stepSize', '_timeBase__finalTime', '_timeBase__samples', '_timeBase__step']
         try:
             saveDict = super().save()
         except TypeError as typeEr:
@@ -30,6 +29,9 @@ class timeBase(computeBase):
         if self.superSys is not None:
             saveDict['superSys'] = self.superSys.name
         saveDict['bound'] = self.bound.name
+        if self.bound is self:
+            for key in keys:
+                saveDict[key] = getattr(self, key)
         return saveDict
 
     @property
