@@ -33,6 +33,7 @@ class computeBase(qUniversal):
         if self.compute is not None:
             self.compute(self, *states)
 
-    def __calculate(self, sysDict):
+    def __calculate(self, systems, evolutions):
         if self.calculate is not None:
-            self.calculate(self, **sysDict)
+            print(self.name, self.calculate)
+            self.calculate(self, systems, evolutions)

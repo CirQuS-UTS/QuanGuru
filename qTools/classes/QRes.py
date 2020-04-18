@@ -125,12 +125,13 @@ class qResults(qResBase):
             qRes._qResBase__statesLast = defaultdict(list)
             qRes._qResBase__calculated = defaultdict(list)
 
-    def _resetLast(self):
+    def _resetLast(self, calculateException):
         for qRes in self.allResults.values():
             qRes._qResBase__resultsLast = defaultdict(list)
             qRes._qResBase__statesLast = defaultdict(list)
             qRes._qResBase__average = defaultdict(list)
-            qRes._qResBase__calculated = defaultdict(list)
+            if qRes is not calculateException:
+                qRes._qResBase__calculated = defaultdict(list)
 
     def _organiseMultiProcRes(self, results, inds):
         for res in results:
