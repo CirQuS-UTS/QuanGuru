@@ -1,3 +1,7 @@
+"""
+    Module for the class qUniversal, which is inhereted by all other classes in this library.
+"""
+
 from collections import OrderedDict
 
 __all__ = [
