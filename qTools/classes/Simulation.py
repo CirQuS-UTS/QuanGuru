@@ -28,11 +28,13 @@ class Simulation(timeBase):
     def save(self):
         saveDict = super().save()
         sysDict = {}
-        proDict = {}
         for pro, sys in self.subSys.items():
-            proDict[pro.name] = pro.save()
-            sysDict[sys.name] = sys.save()
-        saveDict['qSystems'] = [sysDict, proDict]
+            syDict = sys.save()
+            syDict[pro.name] = pro.save()
+            sysDict[sys.name] = syDict
+        saveDict['qSystems'] = sysDict
+        saveDict['Sweep'] = self.Sweep.save()
+        saveDict['timeDependency'] = self.timeDependency.save()
         return saveDict
 
     @timeBase.delStates.setter
