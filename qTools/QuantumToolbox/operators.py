@@ -1,6 +1,7 @@
 """
     Module of functions to create and/or manipulate quantum operators
 """
+
 import scipy.sparse as sp
 import scipy.linalg as linA
 from scipy.sparse.linalg import expm
@@ -36,6 +37,7 @@ def number(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (1, 1)	1
     (2, 2)	2
     """
+
     data = [i for i in range(N)]
     rows = range(0, N)
     columns = range(0, N)
@@ -67,6 +69,7 @@ def destroy(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     [0.         0.         1.41421356]
     [0.         0.         0.        ]]
     """
+
     data = [np.sqrt(i+1) for i in range(N-1)]
     rows = range(0,N-1)
     columns = range(1,N)
@@ -98,6 +101,7 @@ def create(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     [1.         0.         0.        ]
     [0.         1.41421356 0.        ]]
     """
+
     data = [np.sqrt(i+1) for i in range(N-1)]
     rows = range(1,N)
     columns = range(0,N-1)
@@ -130,6 +134,7 @@ def identity(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     [0. 1. 0.]
     [0. 0. 1.]]
     """
+
     return sp.identity(N, format="csc") if sparse else np.identity(N)
 
 def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
@@ -157,6 +162,7 @@ def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (0, 0)	1
     (1, 1)	-1
     """
+
     data = [1, -1]
     rows = [0, 1]
     columns = [0, 1]
@@ -188,6 +194,7 @@ def sigmay(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (1, 0)	1j
     (0, 1)	(-0-1j)
     """
+
     data = [-1j, 1j]
     rows = [0, 1]
     columns = [1, 0]
@@ -219,6 +226,7 @@ def sigmax(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (1, 0)	1
     (0, 1)	1
     """
+
     data = [1, 1]
     rows = [0, 1]
     columns = [1, 0]
@@ -249,6 +257,7 @@ def sigmap(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     >>> sp = sigmap()
     (0, 1)	1
     """
+
     data = [1]
     rows = [0]
     columns = [1]
@@ -279,6 +288,7 @@ def sigmam(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     >>> sm = sigmam()
     (1, 0)	1
     """
+
     data = [1]
     rows = [1]
     columns = [0]
@@ -328,6 +338,7 @@ def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (3, 3)	-1.0
     (4, 4)	-2.0
     """
+
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
@@ -380,6 +391,7 @@ def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (2, 3)	2.449489742783178
     (3, 4)	2.0
     """
+
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
@@ -433,6 +445,7 @@ def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (3, 2)	2.449489742783178
     (4, 3)	2.0
     """
+
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
@@ -494,6 +507,7 @@ def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (4, 3)	1.0
     (3, 4)	1.0
     """
+
     n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
@@ -546,6 +560,7 @@ def Jy(j, sparse=True, isDim=True) -> Union[spmatrix, ndarray]:
     (4, 3)	1j
     (3, 4)	-1j
     """
+
     n = (1/(2j))*(Jp(j, isDim=isDim) - Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
@@ -592,6 +607,7 @@ def Js(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (3, 3)	(6+0j)
     (4, 4)	(6+0j)
     """
+
     n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
     return n if sparse else n.toarray()
 
@@ -627,6 +643,7 @@ def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Union[spm
     (1, 0)	1
     (0, 1)	1
     """
+
     return op(dim, sparse)**power
 
 def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
@@ -659,6 +676,7 @@ def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (3, 3)	-1.0
     (4, 4)	1.0
     """
+
     a = np.empty((N,))
     a[::2] = 1
     a[1::2] = -1
@@ -703,6 +721,7 @@ def parityEXP(HamiltonianCavity: Union[spmatrix, ndarray]) -> Union[spmatrix, nd
     (3, 4)	-0j
     (4, 4)	(1-4.898587196589413e-16j)
     """
+
     sparse = sp.isspmatrix(HamiltonianCavity)
     parEX = ((1j * np.pi) * HamiltonianCavity)
     return expm(parEX) if sparse else linA.expm(parEX)
@@ -731,6 +750,7 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray
     [[1]
     [0]]
     """
+
     data = [1]
     rows = [state]
     columns = [0]
@@ -778,6 +798,7 @@ def displacement(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, nd
     (2, 3)	0.6315086890322962j
     (3, 3)	(0.02280183542861464+0j)
     """
+
     oper = (alpha * create(dim)) - (np.conj(alpha) * destroy(dim))
     n = linA.expm(oper.toarray())
     return sp.csc_matrix(n) if sparse else n
@@ -815,6 +836,7 @@ def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, ndarray
     (1, 3)	-0.9407193337414442j
     (3, 3)	(0.33918598898694713+0j)
     """
+
     oper = -(alpha * (create(dim)@create(dim))) + (np.conj(alpha) * (destroy(dim)@destroy(dim)))
     n = linA.expm(0.5*(oper.toarray()))
     return sp.csc_matrix(n) if sparse else n
@@ -849,6 +871,7 @@ def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union
     [ 0.  0.  1.  0.]
     [ 0.  0.  0. -1.]]
     """
+    
     if (dimB <= 1) and (dimA > 1):
         return sp.kron(operator,sp.identity(dimA), format='csc')
     elif (dimB > 1) and (dimA <= 1):

@@ -6,6 +6,7 @@
     ``density matrices/ket states``, or
     ``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
 """
+
 import numpy as np
 import scipy.linalg as lina
 
@@ -59,6 +60,7 @@ def expectation(operator: Union[spmatrix, ndarray], state: Union[spmatrix, ndarr
     >>> expectKet = expectation(operator=sigmaz, state=denMat2)
     0
     """
+
     if state.shape[0] != state.shape[1]:
         state = state @ (state.conj().T)
     return expectationMat(operator, state)
@@ -99,6 +101,7 @@ def expectationMat(operator: Union[spmatrix, ndarray], denMat: Union[spmatrix, n
     >>> expectKet = expectation(operator=sigmaz, state=denMat2)
     0
     """
+
     expc = ((operator @ denMat).diagonal()).sum()
     return np.real(expc)
 
@@ -136,6 +139,7 @@ def expectationKet(operator: Union[spmatrix, ndarray], ket: Union[spmatrix, ndar
     >>> expectKet = expectation(operator=sigmaz, state=ket2)
     0
     """
+
     denMat = ket @ (ket.conj().T)
     return expectationMat(operator, denMat)
 
@@ -165,6 +169,7 @@ def expectationKetList(operator: Union[spmatrix, ndarray], kets: List[Union[spma
     >>> expectKetList = expectationKetList(operator=sigmaz, kets=ketList)
     [-1, 1, 0.0]
     """
+
     expectations = []
     for ket in kets:
         expectations.append(expectationKet(operator, ket))
@@ -199,6 +204,7 @@ def expectationMatList(operator: Union[spmatrix, ndarray], denMats:  List[Union[
     >>> expectMatList = expectationMatList(sigmaz, denMats=denMatList)
     [-1, 1, 0.0]
     """
+
     expectations = []
     for denMat in denMats:
         expectations.append(expectationMat(operator, denMat))
@@ -235,6 +241,7 @@ def expectationColArr(operator: Union[spmatrix, ndarray], states: ndarray) -> Li
     >>>> expectX = expectationColArr(sx, eigVecs)
     [0. 0.]
     """
+
     expMat = states.conj().T @ operator @ states
     return expMat.diagonal()
 
@@ -277,6 +284,7 @@ def fidelity(state1: Union[spmatrix, ndarray], state2: Union[spmatrix, ndarray])
     >>> fidelityMat12 = fidelity(state1=denMat1, state2=denMat2)
     0.5
     """
+
     if state1.shape[0] != state1.shape[1]:
         if state2.shape[0] != state2.shape[1]:
             return fidelityKet(state1, state2)
@@ -319,6 +327,7 @@ def fidelityKet(ket1: Union[spmatrix, ndarray], ket2: Union[spmatrix, ndarray]) 
     >>> fidelityKet12 = fidelityKet(state1=ket1, state2=ket2)
     0.5
     """
+
     herm = ket1.conj().T
     fidelityA = ((herm @ ket2).diagonal()).sum()
     return np.real(fidelityA * np.conj(fidelityA))
@@ -354,6 +363,7 @@ def fidelityPureMat(denMat1: Union[spmatrix, ndarray], denMat2: Union[spmatrix, 
     >>> fidelityMat12 = fidelityPureMat(state1=denMat1, state2=denMat2)
     0.5
     """
+
     fidelityA = ((denMat1 @ denMat2).diagonal()).sum()
     return np.real(fidelityA)
 
@@ -382,6 +392,7 @@ def fidelityKetList(ket1: Union[spmatrix, ndarray], ketList: List[Union[spmatrix
     >>> fidelityList = fidelityKetList(ket0, ketList)
     [1, 0, 0.5000000000000001]
     """
+
     fidelities = []
     herm = ket1.conj().T
     for ket in ketList:
@@ -395,6 +406,7 @@ def fidelityKetLists(zippedStatesList: Any) -> List[float]:
 
     FIXME too specific, requires zipping
     """
+
     fidelities = []
     for ind in range(len(zippedStatesList[0])):
         herm = zippedStatesList[0][ind].conj().T
@@ -494,6 +506,7 @@ def entropyKet(ket: Union[spmatrix, ndarray], base2:bool=False) -> float:
     >>> entropyKetEntangled = entropyKet(entangledKet)
     2.2204460492503126e-16
     """
+
     denMat = ket @ (ket.conj().T)
     S = entropy(denMat, base2)
     return S
@@ -526,6 +539,7 @@ def iprKet(basis: List[Union[spmatrix, ndarray]], ket: Union[spmatrix, ndarray])
     >>> ipr2 = iprKet(completeBasis, state2)
     1.0
     """
+
     npc = 0.0
     for basKet in basis:
         fid = fidelityKet(basKet, ket)
@@ -558,6 +572,7 @@ def iprKetList(basis: List[Union[spmatrix, ndarray]], kets: List[Union[spmatrix,
     >>> iprList = iprKetList(completeBasis, stateList)
     [1.1245136186770428, 2.000000000000001, 1.0, 1.0]
     """
+
     npcs = []
     for ket in kets:
         npcs.append(iprKet(basis, ket))
@@ -592,6 +607,7 @@ def iprKetNB(ket: Union[spmatrix, ndarray]) -> float:
     >>> ipr3 = iprKetNB(state3)
     1.0
     """
+
     # TODO Find a way around this
     if isinstance(ket, spmatrix):
         ket = ket.A
@@ -623,6 +639,7 @@ def iprKetNBList(kets: List[Union[spmatrix, ndarray]]) -> List[float]:
     >>> iprList = iprKetNBList(stateList)
     [1.1245136186770428, 2.000000000000001, 1.0, 1.0]
     """
+
     IPRatio = []
     for ket in kets:
         IPRatio.append(iprKetNB(ket))
@@ -656,6 +673,7 @@ def iprKetNBmat(kets: ndarray) -> List[float]:
     >>> iprUni = iprKetNBmat(eigVecsUni)
     [1.0, 1.0]
     """
+
     IPRatio = []
     for ind in range(len(kets)):
         IPRatio.append(iprKetNB(kets[:,ind]))
@@ -691,6 +709,7 @@ def iprPureDenMat(basis: List[Union[spmatrix, ndarray]], denMat: Union[spmatrix,
     >>> ipr2 = iprPureDenMat(completeBasis, denMat2)
     1.0
     """
+
     npc = 0.0
     for basKet in basis:
         fid = fidelityPureMat(basKet, denMat)
@@ -725,6 +744,7 @@ def sortedEigens(Ham: Union[spmatrix, ndarray]) -> Tuple[List[float], List[ndarr
     [ 0.39528471 -0.53033009  0.25        0.25        0.53033009 -0.39528471]
     [-0.1767767   0.39528471 -0.55901699  0.55901699  0.39528471 -0.1767767 ]]
     """
+
     if not isinstance(Ham, np.ndarray):
         Ham = Ham.A
 
@@ -757,6 +777,7 @@ def eigVecStatKet(basis: List[Union[spmatrix, ndarray]], ket: Union[spmatrix, nd
     >>> components = eigVecStatKet(basis=completeBasis, ket=ket)
     [0, 1]
     """
+
     comps = []
     for basKet in basis:
         comps.append(fidelityKet(basKet, ket))
@@ -786,6 +807,7 @@ def eigVecStatKetList(basis: List[Union[spmatrix, ndarray]], kets: List[Union[sp
     >>> components = eigVecStatKetList(basis=completeBasis, kets=ketList)
     [[1, 0], [0, 1]]
     """
+
     compsList = []
     for ket in kets:
         compsList.append(eigVecStatKet(basis, ket))
@@ -812,6 +834,7 @@ def eigVecStatKetNB(ket: Union[spmatrix, ndarray]) -> float:
     >>> components = eigVecStatKetNB(ket=ket)
     [0 1]
     """
+    
     # TODO Find a way around this
     if isinstance(ket, spmatrix):
         ket = ket.A

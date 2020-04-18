@@ -1,6 +1,7 @@
 """
     Module of functions to create Unitary operator and open-system super-operators.
 """
+
 import scipy.sparse as sp
 import scipy.sparse.linalg as slinA
 import numpy as np
@@ -30,6 +31,7 @@ def Unitary(Hamiltonian: Union[spmatrix, ndarray], timeStep:float=1.0) -> Union[
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     sparse = sp.issparse(Hamiltonian)
     if sparse is True:
         liouvillianEXP = slinA.expm(-1j * Hamiltonian * timeStep)
@@ -58,6 +60,7 @@ def Liouvillian(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, collapseOpe
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     if Hamiltonian is not None:
         sparse = sp.issparse(Hamiltonian)
     else:
@@ -102,6 +105,7 @@ def LiouvillianExp(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, timeStep
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     if Hamiltonian is not None:
         sparse = sp.issparse(Hamiltonian)
     else:
@@ -139,6 +143,7 @@ def dissipator(collapseOperator:Union[spmatrix, ndarray], identity:Optional[Unio
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     sparse = sp.issparse(collapseOperator)
     if identity is None:
         dimension = collapseOperator.shape[0]
@@ -174,6 +179,7 @@ def _preSO(operator: Union[spmatrix, ndarray], identity: Union[spmatrix, ndarray
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     if sparse is True:
         return sp.kron(identity, operator, format='csc')
     else:
@@ -198,6 +204,7 @@ def _posSO(operator: Union[spmatrix, ndarray], identity: Union[spmatrix, ndarray
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     if sparse is True:
         return sp.kron(operator.transpose(), identity, format='csc')
     else:
@@ -221,6 +228,7 @@ def _preposSO(operator: Union[spmatrix, ndarray], sparse:bool)  -> Union[spmatri
     --------
     # TODO Create some examples both in here and the demo script
     """
+    
     if sparse is True:
         return sp.kron(operator.conj(), operator, format='csc')
     else:

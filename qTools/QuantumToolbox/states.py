@@ -1,6 +1,7 @@
 """
     Module of functions to create and/or normalise quantum states
 """
+
 import scipy.sparse as sp
 import numpy as np
 
@@ -33,6 +34,7 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray
     [[1]
     [0]]
     """
+
     data = [1]
     rows = [state]
     columns = [0]
@@ -69,6 +71,7 @@ def completeBasis(dimension:int, sparse:bool=True) -> List[Union[spmatrix, ndarr
     (0, 0)	1
     (1, 0)	1
     """
+
     compBasis = []
     for i in range(dimension):
         compBasis.append(basis(dimension, i, sparse))
@@ -97,6 +100,7 @@ def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndar
     >>> basisBra(2, 1, sparse=False)
     [[1 0]]
     """
+
     n = basis(dimension,state,sparse).T
     return n
 
@@ -122,6 +126,7 @@ def zeros(dimension:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     [[0]
     [0]]
     """
+
     data = [0]
     rows = [0]
     columns = [0]
@@ -159,6 +164,7 @@ def superPos(dimension:int, excitations:Union[Dict[int, float], List[int], int],
     [[0.]
     [1.]]
     """
+
     sts = []
     if isinstance(excitations, dict):
         for key, val in excitations.items():
@@ -203,6 +209,7 @@ def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0.2 0.4]
     [0.4 0.8]]
     """
+
     return (ket @ (ket.conj().T))
 
 def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Union[spmatrix, ndarray]]]=None, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
@@ -220,6 +227,10 @@ def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Uni
     Returns
     -------
     :return : a list (complete basis) of ``density matrices``
+
+    Raises
+    ------
+    :ValueError : raised if both complete ket basis and dimension are None (default). Dimension is used to create 
 
     Examples
     --------
@@ -250,6 +261,7 @@ def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Uni
     (0, 0)	1
     (1, 1)	1
     """
+
     if compKetBase is None:
         if dimension is None:
             raise ValueError('err')
@@ -285,6 +297,7 @@ def normalise(state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0.8 0.4]
     [0.4 0.2]]
     """
+
     if state.shape[0] != state.shape[1]:
         return normaliseKet(state)
     else:
@@ -310,6 +323,7 @@ def normaliseKet(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0.89442719]
     [0.4472136 ]]
     """
+
     mag = 1 / np.sqrt((((ket.conj().T) @ ket).diagonal()).sum())
     ketn = mag * ket
     return ketn
@@ -334,6 +348,7 @@ def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0.8 0.4]
     [0.4 0.2]]
     """
+
     mag = 1 / (denMat.diagonal()).sum()
     denMatn = mag * denMat
     return denMatn
@@ -373,6 +388,7 @@ def compositeState(dimensions:List[int], excitations:List[Union[Dict[int, float]
     [0.        ]
     [0.        ]]
     """
+
     if isinstance(excitations[0], int):
         st = basis(dimensions[0], excitations[0], sparse)
     else:
@@ -434,6 +450,7 @@ def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]],
     [[0.2 0.4]
     [0.4 0.8]]
     """
+
     if not isinstance(state, np.ndarray):
         state = state.toarray()
 
@@ -473,6 +490,7 @@ def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [0]
     [1]]
     """
+
     vec = densityMatrix.T.reshape(np.prod(np.shape(densityMatrix)), 1)
     return vec
 
@@ -498,6 +516,7 @@ def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0 0]
     [0 1]]
     """
+
     a = vec.shape
     n = int(np.sqrt(a[0]))
     mat = vec.reshape((n, n)).T

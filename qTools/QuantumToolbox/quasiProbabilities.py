@@ -86,6 +86,7 @@ def HusimiQ(state: Union[ndarray, spmatrix], xvec: Union[ndarray, list], g:float
         [xvec,yvec].
 
     """
+
     X, Y = meshgrid(xvec, xvec)
     amat = 0.5 * g * (X + Y * 1j)
     qmat = zeros(size(amat))
@@ -111,6 +112,7 @@ def _qfunc_pure(psi: Union[ndarray, spmatrix], alpha_mat: ndarray) -> ndarray:
     """
     Calculate the Q-function for a pure state.
     """
+    
     n = np.prod(psi.shape)
     psi = psi.T
 
