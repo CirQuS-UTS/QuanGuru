@@ -72,11 +72,6 @@ class qProtocol(genericProtocol):
         super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
 
-    @genericProtocol.superSys.setter
-    def superSys(self, supSys):
-        genericProtocol.superSys.fset(self, supSys)
-        self.qRes.name = self.superSys.name + self.name + 'Results'
-
     @property
     def system(self):
         return self.superSys
