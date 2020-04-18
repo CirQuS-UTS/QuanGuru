@@ -236,6 +236,7 @@ class Step(genericProtocol):
 class copyStep(qUniversal):
     instances = 0
     label = 'copyStep'
+    toBeSaved = qUniversal.toBeSaved.extendedCopy(['superSys'])
     __slots__ = []
     def __init__(self, superSys, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -279,21 +280,16 @@ class Gate(Step):
 class Update(updateBase):
     instances = 0
     label = 'Update'
-    slots = ['value', '__memoryValue', '__memoryBool']
+
+    toBeSaved = qUniversal.toBeSaved.extendedCopy(['value'])
+
+    __slots__ = ['value', '__memoryValue', '__memoryBool']
     def __init__ (self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.value = None
         self.__memoryValue = None
         self.__memoryBool = []
         self._qUniversal__setKwargs(**kwargs)
-        
-    @property
-    def key(self):
-        return self._updateBase__key
-
-    @key.setter
-    def key(self, keyStr):
-        self._updateBase__key = keyStr
 
     def setup(self):
         for ind, sys in enumerate(self.subSys.values()):
