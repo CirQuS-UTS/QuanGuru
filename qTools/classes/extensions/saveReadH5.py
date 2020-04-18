@@ -21,7 +21,7 @@ def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=Fals
 
     file = h5py.File(path + '/' + str(fileName) + '.h5', 'w')
     if isinstance(attributes, dict):
-        writeAttr(file, attributes)
+        writeAttr(file, attributes, path, fileName)
 
     if irregular is True:
         for key, value in dictionary.items():
@@ -51,12 +51,18 @@ def _reDict(inp, i=0 , retDict ={}, keyDict=None):
             retDict[key] = val
     return retDict
 
+def writeToTxt(path, timestamp, saveDict):
+    saveName = path + '/' + str(timestamp) + '.txt'
+    with open(saveName, 'w') as f:
+        f.write(' \n'.join(["%s = %s" % (k, v) for k, v in saveDict.items()]))
 
-def writeAttr(k, attributes):
+def writeAttr(k, attributes, path, name):
     attributes = _reDict(attributes)
     print(attributes)
+    writeToTxt(path, name, attributes)
+
     for key, val in attributes.items():
-        print(key, val)
+        #print(key, val)
         if val != '|':
             k.attrs[key] = val
     return k
@@ -95,7 +101,7 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
 
     file = h5py.File(path + '/' + str(fileName) + '.h5', 'w')
     if isinstance(attributes, dict):
-        writeAttr(file, attributes)
+        writeAttr(file, attributes, path, fileName)
 
     for key1, value1 in qRes.allResults.items():
         k = file.create_group(value1.name)
@@ -111,8 +117,6 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
 
     file.close()
     return path, fileName
-
-
 
 
 def _qResSaveH5(qRes, fileName=None, attributes=dict, path=None, irregular=False):
