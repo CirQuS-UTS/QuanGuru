@@ -44,8 +44,15 @@ class Simulation(timeBase):
 
     @property
     def qSystems(self):
-        qSys =  list(self.subSys.values())
-        return (*qSys,) if len(qSys) > 1 else qSys[0]
+        '''qSys =  list(self.subSys.values())
+        return (*qSys,) if len(qSys) > 1 else qSys[0]'''
+        return list(self.subSys.values())
+
+    @property
+    def qEvolutions(self):
+        '''qPros = list(self.subSys.keys())
+        return (*qPros,) if len(qPros) > 1 else qPros[0]'''
+        return list(self.subSys.keys())
 
     def addQSystems(self, subS, Protocol=None):
         # TODO print a message, if the same system included more than once without giving a protocol
