@@ -10,6 +10,7 @@ class genericProtocol(timeBase):
     instances = 0
     label = 'genericProtocol'
     _boolDict = {}
+
     __slots__  = ['__unitary', 'lastState', '_allBools', '__inProtocol']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -20,6 +21,14 @@ class genericProtocol(timeBase):
         self._qUniversal__setKwargs(**kwargs)
         self._allBools = genericProtocol._boolDict
         self._allBools[self] = self._paramUpdated
+
+    def save(self):
+        saveDict = super().save()
+        stepsDict = {}
+        for sys in self.subSys.values():
+            stepsDict[sys.name] = sys.save()
+        saveDict['steps'] = stepsDict
+        return saveDict
 
     def getUnitary(self):
         pass
@@ -57,6 +66,8 @@ class genericProtocol(timeBase):
 class qProtocol(genericProtocol):
     instances = 0
     label = 'qProtocol'
+
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
