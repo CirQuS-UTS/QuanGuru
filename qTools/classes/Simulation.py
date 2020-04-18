@@ -25,6 +25,16 @@ class Simulation(timeBase):
 
         self._qUniversal__setKwargs(**kwargs)
 
+    def save(self):
+        saveDict = super().save()
+        sysDict = {}
+        proDict = {}
+        for pro, sys in self.subSys.items():
+            proDict[pro.name] = pro.save()
+            sysDict[sys.name] = sys.save()
+        saveDict['qSystems'] = [sysDict, proDict]
+        return saveDict
+
     @timeBase.delStates.setter
     def delStates(self, boolean):
         timeBase.delStates.fset(self, boolean)
