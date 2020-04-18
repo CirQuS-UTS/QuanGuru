@@ -236,12 +236,17 @@ class Step(genericProtocol):
 class copyStep(qUniversal):
     instances = 0
     label = 'copyStep'
-    toBeSaved = qUniversal.toBeSaved.extendedCopy(['superSys'])
+    
     __slots__ = []
     def __init__(self, superSys, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.superSys = superSys
         self._qUniversal__setKwargs(**kwargs)
+
+    def save(self):
+        saveDict = super().save()
+        saveDict['superSys'] = self.superSys.name
+        return saveDict
     
     def getUnitary(self):
         return self.superSys._genericProtocol__unitary
