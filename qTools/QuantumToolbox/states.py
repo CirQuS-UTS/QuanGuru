@@ -6,30 +6,32 @@
     :basis : Creates a `ket` state
     :completeBasis : Creates a complete basis of `ket` states
     :basisBra : Creates a `bra` state
+
     :zeros : Creates a column matrix (ket) of zeros
+
     :superPos : Creates a `ket` superposition state
+
     :densityMatrix : Converts a `ket` state into ``density matrix``
+
     :completeBasisMat : Creates a complete basis of ``density matrices`` or convert a ``ket basis`` to ``density matrix``
+
     :normalise : Function to normalise `any` state (ket or density matrix)
     :normaliseKet : Function to normalise `ket` state
     :normaliseMat : Function to normalise a ``density matrix``
+
     :compositeState : Function to create ``composite ket`` states
     :tensorProd : ``missing docstring``
     :partialTrace : Calculates the partial trace of a `density matrix` of composite state.
+    
     :mat2Vec : Converts ``density matrix`` into ``density vector`` (used in super-operator respresentation)
     :vec2mat : Converts ``density vector`` into ``density matrix``
-
-    Types
-    -----
-    :Matrix : Type which is either spmatrix or nparray (created using TypeVar)
-    :intList : Type for a list of integers
-    :matrixList : Type for a list `Matrix` types
-    :supInp : Type from the union the types: int, `intList`, and a dict with int:float key:value combination
-    :ndOrList : Type from the union of ndarray and intList
 """
 
 import scipy.sparse as sp
 import numpy as np
+
+#from .customTypes import Matrix, intList, matrixList, supInp, ndOrList_int
+#from numpy import ndarray
 
 from typing import Union, Dict, List, Optional, TypeVar
 from numpy import ndarray
@@ -40,7 +42,7 @@ Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmat
 intList = List[int]                                 # Type for a list of integers
 matrixList = List[Matrix]                           # Type for a list `Matrix` types
 supInp = Union[Dict[int, float], intList, int]      # Type from the union the types: int, `intList`, and a dict with int:float key:value combination
-ndOrList = Union[ndarray, intList]                  # Type from the union of ndarray and intList
+ndOrList_int = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements
 
 def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     """
@@ -66,7 +68,7 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     [[1]
     [0]]
     """
-
+    
     data = [1]
     rows = [state]
     columns = [0]
@@ -447,7 +449,7 @@ def tensorProd(*args):
         totalProd = sp.kron(totalProd, args[ind+1], format='csc')
     return totalProd
 
-def partialTrace(keep:ndOrList, dims:ndOrList, state:Matrix) -> ndarray:
+def partialTrace(keep:ndOrList_int, dims:ndOrList_int, state:Matrix) -> ndarray:
     """
     Calculates the partial trace of a `density matrix` of composite state.
     ρ_a = Tr_b(ρ)
