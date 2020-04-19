@@ -1,19 +1,36 @@
 """
     Module of functions to create Unitary operator and open-system super-operators.
+
+    Methods
+    -------
+    :Unitary : Creates Unitary time evolution operator for a given Hamiltonian and time step
+    :Liouvillian : Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates)
+    :LiouvillianExp : Creates Liovillian super-operator (and exponentiates) for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates)
+    :dissipator : Creates the Lindblad dissipator super-operator for a collapse operator
+    :_preSO : Creates `pre` super-operator for an operator
+    :_posSO : Creates `pos` super-operator for an operator
+    :_preposSO : Creates `pre-pos` super-operator for an operator
 """
+
 import scipy.sparse as sp
 import scipy.sparse.linalg as slinA
 import numpy as np
 import scipy.linalg as linA
 
-from typing import Union, Optional
+from typing import Optional
+from .customTypes import Matrix
+
+'''from typing import Optional, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
+# These type aliases are used in type hinting of below methods
+Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
 
-def Unitary(Hamiltonian: Union[spmatrix, ndarray], timeStep:float=1.0) -> Union[spmatrix, ndarray]:
+
+def Unitary(Hamiltonian: Matrix, timeStep:float=1.0) -> Matrix:
     """
-    Creates Unitary time evolution operator for a given Hamiltonian and time step.
+    Creates Unitary time evolution operator for a given Hamiltonian and time step
 
     Keeps sparse/array as sparse/array.
 
@@ -30,6 +47,7 @@ def Unitary(Hamiltonian: Union[spmatrix, ndarray], timeStep:float=1.0) -> Union[
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     sparse = sp.issparse(Hamiltonian)
     if sparse is True:
         liouvillianEXP = slinA.expm(-1j * Hamiltonian * timeStep)
@@ -37,9 +55,9 @@ def Unitary(Hamiltonian: Union[spmatrix, ndarray], timeStep:float=1.0) -> Union[
         liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep)
     return liouvillianEXP
 
-def Liouvillian(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, collapseOperators:list=[], decayRates:list=[]) -> Union[spmatrix, ndarray]:
+def Liouvillian(Hamiltonian:Optional[Matrix]=None, collapseOperators:list=[], decayRates:list=[]) -> Matrix:
     """
-    Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates).
+    Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates)
 
     Keeps sparse/array as sparse/array.
 
@@ -58,6 +76,7 @@ def Liouvillian(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, collapseOpe
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     if Hamiltonian is not None:
         sparse = sp.issparse(Hamiltonian)
     else:
@@ -80,9 +99,9 @@ def Liouvillian(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, collapseOpe
             liouvillian += collapsePart
     return liouvillian
 
-def LiouvillianExp(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, timeStep:float= 1.0, collapseOperators:list = [], decayRates:list = [], exp:bool = True) -> Union[spmatrix, ndarray]:
+def LiouvillianExp(Hamiltonian:Optional[Matrix]=None, timeStep:float= 1.0, collapseOperators:list = [], decayRates:list = [], exp:bool = True) -> Matrix:
     """
-    Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates).
+    Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates)
 
     Keeps sparse/array as sparse/array.
 
@@ -102,6 +121,7 @@ def LiouvillianExp(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, timeStep
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     if Hamiltonian is not None:
         sparse = sp.issparse(Hamiltonian)
     else:
@@ -120,9 +140,9 @@ def LiouvillianExp(Hamiltonian:Optional[Union[spmatrix, ndarray]]=None, timeStep
         liouvillianEXP = Unitary(Hamiltonian, timeStep)
     return liouvillianEXP
 
-def dissipator(collapseOperator:Union[spmatrix, ndarray], identity:Optional[Union[spmatrix, ndarray]]=None) -> Union[spmatrix, ndarray]:
+def dissipator(collapseOperator:Matrix, identity:Optional[Matrix]=None) -> Matrix:
     """
-    Creates the Lindblad dissipator super-operator for a collapse operator.
+    Creates the Lindblad dissipator super-operator for a collapse operator
 
     Keeps sparse/array as sparse/array.
 
@@ -139,6 +159,7 @@ def dissipator(collapseOperator:Union[spmatrix, ndarray], identity:Optional[Unio
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     sparse = sp.issparse(collapseOperator)
     if identity is None:
         dimension = collapseOperator.shape[0]
@@ -155,9 +176,9 @@ def dissipator(collapseOperator:Union[spmatrix, ndarray], identity:Optional[Unio
     part3 = _posSO(number, identity,sparse)
     return part1 - (0.5 * (part2 + part3))
 
-def _preSO(operator: Union[spmatrix, ndarray], identity: Union[spmatrix, ndarray], sparse:bool) -> Union[spmatrix, ndarray]:
+def _preSO(operator: Matrix, identity: Matrix, sparse:bool) -> Matrix:
     """
-    Creates `pre` super-operator for an operator.
+    Creates `pre` super-operator for an operator
 
     Keeps sparse/array as sparse/array.
 
@@ -174,14 +195,15 @@ def _preSO(operator: Union[spmatrix, ndarray], identity: Union[spmatrix, ndarray
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     if sparse is True:
         return sp.kron(identity, operator, format='csc')
     else:
         return np.kron(identity, operator)
 
-def _posSO(operator: Union[spmatrix, ndarray], identity: Union[spmatrix, ndarray], sparse:bool)  -> Union[spmatrix, ndarray]:
+def _posSO(operator: Matrix, identity: Matrix, sparse:bool)  -> Matrix:
     """
-    Creates `pos` super-operator for an operator.
+    Creates `pos` super-operator for an operator
 
     Keeps sparse/array as sparse/array.
 
@@ -198,14 +220,15 @@ def _posSO(operator: Union[spmatrix, ndarray], identity: Union[spmatrix, ndarray
     --------
     # TODO Create some examples both in here and the demo script
     """
+
     if sparse is True:
         return sp.kron(operator.transpose(), identity, format='csc')
     else:
         return np.kron(np.transpose(operator), identity)
 
-def _preposSO(operator: Union[spmatrix, ndarray], sparse:bool)  -> Union[spmatrix, ndarray]:
+def _preposSO(operator: Matrix, sparse:bool)  -> Matrix:
     """
-    Creates `pre-pos` super-operator for an operator.
+    Creates `pre-pos` super-operator for an operator
 
     Keeps sparse/array as sparse/array.
 
@@ -221,6 +244,7 @@ def _preposSO(operator: Union[spmatrix, ndarray], sparse:bool)  -> Union[spmatri
     --------
     # TODO Create some examples both in here and the demo script
     """
+    
     if sparse is True:
         return sp.kron(operator.conj(), operator, format='csc')
     else:

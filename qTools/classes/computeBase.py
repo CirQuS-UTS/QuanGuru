@@ -21,6 +21,11 @@ class computeBase(qUniversal):
     def getResultByName(self, name):
         return super().getObjByName(name)
 
+    @qUniversal.superSys.setter
+    def superSys(self, supSys):
+        qUniversal.superSys.fset(self, supSys)
+        self.qRes.name = self.superSys.name + self.name + 'Results'
+
     @property
     def delStates(self):
         return self._computeBase__delStates
@@ -35,5 +40,4 @@ class computeBase(qUniversal):
 
     def __calculate(self, systems, evolutions):
         if self.calculate is not None:
-            print(self.name, self.calculate)
             self.calculate(self, systems, evolutions)

@@ -115,6 +115,8 @@ class qResults(qResBase):
 
         if removedFromAllRes is True:
             print('?')
+        
+        self.name = self.superSys.name + 'Results'
 
     def _reset(self):
         for qRes in self.allResults.values():

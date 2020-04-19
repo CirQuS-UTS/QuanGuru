@@ -10,6 +10,7 @@ class genericProtocol(timeBase):
     instances = 0
     label = 'genericProtocol'
     _boolDict = {}
+
     __slots__  = ['__unitary', 'lastState', '_allBools', '__inProtocol']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -20,6 +21,14 @@ class genericProtocol(timeBase):
         self._qUniversal__setKwargs(**kwargs)
         self._allBools = genericProtocol._boolDict
         self._allBools[self] = self._paramUpdated
+
+    def save(self):
+        saveDict = super().save()
+        stepsDict = {}
+        for sys in self.subSys.values():
+            stepsDict[sys.name] = sys.save()
+        saveDict['steps'] = stepsDict
+        return saveDict
 
     def getUnitary(self):
         pass
@@ -57,14 +66,11 @@ class genericProtocol(timeBase):
 class qProtocol(genericProtocol):
     instances = 0
     label = 'qProtocol'
+
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs)
-
-    @genericProtocol.superSys.setter
-    def superSys(self, supSys):
-        genericProtocol.superSys.fset(self, supSys)
-        self.qRes.name = self.superSys.name + self.name + 'Results'
 
     @property
     def system(self):
@@ -225,11 +231,17 @@ class Step(genericProtocol):
 class copyStep(qUniversal):
     instances = 0
     label = 'copyStep'
+    
     __slots__ = []
     def __init__(self, superSys, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.superSys = superSys
         self._qUniversal__setKwargs(**kwargs)
+
+    def save(self):
+        saveDict = super().save()
+        saveDict['superSys'] = self.superSys.name
+        return saveDict
     
     def getUnitary(self):
         return self.superSys._genericProtocol__unitary
@@ -268,21 +280,16 @@ class Gate(Step):
 class Update(updateBase):
     instances = 0
     label = 'Update'
-    slots = ['value', '__memoryValue', '__memoryBool']
+
+    toBeSaved = qUniversal.toBeSaved.extendedCopy(['value'])
+
+    __slots__ = ['value', '__memoryValue', '__memoryBool']
     def __init__ (self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.value = None
         self.__memoryValue = None
         self.__memoryBool = []
         self._qUniversal__setKwargs(**kwargs)
-        
-    @property
-    def key(self):
-        return self._updateBase__key
-
-    @key.setter
-    def key(self, keyStr):
-        self._updateBase__key = keyStr
 
     def setup(self):
         for ind, sys in enumerate(self.subSys.values()):

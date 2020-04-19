@@ -1,15 +1,51 @@
 """
-    Module of functions to create and/or normalise quantum states
+    Module of functions to create and/or normalise quantum states.
+
+    Methods
+    -------
+    :basis : Creates a `ket` state
+    :completeBasis : Creates a complete basis of `ket` states
+    :basisBra : Creates a `bra` state
+
+    :zeros : Creates a column matrix (ket) of zeros
+
+    :superPos : Creates a `ket` superposition state
+
+    :densityMatrix : Converts a `ket` state into ``density matrix``
+
+    :completeBasisMat : Creates a complete basis of ``density matrices`` or convert a ``ket basis`` to ``density matrix``
+
+    :normalise : Function to normalise `any` state (ket or density matrix)
+    :normaliseKet : Function to normalise `ket` state
+    :normaliseMat : Function to normalise a ``density matrix``
+
+    :compositeState : Function to create ``composite ket`` states
+    :tensorProd : ``missing docstring``
+    :partialTrace : Calculates the partial trace of a `density matrix` of composite state.
+    
+    :mat2Vec : Converts ``density matrix`` into ``density vector`` (used in super-operator respresentation)
+    :vec2mat : Converts ``density vector`` into ``density matrix``
 """
-import scipy.sparse as sp
+
+import scipy.sparse as sp 
 import numpy as np
 
-from typing import Union, Dict, List, Optional
+from .customTypes import Matrix, intList, matrixList, supInp, ndOrList_int
+from numpy import ndarray # type: ignore
+from typing import Optional, List
+
+'''from typing import Union, Dict, List, Optional, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
+# These type aliases are used in type hinting of below methods
+Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+intList = List[int]                                 # Type for a list of integers
+matrixList = List[Matrix]                           # Type for a list `Matrix` types
+supInp = Union[Dict[int, float], intList, int]      # Type from the union the types: int, `intList`, and a dict with int:float key:value combination
+ndOrList_int = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements'''
 
-def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     """
     Creates a `ket` state 
     
@@ -33,13 +69,14 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray
     [[1]
     [0]]
     """
+    
     data = [1]
     rows = [state]
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse else n.A
 
-def completeBasis(dimension:int, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
+def completeBasis(dimension:int, sparse:bool=True) -> matrixList:
     """
     Creates a complete basis of `ket` states
     
@@ -69,12 +106,13 @@ def completeBasis(dimension:int, sparse:bool=True) -> List[Union[spmatrix, ndarr
     (0, 0)	1
     (1, 0)	1
     """
+
     compBasis = []
     for i in range(dimension):
         compBasis.append(basis(dimension, i, sparse))
     return compBasis
 
-def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def basisBra(dimension:int, state:int, sparse:bool=True) -> Matrix:
     """
     Creates a `bra` state
 
@@ -97,10 +135,11 @@ def basisBra(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndar
     >>> basisBra(2, 1, sparse=False)
     [[1 0]]
     """
+
     n = basis(dimension,state,sparse).T
     return n
 
-def zeros(dimension:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def zeros(dimension:int, sparse:bool=True) -> Matrix:
     """
     Creates a column matrix of zeros
 
@@ -122,15 +161,16 @@ def zeros(dimension:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     [[0]
     [0]]
     """
+
     data = [0]
     rows = [0]
     columns = [0]
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return Zeros if sparse else Zeros.A
 
-def superPos(dimension:int, excitations:Union[Dict[int, float], List[int], int], sparse:bool=True) -> Union[spmatrix, ndarray]:
+def superPos(dimension:int, excitations:supInp, sparse:bool=True) -> Matrix:
     """
-    Creates a `ket` state
+    Creates a `ket` superposition state
 
     Function to create a ``superposition ket`` state from a given `dictionary` or `list`, \\
     or `ket` state from a given `integer` (in this case, it is equivalent to basis function)
@@ -159,6 +199,7 @@ def superPos(dimension:int, excitations:Union[Dict[int, float], List[int], int],
     [[0.]
     [1.]]
     """
+
     sts = []
     if isinstance(excitations, dict):
         for key, val in excitations.items():
@@ -171,9 +212,9 @@ def superPos(dimension:int, excitations:Union[Dict[int, float], List[int], int],
     sta = normalise(sum(sts))
     return sta
 
-def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def densityMatrix(ket:Matrix) -> Matrix:
     """
-    Converts a ket state into density matrix 
+    Converts a `ket` state into ``density matrix``
 
     Keeps the sparse/array as sparse/array
 
@@ -203,13 +244,16 @@ def densityMatrix(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0.2 0.4]
     [0.4 0.8]]
     """
+
     return (ket @ (ket.conj().T))
 
-def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Union[spmatrix, ndarray]]]=None, sparse:bool=True) -> List[Union[spmatrix, ndarray]]:
+def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[matrixList]=None, sparse:bool=True) -> matrixList:
     """
-    Creates a complete basis of ``density matrices`` or convert a ket basis to density matrix.
+    Creates a complete basis of ``density matrices`` or convert a ket basis to density matrix
     
     Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+
+    If a complete basis is given, keeps the sparse/array as sparse/array
 
     Parameters
     ----------
@@ -220,6 +264,10 @@ def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Uni
     Returns
     -------
     :return : a list (complete basis) of ``density matrices``
+
+    Raises
+    ------
+    :ValueError : raised if both complete ket basis and dimension are None (default). Dimension is used to create 
 
     Examples
     --------
@@ -250,6 +298,7 @@ def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Uni
     (0, 0)	1
     (1, 1)	1
     """
+
     if compKetBase is None:
         if dimension is None:
             raise ValueError('err')
@@ -261,9 +310,11 @@ def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[List[Uni
         compBase[i] = densityMatrix(state)
     return compBase
 
-def normalise(state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def normalise(state:Matrix) -> Matrix:
     """
     Function to normalise `any` state (ket or density matrix)
+
+    Keeps the sparse/array as sparse/array
 
     Parameters
     ----------
@@ -285,14 +336,17 @@ def normalise(state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0.8 0.4]
     [0.4 0.2]]
     """
+
     if state.shape[0] != state.shape[1]:
         return normaliseKet(state)
     else:
         return normaliseMat(state)
 
-def normaliseKet(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def normaliseKet(ket:Matrix) -> Matrix:
     """
     Function to normalise `ket` state
+
+    Keeps the sparse/array as sparse/array
 
     Parameters
     ----------
@@ -310,13 +364,16 @@ def normaliseKet(ket:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0.89442719]
     [0.4472136 ]]
     """
+
     mag = 1 / np.sqrt((((ket.conj().T) @ ket).diagonal()).sum())
     ketn = mag * ket
     return ketn
 
-def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def normaliseMat(denMat:Matrix) -> Matrix:
     """
     Function to normalise a ``density matrix``
+
+    Keeps the sparse/array as sparse/array
 
     Parameters
     ----------
@@ -334,13 +391,14 @@ def normaliseMat(denMat:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0.8 0.4]
     [0.4 0.2]]
     """
+
     mag = 1 / (denMat.diagonal()).sum()
     denMatn = mag * denMat
     return denMatn
 
-def compositeState(dimensions:List[int], excitations:List[Union[Dict[int, float], List[int], int]], sparse:bool=True) -> Union[spmatrix, ndarray]:
+def compositeState(dimensions:intList, excitations:List[supInp], sparse:bool=True) -> Matrix:
     """
-    Function to create composite ket states
+    Function to create ``composite ket`` states
 
     Parameters
     ----------
@@ -373,6 +431,7 @@ def compositeState(dimensions:List[int], excitations:List[Union[Dict[int, float]
     [0.        ]
     [0.        ]]
     """
+
     if isinstance(excitations[0], int):
         st = basis(dimensions[0], excitations[0], sparse)
     else:
@@ -391,7 +450,7 @@ def tensorProd(*args):
         totalProd = sp.kron(totalProd, args[ind+1], format='csc')
     return totalProd
 
-def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]], state:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def partialTrace(keep:ndOrList_int, dims:ndOrList_int, state:Matrix) -> ndarray:
     """
     Calculates the partial trace of a `density matrix` of composite state.
     ρ_a = Tr_b(ρ)
@@ -434,6 +493,7 @@ def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]],
     [[0.2 0.4]
     [0.4 0.8]]
     """
+
     if not isinstance(state, np.ndarray):
         state = state.toarray()
 
@@ -452,9 +512,11 @@ def partialTrace(keep:Union[ndarray, List[int]], dims:Union[ndarray, List[int]],
     rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)
     return rho_a.reshape(Nkeep, Nkeep)
 
-def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def mat2Vec(densityMatrix:Matrix) -> Matrix:
     """
-    Converts density matrix into density vector (used in super-operator respresentation)
+    Converts ``density matrix`` into ``density vector`` (used in super-operator respresentation)
+
+    Keeps the sparse/array as sparse/array
 
     Parameters
     ----------
@@ -473,12 +535,15 @@ def mat2Vec(densityMatrix:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [0]
     [1]]
     """
+
     vec = densityMatrix.T.reshape(np.prod(np.shape(densityMatrix)), 1)
     return vec
 
-def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def vec2mat(vec:Matrix) -> Matrix:
     """
-    Converts density vector into density matrix
+    Converts ``density vector`` into ``density matrix``
+
+    Keeps the sparse/array as sparse/array
 
     Parameters
     ----------
@@ -498,6 +563,7 @@ def vec2mat(vec:Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
     [[0 0]
     [0 1]]
     """
+
     a = vec.shape
     n = int(np.sqrt(a[0]))
     mat = vec.reshape((n, n)).T

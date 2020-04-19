@@ -54,6 +54,15 @@ class genericQSys(universalQSys):
         self.__dimension = None
         self._qUniversal__setKwargs(**kwargs)
 
+    def save(self):
+        saveDict = super().save()
+        if self._genericQSys__initialStateInput is not None:
+            if hasattr(self._genericQSys__initialStateInput, 'A'):
+                saveDict['_genericQSys__initialStateInput'] = self._genericQSys__initialStateInput.A
+            else:
+                saveDict['_genericQSys__initialStateInput'] = self._genericQSys__initialStateInput
+        return saveDict
+
     @property
     def subSysDimensions(self):
         return [sys.dimension for sys in self.subSys.values()]
@@ -113,6 +122,18 @@ class QuantumSystem(genericQSys):
 
         self.__kept = {}
         self._qUniversal__setKwargs(**kwargs)
+
+    def save(self):
+        saveDict = super().save()
+        qsys = {}
+        for sys in self.subSys.values():
+            qsys[sys.name] = sys.save()
+        saveDict['qSystems'] = qsys
+        qcou = {}
+        for cou in self.qCouplings.values():
+            qcou[cou.name] = cou.save()
+        saveDict['qCouplings'] = qcou
+        return saveDict
 
     # free, coupling, and total Hamiltonians of the composite system
     @property
@@ -288,6 +309,19 @@ class qSystem(genericQSys):
         self.__order = 1
         self._qUniversal__setKwargs(**kwargs)
 
+    def save(self):
+        saveDict = super().save()
+        qsys = {}
+        for sys in self.subSys.values():
+            qsys[sys.operator.__name__] = {
+            'frequency': sys.frequency,
+            'operator': sys.operator.__name__,
+            'order': sys.order,
+            'ind': sys.ind
+            }
+        saveDict['terms'] = qsys
+        return saveDict
+
     @genericQSys.dimension.setter
     def dimension(self, newDimVal):
         if not isinstance(newDimVal, int):
@@ -423,7 +457,9 @@ class qCoupling(universalQSys):
     instances = 0
     label = 'qCoupling'
 
-    __slots__ = ['__cFncs', '__couplingStrength', '__cOrders', '__Matrix', '__qSys']
+    toBeSaved = qUniversal.toBeSaved.extendedCopy(['couplingStrength'])
+
+    __slots__ = ['__cFncs', '__couplingStrength', '__Matrix', '__qSys']
 
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
@@ -434,6 +470,14 @@ class qCoupling(universalQSys):
         self.__Matrix = None
         self._qUniversal__setKwargs(**kwargs)
         self.addTerm(*args)
+
+    def save(self):
+        saveDict = super().save()
+        qsys = {}
+        for idx, sys in enumerate(self.coupledSystems):
+            qsys['term' + str(idx)] = [[op.__name__ for op in self.couplingOperators[idx]], [sy.name for sy in sys]]
+        saveDict['terms'] = qsys
+        return saveDict
 
     # TODO might define setters
     @property

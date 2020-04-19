@@ -1,18 +1,59 @@
 """
     Module of functions to create and/or manipulate quantum operators
+
+    Methods
+    -------
+    :number : Creates the (bosonic) number operator
+    :destroy : Creates the bosonic `annihilation` operator
+    :create : Creates the bosonic `creation` ($\hat{a}^{\dagger}$) operator
+
+    :identity : Creates the identity operator
+
+    :sigmaz : Creates the `Pauli` sigma z operator
+    :sigmay : Creates the `Pauli` sigma y operator
+    :sigmax : Creates the `Pauli` sigma x operator
+    :sigmap : Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator
+    :sigmam : Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator
+
+    :Jz : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j
+    :Jp : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j
+    :Jm : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j
+    :Jx : Creates the angular momentum (spin) `X` operator for a given spin quantum number j
+    :Jy : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j
+    :Js : Creates the total angular momentum (spin) operator for a given spin quantum number j
+
+    :operatorPow : Creates a quantum operator for given function reference `op` and raises to a `power`
+
+    :paritySUM : Creates the parity operator by explicity placing alternating +/- into a matrix
+    :partiyEXP : Creates the parity operator by exponetiationg a given Hamiltonian
+
+    :basis : Creates a `ket` state
+
+    :displacement : Creates the displacement operator for a given displacement parameter alpha
+    :squeeze : Creates the squeezing operator for a given squeezing parameter alpha
+    
+    :compositeOp : Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB & dimA
 """
+
 import scipy.sparse as sp
 import scipy.linalg as linA
 from scipy.sparse.linalg import expm
 import numpy as np
 
-from typing import Union, Callable
+from .customTypes import Matrix
+from typing import Callable
+
+'''from typing import Callable, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
-def number(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+# These type aliases are used in type hinting of below methods
+Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
+
+
+def number(N:int, sparse:bool=True) -> Matrix:
     """
-    Creates the (bosonic) number operator.
+    Creates the (bosonic) number operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
 
@@ -36,15 +77,16 @@ def number(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (1, 1)	1
     (2, 2)	2
     """
+
     data = [i for i in range(N)]
     rows = range(0, N)
     columns = range(0, N)
     n = sp.csc_matrix((data, (rows, columns)), shape=(N, N))
     return n if sparse else n.toarray()
 
-def destroy(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def destroy(N: int, sparse:bool=True) -> Matrix:
     """
-    Creates the bosonic `annihilation` operator.
+    Creates the bosonic `annihilation` operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -67,15 +109,16 @@ def destroy(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     [0.         0.         1.41421356]
     [0.         0.         0.        ]]
     """
+
     data = [np.sqrt(i+1) for i in range(N-1)]
     rows = range(0,N-1)
     columns = range(1,N)
     n = sp.csc_matrix((data, (rows, columns)), shape=(N, N))
     return n if sparse else n.toarray()
 
-def create(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def create(N: int, sparse:bool=True) -> Matrix:
     """
-    Creates the bosonic `creation` ($\hat{a}^{\dagger}$) operator.
+    Creates the bosonic `creation` ($\hat{a}^{\dagger}$) operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -98,15 +141,16 @@ def create(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     [1.         0.         0.        ]
     [0.         1.41421356 0.        ]]
     """
+
     data = [np.sqrt(i+1) for i in range(N-1)]
     rows = range(1,N)
     columns = range(0,N-1)
     n = sp.csc_matrix((data, (rows, columns)), shape=(N, N))
     return n if sparse else n.toarray()
 
-def identity(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def identity(N: int, sparse:bool=True) -> Matrix:
     """
-    Creates the identity operator.
+    Creates the identity operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -130,11 +174,12 @@ def identity(N: int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     [0. 1. 0.]
     [0. 0. 1.]]
     """
+
     return sp.identity(N, format="csc") if sparse else np.identity(N)
 
-def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def sigmaz(N:int=2, sparse:bool=True) -> Matrix:
     """
-    Creates the `Pauli` sigma z operator.
+    Creates the `Pauli` sigma z operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -157,15 +202,16 @@ def sigmaz(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (0, 0)	1
     (1, 1)	-1
     """
+
     data = [1, -1]
     rows = [0, 1]
     columns = [0, 1]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def sigmay(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def sigmay(N:int=2, sparse:bool=True) -> Matrix:
     """
-    Creates the `Pauli` sigma y operator.
+    Creates the `Pauli` sigma y operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -188,15 +234,16 @@ def sigmay(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (1, 0)	1j
     (0, 1)	(-0-1j)
     """
+
     data = [-1j, 1j]
     rows = [0, 1]
     columns = [1, 0]
     n =  sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def sigmax(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def sigmax(N:int=2, sparse:bool=True) -> Matrix:
     """
-    Creates the `Pauli` sigma x operator.
+    Creates the `Pauli` sigma x operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -219,15 +266,16 @@ def sigmax(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (1, 0)	1
     (0, 1)	1
     """
+
     data = [1, 1]
     rows = [0, 1]
     columns = [1, 0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def sigmap(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def sigmap(N:int=2, sparse:bool=True) -> Matrix:
     """
-    Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator.
+    Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -249,15 +297,16 @@ def sigmap(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     >>> sp = sigmap()
     (0, 1)	1
     """
+
     data = [1]
     rows = [0]
     columns = [1]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def sigmam(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def sigmam(N:int=2, sparse:bool=True) -> Matrix:
     """
-    Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator.
+    Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -279,15 +328,16 @@ def sigmam(N:int=2, sparse:bool=True) -> Union[spmatrix, ndarray]:
     >>> sm = sigmam()
     (1, 0)	1
     """
+
     data = [1]
     rows = [1]
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
     """
-    Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.
+    Creates the angular momentum (spin) `Z` operator for a given spin quantum number j
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -328,6 +378,7 @@ def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (3, 3)	-1.0
     (4, 4)	-2.0
     """
+
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
@@ -339,9 +390,9 @@ def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
     """
-    Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.
+    Creates the angular momentum (spin) `creation` operator for a given spin quantum number j
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -380,6 +431,7 @@ def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (2, 3)	2.449489742783178
     (3, 4)	2.0
     """
+
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
@@ -392,9 +444,9 @@ def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
     """
-    Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.
+    Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -433,6 +485,7 @@ def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (3, 2)	2.449489742783178
     (4, 3)	2.0
     """
+
     if not isDim:
         d = int((2*j) + 1)
     elif isDim:
@@ -445,9 +498,9 @@ def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
     """
-    Creates the angular momentum (spin) `X` operator for a given spin quantum number j.
+    Creates the angular momentum (spin) `X` operator for a given spin quantum number j
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -494,12 +547,13 @@ def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (4, 3)	1.0
     (3, 4)	1.0
     """
+
     n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-def Jy(j, sparse=True, isDim=True) -> Union[spmatrix, ndarray]:
+def Jy(j, sparse=True, isDim=True) -> Matrix:
     """
-    Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.
+    Creates the angular momentum (spin) `Y` operator for a given spin quantum number j
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -546,12 +600,13 @@ def Jy(j, sparse=True, isDim=True) -> Union[spmatrix, ndarray]:
     (4, 3)	1j
     (3, 4)	-1j
     """
+
     n = (1/(2j))*(Jp(j, isDim=isDim) - Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-def Js(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
+def Js(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
     """
-    Creates the total angular momentum (spin) operator for a given spin quantum number j.
+    Creates the total angular momentum (spin) operator for a given spin quantum number j
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -592,12 +647,13 @@ def Js(j:float, sparse:bool=True, isDim:bool=True) -> Union[spmatrix, ndarray]:
     (3, 3)	(6+0j)
     (4, 4)	(6+0j)
     """
+
     n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Matrix:
     """
-    Creates a quantum operator for given function reference `op` and raises to a `power`.
+    Creates a quantum operator for given function reference `op` and raises to a `power`
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -627,11 +683,12 @@ def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Union[spm
     (1, 0)	1
     (0, 1)	1
     """
+
     return op(dim, sparse)**power
 
-def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def paritySUM(N:int, sparse:bool=True) -> Matrix:
     """
-    Creates the parity operator by explicity placing alternating +/- into a matrix.
+    Creates the parity operator by explicity placing alternating +/- into a matrix
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -659,6 +716,7 @@ def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     (3, 3)	-1.0
     (4, 4)	1.0
     """
+
     a = np.empty((N,))
     a[::2] = 1
     a[1::2] = -1
@@ -668,9 +726,9 @@ def paritySUM(N:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
     n = sp.csc_matrix((data,(rows,columns)), shape=(N,N))
     return n if sparse else n.toarray()
 
-def parityEXP(HamiltonianCavity: Union[spmatrix, ndarray]) -> Union[spmatrix, ndarray]:
+def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     """
-    Creates the parity operator by exponetiationg a given Hamiltonian.
+    Creates the parity operator by exponetiationg a given Hamiltonian
 
     Keeps sparse/array as sparse/array.
 
@@ -703,11 +761,12 @@ def parityEXP(HamiltonianCavity: Union[spmatrix, ndarray]) -> Union[spmatrix, nd
     (3, 4)	-0j
     (4, 4)	(1-4.898587196589413e-16j)
     """
+
     sparse = sp.isspmatrix(HamiltonianCavity)
     parEX = ((1j * np.pi) * HamiltonianCavity)
     return expm(parEX) if sparse else linA.expm(parEX)
 
-def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     """
     Creates a `ket` state 
     
@@ -731,15 +790,16 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Union[spmatrix, ndarray
     [[1]
     [0]]
     """
+
     data = [1]
     rows = [state]
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse else n.A
 
-def displacement(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def displacement(alpha:complex, dim:int, sparse:bool=True) -> Matrix:
     """
-    Creates the displacement operator for a given displacement parameter alpha.
+    Creates the displacement operator for a given displacement parameter alpha
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -778,13 +838,14 @@ def displacement(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, nd
     (2, 3)	0.6315086890322962j
     (3, 3)	(0.02280183542861464+0j)
     """
+
     oper = (alpha * create(dim)) - (np.conj(alpha) * destroy(dim))
     n = linA.expm(oper.toarray())
     return sp.csc_matrix(n) if sparse else n
 
-def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, ndarray]:
+def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Matrix:
     """
-    Creates the squeezing operator for a given squeezing parameter alpha.
+    Creates the squeezing operator for a given squeezing parameter alpha
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -815,12 +876,13 @@ def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Union[spmatrix, ndarray
     (1, 3)	-0.9407193337414442j
     (3, 3)	(0.33918598898694713+0j)
     """
+
     oper = -(alpha * (create(dim)@create(dim))) + (np.conj(alpha) * (destroy(dim)@destroy(dim)))
     n = linA.expm(0.5*(oper.toarray()))
     return sp.csc_matrix(n) if sparse else n
 
 # TODO Does this really work with ndarray ?
-def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union[spmatrix, ndarray]:
+def compositeOp(operator: Matrix, dimB:int, dimA:int) -> Matrix:
     """
     Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB & dimA
 
@@ -849,6 +911,7 @@ def compositeOp(operator: Union[spmatrix, ndarray], dimB:int, dimA:int) -> Union
     [ 0.  0.  1.  0.]
     [ 0.  0.  0. -1.]]
     """
+    
     if (dimB <= 1) and (dimA > 1):
         return sp.kron(operator,sp.identity(dimA), format='csc')
     elif (dimB > 1) and (dimA <= 1):
