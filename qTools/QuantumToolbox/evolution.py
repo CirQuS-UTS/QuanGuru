@@ -17,15 +17,15 @@ import scipy.sparse.linalg as slinA
 import numpy as np
 import scipy.linalg as linA
 
-#from typing import Optional
-#from .customTypes import Matrix
+from typing import Optional
+from .customTypes import Matrix
 
-from typing import Optional, TypeVar
+'''from typing import Optional, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
 
 
 def Unitary(Hamiltonian: Matrix, timeStep:float=1.0) -> Matrix:

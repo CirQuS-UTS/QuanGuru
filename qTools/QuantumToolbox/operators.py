@@ -40,15 +40,15 @@ import scipy.linalg as linA
 from scipy.sparse.linalg import expm
 import numpy as np
 
-#from .customTypes import Matrix
-#from typing import Callable
+from .customTypes import Matrix
+from typing import Callable
 
-from typing import Callable, TypeVar
+'''from typing import Callable, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
 
 
 def number(N:int, sparse:bool=True) -> Matrix:

@@ -40,12 +40,13 @@
 
 import numpy as np
 import scipy.linalg as lina
+from scipy.sparse import spmatrix
 
-#from .customTypes import Matrix, floatList, matrixList
-#from numpy import ndarray
-#from typing import List, Optional, Tuple, Any
-
+from .customTypes import Matrix, floatList, matrixList
 from numpy import ndarray
+from typing import List, Optional, Tuple, Any
+
+'''from numpy import ndarray
 from scipy.sparse import spmatrix
 from typing import List, Optional, TypeVar, Tuple, Any
 
@@ -53,7 +54,7 @@ from typing import List, Optional, TypeVar, Tuple, Any
 # These type aliases are used in type hinting of below methods
 Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
 floatList = List[float]                             # Type for a list of floats
-matrixList = List[Matrix]                           # Type for a list `Matrix` types
+matrixList = List[Matrix]                           # Type for a list `Matrix` types'''
 
 # TODO a possible improvement is to create decorator for similar functions to get function reference as input.
 # Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.

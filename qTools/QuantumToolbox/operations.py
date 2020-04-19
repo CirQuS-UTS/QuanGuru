@@ -9,18 +9,18 @@
     :qubRotation : Creates the operator for Qubit rotation around given X/Y/Z
 """
 
-from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity
+#from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity
 from numpy import cos, sin
 
-#from .operators import sigmaz, sigmax, sigmay, identity
-#from .customTypes import Matrix
+from .operators import sigmaz, sigmax, sigmay, identity
+from .customTypes import Matrix
 
-from typing import TypeVar
+'''from typing import TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
 
 
 def xRotation(angle:float, sparse:bool=True) -> Matrix:

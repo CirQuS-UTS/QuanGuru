@@ -9,19 +9,19 @@
     :aJCHam : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension
 """
 
-from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
+#from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
 import scipy.sparse as sp
 
-#from .operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
-#from .customTypes import Matrix
-#from typing import Tuple
+from .operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
+from .customTypes import Matrix
+from typing import Tuple
 
-from typing import Tuple, TypeVar
+'''from typing import Tuple, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
 
 
 # TODO currently, there is no option for sparse or not

@@ -27,13 +27,14 @@
     :vec2mat : Converts ``density vector`` into ``density matrix``
 """
 
-import scipy.sparse as sp
+import scipy.sparse as sp 
 import numpy as np
 
-#from .customTypes import Matrix, intList, matrixList, supInp, ndOrList_int
-#from numpy import ndarray
+from .customTypes import Matrix, intList, matrixList, supInp, ndOrList_int
+from numpy import ndarray # type: ignore
+from typing import Optional, List
 
-from typing import Union, Dict, List, Optional, TypeVar
+'''from typing import Union, Dict, List, Optional, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
@@ -42,7 +43,7 @@ Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmat
 intList = List[int]                                 # Type for a list of integers
 matrixList = List[Matrix]                           # Type for a list `Matrix` types
 supInp = Union[Dict[int, float], intList, int]      # Type from the union the types: int, `intList`, and a dict with int:float key:value combination
-ndOrList_int = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements
+ndOrList_int = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements'''
 
 def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     """

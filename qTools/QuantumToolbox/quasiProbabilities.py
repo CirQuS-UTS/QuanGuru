@@ -12,19 +12,19 @@ import numpy as np
 from scipy import (zeros, array, arange, exp, real, conj, pi, copy, meshgrid, size, polyval, fliplr, conjugate)
 from scipy.special import factorial
 import scipy.linalg as la
-import qTools.QuantumToolbox.states as states
+#from qTools.QuantumToolbox.states as densityMatrix
 
-#from .states import densityMatrix
-#from .customTypes import Matrix, ndOrList
-#from numpy import ndarray
+from .states import densityMatrix
+from .customTypes import Matrix, ndOrList
+from numpy import ndarray
 
-from typing import Union, TypeVar
+'''from typing import Union, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
 Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
-ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list
+ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list'''
 
 def Wigner(rho: Matrix, xvec: ndOrList, g:float=np.sqrt(2)) -> ndarray:
     """
@@ -50,7 +50,7 @@ def Wigner(rho: Matrix, xvec: ndOrList, g:float=np.sqrt(2)) -> ndarray:
         rho = rho.toarray()
 
     if rho.shape[0] != rho.shape[1]:
-        rho = states.densityMatrix(rho)
+        rho = densityMatrix(rho)
 
     M = np.prod(rho.shape[0])
     X, Y = meshgrid(xvec, xvec)
