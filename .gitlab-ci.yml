@@ -14,23 +14,31 @@ after_script:
   - echo "For example you might do some cleanup here"
 
 build1:
+  tags:
+    - docker
   stage: build
   script:
     - echo "Do your build here"
 
 test1:
+  tags:
+    - docker
   stage: test
   script:
     - echo "Do a test here"
     - echo "For example run a test suite"
 
 test2:
+  tags:
+    - docker
   stage: test
   script:
     - echo "Do another parallel test here"
     - echo "For example run a lint test"
 
 deploy1:
+  tags:
+    - docker
   stage: deploy
   script:
     - echo "Do your deploy here"
