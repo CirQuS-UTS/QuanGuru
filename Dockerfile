@@ -15,14 +15,14 @@ after_script:
 
 build1:
   tags:
-    - docker
+    - Docker
   stage: build
   script:
     - echo "Do your build here"
 
 test1:
   tags:
-    - docker
+    - Docker
   stage: test
   script:
     - echo "Do a test here"
@@ -30,7 +30,7 @@ test1:
 
 test2:
   tags:
-    - docker
+    - Docker
   stage: test
   script:
     - echo "Do another parallel test here"
@@ -38,7 +38,7 @@ test2:
 
 deploy1:
   tags:
-    - docker
+    - Docker
   stage: deploy
   script:
     - echo "Do your deploy here"
