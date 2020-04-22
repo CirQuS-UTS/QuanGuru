@@ -99,6 +99,20 @@ class qResults(qResBase):
         if self.superSys is not None:
             self.allResults[self.superSys.name] = self
 
+    def _copyAllRes(self):
+        allResCopy = {}
+        for sys in self.allResults.values():
+            newQRes = qResults()
+            newQRes._qUniversal__name = sys.name
+            newQRes._qResBase__results = sys._qResBase__results
+            newQRes._qResBase__average = sys._qResBase__average
+            newQRes._qResBase__states = sys._qResBase__states
+            newQRes._qResBase__resultsLast = sys._qResBase__resultsLast
+            newQRes._qResBase__statesLast = sys._qResBase__statesLast
+            newQRes._qResBase__calculated = sys._qResBase__calculated
+            allResCopy[sys.superSys.name] = newQRes
+        return allResCopy
+
     @qResBase.superSys.setter
     def superSys(self, supSys):
         removedFromAllRes = False
