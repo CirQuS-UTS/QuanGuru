@@ -48,7 +48,7 @@ def paralEvol(qSim, p):
 
 def parallelTimeEvol(qSim, evolFunc, ind):
     _runSweepAndPrep(qSim, ind, evolFunc)
-    return deepcopy(qSim.qRes.allResults)
+    return qSim.qRes._copyAllResBlank()
 
 
 # These two functions, respectively, run Sweep and timeDependent (sweep) parameter updates

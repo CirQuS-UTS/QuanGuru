@@ -5,6 +5,27 @@ __all__ = [
     'qResults'
 ]
 
+
+class qResBlank:
+    __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average', '__calculated']
+    def __init__(self):
+        super().__init__()
+        self.__results = defaultdict(list)
+        self.__average = defaultdict(list)
+        self.__resultsLast = defaultdict(list)
+        self.__states = defaultdict(list)
+        self.__statesLast = defaultdict(list)
+        self.__calculated = defaultdict(list)
+
+    @property
+    def results(self):
+        return self._qResBlank__resultsLast
+
+    @property
+    def states(self):
+        return self._qResBlank__statesLast
+
+
 class qResBase(qUniversal):
     instances = 0
     label = 'qResBase'
@@ -98,6 +119,19 @@ class qResults(qResBase):
         self.allResults = qResults._allResults
         if self.superSys is not None:
             self.allResults[self.superSys.name] = self
+
+    def _copyAllResBlank(self):
+        allResCopy = {}
+        for sys in self.allResults.values():
+            newQRes = qResBlank()
+            newQRes._qResBlank__results = sys._qResBase__results
+            newQRes._qResBlank__average = sys._qResBase__average
+            newQRes._qResBlank__states = sys._qResBase__states
+            newQRes._qResBlank__resultsLast = sys._qResBase__resultsLast
+            newQRes._qResBlank__statesLast = sys._qResBase__statesLast
+            newQRes._qResBlank__calculated = sys._qResBase__calculated
+            allResCopy[sys.superSys.name] = newQRes
+        return allResCopy
 
     @qResBase.superSys.setter
     def superSys(self, supSys):
