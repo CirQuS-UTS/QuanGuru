@@ -444,10 +444,33 @@ def compositeState(dimensions:intList, excitations:List[supInp], sparse:bool=Tru
             st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
     return st if sparse else st.A
 
-def tensorProd(*args):
+def tensorProd(*args:Matrix) -> Matrix:
+    """
+    Function to calculate tensor product of given states (in the given order).
+
+    The matrices can be sparse/ndarray, but they all should be the same either sparse/ndarray not a mixture.
+
+    Parameters
+    ----------
+    :param `*args` : state matrices (arbitary number of them)
+
+    Returns
+    -------
+    :return: tensor product of given states (in the given order)
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+
     totalProd = args[0]
+    if isinstance(totalProd, sp.spmatrix):
+        kronProd = sp.kron
+    else:
+        kronProd = np.kron
+
     for ind in range(len(args)-1):
-        totalProd = sp.kron(totalProd, args[ind+1], format='csc')
+        totalProd = kronProd(totalProd, args[ind+1], format='csc')
     return totalProd
 
 def partialTrace(keep:ndOrList_int, dims:ndOrList_int, state:Matrix) -> ndarray:
