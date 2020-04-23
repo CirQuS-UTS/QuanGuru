@@ -24,6 +24,7 @@ class Simulation(timeBase):
             self.addQSystems(system)
 
         self._qUniversal__setKwargs(**kwargs)
+        self._computeBase__delStates = False
 
     def save(self):
         saveDict = super().save()
@@ -150,7 +151,7 @@ class Simulation(timeBase):
         states = []
         for protoc in self.subSys.keys():
             states.append(protoc.lastState)
-            if protoc.delStates is False:
+            if ((protoc.delStates is False) or (self.delStates is False)):
                 self.qRes.states[protoc.name].append(protoc.lastState)
         super()._computeBase__compute(states)
             

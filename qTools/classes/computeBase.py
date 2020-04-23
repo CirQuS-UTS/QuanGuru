@@ -10,7 +10,7 @@ class computeBase(qUniversal):
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
 
-        self.__delStates = False
+        self.__delStates = True
 
         self.compute = None
         self.calculate = None
