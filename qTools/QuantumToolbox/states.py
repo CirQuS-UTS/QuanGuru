@@ -33,16 +33,17 @@ import numpy as np
 from .customTypes import Matrix, intList, matrixList, supInp, ndOrList_int
 
 
-"""from typing import Union, Dict, List, Optional, TypeVar
-from numpy import ndarray
-from scipy.sparse import spmatrix
+
+# from typing import Union, Dict, List, Optional, TypeVar
+# from numpy import ndarray
+# from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
-intList = List[int]                                 # Type for a list of integers
-matrixList = List[Matrix]                           # Type for a list `Matrix` types
-supInp = Union[Dict[int, float], intList, int]      # Type from the union of int, `intList`, and Dict[int:float]
-ndOrList_int = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements"""
+# Matrix = TypeVar('Matrix', spmatrix, ndarray)  # Type which is either spmatrix or nparray (created using TypeVar)
+# intList = List[int]                            # Type for a list of integers
+# matrixList = List[Matrix]                      # Type for a list `Matrix` types
+# supInp = Union[Dict[int, float], intList, int] # Type from the union of int, `intList`, and Dict[int:float]
+# ndOrList_int = Union[ndarray, intList]         # Type from the union of ndarray and intList with integer elements
 
 
 def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
@@ -489,10 +490,10 @@ def tensorProd(*args: Matrix) -> Matrix:
 
 def partialTrace(keep: ndOrList_int, dims: ndOrList_int, state: Matrix) -> ndarray:
     """
-    Calculates the partial trace of a `density matrix` of composite state.
+    Calculates the partial trace of a `density matrix` of composite state
     ρ_a = Tr_b(ρ)
 
-    Found on: https://scicomp.stackexchange.com/questions/30052/calculate-partial-trace-of-an-outer-product-in-python
+    Adapted from: https://scicomp.stackexchange.com/questions/30052/calculate-partial-trace-of-an-outer-product-in-python
 
     Parameters
     ----------
@@ -543,7 +544,7 @@ def partialTrace(keep: ndOrList_int, dims: ndOrList_int, state: Matrix) -> ndarr
     Ndim = dims.size
     Nkeep = np.prod(dims[keep])
 
-    idx1 = [i for i in range(Ndim)]
+    idx1 = list(range(Ndim))
     idx2 = [Ndim+i if i in keep else i for i in range(Ndim)]
     rho_a = rho.reshape(np.tile(dims, 2))
     rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)

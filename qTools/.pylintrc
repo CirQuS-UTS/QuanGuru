@@ -1,8 +1,0 @@
-[BASIC]
-
-function-rgx=[a-z0-9A-Z]{1,30}
-variable-rgx=[a-z0-9A-Z]{1,30}
-argument-rgx=[a-z0-9A-Z]{1,30}
-
-[FORMAT]
-max-line-length=135
