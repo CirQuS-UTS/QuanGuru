@@ -1,7 +1,7 @@
 """
     Module of functions to create and/or normalise quantum states.
 
-    Methods
+    Functions
     -------
     :basis : Creates a `ket` state
     :completeBasis : Creates a complete basis of `ket` states
@@ -47,19 +47,19 @@ ndOrList_int = Union[ndarray, intList]              # Type from the union of nda
 
 def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     """
-    Creates a `ket` state 
+    Creates a `ket` state for a given dimension with 1 at a given row.
     
     Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
 
     Parameters
     ----------
     :param `dimension` : dimension of Hilbert space
-    :param `state` : index number for the populated state
+    :param `state` : row to place 1, i.e. index for the populated state
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
     -------
-    :return : `ket` state
+    :return : `ket` state with 1 at a given row
 
     Examples
     --------
@@ -205,7 +205,7 @@ def superPos(dimension:int, excitations:supInp, sparse:bool=True) -> Matrix:
         for key, val in excitations.items():
             sts.append(np.sqrt(val)*basis(dimension, key, sparse))
     elif isinstance(excitations, int):
-        sts = [basis(dimension, excitations)]
+        sts = [basis(dimension, excitations, sparse)]
     else:
         for val in excitations:
             sts.append(basis(dimension, val, sparse))
@@ -249,9 +249,11 @@ def densityMatrix(ket:Matrix) -> Matrix:
 
 def completeBasisMat(dimension:Optional[int]=None, compKetBase:Optional[matrixList]=None, sparse:bool=True) -> matrixList:
     """
-    Creates a complete basis of ``density matrices`` or convert a ket basis to density matrix
-    
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+    Creates a complete basis of ``density matrices`` or convert a ket basis to density matrix for a given dimension.
+    Note: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.
+
+    For a given basis, Keeps the sparse/array as sparse/array.
+    For a given dimension, either as sparse (>>> sparse=True) or array (>>> sparse=False) 
 
     If a complete basis is given, keeps the sparse/array as sparse/array
 
