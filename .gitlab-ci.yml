@@ -17,7 +17,7 @@ mypy:
     - pwd
     - ls -l
     - cd qTools/QuantumToolbox
-    - python -m mypy
+    - python -m mypy *.py
 
 flake8:
     stage: Static Analysis
@@ -25,6 +25,7 @@ flake8:
         - qsimulations
     allow_failure: true
     script:
+    - pwd
     - flake8 --max-line-length=140 qTools/*.py
 
 pylint:
@@ -33,6 +34,7 @@ pylint:
         - qsimulations
     allow_failure: true
     script:
+        - pwd
         - pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt || pylint-exit $?
         - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
         - echo "Pylint score was $score"
