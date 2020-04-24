@@ -11,7 +11,8 @@ demo:
 
 pylint:
     image: "python:latest"
-    stage: linttags:
+    stage: lint
+    tags:
         - qsimulations
     script:
         - pip install pylint
