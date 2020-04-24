@@ -13,6 +13,7 @@ trueValues = {
     'hbar': sciConst.hbar
 }
 
+
 class _settings(dict):
     def __init__(self, iterable):
         super().__init__()
@@ -23,11 +24,13 @@ class _settings(dict):
         setattr(self, key, value)
         return super().__setitem__(key, value)
 
+
 settings = _settings(
     {
         'trueVals': False
     }
 )
+
 
 class _constants(dict):
     def __getitem__(self, key):
@@ -36,6 +39,7 @@ class _constants(dict):
         else:
             item = defaultVals[key]
         return item
+
 
     def __getattr__(self, name):
         return self.__getitem__(name)
