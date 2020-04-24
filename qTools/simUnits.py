@@ -15,6 +15,7 @@ trueValues = {
 
 class _settings(dict):
     def __init__(self, iterable):
+        super().__init__()
         for k, v in iterable.items():
             self.__setitem__(k, v)
 
@@ -30,10 +31,11 @@ settings = _settings(
 
 class _constants(dict):
     def __getitem__(self, key):
-        if settings.trueVals:
-            return trueValues[key]
+        if settings.trueVals: # pylint: disable=E1101
+            item = trueValues[key]
         else:
-            return defaultVals[key]
+            item = defaultVals[key]
+        return item
 
     def __getattr__(self, name):
         return self.__getitem__(name)
