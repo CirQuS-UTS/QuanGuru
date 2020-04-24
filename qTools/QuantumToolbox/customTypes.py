@@ -11,7 +11,7 @@
     :ndOrList_int : Type from the union of ndarray and intList
 """
 
-from typing import Union, Dict, List, Optional, TypeVar
+from typing import Union, Dict, List, TypeVar
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
@@ -20,6 +20,6 @@ Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmat
 intList = List[int]                                 # Type for a list of integers
 floatList = List[float]                             # Type for a list of floats
 matrixList = List[Matrix]                           # Type for a list `Matrix` types
-supInp = Union[Dict[int, float], intList, int]      # Type from the union the types: int, `intList`, and a dict with int:float key:value combination
+supInp = Union[Dict[int, float], intList, int]      # Type from the union the types: int, `intList`, and dict[int:float]
 ndOrList_int = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements
 ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list

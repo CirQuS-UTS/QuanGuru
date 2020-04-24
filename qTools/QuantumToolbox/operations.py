@@ -15,19 +15,19 @@ from numpy import cos, sin
 from .operators import sigmaz, sigmax, sigmay, identity
 from .customTypes import Matrix
 
-'''from typing import TypeVar
-from numpy import ndarray
-from scipy.sparse import spmatrix
+# from typing import TypeVar
+# from numpy import ndarray
+# from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
+# Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
 
 
-def xRotation(angle:float, sparse:bool=True) -> Matrix:
+def xRotation(angle: float, sparse: bool = True) -> Matrix:
     """
     Creates the operator for Qubit ``X rotation``
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
     Parameters
     ----------
@@ -46,11 +46,12 @@ def xRotation(angle:float, sparse:bool=True) -> Matrix:
     rotUnitary = ((cos(angle)*identity(2, sparse))+(sin(angle)*sigmax(sparse=sparse)))
     return rotUnitary
 
-def yRotation(angle:float, sparse:bool=True) -> Matrix:
+
+def yRotation(angle: float, sparse: bool = True) -> Matrix:
     """
     Creates the operator for Qubit ``Y rotation``
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
     Parameters
     ----------
@@ -69,11 +70,12 @@ def yRotation(angle:float, sparse:bool=True) -> Matrix:
     rotUnitary = ((cos(angle)*identity(2, sparse))+(sin(angle)*sigmay(sparse=sparse)))
     return rotUnitary
 
-def zRotation(angle:float, sparse:bool=True) -> Matrix:
+
+def zRotation(angle: float, sparse: bool = True) -> Matrix:
     """
     Creates the operator for Qubit ``Z rotation``
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
     Parameters
     ----------
@@ -92,11 +94,12 @@ def zRotation(angle:float, sparse:bool=True) -> Matrix:
     rotUnitary = ((cos(angle)*identity(2, sparse))+(sin(angle)*sigmaz(sparse=sparse)))
     return rotUnitary
 
-def qubRotation(xyz=str, angle=float, sparse:bool=True) -> Matrix:
+
+def qubRotation(xyz: str, angle: float, sparse: bool = True) -> Matrix:
     """
     Creates the operator for Qubit rotation around given X/Y/Z
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
     Parameters
     ----------
@@ -112,7 +115,7 @@ def qubRotation(xyz=str, angle=float, sparse:bool=True) -> Matrix:
     --------
     # TODO Create some examples both in here and the demo script
     """
-    
+
     if xyz.lower() == 'x':
         rotUnitary = xRotation(angle, sparse)
     elif xyz.lower() == 'y':
@@ -122,4 +125,3 @@ def qubRotation(xyz=str, angle=float, sparse:bool=True) -> Matrix:
     else:
         print(xyz + ' is not supported')
     return rotUnitary
-

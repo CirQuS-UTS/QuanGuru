@@ -114,6 +114,7 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
         compBasis.append(basis(dimension, i, sparse))
     return compBasis
 
+
 def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
     Creates a `bra` state for a given dimension with 1 at a given column

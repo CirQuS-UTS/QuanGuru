@@ -8,30 +8,31 @@
     :_qfunc_pure : Calculate the Q-function for a pure state.
 """
 
+from numpy import ndarray
 import numpy as np
-from scipy import (zeros, array, arange, exp, real, conj, pi, copy, meshgrid, size, polyval, fliplr, conjugate)
+from numpy import (zeros, array, arange, exp, real, conj, pi, copy, meshgrid, size, polyval, fliplr, conjugate)
 from scipy.special import factorial
 import scipy.linalg as la
 #from qTools.QuantumToolbox.states as densityMatrix
 
 from .states import densityMatrix
 from .customTypes import Matrix, ndOrList
-from numpy import ndarray
 
-'''from typing import Union, TypeVar
-from numpy import ndarray
-from scipy.sparse import spmatrix
+
+# from typing import Union, TypeVar
+# from numpy import ndarray
+# from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
-ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list'''
+# Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+# ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list
 
-def Wigner(rho: Matrix, xvec: ndOrList, g:float=np.sqrt(2)) -> ndarray:
+def Wigner(rho: Matrix, xvec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
     """
     An iterative method to evaluate the Wigner functions for the Fock state :math:`|m><n|`
 
     The Wigner function is calculated as
-    :math:`W = \sum_{mn} \\rho_{mn} W_{mn}` where :math:`W_{mn}` is the Wigner
+    :math:`W = \\sum_{mn} \\rho_{mn} W_{mn}` where :math:`W_{mn}` is the Wigner
     function for the density matrix :math:`|m><n|`.
 
     In this implementation, for each row m, Wlist contains the Wigner functions
@@ -43,7 +44,7 @@ def Wigner(rho: Matrix, xvec: ndOrList, g:float=np.sqrt(2)) -> ndarray:
     Parameters
     ----------
     :param `rho` : density matrix or ket state
-    :param `xvec` : multi-dimensional array for the (coarse-grained) Phase space 
+    :param `xvec` : multi-dimensional array for the (coarse-grained) Phase space
     """
 
     if not isinstance(rho, np.ndarray):
@@ -74,7 +75,8 @@ def Wigner(rho: Matrix, xvec: ndOrList, g:float=np.sqrt(2)) -> ndarray:
             W += 2 * real(rho[m, n] * Wlist[n])
     return W * g ** 2
 
-def HusimiQ(state: Matrix, xvec: ndOrList, g:float=np.sqrt(2)) -> ndarray:
+
+def HusimiQ(state: Matrix, xvec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
     """
     Q-function of a given state vector or density matrix at points `xvec + i * yvec`
 
@@ -104,7 +106,7 @@ def HusimiQ(state: Matrix, xvec: ndOrList, g:float=np.sqrt(2)) -> ndarray:
     amat = 0.5 * g * (X + Y * 1j)
     qmat = zeros(size(amat))
 
-    if not isinstance(state,np.ndarray):
+    if not isinstance(state, np.ndarray):
         state = state.toarray()
 
     if state.shape[0] != state.shape[1]:
@@ -121,14 +123,15 @@ def HusimiQ(state: Matrix, xvec: ndOrList, g:float=np.sqrt(2)) -> ndarray:
     qmat = 0.25 * qmat * g ** 2
     return qmat
 
+
 def _qfunc_pure(psi: Matrix, alpha_mat: ndarray) -> ndarray:
     """
     Calculate the Q-function for a pure state
     """
-    
+
     n = np.prod(psi.shape)
     psi = psi.T
 
-    qmat = abs(polyval(fliplr([psi / np.sqrt(factorial(arange(n)))])[0],conjugate(alpha_mat))) ** 2
+    qmat = abs(polyval(fliplr([psi / np.sqrt(factorial(arange(n)))])[0], conjugate(alpha_mat))) ** 2
 
     return real(qmat) * exp(-abs(alpha_mat) ** 2) / pi

@@ -4,31 +4,34 @@
     Methods
     -------
     :Unitary : Creates Unitary time evolution operator for a given Hamiltonian and time step
-    :Liouvillian : Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates)
-    :LiouvillianExp : Creates Liovillian super-operator (and exponentiates) for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates)
+    :Liouvillian : Creates Liovillian super-operator for a given Hamiltonian, time step,
+                    and a `list` of collapse operators (with correcponding `list` of decay rates)
+    :LiouvillianExp : Creates Liovillian super-operator (and exponentiates) for a given Hamiltonian, time step,
+                    and a `list` of collapse operators (with correcponding `list` of decay rates)
     :dissipator : Creates the Lindblad dissipator super-operator for a collapse operator
     :_preSO : Creates `pre` super-operator for an operator
     :_posSO : Creates `pos` super-operator for an operator
     :_preposSO : Creates `pre-pos` super-operator for an operator
 """
 
+from typing import Optional
+
 import scipy.sparse as sp
+import scipy.linalg as linA
 import scipy.sparse.linalg as slinA
 import numpy as np
-import scipy.linalg as linA
 
-from typing import Optional
 from .customTypes import Matrix
 
-'''from typing import Optional, TypeVar
-from numpy import ndarray
-from scipy.sparse import spmatrix
+# from typing import Optional, TypeVar
+# from numpy import ndarray
+# from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
+# Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
 
 
-def Unitary(Hamiltonian: Matrix, timeStep:float=1.0) -> Matrix:
+def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
     """
     Creates Unitary time evolution operator for a given Hamiltonian and time step
 
@@ -55,9 +58,12 @@ def Unitary(Hamiltonian: Matrix, timeStep:float=1.0) -> Matrix:
         liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep)
     return liouvillianEXP
 
-def Liouvillian(Hamiltonian:Optional[Matrix]=None, collapseOperators:list=[], decayRates:list=[]) -> Matrix:
+
+def Liouvillian(Hamiltonian: Optional[Matrix] = None,
+                collapseOperators: Optional[list] = list, decayRates: Optional[list] = list) -> Matrix:
     """
-    Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates)
+    Creates Liovillian super-operator for a given Hamiltonian, time step,
+    and a `list` of collapse operators (with correcponding `list` of decay rates)
 
     Keeps sparse/array as sparse/array.
 
@@ -99,9 +105,12 @@ def Liouvillian(Hamiltonian:Optional[Matrix]=None, collapseOperators:list=[], de
             liouvillian += collapsePart
     return liouvillian
 
-def LiouvillianExp(Hamiltonian:Optional[Matrix]=None, timeStep:float= 1.0, collapseOperators:list = [], decayRates:list = [], exp:bool = True) -> Matrix:
+
+def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,
+                   collapseOperators: Optional[list] = list, decayRates: Optional[list] = list, exp: bool = True) -> Matrix:
     """
-    Creates Liovillian super-operator for a given Hamiltonian, time step, and a `list` of collapse operators (with correcponding `list` of decay rates)
+    Creates Liovillian super-operator for a given Hamiltonian, time step,
+    and a `list` of collapse operators (with correcponding `list` of decay rates)
 
     Keeps sparse/array as sparse/array.
 
@@ -127,7 +136,7 @@ def LiouvillianExp(Hamiltonian:Optional[Matrix]=None, timeStep:float= 1.0, colla
     else:
         sparse = sp.issparse(collapseOperators[0])
 
-    if len(collapseOperators) != 0:
+    if isinstance(collapseOperators, list):
         liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates)
         if exp is True:
             if sparse is True:
@@ -140,7 +149,8 @@ def LiouvillianExp(Hamiltonian:Optional[Matrix]=None, timeStep:float= 1.0, colla
         liouvillianEXP = Unitary(Hamiltonian, timeStep)
     return liouvillianEXP
 
-def dissipator(collapseOperator:Matrix, identity:Optional[Matrix]=None) -> Matrix:
+
+def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> Matrix:
     """
     Creates the Lindblad dissipator super-operator for a collapse operator
 
@@ -171,12 +181,13 @@ def dissipator(collapseOperator:Matrix, identity:Optional[Matrix]=None) -> Matri
     dagger = collapseOperator.conj().T
 
     number = dagger @ collapseOperator
-    part1 = _preposSO(collapseOperator,sparse)
-    part2 = _preSO(number, identity,sparse)
-    part3 = _posSO(number, identity,sparse)
+    part1 = _preposSO(collapseOperator, sparse)
+    part2 = _preSO(number, identity, sparse)
+    part3 = _posSO(number, identity, sparse)
     return part1 - (0.5 * (part2 + part3))
 
-def _preSO(operator: Matrix, identity: Matrix, sparse:bool) -> Matrix:
+
+def _preSO(operator: Matrix, identity: Matrix, sparse: bool) -> Matrix:
     """
     Creates `pre` super-operator for an operator
 
@@ -197,11 +208,13 @@ def _preSO(operator: Matrix, identity: Matrix, sparse:bool) -> Matrix:
     """
 
     if sparse is True:
-        return sp.kron(identity, operator, format='csc')
+        pre = sp.kron(identity, operator, format='csc')
     else:
-        return np.kron(identity, operator)
+        pre = np.kron(identity, operator)
+    return pre
 
-def _posSO(operator: Matrix, identity: Matrix, sparse:bool)  -> Matrix:
+
+def _posSO(operator: Matrix, identity: Matrix, sparse: bool)  -> Matrix:
     """
     Creates `pos` super-operator for an operator
 
@@ -222,11 +235,13 @@ def _posSO(operator: Matrix, identity: Matrix, sparse:bool)  -> Matrix:
     """
 
     if sparse is True:
-        return sp.kron(operator.transpose(), identity, format='csc')
+        pos = sp.kron(operator.transpose(), identity, format='csc')
     else:
-        return np.kron(np.transpose(operator), identity)
+        pos = np.kron(np.transpose(operator), identity)
+    return pos
 
-def _preposSO(operator: Matrix, sparse:bool)  -> Matrix:
+
+def _preposSO(operator: Matrix, sparse: bool)  -> Matrix:
     """
     Creates `pre-pos` super-operator for an operator
 
@@ -244,8 +259,9 @@ def _preposSO(operator: Matrix, sparse:bool)  -> Matrix:
     --------
     # TODO Create some examples both in here and the demo script
     """
-    
+
     if sparse is True:
-        return sp.kron(operator.conj(), operator, format='csc')
+        prepos = sp.kron(operator.conj(), operator, format='csc')
     else:
-        return np.kron(np.conjugate(operator), operator)
+        prepos = np.kron(np.conjugate(operator), operator)
+    return prepos

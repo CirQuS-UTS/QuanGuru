@@ -152,6 +152,7 @@ def create(dimension: int, sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
+
 def identity(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the identity operator
@@ -180,6 +181,7 @@ def identity(dimension: int, sparse: bool = True) -> Matrix:
     """
 
     return sp.identity(dimension, format="csc") if sparse else np.identity(dimension)
+
 
 def sigmaz(sparse: bool = True) -> Matrix:
     """
@@ -213,6 +215,7 @@ def sigmaz(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
+
 def sigmay(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma y operator
@@ -244,6 +247,7 @@ def sigmay(sparse: bool = True) -> Matrix:
     columns = [1, 0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
+
 
 def sigmax(sparse: bool = True) -> Matrix:
     """
@@ -277,6 +281,7 @@ def sigmax(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
+
 def sigmap(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator
@@ -308,6 +313,7 @@ def sigmap(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
+
 def sigmam(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator
@@ -338,6 +344,7 @@ def sigmam(sparse: bool = True) -> Matrix:
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
+
 
 def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
@@ -394,6 +401,7 @@ def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
+
 def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `creation` operator for a given spin quantum number j
@@ -447,6 +455,7 @@ def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     columns = range(1, d)
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
+
 
 def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
@@ -502,6 +511,7 @@ def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
+
 def Jx(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `X` operator for a given spin quantum number j
@@ -554,6 +564,7 @@ def Jx(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
 
     n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
+
 
 def Jy(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
@@ -608,6 +619,7 @@ def Jy(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     n = (1/(2j))*(Jp(j, isDim=isDim) - Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
+
 def Js(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the total angular momentum (spin) operator for a given spin quantum number j
@@ -655,6 +667,7 @@ def Js(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
     return n if sparse else n.toarray()
 
+
 def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matrix:
     """
     Creates a quantum operator for given function reference `op` and raises to a `power`
@@ -689,6 +702,7 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
     """
 
     return op(dim, sparse)**power
+
 
 def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     """
@@ -803,6 +817,7 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse else n.A
 
+
 def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     """
     Creates the displacement operator for a given displacement parameter alpha
@@ -849,6 +864,7 @@ def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     n = linA.expm(oper.toarray())
     return sp.csc_matrix(n) if sparse else n
 
+
 def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     """
     Creates the squeezing operator for a given squeezing parameter alpha
@@ -886,6 +902,7 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     oper = -(alpha * (create(dim)@create(dim))) + (np.conj(alpha) * (destroy(dim)@destroy(dim)))
     n = linA.expm(0.5*(oper.toarray()))
     return sp.csc_matrix(n) if sparse else n
+
 
 # TODO Does this really work with ndarray ?
 def compositeOp(operator: Matrix, dimB: int, dimA: int) -> Matrix:
