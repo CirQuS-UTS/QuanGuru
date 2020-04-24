@@ -399,10 +399,13 @@ class qSystem(genericQSys):
         copySys.order = order
         return copySys
 
-    @constructConditions({'dimension':int,'operator':qOps.sigmax.__class__})
+    @constructConditions({'dimension': int, 'operator': qOps.sigmax.__class__})
     def __constructSubMat(self):
         for sys in self.subSys.values():
-            sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+            try:
+                sys._qSystem__Matrix = qOps.compositeOp(sys.operator(self.dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+            except:
+                sys._qSystem__Matrix = qOps.compositeOp(sys.operator(), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             sys._constructed = True
         return self._qSystem__Matrix
 
