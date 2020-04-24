@@ -7,6 +7,7 @@ argument-rgx=[a-zA-Z]{1,30}
 class-rgx=[_a-zA-Z]{1,30}
 method-rgx=[_a-zA-Z]{1,30}
 attr-rgx=[_a-zA-Z]{1,30}
+const-rgx=[_a-zA-Z]{1,30}
 
 [FORMAT]
 max-line-length=135
@@ -15,3 +16,10 @@ max-line-length=135
 
 # List of note tags to take in consideration, separated by a comma.
 notes=
+
+[CLASSES]
+exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _allBools, _genericProtocol__inProtocol, _genericQSys__unitary
+    ,_genericProtocol__unitary, _qResBlank__results, _qResBase__results, _qResBlank__average, _qResBase__average, _qResBlank__states, _qResBase__states
+    ,_qResBlank__resultsLast, _qResBase__resultsLast, _qResBlank__statesLast, _qResBase__statesLast, _qResBlank__calculated, _qResBase__calculated, _finalise
+    ,_qUniversal__setKwargs, _qSystem__Matrix, _qUniversal__ind, _qCoupling__Matrix, _genericQSys__dimension, _qSystem__dimsAfter, _qSystem__dimsBefore
+    ,_constructed, _timeBase__bound, _timeBase__inBound
