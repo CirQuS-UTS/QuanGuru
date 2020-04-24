@@ -36,6 +36,8 @@ pylint:
 
 unit_test:
     stage: Test
+    tags:
+        - qsimulations
     allow_failure: true
     script:
     - pwd
