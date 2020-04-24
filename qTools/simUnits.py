@@ -34,14 +34,14 @@ settings = _settings(
 
 class _constants(dict):
     def __getitem__(self, key):
-        if settings.trueVals: # pylint: disable=E1101
+        if settings.trueVals:  # pylint: disable=E1101
             item = trueValues[key]
         else:
             item = defaultVals[key]
         return item
 
-
     def __getattr__(self, name):
         return self.__getitem__(name)
+
 
 constants = _constants()
