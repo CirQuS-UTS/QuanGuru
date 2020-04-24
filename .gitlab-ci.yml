@@ -32,7 +32,7 @@ pylint:
         - qsimulations
     allow_failure: true
     script:
-        - pylint --rcfile=.pylintrc --output-format=text tagmaps | tee pylint.txt || pylint-exit $?
+        - pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt || pylint-exit $?
         - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
         - echo "Pylint score was $score"
         - anybadge --value=$score --file=public/pylint.svg pylint
