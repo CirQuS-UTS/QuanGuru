@@ -7,6 +7,7 @@ before_script:
 stages:
     - Static Analysis
     - Test
+    - deploy
 
 mypy:
     stage: Static Analysis
@@ -32,23 +33,42 @@ pylint:
         - qsimulations
     allow_failure: true
     script:
-        - pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt
+        - pylint --rcfile=.pylintrc --output-format=text tagmaps | tee pylint.txt || pylint-exit $?
         - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
         - echo "Pylint score was $score"
-        - anybadge --value=$score --file=public/pylint.svg pylint
+
+        - anybadge -l pylint --value=$score --file=pylint.svg 2=red 4=orange 9=yellow 10=green
+        - anybadge -l pipeline --value=passing --file=pipeline.svg passing=green failing=red
+        - pypiversion=$(pip search tagmaps | cut -d "(" -f2 | cut -d ")" -f1)
+        - anybadge -l "pypi package" --value=$pypiversion --file=pypi.svg passing=green failing=red
     artifacts:
         paths:
-            - public/pylint.svg
+            - pylint.svg
+            - pypi.svg
+            - pipeline.svg
+    only:
+        - master
 
-unit_test:
-    stage: Test
-
+pages:
+    stage: deploy
+    tags:
+        - qsimulations
+    image: registry.gitlab.vgiscience.org/tud_ifk/alpine-mkdocs
+    script:
+        - mkdir .public
+        - cp *.svg .public
     artifacts:
+        name: pages
         paths:
         - public
     only:
-    - master
+        - master
+        - ci-test
 
+
+
+unit_test:
+    stage: Test
     tags:
         - qsimulations
     allow_failure: true
