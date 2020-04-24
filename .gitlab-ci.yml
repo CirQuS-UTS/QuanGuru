@@ -35,7 +35,7 @@ pylint:
         - pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt
         - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
         - echo "Pylint score was $score"
-        - anybadge --value=$score --file=pylint.svg pylint
+        - anybadge --value=$score --file=qTools/pylint.svg pylint
     artifacts:
         paths:
             - pylint.svg
@@ -45,7 +45,7 @@ unit_test:
 
     artifacts:
         paths:
-        - 
+        - qTools
     only:
     - master
 
