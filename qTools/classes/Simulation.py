@@ -1,15 +1,14 @@
-from qTools.classes.Sweep import Sweep
 from multiprocessing import Pool, cpu_count
+from qTools.classes.Sweep import Sweep
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.QSys import QuantumSystem, genericQSys
 from qTools.classes.timeBase import timeBase
-from qTools.classes.QPro import freeEvolution
 from qTools.classes.extensions.modularSweep import timeEvolBase
 
 class Simulation(timeBase):
     instances = 0
     label = 'Simulation'
-    
+
     __slots__ = ['Sweep', 'timeDependency', 'evolFunc']
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
@@ -23,8 +22,8 @@ class Simulation(timeBase):
         if system is not None:
             self.addQSystems(system)
 
-        self._qUniversal__setKwargs(**kwargs)
-        self._computeBase__delStates = False
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._computeBase__delStates = False # pylint: disable=assigning-non-slot
 
     def save(self):
         saveDict = super().save()
@@ -38,13 +37,13 @@ class Simulation(timeBase):
         saveDict['timeDependency'] = self.timeDependency.save()
         return saveDict
 
-    @timeBase.delStates.setter
+    @timeBase.delStates.setter # pylint: disable=no-member
     def delStates(self, boolean):
-        timeBase.delStates.fset(self, boolean)
+        timeBase.delStates.fset(self, boolean) # pylint: disable=no-member
         for qres in self.qRes.allResults.values():
             if qres is not self.qRes:
                 qres.superSys.delStates = boolean
-    
+
     @property
     def protocols(self):
         protocs = list(self.subSys.keys())
@@ -71,45 +70,45 @@ class Simulation(timeBase):
         # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS)
         if Protocol is not None:
-            self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name)
+            self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name) # pylint: disable=no-member
         return (subS, Protocol)
-        
+
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
         newSys = super().createSubSys(subSysClass, **kwargs)
         newSys, Protocol = self.addQSystems(newSys, Protocol)
         return (newSys, Protocol)
 
     def removeQSystems(self, subS):
-        for key, subSys in self._qUniversal__subSys.items():
+        for key, subSys in self._qUniversal__subSys.items(): # pylint: disable=no-member
             if ((subSys is subS) or (subSys.name == subS)):
-                del self._qUniversal__subSys[key]
+                del self._qUniversal__subSys[key] # pylint: disable=no-member
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
                 self._updateInd()
                 self.removeSweep(subSys)
-    
+
     def removeSweep(self, sys):
         self.Sweep.removeSweep(sys)
         self.timeDependency.removeSweep(sys)
         return sys
 
-    # add/remove protocol  
+    # add/remove protocol
     def removeProtocol(self, Protocol):
         # FIXME what if freeEvol case, protocol then corresponds to sys.name before simulation run or a freeEvol obj after run
         if isinstance(Protocol, timeBase):
-            del self._qUniversal__subSys[Protocol]
+            del self._qUniversal__subSys[Protocol] # pylint: disable=no-member
         else:
             raise ValueError('?')
 
     def addProtocol(self, protocol=None, sys=None, protocolRemove=None):
         # TODO Decorate this
         if sys is None:
-            if protocol is None:
-                raise TypeError('?')
-            elif isinstance(protocol, timeBase):
+            if isinstance(protocol, timeBase):
                 if isinstance(protocol.superSys, genericQSys):
                     protocol = self.addProtocol(protocol.superSys, protocol, protocolRemove)
                 else:
                     raise TypeError('?')
+            else:
+                raise TypeError('?')
         elif isinstance(sys, genericQSys):
             if sys is protocol.superSys:
                 self.addQSystems(sys, protocol)
@@ -119,17 +118,17 @@ class Simulation(timeBase):
         return protocol
 
     # overwriting methods from qUniversal
-    def addSubSys(self, subS, Protocol=None, **kwargs):
+    def addSubSys(self, subS, Protocol=None, **kwargs): # pylint: disable=arguments-differ
         newSys = super().addSubSys(subS, **kwargs)
         newSys, Protocol = self.addQSystems(subS, Protocol, **kwargs)
         return newSys
 
-    def createSubSys(self, subSysClass, Protocol=None, **kwargs):
+    def createSubSys(self, subSysClass, Protocol=None, **kwargs): # pylint: disable=arguments-differ
         newSys = super().createSubSys(subSysClass, **kwargs)
         newSys, Protocol = self.createQSystems(newSys, Protocol, **kwargs)
         return newSys
-    
-    def removeSubSys(self, subS):
+
+    def removeSubSys(self, subS): # pylint: disable=arguments-differ
         self.removeQSystems(subS)
 
     def _paramsUsed(self):
@@ -137,14 +136,14 @@ class Simulation(timeBase):
             for paramUpdateSys in sys.subSys.values():
                 try:
                     paramUpdateSys._paramUpdated = False
-                except:
+                except: # pylint: disable=bare-except
                     pass
 
         for sys in self.timeDependency.sweeps.values():
             for paramUpdateSys in sys.subSys.values():
                 try:
                     paramUpdateSys._paramUpdated = False
-                except:
+                except: # pylint: disable=bare-except
                     pass
 
     def __compute(self):
@@ -153,8 +152,8 @@ class Simulation(timeBase):
             states.append(protoc.lastState)
             if ((protoc.delStates is False) or (self.delStates is False)):
                 self.qRes.states[protoc.name].append(protoc.lastState)
-        super()._computeBase__compute(states)
-            
+        super()._computeBase__compute(states) # pylint: disable=no-member
+
     def run(self, p=None, coreCount=None):
         self._freeEvol()
         for qSys in self.subSys.values():
@@ -167,17 +166,17 @@ class Simulation(timeBase):
             protoc.prepare(self)
         self.Sweep.prepare()
         for qres in self.qRes.allResults.values():
-            qres._reset()
+            qres._reset() # pylint: disable=protected-access
         _poolMemory.run(self, p, coreCount)
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         return self.qRes
 
-class _poolMemory:
+class _poolMemory: # pylint: disable=too-few-public-methods
     coreCount = None
 
     @classmethod
-    def run(cls, qSim, p, coreCount):
+    def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
         if p is True:
             if coreCount is None:
                 if _poolMemory.coreCount is None:
@@ -195,7 +194,7 @@ class _poolMemory:
             p1 = None
         elif p is not None:
             # FIXME if p is not a pool, this should raise error
-            p1 = Pool(processes=p._processes)
+            p1 = Pool(processes=p._processes) # pylint: disable=protected-access
         elif p is None:
             if _poolMemory.coreCount is not None:
                 p1 = Pool(processes=_poolMemory.coreCount)
@@ -205,6 +204,6 @@ class _poolMemory:
         runSimulation(qSim, p1)
 
         if p1 is not None:
-            _poolMemory.coreCount = p1._processes
+            _poolMemory.coreCount = p1._processes # pylint: disable=protected-access
             p1.close()
             p1.join()

@@ -1,5 +1,5 @@
-from qTools.classes.QUni import qUniversal
 from collections import defaultdict
+from qTools.classes.QUni import qUniversal
 
 __all__ = [
     'qResults'
@@ -39,7 +39,7 @@ class qResBase(qUniversal):
         self.__states = defaultdict(list)
         self.__statesLast = defaultdict(list)
         self.__calculated = defaultdict(list)
-        self._qUniversal__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def calculated(self):
@@ -84,14 +84,14 @@ class qResBase(qUniversal):
                 self._qResBase__resultsLast[key].append(value)
             elif isinstance(value, str):
                 self._qResBase__resultsLast[value].append(key)
-        '''else:
-            valCountPair = self._qResBase__average.pop(key, None)
-            if valCountPair is not None:
-                val = valCountPair[0]
-                counter = valCountPair[1]
-                # FIXME does not work if storing say ndarray
-                avg = ((counter*val) + value)/(counter + 1)
-                self._qResBase__average'''
+        #else:
+        #    valCountPair = self._qResBase__average.pop(key, None)
+        #    if valCountPair is not None:
+        #        val = valCountPair[0]
+        #        counter = valCountPair[1]
+        #        # FIXME does not work if storing say ndarray
+        #        avg = ((counter*val) + value)/(counter + 1)
+        #        self._qResBase__average
 
 
     @property
@@ -103,7 +103,8 @@ class qResBase(qUniversal):
 
     def _saveResults(self):
         pass
-    
+
+
 class qResults(qResBase):
     instances = 0
     label = 'qResults'
@@ -115,42 +116,42 @@ class qResults(qResBase):
         super().__init__(name=kwargs.pop('name', None))
         kwargs.pop('allResults', None)
         self.allResults = qResults._allResults
-        self._qUniversal__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.allResults = qResults._allResults
         if self.superSys is not None:
-            self.allResults[self.superSys.name] = self
+            self.allResults[self.superSys.name] = self # pylint: disable=no-member
 
     def _copyAllResBlank(self):
         allResCopy = {}
         for sys in self.allResults.values():
             newQRes = qResBlank()
-            newQRes._qResBlank__results = sys._qResBase__results
-            newQRes._qResBlank__average = sys._qResBase__average
-            newQRes._qResBlank__states = sys._qResBase__states
-            newQRes._qResBlank__resultsLast = sys._qResBase__resultsLast
-            newQRes._qResBlank__statesLast = sys._qResBase__statesLast
-            newQRes._qResBlank__calculated = sys._qResBase__calculated
+            newQRes._qResBlank__results = sys._qResBase__results # pylint: disable=assigning-non-slot
+            newQRes._qResBlank__average = sys._qResBase__average # pylint: disable=assigning-non-slot
+            newQRes._qResBlank__states = sys._qResBase__states # pylint: disable=assigning-non-slot
+            newQRes._qResBlank__resultsLast = sys._qResBase__resultsLast # pylint: disable=assigning-non-slot
+            newQRes._qResBlank__statesLast = sys._qResBase__statesLast # pylint: disable=assigning-non-slot
+            newQRes._qResBlank__calculated = sys._qResBase__calculated # pylint: disable=assigning-non-slot
             allResCopy[sys.superSys.name] = newQRes
         return allResCopy
 
-    @qResBase.superSys.setter
+    @qResBase.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
         removedFromAllRes = False
         oldSupSys = self.superSys
-        qResBase.superSys.fset(self, supSys)
+        qResBase.superSys.fset(self, supSys) # pylint: disable=no-member
         if oldSupSys is not None:
             removedFromAllRes = True
-            removedSys = self.allResults.pop(oldSupSys.name)
+            removedSys = self.allResults.pop(oldSupSys.name) # pylint: disable=no-member
             assert removedSys is self
 
         if supSys is not None:
             removedFromAllRes = False
-            self.allResults[self.superSys.name] = self
+            self.allResults[self.superSys.name] = self # pylint: disable=no-member
 
         if removedFromAllRes is True:
             print('?')
-        
-        self.name = self.superSys.name + 'Results'
+
+        self.name = self.superSys.name + 'Results' # pylint: disable=no-member
 
     def _reset(self):
         for qRes in self.allResults.values():
@@ -184,34 +185,34 @@ class qResults(qResBase):
     @staticmethod
     def _organise(keyUni, valUni):
         for key, val in valUni.results.items():
-            qResults._allResults[keyUni]._qResBase__results[key].append(val)
-        
+            qResults._allResults[keyUni]._qResBase__results[key].append(val) # pylint: disable=no-member
+
         for key1, val1, in valUni.states.items():
-            qResults._allResults[keyUni]._qResBase__states[key1].append(val1)
-        
+            qResults._allResults[keyUni]._qResBase__states[key1].append(val1) # pylint: disable=no-member
+
     def _organiseSingleProcRes(self):
         for keyUni, valUni in self.allResults.items():
             self._organise(keyUni, valUni)
 
     def _finalise(self, inds):
-        for key, val in self._qResBase__results.items():
-            self._qResBase__results[key], _ = self._reShape(val, list(reversed(inds)))
+        for key, val in self._qResBase__results.items(): # pylint: disable=no-member
+            self._qResBase__results[key], _ = self._reShape(val, list(reversed(inds))) # pylint: disable=no-member
 
-        for key1, val1 in self._qResBase__states.items():
-            self._qResBase__states[key1], _ = self._reShape(val1, list(reversed(inds)))
-        self._qResBase__resultsLast = self._qResBase__results
-        self._qResBase__statesLast = self._qResBase__states
+        for key1, val1 in self._qResBase__states.items(): # pylint: disable=no-member
+            self._qResBase__states[key1], _ = self._reShape(val1, list(reversed(inds))) # pylint: disable=no-member
+        self._qResBase__resultsLast = self._qResBase__results # pylint: disable=assigning-non-slot, no-member
+        self._qResBase__statesLast = self._qResBase__states # pylint: disable=assigning-non-slot, no-member
 
     @staticmethod
     def _reShape(lis, inds, counter=0, totalCount=0):
         newList = []
         if counter < (len(inds)-1):
             counter += 1
-            for indx in range(inds[counter-1]):
+            for _ in range(inds[counter-1]):
                 nList, totalCount = qResults._reShape(lis, inds, counter, totalCount)
                 newList.append(nList)
         else:
-            for indx in range(inds[counter]):
+            for _ in range(inds[counter]):
                 newList.append(lis[totalCount])
                 totalCount += 1
             return (newList, totalCount)

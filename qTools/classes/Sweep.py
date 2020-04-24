@@ -1,5 +1,5 @@
-from numpy import arange, logspace
 from functools import reduce
+from numpy import arange, logspace
 
 from qTools.classes.updateBase import updateBase
 from qTools.classes.computeBase import computeBase
@@ -15,12 +15,12 @@ class _sweep(updateBase):
     toBeSaved = updateBase.toBeSaved.extendedCopy(['sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep', 'multiParam'])
 
     __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam']
-   
+
     #@sweepInitError
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        
-        self._updateBase__function = self._defSweep
+
+        self._updateBase__function = self._defSweep # pylint: disable=assigning-non-slot
 
         self.sweepMax = None
         self.sweepMin = None
@@ -28,24 +28,24 @@ class _sweep(updateBase):
         self._sweepList = None
         self.logSweep = False
         self.multiParam = False
-        
-        self._qUniversal__setKwargs(**kwargs)
+
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def sweepFunction(self):
-        return self._updateBase__function
+        return self._updateBase__function # pylint: disable=no-member
 
     @sweepFunction.setter
     def sweepFunction(self, func):
-        self._updateBase__function = func
+        self._updateBase__function = func # pylint: disable=assigning-non-slot
 
     @property
     def sweepKey(self):
-        return self._updateBase__key
+        return self._updateBase__key # pylint: disable=no-member
 
     @sweepKey.setter
     def sweepKey(self, keyStr):
-        self._updateBase__key = keyStr
+        self._updateBase__key = keyStr # pylint: disable=assigning-non-slot
 
     @property
     def sweepList(self):
@@ -55,19 +55,19 @@ class _sweep(updateBase):
     def sweepList(self, sList):
         if sList is None:
             if self.logSweep is False:
-                self._sweepList = arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert)
+                self._sweepList = arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert) # pylint: disable=no-member
             elif self.logSweep is True:
-                self._sweepList = logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0)
+                self._sweepList = logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0) # pylint: disable=no-member
         else:
             self._sweepList = sList
 
     @staticmethod
-    def _defSweep(self, ind):
+    def _defSweep(self, ind): # pylint: disable=bad-staticmethod-argument
         val = self.sweepList[ind]
         self._runUpdate(val)
 
     def runSweep(self, ind):
-        self._updateBase__function(self, ind)
+        self._updateBase__function(self, ind) # pylint: disable=no-member
 
 class Sweep(computeBase):
     instances = 0
@@ -80,7 +80,7 @@ class Sweep(computeBase):
         self.__inds = []
         self.__indMultip = None
 
-        self._qUniversal__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
         saveDict = super().save()
@@ -100,12 +100,12 @@ class Sweep(computeBase):
 
     @property
     def sweeps(self):
-        return self._qUniversal__subSys
+        return self._qUniversal__subSys # pylint: disable=no-member
 
     @sweeps.setter
     def sweeps(self, sysDict):
         super().addSubSys(sysDict)
-        
+
     def removeSweep(self, sys):
         if isinstance(sys, _sweep):
             self.removeSubSys(sys)
@@ -120,13 +120,13 @@ class Sweep(computeBase):
 
     def prepare(self):
         if len(self.subSys) > 0:
-            self._Sweep__inds = []
+            self._Sweep__inds = [] # pylint: disable=assigning-non-slot
             for indx, sweep in enumerate(self.subSys.values()):
                 if sweep.multiParam is True:
-                    self._Sweep__inds.insert(0,len(sweep.sweepList))
+                    self._Sweep__inds.insert(0, len(sweep.sweepList))
                 elif indx == 0:
-                    self._Sweep__inds.insert(0,len(sweep.sweepList))
-            self._Sweep__indMultip = reduce(lambda x, y: x*y, self._Sweep__inds)
+                    self._Sweep__inds.insert(0, len(sweep.sweepList))
+            self._Sweep__indMultip = reduce(lambda x, y: x*y, self._Sweep__inds) # pylint: disable=assigning-non-slot
 
     def runSweep(self, ind):
         indx = 0

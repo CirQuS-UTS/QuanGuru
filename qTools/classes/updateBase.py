@@ -5,7 +5,7 @@ class updateBase(qUniversal):
     label = 'updateBase'
 
     toBeSaved = qUniversal.toBeSaved.extendedCopy(['key'])
-    
+
     __slots__ = ['__key', '__function']
 
     def __init__(self, **kwargs):
@@ -13,8 +13,8 @@ class updateBase(qUniversal):
 
         self.__key = None
         self.__function = None
-        
-        self._qUniversal__setKwargs(**kwargs)
+
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
         saveDict = super().save()
@@ -30,7 +30,7 @@ class updateBase(qUniversal):
 
     @key.setter
     def key(self, keyStr):
-        self._updateBase__key = keyStr
+        self._updateBase__key = keyStr # pylint: disable=assigning-non-slot
 
     @property
     def system(self):

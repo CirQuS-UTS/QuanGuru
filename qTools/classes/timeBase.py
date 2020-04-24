@@ -1,12 +1,13 @@
-from qTools.classes.computeBase import computeBase
 from collections import OrderedDict
+from qTools.classes.computeBase import computeBase
+
 
 class timeBase(computeBase):
     instances = 0
     label = 'timeBase'
 
     __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound', '__paramUpdated', '__inBound']
-    
+
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__paramUpdated = False
@@ -17,17 +18,17 @@ class timeBase(computeBase):
         self.__bound = self
         self.__inBound = OrderedDict()
 
-        self._qUniversal__setKwargs(**kwargs)
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
         keys = ['_timeBase__stepSize', '_timeBase__finalTime', '_timeBase__samples', '_timeBase__step']
         try:
             saveDict = super().save()
-        except TypeError as typeEr:
+        except TypeError:
             saveDict = {}
-            
+
         if self.superSys is not None:
-            saveDict['superSys'] = self.superSys.name
+            saveDict['superSys'] = self.superSys.name # pylint: disable=no-member
         saveDict['bound'] = self.bound.name
         if self.bound is self:
             for key in keys:
@@ -40,7 +41,7 @@ class timeBase(computeBase):
 
     @_paramUpdated.setter
     def _paramUpdated(self, boolean):
-        self._timeBase__paramUpdated = boolean
+        self._timeBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
         for sys in self._timeBase__inBound.values():
             if sys is not self:
                 sys._paramUpdated = boolean
@@ -52,43 +53,45 @@ class timeBase(computeBase):
     @property
     def finalTime(self):
         if self.bound is not self:
-            return self.bound.finalTime
+            fTime = self.bound.finalTime
         else:
-            return self._timeBase__finalTime
+            fTime = self._timeBase__finalTime
+        return fTime
 
     @finalTime.setter
     def finalTime(self, fTime):
         self._paramUpdated = True
-        self._timeBase__finalTime = fTime
+        self._timeBase__finalTime = fTime # pylint: disable=assigning-non-slot
         if self.stepSize is not None:
-            self._timeBase__step = int((fTime//self.stepSize) + 1)
+            self._timeBase__step = int((fTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
 
     @property
     def stepCount(self):
         if self.finalTime is None:
-            self._timeBase__finalTime = self._timeBase__step * self.stepSize
+            self._timeBase__finalTime = self._timeBase__step * self.stepSize # pylint: disable=assigning-non-slot
         return int((self.finalTime//self.stepSize) + 1)
 
     @stepCount.setter
     def stepCount(self, num):
         self._paramUpdated = True
-        self._timeBase__step = num
+        self._timeBase__step = num # pylint: disable=assigning-non-slot
         if self.finalTime is not None:
-            self._timeBase__stepSize = self.finalTime/num
+            self._timeBase__stepSize = self.finalTime/num # pylint: disable=assigning-non-slot
 
     @property
     def stepSize(self):
         if self.bound is not self:
-            return self.bound.stepSize
+            stepSize = self.bound.stepSize
         else:
-            return self._timeBase__stepSize
+            stepSize = self._timeBase__stepSize
+        return stepSize
 
     @stepSize.setter
     def stepSize(self, stepsize):
         self._paramUpdated = True
-        self._timeBase__stepSize = stepsize
+        self._timeBase__stepSize = stepsize # pylint: disable=assigning-non-slot
         if self.finalTime is not None:
-            self._timeBase__step = int((self.finalTime//stepsize) + 1)
+            self._timeBase__step = int((self.finalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
 
     @property
     def samples(self):
@@ -97,13 +100,13 @@ class timeBase(computeBase):
     @samples.setter
     def samples(self, num):
         self._paramUpdated = True
-        self._timeBase__samples = num
+        self._timeBase__samples = num # pylint: disable=assigning-non-slot
 
     def prepare(self, obj):
         if self.stepSize is None:
             if hasattr(obj, '_timeBase__inBound'):
                 obj._timeBase__inBound[self.name] = self
-            self._timeBase__bound = obj
+            self._timeBase__bound = obj # pylint: disable=assigning-non-slot
             self.stepSize = obj.stepSize
 
         if self.samples is None:
