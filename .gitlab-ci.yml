@@ -39,7 +39,7 @@ pylint:
         - anybadge --value=$score --file=pylint/pylint.svg pylint
     artifacts:
         paths:
-            - pylint.svg
+            - pylint/pylint.svg
 
 unit_test:
     stage: Test
