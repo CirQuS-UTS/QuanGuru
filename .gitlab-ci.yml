@@ -49,6 +49,8 @@ unit_test:
     only:
     - master
 
+    tags:
+        - qsimulations
     allow_failure: true
     script:
     - pwd
