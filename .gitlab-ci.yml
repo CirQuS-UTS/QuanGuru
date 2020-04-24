@@ -9,5 +9,7 @@ stages:
 
 flake8:
     stage: Static Analysis
+    tags:
+        - qsimulations
     script:
     - flake8 --max-line-length=140 bild/*.py
