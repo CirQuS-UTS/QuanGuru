@@ -1,5 +1,17 @@
+stages:
+    - demo
+    - lint
+
 demo:
+    stage: demo
     tags:
         - qsimulations
     script:
         - echo qSims
+
+pylint:
+    image: "python:latest"
+    stage: lint
+    script:
+        - pip install pylint
+        - pylint src/
