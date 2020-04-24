@@ -15,15 +15,14 @@ mypy:
     script:
     - pwd
     - ls -l
-    - python -m mypy bild/file.py
-    - python -m mypy bild/directory.py
+    - python -m mypy QuantumSimulations/qTools/QuantumToolbox/*.py
 
 flake8:
     stage: Static Analysis
     tags:
         - qsimulations
     script:
-    - flake8 --max-line-length=140 bild/*.py
+    - flake8 --max-line-length=140 QuantumSimulations/*.py
 
 pylint:
     stage: Static Analysis
@@ -31,7 +30,7 @@ pylint:
         - qsimulations
     allow_failure: true
     script:
-    - pylint -d C0301 bild/*.py
+    - pylint -d C0301 QuantumSimulations/*.py
 
 unit_test:
     stage: Test
