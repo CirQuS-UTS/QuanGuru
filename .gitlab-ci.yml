@@ -60,7 +60,7 @@ pages:
     artifacts:
         name: pages
         paths:
-        - public
+        - ./pylint/
     only:
         - master
         - ci-test
