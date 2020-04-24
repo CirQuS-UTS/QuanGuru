@@ -45,7 +45,7 @@ unit_test:
 
     artifacts:
         paths:
-        - public
+        - 
     only:
     - master
 
