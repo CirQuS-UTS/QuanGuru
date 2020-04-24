@@ -6,6 +6,17 @@ before_script:
 
 stages:
     - Static Analysis
+    - Test
+
+mypy:
+    stage: Static Analysis
+    tags:
+        - qsimulations
+    script:
+    - pwd
+    - ls -l
+    - python -m mypy bild/file.py
+    - python -m mypy bild/directory.py
 
 flake8:
     stage: Static Analysis
@@ -13,3 +24,20 @@ flake8:
         - qsimulations
     script:
     - flake8 --max-line-length=140 bild/*.py
+
+pylint:
+    stage: Static Analysis
+    tags:
+        - qsimulations
+    allow_failure: true
+    script:
+    - pylint -d C0301 bild/*.py
+
+unit_test:
+    stage: Test
+    script:
+    - pwd
+    - ls -l
+    - export PYTHONPATH="$PYTHONPATH:."
+    - python -c "import sys;print(sys.path)"
+    - pytest
