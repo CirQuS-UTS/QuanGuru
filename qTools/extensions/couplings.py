@@ -13,14 +13,15 @@ def JC(obj, subSys1, subSys2, cStrength):
         qsystems = [subSys1, subSys2]
 
     obj.couplingName = 'JC'
-    if qsystems[1].operator == sigmaz:
+    if qsystems[1].operator == sigmaz: # pylint: disable=comparison-with-callable
         #print('sigmaz')
-        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmap], qsystems,[create, sigmam], superSys=obj, couplingStrength=cStrength)
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmap], qsystems,
+                                            [create, sigmam], superSys=obj, couplingStrength=cStrength)
         #couplingObj.addTerm()
     else:
         #print('number')
         couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj, couplingStrength=cStrength)
-        couplingObj.addTerm(qsystems,[create, destroy])
+        couplingObj.addTerm(qsystems, [create, destroy])
     couplingObj.name = 'JCcoupling'
     return couplingObj
 
@@ -35,8 +36,9 @@ def Rabi(obj, subSys1, subSys2, cStrength):
         qsystems = [subSys1, subSys2]
 
     obj.couplingName = 'Rabi'
-    if qsystems[1].operator == sigmaz:
-        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], qsystems, [create, sigmax], superSys=obj, couplingStrength=cStrength)
+    if qsystems[1].operator == sigmaz: # pylint: disable=comparison-with-callable
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], qsystems,
+                                            [create, sigmax], superSys=obj, couplingStrength=cStrength)
         couplingObj.addTerm()
     # else:
     #     print('number')
