@@ -10,3 +10,8 @@ attr-rgx=[_a-zA-Z]{1,30}
 
 [FORMAT]
 max-line-length=135
+
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+notes=

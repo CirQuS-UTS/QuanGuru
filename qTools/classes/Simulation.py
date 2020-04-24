@@ -175,7 +175,7 @@ class Simulation(timeBase):
 
 class _poolMemory:
     coreCount = None
-    
+
     @classmethod
     def run(cls, qSim, p, coreCount):
         if p is True:
@@ -202,7 +202,7 @@ class _poolMemory:
             else:
                 p1 = None
 
-        res = runSimulation(qSim, p1)
+        runSimulation(qSim, p1)
 
         if p1 is not None:
             _poolMemory.coreCount = p1._processes

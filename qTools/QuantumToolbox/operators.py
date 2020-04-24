@@ -5,7 +5,7 @@
     -------
     :number : Creates the (bosonic) number operator
     :destroy : Creates the bosonic `annihilation` operator
-    :create : Creates the bosonic `creation` ($\hat{a}^{\dagger}$) operator
+    :create : Creates the bosonic `creation` operator
 
     :identity : Creates the identity operator
 
@@ -31,9 +31,11 @@
 
     :displacement : Creates the displacement operator for a given displacement parameter alpha
     :squeeze : Creates the squeezing operator for a given squeezing parameter alpha
-    
-    :compositeOp : Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB & dimA
-"""
+
+    :compositeOp : Creates a composite operator from a sub-sytem `operator`,
+    i.e. tensor product with identities of dimensions dimB & dimA
+""" # pylint: disable=W1401
+from typing import Callable
 
 import scipy.sparse as sp
 import scipy.linalg as linA
@@ -41,34 +43,34 @@ from scipy.sparse.linalg import expm
 import numpy as np
 
 from .customTypes import Matrix
-from typing import Callable
 
-'''from typing import Callable, TypeVar
-from numpy import ndarray
-from scipy.sparse import spmatrix
+
+# from typing import Callable, TypeVar
+# from numpy import ndarray
+# from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
+# Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
 
 
-def number(N:int, sparse:bool=True) -> Matrix:
+def number(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the (bosonic) number operator
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
     Parameters
     ----------
-    :param `N` : dimension of the Hilbert space
-    :param `sparse` : boolean for sparse or not (array)
+    :param dimension : dimension of the Hilbert space
+    :param sparse : boolean for sparse or not (array)
 
     Returns
     -------
-    :return: number operator for dimension N
+    :return: number operator for dimension dimension
 
     Examples
     --------
-    >>> numberArray = number(N=3, sparse=False)
+    >>> numberArray = number(dimension=3, sparse=False)
     [[0 0 0]
     [0 1 0]
     [0 0 2]]
@@ -78,13 +80,14 @@ def number(N:int, sparse:bool=True) -> Matrix:
     (2, 2)	2
     """
 
-    data = [i for i in range(N)]
-    rows = range(0, N)
-    columns = range(0, N)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(N, N))
+    data = list(range(dimension))
+    rows = range(0, dimension)
+    columns = range(0, dimension)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
-def destroy(N: int, sparse:bool=True) -> Matrix:
+
+def destroy(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the bosonic `annihilation` operator
 
@@ -92,16 +95,16 @@ def destroy(N: int, sparse:bool=True) -> Matrix:
 
     Parameters
     ----------
-    :param `N` : dimension of the Hilbert space
+    :param `dimension` : dimension of the Hilbert space
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
     -------
-    :return: bosonic `annihilation` operator for dimension N
+    :return: bosonic `annihilation` operator for dimension dimension
 
     Examples
     --------
-    >>> annihilation = destroy(N=3)
+    >>> annihilation = destroy(dimension=3)
     (0, 1)	1.0
     (1, 2)	1.4142135623730951
     >>> annihilation = destroy(3, sparse=False)
@@ -110,26 +113,27 @@ def destroy(N: int, sparse:bool=True) -> Matrix:
     [0.         0.         0.        ]]
     """
 
-    data = [np.sqrt(i+1) for i in range(N-1)]
-    rows = range(0,N-1)
-    columns = range(1,N)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(N, N))
+    data = [np.sqrt(i+1) for i in range(dimension-1)]
+    rows = range(0, dimension-1)
+    columns = range(1, dimension)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
-def create(N: int, sparse:bool=True) -> Matrix:
+
+def create(dimension: int, sparse: bool = True) -> Matrix:
     """
-    Creates the bosonic `creation` ($\hat{a}^{\dagger}$) operator
+    Creates the bosonic `creation` operator
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
     Parameters
     ----------
-    :param `N` : dimension of the Hilbert space
+    :param `dimension` : dimension of the Hilbert space
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
     -------
-    :return: bosonic `creation` operator for dimension N
+    :return: bosonic `creation` operator for dimension dimension
 
     Examples
     --------
@@ -142,13 +146,13 @@ def create(N: int, sparse:bool=True) -> Matrix:
     [0.         1.41421356 0.        ]]
     """
 
-    data = [np.sqrt(i+1) for i in range(N-1)]
-    rows = range(1,N)
-    columns = range(0,N-1)
-    n = sp.csc_matrix((data, (rows, columns)), shape=(N, N))
+    data = [np.sqrt(i+1) for i in range(dimension-1)]
+    rows = range(1, dimension)
+    columns = range(0, dimension-1)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
-def identity(N: int, sparse:bool=True) -> Matrix:
+def identity(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the identity operator
 
@@ -156,12 +160,12 @@ def identity(N: int, sparse:bool=True) -> Matrix:
 
     Parameters
     ----------
-    :param `N` : dimension of the Hilbert space
+    :param `dimension` : dimension of the Hilbert space
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
     -------
-    :return: identity operator for dimension N
+    :return: identity operator for dimension dimension
 
     Examples
     --------
@@ -175,9 +179,9 @@ def identity(N: int, sparse:bool=True) -> Matrix:
     [0. 0. 1.]]
     """
 
-    return sp.identity(N, format="csc") if sparse else np.identity(N)
+    return sp.identity(dimension, format="csc") if sparse else np.identity(dimension)
 
-def sigmaz(N:int=2, sparse:bool=True) -> Matrix:
+def sigmaz(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma z operator
 
@@ -185,8 +189,8 @@ def sigmaz(N:int=2, sparse:bool=True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
-    :param `N` : dimension of the Hilbert space (2 by default)
+    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+    :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
@@ -209,7 +213,7 @@ def sigmaz(N:int=2, sparse:bool=True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def sigmay(N:int=2, sparse:bool=True) -> Matrix:
+def sigmay(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma y operator
 
@@ -217,8 +221,8 @@ def sigmay(N:int=2, sparse:bool=True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
-    :param `N` : dimension of the Hilbert space (2 by default)
+    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+    :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
@@ -238,10 +242,10 @@ def sigmay(N:int=2, sparse:bool=True) -> Matrix:
     data = [-1j, 1j]
     rows = [0, 1]
     columns = [1, 0]
-    n =  sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
+    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def sigmax(N:int=2, sparse:bool=True) -> Matrix:
+def sigmax(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma x operator
 
@@ -249,8 +253,8 @@ def sigmax(N:int=2, sparse:bool=True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
-    :param `N` : dimension of the Hilbert space (2 by default)
+    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+    :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
@@ -273,7 +277,7 @@ def sigmax(N:int=2, sparse:bool=True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def sigmap(N:int=2, sparse:bool=True) -> Matrix:
+def sigmap(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator
 
@@ -281,8 +285,8 @@ def sigmap(N:int=2, sparse:bool=True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
-    :param `N` : dimension of the Hilbert space (2 by default)
+    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+    :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
@@ -304,7 +308,7 @@ def sigmap(N:int=2, sparse:bool=True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def sigmam(N:int=2, sparse:bool=True) -> Matrix:
+def sigmam(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator
 
@@ -312,8 +316,8 @@ def sigmam(N:int=2, sparse:bool=True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME N is meaningless, it is introduces to make objects more uniform, might remove later
-    :param `N` : dimension of the Hilbert space (2 by default)
+    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+    :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
@@ -335,7 +339,7 @@ def sigmam(N:int=2, sparse:bool=True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
+def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `Z` operator for a given spin quantum number j
 
@@ -385,12 +389,12 @@ def Jz(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
         d = int(j)
         j = ((d-1)/2)
     data = [j-i for i in range(d)]
-    rows = range(0,d)
-    columns = range(0,d)
+    rows = range(0, d)
+    columns = range(0, d)
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
+def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `creation` operator for a given spin quantum number j
 
@@ -439,12 +443,12 @@ def Jp(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
         j = ((d-1)/2)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
-    rows = range(0,d-1)
-    columns = range(1,d)
+    rows = range(0, d-1)
+    columns = range(1, d)
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
+def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j
 
@@ -493,12 +497,12 @@ def Jm(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
         j = ((d-1)/2)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
-    rows = range(1,d)
-    columns = range(0,d-1)
+    rows = range(1, d)
+    columns = range(0, d-1)
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
+def Jx(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `X` operator for a given spin quantum number j
 
@@ -551,7 +555,7 @@ def Jx(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
     n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-def Jy(j, sparse=True, isDim=True) -> Matrix:
+def Jy(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `Y` operator for a given spin quantum number j
 
@@ -604,7 +608,7 @@ def Jy(j, sparse=True, isDim=True) -> Matrix:
     n = (1/(2j))*(Jp(j, isDim=isDim) - Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-def Js(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
+def Js(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the total angular momentum (spin) operator for a given spin quantum number j
 
@@ -651,7 +655,7 @@ def Js(j:float, sparse:bool=True, isDim:bool=True) -> Matrix:
     n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Matrix:
+def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matrix:
     """
     Creates a quantum operator for given function reference `op` and raises to a `power`
 
@@ -686,7 +690,7 @@ def operatorPow(op: Callable, dim:int, power:int, sparse:bool=True) -> Matrix:
 
     return op(dim, sparse)**power
 
-def paritySUM(N:int, sparse:bool=True) -> Matrix:
+def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the parity operator by explicity placing alternating +/- into a matrix
 
@@ -694,7 +698,7 @@ def paritySUM(N:int, sparse:bool=True) -> Matrix:
 
     Parameters
     ----------
-    :param `N` : dimension of the Hilbert space
+    :param `dimension` : dimension of the Hilbert space
     :param `sparse` : boolean for sparse or not (array)
 
     Returns
@@ -703,13 +707,13 @@ def paritySUM(N:int, sparse:bool=True) -> Matrix:
 
     Examples
     --------
-    >>> paritySum = paritySUM(N=5, sparse=False)
+    >>> paritySum = paritySUM(dimension=5, sparse=False)
     [[ 1.  0.  0.  0.  0.]
     [ 0. -1.  0.  0.  0.]
     [ 0.  0.  1.  0.  0.]
     [ 0.  0.  0. -1.  0.]
     [ 0.  0.  0.  0.  1.]]
-    >>> paritySum = paritySUM(N=5)
+    >>> paritySum = paritySUM(dimension=5)
     (0, 0)	1.0
     (1, 1)	-1.0
     (2, 2)	1.0
@@ -717,14 +721,15 @@ def paritySUM(N:int, sparse:bool=True) -> Matrix:
     (4, 4)	1.0
     """
 
-    a = np.empty((N,))
+    a = np.empty((dimension,))
     a[::2] = 1
     a[1::2] = -1
     data = a
-    rows = range(0,N)
-    columns = range(0,N)
-    n = sp.csc_matrix((data,(rows,columns)), shape=(N,N))
+    rows = range(0, dimension)
+    columns = range(0, dimension)
+    n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
+
 
 def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     """
@@ -742,14 +747,14 @@ def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
 
     Examples
     --------
-    >>> ham = number(N=5, sparse=False)
+    >>> ham = number(dimension=5, sparse=False)
     >>> parityEXP = parityEXP(HamiltonianCavity=ham) # returns an array since ham is an array
     [[ 1.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
     [ 0.+0.0000000e+00j -1.+1.2246468e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j]
     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  -1.+3.6739404e-16j  0.+0.0000000e+00j]
     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  1.-4.8985872e-16j]]
-    >>> ham = number(N=5)
+    >>> ham = number(dimension=5)
     >>> parityEXP = parityEXP(HamiltonianCavity=ham) # returns a sparse since ham is a sparse
     (0, 0)	(1+0j)
     (0, 1)	0j
@@ -766,11 +771,12 @@ def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     parEX = ((1j * np.pi) * HamiltonianCavity)
     return expm(parEX) if sparse else linA.expm(parEX)
 
-def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
+
+def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
-    Creates a `ket` state 
-    
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False) 
+    Creates a `ket` state
+
+    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
     Parameters
     ----------
@@ -797,7 +803,7 @@ def basis(dimension:int, state:int, sparse:bool=True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse else n.A
 
-def displacement(alpha:complex, dim:int, sparse:bool=True) -> Matrix:
+def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     """
     Creates the displacement operator for a given displacement parameter alpha
 
@@ -843,7 +849,7 @@ def displacement(alpha:complex, dim:int, sparse:bool=True) -> Matrix:
     n = linA.expm(oper.toarray())
     return sp.csc_matrix(n) if sparse else n
 
-def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Matrix:
+def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     """
     Creates the squeezing operator for a given squeezing parameter alpha
 
@@ -882,7 +888,7 @@ def squeeze(alpha:complex, dim:int, sparse:bool=True) -> Matrix:
     return sp.csc_matrix(n) if sparse else n
 
 # TODO Does this really work with ndarray ?
-def compositeOp(operator: Matrix, dimB:int, dimA:int) -> Matrix:
+def compositeOp(operator: Matrix, dimB: int, dimA: int) -> Matrix:
     """
     Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB & dimA
 
@@ -897,7 +903,7 @@ def compositeOp(operator: Matrix, dimB:int, dimA:int) -> Matrix:
 
     Examples
     --------
-    TODO Update these 
+    TODO Update these
     >>> szQ1 = compositeOp(operator=sigmaz(), dimB=0, dimA=2)
     >>> szQ2 = compositeOp(operator=sigmaz(), dimB=2, dimA=0)
     >>> print(szQ1.A)
@@ -911,12 +917,13 @@ def compositeOp(operator: Matrix, dimB:int, dimA:int) -> Matrix:
     [ 0.  0.  1.  0.]
     [ 0.  0.  0. -1.]]
     """
-    
-    if (dimB <= 1) and (dimA > 1):
-        return sp.kron(operator,sp.identity(dimA), format='csc')
-    elif (dimB > 1) and (dimA <= 1):
-        return sp.kron(sp.identity(dimB), operator, format='csc')
+
+    if (dimB <= 1) and (dimA > 1): # pylint: disable=R1716
+        oper = sp.kron(operator, sp.identity(dimA), format='csc')
+    elif (dimB > 1) and (dimA <= 1): # pylint: disable=R1716
+        oper = sp.kron(sp.identity(dimB), operator, format='csc')
     elif (dimB > 1) and (dimA > 1):
-        return sp.kron(sp.kron(sp.identity(dimB), operator, format='csc'), sp.identity(dimA), format='csc')
+        oper = sp.kron(sp.kron(sp.identity(dimB), operator, format='csc'), sp.identity(dimA), format='csc')
     else:
-        return operator
+        oper = operator
+    return oper
