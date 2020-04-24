@@ -2,7 +2,7 @@
 
 module-rgx=[a-zA-Z]{1,30}
 function-rgx=[_a-z0-9A-Z]{1,30}
-variable-rgx=[a-z0-9A-Z]{1,30}
+variable-rgx=[_a-z0-9A-Z]{1,30}
 argument-rgx=[a-zA-Z]{1,30}
 class-rgx=[_a-zA-Z]{1,30}
 method-rgx=[_a-zA-Z]{1,30}
