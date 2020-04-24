@@ -1,3 +1,6 @@
+[MASTER]
+disable=C0114,C0115,C0116
+
 [BASIC]
 
 module-rgx=[a-zA-Z]{1,30}
