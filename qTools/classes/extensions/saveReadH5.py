@@ -1,13 +1,13 @@
-import h5py
 import os
 import sys
 from datetime import datetime
+import h5py
 from qTools.classes.QRes import qResults
 
 def makeDir(path=None):
     if path is None:
         path = sys.path[0]
-    
+
     if not os.path.isdir(path):
         os.mkdir(path)
 
@@ -26,8 +26,8 @@ def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=Fals
     if irregular is True:
         for key, value in dictionary.items():
             k = file.create_group(key)
-            for irty in range(len(value)):
-                k.create_dataset(str(irty), data=value[irty])
+            for irty, val in enumerate(value):
+                k.create_dataset(str(irty), data=val)
     else:
         for key, value in dictionary.items():
             file.create_dataset(key, data=value)
@@ -36,7 +36,7 @@ def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=Fals
     return path, fileName
 
 
-def _reDict(inp, i=0 , retDict ={}, keyDict=None):
+def _reDict(inp, i=0, retDict={}, keyDict=None): # pylint: disable=dangerous-default-value
     for key, val in inp.items():
         if key in retDict.keys():
             key = key + keyDict
@@ -67,7 +67,7 @@ def writeAttr(k, attributes, path, name):
             k.attrs[key] = val
     return k
 
-def readH5(path, fileName, key = None):
+def readH5(path, fileName, key=None):
     path = path + '/' + fileName + '.h5'
     f = h5py.File(path, 'r')
     return f if key is None else list(f[key])
@@ -86,14 +86,14 @@ def readAll(path, fileName):
     resDict = {}
     for key, val in f.items():
         if len(val) > 0:
-            rDict =  {}
+            rDict = {}
             for key1, val1 in val.items():
                 try:
-                    _rDict ={}
+                    _rDict = {}
                     for key2, val2 in val1.items():
-                        _rDict[key2]=list(val2)
-                    rDict[key1]=_rDict
-                except:
+                        _rDict[key2] = list(val2)
+                    rDict[key1] = _rDict
+                except: # pylint: disable=bare-except
                     rDict[key1] = list(val1)
             resDict[key] = rDict
     return resDict, f.attrs
@@ -109,14 +109,14 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
     if isinstance(attributes, dict):
         writeAttr(file, attributes, path, fileName)
 
-    for key1, value1 in qRes.allResults.items():
+    for value1 in qRes.allResults.values():
         k = file.create_group(value1.name)
         dictionary = value1.results
         if irregular is True:
             for key, value in dictionary.items():
                 k2 = k.create_group(key)
-                for irty in range(len(value)):
-                    k2.create_dataset(str(irty), data=value[irty])
+                for irty, val in enumerate(value):
+                    k2.create_dataset(str(irty), data=val)
         else:
             for key, value in dictionary.items():
                 k.create_dataset(key, data=value)
