@@ -9,16 +9,17 @@ __all__ = [
 ]
 
 def checkClass(classOf):
+    """
+        This is a decorator
+    """
     def addDecorator(addRemoveFunction):
         def wrapper(obj, inp, **kwargs):
             cls1 = globals()[classOf]
             if isinstance(inp, cls1):
-                inp._qUniversal__setKwargs(**kwargs)
-                if inp._qUniversal__ind is None:
+                if getattr(inp, '_qUniversal__ind') is None:
                     if obj is not inp:
-                        inp._qUniversal__ind = len(obj._qUniversal__subSys)
+                        setattr(inp, '_qUniversal__ind', len(getattr(obj, '_qUniversal__subSys')))
                 addRemoveFunction(obj, inp, **kwargs)
-                return inp
             elif isinstance(inp, str):
                 if str in cls1.instNames.keys():
                     inp = wrapper(obj, cls1.instNames[inp], **kwargs)
@@ -27,11 +28,11 @@ def checkClass(classOf):
                     inp = wrapper(obj, cls2, **kwargs)
             elif isinstance(inp, dict):
                 for sys in inp.values():
-                    # TODO what to do with the keys?
+                    # what to do with the keys?
                     inp = wrapper(obj, sys, **kwargs)
             elif inp is None:
-                obj._qUniversal__subSys = OrderedDict()
-                return obj._qUniversal__subSys
+                setattr(obj, '_qUniversal__subSys', OrderedDict())
+                return getattr(obj, '_qUniversal__subSys', OrderedDict())
             elif inp.__class__ is type:
                 newSys = inp()
                 inp = wrapper(obj, newSys, **kwargs)
@@ -44,7 +45,13 @@ def checkClass(classOf):
 
 
 class extendedList(list):
+    """
+        this is a class
+    """
     def extendedCopy(self, iterable):
+        """
+            This is a method
+        """
         baseList = extendedList()
         for it in self:
             baseList.append(it)
@@ -52,11 +59,15 @@ class extendedList(list):
             baseList.append(exIt)
         return baseList
 
+
 class qUniversal:
+    """
+        This is qUniversal
+    """
     instances = 0
     label = 'qUniversal'
     instNames = {}
-    
+
     toBeSaved = extendedList(['name'])
 
     __slots__ = ['__name', '__superSys', '__ind', '__subSys', '__allInstances']
@@ -75,10 +86,13 @@ class qUniversal:
             kwargs.pop('name')
             self._qUniversal__setKwargs(**kwargs)
 
-    def __del__(self):
-        class_name = self.__class__.__name__
+    #def __del__(self):
+    #    class_name = self.__class__.__name__
 
     def save(self):
+        """
+            This is save method
+        """
         saveDict = {}
         for k in self.toBeSaved:
             val = getattr(self, k)
@@ -88,68 +102,113 @@ class qUniversal:
         return saveDict
 
     def getObjByName(self, name):
+        """
+            A method
+        """
         return self._qUniversal__allInstances[name]
-    
+
     def __setKwargs(self, **kwargs):
+        """
+            A method
+        """
         for key, value in kwargs.items():
             setattr(self, key, value)
 
     def resetSubSys(self):
-        self._qUniversal__subSys = OrderedDict()
+        """
+            A method
+        """
+        setattr(self, '_qUniversal__subSys', OrderedDict())
 
     @property
     def subSys(self):
+        """
+            A method
+        """
         return self._qUniversal__subSys
 
     @subSys.setter
     def subSys(self, subS):
         self.addSubSys(subS)
-             
-    @checkClass('qUniversal')         
+
+    @checkClass('qUniversal')
     def addSubSys(self, subS, **kwargs):
+        """
+            A method
+        """
+        subS._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         self._qUniversal__subSys[subS.name] = subS
-    
+
     @checkClass('qUniversal')
     def removeSubSys(self, subS, **kwargs):
+        """
+            A method
+        """
+        subS._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         obj = self._qUniversal__subSys.pop(subS.name)
         self._updateInd()
         print(obj.name + ' is removed from subSys of ' + self.name)
 
     def _updateInd(self):
+        """
+            A method
+        """
         for ind, obj in enumerate(self._qUniversal__subSys):
             obj.ind = ind
-        
+
     @checkClass('qUniversal')
     def createSubSys(self, subSysClass, **kwargs):
+        """
+            A method
+        """
+        subSysClass._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         self._qUniversal__subSys[subSysClass.name] = subSysClass
-        
+
     @property
     def superSys(self):
+        """
+            A property
+        """
         return self._qUniversal__superSys
 
     @superSys.setter
     def superSys(self, supSys):
-        self._qUniversal__superSys = supSys
+        """
+            A property setter
+        """
+        setattr(self, '_qUniversal__superSys', supSys)
 
     @property
     def ind(self):
+        """
+            A property
+        """
         return self._qUniversal__ind
 
     @property
     def name(self):
+        """
+            A property
+        """
         return self._qUniversal__name
-        
+
     @name.setter
     def name(self, name):
-        self._qUniversal__name = qUniversal.updateNames(self, name)
+        """
+            A property setter
+        """
+        name = qUniversal.updateNames(self, name)
+        setattr(self, '_qUniversal__name', name)
 
     @classmethod
     def updateNames(cls, obj, name, duplicate=False):
+        """
+            A class method
+        """
         if name in cls.instNames.keys():
             duplicate = True
             if obj is cls.instNames[name]:
                 cls.instNames[name] = cls.instNames.pop(obj.name)
-                return name
             else:
                 name += str(obj.__class__.instances)
                 return cls.updateNames(obj, name, duplicate)
@@ -158,36 +217,52 @@ class qUniversal:
                 print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
 
             if obj in cls.instNames.values():
-                # TODO can skip this and keep two keys for a system?
+                # can skip this and keep two keys for a system?
                 cls.instNames[name] = cls.instNames.pop(obj.name)
             else:
                 cls.instNames[name] = obj
-            return name
+        return name
 
     def copy(self, n=1, **kwargs):
-        newSystems = [] 
-        for ind in range(n):
+        """
+            A method
+        """
+        newSystems = []
+        for ind in range(n): # pylint: disable=W0612
             sysClass = self.__class__
             newSystems.append(sysClass(**kwargs))
 
         if len(newSystems) == 1:
-            return newSystems[0]
+            newS = newSystems[0]
         else:
-            return (*newSystems,)
-        
+            newS = (*newSystems,)
+        return newS
+
     def __namer(self):
+        """
+            A method
+        """
         name = self.clsLabel() + str(self.clsInstances())
         qUniversal.instNames[name] = self
         return name
 
     @classmethod
     def _incrementInstances(cls):
+        """
+            A class method
+        """
         cls.instances += 1
 
     @classmethod
     def clsInstances(cls):
+        """
+            A class method
+        """
         return cls.instances
 
     @classmethod
     def clsLabel(cls):
+        """
+            A classs method
+        """
         return cls.label
