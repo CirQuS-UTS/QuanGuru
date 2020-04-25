@@ -41,9 +41,9 @@ def nonParalEvol(qSim):
 # multi-processing functions
 def paralEvol(qSim, p):
     if len(qSim.timeDependency.sweeps) > 0:
-        results = p.map(partial(partial(parallelTimeEvol, qSim), timeDependent), range(qSim.Sweep.indMultip))
+        results = p.map(partial(partial(parallelTimeEvol, qSim), timeDependent), range(qSim.Sweep.indMultip), chunksize=1)
     else:
-        results = p.map(partial(partial(parallelTimeEvol, qSim), qSim.evolFunc), range(qSim.Sweep.indMultip))
+        results = p.map(partial(partial(parallelTimeEvol, qSim), qSim.evolFunc), range(qSim.Sweep.indMultip), chunksize=1)
     qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
 
 def parallelTimeEvol(qSim, evolFunc, ind):
