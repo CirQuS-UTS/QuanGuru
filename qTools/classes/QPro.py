@@ -118,11 +118,15 @@ class qProtocol(genericProtocol):
                 step.prepare(self)
                 if not isinstance(step, qProtocol):
                     if step.fixed is True:
+                        for update in step._Step__updates: # pylint: disable=protected-access
+                            update.setup()
                         step.createUnitary()
+                        for update in step._Step__updates: # pylint: disable=protected-access
+                            update.setback()
 
     def delMatrices(self):
         super().delMatrices()
-        for step in self.steps.valus():
+        for step in self.steps.values():
             if not isinstance(step, copyStep):
                 step.delMatrices()
 
@@ -187,13 +191,17 @@ class Step(genericProtocol):
             self._timeBase__paramUpdated = True # pylint: disable=assigning-non-slot
             self._allBools[self] = True
 
-        if self._paramUpdated is False:
-            unitary = self._genericProtocol__unitary # pylint: disable=no-member
-        elif self.fixed is True:
+        if self.fixed is True:
             if self._genericProtocol__unitary is None: # pylint: disable=no-member
+                for update in self._Step__updates:
+                    update.setup()
                 self._genericProtocol__unitary = self.createUnitary()  # pylint: disable=assignment-from-no-return, assigning-non-slot
+                for update in self._Step__updates:
+                    update.setback()
             self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot
             self._allBools[self] = False
+            unitary = self._genericProtocol__unitary # pylint: disable=no-member
+        elif self._paramUpdated is False:
             unitary = self._genericProtocol__unitary # pylint: disable=no-member
         elif len(self._Step__updates) == 0:
             self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot

@@ -180,30 +180,30 @@ class _poolMemory: # pylint: disable=too-few-public-methods
         if p is True:
             if coreCount is None:
                 if _poolMemory.coreCount is None:
-                    p1 = Pool(processes=cpu_count()-1)
+                    _pool = Pool(processes=cpu_count()-1)
                 else:
-                    p1 = Pool(processes=_poolMemory.coreCount)
+                    _pool = Pool(processes=_poolMemory.coreCount)
             elif isinstance(coreCount, int):
-                p1 = Pool(processes=coreCount)
+                _pool = Pool(processes=coreCount)
             elif coreCount.lower() == 'all':
-                p1 = Pool(processes=cpu_count())
+                _pool = Pool(processes=cpu_count())
             else:
                 # FIXME should raise error
                 print('error')
         elif p is False:
-            p1 = None
+            _pool = None
         elif p is not None:
             # FIXME if p is not a pool, this should raise error
-            p1 = Pool(processes=p._processes) # pylint: disable=protected-access
+            _pool = Pool(processes=p._processes) # pylint: disable=protected-access
         elif p is None:
             if _poolMemory.coreCount is not None:
-                p1 = Pool(processes=_poolMemory.coreCount)
+                _pool = Pool(processes=_poolMemory.coreCount)
             else:
-                p1 = None
+                _pool = None
 
-        runSimulation(qSim, p1)
+        runSimulation(qSim, _pool)
 
-        if p1 is not None:
-            _poolMemory.coreCount = p1._processes # pylint: disable=protected-access
-            p1.close()
-            p1.join()
+        if _pool is not None:
+            _poolMemory.coreCount = _pool._processes # pylint: disable=protected-access
+            _pool.close()
+            _pool.join()

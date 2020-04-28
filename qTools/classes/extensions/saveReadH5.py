@@ -13,7 +13,7 @@ def makeDir(path=None):
 
     return path
 
-def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=False):
+def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=False): # pylint: disable=invalid-name
     if fileName is None:
         now = datetime.now()
         fileName = datetime.timestamp(now)
@@ -67,12 +67,12 @@ def writeAttr(k, attributes, path, name):
             k.attrs[key] = val
     return k
 
-def readH5(path, fileName, key=None):
+def readH5(path, fileName, key=None): # pylint: disable=invalid-name
     path = path + '/' + fileName + '.h5'
     f = h5py.File(path, 'r')
     return f if key is None else list(f[key])
 
-def readH5toDict(path, fileName):
+def readH5toDict(path, fileName): # pylint: disable=invalid-name
     path = path + '/' + fileName + '.h5'
     f = h5py.File(path, 'r')
     resDict = {}
@@ -125,7 +125,7 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
     return path, fileName
 
 
-def _qResSaveH5(qRes, fileName=None, attributes=dict, path=None, irregular=False):
+def _qResSaveH5(qRes, fileName=None, attributes=dict, path=None, irregular=False): # pylint: disable=invalid-name
     p, f = saveH5(qRes.results, fileName, attributes, path, irregular)
     return p, f
 

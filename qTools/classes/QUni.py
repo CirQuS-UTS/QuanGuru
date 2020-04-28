@@ -14,18 +14,18 @@ def checkClass(classOf):
     """
     def addDecorator(addRemoveFunction):
         def wrapper(obj, inp, **kwargs):
-            cls1 = globals()[classOf]
-            if isinstance(inp, cls1):
+            clsDecoArg = globals()[classOf]
+            if isinstance(inp, clsDecoArg):
                 if getattr(inp, '_qUniversal__ind') is None:
                     if obj is not inp:
                         setattr(inp, '_qUniversal__ind', len(getattr(obj, '_qUniversal__subSys')))
                 addRemoveFunction(obj, inp, **kwargs)
             elif isinstance(inp, str):
-                if str in cls1.instNames.keys():
-                    inp = wrapper(obj, cls1.instNames[inp], **kwargs)
+                if str in clsDecoArg.instNames.keys():
+                    inp = wrapper(obj, clsDecoArg.instNames[inp], **kwargs)
                 else:
-                    cls2 = globals()[inp]
-                    inp = wrapper(obj, cls2, **kwargs)
+                    clsInput = globals()[inp]
+                    inp = wrapper(obj, clsInput, **kwargs)
             elif isinstance(inp, dict):
                 for sys in inp.values():
                     # what to do with the keys?

@@ -30,7 +30,7 @@ from numpy import ndarray  # type: ignore
 import scipy.sparse as sp
 import numpy as np
 
-from .customTypes import Matrix, intList, matrixList, supInp, ndOrList_int
+from .customTypes import Matrix, intList, matrixList, supInp, ndOrListInt
 
 
 
@@ -43,7 +43,7 @@ from .customTypes import Matrix, intList, matrixList, supInp, ndOrList_int
 # intList = List[int]                            # Type for a list of integers
 # matrixList = List[Matrix]                      # Type for a list `Matrix` types
 # supInp = Union[Dict[int, float], intList, int] # Type from the union of int, `intList`, and Dict[int:float]
-# ndOrList_int = Union[ndarray, intList]         # Type from the union of ndarray and intList with integer elements
+# ndOrListInt = Union[ndarray, intList]         # Type from the union of ndarray and intList with integer elements
 
 
 def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
@@ -489,7 +489,7 @@ def tensorProd(*args: Matrix) -> Matrix:
     return totalProd
 
 
-def partialTrace(keep: ndOrList_int, dims: ndOrList_int, state: Matrix) -> ndarray:
+def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray:
     """
     Calculates the partial trace of a `density matrix` of composite state
     ρ_a = Tr_b(ρ)
@@ -547,12 +547,12 @@ def partialTrace(keep: ndOrList_int, dims: ndOrList_int, state: Matrix) -> ndarr
 
     idx1 = list(range(Ndim))
     idx2 = [Ndim+i if i in keep else i for i in range(Ndim)]
-    rho_a = rho.reshape(np.tile(dims, 2))
-    rho_a = np.einsum(rho_a, idx1+idx2, optimize=False)
-    return rho_a.reshape(Nkeep, Nkeep)
+    rhoA = rho.reshape(np.tile(dims, 2))
+    rhoA = np.einsum(rhoA, idx1+idx2, optimize=False)
+    return rhoA.reshape(Nkeep, Nkeep)
 
 
-def mat2Vec(denMat: Matrix) -> Matrix:
+def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     """
     Converts ``density matrix`` into ``density vector`` (used in super-operator respresentation)
 
@@ -580,7 +580,7 @@ def mat2Vec(denMat: Matrix) -> Matrix:
     return vec
 
 
-def vec2mat(vec: Matrix) -> Matrix:
+def vec2mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     """
     Converts ``density vector`` into ``density matrix``
 

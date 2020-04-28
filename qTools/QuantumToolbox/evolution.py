@@ -214,7 +214,7 @@ def _preSO(operator: Matrix, identity: Matrix, sparse: bool) -> Matrix:
     return pre
 
 
-def _posSO(operator: Matrix, identity: Matrix, sparse: bool)  -> Matrix:
+def _posSO(operator: Matrix, identity: Matrix, sparse: bool) -> Matrix:
     """
     Creates `pos` super-operator for an operator
 
@@ -241,7 +241,7 @@ def _posSO(operator: Matrix, identity: Matrix, sparse: bool)  -> Matrix:
     return pos
 
 
-def _preposSO(operator: Matrix, sparse: bool)  -> Matrix:
+def _preposSO(operator: Matrix, sparse: bool) -> Matrix:
     """
     Creates `pre-pos` super-operator for an operator
 

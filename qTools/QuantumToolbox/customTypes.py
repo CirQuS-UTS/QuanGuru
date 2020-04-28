@@ -8,7 +8,7 @@
     :floatList : Type for a list of floats
     :matrixList : Type for a list `Matrix` types
     :supInp : Type from the union the types: int, `intList`, and a dict with int:float key:value combination
-    :ndOrList_int : Type from the union of ndarray and intList
+    :ndOrListInt : Type from the union of ndarray and intList
 """
 
 from typing import Union, Dict, List, TypeVar
@@ -21,5 +21,5 @@ intList = List[int]                                 # Type for a list of integer
 floatList = List[float]                             # Type for a list of floats
 matrixList = List[Matrix]                           # Type for a list `Matrix` types
 supInp = Union[Dict[int, float], intList, int]      # Type from the union the types: int, `intList`, and dict[int:float]
-ndOrList_int = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements
+ndOrListInt = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements
 ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list

@@ -18,7 +18,7 @@ from .operators import (
     displacement, squeeze,
     compositeOp
 )
-from .quasiProbabilities import (Wigner, HusimiQ, _qfunc_pure)
+from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
 from .states import (
     basis, completeBasis, basisBra,
     zeros,
@@ -29,4 +29,4 @@ from .states import (
     compositeState, tensorProd, partialTrace,
     mat2Vec, vec2mat
 )
-from .customTypes import (Matrix, intList, matrixList, supInp, ndOrList_int, ndOrList)
+from .customTypes import (Matrix, intList, matrixList, supInp, ndOrListInt, ndOrList)

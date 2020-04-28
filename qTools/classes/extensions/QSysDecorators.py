@@ -2,27 +2,27 @@ import scipy.sparse as sp
 from qTools.classes.QUni import qUniversal
 
 
-"""def asignState(stateCreationFunc):
-    def InitialStateDecorator(initialState):
-        def wrapper(obj, inp):
-            obj._genericQSys__initialStateInput = inp
-            if sp.issparse(inp):
-                if inp.shape[0] == obj.dimension:
-                    obj._genericQSys__initialState = inp
-                else:
-                    print('Dimension mismatch')
-            else:
-                initialState(obj, inp)
-        return wrapper
-    return InitialStateDecorator"""
+# def asignState(stateCreationFunc):
+#    def InitialStateDecorator(initialState):
+#        def wrapper(obj, inp):
+#            obj._genericQSys__initialStateInput = inp
+#            if sp.issparse(inp):
+#                if inp.shape[0] == obj.dimension:
+#                    obj._genericQSys__initialState = inp
+#                else:
+#                    print('Dimension mismatch')
+#            else:
+#                initialState(obj, inp)
+#        return wrapper
+#    return InitialStateDecorator
 
 
 def InitialStateDecorator(initialState):
     def wrapper(obj, inp):
-        obj._genericQSys__initialStateInput = inp
+        obj._genericQSys__initialStateInput = inp # pylint: disable=protected-access
         if sp.issparse(inp):
             if inp.shape[0] == obj.dimension:
-                obj._genericQSys__initialState = inp
+                obj._genericQSys__initialState = inp # pylint: disable=protected-access
             else:
                 raise ValueError('Dimension mismatch')
         else:
@@ -30,7 +30,7 @@ def InitialStateDecorator(initialState):
     return wrapper
 
 def addCreateInstance(functionToCall):
-    def systemAddCreateDecorator(addCreate):
+    def systemAddCreateDecorator():
         def wrapper(obj, clsInst, *args, **kwargs):
             newSub = None
             if isinstance(clsInst, qUniversal):
@@ -45,7 +45,7 @@ def addCreateInstance(functionToCall):
                 newSub = functionToCall(obj, 'qCoupling', clsInst, *args)
             else:
                 newSub = clsInst(*args)
-                newSub =functionToCall(obj, newSub, *args)
+                newSub = functionToCall(obj, newSub, *args)
             newSub._qUniversal__setKwargs(**kwargs)
             newSub.superSys = obj
             #obj.subSys[newSub.name] = newSub
@@ -60,7 +60,8 @@ def constructConditions(keyWords):
             for key, val in keyWords.items():
                 if not isinstance(getattr(obj, key), val):
                     print(key + ' is not given for ' + obj.name)
-                    return None
+                    contructedObj = None
+                    break
             else:
                 contructedObj = construct(obj)
             return contructedObj

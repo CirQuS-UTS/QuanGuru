@@ -5,7 +5,7 @@
     -------
     :Wigner : An iterative method to evaluate the Wigner functions for the Fock state :math:`|m><n|`.
     :HusimiQ : Q-function of a given state vector or density matrix at points `xvec + i * yvec`.
-    :_qfunc_pure : Calculate the Q-function for a pure state.
+    :_qfuncPure : Calculate the Q-function for a pure state.
 """
 
 from numpy import ndarray
@@ -110,7 +110,7 @@ def HusimiQ(state: Matrix, xvec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
         state = state.toarray()
 
     if state.shape[0] != state.shape[1]:
-        qmat = _qfunc_pure(state, amat)
+        qmat = _qfuncPure(state, amat)
     else:
         d, v = la.eig(state.full())
         # d[i]   = eigenvalue i
@@ -118,13 +118,13 @@ def HusimiQ(state: Matrix, xvec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
         qmat = zeros(np.shape(amat))
         for k in arange(0, len(d)):
-            qmat1 = _qfunc_pure(v[:, k], amat)
+            qmat1 = _qfuncPure(v[:, k], amat)
             qmat += real(d[k] * qmat1)
     qmat = 0.25 * qmat * g ** 2
     return qmat
 
 
-def _qfunc_pure(psi: Matrix, alpha_mat: ndarray) -> ndarray:
+def _qfuncPure(psi: Matrix, alphaMat: ndarray) -> ndarray:
     """
     Calculate the Q-function for a pure state
     """
@@ -132,6 +132,6 @@ def _qfunc_pure(psi: Matrix, alpha_mat: ndarray) -> ndarray:
     n = np.prod(psi.shape)
     psi = psi.T
 
-    qmat = abs(polyval(fliplr([psi / np.sqrt(factorial(arange(n)))])[0], conjugate(alpha_mat))) ** 2
+    qmat = abs(polyval(fliplr([psi / np.sqrt(factorial(arange(n)))])[0], conjugate(alphaMat))) ** 2
 
-    return real(qmat) * exp(-abs(alpha_mat) ** 2) / pi
+    return real(qmat) * exp(-abs(alphaMat) ** 2) / pi
