@@ -201,12 +201,8 @@ class Step(genericProtocol):
             self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot
             self._allBools[self] = False
             unitary = self._genericProtocol__unitary # pylint: disable=no-member
-        elif self._paramUpdated is False:
+        elif ((self._paramUpdated is False) and (self._genericProtocol__unitary is not None)): # pylint: disable=no-member
             unitary = self._genericProtocol__unitary # pylint: disable=no-member
-        elif len(self._Step__updates) == 0:
-            self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot
-            self._allBools[self] = False
-            unitary = self.createUnitary() # pylint: disable=assignment-from-no-return
         else:
             self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot
             self._allBools[self] = False
