@@ -82,6 +82,10 @@ class genericQSys(universalQSys):
     # initial state
     @property
     def initialState(self):
+        """
+            This works by assuming that its setter/s makes sure that _genericQSys__initialState is not None for single systems,
+            if its state is set.
+        """
         if self._genericQSys__initialState is None:
             try:
                 self._genericQSys__initialState = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=assigning-non-slot
@@ -154,6 +158,8 @@ class QuantumSystem(genericQSys):
     @genericQSys.initialState.setter # pylint: disable=no-member
     @InitialStateDecorator
     def initialState(self, inp):
+        for ind, it in enumerate(inp):
+            list(self.qSystems.values())[ind].initialState = it
         self._genericQSys__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()], inp) # pylint: disable=assigning-non-slot
 
     # adding or creating a new sub system to composite system
