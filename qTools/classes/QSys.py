@@ -1,3 +1,4 @@
+from numpy import (int64, int32, int16)
 import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.QUni import qUniversal
@@ -62,10 +63,6 @@ class genericQSys(universalQSys):
             else:
                 saveDict['_genericQSys__initialStateInput'] = self._genericQSys__initialStateInput
         return saveDict
-
-    @property
-    def subSysDimensions(self):
-        return [sys.dimension for sys in self.subSys.values()]
 
     @property
     def dimension(self):
@@ -136,6 +133,10 @@ class QuantumSystem(genericQSys):
         return saveDict
 
     # free, coupling, and total Hamiltonians of the composite system
+    @property
+    def subSysDimensions(self):
+        return [sys.dimension for sys in self.subSys.values()]
+
     @property
     def freeHam(self):
         ham = sum([val.totalHam for val in self.qSystems.values()])
@@ -274,20 +275,35 @@ class QuantumSystem(genericQSys):
         self.initialState # pylint: disable=pointless-statement
 
     # update the dimension of a subSystem
-    def updateDimension(self, qSys, newDimVal):
+    def updateDimension(self, qSys, newDimVal, oldDimVal=None):
+        if oldDimVal is None:
+            oldDimVal = qSys.dimension
+
+        for qSyst in self.qSystems.values():
+            qSyst._qSystem__Matrix = None
+
+        for qCoupl in self.qCouplings.values():
+            qCoupl._qCoupling__Matrix = None
+
         qSys._genericQSys__dimension = newDimVal
+        self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot, no-member
+        #print(newDimVal, oldDimVal)
         ind = qSys.ind
         for qS in self.qSystems.values():
+            self._genericQSys__dimension *= qS.dimension # pylint: disable=assigning-non-slot, no-member
             if qS.ind < ind:
-                dimA = int((qS._qSystem__dimsAfter*newDimVal)/qSys.dimension)
+                #print((qS._qSystem__dimsAfter*newDimVal)/oldDimVal)
+                dimA = int((qS._qSystem__dimsAfter*newDimVal)/oldDimVal)
                 qS._qSystem__dimsAfter = dimA
             elif qS.ind > ind:
-                dimB = int((qS._qSystem__dimsBefore*newDimVal)/qSys.dimension)
+                #print((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
+                dimB = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
                 qS._qSystem__dimsBefore = dimB
-        self.initialState = self._genericQSys__initialStateInput # pylint: disable=no-member
+
+        if self._genericQSys__initialStateInput is not None: # pylint: disable=no-member
+            self.initialState = self._genericQSys__initialStateInput # pylint: disable=no-member
         self._paramUpdated = True
-        if self._constructed is True:
-            self.constructCompSys()
+        self.constructCompSys()
         return qSys
 
 # quantum system objects
@@ -301,7 +317,7 @@ class qSystem(genericQSys):
         super().__init__(name=kwargs.pop('name', None))
         self.__frequency = None
         self.__operator = None
-        self.__Matrix = None
+        self.__Matrix = None # TODO: make it consistent with pylintrc
         self.__dimsBefore = 1
         self.__dimsAfter = 1
         self.addSubSys(self)
@@ -322,13 +338,24 @@ class qSystem(genericQSys):
         return saveDict
 
     @genericQSys.dimension.setter # pylint: disable=no-member
-    def dimension(self, newDimVal):
-        if not isinstance(newDimVal, int):
+    def dimension(self, newDimVal, oldDimVal=None):
+        if oldDimVal is None:
+            if self.dimension is None:
+                oldDimVal = newDimVal
+            else:
+                oldDimVal = self.dimension
+
+        for qSyst in self.subSys.values():
+            qSyst._qSystem__Matrix = None
+        if not isinstance(newDimVal, (int, int64, int32, int16)):
             raise ValueError('Dimension is not int')
         self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
         if isinstance(self.superSys, QuantumSystem):
-            QuantumSystem.updateDimension(self.superSys, self, newDimVal)
+            self.superSys.updateDimension(self, newDimVal, oldDimVal)
         self._paramUpdated = True
+        for qPro in self._genericQSys__unitary._allBools:  # pylint: disable=no-member
+            # FIXME deletes all, but should not for other sys especially if it has some fixed step
+            qPro.delMatrices()
         if self._constructed is True:
             self.initialState = self._genericQSys__initialStateInput # pylint: disable=no-member
 
@@ -397,7 +424,7 @@ class qSystem(genericQSys):
         copySys.order = order
         return copySys
 
-    @constructConditions({'dimension': int, 'operator': qOps.sigmax.__class__})
+    @constructConditions({'dimension': (int, int64, int32, int16), 'operator': qOps.sigmax.__class__})
     def __constructSubMat(self):
         for sys in self.subSys.values():
             try:
