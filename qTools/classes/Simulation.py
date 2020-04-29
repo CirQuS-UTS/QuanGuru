@@ -186,7 +186,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
             elif isinstance(coreCount, int):
                 _pool = Pool(processes=coreCount)
             elif coreCount.lower() == 'all':
-                _pool = Pool(processes=cpu_count())
+                _pool = Pool(processes=cpu_count()-1)
             else:
                 # FIXME should raise error
                 print('error')
