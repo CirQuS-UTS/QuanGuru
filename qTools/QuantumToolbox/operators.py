@@ -701,7 +701,11 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
     (0, 1)	1
     """
 
-    return op(dim, sparse)**power
+    try:
+        opPow = op(dim, sparse)**power
+    except: # pylint: disable=bare-except
+        opPow = op(sparse)**power
+    return opPow
 
 
 def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
