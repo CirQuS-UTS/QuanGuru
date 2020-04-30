@@ -16,8 +16,8 @@ mypy:
     script:
     - pwd
     - ls -l
-    - cd qTools/QuantumToolbox
-    - python -m mypy *.py
+    - cd qTools
+    - python -m mypy QuantumToolbox
 
 flake8:
     stage: Static Analysis

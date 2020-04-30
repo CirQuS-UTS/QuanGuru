@@ -59,8 +59,8 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
     return liouvillianEXP
 
 
-def Liouvillian(Hamiltonian: Optional[Matrix] = None,
-                collapseOperators: list = [], decayRates: list = []) -> Matrix:
+def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value
+                collapseOperators: list = [], decayRates: list = []) -> Matrix: # pylint: disable=dangerous-default-value
     """
     Creates Liovillian super-operator for a given Hamiltonian, time step,
     and a `list` of collapse operators (with correcponding `list` of decay rates)
@@ -106,8 +106,8 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None,
     return liouvillian
 
 
-def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,
-                   collapseOperators: list = [], decayRates: list = [], exp: bool = True) -> Matrix:
+def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0, # pylint: disable=dangerous-default-value
+                   collapseOperators: list = [], decayRates: list = [], exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
     """
     Creates Liovillian super-operator for a given Hamiltonian, time step,
     and a `list` of collapse operators (with correcponding `list` of decay rates)
