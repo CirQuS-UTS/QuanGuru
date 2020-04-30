@@ -136,7 +136,7 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0, 
     else:
         sparse = sp.issparse(collapseOperators[0])
 
-    if isinstance(collapseOperators, list):
+    if len(collapseOperators) > 0:
         liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates)
         if exp is True:
             if sparse is True:
