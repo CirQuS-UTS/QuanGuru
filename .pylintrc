@@ -27,5 +27,5 @@ notes=
 exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _allBools, _genericProtocol__inProtocol, _genericQSys__unitary
     ,_genericProtocol__unitary, _qResBlank__results, _qResBase__results, _qResBlank__average, _qResBase__average, _qResBlank__states, _qResBase__states
     ,_qResBlank__resultsLast, _qResBase__resultsLast, _qResBlank__statesLast, _qResBase__statesLast, _qResBlank__calculated, _qResBase__calculated, _finalise
-    ,_qUniversal__setKwargs, _qSystem__Matrix, _qUniversal__ind, _qCoupling__Matrix, _genericQSys__dimension, _qSystem__dimsAfter, _qSystem__dimsBefore
+    ,_qUniversal__setKwargs, _qSystem__matrix, _qUniversal__ind, _qCoupling__matrix, _genericQSys__dimension, _qSystem__dimsAfter, _qSystem__dimsBefore
     ,_constructed, _timeBase__bound, _timeBase__inBound

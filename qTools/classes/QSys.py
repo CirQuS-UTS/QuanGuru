@@ -11,12 +11,13 @@ class universalQSys(qUniversal):
     instances = 0
     label = 'universalQSys'
 
-    __slots__ = ['__constructed', '__paramUpdated']
+    __slots__ = ['__constructed', '__paramUpdated', '__paramBound']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__constructed = False
         self.__paramUpdated = False
+        self.__paramBound = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -27,7 +28,13 @@ class universalQSys(qUniversal):
     def _paramUpdated(self, boolean):
         if hasattr(self.superSys, '_paramUpdated'):
             self.superSys._paramUpdated = boolean
+            for qPro in self._universalQSys__paramBound.values():
+                qPro._paramUpdated = boolean
         self._universalQSys__paramUpdated = boolean # pylint: disable=assigning-non-slot
+
+    def _delMatQPro(self):
+        for qPro in self._universalQSys__paramBound.values():
+            qPro.delMatrices()
 
     # constructed boolean setter and getter
     @property
@@ -266,15 +273,13 @@ class QuantumSystem(genericQSys):
 
     def _deConstructCompSys(self):
         self._genericQSys__initialState = None # pylint: disable=assigning-non-slot
+        self._delMatQPro()
         for qSys in self.qSystems.values():
-            qSys._qSystem__matrix = None
+            qSys._deConstructSubMat() # pylint: disable=protected-access
 
         for qCoupl in self.qCouplings.values():
             qCoupl._qCoupling__matrix = None
-
-        for qPro in self._genericQSys__unitary._allBools:  # pylint: disable=no-member
-            if ((qPro.superSys is self) or (qPro.superSys in list(self.qSystems.values()) + list(self.qCouplings.values()))):
-                qPro.delMatrices()
+            qCoupl._delMatQPro() # pylint: disable=protected-access
 
     #def __keepOld(self):
     #    name = self.couplingName
@@ -452,9 +457,7 @@ class qSystem(genericQSys):
         return self._qSystem__matrix
 
     def _deConstructSubMat(self):
-        for qPro in self._genericQSys__unitary._allBools:  # pylint: disable=no-member
-            if qPro.superSys is self:
-                qPro.delMatrices()
+        self._delMatQPro()
         self._qSystem__matrix = None # pylint: disable=assigning-non-slot
         self._genericQSys__initialState = None # pylint: disable=assigning-non-slot
 

@@ -34,12 +34,17 @@ class genericProtocol(timeBase):
     def getUnitary(self):
         pass
 
+    @timeBase.superSys.setter # pylint: disable=no-member
+    def superSys(self, supSys):
+        timeBase.superSys.fset(self, supSys) # pylint: disable=no-member
+        supSys._universalQSys__paramBound[self.name] = self # pylint: disable=protected-access
+
     @property
     def unitary(self):
         if self._genericProtocol__unitary is not None:
-            if ((self.superSys._paramUpdated is True) and (self.bound._paramUpdated is True)): # pylint: disable=no-member
-                self._timeBase__paramUpdated = True # pylint: disable=assigning-non-slot
-                self._allBools[self] = True
+            # if ((self.superSys._paramUpdated is True) and (self.bound._paramUpdated is True)): # pylint: disable=no-member
+            #     self._timeBase__paramUpdated = True # pylint: disable=assigning-non-slot
+            #     self._allBools[self] = True
 
             if self._paramUpdated is False:
                 unitary = self._genericProtocol__unitary
@@ -187,9 +192,9 @@ class Step(genericProtocol):
 
     def getUnitary(self):
         super().getUnitary()
-        if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)): # pylint: disable=no-member
-            self._timeBase__paramUpdated = True # pylint: disable=assigning-non-slot
-            self._allBools[self] = True
+        # if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)): # pylint: disable=no-member
+        #     self._timeBase__paramUpdated = True # pylint: disable=assigning-non-slot
+        #     self._allBools[self] = True
 
         if self.fixed is True:
             if self._genericProtocol__unitary is None: # pylint: disable=no-member
@@ -246,7 +251,7 @@ class copyStep(qUniversal):
         return saveDict
 
     def getUnitary(self):
-        return self.superSys._genericProtocol__unitary
+        return self.superSys.unitary
 
 class freeEvolution(Step):
     instances = 0
