@@ -88,13 +88,14 @@ def readAll(path, fileName):
         if len(val) > 0:
             rDict = {}
             for key1, val1 in val.items():
+                _rDict = {}
                 try:
-                    _rDict = {}
                     for key2, val2 in val1.items():
                         _rDict[key2] = list(val2)
-                    rDict[key1] = _rDict
                 except: # pylint: disable=bare-except
-                    rDict[key1] = list(val1)
+                    for key2, val2 in val1.items():
+                        _rDict[key2] = val2[()]
+                rDict[key1] = _rDict
             resDict[key] = rDict
     return resDict, f.attrs
 
