@@ -217,8 +217,8 @@ class QuantumSystem(genericQSys):
             subSys._qSystem__dimsBefore *= subS._genericQSys__dimension
             subS._qSystem__dimsAfter *= subSys._genericQSys__dimension
 
-        if subSys._qSystem__matrix is not None:
-            subSys._qSystem__matrix = None
+        if subSys._qUniversal__matrix is not None:
+            subSys._qUniversal__matrix = None
 
         self._QuantumSystem__qSystems[subSys.name] = subSys
         subSys.superSys = self
@@ -278,7 +278,7 @@ class QuantumSystem(genericQSys):
             qSys._deConstructSubMat() # pylint: disable=protected-access
 
         for qCoupl in self.qCouplings.values():
-            qCoupl._qCoupling__matrix = None
+            qCoupl._qUniversal__matrix = None
             qCoupl._delMatQPro() # pylint: disable=protected-access
 
     #def __keepOld(self):
@@ -331,13 +331,12 @@ class qSystem(genericQSys):
     instances = 0
     label = 'qSystem'
 
-    __slots__ = ['__frequency', '__operator', '__matrix', '__dimsBefore', '__dimsAfter', '__terms', '__order']
+    __slots__ = ['__frequency', '__operator', '__dimsBefore', '__dimsAfter', '__terms', '__order']
     @qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__frequency = None
         self.__operator = None
-        self.__matrix = None
         self.__dimsBefore = 1
         self.__dimsAfter = 1
         self.addSubSys(self)
@@ -385,9 +384,9 @@ class qSystem(genericQSys):
 
     @property
     def freeMat(self):
-        if self._qSystem__matrix is None:
+        if self._qUniversal__matrix is None: # pylint: disable=no-member
             self.freeMat = None
-        return self._qSystem__matrix
+        return self._qUniversal__matrix # pylint: disable=no-member
 
     @freeMat.setter
     def freeMat(self, qOpsFunc):
@@ -395,7 +394,7 @@ class qSystem(genericQSys):
             self.operator = qOpsFunc
             self._qSystem__constructSubMat()
         elif qOpsFunc is not None:
-            self._qSystem__matrix = qOpsFunc  # pylint: disable=assigning-non-slot
+            self._qUniversal__matrix = qOpsFunc  # pylint: disable=assigning-non-slot
         else:
             if self.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
@@ -449,17 +448,18 @@ class qSystem(genericQSys):
     def __constructSubMat(self):
         for sys in self.subSys.values():
             try:
-                sys._qSystem__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension),
-                                                        self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+                sys._qUniversal__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension), # pylint: disable=no-member
+                                                           self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             except: # pylint: disable=bare-except
-                sys._qSystem__matrix = qOps.compositeOp(sys.operator(), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+                sys._qUniversal__matrix = qOps.compositeOp(sys.operator(), # pylint: disable=no-member
+                                                           self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             sys._constructed = True
-        return self._qSystem__matrix
+        return self._qUniversal__matrix # pylint: disable=no-member
 
     def _deConstructSubMat(self):
         self._delMatQPro()
-        self._qSystem__matrix = None # pylint: disable=assigning-non-slot
-        self._genericQSys__initialState = None # pylint: disable=assigning-non-slot
+        self._qUniversal__matrix = None # pylint: disable=no-member, assigning-non-slot
+        self._genericQSys__initialState = None # pylint: disable=no-member, assigning-non-slot
 
 class Qubit(qSystem):
     instances = 0
@@ -514,7 +514,7 @@ class qCoupling(universalQSys):
 
     toBeSaved = qUniversal.toBeSaved.extendedCopy(['couplingStrength'])
 
-    __slots__ = ['__cFncs', '__couplingStrength', '__matrix', '__qSys']
+    __slots__ = ['__cFncs', '__couplingStrength', '__qSys']
 
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
@@ -522,7 +522,6 @@ class qCoupling(universalQSys):
         self.__couplingStrength = None
         self.__cFncs = []
         self.__qSys = []
-        self.__matrix = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.addTerm(*args)
 
@@ -552,16 +551,16 @@ class qCoupling(universalQSys):
 
     @property
     def freeMat(self):
-        return self._qCoupling__matrix
+        return self._qUniversal__matrix # pylint: disable=no-member
 
     @freeMat.setter
     def freeMat(self, qMat):
         if qMat is not None:
-            self._qCoupling__matrix = qMat # pylint: disable=assigning-non-slot
+            self._qUniversal__matrix = qMat # pylint: disable=no-member, assigning-non-slot
         else:
             if len(self._qCoupling__cFncs) == 0:
                 raise ValueError('No operator is given for coupling Hamiltonian')
-            self._qCoupling__matrix = self._qCoupling__getCoupling() # pylint: disable=assigning-non-slot
+            self._qUniversal__matrix = self._qCoupling__getCoupling() # pylint: disable=no-member, assigning-non-slot
 
     @property
     def couplingStrength(self):

@@ -70,7 +70,7 @@ class qUniversal:
 
     toBeSaved = extendedList(['name'])
 
-    __slots__ = ['__name', '__superSys', '__ind', '__subSys', '__allInstances']
+    __slots__ = ['__name', '__superSys', '__ind', '__subSys', '__allInstances', '__matrix']
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -80,6 +80,7 @@ class qUniversal:
         self.__subSys = OrderedDict()
         self.__ind = None
         self.__allInstances = qUniversal.instNames
+        self.__matrix = None
         if kwargs['name'] is not None:
             self._qUniversal__setKwargs(name=kwargs.pop('name'), **kwargs)
         else:
