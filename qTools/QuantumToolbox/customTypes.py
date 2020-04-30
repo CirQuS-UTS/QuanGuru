@@ -12,8 +12,8 @@
 """
 
 from typing import Union, Dict, List, TypeVar
-from numpy import ndarray
-from scipy.sparse import spmatrix
+from numpy import ndarray # type: ignore
+from scipy.sparse import spmatrix # type: ignore
 
 # These type aliases are used in type hinting of below methods
 Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)

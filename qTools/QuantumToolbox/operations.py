@@ -10,7 +10,7 @@
 """
 
 #from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity
-from numpy import cos, sin
+from numpy import cos, sin # type: ignore
 
 from .operators import sigmaz, sigmax, sigmay, identity
 from .customTypes import Matrix

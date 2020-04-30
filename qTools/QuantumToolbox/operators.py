@@ -37,10 +37,10 @@
 """ # pylint: disable=W1401
 from typing import Callable
 
-import scipy.sparse as sp
-import scipy.linalg as linA
-from scipy.sparse.linalg import expm
-import numpy as np
+import scipy.sparse as sp # type: ignore
+import scipy.linalg as linA # type: ignore
+from scipy.sparse.linalg import expm # type: ignore
+import numpy as np # type: ignore
 
 from .customTypes import Matrix
 

@@ -27,8 +27,8 @@
 from typing import Optional, List
 from numpy import ndarray  # type: ignore
 
-import scipy.sparse as sp
-import numpy as np
+import scipy.sparse as sp # type: ignore
+import numpy as np # type: ignore
 
 from .customTypes import Matrix, intList, matrixList, supInp, ndOrListInt
 
@@ -453,7 +453,7 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
 
     for ind in range(len(dimensions)-1):
         if isinstance(excitations[ind+1], int):
-            st = sp.kron(st, basis(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
+            st = sp.kron(st, basis(dimensions[ind+1], excitations[ind+1], sparse), format='csc') # type: ignore
         else:
             st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
     return st if sparse else st.A

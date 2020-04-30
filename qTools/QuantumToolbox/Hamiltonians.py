@@ -12,7 +12,7 @@
 #from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
 
 from typing import Tuple
-import scipy.sparse as sp
+import scipy.sparse as sp # type: ignore
 
 from .operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
 from .customTypes import Matrix

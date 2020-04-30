@@ -16,10 +16,10 @@
 
 from typing import Optional
 
-import scipy.sparse as sp
-import scipy.linalg as linA
-import scipy.sparse.linalg as slinA
-import numpy as np
+import scipy.sparse as sp # type: ignore
+import scipy.linalg as linA # type: ignore
+import scipy.sparse.linalg as slinA # type: ignore
+import numpy as np # type: ignore
 
 from .customTypes import Matrix
 
@@ -60,7 +60,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
 
 def Liouvillian(Hamiltonian: Optional[Matrix] = None,
-                collapseOperators: Optional[list] = list, decayRates: Optional[list] = list) -> Matrix:
+                collapseOperators: list = [], decayRates: list = []) -> Matrix:
     """
     Creates Liovillian super-operator for a given Hamiltonian, time step,
     and a `list` of collapse operators (with correcponding `list` of decay rates)
@@ -107,7 +107,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None,
 
 
 def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,
-                   collapseOperators: Optional[list] = list, decayRates: Optional[list] = list, exp: bool = True) -> Matrix:
+                   collapseOperators: list = [], decayRates: list = [], exp: bool = True) -> Matrix:
     """
     Creates Liovillian super-operator for a given Hamiltonian, time step,
     and a `list` of collapse operators (with correcponding `list` of decay rates)

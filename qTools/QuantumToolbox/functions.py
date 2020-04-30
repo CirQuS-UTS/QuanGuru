@@ -42,11 +42,11 @@
 """
 
 from typing import List, Tuple, Any
-from numpy import ndarray
+from numpy import ndarray # type: ignore
 
-import numpy as np
-import scipy.linalg as lina
-from scipy.sparse import spmatrix
+import numpy as np # type: ignore
+import scipy.linalg as lina # type: ignore
+from scipy.sparse import spmatrix # type: ignore
 
 from .customTypes import Matrix, floatList, matrixList
 
