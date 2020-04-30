@@ -1,5 +1,4 @@
 from qTools.classes.computeBase import computeBase
-import qTools.QuantumToolbox.states as qSta
 
 
 class qBase(computeBase):
@@ -21,18 +20,8 @@ class qBase(computeBase):
 
     @property
     def initialState(self):
-        """
-            This works by assuming that its setter/s makes sure that _qBase__initialState is not None for single systems,
-            if its state is set.
-            If single system initial state is not set, it will try creating here, but single system does not have qSystem,
-            so will raise the below error.
-        """
-        if self._qBase__initialState is None:
-            try:
-                self._qBase__initialState = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=assigning-non-slot
-            except AttributeError:
-                try:
-                    self._qBase__initialState = qSta.tensorProd(*[val.initialState for val in self.superSys.qSystems.values()]) # pylint: disable=assigning-non-slot
-                except AttributeError:
-                    raise ValueError(self.name + ' is not given an initial state')
         return self._qBase__initialState
+
+    @property
+    def _initialStateInput(self):
+        return self._qBase__initialStateInput
