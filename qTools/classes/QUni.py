@@ -8,7 +8,7 @@ __all__ = [
     'qUniversal'
 ]
 
-def checkClass(classOf):
+def checkClass(classOf, attribute):
     """
         This is a decorator
     """
@@ -16,9 +16,9 @@ def checkClass(classOf):
         def wrapper(obj, inp, **kwargs):
             clsDecoArg = globals()[classOf]
             if isinstance(inp, clsDecoArg):
-                if getattr(inp, '_qUniversal__ind') is None:
+                if ((getattr(inp, '_qUniversal__ind') is None) and (attribute == '_qUniversal__subSys')):
                     if obj is not inp:
-                        setattr(inp, '_qUniversal__ind', len(getattr(obj, '_qUniversal__subSys')))
+                        setattr(inp, '_qUniversal__ind', len(getattr(obj, attribute)))
                 addRemoveFunction(obj, inp, **kwargs)
             elif isinstance(inp, str):
                 if str in clsDecoArg.instNames.keys():
@@ -31,8 +31,8 @@ def checkClass(classOf):
                     # what to do with the keys?
                     inp = wrapper(obj, sys, **kwargs)
             elif inp is None:
-                setattr(obj, '_qUniversal__subSys', OrderedDict())
-                return getattr(obj, '_qUniversal__subSys', OrderedDict())
+                setattr(obj, attribute, OrderedDict())
+                return getattr(obj, attribute, OrderedDict())
             elif inp.__class__ is type:
                 newSys = inp()
                 inp = wrapper(obj, newSys, **kwargs)
@@ -132,7 +132,7 @@ class qUniversal:
     def subSys(self, subS):
         self.addSubSys(subS)
 
-    @checkClass('qUniversal')
+    @checkClass('qUniversal', '_qUniversal__subSys')
     def addSubSys(self, subS, **kwargs):
         """
             A method
@@ -140,7 +140,7 @@ class qUniversal:
         subS._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         self._qUniversal__subSys[subS.name] = subS
 
-    @checkClass('qUniversal')
+    @checkClass('qUniversal', '_qUniversal__subSys')
     def removeSubSys(self, subS, **kwargs):
         """
             A method
@@ -157,7 +157,7 @@ class qUniversal:
         for ind, obj in enumerate(self._qUniversal__subSys):
             obj.ind = ind
 
-    @checkClass('qUniversal')
+    @checkClass('qUniversal', '_qUniversal__subSys')
     def createSubSys(self, subSysClass, **kwargs):
         """
             A method
