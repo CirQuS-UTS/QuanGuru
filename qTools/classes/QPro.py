@@ -12,10 +12,9 @@ class genericProtocol(timeBase):
     label = 'genericProtocol'
     _boolDict = {}
 
-    __slots__ = ['__unitary', 'lastState', '_allBools', '__inProtocol']
+    __slots__ = ['lastState', '_allBools', '__inProtocol']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__unitary = None
         self.lastState = None
         self.__inProtocol = False
         self._allBools = genericProtocol._boolDict
@@ -41,13 +40,13 @@ class genericProtocol(timeBase):
 
     @property
     def unitary(self):
-        if self._genericProtocol__unitary is not None:
+        if self._qUniversal__matrix is not None: # pylint: disable=no-member
             # if ((self.superSys._paramUpdated is True) and (self.bound._paramUpdated is True)): # pylint: disable=no-member
             #     self._timeBase__paramUpdated = True # pylint: disable=assigning-non-slot
             #     self._allBools[self] = True
 
             if self._paramUpdated is False:
-                unitary = self._genericProtocol__unitary
+                unitary = self._qUniversal__matrix
             else:
                 unitary = self.getUnitary() # pylint: disable=assignment-from-no-return
                 self._timeBase__paramUpdated = False  # pylint: disable=assigning-non-slot
@@ -64,7 +63,7 @@ class genericProtocol(timeBase):
         return unitary
 
     def delMatrices(self):
-        self._genericProtocol__unitary = None # pylint: disable=assigning-non-slot
+        self._qUniversal__matrix = None # pylint: disable=assigning-non-slot
 
 class qProtocol(genericProtocol):
     instances = 0
@@ -113,7 +112,7 @@ class qProtocol(genericProtocol):
         unitary = identity(self.superSys.dimension) # pylint: disable=no-member
         for step in self.steps.values():
             unitary = step.getUnitary() @ unitary
-        self._genericProtocol__unitary = unitary # pylint: disable=assigning-non-slot
+        self._qUniversal__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
 
     def prepare(self, obj):
@@ -197,17 +196,17 @@ class Step(genericProtocol):
         #     self._allBools[self] = True
 
         if self.fixed is True:
-            if self._genericProtocol__unitary is None: # pylint: disable=no-member
+            if self._qUniversal__matrix is None: # pylint: disable=no-member
                 for update in self._Step__updates:
                     update.setup()
-                self._genericProtocol__unitary = self.createUnitary()  # pylint: disable=assignment-from-no-return, assigning-non-slot
+                self._qUniversal__matrix = self.createUnitary()  # pylint: disable=assignment-from-no-return, assigning-non-slot
                 for update in self._Step__updates:
                     update.setback()
             self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot
             self._allBools[self] = False
-            unitary = self._genericProtocol__unitary # pylint: disable=no-member
-        elif ((self._paramUpdated is False) and (self._genericProtocol__unitary is not None)): # pylint: disable=no-member
-            unitary = self._genericProtocol__unitary # pylint: disable=no-member
+            unitary = self._qUniversal__matrix # pylint: disable=no-member
+        elif ((self._paramUpdated is False) and (self._qUniversal__matrix is not None)): # pylint: disable=no-member
+            unitary = self._qUniversal__matrix # pylint: disable=no-member
         else:
             self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot
             self._allBools[self] = False
@@ -264,7 +263,7 @@ class freeEvolution(Step):
     def createUnitary(self):
         super().createUnitary()
         unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.stepSize*self.ratio)/self.samples)) # pylint: disable=no-member
-        self._genericProtocol__unitary = unitary # pylint: disable=assigning-non-slot
+        self._qUniversal__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
 
 class Gate(Step):
