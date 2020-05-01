@@ -6,7 +6,7 @@ class qBase(qUniversal):
     instances = 0
     label = 'qBase'
 
-    __slots__ = ['__initialState', '__paramUpdated', '__initialStateInput', '__paramBound']
+    __slots__ = ['__initialState', '__paramUpdated', '__initialStateInput', '__paramBound', 'qRes']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -15,6 +15,12 @@ class qBase(qUniversal):
         self.__paramUpdated = False
         self.__paramBound = {}
         self._qUniversal__setKwargs(**kwargs)  # pylint: disable=no-member
+        self.qRes = qResults(superSys=self)
+
+    @qUniversal.superSys.setter  # pylint: disable=no-member
+    def superSys(self, supSys):
+        qUniversal.superSys.fset(self, supSys)  # pylint: disable=no-member
+        self.qRes.name = self.superSys.name + self.name + 'Results'  # pylint: disable=no-member
 
     @checkClass('qUniversal')
     def _addParamBound(self, bound, **kwargs):
@@ -39,7 +45,7 @@ class computeBase(qBase):
     instances = 0
     label = 'computeBase'
 
-    __slots__ = ['__delStates', 'compute', 'calculate', 'qRes']
+    __slots__ = ['__delStates', 'compute', 'calculate']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -50,15 +56,9 @@ class computeBase(qBase):
         self.calculate = None
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-        self.qRes = qResults(superSys=self)
 
     def getResultByName(self, name):
         return super().getObjByName(name)
-
-    @qUniversal.superSys.setter  # pylint: disable=no-member
-    def superSys(self, supSys):
-        qUniversal.superSys.fset(self, supSys)  # pylint: disable=no-member
-        self.qRes.name = self.superSys.name + self.name + 'Results'  # pylint: disable=no-member
 
     @property
     def delStates(self):
