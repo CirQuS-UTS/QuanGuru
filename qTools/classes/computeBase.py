@@ -23,10 +23,16 @@ class qBase(qUniversal):
         qUniversal.superSys.fset(self, supSys)  # pylint: disable=no-member
         self.qRes.name = self.superSys.name + self.name + 'Results'  # pylint: disable=no-member
 
-    @checkClass('qUniversal')
-    def _addParamBound(self, bound, **kwargs):
+    @checkClass('qBase', '_qBase__paramBound')
+    def _createParamBound(self, bound, **kwargs):
         bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self._qBase__paramBound[bound.name] = bound
+
+    @checkClass('qBase', '_qBase__paramBound')
+    def _breakParamBound(self, bound, **kwargs):
+        bound._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
+        obj = self._qBase__paramBound.pop(bound.name)
+        print(obj.name + ' is removed from paramBound of ' + self.name)
 
     @property
     def _paramUpdated(self):

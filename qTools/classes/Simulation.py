@@ -2,7 +2,6 @@ from multiprocessing import Pool, cpu_count
 from qTools.classes.Sweep import Sweep
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.timeBase import timeBase
-from qTools.classes.computeBase import qBase
 from qTools.classes.extensions.modularSweep import timeEvolBase
 
 class Simulation(timeBase):
