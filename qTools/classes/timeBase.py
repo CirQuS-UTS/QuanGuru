@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from qTools.classes.computeBase import computeBase
 
 
@@ -6,17 +5,15 @@ class timeBase(computeBase):
     instances = 0
     label = 'timeBase'
 
-    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound', '__paramUpdated', '__inBound']
+    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__paramUpdated = False
         self.__finalTime = None
         self.__stepSize = None
         self.__samples = None
         self.__step = None
         self.__bound = self
-        self.__inBound = OrderedDict()
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -34,17 +31,6 @@ class timeBase(computeBase):
             for key in keys:
                 saveDict[key] = getattr(self, key)
         return saveDict
-
-    @property
-    def _paramUpdated(self):
-        return self._timeBase__paramUpdated
-
-    @_paramUpdated.setter
-    def _paramUpdated(self, boolean):
-        self._timeBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
-        for sys in self._timeBase__inBound.values():
-            if sys is not self:
-                sys._paramUpdated = boolean
 
     @property
     def bound(self):
@@ -101,14 +87,4 @@ class timeBase(computeBase):
     def samples(self, num):
         self._paramUpdated = True
         self._timeBase__samples = num # pylint: disable=assigning-non-slot
-
-    def prepare(self, obj):
-        if self.stepSize is None:
-            if hasattr(obj, '_timeBase__inBound'):
-                obj._timeBase__inBound[self.name] = self
-            self._timeBase__bound = obj # pylint: disable=assigning-non-slot
-            self.stepSize = obj.stepSize
-
-        if self.samples is None:
-            self.samples = obj.samples
             
