@@ -1,8 +1,8 @@
 from multiprocessing import Pool, cpu_count
 from qTools.classes.Sweep import Sweep
 from qTools.classes.extensions.modularSweep import runSimulation
-from qTools.classes.QSys import QuantumSystem, genericQSys
 from qTools.classes.timeBase import timeBase
+from qTools.classes.computeBase import qBase
 from qTools.classes.extensions.modularSweep import timeEvolBase
 
 class Simulation(timeBase):
@@ -101,15 +101,16 @@ class Simulation(timeBase):
 
     def addProtocol(self, protocol=None, sys=None, protocolRemove=None):
         # TODO Decorate this
+        qSysClass = globals()['universalQSys']
         if sys is None:
             if isinstance(protocol, timeBase):
-                if isinstance(protocol.superSys, genericQSys):
+                if isinstance(protocol.superSys, qSysClass):
                     protocol = self.addProtocol(protocol.superSys, protocol, protocolRemove)
                 else:
                     raise TypeError('?')
             else:
                 raise TypeError('?')
-        elif isinstance(sys, genericQSys):
+        elif isinstance(protocol.superSys, qSysClass):
             if sys is protocol.superSys:
                 self.addQSystems(sys, protocol)
                 self.removeProtocol(Protocol=protocolRemove)
@@ -150,7 +151,7 @@ class Simulation(timeBase):
         states = []
         for protoc in self.subSys.keys():
             states.append(protoc.lastState)
-            if ((protoc.delStates is False) or (self.delStates is False)):
+            if ((protoc.simulation.delStates is False) or (self.delStates is False)):
                 self.qRes.states[protoc.name].append(protoc.lastState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
@@ -158,12 +159,12 @@ class Simulation(timeBase):
         self._freeEvol()
         for qSys in self.subSys.values():
             # TODO this will be modified after the structural changes of qSys objects
-            if isinstance(qSys, QuantumSystem):
+            if qSys.__class__.__name__ == 'QuantumSystem':
                 # TODO Check first if constructed
                 qSys.constructCompSys()
         for protoc in self.subSys.keys():
             # TODO tihis will be modified after the structural changes of qPro objects
-            protoc.prepare(self)
+            protoc.simulation = self
         self.Sweep.prepare()
         for qres in self.qRes.allResults.values():
             qres._reset() # pylint: disable=protected-access
