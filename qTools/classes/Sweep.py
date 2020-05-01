@@ -2,7 +2,7 @@ from functools import reduce
 from numpy import arange, logspace
 
 from qTools.classes.updateBase import updateBase
-from qTools.classes.computeBase import computeBase
+from qTools.classes.QUni import qUniversal
 
 __all__ = [
     'Sweep'
@@ -69,7 +69,7 @@ class _sweep(updateBase):
     def runSweep(self, ind):
         self._updateBase__function(self, ind) # pylint: disable=no-member
 
-class Sweep(computeBase):
+class Sweep(qUniversal):
     instances = 0
     label = 'Sweep'
     __slots__ = ['__inds', '__indMultip']
