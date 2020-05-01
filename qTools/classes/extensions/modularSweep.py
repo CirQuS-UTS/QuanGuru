@@ -73,12 +73,12 @@ def timeDependent(qSim):
 def exponUni(qSim):
     for protocol in qSim.subSys.keys():
         protocol.getUnitary()
-    qSim._paramsUsed() # pylint: disable=protected-access
+    #qSim._paramsUsed() # pylint: disable=protected-access
 
 def timeEvolBase(qSim):
     exponUni(qSim)
     for _ in range(qSim._timeBase__step): # pylint: disable=protected-access
         qSim._Simulation__compute() # pylint: disable=protected-access
         for protocol in qSim.subSys.keys():
-            for __ in range(protocol.samples):
+            for __ in range(protocol.simulation.samples):
                 protocol.lastState = protocol.unitary @ protocol.lastState

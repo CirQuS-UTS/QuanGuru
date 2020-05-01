@@ -3,7 +3,7 @@
 def qSystemInitErrors(init):
     def newFunction(obj, **kwargs):
         init(obj, **kwargs)
-        if obj.dimension is None:
+        if obj._genericQSys__dimension is None:
             className = obj.__class__.__name__
             print(className + ' requires a dimension')
         elif obj.frequency is None:

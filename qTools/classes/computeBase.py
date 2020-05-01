@@ -1,10 +1,11 @@
+from collections import OrderedDict
 from qTools.classes.QUni import qUniversal, checkClass
 from qTools.classes.QRes import qResults
 
 
 class qBase(qUniversal):
     instances = 0
-    label = 'qBase'
+    label = '_qBase'
 
     __slots__ = ['__initialState', '__paramUpdated', '__initialStateInput', '__paramBound', 'qRes']
 
@@ -13,8 +14,8 @@ class qBase(qUniversal):
         self.__initialState = None
         self.__initialStateInput = None
         self.__paramUpdated = False
-        self.__paramBound = {}
-        self._qUniversal__setKwargs(**kwargs)  # pylint: disable=no-member
+        self.__paramBound = OrderedDict()
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.qRes = qResults(superSys=self)
 
     @qUniversal.superSys.setter  # pylint: disable=no-member
@@ -31,6 +32,14 @@ class qBase(qUniversal):
     def _paramUpdated(self):
         return self._qBase__paramUpdated
 
+    @_paramUpdated.setter
+    def _paramUpdated(self, boolean):
+        self._qBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
+        for sys in self._qBase__paramBound.values():
+            if sys is not self:
+                if hasattr(sys, '_paramUpdated'):
+                    sys._paramUpdated = boolean
+
     @property
     def initialState(self):
         return self._qBase__initialState
@@ -38,7 +47,6 @@ class qBase(qUniversal):
     @property
     def _initialStateInput(self):
         return self._qBase__initialStateInput
-
 
 
 class computeBase(qBase):
