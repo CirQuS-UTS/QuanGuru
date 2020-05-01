@@ -58,14 +58,12 @@ def _runSweepAndPrep(qSim, ind, evolFunc):
     for protoc, qSys in qSim.subSys.items():
         protoc.lastState = qSys.initialState
     qSim.qRes._resetLast(calculateException=qSim.qRes) # pylint: disable=protected-access
-    qSim.Sweep._computeBase__calculate(qSim.qSystems, qSim.qEvolutions) # pylint: disable=protected-access
     evolFunc(qSim)
 
 def timeDependent(qSim):
     qSim.timeDependency.prepare()
     for ind in range(qSim.timeDependency.indMultip):
         qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
-        qSim.timeDependency._computeBase__calculate(qSim.qSystems, qSim.qEvolutions) # pylint: disable=protected-access
         qSim._timeBase__step = 1 # pylint: disable=protected-access
         qSim.evolFunc(qSim)
 
