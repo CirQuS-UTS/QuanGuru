@@ -5,10 +5,10 @@ from qTools.classes.QUni import qUniversal
 # def asignState(stateCreationFunc):
 #    def InitialStateDecorator(initialState):
 #        def wrapper(obj, inp):
-#            obj._genericQSys__initialStateInput = inp
+#            obj._qBase__initialStateInput = inp
 #            if sp.issparse(inp):
 #                if inp.shape[0] == obj.dimension:
-#                    obj._genericQSys__initialState = inp
+#                    obj._qBase__initialState = inp
 #                else:
 #                    print('Dimension mismatch')
 #            else:
@@ -21,11 +21,11 @@ def InitialStateDecorator(initialState):
     def wrapper(obj, inp):
         if sp.issparse(inp):
             if inp.shape[0] == obj.dimension:
-                obj._genericQSys__initialState = inp # pylint: disable=protected-access
+                obj._qBase__initialState = inp # pylint: disable=protected-access
             else:
                 raise ValueError('Dimension mismatch')
         else:
-            obj._genericQSys__initialStateInput = inp # pylint: disable=protected-access
+            obj._qBase__initialStateInput = inp # pylint: disable=protected-access
             initialState(obj, inp)
     return wrapper
 

@@ -36,7 +36,7 @@ class genericProtocol(timeBase):
     @timeBase.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
         timeBase.superSys.fset(self, supSys) # pylint: disable=no-member
-        supSys._universalQSys__paramBound[self.name] = self # pylint: disable=protected-access
+        supSys._qBase__paramBound[self.name] = self # pylint: disable=protected-access
 
     @property
     def unitary(self):

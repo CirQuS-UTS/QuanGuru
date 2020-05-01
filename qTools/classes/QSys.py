@@ -1,39 +1,33 @@
 from numpy import (int64, int32, int16)
 import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.states as qSta
-from qTools.classes.QUni import qUniversal
+from qTools.classes.computeBase import qBase
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import InitialStateDecorator, constructConditions
 from qTools.classes.QPro import freeEvolution
 
 
-class universalQSys(qUniversal):
+class universalQSys(qBase):
     instances = 0
     label = 'universalQSys'
 
-    __slots__ = ['__constructed', '__paramUpdated', '__paramBound']
+    __slots__ = ['__constructed']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__constructed = False
-        self.__paramUpdated = False
-        self.__paramBound = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
-    @property
-    def _paramUpdated(self):
-        return self._universalQSys__paramUpdated
-
-    @_paramUpdated.setter
+    @qBase._paramUpdated.setter # pylint: disable=no-member
     def _paramUpdated(self, boolean):
         if hasattr(self.superSys, '_paramUpdated'):
             self.superSys._paramUpdated = boolean
-            for qPro in self._universalQSys__paramBound.values():
+            for qPro in self._qBase__paramBound.values(): # pylint: disable=no-member
                 qPro._paramUpdated = boolean
-        self._universalQSys__paramUpdated = boolean # pylint: disable=assigning-non-slot
+        self._qBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
 
     def _delMatQPro(self):
-        for qPro in self._universalQSys__paramBound.values():
+        for qPro in self._qBase__paramBound.values(): # pylint: disable=no-member
             qPro.delMatrices()
 
     # constructed boolean setter and getter
@@ -49,14 +43,14 @@ class genericQSys(universalQSys):
     instances = 0
     label = 'genericQSys'
 
-    toBeSaved = qUniversal.toBeSaved.extendedCopy(['dimension'])
+    toBeSaved = universalQSys.toBeSaved.extendedCopy(['dimension'])
 
-    __slots__ = ['__unitary', '__initialState', '__initialStateInput', '__dimension']
+    __slots__ = ['__unitary', '__dimension']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__unitary = freeEvolution()
-        self._genericQSys__unitary.superSys = self  # pylint: disable=no-member
+        self._genericQSys__unitary.superSys = self # pylint: disable=no-member
         self.__initialState = None
         self.__initialStateInput = None
         self.__dimension = None
@@ -64,11 +58,11 @@ class genericQSys(universalQSys):
 
     def save(self):
         saveDict = super().save()
-        if self._genericQSys__initialStateInput is not None:
-            if hasattr(self._genericQSys__initialStateInput, 'A'):
-                saveDict['_genericQSys__initialStateInput'] = self._genericQSys__initialStateInput.A
+        if self._qBase__initialStateInput is not None: # pylint: disable=no-member
+            if hasattr(self._qBase__initialStateInput, 'A'): # pylint: disable=no-member
+                saveDict['_qBase__initialStateInput'] = self._qBase__initialStateInput.A # pylint: disable=no-member
             else:
-                saveDict['_genericQSys__initialStateInput'] = self._genericQSys__initialStateInput
+                saveDict['_qBase__initialStateInput'] = self._qBase__initialStateInput # pylint: disable=no-member
         return saveDict
 
     @property
@@ -98,17 +92,17 @@ class genericQSys(universalQSys):
     @property
     def initialState(self):
         """
-            This works by assuming that its setter/s makes sure that _genericQSys__initialState is not None for single systems,
+            This works by assuming that its setter/s makes sure that _qBase__initialState is not None for single systems,
             if its state is set.
             If single system initial state is not set, it will try creating here, but single system does not have qSystem,
             so will raise the below error.
         """
-        if self._genericQSys__initialState is None:
+        if self._qBase__initialState is None: # pylint: disable=no-member
             try:
-                self._genericQSys__initialState = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=assigning-non-slot
+                self._qBase__initialState = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=assigning-non-slot
             except AttributeError:
                 raise ValueError(self.name + ' is not given an initial state')
-        return self._genericQSys__initialState
+        return self._qBase__initialState # pylint: disable=no-member
 
     def dress(self):
         pass
@@ -177,7 +171,7 @@ class QuantumSystem(genericQSys):
     def initialState(self, inp):
         for ind, it in enumerate(inp):
             list(self.qSystems.values())[ind].initialState = it
-        self._genericQSys__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()], inp) # pylint: disable=assigning-non-slot
+        self._qBase__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()], inp) # pylint: disable=assigning-non-slot
 
     # adding or creating a new sub system to composite system
     def add(self, *args):
@@ -272,7 +266,7 @@ class QuantumSystem(genericQSys):
             self._genericQSys__unitary = self._QuantumSystem__kept[to][1] # pylint: disable=assigning-non-slot
 
     def _deConstructCompSys(self):
-        self._genericQSys__initialState = None # pylint: disable=assigning-non-slot
+        self._qBase__initialState = None # pylint: disable=assigning-non-slot
         self._delMatQPro()
         for qSys in self.qSystems.values():
             qSys._deConstructSubMat() # pylint: disable=protected-access
@@ -320,8 +314,8 @@ class QuantumSystem(genericQSys):
                 dimB = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
                 qS._qSystem__dimsBefore = dimB
 
-        if self._genericQSys__initialStateInput is not None: # pylint: disable=no-member
-            self.initialState = self._genericQSys__initialStateInput # pylint: disable=no-member
+        if self._qBase__initialStateInput is not None: # pylint: disable=no-member
+            self.initialState = self._qBase__initialStateInput # pylint: disable=no-member
         self._paramUpdated = True
         self.constructCompSys()
         return qSys
@@ -370,8 +364,8 @@ class qSystem(genericQSys):
         for sys in self.subSys.values():
             sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
             sys._deConstructSubMat() # pylint: disable=protected-access
-            if sys._genericQSys__initialStateInput is not None: # pylint: disable=protected-access
-                sys.initialState = sys._genericQSys__initialStateInput # pylint: disable=protected-access
+            if sys._qBase__initialStateInput is not None: # pylint: disable=protected-access
+                sys.initialState = sys._qBase__initialStateInput # pylint: disable=protected-access
             sys._paramUpdated = True
 
         if isinstance(self.superSys, QuantumSystem):
@@ -404,8 +398,8 @@ class qSystem(genericQSys):
     @InitialStateDecorator
     def initialState(self, state):
         for sys in self.subSys.values():
-            sys._genericQSys__initialStateInput = state # pylint: disable=protected-access
-        self._genericQSys__initialState = qSta.compositeState([self._genericQSys__dimension], [state]) # pylint: disable=assigning-non-slot, no-member
+            sys._qBase__initialStateInput = state # pylint: disable=protected-access
+        self._qBase__initialState = qSta.compositeState([self._genericQSys__dimension], [state]) # pylint: disable=assigning-non-slot, no-member
 
     @property
     def operator(self):
@@ -459,7 +453,7 @@ class qSystem(genericQSys):
     def _deConstructSubMat(self):
         self._delMatQPro()
         self._qUniversal__matrix = None # pylint: disable=no-member, assigning-non-slot
-        self._genericQSys__initialState = None # pylint: disable=no-member, assigning-non-slot
+        self._qBase__initialState = None # pylint: disable=no-member, assigning-non-slot
 
 class Qubit(qSystem):
     instances = 0
@@ -512,7 +506,7 @@ class qCoupling(universalQSys):
     instances = 0
     label = 'qCoupling'
 
-    toBeSaved = qUniversal.toBeSaved.extendedCopy(['couplingStrength'])
+    toBeSaved = universalQSys.toBeSaved.extendedCopy(['couplingStrength'])
 
     __slots__ = ['__cFncs', '__couplingStrength', '__qSys']
 
