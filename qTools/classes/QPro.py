@@ -1,16 +1,21 @@
 import numpy as np
 import qTools.QuantumToolbox.evolution as lio
 from qTools.QuantumToolbox.operators import identity
-from qTools.classes.timeBase import timeBase
+from qTools.classes.qBaseSim import qBaseSim
 from qTools.classes.updateBase import updateBase
 from qTools.classes.QUni import qUniversal
 
 # under construction
 
-class genericProtocol(timeBase):
+class genericProtocol(qBaseSim):
     instances = 0
     label = 'genericProtocol'
     _boolDict = {}
+
+    # @qBaseSim._paramUpdated.setter # pylint: disable=no-member
+    # def _paramUpdated(self, boolean):
+    #     qBaseSim._paramUpdated.fset(self, boolean) # pylint: disable=no-member
+    #     self._allBools[self] = True
 
     __slots__ = ['lastState', '_allBools', '__inProtocol']
     def __init__(self, **kwargs):
@@ -33,34 +38,40 @@ class genericProtocol(timeBase):
     def getUnitary(self):
         pass
 
-    @timeBase.superSys.setter # pylint: disable=no-member
+    @qBaseSim.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
-        timeBase.superSys.fset(self, supSys) # pylint: disable=no-member
+        qBaseSim.superSys.fset(self, supSys) # pylint: disable=no-member
         supSys._qBase__paramBound[self.name] = self # pylint: disable=protected-access
 
     @property
     def unitary(self):
         if self._qUniversal__matrix is not None: # pylint: disable=no-member
             # if ((self.superSys._paramUpdated is True) and (self.bound._paramUpdated is True)): # pylint: disable=no-member
-            #     self._timeBase__paramUpdated = True # pylint: disable=assigning-non-slot
+            #     self._qBase__paramUpdated = True # pylint: disable=assigning-non-slot
             #     self._allBools[self] = True
 
             if self._paramUpdated is False:
                 unitary = self._qUniversal__matrix
             else:
                 unitary = self.getUnitary() # pylint: disable=assignment-from-no-return
-                self._timeBase__paramUpdated = False  # pylint: disable=assigning-non-slot
+                self._qBase__paramUpdated = False  # pylint: disable=assigning-non-slot
                 self._allBools[self] = False
         else:
-            self._timeBase__paramUpdated = False  # pylint: disable=assigning-non-slot
+            self._qBase__paramUpdated = False  # pylint: disable=assigning-non-slot
             self._allBools[self] = False
             unitary = self.getUnitary() # pylint: disable=assignment-from-no-return
+        # self._checkAndSetBools() # pylint: disable=no-member
+        # if not any(list(self._allBools.values())):
+        #     for sys in self._allBools:
+        #         sys.superSys._paramUpdated = False
+        #         sys._paramUpdated = False
+        return unitary
 
+    def _checkAndSetBools(self):
         if not any(list(self._allBools.values())):
             for sys in self._allBools:
                 sys.superSys._paramUpdated = False
                 sys._paramUpdated = False
-        return unitary
 
     def delMatrices(self):
         self._qUniversal__matrix = None # pylint: disable=assigning-non-slot
@@ -115,8 +126,7 @@ class qProtocol(genericProtocol):
         self._qUniversal__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
 
-    def prepare(self, obj):
-        super().prepare(obj)
+    def prepare(self):
         for step in self.steps.values():
             if not isinstance(step, copyStep):
                 step.prepare(self)
@@ -140,7 +150,7 @@ class Step(genericProtocol):
     __slots__ = ['__ratio', '__updates', '__fixed']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__ratio = None
+        self.__ratio = 1
         self.__updates = []
         self.__fixed = False
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -162,12 +172,12 @@ class Step(genericProtocol):
     @genericProtocol.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
         genericProtocol.superSys.fset(self, supSys) # pylint: disable=no-member
-        if supSys is not None:
+        '''if supSys is not None:
             if hasattr(self.superSys, '_genericQSys__unitary'):
                 if self is self.superSys._genericQSys__unitary: # pylint: disable=no-member
                     self.qRes.name = self.superSys.name + 'Results' # pylint: disable=no-member
             else:
-                self.qRes.name = self.superSys.name + self.name + 'Results' # pylint: disable=no-member
+                self.qRes.name = self.superSys.name + self.name + 'Results' # pylint: disable=no-member'''
 
     @property
     def updates(self):
@@ -189,32 +199,34 @@ class Step(genericProtocol):
     def fixed(self, boolean):
         self._Step__fixed = boolean # pylint: disable=assigning-non-slot
 
+
+    def _runCreateUnitary(self):
+        for update in self._Step__updates:
+            update.setup()
+        unitary = self.createUnitary() # pylint: disable=assignment-from-no-return
+        for update in self._Step__updates:
+            update.setback()
+        return unitary
+
     def getUnitary(self):
         super().getUnitary()
         # if ((self.superSys._paramUpdated is True) or (self.bound._paramUpdated is True)): # pylint: disable=no-member
-        #     self._timeBase__paramUpdated = True # pylint: disable=assigning-non-slot
+        #     self._qBase__paramUpdated = True # pylint: disable=assigning-non-slot
         #     self._allBools[self] = True
 
         if self.fixed is True:
             if self._qUniversal__matrix is None: # pylint: disable=no-member
-                for update in self._Step__updates:
-                    update.setup()
-                self._qUniversal__matrix = self.createUnitary()  # pylint: disable=assignment-from-no-return, assigning-non-slot
-                for update in self._Step__updates:
-                    update.setback()
-            self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot
+                self._runCreateUnitary()
+            self._qBase__paramUpdated = False # pylint: disable=assigning-non-slot
             self._allBools[self] = False
             unitary = self._qUniversal__matrix # pylint: disable=no-member
         elif ((self._paramUpdated is False) and (self._qUniversal__matrix is not None)): # pylint: disable=no-member
             unitary = self._qUniversal__matrix # pylint: disable=no-member
         else:
-            self._timeBase__paramUpdated = False # pylint: disable=assigning-non-slot
+            self._qBase__paramUpdated = False # pylint: disable=assigning-non-slot
             self._allBools[self] = False
-            for update in self._Step__updates:
-                update.setup()
-            unitary = self.createUnitary() # pylint: disable=assignment-from-no-return
-            for update in self._Step__updates:
-                update.setback()
+            unitary = self._runCreateUnitary()
+        #self._checkAllBool()
         return unitary
 
     def createUpdate(self, **kwargs):
@@ -228,11 +240,6 @@ class Step(genericProtocol):
 
     def createUnitary(self):
         pass
-
-    def prepare(self, obj):
-        super().prepare(obj)
-        if self.ratio is None:
-            self.ratio = 1
 
 class copyStep(qUniversal):
     instances = 0
@@ -262,7 +269,9 @@ class freeEvolution(Step):
 
     def createUnitary(self):
         super().createUnitary()
-        unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, timeStep=((self.stepSize*self.ratio)/self.samples)) # pylint: disable=no-member
+        print(self, self.simulation.stepSize, self.simulation.samples)
+        unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, # pylint: disable=no-member
+                                     timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples))
         self._qUniversal__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
 
