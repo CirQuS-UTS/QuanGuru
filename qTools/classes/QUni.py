@@ -211,12 +211,11 @@ class qUniversal:
             if obj is cls.instNames[name]:
                 cls.instNames[name] = cls.instNames.pop(obj.name)
             else:
+                print(f'A duplicate name {name} is given,')
                 name += str(obj.__class__.instances)
+                print(f'it is changed to {name}')
                 return cls.updateNames(obj, name, duplicate)
         else:
-            if duplicate is True:
-                print('A duplicate name is given,' + '\n' + 'it is changed to ' + name)
-
             if obj in cls.instNames.values():
                 # can skip this and keep two keys for a system?
                 cls.instNames[name] = cls.instNames.pop(obj.name)

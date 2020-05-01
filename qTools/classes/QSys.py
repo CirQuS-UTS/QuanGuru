@@ -1,13 +1,13 @@
 from numpy import (int64, int32, int16)
 import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.states as qSta
-from qTools.classes.computeBase import qBase
+from qTools.classes.qBaseSim import qBaseSim
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import InitialStateDecorator, constructConditions
 from qTools.classes.QPro import freeEvolution
 
 
-class universalQSys(qBase):
+class universalQSys(qBaseSim):
     instances = 0
     label = 'universalQSys'
 
@@ -17,14 +17,6 @@ class universalQSys(qBase):
         super().__init__(name=kwargs.pop('name', None))
         self.__constructed = False
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    @qBase._paramUpdated.setter # pylint: disable=no-member
-    def _paramUpdated(self, boolean):
-        if hasattr(self.superSys, '_paramUpdated'):
-            self.superSys._paramUpdated = boolean
-            for qPro in self._qBase__paramBound.values(): # pylint: disable=no-member
-                qPro._paramUpdated = boolean
-        self._qBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
 
     def _delMatQPro(self):
         for qPro in self._qBase__paramBound.values(): # pylint: disable=no-member
@@ -72,7 +64,7 @@ class genericQSys(universalQSys):
                 for val in dims:
                     self._genericQSys__dimension *= val # pylint: disable=assigning-non-slot
             except AttributeError:
-                print('?')
+                print(f'dimension? {self.name}')
         return self._genericQSys__dimension
 
     @property
@@ -367,7 +359,7 @@ class qSystem(genericQSys):
             sys._paramUpdated = True
 
         if isinstance(self.superSys, QuantumSystem):
-            self.superSys.updateDimension(self, newDimVal, oldDimVal)
+            self.superSys.updateDimension(self, newDimVal, oldDimVal) # pylint: disable=no-member
 
     @genericQSys.totalHam.getter # pylint: disable=no-member
     def totalHam(self): # pylint: disable=invalid-overridden-method
