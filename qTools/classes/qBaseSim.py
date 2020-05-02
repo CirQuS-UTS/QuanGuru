@@ -32,12 +32,18 @@ class qBaseSim(qBase):
                         sys.simulation = sim
 
     def delMatrices(self):
+        #f self not in ignore:
+            # if self.__class__.__name__ == 'xGate':
+            #     print('deleting gate matrix')
         self._qUniversal__matrix = None # pylint: disable=assigning-non-slot
         self._qBase__initialState = None # pylint: disable=assigning-non-slot
-        for sys in self.subSys.values():
-            if (hasattr(sys, 'delMatrices') and (sys is not self)):
-                sys.delMatrices()
+            #ignore.append(self)
+            # '''for sys in self.subSys.values():
+            #     if (hasattr(sys, 'delMatrices') and (sys is not self)):
+            #         ignore = sys.delMatrices(ignore)'''
 
         for sys in self._qBase__paramBound.values(): # pylint: disable=no-member
             if (hasattr(sys, 'delMatrices') and (sys is not self)):
+                #print(sys)
                 sys.delMatrices()
+        #return ignore
