@@ -18,9 +18,10 @@ class universalQSys(qBaseSim):
         self.__constructed = False
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
-    def _delMatQPro(self):
-        for qPro in self._qBase__paramBound.values(): # pylint: disable=no-member
-            qPro.delMatrices()
+    def delMatrices(self):
+        for sys in self._qBase__paramBound.values(): # pylint: disable=no-member
+            if sys is not self:
+                sys.delMatrices()
 
     # constructed boolean setter and getter
     @property
@@ -185,6 +186,7 @@ class QuantumSystem(genericQSys):
             self._QuantumSystem__addSub(newSys)
         else:
             raise TypeError('?')
+        newSys._qBase__paramBound[self.name] = self # pylint: disable=protected-access
         return newSys
 
     def createSubSys(self, subClass=None, n=1, **kwargs): # pylint: disable=arguments-differ
@@ -220,7 +222,7 @@ class QuantumSystem(genericQSys):
         return couplingObj
 
     def createSysCoupling(self, *args, **kwargs):
-        newCoupling = self.createSubSys(qCoupling, **kwargs)
+        newCoupling = self.addSubSys(qCoupling, **kwargs)
         newCoupling.addTerm(*args)
         return newCoupling
 
@@ -257,13 +259,13 @@ class QuantumSystem(genericQSys):
 
     def _deConstructCompSys(self):
         self._qBase__initialState = None # pylint: disable=assigning-non-slot
-        self._delMatQPro()
+        self.delMatrices()
         for qSys in self.qSystems.values():
             qSys._deConstructSubMat() # pylint: disable=protected-access
 
         for qCoupl in self.qCouplings.values():
             qCoupl._qUniversal__matrix = None
-            qCoupl._delMatQPro() # pylint: disable=protected-access
+            qCoupl.delMatrices() # pylint: disable=protected-access
 
     #def __keepOld(self):
     #    name = self.couplingName
@@ -284,7 +286,7 @@ class QuantumSystem(genericQSys):
         for qSys in self.qCouplings.values():
             qSys.freeMat = None
         self._constructed = True
-        self.initialState # pylint: disable=pointless-statement
+        #self.initialState # pylint: disable=pointless-statement
 
     # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal, oldDimVal=None):
@@ -441,7 +443,7 @@ class qSystem(genericQSys):
         return self._qUniversal__matrix # pylint: disable=no-member
 
     def _deConstructSubMat(self):
-        self._delMatQPro()
+        self.delMatrices()
         self._qUniversal__matrix = None # pylint: disable=no-member, assigning-non-slot
         self._qBase__initialState = None # pylint: disable=no-member, assigning-non-slot
 
