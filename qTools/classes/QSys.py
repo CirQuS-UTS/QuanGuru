@@ -50,7 +50,7 @@ class genericQSys(qBaseSim):
     # Unitary property and setter
     @property
     def unitary(self):
-        unitary = self._genericQSys__unitary.createUnitary()
+        unitary = self._genericQSys__unitary.unitary()
         self._paramUpdated = False
         return unitary
 
@@ -135,9 +135,10 @@ class QuantumSystem(genericQSys):
     @genericQSys.initialState.setter # pylint: disable=no-member
     @InitialStateDecorator
     def initialState(self, inp):
-        for ind, it in enumerate(inp):
-            list(self.qSystems.values())[ind].initialState = it
-        self._qBase__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()], inp) # pylint: disable=assigning-non-slot
+        if inp != 'sparse':
+            for ind, it in enumerate(inp):
+                list(self.qSystems.values())[ind].initialState = it
+            self._qBase__initialState = qSta.compositeState([val.dimension for val in self.subSys.values()], inp) # pylint: disable=assigning-non-slot
 
     # adding or creating a new sub system to composite system
     def add(self, *args):
@@ -368,10 +369,10 @@ class qSystem(genericQSys):
     @genericQSys.initialState.setter # pylint: disable=no-member
     @InitialStateDecorator
     def initialState(self, state):
-        for sys in self.subSys.values():
-            sys._qBase__initialStateInput = state # pylint: disable=protected-access
-        print(state, self.name)
-        self._qBase__initialState = qSta.compositeState([self._genericQSys__dimension], [state]) # pylint: disable=assigning-non-slot, no-member
+        if state != 'sparse':
+            for sys in self.subSys.values():
+                sys._qBase__initialStateInput = state # pylint: disable=protected-access
+            self._qBase__initialState = qSta.compositeState([self._genericQSys__dimension], [state]) # pylint: disable=assigning-non-slot, no-member
 
     @property
     def operator(self):

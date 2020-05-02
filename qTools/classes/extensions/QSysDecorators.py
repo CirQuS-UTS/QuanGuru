@@ -23,6 +23,7 @@ def InitialStateDecorator(initialState):
         if sp.issparse(inp):
             if inp.shape[0] == obj.dimension:
                 obj._qBase__initialState = inp # pylint: disable=protected-access
+                initialState(obj, 'sparse')
             else:
                 raise ValueError('Dimension mismatch')
         else:
