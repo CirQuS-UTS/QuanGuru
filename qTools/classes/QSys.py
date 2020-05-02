@@ -183,6 +183,7 @@ class QuantumSystem(genericQSys):
             subSys._qUniversal__matrix = None
 
         self._QuantumSystem__qSystems[subSys.name] = subSys
+        setattr(subSys, '_qUniversal__ind', len(self._QuantumSystem__qSystems))
         subSys.superSys = self
         return subSys
 
@@ -208,7 +209,7 @@ class QuantumSystem(genericQSys):
     # reset and keepOld
     def reset(self, to=None):
         # TODO make sure that the kept protocols deletes their matrices and different sweeps ? delMatrices
-        self._deConstructCompSys()
+        self.delMatrices()
 
         #if isinstance(self._genericQSys__unitary, list): # pylint: disable=no-member
         #    for protoc in self._genericQSys__unitary:  # pylint: disable=no-member
@@ -232,15 +233,12 @@ class QuantumSystem(genericQSys):
             self._QuantumSystem__qCouplings = self._QuantumSystem__kept[to][0] # pylint: disable=assigning-non-slot
             self._genericQSys__unitary = self._QuantumSystem__kept[to][1] # pylint: disable=assigning-non-slot
 
-    def _deConstructCompSys(self):
-        self._qBase__initialState = None # pylint: disable=assigning-non-slot
-        self.delMatrices()
-        for qSys in self.qSystems.values():
-            qSys._deConstructSubMat() # pylint: disable=protected-access
-
-        for qCoupl in self.qCouplings.values():
-            qCoupl._qUniversal__matrix = None
-            qCoupl.delMatrices() # pylint: disable=protected-access
+    # '''def delMatrices(self, ignore=[]):
+    #     ignore = super().delMatrices()
+    #     for qCoupl in self.qCouplings.values():
+    #         qCoupl._qUniversal__matrix = None
+    #         qCoupl.delMatrices(ignore) # pylint: disable=protected-access
+    #     return ignore'''
 
     #def __keepOld(self):
     #    name = self.couplingName
@@ -267,25 +265,23 @@ class QuantumSystem(genericQSys):
         if oldDimVal is None:
             oldDimVal = qSys._genericQSys__dimension
 
-        self._deConstructCompSys()
+        self.delMatrices()
 
         qSys._genericQSys__dimension = newDimVal
         ind = qSys.ind
         for qS in self.qSystems.values():
             if qS.ind < ind:
-                dimA = int((qS._qSystem__dimsAfter*newDimVal)/oldDimVal)
-                qS._qSystem__dimsAfter = dimA
+                qS._qSystem__dimsAfter = int((qS._qSystem__dimsAfter*newDimVal)/oldDimVal)
             elif qS.ind > ind:
-                dimB = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
-                qS._qSystem__dimsBefore = dimB
+                qS._qSystem__dimsBefore = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
 
         if self._qBase__initialStateInput is not None: # pylint: disable=no-member
             self.initialState = self._qBase__initialStateInput # pylint: disable=no-member
         self._paramUpdated = True
         self.constructCompSys()
         for sys in self.subSys.values():
-            if sys._qBase__initialStateInput is not None:
-                sys.initialState = sys._qBase__initialStateInput
+            if sys._qBase__initialStateInput is not None: # pylint: disable=protected-access
+                sys.initialState = sys._qBase__initialStateInput # pylint: disable=protected-access
         return qSys
 
 # quantum system objects
@@ -331,17 +327,13 @@ class qSystem(genericQSys):
 
         for sys in self.subSys.values():
             sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
-            sys._deConstructSubMat() # pylint: disable=protected-access
+            sys.delMatrices() # pylint: disable=protected-access
             if sys._qBase__initialStateInput is not None: # pylint: disable=protected-access
                 sys.initialState = sys._qBase__initialStateInput # pylint: disable=protected-access
             sys._paramUpdated = True
 
         if isinstance(self.superSys, QuantumSystem):
             self.superSys.updateDimension(self, newDimVal, oldDimVal) # pylint: disable=no-member
-
-        if sys._qBase__initialStateInput is not None:
-            for sys in self.subSys.values():
-                sys.initialState = sys._qBase__initialState
 
     @genericQSys.totalHam.getter # pylint: disable=no-member
     def totalHam(self): # pylint: disable=invalid-overridden-method
@@ -398,6 +390,7 @@ class qSystem(genericQSys):
 
     @order.setter
     def order(self, ordVal):
+        self._paramUpdated = True
         self._qSystem__order = ordVal # pylint: disable=assigning-non-slot
         self.freeMat = None
 
@@ -422,10 +415,6 @@ class qSystem(genericQSys):
                                                            self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
         return self._qUniversal__matrix # pylint: disable=no-member
 
-    def _deConstructSubMat(self):
-        self.delMatrices()
-        self._qUniversal__matrix = None # pylint: disable=no-member, assigning-non-slot
-        self._qBase__initialState = None # pylint: disable=no-member, assigning-non-slot
 
 class Qubit(qSystem):
     instances = 0

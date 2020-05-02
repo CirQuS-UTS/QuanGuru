@@ -74,6 +74,7 @@ class qProtocol(genericProtocol):
 
     def addStep(self, *args):
         for step in args:
+            self._qBase__paramBound[step.name] = step # pylint: disable=no-member
             if step._genericProtocol__inProtocol:
                 super().addSubSys(copyStep(step))
             else:
