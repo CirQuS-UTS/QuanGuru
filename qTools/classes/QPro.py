@@ -47,9 +47,6 @@ class genericProtocol(qBaseSim):
             unitary = self.getUnitary() # pylint: disable=assignment-from-no-return
         return unitary
 
-    def delMatrices(self):
-        self._qUniversal__matrix = None # pylint: disable=assigning-non-slot
-
 class qProtocol(genericProtocol):
     instances = 0
     label = 'qProtocol'
@@ -112,11 +109,6 @@ class qProtocol(genericProtocol):
                         for update in step._Step__updates: # pylint: disable=protected-access
                             update.setback()
 
-    def delMatrices(self):
-        super().delMatrices()
-        for step in self.steps.values():
-            if not isinstance(step, copyStep):
-                step.delMatrices()
 
 class Step(genericProtocol):
     instances = 0
