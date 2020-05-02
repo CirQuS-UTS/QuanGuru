@@ -28,4 +28,4 @@ exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _allBoo
     ,_qResBlank__results, _qResBase__results, _qResBlank__average, _qResBase__average, _qResBlank__states, _qResBase__states
     ,_qResBlank__resultsLast, _qResBase__resultsLast, _qResBlank__statesLast, _qResBase__statesLast, _qResBlank__calculated, _qResBase__calculated, _finalise
     ,_qUniversal__setKwargs, _qUniversal__matrix, _qUniversal__ind, _genericQSys__dimension, _qSystem__dimsAfter, _qSystem__dimsBefore
-    ,_constructed, _timeBase__bound
+    ,_timeBase__bound

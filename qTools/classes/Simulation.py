@@ -100,7 +100,7 @@ class Simulation(timeBase):
 
     def addProtocol(self, protocol=None, sys=None, protocolRemove=None):
         # TODO Decorate this
-        qSysClass = globals()['universalQSys']
+        qSysClass = globals()['qBaseSim']
         if sys is None:
             if isinstance(protocol, timeBase):
                 if isinstance(protocol.superSys, qSysClass):

@@ -30,3 +30,14 @@ class qBaseSim(qBase):
                 if sys is not self:
                     if hasattr(sys, 'simulation'):
                         sys.simulation = sim
+
+    def delMatrices(self):
+        self._qUniversal__matrix = None # pylint: disable=assigning-non-slot
+        self._qBase__initialState = None # pylint: disable=assigning-non-slot
+        for sys in self.subSys.values():
+            if (hasattr(sys, 'delMatrices') and (sys is not self)):
+                sys.delMatrices()
+
+        for sys in self._qBase__paramBound.values(): # pylint: disable=no-member
+            if (hasattr(sys, 'delMatrices') and (sys is not self)):
+                sys.delMatrices()
