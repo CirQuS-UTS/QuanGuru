@@ -30,6 +30,14 @@ class genericProtocol(qBaseSim):
     def getUnitary(self):
         pass
 
+    def prepare(self):
+        if self.fixed is True:
+            self.getUnitary()
+
+        for step in self.subSys.values():
+            if not isinstance(step, copyStep):
+                step.prepare()
+
     @property
     def fixed(self):
         return self._genericProtocol__fixed
@@ -106,11 +114,6 @@ class qProtocol(genericProtocol):
         self._qUniversal__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
 
-    def prepare(self):
-        for step in self.steps.values():
-            if not isinstance(step, copyStep):
-                step.prepare(self)
-
 
 class Step(genericProtocol):
     instances = 0
@@ -121,10 +124,6 @@ class Step(genericProtocol):
         self.__ratio = 1
         self.__updates = []
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    def prepare(self):
-        if self.fixed is True:
-            self.getUnitary()
 
     @property
     def system(self):
