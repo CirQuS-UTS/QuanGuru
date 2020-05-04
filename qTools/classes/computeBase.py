@@ -18,11 +18,6 @@ class qBase(qUniversal):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.qRes = qResults(superSys=self)
 
-    @qUniversal.superSys.setter  # pylint: disable=no-member
-    def superSys(self, supSys):
-        qUniversal.superSys.fset(self, supSys)  # pylint: disable=no-member
-        self.qRes.name = self.superSys.name + self.name + 'Results'  # pylint: disable=no-member
-
     @checkClass('qBase', '_qBase__paramBound')
     def _createParamBound(self, bound, **kwargs):
         bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
