@@ -8,7 +8,7 @@ class timeBase(computeBase):
     __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.__finalTime = None
         self.__stepSize = None
         self.__samples = None

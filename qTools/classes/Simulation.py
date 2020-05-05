@@ -6,12 +6,14 @@ from qTools.classes.extensions.modularSweep import timeEvolBase
 
 class Simulation(timeBase):
     instances = 0
+    _nonInternalInstances = 0
+    _internalInstances = 0
     label = 'Simulation'
 
     __slots__ = ['Sweep', 'timeDependency', 'evolFunc']
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
-        super().__init__(name=kwargs.pop('name', None), samples=1)
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False), samples=1)
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)

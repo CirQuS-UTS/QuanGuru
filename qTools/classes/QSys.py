@@ -17,7 +17,7 @@ class genericQSys(qBaseSim):
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__unitary = freeEvolution()
+        self.__unitary = freeEvolution(_internal=True)
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
         self.__dimension = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member

@@ -205,12 +205,14 @@ class copyStep(qUniversal):
 
 class freeEvolution(Step):
     instances = 0
+    _nonInternalInstances = 0
+    _internalInstances = 0
     label = 'freeEvolution'
 
     __slots__ = []
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self._funcToCreateUnitary = self.matrixExponentiation
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 

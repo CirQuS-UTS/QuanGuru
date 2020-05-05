@@ -10,7 +10,7 @@ class qBase(qUniversal):
     __slots__ = ['__initialState', '__paramUpdated', '__initialStateInput', '__paramBound', 'qRes']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.__initialState = None
         self.__initialStateInput = None
         self.__paramUpdated = False
@@ -57,7 +57,7 @@ class computeBase(qBase):
     __slots__ = ['__delStates', 'compute', 'calculate']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
 
         self.__delStates = True
 

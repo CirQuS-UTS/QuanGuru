@@ -67,14 +67,17 @@ class qUniversal:
     instances = 0
     label = 'qUniversal'
     instNames = {}
+    _nonInternalInstances = 0
+    _internalInstances = 0
 
     toBeSaved = extendedList(['name'])
 
-    __slots__ = ['__name', '__superSys', '__ind', '__subSys', '__allInstances', '__matrix']
+    __slots__ = ['__name', '__superSys', '__ind', '__subSys', '__allInstances', '__matrix', '_internal']
 
     def __init__(self, **kwargs):
         super().__init__()
-        self._incrementInstances()
+        self._internal = kwargs.pop('_internal', False)
+        self._incrementInstances(self._internal)
         self.__name = self._qUniversal__namer()
         self.__superSys = None
         self.__subSys = OrderedDict()
@@ -242,23 +245,36 @@ class qUniversal:
         """
             A method
         """
-        name = self.clsLabel() + str(self.clsInstances())
+        if self._internal is False:
+            name = self.clsLabel() + str(self.clsInstances(self._internal))
+        else:
+            name = '_' + self.clsLabel() + str(self.clsInstances(self._internal))
         qUniversal.instNames[name] = self
         return name
 
     @classmethod
-    def _incrementInstances(cls):
+    def _incrementInstances(cls, boolean=False):
         """
             A class method
         """
         cls.instances += 1
+        if boolean is False:
+            cls._nonInternalInstances += 1
+        elif boolean is True:
+            cls._internalInstances += 1
 
     @classmethod
-    def clsInstances(cls):
+    def clsInstances(cls, boolean=None):
         """
             A class method
         """
-        return cls.instances
+        if boolean is None:
+            insCount = cls.instances
+        elif boolean is True:
+            insCount = cls._internalInstances
+        elif boolean is False:
+            insCount = cls._nonInternalInstances
+        return insCount
 
     @classmethod
     def clsLabel(cls):
