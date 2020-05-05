@@ -54,6 +54,10 @@ class genericQSys(qBaseSim):
         self._paramUpdated = False
         return unitary
 
+    @property
+    def _freeEvol(self):
+        return self._genericQSys__unitary
+
     # initial state
     @property
     def initialState(self):
@@ -210,14 +214,6 @@ class QuantumSystem(genericQSys):
     def reset(self, to=None):
         # TODO make sure that the kept protocols deletes their matrices and different sweeps ? delMatrices
         self.delMatrices()
-
-        #if isinstance(self._genericQSys__unitary, list): # pylint: disable=no-member
-        #    for protoc in self._genericQSys__unitary:  # pylint: disable=no-member
-        #        protoc.delMatrices()
-        #else:
-        #    self._genericQSys__unitary.delMatrices()  # pylint: disable=no-member
-
-        #self._QuantumSystem__keepOld()
         name = self.couplingName
         if name is None:
             name = len(self._QuantumSystem__kept)
@@ -233,26 +229,8 @@ class QuantumSystem(genericQSys):
             self._QuantumSystem__qCouplings = self._QuantumSystem__kept[to][0] # pylint: disable=assigning-non-slot
             self._genericQSys__unitary = self._QuantumSystem__kept[to][1] # pylint: disable=assigning-non-slot
 
-    # '''def delMatrices(self, ignore=[]):
-    #     ignore = super().delMatrices()
-    #     for qCoupl in self.qCouplings.values():
-    #         qCoupl._qUniversal__matrix = None
-    #         qCoupl.delMatrices(ignore) # pylint: disable=protected-access
-    #     return ignore'''
-
-    #def __keepOld(self):
-    #    name = self.couplingName
-    #    if name in self._QuantumSystem__kept.keys():
-    #        if self._genericQSys__unitary != self._QuantumSystem__kept[name][1]: # pylint: disable=no-member
-    #            name = len(self._QuantumSystem__kept)
-    #            self._QuantumSystem__kept[name] = [self.qCouplings, self._genericQSys__unitary] # pylint: disable=no-member
-    #        else:
-    #            pass
-    #    else:
-    #        self._QuantumSystem__kept[name] = [self.qCouplings, self._genericQSys__unitary]  # pylint: disable=no-member
-
     # construct the matrices
-    def constructCompSys(self):
+    def _constructMatrices(self):
         for qSys in self.subSys.values():
             qSys.freeMat = None
 
@@ -278,7 +256,7 @@ class QuantumSystem(genericQSys):
         if self._qBase__initialStateInput is not None: # pylint: disable=no-member
             self.initialState = self._qBase__initialStateInput # pylint: disable=no-member
         self._paramUpdated = True
-        self.constructCompSys()
+        self._constructMatrices()
         for sys in self.subSys.values():
             if sys._qBase__initialStateInput is not None: # pylint: disable=protected-access
                 sys.initialState = sys._qBase__initialStateInput # pylint: disable=protected-access
@@ -350,13 +328,13 @@ class qSystem(genericQSys):
     def freeMat(self, qOpsFunc):
         if callable(qOpsFunc):
             self.operator = qOpsFunc
-            self._qSystem__constructSubMat()
+            self._qSystem_constructMatrices()
         elif qOpsFunc is not None:
             self._qUniversal__matrix = qOpsFunc  # pylint: disable=assigning-non-slot
         else:
             if self.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
-            self._qSystem__constructSubMat()
+            self._qSystem_constructMatrices()
 
     @genericQSys.initialState.setter # pylint: disable=no-member
     @InitialStateDecorator
@@ -405,7 +383,7 @@ class qSystem(genericQSys):
         return copySys
 
     @constructConditions({'dimension': (int, int64, int32, int16), 'operator': qOps.sigmax.__class__})
-    def __constructSubMat(self):
+    def _constructMatrices(self):
         for sys in self.subSys.values():
             try:
                 sys._qUniversal__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension), # pylint: disable=no-member
@@ -414,7 +392,6 @@ class qSystem(genericQSys):
                 sys._qUniversal__matrix = qOps.compositeOp(sys.operator(), # pylint: disable=no-member
                                                            self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
         return self._qUniversal__matrix # pylint: disable=no-member
-
 
 class Qubit(qSystem):
     instances = 0
@@ -560,6 +537,7 @@ class qCoupling(qBaseSim):
     def addTerm(self, *args):
         counter = 0
         while counter in range(len(args)):
+            # TODO write a generalisation for this one
             if isinstance(args[counter][0], qSystem):
                 qSystems = args[counter]
 
@@ -570,27 +548,6 @@ class qCoupling(qBaseSim):
                 # TODO does not have to pass qSystem around
                 if counter < len(args):
                     counter = self._qCoupling__addTerm(counter, 1, qSystems, *args)
-
-            # TODO write a generalisation for this one
-            # elif isinstance(args[counter][1], qSystem):
-            #    qSystems = args[counter]
-
-            #    if callable(args[counter+1][1]):
-            #        self._qCoupling__cFncs.append(args[counter + 1])
-            #        self._qCoupling__qSys.append(qSystems)
-            #        counter += 2
-
-            #    if counter < len(args):
-            #        self._qCoupling__addTerm(counter, 0, qSystems, *args)
-            # TODO generalise this as above
-            # elif isinstance(args[counter][0][0],qSystem):
-            #    self._qCoupling__cFncs.append(args[counter][1])
-            #    self._qCoupling__qSys.append(args[counter][0])
-            #    counter += 1
-            # elif isinstance(args[counter][0][1],qSystem):
-            #    self._qCoupling__cFncs.append(args[counter][0])
-            #    self._qCoupling__qSys.append(args[counter][1])
-            #    counter += 1
         return self
 
 class envCoupling(qCoupling):
@@ -598,6 +555,7 @@ class envCoupling(qCoupling):
     label = 'envCoupling'
 
     __slots__ = []
+
     def __init__(self, *args, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -605,6 +563,7 @@ class envCoupling(qCoupling):
 class sysCoupling(qCoupling):
     instances = 0
     label = 'sysCoupling'
+    
     __slots__ = []
 
     def __init__(self, *args, **kwargs):

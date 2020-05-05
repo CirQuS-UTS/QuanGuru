@@ -11,6 +11,7 @@ class Simulation(timeBase):
     label = 'Simulation'
 
     __slots__ = ['Sweep', 'timeDependency', 'evolFunc']
+
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False), samples=1)
@@ -23,8 +24,8 @@ class Simulation(timeBase):
         if system is not None:
             self.addQSystems(system)
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self._computeBase__delStates = False # pylint: disable=assigning-non-slot
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
         saveDict = super().save()
@@ -48,7 +49,7 @@ class Simulation(timeBase):
     @property
     def protocols(self):
         protocs = list(self.subSys.keys())
-        return (*protocs,) if len(protocs) > 1 else protocs[0]
+        return protocs if len(protocs) > 1 else protocs[0]
 
     def _freeEvol(self):
         for protocol, qSys in self.subSys.items():
@@ -57,34 +58,31 @@ class Simulation(timeBase):
 
     @property
     def qSystems(self):
-        '''qSys =  list(self.subSys.values())
-        return (*qSys,) if len(qSys) > 1 else qSys[0]'''
-        return list(self.subSys.values())
+        qSys = list(self.subSys.values())
+        return qSys if len(qSys) > 1 else qSys[0]
 
     @property
     def qEvolutions(self):
-        '''qPros = list(self.subSys.keys())
-        return (*qPros,) if len(qPros) > 1 else qPros[0]'''
-        return list(self.subSys.keys())
+        self._freeEvol()
+        qPros = list(self.subSys.keys())
+        return qPros if len(qPros) > 1 else qPros[0]
 
-    def addQSystems(self, subS, Protocol=None):
+    def addQSystems(self, subS, Protocol=None, **kwargs):
         # TODO print a message, if the same system included more than once without giving a protocol
-        subS = super().addSubSys(subS)
+        subS = super().addSubSys(subS, **kwargs)
         if Protocol is not None:
             self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name) # pylint: disable=no-member
         return (subS, Protocol)
 
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
-        newSys = super().createSubSys(subSysClass, **kwargs)
-        newSys, Protocol = self.addQSystems(newSys, Protocol)
+        newSys, Protocol = self.addQSystems(subSysClass, Protocol, **kwargs)
         return (newSys, Protocol)
 
     def removeQSystems(self, subS):
         for key, subSys in self._qUniversal__subSys.items(): # pylint: disable=no-member
             if ((subSys is subS) or (subSys.name == subS)):
-                del self._qUniversal__subSys[key] # pylint: disable=no-member
+                self._qUniversal__subSys.pop(key) # pylint: disable=no-member
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
-                self._updateInd()
                 self.removeSweep(subSys)
 
     def removeSweep(self, sys):
@@ -95,16 +93,13 @@ class Simulation(timeBase):
     # add/remove protocol
     def removeProtocol(self, Protocol):
         # FIXME what if freeEvol case, protocol then corresponds to sys.name before simulation run or a freeEvol obj after run
-        if isinstance(Protocol, timeBase):
-            del self._qUniversal__subSys[Protocol] # pylint: disable=no-member
-        else:
-            raise ValueError('?')
+        self._qUniversal__subSys.pop(Protocol, None) # pylint: disable=no-member
 
     def addProtocol(self, protocol=None, sys=None, protocolRemove=None):
         # TODO Decorate this
         qSysClass = globals()['qBaseSim']
         if sys is None:
-            if isinstance(protocol, timeBase):
+            if isinstance(protocol, qSysClass):
                 if isinstance(protocol.superSys, qSysClass):
                     protocol = self.addProtocol(protocol.superSys, protocol, protocolRemove)
                 else:
@@ -122,31 +117,16 @@ class Simulation(timeBase):
     # overwriting methods from qUniversal
     def addSubSys(self, subS, Protocol=None, **kwargs): # pylint: disable=arguments-differ
         newSys = super().addSubSys(subS, **kwargs)
-        newSys, Protocol = self.addQSystems(subS, Protocol, **kwargs)
+        newSys, Protocol = self.addQSystems(newSys, Protocol)
         return newSys
 
     def createSubSys(self, subSysClass, Protocol=None, **kwargs): # pylint: disable=arguments-differ
         newSys = super().createSubSys(subSysClass, **kwargs)
-        newSys, Protocol = self.createQSystems(newSys, Protocol, **kwargs)
+        newSys, Protocol = self.createQSystems(newSys, Protocol)
         return newSys
 
     def removeSubSys(self, subS): # pylint: disable=arguments-differ
         self.removeQSystems(subS)
-
-    def _paramsUsed(self):
-        for sys in self.Sweep.sweeps.values():
-            for paramUpdateSys in sys.subSys.values():
-                try:
-                    paramUpdateSys._paramUpdated = False
-                except: # pylint: disable=bare-except
-                    pass
-
-        for sys in self.timeDependency.sweeps.values():
-            for paramUpdateSys in sys.subSys.values():
-                try:
-                    paramUpdateSys._paramUpdated = False
-                except: # pylint: disable=bare-except
-                    pass
 
     def __compute(self):
         states = []
@@ -159,12 +139,9 @@ class Simulation(timeBase):
     def run(self, p=None, coreCount=None):
         self._freeEvol()
         for qSys in self.subSys.values():
-            # TODO this will be modified after the structural changes of qSys objects
-            if qSys.__class__.__name__ == 'QuantumSystem':
-                # TODO Check first if constructed
-                qSys.constructCompSys()
+            qSys._constructMatrices() # pylint: disable=protected-access
         for protoc in self.subSys.keys():
-            # TODO tihis will be modified after the structural changes of qPro objects
+            # TODO this will be modified after the structural changes of qPro objects
             protoc.simulation = self
             protoc.prepare()
         self.Sweep.prepare()

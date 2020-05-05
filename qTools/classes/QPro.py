@@ -127,6 +127,9 @@ class qProtocol(genericProtocol):
         self.addStep(*stps)
 
     def addStep(self, *args):
+        '''
+            Copy step ensures the exponentiation
+        '''
         for step in args:
             self._qBase__paramBound[step.name] = step # pylint: disable=no-member
             if step._genericProtocol__inProtocol:
