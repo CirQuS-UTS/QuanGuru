@@ -11,12 +11,15 @@ class genericProtocol(qBaseSim):
     instances = 0
     label = 'genericProtocol'
 
-    __slots__ = ['lastState', '__inProtocol', '__fixed']
+    __slots__ = ['lastState', '__inProtocol', '__fixed', '__ratio', '__updates', '_funcToCreateUnitary']
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.lastState = None
         self.__inProtocol = False
         self.__fixed = False
+        self.__ratio = 1
+        self.__updates = []
+        self._funcToCreateUnitary = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
@@ -27,8 +30,35 @@ class genericProtocol(qBaseSim):
         saveDict['steps'] = stepsDict
         return saveDict
 
-    def getUnitary(self):
+    def _runCreateUnitary(self):
         pass
+
+    def getUnitary(self, callAfterUpdate=_runCreateUnitary):
+        for update in self._genericProtocol__updates:
+            update.setup()
+        callAfterUpdate(self)
+        for update in self._genericProtocol__updates:
+            update.setback()
+
+    @property
+    def updates(self):
+        return self._genericProtocol__updates
+
+    @property
+    def ratio(self):
+        return self._genericProtocol__ratio
+
+    @ratio.setter
+    def ratio(self, val):
+        self._genericProtocol__ratio = val # pylint: disable=assigning-non-slot
+
+    @property
+    def system(self):
+        return self.superSys
+
+    @system.setter
+    def system(self, supSys):
+        qBaseSim.superSys.fset(self, supSys) # pylint: disable=no-member
 
     def prepare(self):
         if self.fixed is True:
@@ -74,14 +104,6 @@ class qProtocol(genericProtocol):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
-    def system(self):
-        return self.superSys
-
-    @system.setter
-    def system(self, supSys):
-        genericProtocol.superSys.fset(self, supSys) # pylint: disable=no-member
-
-    @property
     def steps(self):
         return self._qUniversal__subSys # pylint: disable=no-member
 
@@ -98,7 +120,7 @@ class qProtocol(genericProtocol):
                 super().addSubSys(step)
                 step._genericProtocol__inProtocol = True
                 if step.superSys is None:
-                    raise ValueError('?')
+                    step.superSys = self.superSys
 
     def createStep(self, n=1):
         newSteps = []
@@ -106,66 +128,39 @@ class qProtocol(genericProtocol):
             newSteps.append(super().createSubSys(Step()))
         return newSteps if n > 1 else newSteps[0]
 
-    def getUnitary(self):
-        super().getUnitary()
+    def _runCreateUnitary(self):
+        super()._runCreateUnitary()
         unitary = identity(self.superSys.dimension) # pylint: disable=no-member
         for step in self.steps.values():
             unitary = step.getUnitary() @ unitary
         self._qUniversal__matrix = unitary # pylint: disable=assigning-non-slot
-        return unitary
+
+    def getUnitary(self, callAfterUpdate=_runCreateUnitary):
+        super().getUnitary(callAfterUpdate=callAfterUpdate)
+        return self._qUniversal__matrix # pylint: disable=no-member
 
 
 class Step(genericProtocol):
     instances = 0
     label = 'Step'
-    __slots__ = ['__ratio', '__updates']
+    __slots__ = []
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
-        self.__ratio = 1
-        self.__updates = []
+        self._funcToCreateUnitary = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
-    @property
-    def system(self):
-        return self.superSys
-
-    @system.setter
-    def system(self, supSys):
-        genericProtocol.superSys.fset(self, supSys) # pylint: disable=no-member
-
-    @property
-    def updates(self):
-        return self._Step__updates
-
-    @property
-    def ratio(self):
-        return self._Step__ratio
-
-    @ratio.setter
-    def ratio(self, val):
-        self._Step__ratio = val # pylint: disable=assigning-non-slot
-
     def _runCreateUnitary(self):
-        for update in self._Step__updates:
-            update.setup()
-        unitary = self.createUnitary() # pylint: disable=assignment-from-no-return
-        for update in self._Step__updates:
-            update.setback()
-        return unitary
+        super()._runCreateUnitary()
+        self.createUnitary() # pylint: disable=assigning-non-slot
 
-    def getUnitary(self):
-        super().getUnitary()
-        if self.fixed is True:
-            if self._qUniversal__matrix is None: # pylint: disable=no-member
-                self._runCreateUnitary()
-            self._qBase__paramUpdated = False # pylint: disable=assigning-non-slot
-            unitary = self._qUniversal__matrix # pylint: disable=no-member
-        elif ((self._paramUpdated is False) and (self._qUniversal__matrix is not None)): # pylint: disable=no-member
-            unitary = self._qUniversal__matrix # pylint: disable=no-member
-        else:
-            self._qBase__paramUpdated = False # pylint: disable=assigning-non-slot
-            unitary = self._runCreateUnitary()
-        return unitary
+    def getUnitary(self, callAfterUpdate=_runCreateUnitary):
+        if ((self.fixed is True) and (self._qUniversal__matrix is None)): # pylint: disable=no-member
+            super().getUnitary(callAfterUpdate=callAfterUpdate)
+        elif ((self.fixed is False) and ((self._paramUpdated is True) or (self._qUniversal__matrix is None))): # pylint: disable=no-member
+            print('here')
+            super().getUnitary(callAfterUpdate=callAfterUpdate)
+        self._qBase__paramUpdated = False # pylint: disable=assigning-non-slot
+        return self._qUniversal__matrix # pylint: disable=no-member
 
     def createUpdate(self, **kwargs):
         update = Update(**kwargs)
@@ -174,10 +169,11 @@ class Step(genericProtocol):
 
     def addUpdate(self, *args):
         for update in args:
-            self._Step__updates.append(update)
+            self._genericProtocol__updates.append(update) # pylint: disable=no-member
 
     def createUnitary(self):
-        pass
+        if self._funcToCreateUnitary is not None:
+            self._qUniversal__matrix = self._funcToCreateUnitary() # pylint: disable=assigning-non-slot
 
 class copyStep(qUniversal):
     instances = 0
@@ -203,10 +199,10 @@ class freeEvolution(Step):
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
+        self._funcToCreateUnitary = self.matrixExponentiation
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
-    def createUnitary(self):
-        super().createUnitary()
+    def matrixExponentiation(self):
         unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, # pylint: disable=no-member
                                      timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples))
         self._qUniversal__matrix = unitary # pylint: disable=assigning-non-slot
