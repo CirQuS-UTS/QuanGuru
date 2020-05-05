@@ -10,6 +10,11 @@ from qTools.classes.QUni import qUniversal
 class genericProtocol(qBaseSim):
     instances = 0
     label = 'genericProtocol'
+    numberOfExponentiations = 0
+
+    @classmethod
+    def _increaseExponentiationCount(cls):
+        cls.numberOfExponentiations += 1
 
     __slots__ = ['lastState', '__inProtocol', '__fixed', '__ratio', '__updates', '_funcToCreateUnitary']
     def __init__(self, **kwargs):
@@ -195,13 +200,16 @@ class copyStep(qUniversal):
 class freeEvolution(Step):
     instances = 0
     label = 'freeEvolution'
+
     __slots__ = []
+    
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self._funcToCreateUnitary = self.matrixExponentiation
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def matrixExponentiation(self):
+        self._increaseExponentiationCount()
         unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, # pylint: disable=no-member
                                      timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples))
         self._qUniversal__matrix = unitary # pylint: disable=assigning-non-slot
@@ -210,7 +218,9 @@ class freeEvolution(Step):
 class Gate(Step):
     instances = 0
     label = 'Gate'
+
     __slots__ = ['__implementation']
+    
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__implementation = None
