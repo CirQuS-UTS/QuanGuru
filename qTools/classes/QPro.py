@@ -157,7 +157,6 @@ class Step(genericProtocol):
         if ((self.fixed is True) and (self._qUniversal__matrix is None)): # pylint: disable=no-member
             super().getUnitary(callAfterUpdate=callAfterUpdate)
         elif ((self.fixed is False) and ((self._paramUpdated is True) or (self._qUniversal__matrix is None))): # pylint: disable=no-member
-            print('here')
             super().getUnitary(callAfterUpdate=callAfterUpdate)
         self._qBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._qUniversal__matrix # pylint: disable=no-member
