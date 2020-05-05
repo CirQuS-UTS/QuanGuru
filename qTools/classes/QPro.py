@@ -17,6 +17,7 @@ class genericProtocol(qBaseSim):
         cls.numberOfExponentiations += 1
 
     __slots__ = ['lastState', '__inProtocol', '__fixed', '__ratio', '__updates', '_funcToCreateUnitary']
+
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.lastState = None
@@ -44,6 +45,15 @@ class genericProtocol(qBaseSim):
         callAfterUpdate(self)
         for update in self._genericProtocol__updates:
             update.setback()
+
+    def createUpdate(self, **kwargs):
+        update = Update(**kwargs)
+        self.addUpdate(update)
+        return update
+
+    def addUpdate(self, *args):
+        for update in args:
+            self._genericProtocol__updates.append(update) # pylint: disable=no-member
 
     @property
     def updates(self):
@@ -148,7 +158,9 @@ class qProtocol(genericProtocol):
 class Step(genericProtocol):
     instances = 0
     label = 'Step'
+
     __slots__ = []
+
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self._funcToCreateUnitary = None
@@ -166,24 +178,18 @@ class Step(genericProtocol):
         self._qBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._qUniversal__matrix # pylint: disable=no-member
 
-    def createUpdate(self, **kwargs):
-        update = Update(**kwargs)
-        self.addUpdate(update)
-        return update
-
-    def addUpdate(self, *args):
-        for update in args:
-            self._genericProtocol__updates.append(update) # pylint: disable=no-member
-
     def createUnitary(self):
-        if self._funcToCreateUnitary is not None:
-            self._qUniversal__matrix = self._funcToCreateUnitary() # pylint: disable=assigning-non-slot
+        if not callable(self._funcToCreateUnitary):
+            raise TypeError('?')
+        self._qUniversal__matrix = self._funcToCreateUnitary() # pylint: disable=assigning-non-slot
+        return self._qUniversal__matrix # pylint: disable=no-member
 
 class copyStep(qUniversal):
     instances = 0
     label = 'copyStep'
 
     __slots__ = []
+
     def __init__(self, superSys, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.superSys = superSys
@@ -202,7 +208,7 @@ class freeEvolution(Step):
     label = 'freeEvolution'
 
     __slots__ = []
-    
+
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self._funcToCreateUnitary = self.matrixExponentiation
@@ -220,7 +226,7 @@ class Gate(Step):
     label = 'Gate'
 
     __slots__ = ['__implementation']
-    
+
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__implementation = None

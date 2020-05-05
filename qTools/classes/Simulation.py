@@ -164,6 +164,7 @@ class Simulation(timeBase):
         for protoc in self.subSys.keys():
             # TODO tihis will be modified after the structural changes of qPro objects
             protoc.simulation = self
+            protoc.prepare()
         self.Sweep.prepare()
         for qres in self.qRes.allResults.values():
             qres._reset() # pylint: disable=protected-access
