@@ -35,7 +35,7 @@ class updateBase(qUniversal):
     @property
     def system(self):
         qSys = list(self.subSys.values())
-        return (*qSys,) if len(qSys) > 1 else qSys[0]
+        return qSys if len(qSys) > 1 else qSys[0]
 
     @system.setter
     def system(self, qSys):

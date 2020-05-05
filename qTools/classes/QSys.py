@@ -176,7 +176,7 @@ class QuantumSystem(genericQSys):
         newSubs = []
         for _ in range(n):
             newSubs.append(self.addSubSys(subClass, **kwargs))
-        return (*newSubs,) if n > 1 else newSubs[0]
+        return newSubs if n > 1 else newSubs[0]
 
     def __addSub(self, subSys):
         for subS in self._QuantumSystem__qSystems.values():
@@ -375,7 +375,7 @@ class qSystem(genericQSys):
     @property
     def terms(self):
         qSys = list(self.subSys.values())
-        return (*qSys,) if len(qSys) > 1 else qSys[0]
+        return qSys if len(qSys) > 1 else qSys[0]
 
     def addTerm(self, op, freq, order=1):
         copySys = super().addSubSys(self.__class__, operator=op, frequency=freq)
