@@ -230,22 +230,33 @@ class Update(updateBase):
 
     toBeSaved = qUniversal.toBeSaved.extendedCopy(['value'])
 
-    __slots__ = ['value', '__memoryValue', '__memoryBool']
+    __slots__ = ['value', '__memoryValue', 'setup', 'setback']
+
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.value = None
+        self.setup = self._setup
+        self.setback = self._setback
         self.__memoryValue = None
-        self.__memoryBool = []
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
-    def setup(self):
-        for sys in self.subSys.values():
-            self._Update__memoryValue = getattr(sys, self.key) # pylint: disable=assigning-non-slot
-            self._Update__memoryBool.append(sys._paramUpdated)
-        super()._runUpdate(self.value)
+    @property
+    def memoryValue(self):
+        return self._Update__memoryValue
 
-    def setback(self):
-        for ind, sys in enumerate(self.subSys.values()):
-            sys._paramUpdated = self._Update__memoryBool[ind]
-        self._Update__memoryBool = [] # pylint: disable=assigning-non-slot
-        super()._runUpdate(self._Update__memoryValue)
+    @memoryValue.setter
+    def memoryValue(self, value):
+        self._Update__memoryValue = value # pylint: disable=assigning-non-slot
+
+    def _setup(self):
+        self._Update__memoryValue = getattr(list(self.subSys.values())[0], self.key) # pylint: disable=assigning-non-slot
+        for sys in self.subSys.values():
+            if self._Update__memoryValue != getattr(sys, self.key): # pylint: disable=assigning-non-slot
+                raise ValueError('?')
+
+        if self.value != self.memoryValue:
+            super()._runUpdate(self.value)
+
+    def _setback(self):
+        if self.value != self.memoryValue:
+            super()._runUpdate(self._Update__memoryValue)
