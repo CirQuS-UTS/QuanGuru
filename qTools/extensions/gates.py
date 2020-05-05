@@ -25,7 +25,6 @@ class xGate(Gate):
         return self._qUniversal__matrix # pylint: disable=no-member
 
     def createUnitary(self):
-        super().createUnitary()
         if self.implementation == 'instant':
-            unitary = self.instantFlip()
-        return unitary
+            self._funcToCreateUnitary = self.instantFlip
+        super().createUnitary()
