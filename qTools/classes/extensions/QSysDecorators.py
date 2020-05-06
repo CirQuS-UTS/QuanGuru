@@ -19,10 +19,10 @@ from qTools.classes.QUni import qUniversal
 
 def InitialStateDecorator(initialState):
     def wrapper(obj, inp):
-        obj._qBase__initialStateInput = inp # pylint: disable=protected-access
+        obj._qBase__initialStateInput.value = inp # pylint: disable=protected-access
         if sp.issparse(inp):
             if inp.shape[0] == obj.dimension:
-                obj._qBase__initialState = inp # pylint: disable=protected-access
+                obj._qBase__initialState.value = inp # pylint: disable=protected-access
                 initialState(obj, 'sparse')
             else:
                 raise ValueError('Dimension mismatch')
