@@ -3,6 +3,36 @@ from qTools.classes.QUni import qUniversal, checkClass
 from qTools.classes.QRes import qResults
 
 
+class _parameter:
+
+    __slots__ = ['_value', '_bound']
+
+    def __init__(self, value):
+        self._value = value
+        self._bound = self
+
+    def __repr__(self):
+        return repr(self.value)
+
+    @property
+    def bound(self):
+        return self._bound
+
+    @bound.setter
+    def bound(self, bound):
+        self._bound = bound
+
+    @property
+    def value(self):
+        if self._bound is not self:
+            return self._bound.value
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        self._bound = None
+        self._value = value
+
 class qBase(qUniversal):
     instances = 0
     label = '_qBase'
@@ -11,8 +41,8 @@ class qBase(qUniversal):
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
-        self.__initialState = None
-        self.__initialStateInput = None
+        self.__initialState = _parameter(None)
+        self.__initialStateInput = _parameter(None)
         self.__paramUpdated = False
         self.__paramBound = OrderedDict()
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -43,11 +73,11 @@ class qBase(qUniversal):
 
     @property
     def initialState(self):
-        return self._qBase__initialState
+        return self._qBase__initialState.value
 
     @property
     def _initialStateInput(self):
-        return self._qBase__initialStateInput
+        return self._qBase__initialStateInput.value
 
 
 class computeBase(qBase):
