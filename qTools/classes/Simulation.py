@@ -42,9 +42,9 @@ class Simulation(timeBase):
     @timeBase.delStates.setter # pylint: disable=no-member
     def delStates(self, boolean):
         timeBase.delStates.fset(self, boolean) # pylint: disable=no-member
-        for qres in self.qRes.allResults.values():
-            if qres is not self.qRes:
-                qres.superSys.delStates = boolean
+        # for qres in self.qRes.allResults.values():
+        #     if qres is not self.qRes:
+        #         qres.superSys.delStates = boolean
 
     @property
     def protocols(self):
@@ -132,7 +132,8 @@ class Simulation(timeBase):
         states = []
         for protoc in self.subSys.keys():
             states.append(protoc.lastState)
-            if ((protoc.simulation.delStates is False) or (self.delStates is False)):
+            if self.delStates is False:
+            #if ((protoc.simulation.delStates is False) or (self.delStates is False)):
                 self.qRes.states[protoc.name].append(protoc.lastState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 

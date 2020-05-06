@@ -88,6 +88,20 @@ class genericQSys(qBaseSim):
                 newSys.addSubSys(sys.copy())
         return newSys
 
+class universalQSys(genericQSys):
+    def __new__(cls, sysType='single', **kwargs):
+        if sysType == 'single':
+            newCls = qSystem
+        elif sysType == 'composite':
+            newCls = QuantumSystem
+        elif sysType == 'system coupling':
+            newCls = qCoupling
+        if newCls != cls:
+            instance = newCls(**kwargs)
+        return instance
+
+    __slots__ = []
+
 # Composite Quantum system
 class QuantumSystem(genericQSys):
     instances = 0
@@ -328,13 +342,13 @@ class qSystem(genericQSys):
     def freeMat(self, qOpsFunc):
         if callable(qOpsFunc):
             self.operator = qOpsFunc
-            self._qSystem_constructMatrices()
+            self._constructMatrices()
         elif qOpsFunc is not None:
             self._qUniversal__matrix = qOpsFunc  # pylint: disable=assigning-non-slot
         else:
             if self.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
-            self._qSystem_constructMatrices()
+            self._constructMatrices()
 
     @genericQSys.initialState.setter # pylint: disable=no-member
     @InitialStateDecorator
@@ -440,7 +454,7 @@ class Cavity(qSystem):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
 # quantum coupling object
-class qCoupling(qBaseSim):
+class qCoupling(genericQSys):
     instances = 0
     label = 'qCoupling'
 
@@ -563,7 +577,7 @@ class envCoupling(qCoupling):
 class sysCoupling(qCoupling):
     instances = 0
     label = 'sysCoupling'
-    
+
     __slots__ = []
 
     def __init__(self, *args, **kwargs):
