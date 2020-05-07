@@ -4,9 +4,7 @@ from qTools.classes.QRes import qResults
 
 
 class _parameter:
-
     __slots__ = ['_value', '_bound']
-
     def __init__(self, value):
         self._value = value
         self._bound = self
@@ -30,8 +28,19 @@ class _parameter:
 
     @value.setter
     def value(self, value):
-        self._bound = None
+        self._bound = self
         self._value = value
+
+    def __getattribute__(self, name):
+        if name in ['bound', '_bound', 'value', '_value']:
+            return object.__getattribute__(self, name)
+        return object.__getattribute__(self.value, name)
+
+    def __setattr__(self, name, value):
+        if name in ['bound', '_bound', 'value', '_value']:
+            object.__setattr__(self, name, value)
+        else:
+            object.__setattr__(self.value, name, value)
 
 class qBase(qUniversal):
     instances = 0

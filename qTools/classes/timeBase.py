@@ -73,4 +73,3 @@ class timeBase(computeBase):
     def samples(self, num):
         self._paramUpdated = True
         self._timeBase__samples.value = num # pylint: disable=assigning-non-slot
-            
