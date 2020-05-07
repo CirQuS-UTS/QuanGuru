@@ -81,6 +81,6 @@ def timeEvolBase(qSim):
         qSim._Simulation__compute() # pylint: disable=protected-access
         for protocol in qSim.subSys.keys():
             for ___ in range(int(protocol.simulation._timeBase__step.value/qSim._timeBase__step.value)): # pylint: disable=protected-access
-                protocol.simulation._Simulation__compute() # pylint: disable=protected-access
+                #protocol.simulation._Simulation__compute() # pylint: disable=protected-access
                 for __ in range(protocol.simulation.samples):
                     protocol.lastState = protocol.unitary @ protocol.lastState

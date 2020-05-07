@@ -114,7 +114,8 @@ class Simulation(timeBase):
     # overwriting methods from qUniversal
     def addSubSys(self, subS, Protocol=None, **kwargs): # pylint: disable=arguments-differ
         newSys = super().addSubSys(subS, **kwargs)
-        newSys.simulation._bound(self) # pylint: disable=protected-access
+        if newSys.simulation is not self:
+            newSys.simulation._bound(self) # pylint: disable=protected-access
         newSys, Protocol = self.addQSystems(newSys, Protocol)
         return newSys
 
@@ -135,6 +136,8 @@ class Simulation(timeBase):
         super()._computeBase__compute(states) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None):
+        if len(self.subSys.values()) == 0:
+            self.addQSystems(self.superSys)
         self._freeEvol()
         for qSys in self.subSys.values():
             qSys._constructMatrices() # pylint: disable=protected-access

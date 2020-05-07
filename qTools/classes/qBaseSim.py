@@ -9,7 +9,7 @@ class qBaseSim(qBase):
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
-        self.__simulation = Simulation(_internal=True)
+        self.__simulation = Simulation(_internal=True, superSys=self)
         self._qBaseSim__simulation._qBase__paramBound[self.name] = self # pylint: disable=protected-access
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
