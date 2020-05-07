@@ -11,13 +11,13 @@ class timeBase(computeBase):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.__finalTime = _parameter(None)
         self.__stepSize = _parameter(None)
-        self.__samples = _parameter(None)
+        self.__samples = _parameter(1)
         self.__step = _parameter(None)
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
-        keys = ['_timeBase__stepSize', '_timeBase__finalTime', '_timeBase__samples', '_timeBase__step']
+        keys = ['stepSize', 'finalTime', 'samples', 'step']
         try:
             saveDict = super().save()
         except TypeError:
@@ -45,7 +45,8 @@ class timeBase(computeBase):
     def stepCount(self):
         if self.finalTime is None:
             self._timeBase__finalTime.value = self._timeBase__step.value * self.stepSize # pylint: disable=assigning-non-slot
-        return int((self.finalTime//self.stepSize) + 1)
+        self._timeBase__step.value = int((self.finalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+        return self._timeBase__step.value
 
     @stepCount.setter
     def stepCount(self, num):
@@ -73,3 +74,27 @@ class timeBase(computeBase):
     def samples(self, num):
         self._paramUpdated = True
         self._timeBase__samples.value = num # pylint: disable=assigning-non-slot
+
+    def _bound(self, other, params=[]): # pylint: disable=dangerous-default-value
+        keys = ['_timeBase__stepSize', '_timeBase__finalTime', '_timeBase__step']
+        keysProp = ['stepSize', 'finalTime', 'stepCount']
+        bounding = True
+        for ind, key in enumerate(keys):
+            if getattr(self, key)._bound is not None: # pylint: disable=protected-access
+                if getattr(other, key)._value is None: # pylint: disable=protected-access
+                    setattr(other, keysProp[ind], getattr(self, key)._value) # pylint: disable=protected-access
+
+                if bounding:
+                    for i, k in enumerate(keys):
+                        if ((getattr(self, k)._bound is None) and (getattr(other, k)._value is not None)): # pylint: disable=protected-access
+                            setattr(self, keysProp[i], getattr(other, k)._value) # pylint: disable=protected-access
+                            break
+                    bounding = False
+
+        for key in (*keys, *params, '_timeBase__samples'):
+            try:
+                if getattr(self, key)._bound is None: # pylint: disable=protected-access
+                    getattr(self, key)._bound = getattr(other, key) # pylint: disable=protected-access
+            except AttributeError:
+                pass
+            

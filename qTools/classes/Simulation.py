@@ -9,12 +9,13 @@ class Simulation(timeBase):
     _nonInternalInstances = 0
     _internalInstances = 0
     label = 'Simulation'
+    simInstances = {}
 
-    __slots__ = ['Sweep', 'timeDependency', 'evolFunc']
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__allInstances']
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False), samples=1)
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
@@ -24,7 +25,9 @@ class Simulation(timeBase):
         if system is not None:
             self.addQSystems(system)
 
-        self._computeBase__delStates = False # pylint: disable=assigning-non-slot
+        self.__allInstances = Simulation.simInstances
+
+        #self._computeBase__delStates = False # pylint: disable=assigning-non-slot
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
@@ -38,13 +41,6 @@ class Simulation(timeBase):
         saveDict['Sweep'] = self.Sweep.save()
         saveDict['timeDependency'] = self.timeDependency.save()
         return saveDict
-
-    @timeBase.delStates.setter # pylint: disable=no-member
-    def delStates(self, boolean):
-        timeBase.delStates.fset(self, boolean) # pylint: disable=no-member
-        # for qres in self.qRes.allResults.values():
-        #     if qres is not self.qRes:
-        #         qres.superSys.delStates = boolean
 
     @property
     def protocols(self):
@@ -70,6 +66,7 @@ class Simulation(timeBase):
     def addQSystems(self, subS, Protocol=None, **kwargs):
         # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS, **kwargs)
+        subS.simulation._bound(self) # pylint: disable=protected-access
         if Protocol is not None:
             self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name) # pylint: disable=no-member
         return (subS, Protocol)
@@ -117,6 +114,7 @@ class Simulation(timeBase):
     # overwriting methods from qUniversal
     def addSubSys(self, subS, Protocol=None, **kwargs): # pylint: disable=arguments-differ
         newSys = super().addSubSys(subS, **kwargs)
+        newSys.simulation._bound(self) # pylint: disable=protected-access
         newSys, Protocol = self.addQSystems(newSys, Protocol)
         return newSys
 
@@ -132,8 +130,7 @@ class Simulation(timeBase):
         states = []
         for protoc in self.subSys.keys():
             states.append(protoc.lastState)
-            if self.delStates is False:
-            #if ((protoc.simulation.delStates is False) or (self.delStates is False)):
+            if protoc.simulation.delStates is False:
                 self.qRes.states[protoc.name].append(protoc.lastState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
@@ -143,7 +140,7 @@ class Simulation(timeBase):
             qSys._constructMatrices() # pylint: disable=protected-access
         for protoc in self.subSys.keys():
             # TODO this will be modified after the structural changes of qPro objects
-            protoc.simulation = self
+            #protoc.simulation = self
             protoc.prepare()
         self.Sweep.prepare()
         for qres in self.qRes.allResults.values():

@@ -95,6 +95,7 @@ class genericProtocol(qBaseSim):
     def superSys(self, supSys):
         qBaseSim.superSys.fset(self, supSys) # pylint: disable=no-member
         supSys._qBase__paramBound[self.name] = self # pylint: disable=protected-access
+        self.simulation._bound(supSys.simulation) # pylint: disable=protected-access
 
     @property
     def unitary(self):

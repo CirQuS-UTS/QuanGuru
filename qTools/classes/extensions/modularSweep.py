@@ -64,7 +64,8 @@ def timeDependent(qSim):
     qSim.timeDependency.prepare()
     for ind in range(qSim.timeDependency.indMultip):
         qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
-        qSim._timeBase__step.value = 1 # pylint: disable=protected-access
+        for sim in qSim._Simulation__allInstances: # pylint: disable=protected-access
+            sim._timeBase__step.value = 1 # pylint: disable=protected-access
         qSim.evolFunc(qSim)
 
 
@@ -79,5 +80,7 @@ def timeEvolBase(qSim):
     for _ in range(qSim._timeBase__step.value): # pylint: disable=protected-access
         qSim._Simulation__compute() # pylint: disable=protected-access
         for protocol in qSim.subSys.keys():
-            for __ in range(protocol.simulation.samples):
-                protocol.lastState = protocol.unitary @ protocol.lastState
+            for ___ in range(int(protocol.simulation._timeBase__step.value/qSim._timeBase__step.value)): # pylint: disable=protected-access
+                protocol.simulation._Simulation__compute() # pylint: disable=protected-access
+                for __ in range(protocol.simulation.samples):
+                    protocol.lastState = protocol.unitary @ protocol.lastState
