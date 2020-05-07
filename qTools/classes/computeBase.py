@@ -7,7 +7,7 @@ class _parameter:
     __slots__ = ['_value', '_bound']
     def __init__(self, value):
         self._value = value
-        self._bound = self
+        self._bound = None
 
     def __repr__(self):
         return repr(self.value)
@@ -22,7 +22,7 @@ class _parameter:
 
     @property
     def value(self):
-        if self._bound is not self:
+        if self._bound not in (None, self):
             return self._bound.value
         return self._value
 
@@ -98,7 +98,7 @@ class computeBase(qBase):
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
 
-        self.__delStates = True
+        self.__delStates = _parameter(True)
 
         self.compute = None
         self.calculate = None
@@ -110,11 +110,11 @@ class computeBase(qBase):
 
     @property
     def delStates(self):
-        return self.__delStates
+        return self._computeBase__delStates.value
 
     @delStates.setter
     def delStates(self, boolean):
-        self.__delStates = boolean
+        self._computeBase__delStates.value = boolean
 
     def __compute(self, states):
         if callable(self.compute):
