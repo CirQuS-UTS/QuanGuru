@@ -15,21 +15,6 @@ from qTools.classes.QUni import qUniversal
 #                initialState(obj, inp)
 #        return wrapper
 #    return InitialStateDecorator
-
-
-def InitialStateDecorator(initialState):
-    def wrapper(obj, inp):
-        obj._qBase__initialStateInput.value = inp # pylint: disable=protected-access
-        if sp.issparse(inp):
-            if inp.shape[0] == obj.dimension:
-                obj._qBase__initialState.value = inp # pylint: disable=protected-access
-                initialState(obj, 'sparse')
-            else:
-                raise ValueError('Dimension mismatch')
-        else:
-            initialState(obj, inp)
-    return wrapper
-
 def addCreateInstance(functionToCall):
     def systemAddCreateDecorator():
         def wrapper(obj, clsInst, *args, **kwargs):
