@@ -46,12 +46,10 @@ class qBase(qUniversal):
     instances = 0
     label = '_qBase'
 
-    __slots__ = ['__initialState', '__paramUpdated', '__initialStateInput', '__paramBound', 'qRes']
+    __slots__ = ['__paramUpdated', '__paramBound', 'qRes']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
-        self.__initialState = _parameter(None)
-        self.__initialStateInput = _parameter(None)
         self.__paramUpdated = False
         self.__paramBound = OrderedDict()
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -88,23 +86,18 @@ class qBase(qUniversal):
                 if hasattr(sys, '_paramUpdated'):
                     sys._paramUpdated = boolean
 
-    @property
-    def initialState(self):
-        return self._qBase__initialState.value
-
-    @property
-    def _initialStateInput(self):
-        return self._qBase__initialStateInput.value
-
 
 class computeBase(qBase):
     instances = 0
     label = 'computeBase'
 
-    __slots__ = ['__delStates', 'compute', 'calculate']
+    __slots__ = ['__delStates', 'compute', 'calculate', '__initialState', '__initialStateInput']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+
+        self.__initialState = _parameter(None)
+        self.__initialStateInput = _parameter(None)
 
         self.__delStates = _parameter(False)
 
@@ -112,6 +105,14 @@ class computeBase(qBase):
         self.calculate = None
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def initialState(self):
+        return self._computeBase__initialState.value
+
+    @property
+    def _initialStateInput(self):
+        return self._computeBase__initialStateInput.value
 
     def getResultByName(self, name):
         return super().getObjByName(name)
