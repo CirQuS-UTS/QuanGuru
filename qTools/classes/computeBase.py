@@ -57,6 +57,14 @@ class qBase(qUniversal):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.qRes = qResults(superSys=self)
 
+    @property
+    def results(self):
+        return self.qRes.results
+
+    @property
+    def states(self):
+        return self.qRes.states
+
     @checkClass('qBase', '_qBase__paramBound')
     def _createParamBound(self, bound, **kwargs):
         bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -98,7 +106,7 @@ class computeBase(qBase):
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
 
-        self.__delStates = _parameter(True)
+        self.__delStates = _parameter(False)
 
         self.compute = None
         self.calculate = None
