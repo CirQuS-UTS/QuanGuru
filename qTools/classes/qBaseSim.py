@@ -33,7 +33,7 @@ class qBaseSim(qBase):
 
     def delMatrices(self):
         self._qUniversal__matrix = None # pylint: disable=assigning-non-slot
-        self._qBase__initialState.value = None # pylint: disable=assigning-non-slot, no-member
+        self.simulation._computeBase__initialState.value = None # pylint: disable=no-member, protected-access
         for sys in self._qBase__paramBound.values(): # pylint: disable=no-member
             if (hasattr(sys, 'delMatrices') and (sys is not self)):
                 sys.delMatrices()

@@ -30,15 +30,14 @@ class genericProtocol(qBaseSim):
 
     @property
     def initialState(self):
-        if self._qBase__initialState.value is None: # pylint: disable=no-member
-            self._qBase__initialState.value = self.superSys._initialState(self._qBase__initialStateInput.value) # pylint: disable=protected-access, no-member
-        return self._qBase__initialState.value # pylint: disable=no-member
+        if self.simulation._computeBase__initialState.value is None: # pylint: disable=protected-access
+            self.simulation._computeBase__initialState.value = self.superSys._initialState(self.simulation._initialStateInput) # pylint: disable=protected-access, no-member
+        return self.simulation._computeBase__initialState.value # pylint: disable=protected-access
 
-    # @initialState.setter # pylint: disable=no-member
-    # def initialState(self, inp):
-    #     self._qBase__initialStateInput.value = inp # pylint: disable=no-member
-    #     self._qBase__initialState.value = self.superSys._initialState(inp) # pylint: disable=protected-access, no-member
-    #     self.simulation.initialState = self._qBase__initialState.value # pylint: disable=no-member
+    @initialState.setter # pylint: disable=no-member
+    def initialState(self, inp):
+        self.simulation._computeBase__initialStateInput.value = inp # pylint: disable=protected-access
+        self.simulation._computeBase__initialState.value = self.superSys._initialState(inp) # pylint: disable=protected-access, no-member
 
     def save(self):
         saveDict = super().save()
