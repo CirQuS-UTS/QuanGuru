@@ -1,9 +1,10 @@
-from numpy import (int64, int32, int16)
+from numpy import (int64, int32, int16, ndarray)
+from scipy.sparse import issparse
 import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.qBaseSim import qBaseSim
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
-from qTools.classes.extensions.QSysDecorators import InitialStateDecorator, constructConditions
+from qTools.classes.extensions.QSysDecorators import constructConditions
 from qTools.classes.QPro import freeEvolution
 
 
@@ -151,12 +152,20 @@ class QuantumSystem(genericQSys):
         return cham
 
     @genericQSys.initialState.setter # pylint: disable=no-member
-    @InitialStateDecorator
     def initialState(self, inp):
-        if inp != 'sparse':
+        self._qBase__initialStateInput.value = inp # pylint: disable=no-member
+        if not (issparse(inp) or isinstance(inp, ndarray)):
             for ind, it in enumerate(inp):
                 list(self.qSystems.values())[ind].initialState = it
-            self._qBase__initialState.value = qSta.compositeState([val.dimension for val in self.subSys.values()], inp) # pylint: disable=assigning-non-slot, no-member
+        self._qBase__initialState.value = self._initialState(inp) # pylint: disable=no-member
+        #self._genericQSys__unitary.initialState = self._qBase__initialState.value # pylint: disable=protected-access, no-member
+
+    def _initialState(self, inp):
+        if (issparse(inp) or isinstance(inp, ndarray)):
+            if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
+                return inp
+            raise ValueError('Dimension mismatch')
+        return qSta.compositeState([val.dimension for val in self.subSys.values()], inp)
 
     # adding or creating a new sub system to composite system
     def add(self, *args):
@@ -351,12 +360,20 @@ class qSystem(genericQSys):
             self._constructMatrices()
 
     @genericQSys.initialState.setter # pylint: disable=no-member
-    @InitialStateDecorator
-    def initialState(self, state):
-        if state != 'sparse':
+    def initialState(self, inp):
+        self._qBase__initialStateInput.value = inp # pylint: disable=no-member
+        if not (issparse(inp) or isinstance(inp, ndarray)):
             for sys in self.subSys.values():
-                sys._qBase__initialStateInput.value = state # pylint: disable=protected-access
-            self._qBase__initialState.value = qSta.compositeState([self._genericQSys__dimension], [state]) # pylint: disable=assigning-non-slot, no-member
+                sys._qBase__initialStateInput.value = inp # pylint: disable=protected-access
+                sys._qBase__initialState.value = sys._initialState(inp) # pylint: disable=protected-access
+                #sys._genericQSys__unitary.initialState = sys._qBase__initialState.value # pylint: disable=protected-access
+
+    def _initialState(self, inp):
+        if (issparse(inp) or isinstance(inp, ndarray)):
+            if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
+                return inp
+            raise ValueError('Dimension mismatch')
+        return qSta.compositeState([self._genericQSys__dimension], [inp]) # pylint: disable=no-member
 
     @property
     def operator(self):
