@@ -127,10 +127,10 @@ class Simulation(timeBase):
 
     def __compute(self):
         states = []
-        for protoc in self.subSys.keys():
-            states.append(protoc.lastState)
-            if protoc.simulation.delStates is False:
-                self.qRes.states[protoc.name].append(protoc.lastState)
+        for protocol in self.subSys.keys():
+            states.append(protocol.lastState)
+            if protocol.simulation.delStates is False:
+                self.qRes.states[protocol.name].append(protocol.lastState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None):
@@ -139,10 +139,10 @@ class Simulation(timeBase):
         self._freeEvol()
         for qSys in self.subSys.values():
             qSys._constructMatrices() # pylint: disable=protected-access
-        for protoc in self.subSys.keys():
+        for protocol in self.subSys.keys():
             # TODO this will be modified after the structural changes of qPro objects
             #protoc.simulation = self
-            protoc.prepare()
+            protocol.prepare()
         self.Sweep.prepare()
         for qres in self.qRes.allResults.values():
             qres._reset() # pylint: disable=protected-access
