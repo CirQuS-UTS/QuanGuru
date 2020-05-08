@@ -30,14 +30,14 @@ class genericProtocol(qBaseSim):
 
     @property
     def initialState(self):
-        if self.simulation._computeBase__initialState.value is None: # pylint: disable=protected-access
-            self.simulation._computeBase__initialState.value = self.superSys._initialState(self.simulation._initialStateInput) # pylint: disable=protected-access, no-member
-        return self.simulation._computeBase__initialState.value # pylint: disable=protected-access
+        if self.simulation._stateBase__initialState.value is None: # pylint: disable=protected-access
+            self.simulation._stateBase__initialState.value = self.superSys._initialState(self.simulation._initialStateInput) # pylint: disable=protected-access, no-member
+        return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
 
     @initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
-        self.simulation._computeBase__initialStateInput.value = inp # pylint: disable=protected-access
-        self.simulation._computeBase__initialState.value = self.superSys._initialState(inp) # pylint: disable=protected-access, no-member
+        self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
+        self.simulation._stateBase__initialState.value = self.superSys._initialState(inp) # pylint: disable=protected-access, no-member
 
     def save(self):
         saveDict = super().save()
@@ -105,7 +105,7 @@ class genericProtocol(qBaseSim):
     @qBaseSim.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
         qBaseSim.superSys.fset(self, supSys) # pylint: disable=no-member
-        supSys._qBase__paramBound[self.name] = self # pylint: disable=protected-access
+        supSys._computeBase__paramBound[self.name] = self # pylint: disable=protected-access
         self.simulation._bound(supSys.simulation) # pylint: disable=protected-access
         self.simulation._qUniversal__subSys[self] = self.superSys # pylint: disable=protected-access
 
@@ -116,9 +116,9 @@ class genericProtocol(qBaseSim):
                 unitary = self._qUniversal__matrix # pylint: disable=no-member
             else:
                 unitary = self.getUnitary() # pylint: disable=assignment-from-no-return
-                self._qBase__paramUpdated = False  # pylint: disable=assigning-non-slot
+                self._computeBase__paramUpdated = False  # pylint: disable=assigning-non-slot
         else:
-            self._qBase__paramUpdated = False  # pylint: disable=assigning-non-slot
+            self._computeBase__paramUpdated = False  # pylint: disable=assigning-non-slot
             unitary = self.getUnitary() # pylint: disable=assignment-from-no-return
         return unitary
 
@@ -144,7 +144,7 @@ class qProtocol(genericProtocol):
             Copy step ensures the exponentiation
         '''
         for step in args:
-            self._qBase__paramBound[step.name] = step # pylint: disable=no-member
+            self._computeBase__paramBound[step.name] = step # pylint: disable=no-member
             if step._genericProtocol__inProtocol:
                 super().addSubSys(copyStep(step))
             else:
@@ -191,7 +191,7 @@ class Step(genericProtocol):
             super().getUnitary(callAfterUpdate=callAfterUpdate)
         elif ((self.fixed is False) and ((self._paramUpdated is True) or (self._qUniversal__matrix is None))): # pylint: disable=no-member
             super().getUnitary(callAfterUpdate=callAfterUpdate)
-        self._qBase__paramUpdated = False # pylint: disable=assigning-non-slot
+        self._computeBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._qUniversal__matrix # pylint: disable=no-member
 
     def createUnitary(self):

@@ -75,7 +75,7 @@ class timeBase(computeBase):
         self._paramUpdated = True
         self._timeBase__samples.value = num # pylint: disable=assigning-non-slot
 
-    def _bound(self, other, params=['_computeBase__delStates', '_computeBase__initialState', '_computeBase__initialStateInput']): # pylint: disable=dangerous-default-value
+    def _bound(self, other, params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput']): # pylint: disable=dangerous-default-value
         keys = ['_timeBase__stepSize', '_timeBase__finalTime', '_timeBase__step']
         keysProp = ['stepSize', 'finalTime', 'stepCount']
         bounding = True

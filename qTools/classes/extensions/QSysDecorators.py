@@ -4,10 +4,10 @@ from qTools.classes.QUni import qUniversal
 # def asignState(stateCreationFunc):
 #    def InitialStateDecorator(initialState):
 #        def wrapper(obj, inp):
-#            obj._computeBase__initialStateInput = inp
+#            obj._stateBase__initialStateInput = inp
 #            if sp.issparse(inp):
 #                if inp.shape[0] == obj.dimension:
-#                    obj._computeBase__initialState = inp
+#                    obj._stateBase__initialState = inp
 #                else:
 #                    print('Dimension mismatch')
 #            else:
