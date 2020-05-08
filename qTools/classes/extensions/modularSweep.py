@@ -55,8 +55,8 @@ def parallelTimeEvol(qSim, evolFunc, ind):
 # In the timeDependet case, evolFunc of first fuctioon is the second function
 def _runSweepAndPrep(qSim, ind, evolFunc):
     qSim.Sweep.runSweep(indicesForSweep(ind, *qSim.Sweep.inds))
-    for protoc, qSys in qSim.subSys.items():
-        protoc.lastState = qSys.initialState
+    for protoc in qSim.subSys.keys():
+        protoc.lastState = protoc.simulation.initialState
     qSim.qRes._resetLast(calculateException=qSim.qRes) # pylint: disable=protected-access
     evolFunc(qSim)
 

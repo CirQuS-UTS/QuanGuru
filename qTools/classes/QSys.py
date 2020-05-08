@@ -158,6 +158,7 @@ class QuantumSystem(genericQSys):
             for ind, it in enumerate(inp):
                 list(self.qSystems.values())[ind].initialState = it
         self._qBase__initialState.value = self._initialState(inp) # pylint: disable=no-member
+        self.simulation._qBase__initialState.value = self._qBase__initialState.value # pylint: disable=protected-access, no-member
         #self._genericQSys__unitary.initialState = self._qBase__initialState.value # pylint: disable=protected-access, no-member
 
     def _initialState(self, inp):

@@ -27,8 +27,18 @@ class Simulation(timeBase):
 
         self.__allInstances = Simulation.simInstances
 
-        #self._computeBase__delStates = False # pylint: disable=assigning-non-slot
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+
+    # @property
+    # def initialState(self):
+    #     if self._qBase__initialState.value is None: # pylint: disable=no-member
+    #         self._qBase__initialState.value = list(self.subSys.values())[0]._initialState(self._qBase__initialStateInput.value) # pylint: disable=protected-access, no-member
+    #     return self._qBase__initialState.value # pylint: disable=no-member
+
+    # @initialState.setter # pylint: disable=no-member
+    # def initialState(self, inp):
+    #     self._qBase__initialStateInput.value = inp # pylint: disable=no-member
+    #     self._qBase__initialState.value = list(self.subSys.values())[0]._initialState(inp) # pylint: disable=protected-access, no-member
 
     def save(self):
         saveDict = super().save()
@@ -66,7 +76,8 @@ class Simulation(timeBase):
     def addQSystems(self, subS, Protocol=None, **kwargs):
         # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS, **kwargs)
-        subS.simulation._bound(self) # pylint: disable=protected-access
+        if subS.simulation is not self:
+            subS.simulation._bound(self) # pylint: disable=protected-access
         if Protocol is not None:
             self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name) # pylint: disable=no-member
         return (subS, Protocol)
@@ -114,8 +125,6 @@ class Simulation(timeBase):
     # overwriting methods from qUniversal
     def addSubSys(self, subS, Protocol=None, **kwargs): # pylint: disable=arguments-differ
         newSys = super().addSubSys(subS, **kwargs)
-        if newSys.simulation is not self:
-            newSys.simulation._bound(self) # pylint: disable=protected-access
         newSys, Protocol = self.addQSystems(newSys, Protocol)
         return newSys
 
