@@ -29,17 +29,6 @@ class Simulation(timeBase):
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
-    @property
-    def initialState(self):
-        if self._computeBase__initialState.value is None: # pylint: disable=no-member
-            self._computeBase__initialState.value = list(self.subSys.values())[0]._initialState(self._initialStateInput) # pylint: disable=protected-access, no-member
-        return self._computeBase__initialState.value # pylint: disable=no-member
-
-    @initialState.setter # pylint: disable=no-member
-    def initialState(self, inp):
-        self._computeBase__initialStateInput.value = inp # pylint: disable=no-member
-        self._computeBase__initialState.value = list(self.subSys.values())[0]._initialState(inp) # pylint: disable=protected-access, no-member
-
     def save(self):
         saveDict = super().save()
         sysDict = {}
