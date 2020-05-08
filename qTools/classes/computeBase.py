@@ -108,7 +108,9 @@ class computeBase(qBase):
 
     @property
     def initialState(self):
-        return self._computeBase__initialState.value
+        if self._computeBase__initialState.value is None: # pylint: disable=no-member
+            self._computeBase__initialState.value = list(self.subSys.values())[0]._initialState(self._initialStateInput) # pylint: disable=protected-access, no-member
+        return self._computeBase__initialState.value # pylint: disable=no-member
 
     @property
     def _initialStateInput(self):

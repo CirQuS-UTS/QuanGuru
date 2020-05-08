@@ -1,14 +1,13 @@
-import scipy.sparse as sp
 from qTools.classes.QUni import qUniversal
 
 
 # def asignState(stateCreationFunc):
 #    def InitialStateDecorator(initialState):
 #        def wrapper(obj, inp):
-#            obj._qBase__initialStateInput = inp
+#            obj._computeBase__initialStateInput = inp
 #            if sp.issparse(inp):
 #                if inp.shape[0] == obj.dimension:
-#                    obj._qBase__initialState = inp
+#                    obj._computeBase__initialState = inp
 #                else:
 #                    print('Dimension mismatch')
 #            else:

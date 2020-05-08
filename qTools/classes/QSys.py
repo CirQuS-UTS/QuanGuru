@@ -25,11 +25,11 @@ class genericQSys(qBaseSim):
 
     def save(self):
         saveDict = super().save()
-        if self._qBase__initialStateInput.value is not None: # pylint: disable=no-member
-            if hasattr(self._qBase__initialStateInput.value, 'A'): # pylint: disable=no-member
-                saveDict['_qBase__initialStateInput'] = self._qBase__initialStateInput.value.A # pylint: disable=no-member
+        if self.simulation._computeBase__initialStateInput.value is not None: # pylint: disable=no-member, protected-access
+            if hasattr(self.simulation._computeBase__initialStateInput.value, 'A'): # pylint: disable=no-member, protected-access
+                saveDict['_computeBase__initialStateInput'] = self.simulation._computeBase__initialStateInput.value.A # pylint: disable=no-member, protected-access
             else:
-                saveDict['_qBase__initialStateInput'] = self._qBase__initialStateInput.value # pylint: disable=no-member
+                saveDict['_computeBase__initialStateInput'] = self.simulation._computeBase__initialStateInput.value # pylint: disable=no-member, protected-access
         return saveDict
 
     @property
@@ -63,17 +63,17 @@ class genericQSys(qBaseSim):
     @property
     def initialState(self):
         """
-            This works by assuming that its setter/s makes sure that _qBase__initialState.value is not None for single systems,
+            This works by assuming that its setter/s makes sure that _computeBase__initialState.value is not None for single systems,
             if its state is set.
             If single system initial state is not set, it will try creating here, but single system does not have qSystem,
             so will raise the below error.
         """
-        if self._qBase__initialState.value is None: # pylint: disable=no-member
+        if self.simulation._computeBase__initialState.value is None: # pylint: disable=protected-access
             try:
-                self._qBase__initialState.value = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=assigning-non-slot
+                self.simulation.initialState = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=protected-access
             except AttributeError:
                 raise ValueError(self.name + ' is not given an initial state')
-        return self._qBase__initialState.value # pylint: disable=no-member
+        return self.simulation._computeBase__initialState.value # pylint: disable=protected-access
 
     def dress(self):
         pass
@@ -153,13 +153,11 @@ class QuantumSystem(genericQSys):
 
     @genericQSys.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
-        self._qBase__initialStateInput.value = inp # pylint: disable=no-member
+        self.simulation._computeBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
         if not (issparse(inp) or isinstance(inp, ndarray)):
             for ind, it in enumerate(inp):
                 list(self.qSystems.values())[ind].initialState = it
-        self._qBase__initialState.value = self._initialState(inp) # pylint: disable=no-member
-        self.simulation._qBase__initialState.value = self._qBase__initialState.value # pylint: disable=protected-access, no-member
-        #self._genericQSys__unitary.initialState = self._qBase__initialState.value # pylint: disable=protected-access, no-member
+        self.simulation._computeBase__initialState.value = self._initialState(inp) # pylint: disable=no-member, protected-access
 
     def _initialState(self, inp):
         if (issparse(inp) or isinstance(inp, ndarray)):
@@ -277,13 +275,13 @@ class QuantumSystem(genericQSys):
             elif qS.ind > ind:
                 qS._qSystem__dimsBefore = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
 
-        if self._qBase__initialStateInput.value is not None: # pylint: disable=no-member
-            self.initialState = self._qBase__initialStateInput.value # pylint: disable=no-member
+        if self.simulation._computeBase__initialStateInput.value is not None: # pylint: disable=no-member, protected-access
+            self.initialState = self.simulation._computeBase__initialStateInput.value # pylint: disable=no-member, protected-access
         self._paramUpdated = True
         self._constructMatrices()
         for sys in self.subSys.values():
-            if sys._qBase__initialStateInput.value is not None: # pylint: disable=protected-access
-                sys.initialState = sys._qBase__initialStateInput.value # pylint: disable=protected-access
+            if sys.simulation._computeBase__initialStateInput.value is not None: # pylint: disable=protected-access
+                sys.initialState = sys.simulation._computeBase__initialStateInput.value # pylint: disable=protected-access
         return qSys
 
 # quantum system objects
@@ -330,8 +328,8 @@ class qSystem(genericQSys):
         for sys in self.subSys.values():
             sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
             sys.delMatrices() # pylint: disable=protected-access
-            if sys._qBase__initialStateInput.value is not None: # pylint: disable=protected-access
-                sys.initialState = sys._qBase__initialStateInput.value # pylint: disable=protected-access
+            if sys.simulation._computeBase__initialStateInput.value is not None: # pylint: disable=protected-access
+                sys.initialState = sys.simulation._computeBase__initialStateInput.value # pylint: disable=protected-access
             sys._paramUpdated = True
 
         if isinstance(self.superSys, QuantumSystem):
@@ -362,12 +360,11 @@ class qSystem(genericQSys):
 
     @genericQSys.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
-        self._qBase__initialStateInput.value = inp # pylint: disable=no-member
+        self.simulation._computeBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
         if not (issparse(inp) or isinstance(inp, ndarray)):
             for sys in self.subSys.values():
-                sys._qBase__initialStateInput.value = inp # pylint: disable=protected-access
-                sys._qBase__initialState.value = sys._initialState(inp) # pylint: disable=protected-access
-                #sys._genericQSys__unitary.initialState = sys._qBase__initialState.value # pylint: disable=protected-access
+                sys.simulation._computeBase__initialStateInput.value = inp # pylint: disable=protected-access
+                sys.simulation._computeBase__initialState.value = sys._initialState(inp) # pylint: disable=protected-access
 
     def _initialState(self, inp):
         if (issparse(inp) or isinstance(inp, ndarray)):
