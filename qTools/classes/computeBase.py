@@ -8,8 +8,8 @@ class _parameter:
         self._value = value
         self._bound = None
 
-    def __repr__(self):
-        return repr(self.value)
+    # def __repr__(self):
+    #     return repr(self.value)
 
     @property
     def bound(self):
@@ -41,16 +41,50 @@ class _parameter:
         else:
             object.__setattr__(self.value, name, value)
 
-class computeBase(qUniversal):
-    instances = 0
-    label = '_qBase'
 
-    __slots__ = ['__paramUpdated', '__paramBound', 'qRes', 'compute', 'calculate']
+class paramBoundBase(qUniversal):
+    instances = 0
+    label = 'paramBoundBase'
+
+    __slots__ = ['__paramUpdated', '__paramBound']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.__paramUpdated = False
         self.__paramBound = OrderedDict()
+
+    @checkClass('qBase', '_paramBoundBase__paramBound')
+    def _createParamBound(self, bound, **kwargs):
+        bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._paramBoundBase__paramBound[bound.name] = bound
+
+    @checkClass('qBase', '_paramBoundBase__paramBound')
+    def _breakParamBound(self, bound, **kwargs):
+        bound._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
+        obj = self._paramBoundBase__paramBound.pop(bound.name)
+        print(obj.name + ' is removed from paramBound of ' + self.name)
+
+    @property
+    def _paramUpdated(self):
+        return self._paramBoundBase__paramUpdated
+
+    @_paramUpdated.setter
+    def _paramUpdated(self, boolean):
+        self._paramBoundBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
+        for sys in self._paramBoundBase__paramBound.values():
+            if sys is not self:
+                if hasattr(sys, '_paramUpdated'):
+                    sys._paramUpdated = boolean
+
+
+class computeBase(paramBoundBase):
+    instances = 0
+    label = '_qBase'
+
+    __slots__ = ['qRes', 'compute', 'calculate']
+
+    def __init__(self, **kwargs):
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.compute = None
         self.calculate = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -71,29 +105,6 @@ class computeBase(qUniversal):
     @property
     def states(self):
         return self.qRes.states
-
-    @checkClass('qBase', '_computeBase__paramBound')
-    def _createParamBound(self, bound, **kwargs):
-        bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-        self._computeBase__paramBound[bound.name] = bound
-
-    @checkClass('qBase', '_computeBase__paramBound')
-    def _breakParamBound(self, bound, **kwargs):
-        bound._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
-        obj = self._computeBase__paramBound.pop(bound.name)
-        print(obj.name + ' is removed from paramBound of ' + self.name)
-
-    @property
-    def _paramUpdated(self):
-        return self._computeBase__paramUpdated
-
-    @_paramUpdated.setter
-    def _paramUpdated(self, boolean):
-        self._computeBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
-        for sys in self._computeBase__paramBound.values():
-            if sys is not self:
-                if hasattr(sys, '_paramUpdated'):
-                    sys._paramUpdated = boolean
 
 
 class stateBase(computeBase):
