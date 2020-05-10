@@ -46,10 +46,11 @@ class paramBoundBase(qUniversal):
     instances = 0
     label = 'paramBoundBase'
 
-    __slots__ = ['__paramUpdated', '__paramBound']
+    __slots__ = ['__paramUpdated', '__paramBound', '__matrix']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        self.__matrix = None
         self.__paramUpdated = False
         self.__paramBound = OrderedDict()
 
@@ -75,6 +76,12 @@ class paramBoundBase(qUniversal):
             if sys is not self:
                 if hasattr(sys, '_paramUpdated'):
                     sys._paramUpdated = boolean
+
+    def delMatrices(self):
+        self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
+        for sys in self._paramBoundBase__paramBound.values(): # pylint: disable=no-member
+            if (hasattr(sys, 'delMatrices') and (sys is not self)):
+                sys.delMatrices()
 
 
 class computeBase(paramBoundBase):
@@ -147,3 +154,7 @@ class stateBase(computeBase):
     @delStates.setter
     def delStates(self, boolean):
         self._stateBase__delStates.value = boolean
+
+    def delMatrices(self):
+        super().delMatrices()
+        self._stateBase__initialState.value = None # pylint: disable=no-member, protected-access

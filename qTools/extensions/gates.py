@@ -19,10 +19,10 @@ class xGate(Gate):
         self._xGate__angle = val # pylint: disable=assigning-non-slot
 
     def instantFlip(self):
-        if self._qUniversal__matrix is None: # pylint: disable=no-member
+        if self._paramBoundBase__matrix is None: # pylint: disable=no-member
             flipOp = operators.compositeOp(operators.sigmax(), self.superSys._qSystem__dimsBefore, self.superSys._qSystem__dimsAfter) # pylint: disable=no-member
-            self._qUniversal__matrix = flipOp # pylint: disable=assigning-non-slot
-        return self._qUniversal__matrix # pylint: disable=no-member
+            self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def createUnitary(self):
         if self.implementation == 'instant':

@@ -58,10 +58,9 @@ def _runSweepAndPrep(qSim, ind, evolFunc):
     for protocol in qSim.subSys.keys():
         protocol.lastState = protocol.initialState
     qSim.qRes._resetLast(calculateException=qSim.qRes) # pylint: disable=protected-access
-    qSim._computeBase__calculate() # pylint: disable=protected-access
     for protocol, system in qSim.subSys.items():
-        protocol._computeBase__calculate() # pylint: disable=protected-access
-        system._computeBase__calculate() # pylint: disable=protected-access
+        protocol._computeBase__calculate([system], [protocol]) # pylint: disable=protected-access
+        system._computeBase__calculate([system], [protocol]) # pylint: disable=protected-access
     evolFunc(qSim)
 
 def timeDependent(qSim):

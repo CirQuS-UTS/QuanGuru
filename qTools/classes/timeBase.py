@@ -1,7 +1,7 @@
-from qTools.classes.computeBase import computeBase, _parameter
+from qTools.classes.computeBase import stateBase, _parameter
 
 
-class timeBase(computeBase):
+class timeBase(stateBase):
     instances = 0
     label = 'timeBase'
 

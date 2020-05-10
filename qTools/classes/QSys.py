@@ -3,6 +3,7 @@ from scipy.sparse import issparse
 import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.states as qSta
 from qTools.classes.qBaseSim import qBaseSim
+from qTools.classes.computeBase import paramBoundBase
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import constructConditions
 from qTools.classes.QPro import freeEvolution
@@ -20,6 +21,7 @@ class genericQSys(qBaseSim):
         super().__init__(name=kwargs.pop('name', None))
         self.__unitary = freeEvolution(_internal=True)
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
+        self._qBaseSim__simulation.subSys[self._freeEvol] = self # pylint: disable=no-member
         self.__dimension = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -188,7 +190,7 @@ class QuantumSystem(genericQSys):
             self._QuantumSystem__addSub(newSys)
         else:
             raise TypeError('?')
-        newSys._computeBase__paramBound[self.name] = self # pylint: disable=protected-access
+        newSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         return newSys
 
     def createSubSys(self, subClass=None, n=1, **kwargs): # pylint: disable=arguments-differ
@@ -205,8 +207,8 @@ class QuantumSystem(genericQSys):
             subSys._qSystem__dimsBefore *= subS._genericQSys__dimension
             subS._qSystem__dimsAfter *= subSys._genericQSys__dimension
 
-        if subSys._qUniversal__matrix is not None:
-            subSys._qUniversal__matrix = None
+        if subSys._paramBoundBase__matrix is not None:
+            subSys._paramBoundBase__matrix = None
 
         self._QuantumSystem__qSystems[subSys.name] = subSys
         setattr(subSys, '_qUniversal__ind', len(self._QuantumSystem__qSystems))
@@ -337,14 +339,14 @@ class qSystem(genericQSys):
 
     @genericQSys.totalHam.getter # pylint: disable=no-member
     def totalHam(self): # pylint: disable=invalid-overridden-method
-        h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
+        h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values() if obj.frequency != 0])
         return h
 
     @property
     def freeMat(self):
-        if self._qUniversal__matrix is None: # pylint: disable=no-member
+        if self._paramBoundBase__matrix is None: # pylint: disable=no-member
             self.freeMat = None
-        return self._qUniversal__matrix # pylint: disable=no-member
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @freeMat.setter
     def freeMat(self, qOpsFunc):
@@ -352,7 +354,7 @@ class qSystem(genericQSys):
             self.operator = qOpsFunc
             self._constructMatrices()
         elif qOpsFunc is not None:
-            self._qUniversal__matrix = qOpsFunc  # pylint: disable=assigning-non-slot
+            self._paramBoundBase__matrix = qOpsFunc  # pylint: disable=assigning-non-slot
         else:
             if self.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
@@ -360,11 +362,11 @@ class qSystem(genericQSys):
 
     @genericQSys.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
-        self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
-        if not (issparse(inp) or isinstance(inp, ndarray)):
-            for sys in self.subSys.values():
-                sys.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
-                sys.simulation._stateBase__initialState.value = sys._initialState(inp) # pylint: disable=protected-access
+        # self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
+        # if not (issparse(inp) or isinstance(inp, ndarray)):
+        for sys in self.subSys.values():
+            sys.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
+            sys.simulation._stateBase__initialState.value = sys._initialState(inp) # pylint: disable=protected-access
 
     def _initialState(self, inp):
         if (issparse(inp) or isinstance(inp, ndarray)):
@@ -388,6 +390,8 @@ class qSystem(genericQSys):
 
     @frequency.setter
     def frequency(self, freq):
+        if freq == 0.0:
+            freq = 0
         self._paramUpdated = True
         self._qSystem__frequency = freq # pylint: disable=assigning-non-slot
 
@@ -415,12 +419,12 @@ class qSystem(genericQSys):
     def _constructMatrices(self):
         for sys in self.subSys.values():
             try:
-                sys._qUniversal__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension), # pylint: disable=no-member
+                sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension), # pylint: disable=no-member
                                                            self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             except: # pylint: disable=bare-except
-                sys._qUniversal__matrix = qOps.compositeOp(sys.operator(), # pylint: disable=no-member
+                sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator(), # pylint: disable=no-member
                                                            self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
-        return self._qUniversal__matrix # pylint: disable=no-member
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
 class Qubit(qSystem):
     instances = 0
@@ -469,7 +473,7 @@ class Cavity(qSystem):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
 # quantum coupling object
-class qCoupling(genericQSys):
+class qCoupling(paramBoundBase):
     instances = 0
     label = 'qCoupling'
 
@@ -507,21 +511,21 @@ class qCoupling(genericQSys):
     # so these should be generalised and explicit ones moved into sysCoupling
     @property
     def totalHam(self):
-        h = self.couplingStrength * self.freeMat
-        return h
+        h = [self.couplingStrength * self.freeMat]
+        return sum(h) if self.couplingStrength != 0 else sum([])
 
     @property
     def freeMat(self):
-        return self._qUniversal__matrix # pylint: disable=no-member
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @freeMat.setter
     def freeMat(self, qMat):
         if qMat is not None:
-            self._qUniversal__matrix = qMat # pylint: disable=no-member, assigning-non-slot
+            self._paramBoundBase__matrix = qMat # pylint: disable=no-member, assigning-non-slot
         else:
             if len(self._qCoupling__cFncs) == 0:
                 raise ValueError('No operator is given for coupling Hamiltonian')
-            self._qUniversal__matrix = self._qCoupling__getCoupling() # pylint: disable=no-member, assigning-non-slot
+            self._paramBoundBase__matrix = self._qCoupling__getCoupling() # pylint: disable=no-member, assigning-non-slot
 
     @property
     def couplingStrength(self):
