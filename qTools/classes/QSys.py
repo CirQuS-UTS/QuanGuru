@@ -186,7 +186,7 @@ class QuantumSystem(genericQSys):
         newSys = super().addSubSys(subSys, **kwargs)
         if isinstance(newSys, qCoupling):
             self._QuantumSystem__addCoupling(self._qUniversal__subSys.pop(newSys.name))  # pylint: disable=no-member
-        elif isinstance(newSys, (qSystem, self.__class__)):
+        elif isinstance(newSys, genericQSys):
             self._QuantumSystem__addSub(newSys)
         else:
             raise TypeError('?')
@@ -204,15 +204,19 @@ class QuantumSystem(genericQSys):
 
     def __addSub(self, subSys):
         for subS in self._QuantumSystem__qSystems.values():
-            subSys._qSystem__dimsBefore *= subS._genericQSys__dimension
-            subS._qSystem__dimsAfter *= subSys._genericQSys__dimension
+            for sys in subS.subSys.values():
+                subS._qSystem__dimsAfter *= subSys.dimension
+            for sys in subSys.subSys.values():
+                sys._qSystem__dimsBefore *= subS.dimension
 
         if subSys._paramBoundBase__matrix is not None:
-            subSys._paramBoundBase__matrix = None
+            for sys in subSys.subSys.values():
+                sys._paramBoundBase__matrix = None
 
         self._QuantumSystem__qSystems[subSys.name] = subSys
-        setattr(subSys, '_qUniversal__ind', len(self._QuantumSystem__qSystems))
-        subSys.superSys = self
+        for sys in subSys.subSys.values():
+            setattr(sys, '_qUniversal__ind', len(self._QuantumSystem__qSystems))
+            sys.superSys = self
         return subSys
 
     # adding or creating a new coupling
