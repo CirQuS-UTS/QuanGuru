@@ -77,11 +77,14 @@ class paramBoundBase(qUniversal):
                 if hasattr(sys, '_paramUpdated'):
                     sys._paramUpdated = boolean
 
-    def delMatrices(self):
-        self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
-        for sys in self._paramBoundBase__paramBound.values(): # pylint: disable=no-member
-            if (hasattr(sys, 'delMatrices') and (sys is not self)):
-                sys.delMatrices()
+    def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
+        if self not in _exclude:
+            self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
+            _exclude.append(self)
+            for sys in self._paramBoundBase__paramBound.values(): # pylint: disable=no-member
+                if hasattr(sys, 'delMatrices'):
+                    _exclude = sys.delMatrices(_exclude)
+        return _exclude
 
 
 class computeBase(paramBoundBase):
@@ -155,6 +158,8 @@ class stateBase(computeBase):
     def delStates(self, boolean):
         self._stateBase__delStates.value = boolean
 
-    def delMatrices(self):
-        super().delMatrices()
-        self._stateBase__initialState.value = None # pylint: disable=no-member, protected-access
+    def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
+        if self not in _exclude:
+            _exclude = super().delMatrices(_exclude)
+            self._stateBase__initialState.value = None # pylint: disable=no-member, protected-access
+        return _exclude

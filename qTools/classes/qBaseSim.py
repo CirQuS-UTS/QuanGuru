@@ -31,6 +31,8 @@ class qBaseSim(computeBase):
                     if hasattr(sys, 'simulation'):
                         sys.simulation = sim
 
-    def delMatrices(self):
-        super().delMatrices()
-        self.simulation.delMatrices()
+    def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
+        if self not in _exclude:
+            _exclude = super().delMatrices(_exclude)
+            _exclude = self.simulation.delMatrices(_exclude)
+        return _exclude

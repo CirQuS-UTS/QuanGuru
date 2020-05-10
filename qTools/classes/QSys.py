@@ -420,10 +420,10 @@ class qSystem(genericQSys):
         for sys in self.subSys.values():
             try:
                 sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension), # pylint: disable=no-member
-                                                           self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+                                                               self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             except: # pylint: disable=bare-except
                 sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator(), # pylint: disable=no-member
-                                                           self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+                                                               self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
 class Qubit(qSystem):
