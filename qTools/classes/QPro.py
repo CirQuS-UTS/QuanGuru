@@ -103,7 +103,7 @@ class genericProtocol(qBaseSim):
             self.getUnitary()
 
         for step in self.subSys.values():
-            if not isinstance(step, copyStep):
+            if isinstance(step, genericProtocol):
                 step.prepare()
 
     @property
@@ -263,14 +263,22 @@ class Gate(Step):
         self.__implementation = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
+    @Step.superSys.setter # pylint: disable=no-member
+    def superSys(self, supSys):
+        Step.superSys.fset(self, supSys) # pylint: disable=no-member
+        self.addSubSys(supSys)
+
     @property
     def system(self):
         return list(self.subSys.values())
 
     @system.setter
     def system(self, sys):
-        for s in tuple(sys):
+        if not isinstance(sys, list):
+            sys = [sys]
+        for s in tuple(*[sys]):
             self.addSubSys(s)
+        self.superSys = tuple(sys)[0]
 
     def addSys(self, sys):
         self.system = sys
