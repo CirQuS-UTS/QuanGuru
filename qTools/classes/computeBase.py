@@ -3,13 +3,14 @@ from qTools.classes.QUni import qUniversal, checkClass
 from qTools.classes.QRes import qResults
 
 class _parameter:
+    label = '_parameter'
     __slots__ = ['_value', '_bound']
-    def __init__(self, value):
+    def __init__(self, value, bound=None):
         self._value = value
-        self._bound = None
+        self._bound = bound
 
-    # def __repr__(self):
-    #     return repr(self.value)
+    def __repr__(self):
+        return repr(self.value)
 
     @property
     def bound(self):
@@ -21,25 +22,36 @@ class _parameter:
 
     @property
     def value(self):
-        if self._bound not in (None, self):
+        if self._bound not in (None, False):
             return self._bound.value
         return self._value
 
     @value.setter
     def value(self, value):
-        self._bound = self
+        self._bound = False
         self._value = value
 
     def __getattribute__(self, name):
-        if name in ['bound', '_bound', 'value', '_value']:
+        if name in ['bound', '_bound', 'value', '_value', '__getstate__', '__setstate__',
+                    '__dict__', '__reduce__', '__reduce_ex__', '__class__']:
             return object.__getattribute__(self, name)
         return object.__getattribute__(self.value, name)
 
     def __setattr__(self, name, value):
-        if name in ['bound', '_bound', 'value', '_value']:
+        if name in ['bound', '_bound', 'value', '_value', '__getstate__', '__setstate__',
+                    '__dict__', '__reduce__', '__reduce_ex__', '__class__']:
             object.__setattr__(self, name, value)
         else:
             object.__setattr__(self.value, name, value)
+
+    def __getstate__(self):
+        return self.__class__, self._value, self._bound
+
+    def __setstate__(self, state):
+        self.__class__, self._value, self._bound = state
+
+    def __reduce__(self):
+        return (self.__class__, (self._value, self._bound,))
 
 
 class paramBoundBase(qUniversal):
@@ -82,6 +94,9 @@ class paramBoundBase(qUniversal):
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
             _exclude.append(self)
             for sys in self._paramBoundBase__paramBound.values(): # pylint: disable=no-member
+                if hasattr(sys, 'delMatrices'):
+                    _exclude = sys.delMatrices(_exclude)
+            for sys in self.subSys.values(): # pylint: disable=no-member
                 if hasattr(sys, 'delMatrices'):
                     _exclude = sys.delMatrices(_exclude)
         return _exclude
