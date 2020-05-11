@@ -1,8 +1,7 @@
 import numpy as np
 import qTools.QuantumToolbox.evolution as lio
 from qTools.QuantumToolbox.operators import identity
-from qTools.classes.qBaseSim import qBaseSim
-from qTools.classes.computeBase import _parameter
+from qTools.classes.computeBase import _parameter, qBaseSim
 from qTools.classes.updateBase import updateBase
 from qTools.classes.QUni import qUniversal
 

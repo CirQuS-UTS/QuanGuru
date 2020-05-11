@@ -2,7 +2,7 @@ from numpy import (int64, int32, int16, ndarray)
 from scipy.sparse import issparse
 import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.states as qSta
-from qTools.classes.qBaseSim import qBaseSim
+from qTools.classes.computeBase import qBaseSim
 from qTools.classes.computeBase import paramBoundBase
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import constructConditions
