@@ -20,7 +20,10 @@ class xGate(Gate):
 
     def instantFlip(self):
         if self._paramBoundBase__matrix is None: # pylint: disable=no-member
-            flipOp = operators.compositeOp(operators.sigmax(), self.superSys._qSystem__dimsBefore, self.superSys._qSystem__dimsAfter) # pylint: disable=no-member
+            sys = list(self.subSys.values())
+            flipOp = operators.compositeOp(operators.sigmax(), sys[0]._qSystem__dimsBefore, sys[0]._qSystem__dimsAfter) # pylint: disable=no-member
+            for i in range(len(sys)-1):
+                flipOp = sys[i+1] @ flipOp
             self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
