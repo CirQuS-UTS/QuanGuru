@@ -72,7 +72,7 @@ class genericQSys(qBaseSim):
         """
         if self.simulation._stateBase__initialState.value is None: # pylint: disable=protected-access
             try:
-                self.simulation.initialState = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=protected-access
+                self.simulation._stateBase__initialState.value = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=protected-access
             except AttributeError:
                 raise ValueError(self.name + ' is not given an initial state')
         return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
@@ -156,9 +156,8 @@ class QuantumSystem(genericQSys):
     @genericQSys.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
-        if not (issparse(inp) or isinstance(inp, ndarray)):
-            for ind, it in enumerate(inp):
-                list(self.qSystems.values())[ind].initialState = it
+        for ind, it in enumerate(inp):
+            list(self.qSystems.values())[ind].initialState = it
         self.simulation._stateBase__initialState.value = self._initialState(inp) # pylint: disable=no-member, protected-access
 
     def _initialState(self, inp):
@@ -166,7 +165,7 @@ class QuantumSystem(genericQSys):
             if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
                 return inp
             raise ValueError('Dimension mismatch')
-        return qSta.compositeState([val.dimension for val in self.subSys.values()], inp)
+        return qSta.compositeState(self.subSysDimensions, inp)
 
     # adding or creating a new sub system to composite system
     def add(self, *args):
@@ -205,7 +204,7 @@ class QuantumSystem(genericQSys):
     def __addSub(self, subSys):
         for subS in self._QuantumSystem__qSystems.values():
             for sys in subS.subSys.values():
-                subS._qSystem__dimsAfter *= subSys.dimension
+                sys._qSystem__dimsAfter *= subSys.dimension
             for sys in subSys.subSys.values():
                 sys._qSystem__dimsBefore *= subS.dimension
 
@@ -241,7 +240,7 @@ class QuantumSystem(genericQSys):
     # reset and keepOld
     def reset(self, to=None):
         # TODO make sure that the kept protocols deletes their matrices and different sweeps ? delMatrices
-        self.delMatrices()
+        self.delMatrices(_exclude=[])
         name = self.couplingName
         if name is None:
             name = len(self._QuantumSystem__kept)
@@ -271,7 +270,7 @@ class QuantumSystem(genericQSys):
         if oldDimVal is None:
             oldDimVal = qSys._genericQSys__dimension
 
-        self.delMatrices()
+        self.delMatrices(_exclude=[])
 
         qSys._genericQSys__dimension = newDimVal
         ind = qSys.ind
@@ -333,7 +332,7 @@ class qSystem(genericQSys):
 
         for sys in self.subSys.values():
             sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
-            sys.delMatrices() # pylint: disable=protected-access
+            sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
             if sys.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
                 sys.initialState = sys.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
             sys._paramUpdated = True
@@ -377,7 +376,7 @@ class qSystem(genericQSys):
             if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
                 return inp
             raise ValueError('Dimension mismatch')
-        return qSta.compositeState([self._genericQSys__dimension], [inp]) # pylint: disable=no-member
+        return qSta.compositeState([self.dimension], [inp]) # pylint: disable=no-member
 
     @property
     def operator(self):
@@ -415,7 +414,8 @@ class qSystem(genericQSys):
         return qSys if len(qSys) > 1 else qSys[0]
 
     def addTerm(self, op, freq, order=1):
-        copySys = super().addSubSys(self.__class__, operator=op, frequency=freq)
+        copySys = super().addSubSys(self.__class__, operator=op, frequency=freq, _qSystem__dimsBefore=self._qSystem__dimsBefore, 
+                                    _qSystem__dimsAfter=self._qSystem__dimsAfter)
         copySys.order = order
         return copySys
 
