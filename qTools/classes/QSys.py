@@ -483,14 +483,12 @@ class qCoupling(paramBoundBase):
 
     toBeSaved = qBaseSim.toBeSaved.extendedCopy(['couplingStrength'])
 
-    __slots__ = ['__cFncs', '__couplingStrength', '__qSys']
+    __slots__ = ['__couplingStrength']
 
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
         self.__couplingStrength = None
-        self.__cFncs = []
-        self.__qSys = []
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.addTerm(*args)
 
@@ -511,8 +509,6 @@ class qCoupling(paramBoundBase):
     def coupledSystems(self):
         return list(self._qUniversal__subSys.values()) # pylint: disable=no-member
 
-    # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
-    # so these should be generalised and explicit ones moved into sysCoupling
     @property
     def totalHam(self):
         h = [self.couplingStrength * self.freeMat]
@@ -565,8 +561,6 @@ class qCoupling(paramBoundBase):
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
             self._qUniversal__subSys[tuple(args[count])] = sys # pylint: disable=no-member
-            # self._qCoupling__cFncs.append(args[count])
-            # self._qCoupling__qSys.append(sys)
             count += 1
             if count < len(args):
                 count = self.__addTerm(count, ind, sys, *args)
@@ -583,8 +577,6 @@ class qCoupling(paramBoundBase):
                     if tuple(args[counter + 1]) in self._qUniversal__subSys.keys(): # pylint: disable=no-member
                         print(tuple(args[counter + 1]), 'already exists')
                     self._qUniversal__subSys[tuple(args[counter + 1])] = qSystems # pylint: disable=no-member
-                    # self._qCoupling__cFncs.append(args[counter + 1])
-                    # self._qCoupling__qSys.append(qSystems)
                     counter += 2
                 # TODO does not have to pass qSystem around
                 if counter < len(args):
@@ -594,16 +586,6 @@ class qCoupling(paramBoundBase):
 class envCoupling(qCoupling):
     instances = 0
     label = 'envCoupling'
-
-    __slots__ = []
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-class sysCoupling(qCoupling):
-    instances = 0
-    label = 'sysCoupling'
 
     __slots__ = []
 
