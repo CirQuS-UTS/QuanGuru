@@ -505,11 +505,11 @@ class qCoupling(paramBoundBase):
     # TODO might define setters
     @property
     def couplingOperators(self):
-        return self._qCoupling__cFncs
+        return list(self._qUniversal__subSys.keys()) # pylint: disable=no-member
 
     @property
     def coupledSystems(self):
-        return self._qCoupling__qSys
+        return list(self._qUniversal__subSys.values()) # pylint: disable=no-member
 
     # FIXME all the below explicitly or implicitly assumes that this is a system coupling,
     # so these should be generalised and explicit ones moved into sysCoupling
@@ -527,7 +527,7 @@ class qCoupling(paramBoundBase):
         if qMat is not None:
             self._paramBoundBase__matrix = qMat # pylint: disable=no-member, assigning-non-slot
         else:
-            if len(self._qCoupling__cFncs) == 0:
+            if len(self._qUniversal__subSys) == 0: # pylint: disable=no-member
                 raise ValueError('No operator is given for coupling Hamiltonian')
             self._paramBoundBase__matrix = self._qCoupling__getCoupling() # pylint: disable=no-member, assigning-non-slot
 
@@ -549,12 +549,12 @@ class qCoupling(paramBoundBase):
 
     def __getCoupling(self):
         cMats = []
-        for ind in range(len(self._qCoupling__cFncs)):
+        for ind in range(len(self._qUniversal__subSys)): # pylint: disable=no-member
             qts = []
-            for indx in range(len(self._qCoupling__qSys[ind])):
-                sys = self._qCoupling__qSys[ind][indx]
+            for indx in range(len(list(self._qUniversal__subSys.values())[ind])): # pylint: disable=no-member
+                sys = list(self._qUniversal__subSys.values())[ind][indx] # pylint: disable=no-member
                 order = sys.ind
-                oper = self._qCoupling__cFncs[ind][indx]
+                oper = list(self._qUniversal__subSys.keys())[ind][indx] # pylint: disable=no-member
                 cHam = qOps.compositeOp(oper(sys._genericQSys__dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
                 ts = [order, cHam]
                 qts.append(ts)
@@ -564,8 +564,9 @@ class qCoupling(paramBoundBase):
 
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
-            self._qCoupling__cFncs.append(args[count])
-            self._qCoupling__qSys.append(sys)
+            self._qUniversal__subSys[tuple(args[count])] = sys # pylint: disable=no-member
+            # self._qCoupling__cFncs.append(args[count])
+            # self._qCoupling__qSys.append(sys)
             count += 1
             if count < len(args):
                 count = self.__addTerm(count, ind, sys, *args)
@@ -579,8 +580,11 @@ class qCoupling(paramBoundBase):
                 qSystems = args[counter]
 
                 if callable(args[counter+1][1]):
-                    self._qCoupling__cFncs.append(args[counter + 1])
-                    self._qCoupling__qSys.append(qSystems)
+                    if tuple(args[counter + 1]) in self._qUniversal__subSys.keys(): # pylint: disable=no-member
+                        print(tuple(args[counter + 1]), 'already exists')
+                    self._qUniversal__subSys[tuple(args[counter + 1])] = qSystems # pylint: disable=no-member
+                    # self._qCoupling__cFncs.append(args[counter + 1])
+                    # self._qCoupling__qSys.append(qSystems)
                     counter += 2
                 # TODO does not have to pass qSystem around
                 if counter < len(args):
