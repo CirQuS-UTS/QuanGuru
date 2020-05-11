@@ -264,6 +264,18 @@ class Gate(Step):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
+    def system(self):
+        return list(self.subSys.values())
+
+    @system.setter
+    def system(self, sys):
+        for s in tuple(sys):
+            self.addSubSys(s)
+
+    def addSys(self, sys):
+        self.system = sys
+
+    @property
     def implementation(self):
         return self._Gate__implementation
 
