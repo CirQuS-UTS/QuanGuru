@@ -1,24 +1,23 @@
-from qTools.classes.computeBase import computeBase
+from qTools.classes.computeBase import stateBase, _parameter
 
 
-class timeBase(computeBase):
+class timeBase(stateBase):
     instances = 0
     label = 'timeBase'
 
-    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step', '__bound']
+    __slots__ = ['__finalTime', '__stepSize', '__samples', '__step']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
-        self.__finalTime = None
-        self.__stepSize = None
-        self.__samples = None
-        self.__step = None
-        self.__bound = self
+        self.__finalTime = _parameter(None)
+        self.__stepSize = _parameter(None)
+        self.__samples = _parameter(1)
+        self.__step = _parameter(None)
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
-        keys = ['_timeBase__stepSize', '_timeBase__finalTime', '_timeBase__samples', '_timeBase__step']
+        keys = ['stepSize', 'finalTime', 'samples', 'step']
         try:
             saveDict = super().save()
         except TypeError:
@@ -26,65 +25,76 @@ class timeBase(computeBase):
 
         if self.superSys is not None:
             saveDict['superSys'] = self.superSys.name # pylint: disable=no-member
-        saveDict['bound'] = self.bound.name
-        if self.bound is self:
-            for key in keys:
-                saveDict[key] = getattr(self, key)
+
+        for key in keys:
+            saveDict[key] = getattr(self, key)
         return saveDict
 
     @property
-    def bound(self):
-        return self._timeBase__bound
-
-    @property
     def finalTime(self):
-        if self.bound is not self:
-            fTime = self.bound.finalTime
-        else:
-            fTime = self._timeBase__finalTime
-        return fTime
+        return self._timeBase__finalTime.value
 
     @finalTime.setter
     def finalTime(self, fTime):
         self._paramUpdated = True
-        self._timeBase__finalTime = fTime # pylint: disable=assigning-non-slot
+        self._timeBase__finalTime.value = fTime # pylint: disable=assigning-non-slot
         if self.stepSize is not None:
-            self._timeBase__step = int((fTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+            self._timeBase__step.value = int((fTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
 
     @property
     def stepCount(self):
         if self.finalTime is None:
-            self._timeBase__finalTime = self._timeBase__step * self.stepSize # pylint: disable=assigning-non-slot
-        return int((self.finalTime//self.stepSize) + 1)
+            self._timeBase__finalTime.value = self._timeBase__step.value * self.stepSize # pylint: disable=assigning-non-slot
+        self._timeBase__step.value = int((self.finalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+        return self._timeBase__step.value
 
     @stepCount.setter
     def stepCount(self, num):
         self._paramUpdated = True
-        self._timeBase__step = num # pylint: disable=assigning-non-slot
+        self._timeBase__step.value = num # pylint: disable=assigning-non-slot
         if self.finalTime is not None:
-            self._timeBase__stepSize = self.finalTime/num # pylint: disable=assigning-non-slot
+            self._timeBase__stepSize.value = self.finalTime/num # pylint: disable=assigning-non-slot
 
     @property
     def stepSize(self):
-        if self.bound is not self:
-            stepSize = self.bound.stepSize
-        else:
-            stepSize = self._timeBase__stepSize
-        return stepSize
+        return self._timeBase__stepSize.value
 
     @stepSize.setter
     def stepSize(self, stepsize):
         self._paramUpdated = True
-        self._timeBase__stepSize = stepsize # pylint: disable=assigning-non-slot
+        self._timeBase__stepSize.value = stepsize # pylint: disable=assigning-non-slot
         if self.finalTime is not None:
-            self._timeBase__step = int((self.finalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
+            self._timeBase__step.value = int((self.finalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
 
     @property
     def samples(self):
-        return self._timeBase__samples
+        return self._timeBase__samples.value
 
     @samples.setter
     def samples(self, num):
         self._paramUpdated = True
-        self._timeBase__samples = num # pylint: disable=assigning-non-slot
+        self._timeBase__samples.value = num # pylint: disable=assigning-non-slot
+
+    def _bound(self, other, params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput']): # pylint: disable=dangerous-default-value
+        keys = ['_timeBase__stepSize', '_timeBase__finalTime', '_timeBase__step']
+        keysProp = ['stepSize', 'finalTime', 'stepCount']
+        bounding = True
+        for ind, key in enumerate(keys):
+            if getattr(self, key)._bound is not None: # pylint: disable=protected-access
+                if getattr(other, key)._value is None: # pylint: disable=protected-access
+                    setattr(other, keysProp[ind], getattr(self, key)._value) # pylint: disable=protected-access
+
+                if bounding:
+                    for i, k in enumerate(keys):
+                        if ((getattr(self, k)._bound is None) and (getattr(other, k)._value is not None)): # pylint: disable=protected-access
+                            setattr(self, keysProp[i], getattr(other, k)._value) # pylint: disable=protected-access
+                            break
+                    bounding = False
+
+        for key in (*keys, *params, '_timeBase__samples'):
+            try:
+                if getattr(self, key)._bound is None: # pylint: disable=protected-access
+                    getattr(self, key)._bound = getattr(other, key) # pylint: disable=protected-access
+            except AttributeError:
+                pass
             

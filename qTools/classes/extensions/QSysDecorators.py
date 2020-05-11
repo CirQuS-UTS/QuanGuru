@@ -1,35 +1,19 @@
-import scipy.sparse as sp
 from qTools.classes.QUni import qUniversal
 
 
 # def asignState(stateCreationFunc):
 #    def InitialStateDecorator(initialState):
 #        def wrapper(obj, inp):
-#            obj._qBase__initialStateInput = inp
+#            obj._stateBase__initialStateInput = inp
 #            if sp.issparse(inp):
 #                if inp.shape[0] == obj.dimension:
-#                    obj._qBase__initialState = inp
+#                    obj._stateBase__initialState = inp
 #                else:
 #                    print('Dimension mismatch')
 #            else:
 #                initialState(obj, inp)
 #        return wrapper
 #    return InitialStateDecorator
-
-
-def InitialStateDecorator(initialState):
-    def wrapper(obj, inp):
-        obj._qBase__initialStateInput = inp # pylint: disable=protected-access
-        if sp.issparse(inp):
-            if inp.shape[0] == obj.dimension:
-                obj._qBase__initialState = inp # pylint: disable=protected-access
-                initialState(obj, 'sparse')
-            else:
-                raise ValueError('Dimension mismatch')
-        else:
-            initialState(obj, inp)
-    return wrapper
-
 def addCreateInstance(functionToCall):
     def systemAddCreateDecorator():
         def wrapper(obj, clsInst, *args, **kwargs):
