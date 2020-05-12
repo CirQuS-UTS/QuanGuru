@@ -144,7 +144,7 @@ class QuantumSystem(genericQSys):
     instances = 0
     label = 'QuantumSystem'
 
-    __slots__ = ['__qCouplings', '__qSystems', 'couplingName', '__kept']
+    __slots__ = ['__qCouplings', '__qSystems', 'couplingName']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -153,7 +153,6 @@ class QuantumSystem(genericQSys):
 
         self.couplingName = None
 
-        self.__kept = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
@@ -270,25 +269,6 @@ class QuantumSystem(genericQSys):
 
     def addSysCoupling(self, couplingObj):
         self.addSubSys(couplingObj)
-
-    # reset and keepOld
-    def reset(self, to=None):
-        # TODO make sure that the kept protocols deletes their matrices and different sweeps ? delMatrices
-        self.delMatrices(_exclude=[])
-        name = self.couplingName
-        if name is None:
-            name = len(self._QuantumSystem__kept)
-        self._QuantumSystem__kept[name] = self.qCouplings
-        self._paramUpdated = True
-        if to is None:
-            self._QuantumSystem__qCouplings = {} # pylint: disable=assigning-non-slot
-            self._genericQSys__unitary = freeEvolution() # pylint: disable=assigning-non-slot
-            self._genericQSys__unitary.superSys = self # pylint: disable=no-member
-            self.couplingName = None
-        else:
-            self.couplingName = to
-            self._QuantumSystem__qCouplings = self._QuantumSystem__kept[to][0] # pylint: disable=assigning-non-slot
-            self._genericQSys__unitary = self._QuantumSystem__kept[to][1] # pylint: disable=assigning-non-slot
 
     # construct the matrices
     def _constructMatrices(self):
