@@ -53,7 +53,6 @@ class _parameter:
     def __reduce__(self):
         return (self.__class__, (self._value, self._bound,))
 
-
 class paramBoundBase(qUniversal):
     instances = 0
     label = 'paramBoundBase'
@@ -101,7 +100,6 @@ class paramBoundBase(qUniversal):
                     _exclude = sys.delMatrices(_exclude)
         return _exclude
 
-
 class computeBase(paramBoundBase):
     instances = 0
     label = '_qBase'
@@ -131,23 +129,34 @@ class computeBase(paramBoundBase):
     def states(self):
         return self.qRes.states
 
-
 class qBaseSim(computeBase):
     isinstances = 0
     label = 'qBase'
 
-    __slots__ = ['__simulation']
+    __slots__ = ['__simulation', '__openSystem']
 
     def __init__(self, **kwargs):
         from qTools.classes.Simulation import Simulation
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
-        self.__simulation = Simulation(_internal=True, superSys=self)
+        self.__simulation = Simulation(_internal=True)
         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        # self.__openSystem = False
 
     @property
     def simulation(self):
         return self._qBaseSim__simulation
+
+    # @property
+    # def _openSystem(self):
+    #     return self._qBaseSim__openSystem
+
+    # @_openSystem.setter
+    # def _openSystem(self, boolean):
+    #     self._qBaseSim__openSystem = True
+    #     for sys in self._paramBoundBase__paramBound.values(): # pylint: disable=no-member
+    #         if hasattr(sys, '_openSystem'):
+    #             sys._openSystem = boolean
 
     # @simulation.setter
     # def simulation(self, sim):
@@ -167,7 +176,6 @@ class qBaseSim(computeBase):
             _exclude = super().delMatrices(_exclude)
             _exclude = self.simulation.delMatrices(_exclude)
         return _exclude
-
 
 class stateBase(computeBase):
     instances = 0

@@ -49,7 +49,7 @@ class Simulation(timeBase):
     def _freeEvol(self):
         for protocol, qSys in self.subSys.items():
             if isinstance(protocol, str):
-                self.subSys[qSys._genericQSys__unitary] = self.subSys.pop(protocol)
+                self.subSys[qSys._freeEvol] = self.subSys.pop(protocol) # pylint: disable=protected-access
 
     @property
     def qSystems(self):
@@ -65,6 +65,7 @@ class Simulation(timeBase):
     def addQSystems(self, subS, Protocol=None, **kwargs):
         # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS, **kwargs)
+        self._paramBoundBase__paramBound[subS.name] = subS
         if subS.simulation is not self:
             subS.simulation._bound(self) # pylint: disable=protected-access
         if Protocol is not None:
@@ -140,8 +141,6 @@ class Simulation(timeBase):
         for qSys in self.subSys.values():
             qSys._constructMatrices() # pylint: disable=protected-access
         for protocol in self.subSys.keys():
-            # TODO this will be modified after the structural changes of qPro objects
-            #protoc.simulation = self
             protocol.prepare()
         self.Sweep.prepare()
         for qres in self.qRes.allResults.values():

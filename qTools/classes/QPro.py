@@ -19,7 +19,7 @@ class genericProtocol(qBaseSim):
     __slots__ = ['__lastState', '__inProtocol', '__fixed', '__ratio', '__updates', '_funcToCreateUnitary']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.__lastState = _parameter(None)
         self.__inProtocol = False
         self.__fixed = False
@@ -95,7 +95,7 @@ class genericProtocol(qBaseSim):
 
     @system.setter
     def system(self, supSys):
-        qBaseSim.superSys.fset(self, supSys) # pylint: disable=no-member
+        self.superSys = supSys # pylint: disable=no-member
 
     def prepare(self):
         if self.fixed is True:
@@ -162,6 +162,7 @@ class qProtocol(genericProtocol):
                 super().addSubSys(step)
                 step._genericProtocol__inProtocol = True
                 step._genericProtocol__lastState._bound = self._genericProtocol__lastState # pylint: disable=protected-access, no-member
+                step.simulation._bound(self.simulation, re=True) # pylint: disable=protected-access
                 if step.superSys is None:
                     step.superSys = self.superSys
 
@@ -190,7 +191,7 @@ class Step(genericProtocol):
     __slots__ = []
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self._funcToCreateUnitary = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 

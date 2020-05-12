@@ -2,11 +2,13 @@ from numpy import (int64, int32, int16, ndarray)
 from scipy.sparse import issparse
 import qTools.QuantumToolbox.operators as qOps
 import qTools.QuantumToolbox.states as qSta
+#import qTools.QuantumToolbox.evolution as qEvo
 from qTools.classes.computeBase import qBaseSim
 from qTools.classes.computeBase import paramBoundBase
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.extensions.QSysDecorators import constructConditions
 from qTools.classes.QPro import freeEvolution
+#from qTools.classes.QUni import checkClass
 
 
 class genericQSys(qBaseSim):
@@ -15,7 +17,7 @@ class genericQSys(qBaseSim):
 
     toBeSaved = qBaseSim.toBeSaved.extendedCopy(['dimension'])
 
-    __slots__ = ['__unitary', '__dimension']
+    __slots__ = ['__unitary', '__dimension', '__liouvillian', '__envCouplings']
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None))
@@ -23,6 +25,8 @@ class genericQSys(qBaseSim):
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
         self._qBaseSim__simulation.subSys[self._freeEvol] = self # pylint: disable=no-member
         self.__dimension = None
+        # self.__liouvillian = None
+        # self.__envCouplings = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
@@ -56,6 +60,36 @@ class genericQSys(qBaseSim):
         unitary = self._genericQSys__unitary.unitary()
         self._paramUpdated = False
         return unitary
+
+    # @property
+    # def Liouvillian(self):
+    #     if self._openSystem:
+    #         lio = qEvo.Liouvillian(self.totalHam)
+    #         for envC in self._genericQSys__envCouplings.values():
+    #             lio += envC.Liouvillian
+    #         self._genericQSys__liouvillian = lio # pylint: disable=assigning-non-slot
+    #         return lio
+    #     return self.unitary
+
+    # @property
+    # def envCouplings(self):
+    #     return self._genericQSys__envCouplings
+
+    # @checkClass('genericQSys', '_genericQSys__envCouplings')
+    # def addEnvCoupling(self, envC, **kwargs):
+    #     envCoupling._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+    #     self._genericQSys__envCouplings[envC.name] = envC # pylint: disable=no-member
+
+    # @checkClass('genericQSys', '_genericQSys__envCouplings')
+    # def createEnvCoupling(self, envC, **kwargs):
+    #     envCoupling._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+    #     self._genericQSys__envCouplings[envC.name] = envC # pylint: disable=no-member
+
+    # @checkClass('genericQSys', '_genericQSys__envCouplings')
+    # def removeEnvCoupling(self, envC, **kwargs):
+    #     envC._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
+    #     obj = self._genericQSys__envCouplings.pop(envC.name)
+    #     print(obj.name + ' is removed from paramBound of ' + self.name)
 
     @property
     def _freeEvol(self):
@@ -211,7 +245,7 @@ class QuantumSystem(genericQSys):
         if subSys._paramBoundBase__matrix is not None:
             for sys in subSys.subSys.values():
                 sys._paramBoundBase__matrix = None
-
+        subSys.simulation._bound(self.simulation) # pylint: disable=protected-access
         self._QuantumSystem__qSystems[subSys.name] = subSys
         for sys in subSys.subSys.values():
             setattr(sys, '_qUniversal__ind', len(self._QuantumSystem__qSystems))
