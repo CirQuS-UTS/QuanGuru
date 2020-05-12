@@ -111,16 +111,17 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
         writeAttr(file, attributes, path, fileName)
 
     for value1 in qRes.allResults.values():
-        k = file.create_group(value1.name)
         dictionary = value1.results
-        if irregular is True:
-            for key, value in dictionary.items():
-                k2 = k.create_group(key)
-                for irty, val in enumerate(value):
-                    k2.create_dataset(str(irty), data=val)
-        else:
-            for key, value in dictionary.items():
-                k.create_dataset(key, data=value)
+        if len(dictionary) > 0:
+            k = file.create_group(value1.name)
+            if irregular is True:
+                for key, value in dictionary.items():
+                    k2 = k.create_group(key)
+                    for irty, val in enumerate(value):
+                        k2.create_dataset(str(irty), data=val)
+            else:
+                for key, value in dictionary.items():
+                    k.create_dataset(key, data=value)
 
     file.close()
     return path, fileName

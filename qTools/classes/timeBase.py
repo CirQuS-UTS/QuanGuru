@@ -17,7 +17,7 @@ class timeBase(stateBase):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
-        keys = ['stepSize', 'finalTime', 'samples', 'step']
+        keys = ['stepSize', 'finalTime', 'samples', 'stepCount']
         try:
             saveDict = super().save()
         except TypeError:
