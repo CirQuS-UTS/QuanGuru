@@ -1,40 +1,40 @@
 """
     Module of functions to create and/or manipulate quantum operators
 
-    Methods
-    -------
-    :number : Creates the (bosonic) number operator
-    :destroy : Creates the bosonic `annihilation` operator
-    :create : Creates the bosonic `creation` operator
+    Functions
+    ---------
+        number : Creates the (bosonic) number (:math:`\\hat{n}`) operator
+        destroy : Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator
+        create : Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator
 
-    :identity : Creates the identity operator
+        identity : Creates the identity operator
 
-    :sigmaz : Creates the `Pauli` sigma z operator
-    :sigmay : Creates the `Pauli` sigma y operator
-    :sigmax : Creates the `Pauli` sigma x operator
-    :sigmap : Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator
-    :sigmam : Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator
+        sigmaz : Creates the `Pauli` sigma z operator
+        sigmay : Creates the `Pauli` sigma y operator
+        sigmax : Creates the `Pauli` sigma x operator
+        sigmap : Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator
+        sigmam : Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator
 
-    :Jz : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j
-    :Jp : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j
-    :Jm : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j
-    :Jx : Creates the angular momentum (spin) `X` operator for a given spin quantum number j
-    :Jy : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j
-    :Js : Creates the total angular momentum (spin) operator for a given spin quantum number j
+        Jz : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j
+        Jp : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j
+        Jm : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j
+        Jx : Creates the angular momentum (spin) `X` operator for a given spin quantum number j
+        Jy : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j
+        Js : Creates the total angular momentum (spin) operator for a given spin quantum number j
 
-    :operatorPow : Creates a quantum operator for given function reference `op` and raises to a `power`
+        operatorPow : Creates a quantum operator for given function reference `op` and raises to a `power`
 
-    :paritySUM : Creates the parity operator by explicitly placing alternating +/- into a matrix
-    :partiyEXP : Creates the parity operator by exponentiation a given Hamiltonian
+        paritySUM : Creates the parity operator by explicitly placing alternating +/- into a matrix
+        partiyEXP : Creates the parity operator by exponentiation a given Hamiltonian
 
-    :basis : Creates a `ket` state
+        basis : Creates a `ket` state
 
-    :displacement : Creates the displacement operator for a given displacement parameter alpha
-    :squeeze : Creates the squeezing operator for a given squeezing parameter alpha
+        displacement : Creates the displacement operator for a given displacement parameter alpha
+        squeeze : Creates the squeezing operator for a given squeezing parameter alpha
 
-    :compositeOp : Creates a composite operator from a sub-system `operator`,
-    i.e. tensor product with identities of dimensions dimB & dimA
-""" # pylint: disable=W1401
+        compositeOp : Creates a composite operator from a sub-system `operator`,
+        i.e. tensor product with identities of dimensions dimB & dimA
+"""
 from typing import Callable
 
 import scipy.sparse as sp # type: ignore
@@ -191,7 +191,6 @@ def sigmaz(sparse: bool = True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
     :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
@@ -224,7 +223,6 @@ def sigmay(sparse: bool = True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
     :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
@@ -257,7 +255,6 @@ def sigmax(sparse: bool = True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
     :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
@@ -290,7 +287,6 @@ def sigmap(sparse: bool = True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
     :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 
@@ -322,7 +318,6 @@ def sigmam(sparse: bool = True) -> Matrix:
 
     Parameters
     ----------
-    # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
     :param `dimension` : dimension of the Hilbert space (2 by default)
     :param `sparse` : boolean for sparse or not (array)
 

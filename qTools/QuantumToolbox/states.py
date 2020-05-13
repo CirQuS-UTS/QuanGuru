@@ -2,7 +2,7 @@
     Module of functions to create and/or normalise quantum states.
 
     Functions
-    -------
+    ---------
     :basis : Creates a `ket` state for a given dimension with 1 at a given row
     :completeBasis : Creates a complete basis of `ket` states
     :basisBra : Creates a `bra` state for a given dimension with 1 at a given column
@@ -184,9 +184,9 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
     ----------
     :param `dimension`: dimension of Hilbert space
     :param `excitations`: There are 3 possible uses of this \\
-        1) a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4} \\
-        2) a `list` (e.g. [0,1,2]) for equally populated super-position \\
-        3) an `integer`, which is equivalent to basis function
+        1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4} \\
+        2. a `list` (e.g. [0,1,2]) for equally populated super-position \\
+        3. an `integer`, which is equivalent to basis function
 
     Returns
     -------

@@ -1,8 +1,8 @@
 """
     Module of functions to create some standard Hamiltonians.
 
-    Methods
-    -------
+    Functions
+    ---------
     :cavQubFreeHam : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension
     :RabiHam : Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension
     :JCHam : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension

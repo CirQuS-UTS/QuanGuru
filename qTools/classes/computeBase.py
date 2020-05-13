@@ -4,28 +4,45 @@ from qTools.classes.QRes import qResults
 
 class _parameter:
     """
-        This is a class to wrap certain parameters (attributes) to create a hierarchical dependency.
-        It is created to behave and look like the indented class of a parameter (attribute),
-        while creating certain hierarchy between parameters (attributes) and get pickled properly.
+        This is a simple class to wrap certain parameters (attributes) to create a hierarchical dependency.
+        It is intended to be used with the private attributes and the corresponding properties returning `value` of that attribute.
 
-        If a _parameter is given another parameter as its bound, it returns the value of its bound,
-        while keeping its _value unchanged (which is mostly left to be None).
+        If a `_parameter` is given another `_parameter` as its `bound`, it returns the `value` of its `bound`,
+        while keeping its `_value` unchanged (which is mostly left to be None).
+
+        This class can be replaced by a proxy class.
+        Since this is intended to be used completely internally, this simple option should suffice.
 
         Attributes
         ----------
-        _value : Any
-            This is any object to be wrapped as a parameter
-        _bound : None or False or _parameter
-            This is used to bound, unbound, and x
+        `_value` : Any \\
+            This is any object to be wrapped
+
+        `_bound` : None or False or _parameter\\
+            The object to be used as the bound.
+            None and False basically means that there is no bound,
+            and they are used to distinguish between the value being the one given while __init__ method or set later by value property
+
+        Properties
+        ----------
+        `value` :\\
+            `getter` :
+                gets/returns the _value of self if bound is None or False,
+                or gets/returns the value of bound (which should be another _parameter object or have a _value attribute)\\
+            `setter(value)` :
+                sets the _value to a given value and _bound to False (signaling its different than the initialisation)
+
+        `bound` :\\
+            `getter` :
+                gets/returns the _bound object\\
+            `setter(bound)` :
+                sets the _bound to bound
     """
     label = '_parameter'
     __slots__ = ['_value', '_bound']
     def __init__(self, value=None, bound=None):
         self._value = value
         self._bound = bound
-
-    def __repr__(self):
-        return repr(self.value)
 
     @property
     def bound(self):
@@ -46,22 +63,19 @@ class _parameter:
         self._bound = False
         self._value = value
 
-    def __getstate__(self):
-        return self.__class__, self._value, self._bound
-
-    def __setstate__(self, state):
-        self.__class__, self._value, self._bound = state
-
-    def __reduce__(self):
-        return (self.__class__, (self._value, self._bound,))
-
 class paramBoundBase(qUniversal):
+    """
+
+    """
     instances = 0
     label = 'paramBoundBase'
 
     __slots__ = ['__paramUpdated', '__paramBound', '__matrix']
 
     def __init__(self, **kwargs):
+        """
+
+        """
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.__matrix = None
         self.__paramUpdated = False
@@ -91,6 +105,9 @@ class paramBoundBase(qUniversal):
                     sys._paramUpdated = boolean
 
     def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
+        """
+
+        """
         if self not in _exclude:
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
             _exclude.append(self)
