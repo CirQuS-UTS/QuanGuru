@@ -4,9 +4,19 @@ from qTools.classes.QRes import qResults
 
 class _parameter:
     """
-        This is a class to wrap certain parameters to create a hierarchical dependency.
-        It is created to behave and look like the indented class for the parameter,
-        while creating certain hierarchy between parameters and get pickled properly.
+        This is a class to wrap certain parameters (attributes) to create a hierarchical dependency.
+        It is created to behave and look like the indented class of a parameter (attribute),
+        while creating certain hierarchy between parameters (attributes) and get pickled properly.
+
+        If a _parameter is given another parameter as its bound, it returns the value of its bound,
+        while keeping its _value unchanged (which is mostly left to be None).
+
+        Attributes
+        ----------
+        _value : Any
+            This is any object to be wrapped as a parameter
+        _bound : None or False or _parameter
+            This is used to bound, unbound, and x
     """
     label = '_parameter'
     __slots__ = ['_value', '_bound']
@@ -35,19 +45,6 @@ class _parameter:
     def value(self, value):
         self._bound = False
         self._value = value
-
-    def __getattribute__(self, name):
-        if name in ['bound', '_bound', 'value', '_value', '__getstate__', '__setstate__',
-                    '__dict__', '__reduce__', '__reduce_ex__', '__class__']:
-            return object.__getattribute__(self, name)
-        return object.__getattribute__(self.value, name)
-
-    def __setattr__(self, name, value):
-        if name in ['bound', '_bound', 'value', '_value', '__getstate__', '__setstate__',
-                    '__dict__', '__reduce__', '__reduce_ex__', '__class__']:
-            object.__setattr__(self, name, value)
-        else:
-            object.__setattr__(self.value, name, value)
 
     def __getstate__(self):
         return self.__class__, self._value, self._bound
