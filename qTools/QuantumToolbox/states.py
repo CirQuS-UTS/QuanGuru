@@ -467,7 +467,7 @@ def tensorProd(*args: Matrix) -> Matrix:
 
     Parameters
     ----------
-    :param `*args` : state matrices (arbitary number of them)
+    :param `*args` : state matrices (arbitrary number of them)
 
     Returns
     -------

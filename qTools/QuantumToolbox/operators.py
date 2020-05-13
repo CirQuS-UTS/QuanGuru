@@ -24,15 +24,15 @@
 
     :operatorPow : Creates a quantum operator for given function reference `op` and raises to a `power`
 
-    :paritySUM : Creates the parity operator by explicity placing alternating +/- into a matrix
-    :partiyEXP : Creates the parity operator by exponetiationg a given Hamiltonian
+    :paritySUM : Creates the parity operator by explicitly placing alternating +/- into a matrix
+    :partiyEXP : Creates the parity operator by exponentiation a given Hamiltonian
 
     :basis : Creates a `ket` state
 
     :displacement : Creates the displacement operator for a given displacement parameter alpha
     :squeeze : Creates the squeezing operator for a given squeezing parameter alpha
 
-    :compositeOp : Creates a composite operator from a sub-sytem `operator`,
+    :compositeOp : Creates a composite operator from a sub-system `operator`,
     i.e. tensor product with identities of dimensions dimB & dimA
 """ # pylint: disable=W1401
 from typing import Callable
@@ -710,7 +710,7 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
 
 def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     """
-    Creates the parity operator by explicity placing alternating +/- into a matrix
+    Creates the parity operator by explicitly placing alternating +/- into a matrix
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -751,7 +751,7 @@ def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
 
 def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     """
-    Creates the parity operator by exponetiationg a given Hamiltonian
+    Creates the parity operator by exponentiation a given Hamiltonian
 
     Keeps sparse/array as sparse/array.
 
@@ -911,7 +911,7 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
 # TODO Does this really work with ndarray ?
 def compositeOp(operator: Matrix, dimB: int, dimA: int) -> Matrix:
     """
-    Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB & dimA
+    Creates a composite operator from a sub-system `operator`, i.e. tensor product with identities of dimensions dimB & dimA
 
     Parameters
     ----------

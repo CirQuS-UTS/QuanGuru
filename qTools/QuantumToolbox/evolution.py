@@ -4,9 +4,9 @@
     Methods
     -------
     :Unitary : Creates Unitary time evolution operator for a given Hamiltonian and time step
-    :Liouvillian : Creates Liovillian super-operator for a given Hamiltonian, time step,
+    :Liouvillian : Creates Liouvillian super-operator for a given Hamiltonian, time step,
                     and a `list` of collapse operators (with correcponding `list` of decay rates)
-    :LiouvillianExp : Creates Liovillian super-operator (and exponentiates) for a given Hamiltonian, time step,
+    :LiouvillianExp : Creates Liouvillian super-operator (and exponentiates) for a given Hamiltonian, time step,
                     and a `list` of collapse operators (with correcponding `list` of decay rates)
     :dissipator : Creates the Lindblad dissipator super-operator for a collapse operator
     :_preSO : Creates `pre` super-operator for an operator
@@ -62,7 +62,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value
                 collapseOperators: list = [], decayRates: list = []) -> Matrix: # pylint: disable=dangerous-default-value
     """
-    Creates Liovillian super-operator for a given Hamiltonian, time step,
+    Creates Liouvillian super-operator for a given Hamiltonian, time step,
     and a `list` of collapse operators (with correcponding `list` of decay rates)
 
     Keeps sparse/array as sparse/array.
@@ -76,7 +76,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 
     Returns
     -------
-    :return: Liovillian super-operator
+    :return: Liouvillian super-operator
 
     Examples
     --------
@@ -124,7 +124,7 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0, 
 
     Returns
     -------
-    :return: (exponentiated) Liovillian super-operator
+    :return: (exponentiated) Liouvillian super-operator
 
     Examples
     --------

@@ -1,5 +1,5 @@
 """
-    Module of functions to calculate quasi-probablity distributions (adapted from qutip).
+    Module of functions to calculate quasi-probability distributions (adapted from qutip).
 
     Methods
     -------

@@ -1,8 +1,8 @@
 """
-    Module of functions to calculate expectations, fidelities, entorpy etc. from quantum states
+    Module of functions to calculate expectations, fidelities, entropy etc. from quantum states
 
     The reason for having several methods for the same task is to improve performance
-    For example, an if statement can be avioded using ``expectationMat/expectationKet`` for
+    For example, an if statement can be avoided using ``expectationMat/expectationKet`` for
     ``density matrices/ket states``, or
     ``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
 
@@ -265,7 +265,7 @@ def expectationColArr(operator: Matrix, states: ndarray) -> floatList:
     """
     Calculates the expectation values of an `operator` for a list/matrix of ``ket (column) states`` by matrix multiplication
 
-    The `list` here is effectivly a matrix whose columns are `ket` states for which we want the expextation values.
+    The `list` here is effectively a matrix whose columns are `ket` states for which we want the expectation values.
     For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
     TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.
     So, it relies on states being orthonormal, if not there will be off-diagonal elements in the resultant matrix,
@@ -789,7 +789,7 @@ def sortedEigens(Ham: Matrix) -> Tuple[floatList, List[ndarray]]:
 
     Parameters
     ----------
-    :param `Ham` : the Hamiltoniam
+    :param `Ham` : the Hamiltonian
 
     Returns
     -------
