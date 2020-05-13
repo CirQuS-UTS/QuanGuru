@@ -3,9 +3,14 @@ from qTools.classes.QUni import qUniversal, checkClass
 from qTools.classes.QRes import qResults
 
 class _parameter:
+    """
+        This is a class to wrap certain parameters to create a hierarchical dependency.
+        It is created to behave and look like the indented class for the parameter,
+        while creating certain hierarchy between parameters and get pickled properly.
+    """
     label = '_parameter'
     __slots__ = ['_value', '_bound']
-    def __init__(self, value, bound=None):
+    def __init__(self, value=None, bound=None):
         self._value = value
         self._bound = bound
 
@@ -186,8 +191,8 @@ class stateBase(computeBase):
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
 
-        self.__initialState = _parameter(None)
-        self.__initialStateInput = _parameter(None)
+        self.__initialState = _parameter()
+        self.__initialStateInput = _parameter()
         self.__delStates = _parameter(False)
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member

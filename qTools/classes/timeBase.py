@@ -9,10 +9,10 @@ class timeBase(stateBase):
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
-        self.__finalTime = _parameter(None)
-        self.__stepSize = _parameter(None)
+        self.__finalTime = _parameter()
+        self.__stepSize = _parameter()
         self.__samples = _parameter(1)
-        self.__step = _parameter(None)
+        self.__step = _parameter()
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 

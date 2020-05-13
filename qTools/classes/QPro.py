@@ -20,7 +20,7 @@ class genericProtocol(qBaseSim):
 
     def __init__(self, **kwargs):
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
-        self.__lastState = _parameter(None)
+        self.__lastState = _parameter()
         self.__inProtocol = False
         self.__fixed = False
         self.__ratio = 1
