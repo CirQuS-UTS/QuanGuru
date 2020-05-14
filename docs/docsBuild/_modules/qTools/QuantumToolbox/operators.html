@@ -57,7 +57,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #212121" >
+        <div class="wy-side-nav-search"  style="background: #051988" >
           
 
           
@@ -161,37 +161,37 @@
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
-<span class="sd">        number : Creates the (bosonic) number (:math:`\\hat{n}`) operator</span>
-<span class="sd">        destroy : Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator</span>
-<span class="sd">        create : Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator</span>
+<span class="sd">        | **number** : Creates the (bosonic) number (:math:`\\hat{n}`) operator.</span>
+<span class="sd">        | **destroy** : Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator.</span>
+<span class="sd">        | **create** : Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator.</span>
+<span class="sd">        | **identity** : Creates the identity operator.</span>
 
-<span class="sd">        identity : Creates the identity operator</span>
+<span class="sd">        | **sigmaz** : Creates the `Pauli` sigma z (:math:`\\hat{\\sigma}_{z}`) operator.</span>
+<span class="sd">        | **sigmay** : Creates the `Pauli` sigma y (:math:`\\hat{\\sigma}_{y}`) operator.</span>
+<span class="sd">        | **sigmax** : Creates the `Pauli` sigma x (:math:`\\hat{\\sigma}_{x}`) operator.</span>
+<span class="sd">        | **sigmap** : Creates the `Pauli` sigma + (:math:`\\hat{\\sigma}_{+}`) operator, i.e. 2D Fermionic creation.</span>
+<span class="sd">        | **sigmam** : Creates the `Pauli` sigma - (:math:`\\hat{\\sigma}_{-}`) operator, i.e. 2D Fermionic destruction.</span>
 
-<span class="sd">        sigmaz : Creates the `Pauli` sigma z operator</span>
-<span class="sd">        sigmay : Creates the `Pauli` sigma y operator</span>
-<span class="sd">        sigmax : Creates the `Pauli` sigma x operator</span>
-<span class="sd">        sigmap : Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator</span>
-<span class="sd">        sigmam : Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator</span>
+<span class="sd">        | **Jz** : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.</span>
+<span class="sd">        | **Jp** : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.</span>
+<span class="sd">        | **Jm** : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.</span>
+<span class="sd">        | **Jx** : Creates the angular momentum (spin) `X` operator for a given spin quantum number j.</span>
+<span class="sd">        | **Jy** : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.</span>
+<span class="sd">        | **Js** : Creates the total angular momentum (spin) operator for a given spin quantum number j.</span>
 
-<span class="sd">        Jz : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j</span>
-<span class="sd">        Jp : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j</span>
-<span class="sd">        Jm : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j</span>
-<span class="sd">        Jx : Creates the angular momentum (spin) `X` operator for a given spin quantum number j</span>
-<span class="sd">        Jy : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j</span>
-<span class="sd">        Js : Creates the total angular momentum (spin) operator for a given spin quantum number j</span>
+<span class="sd">        | **operatorPow** : Creates a quantum operator for given function reference `op` and raises to a `power`.</span>
+<span class="sd">        | **paritySUM** : Creates the parity operator by explicitly placing alternating +/- into a matrix.</span>
+<span class="sd">        | **partiyEXP** : Creates the parity operator by exponentiation a given Hamiltonian.</span>
 
-<span class="sd">        operatorPow : Creates a quantum operator for given function reference `op` and raises to a `power`</span>
+<span class="sd">        | **displacement** : Creates the displacement operator for a given displacement parameter alpha.</span>
+<span class="sd">        | **squeeze** : Creates the squeezing operator for a given squeezing parameter alpha.</span>
 
-<span class="sd">        paritySUM : Creates the parity operator by explicitly placing alternating +/- into a matrix</span>
-<span class="sd">        partiyEXP : Creates the parity operator by exponentiation a given Hamiltonian</span>
+<span class="sd">        | **compositeOp** : Creates a composite operator from a sub-system `operator`,</span>
+<span class="sd">                            i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
 
-<span class="sd">        basis : Creates a `ket` state</span>
-
-<span class="sd">        displacement : Creates the displacement operator for a given displacement parameter alpha</span>
-<span class="sd">        squeeze : Creates the squeezing operator for a given squeezing parameter alpha</span>
-
-<span class="sd">        compositeOp : Creates a composite operator from a sub-system `operator`,</span>
-<span class="sd">        i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
+<span class="sd">    Types</span>
+<span class="sd">    ^^^^^</span>
+<span class="sd">        | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
@@ -213,18 +213,21 @@
 
 <div class="viewcode-block" id="number"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.number">[docs]</a><span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the (bosonic) number operator</span>
+<span class="sd">    Creates the (bosonic) number (:math:`\\hat{n}`) operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param dimension : dimension of the Hilbert space</span>
-<span class="sd">    :param sparse : boolean for sparse or not (array)</span>
+<span class="sd">        dimension : int</span>
+<span class="sd">            dimension of the Hilbert space</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: number operator for dimension dimension</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        number operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -232,6 +235,7 @@
 <span class="sd">    [[0 0 0]</span>
 <span class="sd">    [0 1 0]</span>
 <span class="sd">    [0 0 2]]</span>
+
 <span class="sd">    &gt;&gt;&gt; numberSparse = number(3)</span>
 <span class="sd">    (0, 0)	0</span>
 <span class="sd">    (1, 1)	1</span>
@@ -247,24 +251,28 @@
 
 <div class="viewcode-block" id="destroy"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.destroy">[docs]</a><span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the bosonic `annihilation` operator</span>
+<span class="sd">    Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        dimension : int</span>
+<span class="sd">            dimension of the Hilbert space</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: bosonic `annihilation` operator for dimension dimension</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        bosonic `annihilation` operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; annihilation = destroy(dimension=3)</span>
 <span class="sd">    (0, 1)	1.0</span>
 <span class="sd">    (1, 2)	1.4142135623730951</span>
+
 <span class="sd">    &gt;&gt;&gt; annihilation = destroy(3, sparse=False)</span>
 <span class="sd">    [[0.         1.         0.        ]</span>
 <span class="sd">    [0.         0.         1.41421356]</span>
@@ -280,24 +288,28 @@
 
 <div class="viewcode-block" id="create"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the bosonic `creation` operator</span>
+<span class="sd">    Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        dimension : int</span>
+<span class="sd">            dimension of the Hilbert space</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: bosonic `creation` operator for dimension dimension</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        bosonic `creation` operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; create = create(3)</span>
 <span class="sd">    (1, 0)	1.0</span>
 <span class="sd">    (2, 1)	1.4142135623730951</span>
+
 <span class="sd">    &gt;&gt;&gt; create = create(3, sparse=False)</span>
 <span class="sd">    [[0.         0.         0.        ]</span>
 <span class="sd">    [1.         0.         0.        ]</span>
@@ -313,18 +325,21 @@
 
 <div class="viewcode-block" id="identity"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.identity">[docs]</a><span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the identity operator</span>
+<span class="sd">    Creates the identity operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        dimension : int</span>
+<span class="sd">            dimension of the Hilbert space</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: identity operator for dimension dimension</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        identity operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -332,6 +347,7 @@
 <span class="sd">    (0, 0)	1.0</span>
 <span class="sd">    (1, 1)	1.0</span>
 <span class="sd">    (2, 2)	1.0</span>
+
 <span class="sd">    &gt;&gt;&gt; identity = identity(3, sparse=False)</span>
 <span class="sd">    [[1. 0. 0.]</span>
 <span class="sd">    [0. 1. 0.]</span>
@@ -343,24 +359,26 @@
 
 <div class="viewcode-block" id="sigmaz"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmaz">[docs]</a><span class="k">def</span> <span class="nf">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the `Pauli` sigma z operator</span>
+<span class="sd">    Creates the `Pauli` sigma z (:math:`\\hat{\\sigma}_{z}`) operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space (2 by default)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: `Pauli` sigma z operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        `Pauli` sigma z operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; sz = sigmaz(sparse=False)</span>
 <span class="sd">    [[ 1  0]</span>
 <span class="sd">    [ 0 -1]]</span>
+
 <span class="sd">    &gt;&gt;&gt; sz = sigmaz()</span>
 <span class="sd">    (0, 0)	1</span>
 <span class="sd">    (1, 1)	-1</span>
@@ -375,24 +393,26 @@
 
 <div class="viewcode-block" id="sigmay"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmay">[docs]</a><span class="k">def</span> <span class="nf">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the `Pauli` sigma y operator</span>
+<span class="sd">    Creates the `Pauli` sigma y (:math:`\\hat{\\sigma}_{y}`) operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space (2 by default)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: `Pauli` sigma y operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        `Pauli` sigma y operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; sy = sigmay(sparse=False)</span>
 <span class="sd">    [[0.+0.j 0.-1.j]</span>
 <span class="sd">    [0.+1.j 0.+0.j]]</span>
+
 <span class="sd">    &gt;&gt;&gt; sy = sigmay()</span>
 <span class="sd">    (1, 0)	1j</span>
 <span class="sd">    (0, 1)	(-0-1j)</span>
@@ -407,24 +427,26 @@
 
 <div class="viewcode-block" id="sigmax"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmax">[docs]</a><span class="k">def</span> <span class="nf">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the `Pauli` sigma x operator</span>
+<span class="sd">    Creates the `Pauli` sigma x (:math:`\\hat{\\sigma}_{x}`) operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space (2 by default)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: `Pauli` sigma x operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        `Pauli` sigma x operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; sx = sigmax(sparse=False)</span>
 <span class="sd">    [[0 1]</span>
 <span class="sd">    [1 0]]</span>
+
 <span class="sd">    &gt;&gt;&gt; sx = sigmax()</span>
 <span class="sd">    (1, 0)	1</span>
 <span class="sd">    (0, 1)	1</span>
@@ -439,24 +461,26 @@
 
 <div class="viewcode-block" id="sigmap"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmap">[docs]</a><span class="k">def</span> <span class="nf">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator</span>
+<span class="sd">    Creates the `Pauli` sigma + (:math:`\\hat{\\sigma}_{+}`) operator, i.e. 2D Fermionic creation operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space (2 by default)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: `Pauli` sigma + operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        `Pauli` sigma + operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; sp = sigmap(sparse=False)</span>
 <span class="sd">    [[0 1]</span>
 <span class="sd">    [0 0]]</span>
+
 <span class="sd">    &gt;&gt;&gt; sp = sigmap()</span>
 <span class="sd">    (0, 1)	1</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -470,24 +494,26 @@
 
 <div class="viewcode-block" id="sigmam"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmam">[docs]</a><span class="k">def</span> <span class="nf">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator</span>
+<span class="sd">    Creates the `Pauli` sigma - (:math:`\\hat{\\sigma}_{-}`) operator, i.e. 2D Fermionic destruction operator.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space (2 by default)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: `Pauli` sigma - operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        `Pauli` sigma - operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; sm = sigmam(sparse=False)</span>
 <span class="sd">    [[0 0]</span>
 <span class="sd">    [1 0]]</span>
+
 <span class="sd">    &gt;&gt;&gt; sm = sigmam()</span>
 <span class="sd">    (1, 0)	1</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -501,19 +527,23 @@
 
 <div class="viewcode-block" id="Jz"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jz">[docs]</a><span class="k">def</span> <span class="nf">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the angular momentum (spin) `Z` operator for a given spin quantum number j</span>
+<span class="sd">    Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
-<span class="sd">    :param isDim: boolean for whether j is spin quantum number of dimension</span>
+<span class="sd">        j : int or float</span>
+<span class="sd">            integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
+<span class="sd">        isDim: bool</span>
+<span class="sd">            boolean for whether j is spin quantum number of dimension</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Angular momentum (spin) Z operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Angular momentum (spin) Z operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -523,18 +553,21 @@
 <span class="sd">    [ 0  0  0  0  0]</span>
 <span class="sd">    [ 0  0  0 -1  0]</span>
 <span class="sd">    [ 0  0  0  0 -2]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jz0 = Jz(j=2, isDim=False)</span>
 <span class="sd">    (0, 0)	2</span>
 <span class="sd">    (1, 1)	1</span>
 <span class="sd">    (2, 2)	0</span>
 <span class="sd">    (3, 3)	-1</span>
 <span class="sd">    (4, 4)	-2</span>
+
 <span class="sd">    &gt;&gt;&gt; jz1 = Jz(j=5, sparse=False)</span>
 <span class="sd">    [[ 2.  0.  0.  0.  0.]</span>
 <span class="sd">    [ 0.  1.  0.  0.  0.]</span>
 <span class="sd">    [ 0.  0.  0.  0.  0.]</span>
 <span class="sd">    [ 0.  0.  0. -1.  0.]</span>
 <span class="sd">    [ 0.  0.  0.  0. -2.]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jz1 = Jz(j=5, isDim=True)</span>
 <span class="sd">    (0, 0)	2.0</span>
 <span class="sd">    (1, 1)	1.0</span>
@@ -557,19 +590,23 @@
 
 <div class="viewcode-block" id="Jp"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jp">[docs]</a><span class="k">def</span> <span class="nf">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the angular momentum (spin) `creation` operator for a given spin quantum number j</span>
+<span class="sd">    Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
-<span class="sd">    :param isDim: boolean for whether j is spin quantum number of dimension</span>
+<span class="sd">        j : int or float</span>
+<span class="sd">            integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
+<span class="sd">        isDim : bool</span>
+<span class="sd">            boolean for whether j is spin quantum number of dimension</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Angular momentum (spin) creation operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Angular momentum (spin) creation operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -579,17 +616,20 @@
 <span class="sd">    [0.         0.         0.         2.44948974 0.        ]</span>
 <span class="sd">    [0.         0.         0.         0.         2.        ]</span>
 <span class="sd">    [0.         0.         0.         0.         0.        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jp0 = Jp(j=2, isDim=False)</span>
 <span class="sd">    (0, 1)	2.0</span>
 <span class="sd">    (1, 2)	2.449489742783178</span>
 <span class="sd">    (2, 3)	2.449489742783178</span>
 <span class="sd">    (3, 4)	2.0</span>
+
 <span class="sd">    &gt;&gt;&gt; jp1 = Jp(j=5, sparse=False)</span>
 <span class="sd">    [[0.         2.         0.         0.         0.        ]</span>
 <span class="sd">    [0.         0.         2.44948974 0.         0.        ]</span>
 <span class="sd">    [0.         0.         0.         2.44948974 0.        ]</span>
 <span class="sd">    [0.         0.         0.         0.         2.        ]</span>
 <span class="sd">    [0.         0.         0.         0.         0.        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jp1 = Jp(j=5, isDim=True)</span>
 <span class="sd">    (0, 1)	2.0</span>
 <span class="sd">    (1, 2)	2.449489742783178</span>
@@ -612,19 +652,23 @@
 
 <div class="viewcode-block" id="Jm"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jm">[docs]</a><span class="k">def</span> <span class="nf">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j</span>
+<span class="sd">    Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
-<span class="sd">    :param isDim: boolean for whether j is spin quantum number of dimension</span>
+<span class="sd">        j : int or float</span>
+<span class="sd">            integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
+<span class="sd">        isDim : bool</span>
+<span class="sd">            boolean for whether j is spin quantum number of dimension</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Angular momentum (spin) destruction operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Angular momentum (spin) destruction operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -634,17 +678,20 @@
 <span class="sd">    [0.         2.44948974 0.         0.         0.        ]</span>
 <span class="sd">    [0.         0.         2.44948974 0.         0.        ]</span>
 <span class="sd">    [0.         0.         0.         2.         0.        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jm0 = Jm(j=2, isDim=False)</span>
 <span class="sd">    (1, 0)	2.0</span>
 <span class="sd">    (2, 1)	2.449489742783178</span>
 <span class="sd">    (3, 2)	2.449489742783178</span>
 <span class="sd">    (4, 3)	2.0</span>
+
 <span class="sd">    &gt;&gt;&gt; jm1 = Jm(j=5, sparse=False)</span>
 <span class="sd">    [[0.         0.         0.         0.         0.        ]</span>
 <span class="sd">    [2.         0.         0.         0.         0.        ]</span>
 <span class="sd">    [0.         2.44948974 0.         0.         0.        ]</span>
 <span class="sd">    [0.         0.         2.44948974 0.         0.        ]</span>
 <span class="sd">    [0.         0.         0.         2.         0.        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jm1 = Jm(j=5, isDim=True)</span>
 <span class="sd">    (1, 0)	2.0</span>
 <span class="sd">    (2, 1)	2.449489742783178</span>
@@ -667,19 +714,23 @@
 
 <div class="viewcode-block" id="Jx"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jx">[docs]</a><span class="k">def</span> <span class="nf">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the angular momentum (spin) `X` operator for a given spin quantum number j</span>
+<span class="sd">    Creates the angular momentum (spin) `X` operator for a given spin quantum number j.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
-<span class="sd">    :param isDim: boolean for whether j is spin quantum number of dimension</span>
+<span class="sd">        j : int or float</span>
+<span class="sd">            integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
+<span class="sd">        isDim : bool</span>
+<span class="sd">            boolean for whether j is spin quantum number of dimension</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Angular momentum (spin) X operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Angular momentum (spin) X operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -689,6 +740,7 @@
 <span class="sd">    [0.         1.22474487 0.         1.22474487 0.        ]</span>
 <span class="sd">    [0.         0.         1.22474487 0.         1.        ]</span>
 <span class="sd">    [0.         0.         0.         1.         0.        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jx0 = Jx(j=2, isDim=False)</span>
 <span class="sd">    (1, 0)	1.0</span>
 <span class="sd">    (0, 1)	1.0</span>
@@ -698,12 +750,14 @@
 <span class="sd">    (2, 3)	1.224744871391589</span>
 <span class="sd">    (4, 3)	1.0</span>
 <span class="sd">    (3, 4)	1.0</span>
+
 <span class="sd">    &gt;&gt;&gt; jx1 = Jx(j=5, sparse=False)</span>
 <span class="sd">    [[0.         1.         0.         0.         0.        ]</span>
 <span class="sd">    [1.         0.         1.22474487 0.         0.        ]</span>
 <span class="sd">    [0.         1.22474487 0.         1.22474487 0.        ]</span>
 <span class="sd">    [0.         0.         1.22474487 0.         1.        ]</span>
 <span class="sd">    [0.         0.         0.         1.         0.        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jx1 = Jx(j=5, isDim=True)</span>
 <span class="sd">    (1, 0)	1.0</span>
 <span class="sd">    (0, 1)	1.0</span>
@@ -721,19 +775,23 @@
 
 <div class="viewcode-block" id="Jy"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jy">[docs]</a><span class="k">def</span> <span class="nf">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the angular momentum (spin) `Y` operator for a given spin quantum number j</span>
+<span class="sd">    Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
-<span class="sd">    :param isDim: boolean for whether j is spin quantum number of dimension</span>
+<span class="sd">        j : int or float</span>
+<span class="sd">            integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
+<span class="sd">        isDim : bool</span>
+<span class="sd">            boolean for whether j is spin quantum number of dimension</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Angular momentum (spin) Y operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Angular momentum (spin) Y operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -743,6 +801,7 @@
 <span class="sd">    [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]</span>
 <span class="sd">    [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]</span>
 <span class="sd">    [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jy0 = Jy(j=2, isDim=False)</span>
 <span class="sd">    (1, 0)	1j</span>
 <span class="sd">    (0, 1)	-1j</span>
@@ -752,12 +811,14 @@
 <span class="sd">    (2, 3)	-1.224744871391589j</span>
 <span class="sd">    (4, 3)	1j</span>
 <span class="sd">    (3, 4)	-1j</span>
+
 <span class="sd">    &gt;&gt;&gt; jy1 = Jy(j=5, sparse=False)</span>
 <span class="sd">    [[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]</span>
 <span class="sd">    [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]</span>
 <span class="sd">    [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]</span>
 <span class="sd">    [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]</span>
 <span class="sd">    [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; jy1 = Jy(j=5, isDim=True)</span>
 <span class="sd">    (1, 0)	1j</span>
 <span class="sd">    (0, 1)	-1j</span>
@@ -775,15 +836,18 @@
 
 <div class="viewcode-block" id="Js"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Js">[docs]</a><span class="k">def</span> <span class="nf">Js</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the total angular momentum (spin) operator for a given spin quantum number j</span>
+<span class="sd">    Creates the total angular momentum (spin) operator for a given spin quantum number j.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `j` : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
-<span class="sd">    :param isDim: boolean for whether j is spin quantum number of dimension</span>
+<span class="sd">        j : int or float</span>
+<span class="sd">            integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
+<span class="sd">        isDim : bool</span>
+<span class="sd">            boolean for whether j is spin quantum number of dimension</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -797,18 +861,21 @@
 <span class="sd">    [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]</span>
 <span class="sd">    [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]</span>
 <span class="sd">    [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]</span>
+
 <span class="sd">    &gt;&gt;&gt; js0 = Js(j=2, isDim=False)</span>
 <span class="sd">    (0, 0)	(6+0j)</span>
 <span class="sd">    (1, 1)	(6+0j)</span>
 <span class="sd">    (2, 2)	(5.999999999999999+0j)</span>
 <span class="sd">    (3, 3)	(6+0j)</span>
 <span class="sd">    (4, 4)	(6+0j)</span>
+
 <span class="sd">    &gt;&gt;&gt; js1 = Js(j=5, sparse=False)</span>
 <span class="sd">    [[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
 <span class="sd">    [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
 <span class="sd">    [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]</span>
 <span class="sd">    [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]</span>
 <span class="sd">    [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]</span>
+
 <span class="sd">    &gt;&gt;&gt; js1 = Js(j=5, isDim=True)</span>
 <span class="sd">    (0, 0)	(6+0j)</span>
 <span class="sd">    (1, 1)	(6+0j)</span>
@@ -824,32 +891,40 @@
 
 <div class="viewcode-block" id="operatorPow"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.operatorPow">[docs]</a><span class="k">def</span> <span class="nf">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a quantum operator for given function reference `op` and raises to a `power`</span>
+<span class="sd">    Creates a quantum operator for given function reference `op` and raises to a `power`.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `op` : reference to the function (in here) for the operator</span>
-<span class="sd">    :param `dim` : dimension of the Hilbert space</span>
-<span class="sd">    :param `power` : power that the operator to be raised</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        op : Callable</span>
+<span class="sd">            reference to the function (in here) for the operator</span>
+<span class="sd">        dim : int</span>
+<span class="sd">            dimension of the Hilbert space</span>
+<span class="sd">        power : int</span>
+<span class="sd">            power that the operator to be raised</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: an operator raised to a power</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        an operator raised to a power</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; squareSigmaX = operatorPow(op=sigmax, dim=2, power=2, sparse=False)</span>
 <span class="sd">    [[1 0]</span>
 <span class="sd">    [0 1]]</span>
+
 <span class="sd">    &gt;&gt;&gt; squareSigmaX = operatorPow(op=sigmax, dim=2, power=2)</span>
 <span class="sd">    (0, 0)	1</span>
 <span class="sd">    (1, 1)	1</span>
+
 <span class="sd">    &gt;&gt;&gt; cubedSigmaX = operatorPow(op=sigmax, dim=2, power=3, sparse=False)</span>
 <span class="sd">    [[0 1]</span>
 <span class="sd">    [1 0]]</span>
+
 <span class="sd">    &gt;&gt;&gt; cubedSigmaX = operatorPow(op=sigmax, dim=2, power=3)</span>
 <span class="sd">    (1, 0)	1</span>
 <span class="sd">    (0, 1)	1</span>
@@ -864,18 +939,21 @@
 
 <div class="viewcode-block" id="paritySUM"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.paritySUM">[docs]</a><span class="k">def</span> <span class="nf">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the parity operator by explicitly placing alternating +/- into a matrix</span>
+<span class="sd">    Creates the parity operator by explicitly placing alternating +/- into a matrix.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of the Hilbert space</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        dimension : int</span>
+<span class="sd">            dimension of the Hilbert space</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Parity operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Parity operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -885,6 +963,7 @@
 <span class="sd">    [ 0.  0.  1.  0.  0.]</span>
 <span class="sd">    [ 0.  0.  0. -1.  0.]</span>
 <span class="sd">    [ 0.  0.  0.  0.  1.]]</span>
+
 <span class="sd">    &gt;&gt;&gt; paritySum = paritySUM(dimension=5)</span>
 <span class="sd">    (0, 0)	1.0</span>
 <span class="sd">    (1, 1)	-1.0</span>
@@ -905,17 +984,19 @@
 
 <div class="viewcode-block" id="parityEXP"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.parityEXP">[docs]</a><span class="k">def</span> <span class="nf">parityEXP</span><span class="p">(</span><span class="n">HamiltonianCavity</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the parity operator by exponentiation a given Hamiltonian</span>
+<span class="sd">    Creates the parity operator by exponentiation a given Hamiltonian.</span>
 
 <span class="sd">    Keeps sparse/array as sparse/array.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `HamiltonianCavity` : dimension of the Hilbert space</span>
+<span class="sd">        HamiltonianCavity : Matrix</span>
+<span class="sd">            dimension of the Hilbert space</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Parity operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Parity operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -926,6 +1007,7 @@
 <span class="sd">    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j]</span>
 <span class="sd">    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  -1.+3.6739404e-16j  0.+0.0000000e+00j]</span>
 <span class="sd">    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  1.-4.8985872e-16j]]</span>
+
 <span class="sd">    &gt;&gt;&gt; ham = number(dimension=5)</span>
 <span class="sd">    &gt;&gt;&gt; parityEXP = parityEXP(HamiltonianCavity=ham) # returns a sparse since ham is a sparse</span>
 <span class="sd">    (0, 0)	(1+0j)</span>
@@ -944,53 +1026,25 @@
     <span class="k">return</span> <span class="n">expm</span><span class="p">(</span><span class="n">parEX</span><span class="p">)</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">linA</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">parEX</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="basis"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.basis">[docs]</a><span class="k">def</span> <span class="nf">basis</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a `ket` state</span>
-
-<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    :param `dimension` : dimension of Hilbert space</span>
-<span class="sd">    :param `state` : index number for the populated state</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    :return : `ket` state</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; basis(2, 1)</span>
-<span class="sd">    (0, 0)	1</span>
-<span class="sd">    &gt;&gt;&gt; basis(2, 1, sparse=False)</span>
-<span class="sd">    [[1]</span>
-<span class="sd">    [0]]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="p">]</span>
-    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">A</span></div>
-
-
 <div class="viewcode-block" id="displacement"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.displacement">[docs]</a><span class="k">def</span> <span class="nf">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the displacement operator for a given displacement parameter alpha</span>
+<span class="sd">    Creates the displacement operator for a given displacement parameter alpha.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `alpha` : complex number, the displacement parameter</span>
-<span class="sd">    :param dim: dimension of the Hilbert space</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        alpha : complex</span>
+<span class="sd">            complex number, the displacement parameter</span>
+<span class="sd">        dim : int</span>
+<span class="sd">            dimension of the Hilbert space</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Displacement operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Displacement operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -999,6 +1053,7 @@
 <span class="sd">    [ 0.        +0.6100857j   0.02280184+0.j          0.        +0.34204129j        -0.71434114+0.j]</span>
 <span class="sd">    [-0.41242505+0.j          0.        +0.34204129j -0.56045527+0.j        0.        +0.63150869j]</span>
 <span class="sd">    [ 0.        -0.30065525j -0.71434114+0.j          0.        +0.63150869j        0.02280184+0.j]]</span>
+
 <span class="sd">    &gt;&gt;&gt; disp = displacement(alpha=1j, dim=4)</span>
 <span class="sd">    (0, 0)	(0.6060589372864117+0j)</span>
 <span class="sd">    (1, 0)	0.610085698426889j</span>
@@ -1025,19 +1080,23 @@
 
 <div class="viewcode-block" id="squeeze"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.squeeze">[docs]</a><span class="k">def</span> <span class="nf">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the squeezing operator for a given squeezing parameter alpha</span>
+<span class="sd">    Creates the squeezing operator for a given squeezing parameter alpha.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `alpha` : complex number, the squeezing parameter</span>
-<span class="sd">    :param dim: dimension of the Hilbert space</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        alpha : complex</span>
+<span class="sd">            complex number, the squeezing parameter</span>
+<span class="sd">        dim : int</span>
+<span class="sd">            dimension of the Hilbert space</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Squeezing operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Squeezing operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -1046,6 +1105,7 @@
 <span class="sd">    [0.        +0.j         0.33918599+0.j         0.        +0.j               0.        -0.94071933j]</span>
 <span class="sd">    [0.        -0.64963694j 0.        +0.j         0.7602446 +0.j               0.        +0.j        ]</span>
 <span class="sd">    [0.        +0.j         0.        -0.94071933j 0.        +0.j               0.33918599+0.j        ]]</span>
+
 <span class="sd">    &gt;&gt;&gt; squeeze = squeeze(alpha=1j, dim=4)</span>
 <span class="sd">    (0, 0)	(0.7602445970756301+0j)</span>
 <span class="sd">    (2, 0)	-0.6496369390800625j</span>
@@ -1070,23 +1130,28 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `operator` : operator of a sub-system</span>
-<span class="sd">    :param `dimB` : (total) dimension of the systems that appear `before` in the tensor product order</span>
-<span class="sd">    :param `dimA` : (total) dimension of the systems that appear `after` in the tensor product order</span>
+<span class="sd">        operator : Matrix</span>
+<span class="sd">            operator of a sub-system</span>
+<span class="sd">        dimB : int</span>
+<span class="sd">            (total) dimension of the systems that appear `before` in the tensor product order</span>
+<span class="sd">        dimA : int</span>
+<span class="sd">            (total) dimension of the systems that appear `after` in the tensor product order</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">    :return: sub-system operator in the extended Hilbert space</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        sub-system operator in the extended Hilbert space</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    TODO Update these</span>
 <span class="sd">    &gt;&gt;&gt; szQ1 = compositeOp(operator=sigmaz(), dimB=0, dimA=2)</span>
-<span class="sd">    &gt;&gt;&gt; szQ2 = compositeOp(operator=sigmaz(), dimB=2, dimA=0)</span>
 <span class="sd">    &gt;&gt;&gt; print(szQ1.A)</span>
 <span class="sd">    [[ 1.  0.  0.  0.]</span>
 <span class="sd">    [ 0.  1.  0.  0.]</span>
 <span class="sd">    [ 0.  0. -1.  0.]</span>
 <span class="sd">    [ 0.  0.  0. -1.]]</span>
+
+<span class="sd">    &gt;&gt;&gt; szQ2 = compositeOp(operator=sigmaz(), dimB=2, dimA=0)</span>
 <span class="sd">    &gt;&gt;&gt; print(szQ2.A)</span>
 <span class="sd">    [[ 1.  0.  0.  0.]</span>
 <span class="sd">    [ 0. -1.  0.  0.]</span>

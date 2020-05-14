@@ -53,7 +53,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #212121" >
+        <div class="wy-side-nav-search"  style="background: #051988" >
           
 
           
@@ -95,7 +95,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../Evolutions/evolutions.html">Evolutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Hamiltonians/hamiltonians.html">Hamiltonians</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Operations/operations.html">Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Quasi-Probabilities</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Quasi-Probabilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#types">Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../CustomTypes/customTypes.html">Custom Types</a></li>
 </ul>
 </li>
@@ -192,62 +198,100 @@
 <div class="section" id="module-qTools.QuantumToolbox.quasiProbabilities">
 <span id="quasi-probabilities"></span><h1>Quasi-Probabilities<a class="headerlink" href="#module-qTools.QuantumToolbox.quasiProbabilities" title="Permalink to this headline">¶</a></h1>
 <p>Module of functions to calculate quasi-probability distributions (adapted from qutip).</p>
-<dl class="method">
-<dt>
-<code class="sig-name descname">:Wigner : An iterative method to evaluate the Wigner functions for the Fock state :math:`|m&gt;&lt;n|`.</code></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt>
-<code class="sig-name descname">:HusimiQ : Q-function of a given state vector or density matrix at points `xvec + i * yvec`.</code></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt>
-<code class="sig-name descname">:_qfuncPure : Calculate the Q-function for a pure state.</code></dt>
-<dd></dd></dl>
-
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>Wigner</strong> : An iterative method to evaluate the Wigner functions for the Fock
+state <img class="math" src="../../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/>.</div>
+<div class="line"><strong>HusimiQ</strong> : Q-function of a given state vector or density matrix at points <cite>vec + i * vec</cite>.</div>
+<div class="line"><strong>_qfuncPure</strong> : Calculate the Q-function for a pure state.</div>
+</div>
+</div></blockquote>
+<div class="section" id="types">
+<h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>Matrix</strong> : Union of (scipy) sparse and (numpy) array</div>
+<div class="line"><strong>ndOrListInt</strong> : Union of ndarray and intList</div>
+</div>
+</div></blockquote>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.quasiProbabilities.HusimiQ">
-<code class="sig-name descname">HusimiQ</code><span class="sig-paren">(</span><em class="sig-param">state: Matrix, xvec: Union[numpy.ndarray, list], g: float = 1.4142135623730951</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/quasiProbabilities.html#HusimiQ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.quasiProbabilities.HusimiQ" title="Permalink to this definition">¶</a></dt>
-<dd><p>Q-function of a given state vector or density matrix at points <cite>xvec + i * yvec</cite></p>
+<code class="sig-name descname">HusimiQ</code><span class="sig-paren">(</span><em class="sig-param">state: Matrix, vec: Union[numpy.ndarray, list], g: float = 1.4142135623730951</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/quasiProbabilities.html#HusimiQ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.quasiProbabilities.HusimiQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Q-function of a given state vector or density matrix at points <cite>vec + i * vec</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state</strong> (<em>qobj</em>) – A state vector or density matrix.</p></li>
-<li><p><strong>xvec</strong> (<em>array_like</em>) – x-coordinates at which to calculate the Wigner function.</p></li>
-<li><p><strong>yvec</strong> (<em>array_like</em>) – y-coordinates at which to calculate the Wigner function.</p></li>
+<li><p><strong>rho</strong> (<em>Matrix</em>) – density matrix or ket state</p></li>
+<li><p><strong>vec</strong> (<em>ndOrList</em>) – An array (or list) to define the (coarse-grained) Phase space.
+This creates a square grid of the phase space.</p></li>
 <li><p><strong>g</strong> (<em>float</em>) – Scaling factor for <cite>a = 0.5 * g * (x + iy)</cite>, default <cite>g = sqrt(2)</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>Q</strong> – Values representing the Q-function calculated over the specified range
-[xvec,yvec].</p>
+<dd class="field-even"><p>Values representing the Q-function calculated over the specified range [vec, vec].</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>array</p>
+<dd class="field-odd"><p>returns : array</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="qTools.QuantumToolbox.quasiProbabilities.Wigner">
-<code class="sig-name descname">Wigner</code><span class="sig-paren">(</span><em class="sig-param">rho: Matrix, xvec: Union[numpy.ndarray, list], g: float = 1.4142135623730951</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/quasiProbabilities.html#Wigner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.quasiProbabilities.Wigner" title="Permalink to this definition">¶</a></dt>
-<dd><p>An iterative method to evaluate the Wigner functions for the Fock state <img class="math" src="../../_images/math/31b773e57a1edac95490f9f6c0d179b0d40fac3e.png" alt="|m&gt;&lt;n|"/></p>
+<code class="sig-name descname">Wigner</code><span class="sig-paren">(</span><em class="sig-param">rho: Matrix, vec: Union[numpy.ndarray, list], g: float = 1.4142135623730951</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/quasiProbabilities.html#Wigner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.quasiProbabilities.Wigner" title="Permalink to this definition">¶</a></dt>
+<dd><p>An iterative method to evaluate the Wigner functions for the states <img class="math" src="../../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/>.</p>
 <p>The Wigner function is calculated as
 <img class="math" src="../../_images/math/185fa2432aff3024a222e5cd491c6de39d1e1bb1.png" alt="W = \sum_{mn} \rho_{mn} W_{mn}"/> where <img class="math" src="../../_images/math/66ee3fc9a8ab287c0b4b4623e05195c7557c2f2a.png" alt="W_{mn}"/> is the Wigner
-function for the density matrix <img class="math" src="../../_images/math/31b773e57a1edac95490f9f6c0d179b0d40fac3e.png" alt="|m&gt;&lt;n|"/>.</p>
+function for the density matrix <img class="math" src="../../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/>.</p>
 <p>In this implementation, for each row m, Wlist contains the Wigner functions
-Wlist = [0, …, W_mm, …, W_mN]. As soon as one W_mn Wigner function is
+Wlist = <img class="math" src="../../_images/math/3aed6f14664ed56a4ea56f1f5354b3d55204ebc3.png" alt="[0, ..., W_{mm} , ..., W_{mN} ]"/>. As soon as one <img class="math" src="../../_images/math/66ee3fc9a8ab287c0b4b4623e05195c7557c2f2a.png" alt="W_{mn}"/> Wigner function is
 calculated, the corresponding contribution is added to the total Wigner
 function, weighted by the corresponding element in the density matrix
-<img class="math" src="../../_images/math/c48a0b9a1e5c21ae1743d0bd2acb8241e458e5f6.png" alt="rho_{mn}"/>.</p>
-<p>:param :
-:type : param <cite>rho</cite> : density matrix or ket state
-:param :
-:type : param <cite>xvec</cite> : multi-dimensional array for the (coarse-grained) Phase space</p>
+<img class="math" src="../../_images/math/33e01e01908186a81cee07620fd0aff623084c52.png" alt="\rho_{mn}"/>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>Matrix</em>) – Density matrix or ket state.</p></li>
+<li><p><strong>vec</strong> (<em>ndOrList</em>) – An array (or list) to define the (coarse-grained) Phase space.
+This creates a square grid of the phase space.</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – Scaling factor for <cite>a = 0.5 * g * (x + iy)</cite>, default <cite>g = sqrt(2)</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Values representing the Wigner-function calculated over the specified range [vec, vec].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>returns : ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="qTools.QuantumToolbox.quasiProbabilities._qfuncPure">
+<code class="sig-name descname">_qfuncPure</code><span class="sig-paren">(</span><em class="sig-param">psi: Matrix</em>, <em class="sig-param">alphaMat: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/quasiProbabilities.html#_qfuncPure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.quasiProbabilities._qfuncPure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Q-function for a pure state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>psi</strong> (<em>Matrix</em>) – a pure state</p></li>
+<li><p><strong>vec</strong> (<em>ndOrList</em>) – an array (or list) to define the (coarse-grained) Phase space.
+This creates a square grid of the phase space.</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – Scaling factor for <cite>a = 0.5 * g * (x + iy)</cite>, default <cite>g = sqrt(2)</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Values representing the Q-function calculated over the specified range [vec, vec].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>returns : array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
 </div>
 
 

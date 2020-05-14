@@ -7,6 +7,7 @@ before_script:
 stages:
     - Static Analysis
     - Test
+    - Build
 
 mypy:
     stage: Static Analysis
@@ -57,3 +58,11 @@ unit_test:
     - export PYTHONPATH="$PYTHONPATH:."
     - python -c "import sys;print(sys.path)"
     - pytest
+
+
+sphinx:
+    stage: Build
+    tags:
+        - qsimulations
+    script:
+        sphinx-build -b html docs/source docs/docsBuild

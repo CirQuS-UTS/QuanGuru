@@ -28,7 +28,7 @@
         | **vec2Mat** : Converts `density vector` into `density matrix`.
 
     Types
-    -----
+    ^^^^^
         | **Matrix** : Union of (scipy) sparse and (numpy) array
         | **intList** : List of integers
         | **matrixList** : List of Matrices

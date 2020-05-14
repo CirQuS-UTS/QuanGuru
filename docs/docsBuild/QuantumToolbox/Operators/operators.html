@@ -53,7 +53,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #212121" >
+        <div class="wy-side-nav-search"  style="background: #051988" >
           
 
           
@@ -91,7 +91,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../qTools.QuantumToolbox.html">QuantumToolbox</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../States/states.html">States</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Operators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#types">Types</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Functions/functions.html">Functions</a></li>
@@ -198,47 +201,66 @@
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><p>number : Creates the (bosonic) number (<img class="math" src="../../_images/math/2bb3984b414b729f6541f5db3ae9a86ce0c219a6.png" alt="\hat{n}"/>) operator
-destroy : Creates the bosonic <cite>annihilation</cite> (<img class="math" src="../../_images/math/1b1a2b99575ee3eedd6e311fa15461e9c49012cb.png" alt="\hat{a}"/>) operator
-create : Creates the bosonic <cite>creation</cite> (<img class="math" src="../../_images/math/2f9d9efe16954af247b44db0481257c56d42ceb7.png" alt="\hat{a}^{\dagger}"/>) operator</p>
-<p>identity : Creates the identity operator</p>
-<p>sigmaz : Creates the <cite>Pauli</cite> sigma z operator
-sigmay : Creates the <cite>Pauli</cite> sigma y operator
-sigmax : Creates the <cite>Pauli</cite> sigma x operator
-sigmap : Creates the <cite>Pauli</cite> sigma + operator, i.e. 2D Fermionic creation operator
-sigmam : Creates the <cite>Pauli</cite> sigma - operator, i.e. 2D Fermionic destruction operator</p>
-<p>Jz : Creates the angular momentum (spin) <cite>Z</cite> operator for a given spin quantum number j
-Jp : Creates the angular momentum (spin) <cite>creation</cite> operator for a given spin quantum number j
-Jm : Creates the angular momentum (spin) <cite>destruction</cite> operator for a given spin quantum number j
-Jx : Creates the angular momentum (spin) <cite>X</cite> operator for a given spin quantum number j
-Jy : Creates the angular momentum (spin) <cite>Y</cite> operator for a given spin quantum number j
-Js : Creates the total angular momentum (spin) operator for a given spin quantum number j</p>
-<p>operatorPow : Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite></p>
-<p>paritySUM : Creates the parity operator by explicitly placing alternating +/- into a matrix
-partiyEXP : Creates the parity operator by exponentiation a given Hamiltonian</p>
-<p>basis : Creates a <cite>ket</cite> state</p>
-<p>displacement : Creates the displacement operator for a given displacement parameter alpha
-squeeze : Creates the squeezing operator for a given squeezing parameter alpha</p>
-<p>compositeOp : Creates a composite operator from a sub-system <cite>operator</cite>,
-i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
+<div><div class="line-block">
+<div class="line"><strong>number</strong> : Creates the (bosonic) number (<img class="math" src="../../_images/math/2bb3984b414b729f6541f5db3ae9a86ce0c219a6.png" alt="\hat{n}"/>) operator.</div>
+<div class="line"><strong>destroy</strong> : Creates the bosonic <cite>annihilation</cite> (<img class="math" src="../../_images/math/1b1a2b99575ee3eedd6e311fa15461e9c49012cb.png" alt="\hat{a}"/>) operator.</div>
+<div class="line"><strong>create</strong> : Creates the bosonic <cite>creation</cite> (<img class="math" src="../../_images/math/2f9d9efe16954af247b44db0481257c56d42ceb7.png" alt="\hat{a}^{\dagger}"/>) operator.</div>
+<div class="line"><strong>identity</strong> : Creates the identity operator.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>sigmaz</strong> : Creates the <cite>Pauli</cite> sigma z (<img class="math" src="../../_images/math/997c77baea81e19fb5db1edd6e5c5ab6f65e8cf0.png" alt="\hat{\sigma}_{z}"/>) operator.</div>
+<div class="line"><strong>sigmay</strong> : Creates the <cite>Pauli</cite> sigma y (<img class="math" src="../../_images/math/3e54af2b39972a106f122a7beba0e135ea539b21.png" alt="\hat{\sigma}_{y}"/>) operator.</div>
+<div class="line"><strong>sigmax</strong> : Creates the <cite>Pauli</cite> sigma x (<img class="math" src="../../_images/math/bf2f7668e3b5c0c231e9fa12f9bf2b58ebcea801.png" alt="\hat{\sigma}_{x}"/>) operator.</div>
+<div class="line"><strong>sigmap</strong> : Creates the <cite>Pauli</cite> sigma + (<img class="math" src="../../_images/math/7444066888e4556abaae0ba60ca3995cdc0a0954.png" alt="\hat{\sigma}_{+}"/>) operator, i.e. 2D Fermionic creation.</div>
+<div class="line"><strong>sigmam</strong> : Creates the <cite>Pauli</cite> sigma - (<img class="math" src="../../_images/math/72aedb01167fd62b78515470c19d49df6a23465f.png" alt="\hat{\sigma}_{-}"/>) operator, i.e. 2D Fermionic destruction.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>Jz</strong> : Creates the angular momentum (spin) <cite>Z</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jp</strong> : Creates the angular momentum (spin) <cite>creation</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jm</strong> : Creates the angular momentum (spin) <cite>destruction</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jx</strong> : Creates the angular momentum (spin) <cite>X</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jy</strong> : Creates the angular momentum (spin) <cite>Y</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Js</strong> : Creates the total angular momentum (spin) operator for a given spin quantum number j.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>operatorPow</strong> : Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</div>
+<div class="line"><strong>paritySUM</strong> : Creates the parity operator by explicitly placing alternating +/- into a matrix.</div>
+<div class="line"><strong>partiyEXP</strong> : Creates the parity operator by exponentiation a given Hamiltonian.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>displacement</strong> : Creates the displacement operator for a given displacement parameter alpha.</div>
+<div class="line"><strong>squeeze</strong> : Creates the squeezing operator for a given squeezing parameter alpha.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>compositeOp</strong> : Creates a composite operator from a sub-system <cite>operator</cite>,
+i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
+</div>
+</div></blockquote>
+<div class="section" id="types">
+<h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>Matrix</strong> : Union of (scipy) sparse and (numpy) array</div>
+</div>
 </div></blockquote>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.Jm">
 <code class="sig-name descname">Jm</code><span class="sig-paren">(</span><em class="sig-param">j: float</em>, <em class="sig-param">sparse: bool = True</em>, <em class="sig-param">isDim: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#Jm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the angular momentum (spin) <cite>destruction</cite> operator for a given spin quantum number j</p>
+<dd><p>Creates the angular momentum (spin) <cite>destruction</cite> operator for a given spin quantum number j.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>j</cite> : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)
-:param :
-:type : param isDim: boolean for whether j is spin quantum number of dimension</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Angular momentum (spin) destruction operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) destruction operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -248,18 +270,24 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[0.         2.44948974 0.         0.         0.        ]</span>
 <span class="go">[0.         0.         2.44948974 0.         0.        ]</span>
 <span class="go">[0.         0.         0.         2.         0.        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jm0</span> <span class="o">=</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jm0</span> <span class="o">=</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">(1, 0)      2.0</span>
 <span class="go">(2, 1)      2.449489742783178</span>
 <span class="go">(3, 2)      2.449489742783178</span>
 <span class="go">(4, 3)      2.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jm1</span> <span class="o">=</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jm1</span> <span class="o">=</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0.         0.         0.         0.         0.        ]</span>
 <span class="go">[2.         0.         0.         0.         0.        ]</span>
 <span class="go">[0.         2.44948974 0.         0.         0.        ]</span>
 <span class="go">[0.         0.         2.44948974 0.         0.        ]</span>
 <span class="go">[0.         0.         0.         2.         0.        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jm1</span> <span class="o">=</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jm1</span> <span class="o">=</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(1, 0)      2.0</span>
 <span class="go">(2, 1)      2.449489742783178</span>
 <span class="go">(3, 2)      2.449489742783178</span>
@@ -271,20 +299,21 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.Jp">
 <code class="sig-name descname">Jp</code><span class="sig-paren">(</span><em class="sig-param">j: float</em>, <em class="sig-param">sparse: bool = True</em>, <em class="sig-param">isDim: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#Jp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the angular momentum (spin) <cite>creation</cite> operator for a given spin quantum number j</p>
+<dd><p>Creates the angular momentum (spin) <cite>creation</cite> operator for a given spin quantum number j.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>j</cite> : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)
-:param :
-:type : param isDim: boolean for whether j is spin quantum number of dimension</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Angular momentum (spin) creation operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) creation operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -294,18 +323,24 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[0.         0.         0.         2.44948974 0.        ]</span>
 <span class="go">[0.         0.         0.         0.         2.        ]</span>
 <span class="go">[0.         0.         0.         0.         0.        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jp0</span> <span class="o">=</span> <span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jp0</span> <span class="o">=</span> <span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">(0, 1)      2.0</span>
 <span class="go">(1, 2)      2.449489742783178</span>
 <span class="go">(2, 3)      2.449489742783178</span>
 <span class="go">(3, 4)      2.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jp1</span> <span class="o">=</span> <span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jp1</span> <span class="o">=</span> <span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0.         2.         0.         0.         0.        ]</span>
 <span class="go">[0.         0.         2.44948974 0.         0.        ]</span>
 <span class="go">[0.         0.         0.         2.44948974 0.        ]</span>
 <span class="go">[0.         0.         0.         0.         2.        ]</span>
 <span class="go">[0.         0.         0.         0.         0.        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jp1</span> <span class="o">=</span> <span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jp1</span> <span class="o">=</span> <span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(0, 1)      2.0</span>
 <span class="go">(1, 2)      2.449489742783178</span>
 <span class="go">(2, 3)      2.449489742783178</span>
@@ -317,20 +352,21 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.Js">
 <code class="sig-name descname">Js</code><span class="sig-paren">(</span><em class="sig-param">j: float</em>, <em class="sig-param">sparse: bool = True</em>, <em class="sig-param">isDim: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#Js"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Js" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the total angular momentum (spin) operator for a given spin quantum number j</p>
+<dd><p>Creates the total angular momentum (spin) operator for a given spin quantum number j.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>j</cite> : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)
-:param :
-:type : param isDim: boolean for whether j is spin quantum number of dimension</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Total angular momentum (spin) operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Total angular momentum (spin) operator</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -340,19 +376,25 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]</span>
 <span class="go">[0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]</span>
 <span class="go">[0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">js0</span> <span class="o">=</span> <span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">js0</span> <span class="o">=</span> <span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">(0, 0)      (6+0j)</span>
 <span class="go">(1, 1)      (6+0j)</span>
 <span class="go">(2, 2)      (5.999999999999999+0j)</span>
 <span class="go">(3, 3)      (6+0j)</span>
 <span class="go">(4, 4)      (6+0j)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">js1</span> <span class="o">=</span> <span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">js1</span> <span class="o">=</span> <span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
 <span class="go">[0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
 <span class="go">[0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]</span>
 <span class="go">[0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]</span>
 <span class="go">[0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">js1</span> <span class="o">=</span> <span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">js1</span> <span class="o">=</span> <span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(0, 0)      (6+0j)</span>
 <span class="go">(1, 1)      (6+0j)</span>
 <span class="go">(2, 2)      (5.999999999999999+0j)</span>
@@ -365,20 +407,21 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.Jx">
 <code class="sig-name descname">Jx</code><span class="sig-paren">(</span><em class="sig-param">j: float</em>, <em class="sig-param">sparse: bool = True</em>, <em class="sig-param">isDim: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#Jx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the angular momentum (spin) <cite>X</cite> operator for a given spin quantum number j</p>
+<dd><p>Creates the angular momentum (spin) <cite>X</cite> operator for a given spin quantum number j.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>j</cite> : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)
-:param :
-:type : param isDim: boolean for whether j is spin quantum number of dimension</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Angular momentum (spin) X operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) X operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -388,7 +431,9 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[0.         1.22474487 0.         1.22474487 0.        ]</span>
 <span class="go">[0.         0.         1.22474487 0.         1.        ]</span>
 <span class="go">[0.         0.         0.         1.         0.        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jx0</span> <span class="o">=</span> <span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jx0</span> <span class="o">=</span> <span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">(1, 0)      1.0</span>
 <span class="go">(0, 1)      1.0</span>
 <span class="go">(2, 1)      1.224744871391589</span>
@@ -397,13 +442,17 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">(2, 3)      1.224744871391589</span>
 <span class="go">(4, 3)      1.0</span>
 <span class="go">(3, 4)      1.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jx1</span> <span class="o">=</span> <span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jx1</span> <span class="o">=</span> <span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0.         1.         0.         0.         0.        ]</span>
 <span class="go">[1.         0.         1.22474487 0.         0.        ]</span>
 <span class="go">[0.         1.22474487 0.         1.22474487 0.        ]</span>
 <span class="go">[0.         0.         1.22474487 0.         1.        ]</span>
 <span class="go">[0.         0.         0.         1.         0.        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jx1</span> <span class="o">=</span> <span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jx1</span> <span class="o">=</span> <span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(1, 0)      1.0</span>
 <span class="go">(0, 1)      1.0</span>
 <span class="go">(2, 1)      1.224744871391589</span>
@@ -419,20 +468,21 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.Jy">
 <code class="sig-name descname">Jy</code><span class="sig-paren">(</span><em class="sig-param">j: float</em>, <em class="sig-param">sparse: bool = True</em>, <em class="sig-param">isDim: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#Jy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the angular momentum (spin) <cite>Y</cite> operator for a given spin quantum number j</p>
+<dd><p>Creates the angular momentum (spin) <cite>Y</cite> operator for a given spin quantum number j.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>j</cite> : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)
-:param :
-:type : param isDim: boolean for whether j is spin quantum number of dimension</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Angular momentum (spin) Y operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) Y operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -442,7 +492,9 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]</span>
 <span class="go">[0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]</span>
 <span class="go">[0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jy0</span> <span class="o">=</span> <span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jy0</span> <span class="o">=</span> <span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">(1, 0)      1j</span>
 <span class="go">(0, 1)      -1j</span>
 <span class="go">(2, 1)      1.224744871391589j</span>
@@ -451,13 +503,17 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">(2, 3)      -1.224744871391589j</span>
 <span class="go">(4, 3)      1j</span>
 <span class="go">(3, 4)      -1j</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jy1</span> <span class="o">=</span> <span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jy1</span> <span class="o">=</span> <span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]</span>
 <span class="go">[0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]</span>
 <span class="go">[0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]</span>
 <span class="go">[0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]</span>
 <span class="go">[0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jy1</span> <span class="o">=</span> <span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jy1</span> <span class="o">=</span> <span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(1, 0)      1j</span>
 <span class="go">(0, 1)      -1j</span>
 <span class="go">(2, 1)      1.224744871391589j</span>
@@ -473,20 +529,21 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.Jz">
 <code class="sig-name descname">Jz</code><span class="sig-paren">(</span><em class="sig-param">j: float</em>, <em class="sig-param">sparse: bool = True</em>, <em class="sig-param">isDim: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#Jz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the angular momentum (spin) <cite>Z</cite> operator for a given spin quantum number j</p>
+<dd><p>Creates the angular momentum (spin) <cite>Z</cite> operator for a given spin quantum number j.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>j</cite> : integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)
-:param :
-:type : param isDim: boolean for whether j is spin quantum number of dimension</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Angular momentum (spin) Z operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) Z operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -496,53 +553,30 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[ 0  0  0  0  0]</span>
 <span class="go">[ 0  0  0 -1  0]</span>
 <span class="go">[ 0  0  0  0 -2]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jz0</span> <span class="o">=</span> <span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jz0</span> <span class="o">=</span> <span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">(0, 0)      2</span>
 <span class="go">(1, 1)      1</span>
 <span class="go">(2, 2)      0</span>
 <span class="go">(3, 3)      -1</span>
 <span class="go">(4, 4)      -2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jz1</span> <span class="o">=</span> <span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jz1</span> <span class="o">=</span> <span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[ 2.  0.  0.  0.  0.]</span>
 <span class="go">[ 0.  1.  0.  0.  0.]</span>
 <span class="go">[ 0.  0.  0.  0.  0.]</span>
 <span class="go">[ 0.  0.  0. -1.  0.]</span>
 <span class="go">[ 0.  0.  0.  0. -2.]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jz1</span> <span class="o">=</span> <span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jz1</span> <span class="o">=</span> <span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(0, 0)      2.0</span>
 <span class="go">(1, 1)      1.0</span>
 <span class="go">(2, 2)      0.0</span>
 <span class="go">(3, 3)      -1.0</span>
 <span class="go">(4, 4)      -2.0</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="qTools.QuantumToolbox.operators.basis">
-<code class="sig-name descname">basis</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">state: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#basis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.basis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a <cite>ket</cite> state</p>
-<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of Hilbert space
-:param :
-:type : param <cite>state</cite> : index number for the populated state
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return : <cite>ket</cite> state</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="go">(0, 0)      1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[1]</span>
-<span class="go">[0]]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -554,53 +588,64 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dt>Creates a composite operator from a sub-system <cite>operator</cite>,</dt><dd><p>i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 </dd>
 </dl>
-<p>:param :
-:type : param <cite>operator</cite> : operator of a sub-system
-:param :
-:type : param <cite>dimB</cite> : (total) dimension of the systems that appear <cite>before</cite> in the tensor product order
-:param :
-:type : param <cite>dimA</cite> : (total) dimension of the systems that appear <cite>after</cite> in the tensor product order
-:param Returns:
-:param :
-:type : return: sub-system operator in the extended Hilbert space</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Matrix</em>) – operator of a sub-system</p></li>
+<li><p><strong>dimB</strong> (<em>int</em>) – (total) dimension of the systems that appear <cite>before</cite> in the tensor product order</p></li>
+<li><p><strong>dimA</strong> (<em>int</em>) – (total) dimension of the systems that appear <cite>after</cite> in the tensor product order</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:
+:return: Matrix</p>
+<blockquote>
+<div><p>sub-system operator in the extended Hilbert space</p>
+</div></blockquote>
 <p class="rubric">Examples</p>
 <p>TODO Update these
 &gt;&gt;&gt; szQ1 = compositeOp(operator=sigmaz(), dimB=0, dimA=2)
-&gt;&gt;&gt; szQ2 = compositeOp(operator=sigmaz(), dimB=2, dimA=0)
 &gt;&gt;&gt; print(szQ1.A)
 [[ 1.  0.  0.  0.]
 [ 0.  1.  0.  0.]
 [ 0.  0. -1.  0.]
-[ 0.  0.  0. -1.]]
-&gt;&gt;&gt; print(szQ2.A)
-[[ 1.  0.  0.  0.]
-[ 0. -1.  0.  0.]
-[ 0.  0.  1.  0.]
 [ 0.  0.  0. -1.]]</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">szQ2</span> <span class="o">=</span> <span class="n">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">dimB</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dimA</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">szQ2</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="go">[[ 1.  0.  0.  0.]</span>
+<span class="go">[ 0. -1.  0.  0.]</span>
+<span class="go">[ 0.  0.  1.  0.]</span>
+<span class="go">[ 0.  0.  0. -1.]]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.create">
 <code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the bosonic <cite>creation</cite> operator</p>
+<dd><p>Creates the bosonic <cite>creation</cite> (<img class="math" src="../../_images/math/2f9d9efe16954af247b44db0481257c56d42ceb7.png" alt="\hat{a}^{\dagger}"/>) operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: bosonic <cite>creation</cite> operator for dimension dimension</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bosonic <cite>creation</cite> operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">create</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">(1, 0)      1.0</span>
 <span class="go">(2, 1)      1.4142135623730951</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">create</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">create</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0.         0.         0.        ]</span>
 <span class="go">[1.         0.         0.        ]</span>
 <span class="go">[0.         1.41421356 0.        ]]</span>
@@ -611,25 +656,29 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.destroy">
 <code class="sig-name descname">destroy</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.destroy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the bosonic <cite>annihilation</cite> operator</p>
+<dd><p>Creates the bosonic <cite>annihilation</cite> (<img class="math" src="../../_images/math/1b1a2b99575ee3eedd6e311fa15461e9c49012cb.png" alt="\hat{a}"/>) operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: bosonic <cite>annihilation</cite> operator for dimension dimension</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bosonic <cite>annihilation</cite> operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">annihilation</span> <span class="o">=</span> <span class="n">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">(0, 1)      1.0</span>
 <span class="go">(1, 2)      1.4142135623730951</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">annihilation</span> <span class="o">=</span> <span class="n">destroy</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">annihilation</span> <span class="o">=</span> <span class="n">destroy</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0.         1.         0.        ]</span>
 <span class="go">[0.         0.         1.41421356]</span>
 <span class="go">[0.         0.         0.        ]]</span>
@@ -640,20 +689,21 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.displacement">
 <code class="sig-name descname">displacement</code><span class="sig-paren">(</span><em class="sig-param">alpha: complex</em>, <em class="sig-param">dim: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#displacement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.displacement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the displacement operator for a given displacement parameter alpha</p>
+<dd><p>Creates the displacement operator for a given displacement parameter alpha.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>alpha</cite> : complex number, the displacement parameter
-:param :
-:type : param dim: dimension of the Hilbert space
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>complex</em>) – complex number, the displacement parameter</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Displacement operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Displacement operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -662,7 +712,9 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[ 0.        +0.6100857j   0.02280184+0.j          0.        +0.34204129j        -0.71434114+0.j]</span>
 <span class="go">[-0.41242505+0.j          0.        +0.34204129j -0.56045527+0.j        0.        +0.63150869j]</span>
 <span class="go">[ 0.        -0.30065525j -0.71434114+0.j          0.        +0.63150869j        0.02280184+0.j]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">disp</span> <span class="o">=</span> <span class="n">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disp</span> <span class="o">=</span> <span class="n">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="go">(0, 0)      (0.6060589372864117+0j)</span>
 <span class="go">(1, 0)      0.610085698426889j</span>
 <span class="go">(2, 0)      (-0.41242505189886125+0j)</span>
@@ -686,18 +738,20 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.identity">
 <code class="sig-name descname">identity</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#identity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.identity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the identity operator</p>
+<dd><p>Creates the identity operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: identity operator for dimension dimension</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>identity operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -705,7 +759,9 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">(0, 0)      1.0</span>
 <span class="go">(1, 1)      1.0</span>
 <span class="go">(2, 2)      1.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">identity</span> <span class="o">=</span> <span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">identity</span> <span class="o">=</span> <span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[1. 0. 0.]</span>
 <span class="go">[0. 1. 0.]</span>
 <span class="go">[0. 0. 1.]]</span>
@@ -716,18 +772,20 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.number">
 <code class="sig-name descname">number</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.number" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the (bosonic) number operator</p>
+<dd><p>Creates the (bosonic) number (<img class="math" src="../../_images/math/2bb3984b414b729f6541f5db3ae9a86ce0c219a6.png" alt="\hat{n}"/>) operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param dimension : dimension of the Hilbert space
-:param :
-:type : param sparse : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: number operator for dimension dimension</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>number operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -735,7 +793,9 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[[0 0 0]</span>
 <span class="go">[0 1 0]</span>
 <span class="go">[0 0 2]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">numberSparse</span> <span class="o">=</span> <span class="n">number</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">numberSparse</span> <span class="o">=</span> <span class="n">number</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">(0, 0)      0</span>
 <span class="go">(1, 1)      1</span>
 <span class="go">(2, 2)      2</span>
@@ -746,35 +806,41 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.operatorPow">
 <code class="sig-name descname">operatorPow</code><span class="sig-paren">(</span><em class="sig-param">op: Callable</em>, <em class="sig-param">dim: int</em>, <em class="sig-param">power: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#operatorPow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.operatorPow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite></p>
+<dd><p>Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>op</cite> : reference to the function (in here) for the operator
-:param :
-:type : param <cite>dim</cite> : dimension of the Hilbert space
-:param :
-:type : param <cite>power</cite> : power that the operator to be raised
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op</strong> (<em>Callable</em>) – reference to the function (in here) for the operator</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>power</strong> (<em>int</em>) – power that the operator to be raised</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: an operator raised to a power</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an operator raised to a power</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">squareSigmaX</span> <span class="o">=</span> <span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[1 0]</span>
 <span class="go">[0 1]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">squareSigmaX</span> <span class="o">=</span> <span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">squareSigmaX</span> <span class="o">=</span> <span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">(0, 0)      1</span>
 <span class="go">(1, 1)      1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cubedSigmaX</span> <span class="o">=</span> <span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cubedSigmaX</span> <span class="o">=</span> <span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0 1]</span>
 <span class="go">[1 0]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cubedSigmaX</span> <span class="o">=</span> <span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cubedSigmaX</span> <span class="o">=</span> <span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">(1, 0)      1</span>
 <span class="go">(0, 1)      1</span>
 </pre></div>
@@ -784,16 +850,17 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.parityEXP">
 <code class="sig-name descname">parityEXP</code><span class="sig-paren">(</span><em class="sig-param">HamiltonianCavity: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#parityEXP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.parityEXP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the parity operator by exponentiation a given Hamiltonian</p>
+<dd><p>Creates the parity operator by exponentiation a given Hamiltonian.</p>
 <p>Keeps sparse/array as sparse/array.</p>
-<p>:param :
-:type : param <cite>HamiltonianCavity</cite> : dimension of the Hilbert space</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>HamiltonianCavity</strong> (<em>Matrix</em>) – dimension of the Hilbert space</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Parity operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parity operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -804,7 +871,9 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j]</span>
 <span class="go">[ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  -1.+3.6739404e-16j  0.+0.0000000e+00j]</span>
 <span class="go">[ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  1.-4.8985872e-16j]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">number</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">number</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">parityEXP</span> <span class="o">=</span> <span class="n">parityEXP</span><span class="p">(</span><span class="n">HamiltonianCavity</span><span class="o">=</span><span class="n">ham</span><span class="p">)</span> <span class="c1"># returns a sparse since ham is a sparse</span>
 <span class="go">(0, 0)      (1+0j)</span>
 <span class="go">(0, 1)      0j</span>
@@ -822,18 +891,20 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.paritySUM">
 <code class="sig-name descname">paritySUM</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#paritySUM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.paritySUM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the parity operator by explicitly placing alternating +/- into a matrix</p>
+<dd><p>Creates the parity operator by explicitly placing alternating +/- into a matrix.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Parity operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parity operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -843,7 +914,9 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[ 0.  0.  1.  0.  0.]</span>
 <span class="go">[ 0.  0.  0. -1.  0.]</span>
 <span class="go">[ 0.  0.  0.  0.  1.]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">paritySum</span> <span class="o">=</span> <span class="n">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">paritySum</span> <span class="o">=</span> <span class="n">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">(0, 0)      1.0</span>
 <span class="go">(1, 1)      -1.0</span>
 <span class="go">(2, 2)      1.0</span>
@@ -856,25 +929,26 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.sigmam">
 <code class="sig-name descname">sigmam</code><span class="sig-paren">(</span><em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#sigmam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the <cite>Pauli</cite> sigma - operator, i.e. 2D Fermionic destruction operator</p>
+<dd><p>Creates the <cite>Pauli</cite> sigma - (<img class="math" src="../../_images/math/72aedb01167fd62b78515470c19d49df6a23465f.png" alt="\hat{\sigma}_{-}"/>) operator, i.e. 2D Fermionic destruction operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space (2 by default)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: <cite>Pauli</cite> sigma - operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma - operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span> <span class="o">=</span> <span class="n">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0 0]</span>
 <span class="go">[1 0]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span> <span class="o">=</span> <span class="n">sigmam</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span> <span class="o">=</span> <span class="n">sigmam</span><span class="p">()</span>
 <span class="go">(1, 0)      1</span>
 </pre></div>
 </div>
@@ -883,25 +957,26 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.sigmap">
 <code class="sig-name descname">sigmap</code><span class="sig-paren">(</span><em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#sigmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the <cite>Pauli</cite> sigma + operator, i.e. 2D Fermionic creation operator</p>
+<dd><p>Creates the <cite>Pauli</cite> sigma + (<img class="math" src="../../_images/math/7444066888e4556abaae0ba60ca3995cdc0a0954.png" alt="\hat{\sigma}_{+}"/>) operator, i.e. 2D Fermionic creation operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space (2 by default)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: <cite>Pauli</cite> sigma + operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma + operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span> <span class="o">=</span> <span class="n">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0 1]</span>
 <span class="go">[0 0]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span> <span class="o">=</span> <span class="n">sigmap</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span> <span class="o">=</span> <span class="n">sigmap</span><span class="p">()</span>
 <span class="go">(0, 1)      1</span>
 </pre></div>
 </div>
@@ -910,25 +985,26 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.sigmax">
 <code class="sig-name descname">sigmax</code><span class="sig-paren">(</span><em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#sigmax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmax" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the <cite>Pauli</cite> sigma x operator</p>
+<dd><p>Creates the <cite>Pauli</cite> sigma x (<img class="math" src="../../_images/math/bf2f7668e3b5c0c231e9fa12f9bf2b58ebcea801.png" alt="\hat{\sigma}_{x}"/>) operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space (2 by default)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: <cite>Pauli</cite> sigma x operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma x operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sx</span> <span class="o">=</span> <span class="n">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0 1]</span>
 <span class="go">[1 0]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sx</span> <span class="o">=</span> <span class="n">sigmax</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sx</span> <span class="o">=</span> <span class="n">sigmax</span><span class="p">()</span>
 <span class="go">(1, 0)      1</span>
 <span class="go">(0, 1)      1</span>
 </pre></div>
@@ -938,25 +1014,26 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.sigmay">
 <code class="sig-name descname">sigmay</code><span class="sig-paren">(</span><em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#sigmay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmay" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the <cite>Pauli</cite> sigma y operator</p>
+<dd><p>Creates the <cite>Pauli</cite> sigma y (<img class="math" src="../../_images/math/3e54af2b39972a106f122a7beba0e135ea539b21.png" alt="\hat{\sigma}_{y}"/>) operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space (2 by default)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: <cite>Pauli</cite> sigma y operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma y operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sy</span> <span class="o">=</span> <span class="n">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0.+0.j 0.-1.j]</span>
 <span class="go">[0.+1.j 0.+0.j]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sy</span> <span class="o">=</span> <span class="n">sigmay</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sy</span> <span class="o">=</span> <span class="n">sigmay</span><span class="p">()</span>
 <span class="go">(1, 0)      1j</span>
 <span class="go">(0, 1)      (-0-1j)</span>
 </pre></div>
@@ -966,25 +1043,26 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.sigmaz">
 <code class="sig-name descname">sigmaz</code><span class="sig-paren">(</span><em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#sigmaz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmaz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the <cite>Pauli</cite> sigma z operator</p>
+<dd><p>Creates the <cite>Pauli</cite> sigma z (<img class="math" src="../../_images/math/997c77baea81e19fb5db1edd6e5c5ab6f65e8cf0.png" alt="\hat{\sigma}_{z}"/>) operator.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>dimension</cite> : dimension of the Hilbert space (2 by default)
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: <cite>Pauli</cite> sigma z operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma z operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sz</span> <span class="o">=</span> <span class="n">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[ 1  0]</span>
 <span class="go">[ 0 -1]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sz</span> <span class="o">=</span> <span class="n">sigmaz</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sz</span> <span class="o">=</span> <span class="n">sigmaz</span><span class="p">()</span>
 <span class="go">(0, 0)      1</span>
 <span class="go">(1, 1)      -1</span>
 </pre></div>
@@ -994,20 +1072,21 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <dl class="function">
 <dt id="qTools.QuantumToolbox.operators.squeeze">
 <code class="sig-name descname">squeeze</code><span class="sig-paren">(</span><em class="sig-param">alpha: complex</em>, <em class="sig-param">dim: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/operators.html#squeeze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.squeeze" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the squeezing operator for a given squeezing parameter alpha</p>
+<dd><p>Creates the squeezing operator for a given squeezing parameter alpha.</p>
 <p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
-<p>:param :
-:type : param <cite>alpha</cite> : complex number, the squeezing parameter
-:param :
-:type : param dim: dimension of the Hilbert space
-:param :
-:type : param <cite>sparse</cite> : boolean for sparse or not (array)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>complex</em>) – complex number, the squeezing parameter</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Squeezing operator</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Squeezing operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -1016,7 +1095,9 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 <span class="go">[0.        +0.j         0.33918599+0.j         0.        +0.j               0.        -0.94071933j]</span>
 <span class="go">[0.        -0.64963694j 0.        +0.j         0.7602446 +0.j               0.        +0.j        ]</span>
 <span class="go">[0.        +0.j         0.        -0.94071933j 0.        +0.j               0.33918599+0.j        ]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">squeeze</span> <span class="o">=</span> <span class="n">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">squeeze</span> <span class="o">=</span> <span class="n">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="go">(0, 0)      (0.7602445970756301+0j)</span>
 <span class="go">(2, 0)      -0.6496369390800625j</span>
 <span class="go">(1, 1)      (0.3391859889869473+0j)</span>
@@ -1029,6 +1110,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
 </div>
 </dd></dl>
 
+</div>
 </div>
 </div>
 

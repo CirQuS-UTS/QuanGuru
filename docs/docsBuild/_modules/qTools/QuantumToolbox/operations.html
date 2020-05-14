@@ -57,7 +57,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #212121" >
+        <div class="wy-side-nav-search"  style="background: #051988" >
           
 
           
@@ -159,12 +159,16 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Module of functions to create quantum operations (such as rotations).</span>
 
-<span class="sd">    Methods</span>
-<span class="sd">    -------</span>
-<span class="sd">    :xRotation : Creates the operator for Qubit `X rotation`</span>
-<span class="sd">    :yRotation : Creates the operator for Qubit `Y rotation`</span>
-<span class="sd">    :zRotation : Creates the operator for Qubit `Z rotation`</span>
-<span class="sd">    :qubRotation : Creates the operator for Qubit rotation around given X/Y/Z</span>
+<span class="sd">    Functions</span>
+<span class="sd">    ---------</span>
+<span class="sd">        | **xRotation** : Creates the operator for Qubit `X rotation`</span>
+<span class="sd">        | **yRotation** : Creates the operator for Qubit `Y rotation`</span>
+<span class="sd">        | **zRotation** : Creates the operator for Qubit `Z rotation`</span>
+<span class="sd">        | **qubRotation** : Creates the operator for Qubit rotation around given X/Y/Z</span>
+
+<span class="sd">    Types</span>
+<span class="sd">    ^^^^^</span>
+<span class="sd">        | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1">#from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity</span>
@@ -183,18 +187,21 @@
 
 <div class="viewcode-block" id="xRotation"><a class="viewcode-back" href="../../../QuantumToolbox/Operations/operations.html#qTools.QuantumToolbox.operations.xRotation">[docs]</a><span class="k">def</span> <span class="nf">xRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the operator for Qubit `X rotation`</span>
+<span class="sd">    Creates the operator for Qubit `X rotation`.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `angle` : angle of rotation around `X`</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        angle : float</span>
+<span class="sd">            angle of rotation around `X`</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Qubit X rotation operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Qubit X rotation operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -207,18 +214,21 @@
 
 <div class="viewcode-block" id="yRotation"><a class="viewcode-back" href="../../../QuantumToolbox/Operations/operations.html#qTools.QuantumToolbox.operations.yRotation">[docs]</a><span class="k">def</span> <span class="nf">yRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the operator for Qubit `Y rotation`</span>
+<span class="sd">    Creates the operator for Qubit `Y rotation`.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `angle` : angle of rotation around `Y`</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        angle : float</span>
+<span class="sd">            angle of rotation around `Y`</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Qubit Y rotation operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Qubit Y rotation operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -231,18 +241,21 @@
 
 <div class="viewcode-block" id="zRotation"><a class="viewcode-back" href="../../../QuantumToolbox/Operations/operations.html#qTools.QuantumToolbox.operations.zRotation">[docs]</a><span class="k">def</span> <span class="nf">zRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the operator for Qubit `Z rotation`</span>
+<span class="sd">    Creates the operator for Qubit `Z rotation`.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `angle` : angle of rotation around `Z`</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        angle : float</span>
+<span class="sd">            angle of rotation around `Z`</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Qubit Z rotation operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Qubit Z rotation operator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -255,19 +268,23 @@
 
 <div class="viewcode-block" id="qubRotation"><a class="viewcode-back" href="../../../QuantumToolbox/Operations/operations.html#qTools.QuantumToolbox.operations.qubRotation">[docs]</a><span class="k">def</span> <span class="nf">qubRotation</span><span class="p">(</span><span class="n">xyz</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates the operator for Qubit rotation around given X/Y/Z</span>
+<span class="sd">    Creates the operator for Qubit rotation around given X/Y/Z.</span>
 
 <span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `xyz` : string for rotation direction</span>
-<span class="sd">    :param `angle` : angle of rotation around `x`</span>
-<span class="sd">    :param `sparse` : boolean for sparse or not (array)</span>
+<span class="sd">        xyz : str</span>
+<span class="sd">            string for rotation direction</span>
+<span class="sd">        angle : float</span>
+<span class="sd">            angle of rotation around `x`</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            boolean for sparse or not (array)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Qubit X/Y/Z rotation operator</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Qubit X/Y/Z rotation operator.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
