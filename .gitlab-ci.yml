@@ -62,23 +62,19 @@ unit_test:
 
 test:
     stage: Test
-    tags:
-        - qsimulations
     script:
     - pip install -U sphinx
-    - sphinx-build -b docs/source docs/docsBuild
+    - sphinx-build -b html docs/source public
     only:
     - branches
     except:
     - master
 
 pages:
-    stage: Build
-    tags:
-        - qsimulations
+    stage: deploy
     script:
     - pip install -U sphinx
-    - sphinx-build -b html docs/source docs/docsBuild
+    - sphinx-build -b html docs/source public
     artifacts:
         paths:
         - public
