@@ -3,17 +3,18 @@
 
     Functions
     ---------
-        | **basis** : Creates a `ket` state for a given dimension with 1 (unit population) at a given row (state).
-        | **completeBasis** : Creates a complete basis of `ket` states.
-        | **basisBra** : Creates a `bra` state for a given dimension with 1 (unit population) at a given column (state).
+        | **basis** : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given row.
+        | **completeBasis** : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .
+        | **basisBra** : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a given column.
         | **zeros** : Creates a column matrix (ket) with all elements zero.
-        | **superPos** : Creates a `ket` superposition state for a given dimension with a list of excitations.
+        | **superPos** : Creates a `ket` superposition state :math:`\\sum_n c_n|n\\rangle` for a given dimension with a list of excitations.
 
         | **densityMatrix** : Converts a `ket` state into a `density matrix`.
-        | **completeBasisMat** : Creates a complete basis of `density matrices` or convert a `ket basis` to `density matrix`.
+        | **completeBasisMat** : Creates a complete basis of `density matrices` for a given dimension or
+         convert a `ket basis` to `density matrix`.
 
         | **normalise** : Function to normalise `any` state (ket or density matrix).
-        | **normaliseKet** : Function to normalise `ket` state.
+        | **normaliseKet** : Function to normalise a `ket` state.
         | **normaliseMat** : Function to normalise a `density matrix`.
 
         | **compositeState** : Function to create `composite ket` states.
@@ -21,7 +22,7 @@
         | **partialTrace** : Calculates the partial trace of a `density matrix` of composite state.
 
         | **mat2Vec** : Converts `density matrix` into `density vector` (used in super-operator representation).
-        | **vec2mat** : Converts `density vector` into `density matrix`.
+        | **vec2Mat** : Converts `density vector` into `density matrix`.
 
     Types
     -----
@@ -252,7 +253,7 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
 
 def densityMatrix(ket: Matrix) -> Matrix:
     """
-    Converts a `ket` state into a `density matrix`
+    Converts a `ket` state into a `density matrix`.
 
     Keeps the sparse/array as sparse/array.
 
@@ -293,7 +294,7 @@ def densityMatrix(ket: Matrix) -> Matrix:
 
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None, sparse: bool = True) -> matrixList:
     """
-    Creates a complete basis of `density matrices` or convert a ket basis to density matrix for a given dimension.
+    Creates a complete basis of `density matrices` for a given dimension or convert a `ket basis` to `density matrix`.
 
     Note: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.
 
@@ -400,7 +401,7 @@ def normalise(state: Matrix) -> Matrix:
 
 def normaliseKet(ket: Matrix) -> Matrix:
     """
-    Function to normalise `ket` state.
+    Function to normalise a `ket` state.
 
     Keeps the sparse/array as sparse/array
 
@@ -616,7 +617,7 @@ def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray
 
 def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     """
-    Converts `density matrix` into `density vector` (used in super-operator respresentation).
+    Converts `density matrix` into `density vector` (used in super-operator representation).
 
     Keeps the sparse/array as sparse/array
 
@@ -644,7 +645,7 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     return vec
 
 
-def vec2mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
+def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     """
     Converts `density vector` into `density matrix`.
 

@@ -91,9 +91,8 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../states.html">States</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/qTools.QuantumToolbox.html">QuantumToolbox</a></li>
 </ul>
 
             
@@ -223,7 +222,7 @@
 <span class="c1"># Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</span>
 
 <span class="c1"># Functions for expectation value</span>
-<div class="viewcode-block" id="expectation"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.expectation">[docs]</a><span class="k">def</span> <span class="nf">expectation</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="expectation"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.expectation">[docs]</a><span class="k">def</span> <span class="nf">expectation</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to calculate the expectation value of an `operator` for a given `state`</span>
 
@@ -271,7 +270,7 @@
     <span class="k">return</span> <span class="n">expectationMat</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="expectationMat"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.expectationMat">[docs]</a><span class="k">def</span> <span class="nf">expectationMat</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="expectationMat"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.expectationMat">[docs]</a><span class="k">def</span> <span class="nf">expectationMat</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the expectation value of an `operator` for a given `density matrix`</span>
 
@@ -312,7 +311,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">expc</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="expectationKet"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.expectationKet">[docs]</a><span class="k">def</span> <span class="nf">expectationKet</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="expectationKet"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.expectationKet">[docs]</a><span class="k">def</span> <span class="nf">expectationKet</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the expectation value of an `operator` for a given `ket`</span>
 
@@ -351,7 +350,7 @@
     <span class="k">return</span> <span class="n">expectationMat</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">denMat</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="expectationKetList"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.expectationKetList">[docs]</a><span class="k">def</span> <span class="nf">expectationKetList</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="expectationKetList"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.expectationKetList">[docs]</a><span class="k">def</span> <span class="nf">expectationKetList</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the expectation value of an `operator` for a given list of `ket` states</span>
 
@@ -384,7 +383,7 @@
     <span class="k">return</span> <span class="n">expectations</span></div>
 
 
-<div class="viewcode-block" id="expectationMatList"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.expectationMatList">[docs]</a><span class="k">def</span> <span class="nf">expectationMatList</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMats</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="expectationMatList"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.expectationMatList">[docs]</a><span class="k">def</span> <span class="nf">expectationMatList</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMats</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the expectation value of an `operator` for a given list of `density matrices`</span>
 
@@ -420,7 +419,7 @@
     <span class="k">return</span> <span class="n">expectations</span></div>
 
 
-<div class="viewcode-block" id="expectationColArr"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.expectationColArr">[docs]</a><span class="k">def</span> <span class="nf">expectationColArr</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="expectationColArr"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.expectationColArr">[docs]</a><span class="k">def</span> <span class="nf">expectationColArr</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the expectation values of an `operator` for a list/matrix of `ket (column) states` by matrix multiplication</span>
 
@@ -457,7 +456,7 @@
 
 
 <span class="c1"># Functions for fidelity (currently only for pure states)</span>
-<div class="viewcode-block" id="fidelity"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.fidelity">[docs]</a><span class="k">def</span> <span class="nf">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="fidelity"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.fidelity">[docs]</a><span class="k">def</span> <span class="nf">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates `fidelity` between `two states`</span>
 
@@ -512,7 +511,7 @@
     <span class="k">return</span> <span class="n">fid</span></div>
 
 
-<div class="viewcode-block" id="fidelityKet"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.fidelityKet">[docs]</a><span class="k">def</span> <span class="nf">fidelityKet</span><span class="p">(</span><span class="n">ket1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ket2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="fidelityKet"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.fidelityKet">[docs]</a><span class="k">def</span> <span class="nf">fidelityKet</span><span class="p">(</span><span class="n">ket1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ket2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates `fidelity` between two `ket` states</span>
 
@@ -546,7 +545,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">fidelityA</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">fidelityA</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="fidelityPureMat"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.fidelityPureMat">[docs]</a><span class="k">def</span> <span class="nf">fidelityPureMat</span><span class="p">(</span><span class="n">denMat1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMat2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="fidelityPureMat"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.fidelityPureMat">[docs]</a><span class="k">def</span> <span class="nf">fidelityPureMat</span><span class="p">(</span><span class="n">denMat1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMat2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates `fidelity` between two (pure) `density matrices`</span>
 
@@ -582,7 +581,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">fidelityA</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fidelityKetList"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.fidelityKetList">[docs]</a><span class="k">def</span> <span class="nf">fidelityKetList</span><span class="p">(</span><span class="n">ket1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ketList</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="fidelityKetList"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.fidelityKetList">[docs]</a><span class="k">def</span> <span class="nf">fidelityKetList</span><span class="p">(</span><span class="n">ket1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ketList</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates `fidelity` between `a ket state` and `list of ket states`</span>
 
@@ -616,7 +615,7 @@
     <span class="k">return</span> <span class="n">fidelities</span></div>
 
 
-<div class="viewcode-block" id="fidelityKetLists"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.fidelityKetLists">[docs]</a><span class="k">def</span> <span class="nf">fidelityKetLists</span><span class="p">(</span><span class="n">zippedStatesList</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="fidelityKetLists"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.fidelityKetLists">[docs]</a><span class="k">def</span> <span class="nf">fidelityKetLists</span><span class="p">(</span><span class="n">zippedStatesList</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Created to be used in `multi-processing` calculations of two lists of kets states</span>
 
@@ -633,7 +632,7 @@
 
 <span class="c1"># Entropy function</span>
 <span class="c1"># TODO may create a function specifically for sparse input</span>
-<div class="viewcode-block" id="entropy"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.entropy">[docs]</a><span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">densMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="entropy"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.entropy">[docs]</a><span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">densMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the `entropy` of a given `density matrix`</span>
 
@@ -695,7 +694,7 @@
     <span class="k">return</span> <span class="n">S</span></div>
 
 
-<div class="viewcode-block" id="entropyKet"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.entropyKet">[docs]</a><span class="k">def</span> <span class="nf">entropyKet</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="entropyKet"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.entropyKet">[docs]</a><span class="k">def</span> <span class="nf">entropyKet</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the `entropy` of a given `ket` state</span>
 
@@ -731,7 +730,7 @@
 
 
 <span class="c1"># Delocalisation measures for various cases</span>
-<div class="viewcode-block" id="iprKet"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.iprKet">[docs]</a><span class="k">def</span> <span class="nf">iprKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="iprKet"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.iprKet">[docs]</a><span class="k">def</span> <span class="nf">iprKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis</span>
 
@@ -766,7 +765,7 @@
     <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">npc</span></div>
 
 
-<div class="viewcode-block" id="iprKetList"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.iprKetList">[docs]</a><span class="k">def</span> <span class="nf">iprKetList</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="iprKetList"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.iprKetList">[docs]</a><span class="k">def</span> <span class="nf">iprKetList</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in a given basis</span>
 
@@ -799,7 +798,7 @@
     <span class="k">return</span> <span class="n">npcs</span></div>
 
 
-<div class="viewcode-block" id="iprKetNB"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.iprKetNB">[docs]</a><span class="k">def</span> <span class="nf">iprKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="iprKetNB"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.iprKetNB">[docs]</a><span class="k">def</span> <span class="nf">iprKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a ket</span>
 <span class="sd">    by assuming that the basis is of the free Hamiltonian</span>
@@ -835,7 +834,7 @@
     <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ket</span><span class="o">.</span><span class="n">flatten</span><span class="p">())),</span> <span class="mi">4</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="iprKetNBList"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.iprKetNBList">[docs]</a><span class="k">def</span> <span class="nf">iprKetNBList</span><span class="p">(</span><span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="iprKetNBList"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.iprKetNBList">[docs]</a><span class="k">def</span> <span class="nf">iprKetNBList</span><span class="p">(</span><span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a list kets</span>
 <span class="sd">    by assuming that the basis is of the free Hamiltonian</span>
@@ -868,7 +867,7 @@
     <span class="k">return</span> <span class="n">IPRatio</span></div>
 
 
-<div class="viewcode-block" id="iprKetNBmat"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.iprKetNBmat">[docs]</a><span class="k">def</span> <span class="nf">iprKetNBmat</span><span class="p">(</span><span class="n">kets</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="iprKetNBmat"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.iprKetNBmat">[docs]</a><span class="k">def</span> <span class="nf">iprKetNBmat</span><span class="p">(</span><span class="n">kets</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states as the column`</span>
 
@@ -903,7 +902,7 @@
     <span class="k">return</span> <span class="n">IPRatio</span></div>
 
 
-<div class="viewcode-block" id="iprPureDenMat"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.iprPureDenMat">[docs]</a><span class="k">def</span> <span class="nf">iprPureDenMat</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="iprPureDenMat"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.iprPureDenMat">[docs]</a><span class="k">def</span> <span class="nf">iprPureDenMat</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in a given `basis`</span>
 
@@ -942,7 +941,7 @@
 
 
 <span class="c1"># Eigenvector statistics</span>
-<div class="viewcode-block" id="sortedEigens"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.sortedEigens">[docs]</a><span class="k">def</span> <span class="nf">sortedEigens</span><span class="p">(</span><span class="n">Ham</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">floatList</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ndarray</span><span class="p">]]:</span>
+<div class="viewcode-block" id="sortedEigens"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.sortedEigens">[docs]</a><span class="k">def</span> <span class="nf">sortedEigens</span><span class="p">(</span><span class="n">Ham</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">floatList</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ndarray</span><span class="p">]]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them</span>
 
@@ -981,7 +980,7 @@
 
 
 <span class="c1"># TODO create the function for the result of eigenvec calculation</span>
-<div class="viewcode-block" id="eigVecStatKet"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.eigVecStatKet">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="eigVecStatKet"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.eigVecStatKet">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates components of a `ket` in a basis</span>
 
@@ -1011,7 +1010,7 @@
     <span class="k">return</span> <span class="n">comps</span></div>
 
 
-<div class="viewcode-block" id="eigVecStatKetList"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.eigVecStatKetList">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKetList</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">floatList</span><span class="p">]:</span>
+<div class="viewcode-block" id="eigVecStatKetList"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.eigVecStatKetList">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKetList</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">floatList</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates components of a `list of ket states`</span>
 <span class="sd">    Main use is in eigenvector statistics.</span>
@@ -1042,7 +1041,7 @@
     <span class="k">return</span> <span class="n">compsList</span></div>
 
 
-<div class="viewcode-block" id="eigVecStatKetNB"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.functions.eigVecStatKetNB">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="eigVecStatKetNB"><a class="viewcode-back" href="../../../QuantumToolbox/Functions/functions.html#qTools.QuantumToolbox.functions.eigVecStatKetNB">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the components of a ket by assuming that the basis is of the free Hamiltonian</span>
 
@@ -1081,7 +1080,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/05/14.
+        Last updated on 2020/05/15.
       </span>
 
     </p>

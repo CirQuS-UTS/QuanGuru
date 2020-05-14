@@ -91,9 +91,8 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../states.html">States</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/qTools.QuantumToolbox.html">QuantumToolbox</a></li>
 </ul>
 
             
@@ -182,7 +181,7 @@
 <span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
 
 
-<div class="viewcode-block" id="xRotation"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operations.xRotation">[docs]</a><span class="k">def</span> <span class="nf">xRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="xRotation"><a class="viewcode-back" href="../../../QuantumToolbox/Operations/operations.html#qTools.QuantumToolbox.operations.xRotation">[docs]</a><span class="k">def</span> <span class="nf">xRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the operator for Qubit `X rotation`</span>
 
@@ -206,7 +205,7 @@
     <span class="k">return</span> <span class="n">rotUnitary</span></div>
 
 
-<div class="viewcode-block" id="yRotation"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operations.yRotation">[docs]</a><span class="k">def</span> <span class="nf">yRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="yRotation"><a class="viewcode-back" href="../../../QuantumToolbox/Operations/operations.html#qTools.QuantumToolbox.operations.yRotation">[docs]</a><span class="k">def</span> <span class="nf">yRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the operator for Qubit `Y rotation`</span>
 
@@ -230,7 +229,7 @@
     <span class="k">return</span> <span class="n">rotUnitary</span></div>
 
 
-<div class="viewcode-block" id="zRotation"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operations.zRotation">[docs]</a><span class="k">def</span> <span class="nf">zRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="zRotation"><a class="viewcode-back" href="../../../QuantumToolbox/Operations/operations.html#qTools.QuantumToolbox.operations.zRotation">[docs]</a><span class="k">def</span> <span class="nf">zRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the operator for Qubit `Z rotation`</span>
 
@@ -254,7 +253,7 @@
     <span class="k">return</span> <span class="n">rotUnitary</span></div>
 
 
-<div class="viewcode-block" id="qubRotation"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operations.qubRotation">[docs]</a><span class="k">def</span> <span class="nf">qubRotation</span><span class="p">(</span><span class="n">xyz</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="qubRotation"><a class="viewcode-back" href="../../../QuantumToolbox/Operations/operations.html#qTools.QuantumToolbox.operations.qubRotation">[docs]</a><span class="k">def</span> <span class="nf">qubRotation</span><span class="p">(</span><span class="n">xyz</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the operator for Qubit rotation around given X/Y/Z</span>
 
@@ -298,7 +297,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/05/14.
+        Last updated on 2020/05/15.
       </span>
 
     </p>

@@ -91,9 +91,8 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../states.html">States</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/qTools.QuantumToolbox.html">QuantumToolbox</a></li>
 </ul>
 
             
@@ -186,7 +185,7 @@
 <span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
 <span class="c1"># ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list</span>
 
-<div class="viewcode-block" id="Wigner"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.quasiProbabilities.Wigner">[docs]</a><span class="k">def</span> <span class="nf">Wigner</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">xvec</span><span class="p">:</span> <span class="n">ndOrList</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="Wigner"><a class="viewcode-back" href="../../../QuantumToolbox/QuasiProbabilities/quasiProbabilities.html#qTools.QuantumToolbox.quasiProbabilities.Wigner">[docs]</a><span class="k">def</span> <span class="nf">Wigner</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">xvec</span><span class="p">:</span> <span class="n">ndOrList</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An iterative method to evaluate the Wigner functions for the Fock state :math:`|m&gt;&lt;n|`</span>
 
@@ -235,7 +234,7 @@
     <span class="k">return</span> <span class="n">W</span> <span class="o">*</span> <span class="n">g</span> <span class="o">**</span> <span class="mi">2</span></div>
 
 
-<div class="viewcode-block" id="HusimiQ"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.quasiProbabilities.HusimiQ">[docs]</a><span class="k">def</span> <span class="nf">HusimiQ</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">xvec</span><span class="p">:</span> <span class="n">ndOrList</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="HusimiQ"><a class="viewcode-back" href="../../../QuantumToolbox/QuasiProbabilities/quasiProbabilities.html#qTools.QuantumToolbox.quasiProbabilities.HusimiQ">[docs]</a><span class="k">def</span> <span class="nf">HusimiQ</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">xvec</span><span class="p">:</span> <span class="n">ndOrList</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Q-function of a given state vector or density matrix at points `xvec + i * yvec`</span>
 
@@ -308,7 +307,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/05/14.
+        Last updated on 2020/05/15.
       </span>
 
     </p>

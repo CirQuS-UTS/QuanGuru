@@ -27,6 +27,6 @@ from .states import (
     completeBasisMat,
     normalise, normaliseKet, normaliseMat,
     compositeState, tensorProd, partialTrace,
-    mat2Vec, vec2mat
+    mat2Vec, vec2Mat
 )
 from .customTypes import (Matrix, intList, matrixList, supInp, ndOrListInt, ndOrList)

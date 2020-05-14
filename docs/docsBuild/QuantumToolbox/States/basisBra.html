@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>basisBra Function &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="completeBasis Function" href="completeBasis.html" />
+    <link rel="prev" title="basis Function" href="basis.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../qTools.QuantumToolbox.html">QuantumToolbox</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="states.html">States</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="basis.html">Basis (Ket State)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Basis (Bra State)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="completeBasis.html">Complete Basis (of kets)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="densityMatrix.html">Density Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="completeBasisMat.html">Complete Basis (of density matrices)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="normalise.html">Normalised States</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superPos.html">Super-position states</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compStateTensorTrace.html">Composite States and Partial Trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="matVec.html">Open-system states</a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#types">Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Operators/operators.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Functions/functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Evolutions/evolutions.html">Evolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hamiltonians/hamiltonians.html">Hamiltonians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Operations/operations.html">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../QuasiProbabilities/quasiProbabilities.html">Quasi-Probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CustomTypes/customTypes.html">Custom Types</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../qTools.QuantumToolbox.html">QuantumToolbox</a> &raquo;</li>
+        
+          <li><a href="states.html">States</a> &raquo;</li>
+        
+      <li>basisBra Function</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/QuantumToolbox/States/basisBra.rst" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="basisbra-function">
+<h1>basisBra Function<a class="headerlink" href="#basisbra-function" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.basisBra">
+<code class="sig-name descname">basisBra</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">state: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#basisBra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.basisBra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>bra</cite> state for a given dimension with 1 (unit population) at a given column (state).</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
+<li><p><strong>state</strong> (<em>int</em>) – column to place 1, i.e. index number for the populated state</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>bra</cite> state as sparse if sparse=True else array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basisBra</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">(0, 0)      1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basisBra</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[1 0]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="completeBasis.html" class="btn btn-neutral float-right" title="completeBasis Function" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basis.html" class="btn btn-neutral float-left" title="basis Function" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/05/15.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

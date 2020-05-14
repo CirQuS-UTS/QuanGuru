@@ -7,10 +7,10 @@ Welcome to Quantum Simulations's documentation!
 ===============================================
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Contents:
+   :maxdepth: 4
+   :hidden:
 
-   states
+   QuantumToolbox <QuantumToolbox/qTools.QuantumToolbox.rst>
 
 
 

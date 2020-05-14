@@ -91,9 +91,8 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../states.html">States</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/qTools.QuantumToolbox.html">QuantumToolbox</a></li>
 </ul>
 
             
@@ -212,7 +211,7 @@
 <span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
 
 
-<div class="viewcode-block" id="number"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.number">[docs]</a><span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="number"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.number">[docs]</a><span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the (bosonic) number operator</span>
 
@@ -246,7 +245,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="destroy"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.destroy">[docs]</a><span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="destroy"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.destroy">[docs]</a><span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the bosonic `annihilation` operator</span>
 
@@ -279,7 +278,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the bosonic `creation` operator</span>
 
@@ -312,7 +311,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="identity"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.identity">[docs]</a><span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="identity"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.identity">[docs]</a><span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the identity operator</span>
 
@@ -342,7 +341,7 @@
     <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csc&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="sigmaz"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.sigmaz">[docs]</a><span class="k">def</span> <span class="nf">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="sigmaz"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmaz">[docs]</a><span class="k">def</span> <span class="nf">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma z operator</span>
 
@@ -374,7 +373,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="sigmay"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.sigmay">[docs]</a><span class="k">def</span> <span class="nf">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="sigmay"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmay">[docs]</a><span class="k">def</span> <span class="nf">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma y operator</span>
 
@@ -406,7 +405,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="sigmax"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.sigmax">[docs]</a><span class="k">def</span> <span class="nf">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="sigmax"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmax">[docs]</a><span class="k">def</span> <span class="nf">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma x operator</span>
 
@@ -438,7 +437,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="sigmap"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.sigmap">[docs]</a><span class="k">def</span> <span class="nf">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="sigmap"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmap">[docs]</a><span class="k">def</span> <span class="nf">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma + operator, i.e. 2D Fermionic creation operator</span>
 
@@ -469,7 +468,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="sigmam"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.sigmam">[docs]</a><span class="k">def</span> <span class="nf">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="sigmam"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.sigmam">[docs]</a><span class="k">def</span> <span class="nf">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma - operator, i.e. 2D Fermionic destruction operator</span>
 
@@ -500,7 +499,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Jz"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.Jz">[docs]</a><span class="k">def</span> <span class="nf">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="Jz"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jz">[docs]</a><span class="k">def</span> <span class="nf">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `Z` operator for a given spin quantum number j</span>
 
@@ -556,7 +555,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Jp"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.Jp">[docs]</a><span class="k">def</span> <span class="nf">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="Jp"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jp">[docs]</a><span class="k">def</span> <span class="nf">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `creation` operator for a given spin quantum number j</span>
 
@@ -611,7 +610,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Jm"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.Jm">[docs]</a><span class="k">def</span> <span class="nf">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="Jm"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jm">[docs]</a><span class="k">def</span> <span class="nf">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j</span>
 
@@ -666,7 +665,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Jx"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.Jx">[docs]</a><span class="k">def</span> <span class="nf">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="Jx"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jx">[docs]</a><span class="k">def</span> <span class="nf">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `X` operator for a given spin quantum number j</span>
 
@@ -720,7 +719,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Jy"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.Jy">[docs]</a><span class="k">def</span> <span class="nf">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="Jy"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Jy">[docs]</a><span class="k">def</span> <span class="nf">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `Y` operator for a given spin quantum number j</span>
 
@@ -774,7 +773,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Js"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.Js">[docs]</a><span class="k">def</span> <span class="nf">Js</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="Js"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.Js">[docs]</a><span class="k">def</span> <span class="nf">Js</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the total angular momentum (spin) operator for a given spin quantum number j</span>
 
@@ -822,7 +821,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="operatorPow"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.operatorPow">[docs]</a><span class="k">def</span> <span class="nf">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="operatorPow"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.operatorPow">[docs]</a><span class="k">def</span> <span class="nf">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a quantum operator for given function reference `op` and raises to a `power`</span>
 
@@ -862,7 +861,7 @@
     <span class="k">return</span> <span class="n">opPow</span></div>
 
 
-<div class="viewcode-block" id="paritySUM"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.paritySUM">[docs]</a><span class="k">def</span> <span class="nf">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="paritySUM"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.paritySUM">[docs]</a><span class="k">def</span> <span class="nf">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the parity operator by explicitly placing alternating +/- into a matrix</span>
 
@@ -903,7 +902,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="parityEXP"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.parityEXP">[docs]</a><span class="k">def</span> <span class="nf">parityEXP</span><span class="p">(</span><span class="n">HamiltonianCavity</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="parityEXP"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.parityEXP">[docs]</a><span class="k">def</span> <span class="nf">parityEXP</span><span class="p">(</span><span class="n">HamiltonianCavity</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the parity operator by exponentiation a given Hamiltonian</span>
 
@@ -944,7 +943,7 @@
     <span class="k">return</span> <span class="n">expm</span><span class="p">(</span><span class="n">parEX</span><span class="p">)</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">linA</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">parEX</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="basis"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.basis">[docs]</a><span class="k">def</span> <span class="nf">basis</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="basis"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.basis">[docs]</a><span class="k">def</span> <span class="nf">basis</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a `ket` state</span>
 
@@ -976,7 +975,7 @@
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">A</span></div>
 
 
-<div class="viewcode-block" id="displacement"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.displacement">[docs]</a><span class="k">def</span> <span class="nf">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="displacement"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.displacement">[docs]</a><span class="k">def</span> <span class="nf">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the displacement operator for a given displacement parameter alpha</span>
 
@@ -1023,7 +1022,7 @@
     <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span></div>
 
 
-<div class="viewcode-block" id="squeeze"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.squeeze">[docs]</a><span class="k">def</span> <span class="nf">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="squeeze"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.squeeze">[docs]</a><span class="k">def</span> <span class="nf">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the squeezing operator for a given squeezing parameter alpha</span>
 
@@ -1063,7 +1062,7 @@
 
 
 <span class="c1"># TODO Does this really work with ndarray ?</span>
-<div class="viewcode-block" id="compositeOp"><a class="viewcode-back" href="../../../qTools.QuantumToolbox.html#qTools.QuantumToolbox.operators.compositeOp">[docs]</a><span class="k">def</span> <span class="nf">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">dimB</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dimA</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="compositeOp"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.compositeOp">[docs]</a><span class="k">def</span> <span class="nf">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">dimB</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dimA</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a composite operator from a sub-system `operator`, i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
 
@@ -1116,7 +1115,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/05/14.
+        Last updated on 2020/05/15.
       </span>
 
     </p>
