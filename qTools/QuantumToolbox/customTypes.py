@@ -3,12 +3,12 @@
 
     Types
     -----
-    :Matrix : Type which is either spmatrix or nparray (created using TypeVar)
-    :intList : Type for a list of integers
-    :floatList : Type for a list of floats
-    :matrixList : Type for a list `Matrix` types
-    :supInp : Type from the union the types: int, `intList`, and a dict with int:float key:value combination
-    :ndOrListInt : Type from the union of ndarray and intList
+        | **Matrix** : Type which is either spmatrix or nparray (created using TypeVar)
+        | **intList** : Type for a list of integers
+        | **floatList** : Type for a list of floats
+        | **matrixList** : Type for a list `Matrix` types
+        | **supInp** : Type from the union the types: int, `intList`, and a dict with int:float key:value combination
+        | **ndOrListInt** : Type from the union of ndarray and intList
 """
 
 from typing import Union, Dict, List, TypeVar

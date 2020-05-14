@@ -60,9 +60,23 @@ unit_test:
     - pytest
 
 
-sphinx:
-    stage: Build
-    tags:
-        - qsimulations
+test:
+    stage: Test
     script:
-        sphinx-build -b html docs/source docs/docsBuild
+    - pip install -U sphinx
+    - sphinx-build -b html . public
+    only:
+    - branches
+    except:
+    - master
+
+pages:
+    stage: Build
+    script:
+    - pip install -U sphinx
+    - sphinx-build -b html docs/source docs/docsBuild
+    artifacts:
+        paths:
+        - public
+    only:
+    - master
