@@ -40,15 +40,16 @@ class genericProtocol(qBaseSim):
     def initialState(self):
         if self.simulation._stateBase__initialState.value is None: # pylint: disable=protected-access
             try:
-                self.simulation._stateBase__initialState.value = self.superSys._initialState(self.simulation._initialStateInput) # pylint: disable=protected-access, no-member
+                self.simulation._stateBase__initialState.value =\
+                    self.superSys._initialState(self.simulation._initialStateInput) # pylint: disable=W0212, E1101
             except: # pylint: disable=bare-except
-                self.simulation._stateBase__initialState.value = self.superSys.initialState # pylint: disable=protected-access, no-member
+                self.simulation._stateBase__initialState.value = self.superSys.initialState # pylint:disable=W0212,E1101
         return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
 
     @initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
-        self.simulation._stateBase__initialState.value = self.superSys._initialState(inp) # pylint: disable=protected-access, no-member
+        self.simulation._stateBase__initialState.value = self.superSys._initialState(inp) # pylint:disable=W0212,E1101
 
     def save(self):
         saveDict = super().save()
@@ -161,7 +162,7 @@ class qProtocol(genericProtocol):
             else:
                 super().addSubSys(step)
                 step._genericProtocol__inProtocol = True
-                step._genericProtocol__lastState._bound = self._genericProtocol__lastState # pylint: disable=protected-access, no-member
+                step._genericProtocol__lastState._bound = self._genericProtocol__lastState #pylint:disable=W0212,E1101
                 step.simulation._bound(self.simulation, re=True) # pylint: disable=protected-access
                 if step.superSys is None:
                     step.superSys = self.superSys
@@ -202,7 +203,7 @@ class Step(genericProtocol):
     def getUnitary(self, callAfterUpdate=_runCreateUnitary):
         if ((self.fixed is True) and (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             super().getUnitary(callAfterUpdate=callAfterUpdate)
-        elif ((self.fixed is False) and ((self._paramUpdated is True) or (self._paramBoundBase__matrix is None))): # pylint: disable=no-member
+        elif ((self.fixed is False) and ((self._paramUpdated is True) or (self._paramBoundBase__matrix is None))): # pylint: disable=no-member, line-too-long
             super().getUnitary(callAfterUpdate=callAfterUpdate)
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
@@ -316,7 +317,7 @@ class Update(updateBase):
         self._Update__memoryValue = value # pylint: disable=assigning-non-slot
 
     def _setup(self):
-        self._Update__memoryValue = getattr(list(self.subSys.values())[0], self.key) # pylint: disable=assigning-non-slot
+        self._Update__memoryValue = getattr(list(self.subSys.values())[0], self.key) # pylint:disable=assigning-non-slot
         for sys in self.subSys.values():
             if self._Update__memoryValue != getattr(sys, self.key): # pylint: disable=assigning-non-slot
                 raise ValueError('?')

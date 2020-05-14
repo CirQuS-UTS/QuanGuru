@@ -57,7 +57,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #051988" >
+        <div class="wy-side-nav-search"  style="background: #212121" >
           
 
           
@@ -817,7 +817,8 @@
 <span class="sd">    (4, 4)	(6+0j)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jx</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jy</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jx</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jy</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>\
+        <span class="o">+</span> <span class="p">(</span><span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
 
@@ -1064,7 +1065,8 @@
 <span class="c1"># TODO Does this really work with ndarray ?</span>
 <div class="viewcode-block" id="compositeOp"><a class="viewcode-back" href="../../../QuantumToolbox/Operators/operators.html#qTools.QuantumToolbox.operators.compositeOp">[docs]</a><span class="k">def</span> <span class="nf">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">dimB</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dimA</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a composite operator from a sub-system `operator`, i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
+<span class="sd">    Creates a composite operator from a sub-system `operator`,</span>
+<span class="sd">     i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

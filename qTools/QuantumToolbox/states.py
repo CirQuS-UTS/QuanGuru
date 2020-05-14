@@ -3,11 +3,14 @@
 
     Functions
     ---------
-        | **basis** : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given row.
+        | **basis** : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given
+         row.
         | **completeBasis** : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .
-        | **basisBra** : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a given column.
+        | **basisBra** : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a
+         given column.
         | **zeros** : Creates a column matrix (ket) with all elements zero.
-        | **superPos** : Creates a `ket` superposition state :math:`\\sum_n c_n|n\\rangle` for a given dimension with a list of excitations.
+        | **superPos** : Creates a `ket` superposition state :math:`\\sum_n c_n|n\\rangle` for a given dimension with a
+         list of excitations.
 
         | **densityMatrix** : Converts a `ket` state into a `density matrix`.
         | **completeBasisMat** : Creates a complete basis of `density matrices` for a given dimension or
@@ -214,8 +217,8 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
             dimension of Hilbert space
         excitations : supInt (Union of int, list(int), dict(int:float))
             There are 3 possible uses of this
-                1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4} \\
-                2. a `list` (e.g. [0,1,2]) for equally populated super-position \\
+                1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
+                2. a `list` (e.g. [0,1,2]) for equally populated super-position
                 3. an `integer`, which is equivalent to basis function
 
     Returns
@@ -292,7 +295,8 @@ def densityMatrix(ket: Matrix) -> Matrix:
     return ket @ (ket.conj().T)
 
 
-def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None, sparse: bool = True) -> matrixList:
+def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,
+                     sparse: bool = True) -> matrixList:
     """
     Creates a complete basis of `density matrices` for a given dimension or convert a `ket basis` to `density matrix`.
 

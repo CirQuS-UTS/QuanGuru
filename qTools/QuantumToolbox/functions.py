@@ -26,13 +26,16 @@
     :entropyKet : Calculates the `entropy` of a given `ket` state
 
     :iprKet : Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis
-    :iprKetList : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in a given basis
+    :iprKetList : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in
+     a given basis
     :iprKetNB : Calculates the inverse participation ratio (a delocalisation measure) of a ket
                 by assuming that the basis is of the free Hamiltonian
     :iprKetNBList : Calculates the inverse participation ratio (a delocalisation measure) of a list kets
                 by assuming that the basis is of the free Hamiltonian
-    :iprKetNBmat : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states as the column`
-    :iprPureDenMat : Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in a given `basis`
+    :iprKetNBmat : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states
+     as the column`
+    :iprPureDenMat : Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in
+     a given `basis`
 
     :sortedEigens : Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them
 
@@ -263,7 +266,8 @@ def expectationMatList(operator: Matrix, denMats: matrixList) -> floatList:
 
 def expectationColArr(operator: Matrix, states: ndarray) -> floatList:
     """
-    Calculates the expectation values of an `operator` for a list/matrix of `ket (column) states` by matrix multiplication
+    Calculates the expectation values of an `operator` for a list/matrix of `ket (column) states`
+     by matrix multiplication
 
     The `list` here is effectively a matrix whose columns are `ket` states for which we want the expectation values.
     For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.

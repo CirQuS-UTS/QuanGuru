@@ -31,11 +31,13 @@ class genericQSys(qBaseSim):
 
     def save(self):
         saveDict = super().save()
-        if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=no-member, protected-access
-            if hasattr(self.simulation._stateBase__initialStateInput.value, 'A'): # pylint: disable=no-member, protected-access
-                saveDict['_stateBase__initialStateInput'] = self.simulation._stateBase__initialStateInput.value.A # pylint: disable=no-member, protected-access
+        if self.simulation._stateBase__initialStateInput.value is not None:# pylint: disable=no-member, protected-access
+            if hasattr(self.simulation._stateBase__initialStateInput.value, 'A'): # pylint: disable=E1101, W0212
+                saveDict['_stateBase__initialStateInput'] =\
+                    self.simulation._stateBase__initialStateInput.value.A # pylint: disable=no-member, protected-access
             else:
-                saveDict['_stateBase__initialStateInput'] = self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member, protected-access
+                saveDict['_stateBase__initialStateInput'] =\
+                    self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member, protected-access
         return saveDict
 
     @property
@@ -99,14 +101,17 @@ class genericQSys(qBaseSim):
     @property
     def initialState(self):
         """
-            This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None for single systems,
+            This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None
+             for single systems,
             if its state is set.
-            If single system initial state is not set, it will try creating here, but single system does not have qSystem,
-            so will raise the below error.
+            If single system initial state is not set, it will try creating here,
+             but single system does not have qSystem,
+              so will raise the below error.
         """
         if self.simulation._stateBase__initialState.value is None: # pylint: disable=protected-access
             try:
-                self.simulation._stateBase__initialState.value = qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=protected-access
+                self.simulation._stateBase__initialState.value =\
+                    qSta.tensorProd(*[val.initialState for val in self.qSystems.values()]) # pylint: disable=W0212
             except AttributeError:
                 raise ValueError(self.name + ' is not given an initial state')
         return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
@@ -191,7 +196,7 @@ class QuantumSystem(genericQSys):
         self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
         for ind, it in enumerate(inp):
             list(self.qSystems.values())[ind].initialState = it
-        self.simulation._stateBase__initialState.value = self._initialState(inp) # pylint: disable=no-member, protected-access
+        self.simulation._stateBase__initialState.value = self._initialState(inp) # pylint: disable=no-member, W0212
 
     def _initialState(self, inp):
         if (issparse(inp) or isinstance(inp, ndarray)):
@@ -294,8 +299,8 @@ class QuantumSystem(genericQSys):
             elif qS.ind > ind:
                 qS._qSystem__dimsBefore = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
 
-        if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=no-member, protected-access
-            self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member, protected-access
+        if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=no-member, W0212
+            self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member, W0212
         self._paramUpdated = True
         self._constructMatrices()
         for sys in self.subSys.values():
@@ -428,7 +433,8 @@ class qSystem(genericQSys):
         return qSys if len(qSys) > 1 else qSys[0]
 
     def addTerm(self, op, freq, order=1):
-        copySys = super().addSubSys(self.__class__, operator=op, frequency=freq, _qSystem__dimsBefore=self._qSystem__dimsBefore, 
+        copySys = super().addSubSys(self.__class__, operator=op, frequency=freq,
+                                    _qSystem__dimsBefore=self._qSystem__dimsBefore,
                                     _qSystem__dimsAfter=self._qSystem__dimsAfter)
         copySys.order = order
         return copySys
@@ -437,11 +443,13 @@ class qSystem(genericQSys):
     def _constructMatrices(self):
         for sys in self.subSys.values():
             try:
-                sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension), # pylint: disable=no-member
-                                                               self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+                sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator( # pylint : disable=no-member
+                    self._genericQSys__dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
             except: # pylint: disable=bare-except
-                sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator(), # pylint: disable=no-member
-                                                               self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+                sys._paramBoundBase__matrix = qOps.compositeOp( # pylint: disable=no-member
+                    sys.operator(),
+                    self._qSystem__dimsBefore,
+                    self._qSystem__dimsAfter)**sys.order
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
 class Qubit(qSystem):
@@ -539,7 +547,7 @@ class qCoupling(paramBoundBase):
         else:
             if len(self._qUniversal__subSys) == 0: # pylint: disable=no-member
                 raise ValueError('No operator is given for coupling Hamiltonian')
-            self._paramBoundBase__matrix = self._qCoupling__getCoupling() # pylint: disable=no-member, assigning-non-slot
+            self._paramBoundBase__matrix = self._qCoupling__getCoupling() # pylint: disable=no-member,assigning-non-slot
 
     @property
     def couplingStrength(self):
@@ -565,7 +573,8 @@ class qCoupling(paramBoundBase):
                 sys = list(self._qUniversal__subSys.values())[ind][indx] # pylint: disable=no-member
                 order = sys.ind
                 oper = list(self._qUniversal__subSys.keys())[ind][indx] # pylint: disable=no-member
-                cHam = qOps.compositeOp(oper(sys._genericQSys__dimension), sys._qSystem__dimsBefore, sys._qSystem__dimsAfter)
+                cHam = qOps.compositeOp(oper(sys._genericQSys__dimension), sys._qSystem__dimsBefore,
+                                        sys._qSystem__dimsAfter)
                 ts = [order, cHam]
                 qts.append(ts)
             cMats.append(self._qCoupling__coupOrdering(qts))

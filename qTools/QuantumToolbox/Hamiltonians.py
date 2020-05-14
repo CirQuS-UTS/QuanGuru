@@ -5,8 +5,10 @@
     ---------
     :cavQubFreeHam : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension
     :RabiHam : Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension
-    :JCHam : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension
-    :aJCHam : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension
+    :JCHam : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity
+     dimension
+    :aJCHam : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity
+     dimension
 """
 
 #from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
@@ -98,7 +100,8 @@ def JCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
     """
 
     cavHam, qubHam = cavQubFreeHam(cavFreq, qubFreq, cavDim)
-    couplingJC = g * (sp.kron(create(cavDim), sigmam(), format='csc') + sp.kron(destroy(cavDim), sigmap(), format='csc'))
+    couplingJC = g * (sp.kron(create(cavDim), sigmam(), format='csc') + sp.kron(destroy(cavDim), sigmap(),
+                                                                                format='csc'))
     JCHamil = cavHam + qubHam + couplingJC
     return JCHamil
 
@@ -124,6 +127,7 @@ def aJCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
     """
 
     cavHam, qubHam = cavQubFreeHam(cavFreq, qubFreq, cavDim)
-    couplingAJC = g * (sp.kron(create(cavDim), sigmap(), format='csc') + sp.kron(destroy(cavDim), sigmam(), format='csc'))
+    couplingAJC = g * (sp.kron(create(cavDim), sigmap(), format='csc') + sp.kron(destroy(cavDim), sigmam(),
+                                                                                 format='csc'))
     AJCHamil = cavHam + qubHam + couplingAJC
     return AJCHamil

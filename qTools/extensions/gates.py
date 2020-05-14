@@ -1,7 +1,7 @@
 from qTools.classes.QPro import Gate
 from qTools.QuantumToolbox import operators
 
-class xGate(Gate):
+class xGate(Gate): # pylint: disable=too-many-ancestors
     instances = 0
     label = 'xGate'
     __slots__ = ['__angle']
@@ -21,7 +21,8 @@ class xGate(Gate):
     def instantFlip(self):
         if self._paramBoundBase__matrix is None: # pylint: disable=no-member
             sys = list(self.subSys.values())
-            flipOp = operators.compositeOp(operators.sigmax(), sys[0]._qSystem__dimsBefore, sys[0]._qSystem__dimsAfter) # pylint: disable=no-member
+            flipOp = operators.compositeOp(operators.sigmax(), sys[0]._qSystem__dimsBefore,
+                                           sys[0]._qSystem__dimsAfter) # pylint: disable=no-member
             for i in range(len(sys)-1):
                 flipOp = sys[i+1] @ flipOp
             self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot

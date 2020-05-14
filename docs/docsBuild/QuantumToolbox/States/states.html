@@ -53,7 +53,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #051988" >
+        <div class="wy-side-nav-search"  style="background: #212121" >
           
 
           
@@ -211,11 +211,14 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><div class="line-block">
-<div class="line"><strong>basis</strong> : Creates a <cite>ket</cite> state <img class="math" src="../../_images/math/7e77760af56688bfd5f357aa94a017e0961b928b.png" alt="|n\rangle"/> for a given dimension with 1 (unit population) at a given row.</div>
+<div class="line"><strong>basis</strong> : Creates a <cite>ket</cite> state <img class="math" src="../../_images/math/7e77760af56688bfd5f357aa94a017e0961b928b.png" alt="|n\rangle"/> for a given dimension with 1 (unit population) at a given
+row.</div>
 <div class="line"><strong>completeBasis</strong> : Creates a complete basis of <cite>ket</cite> states <img class="math" src="../../_images/math/32e5beb39611fb433831662a9e91503e0de3fedd.png" alt="\sum_n|n\rangle = \hat{\mathbb{I}}"/> .</div>
-<div class="line"><strong>basisBra</strong> : Creates a <cite>bra</cite> state <img class="math" src="../../_images/math/94b3930bd1c86655a6909b23299236c1219f9221.png" alt="\langle n|"/> for a given dimension with 1 (unit population) at a given column.</div>
+<div class="line"><strong>basisBra</strong> : Creates a <cite>bra</cite> state <img class="math" src="../../_images/math/94b3930bd1c86655a6909b23299236c1219f9221.png" alt="\langle n|"/> for a given dimension with 1 (unit population) at a
+given column.</div>
 <div class="line"><strong>zeros</strong> : Creates a column matrix (ket) with all elements zero.</div>
-<div class="line"><strong>superPos</strong> : Creates a <cite>ket</cite> superposition state <img class="math" src="../../_images/math/88e70f54296f8c0d6da1a0a182910b05c0d41f89.png" alt="\sum_n c_n|n\rangle"/> for a given dimension with a list of excitations.</div>
+<div class="line"><strong>superPos</strong> : Creates a <cite>ket</cite> superposition state <img class="math" src="../../_images/math/88e70f54296f8c0d6da1a0a182910b05c0d41f89.png" alt="\sum_n c_n|n\rangle"/> for a given dimension with a
+list of excitations.</div>
 </div>
 <div class="line-block">
 <div class="line"><strong>densityMatrix</strong> : Converts a <cite>ket</cite> state into a <cite>density matrix</cite>.</div>
@@ -674,8 +677,8 @@ or <cite>ket</cite> state from a given <cite>integer</cite> (in this case, it is
 <li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
 <li><p><strong>excitations</strong> (<em>supInt</em><em> (</em><em>Union of int</em><em>, </em><em>list</em><em>(</em><em>int</em><em>)</em><em>, </em><em>dict</em><em>(</em><em>int:float</em><em>)</em><em>)</em>) – <dl class="simple">
 <dt>There are 3 possible uses of this</dt><dd><ol class="arabic simple">
-<li><p>a <cite>dictionary</cite> with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4} </p></li>
-<li><p>a <cite>list</cite> (e.g. [0,1,2]) for equally populated super-position </p></li>
+<li><p>a <cite>dictionary</cite> with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</p></li>
+<li><p>a <cite>list</cite> (e.g. [0,1,2]) for equally populated super-position</p></li>
 <li><p>an <cite>integer</cite>, which is equivalent to basis function</p></li>
 </ol>
 </dd>

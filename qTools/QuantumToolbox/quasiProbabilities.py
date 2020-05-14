@@ -10,7 +10,8 @@
 
 from numpy import ndarray # type: ignore
 import numpy as np # type: ignore
-from numpy import (zeros, array, arange, exp, real, conj, pi, copy, meshgrid, size, polyval, fliplr, conjugate) # type: ignore
+from numpy import (zeros, array, arange, exp, real, conj, pi,
+                   copy, meshgrid, size, polyval, fliplr, conjugate) # type: ignore
 from scipy.special import factorial # type: ignore
 import scipy.linalg as la # type: ignore
 #from qTools.QuantumToolbox.states as densityMatrix

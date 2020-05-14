@@ -57,7 +57,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #051988" >
+        <div class="wy-side-nav-search"  style="background: #212121" >
           
 
           
@@ -164,7 +164,8 @@
 <span class="sd">        | **Unitary** : Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.</span>
 <span class="sd">        | **Liouvillian** : Creates `Liouvillian super-operator` for a given `Hamiltonian`, `time step`,</span>
 <span class="sd">         and a `list of collapse operators` (with the correcponding `list` of `decay rates`).</span>
-<span class="sd">        | **LiouvillianExp** : Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`, `time step`,</span>
+<span class="sd">        | **LiouvillianExp** : Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`,</span>
+<span class="sd">         `time step`,</span>
 <span class="sd">         and a `list of collapse operators` (with the correcponding `list` of `decay rates`).</span>
 <span class="sd">        | **dissipator** : Creates the `Lindblad dissipator` super-operator for a `collapse operator`.</span>
 <span class="sd">        | **_preSO** : Creates `pre super-operator` for an `operator`.</span>
@@ -190,7 +191,7 @@
 <span class="c1"># from scipy.sparse import spmatrix</span>
 
 <span class="c1"># These type aliases are used in type hinting of below methods</span>
-<span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)&#39;&#39;&#39;</span>
+<span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
 
 
 <div class="viewcode-block" id="Unitary"><a class="viewcode-back" href="../../../QuantumToolbox/Evolutions/evolutions.html#qTools.QuantumToolbox.evolution.Unitary">[docs]</a><span class="k">def</span> <span class="nf">Unitary</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
@@ -225,7 +226,7 @@
 
 
 <div class="viewcode-block" id="Liouvillian"><a class="viewcode-back" href="../../../QuantumToolbox/Evolutions/evolutions.html#qTools.QuantumToolbox.evolution.Liouvillian">[docs]</a><span class="k">def</span> <span class="nf">Liouvillian</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
-                <span class="n">collapseOperators</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">decayRates</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+                <span class="n">collapseOperators</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">decayRates</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span><span class="c1"># pylint: disable=dangerous-default-value</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `Liouvillian` super-operator for a given `Hamiltonian`, `time step`,</span>
 <span class="sd">    and a `list of collapse operators` (with the correcponding `list` of `decay rates`).</span>
@@ -274,8 +275,9 @@
     <span class="k">return</span> <span class="n">liouvillian</span></div>
 
 
-<div class="viewcode-block" id="LiouvillianExp"><a class="viewcode-back" href="../../../QuantumToolbox/Evolutions/evolutions.html#qTools.QuantumToolbox.evolution.LiouvillianExp">[docs]</a><span class="k">def</span> <span class="nf">LiouvillianExp</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
-                   <span class="n">collapseOperators</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">decayRates</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">exp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+<div class="viewcode-block" id="LiouvillianExp"><a class="viewcode-back" href="../../../QuantumToolbox/Evolutions/evolutions.html#qTools.QuantumToolbox.evolution.LiouvillianExp">[docs]</a><span class="k">def</span> <span class="nf">LiouvillianExp</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span><span class="c1"># pylint: disable=dangerous-default-value</span>
+                   <span class="n">collapseOperators</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">decayRates</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span>
+                   <span class="n">exp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `Liovillian` super-operator for a given `Hamiltonian`, `time step`,</span>
 <span class="sd">    and a `list of collapse operators` (with the correcponding `list` of `decay rates`).</span>

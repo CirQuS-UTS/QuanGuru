@@ -1,5 +1,5 @@
 from qTools.classes.computeBase import stateBase, _parameter
-
+# pylint: disable = cyclic-import
 
 class timeBase(stateBase):
     instances = 0
@@ -46,7 +46,7 @@ class timeBase(stateBase):
     @property
     def stepCount(self):
         if self.finalTime is None:
-            self._timeBase__finalTime.value = self._timeBase__step.value * self.stepSize # pylint: disable=assigning-non-slot
+            self._timeBase__finalTime.value = self._timeBase__step.value * self.stepSize # pylint: disable=E0237
         self._timeBase__step.value = int((self.finalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
         return self._timeBase__step.value
 
@@ -81,7 +81,9 @@ class timeBase(stateBase):
         self._paramUpdated = True
         self._timeBase__samples.value = num # pylint: disable=assigning-non-slot
 
-    def _bound(self, other, params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput'], re=False): # pylint: disable=dangerous-default-value
+    def _bound(self, other, # pylint: disable=dangerous-default-value
+               params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput'],
+               re=False):
         keys = ['_timeBase__stepSize', '_timeBase__finalTime', '_timeBase__step']
         keysProp = ['stepSize', 'finalTime', 'stepCount']
         bounding = True
@@ -92,7 +94,8 @@ class timeBase(stateBase):
 
                 if bounding:
                     for i, k in enumerate(keys):
-                        if ((getattr(self, k)._bound is None) and (getattr(other, k)._value is not None)): # pylint: disable=protected-access
+                        if ((getattr(self, k)._bound is None) and # pylint: disable=protected-access
+                                (getattr(other, k)._value is not None)): # pylint: disable=protected-access
                             setattr(self, keysProp[i], getattr(other, k)._value) # pylint: disable=protected-access
                             break
                     bounding = False
@@ -103,4 +106,3 @@ class timeBase(stateBase):
                     getattr(self, key)._bound = getattr(other, key) # pylint: disable=protected-access
             except AttributeError:
                 pass
-            

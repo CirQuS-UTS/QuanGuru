@@ -41,9 +41,11 @@ def nonParalEvol(qSim):
 # multi-processing functions
 def paralEvol(qSim, p):
     if len(qSim.timeDependency.sweeps) > 0:
-        results = p.map(partial(partial(parallelTimeEvol, qSim), timeDependent), range(qSim.Sweep.indMultip), chunksize=1)
+        results = p.map(partial(partial(parallelTimeEvol, qSim), timeDependent), range(qSim.Sweep.indMultip),
+                        chunksize=1)
     else:
-        results = p.map(partial(partial(parallelTimeEvol, qSim), qSim.evolFunc), range(qSim.Sweep.indMultip), chunksize=1)
+        results = p.map(partial(partial(parallelTimeEvol, qSim), qSim.evolFunc), range(qSim.Sweep.indMultip),
+                        chunksize=1)
     qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
 
 def parallelTimeEvol(qSim, evolFunc, ind):
@@ -72,7 +74,7 @@ def timeDependent(qSim):
         qSim.evolFunc(qSim)
 
 
-# These two are the specific solution method, user should define their own timeEvol function to use other solution methods
+# These are the specific solution method, user should define their own timeEvol function to use other solution methods
 # This flexibility should be reflected into protocol object
 def exponUni(qSim):
     for protocol in qSim.subSys.keys():
@@ -85,7 +87,7 @@ def timeEvolBase(qSim):
         for protocol in qSim.subSys.keys():
             qSim.subSys[protocol]._computeBase__compute(protocol.lastState) # pylint: disable=protected-access
             sampleCompute = qSim is protocol.simulation
-            for __ in range(int(protocol.simulation._timeBase__step.value/qSim._timeBase__step.value)): # pylint: disable=protected-access
+            for __ in range(int(protocol.simulation._timeBase__step.value/qSim._timeBase__step.value)): # pylint: disable=protected-access, line-too-long
                 for ___ in range(protocol.simulation.samples):
                     if not sampleCompute:
                         protocol.simulation._Simulation__compute() # pylint: disable=protected-access

@@ -1,11 +1,12 @@
 from collections import OrderedDict
 from qTools.classes.QUni import qUniversal, checkClass
 from qTools.classes.QRes import qResults
-
+# pylint: disable = cyclic-import
 class _parameter:
     """
         This is a simple class to wrap certain parameters (attributes) to create a hierarchical dependency.
-        It is intended to be used with the private attributes and the corresponding properties returning `value` of that attribute.
+        It is intended to be used with the private attributes and the corresponding properties returning `value` of
+        that attribute.
 
         If a `_parameter` is given another `_parameter` as its `bound`, it returns the `value` of its `bound`,
         while keeping its `_value` unchanged (which is mostly left to be None).
@@ -21,14 +22,15 @@ class _parameter:
         `_bound` : None or False or _parameter\\
             The object to be used as the bound.
             None and False basically means that there is no bound,
-            and they are used to distinguish between the value being the one given while __init__ method or set later by value property
+            and they are used to distinguish between the value being the one given while __init__ method or set later
+            by value property
 
         Properties
         ----------
         `value` :\\
             `getter` :
                 gets/returns the _value of self if bound is None or False,
-                or gets/returns the value of bound (which should be another _parameter object or have a _value attribute)\\
+                or gets/returns the value of bound which should be another _parameter object or have a _value attribute
             `setter(value)` :
                 sets the _value to a given value and _bound to False (signaling its different than the initialisation)
 
@@ -65,7 +67,7 @@ class _parameter:
 
 class paramBoundBase(qUniversal):
     """
-
+        asd
     """
     instances = 0
     label = 'paramBoundBase'
@@ -106,7 +108,7 @@ class paramBoundBase(qUniversal):
 
     def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
         """
-
+            asd
         """
         if self not in _exclude:
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
@@ -155,7 +157,7 @@ class qBaseSim(computeBase):
     __slots__ = ['__simulation', '__openSystem']
 
     def __init__(self, **kwargs):
-        from qTools.classes.Simulation import Simulation
+        from qTools.classes.Simulation import Simulation # pylint: disable=import-outside-toplevel
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.__simulation = Simulation(_internal=True)
         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
@@ -180,8 +182,8 @@ class qBaseSim(computeBase):
     # @simulation.setter
     # def simulation(self, sim):
     #     if ((sim is None) or (sim == 'new')):
-    #         self._qBaseSim__simulation = Simulation(_internal=True, superSys=self) # pylint: disable=assigning-non-slot
-    #         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
+    #         self._qBaseSim__simulation = Simulation(_internal=True, superSys=self) #pylint: disable=assigning-non-slot
+    #         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self #pylint: disable=protected-access
     #     else:
     #         self._qBaseSim__simulation = sim # pylint: disable=assigning-non-slot
     #         sim._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
@@ -214,13 +216,13 @@ class stateBase(computeBase):
     @property
     def initialState(self):
         if self._stateBase__initialState.value is None: # pylint: disable=no-member
-            self._stateBase__initialState.value = list(self.subSys.values())[0]._initialState(self._initialStateInput) # pylint: disable=protected-access, no-member
+            self._stateBase__initialState.value = list(self.subSys.values())[0]._initialState(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long
         return self._stateBase__initialState.value # pylint: disable=no-member
 
     @initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self._stateBase__initialStateInput.value = inp # pylint: disable=no-member
-        self._stateBase__initialState.value = list(self.subSys.values())[0]._initialState(inp) # pylint: disable=protected-access, no-member
+        self._stateBase__initialState.value = list(self.subSys.values())[0]._initialState(inp) # pylint: disable=protected-access, no-member, line-too-long
 
     @property
     def _initialStateInput(self):

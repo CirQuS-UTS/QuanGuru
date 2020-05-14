@@ -6,7 +6,8 @@
         | **Unitary** : Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
         | **Liouvillian** : Creates `Liouvillian super-operator` for a given `Hamiltonian`, `time step`,
          and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-        | **LiouvillianExp** : Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`, `time step`,
+        | **LiouvillianExp** : Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`,
+         `time step`,
          and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
         | **dissipator** : Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
         | **_preSO** : Creates `pre super-operator` for an `operator`.
@@ -32,7 +33,7 @@ from .customTypes import Matrix
 # from scipy.sparse import spmatrix
 
 # These type aliases are used in type hinting of below methods
-# Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)'''
+# Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
 
 
 def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
@@ -67,7 +68,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
 
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value
-                collapseOperators: list = [], decayRates: list = []) -> Matrix: # pylint: disable=dangerous-default-value
+                collapseOperators: list = [], decayRates: list = []) -> Matrix:# pylint: disable=dangerous-default-value
     """
     Creates `Liouvillian` super-operator for a given `Hamiltonian`, `time step`,
     and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
@@ -116,8 +117,9 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
     return liouvillian
 
 
-def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0, # pylint: disable=dangerous-default-value
-                   collapseOperators: list = [], decayRates: list = [], exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
+def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value
+                   collapseOperators: list = [], decayRates: list = [],
+                   exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
     """
     Creates `Liovillian` super-operator for a given `Hamiltonian`, `time step`,
     and a `list of collapse operators` (with the correcponding `list` of `decay rates`).

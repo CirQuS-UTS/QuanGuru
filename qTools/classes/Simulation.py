@@ -3,7 +3,7 @@ from qTools.classes.Sweep import Sweep
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.timeBase import timeBase
 from qTools.classes.extensions.modularSweep import timeEvolBase
-
+# pylint: disable = cyclic-import
 class Simulation(timeBase):
     instances = 0
     _nonInternalInstances = 0
@@ -90,7 +90,8 @@ class Simulation(timeBase):
 
     # add/remove protocol
     def removeProtocol(self, Protocol):
-        # FIXME what if freeEvol case, protocol then corresponds to sys.name before simulation run or a freeEvol obj after run
+        # FIXME what if freeEvol case, protocol then corresponds to sys.name before simulation run
+        #  or a freeEvol obj after run
         self._qUniversal__subSys.pop(Protocol, None) # pylint: disable=no-member
 
     def addProtocol(self, protocol=None, sys=None, protocolRemove=None):

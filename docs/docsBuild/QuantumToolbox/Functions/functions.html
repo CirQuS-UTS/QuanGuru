@@ -53,7 +53,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #051988" >
+        <div class="wy-side-nav-search"  style="background: #212121" >
           
 
           
@@ -269,8 +269,9 @@ For example, an if statement can be avoided using <cite>expectationMat/expectati
 
 <dl class="method">
 <dt>
-<code class="sig-name descname">:iprKetList : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in a given basis</code></dt>
-<dd></dd></dl>
+<code class="sig-name descname">:iprKetList : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in</code></dt>
+<dd><p>a given basis</p>
+</dd></dl>
 
 <dl class="method">
 <dt>
@@ -286,13 +287,15 @@ For example, an if statement can be avoided using <cite>expectationMat/expectati
 
 <dl class="method">
 <dt>
-<code class="sig-name descname">:iprKetNBmat : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states as the column`</code></dt>
-<dd></dd></dl>
+<code class="sig-name descname">:iprKetNBmat : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states</code></dt>
+<dd><p>as the column`</p>
+</dd></dl>
 
 <dl class="method">
 <dt>
-<code class="sig-name descname">:iprPureDenMat : Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in a given `basis`</code></dt>
-<dd></dd></dl>
+<code class="sig-name descname">:iprPureDenMat : Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in</code></dt>
+<dd><p>a given <cite>basis</cite></p>
+</dd></dl>
 
 <dl class="method">
 <dt>
@@ -524,7 +527,10 @@ State and operator can both be sparse or array or any combination of the two.</p
 <dl class="function">
 <dt id="qTools.QuantumToolbox.functions.expectationColArr">
 <code class="sig-name descname">expectationColArr</code><span class="sig-paren">(</span><em class="sig-param">operator: Matrix</em>, <em class="sig-param">states: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/functions.html#expectationColArr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.functions.expectationColArr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the expectation values of an <cite>operator</cite> for a list/matrix of <cite>ket (column) states</cite> by matrix multiplication</p>
+<dd><dl class="simple">
+<dt>Calculates the expectation values of an <cite>operator</cite> for a list/matrix of <cite>ket (column) states</cite></dt><dd><p>by matrix multiplication</p>
+</dd>
+</dl>
 <p>The <cite>list</cite> here is effectively a matrix whose columns are <cite>ket</cite> states for which we want the expectation values.
 For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
 TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.

@@ -12,7 +12,8 @@ class _sweep(updateBase):
     instances = 0
     label = '_sweep'
 
-    toBeSaved = updateBase.toBeSaved.extendedCopy(['sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep', 'multiParam'])
+    toBeSaved = updateBase.toBeSaved.extendedCopy(['sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep',
+                                                   'multiParam'])
 
     __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam']
 
@@ -55,9 +56,11 @@ class _sweep(updateBase):
     def sweepList(self, sList):
         if sList is None:
             if self.logSweep is False:
-                self._sweepList = arange(self.sweepMin, self.sweepMax + self.sweepPert, self.sweepPert) # pylint: disable=no-member
+                self._sweepList = arange(self.sweepMin, self.sweepMax + self.sweepPert, # pylint: disable=no-member
+                                         self.sweepPert) # pylint: disable=no-member
             elif self.logSweep is True:
-                self._sweepList = logspace(self.sweepMin, self.sweepMax, num=self.sweepPert, base=10.0) # pylint: disable=no-member
+                self._sweepList = logspace(self.sweepMin, self.sweepMax,
+                                           num=self.sweepPert, base=10.0) # pylint: disable=no-member
         else:
             self._sweepList = sList
 

@@ -659,7 +659,8 @@ def Js(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     (4, 4)	(6+0j)
     """
 
-    n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim)) + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
+    n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim))\
+        + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
     return n if sparse else n.toarray()
 
 
@@ -906,7 +907,8 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
 # TODO Does this really work with ndarray ?
 def compositeOp(operator: Matrix, dimB: int, dimA: int) -> Matrix:
     """
-    Creates a composite operator from a sub-system `operator`, i.e. tensor product with identities of dimensions dimB & dimA
+    Creates a composite operator from a sub-system `operator`,
+     i.e. tensor product with identities of dimensions dimB & dimA
 
     Parameters
     ----------
