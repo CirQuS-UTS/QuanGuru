@@ -3,9 +3,9 @@
 
     Methods
     -------
-    :xRotation : Creates the operator for Qubit ``X rotation``
-    :yRotation : Creates the operator for Qubit ``Y rotation``
-    :zRotation : Creates the operator for Qubit ``Z rotation``
+    :xRotation : Creates the operator for Qubit `X rotation`
+    :yRotation : Creates the operator for Qubit `Y rotation`
+    :zRotation : Creates the operator for Qubit `Z rotation`
     :qubRotation : Creates the operator for Qubit rotation around given X/Y/Z
 """
 
@@ -25,7 +25,7 @@ from .customTypes import Matrix
 
 def xRotation(angle: float, sparse: bool = True) -> Matrix:
     """
-    Creates the operator for Qubit ``X rotation``
+    Creates the operator for Qubit `X rotation`
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -49,7 +49,7 @@ def xRotation(angle: float, sparse: bool = True) -> Matrix:
 
 def yRotation(angle: float, sparse: bool = True) -> Matrix:
     """
-    Creates the operator for Qubit ``Y rotation``
+    Creates the operator for Qubit `Y rotation`
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 
@@ -73,7 +73,7 @@ def yRotation(angle: float, sparse: bool = True) -> Matrix:
 
 def zRotation(angle: float, sparse: bool = True) -> Matrix:
     """
-    Creates the operator for Qubit ``Z rotation``
+    Creates the operator for Qubit `Z rotation`
 
     Either as sparse (>>> sparse=True) or array (>>> sparse=False)
 

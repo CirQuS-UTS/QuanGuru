@@ -2,42 +2,42 @@
     Module of functions to calculate expectations, fidelities, entropy etc. from quantum states
 
     The reason for having several methods for the same task is to improve performance
-    For example, an if statement can be avoided using ``expectationMat/expectationKet`` for
-    ``density matrices/ket states``, or
-    ``expectationKetList/expectationMatList`` is suitable in ``multi-processing`` of list of time-series of states
+    For example, an if statement can be avoided using `expectationMat/expectationKet` for
+    `density matrices/ket states`, or
+    `expectationKetList/expectationMatList` is suitable in `multi-processing` of list of time-series of states
 
     Methods
     -------
     :expectation : Function to calculate the expectation value of an `operator` for a given `state`
-    :expectationMat : Calculates the expectation value of an `operator` for a given ``density matrix``
+    :expectationMat : Calculates the expectation value of an `operator` for a given `density matrix`
     :expectationKet : Calculates the expectation value of an `operator` for a given `ket`
     :expectationKetList : Calculates the expectation value of an `operator` for a given list of `ket` states
-    :expectationMatList : Calculates the expectation value of an `operator` for a given list of ``density matrices``
-    :expectationColArr : Calculates the expectation values of an `operator` for a list/matrix of ``ket (column) states``
+    :expectationMatList : Calculates the expectation value of an `operator` for a given list of `density matrices`
+    :expectationColArr : Calculates the expectation values of an `operator` for a list/matrix of `ket (column) states`
                          by matrix multiplication
 
-    :fidelity : Calculates `fidelity` between ``two states``
+    :fidelity : Calculates `fidelity` between `two states`
     :fidelityKet : Calculates `fidelity` between two `ket` states
-    :fidelityPureMat : Calculates `fidelity` between two (pure) ``density matrices``
-    :fidelityKetList : Calculates `fidelity` between ``a ket state`` and ``list of ket states``
-    :fidelityKetLists : Created to be used in ``multi-processing`` calculations of two lists of kets states
+    :fidelityPureMat : Calculates `fidelity` between two (pure) `density matrices`
+    :fidelityKetList : Calculates `fidelity` between `a ket state` and `list of ket states`
+    :fidelityKetLists : Created to be used in `multi-processing` calculations of two lists of kets states
 
-    :entropy : Calculates the `entropy` of a given ``density matrix``
+    :entropy : Calculates the `entropy` of a given `density matrix`
     :entropyKet : Calculates the `entropy` of a given `ket` state
 
     :iprKet : Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis
-    :iprKetList : Calculates the inverse participation ratio (a delocalisation measure) of a ``list of ket`` states in a given basis
+    :iprKetList : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in a given basis
     :iprKetNB : Calculates the inverse participation ratio (a delocalisation measure) of a ket
                 by assuming that the basis is of the free Hamiltonian
     :iprKetNBList : Calculates the inverse participation ratio (a delocalisation measure) of a list kets
                 by assuming that the basis is of the free Hamiltonian
-    :iprKetNBmat : Calculates the inverse participation ratio (a delocalisation measure) of ``a matrix of ket states as the column``
-    :iprPureDenMat : Calculates the inverse participation ratio (a delocalisation measure) of a ``density matrix`` in a given `basis`
+    :iprKetNBmat : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states as the column`
+    :iprPureDenMat : Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in a given `basis`
 
-    :sortedEigens : Calculates the ``eigenvalues and eigenvectors`` of a given Hamiltonian and `sorts` them
+    :sortedEigens : Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them
 
     :eigVecStatKet : Calculates components of a `ket` in a basis
-    :eigVecStatKetList : Calculates components of a ``list of ket states``
+    :eigVecStatKetList : Calculates components of a `list of ket states`
     :eigVecStatKetNB : Calculates the components of a ket by assuming that the basis is of the free Hamiltonian
 """
 
@@ -68,7 +68,7 @@ def expectation(operator: Matrix, state: Matrix) -> float:
     """
     Function to calculate the expectation value of an `operator` for a given `state`
 
-    State can either be a `ket` or ``density matrix``.
+    State can either be a `ket` or `density matrix`.
     Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
     State and operator can both be sparse or array or any combination of the two.
 
@@ -114,7 +114,7 @@ def expectation(operator: Matrix, state: Matrix) -> float:
 
 def expectationMat(operator: Matrix, denMat: Matrix) -> float:
     """
-    Calculates the expectation value of an `operator` for a given ``density matrix``
+    Calculates the expectation value of an `operator` for a given `density matrix`
 
     Works with both sparse and array.
     Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
@@ -127,7 +127,7 @@ def expectationMat(operator: Matrix, denMat: Matrix) -> float:
 
     Returns
     -------
-    :return: expectation value of the `operator` for the ``density matrix``
+    :return: expectation value of the `operator` for the `density matrix`
 
     Examples
     --------
@@ -227,7 +227,7 @@ def expectationKetList(operator: Matrix, kets: matrixList) -> floatList:
 
 def expectationMatList(operator: Matrix, denMats: matrixList) -> floatList:
     """
-    Calculates the expectation value of an `operator` for a given list of ``density matrices``
+    Calculates the expectation value of an `operator` for a given list of `density matrices`
 
     Simply calls the `expectationMat` in a loop.
     This function exist for easy use in multi-processing.
@@ -239,7 +239,7 @@ def expectationMatList(operator: Matrix, denMats: matrixList) -> floatList:
 
     Returns
     -------
-    :return: `list` of expectation values of the `operator` for the list of ``density matrices``
+    :return: `list` of expectation values of the `operator` for the list of `density matrices`
 
     Examples
     --------
@@ -263,7 +263,7 @@ def expectationMatList(operator: Matrix, denMats: matrixList) -> floatList:
 
 def expectationColArr(operator: Matrix, states: ndarray) -> floatList:
     """
-    Calculates the expectation values of an `operator` for a list/matrix of ``ket (column) states`` by matrix multiplication
+    Calculates the expectation values of an `operator` for a list/matrix of `ket (column) states` by matrix multiplication
 
     The `list` here is effectively a matrix whose columns are `ket` states for which we want the expectation values.
     For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
@@ -300,19 +300,19 @@ def expectationColArr(operator: Matrix, states: ndarray) -> floatList:
 # Functions for fidelity (currently only for pure states)
 def fidelity(state1: Matrix, state2: Matrix) -> float:
     """
-    Calculates `fidelity` between ``two states``
+    Calculates `fidelity` between `two states`
 
-    States can either be a `ket` or ``density matrix``,
+    States can either be a `ket` or `density matrix`,
     and they can both be sparse or array or any combination of the two.
 
     Parameters
     ----------
-    :param `state1`: `ket` state or ``density matrix``
-    :param `state2` : `ket` state or ``density matrix``
+    :param `state1`: `ket` state or `density matrix`
+    :param `state2` : `ket` state or `density matrix`
 
     Returns
     -------
-    :return: `fidelity` between any ``two states``
+    :return: `fidelity` between any `two states`
 
     Examples
     --------
@@ -366,7 +366,7 @@ def fidelityKet(ket1: Matrix, ket2: Matrix) -> float:
 
     Returns
     -------
-    :return: `fidelity` between two ``ket states``
+    :return: `fidelity` between two `ket states`
 
     Examples
     --------
@@ -389,7 +389,7 @@ def fidelityKet(ket1: Matrix, ket2: Matrix) -> float:
 
 def fidelityPureMat(denMat1: Matrix, denMat2: Matrix) -> float:
     """
-    Calculates `fidelity` between two (pure) ``density matrices``
+    Calculates `fidelity` between two (pure) `density matrices`
 
     States can both be sparse or array or any combination of the two.
 
@@ -400,7 +400,7 @@ def fidelityPureMat(denMat1: Matrix, denMat2: Matrix) -> float:
 
     Returns
     -------
-    :return: `fidelity` between two (pure) ``density matrices``
+    :return: `fidelity` between two (pure) `density matrices`
 
     Examples
     --------
@@ -425,7 +425,7 @@ def fidelityPureMat(denMat1: Matrix, denMat2: Matrix) -> float:
 
 def fidelityKetList(ket1: Matrix, ketList: matrixList) -> floatList:
     """
-    Calculates `fidelity` between ``a ket state`` and ``list of ket states``
+    Calculates `fidelity` between `a ket state` and `list of ket states`
 
     States can both be sparse or array or any combination of the two.
 
@@ -436,7 +436,7 @@ def fidelityKetList(ket1: Matrix, ketList: matrixList) -> floatList:
 
     Returns
     -------
-    :return: `list` of fidelities between ``a ket state`` and ``list of ket states``
+    :return: `list` of fidelities between `a ket state` and `list of ket states`
 
     Examples
     --------
@@ -459,7 +459,7 @@ def fidelityKetList(ket1: Matrix, ketList: matrixList) -> floatList:
 
 def fidelityKetLists(zippedStatesList: Any) -> floatList:
     """
-    Created to be used in ``multi-processing`` calculations of two lists of kets states
+    Created to be used in `multi-processing` calculations of two lists of kets states
 
     FIXME too specific, requires zipping
     """
@@ -476,7 +476,7 @@ def fidelityKetLists(zippedStatesList: Any) -> floatList:
 # TODO may create a function specifically for sparse input
 def entropy(densMat: Matrix, base2: bool = False) -> float:
     """
-    Calculates the `entropy` of a given ``density matrix``
+    Calculates the `entropy` of a given `density matrix`
 
     Input should be a density matrix by definition of entropy.
     Uses exponential basis as default.
@@ -488,7 +488,7 @@ def entropy(densMat: Matrix, base2: bool = False) -> float:
 
     Returns
     -------
-    :return: the `entropy` of the given ``density matrix``
+    :return: the `entropy` of the given `density matrix`
 
     Examples
     --------
@@ -552,7 +552,7 @@ def entropyKet(ket: Matrix, base2: bool = False) -> float:
 
     Returns
     -------
-    :return: the `entropy` of the given ``density matrix``
+    :return: the `entropy` of the given `density matrix`
 
     Examples
     --------
@@ -609,7 +609,7 @@ def iprKet(basis: matrixList, ket: Matrix) -> float:
 
 def iprKetList(basis: matrixList, kets: matrixList) -> floatList:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a ``list of ket`` states in a given basis
+    Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in a given basis
 
     Simply calls iprKet in a loop.
 
@@ -711,7 +711,7 @@ def iprKetNBList(kets: matrixList) -> floatList:
 
 def iprKetNBmat(kets: ndarray) -> floatList:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of ``a matrix of ket states as the column``
+    Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states as the column`
 
     For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
     TODO use if you know what you are doing.
@@ -746,7 +746,7 @@ def iprKetNBmat(kets: ndarray) -> floatList:
 
 def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
     """
-    Calculates the inverse participation ratio (a delocalisation measure) of a ``density matrix`` in a given `basis`
+    Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in a given `basis`
 
     Parameters
     ----------
@@ -785,7 +785,7 @@ def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
 # Eigenvector statistics
 def sortedEigens(Ham: Matrix) -> Tuple[floatList, List[ndarray]]:
     """
-    Calculates the ``eigenvalues and eigenvectors`` of a given Hamiltonian and `sorts` them
+    Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them
 
     Parameters
     ----------
@@ -854,7 +854,7 @@ def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
 
 def eigVecStatKetList(basis: matrixList, kets: matrixList) -> List[floatList]:
     """
-    Calculates components of a ``list of ket states``
+    Calculates components of a `list of ket states`
     Main use is in eigenvector statistics.
 
     Parameters

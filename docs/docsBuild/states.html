@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>States &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to Quantum Simulations’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">States</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#types">Types</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>States</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/states.rst" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-qTools.QuantumToolbox.states">
+<span id="states"></span><h1>States<a class="headerlink" href="#module-qTools.QuantumToolbox.states" title="Permalink to this headline">¶</a></h1>
+<p>This module contains functions to create, manipulate, convert, and/or normalise quantum states.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>basis</strong> : Creates a <cite>ket</cite> state for a given dimension with 1 (unit population) at a given row (state).</div>
+<div class="line"><strong>completeBasis</strong> : Creates a complete basis of <cite>ket</cite> states.</div>
+<div class="line"><strong>basisBra</strong> : Creates a <cite>bra</cite> state for a given dimension with 1 (unit population) at a given column (state).</div>
+<div class="line"><strong>zeros</strong> : Creates a column matrix (ket) with all elements zero.</div>
+<div class="line"><strong>superPos</strong> : Creates a <cite>ket</cite> superposition state for a given dimension with a list of excitations.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>densityMatrix</strong> : Converts a <cite>ket</cite> state into a <cite>density matrix</cite>.</div>
+<div class="line"><strong>completeBasisMat</strong> : Creates a complete basis of <cite>density matrices</cite> or convert a <cite>ket basis</cite> to <cite>density matrix</cite>.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>normalise</strong> : Function to normalise <cite>any</cite> state (ket or density matrix).</div>
+<div class="line"><strong>normaliseKet</strong> : Function to normalise <cite>ket</cite> state.</div>
+<div class="line"><strong>normaliseMat</strong> : Function to normalise a <cite>density matrix</cite>.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>compositeState</strong> : Function to create <cite>composite ket</cite> states.</div>
+<div class="line"><strong>tensorProd</strong> : <cite>missing docstring</cite>.</div>
+<div class="line"><strong>partialTrace</strong> : Calculates the partial trace of a <cite>density matrix</cite> of composite state.</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>mat2Vec</strong> : Converts <cite>density matrix</cite> into <cite>density vector</cite> (used in super-operator representation).</div>
+<div class="line"><strong>vec2mat</strong> : Converts <cite>density vector</cite> into <cite>density matrix</cite>.</div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>Matrix</strong> : Union of (scipy) sparse and (numpy) array</div>
+<div class="line"><strong>intList</strong> : List of integers</div>
+<div class="line"><strong>matrixList</strong> : List of Matrices</div>
+<div class="line"><strong>supInt</strong> : Union of the types: int, <cite>intList</cite>, and dict[int:float] (used in super-position creations)</div>
+<div class="line"><strong>ndOrListInt</strong> : Union of ndarray and intList</div>
+</div>
+</div></blockquote>
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.basis">
+<code class="sig-name descname">basis</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">state: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#basis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.basis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>ket</cite> state for a given dimension with 1 (unit population) at a given row (state).</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
+<li><p><strong>state</strong> (<em>int</em>) – row to place 1, i.e. index for the populated state</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>ket</cite> state as sparse if sparse=True else array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">(0, 0)      1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[1]</span>
+<span class="go">[0]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.basisBra">
+<code class="sig-name descname">basisBra</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">state: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#basisBra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.basisBra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>bra</cite> state for a given dimension with 1 (unit population) at a given column (state).</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
+<li><p><strong>state</strong> (<em>int</em>) – column to place 1, i.e. index number for the populated state</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>bra</cite> state as sparse if sparse=True else array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basisBra</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">(0, 0)      1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basisBra</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[1 0]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.completeBasis">
+<code class="sig-name descname">completeBasis</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; List[Matrix]<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#completeBasis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.completeBasis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a complete basis of <cite>ket</cite> states.</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list (complete basis) of <cite>ket</cite> states as sparse if sparse=True else array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : matrixList</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasis0</span> <span class="o">=</span> <span class="n">completeBasis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasis0</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">[[1]</span>
+<span class="go">[0]]</span>
+<span class="go">[[0]</span>
+<span class="go">[1]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasis1</span> <span class="o">=</span> <span class="n">completeBasis</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasis1</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">(0, 0)      1</span>
+<span class="go">(1, 0)      1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.completeBasisMat">
+<code class="sig-name descname">completeBasisMat</code><span class="sig-paren">(</span><em class="sig-param">dimension: Optional[int] = None</em>, <em class="sig-param">compKetBase: Optional[List[Matrix]] = None</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; List[Matrix]<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#completeBasisMat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.completeBasisMat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a complete basis of <cite>density matrices</cite> or convert a ket basis to density matrix for a given dimension.</p>
+<p>Note: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.</p>
+<p>For a given basis, this keeps the sparse/array as sparse/array.
+For a given dimension, either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em><em> or </em><em>None</em>) – dimension of Hilbert space (or default None if a ket basis is given)</p></li>
+<li><p><strong>compKetBase</strong> (<em>matrixList</em><em> or </em><em>None</em>) – a complete ket basis (or default None if dimension is given)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>return : matrixList</em> – a list (complete basis) of <cite>density matrices</cite></p></li>
+<li><p><em>raises ValueError : raised if both complete ket basis and dimension are None (default). Dimension is used to create</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasis0</span> <span class="o">=</span> <span class="n">completeBasis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasis1</span> <span class="o">=</span> <span class="n">completeBasis</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat0</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">compKetBase</span><span class="o">=</span><span class="n">completeBasis0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasisMat0</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">[[1 0]</span>
+<span class="go">[0 0]]</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat1</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">compKetBase</span><span class="o">=</span><span class="n">completeBasis1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasisMat1</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">(0, 0)      1</span>
+<span class="go">(1, 1)      1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat01</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasisMat01</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">[[1 0]</span>
+<span class="go">[0 0]]</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat11</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasisMat11</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">(0, 0)      1</span>
+<span class="go">(1, 1)      1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.compositeState">
+<code class="sig-name descname">compositeState</code><span class="sig-paren">(</span><em class="sig-param">dimensions: List[int], excitations: List[Union[Dict[int, float], List[int], int]], sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#compositeState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.compositeState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create <cite>composite ket</cite> states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimensions</strong> (<em>intList</em>) – list of dimensions for each sub-system of the composite quantum system</p></li>
+<li><p><strong>excitations</strong> (<em>List</em><em>[</em><em>supInp</em><em>]</em>) – list of state information for sub-systems.
+This list can have mixture of dict, list, and int values,
+which are used to create a superposition state for the corresponding sub-system
+See: <cite>superPos</cite> function</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>composite ket state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState0</span> <span class="o">=</span> <span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0]</span>
+<span class="go">[1]</span>
+<span class="go">[0]</span>
+<span class="go">[0]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState1</span> <span class="o">=</span> <span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.        ]</span>
+<span class="go">[0.70710678]</span>
+<span class="go">[0.        ]</span>
+<span class="go">[0.70710678]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState2</span> <span class="o">=</span> <span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.4472136 ]</span>
+<span class="go">[0.89442719]</span>
+<span class="go">[0.        ]</span>
+<span class="go">[0.        ]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.densityMatrix">
+<code class="sig-name descname">densityMatrix</code><span class="sig-paren">(</span><em class="sig-param">ket: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#densityMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.densityMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a <cite>ket</cite> state into a <cite>density matrix</cite></p>
+<p>Keeps the sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ket</strong> (<em>Matrix</em>) – ket state</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>density Matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span>
+<span class="go">(0, 0)      1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span>
+<span class="go">[[1 0]</span>
+<span class="go">[0 0]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span>
+<span class="go">[[0.5 0.5]</span>
+<span class="go">[0.5 0.5]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">},</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span>
+<span class="go">[[0.2 0.4]</span>
+<span class="go">[0.4 0.8]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.mat2Vec">
+<code class="sig-name descname">mat2Vec</code><span class="sig-paren">(</span><em class="sig-param">denMat: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#mat2Vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.mat2Vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts <cite>density matrix</cite> into <cite>density vector</cite> (used in super-operator respresentation).</p>
+<p>Keeps the sparse/array as sparse/array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>denMat</strong> (<em>Matrix</em>) – density matrix to be converted</p>
+</dd>
+</dl>
+<p>:param : density vector
+:type : return: Matrix</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="o">=</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denVec</span> <span class="o">=</span> <span class="n">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="o">=</span><span class="n">denMat</span><span class="p">)</span>
+<span class="go">[[0]</span>
+<span class="go">[0]</span>
+<span class="go">[0]</span>
+<span class="go">[1]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.normalise">
+<code class="sig-name descname">normalise</code><span class="sig-paren">(</span><em class="sig-param">state: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#normalise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.normalise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to normalise <cite>any</cite> state (ket or density matrix).</p>
+<p>Keeps the sparse/array as sparse/array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>Matrix</em>) – state to be normalised</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>normalised state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nonNormalisedKet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalisedKet</span> <span class="o">=</span> <span class="n">normalise</span><span class="p">(</span><span class="n">nonNormalisedKet</span><span class="p">)</span>
+<span class="go">[[0.89442719]</span>
+<span class="go">[0.4472136 ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nonNormalisedMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">nonNormalisedKet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalisedMat</span> <span class="o">=</span> <span class="n">normalise</span><span class="p">(</span><span class="n">nonNormalisedMat</span><span class="p">)</span>
+<span class="go">[[0.8 0.4]</span>
+<span class="go">[0.4 0.2]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.normaliseKet">
+<code class="sig-name descname">normaliseKet</code><span class="sig-paren">(</span><em class="sig-param">ket: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#normaliseKet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.normaliseKet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to normalise <cite>ket</cite> state.</p>
+<p>Keeps the sparse/array as sparse/array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>Matrix</em>) – ket state to be normalised</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>normalised <cite>ket</cite> state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nonNormalisedKet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalisedKet</span> <span class="o">=</span> <span class="n">normaliseKet</span><span class="p">(</span><span class="n">nonNormalisedKet</span><span class="p">)</span>
+<span class="go">[[0.89442719]</span>
+<span class="go">[0.4472136 ]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.normaliseMat">
+<code class="sig-name descname">normaliseMat</code><span class="sig-paren">(</span><em class="sig-param">denMat: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#normaliseMat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.normaliseMat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to normalise a <cite>density matrix</cite>.</p>
+<p>Keeps the sparse/array as sparse/array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>Matrix</em>) – <cite>density matrix</cite> to be normalised</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>normalised <cite>density matrix</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nonNormalisedMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">nonNormalisedKet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalisedMat</span> <span class="o">=</span> <span class="n">normalise</span><span class="p">(</span><span class="n">nonNormalisedMat</span><span class="p">)</span>
+<span class="go">[[0.8 0.4]</span>
+<span class="go">[0.4 0.2]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.partialTrace">
+<code class="sig-name descname">partialTrace</code><span class="sig-paren">(</span><em class="sig-param">keep: Union[numpy.ndarray, List[int]], dims: Union[numpy.ndarray, List[int]], state: Matrix</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#partialTrace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.partialTrace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the partial trace of a <cite>density matrix</cite> of composite state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keep</strong> (<em>ndOrListInt</em>) – An array of indices of the spaces to keep after being traced. For instance, if the space is
+A x B x C x D and we want to trace out B and D, keep = [0,2]</p></li>
+<li><p><strong>dims</strong> (<em>ndOrListInt</em>) – An array of the dimensions of each space. For instance, if the space is A x B x C x D,
+dims = [dim_A, dim_B, dim_C, dim_D]</p></li>
+<li><p><strong>state</strong> (<em>Matrix</em>) – Matrix to trace</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Traced matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState0</span> <span class="o">=</span> <span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stateFirstSystem0</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">compositeState0</span><span class="p">)</span>
+<span class="go">[[1 0]</span>
+<span class="go">[0 0]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stateSecondSystem0</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">compositeState0</span><span class="p">)</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState1</span> <span class="o">=</span> <span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0. 0.]</span>
+<span class="go">[0. 1.]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stateFirstSystem1</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">compositeState1</span><span class="p">)</span>
+<span class="go">[[0.5 0.5]</span>
+<span class="go">[0.5 0.5]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stateSecondSystem1</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">compositeState1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState2</span> <span class="o">=</span> <span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stateFirstSystem2</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">compositeState2</span><span class="p">)</span>
+<span class="go">[[1. 0.]</span>
+<span class="go">[0. 0.]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stateSecondSystem2</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">compositeState2</span><span class="p">)</span>
+<span class="go">[[0.2 0.4]</span>
+<span class="go">[0.4 0.8]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.superPos">
+<code class="sig-name descname">superPos</code><span class="sig-paren">(</span><em class="sig-param">dimension: int, excitations: Union[Dict[int, float], List[int], int], sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#superPos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.superPos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>ket</cite> superposition state for a given dimension with a list of excitations.</p>
+<p>Function to create a <cite>superposition ket</cite> state from a given <cite>dictionary</cite> or <cite>list</cite>,
+or <cite>ket</cite> state from a given <cite>integer</cite> (in this case, it is equivalent to basis function)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
+<li><p><strong>excitations</strong> (<em>supInt</em><em> (</em><em>Union of int</em><em>, </em><em>list</em><em>(</em><em>int</em><em>)</em><em>, </em><em>dict</em><em>(</em><em>int:float</em><em>)</em><em>)</em>) – <dl class="simple">
+<dt>There are 3 possible uses of this</dt><dd><ol class="arabic simple">
+<li><p>a <cite>dictionary</cite> with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4} </p></li>
+<li><p>a <cite>list</cite> (e.g. [0,1,2]) for equally populated super-position </p></li>
+<li><p>an <cite>integer</cite>, which is equivalent to basis function</p></li>
+</ol>
+</dd>
+</dl>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a superposition <cite>ket</cite> state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">},</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.4472136 ]</span>
+<span class="go">[0.89442719]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.70710678]</span>
+<span class="go">[0.70710678]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.]</span>
+<span class="go">[1.]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.tensorProd">
+<code class="sig-name descname">tensorProd</code><span class="sig-paren">(</span><em class="sig-param">*args: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#tensorProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.tensorProd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to calculate tensor product of given states (in the given order).</p>
+<p>The matrices can be sparse/ndarray, but they all should be the same either sparse/ndarray not a mixture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*args</strong> (<em>Matrix</em>) – state matrices (arbitrary number of them)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tensor product of given states (in the given order)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.vec2mat">
+<code class="sig-name descname">vec2mat</code><span class="sig-paren">(</span><em class="sig-param">vec: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#vec2mat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.vec2mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts <cite>density vector</cite> into <cite>density matrix</cite>.</p>
+<p>Keeps the sparse/array as sparse/array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vec</strong> (<em>Matrix</em>) – density vector to be converted</p>
+</dd>
+</dl>
+<p>:param : density matrix
+:type : return: Matrix</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="o">=</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denVec</span> <span class="o">=</span> <span class="n">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="o">=</span><span class="n">denMat</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denMatConverted</span> <span class="o">=</span> <span class="n">vec2mat</span><span class="p">(</span><span class="n">vec</span><span class="o">=</span><span class="n">denVec</span><span class="p">)</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="qTools.QuantumToolbox.states.zeros">
+<code class="sig-name descname">zeros</code><span class="sig-paren">(</span><em class="sig-param">dimension: int</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="_modules/qTools/QuantumToolbox/states.html#zeros"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.zeros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a column matrix (ket) with all elements zero.</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ket of zeros</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">(0, 0)      0</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0]</span>
+<span class="go">[0]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Quantum Simulations’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/05/14.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
