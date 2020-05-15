@@ -500,7 +500,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-   &gt;&gt;&gt; jx0 = Jx(j=2, isDim=False)
+]]
+        &gt;&gt;&gt; jx0 = Jx(j=2, isDim=False)
         (1, 0)      1.0
         (0, 1)      1.0
         (2, 1)      1.224744871391589
@@ -639,7 +640,7 @@ div.rendered_html tbody tr:hover {
         [0]]
 
     compositeOp(operator: ~Matrix, dimB: int, dimA: int) -&gt; ~Matrix
-        Creates a composite operator from a sub-sytem `operator`, i.e. tensor product with identities of dimensions dimB &amp; dimA
+        Creates a composite operator from a sub-system `operator`, i.e. tensor product with identities of dimensions dimB &amp; dimA
 
         Parameters
         ----------
@@ -836,7 +837,7 @@ div.rendered_html tbody tr:hover {
         (0, 1)      1
 
     parityEXP(HamiltonianCavity: ~Matrix) -&gt; ~Matrix
-        Creates the parity operator by exponetiationg a given Hamiltonian
+        Creates the parity operator by exponentiation a given Hamiltonian
 
         Keeps sparse/array as sparse/array.
 
@@ -870,7 +871,7 @@ div.rendered_html tbody tr:hover {
         (4, 4)      (1-4.898587196589413e-16j)
 
     paritySUM(dimension: int, sparse: bool = True) -&gt; ~Matrix
-        Creates the parity operator by explicity placing alternating +/- into a matrix
+        Creates the parity operator by explicitly placing alternating +/- into a matrix
 
         Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)
 
@@ -905,7 +906,7 @@ div.rendered_html tbody tr:hover {
 
         Parameters
         ----------
-        # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+        FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
         :param `dimension` : dimension of the Hilbert space (2 by default)
         :param `sparse` : boolean for sparse or not (array)
 
@@ -928,7 +929,7 @@ div.rendered_html tbody tr:hover {
 
         Parameters
         ----------
-        # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+        FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
         :param `dimension` : dimension of the Hilbert space (2 by default)
         :param `sparse` : boolean for sparse or not (array)
 
@@ -951,7 +952,7 @@ div.rendered_html tbody tr:hover {
 
         Parameters
         ----------
-        # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+        FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
         :param `dimension` : dimension of the Hilbert space (2 by default)
         :param `sparse` : boolean for sparse or not (array)
 
@@ -975,7 +976,7 @@ div.rendered_html tbody tr:hover {
 
         Parameters
         ----------
-        # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+        FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
         :param `dimension` : dimension of the Hilbert space (2 by default)
         :param `sparse` : boolean for sparse or not (array)
 
@@ -999,7 +1000,7 @@ div.rendered_html tbody tr:hover {
 
         Parameters
         ----------
-        # FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
+        FIXME dimension is meaningless, it is introduces to make objects more uniform, might remove later
         :param `dimension` : dimension of the Hilbert space (2 by default)
         :param `sparse` : boolean for sparse or not (array)
 
@@ -1064,9 +1065,9 @@ FILE
 </div>
 <div class="section" id="number">
 <h1>number<a class="headerlink" href="#number" title="Permalink to this headline">¶</a></h1>
-<p>This is a method to create (bosonic) number operator for a given dimension.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<p>This is a method to create (bosonic) number (<img class="math" src="../../_images/math/2bb3984b414b729f6541f5db3ae9a86ce0c219a6.png" alt="\hat{n}"/>) operator for a given dimension.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1084,28 +1085,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  0
-  (1, 1)        1
-  (2, 2)        2
-[[0 0 0]
- [0 1 0]
- [0 0 2]]
-  (0, 0)        0
-  (1, 1)        1
-  (2, 2)        2
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-destroy">
 <h1>## destroy<a class="headerlink" href="###-destroy" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create (bosonic) annihilation operator for a given dimension.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1118,24 +1103,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 1)  1.0
-  (1, 2)        1.4142135623730951
-[[0.         1.         0.        ]
- [0.         0.         1.41421356]
- [0.         0.         0.        ]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-create-($-\hat{a}`^{:nbsphinx-math:dagger`}$)">
 <h1>## create ($ <span class="math">\hat{a}`^{:nbsphinx-math:</span>dagger`}$)<a class="headerlink" href="###-create-($-\hat{a}`^{:nbsphinx-math:dagger`}$)" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create (bosonic) creation operator for a given dimension.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1147,24 +1120,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(1, 0)  1.0
-  (2, 1)        1.4142135623730951
-[[0.         0.         0.        ]
- [1.         0.         0.        ]
- [0.         1.41421356 0.        ]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="#-identity">
 <h1># identity<a class="headerlink" href="##-identity" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create an identity operator for a given dimension.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1176,19 +1137,6 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  1.0
-  (1, 1)        1.0
-  (2, 2)        1.0
-[[1. 0. 0.]
- [0. 1. 0.]
- [0. 0. 1.]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="#-Pauli-matrices-(Qubit-operators)">
 <h1># Pauli matrices (Qubit operators)<a class="headerlink" href="##-Pauli-matrices-(Qubit-operators)" title="Permalink to this headline">¶</a></h1>
@@ -1196,8 +1144,8 @@ FILE
 <div class="section" id="Sigma-Z">
 <h1>Sigma Z<a class="headerlink" href="#Sigma-Z" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create Pauli Z operator.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1209,23 +1157,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[ 1  0]
- [ 0 -1]]
-  (0, 0)        1
-  (1, 1)        -1
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-Sigma-Y">
 <h1>## Sigma Y<a class="headerlink" href="###-Sigma-Y" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create Pauli Y operator.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1237,23 +1174,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[0.+0.j 0.-1.j]
- [0.+1.j 0.+0.j]]
-  (1, 0)        1j
-  (0, 1)        (-0-1j)
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-Sigma-X">
 <h1>## Sigma X<a class="headerlink" href="###-Sigma-X" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create Pauli X operator.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1265,23 +1191,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[0 1]
- [1 0]]
-  (1, 0)        1
-  (0, 1)        1
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-Sigma-+">
 <h1>## Sigma +<a class="headerlink" href="###-Sigma-+" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create Pauli + (creation) operator.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1293,22 +1208,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[0 1]
- [0 0]]
-  (0, 1)        1
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-Sigma--">
 <h1>## Sigma -<a class="headerlink" href="###-Sigma--" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create Pauli - (destruction) operator.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1320,16 +1225,6 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[0 0]
- [1 0]]
-  (1, 0)        1
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="#-Spin-Operators">
 <h1># Spin Operators<a class="headerlink" href="##-Spin-Operators" title="Permalink to this headline">¶</a></h1>
@@ -1340,8 +1235,8 @@ FILE
 <h1>Jz<a class="headerlink" href="#Jz" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create spin Z operator for a given dimension or the corresponding spin quatum number.</p>
 <p>All the below examples are for dimension 5 (spin quantum number = 2).</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1360,39 +1255,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  2
-  (1, 1)        1
-  (2, 2)        0
-  (3, 3)        -1
-  (4, 4)        -2
-[[ 2  0  0  0  0]
- [ 0  1  0  0  0]
- [ 0  0  0  0  0]
- [ 0  0  0 -1  0]
- [ 0  0  0  0 -2]]
-  (0, 0)        2.0
-  (1, 1)        1.0
-  (2, 2)        0.0
-  (3, 3)        -1.0
-  (4, 4)        -2.0
-[[ 2.  0.  0.  0.  0.]
- [ 0.  1.  0.  0.  0.]
- [ 0.  0.  0.  0.  0.]
- [ 0.  0.  0. -1.  0.]
- [ 0.  0.  0.  0. -2.]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="Jp">
 <h1>Jp<a class="headerlink" href="#Jp" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create a creation operator for a given dimension or the corresponding spin quatum number.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1411,37 +1279,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 1)  2.0
-  (1, 2)        2.449489742783178
-  (2, 3)        2.449489742783178
-  (3, 4)        2.0
-[[0.         2.         0.         0.         0.        ]
- [0.         0.         2.44948974 0.         0.        ]
- [0.         0.         0.         2.44948974 0.        ]
- [0.         0.         0.         0.         2.        ]
- [0.         0.         0.         0.         0.        ]]
-  (0, 1)        2.0
-  (1, 2)        2.449489742783178
-  (2, 3)        2.449489742783178
-  (3, 4)        2.0
-[[0.         2.         0.         0.         0.        ]
- [0.         0.         2.44948974 0.         0.        ]
- [0.         0.         0.         2.44948974 0.        ]
- [0.         0.         0.         0.         2.        ]
- [0.         0.         0.         0.         0.        ]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="Jm">
 <h1>Jm<a class="headerlink" href="#Jm" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create a destruction operator for a given dimension or the corresponding spin quatum number.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1460,37 +1303,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(1, 0)  2.0
-  (2, 1)        2.449489742783178
-  (3, 2)        2.449489742783178
-  (4, 3)        2.0
-[[0.         0.         0.         0.         0.        ]
- [2.         0.         0.         0.         0.        ]
- [0.         2.44948974 0.         0.         0.        ]
- [0.         0.         2.44948974 0.         0.        ]
- [0.         0.         0.         2.         0.        ]]
-  (1, 0)        2.0
-  (2, 1)        2.449489742783178
-  (3, 2)        2.449489742783178
-  (4, 3)        2.0
-[[0.         0.         0.         0.         0.        ]
- [2.         0.         0.         0.         0.        ]
- [0.         2.44948974 0.         0.         0.        ]
- [0.         0.         2.44948974 0.         0.        ]
- [0.         0.         0.         2.         0.        ]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-Jx">
 <h1>## Jx<a class="headerlink" href="###-Jx" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create spin X operator for a given dimension or the corresponding spin quatum number.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1509,45 +1327,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(1, 0)  1.0
-  (0, 1)        1.0
-  (2, 1)        1.224744871391589
-  (1, 2)        1.224744871391589
-  (3, 2)        1.224744871391589
-  (2, 3)        1.224744871391589
-  (4, 3)        1.0
-  (3, 4)        1.0
-[[0.         1.         0.         0.         0.        ]
- [1.         0.         1.22474487 0.         0.        ]
- [0.         1.22474487 0.         1.22474487 0.        ]
- [0.         0.         1.22474487 0.         1.        ]
- [0.         0.         0.         1.         0.        ]]
-  (1, 0)        1.0
-  (0, 1)        1.0
-  (2, 1)        1.224744871391589
-  (1, 2)        1.224744871391589
-  (3, 2)        1.224744871391589
-  (2, 3)        1.224744871391589
-  (4, 3)        1.0
-  (3, 4)        1.0
-[[0.         1.         0.         0.         0.        ]
- [1.         0.         1.22474487 0.         0.        ]
- [0.         1.22474487 0.         1.22474487 0.        ]
- [0.         0.         1.22474487 0.         1.        ]
- [0.         0.         0.         1.         0.        ]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-Jy">
 <h1>## Jy<a class="headerlink" href="###-Jy" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create spin Y operator for a given dimension or the corresponding spin quatum number.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1566,55 +1351,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(1, 0)  1j
-  (0, 1)        -1j
-  (2, 1)        1.224744871391589j
-  (1, 2)        -1.224744871391589j
-  (3, 2)        1.224744871391589j
-  (2, 3)        -1.224744871391589j
-  (4, 3)        1j
-  (3, 4)        -1j
-[[0.+0.j         0.-1.j         0.+0.j         0.+0.j
-  0.+0.j        ]
- [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j
-  0.+0.j        ]
- [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j
-  0.+0.j        ]
- [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j
-  0.-1.j        ]
- [0.+0.j         0.+0.j         0.+0.j         0.+1.j
-  0.+0.j        ]]
-  (1, 0)        1j
-  (0, 1)        -1j
-  (2, 1)        1.224744871391589j
-  (1, 2)        -1.224744871391589j
-  (3, 2)        1.224744871391589j
-  (2, 3)        -1.224744871391589j
-  (4, 3)        1j
-  (3, 4)        -1j
-[[0.+0.j         0.-1.j         0.+0.j         0.+0.j
-  0.+0.j        ]
- [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j
-  0.+0.j        ]
- [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j
-  0.+0.j        ]
- [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j
-  0.-1.j        ]
- [0.+0.j         0.+0.j         0.+0.j         0.+1.j
-  0.+0.j        ]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-Js">
 <h1>## Js<a class="headerlink" href="###-Js" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create the total spin operator for a given dimension or the corresponding spin quatum number.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1633,33 +1375,6 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  (6+0j)
-  (1, 1)        (6+0j)
-  (2, 2)        (5.999999999999999+0j)
-  (3, 3)        (6+0j)
-  (4, 4)        (6+0j)
-[[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
- [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
- [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
- [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
- [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
-  (0, 0)        (6+0j)
-  (1, 1)        (6+0j)
-  (2, 2)        (5.999999999999999+0j)
-  (3, 3)        (6+0j)
-  (4, 4)        (6+0j)
-[[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
- [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
- [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
- [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
- [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="#-Other-Operators">
 <h1># Other Operators<a class="headerlink" href="##-Other-Operators" title="Permalink to this headline">¶</a></h1>
@@ -1668,8 +1383,8 @@ FILE
 <div class="section" id="operatorPow">
 <h1>operatorPow<a class="headerlink" href="#operatorPow" title="Permalink to this headline">¶</a></h1>
 <p>This a function to create an operator raised to a power by using the function refence to the operator.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1689,27 +1404,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  1
-  (1, 1)        1
-[[1 0]
- [0 1]]
-  (1, 0)        1
-  (0, 1)        1
-[[0 1]
- [1 0]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="paritySUM---parityEXP">
 <h1>paritySUM - parityEXP<a class="headerlink" href="#paritySUM---parityEXP" title="Permalink to this headline">¶</a></h1>
 <p>These two are methods to create a Parity operator.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1731,48 +1431,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  1.0
-  (1, 1)        -1.0
-  (2, 2)        1.0
-  (3, 3)        -1.0
-  (4, 4)        1.0
-[[ 1.  0.  0.  0.  0.]
- [ 0. -1.  0.  0.  0.]
- [ 0.  0.  1.  0.  0.]
- [ 0.  0.  0. -1.  0.]
- [ 0.  0.  0.  0.  1.]]
-  (0, 0)        (1+0j)
-  (0, 1)        0j
-  (1, 1)        (-1+1.2246467991473532e-16j)
-  (1, 2)        -0j
-  (2, 2)        (1-2.4492935982947064e-16j)
-  (2, 3)        0j
-  (3, 3)        (-1+3.6739403974420594e-16j)
-  (3, 4)        -0j
-  (4, 4)        (1-4.898587196589413e-16j)
-[[ 1.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j
-   0.+0.0000000e+00j  0.+0.0000000e+00j]
- [ 0.+0.0000000e+00j -1.+1.2246468e-16j  0.+0.0000000e+00j
-   0.+0.0000000e+00j  0.+0.0000000e+00j]
- [ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j
-   0.+0.0000000e+00j  0.+0.0000000e+00j]
- [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j
-  -1.+3.6739404e-16j  0.+0.0000000e+00j]
- [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j
-   0.+0.0000000e+00j  1.-4.8985872e-16j]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-basis">
 <h1>## basis<a class="headerlink" href="###-basis" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create ket states for a given dimension.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1787,24 +1451,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  1
-[[1]
- [0]]
-[[1]
- [0]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-displacement">
 <h1>## displacement<a class="headerlink" href="###-displacement" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create the field-displacement operator for a given (truncation) dimension.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1817,43 +1469,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  (0.6060589372864117+0j)
-  (1, 0)        0.610085698426889j
-  (2, 0)        (-0.41242505189886125+0j)
-  (3, 0)        (-0-0.3006552538647247j)
-  (0, 1)        0.610085698426889j
-  (1, 1)        (0.02280183542861441+0j)
-  (2, 1)        0.3420412936689465j
-  (3, 1)        (-0.7143411442030587+0j)
-  (0, 2)        (-0.4124250518988613+0j)
-  (1, 2)        0.34204129366894637j
-  (2, 2)        (-0.5604552664291825+0j)
-  (3, 2)        0.6315086890322961j
-  (0, 3)        -0.3006552538647247j
-  (1, 3)        (-0.7143411442030586+0j)
-  (2, 3)        0.6315086890322962j
-  (3, 3)        (0.02280183542861464+0j)
-[[ 0.60605894+0.j          0.        +0.6100857j  -0.41242505+0.j
-   0.        -0.30065525j]
- [ 0.        +0.6100857j   0.02280184+0.j          0.        +0.34204129j
-  -0.71434114+0.j        ]
- [-0.41242505+0.j          0.        +0.34204129j -0.56045527+0.j
-   0.        +0.63150869j]
- [ 0.        -0.30065525j -0.71434114+0.j          0.        +0.63150869j
-   0.02280184+0.j        ]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-squeeze">
 <h1>## squeeze<a class="headerlink" href="###-squeeze" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create the field-squeezing operator for a given (truncation) dimension.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1866,35 +1487,12 @@ FILE
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(0, 0)  (0.7602445970756301+0j)
-  (2, 0)        -0.6496369390800625j
-  (1, 1)        (0.3391859889869473+0j)
-  (3, 1)        -0.940719333741444j
-  (0, 2)        -0.6496369390800625j
-  (2, 2)        (0.7602445970756302+0j)
-  (1, 3)        -0.9407193337414442j
-  (3, 3)        (0.33918598898694713+0j)
-[[0.7602446 +0.j         0.        +0.j         0.        -0.64963694j
-  0.        +0.j        ]
- [0.        +0.j         0.33918599+0.j         0.        +0.j
-  0.        -0.94071933j]
- [0.        -0.64963694j 0.        +0.j         0.7602446 +0.j
-  0.        +0.j        ]
- [0.        +0.j         0.        -0.94071933j 0.        +0.j
-  0.33918599+0.j        ]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="##-compositeOp">
 <h1>## compositeOp<a class="headerlink" href="###-compositeOp" title="Permalink to this headline">¶</a></h1>
 <p>This is a method to create (extend the Hilbert space) operators of a sub-system in a composite system.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre>
@@ -1958,7 +1556,7 @@ FILE
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/05/15.
+        Last updated on 2020/05/16.
       </span>
 
     </p>
