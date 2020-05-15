@@ -11,6 +11,7 @@ Welcome to Quantum Simulations's documentation!
    :hidden:
 
    QuantumToolbox <QuantumToolbox/qTools.QuantumToolbox.rst>
+   Demos <QuantumToolbox/Demos/Demos.rst>
 
 
 

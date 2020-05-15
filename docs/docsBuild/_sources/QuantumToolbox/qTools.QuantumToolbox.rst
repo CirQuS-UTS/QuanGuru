@@ -11,4 +11,4 @@ QuantumToolbox
    Operations <Operations/operations.rst>
    Quasi-Probabilities <QuasiProbabilities/quasiProbabilities.rst>
    Custom Types <CustomTypes/customTypes.rst>
-
+   Demos <Demos/Demos.rst>
