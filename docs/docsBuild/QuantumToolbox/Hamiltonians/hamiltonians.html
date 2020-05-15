@@ -37,8 +37,6 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -94,7 +92,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../Functions/functions.html">Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Evolutions/evolutions.html">Evolutions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Hamiltonians</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#types">Types</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Operations/operations.html">Operations</a></li>
@@ -197,110 +198,120 @@
 <p>Module of functions to create some standard Hamiltonians.</p>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<p>:cavQubFreeHam : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension
-:RabiHam : Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension
-:JCHam : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity</p>
 <blockquote>
-<div><p>dimension</p>
+<div><div class="line-block">
+<div class="line"><strong>cavQubFreeHam</strong> : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension</div>
+<div class="line"><strong>RabiHam</strong> : Creates Rabi Hamiltonian for given frequencies, coupling strength,
+and truncated cavity dimension</div>
+<div class="line"><strong>JCHam</strong> : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
+and truncated cavity dimension</div>
+<div class="line"><strong>aJCHam</strong> : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
+and truncated cavity dimension</div>
+</div>
 </div></blockquote>
-<dl class="simple">
-<dt>:aJCHam<span class="classifier">Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity</span></dt><dd><p>dimension</p>
-</dd>
-</dl>
-<dl class="function">
-<dt id="qTools.QuantumToolbox.Hamiltonians.JCHam">
-<code class="sig-name descname">JCHam</code><span class="sig-paren">(</span><em class="sig-param">cavFreq: float</em>, <em class="sig-param">qubFreq: float</em>, <em class="sig-param">g: float</em>, <em class="sig-param">cavDim: int</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/Hamiltonians.html#JCHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.JCHam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension</p>
-<p>:param :
-:type : param <cite>cavFreq</cite> : cavity frequency
-:param :
-:type : param <cite>qubFreq</cite> : qubit frequency
-:param :
-:type : param <cite>g</cite> : coupling strength
-:param :
-:type : param <cite>cavDim</cite> : (truncated) dimension for cavity</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Jaynes-Cummings Hamiltonian for given frequencies</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO Create some examples both in here and the demo script</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="qTools.QuantumToolbox.Hamiltonians.RabiHam">
-<code class="sig-name descname">RabiHam</code><span class="sig-paren">(</span><em class="sig-param">cavFreq: float</em>, <em class="sig-param">qubFreq: float</em>, <em class="sig-param">g: float</em>, <em class="sig-param">cavDim: int</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/Hamiltonians.html#RabiHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.RabiHam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension</p>
-<p>:param :
-:type : param <cite>cavFreq</cite> : cavity frequency
-:param :
-:type : param <cite>qubFreq</cite> : qubit frequency
-:param :
-:type : param <cite>g</cite> : coupling strength
-:param :
-:type : param <cite>cavDim</cite> : (truncated) dimension for cavity</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Rabi Hamiltonian for given frequencies</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO Create some examples both in here and the demo script</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="qTools.QuantumToolbox.Hamiltonians.aJCHam">
-<code class="sig-name descname">aJCHam</code><span class="sig-paren">(</span><em class="sig-param">cavFreq: float</em>, <em class="sig-param">qubFreq: float</em>, <em class="sig-param">g: float</em>, <em class="sig-param">cavDim: int</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/Hamiltonians.html#aJCHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.aJCHam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension</p>
-<p>:param :
-:type : param <cite>cavFreq</cite> : cavity frequency
-:param :
-:type : param <cite>qubFreq</cite> : qubit frequency
-:param :
-:type : param <cite>g</cite> : coupling strength
-:param :
-:type : param <cite>cavDim</cite> : (truncated) dimension for cavity</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: anti-Jaynes-Cummings Hamiltonian for given frequencies</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO Create some examples both in here and the demo script</p>
-</dd></dl>
-
-<dl class="function">
+<div class="section" id="types">
+<h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>Matrix</strong> : Union of (scipy) sparse and (numpy) array</div>
+</div>
+</div></blockquote>
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.Hamiltonians.cavQubFreeHam">
-<code class="sig-name descname">cavQubFreeHam</code><span class="sig-paren">(</span><em class="sig-param">cavFreq: float</em>, <em class="sig-param">qubFreq: float</em>, <em class="sig-param">cavDim: int</em><span class="sig-paren">)</span> &#x2192; Tuple[Matrix, Matrix]<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/Hamiltonians.html#cavQubFreeHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.cavQubFreeHam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension</p>
-<p>:param :
-:type : param <cite>cavFreq</cite> : cavity frequency
-:param :
-:type : param <cite>qubFreq</cite> : qubit frequency
-:param :
-:type : param <cite>cavDim</cite> : (truncated) dimension for cavity</p>
+<code class="sig-name descname">cavQubFreeHam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cavFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">qubFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavDim</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Matrix<span class="p">, </span>Matrix<span class="p">]</span><a class="reference internal" href="../../_modules/qTools/QuantumToolbox/Hamiltonians.html#cavQubFreeHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.cavQubFreeHam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>return: Cavity + Qubit Hamiltonian for given frequencies</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cavity + Qubit Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p># TODO Create some examples both in here and the demo script</p>
 </dd></dl>
 
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.Hamiltonians.RabiHam">
+<code class="sig-name descname">RabiHam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cavFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">qubFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavDim</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/Hamiltonians.html#RabiHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.RabiHam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rabi Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.Hamiltonians.JCHam">
+<code class="sig-name descname">JCHam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cavFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">qubFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavDim</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/Hamiltonians.html#JCHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.JCHam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Jaynes-Cummings Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.Hamiltonians.aJCHam">
+<code class="sig-name descname">aJCHam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cavFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">qubFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavDim</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/Hamiltonians.html#aJCHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.aJCHam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>anti-Jaynes-Cummings Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+</div>
 </div>
 </div>
 

@@ -43,8 +43,6 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -374,10 +372,10 @@
 <span class="sd">        dimension : int</span>
 <span class="sd">            dimension of Hilbert space</span>
 <span class="sd">        excitations : supInt (Union of int, list(int), dict(int:float))</span>
-<span class="sd">            There are 3 possible uses of this</span>
-<span class="sd">                1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</span>
-<span class="sd">                2. a `list` (e.g. [0,1,2]) for equally populated super-position</span>
-<span class="sd">                3. an `integer`, which is equivalent to basis function</span>
+<span class="sd">            | There are 3 possible uses of this</span>
+<span class="sd">            | 1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</span>
+<span class="sd">            | 2. a `list` (e.g. [0,1,2]) for equally populated super-position</span>
+<span class="sd">            | 3. an `integer`, which is equivalent to basis function</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -788,8 +786,8 @@
 <span class="sd">        denMat : Matrix</span>
 <span class="sd">            density matrix to be converted</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
 <span class="sd">    :return: Matrix</span>
 <span class="sd">        density vector</span>
 

@@ -37,8 +37,6 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -218,9 +216,32 @@ and a <cite>list of collapse operators</cite> (with the correcponding <cite>list
 <blockquote>
 <div><p><strong>Matrix</strong> : Union of (scipy) sparse and (numpy) array</p>
 </div></blockquote>
-<dl class="function">
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.evolution.Unitary">
+<code class="sig-name descname">Unitary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Matrix</span></em>, <em class="sig-param"><span class="n">timeStep</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/evolution.html#Unitary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.Unitary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>Unitary</cite> time evolution operator for a given <cite>Hamiltonian</cite> and <cite>time step</cite>.</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Hamiltonian</strong> (<em>Matrix</em>) – Hamiltonian of the system</p></li>
+<li><p><strong>timeStep</strong> (<em>float</em>) – time used in the exponentiation (default=1.0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unitary time evolution operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.evolution.Liouvillian">
-<code class="sig-name descname">Liouvillian</code><span class="sig-paren">(</span><em class="sig-param">Hamiltonian: Optional[Matrix] = None</em>, <em class="sig-param">collapseOperators: list = []</em>, <em class="sig-param">decayRates: list = []</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/evolution.html#Liouvillian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.Liouvillian" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Liouvillian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Matrix<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">collapseOperators</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">decayRates</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/evolution.html#Liouvillian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.Liouvillian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates <cite>Liouvillian</cite> super-operator for a given <cite>Hamiltonian</cite>, <cite>time step</cite>,
 and a <cite>list of collapse operators</cite> (with the correcponding <cite>list</cite> of <cite>decay rates</cite>).</p>
 <p>Keeps sparse/array as sparse/array.</p>
@@ -243,9 +264,9 @@ and a <cite>list of collapse operators</cite> (with the correcponding <cite>list
 <p># TODO Create some examples both in here and the demo script</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.evolution.LiouvillianExp">
-<code class="sig-name descname">LiouvillianExp</code><span class="sig-paren">(</span><em class="sig-param">Hamiltonian: Optional[Matrix] = None</em>, <em class="sig-param">timeStep: float = 1.0</em>, <em class="sig-param">collapseOperators: list = []</em>, <em class="sig-param">decayRates: list = []</em>, <em class="sig-param">exp: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/evolution.html#LiouvillianExp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.LiouvillianExp" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">LiouvillianExp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Matrix<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeStep</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">collapseOperators</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">decayRates</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">exp</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/evolution.html#LiouvillianExp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.LiouvillianExp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates <cite>Liovillian</cite> super-operator for a given <cite>Hamiltonian</cite>, <cite>time step</cite>,
 and a <cite>list of collapse operators</cite> (with the correcponding <cite>list</cite> of <cite>decay rates</cite>).</p>
 <p>Keeps sparse/array as sparse/array.</p>
@@ -270,32 +291,9 @@ and a <cite>list of collapse operators</cite> (with the correcponding <cite>list
 <p># TODO Create some examples both in here and the demo script</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="qTools.QuantumToolbox.evolution.Unitary">
-<code class="sig-name descname">Unitary</code><span class="sig-paren">(</span><em class="sig-param">Hamiltonian: Matrix</em>, <em class="sig-param">timeStep: float = 1.0</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/evolution.html#Unitary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.Unitary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates <cite>Unitary</cite> time evolution operator for a given <cite>Hamiltonian</cite> and <cite>time step</cite>.</p>
-<p>Keeps sparse/array as sparse/array.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>Hamiltonian</strong> (<em>Matrix</em>) – Hamiltonian of the system</p></li>
-<li><p><strong>timeStep</strong> (<em>float</em>) – time used in the exponentiation (default=1.0)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Unitary time evolution operator</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>return : Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO Create some examples both in here and the demo script</p>
-</dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.evolution.dissipator">
-<code class="sig-name descname">dissipator</code><span class="sig-paren">(</span><em class="sig-param">collapseOperator: Matrix</em>, <em class="sig-param">identity: Optional[Matrix] = None</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/evolution.html#dissipator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.dissipator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dissipator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">collapseOperator</span><span class="p">:</span> <span class="n">Matrix</span></em>, <em class="sig-param"><span class="n">identity</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Matrix<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/evolution.html#dissipator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.dissipator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Lindblad dissipator</cite> super-operator for a <cite>collapse operator</cite>.</p>
 <p>Keeps sparse/array as sparse/array.</p>
 <dl class="field-list simple">

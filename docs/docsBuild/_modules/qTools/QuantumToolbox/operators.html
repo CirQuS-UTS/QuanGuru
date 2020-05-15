@@ -43,8 +43,6 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -187,12 +185,13 @@
 <span class="sd">        | **squeeze** : Creates the squeezing operator for a given squeezing parameter alpha.</span>
 
 <span class="sd">        | **compositeOp** : Creates a composite operator from a sub-system `operator`,</span>
-<span class="sd">                            i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
+<span class="sd">         i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
 
 <span class="sd">    Types</span>
 <span class="sd">    ^^^^^</span>
 <span class="sd">        | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span> <span class="c1">#pylint:disable=too-many-lines</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
 <span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span> <span class="c1"># type: ignore</span>

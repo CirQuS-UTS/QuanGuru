@@ -37,8 +37,6 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -205,9 +203,9 @@
 </style>
 <div class="section" id="completebasismat-function">
 <h1>completeBasisMat Function<a class="headerlink" href="#completebasismat-function" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.states.completeBasisMat">
-<code class="sig-name descname">completeBasisMat</code><span class="sig-paren">(</span><em class="sig-param">dimension: Optional[int] = None</em>, <em class="sig-param">compKetBase: Optional[List[Matrix]] = None</em>, <em class="sig-param">sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; List[Matrix]<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#completeBasisMat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.completeBasisMat" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">completeBasisMat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compKetBase</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>Matrix<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Matrix<span class="p">]</span><a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#completeBasisMat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.completeBasisMat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a complete basis of <cite>density matrices</cite> for a given dimension or convert a <cite>ket basis</cite> to <cite>density matrix</cite>.</p>
 <p>Note: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.</p>
 <p>For a given basis, this keeps the sparse/array as sparse/array.

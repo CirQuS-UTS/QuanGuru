@@ -216,10 +216,10 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
         dimension : int
             dimension of Hilbert space
         excitations : supInt (Union of int, list(int), dict(int:float))
-            There are 3 possible uses of this
-                1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
-                2. a `list` (e.g. [0,1,2]) for equally populated super-position
-                3. an `integer`, which is equivalent to basis function
+            | There are 3 possible uses of this
+            | 1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
+            | 2. a `list` (e.g. [0,1,2]) for equally populated super-position
+            | 3. an `integer`, which is equivalent to basis function
 
     Returns
     -------
@@ -630,8 +630,8 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
         denMat : Matrix
             density matrix to be converted
 
-    Parameters
-    ----------
+    Returns
+    -------
     :return: Matrix
         density vector
 

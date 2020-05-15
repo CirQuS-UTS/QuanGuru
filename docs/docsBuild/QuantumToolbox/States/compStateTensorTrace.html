@@ -37,8 +37,6 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -205,9 +203,9 @@
 </style>
 <div class="section" id="tensorprod-compositestate-and-partialtrace-functions">
 <h1>tensorProd, compositeState, and partialTrace Functions<a class="headerlink" href="#tensorprod-compositestate-and-partialtrace-functions" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.states.tensorProd">
-<code class="sig-name descname">tensorProd</code><span class="sig-paren">(</span><em class="sig-param">*args: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#tensorProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.tensorProd" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">tensorProd</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Matrix</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#tensorProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.tensorProd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to calculate tensor product of given states (in the given order).</p>
 <p>The matrices can be sparse/ndarray, but they all should be the same either sparse/ndarray not a mixture.</p>
 <dl class="field-list simple">
@@ -225,9 +223,9 @@
 <p># TODO Create some examples both in here and the demo script</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.states.compositeState">
-<code class="sig-name descname">compositeState</code><span class="sig-paren">(</span><em class="sig-param">dimensions: List[int], excitations: List[Union[Dict[int, float], List[int], int]], sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#compositeState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.compositeState" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">compositeState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimensions</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">excitations</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Union<span class="p">[</span>Dict<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">, </span>int<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#compositeState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.compositeState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create <cite>composite ket</cite> states.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -271,9 +269,9 @@ See: <cite>superPos</cite> function</p></li>
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.states.partialTrace">
-<code class="sig-name descname">partialTrace</code><span class="sig-paren">(</span><em class="sig-param">keep: Union[numpy.ndarray, List[int]], dims: Union[numpy.ndarray, List[int]], state: Matrix</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#partialTrace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.partialTrace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">partialTrace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keep</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">dims</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#partialTrace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.partialTrace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the partial trace of a <cite>density matrix</cite> of composite state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

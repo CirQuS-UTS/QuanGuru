@@ -37,8 +37,6 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -205,9 +203,9 @@
 </style>
 <div class="section" id="superpos-function">
 <h1>superPos Function<a class="headerlink" href="#superpos-function" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.states.superPos">
-<code class="sig-name descname">superPos</code><span class="sig-paren">(</span><em class="sig-param">dimension: int, excitations: Union[Dict[int, float], List[int], int], sparse: bool = True</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#superPos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.superPos" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">superPos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">excitations</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Dict<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">, </span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#superPos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.superPos" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <cite>ket</cite> superposition state for a given dimension with a list of excitations.</p>
 <p>Function to create a <cite>superposition ket</cite> state from a given <cite>dictionary</cite> or <cite>list</cite>,
 or <cite>ket</cite> state from a given <cite>integer</cite> (in this case, it is equivalent to basis function)</p>
@@ -215,14 +213,12 @@ or <cite>ket</cite> state from a given <cite>integer</cite> (in this case, it is
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
-<li><p><strong>excitations</strong> (<em>supInt</em><em> (</em><em>Union of int</em><em>, </em><em>list</em><em>(</em><em>int</em><em>)</em><em>, </em><em>dict</em><em>(</em><em>int:float</em><em>)</em><em>)</em>) – <dl class="simple">
-<dt>There are 3 possible uses of this</dt><dd><ol class="arabic simple">
-<li><p>a <cite>dictionary</cite> with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</p></li>
-<li><p>a <cite>list</cite> (e.g. [0,1,2]) for equally populated super-position</p></li>
-<li><p>an <cite>integer</cite>, which is equivalent to basis function</p></li>
-</ol>
-</dd>
-</dl>
+<li><p><strong>excitations</strong> (<em>supInt</em><em> (</em><em>Union of int</em><em>, </em><em>list</em><em>(</em><em>int</em><em>)</em><em>, </em><em>dict</em><em>(</em><em>int:float</em><em>)</em><em>)</em>) – <div class="line-block">
+<div class="line">There are 3 possible uses of this</div>
+<div class="line">1. a <cite>dictionary</cite> with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</div>
+<div class="line">2. a <cite>list</cite> (e.g. [0,1,2]) for equally populated super-position</div>
+<div class="line">3. an <cite>integer</cite>, which is equivalent to basis function</div>
+</div>
 </p></li>
 </ul>
 </dd>

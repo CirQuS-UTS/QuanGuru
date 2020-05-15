@@ -4,4 +4,4 @@ mat2Vec and vec2Mat Functions
 
 .. autofunction:: mat2Vec
 
-.. autofunction:: mat2Vec
+.. autofunction:: vec2Mat

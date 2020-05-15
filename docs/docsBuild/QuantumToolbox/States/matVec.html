@@ -37,8 +37,6 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -205,18 +203,22 @@
 </style>
 <div class="section" id="mat2vec-and-vec2mat-functions">
 <h1>mat2Vec and vec2Mat Functions<a class="headerlink" href="#mat2vec-and-vec2mat-functions" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="qTools.QuantumToolbox.states.mat2Vec">
-<code class="sig-name descname">mat2Vec</code><span class="sig-paren">(</span><em class="sig-param">denMat: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#mat2Vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.mat2Vec" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">mat2Vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#mat2Vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.mat2Vec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts <cite>density matrix</cite> into <cite>density vector</cite> (used in super-operator representation).</p>
 <p>Keeps the sparse/array as sparse/array</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>denMat</strong> (<em>Matrix</em>) – density matrix to be converted</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>density vector</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
 </dl>
-<p>:param : density vector
-:type : return: Matrix</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="o">=</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">denVec</span> <span class="o">=</span> <span class="n">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="o">=</span><span class="n">denMat</span><span class="p">)</span>
@@ -228,25 +230,28 @@
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt>
-<code class="sig-name descname">mat2Vec</code><span class="sig-paren">(</span><em class="sig-param">denMat: Matrix</em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#mat2Vec"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Converts <cite>density matrix</cite> into <cite>density vector</cite> (used in super-operator representation).</p>
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.states.vec2Mat">
+<code class="sig-name descname">vec2Mat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vec</span><span class="p">:</span> <span class="n">Matrix</span></em><span class="sig-paren">)</span> &#x2192; Matrix<a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#vec2Mat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.vec2Mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts <cite>density vector</cite> into <cite>density matrix</cite>.</p>
 <p>Keeps the sparse/array as sparse/array</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>denMat</strong> (<em>Matrix</em>) – density matrix to be converted</p>
+<dd class="field-odd"><p><strong>vec</strong> (<em>Matrix</em>) – density vector to be converted</p>
 </dd>
 </dl>
-<p>:param : density vector
+<p>:param : density matrix
 :type : return: Matrix</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="o">=</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">denVec</span> <span class="o">=</span> <span class="n">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="o">=</span><span class="n">denMat</span><span class="p">)</span>
-<span class="go">[[0]</span>
-<span class="go">[0]</span>
-<span class="go">[0]</span>
-<span class="go">[1]]</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denVec</span> <span class="o">=</span> <span class="n">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="o">=</span><span class="n">denMat</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denMatConverted</span> <span class="o">=</span> <span class="n">vec2mat</span><span class="p">(</span><span class="n">vec</span><span class="o">=</span><span class="n">denVec</span><span class="p">)</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
 </pre></div>
 </div>
 </dd></dl>

@@ -43,8 +43,6 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -161,12 +159,17 @@
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
-<span class="sd">    :cavQubFreeHam : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension</span>
-<span class="sd">    :RabiHam : Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension</span>
-<span class="sd">    :JCHam : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity</span>
-<span class="sd">     dimension</span>
-<span class="sd">    :aJCHam : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity</span>
-<span class="sd">     dimension</span>
+<span class="sd">        | **cavQubFreeHam** : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension</span>
+<span class="sd">        | **RabiHam** : Creates Rabi Hamiltonian for given frequencies, coupling strength,</span>
+<span class="sd">         and truncated cavity dimension</span>
+<span class="sd">        | **JCHam** : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,</span>
+<span class="sd">         and truncated cavity dimension</span>
+<span class="sd">        | **aJCHam** : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,</span>
+<span class="sd">         and truncated cavity dimension</span>
+
+<span class="sd">    Types</span>
+<span class="sd">    ^^^^^</span>
+<span class="sd">        | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1">#from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap</span>
@@ -188,17 +191,21 @@
 <span class="c1"># TODO currently, there is no option for sparse or not</span>
 <div class="viewcode-block" id="cavQubFreeHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians/hamiltonians.html#qTools.QuantumToolbox.Hamiltonians.cavQubFreeHam">[docs]</a><span class="k">def</span> <span class="nf">cavQubFreeHam</span><span class="p">(</span><span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Matrix</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension</span>
+<span class="sd">    Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `cavFreq` : cavity frequency</span>
-<span class="sd">    :param `qubFreq` : qubit frequency</span>
-<span class="sd">    :param `cavDim` : (truncated) dimension for cavity</span>
+<span class="sd">        cavFreq : float</span>
+<span class="sd">            cavity frequency</span>
+<span class="sd">        qubFreq : float</span>
+<span class="sd">            qubit frequency</span>
+<span class="sd">        cavDim : int</span>
+<span class="sd">            (truncated) dimension for cavity</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Cavity + Qubit Hamiltonian for given frequencies</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Cavity + Qubit Hamiltonian for given frequencies</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -212,18 +219,23 @@
 
 <div class="viewcode-block" id="RabiHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians/hamiltonians.html#qTools.QuantumToolbox.Hamiltonians.RabiHam">[docs]</a><span class="k">def</span> <span class="nf">RabiHam</span><span class="p">(</span><span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension</span>
+<span class="sd">    Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `cavFreq` : cavity frequency</span>
-<span class="sd">    :param `qubFreq` : qubit frequency</span>
-<span class="sd">    :param `g` : coupling strength</span>
-<span class="sd">    :param `cavDim` : (truncated) dimension for cavity</span>
+<span class="sd">        cavFreq : float</span>
+<span class="sd">            cavity frequency</span>
+<span class="sd">        qubFreq : float</span>
+<span class="sd">            qubit frequency</span>
+<span class="sd">        g : float</span>
+<span class="sd">            coupling strength</span>
+<span class="sd">        cavDim : int</span>
+<span class="sd">            (truncated) dimension for cavity</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Rabi Hamiltonian for given frequencies</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Rabi Hamiltonian for given frequencies</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -239,18 +251,23 @@
 
 <div class="viewcode-block" id="JCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians/hamiltonians.html#qTools.QuantumToolbox.Hamiltonians.JCHam">[docs]</a><span class="k">def</span> <span class="nf">JCHam</span><span class="p">(</span><span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension</span>
+<span class="sd">    Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `cavFreq` : cavity frequency</span>
-<span class="sd">    :param `qubFreq` : qubit frequency</span>
-<span class="sd">    :param `g` : coupling strength</span>
-<span class="sd">    :param `cavDim` : (truncated) dimension for cavity</span>
+<span class="sd">        cavFreq : float</span>
+<span class="sd">            cavity frequency</span>
+<span class="sd">        qubFreq : float</span>
+<span class="sd">            qubit frequency</span>
+<span class="sd">        g : float</span>
+<span class="sd">            coupling strength</span>
+<span class="sd">        cavDim : int</span>
+<span class="sd">            (truncated) dimension for cavity</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: Jaynes-Cummings Hamiltonian for given frequencies</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        Jaynes-Cummings Hamiltonian for given frequencies</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -266,18 +283,23 @@
 
 <div class="viewcode-block" id="aJCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians/hamiltonians.html#qTools.QuantumToolbox.Hamiltonians.aJCHam">[docs]</a><span class="k">def</span> <span class="nf">aJCHam</span><span class="p">(</span><span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension</span>
+<span class="sd">    Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    :param `cavFreq` : cavity frequency</span>
-<span class="sd">    :param `qubFreq` : qubit frequency</span>
-<span class="sd">    :param `g` : coupling strength</span>
-<span class="sd">    :param `cavDim` : (truncated) dimension for cavity</span>
+<span class="sd">        cavFreq : float</span>
+<span class="sd">            cavity frequency</span>
+<span class="sd">        qubFreq : float</span>
+<span class="sd">            qubit frequency</span>
+<span class="sd">        g : float</span>
+<span class="sd">            coupling strength</span>
+<span class="sd">        cavDim : int</span>
+<span class="sd">            (truncated) dimension for cavity</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    :return: anti-Jaynes-Cummings Hamiltonian for given frequencies</span>
+<span class="sd">    :return: Matrix</span>
+<span class="sd">        anti-Jaynes-Cummings Hamiltonian for given frequencies</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>

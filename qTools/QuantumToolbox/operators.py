@@ -29,12 +29,13 @@
         | **squeeze** : Creates the squeezing operator for a given squeezing parameter alpha.
 
         | **compositeOp** : Creates a composite operator from a sub-system `operator`,
-                            i.e. tensor product with identities of dimensions dimB & dimA
+         i.e. tensor product with identities of dimensions dimB & dimA
 
     Types
     ^^^^^
         | **Matrix** : Union of (scipy) sparse and (numpy) array
-"""
+""" #pylint:disable=too-many-lines
+
 from typing import Callable
 
 import scipy.sparse as sp # type: ignore
