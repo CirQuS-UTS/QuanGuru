@@ -8,50 +8,46 @@
 
     Functions
     ---------
-        | **expectation** : Function to calculate the expectation value of an `operator` for a given `state`.
-        | **expectationMat** : Calculates the expectation value of an `operator` for a given `density matrix`.
-        | **expectationKet** : Calculates the expectation value of an `operator` for a given `ket`.
-        | **expectationKetList** : Calculates the expectation value of an `operator`
-         for a given list of `ket` states.
-        | **expectationMatList** : Calculates the expectation value of an `operator`
-         for a given list of `density matrices`.
-        | **expectationColArr** : Calculates the expectation values of an `operator`
-         for a list/matrix of `ket (column) states` by matrix multiplication.
+    | **expectation** : Function to calculate the expectation value of an `operator` for a given `state`.
+    | **expectationMat** : Calculates the expectation value of an `operator` for a given `density matrix`.
+    | **expectationKet** : Calculates the expectation value of an `operator` for a given `ket`.
+    | **expectationKetList** : Calculates the expectation value of an `operator` for a given list of `ket` states.
+    | **expectationMatList** : Calculates the expectation value of an `operator` for a given list of `density matrices`.
+    | **expectationColArr** : Calculates the expectation values of an `operator` for a list/matrix of
+     `ket (column) states` by matrix multiplication.
 
-        | **fidelity** : Calculates `fidelity` between `two states`.
-        | **fidelityKet** : Calculates `fidelity` between two `ket` states.
-        | **fidelityPureMat** : Calculates `fidelity` between two (pure) `density matrices`.
-        | **fidelityKetList** : Calculates `fidelity` between `a ket state` and `list of ket states`.
-        | **fidelityKetLists** : Created to be used in `multi-processing` calculations of two lists of kets states.
+    | **fidelity** : Calculates `fidelity` between `two states`.
+    | **fidelityKet** : Calculates `fidelity` between two `ket` states.
+    | **fidelityPureMat** : Calculates `fidelity` between two (pure) `density matrices`.
+    | **fidelityKetList** : Calculates `fidelity` between `a ket state` and `list of ket states`.
+    | **fidelityKetLists** : Created to be used in `multi-processing` calculations of two lists of kets states.
 
-        | **entropy** : Calculates the `entropy` of a given `density matrix` .
-        | **entropyKet** : Calculates the `entropy` of a given `ket` state.
+    | **entropy** : Calculates the `entropy` of a given `density matrix` .
+    | **entropyKet** : Calculates the `entropy` of a given `ket` state.
 
-        | **iprKet** : Calculates the inverse participation ratio (a delocalisation measure) of a `ket`
-         in a given basis.
-        | **iprKetList** : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket`
-         states in a given basis.
-        | **iprKetNB** : Calculates the inverse participation ratio (a delocalisation measure) of a ket
-         by assuming that the basis is of the free Hamiltonian.
-        | **iprKetNBList** : Calculates the inverse participation ratio (a delocalisation measure) of a list kets
-         by assuming that the basis is of the free Hamiltonian.
-        | **iprKetNBmat** : Calculates the inverse participation ratio (a delocalisation measure)
-         of `a matrix of ket states as the column`.
-        | **iprPureDenMat** : Calculates the inverse participation ratio (a delocalisation measure)
-         of a `density matrix` in a given `basis`.
+    | **iprKet** : Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.
+    | **iprKetList** : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states
+     in a given basis.
+    | **iprKetNB** : Calculates the inverse participation ratio (a delocalisation measure) of a ket by assuming that
+     the basis is of the free Hamiltonian.
+    | **iprKetNBList** : Calculates the inverse participation ratio (a delocalisation measure) of a list kets by
+     assuming that the basis is of the free Hamiltonian.
+    | **iprKetNBmat** : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states
+     as the column`.
+    | **iprPureDenMat** : Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in
+     a given `basis`.
 
-        | **sortedEigens** : Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.
+    | **sortedEigens** : Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.
 
-        | **eigVecStatKet** : Calculates components of a `ket` in a basis.
-        | **eigVecStatKetList** : Calculates components of a `list of ket states`.
-        | **eigVecStatKetNB** : Calculates the components of a ket
-         by assuming that the basis is of the free Hamiltonian.
+    | **eigVecStatKet** : Calculates components of a `ket` in a basis.
+    | **eigVecStatKetList** : Calculates components of a `list of ket states`.
+    | **eigVecStatKetNB** : Calculates the components of a ket by assuming that the basis is of the free Hamiltonian.
 
     Types
     ^^^^^
-        | **Matrix** : Union of (scipy) sparse and (numpy) array
-        | **floatList** : List of floats
-        | **matrixList** : List of Matrices
+    | **Matrix** : Union of (scipy) sparse and (numpy) array
+    | **floatList** : List of floats
+    | **matrixList** : List of Matrices
 
 """ #pylint:disable=too-many-lines
 
@@ -88,10 +84,10 @@ def expectation(operator: Matrix, state: Matrix) -> float:
 
     Parameters
     ----------
-        operator : Matrix
-            matrix of a Hermitian operator
-        state : Matrix
-            a quantum state
+    operator : Matrix
+        matrix of a Hermitian operator
+    state : Matrix
+        a quantum state
 
     Returns
     -------
@@ -145,10 +141,10 @@ def expectationMat(operator: Matrix, denMat: Matrix) -> float:
 
     Parameters
     ----------
-        operator : Matrix
-            matrix of a Hermitian operator
-        denMat : Matrix
-            density matrix
+    operator : Matrix
+        matrix of a Hermitian operator
+    denMat : Matrix
+        density matrix
 
     Returns
     -------
@@ -193,10 +189,10 @@ def expectationKet(operator: Matrix, ket: Matrix) -> float:
 
     Parameters
     ----------
-        operator : Matrix
-            matrix of a Hermitian operator
-        ket : Matrix
-            ket state
+    operator : Matrix
+        matrix of a Hermitian operator
+    ket : Matrix
+        ket state
 
     Returns
     -------
@@ -236,10 +232,10 @@ def expectationKetList(operator: Matrix, kets: matrixList) -> floatList:
 
     Parameters
     ----------
-        operator : Matrix
-            matrix of a Hermitian operator
-        kets : Matrix
-            list of ket states
+    operator : Matrix
+        matrix of a Hermitian operator
+    kets : Matrix
+        list of ket states
 
     Returns
     -------
@@ -272,10 +268,10 @@ def expectationMatList(operator: Matrix, denMats: matrixList) -> floatList:
 
     Parameters
     ----------
-        operator : Matrix
-            matrix of a Hermitian operator
-        denMats : Matrix
-            list of density matrices
+    operator : Matrix
+        matrix of a Hermitian operator
+    denMats : Matrix
+        list of density matrices
 
     Returns
     -------
@@ -315,10 +311,10 @@ def expectationColArr(operator: Matrix, states: ndarray) -> floatList:
 
     Parameters
     ----------
-        operator : Matrix
-            matrix of a Hermitian operator
-        states : ndarray
-            ket states as the columns in the input matrix
+    operator : Matrix
+        matrix of a Hermitian operator
+    states : ndarray
+        ket states as the columns in the input matrix
 
     Returns
     -------
@@ -354,10 +350,10 @@ def fidelity(state1: Matrix, state2: Matrix) -> float:
 
     Parameters
     ----------
-        state1 : Matrix
-            `ket` state or `density matrix`
-        state2 : Matrix
-            `ket` state or `density matrix`
+    state1 : Matrix
+        `ket` state or `density matrix`
+    state2 : Matrix
+        `ket` state or `density matrix`
 
     Returns
     -------
@@ -417,10 +413,10 @@ def fidelityKet(ket1: Matrix, ket2: Matrix) -> float:
 
     Parameters
     ----------
-        ket1 : Matrix
-            ket state
-        ket2 : Matrix
-            ket state
+    ket1 : Matrix
+        ket state
+    ket2 : Matrix
+        ket state
 
     Returns
     -------
@@ -457,10 +453,10 @@ def fidelityPureMat(denMat1: Matrix, denMat2: Matrix) -> float:
 
     Parameters
     ----------
-        denMat1 : Matrix
-            (pure) density matrix
-        denMat2 : Matrix
-            (pure) density matrix
+    denMat1 : Matrix
+        (pure) density matrix
+    denMat2 : Matrix
+        (pure) density matrix
 
     Returns
     -------
@@ -499,10 +495,10 @@ def fidelityKetList(ket1: Matrix, ketList: matrixList) -> floatList:
 
     Parameters
     ----------
-        ket1 : Matrix
-            ket state
-        ketList : matrixList
-            `list` of ket states
+    ket1 : Matrix
+        ket state
+    ketList : matrixList
+        `list` of ket states
 
     Returns
     -------
@@ -554,10 +550,10 @@ def entropy(densMat: Matrix, base2: bool = False) -> float:
 
     Parameters
     ----------
-        densMat : Matrix
-            a density matrix
-        base2 : bool
-            option to calculate in base 2
+    densMat : Matrix
+        a density matrix
+    base2 : bool
+        option to calculate in base 2
 
     Returns
     -------
@@ -628,10 +624,10 @@ def entropyKet(ket: Matrix, base2: bool = False) -> float:
 
     Parameters
     ----------
-        ket : Matrix
-            a ket state
-        base2 : bool
-            option to calculate in base 2
+    ket : Matrix
+        a ket state
+    base2 : bool
+        option to calculate in base 2
 
     Returns
     -------
@@ -663,10 +659,10 @@ def iprKet(basis: matrixList, ket: Matrix) -> float:
 
     Parameters
     ----------
-        ket : matrixList
-            a ket state
-        basis : Matrix
-            a complete basis
+    ket : matrixList
+        a ket state
+    basis : Matrix
+        a complete basis
 
     Returns
     -------
@@ -705,10 +701,10 @@ def iprKetList(basis: matrixList, kets: matrixList) -> floatList:
 
     Parameters
     ----------
-        kets : matrixList
-            a `list` of ket states
-        basis : matrixList
-            a complete basis
+    kets : matrixList
+        a `list` of ket states
+    basis : matrixList
+        a complete basis
 
     Returns
     -------
@@ -740,8 +736,8 @@ def iprKetNB(ket: Matrix) -> float:
 
     Parameters
     ----------
-        ket : Matrix
-            a ket state
+    ket : Matrix
+        a ket state
 
     Returns
     -------
@@ -783,8 +779,8 @@ def iprKetNBList(kets: matrixList) -> floatList:
 
     Parameters
     ----------
-        kets: matrixList
-            a `list` of ket states
+    kets: matrixList
+        a `list` of ket states
 
     Returns
     -------
@@ -819,8 +815,8 @@ def iprKetNBmat(kets: ndarray) -> floatList:
 
     Parameters
     ----------
-        ket : ndarray
-            a density matrix
+    ket : ndarray
+        a density matrix
 
     Returns
     -------
@@ -853,10 +849,10 @@ def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
 
     Parameters
     ----------
-        denMat : matrixList
-            a density matrix
-        basis : Matrix
-            a complete basis
+    denMat : matrixList
+        a density matrix
+    basis : Matrix
+        a complete basis
 
     Returns
     -------
@@ -897,8 +893,8 @@ def sortedEigens(Ham: Matrix) -> Tuple[floatList, List[ndarray]]:
 
     Parameters
     ----------
-        Ham : Matrix
-            the Hamiltonian
+    Ham : Matrix
+        the Hamiltonian
 
     Returns
     -------
@@ -942,10 +938,10 @@ def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
 
     Parameters
     ----------
-        basis : matrixList
-            a complete basis
-        ket : Matrix
-            the ket state
+    basis : matrixList
+        a complete basis
+    ket : Matrix
+        the ket state
 
     Returns
     -------
@@ -974,10 +970,10 @@ def eigVecStatKetList(basis: matrixList, kets: matrixList) -> List[floatList]:
 
     Parameters
     ----------
-        basis : matrixList
-            a complete basis
-        kets : matrixList
-            `list` of ket states
+    basis : matrixList
+        a complete basis
+    kets : matrixList
+        `list` of ket states
 
     Returns
     -------
@@ -1007,8 +1003,8 @@ def eigVecStatKetNB(ket: Matrix) -> float:
 
     Parameters
     ----------
-        ket : Matrix
-            a ket state or list of ket states
+    ket : Matrix
+        a ket state or list of ket states
 
     Returns
     -------

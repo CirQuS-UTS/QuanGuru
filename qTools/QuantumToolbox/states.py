@@ -1,39 +1,39 @@
 """
-    This module contains functions to create, manipulate, convert, and/or normalise quantum states.
+    This module contains the functions to create, manipulate, convert, and/or normalise quantum states.
 
     Functions
     ---------
-        | **basis** : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given
-         row.
-        | **completeBasis** : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .
-        | **basisBra** : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a
-         given column.
-        | **zeros** : Creates a column matrix (ket) with all elements zero.
-        | **superPos** : Creates a `ket` superposition state :math:`\\sum_n c_n|n\\rangle` for a given dimension with a
-         list of excitations.
+    | **basis** : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given
+        row.
+    | **completeBasis** : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .
+    | **basisBra** : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a
+        given column.
+    | **zeros** : Creates a column matrix (ket) with all elements zero.
+    | **superPos** : Creates a `ket` superposition state :math:`\\sum_n c_n|n\\rangle` for a given dimension with a
+        list of excitations.
 
-        | **densityMatrix** : Converts a `ket` state into a `density matrix`.
-        | **completeBasisMat** : Creates a complete basis of `density matrices` for a given dimension or
-         convert a `ket basis` to `density matrix`.
+    | **densityMatrix** : Converts a `ket` state into a `density matrix`.
+    | **completeBasisMat** : Creates a complete basis of `density matrices` for a given dimension or
+        convert a `ket basis` to `density matrix`.
 
-        | **normalise** : Function to normalise `any` state (ket or density matrix).
-        | **normaliseKet** : Function to normalise a `ket` state.
-        | **normaliseMat** : Function to normalise a `density matrix`.
+    | **normalise** : Function to normalise `any` state (ket or density matrix).
+    | **normaliseKet** : Function to normalise a `ket` state.
+    | **normaliseMat** : Function to normalise a `density matrix`.
 
-        | **compositeState** : Function to create `composite ket` states.
-        | **tensorProd** : `missing docstring`.
-        | **partialTrace** : Calculates the partial trace of a `density matrix` of composite state.
+    | **compositeState** : Function to create `composite ket` states.
+    | **tensorProd** : Function to calculate tensor product of given (any number of) states (in the given order).
+    | **partialTrace** : Calculates the partial trace of a `density matrix` of composite state.
 
-        | **mat2Vec** : Converts `density matrix` into `density vector` (used in super-operator representation).
-        | **vec2Mat** : Converts `density vector` into `density matrix`.
+    | **mat2Vec** : Converts `density matrix` into `density vector` (used in super-operator representation).
+    | **vec2Mat** : Converts `density vector` into `density matrix`.
 
     Types
     ^^^^^
-        | **Matrix** : Union of (scipy) sparse and (numpy) array
-        | **intList** : List of integers
-        | **matrixList** : List of Matrices
-        | **supInt** : Union of the types: int, `intList`, and dict[int:float] (used in super-position creations)
-        | **ndOrListInt** : Union of ndarray and intList
+    | **Matrix** : Union of (scipy) sparse and (numpy) array
+    | **intList** : List of integers
+    | **matrixList** : List of Matrices
+    | **supInt** : Union of the types: int, `intList`, and dict[int:float] (used in super-position creations)
+    | **ndOrListInt** : Union of ndarray and intList
 """
 
 from typing import Optional, List
@@ -66,12 +66,12 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Parameters
     ----------
-        dimension : int
-            dimension of Hilbert space
-        state : int
-            row to place 1, i.e. index for the populated state
-        sparse : bool
-            boolean for sparse or not (array)
+    dimension : int
+        dimension of Hilbert space
+    state : int
+        row to place 1, i.e. index for the populated state
+    sparse : bool
+        boolean for sparse or not (array)
 
     Returns
     -------
@@ -103,10 +103,10 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
 
     Parameters
     ----------
-        dimension : int
-            dimension of Hilbert space
-        sparse : bool
-            boolean for sparse or not (array)
+    dimension : int
+        dimension of Hilbert space
+    sparse : bool
+        boolean for sparse or not (array)
 
     Returns
     -------
@@ -144,12 +144,12 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Parameters
     ----------
-        dimension : int
-            dimension of Hilbert space
-        state : int
-            column to place 1, i.e. index number for the populated state
-        sparse : bool
-            boolean for sparse or not (array)
+    dimension : int
+        dimension of Hilbert space
+    state : int
+        column to place 1, i.e. index number for the populated state
+    sparse : bool
+        boolean for sparse or not (array)
 
     Returns
     -------
@@ -177,10 +177,10 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
     Parameters
     ----------
-        dimension : int
-            dimension of Hilbert space
-        sparse : bool
-            boolean for sparse or not (array)
+    dimension : int
+        dimension of Hilbert space
+    sparse : bool
+        boolean for sparse or not (array)
 
     Returns
     -------
@@ -213,13 +213,13 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
 
     Parameters
     ----------
-        dimension : int
-            dimension of Hilbert space
-        excitations : supInt (Union of int, list(int), dict(int:float))
-            | There are 3 possible uses of this
-            | 1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
-            | 2. a `list` (e.g. [0,1,2]) for equally populated super-position
-            | 3. an `integer`, which is equivalent to basis function
+    dimension : int
+        dimension of Hilbert space
+    excitations : supInt (Union of int, list(int), dict(int:float))
+        | There are 3 possible uses of this
+        | 1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
+        | 2. a `list` (e.g. [0,1,2]) for equally populated super-position
+        | 3. an `integer`, which is equivalent to basis function
 
     Returns
     -------
@@ -262,8 +262,8 @@ def densityMatrix(ket: Matrix) -> Matrix:
 
     Parameters
     ----------
-        ket : Matrix
-            ket state
+    ket : Matrix
+        ket state
 
     Returns
     -------
@@ -307,12 +307,12 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
 
     Parameters
     ----------
-        dimension : int or None
-            dimension of Hilbert space (or default None if a ket basis is given)
-        compKetBase : matrixList or None
-            a complete ket basis (or default None if dimension is given)
-        sparse : bool
-            boolean for sparse or not (array)
+    dimension : int or None
+        dimension of Hilbert space (or default None if a ket basis is given)
+    compKetBase : matrixList or None
+        a complete ket basis (or default None if dimension is given)
+    sparse : bool
+        boolean for sparse or not (array)
 
     Returns
     -------
@@ -374,8 +374,8 @@ def normalise(state: Matrix) -> Matrix:
 
     Parameters
     ----------
-        state : Matrix
-            state to be normalised
+    state : Matrix
+        state to be normalised
 
     Returns
     -------
@@ -411,8 +411,8 @@ def normaliseKet(ket: Matrix) -> Matrix:
 
     Parameters
     ----------
-        state : Matrix
-            ket state to be normalised
+    state : Matrix
+        ket state to be normalised
 
     Returns
     -------
@@ -441,8 +441,8 @@ def normaliseMat(denMat: Matrix) -> Matrix:
 
     Parameters
     ----------
-        state : Matrix
-            `density matrix` to be normalised
+    state : Matrix
+        `density matrix` to be normalised
 
     Returns
     -------
@@ -469,15 +469,15 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
 
     Parameters
     ----------
-        dimensions : intList
-            list of dimensions for each sub-system of the composite quantum system
-        excitations : List[supInp]
-            list of state information for sub-systems.
-            This list can have mixture of dict, list, and int values,
-            which are used to create a superposition state for the corresponding sub-system
-            See: `superPos` function
-        sparse : bool
-            boolean for sparse or not (array)
+    dimensions : intList
+        list of dimensions for each sub-system of the composite quantum system
+    excitations : List[supInp]
+        list of state information for sub-systems.
+        This list can have mixture of dict, list, and int values,
+        which are used to create a superposition state for the corresponding sub-system
+        See: `superPos` function
+    sparse : bool
+        boolean for sparse or not (array)
 
     Returns
     -------
@@ -520,14 +520,14 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
 
 def tensorProd(*args: Matrix) -> Matrix:
     """
-    Function to calculate tensor product of given states (in the given order).
+    Function to calculate tensor product of given (any number of) states (in the given order).
 
     The matrices can be sparse/ndarray, but they all should be the same either sparse/ndarray not a mixture.
 
     Parameters
     ----------
-        *args : Matrix
-            state matrices (arbitrary number of them)
+    *args : Matrix
+        state matrices (arbitrary number of them)
 
     Returns
     -------
@@ -556,14 +556,14 @@ def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray
 
     Parameters
     ----------
-        keep : ndOrListInt
-            An array of indices of the spaces to keep after being traced. For instance, if the space is
-            A x B x C x D and we want to trace out B and D, keep = [0,2]
-        dims : ndOrListInt
-            An array of the dimensions of each space. For instance, if the space is A x B x C x D,
-            dims = [dim_A, dim_B, dim_C, dim_D]
-        state : Matrix
-            Matrix to trace
+    keep : ndOrListInt
+        An array of indices of the spaces to keep after being traced. For instance, if the space is
+        A x B x C x D and we want to trace out B and D, keep = [0,2]
+    dims : ndOrListInt
+        An array of the dimensions of each space. For instance, if the space is A x B x C x D,
+        dims = [dim_A, dim_B, dim_C, dim_D]
+    state : Matrix
+        Matrix to trace
 
     Returns
     -------
@@ -627,8 +627,8 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
 
     Parameters
     ----------
-        denMat : Matrix
-            density matrix to be converted
+    denMat : Matrix
+        density matrix to be converted
 
     Returns
     -------
@@ -657,8 +657,8 @@ def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
 
     Parameters
     ----------
-        vec : Matrix
-            density vector to be converted
+    vec : Matrix
+        density vector to be converted
 
     Parameters
     ----------

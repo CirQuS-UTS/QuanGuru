@@ -3,15 +3,15 @@
 
     Functions
     ---------
-        | **Wigner** : An iterative method to evaluate the Wigner functions for the Fock
-         state :math:`|m \\rangle \\langle n|`.
-        | **HusimiQ** : Q-function of a given state vector or density matrix at points `vec + i * vec`.
-        | **_qfuncPure** : Calculate the Q-function for a pure state.
+    | **Wigner** : An iterative method to evaluate the Wigner functions for the Fock
+        state :math:`|m \\rangle \\langle n|`.
+    | **HusimiQ** : Q-function of a given state vector or density matrix at points `vec + i * vec`.
+    | **_qfuncPure** : Calculate the Q-function for a pure state.
 
     Types
     ^^^^^
-        | **Matrix** : Union of (scipy) sparse and (numpy) array
-        | **ndOrListInt** : Union of ndarray and intList
+    | **Matrix** : Union of (scipy) sparse and (numpy) array
+    | **ndOrListInt** : Union of ndarray and intList
 """
 
 from numpy import ndarray # type: ignore
@@ -50,13 +50,13 @@ def Wigner(rho: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
     Parameters
     ----------
-        rho : Matrix
-            Density matrix or ket state.
-        vec : ndOrList
-            An array (or list) to define the (coarse-grained) Phase space.
-            This creates a square grid of the phase space.
-        g : float
-            Scaling factor for `a = 0.5 * g * (x + iy)`, default `g = sqrt(2)`.
+    rho : Matrix
+        Density matrix or ket state.
+    vec : ndOrList
+        An array (or list) to define the (coarse-grained) Phase space.
+        This creates a square grid of the phase space.
+    g : float
+        Scaling factor for `a = 0.5 * g * (x + iy)`, default `g = sqrt(2)`.
 
     Returns
     -------
@@ -97,13 +97,13 @@ def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
     Parameters
     ----------
-        rho : Matrix
-            density matrix or ket state
-        vec : ndOrList
-            An array (or list) to define the (coarse-grained) Phase space.
-            This creates a square grid of the phase space.
-        g : float
-            Scaling factor for `a = 0.5 * g * (x + iy)`, default `g = sqrt(2)`.
+    rho : Matrix
+        density matrix or ket state
+    vec : ndOrList
+        An array (or list) to define the (coarse-grained) Phase space.
+        This creates a square grid of the phase space.
+    g : float
+        Scaling factor for `a = 0.5 * g * (x + iy)`, default `g = sqrt(2)`.
 
     Returns
     --------
@@ -139,13 +139,13 @@ def _qfuncPure(psi: Matrix, alphaMat: ndarray) -> ndarray:
 
     Parameters
     ----------
-        psi : Matrix
-            a pure state
-        vec : ndOrList
-            an array (or list) to define the (coarse-grained) Phase space.
-            This creates a square grid of the phase space.
-        g : float
-            Scaling factor for `a = 0.5 * g * (x + iy)`, default `g = sqrt(2)`.
+    psi : Matrix
+        a pure state
+    vec : ndOrList
+        an array (or list) to define the (coarse-grained) Phase space.
+        This creates a square grid of the phase space.
+    g : float
+        Scaling factor for `a = 0.5 * g * (x + iy)`, default `g = sqrt(2)`.
 
     Returns
     --------

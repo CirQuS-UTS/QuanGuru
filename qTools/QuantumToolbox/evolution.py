@@ -3,20 +3,20 @@
 
     Functions
     ---------
-        | **Unitary** : Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
-        | **Liouvillian** : Creates `Liouvillian super-operator` for a given `Hamiltonian`, `time step`,
-         and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-        | **LiouvillianExp** : Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`,
-         `time step`,
-         and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-        | **dissipator** : Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
-        | **_preSO** : Creates `pre super-operator` for an `operator`.
-        | **_posSO** : Creates `pos super-operator` for an `operator`.
-        | **_preposSO** : Creates `pre-pos super-operator` for an `operator`.
+    | **Unitary** : Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
+    | **Liouvillian** : Creates `Liouvillian super-operator` for a given `Hamiltonian`, `time step`,
+        and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
+    | **LiouvillianExp** : Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`,
+        `time step`,
+        and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
+    | **dissipator** : Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
+    | **_preSO** : Creates `pre super-operator` for an `operator`.
+    | **_posSO** : Creates `pos super-operator` for an `operator`.
+    | **_preposSO** : Creates `pre-pos super-operator` for an `operator`.
 
     Types
     -----
-        **Matrix** : Union of (scipy) sparse and (numpy) array
+    | **Matrix** : Union of (scipy) sparse and (numpy) array
 """
 
 from typing import Optional
@@ -44,10 +44,10 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
     Parameters
     ----------
-        Hamiltonian : Matrix
-            Hamiltonian of the system
-        timeStep : float
-            time used in the exponentiation (default=1.0)
+    Hamiltonian : Matrix
+        Hamiltonian of the system
+    timeStep : float
+        time used in the exponentiation (default=1.0)
 
     Returns
     -------
@@ -77,12 +77,12 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 
     Parameters
     ----------
-        Hamiltonian : Matrix or None
-            Hamiltonian of the system
-        collapseOperators : list (of Matrix)
-            `list` of collapse operator for Lindblad dissipator terms
-        decayRates` : list (of float)
-            `list` of decay rates (if not given assumed to be 1)
+    Hamiltonian : Matrix or None
+        Hamiltonian of the system
+    collapseOperators : list (of Matrix)
+        `list` of collapse operator for Lindblad dissipator terms
+    decayRates` : list (of float)
+        `list` of decay rates (if not given assumed to be 1)
 
     Returns
     -------
@@ -128,16 +128,16 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
 
     Parameters
     ----------
-        Hamiltonian : Matrix or None
-            Hamiltonian of the system
-        timeStep : float
-            time used in the exponentiation (default=1)
-        collapseOperators : list (of Matrix)
-            `list` of collapse operator for Lindblad dissipator terms
-        decayRates : list (of float)
-            `list` of decay rates (if not given assumed to be 1)
-        exp : bool
-            boolean to exponentiate the Liouvillian or not (=True by default)
+    Hamiltonian : Matrix or None
+        Hamiltonian of the system
+    timeStep : float
+        time used in the exponentiation (default=1)
+    collapseOperators : list (of Matrix)
+        `list` of collapse operator for Lindblad dissipator terms
+    decayRates : list (of float)
+        `list` of decay rates (if not given assumed to be 1)
+    exp : bool
+        boolean to exponentiate the Liouvillian or not (=True by default)
 
     Returns
     -------
@@ -176,10 +176,10 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
 
     Parameters
     ----------
-        collapseOperator : Matrix
-            a collapse operator
-        identity : Matrix or None
-            identity operator (exist for internal use and optimisation)
+    collapseOperator : Matrix
+        a collapse operator
+    identity : Matrix or None
+        identity operator (exist for internal use and optimisation)
 
     Returns
     -------
@@ -216,10 +216,10 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Parameters
     ----------
-        operator : Matrix
-            a collapse operator
-        identity : Matrix or None
-            identity operator (exist for internal use and optimisations)
+    operator : Matrix
+        a collapse operator
+    identity : Matrix or None
+        identity operator (exist for internal use and optimisations)
 
     Returns
     -------
@@ -254,10 +254,10 @@ def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Parameters
     ----------
-        operator : Matrix
-            a collapse operator
-        identity : Matrix or None
-            identity operator (exist for internal use and optimisations)
+    operator : Matrix
+        a collapse operator
+    identity : Matrix or None
+        identity operator (exist for internal use and optimisations)
 
     Returns
     -------
@@ -292,10 +292,10 @@ def _preposSO(operator: Matrix) -> Matrix:
 
     Parameters
     ----------
-        operator : Matrix
-            a collapse operator
-        sparse : bool
-            boolean for sparse or not (array)
+    operator : Matrix
+        a collapse operator
+    sparse : bool
+        boolean for sparse or not (array)
 
     Returns
     -------
