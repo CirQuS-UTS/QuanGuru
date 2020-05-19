@@ -235,7 +235,7 @@ class copyStep(qUniversal):
 
 class freeEvolution(Step):
     instances = 0
-    _nonInternalInstances = 0
+    _externalInstances = 0
     _internalInstances = 0
     label = 'freeEvolution'
 

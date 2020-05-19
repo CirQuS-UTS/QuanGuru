@@ -1,90 +1,150 @@
+"""
+    This module contains some of the base classes and the _parameter class.
+
+    Classes
+    -------
+    | **_parameter** : This is a simple class to wrap certain parameters (attributes)
+     to create a hierarchical dependency.
+"""
+from typing import Any, Optional, Union, cast
+
 from collections import OrderedDict
 from qTools.classes.QUni import qUniversal, checkClass
 from qTools.classes.QRes import qResults
 # pylint: disable = cyclic-import
+
 class _parameter:
     """
-        This is a simple class to wrap certain parameters (attributes) to create a hierarchical dependency.
-        It is intended to be used with the private attributes and the corresponding properties returning `value` of
-        that attribute.
+    This is a simple class to wrap certain parameters (attributes) to create a hierarchical dependency.
 
-        If a `_parameter` is given another `_parameter` as its `bound`, it returns the `value` of its `bound`,
-        while keeping its `_value` unchanged (which is mostly left to be None).
+    It is intended to be used with the private attributes and the corresponding properties returning `value` of
+    that attribute.
 
-        This class can be replaced by a proxy class.
-        Since this is intended to be used completely internally, this simple option should suffice.
+    If a `_parameter` is given another `_parameter` as its `bound`, it returns the `value` of its `bound`,
+    while keeping its `_value` unchanged (which is mostly left to be None).
 
-        Attributes
-        ----------
-        `_value` : Any \\
-            This is any object to be wrapped
+    This class can be replaced by a proxy class.
+    However, this is intended to be used completely internally (private attributes + properties),
+    this simple option should suffice.
 
-        `_bound` : None or False or _parameter\\
-            The object to be used as the bound.
-            None and False basically means that there is no bound,
-            and they are used to distinguish between the value being the one given while __init__ method or set later
-            by value property
+    Attributes
+    ----------
+    _value : Any
+        This is any object to be wrapped
 
-        Properties
-        ----------
-        `value` :\\
-            `getter` :
-                gets/returns the _value of self if bound is None or False,
-                or gets/returns the value of bound which should be another _parameter object or have a _value attribute
-            `setter(value)` :
-                sets the _value to a given value and _bound to False (signaling its different than the initialisation)
+    _bound : None or False or _parameter
+        The object to be used as the bound.
+        None and False both mean that there is no bound, but
+        they are used to distinguish between the value being the one given in __init__ method or set later
+        by value property.
 
-        `bound` :\\
-            `getter` :
-                gets/returns the _bound object\\
-            `setter(bound)` :
-                sets the _bound to bound
+    Methods
+    -------
+    value :
+        This a property method with the
+
+        getter :
+            gets/returns the _value of self if bound is None or False,
+            or gets/returns the value of bound which should be
+                _parameter object or have a _value attribute
+        setter(value) : Any
+            sets the _value to a given value and _bound to False
+                (signaling its different than the initialisation)
+
+    bound :
+        This a property method with the
+
+        getter :
+            gets/returns the _bound object
+        setter(bound) :
+            sets the _bound to bound
     """
-    label = '_parameter'
+
+    #:This does not have function in this class, but it used in naming of instances, and labels in this library are just
+    #: the class names
+    label: str = '_parameter'
+
     __slots__ = ['_value', '_bound']
-    def __init__(self, value=None, bound=None):
+
+    def __init__(self, value: Any = None, bound: '_parameter' = None) -> None:
+        """
+        The init for _parameter has two optional arguments
+
+        Parameters
+        ----------
+        value : any, optional
+            value of the parameter, by default None
+        bound : _parameter, bool, or None, optional
+            The object to be used as the bound.
+            None and False both mean that there is no bound, but
+            they are used to distinguish between the value being the one given in __init__ method or set later
+            by value property. It is by default None
+        """
         self._value = value
         self._bound = bound
 
     @property
-    def bound(self):
+    def bound(self) -> Union['_parameter', bool, None]:
+        """
+        bound property has:
+
+        | **getter** : returns _bound property of the object
+        | **setter** : sets the _bound property of the object
+        | **type** : _parameter, False, or None
+        """
         return self._bound
 
     @bound.setter
-    def bound(self, bound):
+    def bound(self, bound: '_parameter'):
         self._bound = bound
 
     @property
-    def value(self):
-        if self._bound not in (None, False):
+    def value(self) -> Any:
+        """
+        value property has:
+
+        | **getter** : returns _bound property of the object
+        | **setter** : sets the _bound property of the object
+        | **type** : _parameter, False, or None
+        """
+        if hasattr(self._bound, 'value'):
+            self._bound = cast(_parameter, self._bound)
             return self._bound.value
         return self._value
 
     @value.setter
-    def value(self, value):
+    def value(self, value: Any):
         self._bound = False
         self._value = value
 
+
 class paramBoundBase(qUniversal):
     """
-        asd
+    Parambound
+
+    Parameters
+    ----------
+    qUniversal : [type]
+        [description]
+
+    Returns
+    -------
+    [type]
+        [description]
     """
-    instances = 0
-    label = 'paramBoundBase'
+    instances: int = 0
+    label: str = 'paramBoundBase'
 
     __slots__ = ['__paramUpdated', '__paramBound', '__matrix']
 
-    def __init__(self, **kwargs):
-        """
-
-        """
+    def __init__(self, **kwargs: Any) -> None:
         super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
         self.__matrix = None
         self.__paramUpdated = False
         self.__paramBound = OrderedDict()
 
     @checkClass('qBase', '_paramBoundBase__paramBound')
-    def _createParamBound(self, bound, **kwargs):
+    def _createParamBound(self, bound, **kwargs) -> None:
         bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self._paramBoundBase__paramBound[bound.name] = bound
 
@@ -107,9 +167,6 @@ class paramBoundBase(qUniversal):
                     sys._paramUpdated = boolean
 
     def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
-        """
-            asd
-        """
         if self not in _exclude:
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
             _exclude.append(self)
@@ -151,6 +208,14 @@ class computeBase(paramBoundBase):
         return self.qRes.states
 
 class qBaseSim(computeBase):
+    """[summary]
+
+    Arguments:
+        computeBase {[type]} -- [description]
+
+    Returns:
+        [type] -- [description]
+    """
     isinstances = 0
     label = 'qBase'
 

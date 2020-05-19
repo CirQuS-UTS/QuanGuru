@@ -6,7 +6,7 @@ from qTools.classes.extensions.modularSweep import timeEvolBase
 # pylint: disable = cyclic-import
 class Simulation(timeBase):
     instances = 0
-    _nonInternalInstances = 0
+    _externalInstances = 0
     _internalInstances = 0
     label = 'Simulation'
     simInstances = {}
