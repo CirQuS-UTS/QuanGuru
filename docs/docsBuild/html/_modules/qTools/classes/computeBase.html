@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qTools.classes.computeBase &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+        <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox.html">QuantumToolbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Demos/Demos.html">Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>qTools.classes.computeBase</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qTools.classes.computeBase</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This module contains some of the base classes and the _parameter class.</span>
+
+<span class="sd">    Classes</span>
+<span class="sd">    -------</span>
+<span class="sd">    | **_parameter** : This is a simple class to wrap certain parameters (attributes)</span>
+<span class="sd">     to create a hierarchical dependency.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">qTools.classes.QUni</span> <span class="kn">import</span> <span class="n">qUniversal</span><span class="p">,</span> <span class="n">checkClass</span>
+<span class="kn">from</span> <span class="nn">qTools.classes.QRes</span> <span class="kn">import</span> <span class="n">qResults</span>
+<span class="c1"># pylint: disable = cyclic-import</span>
+
+<span class="k">class</span> <span class="nc">_parameter</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a simple class to wrap certain parameters (attributes) to create a hierarchical dependency.</span>
+
+<span class="sd">    It is intended to be used with the private attributes and the corresponding properties returning `value` of</span>
+<span class="sd">    that attribute.</span>
+
+<span class="sd">    If a `_parameter` is given another `_parameter` as its `bound`, it returns the `value` of its `bound`,</span>
+<span class="sd">    while keeping its `_value` unchanged (which is mostly left to be None).</span>
+
+<span class="sd">    This class can be replaced by a proxy class.</span>
+<span class="sd">    However, this is intended to be used completely internally (private attributes + properties),</span>
+<span class="sd">    this simple option should suffice.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _value : Any</span>
+<span class="sd">        This is any object to be wrapped</span>
+
+<span class="sd">    _bound : None or False or _parameter</span>
+<span class="sd">        The object to be used as the bound.</span>
+<span class="sd">        None and False both mean that there is no bound, but</span>
+<span class="sd">        they are used to distinguish between the value being the one given in __init__ method or set later</span>
+<span class="sd">        by value property.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    value :</span>
+<span class="sd">        This a property method with the</span>
+
+<span class="sd">        getter :</span>
+<span class="sd">            gets/returns the _value of self if bound is None or False,</span>
+<span class="sd">            or gets/returns the value of bound which should be</span>
+<span class="sd">                _parameter object or have a _value attribute</span>
+<span class="sd">        setter(value) : Any</span>
+<span class="sd">            sets the _value to a given value and _bound to False</span>
+<span class="sd">                (signaling its different than the initialisation)</span>
+
+<span class="sd">    bound :</span>
+<span class="sd">        This a property method with the</span>
+
+<span class="sd">        getter :</span>
+<span class="sd">            gets/returns the _bound object</span>
+<span class="sd">        setter(bound) :</span>
+<span class="sd">            sets the _bound to bound</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#:This does not have function in this class, but it used in naming of instances, and labels in this library are just</span>
+    <span class="c1">#: the class names</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_parameter&#39;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_value&#39;</span><span class="p">,</span> <span class="s1">&#39;_bound&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bound</span><span class="p">:</span> <span class="s1">&#39;_parameter&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The init for _parameter has two optional arguments</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : any, optional</span>
+<span class="sd">            value of the parameter, by default None</span>
+<span class="sd">        bound : _parameter, bool, or None, optional</span>
+<span class="sd">            The object to be used as the bound.</span>
+<span class="sd">            None and False both mean that there is no bound, but</span>
+<span class="sd">            they are used to distinguish between the value being the one given in __init__ method or set later</span>
+<span class="sd">            by value property. It is by default None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="n">bound</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bound</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s1">&#39;_parameter&#39;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        bound property has:</span>
+
+<span class="sd">        | **getter** : returns _bound property of the object</span>
+<span class="sd">        | **setter** : sets the _bound property of the object</span>
+<span class="sd">        | **type** : _parameter, False, or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span>
+
+    <span class="nd">@bound</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bound</span><span class="p">:</span> <span class="s1">&#39;_parameter&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="n">bound</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        value property has:</span>
+
+<span class="sd">        | **getter** : returns _bound property of the object</span>
+<span class="sd">        | **setter** : sets the _bound property of the object</span>
+<span class="sd">        | **type** : _parameter, False, or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bound</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">_parameter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
+
+    <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<div class="viewcode-block" id="paramBoundBase"><a class="viewcode-back" href="../../../classes/_parameter.html#qTools.classes.computeBase.paramBoundBase">[docs]</a><span class="k">class</span> <span class="nc">paramBoundBase</span><span class="p">(</span><span class="n">qUniversal</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parambound</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    qUniversal : [type]</span>
+<span class="sd">        [description]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    [type]</span>
+<span class="sd">        [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;paramBoundBase&#39;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__paramUpdated&#39;</span><span class="p">,</span> <span class="s1">&#39;__paramBound&#39;</span><span class="p">,</span> <span class="s1">&#39;__matrix&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="paramBoundBase.__init__"><a class="viewcode-back" href="../../../classes/_parameter.html#qTools.classes.computeBase.paramBoundBase.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__matrix</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__paramUpdated</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__paramBound</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span></div>
+
+    <span class="nd">@checkClass</span><span class="p">(</span><span class="s1">&#39;qBase&#39;</span><span class="p">,</span> <span class="s1">&#39;_paramBoundBase__paramBound&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_createParamBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bound</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">bound</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="n">bound</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">bound</span>
+
+    <span class="nd">@checkClass</span><span class="p">(</span><span class="s1">&#39;qBase&#39;</span><span class="p">,</span> <span class="s1">&#39;_paramBoundBase__paramBound&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_breakParamBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bound</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">bound</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=W0212</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bound</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; is removed from paramBound of &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_paramUpdated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramUpdated</span>
+
+    <span class="nd">@_paramUpdated</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">_paramUpdated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boolean</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramUpdated</span> <span class="o">=</span> <span class="n">boolean</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
+        <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">sys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;_paramUpdated&#39;</span><span class="p">):</span>
+                    <span class="n">sys</span><span class="o">.</span><span class="n">_paramUpdated</span> <span class="o">=</span> <span class="n">boolean</span>
+
+    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
+            <span class="n">_exclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="o">.</span><span class="n">values</span><span class="p">():</span> <span class="c1"># pylint: disable=no-member</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;delMatrices&#39;</span><span class="p">):</span>
+                    <span class="n">_exclude</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span> <span class="c1"># pylint: disable=no-member</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;delMatrices&#39;</span><span class="p">):</span>
+                    <span class="n">_exclude</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_exclude</span></div>
+
+<span class="k">class</span> <span class="nc">computeBase</span><span class="p">(</span><span class="n">paramBoundBase</span><span class="p">):</span>
+    <span class="n">instances</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;_qBase&#39;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;qRes&#39;</span><span class="p">,</span> <span class="s1">&#39;compute&#39;</span><span class="p">,</span> <span class="s1">&#39;calculate&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compute</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span> <span class="o">=</span> <span class="n">qResults</span><span class="p">(</span><span class="n">superSys</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compute</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">states</span><span class="p">)</span> <span class="c1"># pylint: disable=not-callable</span>
+
+    <span class="k">def</span> <span class="nf">__calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">systems</span><span class="p">,</span> <span class="n">evolutions</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calculate</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">systems</span><span class="p">,</span> <span class="n">evolutions</span><span class="p">)</span> <span class="c1"># pylint: disable=not-callable</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">states</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span>
+
+<span class="k">class</span> <span class="nc">qBaseSim</span><span class="p">(</span><span class="n">computeBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        computeBase {[type]} -- [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type] -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">isinstances</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;qBase&#39;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__simulation&#39;</span><span class="p">,</span> <span class="s1">&#39;__openSystem&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">qTools.classes.Simulation</span> <span class="kn">import</span> <span class="n">Simulation</span> <span class="c1"># pylint: disable=import-outside-toplevel</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__simulation</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qBaseSim__simulation</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># pylint: disable=protected-access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="c1"># self.__openSystem = False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qBaseSim__simulation</span>
+
+    <span class="c1"># @property</span>
+    <span class="c1"># def _openSystem(self):</span>
+    <span class="c1">#     return self._qBaseSim__openSystem</span>
+
+    <span class="c1"># @_openSystem.setter</span>
+    <span class="c1"># def _openSystem(self, boolean):</span>
+    <span class="c1">#     self._qBaseSim__openSystem = True</span>
+    <span class="c1">#     for sys in self._paramBoundBase__paramBound.values(): # pylint: disable=no-member</span>
+    <span class="c1">#         if hasattr(sys, &#39;_openSystem&#39;):</span>
+    <span class="c1">#             sys._openSystem = boolean</span>
+
+    <span class="c1"># @simulation.setter</span>
+    <span class="c1"># def simulation(self, sim):</span>
+    <span class="c1">#     if ((sim is None) or (sim == &#39;new&#39;)):</span>
+    <span class="c1">#         self._qBaseSim__simulation = Simulation(_internal=True, superSys=self) #pylint: disable=assigning-non-slot</span>
+    <span class="c1">#         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self #pylint: disable=protected-access</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         self._qBaseSim__simulation = sim # pylint: disable=assigning-non-slot</span>
+    <span class="c1">#         sim._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access</span>
+    <span class="c1">#         for sys in self.subSys.values():</span>
+    <span class="c1">#             if sys is not self:</span>
+    <span class="c1">#                 if hasattr(sys, &#39;simulation&#39;):</span>
+    <span class="c1">#                     sys.simulation = sim</span>
+
+    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
+            <span class="n">_exclude</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="p">)</span>
+            <span class="n">_exclude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_exclude</span>
+
+<span class="k">class</span> <span class="nc">stateBase</span><span class="p">(</span><span class="n">computeBase</span><span class="p">):</span>
+    <span class="n">instances</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;computeBase&#39;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__delStates&#39;</span><span class="p">,</span> <span class="s1">&#39;__initialState&#39;</span><span class="p">,</span> <span class="s1">&#39;__initialStateInput&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__initialState</span> <span class="o">=</span> <span class="n">_parameter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__initialStateInput</span> <span class="o">=</span> <span class="n">_parameter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__delStates</span> <span class="o">=</span> <span class="n">_parameter</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">initialState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint: disable=no-member</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_initialState</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initialStateInput</span><span class="p">)</span> <span class="c1"># pylint: disable=protected-access, no-member, line-too-long</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="c1"># pylint: disable=no-member</span>
+
+    <span class="nd">@initialState</span><span class="o">.</span><span class="n">setter</span> <span class="c1"># pylint: disable=no-member</span>
+    <span class="k">def</span> <span class="nf">initialState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialStateInput</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">inp</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_initialState</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="c1"># pylint: disable=protected-access, no-member, line-too-long</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_initialStateInput</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialStateInput</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">getResultByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">getObjByName</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">delStates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__delStates</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="nd">@delStates</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">delStates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boolean</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__delStates</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">boolean</span>
+
+    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
+            <span class="n">_exclude</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># pylint: disable=no-member, protected-access</span>
+        <span class="k">return</span> <span class="n">_exclude</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/05/19.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

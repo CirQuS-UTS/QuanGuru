@@ -13,12 +13,37 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, '/Users/cahitkargi/VSCProjects/QuantumSimulations/qTools/QuantumToolbox/Demos')
 
 
 from pygments.style import Style
 from pygments.token import Keyword, Name, Comment, String, Error, Text, \
     Number, Operator, Generic, Whitespace, Punctuation, Other, Literal
+
+# notebook customisation
+nbsphinx_prolog = """
+.. raw:: html
+
+    <style>
+        div.nbinput.container,
+        div.nbinput.container div.prompt,
+        div.nbinput.container div.input_area,
+        div.nbinput.container div[class*=highlight],
+        div.nbinput.container div[class*=highlight] pre,
+        div.nboutput.container,
+        div.nboutput.container div.prompt,
+        div.nboutput.container div.output_area,
+        div.nboutput.container div[class*=highlight],
+        div.nboutput.container div[class*=highlight] pre {
+            background: #272822;
+        }
+
+        div.nboutput.container div[class*=highlight] pre {
+        color: #c1303c;
+        }
+    </style>
+
+    
+"""
 
 
 class customDark(Style):
@@ -57,7 +82,7 @@ class customDark(Style):
 
         Name:                      "#8e6ba9", # class: 'n'
         Name.Attribute:            "#a6e22e", # class: 'na' - to be revised
-        Name.Builtin:              "",        # class: 'nb'
+        Name.Builtin:              "#05aaeb", # class: 'nb'
         Name.Builtin.Pseudo:       "",        # class: 'bp'
         Name.Class:                "#a6e22e", # class: 'nc' - to be revised
         Name.Constant:             "#66d9ef", # class: 'no' - to be revised
@@ -76,9 +101,9 @@ class customDark(Style):
         Name.Variable.Instance:    "",        # class: 'vi' - to be revised
 
         Number:                    "#ae81ff", # class: 'm'
-        Number.Float:              "",        # class: 'mf'
+        Number.Float:              "#1c05eb", # class: 'mf'
         Number.Hex:                "",        # class: 'mh'
-        Number.Integer:            "",        # class: 'mi'
+        Number.Integer:            "#1c05eb", # class: 'mi'
         Number.Integer.Long:       "",        # class: 'il'
         Number.Oct:                "",        # class: 'mo'
 
@@ -87,7 +112,7 @@ class customDark(Style):
 
         String:                    "#e6db74", # class: 's'
         String.Backtick:           "",        # class: 'sb'
-        String.Char:               "#8e6ba9",        # class: 'sc'
+        String.Char:               "#8e6ba9", # class: 'sc'
         String.Doc:                "",        # class: 'sd' - like a comment
         String.Double:             "",        # class: 's2'
         String.Escape:             "#ae81ff", # class: 'se'
@@ -255,6 +280,6 @@ html_last_updated_fmt = '%Y/%m/%d'
 autosummary_generate = True
 autosummary_generate_overwrite = False
 
-autodoc_default_options = {
-    'inherited-members': None,
-}
+# autodoc_default_options = {
+#     'inherited-members': None,
+# }
