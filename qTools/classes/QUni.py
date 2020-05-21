@@ -207,7 +207,7 @@ class qUniversal:
     #: a list of str (attribute names) to be used with save method.
     toBeSaved = extendedList(['name'])
 
-    __slots__ = ['__name', '__superSys', '__ind', '__subSys', '__allInstances', '_internal']
+    __slots__ = ['__name', '__superSys', '__subSys', '__allInstances', '_internal']
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -216,7 +216,6 @@ class qUniversal:
         self.__name = self._qUniversal__namer()
         self.__superSys = None
         self.__subSys = OrderedDict()
-        self.__ind = None
         self.__allInstances = qUniversal.instNames
         self._qUniversal__setKwargs(**kwargs)
 
@@ -342,27 +341,13 @@ class qUniversal:
         self._qUniversal__subSys[subSysClass.name] = subSysClass
 
     #@checkClass('qUniversal', '_qUniversal__subSys')
-    def removeSubSys(self, subS, **kwargs):
+    def removeSubSys(self, subS):
         """
         This method calls __setKwargs on the object for the given keyworded arguments, then removes the given object
         from the `subSys` dictionary, and, finally, updates `ind` of the remaining objects in the `subSys`.
         """
-        subS._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         obj = self._qUniversal__subSys.pop(subS.name)
-        self._updateInd()
         print(obj.name + ' is removed from subSys of ' + self.name)
-
-    def _updateInd(self):
-        """
-        This method updates the value of `__ind` attribute. This attribute should be equal to the position value of
-        the object in the `subSys` dictionary for some parts of the library to work properly. So, this method basically
-        re-assigns it to the objects position in `subSys`.
-
-        This would/should not change anything when called arbitrarily, but it is introduced to be used when an object is
-        removed (See removeSubSys) for subSys.
-        """
-        for ind, obj in enumerate(self._qUniversal__subSys):
-            obj.ind = ind
 
     @property
     def superSys(self):
@@ -377,16 +362,6 @@ class qUniversal:
     @superSys.setter
     def superSys(self, supSys):
         setattr(self, '_qUniversal__superSys', supSys)
-
-    @property
-    def ind(self):
-        """
-        The superSys property:
-
-        | **getter** : returns __ind attribute value
-        | **setter** : no setter, this should not be modified externally.
-        """
-        return self._qUniversal__ind
 
     @property
     def name(self):

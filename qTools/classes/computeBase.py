@@ -166,7 +166,7 @@ class paramBoundBase(qUniversal):
         bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self._paramBoundBase__paramBound[bound.name] = bound
 
-    def _breakParamBound(self, bound, **kwargs):
+    def _breakParamBound(self, bound):
         """[summary]
 
         Parameters
@@ -174,7 +174,6 @@ class paramBoundBase(qUniversal):
         bound : [type]
             [description]
         """
-        bound._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         obj = self._paramBoundBase__paramBound.pop(bound.name)
         print(obj.name + ' is removed from paramBound of ' + self.name)
 
