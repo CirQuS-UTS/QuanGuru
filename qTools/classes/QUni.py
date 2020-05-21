@@ -1,12 +1,16 @@
 """
-    Module for the qUniversal, extendedList classes and checkClass decorator.
+    This module contains ``qUniversal`` and ``extendedList`` classes, and ``checkClass`` decorator.
 
     Classes
     -------
-    | **qUniversal** : This class is inhereted by (almost) all the other classes in this library.
-    | **checkClass** : This is a `decorator with arguments and a recursive wrapper`, and it was initially created to be
-     used with `subSys` dictionary of `qUniversal` class.
-    | **extendedList** : This class extends the built-in class list. It is introduced to be used with `toBeSaved` lists.
+    | :class:`qUniversal` : This class is inhereted by (almost) all the other classes in this library.
+    | :class:`extendedList` : This class extends the built-in class ``list``. It is introduced to be used with
+     :meth:`toBeSaved <qUniversal.toBeSaved>` lists.
+
+    Decorators
+    ----------
+    | :func:`checkClass` : This is a **decorator with arguments and a recursive wrapper**, and it was initially created
+     to be used with :attr:`~qUniversal.subSys` dictionary of :class:`qUniversal` class.
 """
 from functools import wraps
 from collections import OrderedDict
@@ -15,49 +19,72 @@ __all__ = [
     'qUniversal'
 ]
 
-def checkClass(classOf, attribute):
+def checkClass(classOf):
     """
-    This is a `decorator with arguments and a recursive wrapper`. It is used in couple of places in the library.
-    It decorates the functions to check the `class of (classOf)` a given `input (inp)` then adds it to the `attribute`,
-    which is a `dictionary` (mostly ordered).
+    This is a **decorator with arguments and a recursive wrapper**. Its arguments are:
 
-    This decorater was initially created to be used with `subSys` dictionary of `qUniversal` class, and the idea is to
-    cover possible user misuse in `add/create/remove subSys` functions (while also creating flexibility). For example,
-    if a user gives the class itself instead of an instance to be included in subSys dictionary, this decorator creates
-    a new instance and includes the new instance into the dictionary. This also enable the flexible use of `addSubs` as
-    a `createSubSys`. This also covers some other scenarios like giving a list of instances to be included etc.
-    This decorator is also used for `paramBound` dictionary of `paramBoundBase` class and
-    `envCoupling` of `genericQSys` class.
+    Parameters
+    ----------
+    classOf : str
+        name of a class
 
-    **Note** : This decorator assumes that the given object is an instance of qUniversal or its child classes.
 
-    It works by first finding the intended class by using its name (`classOf`) with `global()`.
+    This decorater was initially created to be used with :attr:`~qUniversal.subSys` dictionary (`attribute`) of
+    :class:`qUniversal` (`classOf`) class, and the idea is to cover possible misuse of
+    :meth:`add <qUniversal.addSubSys>`/:meth:`create <qUniversal.createSubSys>`/:meth:`remove <qUniversal.removeSubSys>`
+    `subSys` methods (while also creating flexibility). For example,
+    if a user gives the class itself instead of an instance to :meth:`addSubSys <qUniversal.addSubSys>` method, this 
+    decorator creates a new instance and includes the new instance to the dictionary. This also enables the flexible use
+    of :meth:`addSubSys <qUniversal.addSubSys>` as :meth:`createSubSys <qUniversal.createSubSys>`. The wrapper covers
+    some other scenarios like giving a ``list`` of instances to be included etc. This decorator is also used for
+    :meth:`_createParamBound <qTools.classes.computeBase.paramBoundBase._createParamBound>` and
+    :meth:`_breakParamBound <qTools.classes.computeBase.paramBoundBase._breakParamBound>` methods for
+    :attr:`_paramBound <qTools.classes.computeBase.paramBoundBase._paramBound>` dictionary of
+    :class:`paramBoundBase <qTools.classes.computeBase.paramBoundBase>` class.
 
-    0. If the `input (inp)` is an instance of this class (`classOf`), it calls the `addRemoveFunction` (which does the
-    actual
-    adding/removing). But before that, it changes the `ind` attribute of the instance conditioned on that ind is `None`,
-    and the dictionary which it will be included is the `subSys`. `ind` attribute was introduced to keep some order
-    information when we were using dictionary, which is not needed since we switched to `OrderedDict`. However, it still
-    comes handy when working with the subSys dict (even though it is ordered), so it is kept for some internal uses.
+    **Note** : The wrapper of this decorator assumes that the input (`inp`) to the decorated method is an instance
+    of :class:`qUniversal` or :class:`its child classes`. `classOf` argument is used for this purpose. It is
+    ``'qUniversal'`` in the most general case, but any other class in the inheritance tree can be used to impose a
+    further restriction (as in :attr:`_paramBound <qTools.classes.computeBase.paramBoundBase._paramBound>`).
 
-    There are several other cases of input covered by this decorator:
-    | 1. input is a `string`
-        - name of class : creates and instance of the class and adds the new instance into the attribute dict.
-        - name of instance : finds the object from the dict and adds it again (possibly by setting some kwargs)
-    | 2. input is a `dictionary`: keys are not used currently, but it calls itself (recursively) for each value in the
-    dictionary, meaning anything in this list form 0. to end may be trigerred depending on the type of value.
-    | 3. input is `None`: This is used to 'empty' the dictionary, i.e. the `attribute` becomes an empty OrderedDict.
-    | 4. input is a class: creates the instance of that class and calls itself with that instance.
-    | 5. input is other types of iterable: call itself for every element of the iterable.
+    The wrapper works by first finding the intended class by using its name (`classOf`) with ``global()``. Then,
+
+    0. If the `input (inp)` is an instance of this class (`classOf`), it calls the `addRemoveFunction`
+    (the decorated method, which does the actual adding/removing). But before that, it sets the `ind` attribute
+    (``_qUniversal__ind`` to be precise) of the instance to the length of `attribute` dictionary, conditioned on
+    `ind` is ``None`` and the dictionary is `subSys`.
+    `ind` attribute was introduced to keep some order information when we were using ``dict``, and it is not strictly
+    needed since we switched to ``OrderedDict``. However, it still comes handy when working with the `subSys` dict (even
+    though it is ordered), so it is kept for some internal uses
+    (mainly used with `subSys` of :class:`QuantumSystem <qTools.classes.QSys.QuantumSystem>` class). The second argument
+    of the decorator, `attribute`, is used both to distinguish `subSys` cases from others and the case 3. below.
+    The reason for not changing `ind` when it is not ``None`` is that an object can be included into more than one
+    `subSys` dictionary for different purposes, but its value should only be changed when it is included into `subSys`
+    dictionary of a certain object. The current method
+
+    Other input cases covered by this decorator are
+
+        1. input is a `string`, and it can be
+
+            - name of a `class` : creates an instance of the `class` and adds the new instance into the `attribute`
+              dict by a recursive call.
+            - name of an `instance` : finds the object from the :attr:`instNames <qUniversal.instNames>` dict and adds
+              it to the `attribute` dict by a recursive call.
+
+        2. input is a `dictionary`: keys are **not** used currently, but each value in the dictionary is used in a
+           recursive call, meaning anything in this list from 0. to 5. may be trigerred again depending on the value
+           type.
+        3. input is ``None``: This is used to 'empty' the dictionary, i.e. the `attribute` becomes an empty
+           ``OrderedDict``.
+        4. input is a `class`: creates an instance of the `class` and adds the new instance into the `attribute`
+           dict by a recursive call
+        5. input is other types of `iterable`: call itself for every element of the iterable.
     """
     def addDecorator(addRemoveFunction):
         @wraps(addRemoveFunction)
         def wrapper(obj, inp, **kwargs):
             clsDecoArg = globals()[classOf]
             if isinstance(inp, clsDecoArg):
-                if ((getattr(inp, '_qUniversal__ind') is None) and (attribute == '_qUniversal__subSys')):
-                    if obj is not inp:
-                        setattr(inp, '_qUniversal__ind', len(getattr(obj, attribute)))
                 addRemoveFunction(obj, inp, **kwargs)
             elif isinstance(inp, str):
                 if str in clsDecoArg.instNames.keys():
@@ -69,9 +96,6 @@ def checkClass(classOf, attribute):
                 for sys in inp.values():
                     # what to do with the keys?
                     inp = wrapper(obj, sys, **kwargs)
-            elif inp is None:
-                setattr(obj, attribute, OrderedDict())
-                return getattr(obj, attribute, OrderedDict())
             elif inp.__class__ is type:
                 newSys = inp()
                 inp = wrapper(obj, newSys, **kwargs)
@@ -85,9 +109,10 @@ def checkClass(classOf, attribute):
 
 class extendedList(list):
     """
-    This class extends the built-in class list. It is introduced to be used with `toBeSaved` lists, which contain
-    contain the keys for `the attributes to be saved` into a `txt and hdf5 attributes`. The `toBeSaved` is a class
-    attribute and extending through the inheritance tree is achieved by this `extendedCopy` method.
+    This class extends the built-in ``list`` class. It is introduced to be used with :attr:`qUniversal.toBeSaved` lists
+    of every class that inherits from :class:`qUniversal`. These lists contain the keys for `the attributes to be saved`
+    (currently into a `txt and hdf5 attributes`). The `toBeSaved` is a class attribute and extending it through the
+    inheritance tree is achieved by `extendedCopy` method of this class.
 
     Current saving methods are going to be improved, so, in future, this class might not be needed.
     """
@@ -272,7 +297,7 @@ class qUniversal:
     def subSys(self, subS):
         self.addSubSys(subS)
 
-    @checkClass('qUniversal', '_qUniversal__subSys')
+    @checkClass('qUniversal')
     def addSubSys(self, subS, **kwargs):
         """
         The main body of this method just adds the given object into `subSys` dictionary and calls __setKwargs on the
@@ -294,7 +319,7 @@ class qUniversal:
         subS._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         self._qUniversal__subSys[subS.name] = subS
 
-    @checkClass('qUniversal', '_qUniversal__subSys')
+    @checkClass('qUniversal')
     def createSubSys(self, subSysClass, **kwargs):
         """
         The main body of this method just adds the given object into `subSys` dictionary and calls __setKwargs on the

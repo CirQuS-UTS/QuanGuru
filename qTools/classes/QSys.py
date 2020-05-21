@@ -251,9 +251,11 @@ class QuantumSystem(genericQSys):
                 sys._paramBoundBase__matrix = None
         subSys.simulation._bound(self.simulation) # pylint: disable=protected-access
         self._QuantumSystem__qSystems[subSys.name] = subSys
-        for sys in subSys.subSys.values():
-            setattr(sys, '_qUniversal__ind', len(self._QuantumSystem__qSystems))
-            sys.superSys = self
+
+        if not isinstance(subSys, QuantumSystem):
+            for sys in subSys.subSys.values():
+                setattr(sys, '_qUniversal__ind', len(self._QuantumSystem__qSystems))
+                sys.superSys = self
         return subSys
 
     # adding or creating a new coupling

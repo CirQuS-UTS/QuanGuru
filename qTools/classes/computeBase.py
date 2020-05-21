@@ -143,13 +143,37 @@ class paramBoundBase(qUniversal):
         self.__paramUpdated = False
         self.__paramBound = OrderedDict()
 
-    @checkClass('qBase', '_paramBoundBase__paramBound')
+    @property
+    def _paramBound(self):
+        """[summary]
+
+        Returns
+        -------
+        [type]
+            [description]
+        """
+        return self._paramBoundBase__paramBound
+
+    @checkClass('qBase')
     def _createParamBound(self, bound, **kwargs) -> None:
+        """[summary]
+
+        Parameters
+        ----------
+        bound : [type]
+            [description]
+        """
         bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self._paramBoundBase__paramBound[bound.name] = bound
 
-    @checkClass('qBase', '_paramBoundBase__paramBound')
     def _breakParamBound(self, bound, **kwargs):
+        """[summary]
+
+        Parameters
+        ----------
+        bound : [type]
+            [description]
+        """
         bound._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         obj = self._paramBoundBase__paramBound.pop(bound.name)
         print(obj.name + ' is removed from paramBound of ' + self.name)
