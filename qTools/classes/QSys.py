@@ -29,6 +29,13 @@ class genericQSys(qBaseSim):
         # self.__envCouplings = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
+    @property
+    def ind(self):
+        ind = list(self.superSys.subSys.values()).index(self)
+        if self.superSys.superSys is not None:
+            ind += self.superSys.ind
+        return ind
+
     def save(self):
         saveDict = super().save()
         if self.simulation._stateBase__initialStateInput.value is not None:# pylint: disable=no-member, protected-access
@@ -254,7 +261,6 @@ class QuantumSystem(genericQSys):
 
         if not isinstance(subSys, QuantumSystem):
             for sys in subSys.subSys.values():
-                setattr(sys, '_qUniversal__ind', len(self._QuantumSystem__qSystems))
                 sys.superSys = self
         return subSys
 
@@ -297,9 +303,11 @@ class QuantumSystem(genericQSys):
         ind = qSys.ind
         for qS in self.qSystems.values():
             if qS.ind < ind:
-                qS._qSystem__dimsAfter = int((qS._qSystem__dimsAfter*newDimVal)/oldDimVal)
+                for sys in qS.subSys.values():
+                    sys._qSystem__dimsAfter = int((qS._qSystem__dimsAfter*newDimVal)/oldDimVal)
             elif qS.ind > ind:
-                qS._qSystem__dimsBefore = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
+                for sys in qS.subSys.values():
+                    sys._qSystem__dimsBefore = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
 
         if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=no-member, W0212
             self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member, W0212
