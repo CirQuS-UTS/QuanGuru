@@ -19,7 +19,7 @@ class genericProtocol(qBaseSim):
     __slots__ = ['__lastState', '__inProtocol', '__fixed', '__ratio', '__updates', '_funcToCreateUnitary']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.__lastState = _parameter()
         self.__inProtocol = False
         self.__fixed = False
@@ -140,7 +140,7 @@ class qProtocol(genericProtocol):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -192,7 +192,7 @@ class Step(genericProtocol):
     __slots__ = []
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self._funcToCreateUnitary = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -221,7 +221,7 @@ class copyStep(qUniversal):
     __slots__ = []
 
     def __init__(self, superSys, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.superSys = superSys
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -242,7 +242,7 @@ class freeEvolution(Step):
     __slots__ = []
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self._funcToCreateUnitary = self.matrixExponentiation
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -260,7 +260,7 @@ class Gate(Step):
     __slots__ = ['__implementation']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.__implementation = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -301,7 +301,7 @@ class Update(updateBase):
     __slots__ = ['value', '__memoryValue', 'setup', 'setback']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.value = None
         self.setup = self._setup
         self.setback = self._setback

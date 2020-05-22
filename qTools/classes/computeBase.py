@@ -6,7 +6,7 @@
     | **_parameter** : This is a simple class to wrap certain parameters (attributes)
      to create a hierarchical dependency.
 """
-from typing import Any, Optional, Union, cast
+from typing import Any, Union, cast
 
 from collections import OrderedDict
 from qTools.classes.QUni import qUniversal, checkClass
@@ -138,10 +138,11 @@ class paramBoundBase(qUniversal):
     __slots__ = ['__paramUpdated', '__paramBound', '__matrix']
 
     def __init__(self, **kwargs: Any) -> None:
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.__matrix = None
         self.__paramUpdated = False
         self.__paramBound = OrderedDict()
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def _paramBound(self):
@@ -208,11 +209,18 @@ class computeBase(paramBoundBase):
     __slots__ = ['qRes', 'compute', 'calculate']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.compute = None
         self.calculate = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.qRes = qResults(superSys=self)
+
+    @paramBoundBase.name.setter # pylint: disable=no-member
+    def name(self, name):
+        if self.qRes.superSys is self:
+            self.qRes.allResults[name] = self.qRes.allResults.pop(self.name)
+            self.qRes.name = name + 'Results'
+        paramBoundBase.name.fset(self, name) # pylint: disable=no-member
 
     def __compute(self, states):
         if callable(self.compute):
@@ -246,7 +254,7 @@ class qBaseSim(computeBase):
 
     def __init__(self, **kwargs):
         from qTools.classes.Simulation import Simulation # pylint: disable=import-outside-toplevel
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.__simulation = Simulation(_internal=True)
         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -293,7 +301,7 @@ class stateBase(computeBase):
     __slots__ = ['__delStates', '__initialState', '__initialStateInput']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        super().__init__(_internal=kwargs.pop('_internal', False))
 
         self.__initialState = _parameter()
         self.__initialStateInput = _parameter()

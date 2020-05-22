@@ -9,7 +9,7 @@ class updateBase(qUniversal):
     __slots__ = ['__key', '__function']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
 
         self.__key = None
         self.__function = None

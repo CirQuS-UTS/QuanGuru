@@ -15,7 +15,7 @@ class Simulation(timeBase):
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
-        super().__init__(name=kwargs.pop('name', None), _internal=kwargs.pop('_internal', False))
+        super().__init__(_internal=kwargs.pop('_internal', False))
 
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)

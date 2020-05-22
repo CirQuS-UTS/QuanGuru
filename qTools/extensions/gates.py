@@ -6,7 +6,7 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
     label = 'xGate'
     __slots__ = ['__angle']
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.__angle = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 

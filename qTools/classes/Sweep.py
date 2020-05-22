@@ -19,7 +19,7 @@ class _sweep(updateBase):
 
     #@sweepInitError
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
 
         self._updateBase__function = self._defSweep # pylint: disable=assigning-non-slot
 
@@ -78,7 +78,7 @@ class Sweep(qUniversal):
     __slots__ = ['__inds', '__indMultip']
     # TODO init errors
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
 
         self.__inds = []
         self.__indMultip = None
