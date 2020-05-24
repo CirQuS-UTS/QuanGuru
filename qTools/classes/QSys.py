@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from numpy import (int64, int32, int16, ndarray)
 from scipy.sparse import issparse
 import qTools.QuantumToolbox.operators as qOps
@@ -20,7 +21,7 @@ class genericQSys(qBaseSim):
     __slots__ = ['__unitary', '__dimension', '__liouvillian', '__envCouplings']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.__unitary = freeEvolution(_internal=True)
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
         self._qBaseSim__simulation.subSys[self._freeEvol] = self # pylint: disable=no-member
@@ -31,9 +32,11 @@ class genericQSys(qBaseSim):
 
     @property
     def ind(self):
-        ind = list(self.superSys.subSys.values()).index(self)
-        if self.superSys.superSys is not None:
-            ind += self.superSys.ind
+        ind = 0
+        if self.superSys is not None:
+            ind += list(self.superSys.subSys.values()).index(self)
+            if self.superSys.superSys is not None:
+                ind += self.superSys.ind
         return ind
 
     def save(self):
@@ -159,9 +162,9 @@ class QuantumSystem(genericQSys):
     __slots__ = ['__qCouplings', '__qSystems', 'couplingName']
 
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
-        self.__qCouplings = {}
-        self.__qSystems = {}
+        super().__init__()
+        self.__qCouplings = OrderedDict()
+        self.__qSystems = OrderedDict()
 
         self.couplingName = None
 
@@ -258,7 +261,7 @@ class QuantumSystem(genericQSys):
                 sys._paramBoundBase__matrix = None
         subSys.simulation._bound(self.simulation) # pylint: disable=protected-access
         self._QuantumSystem__qSystems[subSys.name] = subSys
-
+        #subSys.superSys = self
         if not isinstance(subSys, QuantumSystem):
             for sys in subSys.subSys.values():
                 sys.superSys = self
@@ -271,7 +274,6 @@ class QuantumSystem(genericQSys):
 
     def __addCoupling(self, couplingObj):
         self._QuantumSystem__qCouplings[couplingObj.name] = couplingObj
-        couplingObj._qUniversal__ind = len(self.qCouplings)
         couplingObj.superSys = self
         return couplingObj
 
@@ -326,7 +328,7 @@ class qSystem(genericQSys):
     __slots__ = ['__frequency', '__operator', '__dimsBefore', '__dimsAfter', '__terms', '__order']
     @qSystemInitErrors
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.__frequency = None
         self.__operator = None
         self.__dimsBefore = 1
@@ -468,7 +470,7 @@ class Qubit(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         kwargs['dimension'] = 2
         self.operator = qOps.sigmaz
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -484,7 +486,7 @@ class Spin(qSystem):
 
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.operator = qOps.Jz
         self.__jValue = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -504,7 +506,7 @@ class Cavity(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.operator = qOps.number
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -519,7 +521,7 @@ class qCoupling(paramBoundBase):
 
     @qCouplingInitErrors
     def __init__(self, *args, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self.__couplingStrength = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.addTerm(*args)
@@ -623,5 +625,5 @@ class envCoupling(qCoupling):
     __slots__ = []
 
     def __init__(self, *args, **kwargs):
-        super().__init__(name=kwargs.pop('name', None))
+        super().__init__()
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member

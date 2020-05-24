@@ -37,8 +37,8 @@ class timeBase(stateBase):
     @finalTime.setter
     def finalTime(self, fTime):
         self._paramUpdated = True
-        if self._timeBase__stepSize.bound not in (None, False):
-            self._timeBase__stepSize._value = self._timeBase__stepSize.bound._value # pylint: disable=protected-access
+        if self._timeBase__stepSize._bound not in (None, False):# pylint: disable=protected-access
+            self._timeBase__stepSize._value = self._timeBase__stepSize._bound._value # pylint: disable=protected-access
         self._timeBase__finalTime.value = fTime # pylint: disable=assigning-non-slot
         if self.stepSize is not None:
             self._timeBase__step.value = int((fTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
@@ -53,8 +53,8 @@ class timeBase(stateBase):
     @stepCount.setter
     def stepCount(self, num):
         self._paramUpdated = True
-        if self._timeBase__finalTime.bound not in (None, False):
-            self._timeBase__finalTime._value = self._timeBase__finalTime.bound._value # pylint: disable=protected-access
+        if self._timeBase__finalTime._bound not in (None, False):# pylint: disable=protected-access
+            self._timeBase__finalTime._value = self._timeBase__finalTime._bound._value# pylint: disable=protected-access
         self._timeBase__step.value = num # pylint: disable=assigning-non-slot
         if self.finalTime is not None:
             self._timeBase__stepSize.value = self.finalTime/num # pylint: disable=assigning-non-slot
@@ -66,8 +66,8 @@ class timeBase(stateBase):
     @stepSize.setter
     def stepSize(self, stepsize):
         self._paramUpdated = True
-        if self._timeBase__finalTime.bound not in (None, False):
-            self._timeBase__finalTime._value = self._timeBase__finalTime.bound._value # pylint: disable=protected-access
+        if self._timeBase__finalTime._bound not in (None, False):# pylint: disable=protected-access
+            self._timeBase__finalTime._value = self._timeBase__finalTime._bound._value# pylint: disable=protected-access
         self._timeBase__stepSize.value = stepsize # pylint: disable=assigning-non-slot
         if self.finalTime is not None:
             self._timeBase__step.value = int((self.finalTime//stepsize) + 1) # pylint: disable=assigning-non-slot

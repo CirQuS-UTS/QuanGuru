@@ -6,14 +6,15 @@
     | **_parameter** : This is a simple class to wrap certain parameters (attributes)
      to create a hierarchical dependency.
 """
-from typing import Any, Union, cast
+from typing import Any, cast
 
 from collections import OrderedDict
 from qTools.classes.QUni import qUniversal, checkClass
 from qTools.classes.QRes import qResults
 # pylint: disable = cyclic-import
 
-class _parameter:
+
+class _parameter: # pylint: disable=too-few-public-methods
     """
     This is a simple class to wrap certain parameters (attributes) to create a hierarchical dependency.
 
@@ -81,21 +82,6 @@ class _parameter:
             by value property. It is by default None
         """
         self._value = value
-        self._bound = bound
-
-    @property
-    def bound(self) -> Union['_parameter', bool, None]:
-        """
-        bound property has:
-
-        | **getter** : returns _bound property of the object
-        | **setter** : sets the _bound property of the object
-        | **type** : _parameter, False, or None
-        """
-        return self._bound
-
-    @bound.setter
-    def bound(self, bound: '_parameter'):
         self._bound = bound
 
     @property
