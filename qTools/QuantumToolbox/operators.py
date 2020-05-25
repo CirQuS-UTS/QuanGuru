@@ -3,37 +3,37 @@
 
     Functions
     ---------
-    | **number** : Creates the (bosonic) number (:math:`\\hat{n}`) operator.
-    | **destroy** : Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator.
-    | **create** : Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator.
-    | **identity** : Creates the identity operator.
+    | :func:`number` : Creates the (bosonic) number (:math:`\\hat{n}`) operator.
+    | :func:`destroy` : Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator.
+    | :func:`create` : Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator.
+    | :func:`identity` : Creates the identity operator.
 
-    | **sigmaz** : Creates the `Pauli` sigma z (:math:`\\hat{\\sigma}_{z}`) operator.
-    | **sigmay** : Creates the `Pauli` sigma y (:math:`\\hat{\\sigma}_{y}`) operator.
-    | **sigmax** : Creates the `Pauli` sigma x (:math:`\\hat{\\sigma}_{x}`) operator.
-    | **sigmap** : Creates the `Pauli` sigma + (:math:`\\hat{\\sigma}_{+}`) operator, i.e. 2D Fermionic creation.
-    | **sigmam** : Creates the `Pauli` sigma - (:math:`\\hat{\\sigma}_{-}`) operator, i.e. 2D Fermionic destruction.
+    | :func:`sigmaz` : Creates the `Pauli` sigma z (:math:`\\hat{\\sigma}_{z}`) operator.
+    | :func:`sigmay` : Creates the `Pauli` sigma y (:math:`\\hat{\\sigma}_{y}`) operator.
+    | :func:`sigmax` : Creates the `Pauli` sigma x (:math:`\\hat{\\sigma}_{x}`) operator.
+    | :func:`sigmap` : Creates the `Pauli` sigma + (:math:`\\hat{\\sigma}_{+}`) operator, i.e. 2D Fermionic creation.
+    | :func:`sigmam` : Creates the `Pauli` sigma - (:math:`\\hat{\\sigma}_{-}`) operator, i.e. 2D Fermionic destruction.
 
-    | **Jz** : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.
-    | **Jp** : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.
-    | **Jm** : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.
-    | **Jx** : Creates the angular momentum (spin) `X` operator for a given spin quantum number j.
-    | **Jy** : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.
-    | **Js** : Creates the total angular momentum (spin) operator for a given spin quantum number j.
+    | :func:`Jz` : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.
+    | :func:`Jp` : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.
+    | :func:`Jm` : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.
+    | :func:`Jx` : Creates the angular momentum (spin) `X` operator for a given spin quantum number j.
+    | :func:`Jy` : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.
+    | :func:`Js` : Creates the total angular momentum (spin) operator for a given spin quantum number j.
 
-    | **operatorPow** : Creates a quantum operator for given function reference `op` and raises to a `power`.
-    | **paritySUM** : Creates the parity operator by explicitly placing alternating +/- into a matrix.
-    | **partiyEXP** : Creates the parity operator by exponentiation a given Hamiltonian.
+    | :func:`operatorPow` : Creates a quantum operator for given function reference `op` and raises to a `power`.
+    | :func:`paritySUM` : Creates the parity operator by explicitly placing alternating +/- into a matrix.
+    | :func:`partiyEXP` : Creates the parity operator by exponentiation a given Hamiltonian.
 
-    | **displacement** : Creates the displacement operator for a given displacement parameter alpha.
-    | **squeeze** : Creates the squeezing operator for a given squeezing parameter alpha.
+    | :func:`displacement` : Creates the displacement operator for a given displacement parameter alpha.
+    | :func:`squeeze` : Creates the squeezing operator for a given squeezing parameter alpha.
 
-    | **compositeOp** : Creates a composite operator from a sub-system `operator`,
+    | :func:`compositeOp` : Creates a composite operator from a sub-system `operator`,
         i.e. tensor product with identities of dimensions dimB & dimA
 
     Types
     ^^^^^
-    | **Matrix** : Union of (scipy) sparse and (numpy) array
+    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
 """ #pylint:disable=too-many-lines
 
 from typing import Callable
@@ -46,6 +46,7 @@ import numpy as np # type: ignore
 from .customTypes import Matrix
 
 
+# do not delete these
 # from typing import Callable, TypeVar
 # from numpy import ndarray
 # from scipy.sparse import spmatrix
@@ -58,7 +59,7 @@ def number(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the (bosonic) number (:math:`\\hat{n}`) operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -96,7 +97,7 @@ def destroy(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -133,7 +134,7 @@ def create(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -170,7 +171,7 @@ def identity(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the identity operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -204,7 +205,7 @@ def sigmaz(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma z (:math:`\\hat{\\sigma}_{z}`) operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -238,7 +239,7 @@ def sigmay(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma y (:math:`\\hat{\\sigma}_{y}`) operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -272,7 +273,7 @@ def sigmax(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma x (:math:`\\hat{\\sigma}_{x}`) operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -306,7 +307,7 @@ def sigmap(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma + (:math:`\\hat{\\sigma}_{+}`) operator, i.e. 2D Fermionic creation operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -339,7 +340,7 @@ def sigmam(sparse: bool = True) -> Matrix:
     """
     Creates the `Pauli` sigma - (:math:`\\hat{\\sigma}_{-}`) operator, i.e. 2D Fermionic destruction operator.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -372,7 +373,7 @@ def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -435,7 +436,7 @@ def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -497,7 +498,7 @@ def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -559,7 +560,7 @@ def Jx(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `X` operator for a given spin quantum number j.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -620,7 +621,7 @@ def Jy(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -681,7 +682,7 @@ def Js(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     """
     Creates the total angular momentum (spin) operator for a given spin quantum number j.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -736,7 +737,7 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
     """
     Creates a quantum operator for given function reference `op` and raises to a `power`.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -784,7 +785,7 @@ def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates the parity operator by explicitly placing alternating +/- into a matrix.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -873,7 +874,7 @@ def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     """
     Creates the displacement operator for a given displacement parameter alpha.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -925,7 +926,7 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     """
     Creates the squeezing operator for a given squeezing parameter alpha.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -969,7 +970,7 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
 def compositeOp(operator: Matrix, dimB: int, dimA: int) -> Matrix:
     """
     Creates a composite operator from a sub-system `operator`,
-     i.e. tensor product with identities of dimensions dimB & dimA
+    i.e. tensor product with identities of dimensions dimB & dimA
 
     Parameters
     ----------
@@ -980,7 +981,8 @@ def compositeOp(operator: Matrix, dimB: int, dimA: int) -> Matrix:
     dimA : int
         (total) dimension of the systems that appear `after` in the tensor product order
 
-    Returns:
+    Returns
+    -------
     :return: Matrix
         sub-system operator in the extended Hilbert space
 

@@ -3,37 +3,38 @@
 
     Functions
     ---------
-    | **basis** : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given
+    | :func:`basis` : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given
         row.
-    | **completeBasis** : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .
-    | **basisBra** : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a
+    | :func:`completeBasis` : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .
+    | :func:`basisBra` : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a
         given column.
-    | **zeros** : Creates a column matrix (ket) with all elements zero.
-    | **superPos** : Creates a `ket` superposition state :math:`\\sum_n c_n|n\\rangle` for a given dimension with a
-        list of excitations.
+    | :func:`zeros` : Creates a column matrix (ket) with all elements zero.
+    | :func:`superPos` : Function to create a `superposition ket` state from a given `dictionary` or `list`,
+        or `ket` state from a given `integer` (in this case, it is equivalent to basis function).
 
-    | **densityMatrix** : Converts a `ket` state into a `density matrix`.
-    | **completeBasisMat** : Creates a complete basis of `density matrices` for a given dimension or
+    | :func:`densityMatrix` : Converts a `ket` state into a `density matrix`.
+    | :func:`completeBasisMat` : Creates a complete basis of `density matrices` for a given dimension or
         convert a `ket basis` to `density matrix`.
 
-    | **normalise** : Function to normalise `any` state (ket or density matrix).
-    | **normaliseKet** : Function to normalise a `ket` state.
-    | **normaliseMat** : Function to normalise a `density matrix`.
+    | :func:`normalise` : Function to normalise `any` state (ket or density matrix).
+    | :func:`normaliseKet` : Function to normalise a `ket` state.
+    | :func:`normaliseMat` : Function to normalise a `density matrix`.
 
-    | **compositeState** : Function to create `composite ket` states.
-    | **tensorProd** : Function to calculate tensor product of given (any number of) states (in the given order).
-    | **partialTrace** : Calculates the partial trace of a `density matrix` of composite state.
+    | :func:`compositeState` : Function to create `composite ket` states.
+    | :func:`tensorProd` : Function to calculate tensor product of given (any number of) states (in the given order).
+    | :func:`partialTrace` : Calculates the partial trace of a `density matrix` of composite state.
 
-    | **mat2Vec** : Converts `density matrix` into `density vector` (used in super-operator representation).
-    | **vec2Mat** : Converts `density vector` into `density matrix`.
+    | :func:`mat2Vec` : Converts `density matrix` into `density vector` (used in super-operator representation).
+    | :func:`vec2Mat` : Converts `density vector` into `density matrix`.
 
     Types
     ^^^^^
-    | **Matrix** : Union of (scipy) sparse and (numpy) array
-    | **intList** : List of integers
-    | **matrixList** : List of Matrices
-    | **supInt** : Union of the types: int, `intList`, and dict[int:float] (used in super-position creations)
-    | **ndOrListInt** : Union of ndarray and intList
+    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
+    | :const:`intList <qTools.QuantumToolbox.customTypes.intList>` : List of integers
+    | :const:`matrixList <qTools.QuantumToolbox.customTypes.matrixList>` : List of Matrices
+    | :const:`supInt <qTools.QuantumToolbox.customTypes.supInt>` : Union of the types: int, `intList`,
+        and dict[int:float] (used in super-position creations)
+    | :const:`ndOrListInt <qTools.QuantumToolbox.customTypes.ndOrListInt>` : Union of ndarray and intList
 """
 
 from typing import Optional, List
@@ -45,7 +46,7 @@ import numpy as np # type: ignore
 from .customTypes import Matrix, intList, matrixList, supInp, ndOrListInt
 
 
-
+# do not delete these
 # from typing import Union, Dict, List, Optional, TypeVar
 # from numpy import ndarray
 # from scipy.sparse import spmatrix
@@ -62,7 +63,7 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
     Creates a `ket` state for a given dimension with 1 (unit population) at a given row (state).
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -76,7 +77,7 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     Returns
     -------
     :return : Matrix
-        `ket` state as sparse if sparse=True else array
+        `ket` state as ``sparse if sparse=True else array``
 
     Examples
     --------
@@ -99,7 +100,7 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     """
     Creates a complete basis of `ket` states.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -111,7 +112,7 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     Returns
     -------
     :return : matrixList
-        a list (complete basis) of `ket` states as sparse if sparse=True else array
+        a list (complete basis) of `ket` states as ``sparse if sparse=True else array``
 
     Examples
     --------
@@ -140,7 +141,7 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
     Creates a `bra` state for a given dimension with 1 (unit population) at a given column (state).
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -154,7 +155,7 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     Returns
     -------
     :return : Matrix
-        `bra` state as sparse if sparse=True else array
+        `bra` state as ``sparse if sparse=True else array``
 
     Examples
     --------
@@ -173,7 +174,7 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates a column matrix (ket) with all elements zero.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -206,8 +207,6 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
 def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix:
     """
-    Creates a `ket` superposition state for a given dimension with a list of excitations.
-
     Function to create a `superposition ket` state from a given `dictionary` or `list`,
     or `ket` state from a given `integer` (in this case, it is equivalent to basis function)
 
@@ -216,10 +215,11 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
     dimension : int
         dimension of Hilbert space
     excitations : supInt (Union of int, list(int), dict(int:float))
-        | There are 3 possible uses of this
-        | 1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
-        | 2. a `list` (e.g. [0,1,2]) for equally populated super-position
-        | 3. an `integer`, which is equivalent to basis function
+        There are 3 possible uses of this
+
+            1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
+            2. a `list` (e.g. [0,1,2]) for equally populated super-position
+            3. an `integer`, which is equivalent to basis function
 
     Returns
     -------
@@ -300,10 +300,10 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
     """
     Creates a complete basis of `density matrices` for a given dimension or convert a `ket basis` to `density matrix`.
 
-    Note: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.
+    NOTE: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.
 
     For a given basis, this keeps the sparse/array as sparse/array.
-    For a given dimension, either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    For a given dimension, either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------

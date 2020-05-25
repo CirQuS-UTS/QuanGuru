@@ -3,15 +3,15 @@
 
     Types
     -----
-    | **Matrix** : Type which is either spmatrix or nparray (created using TypeVar)
-    | **intList** : Type for a list of integers
-    | **floatList** : Type for a list of floats
-    | **matrixList** : Type for a list `Matrix` types
-    | **supInp** : Type from the union the types: int, `intList`, and a dict with int:float key:value combination
-    | **ndOrListInt** : Type from the union of ndarray and intList
+    | :const:`Matrix` : Type which is either spmatrix or nparray (created using TypeVar)
+    | :const:`intList` : Type for a list of integers
+    | :const:`floatList` : Type for a list of floats
+    | :const:`matrixList` : Type for a list `Matrix` types
+    | :const:`supInp` : Type from the union the types: int, `intList`, and a dict with int:float key:value combination
+    | :const:`ndOrListInt` : Type from the union of ndarray and intList
 """
 
-from typing import Union, Dict, List, TypeVar
+from typing import Union, Dict, List
 from numpy import ndarray # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 

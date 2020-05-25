@@ -3,14 +3,14 @@
 
     Functions
     ---------
-    | **xRotation** : Creates the operator for Qubit `X rotation`
-    | **yRotation** : Creates the operator for Qubit `Y rotation`
-    | **zRotation** : Creates the operator for Qubit `Z rotation`
-    | **qubRotation** : Creates the operator for Qubit rotation around given X/Y/Z
+    | :func:`xRotation` : Creates the operator for Qubit `X rotation`
+    | :func:`yRotation` : Creates the operator for Qubit `Y rotation`
+    | :func:`zRotation` : Creates the operator for Qubit `Z rotation`
+    | :func:`qubRotation` : Creates the operator for Qubit rotation around given X/Y/Z
 
     Types
     ^^^^^
-    | **Matrix** : Union of (scipy) sparse and (numpy) array
+    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
 """
 
 #from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity
@@ -19,6 +19,8 @@ from numpy import cos, sin # type: ignore
 from .operators import sigmaz, sigmax, sigmay, identity
 from .customTypes import Matrix
 
+
+# do not delete these
 # from typing import TypeVar
 # from numpy import ndarray
 # from scipy.sparse import spmatrix
@@ -31,7 +33,7 @@ def xRotation(angle: float, sparse: bool = True) -> Matrix:
     """
     Creates the operator for Qubit `X rotation`.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -58,7 +60,7 @@ def yRotation(angle: float, sparse: bool = True) -> Matrix:
     """
     Creates the operator for Qubit `Y rotation`.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -85,7 +87,7 @@ def zRotation(angle: float, sparse: bool = True) -> Matrix:
     """
     Creates the operator for Qubit `Z rotation`.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -112,7 +114,7 @@ def qubRotation(xyz: str, angle: float, sparse: bool = True) -> Matrix:
     """
     Creates the operator for Qubit rotation around given X/Y/Z.
 
-    Either as sparse (>>> sparse=True) or array (>>> sparse=False)
+    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------

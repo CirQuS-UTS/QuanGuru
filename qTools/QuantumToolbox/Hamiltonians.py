@@ -3,17 +3,17 @@
 
     Functions
     ---------
-    | **cavQubFreeHam** : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension
-    | **RabiHam** : Creates Rabi Hamiltonian for given frequencies, coupling strength,
+    | :func:`cavQubFreeHam` : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension
+    | :func:`RabiHam` : Creates Rabi Hamiltonian for given frequencies, coupling strength,
         and truncated cavity dimension
-    | **JCHam** : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
+    | :func:`JCHam` : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
         and truncated cavity dimension
-    | **aJCHam** : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
+    | :func:`aJCHam` : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
         and truncated cavity dimension
 
     Types
     ^^^^^
-    | **Matrix** : Union of (scipy) sparse and (numpy) array
+    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
 """
 
 #from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
@@ -24,6 +24,8 @@ import scipy.sparse as sp # type: ignore
 from .operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
 from .customTypes import Matrix
 
+
+# do not delete these
 # from typing import Tuple, TypeVar
 # from numpy import ndarray
 # from scipy.sparse import spmatrix

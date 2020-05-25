@@ -3,20 +3,20 @@
 
     Functions
     ---------
-    | **Unitary** : Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
-    | **Liouvillian** : Creates `Liouvillian super-operator` for a given `Hamiltonian`, `time step`,
+    | :func:`Unitary`: Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
+    | :func:`Liouvillian`: Creates `Liouvillian super-operator` for a given `Hamiltonian`, `time step`,
         and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-    | **LiouvillianExp** : Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`,
+    | :func:`LiouvillianExp`: Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`,
         `time step`,
         and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-    | **dissipator** : Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
-    | **_preSO** : Creates `pre super-operator` for an `operator`.
-    | **_posSO** : Creates `pos super-operator` for an `operator`.
-    | **_preposSO** : Creates `pre-pos super-operator` for an `operator`.
+    | :func:`dissipator`: Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
+    | :func:`_preSO`: Creates `pre super-operator` for an `operator`.
+    | :func:`_posSO`: Creates `pos super-operator` for an `operator`.
+    | :func:`_preposSO`: Creates `pre-pos super-operator` for an `operator`.
 
     Types
     -----
-    | **Matrix** : Union of (scipy) sparse and (numpy) array
+    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>`: Union of (scipy) sparse and (numpy) array
 """
 
 from typing import Optional
@@ -28,6 +28,8 @@ import numpy as np # type: ignore
 
 from .customTypes import Matrix
 
+
+# do not delete these
 # from typing import Optional, TypeVar
 # from numpy import ndarray
 # from scipy.sparse import spmatrix

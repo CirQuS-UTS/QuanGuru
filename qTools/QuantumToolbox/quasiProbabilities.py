@@ -3,15 +3,15 @@
 
     Functions
     ---------
-    | **Wigner** : An iterative method to evaluate the Wigner functions for the Fock
+    | :func:`Wigner` : An iterative method to evaluate the Wigner functions for the Fock
         state :math:`|m \\rangle \\langle n|`.
-    | **HusimiQ** : Q-function of a given state vector or density matrix at points `vec + i * vec`.
-    | **_qfuncPure** : Calculate the Q-function for a pure state.
+    | :func:`HusimiQ` : Q-function of a given state vector or density matrix at points `vec + i * vec`.
+    | :func:`_qfuncPure` : Calculate the Q-function for a pure state.
 
     Types
     ^^^^^
-    | **Matrix** : Union of (scipy) sparse and (numpy) array
-    | **ndOrListInt** : Union of ndarray and intList
+    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
+    | :const:`ndOrListInt <qTools.QuantumToolbox.customTypes.ndOrListInt>` : Union of ndarray and intList
 """
 
 from numpy import ndarray # type: ignore
@@ -26,6 +26,7 @@ from .states import densityMatrix
 from .customTypes import Matrix, ndOrList
 
 
+# do not delete these
 # from typing import Union, TypeVar
 # from numpy import ndarray
 # from scipy.sparse import spmatrix
