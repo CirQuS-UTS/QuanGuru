@@ -16,11 +16,11 @@ class genericProtocol(qBaseSim):
     def _increaseExponentiationCount(cls):
         cls.numberOfExponentiations += 1
 
-    __slots__ = ['__lastState', '__inProtocol', '__fixed', '__ratio', '__updates', '_funcToCreateUnitary']
+    __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '_funcToCreateUnitary']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        self.__lastState = _parameter()
+        self.__currentState = _parameter()
         self.__inProtocol = False
         self.__fixed = False
         self.__ratio = 1
@@ -29,12 +29,12 @@ class genericProtocol(qBaseSim):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
-    def lastState(self):
-        return self._genericProtocol__lastState.value
+    def currentState(self):
+        return self._genericProtocol__currentState.value
 
-    @lastState.setter
-    def lastState(self, inp):
-        self._genericProtocol__lastState.value = inp
+    @currentState.setter
+    def currentState(self, inp):
+        self._genericProtocol__currentState.value = inp
 
     @property
     def initialState(self):
@@ -162,7 +162,7 @@ class qProtocol(genericProtocol):
             else:
                 super().addSubSys(step)
                 step._genericProtocol__inProtocol = True
-                step._genericProtocol__lastState._bound = self._genericProtocol__lastState #pylint:disable=W0212,E1101
+                step._genericProtocol__currentState._bound = self._genericProtocol__currentState #pylint:disable=W0212,E1101
                 step.simulation._bound(self.simulation, re=True) # pylint: disable=protected-access
                 if step.superSys is None:
                     step.superSys = self.superSys

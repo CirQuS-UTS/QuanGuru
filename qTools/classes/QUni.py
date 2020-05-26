@@ -35,7 +35,7 @@ def checkClass(classOf):
     :class:`qUniversal` (`classOf`) class, and the idea is to cover possible misuse of
     :meth:`add <qUniversal.addSubSys>`/:meth:`create <qUniversal.createSubSys>`/:meth:`remove <qUniversal.removeSubSys>`
     `subSys` methods (while also creating flexibility). For example,
-    if a user gives the class itself instead of an instance to :meth:`addSubSys <qUniversal.addSubSys>` method, this
+    if  the class itself is given, instead of an instance, to :meth:`addSubSys <qUniversal.addSubSys>` method, this
     decorator creates a new instance and includes the new instance to the dictionary. This also enables the flexible use
     of :meth:`addSubSys <qUniversal.addSubSys>` as :meth:`createSubSys <qUniversal.createSubSys>`. The wrapper covers
     some other scenarios like giving a ``list`` of instances to be included etc. This decorator is also used for
@@ -215,6 +215,9 @@ class qUniversal:
     #: This is the number of instances that are created internally by the library.
     _internalInstances: int = 0
 
+    #: Total number of instances of the class = ``_internalInstances + _externalInstances```
+    instances = 0
+
     #: a list of str (attribute names) to be used with save method.
     toBeSaved: List[str] = extendedList(['name'])
 
@@ -232,7 +235,7 @@ class qUniversal:
 
     def save(self):
         """
-        This method creates & ``returns`` a dictionary with keys from :attr:`toBeSaved <qUniversal.toBeSaved>` list and
+        This method creates & ``returnss`` a dictionary with keys from :attr:`toBeSaved <qUniversal.toBeSaved>` list and
         the values from the corresponding values of the object.
 
         This is used to collect the same relevant information for all the instances and use the resultant dictionary
@@ -253,7 +256,7 @@ class qUniversal:
 
     def getObjByName(self, name):
         """
-        This method finds & ``returns`` the instance of qUniversal (or its child classes) with the given name.
+        This method finds & ``returnss`` the instance of qUniversal (or its child classes) with the given name.
 
         Parameters
         ----------
@@ -266,7 +269,7 @@ class qUniversal:
     def __setKwargs(self, **kwargs):
         """
         This is used to set the attributes of the object from the given keywords and values.
-        It is introduced to be used while instantiation of the object. It ``return None``.
+        It is introduced to be used while instantiation of the object. It ``returns None``.
 
         Parameters
         ----------
@@ -288,7 +291,7 @@ class qUniversal:
             2. To complement :meth:`add <qUniversal.addSubSys>`/:meth:`create <qUniversal.createSubSys>`/
                :meth:`remove <qUniversal.removeSubSys>` SubSys methods.
 
-        It ``return None``.
+        It ``returns None``.
         """
 
         oldDict = self._qUniversal__subSys
@@ -300,7 +303,7 @@ class qUniversal:
         """
         The subSys property:
 
-        - **getter** : ``return __subSys`` an ``OrderedDict``.
+        - **getter** : ``returns __subSys`` an ``OrderedDict``.
         - **setter** : adds the given object/s to ``__subSys``. It calls the :meth:`addSubSys <qUniversal.addSubSys>`,
           so it can used to add a single object, `list/dict/tuple/orderedDict` of objects, by giving the name of the 
           system, or giving class name to add a new instance of that class.
@@ -359,7 +362,7 @@ class qUniversal:
         """
         The superSys property:
 
-        - **getter** : ``return __superSys`` attribute value
+        - **getter** : ``returns __superSys`` attribute value
         - **setter** : sets the ``__superSys`` attribute value
         """
 
@@ -374,7 +377,7 @@ class qUniversal:
         """
         The name property:
 
-        - **getter** : ``return __name`` attribute value
+        - **getter** : ``returns __name`` attribute value
         - **setter** : after calling :meth:`updateNames <qUniversal.updateNames>` method of qUniversal class to
           ensure the uniqueness of names, sets the ``__name`` attribute value to `name`.
         - **types** : ``str``
@@ -470,6 +473,7 @@ class qUniversal:
         of instances depending on the `boolean`.
         """
 
+        cls.instances += 1
         if boolean is False:
             cls._externalInstances += 1
         elif boolean is True:
@@ -486,7 +490,7 @@ class qUniversal:
         """
 
         if _internal is None:
-            insCount = cls._internalInstances + cls._externalInstances
+            insCount = cls.instances
         elif _internal is True:
             insCount = cls._internalInstances
         elif _internal is False:

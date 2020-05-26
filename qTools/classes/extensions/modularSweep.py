@@ -58,7 +58,7 @@ def parallelTimeEvol(qSim, evolFunc, ind):
 def _runSweepAndPrep(qSim, ind, evolFunc):
     qSim.Sweep.runSweep(indicesForSweep(ind, *qSim.Sweep.inds))
     for protocol in qSim.subSys.keys():
-        protocol.lastState = protocol.initialState
+        protocol.currentState = protocol.initialState
     qSim.qRes._resetLast(calculateException=qSim.qRes) # pylint: disable=protected-access
     for protocol, system in qSim.subSys.items():
         protocol._computeBase__calculate([system], [protocol]) # pylint: disable=protected-access
@@ -70,7 +70,7 @@ def timeDependent(qSim):
     for ind in range(qSim.timeDependency.indMultip):
         qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
         for sim in qSim._Simulation__allInstances: # pylint: disable=protected-access
-            sim._timeBase__step.value = 1 # pylint: disable=protected-access
+            sim._timeBase__stepCount.value = 1 # pylint: disable=protected-access
         qSim.evolFunc(qSim)
 
 
@@ -82,19 +82,19 @@ def exponUni(qSim):
 
 def timeEvolBase(qSim):
     exponUni(qSim)
-    for _ in range(qSim._timeBase__step.value): # pylint: disable=protected-access, too-many-nested-blocks
+    for _ in range(qSim._timeBase__stepCount.value): # pylint: disable=protected-access, too-many-nested-blocks
         qSim._Simulation__compute() # pylint: disable=protected-access
         for protocol in qSim.subSys.keys():
-            qSim.subSys[protocol]._computeBase__compute(protocol.lastState) # pylint: disable=protected-access
+            qSim.subSys[protocol]._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
             sampleCompute = qSim is protocol.simulation
-            for __ in range(int(protocol.simulation._timeBase__step.value/qSim._timeBase__step.value)): # pylint: disable=protected-access, line-too-long
+            for __ in range(int(protocol.simulation._timeBase__stepCount.value/qSim._timeBase__stepCount.value)): # pylint: disable=protected-access, line-too-long
                 for ___ in range(protocol.simulation.samples):
                     if not sampleCompute:
                         protocol.simulation._Simulation__compute() # pylint: disable=protected-access
 
                     if protocol.compute is None:
-                        protocol.lastState = protocol.unitary @ protocol.lastState
+                        protocol.currentState = protocol.unitary @ protocol.currentState
                     else:
                         for step in protocol.subSys.values():
-                            protocol.lastState = step.unitary @ protocol.lastState
-                            protocol._computeBase__compute([protocol.lastState]) # pylint: disable=protected-access
+                            protocol.currentState = step.unitary @ protocol.currentState
+                            protocol._computeBase__compute([protocol.currentState]) # pylint: disable=protected-access
