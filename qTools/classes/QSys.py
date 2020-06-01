@@ -7,7 +7,6 @@ import qTools.QuantumToolbox.states as qSta
 from qTools.classes.computeBase import qBaseSim
 from qTools.classes.computeBase import paramBoundBase
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
-from qTools.classes.extensions.QSysDecorators import constructConditions
 from qTools.classes.QPro import freeEvolution
 #from qTools.classes.QUni import checkClass
 
@@ -69,7 +68,7 @@ class genericQSys(qBaseSim):
     # Unitary property and setter
     @property
     def unitary(self):
-        unitary = self._genericQSys__unitary.unitary()
+        unitary = self._genericQSys__unitary.unitary
         self._paramUpdated = False
         return unitary
 
@@ -451,8 +450,9 @@ class qSystem(genericQSys):
         copySys.order = order
         return copySys
 
-    @constructConditions({'dimension': (int, int64, int32, int16), 'operator': qOps.sigmax.__class__})
     def _constructMatrices(self):
+        if not (isinstance(self.dimension, (int, int64, int32, int16)) and callable(self.operator)):
+            raise TypeError('?')
         for sys in self.subSys.values():
             try:
                 sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator( # pylint : disable=no-member
@@ -550,6 +550,8 @@ class qCoupling(paramBoundBase):
 
     @property
     def freeMat(self):
+        if self._paramBoundBase__matrix is None: # pylint: disable=no-member
+            self.freeMat = None
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @freeMat.setter
