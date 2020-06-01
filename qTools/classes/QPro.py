@@ -62,10 +62,10 @@ class genericProtocol(qBaseSim):
     def _runCreateUnitary(self):
         pass
 
-    def getUnitary(self, callAfterUpdate=_runCreateUnitary):
+    def getUnitary(self):
         for update in self._genericProtocol__updates:
             update.setup()
-        callAfterUpdate(self)
+        self._runCreateUnitary()
         for update in self._genericProtocol__updates:
             update.setback()
 
@@ -180,10 +180,9 @@ class qProtocol(genericProtocol):
             unitary = step.getUnitary() @ unitary
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
 
-    def getUnitary(self, callAfterUpdate=_runCreateUnitary):
-        super().getUnitary(callAfterUpdate=callAfterUpdate)
+    def getUnitary(self):
+        super().getUnitary()
         return self._paramBoundBase__matrix # pylint: disable=no-member
-
 
 class Step(genericProtocol):
     instances = 0
@@ -200,11 +199,11 @@ class Step(genericProtocol):
         super()._runCreateUnitary()
         self.createUnitary() # pylint: disable=assigning-non-slot
 
-    def getUnitary(self, callAfterUpdate=_runCreateUnitary):
+    def getUnitary(self):
         if ((self.fixed is True) and (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
-            super().getUnitary(callAfterUpdate=callAfterUpdate)
+            super().getUnitary()
         elif ((self.fixed is False) and ((self._paramUpdated is True) or (self._paramBoundBase__matrix is None))): # pylint: disable=no-member, line-too-long
-            super().getUnitary(callAfterUpdate=callAfterUpdate)
+            super().getUnitary()
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
