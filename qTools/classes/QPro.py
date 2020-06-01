@@ -16,7 +16,7 @@ class genericProtocol(qBaseSim):
     def _increaseExponentiationCount(cls):
         cls.numberOfExponentiations += 1
 
-    __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '_funcToCreateUnitary']
+    __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '_createUnitary']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -25,7 +25,7 @@ class genericProtocol(qBaseSim):
         self.__fixed = False
         self.__ratio = 1
         self.__updates = []
-        self._funcToCreateUnitary = None
+        self._createUnitary = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -68,6 +68,7 @@ class genericProtocol(qBaseSim):
         self._runCreateUnitary()
         for update in self._genericProtocol__updates:
             update.setback()
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def createUpdate(self, **kwargs):
         update = Update(**kwargs)
@@ -123,16 +124,15 @@ class genericProtocol(qBaseSim):
 
     @property
     def unitary(self):
-        if self._paramBoundBase__matrix is not None: # pylint: disable=no-member
-            if ((self.fixed is True) or (self._paramUpdated is False)):
-                unitary = self._paramBoundBase__matrix # pylint: disable=no-member
-            else:
-                unitary = self.getUnitary() # pylint: disable=assignment-from-no-return
-                self._paramBoundBase__paramUpdated = False  # pylint: disable=assigning-non-slot
-        else:
-            self._paramBoundBase__paramUpdated = False  # pylint: disable=assigning-non-slot
-            unitary = self.getUnitary() # pylint: disable=assignment-from-no-return
-        return unitary
+        if self._paramUpdated:
+            if not self.fixed:
+                self.getUnitary()
+
+        if self._paramBoundBase__matrix is None: # pylint: disable=no-member
+            self.getUnitary()
+
+        self._paramBoundBase__paramUpdated = False  # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
 class qProtocol(genericProtocol):
     instances = 0
@@ -153,7 +153,7 @@ class qProtocol(genericProtocol):
 
     def addStep(self, *args):
         '''
-            Copy step ensures the exponentiation
+        Copy step ensures the exponentiation
         '''
         for step in args:
             self._paramBoundBase__paramBound[step.name] = step # pylint: disable=no-member
@@ -180,9 +180,6 @@ class qProtocol(genericProtocol):
             unitary = step.getUnitary() @ unitary
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
 
-    def getUnitary(self):
-        super().getUnitary()
-        return self._paramBoundBase__matrix # pylint: disable=no-member
 
 class Step(genericProtocol):
     instances = 0
@@ -192,12 +189,12 @@ class Step(genericProtocol):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        self._funcToCreateUnitary = None
+        self._createUnitary = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _runCreateUnitary(self):
         super()._runCreateUnitary()
-        self.createUnitary() # pylint: disable=assigning-non-slot
+        self._funcToCreateUnitary() # pylint: disable=assigning-non-slot
 
     def getUnitary(self):
         if ((self.fixed is True) and (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
@@ -207,10 +204,10 @@ class Step(genericProtocol):
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def createUnitary(self):
-        if not callable(self._funcToCreateUnitary):
+    def _funcToCreateUnitary(self):
+        if not callable(self._createUnitary):
             raise TypeError('?')
-        self._paramBoundBase__matrix = self._funcToCreateUnitary() # pylint: disable=assigning-non-slot
+        self._paramBoundBase__matrix = self._createUnitary() # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
 class copyStep(qUniversal):
@@ -242,7 +239,7 @@ class freeEvolution(Step):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        self._funcToCreateUnitary = self.matrixExponentiation
+        self._createUnitary = self.matrixExponentiation
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def matrixExponentiation(self):
