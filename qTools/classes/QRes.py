@@ -52,16 +52,12 @@ class qResBase(qUniversal):
     def results(self):
         return self._qResBase__resultsLast
 
-    @property
-    def resultsKeyValList(self):
-        return self._qResBase__resultsLast
-
-    @resultsKeyValList.setter
-    def resultsKeyValList(self, keyValList):
+    @results.setter
+    def result(self, keyValList):
         self._qResBase__resultsLast[keyValList[0]].append(keyValList[1])
 
-    @resultsKeyValList.setter
-    def averageKeyVal(self, keyValList):
+    @results.setter
+    def resAverage(self, keyValList):
         valCountPair = self._qResBase__average.pop(keyValList[0], None)
         if valCountPair is not None:
             val = valCountPair[0]
