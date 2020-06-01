@@ -190,10 +190,16 @@ class qResults(qResBase):
 
     def _finalise(self, inds):
         for key, val in self._qResBase__results.items(): # pylint: disable=no-member
-            self._qResBase__results[key], _ = self._reShape(val, list(reversed(inds))) # pylint: disable=no-member
+            if inds != []:
+                self._qResBase__results[key], _ = self._reShape(val, list(reversed(inds))) # pylint: disable=no-member
+            else:
+                self._qResBase__results[key] = val[0]  # pylint: disable=no-member
 
         for key1, val1 in self._qResBase__states.items(): # pylint: disable=no-member
-            self._qResBase__states[key1], _ = self._reShape(val1, list(reversed(inds))) # pylint: disable=no-member
+            if inds != []:
+                self._qResBase__states[key1], _ = self._reShape(val1, list(reversed(inds))) # pylint: disable=no-member
+            else:
+                self._qResBase__states[key1] = val1[0] # pylint: disable=no-member
         self._qResBase__resultsLast = self._qResBase__results # pylint: disable=assigning-non-slot, no-member
         self._qResBase__statesLast = self._qResBase__states # pylint: disable=assigning-non-slot, no-member
 

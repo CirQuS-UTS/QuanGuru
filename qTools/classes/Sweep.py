@@ -307,7 +307,6 @@ class Sweep(qUniversal):
         """
 
         if len(self.subSys) > 0:
-            self._Sweep__inds = [] # pylint: disable=assigning-non-slot
             for indx, sweep in enumerate(self.subSys.values()):
                 if ((sweep.multiParam is True) or (indx == 0)):
                     self._Sweep__inds.insert(0, len(sweep.sweepList))
