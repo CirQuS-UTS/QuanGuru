@@ -157,7 +157,7 @@ class paramBoundBase(qUniversal):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.__matrix = None
-        self.__paramUpdated = False
+        self.__paramUpdated = True
         self.__paramBound = OrderedDict()
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
