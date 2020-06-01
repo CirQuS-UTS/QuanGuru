@@ -49,3 +49,10 @@ def Rabi(obj, subSys1, subSys2, cStrength):
 
 QuantumSystem.JC = JC
 QuantumSystem.Rabi = Rabi
+
+
+def qDrive(obj):
+    pass
+
+Qubit.drive = qDrive
+
