@@ -19,6 +19,18 @@ class genericQSys(qBaseSim):
 
     __slots__ = ['__unitary', '__dimension', '__liouvillian', '__envCouplings']
 
+    def __add__(self, other):
+        newComp = QuantumSystem()
+        newComp.addSubSys(self)
+        newComp.addSubSys(other)
+        return newComp
+
+    def __radd__(self, other):
+        newComp = QuantumSystem()
+        newComp.addSubSys(other)
+        newComp.addSubSys(self)
+        return newComp
+
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = freeEvolution(_internal=True)
