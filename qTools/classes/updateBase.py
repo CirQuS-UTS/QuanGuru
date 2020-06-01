@@ -2,6 +2,7 @@
     This module contains the updateBase class, which is inherited by :class:`_sweep <qTools.classes.Sweep._sweep>` and
     :class:`Update <qTools.classes.QPro.Update>` classes.
 """
+
 from qTools.classes.QUni import qUniversal
 
 class updateBase(qUniversal):

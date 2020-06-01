@@ -192,7 +192,6 @@ class timeBase(stateBase):
         :returns: None
         """
 
-
         keys = ['_timeBase__stepSize', '_timeBase__totalTime', '_timeBase__stepCount']
         keysProp = ['stepSize', 'totalTime', 'stepCount']
         bounding = True

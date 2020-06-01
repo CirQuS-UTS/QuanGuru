@@ -164,7 +164,7 @@ class paramBoundBase(qUniversal):
     @property
     def _paramBound(self):
         """
-        This property ``returns _paramBoundBase__paramBound`` dictionary.
+        This property ``returns _paramBoundBase__paramBound`` dictionary, and does not have a setter.
         """
 
         return self._paramBoundBase__paramBound

@@ -25,7 +25,6 @@ class qResBlank:
     def states(self):
         return self._qResBlank__statesLast
 
-
 class qResBase(qUniversal):
     instances = 0
     label = 'qResBase'
@@ -103,7 +102,6 @@ class qResBase(qUniversal):
 
     def _saveResults(self):
         pass
-
 
 class qResults(qResBase):
     instances = 0

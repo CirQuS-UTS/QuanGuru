@@ -160,6 +160,7 @@ class _sweep(updateBase):
         This method wraps the ``_updateBase__function``, so that this will be the function that is always called to run
         sweeps. This is not essential and could be removed, but it kind of creates a duck-typing with ``Sweep`` class.
         """
+
         self._updateBase__function(self, ind) # pylint: disable=no-member
 
 class Sweep(qUniversal):
@@ -196,7 +197,7 @@ class Sweep(qUniversal):
         super().__init__()
 
         self.__inds = []
-        self.__indMultip = None
+        self.__indMultip = 1
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -205,6 +206,7 @@ class Sweep(qUniversal):
         This method extends the :meth:`save <qTools.classes.QUni.qUniversal.save>` of :class:`qUniversal` by also
         calling the ``save()`` on the objects in ``subSys`` dictionary.
         """
+
         saveDict = super().save()
         sweepsDict = {}
         for sw in self.subSys.values():
@@ -266,6 +268,7 @@ class Sweep(qUniversal):
         Else, it calls the :meth:`removeSubSys <qTools.classes.QUni.qUniversal.removeSubSys>` on every ``_sweep`` in its
         ``subSys`` dictionary (since ``systems`` are stored in ``subSys`` dictionary of ``_sweep`` objects).
         """
+
         if isinstance(sys, _sweep):
             self.removeSubSys(sys)
         else:
@@ -291,6 +294,7 @@ class Sweep(qUniversal):
 
         :returns: The new ``_sweep`` instance.
         """
+
         newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
         super().addSubSys(newSweep)
         return newSweep
@@ -301,6 +305,7 @@ class Sweep(qUniversal):
         attributes/properties. The reason for this a bit argued in :meth:`indMultip`, but it is basically to ensure that
         any changes to ``sweepList/s`` or ``multiParam/s`` are accurately used/reflected.
         """
+
         if len(self.subSys) > 0:
             self._Sweep__inds = [] # pylint: disable=assigning-non-slot
             for indx, sweep in enumerate(self.subSys.values()):
