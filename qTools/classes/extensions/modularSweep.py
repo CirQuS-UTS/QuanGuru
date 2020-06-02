@@ -89,8 +89,8 @@ def timeEvolBase(qSim):
                     protocol.simulation._Simulation__compute() # pylint: disable=protected-access
 
                 if protocol.compute is None:
-                    protocol.currentState = protocol.unitary @ protocol.currentState
+                    protocol.currentState = protocol.getUnitary() @ protocol.currentState
                 else:
                     for step in protocol.subSys.values():
-                        protocol.currentState = step.unitary @ protocol.currentState
+                        protocol.currentState = step.getUnitary() @ protocol.currentState
                         protocol._computeBase__compute([protocol.currentState]) # pylint: disable=protected-access
