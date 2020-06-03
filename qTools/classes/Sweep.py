@@ -275,7 +275,7 @@ class Sweep(qUniversal):
             for sweep in self.subSys.values():
                 sweep.removeSubSys(sys)
 
-    def createSweep(self, system, sweepKey, aux=False, **kwargs):
+    def createSweep(self, system, sweepKey=None, **kwargs):
         """
         This method creates a new instance of ``_sweep`` and assing its ``system`` and ``sweepKey`` to given system
         and sweepKey arguments of this method. Keyworded arguments are used to set the other attributes of the newly
@@ -295,7 +295,11 @@ class Sweep(qUniversal):
         :returns: The new ``_sweep`` instance.
         """
 
-        newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, _aux=aux, **kwargs)
+        newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
+        if not isinstance(sweepKey, str):
+            newSweep._aux = True #pylint: disable=protected-access
+        elif not hasattr(list(newSweep.subSys.values())[0], sweepKey):
+            newSweep._aux = True #pylint: disable=protected-access
         super().addSubSys(newSweep)
         return newSweep
 
