@@ -275,7 +275,7 @@ class Sweep(qUniversal):
             for sweep in self.subSys.values():
                 sweep.removeSubSys(sys)
 
-    def createSweep(self, system, sweepKey, **kwargs):
+    def createSweep(self, system, sweepKey, aux=False, **kwargs):
         """
         This method creates a new instance of ``_sweep`` and assing its ``system`` and ``sweepKey`` to given system
         and sweepKey arguments of this method. Keyworded arguments are used to set the other attributes of the newly
@@ -295,7 +295,7 @@ class Sweep(qUniversal):
         :returns: The new ``_sweep`` instance.
         """
 
-        newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
+        newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, _aux=aux, **kwargs)
         super().addSubSys(newSweep)
         return newSweep
 
@@ -307,6 +307,7 @@ class Sweep(qUniversal):
         """
 
         if len(self.subSys) > 0:
+            self._Sweep__inds = [] # pylint: disable=assigning-non-slot
             for indx, sweep in enumerate(self.subSys.values()):
                 if ((sweep.multiParam is True) or (indx == 0)):
                     self._Sweep__inds.insert(0, len(sweep.sweepList))
