@@ -32,13 +32,14 @@ class updateBase(qUniversal):
     #: :attr:`toBeSaved <qTools.classes.QUni.qUniversal.toBeSaved>` list.
     toBeSaved = qUniversal.toBeSaved.extendedCopy(['key'])
 
-    __slots__ = ['__key', '__function']
+    __slots__ = ['__key', '__function', '_aux']
 
     def __init__(self, **kwargs):
         super().__init__()
 
         self.__key = None
         self.__function = None
+        self._aux = False
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -95,4 +96,10 @@ class updateBase(qUniversal):
         """
 
         for subSys in self.subSys.values():
-            setattr(subSys, self._updateBase__key, val)
+            try:
+                setattr(subSys, self._updateBase__key, val)
+            except AttributeError as attrErr:
+                if self._aux is True:
+                    subSys.aux[self._updateBase__key] = val
+                else:
+                    raise attrErr
