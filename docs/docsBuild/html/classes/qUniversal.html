@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>QUni Module &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="_parameter Class" href="_parameter.html" />
+    <link rel="prev" title="Classes" href="../classes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../QuantumToolbox.html">QuantumToolbox</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../classes.html">Classes</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">qUniversal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_parameter.html">Compute Base</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../QuantumToolbox/Demos/Demos.html">Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../classes.html">Classes</a> &raquo;</li>
+        
+      <li>QUni Module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/classes/qUniversal.rst" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="quni-module">
+<h1>QUni Module<a class="headerlink" href="#quni-module" title="Permalink to this headline">¶</a></h1>
+<p>Module for the qUniversal, extendedList classes and checkClass decorator.</p>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>qUniversal</strong> : This class is inhereted by (almost) all the other classes in this library.</div>
+<div class="line"><strong>checkClass</strong> : This is a <cite>decorator with arguments and a recursive wrapper</cite>, and it was initially created to be
+used with <cite>subSys</cite> dictionary of <cite>qUniversal</cite> class.</div>
+<div class="line"><strong>extendedList</strong> : This class extends the built-in class list. It is introduced to be used with <cite>toBeSaved</cite> lists.</div>
+</div>
+</div>
+<dl class="py class">
+<dt id="qTools.classes.QUni.qUniversal">
+<em class="property">class </em><code class="sig-name descname">qUniversal</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is inhereted by (almost) all the other classes in this library. It is best understood by considering
+its attributes.</p>
+<p>Note: Some attributes are private (with name mangling) and reached/modified by a property getter/setter. The
+attribute explanations below uses the property names for such cases together with the name-mangled and
+pure attribute names separated by <cite>or</cite>. The reason behind the use of properties is to ensure some
+internal functionalties are maintained especially in the sub-classes that extend the properties. For example,
+uniqueness of object name is achieved by the .name setter calling another method.</p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">name or _qUniversal__name or __name</code></dt>
+<dd><p>Every-object inheriting from qUniversal will have a <cite>unique</cite> name.</p>
+<p>Default names for internally (by the library) and externally (by the user) created objects differ by an
+underscore. Default names are always the class <cite>label</cite> (a class attribute and always the same as class
+name) or <cite>_label</cite> plus, respectively, the number of external or internal instances, which are also kept as
+class attributes. Note that the <cite>default</cite> name for an object will
+always be <cite>label</cite> +number of instances. For example, if this is the list of name for existing instances
+<code class="docutils literal notranslate"><span class="pre">['qUniversal1,</span> <span class="pre">'bob',</span> <span class="pre">'alice']</span></code> , name of the next instance will be <code class="docutils literal notranslate"><span class="pre">'qUniversal4'</span></code> (not qUniversal2).</p>
+<p>Special names can be assigned by <code class="docutils literal notranslate"><span class="pre">obj.name</span> <span class="pre">=</span> <span class="pre">'new</span> <span class="pre">Name'</span></code> after object creation or
+by <code class="docutils literal notranslate"><span class="pre">obj</span> <span class="pre">=</span> <span class="pre">qUniversal(name='new</span> <span class="pre">Name')</span></code> while instantiation. The special names also has to be unique. If a
+duplicate name is assigned to another object, it is changed to
+<code class="docutils literal notranslate"><span class="pre">'new</span> <span class="pre">Name'</span> <span class="pre">+</span> <span class="pre">(number</span> <span class="pre">of</span> <span class="pre">external</span> <span class="pre">instances)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QUni.qUniversal._internal">
+<code class="sig-name descname">_internal</code><a class="headerlink" href="#qTools.classes.QUni.qUniversal._internal" title="Permalink to this definition">¶</a></dt>
+<dd><p>This a boolean to distinguish between internally (True) and externally (False) created objects. Mainly used
+for naming.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">_qUniversal__allInstances or __allInstances</code></dt>
+<dd><p>This is an instance attribute pointing to class attribute <cite>instNames</cite>. This exist to <cite>properly</cite> access any
+object using the method <cite>getObjByName</cite> <strong>during multi-processing</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">superSys or _qUniversal__superSys or __superSys</code></dt>
+<dd><p>This is used in many places in the library to share information between objects. <cite>superSys</cite> is
+(almost for all classes) is a <cite>single system</cite>. This mainly introduced to be used when an object needs to use
+<cite>several attribute values</cite> of another object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">subSys or _qUniversal__subSys or __subSys</code></dt>
+<dd><p>The purpose is, same as <cite>superSys</cite>, to share information, but this is a dictionary of systems, and it is
+mainly introduced to be used when an object needs the <cite>same attribute value/s</cite> from <cite>several</cite> other objects.</p>
+<p>Note: subSys-superSys <strong>DOES NOT</strong> define a hierarchy, meaning that if an object A is in <cite>subSys</cite> of B, this
+<strong>does not</strong> mean B is <cite>superSys</cite> of A. Even further, A can even be the superSys of B at the same time.
+If needed, such a hierarchy, needs to be introduced explicitly in the sub-classes, which already exist in
+QuantumSystem class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>OrderedDict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">ind or _qUniversal__ind or __ind</code></dt>
+<dd><p>It was introduced to keep some order information when we were using dictionary, and it is not strictly
+needed since we switched to <cite>OrderedDict</cite>. However, it still comes handy when working with the subSys dict
+(even though it is ordered), so it is kept for some internal uses. It is set as the current length of subSys
+dictionary by the checkClass decorator and (should only be) updated by removeSubSys method, when an object is
+removed from the <cite>subSys</cite> dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QUni.qUniversal.instances">
+<code class="sig-name descname">instances</code><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QUni.qUniversal.instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of instances of the class = <cite>_internalInstances</cite> + <cite>_externalInstances</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QUni.qUniversal.label">
+<code class="sig-name descname">label</code><em class="property"> = 'qUniversal'</em><a class="headerlink" href="#qTools.classes.QUni.qUniversal.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Together with <cite>_externalInstances</cite> and <cite>_internalInstances</cite>, <cite>label</cite> is used in <cite>default</cite> naming of the objects.
+It is the same as class name, and the default names for the objects explicitly created by the user are
+<cite>label+_externalInstances</cite>, and the object created internally are named as <cite>_label+_internalInstances</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QUni.qUniversal.instNames">
+<code class="sig-name descname">instNames</code><em class="property"> = {}</em><a class="headerlink" href="#qTools.classes.QUni.qUniversal.instNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a dictionary with keys as object names and values as objects. This is kept to ensure that the names are
+unique, but it is conveniently used for other purposes, such as reaching an object from any part of the code just
+by using its name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QUni.qUniversal._externalInstances">
+<code class="sig-name descname">_externalInstances</code><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QUni.qUniversal._externalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the number of instances that are explicitly created by the user.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QUni.qUniversal._internalInstances">
+<code class="sig-name descname">_internalInstances</code><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QUni.qUniversal._internalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the number of instances that are created internally by the library.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QUni.qUniversal.toBeSaved">
+<code class="sig-name descname">toBeSaved</code><em class="property"> = ['name']</em><a class="headerlink" href="#qTools.classes.QUni.qUniversal.toBeSaved" title="Permalink to this definition">¶</a></dt>
+<dd><p>a list of str (attribute names) to be used with save method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates &amp; <strong>returns</strong> a dictionary with keys from <cite>toBeSaved</cite> (a class attribute) list and
+the values from the corresponding attribute values of the object.</p>
+<p>This is used to collect the same relevant information for all the instances and use the resultant dictionary
+with some other format specific save method. For example, this is currently used with <code class="docutils literal notranslate"><span class="pre">saveH5</span></code>
+and <code class="docutils literal notranslate"><span class="pre">writeToTxt</span></code> methods.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.getObjByName">
+<code class="sig-name descname">getObjByName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.getObjByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.getObjByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method finds &amp; <strong>returns</strong> the instance of qUniversal (or its child classes) with the given name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of the object to be returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.resetSubSys">
+<code class="sig-name descname">resetSubSys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.resetSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.resetSubSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a trivial method. It just sets the <cite>subSys</cite> dict to a new empty OrderedDict. There are two reasons
+leading to its introduction:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">1. The __subSys is a private attribute and the subSys setter is more useful when
+used to add new system rather than assigning a whole new OrderedDict.</div>
+<div class="line">2. Complement add/create/removeSubSys methods.</div>
+</div>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.subSys">
+<em class="property">property </em><code class="sig-name descname">subSys</code><a class="headerlink" href="#qTools.classes.QUni.qUniversal.subSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>The subSys property:</p>
+<div class="line-block">
+<div class="line"><strong>getter</strong> : returns __subSys OrderedDict</div>
+<div class="line"><strong>setter</strong> : adds the given object/s to __subSys OrderedDict. It calls the addSubSys, so it can used to add a
+single system, list/dict/tuple/orderedDict of systems, by giving the name of the system, or giving class name
+to add a new instance of that class.</div>
+<div class="line"><strong>type</strong> : list/dict/tuple/orderedDict</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.addSubSys">
+<code class="sig-name descname">addSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subS</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.addSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.addSubSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main body of this method just adds the given object into <cite>subSys</cite> dictionary and calls __setKwargs on the
+object for the given keyworded arguments.</p>
+<p>However, this method is decorated by <cite>checkClass, so it can do much more than that is in the main body.
+See the decorator docstrings of `checkClass</cite> for more detail.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subS</strong> (<a class="reference internal" href="#qTools.classes.QUni.qUniversal" title="qTools.classes.QUni.qUniversal"><em>qUniversal</em></a>) – The object to add into subSys dictionary</p></li>
+<li><p><strong>kwargs</strong> (<em>Any</em>) – Keyworded arguments to be used with __setKwargs to set some attributes of the given subS.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>subS (an instance of qUniversal or its child classes)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.createSubSys">
+<code class="sig-name descname">createSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subSysClass</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.createSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.createSubSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main body of this method just adds the given object into <cite>subSys</cite> dictionary and calls __setKwargs on the
+object for the given keyworded arguments. (Same as addSubSys)</p>
+<p>However, this method is decorated by <cite>checkClass, so it can do much more than that is in the main body.
+See the decorator docstrings of `checkClass</cite> for more detail.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subS</strong> (<a class="reference internal" href="#qTools.classes.QUni.qUniversal" title="qTools.classes.QUni.qUniversal"><em>qUniversal</em></a>) – The object to add into subSys dictionary</p></li>
+<li><p><strong>kwargs</strong> (<em>Any</em>) – Keyworded arguments to be used with __setKwargs to set some attributes of the given subS.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>subS (an instance of qUniversal or its child classes)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.removeSubSys">
+<code class="sig-name descname">removeSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subS</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.removeSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.removeSubSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calls __setKwargs on the object for the given keyworded arguments, then removes the given object
+from the <cite>subSys</cite> dictionary, and, finally, updates <cite>ind</cite> of the remaining objects in the <cite>subSys</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal._updateInd">
+<code class="sig-name descname">_updateInd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal._updateInd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal._updateInd" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method updates the value of <cite>__ind</cite> attribute. This attribute should be equal to the position value of
+the object in the <cite>subSys</cite> dictionary for some parts of the library to work properly. So, this method basically
+re-assigns it to the objects position in <cite>subSys</cite>.</p>
+<p>This would/should not change anything when called arbitrarily, but it is introduced to be used when an object is
+removed (See removeSubSys) for subSys.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.superSys">
+<em class="property">property </em><code class="sig-name descname">superSys</code><a class="headerlink" href="#qTools.classes.QUni.qUniversal.superSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>The superSys property:</p>
+<div class="line-block">
+<div class="line"><strong>getter</strong> : returns __superSys attribute value</div>
+<div class="line"><strong>setter</strong> : sets the __superSys attribute value</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.ind">
+<em class="property">property </em><code class="sig-name descname">ind</code><a class="headerlink" href="#qTools.classes.QUni.qUniversal.ind" title="Permalink to this definition">¶</a></dt>
+<dd><p>The superSys property:</p>
+<div class="line-block">
+<div class="line"><strong>getter</strong> : returns __ind attribute value</div>
+<div class="line"><strong>setter</strong> : no setter, this should not be modified externally.</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#qTools.classes.QUni.qUniversal.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name property:</p>
+<div class="line-block">
+<div class="line"><strong>getter</strong> : returns __name attribute value</div>
+<div class="line"><strong>setter</strong> : after calling updateNames method of qUniversal class to
+ensure the uniqueness of names, sets the __name attribute value to <cite>name</cite>.</div>
+<div class="line"><strong>types</strong> : str</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.updateNames">
+<em class="property">classmethod </em><code class="sig-name descname">updateNames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.updateNames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.updateNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class method ensures that an objects name is unique, and the <cite>insNames</cite> dictionary contains the correct
+name as the key, meaning not the old name or more than 1 keys for the same object.</p>
+<p>This is a recursive method that calls itself if the given <cite>name</cite> exists in <cite>instNames</cite> keys and the value is
+not the <cite>obj</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#qTools.classes.QUni.qUniversal" title="qTools.classes.QUni.qUniversal"><em>qUniversal</em></a>) – The object to be renamed</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – New name for the <cite>obj</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>name</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to create n <cite>empty</cite> copies of an object. This method is introduced here to be extended in child
+class. In here, it ** does not copy ** the object, but creates n new objects of the same class and sets the
+given kwargs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a single object of the same class if n = 1 else Tuple with <cite>n</cite> objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal._incrementInstances">
+<em class="property">classmethod </em><code class="sig-name descname">_incrementInstances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">boolean</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal._incrementInstances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal._incrementInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called inside __init__ to increase total the number of instances and internal/external number
+of instances depending on the <cite>boolean</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal._qUniversal__namer">
+<code class="sig-name descname">_qUniversal__namer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qTools.classes.QUni.qUniversal._qUniversal__namer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the naming method used internally for default names. It uses class label and correspoding number of
+instances (internal or external).</p>
+<p>To get the cls label and the corresponding number of instances for internal/external, it calls class methods
+<cite>clsLabel</cite> and <cite>clsInstances</cite> with the <cite>_internal</cite> boolean value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>str
+the name string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal._qUniversal__setKwargs">
+<code class="sig-name descname">_qUniversal__setKwargs</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qTools.classes.QUni.qUniversal._qUniversal__setKwargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is used to set the attributes of the object from the given keywords and values.
+It is introduced to be used while instantiation of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>Any</em>) – Any attribute from the __slots__ (should take namemangling into account, if used by a child class) or
+the name of corresponding property with an appropriate value.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.clsInstances">
+<em class="property">classmethod </em><code class="sig-name descname">clsInstances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_internal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.clsInstances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.clsInstances" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>This class method <strong>returns</strong> the number of instances:</dt><dd><div class="line-block">
+<div class="line">1. Total number, if <cite>_internal</cite> is <cite>None</cite></div>
+<div class="line">2. internal, if <cite>_internal</cite> is <cite>True</cite></div>
+<div class="line">3. external, if <cite>_internal</cite> is <cite>False</cite></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QUni.qUniversal.clsLabel">
+<em class="property">classmethod </em><code class="sig-name descname">clsLabel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#qUniversal.clsLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.qUniversal.clsLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method <strong>returns</strong> the class label.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.classes.QUni.checkClass">
+<code class="sig-name descname">checkClass</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">classOf</span></em>, <em class="sig-param"><span class="n">attribute</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#checkClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.checkClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a <cite>decorator with arguments and a recursive wrapper</cite>. It is used in couple of places in the library.
+It decorates the functions to check the <cite>class of (classOf)</cite> a given <cite>input (inp)</cite> then adds it to the <cite>attribute</cite>,
+which is a <cite>dictionary</cite> (mostly ordered).</p>
+<p>This decorater was initially created to be used with <cite>subSys</cite> dictionary of <cite>qUniversal</cite> class, and the idea is to
+cover possible user misuse in <cite>add/create/remove subSys</cite> functions (while also creating flexibility). For example,
+if a user gives the class itself instead of an instance to be included in subSys dictionary, this decorator creates
+a new instance and includes the new instance into the dictionary. This also enable the flexible use of <cite>addSubs</cite> as
+a <cite>createSubSys</cite>. This also covers some other scenarios like giving a list of instances to be included etc.
+This decorator is also used for <cite>paramBound</cite> dictionary of <cite>paramBoundBase</cite> class and
+<cite>envCoupling</cite> of <cite>genericQSys</cite> class.</p>
+<p><strong>Note</strong> : This decorator assumes that the given object is an instance of qUniversal or its child classes.</p>
+<p>It works by first finding the intended class by using its name (<cite>classOf</cite>) with <cite>global()</cite>.</p>
+<p>0. If the <cite>input (inp)</cite> is an instance of this class (<cite>classOf</cite>), it calls the <cite>addRemoveFunction</cite> (which does the
+actual
+adding/removing). But before that, it changes the <cite>ind</cite> attribute of the instance conditioned on that ind is <cite>None</cite>,
+and the dictionary which it will be included is the <cite>subSys</cite>. <cite>ind</cite> attribute was introduced to keep some order
+information when we were using dictionary, which is not needed since we switched to <cite>OrderedDict</cite>. However, it still
+comes handy when working with the subSys dict (even though it is ordered), so it is kept for some internal uses.</p>
+<p>There are several other cases of input covered by this decorator:
+| 1. input is a <cite>string</cite></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>name of class : creates and instance of the class and adds the new instance into the attribute dict.</p></li>
+<li><p>name of instance : finds the object from the dict and adds it again (possibly by setting some kwargs)</p></li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line">2. input is a <cite>dictionary</cite>: keys are not used currently, but it calls itself (recursively) for each value in the</div>
+</div>
+<p>dictionary, meaning anything in this list form 0. to end may be trigerred depending on the type of value.
+| 3. input is <cite>None</cite>: This is used to ‘empty’ the dictionary, i.e. the <cite>attribute</cite> becomes an empty OrderedDict.
+| 4. input is a class: creates the instance of that class and calls itself with that instance.
+| 5. input is other types of iterable: call itself for every element of the iterable.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="qTools.classes.QUni.extendedList">
+<em class="property">class </em><code class="sig-name descname">extendedList</code><a class="reference internal" href="../_modules/qTools/classes/QUni.html#extendedList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.extendedList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>This class extends the built-in class list. It is introduced to be used with <cite>toBeSaved</cite> lists, which contain
+contain the keys for <cite>the attributes to be saved</cite> into a <cite>txt and hdf5 attributes</cite>. The <cite>toBeSaved</cite> is a class
+attribute and extending through the inheritance tree is achieved by this <cite>extendedCopy</cite> method.</p>
+<p>Current saving methods are going to be improved, so, in future, this class might not be needed.</p>
+<dl class="py method">
+<dt id="qTools.classes.QUni.extendedList.extendedCopy">
+<code class="sig-name descname">extendedCopy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QUni.html#extendedList.extendedCopy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QUni.extendedList.extendedCopy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This methods returns a new instance of extendedList by concatenating the <code class="docutils literal notranslate"><span class="pre">self</span></code> with a given <code class="docutils literal notranslate"><span class="pre">iterable</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>iterable</strong> (<em>list</em><em>, </em><em>tuple</em><em>, or </em><a class="reference internal" href="#qTools.classes.QUni.extendedList" title="qTools.classes.QUni.extendedList"><em>extendedList</em></a>) – Existing iterable is extended by this.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new instance of extendedList</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>returns: extendedList</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="_parameter.html" class="btn btn-neutral float-right" title="_parameter Class" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../classes.html" class="btn btn-neutral float-left" title="Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/05/19.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

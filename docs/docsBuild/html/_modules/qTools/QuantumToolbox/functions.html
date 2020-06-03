@@ -1,0 +1,1229 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qTools.QuantumToolbox.functions &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+        <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox.html">QuantumToolbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Demos/Demos.html">Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>qTools.QuantumToolbox.functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qTools.QuantumToolbox.functions</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Module of functions to calculate expectations, fidelities, entropy etc. from quantum states</span>
+
+<span class="sd">    The reason for having several methods for the same task is to improve performance</span>
+<span class="sd">    For example, an if statement can be avoided using `expectationMat/expectationKet` for</span>
+<span class="sd">    `density matrices/ket states`, or</span>
+<span class="sd">    `expectationKetList/expectationMatList` is suitable in `multi-processing` of list of time-series of states</span>
+
+<span class="sd">    Functions</span>
+<span class="sd">    ---------</span>
+<span class="sd">    | **expectation** : Function to calculate the expectation value of an `operator` for a given `state`.</span>
+<span class="sd">    | **expectationMat** : Calculates the expectation value of an `operator` for a given `density matrix`.</span>
+<span class="sd">    | **expectationKet** : Calculates the expectation value of an `operator` for a given `ket`.</span>
+<span class="sd">    | **expectationKetList** : Calculates the expectation value of an `operator` for a given list of `ket` states.</span>
+<span class="sd">    | **expectationMatList** : Calculates the expectation value of an `operator` for a given list of `density matrices`.</span>
+<span class="sd">    | **expectationColArr** : Calculates the expectation values of an `operator` for a list/matrix of</span>
+<span class="sd">     `ket (column) states` by matrix multiplication.</span>
+
+<span class="sd">    | **fidelity** : Calculates `fidelity` between `two states`.</span>
+<span class="sd">    | **fidelityKet** : Calculates `fidelity` between two `ket` states.</span>
+<span class="sd">    | **fidelityPureMat** : Calculates `fidelity` between two (pure) `density matrices`.</span>
+<span class="sd">    | **fidelityKetList** : Calculates `fidelity` between `a ket state` and `list of ket states`.</span>
+<span class="sd">    | **fidelityKetLists** : Created to be used in `multi-processing` calculations of two lists of kets states.</span>
+
+<span class="sd">    | **entropy** : Calculates the `entropy` of a given `density matrix` .</span>
+<span class="sd">    | **entropyKet** : Calculates the `entropy` of a given `ket` state.</span>
+
+<span class="sd">    | **iprKet** : Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.</span>
+<span class="sd">    | **iprKetList** : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states</span>
+<span class="sd">     in a given basis.</span>
+<span class="sd">    | **iprKetNB** : Calculates the inverse participation ratio (a delocalisation measure) of a ket by assuming that</span>
+<span class="sd">     the basis is of the free Hamiltonian.</span>
+<span class="sd">    | **iprKetNBList** : Calculates the inverse participation ratio (a delocalisation measure) of a list kets by</span>
+<span class="sd">     assuming that the basis is of the free Hamiltonian.</span>
+<span class="sd">    | **iprKetNBmat** : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states</span>
+<span class="sd">     as the column`.</span>
+<span class="sd">    | **iprPureDenMat** : Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in</span>
+<span class="sd">     a given `basis`.</span>
+
+<span class="sd">    | **sortedEigens** : Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.</span>
+
+<span class="sd">    | **eigVecStatKet** : Calculates components of a `ket` in a basis.</span>
+<span class="sd">    | **eigVecStatKetList** : Calculates components of a `list of ket states`.</span>
+<span class="sd">    | **eigVecStatKetNB** : Calculates the components of a ket by assuming that the basis is of the free Hamiltonian.</span>
+
+<span class="sd">    Types</span>
+<span class="sd">    ^^^^^</span>
+<span class="sd">    | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
+<span class="sd">    | **floatList** : List of floats</span>
+<span class="sd">    | **matrixList** : List of Matrices</span>
+
+<span class="sd">&quot;&quot;&quot;</span> <span class="c1">#pylint:disable=too-many-lines</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span> <span class="c1"># type: ignore</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># type: ignore</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">lina</span> <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">spmatrix</span> <span class="c1"># type: ignore</span>
+
+<span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">floatList</span><span class="p">,</span> <span class="n">matrixList</span>
+
+
+<span class="c1"># from numpy import ndarray</span>
+<span class="c1"># from scipy.sparse import spmatrix</span>
+<span class="c1"># from typing import List, Optional, TypeVar, Tuple, Any</span>
+
+<span class="c1"># These type aliases are used in type hinting of below methods</span>
+<span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
+<span class="c1"># floatList = List[float]                             # Type for a list of floats</span>
+<span class="c1"># matrixList = List[Matrix]                           # Type for a list `Matrix` types</span>
+
+<span class="c1"># TODO a possible improvement is to create decorator for similar functions to get function reference as input.</span>
+<span class="c1"># Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</span>
+
+<span class="c1"># Functions for expectation value</span>
+<div class="viewcode-block" id="expectation"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.expectation">[docs]</a><span class="k">def</span> <span class="nf">expectation</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to calculate the expectation value of an `operator` for a given `state`.</span>
+
+<span class="sd">    State can either be a `ket` or `density matrix`.</span>
+<span class="sd">    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</span>
+<span class="sd">    State and operator can both be sparse or array or any combination of the two.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    operator : Matrix</span>
+<span class="sd">        matrix of a Hermitian operator</span>
+<span class="sd">    state : Matrix</span>
+<span class="sd">        a quantum state</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        expectation value of the `operator` for the `state`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.operators as qOperators</span>
+<span class="sd">    &gt;&gt;&gt; sigmaz = qOperators.sigmaz()</span>
+
+<span class="sd">    &gt;&gt;&gt; ket = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=ket)</span>
+<span class="sd">    -1</span>
+
+<span class="sd">    &gt;&gt;&gt; denMat = qStates.densityMatrix(ket)</span>
+<span class="sd">    &gt;&gt;&gt; expectMat = expectation(sigmaz, denMat)</span>
+<span class="sd">    -1</span>
+
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=ket1)</span>
+<span class="sd">    1</span>
+
+<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=ket2)</span>
+<span class="sd">    0</span>
+
+<span class="sd">    &gt;&gt;&gt; denMat1 = qStates.densityMatrix(ket1)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=denMat1)</span>
+<span class="sd">    1</span>
+
+<span class="sd">    &gt;&gt;&gt; denMat2 = qStates.densityMatrix(ket2)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=denMat2)</span>
+<span class="sd">    0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">state</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">state</span> <span class="o">@</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">expectationMat</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="expectationMat"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.expectationMat">[docs]</a><span class="k">def</span> <span class="nf">expectationMat</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the expectation value of an `operator` for a given `density matrix`.</span>
+
+<span class="sd">    Works with both sparse and array.</span>
+<span class="sd">    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</span>
+<span class="sd">    State and operator can both be sparse or array or any combination of the two.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    operator : Matrix</span>
+<span class="sd">        matrix of a Hermitian operator</span>
+<span class="sd">    denMat : Matrix</span>
+<span class="sd">        density matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        expectation value of the `operator` for the `density matrix`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.operators as qOperators</span>
+<span class="sd">    &gt;&gt;&gt; sigmaz = qOperators.sigmaz()</span>
+
+<span class="sd">    &gt;&gt;&gt; ket = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; denMat = qStates.densityMatrix(ket)</span>
+<span class="sd">    &gt;&gt;&gt; expectMat = expectation(sigmaz, denMat)</span>
+<span class="sd">    -1</span>
+
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; denMat1 = qStates.densityMatrix(ket1)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=denMat1)</span>
+<span class="sd">    1</span>
+
+<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; denMat2 = qStates.densityMatrix(ket2)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=denMat2)</span>
+<span class="sd">    0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">expc</span> <span class="o">=</span> <span class="p">((</span><span class="n">operator</span> <span class="o">@</span> <span class="n">denMat</span><span class="p">)</span><span class="o">.</span><span class="n">diagonal</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">expc</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="expectationKet"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.expectationKet">[docs]</a><span class="k">def</span> <span class="nf">expectationKet</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the expectation value of an `operator` for a given `ket`.</span>
+
+<span class="sd">    Calculates the density matrix and calls the expectationMat.</span>
+<span class="sd">    Computationally the same as using (bra @ operator @ ket).</span>
+<span class="sd">    Works with both sparse and array.</span>
+<span class="sd">    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    operator : Matrix</span>
+<span class="sd">        matrix of a Hermitian operator</span>
+<span class="sd">    ket : Matrix</span>
+<span class="sd">        ket state</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        expectation value of the `operator` for the `ket` state</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.operators as qOperators</span>
+<span class="sd">    &gt;&gt;&gt; sigmaz = qOperators.sigmaz()</span>
+
+<span class="sd">    &gt;&gt;&gt; ket = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=ket)</span>
+<span class="sd">    -1</span>
+
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=ket1)</span>
+<span class="sd">    1</span>
+
+<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; expectKet = expectation(operator=sigmaz, state=ket2)</span>
+<span class="sd">    0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">denMat</span> <span class="o">=</span> <span class="n">ket</span> <span class="o">@</span> <span class="p">(</span><span class="n">ket</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">expectationMat</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">denMat</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="expectationKetList"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.expectationKetList">[docs]</a><span class="k">def</span> <span class="nf">expectationKetList</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the expectation value of an `operator` for a given list of `ket` states.</span>
+
+<span class="sd">    Simply calls the `expectationKet` in a loop.</span>
+<span class="sd">    This function exist for easy use in multi-processing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    operator : Matrix</span>
+<span class="sd">        matrix of a Hermitian operator</span>
+<span class="sd">    kets : Matrix</span>
+<span class="sd">        list of ket states</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: floatList</span>
+<span class="sd">        `list` of expectation values of the `operator` for the list of `ket` states</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket0 = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; ketList = [ket0, ket1, ket2]</span>
+<span class="sd">    &gt;&gt;&gt; expectKetList = expectationKetList(operator=sigmaz, kets=ketList)</span>
+<span class="sd">    [-1, 1, 0.0]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">expectations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ket</span> <span class="ow">in</span> <span class="n">kets</span><span class="p">:</span>
+        <span class="n">expectations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expectationKet</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">ket</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">expectations</span></div>
+
+
+<div class="viewcode-block" id="expectationMatList"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.expectationMatList">[docs]</a><span class="k">def</span> <span class="nf">expectationMatList</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMats</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the expectation value of an `operator` for a given list of `density matrices`.</span>
+
+<span class="sd">    Simply calls the `expectationMat` in a loop.</span>
+<span class="sd">    This function exist for easy use in multi-processing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    operator : Matrix</span>
+<span class="sd">        matrix of a Hermitian operator</span>
+<span class="sd">    denMats : Matrix</span>
+<span class="sd">        list of density matrices</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: floatList</span>
+<span class="sd">        `list` of expectation values of the `operator` for the list of `density matrices`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket0 = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; denMat0 = qStates.densityMatrix(ket0)</span>
+<span class="sd">    &gt;&gt;&gt; denMat1 = qStates.densityMatrix(ket1)</span>
+<span class="sd">    &gt;&gt;&gt; denMat2 = qStates.densityMatrix(ket2)</span>
+<span class="sd">    &gt;&gt;&gt; denMatList = [denMat0, denMat1, denMat2]</span>
+<span class="sd">    &gt;&gt;&gt; expectMatList = expectationMatList(sigmaz, denMats=denMatList)</span>
+<span class="sd">    [-1, 1, 0.0]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">expectations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">denMat</span> <span class="ow">in</span> <span class="n">denMats</span><span class="p">:</span>
+        <span class="n">expectations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expectationMat</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">denMat</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">expectations</span></div>
+
+
+<div class="viewcode-block" id="expectationColArr"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.expectationColArr">[docs]</a><span class="k">def</span> <span class="nf">expectationColArr</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the expectation values of an `operator` for a list/matrix of `ket (column) states`.</span>
+<span class="sd">     by matrix multiplication.</span>
+
+<span class="sd">    The `list` here is effectively a matrix whose columns are `ket` states for which we want the expectation values.</span>
+<span class="sd">    For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.</span>
+<span class="sd">    TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.</span>
+<span class="sd">    So, it relies on states being orthonormal, if not there will be off-diagonal elements in the resultant matrix,</span>
+<span class="sd">    but still the diagonal elements are the expectation values, meaning it should work!</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    operator : Matrix</span>
+<span class="sd">        matrix of a Hermitian operator</span>
+<span class="sd">    states : ndarray</span>
+<span class="sd">        ket states as the columns in the input matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: floatList</span>
+<span class="sd">        `list` of expectation values of the `operator` for a matrix of `ket` states</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.operators as qOperators</span>
+<span class="sd">    &gt;&gt;&gt; ham = qOperators.sigmaz(sparse=False)</span>
+<span class="sd">    &gt;&gt;&gt; eigVals, eigVecs = np.linalg.eig(ham)</span>
+
+<span class="sd">    &gt;&gt;&gt; sz = qOperators.sigmaz()</span>
+<span class="sd">    &gt;&gt;&gt; expectZ = expectationColArr(sz, eigVecs)</span>
+<span class="sd">    [ 1. -1.]</span>
+
+<span class="sd">    &gt;&gt;&gt; sx = qOperators.sigmax()</span>
+<span class="sd">    &gt;&gt;&gt; expectX = expectationColArr(sx, eigVecs)</span>
+<span class="sd">    [0. 0.]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">expMat</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">operator</span> <span class="o">@</span> <span class="n">states</span>
+    <span class="k">return</span> <span class="n">expMat</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span></div>
+
+
+<span class="c1"># Functions for fidelity (currently only for pure states)</span>
+<div class="viewcode-block" id="fidelity"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.fidelity">[docs]</a><span class="k">def</span> <span class="nf">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates `fidelity` between `two states`.</span>
+
+<span class="sd">    States can either be a `ket` or `density matrix`,</span>
+<span class="sd">    and they can both be sparse or array or any combination of the two.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    state1 : Matrix</span>
+<span class="sd">        `ket` state or `density matrix`</span>
+<span class="sd">    state2 : Matrix</span>
+<span class="sd">        `ket` state or `density matrix`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        `fidelity` between any `two states`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket0 = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityKet01 = fidelity(state1=ket0, state2=ket1)</span>
+<span class="sd">    0.</span>
+
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityKet02 = fidelity(state1=ket0, state2=ket2)</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityKet12 = fidelity(state1=ket1, state2=ket2)</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">    &gt;&gt;&gt; denMat0 = qStates.densityMatrix(ket0)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityMat01 = fidelity(state1=denMat0, state2=denMat1)</span>
+<span class="sd">    0</span>
+
+<span class="sd">    &gt;&gt;&gt; denMat1 = qStates.densityMatrix(ket1)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityMat02 = fidelity(state1=denMat0, state2=denMat2)</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">    &gt;&gt;&gt; denMat2 = qStates.densityMatrix(ket2)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityMat12 = fidelity(state1=denMat1, state2=denMat2)</span>
+<span class="sd">    0.5</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">state1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">state1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">state2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">state2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">fid</span> <span class="o">=</span> <span class="n">fidelityKet</span><span class="p">(</span><span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">state1</span> <span class="o">=</span> <span class="p">(</span><span class="n">state1</span> <span class="o">@</span> <span class="p">(</span><span class="n">state1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+            <span class="n">fid</span> <span class="o">=</span> <span class="n">fidelityPureMat</span><span class="p">(</span><span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">state2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">state2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">state2</span> <span class="o">=</span> <span class="p">(</span><span class="n">state2</span> <span class="o">@</span> <span class="p">(</span><span class="n">state2</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+            <span class="n">fid</span> <span class="o">=</span> <span class="n">fidelityPureMat</span><span class="p">(</span><span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">state1</span> <span class="o">=</span> <span class="p">(</span><span class="n">state1</span> <span class="o">@</span> <span class="p">(</span><span class="n">state1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+            <span class="n">fid</span> <span class="o">=</span> <span class="n">fidelityPureMat</span><span class="p">(</span><span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fid</span></div>
+
+
+<div class="viewcode-block" id="fidelityKet"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.fidelityKet">[docs]</a><span class="k">def</span> <span class="nf">fidelityKet</span><span class="p">(</span><span class="n">ket1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ket2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates `fidelity` between two `ket` states.</span>
+
+<span class="sd">    States can both be sparse or array or any combination of the two.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ket1 : Matrix</span>
+<span class="sd">        ket state</span>
+<span class="sd">    ket2 : Matrix</span>
+<span class="sd">        ket state</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        `fidelity` between two `ket states`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket0 = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityKet01 = fidelityKet(state1=ket0, state2=ket1)</span>
+<span class="sd">    0.</span>
+
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityKet02 = fidelityKet(state1=ket0, state2=ket2)</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityKet12 = fidelityKet(state1=ket1, state2=ket2)</span>
+<span class="sd">    0.5</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">herm</span> <span class="o">=</span> <span class="n">ket1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">fidelityA</span> <span class="o">=</span> <span class="p">((</span><span class="n">herm</span> <span class="o">@</span> <span class="n">ket2</span><span class="p">)</span><span class="o">.</span><span class="n">diagonal</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">fidelityA</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">fidelityA</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="fidelityPureMat"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.fidelityPureMat">[docs]</a><span class="k">def</span> <span class="nf">fidelityPureMat</span><span class="p">(</span><span class="n">denMat1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">denMat2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates `fidelity` between two (pure) `density matrices`.</span>
+
+<span class="sd">    States can both be sparse or array or any combination of the two.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    denMat1 : Matrix</span>
+<span class="sd">        (pure) density matrix</span>
+<span class="sd">    denMat2 : Matrix</span>
+<span class="sd">        (pure) density matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        `fidelity` between two (pure) `density matrices`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket0 = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; denMat0 = qStates.densityMatrix(ket0)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityMat01 = fidelityPureMat(state1=denMat0, state2=denMat1)</span>
+<span class="sd">    0</span>
+
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; denMat1 = qStates.densityMatrix(ket1)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityMat02 = fidelityPureMat(state1=denMat0, state2=denMat2)</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">     &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; denMat2 = qStates.densityMatrix(ket2)</span>
+<span class="sd">    &gt;&gt;&gt; fidelityMat12 = fidelityPureMat(state1=denMat1, state2=denMat2)</span>
+<span class="sd">    0.5</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fidelityA</span> <span class="o">=</span> <span class="p">((</span><span class="n">denMat1</span> <span class="o">@</span> <span class="n">denMat2</span><span class="p">)</span><span class="o">.</span><span class="n">diagonal</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">fidelityA</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fidelityKetList"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.fidelityKetList">[docs]</a><span class="k">def</span> <span class="nf">fidelityKetList</span><span class="p">(</span><span class="n">ket1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ketList</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates `fidelity` between `a ket state` and `list of ket states`.</span>
+
+<span class="sd">    States can both be sparse or array or any combination of the two.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ket1 : Matrix</span>
+<span class="sd">        ket state</span>
+<span class="sd">    ketList : matrixList</span>
+<span class="sd">        `list` of ket states</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: floatList</span>
+<span class="sd">        `list` of fidelities between `a ket state` and `list of ket states`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket0 = qStates.basis(dimension=2, state=1)</span>
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">    &gt;&gt;&gt; ketList = [ket0, ket1, ket2]</span>
+<span class="sd">    &gt;&gt;&gt; fidelityList = fidelityKetList(ket0, ketList)</span>
+<span class="sd">    [1, 0, 0.5000000000000001]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fidelities</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">herm</span> <span class="o">=</span> <span class="n">ket1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">for</span> <span class="n">ket</span> <span class="ow">in</span> <span class="n">ketList</span><span class="p">:</span>
+        <span class="n">fidelityA</span> <span class="o">=</span> <span class="p">((</span><span class="n">herm</span> <span class="o">@</span> <span class="n">ket</span><span class="p">)</span><span class="o">.</span><span class="n">diagonal</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">fidelities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">fidelityA</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">fidelityA</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">fidelities</span></div>
+
+
+<div class="viewcode-block" id="fidelityKetLists"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.fidelityKetLists">[docs]</a><span class="k">def</span> <span class="nf">fidelityKetLists</span><span class="p">(</span><span class="n">zippedStatesList</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Created to be used in `multi-processing` calculations of two lists of kets states.</span>
+
+<span class="sd">    FIXME too specific, requires zipping</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fidelities</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">zippedStatesList</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+        <span class="n">herm</span> <span class="o">=</span> <span class="n">zippedStatesList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">fidelityA</span> <span class="o">=</span> <span class="p">((</span><span class="n">herm</span> <span class="o">@</span> <span class="n">zippedStatesList</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">ind</span><span class="p">])</span><span class="o">.</span><span class="n">diagonal</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">fidelities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">fidelityA</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">fidelityA</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">fidelities</span></div>
+
+
+<span class="c1"># Entropy function</span>
+<span class="c1"># TODO may create a function specifically for sparse input</span>
+<div class="viewcode-block" id="entropy"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.entropy">[docs]</a><span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">densMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the `entropy` of a given `density matrix`.</span>
+
+<span class="sd">    Input should be a density matrix by definition of entropy.</span>
+<span class="sd">    Uses exponential basis as default.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    densMat : Matrix</span>
+<span class="sd">        a density matrix</span>
+<span class="sd">    base2 : bool</span>
+<span class="sd">        option to calculate in base 2</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        the `entropy` of the given `density matrix`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; compositeStateKet = qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True)</span>
+<span class="sd">    &gt;&gt;&gt; entropyKet = entropyKet(compositeStateKet)</span>
+<span class="sd">    -0.0</span>
+
+<span class="sd">    &gt;&gt;&gt; compositeStateMat = qStates.densityMatrix(compositeStateKet)</span>
+<span class="sd">    &gt;&gt;&gt; entropyMat = entropy(compositeStateMat)</span>
+<span class="sd">    -0.0</span>
+
+<span class="sd">    &gt;&gt;&gt; stateFirstSystem = qStates.partialTrace(keep=[0], dims=[2, 2], state=compositeStateKet)</span>
+<span class="sd">    &gt;&gt;&gt; entropy1 = entropy(stateFirstSystem)</span>
+<span class="sd">    -0.0</span>
+
+<span class="sd">    &gt;&gt;&gt; stateSecondSystem = qStates.partialTrace(keep=[1], dims=[2, 2], state=compositeStateKet)</span>
+<span class="sd">    &gt;&gt;&gt; entropy2 = entropy(stateSecondSystem)</span>
+<span class="sd">    -0.0</span>
+
+<span class="sd">    &gt;&gt;&gt; entangledKet = qStates.normalise(qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True)</span>
+<span class="sd">    + qStates.compositeState(dimensions=[2, 2], excitations=[1,0], sparse=True))</span>
+<span class="sd">    &gt;&gt;&gt; entropyKetEntangled = entropyKet(entangledKet)</span>
+<span class="sd">    2.2204460492503126e-16</span>
+
+<span class="sd">    &gt;&gt;&gt; entangledMat = qStates.densityMatrix(entangledKet)</span>
+<span class="sd">    &gt;&gt;&gt; entropyMatEntangled = entropy(entangledMat)</span>
+<span class="sd">    2.2204460492503126e-16</span>
+
+<span class="sd">    &gt;&gt;&gt; stateFirstSystemEntangled = qStates.partialTrace(keep=[0], dims=[2, 2], state=entangledKet)</span>
+<span class="sd">    &gt;&gt;&gt; entropy1Entangled = entropy(stateFirstSystemEntangled)</span>
+<span class="sd">    0.6931471805599454</span>
+
+<span class="sd">    &gt;&gt;&gt; stateSecondSystemEntangled = qStates.partialTrace(keep=[1], dims=[2, 2], state=entangledMat)</span>
+<span class="sd">    &gt;&gt;&gt; entropy2Entangled = entropy(stateSecondSystemEntangled)</span>
+<span class="sd">    0.6931471805599454</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># converts sparse into array (and has to)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">densMat</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">densMat</span> <span class="o">=</span> <span class="n">densMat</span><span class="o">.</span><span class="n">A</span>
+
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">lina</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">densMat</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">nzvals</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">vals</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base2</span><span class="p">:</span>
+        <span class="n">logvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">nzvals</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">nzvals</span><span class="p">)</span>
+
+    <span class="n">S</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="n">nzvals</span> <span class="o">*</span> <span class="n">logvals</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">S</span></div>
+
+
+<div class="viewcode-block" id="entropyKet"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.entropyKet">[docs]</a><span class="k">def</span> <span class="nf">entropyKet</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the `entropy` of a given `ket` state.</span>
+
+<span class="sd">    This function should not exist at all, ket is always a pure state.</span>
+
+<span class="sd">    Input should be a density matrix by definition of entropy.</span>
+<span class="sd">    Uses exponential basis as default.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ket : Matrix</span>
+<span class="sd">        a ket state</span>
+<span class="sd">    base2 : bool</span>
+<span class="sd">        option to calculate in base 2</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        the `entropy` of the given `density matrix`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; compositeStateKet = qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True)</span>
+<span class="sd">    &gt;&gt;&gt; entropyKet = entropyKet(compositeStateKet)</span>
+<span class="sd">    -0.0</span>
+
+<span class="sd">    &gt;&gt;&gt; entangledKet = qStates.normalise(qStates.compositeState(dimensions=[2, 2], excitations=[0,1], sparse=True)</span>
+<span class="sd">    + qStates.compositeState(dimensions=[2, 2], excitations=[1,0], sparse=True))</span>
+<span class="sd">    &gt;&gt;&gt; entropyKetEntangled = entropyKet(entangledKet)</span>
+<span class="sd">    2.2204460492503126e-16</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">denMat</span> <span class="o">=</span> <span class="n">ket</span> <span class="o">@</span> <span class="p">(</span><span class="n">ket</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">entropy</span><span class="p">(</span><span class="n">denMat</span><span class="p">,</span> <span class="n">base2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">S</span></div>
+
+
+<span class="c1"># Delocalisation measures for various cases</span>
+<div class="viewcode-block" id="iprKet"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.iprKet">[docs]</a><span class="k">def</span> <span class="nf">iprKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ket : matrixList</span>
+<span class="sd">        a ket state</span>
+<span class="sd">    basis : Matrix</span>
+<span class="sd">        a complete basis</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        inverse participation ratio</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; completeBasis = qStates.completeBasis(dimension=2)</span>
+<span class="sd">    &gt;&gt;&gt; state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; ipr0 = iprKet(completeBasis, state0)</span>
+<span class="sd">    1.1245136186770428</span>
+
+<span class="sd">    &gt;&gt;&gt; state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; ipr1 = iprKet(completeBasis, state1)</span>
+<span class="sd">    2.000000000000001</span>
+
+<span class="sd">    &gt;&gt;&gt; state2 = qStates.basis(2,1)</span>
+<span class="sd">    &gt;&gt;&gt; ipr2 = iprKet(completeBasis, state2)</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">npc</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">basKet</span> <span class="ow">in</span> <span class="n">basis</span><span class="p">:</span>
+        <span class="n">fid</span> <span class="o">=</span> <span class="n">fidelityKet</span><span class="p">(</span><span class="n">basKet</span><span class="p">,</span> <span class="n">ket</span><span class="p">)</span>
+        <span class="n">npc</span> <span class="o">+=</span> <span class="p">(</span><span class="n">fid</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">npc</span></div>
+
+
+<div class="viewcode-block" id="iprKetList"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.iprKetList">[docs]</a><span class="k">def</span> <span class="nf">iprKetList</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in a given basis.</span>
+
+<span class="sd">    Simply calls iprKet in a loop.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    kets : matrixList</span>
+<span class="sd">        a `list` of ket states</span>
+<span class="sd">    basis : matrixList</span>
+<span class="sd">        a complete basis</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: floatList</span>
+<span class="sd">        a `list` of inverse participation ratios for the given list of ket states</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; completeBasis = qStates.completeBasis(dimension=2)</span>
+<span class="sd">    &gt;&gt;&gt; state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; state2 = qStates.basis(2,1)</span>
+<span class="sd">    &gt;&gt;&gt; state3 = qStates.basis(2,0)</span>
+<span class="sd">    &gt;&gt;&gt; stateList = [state0, state1, state2, state3]</span>
+<span class="sd">    &gt;&gt;&gt; iprList = iprKetList(completeBasis, stateList)</span>
+<span class="sd">    [1.1245136186770428, 2.000000000000001, 1.0, 1.0]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">npcs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ket</span> <span class="ow">in</span> <span class="n">kets</span><span class="p">:</span>
+        <span class="n">npcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iprKet</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">ket</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">npcs</span></div>
+
+
+<div class="viewcode-block" id="iprKetNB"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.iprKetNB">[docs]</a><span class="k">def</span> <span class="nf">iprKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a ket</span>
+<span class="sd">    by assuming that the basis is of the free Hamiltonian.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ket : Matrix</span>
+<span class="sd">        a ket state</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        inverse participation ratio</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; ipr0 = iprKetNB(state0)</span>
+<span class="sd">    1.1245136186770428</span>
+
+<span class="sd">    &gt;&gt;&gt; state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; ipr1 = iprKetNB(state1)</span>
+<span class="sd">    2.000000000000001</span>
+
+<span class="sd">    &gt;&gt;&gt; state2 = qStates.basis(2,1)</span>
+<span class="sd">    &gt;&gt;&gt; ipr2 = iprKetNB(state2)</span>
+<span class="sd">    1.0</span>
+
+<span class="sd">    &gt;&gt;&gt; state3 = qStates.basis(2,0)</span>
+<span class="sd">    &gt;&gt;&gt; ipr3 = iprKetNB(state3)</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># TODO Find a way around this</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ket</span><span class="p">,</span> <span class="n">spmatrix</span><span class="p">):</span>
+        <span class="n">ket</span> <span class="o">=</span> <span class="n">ket</span><span class="o">.</span><span class="n">A</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ket</span><span class="o">.</span><span class="n">flatten</span><span class="p">())),</span> <span class="mi">4</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="iprKetNBList"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.iprKetNBList">[docs]</a><span class="k">def</span> <span class="nf">iprKetNBList</span><span class="p">(</span><span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a list kets</span>
+<span class="sd">    by assuming that the basis is of the free Hamiltonian.</span>
+
+<span class="sd">    Simply calls iprKetNB in a loop.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    kets: matrixList</span>
+<span class="sd">        a `list` of ket states</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: floatList</span>
+<span class="sd">        a `list` of inverse participation ratios</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; state2 = qStates.basis(2,1)</span>
+<span class="sd">    &gt;&gt;&gt; state3 = qStates.basis(2,0)</span>
+<span class="sd">    &gt;&gt;&gt; stateList = [state0, state1, state2, state3]</span>
+<span class="sd">    &gt;&gt;&gt; iprList = iprKetNBList(stateList)</span>
+<span class="sd">    [1.1245136186770428, 2.000000000000001, 1.0, 1.0]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">IPRatio</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ket</span> <span class="ow">in</span> <span class="n">kets</span><span class="p">:</span>
+        <span class="n">IPRatio</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iprKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">IPRatio</span></div>
+
+
+<div class="viewcode-block" id="iprKetNBmat"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.iprKetNBmat">[docs]</a><span class="k">def</span> <span class="nf">iprKetNBmat</span><span class="p">(</span><span class="n">kets</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states as the column`.</span>
+
+<span class="sd">    For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.</span>
+<span class="sd">    TODO use if you know what you are doing.</span>
+<span class="sd">    This assumes the basis is of the free Hamiltonian.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ket : ndarray</span>
+<span class="sd">        a density matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: floatList</span>
+<span class="sd">        a `list` of inverse participation ratios</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.operators as qOperators</span>
+<span class="sd">    &gt;&gt;&gt; ham = qOperators.sigmaz()</span>
+<span class="sd">    &gt;&gt;&gt; eigValsHam, eigVecsHams = np.linalg.eig(ham.A)</span>
+<span class="sd">    &gt;&gt;&gt; iprHam = iprKetNBmat(eigVecsHams)</span>
+<span class="sd">    [1.0, 1.0]</span>
+
+<span class="sd">    &gt;&gt;&gt; unitary = sp.sparse.linalg.expm(ham)</span>
+<span class="sd">    &gt;&gt;&gt; eigValsUni, eigVecsUni = np.linalg.eig(unitary.A)</span>
+<span class="sd">    &gt;&gt;&gt; iprUni = iprKetNBmat(eigVecsUni)</span>
+<span class="sd">    [1.0, 1.0]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">IPRatio</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kets</span><span class="p">)):</span>
+        <span class="n">IPRatio</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iprKetNB</span><span class="p">(</span><span class="n">kets</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">IPRatio</span></div>
+
+
+<div class="viewcode-block" id="iprPureDenMat"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.iprPureDenMat">[docs]</a><span class="k">def</span> <span class="nf">iprPureDenMat</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in a given `basis`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    denMat : matrixList</span>
+<span class="sd">        a density matrix</span>
+<span class="sd">    basis : Matrix</span>
+<span class="sd">        a complete basis</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: float</span>
+<span class="sd">        inverse participation ratio</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; completeBasis = qStates.completeBasisMat(dimension=2)</span>
+<span class="sd">    &gt;&gt;&gt; state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; denMat0 = qStates.densityMatrix(state0)</span>
+<span class="sd">    &gt;&gt;&gt; ipr0 = iprPureDenMat(completeBasis, denMat0)</span>
+<span class="sd">    1.1245136186770428</span>
+
+<span class="sd">    &gt;&gt;&gt; state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))</span>
+<span class="sd">    &gt;&gt;&gt; denMat1 = qStates.densityMatrix(state1)</span>
+<span class="sd">    &gt;&gt;&gt; ipr1 = iprPureDenMat(completeBasis, denMat1)</span>
+<span class="sd">    2.000000000000001</span>
+
+<span class="sd">    &gt;&gt;&gt; state2 = qStates.basis(2,1)</span>
+<span class="sd">    &gt;&gt;&gt; denMat2 = qStates.densityMatrix(state2)</span>
+<span class="sd">    &gt;&gt;&gt; ipr2 = iprPureDenMat(completeBasis, denMat2)</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">npc</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">basKet</span> <span class="ow">in</span> <span class="n">basis</span><span class="p">:</span>
+        <span class="n">fid</span> <span class="o">=</span> <span class="n">fidelityPureMat</span><span class="p">(</span><span class="n">basKet</span><span class="p">,</span> <span class="n">denMat</span><span class="p">)</span>
+        <span class="n">npc</span> <span class="o">+=</span> <span class="p">(</span><span class="n">fid</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">npc</span></div>
+
+
+<span class="c1"># Eigenvector statistics</span>
+<div class="viewcode-block" id="sortedEigens"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.sortedEigens">[docs]</a><span class="k">def</span> <span class="nf">sortedEigens</span><span class="p">(</span><span class="n">Ham</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">floatList</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ndarray</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Ham : Matrix</span>
+<span class="sd">        the Hamiltonian</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: Tuple[floatList, List[ndarray]]</span>
+<span class="sd">        `sorted` eigenvalues and eigenvectors</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.operators as qOperators</span>
+<span class="sd">    &gt;&gt;&gt; ham = qOperators.Jx(j=6)</span>
+<span class="sd">    &gt;&gt;&gt; eigVals, eigVecs = sortedEigens(ham)</span>
+
+<span class="sd">    &gt;&gt;&gt; print(eigVals)</span>
+<span class="sd">    [-2.5+0.j -1.5+0.j -0.5+0.j  0.5+0.j  1.5+0.j  2.5+0.j]</span>
+
+<span class="sd">    &gt;&gt;&gt; print(eigVecs)</span>
+<span class="sd">    [[ 0.1767767   0.39528471  0.55901699  0.55901699 -0.39528471 -0.1767767 ]</span>
+<span class="sd">    [-0.39528471 -0.53033009 -0.25        0.25       -0.53033009 -0.39528471]</span>
+<span class="sd">    [ 0.55901699  0.25       -0.35355339 -0.35355339 -0.25       -0.55901699]</span>
+<span class="sd">    [-0.55901699  0.25        0.35355339 -0.35355339  0.25       -0.55901699]</span>
+<span class="sd">    [ 0.39528471 -0.53033009  0.25        0.25        0.53033009 -0.39528471]</span>
+<span class="sd">    [-0.1767767   0.39528471 -0.55901699  0.55901699  0.39528471 -0.1767767 ]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Ham</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">Ham</span> <span class="o">=</span> <span class="n">Ham</span><span class="o">.</span><span class="n">A</span>
+
+    <span class="n">eigVals</span><span class="p">,</span> <span class="n">eigVecs</span> <span class="o">=</span> <span class="n">lina</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">Ham</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">eigVals</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+    <span class="n">sortedVals</span> <span class="o">=</span> <span class="n">eigVals</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">sortedVecs</span> <span class="o">=</span> <span class="n">eigVecs</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">sortedVals</span><span class="p">,</span> <span class="n">sortedVecs</span></div>
+
+
+<span class="c1"># TODO create the function for the result of eigenvec calculation</span>
+<div class="viewcode-block" id="eigVecStatKet"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.eigVecStatKet">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates components of a `ket` in a basis.</span>
+
+<span class="sd">    Main use is in eigenvector statistics.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    basis : matrixList</span>
+<span class="sd">        a complete basis</span>
+<span class="sd">    ket : Matrix</span>
+<span class="sd">        the ket state</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: floatList</span>
+<span class="sd">        `list` of component values in the basis</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket = qStates.basis(2, 1)</span>
+<span class="sd">    &gt;&gt;&gt; completeBasis = qStates.completeBasis(dimension=2)</span>
+<span class="sd">    &gt;&gt;&gt; components = eigVecStatKet(basis=completeBasis, ket=ket)</span>
+<span class="sd">    [0, 1]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">comps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">basKet</span> <span class="ow">in</span> <span class="n">basis</span><span class="p">:</span>
+        <span class="n">comps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fidelityKet</span><span class="p">(</span><span class="n">basKet</span><span class="p">,</span> <span class="n">ket</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">comps</span></div>
+
+
+<div class="viewcode-block" id="eigVecStatKetList"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.eigVecStatKetList">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKetList</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">kets</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">floatList</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates components of a `list of ket states`</span>
+<span class="sd">    Main use is in eigenvector statistics.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    basis : matrixList</span>
+<span class="sd">        a complete basis</span>
+<span class="sd">    kets : matrixList</span>
+<span class="sd">        `list` of ket states</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :return: List[floatList]</span>
+<span class="sd">        `list` of component values in the basis</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket0 = qStates.basis(2, 0)</span>
+<span class="sd">    &gt;&gt;&gt; ket1 = qStates.basis(2, 1)</span>
+<span class="sd">    &gt;&gt;&gt; ketList = [ket0, ket1]</span>
+<span class="sd">    &gt;&gt;&gt; completeBasis = qStates.completeBasis(dimension=2)</span>
+<span class="sd">    &gt;&gt;&gt; components = eigVecStatKetList(basis=completeBasis, kets=ketList)</span>
+<span class="sd">    [[1, 0], [0, 1]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">compsList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ket</span> <span class="ow">in</span> <span class="n">kets</span><span class="p">:</span>
+        <span class="n">compsList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eigVecStatKet</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">ket</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">compsList</span></div>
+
+
+<div class="viewcode-block" id="eigVecStatKetNB"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.eigVecStatKetNB">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the components of a ket by assuming that the basis is of the free Hamiltonian.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ket : Matrix</span>
+<span class="sd">        a ket state or list of ket states</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    return: float</span>
+<span class="sd">        list of components</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.states as qStates</span>
+<span class="sd">    &gt;&gt;&gt; ket = qStates.basis(2, 1)</span>
+<span class="sd">    &gt;&gt;&gt; completeBasis = qStates.completeBasis(dimension=2)</span>
+<span class="sd">    &gt;&gt;&gt; components = eigVecStatKetNB(ket=ket)</span>
+<span class="sd">    [0 1]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># TODO Find a way around this</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ket</span><span class="p">,</span> <span class="n">spmatrix</span><span class="p">):</span>
+        <span class="n">ket</span> <span class="o">=</span> <span class="n">ket</span><span class="o">.</span><span class="n">A</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">ket</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/05/19.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

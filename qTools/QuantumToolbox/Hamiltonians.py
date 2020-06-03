@@ -1,29 +1,159 @@
-import qTools.QuantumToolbox.operators as ops
-import scipy.sparse as sp
+"""
+    Module of functions to create some standard Hamiltonians.
 
-def cavQubFreeHam(cavFreq,qubFreq,cavDim):
-    cavHam = cavFreq * sp.kron(ops.number(cavDim), ops.identity(2), format='csc')
-    qubHam = qubFreq * sp.kron(ops.identity(cavDim), ops.sigmaz(), format='csc')
+    Functions
+    ---------
+    | :func:`cavQubFreeHam` : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension
+    | :func:`RabiHam` : Creates Rabi Hamiltonian for given frequencies, coupling strength,
+        and truncated cavity dimension
+    | :func:`JCHam` : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
+        and truncated cavity dimension
+    | :func:`aJCHam` : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
+        and truncated cavity dimension
+
+    Types
+    ^^^^^
+    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
+"""
+
+#from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
+
+from typing import Tuple
+import scipy.sparse as sp # type: ignore
+
+from .operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
+from .customTypes import Matrix
+
+
+# do not delete these
+# from typing import Tuple, TypeVar
+# from numpy import ndarray
+# from scipy.sparse import spmatrix
+
+# These type aliases are used in type hinting of below methods
+# Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+
+
+# TODO currently, there is no option for sparse or not
+def cavQubFreeHam(cavFreq: float, qubFreq: float, cavDim: int) -> Tuple[Matrix, Matrix]:
+    """
+    Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension.
+
+    Parameters
+    ----------
+    cavFreq : float
+        cavity frequency
+    qubFreq : float
+        qubit frequency
+    cavDim : int
+        (truncated) dimension for cavity
+
+    Returns
+    -------
+    :return: Matrix
+        Cavity + Qubit Hamiltonian for given frequencies
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+
+    cavHam = cavFreq * sp.kron(number(cavDim), identity(2), format='csc')
+    qubHam = qubFreq * sp.kron(identity(cavDim), sigmaz(), format='csc')
     return cavHam, qubHam
 
 
-def RabiHam(cavFreq, qubFreq, g, cavDim):
-    cavHam, qubHam = cavQubFreeHam(cavFreq,qubFreq,cavDim)
-    couplingRabi = g*(sp.kron(ops.create(cavDim) + ops.destroy(cavDim), ops.sigmax(), format='csc'))
+def RabiHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
+    """
+    Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.
+
+    Parameters
+    ----------
+    cavFreq : float
+        cavity frequency
+    qubFreq : float
+        qubit frequency
+    g : float
+        coupling strength
+    cavDim : int
+        (truncated) dimension for cavity
+
+    Returns
+    -------
+    :return: Matrix
+        Rabi Hamiltonian for given frequencies
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+
+    cavHam, qubHam = cavQubFreeHam(cavFreq, qubFreq, cavDim)
+    couplingRabi = g*(sp.kron(create(cavDim) + destroy(cavDim), sigmax(), format='csc'))
 
     rabiHam = cavHam + qubHam + couplingRabi
     return rabiHam
 
 
-def JCHam(cavFreq, qubFreq, g, cavDim):
+def JCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
+    """
+    Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.
+
+    Parameters
+    ----------
+    cavFreq : float
+        cavity frequency
+    qubFreq : float
+        qubit frequency
+    g : float
+        coupling strength
+    cavDim : int
+        (truncated) dimension for cavity
+
+    Returns
+    -------
+    :return: Matrix
+        Jaynes-Cummings Hamiltonian for given frequencies
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+
     cavHam, qubHam = cavQubFreeHam(cavFreq, qubFreq, cavDim)
-    couplingJC = g * (sp.kron(ops.create(cavDim), ops.destroy(2), format='csc') + sp.kron(ops.destroy(cavDim), ops.create(2), format='csc'))
-    JCHam = cavHam + qubHam + couplingJC
-    return JCHam
+    couplingJC = g * (sp.kron(create(cavDim), sigmam(), format='csc') + sp.kron(destroy(cavDim), sigmap(),
+                                                                                format='csc'))
+    JCHamil = cavHam + qubHam + couplingJC
+    return JCHamil
 
 
-def AJCHam(cavFreq, qubFreq, g, cavDim):
-    cavHam, qubHam = cavQubFreeHam(cavFreq,qubFreq,cavDim)
-    couplingAJC = g * (sp.kron(ops.create(cavDim), ops.create(2), format='csc') + sp.kron(ops.destroy(cavDim), ops.destroy(2), format='csc'))
-    AJCHam = cavHam + qubHam + couplingAJC
-    return AJCHam
+def aJCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
+    """
+    Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.
+
+    Parameters
+    ----------
+    cavFreq : float
+        cavity frequency
+    qubFreq : float
+        qubit frequency
+    g : float
+        coupling strength
+    cavDim : int
+        (truncated) dimension for cavity
+
+    Returns
+    -------
+    :return: Matrix
+        anti-Jaynes-Cummings Hamiltonian for given frequencies
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
+    """
+
+    cavHam, qubHam = cavQubFreeHam(cavFreq, qubFreq, cavDim)
+    couplingAJC = g * (sp.kron(create(cavDim), sigmap(), format='csc') + sp.kron(destroy(cavDim), sigmam(),
+                                                                                 format='csc'))
+    AJCHamil = cavHam + qubHam + couplingAJC
+    return AJCHamil

@@ -1,0 +1,7 @@
+QuantumToolbox Demos
+=============================
+
+.. nbgallery::
+   :glob:
+
+   *

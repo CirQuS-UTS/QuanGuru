@@ -1,0 +1,6 @@
+from .customTypes import Matrix as Matrix, ndOrList as ndOrList
+from .states import densityMatrix as densityMatrix
+from numpy import ndarray as ndarray
+
+def Wigner(rho: Matrix, xvec: ndOrList, g: float=...) -> ndarray: ...
+def HusimiQ(state: Matrix, xvec: ndOrList, g: float=...) -> ndarray: ...
