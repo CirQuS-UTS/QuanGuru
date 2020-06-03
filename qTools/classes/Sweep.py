@@ -55,7 +55,7 @@ class _sweep(updateBase):
     toBeSaved = updateBase.toBeSaved.extendedCopy(['sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep',
                                                    'multiParam'])
 
-    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam']
+    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam', 'index']
 
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -69,6 +69,7 @@ class _sweep(updateBase):
         self._sweepList = None
         self.logSweep = False
         self.multiParam = False
+        self.index = None
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -132,7 +133,7 @@ class _sweep(updateBase):
         self._sweepList = sList
 
     @staticmethod
-    def _defSweep(self, ind): # pylint: disable=bad-staticmethod-argument
+    def _defSweep(self): # pylint: disable=bad-staticmethod-argument
         """
         This is the default sweep function, see __init__, the ``_timeBase__function`` points to this.
 
@@ -152,7 +153,7 @@ class _sweep(updateBase):
             Index of the value from ``sweepList``
         """
 
-        val = self.sweepList[ind]
+        val = self.sweepList[self.index]
         self._runUpdate(val)
 
     def runSweep(self, ind):
@@ -161,7 +162,8 @@ class _sweep(updateBase):
         sweeps. This is not essential and could be removed, but it kind of creates a duck-typing with ``Sweep`` class.
         """
 
-        self._updateBase__function(self, ind) # pylint: disable=no-member
+        self.index = ind
+        self._updateBase__function(self) # pylint: disable=no-member
 
 class Sweep(qUniversal):
     """
