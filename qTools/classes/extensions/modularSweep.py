@@ -2,7 +2,7 @@ from functools import partial
 
 
 def runSimulation(qSim, p):
-    if qSim._computeBase__calculateAtStart in (True, None):
+    if qSim._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
         qSim._computeBase__calculateMeth() # pylint: disable=protected-access
 
     if p is None:
@@ -10,7 +10,7 @@ def runSimulation(qSim, p):
     else:
         paralEvol(qSim, p)
 
-    if qSim._computeBase__calculateAtStart in (False, None):
+    if qSim._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
         qSim._computeBase__calculateMeth() # pylint: disable=protected-access
 
 
@@ -56,10 +56,10 @@ def _runSweepAndPrep(qSim, ind):
     qSim.qRes._resetLast(calculateException=qSim.qRes) # pylint: disable=protected-access
 
     for protocol, system in qSim.subSys.items():
-        if protocol._computeBase__calculateAtStart in (True, None):
+        if protocol._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
             protocol._computeBase__calculateMeth() # pylint: disable=protected-access
 
-        if system._computeBase__calculateAtStart in (True, None):
+        if system._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
             system._computeBase__calculateMeth() # pylint: disable=protected-access
 
     timeDependent(qSim)
@@ -69,10 +69,10 @@ def timeDependent(qSim):
     td = False
     if len(qSim.timeDependency.sweeps) > 0:
         td = True
-        if list(qSim.timeDependency.sweeps.values())[0]._sweepList is not None:
+        if list(qSim.timeDependency.sweeps.values())[0]._sweepList is not None: #pylint: disable=protected-access
             qSim.timeDependency.prepare()
         else:
-            qSim.timeDependency._Sweep__inds = [qSim.stepCount]
+            qSim.timeDependency._Sweep__inds = [qSim.stepCount] #pylint: disable=protected-access
         qSim._timeBase__stepCount._value = qSim.timeDependency.indMultip # pylint: disable=protected-access
         for pro, sim in qSim.subSys.items(): # pylint: disable=protected-access
             sim.simulation._timeBase__stepCount._value = sim.simulation.timeDependency.indMultip # pylint: disable=protected-access
@@ -84,17 +84,17 @@ def timeDependent(qSim):
 # This flexibility should be reflected into protocol object
 
 def timeEvolDefault(qSim, td):
-    for ind in range(qSim.stepCount-1):
+    for ind in range(qSim.stepCount):
         if td:
             qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
         qSim._Simulation__compute() # pylint: disable=protected-access
         qSim.evolFunc(qSim)
 
     for protocol, system in qSim.subSys.items():
-        if protocol._computeBase__calculateAtStart in (False, None):
+        if protocol._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
             protocol._computeBase__calculateMeth() # pylint: disable=protected-access
 
-        if system._computeBase__calculateAtStart in (False, None):
+        if system._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
             system._computeBase__calculateMeth() # pylint: disable=protected-access
 
 def timeEvolBase(qSim):
