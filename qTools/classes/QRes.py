@@ -213,7 +213,10 @@ class qResults(qResBase):
                 newList.append(nList)
         else:
             for _ in range(inds[counter]):
-                newList.append(lis[totalCount])
+                lisToAppend = lis[totalCount]
+                if len(lisToAppend) == 1:
+                    lisToAppend = lisToAppend[0]
+                newList.append(lisToAppend)
                 totalCount += 1
             return (newList, totalCount)
         return (newList, totalCount)
