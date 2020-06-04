@@ -321,31 +321,27 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
 
     :raises ValueError : raised if both complete ket basis and dimension are None (default). Dimension is used to create
 
+
     Examples
     --------
-    >>> completeBasis0 = completeBasis(2, sparse=False)
-    >>> completeBasis1 = completeBasis(2)
-    >>> completeBasisMat0 = completeBasisMat(dimension=2, compKetBase=completeBasis0)
-    >>> for state in completeBasisMat0:
-    >>>    print(state)
-    [[1 0]
-    [0 0]]
-    [[0 0]
-    [0 1]]
 
-    >>> completeBasisMat1 = completeBasisMat(dimension=2, compKetBase=completeBasis1)
-    >>> for state in completeBasisMat1:
-    >>>    print(state)
-    (0, 0)	1
-    (1, 1)	1
+    .. testcode::
 
-    >>> completeBasisMat01 = completeBasisMat(dimension=2, sparse=False)
-    >>> for state in completeBasisMat01:
-    >>>    print(state)
-    [[1 0]
-    [0 0]]
-    [[0 0]
-    [0 1]]
+        from qTools import completeBasis, completeBasisMat
+        completeBasisMat1 = completeBasisMat(dimension=2, compKetBase=completeBasis1)
+        print('s')
+
+    .. testoutput::
+        :options: -ELLIPSIS, +NORMALIZE_WHITESPACE
+
+        (0, 1)	1
+        (1, 1)	1
+
+
+    .. doctest::
+
+        >>> print('x')
+        x
 
     >>> completeBasisMat11 = completeBasisMat(dimension=2)
     >>> for state in completeBasisMat11:
