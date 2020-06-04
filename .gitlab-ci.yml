@@ -1,5 +1,7 @@
 before_script:
     - python3 --version
+    - export PATH=$HOME/opt/anaconda3/bin:$PATH
+    - source activate base
 
 stages:
     - Static Analysis
