@@ -46,6 +46,7 @@ class genericQSys(qBaseSim):
     #         other.addSubSys(self)
     #         newComp = other
     #     return newComp
+    #
 
     def __init__(self, **kwargs):
         super().__init__()
