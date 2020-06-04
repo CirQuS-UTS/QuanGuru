@@ -1,7 +1,6 @@
-Classes
-=============================
 
-.. toctree::
 
-   qUniversal <classes/qUniversal.rst>
-   Compute Base <classes/_parameter.rst>
+.. automodule:: qTools.classes
+   :no-members:
+   :no-inherited-members:
+   :no-special-members:

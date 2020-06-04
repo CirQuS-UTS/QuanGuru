@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qTools.classes.updateBase &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+        <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox.html">QuantumToolbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Demos/Demos.html">Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>qTools.classes.updateBase</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qTools.classes.updateBase</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This module contains the updateBase class, which is inherited by :class:`_sweep &lt;qTools.classes.Sweep._sweep&gt;` and</span>
+<span class="sd">    :class:`Update &lt;qTools.classes.QPro.Update&gt;` classes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">qTools.classes.QUni</span> <span class="kn">import</span> <span class="n">qUniversal</span>
+
+<div class="viewcode-block" id="updateBase"><a class="viewcode-back" href="../../../classes/updateBase.html#qTools.classes.updateBase.updateBase">[docs]</a><span class="k">class</span> <span class="nc">updateBase</span><span class="p">(</span><span class="n">qUniversal</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class has only two attributes, which are private attributes intended to be used with different properties in</span>
+<span class="sd">    the ``_sweep`` and ``Update`` classes to enable different terminologies for the same functionality.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key or _updateBase__key or __key : str</span>
+<span class="sd">        This string value is the name of an attribute for the objects in ``subSys`` dictionary of an instance of</span>
+<span class="sd">        updateBase, and the value of that attribute is updated by **an update function**.</span>
+<span class="sd">    _updateBase__function or __function : Callable or None</span>
+<span class="sd">        This is the aforementioned **update function**. This is not completely implemented in ``Update`` class, but the</span>
+<span class="sd">        ``_sweep`` class, which will also be updated, has its basic use, which is pointing it to a default method to be</span>
+<span class="sd">        used in updating the relevant attributes. The goal of making this an attribute is to enable user defined</span>
+<span class="sd">        functions to be used, if some form of customisation is needed. TODO : cross-reference this to fixed sample-rate</span>
+<span class="sd">        for varying-step-size demos.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#: Total number of instances of the class</span>
+    <span class="n">instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1">#: Used in default naming of objects. See :attr:`label &lt;qTools.classes.QUni.qUniversal.label&gt;`.</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;updateBase&#39;</span>
+
+    <span class="c1">#: a list of str (attribute names) to be used with save method, it extends</span>
+    <span class="c1">#: :attr:`toBeSaved &lt;qTools.classes.QUni.qUniversal.toBeSaved&gt;` list.</span>
+    <span class="n">toBeSaved</span> <span class="o">=</span> <span class="n">qUniversal</span><span class="o">.</span><span class="n">toBeSaved</span><span class="o">.</span><span class="n">extendedCopy</span><span class="p">([</span><span class="s1">&#39;key&#39;</span><span class="p">])</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__key&#39;</span><span class="p">,</span> <span class="s1">&#39;__function&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__key</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__function</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+
+<div class="viewcode-block" id="updateBase.save"><a class="viewcode-back" href="../../../classes/updateBase.html#qTools.classes.updateBase.updateBase.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method extends the :meth:`save &lt;qTools.classes.QUni.qUniversal.save&gt;` of :class:`qUniversal` by using the</span>
+<span class="sd">        extended :attr:`toBeSaved &lt;qTools.classes.QUni.qUniversal.toBeSaved&gt;` list and also collecting some of the</span>
+<span class="sd">        information under a single key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">saveDict</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">sysDict</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">sysDict</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">saveDict</span><span class="p">[</span><span class="s1">&#39;systems&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sysDict</span>
+        <span class="k">return</span> <span class="n">saveDict</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The key property:</span>
+
+<span class="sd">        - **getter** : ``returns _updateBase__key``</span>
+<span class="sd">        - **setter** : sets ``_updateBase__key`` string</span>
+<span class="sd">        - **type** : ``str``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__key</span>
+
+    <span class="nd">@key</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyStr</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__key</span> <span class="o">=</span> <span class="n">keyStr</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">system</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The system property wraps ``subSys`` dictionary to create new terminology, it basically:</span>
+
+<span class="sd">        - **getter** : ``returns subSys[0]`` if there is only one item in it, else ``returns list(subSys.values())``.</span>
+<span class="sd">        - **setter** : works exactly as :meth:`subSys &lt;qTools.classes.QUni.qUniversal.subSys&gt;` setter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">qSys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">qSys</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">qSys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">qSys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@system</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">system</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qSys</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">qSys</span><span class="p">)</span>
+
+<div class="viewcode-block" id="updateBase._runUpdate"><a class="viewcode-back" href="../../../classes/updateBase.html#qTools.classes.updateBase.updateBase._runUpdate">[docs]</a>    <span class="k">def</span> <span class="nf">_runUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This simple method sets the attribute (for the given key) of every ``subSys`` to a given value (``val``). It</span>
+<span class="sd">        returns ``None``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">subSys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/06/01.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

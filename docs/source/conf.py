@@ -176,10 +176,13 @@ extensions = [
     'sphinx.ext.extlinks',
     'sphinx_tabs.tabs',
     'jupyter_sphinx',
+    'sphinx.ext.doctest',
+    'sphinx_copybutton',
     'nbsphinx',
     'recommonmark',
     'IPython.sphinxext.ipython_console_highlighting'
 ]
+
 
 autodoc_member_order = 'bysource'
 napoleon_use_param = True
