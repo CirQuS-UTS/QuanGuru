@@ -1,7 +1,5 @@
-image: "python3"
-
 before_script:
-    - python --version
+    - python3 --version
 
 stages:
     - Static Analysis
@@ -17,7 +15,7 @@ mypy:
     - pwd
     - ls -l
     - cd qTools
-    - python -m mypy QuantumToolbox
+    - python3 -m mypy QuantumToolbox
 
 flake8:
     stage: Static Analysis
@@ -26,7 +24,7 @@ flake8:
     allow_failure: true
     script:
     - pwd
-    - flake8 --max-line-length=140 qTools/*.py
+    - python3 flake8 --max-line-length=140 qTools/*.py
 
 pylint:
     stage: Static Analysis
@@ -35,7 +33,7 @@ pylint:
     allow_failure: true
     script:
         - pwd
-        - pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt || pylint-exit $?
+        - python3 pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt || pylint-exit $?
         - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
         - echo "Pylint score was $score"
         - anybadge --value=$score --file=pylint.svg pylint
@@ -51,7 +49,7 @@ unit_test:
         - qsimulations
     allow_failure: true
     script:
-    - pwd
+    - pwds
     - ls -l
     - cd tests
-    - pytest
+    - python3 pytest
