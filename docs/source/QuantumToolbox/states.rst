@@ -3,6 +3,7 @@ States
 
 .. automodule:: qTools.QuantumToolbox.states
    :members:
+   :private-members:
    :noindex:
    :undoc-members:
    :show-inheritance:

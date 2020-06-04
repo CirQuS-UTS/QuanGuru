@@ -51,7 +51,7 @@ div.nblast.container {
 
 /* input prompt */
 div.nbinput.container div.prompt pre {
-    color: #c1303c;
+    color: #307FC1;
 }
 
 /* output prompt */
@@ -250,4 +250,3 @@ div.rendered_html tbody tr:hover {
 .math {
     text-align: unset;
 }
-</style>
