@@ -2,6 +2,7 @@ image: "python:3.7"
 
 before_script:
     - python3 --version
+    - pip install -r requirements.txt
 
 stages:
     - Static Analysis
@@ -17,7 +18,7 @@ mypy:
     - pwd
     - ls -l
     - cd qTools
-    - python -m mypy QuantumToolbox
+    - python3 -m mypy QuantumToolbox
 
 flake8:
     stage: Static Analysis
@@ -54,5 +55,5 @@ unit_test:
     - pwd
     - ls -l
     - export PYTHONPATH="$PYTHONPATH:."
-    - python -c "import sys;print(sys.path)"
+    - python3 -c "import sys;print(sys.path)"
     - pytest
