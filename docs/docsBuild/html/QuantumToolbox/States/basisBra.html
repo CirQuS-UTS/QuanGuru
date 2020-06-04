@@ -25,8 +25,6 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -38,7 +36,6 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -212,7 +209,7 @@
 <dt id="qTools.QuantumToolbox.states.basisBra">
 <code class="sig-name descname">basisBra</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../../_modules/qTools/QuantumToolbox/states.html#basisBra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.basisBra" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <cite>bra</cite> state for a given dimension with 1 (unit population) at a given column (state).</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -222,7 +219,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>bra</cite> state as <code class="docutils literal notranslate"><span class="pre">sparse</span> <span class="pre">if</span> <span class="pre">sparse=True</span> <span class="pre">else</span> <span class="pre">array</span></code></p>
+<dd class="field-even"><p><cite>bra</cite> state as sparse if sparse=True else array</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>return : Matrix</p>
@@ -263,7 +260,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/05/19.
       </span>
 
     </p>

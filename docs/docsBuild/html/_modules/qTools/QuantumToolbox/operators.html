@@ -27,8 +27,6 @@
         <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
         <script src="../../../_static/sphinx_tabs/tabs.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -44,7 +42,6 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -164,37 +161,37 @@
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
-<span class="sd">    | :func:`number` : Creates the (bosonic) number (:math:`\\hat{n}`) operator.</span>
-<span class="sd">    | :func:`destroy` : Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator.</span>
-<span class="sd">    | :func:`create` : Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator.</span>
-<span class="sd">    | :func:`identity` : Creates the identity operator.</span>
+<span class="sd">    | **number** : Creates the (bosonic) number (:math:`\\hat{n}`) operator.</span>
+<span class="sd">    | **destroy** : Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator.</span>
+<span class="sd">    | **create** : Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator.</span>
+<span class="sd">    | **identity** : Creates the identity operator.</span>
 
-<span class="sd">    | :func:`sigmaz` : Creates the `Pauli` sigma z (:math:`\\hat{\\sigma}_{z}`) operator.</span>
-<span class="sd">    | :func:`sigmay` : Creates the `Pauli` sigma y (:math:`\\hat{\\sigma}_{y}`) operator.</span>
-<span class="sd">    | :func:`sigmax` : Creates the `Pauli` sigma x (:math:`\\hat{\\sigma}_{x}`) operator.</span>
-<span class="sd">    | :func:`sigmap` : Creates the `Pauli` sigma + (:math:`\\hat{\\sigma}_{+}`) operator, i.e. 2D Fermionic creation.</span>
-<span class="sd">    | :func:`sigmam` : Creates the `Pauli` sigma - (:math:`\\hat{\\sigma}_{-}`) operator, i.e. 2D Fermionic destruction.</span>
+<span class="sd">    | **sigmaz** : Creates the `Pauli` sigma z (:math:`\\hat{\\sigma}_{z}`) operator.</span>
+<span class="sd">    | **sigmay** : Creates the `Pauli` sigma y (:math:`\\hat{\\sigma}_{y}`) operator.</span>
+<span class="sd">    | **sigmax** : Creates the `Pauli` sigma x (:math:`\\hat{\\sigma}_{x}`) operator.</span>
+<span class="sd">    | **sigmap** : Creates the `Pauli` sigma + (:math:`\\hat{\\sigma}_{+}`) operator, i.e. 2D Fermionic creation.</span>
+<span class="sd">    | **sigmam** : Creates the `Pauli` sigma - (:math:`\\hat{\\sigma}_{-}`) operator, i.e. 2D Fermionic destruction.</span>
 
-<span class="sd">    | :func:`Jz` : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.</span>
-<span class="sd">    | :func:`Jp` : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.</span>
-<span class="sd">    | :func:`Jm` : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.</span>
-<span class="sd">    | :func:`Jx` : Creates the angular momentum (spin) `X` operator for a given spin quantum number j.</span>
-<span class="sd">    | :func:`Jy` : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.</span>
-<span class="sd">    | :func:`Js` : Creates the total angular momentum (spin) operator for a given spin quantum number j.</span>
+<span class="sd">    | **Jz** : Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.</span>
+<span class="sd">    | **Jp** : Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.</span>
+<span class="sd">    | **Jm** : Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.</span>
+<span class="sd">    | **Jx** : Creates the angular momentum (spin) `X` operator for a given spin quantum number j.</span>
+<span class="sd">    | **Jy** : Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.</span>
+<span class="sd">    | **Js** : Creates the total angular momentum (spin) operator for a given spin quantum number j.</span>
 
-<span class="sd">    | :func:`operatorPow` : Creates a quantum operator for given function reference `op` and raises to a `power`.</span>
-<span class="sd">    | :func:`paritySUM` : Creates the parity operator by explicitly placing alternating +/- into a matrix.</span>
-<span class="sd">    | :func:`partiyEXP` : Creates the parity operator by exponentiation a given Hamiltonian.</span>
+<span class="sd">    | **operatorPow** : Creates a quantum operator for given function reference `op` and raises to a `power`.</span>
+<span class="sd">    | **paritySUM** : Creates the parity operator by explicitly placing alternating +/- into a matrix.</span>
+<span class="sd">    | **partiyEXP** : Creates the parity operator by exponentiation a given Hamiltonian.</span>
 
-<span class="sd">    | :func:`displacement` : Creates the displacement operator for a given displacement parameter alpha.</span>
-<span class="sd">    | :func:`squeeze` : Creates the squeezing operator for a given squeezing parameter alpha.</span>
+<span class="sd">    | **displacement** : Creates the displacement operator for a given displacement parameter alpha.</span>
+<span class="sd">    | **squeeze** : Creates the squeezing operator for a given squeezing parameter alpha.</span>
 
-<span class="sd">    | :func:`compositeOp` : Creates a composite operator from a sub-system `operator`,</span>
+<span class="sd">    | **compositeOp** : Creates a composite operator from a sub-system `operator`,</span>
 <span class="sd">        i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
 
 <span class="sd">    Types</span>
 <span class="sd">    ^^^^^</span>
-<span class="sd">    | :const:`Matrix &lt;qTools.QuantumToolbox.customTypes.Matrix&gt;` : Union of (scipy) sparse and (numpy) array</span>
+<span class="sd">    | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
 <span class="sd">&quot;&quot;&quot;</span> <span class="c1">#pylint:disable=too-many-lines</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
@@ -207,7 +204,6 @@
 <span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span>
 
 
-<span class="c1"># do not delete these</span>
 <span class="c1"># from typing import Callable, TypeVar</span>
 <span class="c1"># from numpy import ndarray</span>
 <span class="c1"># from scipy.sparse import spmatrix</span>
@@ -220,7 +216,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the (bosonic) number (:math:`\\hat{n}`) operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -258,7 +254,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the bosonic `annihilation` (:math:`\\hat{a}`) operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -295,7 +291,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the bosonic `creation` (:math:`\\hat{a}^{\\dagger}`) operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -332,7 +328,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the identity operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -366,7 +362,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma z (:math:`\\hat{\\sigma}_{z}`) operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -400,7 +396,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma y (:math:`\\hat{\\sigma}_{y}`) operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -434,7 +430,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma x (:math:`\\hat{\\sigma}_{x}`) operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -468,7 +464,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma + (:math:`\\hat{\\sigma}_{+}`) operator, i.e. 2D Fermionic creation operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -501,7 +497,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` sigma - (:math:`\\hat{\\sigma}_{-}`) operator, i.e. 2D Fermionic destruction operator.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -534,7 +530,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -597,7 +593,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -659,7 +655,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -721,7 +717,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `X` operator for a given spin quantum number j.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -782,7 +778,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -843,7 +839,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the total angular momentum (spin) operator for a given spin quantum number j.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -898,7 +894,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a quantum operator for given function reference `op` and raises to a `power`.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -946,7 +942,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the parity operator by explicitly placing alternating +/- into a matrix.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1035,7 +1031,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the displacement operator for a given displacement parameter alpha.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1087,7 +1083,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the squeezing operator for a given squeezing parameter alpha.</span>
 
-<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
+<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1131,7 +1127,7 @@
 <div class="viewcode-block" id="compositeOp"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#qTools.QuantumToolbox.operators.compositeOp">[docs]</a><span class="k">def</span> <span class="nf">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">dimB</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dimA</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a composite operator from a sub-system `operator`,</span>
-<span class="sd">    i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
+<span class="sd">     i.e. tensor product with identities of dimensions dimB &amp; dimA</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1142,8 +1138,7 @@
 <span class="sd">    dimA : int</span>
 <span class="sd">        (total) dimension of the systems that appear `after` in the tensor product order</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
+<span class="sd">    Returns:</span>
 <span class="sd">    :return: Matrix</span>
 <span class="sd">        sub-system operator in the extended Hilbert space</span>
 
@@ -1188,7 +1183,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/05/19.
       </span>
 
     </p>

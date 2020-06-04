@@ -25,8 +25,6 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -38,7 +36,6 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -204,49 +201,49 @@
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.number" title="qTools.QuantumToolbox.operators.number"><code class="xref py py-func docutils literal notranslate"><span class="pre">number()</span></code></a> : Creates the (bosonic) number (<img class="math" src="../_images/math/2bb3984b414b729f6541f5db3ae9a86ce0c219a6.png" alt="\hat{n}"/>) operator.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.destroy" title="qTools.QuantumToolbox.operators.destroy"><code class="xref py py-func docutils literal notranslate"><span class="pre">destroy()</span></code></a> : Creates the bosonic <cite>annihilation</cite> (<img class="math" src="../_images/math/1b1a2b99575ee3eedd6e311fa15461e9c49012cb.png" alt="\hat{a}"/>) operator.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.create" title="qTools.QuantumToolbox.operators.create"><code class="xref py py-func docutils literal notranslate"><span class="pre">create()</span></code></a> : Creates the bosonic <cite>creation</cite> (<img class="math" src="../_images/math/2f9d9efe16954af247b44db0481257c56d42ceb7.png" alt="\hat{a}^{\dagger}"/>) operator.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.identity" title="qTools.QuantumToolbox.operators.identity"><code class="xref py py-func docutils literal notranslate"><span class="pre">identity()</span></code></a> : Creates the identity operator.</div>
+<div class="line"><strong>number</strong> : Creates the (bosonic) number (<img class="math" src="../_images/math/2bb3984b414b729f6541f5db3ae9a86ce0c219a6.png" alt="\hat{n}"/>) operator.</div>
+<div class="line"><strong>destroy</strong> : Creates the bosonic <cite>annihilation</cite> (<img class="math" src="../_images/math/1b1a2b99575ee3eedd6e311fa15461e9c49012cb.png" alt="\hat{a}"/>) operator.</div>
+<div class="line"><strong>create</strong> : Creates the bosonic <cite>creation</cite> (<img class="math" src="../_images/math/2f9d9efe16954af247b44db0481257c56d42ceb7.png" alt="\hat{a}^{\dagger}"/>) operator.</div>
+<div class="line"><strong>identity</strong> : Creates the identity operator.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.sigmaz" title="qTools.QuantumToolbox.operators.sigmaz"><code class="xref py py-func docutils literal notranslate"><span class="pre">sigmaz()</span></code></a> : Creates the <cite>Pauli</cite> sigma z (<img class="math" src="../_images/math/997c77baea81e19fb5db1edd6e5c5ab6f65e8cf0.png" alt="\hat{\sigma}_{z}"/>) operator.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.sigmay" title="qTools.QuantumToolbox.operators.sigmay"><code class="xref py py-func docutils literal notranslate"><span class="pre">sigmay()</span></code></a> : Creates the <cite>Pauli</cite> sigma y (<img class="math" src="../_images/math/3e54af2b39972a106f122a7beba0e135ea539b21.png" alt="\hat{\sigma}_{y}"/>) operator.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.sigmax" title="qTools.QuantumToolbox.operators.sigmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">sigmax()</span></code></a> : Creates the <cite>Pauli</cite> sigma x (<img class="math" src="../_images/math/bf2f7668e3b5c0c231e9fa12f9bf2b58ebcea801.png" alt="\hat{\sigma}_{x}"/>) operator.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.sigmap" title="qTools.QuantumToolbox.operators.sigmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">sigmap()</span></code></a> : Creates the <cite>Pauli</cite> sigma + (<img class="math" src="../_images/math/7444066888e4556abaae0ba60ca3995cdc0a0954.png" alt="\hat{\sigma}_{+}"/>) operator, i.e. 2D Fermionic creation.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.sigmam" title="qTools.QuantumToolbox.operators.sigmam"><code class="xref py py-func docutils literal notranslate"><span class="pre">sigmam()</span></code></a> : Creates the <cite>Pauli</cite> sigma - (<img class="math" src="../_images/math/72aedb01167fd62b78515470c19d49df6a23465f.png" alt="\hat{\sigma}_{-}"/>) operator, i.e. 2D Fermionic destruction.</div>
+<div class="line"><strong>sigmaz</strong> : Creates the <cite>Pauli</cite> sigma z (<img class="math" src="../_images/math/997c77baea81e19fb5db1edd6e5c5ab6f65e8cf0.png" alt="\hat{\sigma}_{z}"/>) operator.</div>
+<div class="line"><strong>sigmay</strong> : Creates the <cite>Pauli</cite> sigma y (<img class="math" src="../_images/math/3e54af2b39972a106f122a7beba0e135ea539b21.png" alt="\hat{\sigma}_{y}"/>) operator.</div>
+<div class="line"><strong>sigmax</strong> : Creates the <cite>Pauli</cite> sigma x (<img class="math" src="../_images/math/bf2f7668e3b5c0c231e9fa12f9bf2b58ebcea801.png" alt="\hat{\sigma}_{x}"/>) operator.</div>
+<div class="line"><strong>sigmap</strong> : Creates the <cite>Pauli</cite> sigma + (<img class="math" src="../_images/math/7444066888e4556abaae0ba60ca3995cdc0a0954.png" alt="\hat{\sigma}_{+}"/>) operator, i.e. 2D Fermionic creation.</div>
+<div class="line"><strong>sigmam</strong> : Creates the <cite>Pauli</cite> sigma - (<img class="math" src="../_images/math/72aedb01167fd62b78515470c19d49df6a23465f.png" alt="\hat{\sigma}_{-}"/>) operator, i.e. 2D Fermionic destruction.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.Jz" title="qTools.QuantumToolbox.operators.Jz"><code class="xref py py-func docutils literal notranslate"><span class="pre">Jz()</span></code></a> : Creates the angular momentum (spin) <cite>Z</cite> operator for a given spin quantum number j.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.Jp" title="qTools.QuantumToolbox.operators.Jp"><code class="xref py py-func docutils literal notranslate"><span class="pre">Jp()</span></code></a> : Creates the angular momentum (spin) <cite>creation</cite> operator for a given spin quantum number j.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.Jm" title="qTools.QuantumToolbox.operators.Jm"><code class="xref py py-func docutils literal notranslate"><span class="pre">Jm()</span></code></a> : Creates the angular momentum (spin) <cite>destruction</cite> operator for a given spin quantum number j.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.Jx" title="qTools.QuantumToolbox.operators.Jx"><code class="xref py py-func docutils literal notranslate"><span class="pre">Jx()</span></code></a> : Creates the angular momentum (spin) <cite>X</cite> operator for a given spin quantum number j.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.Jy" title="qTools.QuantumToolbox.operators.Jy"><code class="xref py py-func docutils literal notranslate"><span class="pre">Jy()</span></code></a> : Creates the angular momentum (spin) <cite>Y</cite> operator for a given spin quantum number j.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.Js" title="qTools.QuantumToolbox.operators.Js"><code class="xref py py-func docutils literal notranslate"><span class="pre">Js()</span></code></a> : Creates the total angular momentum (spin) operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jz</strong> : Creates the angular momentum (spin) <cite>Z</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jp</strong> : Creates the angular momentum (spin) <cite>creation</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jm</strong> : Creates the angular momentum (spin) <cite>destruction</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jx</strong> : Creates the angular momentum (spin) <cite>X</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Jy</strong> : Creates the angular momentum (spin) <cite>Y</cite> operator for a given spin quantum number j.</div>
+<div class="line"><strong>Js</strong> : Creates the total angular momentum (spin) operator for a given spin quantum number j.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.operatorPow" title="qTools.QuantumToolbox.operators.operatorPow"><code class="xref py py-func docutils literal notranslate"><span class="pre">operatorPow()</span></code></a> : Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.paritySUM" title="qTools.QuantumToolbox.operators.paritySUM"><code class="xref py py-func docutils literal notranslate"><span class="pre">paritySUM()</span></code></a> : Creates the parity operator by explicitly placing alternating +/- into a matrix.</div>
-<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">partiyEXP()</span></code> : Creates the parity operator by exponentiation a given Hamiltonian.</div>
+<div class="line"><strong>operatorPow</strong> : Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</div>
+<div class="line"><strong>paritySUM</strong> : Creates the parity operator by explicitly placing alternating +/- into a matrix.</div>
+<div class="line"><strong>partiyEXP</strong> : Creates the parity operator by exponentiation a given Hamiltonian.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.displacement" title="qTools.QuantumToolbox.operators.displacement"><code class="xref py py-func docutils literal notranslate"><span class="pre">displacement()</span></code></a> : Creates the displacement operator for a given displacement parameter alpha.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.squeeze" title="qTools.QuantumToolbox.operators.squeeze"><code class="xref py py-func docutils literal notranslate"><span class="pre">squeeze()</span></code></a> : Creates the squeezing operator for a given squeezing parameter alpha.</div>
+<div class="line"><strong>displacement</strong> : Creates the displacement operator for a given displacement parameter alpha.</div>
+<div class="line"><strong>squeeze</strong> : Creates the squeezing operator for a given squeezing parameter alpha.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.operators.compositeOp" title="qTools.QuantumToolbox.operators.compositeOp"><code class="xref py py-func docutils literal notranslate"><span class="pre">compositeOp()</span></code></a> : Creates a composite operator from a sub-system <cite>operator</cite>,
+<div class="line"><strong>compositeOp</strong> : Creates a composite operator from a sub-system <cite>operator</cite>,
 i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 </div>
 <div class="section" id="types">
 <h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.Matrix" title="qTools.QuantumToolbox.customTypes.Matrix"><code class="xref py py-const docutils literal notranslate"><span class="pre">Matrix</span></code></a> : Union of (scipy) sparse and (numpy) array</div>
+<div class="line"><strong>Matrix</strong> : Union of (scipy) sparse and (numpy) array</div>
 </div>
 <dl class="py function">
 <dt id="qTools.QuantumToolbox.operators.number">
 <code class="sig-name descname">number</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.number" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the (bosonic) number (<img class="math" src="../_images/math/2bb3984b414b729f6541f5db3ae9a86ce0c219a6.png" alt="\hat{n}"/>) operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -280,7 +277,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.destroy">
 <code class="sig-name descname">destroy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.destroy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the bosonic <cite>annihilation</cite> (<img class="math" src="../_images/math/1b1a2b99575ee3eedd6e311fa15461e9c49012cb.png" alt="\hat{a}"/>) operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -313,7 +310,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.create">
 <code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the bosonic <cite>creation</cite> (<img class="math" src="../_images/math/2f9d9efe16954af247b44db0481257c56d42ceb7.png" alt="\hat{a}^{\dagger}"/>) operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -346,7 +343,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.identity">
 <code class="sig-name descname">identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#identity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the identity operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -380,7 +377,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.sigmaz">
 <code class="sig-name descname">sigmaz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#sigmaz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmaz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> sigma z (<img class="math" src="../_images/math/997c77baea81e19fb5db1edd6e5c5ab6f65e8cf0.png" alt="\hat{\sigma}_{z}"/>) operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
@@ -409,7 +406,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.sigmay">
 <code class="sig-name descname">sigmay</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#sigmay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmay" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> sigma y (<img class="math" src="../_images/math/3e54af2b39972a106f122a7beba0e135ea539b21.png" alt="\hat{\sigma}_{y}"/>) operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
@@ -438,7 +435,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.sigmax">
 <code class="sig-name descname">sigmax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#sigmax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmax" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> sigma x (<img class="math" src="../_images/math/bf2f7668e3b5c0c231e9fa12f9bf2b58ebcea801.png" alt="\hat{\sigma}_{x}"/>) operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
@@ -467,7 +464,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.sigmap">
 <code class="sig-name descname">sigmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#sigmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> sigma + (<img class="math" src="../_images/math/7444066888e4556abaae0ba60ca3995cdc0a0954.png" alt="\hat{\sigma}_{+}"/>) operator, i.e. 2D Fermionic creation operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
@@ -495,7 +492,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.sigmam">
 <code class="sig-name descname">sigmam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#sigmam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.sigmam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> sigma - (<img class="math" src="../_images/math/72aedb01167fd62b78515470c19d49df6a23465f.png" alt="\hat{\sigma}_{-}"/>) operator, i.e. 2D Fermionic destruction operator.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p>
@@ -523,7 +520,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.Jz">
 <code class="sig-name descname">Jz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#Jz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>Z</cite> operator for a given spin quantum number j.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -578,7 +575,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.Jp">
 <code class="sig-name descname">Jp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#Jp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>creation</cite> operator for a given spin quantum number j.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -631,7 +628,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.Jm">
 <code class="sig-name descname">Jm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#Jm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>destruction</cite> operator for a given spin quantum number j.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -684,7 +681,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.Jx">
 <code class="sig-name descname">Jx</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#Jx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>X</cite> operator for a given spin quantum number j.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -745,7 +742,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.Jy">
 <code class="sig-name descname">Jy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#Jy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Jy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>Y</cite> operator for a given spin quantum number j.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -806,7 +803,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.Js">
 <code class="sig-name descname">Js</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#Js"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.Js" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the total angular momentum (spin) operator for a given spin quantum number j.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -861,7 +858,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.operatorPow">
 <code class="sig-name descname">operatorPow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">power</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#operatorPow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.operatorPow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -905,7 +902,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.paritySUM">
 <code class="sig-name descname">paritySUM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#paritySUM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.paritySUM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the parity operator by explicitly placing alternating +/- into a matrix.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -984,7 +981,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.displacement">
 <code class="sig-name descname">displacement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="p">:</span> <span class="n">complex</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#displacement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.displacement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the displacement operator for a given displacement parameter alpha.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1033,7 +1030,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dt id="qTools.QuantumToolbox.operators.squeeze">
 <code class="sig-name descname">squeeze</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="p">:</span> <span class="n">complex</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#squeeze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.squeeze" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the squeezing operator for a given squeezing parameter alpha.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1073,23 +1070,22 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</div>
 <dl class="py function">
 <dt id="qTools.QuantumToolbox.operators.compositeOp">
 <code class="sig-name descname">compositeOp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">dimB</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">dimA</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/operators.html#compositeOp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.operators.compositeOp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a composite operator from a sub-system <cite>operator</cite>,
-i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
+<dd><dl class="simple">
+<dt>Creates a composite operator from a sub-system <cite>operator</cite>,</dt><dd><p>i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>operator</strong> (<em>Matrix</em>) – operator of a sub-system</p></li>
 <li><p><strong>dimB</strong> (<em>int</em>) – (total) dimension of the systems that appear <cite>before</cite> in the tensor product order</p></li>
 <li><p><strong>dimA</strong> (<em>int</em>) – (total) dimension of the systems that appear <cite>after</cite> in the tensor product order</p></li>
+<li><p><strong>Returns</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>sub-system operator in the extended Hilbert space</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>return: Matrix</p>
-</dd>
 </dl>
+<p>:param : sub-system operator in the extended Hilbert space
+:type : return: Matrix</p>
 <p class="rubric">Examples</p>
 <p>TODO Update these
 &gt;&gt;&gt; szQ1 = compositeOp(operator=sigmaz(), dimB=0, dimA=2)
@@ -1134,7 +1130,7 @@ i.e. tensor product with identities of dimensions dimB &amp; dimA</p>
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/05/19.
       </span>
 
     </p>

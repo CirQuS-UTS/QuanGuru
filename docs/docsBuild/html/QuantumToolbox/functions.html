@@ -25,8 +25,6 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -38,7 +36,6 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -208,54 +205,52 @@ For example, an if statement can be avoided using <cite>expectationMat/expectati
 <div class="section" id="id1">
 <h2>Functions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.expectation" title="qTools.QuantumToolbox.functions.expectation"><code class="xref py py-func docutils literal notranslate"><span class="pre">expectation()</span></code></a> : Function to calculate the expectation value of an <cite>operator</cite> for a given <cite>state</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.expectationMat" title="qTools.QuantumToolbox.functions.expectationMat"><code class="xref py py-func docutils literal notranslate"><span class="pre">expectationMat()</span></code></a> : Calculates the expectation value of an <cite>operator</cite> for a given <cite>density matrix</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.expectationKet" title="qTools.QuantumToolbox.functions.expectationKet"><code class="xref py py-func docutils literal notranslate"><span class="pre">expectationKet()</span></code></a> : Calculates the expectation value of an <cite>operator</cite> for a given <cite>ket</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.expectationKetList" title="qTools.QuantumToolbox.functions.expectationKetList"><code class="xref py py-func docutils literal notranslate"><span class="pre">expectationKetList()</span></code></a> : Calculates the expectation value of an <cite>operator</cite> for a given list of <cite>ket</cite> states.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.expectationMatList" title="qTools.QuantumToolbox.functions.expectationMatList"><code class="xref py py-func docutils literal notranslate"><span class="pre">expectationMatList()</span></code></a> : Calculates the expectation value of an <cite>operator</cite> for a given list of
-<cite>density matrices</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.expectationColArr" title="qTools.QuantumToolbox.functions.expectationColArr"><code class="xref py py-func docutils literal notranslate"><span class="pre">expectationColArr()</span></code></a> : Calculates the expectation values of an <cite>operator</cite> for a list/matrix of
+<div class="line"><strong>expectation</strong> : Function to calculate the expectation value of an <cite>operator</cite> for a given <cite>state</cite>.</div>
+<div class="line"><strong>expectationMat</strong> : Calculates the expectation value of an <cite>operator</cite> for a given <cite>density matrix</cite>.</div>
+<div class="line"><strong>expectationKet</strong> : Calculates the expectation value of an <cite>operator</cite> for a given <cite>ket</cite>.</div>
+<div class="line"><strong>expectationKetList</strong> : Calculates the expectation value of an <cite>operator</cite> for a given list of <cite>ket</cite> states.</div>
+<div class="line"><strong>expectationMatList</strong> : Calculates the expectation value of an <cite>operator</cite> for a given list of <cite>density matrices</cite>.</div>
+<div class="line"><strong>expectationColArr</strong> : Calculates the expectation values of an <cite>operator</cite> for a list/matrix of
 <cite>ket (column) states</cite> by matrix multiplication.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.fidelity" title="qTools.QuantumToolbox.functions.fidelity"><code class="xref py py-func docutils literal notranslate"><span class="pre">fidelity()</span></code></a> : Calculates <cite>fidelity</cite> between <cite>two states</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.fidelityKet" title="qTools.QuantumToolbox.functions.fidelityKet"><code class="xref py py-func docutils literal notranslate"><span class="pre">fidelityKet()</span></code></a> : Calculates <cite>fidelity</cite> between two <cite>ket</cite> states.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.fidelityPureMat" title="qTools.QuantumToolbox.functions.fidelityPureMat"><code class="xref py py-func docutils literal notranslate"><span class="pre">fidelityPureMat()</span></code></a> : Calculates <cite>fidelity</cite> between two (pure) <cite>density matrices</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.fidelityKetList" title="qTools.QuantumToolbox.functions.fidelityKetList"><code class="xref py py-func docutils literal notranslate"><span class="pre">fidelityKetList()</span></code></a> : Calculates <cite>fidelity</cite> between <cite>a ket state</cite> and <cite>list of ket states</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.fidelityKetLists" title="qTools.QuantumToolbox.functions.fidelityKetLists"><code class="xref py py-func docutils literal notranslate"><span class="pre">fidelityKetLists()</span></code></a> : Created to be used in <cite>multi-processing</cite> calculations of two lists of kets states.</div>
+<div class="line"><strong>fidelity</strong> : Calculates <cite>fidelity</cite> between <cite>two states</cite>.</div>
+<div class="line"><strong>fidelityKet</strong> : Calculates <cite>fidelity</cite> between two <cite>ket</cite> states.</div>
+<div class="line"><strong>fidelityPureMat</strong> : Calculates <cite>fidelity</cite> between two (pure) <cite>density matrices</cite>.</div>
+<div class="line"><strong>fidelityKetList</strong> : Calculates <cite>fidelity</cite> between <cite>a ket state</cite> and <cite>list of ket states</cite>.</div>
+<div class="line"><strong>fidelityKetLists</strong> : Created to be used in <cite>multi-processing</cite> calculations of two lists of kets states.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.entropy" title="qTools.QuantumToolbox.functions.entropy"><code class="xref py py-func docutils literal notranslate"><span class="pre">entropy()</span></code></a> : Calculates the <cite>entropy</cite> of a given <cite>density matrix</cite> .</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.entropyKet" title="qTools.QuantumToolbox.functions.entropyKet"><code class="xref py py-func docutils literal notranslate"><span class="pre">entropyKet()</span></code></a> : Calculates the <cite>entropy</cite> of a given <cite>ket</cite> state.</div>
+<div class="line"><strong>entropy</strong> : Calculates the <cite>entropy</cite> of a given <cite>density matrix</cite> .</div>
+<div class="line"><strong>entropyKet</strong> : Calculates the <cite>entropy</cite> of a given <cite>ket</cite> state.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.iprKet" title="qTools.QuantumToolbox.functions.iprKet"><code class="xref py py-func docutils literal notranslate"><span class="pre">iprKet()</span></code></a> : Calculates the inverse participation ratio (a delocalisation measure) of a <cite>ket</cite> in a given
-basis.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.iprKetList" title="qTools.QuantumToolbox.functions.iprKetList"><code class="xref py py-func docutils literal notranslate"><span class="pre">iprKetList()</span></code></a> : Calculates the inverse participation ratio (a delocalisation measure) of a <cite>list of ket</cite>
-states in a given basis.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.iprKetNB" title="qTools.QuantumToolbox.functions.iprKetNB"><code class="xref py py-func docutils literal notranslate"><span class="pre">iprKetNB()</span></code></a> : Calculates the inverse participation ratio (a delocalisation measure) of a ket by assuming that
+<div class="line"><strong>iprKet</strong> : Calculates the inverse participation ratio (a delocalisation measure) of a <cite>ket</cite> in a given basis.</div>
+<div class="line"><strong>iprKetList</strong> : Calculates the inverse participation ratio (a delocalisation measure) of a <cite>list of ket</cite> states
+in a given basis.</div>
+<div class="line"><strong>iprKetNB</strong> : Calculates the inverse participation ratio (a delocalisation measure) of a ket by assuming that
 the basis is of the free Hamiltonian.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.iprKetNBList" title="qTools.QuantumToolbox.functions.iprKetNBList"><code class="xref py py-func docutils literal notranslate"><span class="pre">iprKetNBList()</span></code></a> : Calculates the inverse participation ratio (a delocalisation measure) of a list kets by
+<div class="line"><strong>iprKetNBList</strong> : Calculates the inverse participation ratio (a delocalisation measure) of a list kets by
 assuming that the basis is of the free Hamiltonian.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.iprKetNBmat" title="qTools.QuantumToolbox.functions.iprKetNBmat"><code class="xref py py-func docutils literal notranslate"><span class="pre">iprKetNBmat()</span></code></a> : Calculates the inverse participation ratio (a delocalisation measure) of <cite>a matrix of ket
-states as the column</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.iprPureDenMat" title="qTools.QuantumToolbox.functions.iprPureDenMat"><code class="xref py py-func docutils literal notranslate"><span class="pre">iprPureDenMat()</span></code></a> : Calculates the inverse participation ratio (a delocalisation measure) of a
-<cite>density matrix</cite> in a given <cite>basis</cite>.</div>
+<div class="line"><strong>iprKetNBmat</strong> : Calculates the inverse participation ratio (a delocalisation measure) of <cite>a matrix of ket states
+as the column</cite>.</div>
+<div class="line"><strong>iprPureDenMat</strong> : Calculates the inverse participation ratio (a delocalisation measure) of a <cite>density matrix</cite> in
+a given <cite>basis</cite>.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.sortedEigens" title="qTools.QuantumToolbox.functions.sortedEigens"><code class="xref py py-func docutils literal notranslate"><span class="pre">sortedEigens()</span></code></a> : Calculates the <cite>eigenvalues and eigenvectors</cite> of a given Hamiltonian and <cite>sorts</cite> them.</div>
+<div class="line"><strong>sortedEigens</strong> : Calculates the <cite>eigenvalues and eigenvectors</cite> of a given Hamiltonian and <cite>sorts</cite> them.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.eigVecStatKet" title="qTools.QuantumToolbox.functions.eigVecStatKet"><code class="xref py py-func docutils literal notranslate"><span class="pre">eigVecStatKet()</span></code></a> : Calculates components of a <cite>ket</cite> in a basis.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.eigVecStatKetList" title="qTools.QuantumToolbox.functions.eigVecStatKetList"><code class="xref py py-func docutils literal notranslate"><span class="pre">eigVecStatKetList()</span></code></a> : Calculates components of a <cite>list of ket states</cite>.</div>
-<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.functions.eigVecStatKetNB" title="qTools.QuantumToolbox.functions.eigVecStatKetNB"><code class="xref py py-func docutils literal notranslate"><span class="pre">eigVecStatKetNB()</span></code></a> : Calculates the components of a ket by assuming that the basis is of the free Hamiltonian</div>
+<div class="line"><strong>eigVecStatKet</strong> : Calculates components of a <cite>ket</cite> in a basis.</div>
+<div class="line"><strong>eigVecStatKetList</strong> : Calculates components of a <cite>list of ket states</cite>.</div>
+<div class="line"><strong>eigVecStatKetNB</strong> : Calculates the components of a ket by assuming that the basis is of the free Hamiltonian.</div>
 </div>
 <div class="section" id="types">
 <h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.Matrix" title="qTools.QuantumToolbox.customTypes.Matrix"><code class="xref py py-const docutils literal notranslate"><span class="pre">Matrix</span></code></a> : Union of (scipy) sparse and (numpy) array</div>
-<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.floatList" title="qTools.QuantumToolbox.customTypes.floatList"><code class="xref py py-const docutils literal notranslate"><span class="pre">floatList</span></code></a> : List of floats</div>
-<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.matrixList" title="qTools.QuantumToolbox.customTypes.matrixList"><code class="xref py py-const docutils literal notranslate"><span class="pre">matrixList</span></code></a> : List of Matrices</div>
+<div class="line"><strong>Matrix</strong> : Union of (scipy) sparse and (numpy) array</div>
+<div class="line"><strong>floatList</strong> : List of floats</div>
+<div class="line"><strong>matrixList</strong> : List of Matrices</div>
 </div>
 <dl class="py function">
 <dt id="qTools.QuantumToolbox.functions.expectation">
@@ -370,7 +365,7 @@ State and operator can both be sparse or array or any combination of the two.</p
 <code class="sig-name descname">expectationKet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">ket</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/functions.html#expectationKet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.functions.expectationKet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the expectation value of an <cite>operator</cite> for a given <cite>ket</cite>.</p>
 <p>Calculates the density matrix and calls the expectationMat.
-Computationally the same as using (<code class="docutils literal notranslate"><span class="pre">bra</span> <span class="pre">&#64;</span> <span class="pre">operator</span> <span class="pre">&#64;</span> <span class="pre">ket</span></code>).
+Computationally the same as using (bra &#64; operator &#64; ket).
 Works with both sparse and array.
 Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</p>
 <dl class="field-list simple">
@@ -651,7 +646,9 @@ and they can both be sparse or array or any combination of the two.</p>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">qStates</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">qStates</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">denMat2</span> <span class="o">=</span> <span class="n">qStates</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denMat2</span> <span class="o">=</span> <span class="n">qStates</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fidelityMat12</span> <span class="o">=</span> <span class="n">fidelityPureMat</span><span class="p">(</span><span class="n">state1</span><span class="o">=</span><span class="n">denMat1</span><span class="p">,</span> <span class="n">state2</span><span class="o">=</span><span class="n">denMat2</span><span class="p">)</span>
 <span class="go">0.5</span>
 </pre></div>
@@ -1159,7 +1156,7 @@ Main use is in eigenvector statistics.</p>
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/05/19.
       </span>
 
     </p>

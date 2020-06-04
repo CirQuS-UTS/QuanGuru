@@ -25,8 +25,6 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -38,7 +36,6 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -213,49 +210,48 @@
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="States/basis.html#qTools.QuantumToolbox.states.basis" title="qTools.QuantumToolbox.states.basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">basis()</span></code></a> : Creates a <cite>ket</cite> state <img class="math" src="../_images/math/7e77760af56688bfd5f357aa94a017e0961b928b.png" alt="|n\rangle"/> for a given dimension with 1 (unit population) at a given
+<div class="line"><strong>basis</strong> : Creates a <cite>ket</cite> state <img class="math" src="../_images/math/7e77760af56688bfd5f357aa94a017e0961b928b.png" alt="|n\rangle"/> for a given dimension with 1 (unit population) at a given
 row.</div>
-<div class="line"><a class="reference internal" href="States/completeBasis.html#qTools.QuantumToolbox.states.completeBasis" title="qTools.QuantumToolbox.states.completeBasis"><code class="xref py py-func docutils literal notranslate"><span class="pre">completeBasis()</span></code></a> : Creates a complete basis of <cite>ket</cite> states <img class="math" src="../_images/math/32e5beb39611fb433831662a9e91503e0de3fedd.png" alt="\sum_n|n\rangle = \hat{\mathbb{I}}"/> .</div>
-<div class="line"><a class="reference internal" href="States/basisBra.html#qTools.QuantumToolbox.states.basisBra" title="qTools.QuantumToolbox.states.basisBra"><code class="xref py py-func docutils literal notranslate"><span class="pre">basisBra()</span></code></a> : Creates a <cite>bra</cite> state <img class="math" src="../_images/math/94b3930bd1c86655a6909b23299236c1219f9221.png" alt="\langle n|"/> for a given dimension with 1 (unit population) at a
+<div class="line"><strong>completeBasis</strong> : Creates a complete basis of <cite>ket</cite> states <img class="math" src="../_images/math/32e5beb39611fb433831662a9e91503e0de3fedd.png" alt="\sum_n|n\rangle = \hat{\mathbb{I}}"/> .</div>
+<div class="line"><strong>basisBra</strong> : Creates a <cite>bra</cite> state <img class="math" src="../_images/math/94b3930bd1c86655a6909b23299236c1219f9221.png" alt="\langle n|"/> for a given dimension with 1 (unit population) at a
 given column.</div>
-<div class="line"><a class="reference internal" href="States/basis.html#qTools.QuantumToolbox.states.zeros" title="qTools.QuantumToolbox.states.zeros"><code class="xref py py-func docutils literal notranslate"><span class="pre">zeros()</span></code></a> : Creates a column matrix (ket) with all elements zero.</div>
-<div class="line"><a class="reference internal" href="States/superPos.html#qTools.QuantumToolbox.states.superPos" title="qTools.QuantumToolbox.states.superPos"><code class="xref py py-func docutils literal notranslate"><span class="pre">superPos()</span></code></a> : Function to create a <cite>superposition ket</cite> state from a given <cite>dictionary</cite> or <cite>list</cite>,
-or <cite>ket</cite> state from a given <cite>integer</cite> (in this case, it is equivalent to basis function).</div>
+<div class="line"><strong>zeros</strong> : Creates a column matrix (ket) with all elements zero.</div>
+<div class="line"><strong>superPos</strong> : Creates a <cite>ket</cite> superposition state <img class="math" src="../_images/math/88e70f54296f8c0d6da1a0a182910b05c0d41f89.png" alt="\sum_n c_n|n\rangle"/> for a given dimension with a
+list of excitations.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="States/densityMatrix.html#qTools.QuantumToolbox.states.densityMatrix" title="qTools.QuantumToolbox.states.densityMatrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">densityMatrix()</span></code></a> : Converts a <cite>ket</cite> state into a <cite>density matrix</cite>.</div>
-<div class="line"><a class="reference internal" href="States/completeBasisMat.html#qTools.QuantumToolbox.states.completeBasisMat" title="qTools.QuantumToolbox.states.completeBasisMat"><code class="xref py py-func docutils literal notranslate"><span class="pre">completeBasisMat()</span></code></a> : Creates a complete basis of <cite>density matrices</cite> for a given dimension or
+<div class="line"><strong>densityMatrix</strong> : Converts a <cite>ket</cite> state into a <cite>density matrix</cite>.</div>
+<div class="line"><strong>completeBasisMat</strong> : Creates a complete basis of <cite>density matrices</cite> for a given dimension or
 convert a <cite>ket basis</cite> to <cite>density matrix</cite>.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="States/normalise.html#qTools.QuantumToolbox.states.normalise" title="qTools.QuantumToolbox.states.normalise"><code class="xref py py-func docutils literal notranslate"><span class="pre">normalise()</span></code></a> : Function to normalise <cite>any</cite> state (ket or density matrix).</div>
-<div class="line"><a class="reference internal" href="States/normalise.html#qTools.QuantumToolbox.states.normaliseKet" title="qTools.QuantumToolbox.states.normaliseKet"><code class="xref py py-func docutils literal notranslate"><span class="pre">normaliseKet()</span></code></a> : Function to normalise a <cite>ket</cite> state.</div>
-<div class="line"><a class="reference internal" href="States/normalise.html#qTools.QuantumToolbox.states.normaliseMat" title="qTools.QuantumToolbox.states.normaliseMat"><code class="xref py py-func docutils literal notranslate"><span class="pre">normaliseMat()</span></code></a> : Function to normalise a <cite>density matrix</cite>.</div>
+<div class="line"><strong>normalise</strong> : Function to normalise <cite>any</cite> state (ket or density matrix).</div>
+<div class="line"><strong>normaliseKet</strong> : Function to normalise a <cite>ket</cite> state.</div>
+<div class="line"><strong>normaliseMat</strong> : Function to normalise a <cite>density matrix</cite>.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="States/compStateTensorTrace.html#qTools.QuantumToolbox.states.compositeState" title="qTools.QuantumToolbox.states.compositeState"><code class="xref py py-func docutils literal notranslate"><span class="pre">compositeState()</span></code></a> : Function to create <cite>composite ket</cite> states.</div>
-<div class="line"><a class="reference internal" href="States/compStateTensorTrace.html#qTools.QuantumToolbox.states.tensorProd" title="qTools.QuantumToolbox.states.tensorProd"><code class="xref py py-func docutils literal notranslate"><span class="pre">tensorProd()</span></code></a> : Function to calculate tensor product of given (any number of) states (in the given order).</div>
-<div class="line"><a class="reference internal" href="States/compStateTensorTrace.html#qTools.QuantumToolbox.states.partialTrace" title="qTools.QuantumToolbox.states.partialTrace"><code class="xref py py-func docutils literal notranslate"><span class="pre">partialTrace()</span></code></a> : Calculates the partial trace of a <cite>density matrix</cite> of composite state.</div>
+<div class="line"><strong>compositeState</strong> : Function to create <cite>composite ket</cite> states.</div>
+<div class="line"><strong>tensorProd</strong> : Function to calculate tensor product of given (any number of) states (in the given order).</div>
+<div class="line"><strong>partialTrace</strong> : Calculates the partial trace of a <cite>density matrix</cite> of composite state.</div>
 </div>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="States/matVec.html#qTools.QuantumToolbox.states.mat2Vec" title="qTools.QuantumToolbox.states.mat2Vec"><code class="xref py py-func docutils literal notranslate"><span class="pre">mat2Vec()</span></code></a> : Converts <cite>density matrix</cite> into <cite>density vector</cite> (used in super-operator representation).</div>
-<div class="line"><a class="reference internal" href="States/matVec.html#qTools.QuantumToolbox.states.vec2Mat" title="qTools.QuantumToolbox.states.vec2Mat"><code class="xref py py-func docutils literal notranslate"><span class="pre">vec2Mat()</span></code></a> : Converts <cite>density vector</cite> into <cite>density matrix</cite>.</div>
+<div class="line"><strong>mat2Vec</strong> : Converts <cite>density matrix</cite> into <cite>density vector</cite> (used in super-operator representation).</div>
+<div class="line"><strong>vec2Mat</strong> : Converts <cite>density vector</cite> into <cite>density matrix</cite>.</div>
 </div>
 <div class="section" id="types">
 <h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
 <div class="line-block">
-<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.Matrix" title="qTools.QuantumToolbox.customTypes.Matrix"><code class="xref py py-const docutils literal notranslate"><span class="pre">Matrix</span></code></a> : Union of (scipy) sparse and (numpy) array</div>
-<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.intList" title="qTools.QuantumToolbox.customTypes.intList"><code class="xref py py-const docutils literal notranslate"><span class="pre">intList</span></code></a> : List of integers</div>
-<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.matrixList" title="qTools.QuantumToolbox.customTypes.matrixList"><code class="xref py py-const docutils literal notranslate"><span class="pre">matrixList</span></code></a> : List of Matrices</div>
-<div class="line"><code class="xref py py-const docutils literal notranslate"><span class="pre">supInt</span></code> : Union of the types: int, <cite>intList</cite>,
-and dict[int:float] (used in super-position creations)</div>
-<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.ndOrListInt" title="qTools.QuantumToolbox.customTypes.ndOrListInt"><code class="xref py py-const docutils literal notranslate"><span class="pre">ndOrListInt</span></code></a> : Union of ndarray and intList</div>
+<div class="line"><strong>Matrix</strong> : Union of (scipy) sparse and (numpy) array</div>
+<div class="line"><strong>intList</strong> : List of integers</div>
+<div class="line"><strong>matrixList</strong> : List of Matrices</div>
+<div class="line"><strong>supInt</strong> : Union of the types: int, <cite>intList</cite>, and dict[int:float] (used in super-position creations)</div>
+<div class="line"><strong>ndOrListInt</strong> : Union of ndarray and intList</div>
 </div>
 <dl class="py function">
 <dt>
 <code class="sig-name descname">basis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#basis"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Creates a <cite>ket</cite> state for a given dimension with 1 (unit population) at a given row (state).</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -265,7 +261,7 @@ and dict[int:float] (used in super-position creations)</div>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>ket</cite> state as <code class="docutils literal notranslate"><span class="pre">sparse</span> <span class="pre">if</span> <span class="pre">sparse=True</span> <span class="pre">else</span> <span class="pre">array</span></code></p>
+<dd class="field-even"><p><cite>ket</cite> state as sparse if sparse=True else array</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>return : Matrix</p>
@@ -287,7 +283,7 @@ and dict[int:float] (used in super-position creations)</div>
 <dt>
 <code class="sig-name descname">completeBasis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#completeBasis"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Creates a complete basis of <cite>ket</cite> states.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -296,7 +292,7 @@ and dict[int:float] (used in super-position creations)</div>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a list (complete basis) of <cite>ket</cite> states as <code class="docutils literal notranslate"><span class="pre">sparse</span> <span class="pre">if</span> <span class="pre">sparse=True</span> <span class="pre">else</span> <span class="pre">array</span></code></p>
+<dd class="field-even"><p>a list (complete basis) of <cite>ket</cite> states as sparse if sparse=True else array</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>return : matrixList</p>
@@ -325,7 +321,7 @@ and dict[int:float] (used in super-position creations)</div>
 <dt>
 <code class="sig-name descname">basisBra</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#basisBra"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Creates a <cite>bra</cite> state for a given dimension with 1 (unit population) at a given column (state).</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -335,7 +331,7 @@ and dict[int:float] (used in super-position creations)</div>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>bra</cite> state as <code class="docutils literal notranslate"><span class="pre">sparse</span> <span class="pre">if</span> <span class="pre">sparse=True</span> <span class="pre">else</span> <span class="pre">array</span></code></p>
+<dd class="field-even"><p><cite>bra</cite> state as sparse if sparse=True else array</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>return : Matrix</p>
@@ -356,7 +352,7 @@ and dict[int:float] (used in super-position creations)</div>
 <dt>
 <code class="sig-name descname">zeros</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#zeros"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Creates a column matrix (ket) with all elements zero.</p>
-<p>Either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+<p>Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -386,20 +382,19 @@ and dict[int:float] (used in super-position creations)</div>
 <dl class="py function">
 <dt>
 <code class="sig-name descname">superPos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">excitations</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Dict<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">, </span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#superPos"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Function to create a <cite>superposition ket</cite> state from a given <cite>dictionary</cite> or <cite>list</cite>,
+<dd><p>Creates a <cite>ket</cite> superposition state for a given dimension with a list of excitations.</p>
+<p>Function to create a <cite>superposition ket</cite> state from a given <cite>dictionary</cite> or <cite>list</cite>,
 or <cite>ket</cite> state from a given <cite>integer</cite> (in this case, it is equivalent to basis function)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
-<li><p><strong>excitations</strong> (<em>supInt</em><em> (</em><em>Union of int</em><em>, </em><em>list</em><em>(</em><em>int</em><em>)</em><em>, </em><em>dict</em><em>(</em><em>int:float</em><em>)</em><em>)</em>) – <p>There are 3 possible uses of this</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>a <cite>dictionary</cite> with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</p></li>
-<li><p>a <cite>list</cite> (e.g. [0,1,2]) for equally populated super-position</p></li>
-<li><p>an <cite>integer</cite>, which is equivalent to basis function</p></li>
-</ol>
-</div></blockquote>
+<li><p><strong>excitations</strong> (<em>supInt</em><em> (</em><em>Union of int</em><em>, </em><em>list</em><em>(</em><em>int</em><em>)</em><em>, </em><em>dict</em><em>(</em><em>int:float</em><em>)</em><em>)</em>) – <div class="line-block">
+<div class="line">There are 3 possible uses of this</div>
+<div class="line">1. a <cite>dictionary</cite> with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</div>
+<div class="line">2. a <cite>list</cite> (e.g. [0,1,2]) for equally populated super-position</div>
+<div class="line">3. an <cite>integer</cite>, which is equivalent to basis function</div>
+</div>
 </p></li>
 </ul>
 </dd>
@@ -474,9 +469,9 @@ or <cite>ket</cite> state from a given <cite>integer</cite> (in this case, it is
 <dt>
 <code class="sig-name descname">completeBasisMat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compKetBase</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#completeBasisMat"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Creates a complete basis of <cite>density matrices</cite> for a given dimension or convert a <cite>ket basis</cite> to <cite>density matrix</cite>.</p>
-<p>NOTE: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.</p>
+<p>Note: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.</p>
 <p>For a given basis, this keeps the sparse/array as sparse/array.
-For a given dimension, either as sparse (<code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>) or array (<code class="docutils literal notranslate"><span class="pre">sparse=False</span></code>)</p>
+For a given dimension, either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -494,17 +489,31 @@ For a given dimension, either as sparse (<code class="docutils literal notransla
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qTools</span> <span class="kn">import</span> <span class="n">completeBasis</span><span class="p">,</span> <span class="n">completeBasisMat</span>
-<span class="n">completeBasisMat1</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">compKetBase</span><span class="o">=</span><span class="n">completeBasis1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasis0</span> <span class="o">=</span> <span class="n">completeBasis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasis1</span> <span class="o">=</span> <span class="n">completeBasis</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat0</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">compKetBase</span><span class="o">=</span><span class="n">completeBasis0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasisMat0</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">[[1 0]</span>
+<span class="go">[0 0]]</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
 </pre></div>
 </div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(0, 1)  1
-(1, 1)  1
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat1</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">compKetBase</span><span class="o">=</span><span class="n">completeBasis1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasisMat1</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">(0, 0)      1</span>
+<span class="go">(1, 1)      1</span>
 </pre></div>
 </div>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-<span class="go">x</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat01</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">completeBasisMat01</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">[[1 0]</span>
+<span class="go">[0 0]]</span>
+<span class="go">[[0 0]</span>
+<span class="go">[0 1]]</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat11</span> <span class="o">=</span> <span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -804,7 +813,7 @@ dims = [dim_A, dim_B, dim_C, dim_D]</p></li>
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/05/19.
       </span>
 
     </p>

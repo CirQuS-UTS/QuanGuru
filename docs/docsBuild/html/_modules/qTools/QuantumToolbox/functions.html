@@ -27,8 +27,6 @@
         <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
         <script src="../../../_static/sphinx_tabs/tabs.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -44,7 +42,6 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -169,48 +166,46 @@
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
-<span class="sd">    | :func:`expectation` : Function to calculate the expectation value of an `operator` for a given `state`.</span>
-<span class="sd">    | :func:`expectationMat` : Calculates the expectation value of an `operator` for a given `density matrix`.</span>
-<span class="sd">    | :func:`expectationKet` : Calculates the expectation value of an `operator` for a given `ket`.</span>
-<span class="sd">    | :func:`expectationKetList` : Calculates the expectation value of an `operator` for a given list of `ket` states.</span>
-<span class="sd">    | :func:`expectationMatList` : Calculates the expectation value of an `operator` for a given list of</span>
-<span class="sd">        `density matrices`.</span>
-<span class="sd">    | :func:`expectationColArr` : Calculates the expectation values of an `operator` for a list/matrix of</span>
-<span class="sd">        `ket (column) states` by matrix multiplication.</span>
+<span class="sd">    | **expectation** : Function to calculate the expectation value of an `operator` for a given `state`.</span>
+<span class="sd">    | **expectationMat** : Calculates the expectation value of an `operator` for a given `density matrix`.</span>
+<span class="sd">    | **expectationKet** : Calculates the expectation value of an `operator` for a given `ket`.</span>
+<span class="sd">    | **expectationKetList** : Calculates the expectation value of an `operator` for a given list of `ket` states.</span>
+<span class="sd">    | **expectationMatList** : Calculates the expectation value of an `operator` for a given list of `density matrices`.</span>
+<span class="sd">    | **expectationColArr** : Calculates the expectation values of an `operator` for a list/matrix of</span>
+<span class="sd">     `ket (column) states` by matrix multiplication.</span>
 
-<span class="sd">    | :func:`fidelity` : Calculates `fidelity` between `two states`.</span>
-<span class="sd">    | :func:`fidelityKet` : Calculates `fidelity` between two `ket` states.</span>
-<span class="sd">    | :func:`fidelityPureMat` : Calculates `fidelity` between two (pure) `density matrices`.</span>
-<span class="sd">    | :func:`fidelityKetList` : Calculates `fidelity` between `a ket state` and `list of ket states`.</span>
-<span class="sd">    | :func:`fidelityKetLists` : Created to be used in `multi-processing` calculations of two lists of kets states.</span>
+<span class="sd">    | **fidelity** : Calculates `fidelity` between `two states`.</span>
+<span class="sd">    | **fidelityKet** : Calculates `fidelity` between two `ket` states.</span>
+<span class="sd">    | **fidelityPureMat** : Calculates `fidelity` between two (pure) `density matrices`.</span>
+<span class="sd">    | **fidelityKetList** : Calculates `fidelity` between `a ket state` and `list of ket states`.</span>
+<span class="sd">    | **fidelityKetLists** : Created to be used in `multi-processing` calculations of two lists of kets states.</span>
 
-<span class="sd">    | :func:`entropy` : Calculates the `entropy` of a given `density matrix` .</span>
-<span class="sd">    | :func:`entropyKet` : Calculates the `entropy` of a given `ket` state.</span>
+<span class="sd">    | **entropy** : Calculates the `entropy` of a given `density matrix` .</span>
+<span class="sd">    | **entropyKet** : Calculates the `entropy` of a given `ket` state.</span>
 
-<span class="sd">    | :func:`iprKet` : Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given</span>
-<span class="sd">        basis.</span>
-<span class="sd">    | :func:`iprKetList` : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket`</span>
-<span class="sd">        states in a given basis.</span>
-<span class="sd">    | :func:`iprKetNB` : Calculates the inverse participation ratio (a delocalisation measure) of a ket by assuming that</span>
-<span class="sd">        the basis is of the free Hamiltonian.</span>
-<span class="sd">    | :func:`iprKetNBList` : Calculates the inverse participation ratio (a delocalisation measure) of a list kets by</span>
-<span class="sd">        assuming that the basis is of the free Hamiltonian.</span>
-<span class="sd">    | :func:`iprKetNBmat` : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket</span>
-<span class="sd">        states as the column`.</span>
-<span class="sd">    | :func:`iprPureDenMat` : Calculates the inverse participation ratio (a delocalisation measure) of a</span>
-<span class="sd">        `density matrix` in a given `basis`.</span>
+<span class="sd">    | **iprKet** : Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.</span>
+<span class="sd">    | **iprKetList** : Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states</span>
+<span class="sd">     in a given basis.</span>
+<span class="sd">    | **iprKetNB** : Calculates the inverse participation ratio (a delocalisation measure) of a ket by assuming that</span>
+<span class="sd">     the basis is of the free Hamiltonian.</span>
+<span class="sd">    | **iprKetNBList** : Calculates the inverse participation ratio (a delocalisation measure) of a list kets by</span>
+<span class="sd">     assuming that the basis is of the free Hamiltonian.</span>
+<span class="sd">    | **iprKetNBmat** : Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states</span>
+<span class="sd">     as the column`.</span>
+<span class="sd">    | **iprPureDenMat** : Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in</span>
+<span class="sd">     a given `basis`.</span>
 
-<span class="sd">    | :func:`sortedEigens` : Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.</span>
+<span class="sd">    | **sortedEigens** : Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.</span>
 
-<span class="sd">    | :func:`eigVecStatKet` : Calculates components of a `ket` in a basis.</span>
-<span class="sd">    | :func:`eigVecStatKetList` : Calculates components of a `list of ket states`.</span>
-<span class="sd">    | :func:`eigVecStatKetNB` : Calculates the components of a ket by assuming that the basis is of the free Hamiltonian</span>
+<span class="sd">    | **eigVecStatKet** : Calculates components of a `ket` in a basis.</span>
+<span class="sd">    | **eigVecStatKetList** : Calculates components of a `list of ket states`.</span>
+<span class="sd">    | **eigVecStatKetNB** : Calculates the components of a ket by assuming that the basis is of the free Hamiltonian.</span>
 
 <span class="sd">    Types</span>
 <span class="sd">    ^^^^^</span>
-<span class="sd">    | :const:`Matrix &lt;qTools.QuantumToolbox.customTypes.Matrix&gt;` : Union of (scipy) sparse and (numpy) array</span>
-<span class="sd">    | :const:`floatList &lt;qTools.QuantumToolbox.customTypes.floatList&gt;` : List of floats</span>
-<span class="sd">    | :const:`matrixList &lt;qTools.QuantumToolbox.customTypes.matrixList&gt;` : List of Matrices</span>
+<span class="sd">    | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
+<span class="sd">    | **floatList** : List of floats</span>
+<span class="sd">    | **matrixList** : List of Matrices</span>
 
 <span class="sd">&quot;&quot;&quot;</span> <span class="c1">#pylint:disable=too-many-lines</span>
 
@@ -224,7 +219,6 @@
 <span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">floatList</span><span class="p">,</span> <span class="n">matrixList</span>
 
 
-<span class="c1"># do not delete these</span>
 <span class="c1"># from numpy import ndarray</span>
 <span class="c1"># from scipy.sparse import spmatrix</span>
 <span class="c1"># from typing import List, Optional, TypeVar, Tuple, Any</span>
@@ -347,7 +341,7 @@
 <span class="sd">    Calculates the expectation value of an `operator` for a given `ket`.</span>
 
 <span class="sd">    Calculates the density matrix and calls the expectationMat.</span>
-<span class="sd">    Computationally the same as using (``bra @ operator @ ket``).</span>
+<span class="sd">    Computationally the same as using (bra @ operator @ ket).</span>
 <span class="sd">    Works with both sparse and array.</span>
 <span class="sd">    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</span>
 
@@ -641,7 +635,7 @@
 <span class="sd">    &gt;&gt;&gt; fidelityMat02 = fidelityPureMat(state1=denMat0, state2=denMat2)</span>
 <span class="sd">    0.5</span>
 
-<span class="sd">    &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
+<span class="sd">     &gt;&gt;&gt; ket2 = np.sqrt(0.5)*qStates.basis(dimension=2, state=1) + np.sqrt(0.5)*qStates.basis(dimension=2, state=0)</span>
 <span class="sd">    &gt;&gt;&gt; denMat2 = qStates.densityMatrix(ket2)</span>
 <span class="sd">    &gt;&gt;&gt; fidelityMat12 = fidelityPureMat(state1=denMat1, state2=denMat2)</span>
 <span class="sd">    0.5</span>
@@ -1202,7 +1196,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/05/19.
       </span>
 
     </p>
