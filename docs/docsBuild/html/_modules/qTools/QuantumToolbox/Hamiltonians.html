@@ -27,6 +27,8 @@
         <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
         <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -42,6 +44,7 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -161,17 +164,17 @@
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
-<span class="sd">    | **cavQubFreeHam** : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension</span>
-<span class="sd">    | **RabiHam** : Creates Rabi Hamiltonian for given frequencies, coupling strength,</span>
+<span class="sd">    | :func:`cavQubFreeHam` : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension</span>
+<span class="sd">    | :func:`RabiHam` : Creates Rabi Hamiltonian for given frequencies, coupling strength,</span>
 <span class="sd">        and truncated cavity dimension</span>
-<span class="sd">    | **JCHam** : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,</span>
+<span class="sd">    | :func:`JCHam` : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,</span>
 <span class="sd">        and truncated cavity dimension</span>
-<span class="sd">    | **aJCHam** : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,</span>
+<span class="sd">    | :func:`aJCHam` : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,</span>
 <span class="sd">        and truncated cavity dimension</span>
 
 <span class="sd">    Types</span>
 <span class="sd">    ^^^^^</span>
-<span class="sd">    | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
+<span class="sd">    | :const:`Matrix &lt;qTools.QuantumToolbox.customTypes.Matrix&gt;` : Union of (scipy) sparse and (numpy) array</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1">#from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap</span>
@@ -182,6 +185,8 @@
 <span class="kn">from</span> <span class="nn">.operators</span> <span class="kn">import</span> <span class="n">number</span><span class="p">,</span> <span class="n">identity</span><span class="p">,</span> <span class="n">sigmaz</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">destroy</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">,</span> <span class="n">sigmam</span><span class="p">,</span> <span class="n">sigmap</span>
 <span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span>
 
+
+<span class="c1"># do not delete these</span>
 <span class="c1"># from typing import Tuple, TypeVar</span>
 <span class="c1"># from numpy import ndarray</span>
 <span class="c1"># from scipy.sparse import spmatrix</span>
@@ -327,7 +332,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/05/19.
+        Last updated on 2020/06/01.
       </span>
 
     </p>

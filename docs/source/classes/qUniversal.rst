@@ -11,7 +11,6 @@ QUni Module
 .. autoclass:: qUniversal
    :members:
    :private-members:
-   :special-members:
    :show-inheritance:
 
 .. autofunction:: checkClass

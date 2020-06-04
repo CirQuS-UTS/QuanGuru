@@ -55,7 +55,7 @@ class _sweep(updateBase):
     toBeSaved = updateBase.toBeSaved.extendedCopy(['sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep',
                                                    'multiParam'])
 
-    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam']
+    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam', 'index']
 
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -69,6 +69,7 @@ class _sweep(updateBase):
         self._sweepList = None
         self.logSweep = False
         self.multiParam = False
+        self.index = None
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -132,7 +133,7 @@ class _sweep(updateBase):
         self._sweepList = sList
 
     @staticmethod
-    def _defSweep(self, ind): # pylint: disable=bad-staticmethod-argument
+    def _defSweep(self): # pylint: disable=bad-staticmethod-argument
         """
         This is the default sweep function, see __init__, the ``_timeBase__function`` points to this.
 
@@ -152,7 +153,7 @@ class _sweep(updateBase):
             Index of the value from ``sweepList``
         """
 
-        val = self.sweepList[ind]
+        val = self.sweepList[self.index]
         self._runUpdate(val)
 
     def runSweep(self, ind):
@@ -160,7 +161,9 @@ class _sweep(updateBase):
         This method wraps the ``_updateBase__function``, so that this will be the function that is always called to run
         sweeps. This is not essential and could be removed, but it kind of creates a duck-typing with ``Sweep`` class.
         """
-        self._updateBase__function(self, ind) # pylint: disable=no-member
+
+        self.index = ind
+        self._updateBase__function(self) # pylint: disable=no-member
 
 class Sweep(qUniversal):
     """
@@ -196,7 +199,7 @@ class Sweep(qUniversal):
         super().__init__()
 
         self.__inds = []
-        self.__indMultip = None
+        self.__indMultip = 1
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -205,6 +208,7 @@ class Sweep(qUniversal):
         This method extends the :meth:`save <qTools.classes.QUni.qUniversal.save>` of :class:`qUniversal` by also
         calling the ``save()`` on the objects in ``subSys`` dictionary.
         """
+
         saveDict = super().save()
         sweepsDict = {}
         for sw in self.subSys.values():
@@ -266,13 +270,14 @@ class Sweep(qUniversal):
         Else, it calls the :meth:`removeSubSys <qTools.classes.QUni.qUniversal.removeSubSys>` on every ``_sweep`` in its
         ``subSys`` dictionary (since ``systems`` are stored in ``subSys`` dictionary of ``_sweep`` objects).
         """
+
         if isinstance(sys, _sweep):
             self.removeSubSys(sys)
         else:
             for sweep in self.subSys.values():
                 sweep.removeSubSys(sys)
 
-    def createSweep(self, system, sweepKey, **kwargs):
+    def createSweep(self, system, sweepKey=None, **kwargs):
         """
         This method creates a new instance of ``_sweep`` and assing its ``system`` and ``sweepKey`` to given system
         and sweepKey arguments of this method. Keyworded arguments are used to set the other attributes of the newly
@@ -291,7 +296,12 @@ class Sweep(qUniversal):
 
         :returns: The new ``_sweep`` instance.
         """
+
         newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
+        if not isinstance(sweepKey, str):
+            newSweep._aux = True #pylint: disable=protected-access
+        elif not hasattr(list(newSweep.subSys.values())[0], sweepKey):
+            newSweep._aux = True #pylint: disable=protected-access
         super().addSubSys(newSweep)
         return newSweep
 
@@ -301,6 +311,7 @@ class Sweep(qUniversal):
         attributes/properties. The reason for this a bit argued in :meth:`indMultip`, but it is basically to ensure that
         any changes to ``sweepList/s`` or ``multiParam/s`` are accurately used/reflected.
         """
+
         if len(self.subSys) > 0:
             self._Sweep__inds = [] # pylint: disable=assigning-non-slot
             for indx, sweep in enumerate(self.subSys.values()):

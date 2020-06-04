@@ -1,17 +1,68 @@
+"""
+    This module contain :class:`Simulation` and :class:`_poolMemory` classes.
+"""
 from multiprocessing import Pool, cpu_count
 from qTools.classes.Sweep import Sweep
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.timeBase import timeBase
 from qTools.classes.extensions.modularSweep import timeEvolBase
 # pylint: disable = cyclic-import
-class Simulation(timeBase):
-    instances = 0
-    _externalInstances = 0
-    _internalInstances = 0
-    label = 'Simulation'
-    simInstances = {}
 
-    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__allInstances']
+class Simulation(timeBase):
+    """
+    Simulation class collects all the pieces together to run a simulation. Its ``subSys`` dictionary contain
+    :class:`protocols <qTools.classes.QPro.genericProtocol>`, :class:`quantum systems <qTools.classes.QSys.genericQSys>`
+    as ``key:value``, respectively. It has two :class:`sweeps <qTools.classes.Sweep.Sweep>`, meaning 2 of its attributes
+    are ``Sweep`` objects. Its ``run`` method, after running some preparations, runs the actual function/s that run
+    ``Sweeps`` and evolve the system by calling ``evolFunc`` attribute of ``Simulation`` object, which is a function
+    that, by default, calls ``.unitary`` method on protocols, which by default creates the unitary by matrix
+    exponentiation, and evolves the system by a matrix multiplication of the ``.unitary`` with the ``.initial state``.
+
+    Avaliable methods of solution in the libray are going to be increased in time, and different methods will be used
+    by re-assigning the ``evolFunc``. Additionally, this will be used for interfacing the library with other tools.
+    The sweeps just change the value for some system/simulation parameters, which are just object attributes, so they
+    are generic and general enough to be independent of ``evolFunc``, and, with this, it is aimed to increase scope of
+    sweeps.
+
+
+    Attributes
+    ----------
+    Sweep : ``Sweep``
+        This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an
+        instance of :class:`Sweep <qTools.classes.Sweep.Sweep>`. The use of this attribute in ``runSimulation`` function
+        is independent of ``evolFunc`` or time-dependent part of the simulation. This is simply to sweep multiple
+        parameters.
+    timeDependency: ``Sweep``
+        This is used to define temporal change of some parameters, i.e. used for time-dependent cases. This attribute
+        is used when **default** ``evolFunc`` is used with the **default** ``createUnitary`` method of protocols, and it
+        can be avoided in other cases. This is required in digital simulations, where time dependency is discrete.
+    evolFunc: ``Callable``
+        This is the default evolution method, which calls ``.unitary`` attribute on protocols and matrix multiply the
+        resultant unitary with the ``.initialState``. It is possible to use this with other solution methods where
+        the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
+        by matrix exponentiation or the time-dependency is not incorporated by ``timeDependecy``.
+
+
+    Raises
+    ------
+    TypeError
+        There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.
+        TODO : errors are not properly implemented yet.
+    """
+
+    #: This is the number of instances that are explicitly created by the user.
+    _externalInstances: int = 0
+
+    #: This is the number of instances that are created internally by the library.
+    _internalInstances: int = 0
+
+    #: Total number of instances of the class = ``_internalInstances + _externalInstances```
+    instances = 0
+
+    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
+    label = 'Simulation'
+
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc']
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
@@ -20,16 +71,22 @@ class Simulation(timeBase):
         self.Sweep = Sweep(superSys=self)
         self.timeDependency = Sweep(superSys=self)
 
+        #self.timeDependent = False
+
         self.evolFunc = timeEvolBase
 
         if system is not None:
             self.addQSystems(system)
 
-        self.__allInstances = Simulation.simInstances
-
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def save(self):
+        """
+        This method extends the :meth:`save <qTools.classes.QUni.qUniversal.save>` of :class:`qUniversal` by calling the
+        ``save`` method on the ``keys()`` (protocols) and ``values()`` (quantum systems) of its ``subSys`` dictionary,
+        ``Sweep``, and ``timeDependency`` attributes, and then using the resultant dictionaries to extend ``saveDict``.
+        """
+
         saveDict = super().save()
         sysDict = {}
         for pro, sys in self.subSys.items():
@@ -43,26 +100,68 @@ class Simulation(timeBase):
 
     @property
     def protocols(self):
-        protocs = list(self.subSys.keys())
-        return protocs if len(protocs) > 1 else protocs[0]
+        """
+        The protocols property returns the protocols (``keys in subSys``) as a ``list``.
+        """
+
+        return list(self.subSys.keys())
 
     def _freeEvol(self):
+        """
+        This function is meant purely for internal use. When a quantum system is added to a ``Simulation`` without
+        providing a protocol, the key in ``subSys`` dictionary will be the default case inherited from
+        :class:`qUniversal <qTools.classes.QUni.qUniversal>`, i.e. name of the quantum system object. This method
+        is called inside the :meth:`run` method to ensure that the key is switched to a ``freeEvolution``. By this
+        we ensure that the default evolution is just a free evolution under the given systems Hamiltonian, explicit
+        creation of a ``freeEvolution`` object is not required. These are achieved by replacing the ``str`` key by
+        the ``freeEvolution`` object that, by default, exists as a parameter for every quantum system.
+        The reason for not doing it right away after the meth:`addQSystems` is to create a flexible use, i.e. when a
+        :meth:`addProtocol` is called to replace the ``freeEvolution``, there is no need to try reaching internally
+        created object but just using the ``system.name`` for ``protocolRemove`` argument of :meth:`addProtocol`.
+        """
+
         for protocol, qSys in self.subSys.items():
             if isinstance(protocol, str):
                 self.subSys[qSys._freeEvol] = self.subSys.pop(protocol) # pylint: disable=protected-access
 
     @property
     def qSystems(self):
-        qSys = list(self.subSys.values())
-        return qSys if len(qSys) > 1 else qSys[0]
+        """
+        The qSystems property returns the quantum systems (``values in subSys``) as a ``list``.
+        """
+
+        return list(self.subSys.values())
 
     @property
     def qEvolutions(self):
+        """
+        The qEvolutions property returns actual protocols rather than simply returning (``keys in subSys``), which
+        can be the system name before running the simulation, as in :meth:`protocols` property.
+        """
+
         self._freeEvol()
         qPros = list(self.subSys.keys())
         return qPros if len(qPros) > 1 else qPros[0]
 
     def addQSystems(self, subS, Protocol=None, **kwargs):
+        """
+        Quantum systems and the corresponding protocols are, respectively, stored as the values and keys of ``subSys``
+        dictionary, so this method extends :meth:`addSubSys <qTools.classes.QUni.qUniversal>` method by an additional
+        argument, i.e. ``Protocol`` to be used as the key, and also by creating the hierarchical
+
+        Parameters
+        ----------
+        subS : [type]
+            [description]
+        Protocol : [type], optional
+            [description], by default None
+
+        Returns
+        -------
+        [type]
+            [description]
+        """
+
         # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS, **kwargs)
         self._paramBoundBase__paramBound[subS.name] = subS # pylint: disable=no-member

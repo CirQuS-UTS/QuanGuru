@@ -94,7 +94,7 @@ def checkClass(classOf):
             if isinstance(inp, clsDecoArg):
                 addRemoveFunction(obj, inp, **kwargs)
             elif isinstance(inp, str):
-                if str in clsDecoArg.instNames.keys():
+                if inp in clsDecoArg.instNames.keys():
                     inp = wrapper(obj, clsDecoArg.instNames[inp], **kwargs)
                 else:
                     clsInput = globals()[inp]
@@ -305,7 +305,7 @@ class qUniversal:
 
         - **getter** : ``returns __subSys`` an ``OrderedDict``.
         - **setter** : adds the given object/s to ``__subSys``. It calls the :meth:`addSubSys <qUniversal.addSubSys>`,
-          so it can used to add a single object, `list/dict/tuple/orderedDict` of objects, by giving the name of the 
+          so it can used to add a single object, `list/dict/tuple/orderedDict` of objects, by giving the name of the
           system, or giving class name to add a new instance of that class.
         - **type** : ``list or dict or tuple or orderedDict``
         """
@@ -502,4 +502,5 @@ class qUniversal:
         """
         This method **returns** the class label.
         """
+
         return cls.label

@@ -157,14 +157,14 @@ class paramBoundBase(qUniversal):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.__matrix = None
-        self.__paramUpdated = False
+        self.__paramUpdated = True
         self.__paramBound = OrderedDict()
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def _paramBound(self):
         """
-        This property ``returns _paramBoundBase__paramBound`` dictionary.
+        This property ``returns _paramBoundBase__paramBound`` dictionary, and does not have a setter.
         """
 
         return self._paramBoundBase__paramBound
@@ -269,14 +269,48 @@ class computeBase(paramBoundBase):
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label: str = 'computeBase'
 
-    __slots__ = ['qRes', 'compute', 'calculate']
+    __slots__ = ['qRes', 'compute', '__calculate', '__calculateAtStart']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.compute = None
-        self.calculate = None
+        self.__calculate = None
+        self.__calculateAtStart = True
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.qRes = qResults(superSys=self)
+
+    @property
+    def calculate(self):
+        return self._computeBase__calculate
+
+    @calculate.setter
+    def calculate(self, inp):
+        if callable(inp):
+            self._computeBase__calculate = inp #pylint: disable=assigning-non-slot
+        else:
+            if callable(inp[0]):
+                self._computeBase__calculate = inp[0] #pylint: disable=assigning-non-slot
+                self.calculateAt = inp[1]
+            elif callable(inp[1]):
+                self._computeBase__calculate = inp[1] #pylint: disable=assigning-non-slot
+                self.calculateAt = inp[0]
+            else:
+                raise TypeError('?')
+
+    @property
+    def calculateAt(self):
+        if self._computeBase__calculateAtStart: #pylint: disable=assigning-non-slot
+            string = 'begining'
+        else:
+            string = 'start'
+        return string
+
+    @calculateAt.setter
+    def calculateAt(self, string):
+        if string.lower() in ['start', 'begin', 'begining']:
+            self._computeBase__calculateAtStart = True #pylint: disable=assigning-non-slot
+        elif string.lower() in ['end']:
+            self._computeBase__calculateAtStart = False #pylint: disable=assigning-non-slot
 
     @paramBoundBase.name.setter # pylint: disable=no-member
     def name(self, name):
@@ -299,14 +333,14 @@ class computeBase(paramBoundBase):
         if callable(self.compute):
             self.compute(self, *states) # pylint: disable=not-callable
 
-    def __calculate(self, systems, evolutions):
+    def __calculateMeth(self):
         """
         This is the actual calculate function that is called in the time-evolution, it calls ``self.calculate`` is it is
         a callable and does nothing otherwise.
         """
 
         if callable(self.calculate):
-            self.calculate(self, systems, evolutions) # pylint: disable=not-callable
+            self._computeBase__calculate(self) # pylint: disable=not-callable
 
     @property
     def results(self):
@@ -350,13 +384,14 @@ class qBaseSim(computeBase):
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = 'qBaseSim'
 
-    __slots__ = ['__simulation']
+    __slots__ = ['__simulation', 'aux']
 
     def __init__(self, **kwargs):
         from qTools.classes.Simulation import Simulation # pylint: disable=import-outside-toplevel
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.__simulation = Simulation(_internal=True)
         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
+        self.aux = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         # self.__openSystem = False
 

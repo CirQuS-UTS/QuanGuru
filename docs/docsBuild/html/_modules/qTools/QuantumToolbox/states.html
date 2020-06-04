@@ -27,6 +27,8 @@
         <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
         <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -42,6 +44,7 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -161,37 +164,38 @@
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
-<span class="sd">    | **basis** : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given</span>
+<span class="sd">    | :func:`basis` : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given</span>
 <span class="sd">        row.</span>
-<span class="sd">    | **completeBasis** : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .</span>
-<span class="sd">    | **basisBra** : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a</span>
+<span class="sd">    | :func:`completeBasis` : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .</span>
+<span class="sd">    | :func:`basisBra` : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a</span>
 <span class="sd">        given column.</span>
-<span class="sd">    | **zeros** : Creates a column matrix (ket) with all elements zero.</span>
-<span class="sd">    | **superPos** : Creates a `ket` superposition state :math:`\\sum_n c_n|n\\rangle` for a given dimension with a</span>
-<span class="sd">        list of excitations.</span>
+<span class="sd">    | :func:`zeros` : Creates a column matrix (ket) with all elements zero.</span>
+<span class="sd">    | :func:`superPos` : Function to create a `superposition ket` state from a given `dictionary` or `list`,</span>
+<span class="sd">        or `ket` state from a given `integer` (in this case, it is equivalent to basis function).</span>
 
-<span class="sd">    | **densityMatrix** : Converts a `ket` state into a `density matrix`.</span>
-<span class="sd">    | **completeBasisMat** : Creates a complete basis of `density matrices` for a given dimension or</span>
+<span class="sd">    | :func:`densityMatrix` : Converts a `ket` state into a `density matrix`.</span>
+<span class="sd">    | :func:`completeBasisMat` : Creates a complete basis of `density matrices` for a given dimension or</span>
 <span class="sd">        convert a `ket basis` to `density matrix`.</span>
 
-<span class="sd">    | **normalise** : Function to normalise `any` state (ket or density matrix).</span>
-<span class="sd">    | **normaliseKet** : Function to normalise a `ket` state.</span>
-<span class="sd">    | **normaliseMat** : Function to normalise a `density matrix`.</span>
+<span class="sd">    | :func:`normalise` : Function to normalise `any` state (ket or density matrix).</span>
+<span class="sd">    | :func:`normaliseKet` : Function to normalise a `ket` state.</span>
+<span class="sd">    | :func:`normaliseMat` : Function to normalise a `density matrix`.</span>
 
-<span class="sd">    | **compositeState** : Function to create `composite ket` states.</span>
-<span class="sd">    | **tensorProd** : Function to calculate tensor product of given (any number of) states (in the given order).</span>
-<span class="sd">    | **partialTrace** : Calculates the partial trace of a `density matrix` of composite state.</span>
+<span class="sd">    | :func:`compositeState` : Function to create `composite ket` states.</span>
+<span class="sd">    | :func:`tensorProd` : Function to calculate tensor product of given (any number of) states (in the given order).</span>
+<span class="sd">    | :func:`partialTrace` : Calculates the partial trace of a `density matrix` of composite state.</span>
 
-<span class="sd">    | **mat2Vec** : Converts `density matrix` into `density vector` (used in super-operator representation).</span>
-<span class="sd">    | **vec2Mat** : Converts `density vector` into `density matrix`.</span>
+<span class="sd">    | :func:`mat2Vec` : Converts `density matrix` into `density vector` (used in super-operator representation).</span>
+<span class="sd">    | :func:`vec2Mat` : Converts `density vector` into `density matrix`.</span>
 
 <span class="sd">    Types</span>
 <span class="sd">    ^^^^^</span>
-<span class="sd">    | **Matrix** : Union of (scipy) sparse and (numpy) array</span>
-<span class="sd">    | **intList** : List of integers</span>
-<span class="sd">    | **matrixList** : List of Matrices</span>
-<span class="sd">    | **supInt** : Union of the types: int, `intList`, and dict[int:float] (used in super-position creations)</span>
-<span class="sd">    | **ndOrListInt** : Union of ndarray and intList</span>
+<span class="sd">    | :const:`Matrix &lt;qTools.QuantumToolbox.customTypes.Matrix&gt;` : Union of (scipy) sparse and (numpy) array</span>
+<span class="sd">    | :const:`intList &lt;qTools.QuantumToolbox.customTypes.intList&gt;` : List of integers</span>
+<span class="sd">    | :const:`matrixList &lt;qTools.QuantumToolbox.customTypes.matrixList&gt;` : List of Matrices</span>
+<span class="sd">    | :const:`supInt &lt;qTools.QuantumToolbox.customTypes.supInt&gt;` : Union of the types: int, `intList`,</span>
+<span class="sd">        and dict[int:float] (used in super-position creations)</span>
+<span class="sd">    | :const:`ndOrListInt &lt;qTools.QuantumToolbox.customTypes.ndOrListInt&gt;` : Union of ndarray and intList</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
@@ -203,7 +207,7 @@
 <span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">intList</span><span class="p">,</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">supInp</span><span class="p">,</span> <span class="n">ndOrListInt</span>
 
 
-
+<span class="c1"># do not delete these</span>
 <span class="c1"># from typing import Union, Dict, List, Optional, TypeVar</span>
 <span class="c1"># from numpy import ndarray</span>
 <span class="c1"># from scipy.sparse import spmatrix</span>
@@ -220,7 +224,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a `ket` state for a given dimension with 1 (unit population) at a given row (state).</span>
 
-<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
+<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -234,7 +238,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    :return : Matrix</span>
-<span class="sd">        `ket` state as sparse if sparse=True else array</span>
+<span class="sd">        `ket` state as ``sparse if sparse=True else array``</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -257,7 +261,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a complete basis of `ket` states.</span>
 
-<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
+<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -269,7 +273,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    :return : matrixList</span>
-<span class="sd">        a list (complete basis) of `ket` states as sparse if sparse=True else array</span>
+<span class="sd">        a list (complete basis) of `ket` states as ``sparse if sparse=True else array``</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -298,7 +302,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a `bra` state for a given dimension with 1 (unit population) at a given column (state).</span>
 
-<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
+<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -312,7 +316,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    :return : Matrix</span>
-<span class="sd">        `bra` state as sparse if sparse=True else array</span>
+<span class="sd">        `bra` state as ``sparse if sparse=True else array``</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -331,7 +335,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a column matrix (ket) with all elements zero.</span>
 
-<span class="sd">    Either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
+<span class="sd">    Either as sparse (``sparse=True``) or array (``sparse=False``)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -364,8 +368,6 @@
 
 <div class="viewcode-block" id="superPos"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#qTools.QuantumToolbox.states.superPos">[docs]</a><span class="k">def</span> <span class="nf">superPos</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">excitations</span><span class="p">:</span> <span class="n">supInp</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a `ket` superposition state for a given dimension with a list of excitations.</span>
-
 <span class="sd">    Function to create a `superposition ket` state from a given `dictionary` or `list`,</span>
 <span class="sd">    or `ket` state from a given `integer` (in this case, it is equivalent to basis function)</span>
 
@@ -374,10 +376,11 @@
 <span class="sd">    dimension : int</span>
 <span class="sd">        dimension of Hilbert space</span>
 <span class="sd">    excitations : supInt (Union of int, list(int), dict(int:float))</span>
-<span class="sd">        | There are 3 possible uses of this</span>
-<span class="sd">        | 1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</span>
-<span class="sd">        | 2. a `list` (e.g. [0,1,2]) for equally populated super-position</span>
-<span class="sd">        | 3. an `integer`, which is equivalent to basis function</span>
+<span class="sd">        There are 3 possible uses of this</span>
+
+<span class="sd">            1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}</span>
+<span class="sd">            2. a `list` (e.g. [0,1,2]) for equally populated super-position</span>
+<span class="sd">            3. an `integer`, which is equivalent to basis function</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -458,10 +461,10 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a complete basis of `density matrices` for a given dimension or convert a `ket basis` to `density matrix`.</span>
 
-<span class="sd">    Note: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.</span>
+<span class="sd">    NOTE: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.</span>
 
 <span class="sd">    For a given basis, this keeps the sparse/array as sparse/array.</span>
-<span class="sd">    For a given dimension, either as sparse (&gt;&gt;&gt; sparse=True) or array (&gt;&gt;&gt; sparse=False)</span>
+<span class="sd">    For a given dimension, either as sparse (``sparse=True``) or array (``sparse=False``)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -479,31 +482,27 @@
 
 <span class="sd">    :raises ValueError : raised if both complete ket basis and dimension are None (default). Dimension is used to create</span>
 
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; completeBasis0 = completeBasis(2, sparse=False)</span>
-<span class="sd">    &gt;&gt;&gt; completeBasis1 = completeBasis(2)</span>
-<span class="sd">    &gt;&gt;&gt; completeBasisMat0 = completeBasisMat(dimension=2, compKetBase=completeBasis0)</span>
-<span class="sd">    &gt;&gt;&gt; for state in completeBasisMat0:</span>
-<span class="sd">    &gt;&gt;&gt;    print(state)</span>
-<span class="sd">    [[1 0]</span>
-<span class="sd">    [0 0]]</span>
-<span class="sd">    [[0 0]</span>
-<span class="sd">    [0 1]]</span>
 
-<span class="sd">    &gt;&gt;&gt; completeBasisMat1 = completeBasisMat(dimension=2, compKetBase=completeBasis1)</span>
-<span class="sd">    &gt;&gt;&gt; for state in completeBasisMat1:</span>
-<span class="sd">    &gt;&gt;&gt;    print(state)</span>
-<span class="sd">    (0, 0)	1</span>
-<span class="sd">    (1, 1)	1</span>
+<span class="sd">    .. testcode::</span>
 
-<span class="sd">    &gt;&gt;&gt; completeBasisMat01 = completeBasisMat(dimension=2, sparse=False)</span>
-<span class="sd">    &gt;&gt;&gt; for state in completeBasisMat01:</span>
-<span class="sd">    &gt;&gt;&gt;    print(state)</span>
-<span class="sd">    [[1 0]</span>
-<span class="sd">    [0 0]]</span>
-<span class="sd">    [[0 0]</span>
-<span class="sd">    [0 1]]</span>
+<span class="sd">        from qTools import completeBasis, completeBasisMat</span>
+<span class="sd">        completeBasisMat1 = completeBasisMat(dimension=2, compKetBase=completeBasis1)</span>
+<span class="sd">        print(&#39;s&#39;)</span>
+
+<span class="sd">    .. testoutput::</span>
+<span class="sd">        :options: -ELLIPSIS, +NORMALIZE_WHITESPACE</span>
+
+<span class="sd">        (0, 1)	1</span>
+<span class="sd">        (1, 1)	1</span>
+
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; print(&#39;x&#39;)</span>
+<span class="sd">        x</span>
 
 <span class="sd">    &gt;&gt;&gt; completeBasisMat11 = completeBasisMat(dimension=2)</span>
 <span class="sd">    &gt;&gt;&gt; for state in completeBasisMat11:</span>
@@ -853,7 +852,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/05/19.
+        Last updated on 2020/06/01.
       </span>
 
     </p>

@@ -25,7 +25,6 @@ class qResBlank:
     def states(self):
         return self._qResBlank__statesLast
 
-
 class qResBase(qUniversal):
     instances = 0
     label = 'qResBase'
@@ -53,16 +52,12 @@ class qResBase(qUniversal):
     def results(self):
         return self._qResBase__resultsLast
 
-    @property
-    def resultsKeyValList(self):
-        return self._qResBase__resultsLast
-
-    @resultsKeyValList.setter
-    def resultsKeyValList(self, keyValList):
+    @results.setter
+    def result(self, keyValList):
         self._qResBase__resultsLast[keyValList[0]].append(keyValList[1])
 
-    @resultsKeyValList.setter
-    def averageKeyVal(self, keyValList):
+    @results.setter
+    def resAverage(self, keyValList):
         valCountPair = self._qResBase__average.pop(keyValList[0], None)
         if valCountPair is not None:
             val = valCountPair[0]
@@ -103,7 +98,6 @@ class qResBase(qUniversal):
 
     def _saveResults(self):
         pass
-
 
 class qResults(qResBase):
     instances = 0
@@ -196,10 +190,16 @@ class qResults(qResBase):
 
     def _finalise(self, inds):
         for key, val in self._qResBase__results.items(): # pylint: disable=no-member
-            self._qResBase__results[key], _ = self._reShape(val, list(reversed(inds))) # pylint: disable=no-member
+            if inds != []:
+                self._qResBase__results[key], _ = self._reShape(val, list(reversed(inds))) # pylint: disable=no-member
+            else:
+                self._qResBase__results[key] = val[0]  # pylint: disable=no-member
 
         for key1, val1 in self._qResBase__states.items(): # pylint: disable=no-member
-            self._qResBase__states[key1], _ = self._reShape(val1, list(reversed(inds))) # pylint: disable=no-member
+            if inds != []:
+                self._qResBase__states[key1], _ = self._reShape(val1, list(reversed(inds))) # pylint: disable=no-member
+            else:
+                self._qResBase__states[key1] = val1[0] # pylint: disable=no-member
         self._qResBase__resultsLast = self._qResBase__results # pylint: disable=assigning-non-slot, no-member
         self._qResBase__statesLast = self._qResBase__states # pylint: disable=assigning-non-slot, no-member
 
@@ -213,7 +213,10 @@ class qResults(qResBase):
                 newList.append(nList)
         else:
             for _ in range(inds[counter]):
-                newList.append(lis[totalCount])
+                lisToAppend = lis[totalCount]
+                if len(lisToAppend) == 1:
+                    lisToAppend = lisToAppend[0]
+                newList.append(lisToAppend)
                 totalCount += 1
             return (newList, totalCount)
         return (newList, totalCount)

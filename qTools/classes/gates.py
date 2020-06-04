@@ -28,7 +28,7 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
             self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def createUnitary(self):
-        if self.implementation == 'instant':
-            self._funcToCreateUnitary = self.instantFlip
-        super().createUnitary()
+    def _funcToCreateUnitary(self):
+        if self.implementation.lower() == 'instant':
+            self._createUnitary = self.instantFlip
+        super()._funcToCreateUnitary()

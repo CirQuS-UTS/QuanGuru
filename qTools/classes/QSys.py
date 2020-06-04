@@ -7,7 +7,6 @@ import qTools.QuantumToolbox.states as qSta
 from qTools.classes.computeBase import qBaseSim
 from qTools.classes.computeBase import paramBoundBase
 from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
-from qTools.classes.extensions.QSysDecorators import constructConditions
 from qTools.classes.QPro import freeEvolution
 #from qTools.classes.QUni import checkClass
 
@@ -19,6 +18,35 @@ class genericQSys(qBaseSim):
     toBeSaved = qBaseSim.toBeSaved.extendedCopy(['dimension'])
 
     __slots__ = ['__unitary', '__dimension', '__liouvillian', '__envCouplings']
+
+    def __add__(self, other):
+        if isinstance(self, QuantumSystem) and isinstance(other, qSystem):
+            self.addSubSys(other)
+            newComp = self
+        elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or
+              (isinstance(self, QuantumSystem) and isinstance(other, QuantumSystem))):
+            newComp = QuantumSystem()
+            newComp.addSubSys(self)
+            newComp.addSubSys(other)
+        elif isinstance(self, qSystem) and isinstance(other, QuantumSystem):
+            other.addSubSys(self)
+            newComp = other
+        return newComp
+
+    # def __radd__(self, other):
+    #     if isinstance(self, QuantumSystem) and isinstance(other, qSystem):
+    #         self.addSubSys(qSystem)
+    #         newComp = self
+    #     elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or
+    #          (isinstance(self, QuantumSystem) and isinstance(other, QuantumSystem))):
+    #         newComp = QuantumSystem()
+    #         newComp.addSubSys(other)
+    #         newComp.addSubSys(self)
+    #     elif isinstance(self, qSystem) and isinstance(other, QuantumSystem):
+    #         other.addSubSys(self)
+    #         newComp = other
+    #     return newComp
+    #
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -69,7 +97,7 @@ class genericQSys(qBaseSim):
     # Unitary property and setter
     @property
     def unitary(self):
-        unitary = self._genericQSys__unitary.unitary()
+        unitary = self._genericQSys__unitary.unitary
         self._paramUpdated = False
         return unitary
 
@@ -204,16 +232,17 @@ class QuantumSystem(genericQSys):
     @genericQSys.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
-        for ind, it in enumerate(inp):
-            list(self.qSystems.values())[ind].initialState = it
-        self.simulation._stateBase__initialState.value = self._initialState(inp) # pylint: disable=no-member, W0212
 
-    def _initialState(self, inp):
         if (issparse(inp) or isinstance(inp, ndarray)):
             if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
-                return inp
-            raise ValueError('Dimension mismatch')
-        return qSta.compositeState(self.subSysDimensions, inp)
+                self.simulation._stateBase__initialState.value = inp # pylint: disable=protected-access
+            else:
+                raise ValueError('Dimension mismatch')
+        else:
+            for ind, it in enumerate(inp):
+                list(self.qSystems.values())[ind].initialState = it
+            self.simulation._stateBase__initialState.value = qSta.compositeState(self.subSysDimensions, inp) # pylint: disable=protected-access
+        return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
 
     # adding or creating a new sub system to composite system
     def add(self, *args):
@@ -400,14 +429,15 @@ class qSystem(genericQSys):
         # if not (issparse(inp) or isinstance(inp, ndarray)):
         for sys in self.subSys.values():
             sys.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
-            sys.simulation._stateBase__initialState.value = sys._initialState(inp) # pylint: disable=protected-access
 
-    def _initialState(self, inp):
-        if (issparse(inp) or isinstance(inp, ndarray)):
-            if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
-                return inp
-            raise ValueError('Dimension mismatch')
-        return qSta.compositeState([self.dimension], [inp]) # pylint: disable=no-member
+            if (issparse(inp) or isinstance(inp, ndarray)):
+                if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
+                    self.simulation._stateBase__initialState.value = inp
+                else:
+                    raise ValueError('Dimension mismatch')
+            else:
+                self.simulation._stateBase__initialState.value = qSta.compositeState([self.dimension], [inp])
+        return self.simulation._stateBase__initialState.value
 
     @property
     def operator(self):
@@ -451,8 +481,9 @@ class qSystem(genericQSys):
         copySys.order = order
         return copySys
 
-    @constructConditions({'dimension': (int, int64, int32, int16), 'operator': qOps.sigmax.__class__})
     def _constructMatrices(self):
+        if not (isinstance(self.dimension, (int, int64, int32, int16)) and callable(self.operator)):
+            raise TypeError('?')
         for sys in self.subSys.values():
             try:
                 sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator( # pylint : disable=no-member
@@ -550,6 +581,8 @@ class qCoupling(paramBoundBase):
 
     @property
     def freeMat(self):
+        if self._paramBoundBase__matrix is None: # pylint: disable=no-member
+            self.freeMat = None
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @freeMat.setter
