@@ -9,7 +9,7 @@ stages:
 mypy:
     stage: Static Analysis
     tags:
-        - qsimulations
+        - qsimulation
     allow_failure: true
     script:
     - pwd
@@ -20,7 +20,7 @@ mypy:
 flake8:
     stage: Static Analysis
     tags:
-        - qsimulations
+        - qsimulation
     allow_failure: true
     script:
     - pwd
@@ -29,7 +29,7 @@ flake8:
 pylint:
     stage: Static Analysis
     tags:
-        - qsimulations
+        - qsimulation
     allow_failure: true
     script:
         - pwd
@@ -46,7 +46,7 @@ pylint:
 unit_test:
     stage: Test
     tags:
-        - qsimulations
+        - qsimulation
     allow_failure: true
     script:
     - pwds
