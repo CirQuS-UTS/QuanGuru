@@ -20,16 +20,36 @@ class genericQSys(qBaseSim):
     __slots__ = ['__unitary', '__dimension', '__liouvillian', '__envCouplings']
 
     def __add__(self, other):
-        newComp = QuantumSystem()
-        newComp.addSubSys(self)
-        newComp.addSubSys(other)
+        if isinstance(self, QuantumSystem) and isinstance(other, qSystem):
+            self.addSubSys(qSystem)
+            newComp = self
+        elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or
+              (isinstance(self, QuantumSystem) and isinstance(other, QuantumSystem))):
+            newComp = QuantumSystem()
+            newComp.addSubSys(self)
+            newComp.addSubSys(other)
+        elif isinstance(self, qSystem) and isinstance(other, QuantumSystem):
+            other.addSubSys(self)
+            newComp = other
         return newComp
 
-    def __radd__(self, other):
-        newComp = QuantumSystem()
-        newComp.addSubSys(other)
-        newComp.addSubSys(self)
-        return newComp
+    # def __radd__(self, other):
+    #     if isinstance(self, QuantumSystem) and isinstance(other, qSystem):
+    #         self.addSubSys(qSystem)
+    #         newComp = self
+    #     elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or
+    #          (isinstance(self, QuantumSystem) and isinstance(other, QuantumSystem))):
+    #         newComp = QuantumSystem()
+    #         newComp.addSubSys(other)
+    #         newComp.addSubSys(self)
+    #     elif isinstance(self, qSystem) and isinstance(other, QuantumSystem):
+    #         other.addSubSys(self)
+    #         newComp = other
+
+    #     newComp = QuantumSystem()
+    #     newComp.addSubSys(other)
+    #     newComp.addSubSys(self)
+    #     return newComp
 
     def __init__(self, **kwargs):
         super().__init__()
