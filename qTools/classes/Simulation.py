@@ -64,7 +64,7 @@ class Simulation(timeBase):
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = 'Simulation'
 
-    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__w']
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc']
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
@@ -76,7 +76,6 @@ class Simulation(timeBase):
         #self.timeDependent = False
 
         self.evolFunc = timeEvolBase
-        self.__w = True
 
         if system is not None:
             self.addQSystems(system)
@@ -99,7 +98,12 @@ class Simulation(timeBase):
         saveDict['qSystems'] = sysDict
         saveDict['Sweep'] = self.Sweep.save()
         saveDict['timeDependency'] = self.timeDependency.save()
+        saveDict['timeList'] = self.timeList
         return saveDict
+
+    @property
+    def timeList(self):
+        return [x*self.stepSize for x in range(self.stepCount+1)]
 
     @property
     def protocols(self):

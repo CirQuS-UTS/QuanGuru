@@ -34,11 +34,8 @@ def nonParalEvol(qSim):
 
 # multi-processing functions
 def paralEvol(qSim, p):
-    if qSim._Simulation__w is True:
-        qSim._Simulation__w = False
-        results = p.map(partial(parallelTimeEvol, qSim), range(qSim.Sweep.indMultip), chunksize=1)
-        qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
-        qSim._Simulation__w = True
+    results = p.map(partial(parallelTimeEvol, qSim), range(qSim.Sweep.indMultip), chunksize=1)
+    qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
 
 
 # need this to avoid return part, which is only needed in multi-processing
@@ -87,7 +84,7 @@ def timeDependent(qSim):
 # This flexibility should be reflected into protocol object
 
 def timeEvolDefault(qSim, td):
-    for ind in range(qSim.stepCount-1):
+    for ind in range(qSim.stepCount):
         if td:
             qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
         qSim._Simulation__compute() # pylint: disable=protected-access
