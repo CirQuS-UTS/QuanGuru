@@ -214,8 +214,9 @@ class qResults(qResBase):
         else:
             for _ in range(inds[counter]):
                 lisToAppend = lis[totalCount]
-                if len(lisToAppend) == 1:
-                    lisToAppend = lisToAppend[0]
+                if isinstance(lisToAppend, list):
+                    if len(lisToAppend) == 1:
+                        lisToAppend = lisToAppend[0]
                 newList.append(lisToAppend)
                 totalCount += 1
             return (newList, totalCount)

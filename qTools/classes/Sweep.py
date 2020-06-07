@@ -22,7 +22,7 @@ __all__ = [
     'Sweep'
 ]
 
-class _sweep(updateBase):
+class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
     """
     This class essentially has a list of values, a dictionary of objects (``subSys``), and a key (name of an attribute).
     The purpose is to use the key to change the value of the corresponding attribute for all the objects to a value from

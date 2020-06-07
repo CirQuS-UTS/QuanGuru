@@ -40,8 +40,8 @@ class genericProtocol(qBaseSim):
     def initialState(self):
         if self.simulation._stateBase__initialState.value is None: # pylint: disable=protected-access
             try:
-                self.simulation._stateBase__initialState.value =\
-                    self.superSys._initialState(self.simulation._initialStateInput) # pylint: disable=W0212, E1101
+                state = self.superSys._initialState(self.simulation._initialStateInput) # pylint: disable=no-member
+                self.simulation._stateBase__initialState.value = state
             except: # pylint: disable=bare-except
                 self.simulation._stateBase__initialState.value = self.superSys.initialState # pylint:disable=W0212,E1101
         return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
@@ -202,7 +202,7 @@ class Step(genericProtocol):
     def _funcToCreateUnitary(self):
         if not callable(self._createUnitary):
             raise TypeError('?')
-        self._paramBoundBase__matrix = self._createUnitary() # pylint: disable=assigning-non-slot
+        self._paramBoundBase__matrix = self._createUnitary() # pylint: disable=assigning-non-slot, not-callable
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
 class copyStep(qUniversal):

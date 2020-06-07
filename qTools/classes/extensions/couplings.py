@@ -53,7 +53,7 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
         couplingObj.addTerm()
     # else:
     #     print('number')
-    #     couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj, couplingStrength=couplingStrength)
+    #  couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj, couplingStrength=couplingStrength)
     #     couplingObj.addTerm(qsystems,[create, destroy])
     # couplingObj.name = 'JCcoupling'
     return couplingObj

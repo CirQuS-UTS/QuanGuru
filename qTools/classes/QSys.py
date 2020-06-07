@@ -487,8 +487,8 @@ class qSystem(genericQSys):
             raise TypeError('?')
         for sys in self.subSys.values():
             try:
-                sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator( # pylint : disable=no-member
-                    self._genericQSys__dimension), self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order
+                sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension), # pylint: disable=no-member
+                                                               self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order # pylint: disable=line-too-long
             except: # pylint: disable=bare-except
                 sys._paramBoundBase__matrix = qOps.compositeOp( # pylint: disable=no-member
                     sys.operator(),
