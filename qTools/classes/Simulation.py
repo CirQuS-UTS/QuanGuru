@@ -1,7 +1,9 @@
 """
     This module contain :class:`Simulation` and :class:`_poolMemory` classes.
 """
-from multiprocessing import Pool, cpu_count
+import sys
+import platform
+import multiprocessing
 from qTools.classes.Sweep import Sweep
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.timeBase import timeBase
@@ -89,10 +91,10 @@ class Simulation(timeBase):
 
         saveDict = super().save()
         sysDict = {}
-        for pro, sys in self.subSys.items():
-            syDict = sys.save()
+        for pro, system in self.subSys.items():
+            syDict = system.save()
             syDict[pro.name] = pro.save()
-            sysDict[sys.name] = syDict
+            sysDict[system.name] = syDict
         saveDict['qSystems'] = sysDict
         saveDict['Sweep'] = self.Sweep.save()
         saveDict['timeDependency'] = self.timeDependency.save()
@@ -182,10 +184,10 @@ class Simulation(timeBase):
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
                 self.removeSweep(subSys)
 
-    def removeSweep(self, sys):
-        self.Sweep.removeSweep(sys)
-        self.timeDependency.removeSweep(sys)
-        return sys
+    def removeSweep(self, system):
+        self.Sweep.removeSweep(system)
+        self.timeDependency.removeSweep(system)
+        return system
 
     # add/remove protocol
     def removeProtocol(self, Protocol):
@@ -193,10 +195,10 @@ class Simulation(timeBase):
         #  or a freeEvol obj after run
         self._qUniversal__subSys.pop(Protocol, None) # pylint: disable=no-member
 
-    def addProtocol(self, protocol=None, sys=None, protocolRemove=None):
+    def addProtocol(self, protocol=None, system=None, protocolRemove=None):
         # TODO Decorate this
         qSysClass = globals()['qBaseSim']
-        if sys is None:
+        if system is None:
             if isinstance(protocol, qSysClass):
                 if isinstance(protocol.superSys, qSysClass):
                     protocol = self.addProtocol(protocol.superSys, protocol, protocolRemove)
@@ -205,8 +207,8 @@ class Simulation(timeBase):
             else:
                 raise TypeError('?')
         elif isinstance(protocol.superSys, qSysClass):
-            if sys is protocol.superSys:
-                self.addQSystems(sys, protocol)
+            if system is protocol.superSys:
+                self.addQSystems(system, protocol)
                 self.removeProtocol(Protocol=protocolRemove)
             else:
                 raise TypeError('?')
@@ -253,18 +255,30 @@ class Simulation(timeBase):
 class _poolMemory: # pylint: disable=too-few-public-methods
     coreCount = None
 
+    @staticmethod
+    def systemCheck():
+        return platform.system()
+
+    @staticmethod
+    def pythonSubVersion():
+        return sys.version_info[1]
+
     @classmethod
     def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
+        if cls.systemCheck() != 'Windows':
+            if cls.pythonSubVersion() == 8:
+                multiprocessing.set_start_method("fork")
+
         if p is True:
             if coreCount is None:
                 if _poolMemory.coreCount is None:
-                    _pool = Pool(processes=cpu_count()-1)
+                    _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1)
                 else:
-                    _pool = Pool(processes=_poolMemory.coreCount)
+                    _pool = multiprocessing.Pool(processes=_poolMemory.coreCount)
             elif isinstance(coreCount, int):
-                _pool = Pool(processes=coreCount)
+                _pool = multiprocessing.Pool(processes=coreCount)
             elif coreCount.lower() == 'all':
-                _pool = Pool(processes=cpu_count()-1)
+                _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1)
             else:
                 # FIXME should raise error
                 print('error')
@@ -272,16 +286,17 @@ class _poolMemory: # pylint: disable=too-few-public-methods
             _pool = None
         elif p is not None:
             # FIXME if p is not a pool, this should raise error
-            _pool = Pool(processes=p._processes) # pylint: disable=protected-access
+            _pool = multiprocessing.Pool(processes=p._processes) # pylint: disable=protected-access
         elif p is None:
             if _poolMemory.coreCount is not None:
-                _pool = Pool(processes=_poolMemory.coreCount)
+                _pool = multiprocessing.Pool(processes=_poolMemory.coreCount)
             else:
                 _pool = None
-
         runSimulation(qSim, _pool)
 
         if _pool is not None:
             _poolMemory.coreCount = _pool._processes # pylint: disable=protected-access
             _pool.close()
             _pool.join()
+
+# multiprocessing.set_start_method("fork")
