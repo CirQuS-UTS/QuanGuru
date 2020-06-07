@@ -34,8 +34,11 @@ def nonParalEvol(qSim):
 
 # multi-processing functions
 def paralEvol(qSim, p):
-    results = p.map(partial(parallelTimeEvol, qSim), range(qSim.Sweep.indMultip), chunksize=1)
-    qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
+    if qSim._Simulation__w is True:
+        qSim._Simulation__w = False
+        results = p.map(partial(parallelTimeEvol, qSim), range(qSim.Sweep.indMultip), chunksize=1)
+        qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
+        qSim._Simulation__w = True
 
 
 # need this to avoid return part, which is only needed in multi-processing
