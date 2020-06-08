@@ -259,6 +259,7 @@ class Simulation(timeBase):
 
 class _poolMemory: # pylint: disable=too-few-public-methods
     coreCount = None
+    reRun = False
 
     @staticmethod
     def systemCheck():
@@ -270,7 +271,8 @@ class _poolMemory: # pylint: disable=too-few-public-methods
 
     @classmethod
     def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
-        if cls.systemCheck() != 'Windows':
+        if ((cls.systemCheck() != 'Windows') and (cls.reRun is False)):
+            cls.reRun = True
             if cls.pythonSubVersion() == 8:
                 multiprocessing.set_start_method("fork")
 
