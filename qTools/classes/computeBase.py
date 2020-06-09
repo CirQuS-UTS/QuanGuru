@@ -384,14 +384,13 @@ class qBaseSim(computeBase):
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = 'qBaseSim'
 
-    __slots__ = ['__simulation', 'aux']
+    __slots__ = ['__simulation']
 
     def __init__(self, **kwargs):
         from qTools.classes.Simulation import Simulation # pylint: disable=import-outside-toplevel
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.__simulation = Simulation(_internal=True, superSys=self)
         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
-        self.aux = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         # self.__openSystem = False
 

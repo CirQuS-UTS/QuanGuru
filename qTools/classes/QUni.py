@@ -218,10 +218,13 @@ class qUniversal:
     #: Total number of instances of the class = ``_internalInstances + _externalInstances```
     instances = 0
 
+    #: aux
+    _auxiliary = {}
+
     #: a list of str (attribute names) to be used with save method.
     toBeSaved: List[str] = extendedList(['name'])
 
-    __slots__ = ['__name', '__superSys', '__subSys', '__allInstances', '_internal']
+    __slots__ = ['__name', '__superSys', '__subSys', '__allInstances', '_internal', '__aux']
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -231,7 +234,16 @@ class qUniversal:
         self.__superSys = None
         self.__subSys = OrderedDict()
         self.__allInstances = qUniversal.instNames
+        self.__aux = qUniversal._auxiliary
         self._qUniversal__setKwargs(**kwargs)
+
+    @property
+    def aux(self):
+        return self._qUniversal__aux
+
+    @aux.setter
+    def aux(self, dictionary):
+        setattr(self, '_qUniversal__aux', dictionary)
 
     def save(self):
         """
