@@ -384,25 +384,25 @@ class qSystem(genericQSys):
         return saveDict
 
     @genericQSys.dimension.setter # pylint: disable=no-member
-    def dimension(self, newDimVal, oldDimVal=None):
-        if oldDimVal is None:
-            if self._genericQSys__dimension is None: # pylint: disable=no-member
-                oldDimVal = newDimVal
-            else:
-                oldDimVal = self._genericQSys__dimension # pylint: disable=no-member
+    def dimension(self, newDimVal):
+        if self._genericQSys__dimension is not None: # pylint: disable=no-member
+            oldDimVal = self._genericQSys__dimension # pylint: disable=no-member
 
-        if not isinstance(newDimVal, (int, int64, int32, int16)):
-            raise ValueError('Dimension is not int')
+            if not isinstance(newDimVal, (int, int64, int32, int16)):
+                raise ValueError('Dimension is not int')
 
-        for sys in self.subSys.values():
-            sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
-            sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
-            if sys.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
-                sys.initialState = sys.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
-            sys._paramUpdated = True
+            for sys in self.subSys.values():
+                sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
+                sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
+                if sys.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
+                    sys.initialState = sys.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
+                sys._paramUpdated = True
 
-        if isinstance(self.superSys, QuantumSystem):
-            self.superSys.updateDimension(self, newDimVal, oldDimVal) # pylint: disable=no-member
+            if isinstance(self.superSys, QuantumSystem):
+                self.superSys.updateDimension(self, newDimVal, oldDimVal) # pylint: disable=no-member
+        elif self._genericQSys__dimension is None: # pylint: disable=no-member
+            for sys in self.subSys.values():
+                sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
 
     @genericQSys.totalHam.getter # pylint: disable=no-member
     def totalHam(self): # pylint: disable=invalid-overridden-method
@@ -450,6 +450,7 @@ class qSystem(genericQSys):
     @operator.setter
     def operator(self, op):
         self._paramUpdated = True
+        self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
         self._qSystem__operator = op # pylint: disable=assigning-non-slot
 
     @property
