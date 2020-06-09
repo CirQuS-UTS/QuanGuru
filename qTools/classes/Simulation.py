@@ -247,7 +247,6 @@ class Simulation(timeBase):
         if len(self.subSys.values()) == 0:
             self.addQSystems(self.superSys)
         self._freeEvol()
-        print(self.subSys)
         for qSys in self.subSys.values():
             qSys._constructMatrices() # pylint: disable=protected-access
         for protocol in self.subSys.keys():

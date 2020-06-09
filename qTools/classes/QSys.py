@@ -485,6 +485,9 @@ class qSystem(genericQSys):
         copySys.order = order
         return copySys
 
+    def removeTerm(self, term):
+        self.removeSubSys(term)
+
     def _constructMatrices(self):
         if not (isinstance(self.dimension, (int, int64, int32, int16)) and callable(self.operator)):
             raise TypeError('?')
