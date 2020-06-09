@@ -166,6 +166,10 @@ class genericQSys(qBaseSim):
             newSys = super().copy(dimension=self.dimension, frequency=self.frequency, operator=self.operator)
         except AttributeError:
             newSys = super().copy()
+
+        if self.simulation._stateBase__initialStateInput._value is not None:
+            newSys.simulation._stateBase__initialState.value = self.simulation._stateBase__initialState.value
+            newSys.simulation._stateBase__initialStateInput.value = self.simulation._stateBase__initialStateInput.value
         newSys._qUniversal__setKwargs(**kwargs)
         for sys in self.subSys.values():
             if sys is not self:
@@ -321,7 +325,10 @@ class QuantumSystem(genericQSys):
     # construct the matrices
     def _constructMatrices(self):
         for qSys in self.subSys.values():
-            qSys.freeMat = None
+            if isinstance(qSys, QuantumSystem):
+                qSys._constructMatrices() # pylint: disable=protected-access
+            else:
+                qSys.freeMat = None
 
         for qSys in self.qCouplings.values():
             qSys.freeMat = None
@@ -431,6 +438,9 @@ class qSystem(genericQSys):
     def initialState(self, inp):
         # self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
         # if not (issparse(inp) or isinstance(inp, ndarray)):
+        if self.superSys is not None:
+            self.superSys.simulation._stateBase__initialState._value = None
+
         for sys in self.subSys.values():
             sys.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
 
