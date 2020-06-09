@@ -967,7 +967,7 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
 
 
 # TODO Does this really work with ndarray ?
-def compositeOp(operator: Matrix, dimB: int, dimA: int) -> Matrix:
+def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
     """
     Creates a composite operator from a sub-system `operator`,
     i.e. tensor product with identities of dimensions dimB & dimA
