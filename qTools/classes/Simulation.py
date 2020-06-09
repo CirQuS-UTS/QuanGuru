@@ -119,7 +119,7 @@ class Simulation(timeBase):
         providing a protocol, the key in ``subSys`` dictionary will be the default case inherited from
         :class:`qUniversal <qTools.classes.QUni.qUniversal>`, i.e. name of the quantum system object. This method
         is called inside the :meth:`run` method to ensure that the key is switched to a ``freeEvolution``. By this
-        we ensure that the default evolution is just a free evolution under the given systems Hamiltonian, explicit
+        we ensure that the default evolution is just a free evolution under the given systems Hamiltonian and explicit
         creation of a ``freeEvolution`` object is not required. These are achieved by replacing the ``str`` key by
         the ``freeEvolution`` object that, by default, exists as a parameter for every quantum system.
         The reason for not doing it right away after the meth:`addQSystems` is to create a flexible use, i.e. when a
@@ -308,5 +308,3 @@ class _poolMemory: # pylint: disable=too-few-public-methods
             _poolMemory.coreCount = _pool._processes # pylint: disable=protected-access
             _pool.close()
             _pool.join()
-
-# multiprocessing.set_start_method("fork")

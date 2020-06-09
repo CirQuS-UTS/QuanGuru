@@ -6,7 +6,7 @@ import qTools.QuantumToolbox.states as qSta
 #import qTools.QuantumToolbox.evolution as qEvo
 from qTools.classes.computeBase import qBaseSim
 from qTools.classes.computeBase import paramBoundBase
-from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
+#from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.QPro import freeEvolution
 #from qTools.classes.QUni import checkClass
 
@@ -27,7 +27,10 @@ class genericQSys(qBaseSim):
               (isinstance(self, QuantumSystem) and isinstance(other, QuantumSystem))):
             newComp = QuantumSystem()
             newComp.addSubSys(self)
-            newComp.addSubSys(other)
+            if other is self:
+                newComp.addSubSys(other.copy())
+            else:
+                newComp.addSubSys(other)
         elif isinstance(self, qSystem) and isinstance(other, QuantumSystem):
             other.addSubSys(self)
             newComp = other
@@ -356,7 +359,7 @@ class qSystem(genericQSys):
     label = 'qSystem'
 
     __slots__ = ['__frequency', '__operator', '__dimsBefore', '__dimsAfter', '__terms', '__order']
-    @qSystemInitErrors
+    #@qSystemInitErrors
     def __init__(self, **kwargs):
         super().__init__()
         self.__frequency = None
@@ -551,7 +554,7 @@ class qCoupling(paramBoundBase):
 
     __slots__ = ['__couplingStrength']
 
-    @qCouplingInitErrors
+    #@qCouplingInitErrors
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.__couplingStrength = None
