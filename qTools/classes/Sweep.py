@@ -277,7 +277,7 @@ class Sweep(qUniversal):
             for sweep in self.subSys.values():
                 sweep.removeSubSys(sys)
 
-    def createSweep(self, system, sweepKey=None, **kwargs):
+    def createSweep(self, system=None, sweepKey=None, **kwargs):
         """
         This method creates a new instance of ``_sweep`` and assing its ``system`` and ``sweepKey`` to given system
         and sweepKey arguments of this method. Keyworded arguments are used to set the other attributes of the newly
@@ -296,6 +296,11 @@ class Sweep(qUniversal):
 
         :returns: The new ``_sweep`` instance.
         """
+
+        if system is None:
+            system = self.superSys.superSys
+            if system is None:
+                raise ValueError('?')
 
         newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
         if not isinstance(sweepKey, str):
