@@ -127,9 +127,11 @@ class Simulation(timeBase):
         created object but just using the ``system.name`` for ``protocolRemove`` argument of :meth:`addProtocol`.
         """
 
-        for protocol, qSys in self.subSys.items():
-            if isinstance(protocol, str):
-                self.subSys[qSys._freeEvol] = self.subSys.pop(protocol) # pylint: disable=protected-access
+        keys = self.protocols
+        for key in keys:
+            qSys = self.subSys[key]
+            if isinstance(key, str):
+                self.subSys[qSys._freeEvol] = self.subSys.pop(key) # pylint: disable=protected-access
 
     @property
     def qSystems(self):
@@ -245,6 +247,7 @@ class Simulation(timeBase):
         if len(self.subSys.values()) == 0:
             self.addQSystems(self.superSys)
         self._freeEvol()
+        print(self.subSys)
         for qSys in self.subSys.values():
             qSys._constructMatrices() # pylint: disable=protected-access
         for protocol in self.subSys.keys():
