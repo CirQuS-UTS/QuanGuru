@@ -8,6 +8,7 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
     def __init__(self, **kwargs):
         super().__init__()
         self.__angle = None
+        self._createUnitary = self._gateImplements
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -28,7 +29,7 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
             self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def _funcToCreateUnitary(self):
+    def _gateImplements(self):
         if self.implementation.lower() == 'instant':
-            self._createUnitary = self.instantFlip
-        super()._funcToCreateUnitary()
+            unitary = self.instantFlip()
+        return unitary
