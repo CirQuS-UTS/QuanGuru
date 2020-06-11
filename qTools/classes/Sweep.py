@@ -342,3 +342,13 @@ class Sweep(qUniversal):
             if sweep.multiParam is True:
                 indx += 1
             sweep.runSweep(indList[indx])
+
+    # function used in modular sweep
+    @staticmethod
+    def _indicesForSweep(ind, *args):
+        indices = []
+        for arg in args:
+            remain = ind%arg
+            ind = (ind-remain)/arg
+            indices.insert(0, int(remain))
+        return indices
