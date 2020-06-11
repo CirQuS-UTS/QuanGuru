@@ -125,8 +125,10 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def getUnitary(self):
+        initialBool = self._paramBoundBase__paramUpdated # pylint: disable=no-member,
         for update in self._genericProtocol__updates:
             update.setup()
+        self._paramBoundBase__paramUpdated = initialBool # pylint: disable=assigning-non-slot
         self._paramBoundBase__matrix = self._getUnitary() # pylint: disable=no-member, assigning-non-slot
         for update in self._genericProtocol__updates:
             update.setback()
@@ -309,10 +311,6 @@ class Update(updateBase):
 
     def _setup(self):
         self._Update__memoryValue = getattr(list(self.subSys.values())[0], self.key) # pylint:disable=assigning-non-slot
-        for sys in self.subSys.values():
-            if self._Update__memoryValue != getattr(sys, self.key): # pylint: disable=assigning-non-slot
-                raise ValueError('?')
-
         if self.value != self.memoryValue:
             super()._runUpdate(self.value)
 
