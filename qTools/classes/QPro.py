@@ -4,11 +4,11 @@ from qTools.QuantumToolbox.operators import identity
 from qTools.classes.computeBase import _parameter, qBaseSim
 from qTools.classes.updateBase import updateBase
 from qTools.classes.QUni import qUniversal
-#from qTools.classes.Sweep import Sweep
+from qTools.classes.Sweep import Sweep
 
 # under construction
 
-class genericProtocol(qBaseSim):
+class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attributes
     instances = 0
     label = 'genericProtocol'
     numberOfExponentiations = 0
@@ -17,16 +17,19 @@ class genericProtocol(qBaseSim):
     def _increaseExponentiationCount(cls):
         cls.numberOfExponentiations += 1
 
-    __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '_getUnitary', '_createUnitary']
+    __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates',
+                 '_getUnitary', '_createUnitary', 'timeDependency', '__identity']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.__currentState = _parameter()
+        self.__identity = None
         self.__inProtocol = False
         self.__fixed = False
         self.__ratio = 1
         self.__updates = []
         self._getUnitary = self._defGetUnitary
+        self.timeDependency = Sweep(superSys=self)
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -131,12 +134,35 @@ class genericProtocol(qBaseSim):
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def _defGetUnitary(self):
+        runCreate = False
         if self._paramUpdated:
             if not self.fixed:
-                self._paramBoundBase__matrix = self._createUnitary() # pylint: disable=no-member, assigning-non-slot
+                runCreate = True
         elif self._paramBoundBase__matrix is None: # pylint: disable=no-member
-            self._paramBoundBase__matrix = self._createUnitary() # pylint: disable=no-member, assigning-non-slot
+            runCreate = True
+
+        if runCreate:
+            lc = 1
+            td = False
+            if len(self.timeDependency.sweeps) > 0:
+                lc = self.timeDependency.indMultip
+                td = False
+
+            unitary = self._identity
+            for ind in range(lc):
+                if td:
+                    self.timeDependency.runSweep(self.timeDependency._indicesForSweep(ind, *self.timeDependency.inds))
+                unitary = self._createUnitary() @ unitary # pylint: disable=no-member
+            self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
+
+    @property
+    def _identity(self):
+        if self._genericProtocol__identity is None:
+            self._genericProtocol__identity = identity(self.superSys._totDim) # pylint: disable=E0237, E1101
+        elif self._genericProtocol__identity.shape[0] != self.superSys._totDim: # pylint: disable=E1101
+            self._genericProtocol__identity = identity(self.superSys._totDim) # pylint: disable=E0237, E1101
+        return self._genericProtocol__identity
 
 class qProtocol(genericProtocol):
     instances = 0
@@ -173,7 +199,7 @@ class qProtocol(genericProtocol):
                     step.superSys = self.superSys
 
     def _defCreateUnitary(self):
-        unitary = identity(self.superSys.dimension) # pylint: disable=no-member
+        unitary = self._identity # pylint: disable=no-member
         for step in self.steps.values():
             unitary = step.getUnitary() @ unitary
         return unitary

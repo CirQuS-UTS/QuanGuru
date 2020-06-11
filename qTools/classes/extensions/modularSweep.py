@@ -14,16 +14,6 @@ def runSimulation(qSim, p):
         qSim._computeBase__calculateMeth() # pylint: disable=protected-access
 
 
-# function used in modular sweep
-def indicesForSweep(ind, *args):
-    indices = []
-    for arg in args:
-        remain = ind%arg
-        ind = (ind-remain)/arg
-        indices.insert(0, int(remain))
-    return indices
-
-
 # This is the single process function
 def nonParalEvol(qSim):
     for ind in range(qSim.Sweep.indMultip):
@@ -48,7 +38,7 @@ def parallelTimeEvol(qSim, ind):
 # In the timeDependet case, evolFunc of first function is the second function
 def _runSweepAndPrep(qSim, ind):
     if len(qSim.Sweep.inds) > 0:
-        qSim.Sweep.runSweep(indicesForSweep(ind, *qSim.Sweep.inds))
+        qSim.Sweep.runSweep(qSim.Sweep._indicesForSweep(ind, *qSim.Sweep.inds))
 
     for protocol in qSim.subSys.keys():
         protocol.currentState = protocol.initialState
@@ -86,7 +76,7 @@ def timeDependent(qSim):
 def timeEvolDefault(qSim, td):
     for ind in range(qSim.stepCount+1):
         if td:
-            qSim.timeDependency.runSweep(indicesForSweep(ind, *qSim.timeDependency.inds))
+            qSim.timeDependency.runSweep(qSim.timeDependency._indicesForSweep(ind, *qSim.timeDependency.inds))
         qSim._Simulation__compute() # pylint: disable=protected-access
         qSim.evolFunc(qSim)
 
