@@ -369,7 +369,7 @@ def sigmam(sparse: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.
 
@@ -432,7 +432,7 @@ def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.
 
@@ -494,7 +494,7 @@ def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.
 
@@ -556,7 +556,7 @@ def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jx(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `X` operator for a given spin quantum number j.
 
@@ -617,7 +617,7 @@ def Jx(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jy(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.
 
@@ -678,7 +678,7 @@ def Jy(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Js(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the total angular momentum (spin) operator for a given spin quantum number j.
 
