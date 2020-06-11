@@ -206,6 +206,10 @@ class QuantumSystem(genericQSys):
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
+    @property
+    def _totDim(self):
+        return self.dimension
+
     def save(self):
         saveDict = super().save()
         qsys = {}
@@ -376,6 +380,10 @@ class qSystem(genericQSys):
         self.addSubSys(self)
         self.__order = 1
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def _totDim(self):
+        return self._genericQSys__dimension * self._qSystem__dimsBefore * self._qSystem__dimsAfter#pylint:disable=E1101
 
     def save(self):
         saveDict = super().save()
