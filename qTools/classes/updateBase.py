@@ -22,6 +22,7 @@ class updateBase(qUniversal):
         functions to be used, if some form of customisation is needed. TODO : cross-reference this to fixed sample-rate
         for varying-step-size demos.
     """
+
     #: Total number of instances of the class
     instances: int = 0
 
