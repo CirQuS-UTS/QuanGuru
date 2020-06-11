@@ -1,4 +1,4 @@
-from numpy import exp, real
+from numpy import exp, real # type: ignore
 from .states import mat2Vec, vec2Mat
 from .customTypes import Matrix
 

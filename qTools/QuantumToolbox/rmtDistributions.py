@@ -1,8 +1,8 @@
-from scipy.special import gammaln # pylint: disable=no-name-in-module
-from numpy import sqrt, pi, e
+from scipy.special import gammaln # pylint: disable=no-name-in-module  # type: ignore
+from numpy import sqrt, pi, e # type: ignore
 
 
-def EigenVectorDist(x, dim, beta=1):
+def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
     if beta == 1:
         coef = e**(gammaln(dim/2) - gammaln((dim-1)/2))
         dist = ((1 - x)**((dim-3)/2))/(sqrt(pi*x))
@@ -16,7 +16,7 @@ def EigenVectorDist(x, dim, beta=1):
     return val if val != 0 else 10**-30
 
 
-def WignerDyson(x, beta=1):
+def WignerDyson(x: float, beta: int = 1) -> float:
     if beta == 1:
         coef = pi/2
         dist = (x ** beta) * (e ** (-(pi * (x ** 2)) / 4))
@@ -30,5 +30,5 @@ def WignerDyson(x, beta=1):
     return val if val != 0 else 10**-30
 
 
-def Poissonian(x, lam):
+def Poissonian(x: float, lam: float) -> float:
     return ((e**(-gammaln(x+1)))*(lam**x))*(e**(-lam))
