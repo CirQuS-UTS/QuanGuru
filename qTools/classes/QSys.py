@@ -174,6 +174,10 @@ class genericQSys(qBaseSim):
         newSys._qUniversal__setKwargs(**kwargs)
         return newSys
 
+    def _constructMatrices(self):
+        for sys in self.subSys.values():
+            sys._constructMatrices() # pylint: disable=protected-access
+
 class QuantumSystem(genericQSys):
     def __new__(cls, sysType='composite', **kwargs):
         if sysType == 'composite':
@@ -235,16 +239,6 @@ class compQSystem(genericQSys):
         cham = sum([val.totalHam for val in self.qCouplings.values()])
         return cham
 
-    # adding or creating a new sub system to composite system
-    def add(self, *args):
-        for system in args:
-            self.addSubSys(system)
-
-    def create(self, *args, n=1):
-        print(n)
-        for sysClass in args:
-            self.addSubSys(sysClass)
-
     @property
     def qSystems(self):
         return self._qUniversal__subSys # pylint: disable=no-member
@@ -282,7 +276,6 @@ class compQSystem(genericQSys):
         subSys.superSys = self
         return subSys
 
-    # adding or creating a new coupling
     @property
     def qCouplings(self):
         return self._compQSystem__qCouplings
@@ -302,12 +295,7 @@ class compQSystem(genericQSys):
 
     # construct the matrices
     def _constructMatrices(self):
-        for qSys in self.subSys.values():
-            if isinstance(qSys, compQSystem):
-                qSys._constructMatrices() # pylint: disable=protected-access
-            else:
-                qSys.freeMat = None
-
+        super()._constructMatrices()
         for qSys in self.qCouplings.values():
             qSys.freeMat = None
 
@@ -567,10 +555,6 @@ class qSystem(genericQSys):
 
     def removeTerm(self, termObj):
         self.removeSubSys(termObj)
-
-    def _constructMatrices(self):
-        for termObj in self.subSys.values():
-            termObj._constructMatrices() # pylint: disable=protected-access
 
 class Spin(qSystem):
     instances = 0
