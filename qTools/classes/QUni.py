@@ -365,9 +365,20 @@ class qUniversal:
     def removeSubSys(self, subS):
         """
         This method removes the given object from the ``__subSys`` dictionary.
+
+        TODO Cover if the given key of obj or str is not in subSys dict.
         """
 
-        obj = self._qUniversal__subSys.pop(subS.name)
+        if subS in self._qUniversal__subSys.keys():
+            obj = self._qUniversal__subSys.pop(subS, None)
+        elif isinstance(obj, qUniversal):
+            if subS.name in self._qUniversal__subSys.keys():
+                obj = self._qUniversal__subSys.pop(subS.name, None)
+            else:
+                for key, val in self._qUniversal__subSys.items():
+                    if val is obj:
+                        obj = self._qUniversal__subSys.pop(key, None)
+                        break
         print(obj.name + ' is removed from subSys of ' + self.name)
 
     @property
