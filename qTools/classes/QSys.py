@@ -232,7 +232,9 @@ class compQSystem(genericQSys):
 
     @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
-        return self.freeHam + self.couplingHam
+        if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
+            self._paramBoundBase__matrix = self.freeHam + self.couplingHam # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @property
     def couplingHam(self):
@@ -257,6 +259,12 @@ class compQSystem(genericQSys):
 
     def createSubSys(self, subSysClass, **kwargs):
         return self.addSubSys(subSysClass, **kwargs)
+
+    def removeSubSys(self, subS):
+        if isinstance(subS, str):
+            subS = self.getObjByName(subS)
+        self.updateDimension(subS, newDimVal=1, oldDimVal=subS.dimension)
+        super().removeSubSys(subS)
 
     def __addSub(self, subSys):
         for subS in self._compQSystem__qSystems.values():
@@ -297,18 +305,14 @@ class compQSystem(genericQSys):
         self._genericQSys__dimension = None # pylint: disable=assigning-non-slot
         if oldDimVal is None:
             oldDimVal = qSys._genericQSys__dimension
-
         self.delMatrices(_exclude=[])
-
         qSys._genericQSys__dimension = newDimVal
         ind = qSys.ind
         for qS in self.qSystems.values():
             if qS.ind < ind:
-                for sys in qS.subSys.values():
-                    sys._dimsAfter = int((qS._dimsAfter*newDimVal)/oldDimVal)
+                qS._dimsAfter = int((qS._dimsAfter*newDimVal)/oldDimVal)
             elif qS.ind > ind:
-                for sys in qS.subSys.values():
-                    sys._dimsBefore = int((qS._dimsBefore*newDimVal)/oldDimVal)
+                qS._dimsBefore = int((qS._dimsBefore*newDimVal)/oldDimVal)
 
         if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=no-member, W0212
             self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member, W0212
@@ -471,8 +475,10 @@ class qSystem(genericQSys):
 
     @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
-        h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values() if obj.frequency != 0])
-        return h
+        if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
+            h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values() if obj.frequency != 0])
+            self._paramBoundBase__matrix = h # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @property
     def freeMat(self):
@@ -548,7 +554,6 @@ class qSystem(genericQSys):
 
     def removeTerm(self, termObj):
         self.removeSubSys(termObj)
-
 class Spin(qSystem):
     instances = 0
     label = 'Spin'
@@ -625,8 +630,12 @@ class qCoupling(paramBoundBase):
 
     @property
     def totalHam(self):
-        h = [self.couplingStrength * self.freeMat]
-        return sum(h) if self.couplingStrength != 0 else sum([])
+        if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
+            h = [self.couplingStrength * self.freeMat]
+            if self.couplingStrength == 0:
+                h = []
+            self._paramBoundBase__matrix = sum(h) # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @property
     def freeMat(self):
@@ -649,6 +658,8 @@ class qCoupling(paramBoundBase):
 
     @couplingStrength.setter
     def couplingStrength(self, strength):
+        if strength == 0.0:
+            strength = 0
         self._paramUpdated = True
         self._qCoupling__couplingStrength = strength # pylint: disable=assigning-non-slot
 
