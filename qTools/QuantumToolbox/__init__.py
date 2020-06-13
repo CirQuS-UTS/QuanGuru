@@ -42,4 +42,4 @@ from .states import (
 )
 from .customTypes import (Matrix, intList, matrixList, supInp, ndOrListInt, ndOrList)
 
-from .rmtDistributions import (EigenVectorDist, WignerDyson, Poissonian) 
+from .rmtDistributions import (EigenVectorDist, WignerDyson, Poissonian)

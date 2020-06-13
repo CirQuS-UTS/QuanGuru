@@ -161,9 +161,9 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     @property
     def _identity(self):
         if self._genericProtocol__identity is None:
-            self._genericProtocol__identity = identity(self.superSys._totDim) # pylint: disable=E0237, E1101
-        elif self._genericProtocol__identity.shape[0] != self.superSys._totDim: # pylint: disable=E1101
-            self._genericProtocol__identity = identity(self.superSys._totDim) # pylint: disable=E0237, E1101
+            self._genericProtocol__identity = identity(self.superSys._totalDim) # pylint: disable=E0237, E1101
+        elif self._genericProtocol__identity.shape[0] != self.superSys._totalDim: # pylint: disable=E1101
+            self._genericProtocol__identity = identity(self.superSys._totalDim) # pylint: disable=E0237, E1101
         return self._genericProtocol__identity
 
 class qProtocol(genericProtocol):

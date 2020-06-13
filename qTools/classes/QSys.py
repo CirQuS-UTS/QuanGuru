@@ -62,6 +62,10 @@ class genericQSys(qBaseSim):
             if isinstance(sys, genericQSys):
                 sys._genericQSys__dimsAfter *= val
 
+    @property
+    def _totalDim(self):
+        return self._genericQSys__dimension * self._dimsBefore * self._dimsAfter#pylint:disable=E1101
+
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = freeEvolution(_internal=True)
@@ -181,10 +185,6 @@ class compQSystem(genericQSys):
         self.couplingName = None
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    @property
-    def _totDim(self):
-        return self.dimension
 
     def save(self):
         saveDict = super().save()
@@ -448,10 +448,6 @@ class qSystem(genericQSys):
 
         if len(self.subSys) == 0:
             self.addSubSys(term(superSys=self, **kwargs))
-
-    @property
-    def _totDim(self):
-        return self._genericQSys__dimension * self._dimsBefore * self._dimsAfter#pylint:disable=E1101
 
     def save(self):
         saveDict = super().save()
