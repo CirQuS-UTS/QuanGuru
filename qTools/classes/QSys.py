@@ -137,6 +137,25 @@ class genericQSys(qBaseSim):
                 raise ValueError(self.name + ' is not given an initial state')
         return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
 
+    @initialState.setter # pylint: disable=no-member
+    def initialState(self, inp):
+        if self.superSys is not None:
+            self.superSys.simulation._stateBase__initialState._value = None
+        self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
+        if (issparse(inp) or isinstance(inp, ndarray)):
+            if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
+                self.simulation._stateBase__initialState.value = inp # pylint: disable=protected-access
+            else:
+                raise ValueError('Dimension mismatch')
+        else:
+            if isinstance(self, compQSystem):
+                for ind, it in enumerate(inp):
+                    list(self.qSystems.values())[ind].initialState = it # pylint: disable=no-member
+                self.simulation._stateBase__initialState.value = qSta.compositeState(self.subSysDimensions, inp) # pylint: disable=protected-access, no-member
+            elif isinstance(self, qSystem):
+                self.simulation._stateBase__initialState.value = qSta.compositeState([self.dimension], [inp])
+        return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
+
     def copy(self, **kwargs):  # pylint: disable=arguments-differ
         subSysList = []
         for sys in self.subSys.values():
@@ -215,21 +234,6 @@ class compQSystem(genericQSys):
     def couplingHam(self):
         cham = sum([val.totalHam for val in self.qCouplings.values()])
         return cham
-
-    @genericQSys.initialState.setter # pylint: disable=no-member
-    def initialState(self, inp):
-        self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
-
-        if (issparse(inp) or isinstance(inp, ndarray)):
-            if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
-                self.simulation._stateBase__initialState.value = inp # pylint: disable=protected-access
-            else:
-                raise ValueError('Dimension mismatch')
-        else:
-            for ind, it in enumerate(inp):
-                list(self.qSystems.values())[ind].initialState = it
-            self.simulation._stateBase__initialState.value = qSta.compositeState(self.subSysDimensions, inp) # pylint: disable=protected-access
-        return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
 
     # adding or creating a new sub system to composite system
     def add(self, *args):
@@ -415,7 +419,7 @@ class term(paramBoundBase):
             raise TypeError('?')
 
         dimension = self.superSys._genericQSys__dimension # pylint: disable=no-member
-        if isinstance(self.superSys, Spin):
+        if self.operator in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dimension = 0.5*(dimension-1)
 
         try:
@@ -506,22 +510,6 @@ class qSystem(genericQSys):
             if self.firstTerm.operator is None:
                 raise ValueError('No operator is given for free Hamiltonian')
             self.firstTerm._constructMatrices() # pylint: disable=protected-access
-
-    @genericQSys.initialState.setter # pylint: disable=no-member
-    def initialState(self, inp):
-        # self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
-        # if not (issparse(inp) or isinstance(inp, ndarray)):
-        if self.superSys is not None:
-            self.superSys.simulation._stateBase__initialState._value = None
-        self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
-        if (issparse(inp) or isinstance(inp, ndarray)):
-            if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
-                self.simulation._stateBase__initialState.value = inp
-            else:
-                raise ValueError('Dimension mismatch')
-        else:
-            self.simulation._stateBase__initialState.value = qSta.compositeState([self.dimension], [inp])
-        return self.simulation._stateBase__initialState.value
 
     @property
     def operator(self):
