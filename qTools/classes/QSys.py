@@ -8,7 +8,7 @@ from qTools.classes.computeBase import qBaseSim
 from qTools.classes.computeBase import paramBoundBase
 #from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.QPro import freeEvolution
-#from qTools.classes.QUni import checkClass
+from qTools.classes.QUni import checkClass
 
 
 class genericQSys(qBaseSim):
@@ -47,7 +47,7 @@ class genericQSys(qBaseSim):
         self._genericQSys__dimsBefore = val # pylint: disable=assigning-non-slot
         for sys in self.subSys.values():
             if isinstance(sys, genericQSys):
-                sys._genericQSys__dimsBefore *= val
+                sys._dimsBefore *= val
 
     @property
     def _dimsAfter(self):
@@ -60,7 +60,7 @@ class genericQSys(qBaseSim):
         self._genericQSys__dimsAfter = val # pylint: disable=assigning-non-slot
         for sys in self.subSys.values():
             if isinstance(sys, genericQSys):
-                sys._genericQSys__dimsAfter *= val
+                sys._dimsAfter *= val
 
     @property
     def _totalDim(self):
@@ -241,8 +241,9 @@ class compQSystem(genericQSys):
 
     @property
     def qSystems(self):
-        return self._qUniversal__subSys # pylint: disable=no-member
+        return self._compQSystem__qSystems # pylint: disable=no-member
 
+    @checkClass('qUniversal')
     def addSubSys(self, subSys, **kwargs): # pylint: disable=arguments-differ
         newSys = super().addSubSys(subSys, **kwargs)
         if isinstance(newSys, qCoupling):
@@ -254,14 +255,8 @@ class compQSystem(genericQSys):
         newSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         return newSys
 
-    def createSubSys(self, subClass=None, n=1, **kwargs): # pylint: disable=arguments-differ
-        if subClass is None:
-            subClass = qSystem
-
-        newSubs = []
-        for _ in range(n):
-            newSubs.append(self.addSubSys(subClass, **kwargs))
-        return newSubs if n > 1 else newSubs[0]
+    def createSubSys(self, subSysClass, **kwargs):
+        return self.addSubSys(subSysClass, **kwargs)
 
     def __addSub(self, subSys):
         for subS in self._compQSystem__qSystems.values():
@@ -293,13 +288,11 @@ class compQSystem(genericQSys):
     def addSysCoupling(self, couplingObj):
         self.addSubSys(couplingObj)
 
-    # construct the matrices
     def _constructMatrices(self):
         super()._constructMatrices()
-        for qSys in self.qCouplings.values():
-            qSys.freeMat = None
+        for sys in self.qCouplings.values():
+            sys._constructMatrices() # pylint: disable=protected-access
 
-    # update the dimension of a subSystem
     def updateDimension(self, qSys, newDimVal, oldDimVal=None):
         self._genericQSys__dimension = None # pylint: disable=assigning-non-slot
         if oldDimVal is None:
@@ -648,7 +641,7 @@ class qCoupling(paramBoundBase):
         else:
             if len(self._qUniversal__subSys) == 0: # pylint: disable=no-member
                 raise ValueError('No operator is given for coupling Hamiltonian')
-            self._paramBoundBase__matrix = self._qCoupling__getCoupling() # pylint: disable=no-member,assigning-non-slot
+            self._constructMatrices()
 
     @property
     def couplingStrength(self):
@@ -666,7 +659,7 @@ class qCoupling(paramBoundBase):
             oper = oper @ qts[ops+1][1]
         return oper
 
-    def __getCoupling(self):
+    def _constructMatrices(self):
         cMats = []
         for ind in range(len(self._qUniversal__subSys)): # pylint: disable=no-member
             qts = []
@@ -678,8 +671,8 @@ class qCoupling(paramBoundBase):
                 ts = [order, cHam]
                 qts.append(ts)
             cMats.append(self._qCoupling__coupOrdering(qts))
-        cHam = sum(cMats)
-        return cHam
+        self._paramBoundBase__matrix = sum(cMats) # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
