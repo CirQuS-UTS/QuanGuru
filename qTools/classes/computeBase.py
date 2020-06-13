@@ -209,9 +209,7 @@ class paramBoundBase(qUniversal):
     def _paramUpdated(self, boolean):
         self._paramBoundBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
         for sys in self._paramBoundBase__paramBound.values():
-            if sys is not self:
-                if hasattr(sys, '_paramUpdated'):
-                    sys._paramUpdated = boolean
+            sys._paramUpdated = boolean
 
     def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
         """

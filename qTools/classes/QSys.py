@@ -352,8 +352,7 @@ class term(paramBoundBase):
 
     @operator.setter
     def operator(self, op):
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
+        self._paramUpdated = True
         self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
         self._term__operator = op # pylint: disable=assigning-non-slot
 
@@ -365,8 +364,7 @@ class term(paramBoundBase):
     def frequency(self, freq):
         if freq == 0.0:
             freq = 0
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
+        self._paramUpdated = True
         self._term__frequency = freq # pylint: disable=assigning-non-slot
 
     @property
@@ -375,8 +373,7 @@ class term(paramBoundBase):
 
     @order.setter
     def order(self, ordVal):
-        if self.superSys is not None:
-            self.superSys._paramUpdated = True
+        self._paramUpdated = True
         self._term__order = ordVal # pylint: disable=assigning-non-slot
         if self._paramBoundBase__matrix is not None: # pylint: disable=no-member
             self.freeMat = None
@@ -541,6 +538,14 @@ class qSystem(genericQSys):
     def terms(self):
         qSys = list(self.subSys.values())
         return qSys if len(qSys) > 1 else qSys[0]
+
+    @checkClass('qUniversal')
+    def addSubSys(self, subS, **kwargs):
+        kwargs.pop('superSys', None)
+        if not isinstance(subS, term):
+            raise TypeError('?')
+        newS = super().addSubSys(subS, superSys=self, **kwargs)
+        newS._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
 
     @terms.setter
     def terms(self, subS):
