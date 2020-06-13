@@ -1,4 +1,4 @@
-from qTools.classes import QuantumSystem, Qubit, Cavity
+from qTools.classes.QSys import compQSystem, Qubit, Cavity
 from qTools.QuantumToolbox.operators import sigmaz, sigmam, sigmap, create, destroy, sigmax
 
 
@@ -58,5 +58,5 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     # couplingObj.name = 'JCcoupling'
     return couplingObj
 
-QuantumSystem.JC = JC
-QuantumSystem.Rabi = Rabi
+compQSystem.JC = JC
+compQSystem.Rabi = Rabi

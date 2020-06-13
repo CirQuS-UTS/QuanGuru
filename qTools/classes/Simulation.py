@@ -132,6 +132,8 @@ class Simulation(timeBase):
             qSys = self.subSys[key]
             if isinstance(key, str):
                 self.subSys[qSys._freeEvol] = self.subSys.pop(key) # pylint: disable=protected-access
+            else:
+                self.subSys[key] = self.subSys.pop(key)
 
     @property
     def qSystems(self):
