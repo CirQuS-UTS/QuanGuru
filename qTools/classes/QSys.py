@@ -17,7 +17,7 @@ class genericQSys(qBaseSim):
 
     toBeSaved = qBaseSim.toBeSaved.extendedCopy(['dimension'])
 
-    __slots__ = ['__unitary', '__dimension', '__liouvillian', '__envCouplings', '__dimsBefore', '__dimsAfter']
+    __slots__ = ['__unitary', '__dimension', '__dimsBefore', '__dimsAfter']
 
     def __add__(self, other):
         if isinstance(self, compQSystem) and isinstance(other, qSystem):
@@ -71,8 +71,6 @@ class genericQSys(qBaseSim):
 
         self.__dimsBefore = 1
         self.__dimsAfter = 1
-        # self.__liouvillian = None
-        # self.__envCouplings = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -108,51 +106,15 @@ class genericQSys(qBaseSim):
         return self._genericQSys__dimension
 
     @property
-    def totalHam(self):
-        return None
-
-    # Unitary property and setter
-    @property
     def unitary(self):
         unitary = self._genericQSys__unitary.unitary
         self._paramUpdated = False
         return unitary
 
-    # @property
-    # def Liouvillian(self):
-    #     if self._openSystem:
-    #         lio = qEvo.Liouvillian(self.totalHam)
-    #         for envC in self._genericQSys__envCouplings.values():
-    #             lio += envC.Liouvillian
-    #         self._genericQSys__liouvillian = lio # pylint: disable=assigning-non-slot
-    #         return lio
-    #     return self.unitary
-
-    # @property
-    # def envCouplings(self):
-    #     return self._genericQSys__envCouplings
-
-    # @checkClass('genericQSys', '_genericQSys__envCouplings')
-    # def addEnvCoupling(self, envC, **kwargs):
-    #     envCoupling._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-    #     self._genericQSys__envCouplings[envC.name] = envC # pylint: disable=no-member
-
-    # @checkClass('genericQSys', '_genericQSys__envCouplings')
-    # def createEnvCoupling(self, envC, **kwargs):
-    #     envCoupling._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-    #     self._genericQSys__envCouplings[envC.name] = envC # pylint: disable=no-member
-
-    # @checkClass('genericQSys', '_genericQSys__envCouplings')
-    # def removeEnvCoupling(self, envC, **kwargs):
-    #     envC._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
-    #     obj = self._genericQSys__envCouplings.pop(envC.name)
-    #     print(obj.name + ' is removed from paramBound of ' + self.name)
-
     @property
     def _freeEvol(self):
         return self._genericQSys__unitary
 
-    # initial state
     @property
     def initialState(self):
         """
@@ -170,9 +132,6 @@ class genericQSys(qBaseSim):
             except AttributeError:
                 raise ValueError(self.name + ' is not given an initial state')
         return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
-
-    def dress(self):
-        pass
 
     def copy(self, **kwargs):  # pylint: disable=arguments-differ
         subSysList = []
@@ -249,7 +208,7 @@ class compQSystem(genericQSys):
         ham = sum([val.totalHam for val in self.qSystems.values()])
         return ham
 
-    @genericQSys.totalHam.getter # pylint: disable=no-member
+    @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
         return self.freeHam + self.couplingHam
 
@@ -526,10 +485,10 @@ class qSystem(genericQSys):
         elif self._genericQSys__dimension is None: # pylint: disable=no-member
             self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
 
-    @genericQSys.totalHam.getter # pylint: disable=no-member
+    @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
         h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values() if obj.frequency != 0])
-        return h
+        return h if self.operator is not qOps.sigmaz else 0.5*h
 
     @property
     def freeMat(self):
@@ -636,11 +595,6 @@ class Qubit(qSystem):
         kwargs['dimension'] = 2
         self.operator = qOps.sigmaz
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    @qSystem.totalHam.getter # pylint: disable=no-member
-    def totalHam(self):
-        h = qSystem.totalHam.fget(self) # pylint: disable=no-member
-        return h if self.operator is qOps.number else 0.5*h
 
 class Spin(qSystem):
     instances = 0
