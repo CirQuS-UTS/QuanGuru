@@ -326,6 +326,7 @@ class qUniversal:
 
     @subSys.setter
     def subSys(self, subS):
+        self.resetSubSys()
         self.addSubSys(subS)
 
     @checkClass('qUniversal')

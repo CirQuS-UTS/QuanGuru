@@ -17,7 +17,7 @@ class genericQSys(qBaseSim):
 
     toBeSaved = qBaseSim.toBeSaved.extendedCopy(['dimension'])
 
-    __slots__ = ['__unitary', '__dimension', '__liouvillian', '__envCouplings']
+    __slots__ = ['__unitary', '__dimension', '__liouvillian', '__envCouplings', '__dimsBefore', '__dimsAfter']
 
     def __add__(self, other):
         if isinstance(self, QuantumSystem) and isinstance(other, qSystem):
@@ -52,12 +52,41 @@ class genericQSys(qBaseSim):
     #
     #
 
+    @property
+    def _dimsBefore(self):
+        return self._genericQSys__dimsBefore
+
+    @_dimsBefore.setter
+    def _dimsBefore(self, val):
+        if not isinstance(val, int):
+            raise ValueError('?')
+        self._genericQSys__dimsBefore = val # pylint: disable=assigning-non-slot
+        for sys in self.subSys.values():
+            if isinstance(sys, genericQSys):
+                sys._genericQSys__dimsBefore *= val
+
+    @property
+    def _dimsAfter(self):
+        return self._genericQSys__dimsAfter
+
+    @_dimsAfter.setter
+    def _dimsAfter(self, val):
+        if not isinstance(val, int):
+            raise ValueError('?')
+        self._genericQSys__dimsAfter = val # pylint: disable=assigning-non-slot
+        for sys in self.subSys.values():
+            if isinstance(sys, genericQSys):
+                sys._genericQSys__dimsAfter *= val
+
     def __init__(self, **kwargs):
         super().__init__()
         self.__unitary = freeEvolution(_internal=True)
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
         self._qBaseSim__simulation.subSys[self._freeEvol] = self # pylint: disable=no-member
         self.__dimension = None
+
+        self.__dimsBefore = 1
+        self.__dimsAfter = 1
         # self.__liouvillian = None
         # self.__envCouplings = {}
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -162,18 +191,21 @@ class genericQSys(qBaseSim):
         pass
 
     def copy(self, **kwargs):  # pylint: disable=arguments-differ
-        try:
-            newSys = super().copy(dimension=self.dimension, frequency=self.frequency, operator=self.operator)
-        except AttributeError:
+        subSysList = []
+        for sys in self.subSys.values():
+            subSysList.append(sys.copy())
+
+        if isinstance(self, qSystem):
+            newSys = super().copy(dimension=self.dimension, terms=subSysList)
+        elif isinstance(self, QuantumSystem):
             newSys = super().copy()
+            for sys in subSysList:
+                newSys.addSubSys(sys)
 
         if self.simulation._stateBase__initialStateInput._value is not None:
             newSys.simulation._stateBase__initialState.value = self.simulation._stateBase__initialState.value
             newSys.simulation._stateBase__initialStateInput.value = self.simulation._stateBase__initialStateInput.value
         newSys._qUniversal__setKwargs(**kwargs)
-        for sys in self.subSys.values():
-            if sys is not self:
-                newSys.addSubSys(sys.copy())
         return newSys
 
 class universalQSys(genericQSys):
@@ -292,20 +324,15 @@ class QuantumSystem(genericQSys):
 
     def __addSub(self, subSys):
         for subS in self._QuantumSystem__qSystems.values():
-            for sys in subS.subSys.values():
-                sys._qSystem__dimsAfter *= subSys.dimension
-            for sys in subSys.subSys.values():
-                sys._qSystem__dimsBefore *= subS.dimension
+            subS._dimsAfter *= subSys.dimension
+            subSys._dimsBefore *= subS.dimension
 
         if subSys._paramBoundBase__matrix is not None:
             for sys in subSys.subSys.values():
                 sys._paramBoundBase__matrix = None
         subSys.simulation._bound(self.simulation) # pylint: disable=protected-access
         self._QuantumSystem__qSystems[subSys.name] = subSys
-        #subSys.superSys = self
-        if not isinstance(subSys, QuantumSystem):
-            for sys in subSys.subSys.values():
-                sys.superSys = self
+        subSys.superSys = self
         return subSys
 
     # adding or creating a new coupling
@@ -350,10 +377,10 @@ class QuantumSystem(genericQSys):
         for qS in self.qSystems.values():
             if qS.ind < ind:
                 for sys in qS.subSys.values():
-                    sys._qSystem__dimsAfter = int((qS._qSystem__dimsAfter*newDimVal)/oldDimVal)
+                    sys._dimsAfter = int((qS._dimsAfter*newDimVal)/oldDimVal)
             elif qS.ind > ind:
                 for sys in qS.subSys.values():
-                    sys._qSystem__dimsBefore = int((qS._qSystem__dimsBefore*newDimVal)/oldDimVal)
+                    sys._dimsBefore = int((qS._dimsBefore*newDimVal)/oldDimVal)
 
         if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=no-member, W0212
             self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member, W0212
@@ -364,65 +391,63 @@ class QuantumSystem(genericQSys):
                 sys.initialState = sys.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
         return qSys
 
-# quantum system objects
-class qSystem(genericQSys):
+class term(paramBoundBase):
     instances = 0
-    label = 'qSystem'
+    label = 'term'
 
-    __slots__ = ['__frequency', '__operator', '__dimsBefore', '__dimsAfter', '__terms', '__order']
-    #@qSystemInitErrors
+    __slots__ = ['__frequency', '__operator', '__order']
+
     def __init__(self, **kwargs):
         super().__init__()
         self.__frequency = None
         self.__operator = None
-        self.__dimsBefore = 1
-        self.__dimsAfter = 1
-        self.addSubSys(self)
         self.__order = 1
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
+    @paramBoundBase.superSys.setter
+    def superSys(self, supSys):
+        paramBoundBase.superSys.fset(self, supSys) # pylint: disable=no-member
+        for i in range(self.instances + 1):
+            if self.name == str('term' + str(i)):
+                name = self.superSys.name + 'term' + str(len(self.superSys.subSys)+1) # pylint: disable=no-member
+                self.name = name
+                self.superSys.terms = list(self.superSys.subSys.values()) # pylint: disable=no-member
+                break
+
     @property
-    def _totDim(self):
-        return self._genericQSys__dimension * self._qSystem__dimsBefore * self._qSystem__dimsAfter#pylint:disable=E1101
+    def operator(self):
+        return self._term__operator
 
-    def save(self):
-        saveDict = super().save()
-        qsys = {}
-        for sys in self.subSys.values():
-            qsys[sys.operator.__name__] = {
-                'frequency': sys.frequency,
-                'operator': sys.operator.__name__,
-                'order': sys.order,
-                'ind': sys.ind
-            }
-        saveDict['terms'] = qsys
-        return saveDict
+    @operator.setter
+    def operator(self, op):
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
+        self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
+        self._term__operator = op # pylint: disable=assigning-non-slot
 
-    @genericQSys.dimension.setter # pylint: disable=no-member
-    def dimension(self, newDimVal):
-        if self._genericQSys__dimension is not None: # pylint: disable=no-member
-            oldDimVal = self._genericQSys__dimension # pylint: disable=no-member
+    @property
+    def frequency(self):
+        return self._term__frequency
 
-            if not isinstance(newDimVal, (int, int64, int32, int16)):
-                raise ValueError('Dimension is not int')
+    @frequency.setter
+    def frequency(self, freq):
+        if freq == 0.0:
+            freq = 0
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
+        self._term__frequency = freq # pylint: disable=assigning-non-slot
 
-            for sys in self.subSys.values():
-                sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
-                sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
-                if sys.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
-                    sys.initialState = sys.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
-                sys._paramUpdated = True
+    @property
+    def order(self):
+        return self._term__order
 
-            if isinstance(self.superSys, QuantumSystem):
-                self.superSys.updateDimension(self, newDimVal, oldDimVal) # pylint: disable=no-member
-        elif self._genericQSys__dimension is None: # pylint: disable=no-member
-            for sys in self.subSys.values():
-                sys._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
-
-    @genericQSys.totalHam.getter # pylint: disable=no-member
-    def totalHam(self): # pylint: disable=invalid-overridden-method
-        h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values() if obj.frequency != 0])
-        return h
+    @order.setter
+    def order(self, ordVal):
+        if self.superSys is not None:
+            self.superSys._paramUpdated = True
+        self._term__order = ordVal # pylint: disable=assigning-non-slot
+        if self._paramBoundBase__matrix is not None: # pylint: disable=no-member
+            self.freeMat = None
 
     @property
     def freeMat(self):
@@ -442,84 +467,179 @@ class qSystem(genericQSys):
                 raise ValueError('No operator is given for free Hamiltonian')
             self._constructMatrices()
 
+    def _constructMatrices(self):
+        if not (isinstance(self.superSys.dimension, (int, int64, int32, int16)) and callable(self.operator)): # pylint: disable=no-member
+            raise TypeError('?')
+
+        try:
+            self._paramBoundBase__matrix = qOps.compositeOp(self.operator(self.superSys._genericQSys__dimension), # pylint: disable=no-member, assigning-non-slot
+                                                            self.superSys._dimsBefore, # pylint: disable=no-member
+                                                            self.superSys._dimsAfter)**self.order # pylint: disable=no-member
+        except: # pylint: disable=bare-except
+            self._paramBoundBase__matrix = qOps.compositeOp( # pylint: disable=no-member, assigning-non-slot
+                self.operator(),
+                self.superSys._dimsBefore, # pylint: disable=no-member
+                self.superSys._dimsAfter)**self.order # pylint: disable=no-member
+        return self._paramBoundBase__matrix # pylint: disable=no-member
+
+    def copy(self, **kwargs):  # pylint: disable=arguments-differ
+        newSys = super().copy(frequency=self.frequency, operator=self.operator, order=self.order, **kwargs)
+        return newSys
+
+# quantum system objects
+class qSystem(genericQSys):
+    instances = 0
+    label = 'qSystem'
+
+    __slots__ = ['__terms']
+    #@qSystemInitErrors
+    def __init__(self, **kwargs):
+        super().__init__()
+
+        qSysKwargs = ['terms', 'subSys', 'name', 'superSys']
+        for key in qSysKwargs:
+            val = kwargs.pop(key, None)
+            if val is not None:
+                self._qUniversal__setKwargs(key=val) # pylint: disable=no-member
+
+        if len(self.subSys) == 0:
+            self.addSubSys(term(superSys=self, **kwargs))
+
+    @property
+    def _totDim(self):
+        return self._genericQSys__dimension * self._dimsBefore * self._dimsAfter#pylint:disable=E1101
+
+    def save(self):
+        saveDict = super().save()
+        qsys = {}
+        for sys in self.subSys.values():
+            qsys[sys.operator.__name__] = {
+                'frequency': sys.frequency,
+                'operator': sys.operator.__name__,
+                'order': sys.order
+            }
+        saveDict['terms'] = qsys
+        return saveDict
+
+    @genericQSys.dimension.setter # pylint: disable=no-member
+    def dimension(self, newDimVal):
+        if self._genericQSys__dimension is not None: # pylint: disable=no-member
+            oldDimVal = self._genericQSys__dimension # pylint: disable=no-member
+
+            if not isinstance(newDimVal, (int, int64, int32, int16)):
+                raise ValueError('Dimension is not int')
+            self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
+            for sys in self.subSys.values():
+                sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
+
+            if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
+                self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
+            self._paramUpdated = True
+
+            if isinstance(self.superSys, QuantumSystem):
+                self.superSys.updateDimension(self, newDimVal, oldDimVal) # pylint: disable=no-member
+        elif self._genericQSys__dimension is None: # pylint: disable=no-member
+            self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
+
+    @genericQSys.totalHam.getter # pylint: disable=no-member
+    def totalHam(self): # pylint: disable=invalid-overridden-method
+        h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values() if obj.frequency != 0])
+        return h
+
+    @property
+    def freeMat(self):
+        if self.firstTerm._paramBoundBase__matrix is None: # pylint: disable=no-member
+            self.firstTerm.freeMat = None
+        return self.firstTerm._paramBoundBase__matrix # pylint: disable=no-member
+
+    @freeMat.setter
+    def freeMat(self, qOpsFunc):
+        if callable(qOpsFunc):
+            self.firstTerm.operator = qOpsFunc
+            self.firstTerm._constructMatrices() # pylint: disable=protected-access
+        elif qOpsFunc is not None:
+            self.firstTerm._paramBoundBase__matrix = qOpsFunc  # pylint: disable=assigning-non-slot
+        else:
+            if self.firstTerm.operator is None:
+                raise ValueError('No operator is given for free Hamiltonian')
+            self.firstTerm._constructMatrices() # pylint: disable=protected-access
+
     @genericQSys.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         # self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=no-member, protected-access
         # if not (issparse(inp) or isinstance(inp, ndarray)):
         if self.superSys is not None:
             self.superSys.simulation._stateBase__initialState._value = None
-
-        for sys in self.subSys.values():
-            sys.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
-
-            if (issparse(inp) or isinstance(inp, ndarray)):
-                if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
-                    self.simulation._stateBase__initialState.value = inp
-                else:
-                    raise ValueError('Dimension mismatch')
+        self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
+        if (issparse(inp) or isinstance(inp, ndarray)):
+            if inp.shape[0] == self.dimension: # pylint: disable=comparison-with-callable
+                self.simulation._stateBase__initialState.value = inp
             else:
-                self.simulation._stateBase__initialState.value = qSta.compositeState([self.dimension], [inp])
+                raise ValueError('Dimension mismatch')
+        else:
+            self.simulation._stateBase__initialState.value = qSta.compositeState([self.dimension], [inp])
         return self.simulation._stateBase__initialState.value
 
     @property
     def operator(self):
-        return self._qSystem__operator
+        operators = [obj._term__operator for obj in list(self.subSys.values())] # pylint: disable=protected-access
+        return operators if len(operators) > 1 else operators[0]
 
     @operator.setter
     def operator(self, op):
         self._paramUpdated = True
-        self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
-        self._qSystem__operator = op # pylint: disable=assigning-non-slot
+        firstTerm = self.firstTerm
+        setattr(firstTerm, '_paramBoundBase__matrix', None)
+        setattr(firstTerm, '_term__operator', op)
 
     @property
     def frequency(self):
-        return self._qSystem__frequency
+        frequencies = [obj._term__frequency for obj in list(self.subSys.values())] # pylint: disable=protected-access
+        return frequencies if len(frequencies) > 1 else frequencies[0]
 
     @frequency.setter
     def frequency(self, freq):
         if freq == 0.0:
             freq = 0
         self._paramUpdated = True
-        self._qSystem__frequency = freq # pylint: disable=assigning-non-slot
+        setattr(self.firstTerm, '_term__frequency', freq)
 
     @property
     def order(self):
-        return self._qSystem__order
+        orders = [obj._term__order for obj in list(self.subSys.values())] # pylint: disable=protected-access
+        return orders if len(orders) > 1 else orders[0]
 
     @order.setter
     def order(self, ordVal):
         self._paramUpdated = True
-        self._qSystem__order = ordVal # pylint: disable=assigning-non-slot
-        self.freeMat = None
+        setattr(self.firstTerm, '_term__order', ordVal)
+        self.firstTerm.freeMat = None
+
+    @property
+    def firstTerm(self):
+        return list(self.subSys.values())[0]
 
     @property
     def terms(self):
         qSys = list(self.subSys.values())
         return qSys if len(qSys) > 1 else qSys[0]
 
-    def addTerm(self, op, freq, order=1):
-        copySys = super().addSubSys(self.__class__, operator=op, frequency=freq,
-                                    _qSystem__dimsBefore=self._qSystem__dimsBefore,
-                                    _qSystem__dimsAfter=self._qSystem__dimsAfter)
-        copySys.order = order
-        return copySys
+    @terms.setter
+    def terms(self, subS):
+        genericQSys.subSys.fset(self, subS) # pylint: disable=no-member
+        for sys in self.subSys.values():
+            sys.superSys = self
 
-    def removeTerm(self, term):
-        self.removeSubSys(term)
+    def addTerm(self, op, freq, order=1):
+        newTerm = super().addSubSys(term, operator=op, frequency=freq, order=order, superSys=self)
+        return newTerm
+
+    def removeTerm(self, termObj):
+        self.removeSubSys(termObj)
 
     def _constructMatrices(self):
-        if not (isinstance(self.dimension, (int, int64, int32, int16)) and callable(self.operator)):
-            raise TypeError('?')
-        for sys in self.subSys.values():
-            try:
-                sys._paramBoundBase__matrix = qOps.compositeOp(sys.operator(self._genericQSys__dimension), # pylint: disable=no-member
-                                                               self._qSystem__dimsBefore, self._qSystem__dimsAfter)**sys.order # pylint: disable=line-too-long
-            except: # pylint: disable=bare-except
-                sys._paramBoundBase__matrix = qOps.compositeOp( # pylint: disable=no-member
-                    sys.operator(),
-                    self._qSystem__dimsBefore,
-                    self._qSystem__dimsAfter)**sys.order
-        return self._paramBoundBase__matrix # pylint: disable=no-member
+        for termObj in self.subSys.values():
+            termObj._constructMatrices() # pylint: disable=protected-access
 
 class Qubit(qSystem):
     instances = 0
@@ -644,8 +764,7 @@ class qCoupling(paramBoundBase):
                 sys = list(self._qUniversal__subSys.values())[ind][indx] # pylint: disable=no-member
                 order = sys.ind
                 oper = list(self._qUniversal__subSys.keys())[ind][indx] # pylint: disable=no-member
-                cHam = qOps.compositeOp(oper(sys._genericQSys__dimension), sys._qSystem__dimsBefore,
-                                        sys._qSystem__dimsAfter)
+                cHam = qOps.compositeOp(oper(sys._genericQSys__dimension), sys._dimsBefore, sys._dimsAfter)
                 ts = [order, cHam]
                 qts.append(ts)
             cMats.append(self._qCoupling__coupOrdering(qts))
