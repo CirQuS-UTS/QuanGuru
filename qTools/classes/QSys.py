@@ -64,7 +64,7 @@ class genericQSys(qBaseSim):
 
     @property
     def _totalDim(self):
-        return self._genericQSys__dimension * self._dimsBefore * self._dimsAfter#pylint:disable=E1101
+        return self.dimension * self._dimsBefore * self._dimsAfter#pylint:disable=E1101
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -198,7 +198,6 @@ class compQSystem(genericQSys):
         saveDict['qCouplings'] = qcou
         return saveDict
 
-    # free, coupling, and total Hamiltonians of the composite system
     @property
     def subSysDimensions(self):
         return [sys.dimension for sys in self.subSys.values()]
@@ -415,8 +414,12 @@ class term(paramBoundBase):
         if not (isinstance(self.superSys.dimension, (int, int64, int32, int16)) and callable(self.operator)): # pylint: disable=no-member
             raise TypeError('?')
 
+        dimension = self.superSys._genericQSys__dimension # pylint: disable=no-member
+        if isinstance(self.superSys, Spin):
+            dimension = 0.5*(dimension-1)
+
         try:
-            self._paramBoundBase__matrix = qOps.compositeOp(self.operator(self.superSys._genericQSys__dimension), # pylint: disable=no-member, assigning-non-slot
+            self._paramBoundBase__matrix = qOps.compositeOp(self.operator(dimension), #pylint:disable=assigning-non-slot
                                                             self.superSys._dimsBefore, # pylint: disable=no-member
                                                             self.superSys._dimsAfter)**self.order # pylint: disable=no-member
         except: # pylint: disable=bare-except
@@ -484,7 +487,7 @@ class qSystem(genericQSys):
     @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
         h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values() if obj.frequency != 0])
-        return h if self.operator is not qOps.sigmaz else 0.5*h
+        return h
 
     @property
     def freeMat(self):
@@ -581,17 +584,6 @@ class qSystem(genericQSys):
         for termObj in self.subSys.values():
             termObj._constructMatrices() # pylint: disable=protected-access
 
-class Qubit(qSystem):
-    instances = 0
-    label = 'Qubit'
-
-    __slots__ = []
-    def __init__(self, **kwargs):
-        super().__init__()
-        kwargs['dimension'] = 2
-        self.operator = qOps.sigmaz
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
 class Spin(qSystem):
     instances = 0
     label = 'Spin'
@@ -611,6 +603,17 @@ class Spin(qSystem):
     def jValue(self, value):
         self._Spin__jValue = value # pylint: disable=assigning-non-slot
         self.dimension = int((2*value) + 1)
+
+class Qubit(Spin): # pylint: disable=too-many-ancestors
+    instances = 0
+    label = 'Qubit'
+
+    __slots__ = []
+    def __init__(self, **kwargs):
+        super().__init__()
+        kwargs['dimension'] = 2
+        self.operator = qOps.Jz
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
 class Cavity(qSystem):
     instances = 0
