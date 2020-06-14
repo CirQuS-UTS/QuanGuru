@@ -1,4 +1,4 @@
-from scipy.special import gammaln # pylint: disable=no-name-in-module  # type: ignore
+from scipy.special import gammaln # type: ignore # pylint: disable=no-name-in-module
 from numpy import sqrt, pi, e # type: ignore
 
 
