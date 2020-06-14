@@ -491,17 +491,17 @@ class qUniversal:
         return name
 
     @classmethod
-    def _incrementInstances(cls, boolean=False):
+    def _incrementInstances(cls, boolean=False, val=1):
         """
         This method is called inside __init__ to increase internal/external number
         of instances depending on the `boolean`.
         """
 
-        cls.instances += 1
+        cls.instances += val
         if boolean is False:
-            cls._externalInstances += 1
+            cls._externalInstances += val
         elif boolean is True:
-            cls._internalInstances += 1
+            cls._internalInstances += val
 
     @classmethod
     def clsInstances(cls, _internal=None):

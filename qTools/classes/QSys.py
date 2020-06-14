@@ -180,6 +180,11 @@ class genericQSys(qBaseSim):
 
 class QuantumSystem(genericQSys):
     def __new__(cls, sysType='composite', **kwargs):
+        singleKeys = ['frequency', 'operator', 'order', 'dimension']
+        for key in singleKeys:
+            if key in kwargs.keys():
+                sysType = 'single'
+
         if sysType == 'composite':
             newCls = compQSystem
         elif sysType == 'single':
@@ -201,10 +206,11 @@ class compQSystem(genericQSys):
     __slots__ = ['__qCouplings', '__qSystems', 'couplingName']
 
     def __init__(self, **kwargs):
+        if self.__class__ == compQSystem:
+            self._incrementInstances(val=qSystem.instances)
         super().__init__()
         self.__qCouplings = OrderedDict()
         self.__qSystems = OrderedDict()
-
         self.couplingName = None
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -422,13 +428,14 @@ class term(paramBoundBase):
 # quantum system objects
 class qSystem(genericQSys):
     instances = 0
-    label = 'qSystem'
+    label = 'QuantumSystem'
 
     __slots__ = []
     #@qSystemInitErrors
     def __init__(self, **kwargs):
+        if self.__class__ == qSystem:
+            self._incrementInstances(val=compQSystem.instances)
         super().__init__()
-
         qSysKwargs = ['terms', 'subSys', 'name', 'superSys']
         for key in qSysKwargs:
             val = kwargs.pop(key, None)
@@ -559,6 +566,7 @@ class qSystem(genericQSys):
 
     def removeTerm(self, termObj):
         self.removeSubSys(termObj)
+
 class Spin(qSystem):
     instances = 0
     label = 'Spin'
