@@ -317,10 +317,9 @@ class computeBase(paramBoundBase):
         changing the name of ``qRes``, which is an instance of :class:`qResults <qTools.classes.QRes.qResults>`.
         """
 
-        if self.qRes.superSys is self:
-            self.qRes.allResults[name] = self.qRes.allResults.pop(self.name)
-            self.qRes.name = name + 'Results'
         paramBoundBase.name.fset(self, name) # pylint: disable=no-member
+        if self.qRes.superSys is self:
+            self.qRes.superSys = self
 
     def __compute(self, states):
         """
@@ -522,7 +521,7 @@ class stateBase(computeBase):
     @property
     def delStates(self):
         """
-        The initialState property:
+        The delStates property:
 
         - **getter** : ``returns _stateBase__delStates.value``
         - **setter** : sets ``_stateBase__delStates.value`` boolean

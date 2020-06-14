@@ -109,11 +109,9 @@ class qResults(qResBase):
     def __init__(self, **kwargs):
         super().__init__()
         kwargs.pop('allResults', None)
-        self.allResults = qResults._allResults
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.allResults = qResults._allResults
-        if self.superSys is not None:
-            self.allResults[self.superSys.name] = self # pylint: disable=no-member
+        self.allResults[self.name] = self # pylint: disable=no-member
 
     def _copyAllResBlank(self):
         allResCopy = {}
@@ -130,22 +128,10 @@ class qResults(qResBase):
 
     @qResBase.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
-        removedFromAllRes = False
-        oldSupSys = self.superSys
         qResBase.superSys.fset(self, supSys) # pylint: disable=no-member
-        if oldSupSys is not None:
-            removedFromAllRes = True
-            removedSys = self.allResults.pop(oldSupSys.name) # pylint: disable=no-member
-            assert removedSys is self
-
-        if supSys is not None:
-            removedFromAllRes = False
-            self.allResults[self.superSys.name] = self # pylint: disable=no-member
-
-        if removedFromAllRes is True:
-            print('?')
-
+        self.allResults.pop(self.name) # pylint: disable=no-member
         self.name = self.superSys.name + 'Results' # pylint: disable=no-member
+        self.allResults[self.name] = self # pylint: disable=no-member
 
     def _reset(self):
         for qRes in self.allResults.values():
