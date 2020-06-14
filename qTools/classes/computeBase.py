@@ -275,7 +275,7 @@ class computeBase(paramBoundBase):
         self.__calculate = None
         self.__calculateAtStart = True
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-        self.qRes = qResults(superSys=self)
+        self.qRes = qResults(superSys=self, _internal=True)
 
     @property
     def calculate(self):

@@ -31,7 +31,7 @@ class qResBase(qUniversal):
 
     __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average', '__calculated']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.__results = defaultdict(list)
         self.__average = defaultdict(list)
         self.__resultsLast = defaultdict(list)
@@ -101,17 +101,19 @@ class qResBase(qUniversal):
 
 class qResults(qResBase):
     instances = 0
+    _externalInstances = 0
+    _internalInstances = 0
     label = 'qResults'
     _allResults = {}
 
     __slots__ = ['allResults']
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         kwargs.pop('allResults', None)
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
         self.allResults = qResults._allResults
         self.allResults[self.name] = self # pylint: disable=no-member
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _copyAllResBlank(self):
         allResCopy = {}
