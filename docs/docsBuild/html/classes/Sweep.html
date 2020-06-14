@@ -305,7 +305,7 @@ given.</p></li>
 
 <dl class="py method">
 <dt id="qTools.classes.Sweep._sweep._defSweep">
-<em class="property">static </em><code class="sig-name descname">_defSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">ind</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/Sweep.html#_sweep._defSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.Sweep._sweep._defSweep" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">_defSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/Sweep.html#_sweep._defSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.Sweep._sweep._defSweep" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the default sweep function, see __init__, the <code class="docutils literal notranslate"><span class="pre">_timeBase__function</span></code> points to this.</p>
 <p>The method that uses all the objects to do simulations with sweeps uses length of <code class="docutils literal notranslate"><span class="pre">sweepList/s</span></code> (stored in
 __inds attribute of <a class="reference internal" href="#qTools.classes.Sweep.Sweep" title="qTools.classes.Sweep.Sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sweep</span></code></a>) and converts it to a relevant list of indices using modular arithmetic (
@@ -435,7 +435,7 @@ which is called in <code class="docutils literal notranslate"><span class="pre">
 
 <dl class="py method">
 <dt id="qTools.classes.Sweep.Sweep.createSweep">
-<code class="sig-name descname">createSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">system</span></em>, <em class="sig-param"><span class="n">sweepKey</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/Sweep.html#Sweep.createSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.Sweep.Sweep.createSweep" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">createSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">system</span></em>, <em class="sig-param"><span class="n">sweepKey</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/Sweep.html#Sweep.createSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.Sweep.Sweep.createSweep" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method creates a new instance of <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> and assing its <code class="docutils literal notranslate"><span class="pre">system</span></code> and <code class="docutils literal notranslate"><span class="pre">sweepKey</span></code> to given system
 and sweepKey arguments of this method. Keyworded arguments are used to set the other attributes of the newly
 created <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> object.</p>
@@ -490,7 +490,7 @@ objects, and it switches to a new index, if the <code class="docutils literal no
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/06/08.
       </span>
 
     </p>

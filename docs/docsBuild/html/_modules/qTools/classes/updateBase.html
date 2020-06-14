@@ -193,13 +193,14 @@
     <span class="c1">#: :attr:`toBeSaved &lt;qTools.classes.QUni.qUniversal.toBeSaved&gt;` list.</span>
     <span class="n">toBeSaved</span> <span class="o">=</span> <span class="n">qUniversal</span><span class="o">.</span><span class="n">toBeSaved</span><span class="o">.</span><span class="n">extendedCopy</span><span class="p">([</span><span class="s1">&#39;key&#39;</span><span class="p">])</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__key&#39;</span><span class="p">,</span> <span class="s1">&#39;__function&#39;</span><span class="p">]</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__key&#39;</span><span class="p">,</span> <span class="s1">&#39;__function&#39;</span><span class="p">,</span> <span class="s1">&#39;_aux&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__key</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__function</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_aux</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
@@ -256,7 +257,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">subSys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span></div></div>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">attrErr</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aux</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">subSys</span><span class="o">.</span><span class="n">aux</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">attrErr</span></div></div>
 </pre></div>
 
            </div>
@@ -271,7 +278,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/06/08.
       </span>
 
     </p>

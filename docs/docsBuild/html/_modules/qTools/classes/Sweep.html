@@ -183,7 +183,7 @@
     <span class="s1">&#39;Sweep&#39;</span>
 <span class="p">]</span>
 
-<div class="viewcode-block" id="_sweep"><a class="viewcode-back" href="../../../classes/Sweep.html#qTools.classes.Sweep._sweep">[docs]</a><span class="k">class</span> <span class="nc">_sweep</span><span class="p">(</span><span class="n">updateBase</span><span class="p">):</span>
+<div class="viewcode-block" id="_sweep"><a class="viewcode-back" href="../../../classes/Sweep.html#qTools.classes.Sweep._sweep">[docs]</a><span class="k">class</span> <span class="nc">_sweep</span><span class="p">(</span><span class="n">updateBase</span><span class="p">):</span> <span class="c1"># pylint: disable=too-many-instance-attributes</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class essentially has a list of values, a dictionary of objects (``subSys``), and a key (name of an attribute).</span>
 <span class="sd">    The purpose is to use the key to change the value of the corresponding attribute for all the objects to a value from</span>
@@ -216,7 +216,7 @@
     <span class="n">toBeSaved</span> <span class="o">=</span> <span class="n">updateBase</span><span class="o">.</span><span class="n">toBeSaved</span><span class="o">.</span><span class="n">extendedCopy</span><span class="p">([</span><span class="s1">&#39;sweepMax&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepMin&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepStep&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepList&#39;</span><span class="p">,</span> <span class="s1">&#39;logSweep&#39;</span><span class="p">,</span>
                                                    <span class="s1">&#39;multiParam&#39;</span><span class="p">])</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sweepMax&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepMin&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepStep&#39;</span><span class="p">,</span> <span class="s1">&#39;_sweepList&#39;</span><span class="p">,</span> <span class="s1">&#39;logSweep&#39;</span><span class="p">,</span> <span class="s1">&#39;multiParam&#39;</span><span class="p">]</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sweepMax&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepMin&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepStep&#39;</span><span class="p">,</span> <span class="s1">&#39;_sweepList&#39;</span><span class="p">,</span> <span class="s1">&#39;logSweep&#39;</span><span class="p">,</span> <span class="s1">&#39;multiParam&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">]</span>
 
     <span class="c1">#@sweepInitError</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -230,6 +230,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_sweepList</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logSweep</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiParam</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
@@ -293,7 +294,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_sweepList</span> <span class="o">=</span> <span class="n">sList</span>
 
 <div class="viewcode-block" id="_sweep._defSweep"><a class="viewcode-back" href="../../../classes/Sweep.html#qTools.classes.Sweep._sweep._defSweep">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_defSweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ind</span><span class="p">):</span> <span class="c1"># pylint: disable=bad-staticmethod-argument</span>
+    <span class="k">def</span> <span class="nf">_defSweep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pylint: disable=bad-staticmethod-argument</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This is the default sweep function, see __init__, the ``_timeBase__function`` points to this.</span>
 
@@ -313,7 +314,7 @@
 <span class="sd">            Index of the value from ``sweepList``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sweepList</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sweepList</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_runUpdate</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="_sweep.runSweep"><a class="viewcode-back" href="../../../classes/Sweep.html#qTools.classes.Sweep._sweep.runSweep">[docs]</a>    <span class="k">def</span> <span class="nf">runSweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ind</span><span class="p">):</span>
@@ -322,7 +323,8 @@
 <span class="sd">        sweeps. This is not essential and could be removed, but it kind of creates a duck-typing with ``Sweep`` class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ind</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__function</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span></div></div>
 
 <div class="viewcode-block" id="Sweep"><a class="viewcode-back" href="../../../classes/Sweep.html#qTools.classes.Sweep.Sweep">[docs]</a><span class="k">class</span> <span class="nc">Sweep</span><span class="p">(</span><span class="n">qUniversal</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -358,7 +360,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__inds</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__indMultip</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__indMultip</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
@@ -436,7 +438,7 @@
             <span class="k">for</span> <span class="n">sweep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="n">sweep</span><span class="o">.</span><span class="n">removeSubSys</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Sweep.createSweep"><a class="viewcode-back" href="../../../classes/Sweep.html#qTools.classes.Sweep.Sweep.createSweep">[docs]</a>    <span class="k">def</span> <span class="nf">createSweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">sweepKey</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Sweep.createSweep"><a class="viewcode-back" href="../../../classes/Sweep.html#qTools.classes.Sweep.Sweep.createSweep">[docs]</a>    <span class="k">def</span> <span class="nf">createSweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">sweepKey</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method creates a new instance of ``_sweep`` and assing its ``system`` and ``sweepKey`` to given system</span>
 <span class="sd">        and sweepKey arguments of this method. Keyworded arguments are used to set the other attributes of the newly</span>
@@ -457,6 +459,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">newSweep</span> <span class="o">=</span> <span class="n">_sweep</span><span class="p">(</span><span class="n">superSys</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="o">=</span><span class="n">system</span><span class="p">,</span> <span class="n">sweepKey</span><span class="o">=</span><span class="n">sweepKey</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sweepKey</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">newSweep</span><span class="o">.</span><span class="n">_aux</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1">#pylint: disable=protected-access</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">newSweep</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sweepKey</span><span class="p">):</span>
+            <span class="n">newSweep</span><span class="o">.</span><span class="n">_aux</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1">#pylint: disable=protected-access</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">newSweep</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sweepKey</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="n">newSweep</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">sweepKey</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">newSweep</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">newSweep</span></div>
 
@@ -502,7 +512,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/06/08.
       </span>
 
     </p>

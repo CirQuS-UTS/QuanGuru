@@ -255,7 +255,7 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">clsDecoArg</span><span class="p">):</span>
                 <span class="n">addRemoveFunction</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">str</span> <span class="ow">in</span> <span class="n">clsDecoArg</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">clsDecoArg</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="n">inp</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">clsDecoArg</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">inp</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">clsInput</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">inp</span><span class="p">]</span>
@@ -615,9 +615,9 @@
             <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span>
                 <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A duplicate name </span><span class="si">{name}</span><span class="s1"> is given,&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A duplicate name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> is given,&#39;</span><span class="p">)</span>
                 <span class="n">name</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_externalInstances</span><span class="p">)</span> <span class="c1"># pylint: disable=protected-access</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;it is changed to </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;it is changed to </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">updateNames</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -679,7 +679,7 @@
     <p>
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/06/01.
+        Last updated on 2020/06/08.
       </span>
 
     </p>
