@@ -40,17 +40,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     def currentState(self, inp):
         self._genericProtocol__currentState.value = inp
 
-    @property
-    def initialState(self):
-        if self.simulation._stateBase__initialState.value is None: # pylint: disable=protected-access
-            try:
-                state = self.superSys._initialState(self.simulation._initialStateInput) # pylint: disable=no-member
-                self.simulation._stateBase__initialState.value = state
-            except: # pylint: disable=bare-except
-                self.simulation._stateBase__initialState.value = self.superSys.initialState # pylint:disable=W0212,E1101
-        return self.simulation._stateBase__initialState.value # pylint: disable=protected-access
-
-    @initialState.setter # pylint: disable=no-member
+    @qBaseSim.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
         self.simulation._stateBase__initialState.value = self.superSys._initialState(inp) # pylint:disable=W0212,E1101
