@@ -114,12 +114,12 @@ def checkClass(classOf):
     return addDecorator
 
 def _recurseIfList(func):
-    def recurse(sys):
+    def recurse(obj, sys):
         if isinstance(sys, list):
             for s in sys:
-                r = recurse(s)
+                r = recurse(obj, s)
         else:
-            r = func(sys)
+            r = func(obj, sys)
         return r
     return recurse
 
@@ -373,6 +373,9 @@ class qUniversal:
         subSysClass._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         self._qUniversal__subSys[subSysClass.name] = subSysClass
 
+    def __repr__(self):
+        return repr(self.name)
+
     @_recurseIfList
     def removeSubSys(self, subS):
         """
@@ -383,14 +386,16 @@ class qUniversal:
 
         if subS in self._qUniversal__subSys.keys():
             obj = self._qUniversal__subSys.pop(subS)
+            print(obj, ' is removed from subSys of ' + self.name)
         elif isinstance(subS, qUniversal):
             if subS.name in self._qUniversal__subSys.keys():
                 obj = self._qUniversal__subSys.pop(subS.name)
+                print(obj, ' is removed from subSys of ' + self.name)
             else:
                 for key, val in self._qUniversal__subSys.items():
-                    if val is obj:
+                    if val is subS:
                         obj = self._qUniversal__subSys.pop(key, None)
-        print(obj.name + ' is removed from subSys of ' + self.name)
+                        print(obj, ' is removed from subSys of ' + self.name)
 
     @property
     def superSys(self):
