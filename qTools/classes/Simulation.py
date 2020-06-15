@@ -191,7 +191,7 @@ class Simulation(timeBase):
     def removeQSystems(self, subS):
         for key, subSys in self._qUniversal__subSys.items(): # pylint: disable=no-member
             if ((subSys is subS) or (subSys.name == subS)):
-                super().removeSubSys(key) # pylint: disable=no-member
+                super().removeSubSys(key, _exclude=[]) # pylint: disable=no-member
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
                 self.removeSweep([subSys, subSys.simulation, subSys._freeEvol, subSys._freeEvol.simulation])
 
@@ -242,7 +242,7 @@ class Simulation(timeBase):
         return newSys
 
     @_recurseIfList
-    def removeSubSys(self, subS): # pylint: disable=arguments-differ
+    def removeSubSys(self, subS, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
         self.removeQSystems(subS)
 
     def __compute(self):

@@ -114,12 +114,12 @@ def checkClass(classOf):
     return addDecorator
 
 def _recurseIfList(func):
-    def recurse(obj, sys):
+    def recurse(obj, sys, _exclude=[]): # pylint: disable=dangerous-default-value
         if isinstance(sys, list):
             for s in sys:
-                r = recurse(obj, s)
+                r = recurse(obj, s, _exclude=_exclude)
         else:
-            r = func(obj, sys)
+            r = func(obj, sys, _exclude=_exclude)
         return r
     return recurse
 
@@ -377,7 +377,7 @@ class qUniversal:
         return repr(self.name)
 
     @_recurseIfList
-    def removeSubSys(self, subS):
+    def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
         """
         This method removes the given object from the ``__subSys`` dictionary.
 

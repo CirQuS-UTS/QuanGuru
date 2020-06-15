@@ -273,13 +273,13 @@ class Sweep(qUniversal):
         """
 
         if isinstance(sys, _sweep):
-            super().removeSubSys(sys)
+            super().removeSubSys(sys, _exclude=[])
         else:
             sweeps = list(self.subSys.values())
             for sweep in sweeps:
-                sweep.removeSubSys(sys)
+                sweep.removeSubSys(sys, _exclude=[])
                 if len(sweep.subSys) == 0:
-                    super().removeSubSys(sweep)
+                    super().removeSubSys(sweep, _exclude=[])
 
     def createSweep(self, system=None, sweepKey=None, **kwargs):
         """
