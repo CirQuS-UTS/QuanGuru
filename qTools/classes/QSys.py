@@ -8,7 +8,7 @@ from qTools.classes.computeBase import qBaseSim
 from qTools.classes.computeBase import paramBoundBase
 #from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from qTools.classes.QPro import freeEvolution
-from qTools.classes.QUni import checkClass
+from qTools.classes.QUni import checkClass, _recurseIfList
 
 
 class genericQSys(qBaseSim):
@@ -266,11 +266,21 @@ class compQSystem(genericQSys):
     def createSubSys(self, subSysClass, **kwargs):
         return self.addSubSys(subSysClass, **kwargs)
 
+    @_recurseIfList
     def removeSubSys(self, subS):
         if isinstance(subS, str):
             subS = self.getObjByName(subS)
-        self.updateDimension(subS, newDimVal=1, oldDimVal=subS.dimension)
-        super().removeSubSys(subS)
+
+        if subS in self.qSystems.values():
+            self.updateDimension(subS, newDimVal=1, oldDimVal=subS.dimension)
+            for coupling in self.qCouplings.values():
+                coupling.removeSysCoupling(subS)
+            super().removeSubSys(subS)
+        elif subS in self.qCouplings.values():
+            self.qCouplings.pop(subS.name)
+        else:
+            for sys in self.qSystems.values():
+                sys.removeSubSys(sys)
 
     def __addSub(self, subSys):
         for subS in self._compQSystem__qSystems.values():
@@ -722,6 +732,18 @@ class qCoupling(paramBoundBase):
                 if counter < len(args):
                     counter = self._qCoupling__addTerm(counter, 1, qSystems, *args)
         return self
+
+    @_recurseIfList
+    def removeSysCoupling(self, sys):
+        self.removeSubSys(sys)
+
+    @_recurseIfList
+    def removeSubSys(self, subS):
+        subSysVals = self.coupledSystems
+        subSysKeys = self.couplingOperators
+        for ind, sysList in enumerate(subSysVals):
+            if subS in sysList:
+                super().removeSubSys(subSysKeys[ind])
 
 class envCoupling(qCoupling):
     instances = 0

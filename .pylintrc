@@ -29,7 +29,7 @@ exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _allBoo
     ,_qResBlank__resultsLast, _qResBase__resultsLast, _qResBlank__statesLast, _qResBase__statesLast, _qResBlank__calculated, _qResBase__calculated, _finalise
     ,_qUniversal__setKwargs, _paramBoundBase__matrix, _qUniversal__ind, _genericQSys__dimension, _genericQSys__dimsBefore, _genericQSys__dimsAfter
     ,_stateBase__initialStateInput, _initialState, _initialStateInput, _stateBase__initialState, _Simulation__w, _indicesForSweep
-    ,_totalDim, _dimsBefore, _dimsAfter, _value
+    ,_totalDim, _dimsBefore, _dimsAfter, _value, _freeEvol
 
 [SIMILARITIES]
 min-similarity-lines = 5
