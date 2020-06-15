@@ -778,7 +778,7 @@ class qCoupling(paramBoundBase):
         self.removeSubSys(sys, _exclude=[])
 
     @_recurseIfList
-    def removeSubSys(self, subS, _exclude=[]):
+    def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
         _exclude.append(self)
         subSysVals = self.coupledSystems
         subSysKeys = self.couplingOperators
