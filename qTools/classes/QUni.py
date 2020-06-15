@@ -87,12 +87,12 @@ def checkClass(classOf):
 
     """
 
-    def addDecorator(addRemoveFunction):
-        @wraps(addRemoveFunction)
+    def addDecorator(addFunction):
+        @wraps(addFunction)
         def wrapper(obj, inp, **kwargs):
             clsDecoArg = globals()[classOf]
             if isinstance(inp, clsDecoArg):
-                addRemoveFunction(obj, inp, **kwargs)
+                addFunction(obj, inp, **kwargs)
             elif isinstance(inp, str):
                 if inp in clsDecoArg.instNames.keys():
                     inp = wrapper(obj, clsDecoArg.instNames[inp], **kwargs)
@@ -113,6 +113,15 @@ def checkClass(classOf):
         return wrapper
     return addDecorator
 
+def _recurseIfList(func):
+    def recurse(sys):
+        if isinstance(sys, list):
+            for s in sys:
+                r = recurse(s)
+        else:
+            r = func(sys)
+        return r
+    return recurse
 
 class extendedList(list):
     """
@@ -217,6 +226,8 @@ class qUniversal:
 
     #: Total number of instances of the class = ``_internalInstances + _externalInstances```
     instances = 0
+
+    _totalInst = 0
 
     #: aux
     _auxiliary = {}
@@ -362,6 +373,7 @@ class qUniversal:
         subSysClass._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         self._qUniversal__subSys[subSysClass.name] = subSysClass
 
+    @_recurseIfList
     def removeSubSys(self, subS):
         """
         This method removes the given object from the ``__subSys`` dictionary.
@@ -370,15 +382,14 @@ class qUniversal:
         """
 
         if subS in self._qUniversal__subSys.keys():
-            obj = self._qUniversal__subSys.pop(subS, None)
-        elif isinstance(obj, qUniversal):
+            obj = self._qUniversal__subSys.pop(subS)
+        elif isinstance(subS, qUniversal):
             if subS.name in self._qUniversal__subSys.keys():
-                obj = self._qUniversal__subSys.pop(subS.name, None)
+                obj = self._qUniversal__subSys.pop(subS.name)
             else:
                 for key, val in self._qUniversal__subSys.items():
                     if val is obj:
                         obj = self._qUniversal__subSys.pop(key, None)
-                        break
         print(obj.name + ' is removed from subSys of ' + self.name)
 
     @property
@@ -497,6 +508,7 @@ class qUniversal:
         of instances depending on the `boolean`.
         """
 
+        qUniversal._totalInst += 1
         cls.instances += val
         if boolean is False:
             cls._externalInstances += val
