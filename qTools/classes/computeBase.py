@@ -399,6 +399,19 @@ class qBaseSim(computeBase):
 
         return self._qBaseSim__simulation
 
+    @property
+    def initialState(self):
+        """
+            This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None
+             for single systems,
+            if its state is set.
+            If single system initial state is not set, it will try creating here,
+             but single system does not have qSystem,
+              so will raise the below error.
+        """
+
+        return self.simulation.initialState
+
     # @property
     # def _openSystem(self):
     #     return self._qBaseSim__openSystem
@@ -493,7 +506,10 @@ class stateBase(computeBase):
         """
 
         if self._stateBase__initialState.value is None: # pylint: disable=no-member
-            self._stateBase__initialState.value = list(self.subSys.values())[0]._initialState(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long
+            if isinstance(self._stateBase__initialState._bound, _parameter): # pylint: disable=protected-access
+                self._stateBase__initialState._value = self._timeBase__bound.initialState # pylint: disable=no-member
+            else:
+                self._stateBase__initialState.value = list(self.subSys.values())[0]._initialState(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long
         return self._stateBase__initialState.value # pylint: disable=no-member
 
     @initialState.setter # pylint: disable=no-member

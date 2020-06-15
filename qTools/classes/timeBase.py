@@ -31,7 +31,7 @@ class timeBase(stateBase):
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = 'timeBase'
 
-    __slots__ = ['__totalTime', '__stepSize', '__samples', '__stepCount']
+    __slots__ = ['__totalTime', '__stepSize', '__samples', '__stepCount', '__bound']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -39,6 +39,7 @@ class timeBase(stateBase):
         self.__stepSize = _parameter()
         self.__samples = _parameter(1)
         self.__stepCount = _parameter()
+        self.__bound = None
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -192,6 +193,7 @@ class timeBase(stateBase):
         :returns: None
         """
 
+        self._timeBase__bound = other # pylint: disable=assigning-non-slot
         keys = ['_timeBase__stepSize', '_timeBase__totalTime', '_timeBase__stepCount']
         keysProp = ['stepSize', 'totalTime', 'stepCount']
         bounding = True
