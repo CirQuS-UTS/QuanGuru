@@ -4,6 +4,7 @@
 import sys
 import platform
 import multiprocessing
+from qTools.classes.QUni import _recurseIfList
 from qTools.classes.Sweep import Sweep
 from qTools.classes.extensions.modularSweep import runSimulation
 from qTools.classes.timeBase import timeBase
@@ -186,23 +187,29 @@ class Simulation(timeBase):
         newSys, Protocol = self.addQSystems(subSysClass, Protocol, **kwargs)
         return (newSys, Protocol)
 
+    @_recurseIfList
     def removeQSystems(self, subS):
         for key, subSys in self._qUniversal__subSys.items(): # pylint: disable=no-member
             if ((subSys is subS) or (subSys.name == subS)):
-                self._qUniversal__subSys.pop(key) # pylint: disable=no-member
+                super().removeSubSys(key) # pylint: disable=no-member
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
-                self.removeSweep(subSys)
+                self.removeSweep([subSys, subSys.simulation, subSys._freeEvol, subSys._freeEvol.simulation])
 
+    @_recurseIfList
     def removeSweep(self, system):
         self.Sweep.removeSweep(system)
         self.timeDependency.removeSweep(system)
-        return system
+        if ((isinstance(system, Simulation)) and (system is not self)):
+            system.removeSweep(system)
 
-    # add/remove protocol
+    @_recurseIfList
     def removeProtocol(self, Protocol):
-        # FIXME what if freeEvol case, protocol then corresponds to sys.name before simulation run
+        # FIXME what if freeEvol case, protocol then corresponds to qsys.name before simulation run
         #  or a freeEvol obj after run
-        self._qUniversal__subSys.pop(Protocol, None) # pylint: disable=no-member
+        qsys = self._qUniversal__subSys.pop(Protocol, None) # pylint: disable=no-member
+        self.removeSweep([Protocol, Protocol.simulation])
+        if qsys not in self.qSystems:
+            self.removeSweep(qsys)
 
     def addProtocol(self, protocol=None, system=None, protocolRemove=None):
         # TODO Decorate this
@@ -234,6 +241,7 @@ class Simulation(timeBase):
         newSys, Protocol = self.createQSystems(newSys, Protocol)
         return newSys
 
+    @_recurseIfList
     def removeSubSys(self, subS): # pylint: disable=arguments-differ
         self.removeQSystems(subS)
 

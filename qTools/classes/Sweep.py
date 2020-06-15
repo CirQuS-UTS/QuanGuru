@@ -16,7 +16,7 @@ from functools import reduce
 from numpy import arange, logspace
 
 from qTools.classes.updateBase import updateBase
-from qTools.classes.QUni import qUniversal
+from qTools.classes.QUni import qUniversal, _recurseIfList
 
 __all__ = [
     'Sweep'
@@ -259,6 +259,7 @@ class Sweep(qUniversal):
     def sweeps(self, sysDict):
         super().addSubSys(sysDict)
 
+    @_recurseIfList
     def removeSweep(self, sys):
         """
         A method to remove a ``_sweep`` it self, or all the ``_sweep`` objects that contain a particular ``sys`` in it.
@@ -272,10 +273,13 @@ class Sweep(qUniversal):
         """
 
         if isinstance(sys, _sweep):
-            self.removeSubSys(sys)
+            super().removeSubSys(sys)
         else:
-            for sweep in self.subSys.values():
+            sweeps = list(self.subSys.values())
+            for sweep in sweeps:
                 sweep.removeSubSys(sys)
+                if len(sweep.subSys) == 0:
+                    super().removeSubSys(sweep)
 
     def createSweep(self, system=None, sweepKey=None, **kwargs):
         """
