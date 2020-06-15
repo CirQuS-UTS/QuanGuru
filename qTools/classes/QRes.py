@@ -125,7 +125,7 @@ class qResults(qResBase):
             newQRes._qResBlank__resultsLast = sys._qResBase__resultsLast # pylint: disable=assigning-non-slot
             newQRes._qResBlank__statesLast = sys._qResBase__statesLast # pylint: disable=assigning-non-slot
             newQRes._qResBlank__calculated = sys._qResBase__calculated # pylint: disable=assigning-non-slot
-            allResCopy[sys.superSys.name] = newQRes
+            allResCopy[sys.name] = newQRes
         return allResCopy
 
     @qResBase.superSys.setter # pylint: disable=no-member

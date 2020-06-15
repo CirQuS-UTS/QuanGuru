@@ -450,7 +450,8 @@ class qSystem(genericQSys):
         for key in qSysKwargs:
             val = kwargs.pop(key, None)
             if val is not None:
-                self._qUniversal__setKwargs(key=val) # pylint: disable=no-member
+                setattr(self, key, val)
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
         if len(self.subSys) == 0:
             self.addSubSys(term(superSys=self, **kwargs))
@@ -583,7 +584,7 @@ class Spin(qSystem):
 
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
         self.operator = qOps.Jz
         self.__jValue = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -603,7 +604,7 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
         kwargs['dimension'] = 2
         self.operator = qOps.Jz
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
@@ -614,7 +615,7 @@ class Cavity(qSystem):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
         self.operator = qOps.number
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
