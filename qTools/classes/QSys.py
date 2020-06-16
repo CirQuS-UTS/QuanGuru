@@ -346,7 +346,6 @@ class compQSystem(genericQSys):
 
     def updateDimension(self, qSys, newDimVal, oldDimVal=None, _exclude=[]): # pylint: disable=dangerous-default-value
         # TODO can be combined with removeSubSys by a decorator or another method to simplfy both
-        print(self.name)
         if oldDimVal is None:
             oldDimVal = qSys._genericQSys__dimension
 
@@ -371,19 +370,14 @@ class compQSystem(genericQSys):
 
         if self not in _exclude:
             _exclude.append(self)
-            print('here', self.name)
             if ((self._dimsAfter != 1) or (self._dimsBefore != 1)):
-                print('here2')
                 if self.ind < qSys.superSys.ind:
                     self._dimsAfter = int((self._dimsAfter*newDimVal)/oldDimVal)
                 elif self.ind > qSys.superSys.ind:
                     self._dimsBefore = int((self._dimsBefore*newDimVal)/oldDimVal)
             else:
-                print('here3')
                 for sys in self.subSys.values():
-                    print(self, sys, _exclude)
                     if sys not in _exclude:
-                        print('here4', sys)
                         _exclude.append(sys)
                         if sys.ind < qSys.superSys.ind:
                             sys._dimsAfter = int((sys._dimsAfter*newDimVal)/oldDimVal)
@@ -480,11 +474,11 @@ class term(paramBoundBase):
         if self.operator in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dimension = 0.5*(dimension-1)
 
-        try:
+        if self.operator not in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
             self._paramBoundBase__matrix = qOps.compositeOp(self.operator(dimension), #pylint:disable=assigning-non-slot
                                                             self.superSys._dimsBefore, # pylint: disable=no-member
                                                             self.superSys._dimsAfter)**self.order # pylint: disable=no-member
-        except: # pylint: disable=bare-except
+        else: # pylint: disable=bare-except
             self._paramBoundBase__matrix = qOps.compositeOp( # pylint: disable=no-member, assigning-non-slot
                 self.operator(),
                 self.superSys._dimsBefore, # pylint: disable=no-member
@@ -758,9 +752,7 @@ class qCoupling(paramBoundBase):
     def __coupOrdering(self, qts): # pylint: disable=no-self-use
         qts = sorted(qts, key=lambda x: x[0], reverse=False)
         oper = qts[0][1]
-        print(self, self.subSys, oper.shape)
         for ops in range(len(qts)-1):
-            print(oper.shape, qts[ops+1][1].shape)
             oper = oper @ qts[ops+1][1]
         return oper
 
