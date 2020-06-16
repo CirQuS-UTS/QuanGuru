@@ -517,7 +517,7 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
 def tensorProd(*args: Matrix) -> Matrix:
     """
     Function to calculate tensor product of given (any number of) states (in the given order).
-
+    TODO test with ndarrays. sp.kron documentation says that it works with dense, not sure what if it means any array.
     The matrices can be sparse/ndarray, but they all should be the same either sparse/ndarray not a mixture.
 
     Parameters
@@ -536,13 +536,14 @@ def tensorProd(*args: Matrix) -> Matrix:
     """
 
     totalProd = args[0]
-    if isinstance(totalProd, sp.spmatrix):
-        kronProd = sp.kron
-    else:
-        kronProd = np.kron
+    if isinstance(totalProd, int):
+        totalProd = sp.identity(totalProd, format="csc")
 
     for ind in range(len(args)-1):
-        totalProd = kronProd(totalProd, args[ind+1], format='csc')
+        mat = args[ind+1]
+        if isinstance(args[ind+1], int):
+            mat = sp.identity(mat, format='csc')
+        totalProd = sp.kron(totalProd, mat, format='csc')
     return totalProd
 
 
