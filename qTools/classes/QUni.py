@@ -392,7 +392,7 @@ class qUniversal:
                 obj = self._qUniversal__subSys.pop(subS.name)
                 print(obj, ' is removed from subSys of ' + self.name)
             else:
-                keys = list(self._qUniversal__subSys.key())
+                keys = list(self._qUniversal__subSys.keys())
                 vals = list(self._qUniversal__subSys.values())
                 for ind, key in enumerate(keys):
                     if vals[ind] is subS:

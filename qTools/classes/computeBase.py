@@ -509,13 +509,13 @@ class stateBase(computeBase):
             if isinstance(self._stateBase__initialState._bound, _parameter): # pylint: disable=protected-access
                 self._stateBase__initialState._value = self._timeBase__bound.initialState # pylint: disable=no-member
             else:
-                self._stateBase__initialState.value = list(self.subSys.values())[0]._initialState(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long
+                self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long
         return self._stateBase__initialState.value # pylint: disable=no-member
 
     @initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self._stateBase__initialStateInput.value = inp # pylint: disable=no-member
-        self._stateBase__initialState.value = list(self.subSys.values())[0]._initialState(inp) # pylint: disable=protected-access, no-member, line-too-long
+        self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(inp) # pylint: disable=protected-access, no-member, line-too-long
 
     @property
     def _initialStateInput(self):

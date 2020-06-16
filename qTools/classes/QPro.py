@@ -43,7 +43,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     @qBaseSim.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
-        self.simulation._stateBase__initialState.value = self.superSys._initialState(inp) # pylint:disable=W0212,E1101
+        self.simulation._stateBase__initialState.value = self.superSys._createAstate(inp) # pylint:disable=W0212,E1101
 
     def save(self):
         saveDict = super().save()
