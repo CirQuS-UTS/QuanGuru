@@ -63,6 +63,13 @@ class genericQSys(qBaseSim):
         self.removeSubSys(other, _exclude=[])
         return self
 
+    def __rmul__(self, other):
+        newComp = compQSystem()
+        newComp.addSubSys(self)
+        for _ in range(other - 1):
+            newComp.addSubSys(self.copy())
+        return newComp
+
     def save(self):
         saveDict = super().save()
         if self.simulation._stateBase__initialStateInput.value is not None:# pylint: disable=no-member, protected-access
