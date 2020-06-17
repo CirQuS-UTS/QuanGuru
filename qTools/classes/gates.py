@@ -8,7 +8,7 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
     def __init__(self, **kwargs):
         super().__init__()
         self.__angle = None
-        self._createUnitary = self._gateImplements
+        #self._createUnitary = self._gateImplements
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -33,3 +33,5 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
         if self.implementation.lower() == 'instant':
             unitary = self.instantFlip()
         return unitary
+
+xGate._createUnitary = xGate._gateImplements

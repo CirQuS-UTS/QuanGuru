@@ -18,7 +18,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         cls.numberOfExponentiations += 1
 
     __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates',
-                 '_getUnitary', '_createUnitary', 'timeDependency', '__identity']
+                 '_getUnitary', 'timeDependency', '__identity']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -163,7 +163,7 @@ class qProtocol(genericProtocol):
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
-        self._createUnitary = self._defCreateUnitary # pylint: disable=assigning-non-slot
+        #self._createUnitary = self._defCreateUnitary # pylint: disable=assigning-non-slot
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -196,6 +196,8 @@ class qProtocol(genericProtocol):
             unitary = step.getUnitary() @ unitary
         return unitary
 
+qProtocol._createUnitary = qProtocol._defCreateUnitary
+
 
 class copyStep(qUniversal):
     instances = 0
@@ -226,7 +228,7 @@ class freeEvolution(genericProtocol):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        self._createUnitary = self.matrixExponentiation
+        #self._createUnitary = self.matrixExponentiation
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def matrixExponentiation(self):
@@ -235,6 +237,8 @@ class freeEvolution(genericProtocol):
                                      timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples))
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
+
+freeEvolution._createUnitary = freeEvolution.matrixExponentiation
 
 class Gate(genericProtocol):
     instances = 0
