@@ -88,14 +88,13 @@ def readAll(path, fileName):
         if len(val) > 0:
             rDict = {}
             for key1, val1 in val.items():
-                _rDict = {}
                 try:
+                    _rDict = {}
                     for key2, val2 in val1.items():
                         _rDict[key2] = list(val2)
+                    rDict[key1] = _rDict
                 except: # pylint: disable=bare-except
-                    for key2, val2 in val1.items():
-                        _rDict[key2] = val2[()]
-                rDict[key1] = _rDict
+                    rDict[key1] = list(val1)
             resDict[key] = rDict
     return resDict, f.attrs
 
@@ -111,17 +110,16 @@ def saveAll(qRes, fileName=None, attributes=dict, path=None, irregular=False):
         writeAttr(file, attributes, path, fileName)
 
     for value1 in qRes.allResults.values():
+        k = file.create_group(value1.name)
         dictionary = value1.results
-        if len(dictionary) > 0:
-            k = file.create_group(value1.name)
-            if irregular is True:
-                for key, value in dictionary.items():
-                    k2 = k.create_group(key)
-                    for irty, val in enumerate(value):
-                        k2.create_dataset(str(irty), data=val)
-            else:
-                for key, value in dictionary.items():
-                    k.create_dataset(key, data=value)
+        if irregular is True:
+            for key, value in dictionary.items():
+                k2 = k.create_group(key)
+                for irty, val in enumerate(value):
+                    k2.create_dataset(str(irty), data=val)
+        else:
+            for key, value in dictionary.items():
+                k.create_dataset(key, data=value)
 
     file.close()
     return path, fileName
