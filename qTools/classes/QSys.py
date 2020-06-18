@@ -540,11 +540,7 @@ class qSystem(genericQSys):
     @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
         if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
-            allFreqs = [obj.frequency for obj in self.subSys.values() if obj.frequency != 0]
-            if len(allFreqs) > 0:
-                h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values() if obj.frequency != 0])
-            else:
-                h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
+            h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
             self._paramBoundBase__matrix = h # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
