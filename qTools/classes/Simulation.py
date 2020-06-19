@@ -250,7 +250,7 @@ class Simulation(timeBase):
         for protocol in self.subSys.keys():
             states.append(protocol.currentState)
             if protocol.simulation.delStates is False:
-                self.qRes.states[protocol.name].append(protocol.currentState)
+                self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None):

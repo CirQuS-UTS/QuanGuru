@@ -512,6 +512,14 @@ class qSystem(genericQSys):
         if len(self.subSys) == 0:
             self.addSubSys(term(superSys=self, **kwargs))
 
+    @genericQSys.name.setter
+    def name(self, name):
+        oldName = self.name
+        genericQSys.name.fset(self, name) # pylint: disable=no-member
+        for ii, sys in enumerate(self.subSys.values()):
+            if ((sys.name) == (oldName + 'term' + str(ii))):
+                sys.name = self.superSys.name + 'term' + str(ii+1) # pylint: disable=no-member
+
     def save(self):
         saveDict = super().save()
         qsys = {}
