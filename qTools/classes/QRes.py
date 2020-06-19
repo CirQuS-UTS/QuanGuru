@@ -209,3 +209,24 @@ class qResults(qResBase):
                 totalCount += 1
             return (newList, totalCount)
         return (newList, totalCount)
+
+    def readFrom(self, file, keyTo=None, keyCo=None, oldDict=None):
+        if oldDict is None:
+            oldDict = self._qResBase__results
+        rDict = {}
+        if hasattr(file, 'items'):
+            for key, val in file.items():
+                if keyTo == key:
+                    print(keyTo, keyCo)
+                    rDict[key] = self.readFrom(val, keyTo=None, keyCo=key, oldDict=oldDict)
+                else:
+                    rDict[key] = self.readFrom(val, keyTo=keyTo, keyCo=key, oldDict=oldDict)
+        else:
+            if ((keyTo is None) or (keyTo == keyCo)):
+                rDict = list(file)
+
+        self._qResBase__results = rDict
+        for k, v in oldDict.items():
+            self._qResBase__results[k] = rDict
+        self._qResBase__resultsLast = self._qResBase__results
+        return rDict
