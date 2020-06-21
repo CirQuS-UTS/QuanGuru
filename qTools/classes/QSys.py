@@ -355,10 +355,9 @@ class compQSystem(genericQSys):
         # TODO can be combined with removeSubSys by a decorator or another method to simplfy both
         if oldDimVal is None:
             oldDimVal = qSys._genericQSys__dimension
-
+        self._genericQSys__dimension = None # pylint: disable=assigning-non-slot
         if qSys in self.qSystems.values():
             _exclude.append(self)
-            self._genericQSys__dimension = None # pylint: disable=assigning-non-slot
             qSys._genericQSys__dimension = newDimVal
             ind = qSys.ind
             for qS in self.qSystems.values():
@@ -546,11 +545,11 @@ class qSystem(genericQSys):
             if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
                 self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
             self._paramUpdated = True
-
-            if isinstance(self.superSys, compQSystem):
-                self.superSys.updateDimension(self, newDimVal, oldDimVal) # pylint: disable=no-member
         elif self._genericQSys__dimension is None: # pylint: disable=no-member
             self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
+        
+        if isinstance(self.superSys, compQSystem):
+            self.superSys.updateDimension(self, newDimVal, oldDimVal, _exclude=[]) # pylint: disable=no-member
 
     @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
