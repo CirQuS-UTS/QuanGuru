@@ -59,6 +59,8 @@ from numpy import ndarray # type: ignore
 import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore
+from qTools.QuantumToolbox.states import tensorProd, densityMatrix
+from qTools.QuantumToolbox.operators import sigmay
 
 from .customTypes import Matrix, floatList, matrixList
 
@@ -890,9 +892,11 @@ def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
 
 
 # Eigenvector statistics
-def sortedEigens(Ham: Matrix) -> Tuple[floatList, List[ndarray]]:
+def sortedEigens(Ham: Matrix, mag=False) -> Tuple[floatList, List[ndarray]]:
     """
     Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.
+    If `mag is True`, sort is accordingly with the magnitude of the eigenvalues.
+    TODO update docstrings, change Ham to Matrix, since this can be used also for any matrix.
 
     Parameters
     ----------
@@ -926,7 +930,11 @@ def sortedEigens(Ham: Matrix) -> Tuple[floatList, List[ndarray]]:
         Ham = Ham.A
 
     eigVals, eigVecs = lina.eig(Ham)
-    idx = eigVals.argsort()
+    if mag:
+        mags = np.abs(eigVals)
+        idx = mags.argsort()
+    else:
+        idx = eigVals.argsort()
     sortedVals = eigVals[idx]
     sortedVecs = eigVecs[:, idx]
     return sortedVals, sortedVecs
@@ -1027,3 +1035,25 @@ def eigVecStatKetNB(ket: Matrix) -> float:
     if isinstance(ket, spmatrix):
         ket = ket.A
     return np.real(ket.flatten())
+
+def concurrence(state:Matrix) -> float:
+    """
+    TODO docstrings
+    """
+    if not isinstance(state, np.ndarray):
+        state = state.A
+    """sqrtState = lina.sqrtm(state)
+    SySy = tensorProd(sigmay(), sigmay())
+    magicConj = SySy @ state.conj() @ SySy
+    R = sqrtState @ magicConj @ sqrtState
+    eigVals, _ = sortedEigens(lina.sqrtm(R))
+    eigVals = np.real(eigVals)
+    print(eigVals)"""
+    if state.shape[0] != state.shape[1]:
+        state = densityMatrix(state)
+    SySy = tensorProd(sigmay(), sigmay())
+    magicConj = SySy @ state.conj() @ SySy
+    R = state @ magicConj
+    eigVals, _ = sortedEigens(R)
+    eigVals = np.real(np.sqrt(eigVals))
+    return max([0, np.round(eigVals[3] - eigVals[2] - eigVals[1] - eigVals[0], 15)])

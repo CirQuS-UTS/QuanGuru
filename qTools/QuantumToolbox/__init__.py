@@ -15,7 +15,8 @@ from .functions import (
     entropy, entropyKet,
     iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat,
     sortedEigens,
-    eigVecStatKet, eigVecStatKetList, eigVecStatKetNB
+    eigVecStatKet, eigVecStatKetList, eigVecStatKetNB,
+    concurrence
 )
 from .Hamiltonians import (cavQubFreeHam, RabiHam, JCHam, aJCHam)
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)

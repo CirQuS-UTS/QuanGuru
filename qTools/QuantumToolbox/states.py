@@ -501,16 +501,10 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
     [0.        ]]
     """
 
-    if isinstance(excitations[0], int):
-        st = basis(dimensions[0], excitations[0], sparse)
-    else:
-        st = superPos(dimensions[0], excitations[0], sparse)
+    st = superPos(dimensions[0], excitations[0], sparse)
 
     for ind in range(len(dimensions)-1):
-        if isinstance(excitations[ind+1], int):
-            st = sp.kron(st, basis(dimensions[ind+1], excitations[ind+1], sparse), format='csc') # type: ignore
-        else:
-            st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
+        st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
     return st if sparse else st.A
 
 
