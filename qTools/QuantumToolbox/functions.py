@@ -59,8 +59,9 @@ from numpy import ndarray # type: ignore
 import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore
-from qTools.QuantumToolbox.states import tensorProd, densityMatrix
-from qTools.QuantumToolbox.operators import sigmay
+
+from .states import tensorProd, densityMatrix
+from .operators import sigmay
 
 from .customTypes import Matrix, floatList, matrixList
 
