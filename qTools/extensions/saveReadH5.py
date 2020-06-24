@@ -131,3 +131,63 @@ def _qResSaveH5(qRes, fileName=None, attributes=dict, path=None, irregular=False
 
 qResults.saveAll = saveAll
 qResults.saveH5 = _qResSaveH5
+
+
+def _keySearch(sDict, sKey) -> bool:
+    if len(sDict) == 0:
+        return False
+    elif sKey in sDict.keys():
+        if len(sDict[sKey]) == 0:
+            return False
+        elif isinstance(sDict[sKey], dict):
+            return qResults._keySearch(sDict[sKey], list(sDict[sKey].keys())[0])
+        else:
+            return True
+    else:
+        boolean = False
+        for v in sDict.values():
+            boolean = qResults._keySearch(v, sKey)
+            if boolean:
+                break
+        return boolean
+
+def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1):
+    rDict = {}
+    print(depth, file)
+    if not _keySearch(oldDict, keyTo):
+        if hasattr(file, 'items'):
+            if depth != 0:
+                if depth != initial:
+                    depth -= 1
+
+                for key, val in file.items():
+                    if key == '0':
+                        break
+                    elif keyTo == key:
+                        print(keyTo, keyCo, depth)
+                        depth -= 1
+                        rDict[key], depth = _readFrom(val, keyTo=None, keyCo=key, oldDict=oldDict, depth=depth, initial=initial)
+                    else:
+                        rDict[key], depth = _readFrom(val, keyTo=keyTo, keyCo=key, oldDict=oldDict, depth=depth, initial=initial)
+            elif depth == 0:
+                print(file)
+                rList = []
+                for ind in range(len(file.keys())):
+                    rList.append(list(file[str(ind)]))
+                depth = initial
+                rDict = rList
+        else:
+            rDict = list(file)
+            depth = initial
+    return rDict, depth
+
+def readFrom(qRes, file, readKey, depth=-1):
+    oldDict = qRes._qResBase__results
+    rDict, _ = _readFrom(file, keyTo=readKey, keyCo=None, oldDict=oldDict, depth=depth, initial=depth)
+    qRes._qResBase__results = rDict
+    for k, v in oldDict.items():
+        if v not in [[], {}]:
+            qRes._qResBase__results[k] = v
+    qRes._qResBase__resultsLast = qRes._qResBase__results
+
+qResults.readFrom = readFrom
