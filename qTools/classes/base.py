@@ -154,7 +154,6 @@ class extendedList(list):
             baseList.append(exIt)
         return baseList
 
-
 class qUniversal:
     """
     This class is inhereted by (almost) all the other classes in this library. It is best understood by considering

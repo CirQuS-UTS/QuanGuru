@@ -1,21 +1,22 @@
-from .computeBase import paramBoundBase
 from numpy import pi
+
+from .baseClasses import paramBoundBase
 
 class genericDrive(paramBoundBase):
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-    
+
     def totalShape(self, timeList):
-        if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)):
+        if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
             shapeList = []
             for time in timeList:
                 shapeList.append(self.apply(time))
-            self._paramBoundBase__matrix = shapeList
-        return self._paramBoundBase__matrix
+            self._paramBoundBase__matrix = shapeList #pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def apply(self):
+    def apply(self, time): #pylint:disable=no-self-use,unused-argument
         return 0
 
 class qDrive(genericDrive):
@@ -26,11 +27,11 @@ class qDrive(genericDrive):
 
     @property
     def pulses(self):
-        return self._qUniversal__subSys
+        return self._qUniversal__subSys # pylint: disable=no-member
 
     @pulses.setter
-    def pulses(self, pulse):
-        genericDrive.subSys.fset(self, pulse) # pylint: disable=no-member
+    def pulses(self, npulse):
+        genericDrive.subSys.fset(self, npulse) # pylint: disable=no-member
 
     def addPulse(self, rotation=None, **pulseParams):
         self._paramUpdated = True
@@ -39,22 +40,22 @@ class qDrive(genericDrive):
             print(p.integrateShape([p.t0 + i*((p.t1 - p.t0)/1000) for i in range(1000)]))
             p._scale = rotation / (2*pi*p.integrateShape([p.t0 + i*((p.t1 - p.t0)/1000) for i in range(1001)]))
         super().addSubSys(p)
-        p._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
+        p._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access,no-member
         return p
 
     def apply(self, time):
-        coef = super().apply()
+        coef = super().apply(time)
         for p in self.pulses.values():
             coef += p.apply(time)
         return coef
-            
+
 
 class pulse(genericDrive):
-    __slots__ = ['__t0', '__t1', '__func', 'funcArgs','funcKwargs', '_scale']
+    __slots__ = ['__t0', '__t1', '__func', 'funcArgs', 'funcKwargs', '_scale']
     def __init__(self, **kwargs):
         super().__init__()
-        self.__t0 = None
-        self.__t1 = None
+        self.__t0 = None #pylint:disable=invalid-name
+        self.__t1 = None #pylint:disable=invalid-name
         self.__func = None
         self.funcKwargs = {}
         self.funcArgs = []
@@ -62,21 +63,21 @@ class pulse(genericDrive):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
-    def t0(self):
+    def t0(self): #pylint:disable=invalid-name
         return self._pulse__t0
 
     @t0.setter
-    def t0(self, val):
-        self._pulse__t0 = val
+    def t0(self, val): #pylint:disable=invalid-name
+        self._pulse__t0 = val #pylint: disable=assigning-non-slot
         self._paramUpdated = True
 
     @property
-    def t1(self):
+    def t1(self): #pylint:disable=invalid-name
         return self._pulse__t1
 
     @t1.setter
-    def t1(self, val):
-        self._pulse__t1 = val
+    def t1(self, val): #pylint:disable=invalid-name
+        self._pulse__t1 = val #pylint: disable=assigning-non-slot
         self._paramUpdated = True
 
     @property
@@ -85,11 +86,11 @@ class pulse(genericDrive):
 
     @func.setter
     def func(self, f):
-        self._pulse__func = f
+        self._pulse__func = f #pylint: disable=assigning-non-slot
         self._paramUpdated = True
 
     def apply(self, time):
-        return self._scale*self.func(time, *self.funcArgs, **self.funcKwargs) if self.t1 > time > self.t0 else super().apply()
+        return self._scale*self.func(time, *self.funcArgs, **self.funcKwargs) if self.t1 > time > self.t0 else super().apply(time) # pylint:disable=line-too-long
 
     def integrateShape(self, timePoints):
         integral = 0

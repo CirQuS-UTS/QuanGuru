@@ -135,23 +135,23 @@ qResults.saveH5 = _qResSaveH5
 
 def _keySearch(sDict, sKey) -> bool:
     if len(sDict) == 0:
-        return False
+        boolean = False
     elif sKey in sDict.keys():
         if len(sDict[sKey]) == 0:
-            return False
+            boolean = False
         elif isinstance(sDict[sKey], dict):
-            return qResults._keySearch(sDict[sKey], list(sDict[sKey].keys())[0])
+            boolean = _keySearch(sDict[sKey], list(sDict[sKey].keys())[0])
         else:
-            return True
+            boolean = True
     else:
         boolean = False
         for v in sDict.values():
-            boolean = qResults._keySearch(v, sKey)
+            boolean = _keySearch(v, sKey)
             if boolean:
                 break
-        return boolean
+    return boolean
 
-def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1):
+def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1): # pylint: disable=too-many-arguments
     rDict = {}
     print(depth, file)
     if not _keySearch(oldDict, keyTo):
@@ -163,12 +163,15 @@ def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1):
                 for key, val in file.items():
                     if key == '0':
                         break
-                    elif keyTo == key:
+
+                    if keyTo == key:
                         print(keyTo, keyCo, depth)
                         depth -= 1
-                        rDict[key], depth = _readFrom(val, keyTo=None, keyCo=key, oldDict=oldDict, depth=depth, initial=initial)
+                        rDict[key], depth = _readFrom(val, keyTo=None, keyCo=key, oldDict=oldDict, depth=depth,
+                                                      initial=initial)
                     else:
-                        rDict[key], depth = _readFrom(val, keyTo=keyTo, keyCo=key, oldDict=oldDict, depth=depth, initial=initial)
+                        rDict[key], depth = _readFrom(val, keyTo=keyTo, keyCo=key, oldDict=oldDict, depth=depth,
+                                                      initial=initial)
             elif depth == 0:
                 print(file)
                 rList = []

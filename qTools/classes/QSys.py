@@ -1,14 +1,14 @@
 from collections import OrderedDict
 from numpy import (int64, int32, int16, ndarray)
 from scipy.sparse import issparse
-import qTools.QuantumToolbox.operators as qOps
-import qTools.QuantumToolbox.states as qSta
-#import qTools.QuantumToolbox.evolution as qEvo
-from qTools.classes.computeBase import qBaseSim
-from qTools.classes.computeBase import paramBoundBase
+
+from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox import states as qSta #pylint: disable=relative-beyond-top-level
+
+from .base import checkClass, _recurseIfList
+from .baseClasses import qBaseSim, paramBoundBase
 #from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
-from qTools.classes.QPro import freeEvolution
-from qTools.classes.QUni import checkClass, _recurseIfList
+from .QPro import freeEvolution
 
 def _initStDec(_createAstate):
     def wrapper(obj, inp=None):
@@ -351,7 +351,7 @@ class compQSystem(genericQSys):
         for sys in self.qCouplings.values():
             sys._constructMatrices() # pylint: disable=protected-access
 
-    def updateDimension(self, qSys, newDimVal, oldDimVal=None, _exclude=[]): # pylint: disable=dangerous-default-value
+    def updateDimension(self, qSys, newDimVal, oldDimVal=None, _exclude=[]):#pylint:disable=dangerous-default-value,too-many-branches
         # TODO can be combined with removeSubSys by a decorator or another method to simplfy both
         if oldDimVal is None:
             oldDimVal = qSys._genericQSys__dimension
@@ -511,12 +511,12 @@ class qSystem(genericQSys):
         if len(self.subSys) == 0:
             self.addSubSys(term(superSys=self, **kwargs))
 
-    @genericQSys.name.setter
+    @genericQSys.name.setter #pylint: disable=no-member
     def name(self, name):
         oldName = self.name
         genericQSys.name.fset(self, name) # pylint: disable=no-member
         for ii, sys in enumerate(self.subSys.values()):
-            if ((sys.name) == (oldName + 'term' + str(ii))):
+            if sys.name == (oldName + 'term' + str(ii)):
                 sys.name = self.superSys.name + 'term' + str(ii+1) # pylint: disable=no-member
 
     def save(self):
@@ -547,7 +547,7 @@ class qSystem(genericQSys):
             self._paramUpdated = True
         elif self._genericQSys__dimension is None: # pylint: disable=no-member
             self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
-        
+
         if isinstance(self.superSys, compQSystem):
             self.superSys.updateDimension(self, newDimVal, oldDimVal, _exclude=[]) # pylint: disable=no-member
 

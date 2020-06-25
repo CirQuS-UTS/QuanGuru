@@ -1,10 +1,11 @@
 import numpy as np
-import qTools.QuantumToolbox.evolution as lio
-from qTools.QuantumToolbox.operators import identity
-from qTools.classes.computeBase import _parameter, qBaseSim
-from qTools.classes.updateBase import updateBase
-from qTools.classes.QUni import qUniversal
-from qTools.classes.Sweep import Sweep
+
+from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
+
+from .base import qUniversal
+from .baseClasses import _parameter, qBaseSim, updateBase
+from .QSweep import Sweep
 
 # under construction
 

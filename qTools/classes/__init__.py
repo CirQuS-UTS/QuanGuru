@@ -4,7 +4,7 @@
 
     .. toctree::
 
-    qUniversal <classes/qUniversal.rst>
+    qUniversal <classes/base.rst>
     Compute Base <classes/computeBase.rst>
     Time Base <classes/timeBase.rst>
     Update Base <classes/updateBase.rst>
@@ -12,11 +12,11 @@
     QSys <classes/QSys.rst>
 """
 
+from .base import qUniversal
 from .QSys import QuantumSystem, compQSystem, qCoupling, envCoupling, qSystem, Qubit, Spin, Cavity
-from .QUni import qUniversal
 from .QPro import qProtocol, Gate, freeEvolution
-from .Sweep import Sweep
+from .QSweep import Sweep
 from .QRes import qResults
-from .Simulation import Simulation
-from .gates import *
-from .qDrive import *
+from .QSim import Simulation
+from .QGates import *
+from .QDrive import *

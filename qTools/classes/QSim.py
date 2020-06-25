@@ -4,11 +4,12 @@
 import sys
 import platform
 import multiprocessing
-from qTools.classes.QUni import _recurseIfList
-from qTools.classes.Sweep import Sweep
-from qTools.classes.extensions.modularSweep import runSimulation
-from qTools.classes.timeBase import timeBase
-from qTools.classes.extensions.modularSweep import timeEvolBase
+
+from .base import _recurseIfList
+from .baseClasses import timeBase
+from .QSweep import Sweep
+from .extensions.modularSweep import runSimulation
+from .extensions.modularSweep import timeEvolBase
 # pylint: disable = cyclic-import
 
 class Simulation(timeBase):

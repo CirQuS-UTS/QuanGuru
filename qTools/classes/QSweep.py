@@ -15,8 +15,8 @@
 from functools import reduce
 from numpy import arange, logspace
 
-from qTools.classes.updateBase import updateBase
-from qTools.classes.QUni import qUniversal, _recurseIfList
+from .base import qUniversal, _recurseIfList
+from .baseClasses import updateBase
 
 __all__ = [
     'Sweep'

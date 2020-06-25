@@ -1,10 +1,10 @@
 from collections import defaultdict
-from qTools.classes.QUni import qUniversal
+
+from .base import qUniversal
 
 __all__ = [
     'qResults'
 ]
-
 
 class qResBlank:
     __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average', '__calculated']

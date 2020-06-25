@@ -1,5 +1,5 @@
-from qTools.classes.QPro import Gate
-from qTools.QuantumToolbox import operators
+from .QPro import Gate
+from ..QuantumToolbox import operators #pylint: disable=relative-beyond-top-level
 
 class xGate(Gate): # pylint: disable=too-many-ancestors
     instances = 0

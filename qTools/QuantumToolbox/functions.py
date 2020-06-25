@@ -1037,19 +1037,21 @@ def eigVecStatKetNB(ket: Matrix) -> float:
         ket = ket.A
     return np.real(ket.flatten())
 
-def concurrence(state:Matrix) -> float:
+def concurrence(state: Matrix) -> float:
     """
     TODO docstrings
-    """
-    if not isinstance(state, np.ndarray):
-        state = state.A
-    """sqrtState = lina.sqrtm(state)
+    sqrtState = lina.sqrtm(state)
     SySy = tensorProd(sigmay(), sigmay())
     magicConj = SySy @ state.conj() @ SySy
     R = sqrtState @ magicConj @ sqrtState
     eigVals, _ = sortedEigens(lina.sqrtm(R))
     eigVals = np.real(eigVals)
-    print(eigVals)"""
+    print(eigVals)
+    """
+
+    if not isinstance(state, np.ndarray):
+        state = state.A
+
     if state.shape[0] != state.shape[1]:
         state = densityMatrix(state)
     SySy = tensorProd(sigmay(), sigmay())
