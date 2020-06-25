@@ -640,8 +640,8 @@ class qSystem(genericQSys):
         for sys in self.subSys.values():
             sys.superSys = self
 
-    def addTerm(self, op, freq, order=1):
-        newTerm = super().addSubSys(term, operator=op, frequency=freq, order=order, superSys=self)
+    def addTerm(self, operator, frequency, order=1):
+        newTerm = super().addSubSys(term, operator=operator, frequency=frequency, order=order, superSys=self)
         return newTerm
 
     @_recurseIfList
