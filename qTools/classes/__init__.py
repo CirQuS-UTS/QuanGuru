@@ -19,3 +19,4 @@ from .Sweep import Sweep
 from .QRes import qResults
 from .Simulation import Simulation
 from .gates import *
+from .qDrive import *
