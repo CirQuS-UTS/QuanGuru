@@ -60,7 +60,7 @@ import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
-from .states import tensorProd, densityMatrix
+from .states import tensorProd, densityMatrix, mat2Vec
 from .operators import sigmay
 
 from .customTypes import Matrix, floatList, matrixList
@@ -938,7 +938,10 @@ def sortedEigens(Ham: Matrix, mag=False) -> Tuple[floatList, List[ndarray]]:
         idx = eigVals.argsort()
     sortedVals = eigVals[idx]
     sortedVecs = eigVecs[:, idx]
-    return sortedVals, sortedVecs
+    sortedVecsMat = []
+    for ind in range(len(sortedVecs)):
+        sortedVecsMat.append(mat2Vec(sortedVecs[:, ind]))
+    return sortedVals, sortedVecsMat
 
 
 # TODO create the function for the result of eigenvec calculation
