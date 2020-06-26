@@ -201,6 +201,19 @@ class _parameter: # pylint: disable=too-few-public-methods
         self._bound = False
         self._value = value
 
+
+def setAttr(obj, attrStr, val):
+    oldVal = getattr(obj, attrStr)
+    setattr(obj, attrStr, val)
+    if val != oldVal:
+        setattr(obj, '_paramUpdated', True)
+
+def setAttrParam(obj, attrStr, val):
+    oldVal = getattr(obj, attrStr)
+    getattr(obj, attrStr).value = val
+    if val != oldVal:
+        setattr(obj, '_paramUpdated', True)
+
 class paramBoundBase(qUniversal):
     """
     There are two types of parametric bounds/relations in this library,
@@ -740,10 +753,9 @@ class timeBase(stateBase):
 
     @totalTime.setter
     def totalTime(self, fTime):
-        self._paramUpdated = True
         if self._timeBase__stepSize._bound not in (None, False):# pylint: disable=protected-access
             self._timeBase__stepSize._value = self._timeBase__stepSize._bound._value # pylint: disable=protected-access
-        self._timeBase__totalTime.value = fTime # pylint: disable=assigning-non-slot
+        setAttrParam(self, '_timeBase__totalTime', fTime)
         if self.stepSize is not None:
             self._timeBase__stepCount.value = int((fTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
 
@@ -769,10 +781,9 @@ class timeBase(stateBase):
 
     @stepCount.setter
     def stepCount(self, num):
-        self._paramUpdated = True
         if self._timeBase__totalTime._bound not in (None, False):# pylint: disable=protected-access
             self._timeBase__totalTime._value = self._timeBase__totalTime._bound._value# pylint: disable=protected-access
-        self._timeBase__stepCount.value = num # pylint: disable=assigning-non-slot
+        setAttrParam(self, '_timeBase__stepCount', num)
         if self.totalTime is not None:
             self._timeBase__stepSize.value = self.totalTime/num # pylint: disable=assigning-non-slot
 
@@ -795,10 +806,9 @@ class timeBase(stateBase):
 
     @stepSize.setter
     def stepSize(self, stepsize):
-        self._paramUpdated = True
         if self._timeBase__totalTime._bound not in (None, False):# pylint: disable=protected-access
             self._timeBase__totalTime._value = self._timeBase__totalTime._bound._value# pylint: disable=protected-access
-        self._timeBase__stepSize.value = stepsize # pylint: disable=assigning-non-slot
+        setAttrParam(self, '_timeBase__stepSize', stepsize)
         if self.totalTime is not None:
             self._timeBase__stepCount.value = int((self.totalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
 
@@ -816,8 +826,7 @@ class timeBase(stateBase):
 
     @samples.setter
     def samples(self, num):
-        self._paramUpdated = True
-        self._timeBase__samples.value = num # pylint: disable=assigning-non-slot
+        setAttrParam(self, '_timeBase__samples', num)
 
     def _bound(self, other, # pylint: disable=dangerous-default-value
                params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput'],
