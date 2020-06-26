@@ -6,7 +6,7 @@ from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-
 from ..QuantumToolbox import states as qSta #pylint: disable=relative-beyond-top-level
 
 from .base import checkClass, _recurseIfList
-from .baseClasses import qBaseSim, paramBoundBase
+from .baseClasses import qBaseSim, paramBoundBase, setAttr
 #from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from .QPro import freeEvolution
 
@@ -113,11 +113,10 @@ class genericQSys(qBaseSim):
 
     @_dimsBefore.setter
     def _dimsBefore(self, val):
-        self._paramUpdated = True
         if not isinstance(val, int):
             raise ValueError('?')
         oldVal = self._dimsBefore
-        self._genericQSys__dimsBefore = val # pylint: disable=assigning-non-slot
+        setAttr(self, '_genericQSys__dimsBefore', val)
         for sys in self.subSys.values():
             if isinstance(sys, genericQSys):
                 sys._dimsBefore = int((sys._dimsBefore*val)/oldVal)
@@ -128,11 +127,10 @@ class genericQSys(qBaseSim):
 
     @_dimsAfter.setter
     def _dimsAfter(self, val):
-        self._paramUpdated = True
         if not isinstance(val, int):
             raise ValueError('?')
         oldVal = self._dimsAfter
-        self._genericQSys__dimsAfter = val # pylint: disable=assigning-non-slot
+        setAttr(self, '_genericQSys__dimsAfter', val)
         for sys in self.subSys.values():
             if isinstance(sys, genericQSys):
                 sys._dimsAfter = int((sys._dimsAfter*val)/oldVal)
@@ -428,9 +426,8 @@ class term(paramBoundBase):
 
     @operator.setter
     def operator(self, op):
-        self._paramUpdated = True
         self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
-        self._term__operator = op # pylint: disable=assigning-non-slot
+        setAttr(self, '_term__operator', op)
 
     @property
     def frequency(self):
@@ -440,8 +437,7 @@ class term(paramBoundBase):
     def frequency(self, freq):
         if freq == 0.0:
             freq = 0
-        self._paramUpdated = True
-        self._term__frequency = freq # pylint: disable=assigning-non-slot
+        setAttr(self, '_term__frequency', freq)
 
     @property
     def order(self):
@@ -449,8 +445,7 @@ class term(paramBoundBase):
 
     @order.setter
     def order(self, ordVal):
-        self._paramUpdated = True
-        self._term__order = ordVal # pylint: disable=assigning-non-slot
+        setAttr(self, '_term__order', ordVal)
         if self._paramBoundBase__matrix is not None: # pylint: disable=no-member
             self.freeMat = None
 
@@ -533,20 +528,18 @@ class qSystem(genericQSys):
 
     @genericQSys.dimension.setter # pylint: disable=no-member
     def dimension(self, newDimVal):
-        if self._genericQSys__dimension is not None: # pylint: disable=no-member
-            oldDimVal = self._genericQSys__dimension # pylint: disable=no-member
+        if not isinstance(newDimVal, (int, int64, int32, int16)):
+            raise ValueError('Dimension is not int')
 
-            if not isinstance(newDimVal, (int, int64, int32, int16)):
-                raise ValueError('Dimension is not int')
-            self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
-            for sys in self.subSys.values():
-                sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
+        oldDimVal = self._genericQSys__dimension # pylint: disable=no-member
 
-            if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
-                self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
-            self._paramUpdated = True
-        elif self._genericQSys__dimension is None: # pylint: disable=no-member
-            self._genericQSys__dimension = newDimVal # pylint: disable=assigning-non-slot
+        for sys in self.subSys.values():
+            sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
+
+        setAttr(self, '_genericQSys__dimension', newDimVal)
+
+        if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
+            self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
 
         if isinstance(self.superSys, compQSystem):
             self.superSys.updateDimension(self, newDimVal, oldDimVal, _exclude=[]) # pylint: disable=no-member
@@ -581,10 +574,7 @@ class qSystem(genericQSys):
 
     @operator.setter
     def operator(self, op):
-        self._paramUpdated = True
-        firstTerm = self.firstTerm
-        setattr(firstTerm, '_paramBoundBase__matrix', None)
-        setattr(firstTerm, '_term__operator', op)
+        self.firstTerm.operator = op
 
     @property
     def frequency(self):
@@ -593,10 +583,7 @@ class qSystem(genericQSys):
 
     @frequency.setter
     def frequency(self, freq):
-        if freq == 0.0:
-            freq = 0
-        self._paramUpdated = True
-        setattr(self.firstTerm, '_term__frequency', freq)
+        self.firstTerm.frequency = freq
 
     @property
     def order(self):
@@ -605,9 +592,7 @@ class qSystem(genericQSys):
 
     @order.setter
     def order(self, ordVal):
-        self._paramUpdated = True
-        setattr(self.firstTerm, '_term__order', ordVal)
-        self.firstTerm.freeMat = None
+        self.firstTerm.order = ordVal
 
     @property
     def firstTerm(self):
@@ -760,8 +745,7 @@ class qCoupling(paramBoundBase):
     def couplingStrength(self, strength):
         if strength == 0.0:
             strength = 0
-        self._paramUpdated = True
-        self._qCoupling__couplingStrength = strength # pylint: disable=assigning-non-slot
+        setAttr(self, '_qCoupling__couplingStrength', strength)
 
     def __coupOrdering(self, qts): # pylint: disable=no-self-use
         qts = sorted(qts, key=lambda x: x[0], reverse=False)

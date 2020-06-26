@@ -1,6 +1,6 @@
 from numpy import pi
 
-from .baseClasses import paramBoundBase
+from .baseClasses import paramBoundBase, setAttr
 
 class genericDrive(paramBoundBase):
     __slots__ = []
@@ -68,8 +68,7 @@ class pulse(genericDrive):
 
     @t0.setter
     def t0(self, val): #pylint:disable=invalid-name
-        self._pulse__t0 = val #pylint: disable=assigning-non-slot
-        self._paramUpdated = True
+        setAttr(self, '_pulse__t0', val)
 
     @property
     def t1(self): #pylint:disable=invalid-name
@@ -77,8 +76,7 @@ class pulse(genericDrive):
 
     @t1.setter
     def t1(self, val): #pylint:disable=invalid-name
-        self._pulse__t1 = val #pylint: disable=assigning-non-slot
-        self._paramUpdated = True
+        setAttr(self, '_pulse__t1', val)
 
     @property
     def func(self):
@@ -86,8 +84,7 @@ class pulse(genericDrive):
 
     @func.setter
     def func(self, f):
-        self._pulse__func = f #pylint: disable=assigning-non-slot
-        self._paramUpdated = True
+        setAttr(self, '_pulse__func', f)
 
     def apply(self, time):
         return self._scale*self.func(time, *self.funcArgs, **self.funcKwargs) if self.t1 > time > self.t0 else super().apply(time) # pylint:disable=line-too-long
