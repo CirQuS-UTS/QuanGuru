@@ -512,6 +512,38 @@ class qBaseSim(computeBase):
 
         return self._qBaseSim__simulation
 
+    def runSimulation(self, p=None, coreCount=None):
+        return self._qBaseSim__simulation.run(p=p, coreCount=coreCount)
+
+    @property
+    def simParameters(self):
+        return (self.simulation.totalTime, self.simulation.stepSize, self.simulation.stepCount, self.simulation.samples,
+                self.simulation.delStates, self.simulation.compute)
+
+    @simParameters.setter
+    def simTotalTime(self, fTime):
+        self.simulation.totalTime = fTime
+
+    @simParameters.setter
+    def simStepSize(self, stepsize):
+        self.simulation.stepSize = stepsize
+
+    @simParameters.setter
+    def simStepCount(self, num):
+        self.simulation.stepCount = num
+
+    @simParameters.setter
+    def simSamples(self, num):
+        self.simulation.samples = num
+
+    @simParameters.setter
+    def simCompute(self, func):
+        self.simulation.compute = func
+
+    @simParameters.setter
+    def simDelStates(self, boolean):
+        self.simulation.delStates = boolean
+
     @property
     def initialState(self):
         """
