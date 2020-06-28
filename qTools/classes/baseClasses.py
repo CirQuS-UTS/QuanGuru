@@ -204,14 +204,14 @@ class _parameter: # pylint: disable=too-few-public-methods
 
 def setAttr(obj, attrStr, val):
     oldVal = getattr(obj, attrStr)
-    setattr(obj, attrStr, val)
     if val != oldVal:
+        setattr(obj, attrStr, val)
         setattr(obj, '_paramUpdated', True)
 
 def setAttrParam(obj, attrStr, val):
-    oldVal = getattr(obj, attrStr)
-    getattr(obj, attrStr).value = val
+    oldVal = getattr(obj, attrStr).value
     if val != oldVal:
+        getattr(obj, attrStr).value = val
         setattr(obj, '_paramUpdated', True)
 
 class paramBoundBase(qUniversal):
