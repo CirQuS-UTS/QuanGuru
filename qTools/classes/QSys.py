@@ -174,6 +174,11 @@ class genericQSys(qBaseSim):
         for sys in self.subSys.values():
             sys._constructMatrices() # pylint: disable=protected-access
 
+    def addProtocol(self, protocol=None, system=None, protocolRemove=None):
+        if system is None:
+            system = self
+        self.simulation.addProtocol(protocol=protocol, system=system, protocolRemove=protocolRemove)
+
 class QuantumSystem(genericQSys):
     def __new__(cls, sysType='composite', **kwargs):
         singleKeys = ['frequency', 'operator', 'order', 'dimension']
