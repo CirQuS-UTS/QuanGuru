@@ -55,7 +55,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
     toBeSaved = updateBase.toBeSaved.extendedCopy(['sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep',
                                                    'multiParam'])
 
-    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam', 'index']
+    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam', '__index']
 
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -69,9 +69,13 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         self._sweepList = None
         self.logSweep = False
         self.multiParam = False
-        self.index = None
+        self.__index = -1
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def index(self):
+        return self.__index + 1
 
     @property
     def sweepFunction(self):
@@ -162,7 +166,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         sweeps. This is not essential and could be removed, but it kind of creates a duck-typing with ``Sweep`` class.
         """
 
-        self.index = ind
+        self.__index = ind-1 # pylint: disable=assigning-non-slot
         self._updateBase__function(self) # pylint: disable=no-member
 
 class Sweep(qUniversal):
