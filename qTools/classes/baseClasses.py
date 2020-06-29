@@ -443,6 +443,11 @@ class computeBase(paramBoundBase):
         if callable(self.compute):
             self.compute(self, *states) # pylint: disable=not-callable
 
+            # FIXME with calculate
+            for qsp in self.subSys.values():
+                if hasattr(qsp, '_computeBase__compute'):
+                    qsp._computeBase__compute(states)
+
     def __calculateMeth(self):
         """
         This is the actual calculate function that is called in the time-evolution, it calls ``self.calculate`` is it is
@@ -451,6 +456,10 @@ class computeBase(paramBoundBase):
 
         if callable(self.calculate):
             self._computeBase__calculate(self) # pylint: disable=not-callable
+            # FIXME with compute
+            for qsp in self.subSys.values():
+                if hasattr(qsp, '_computeBase__calculate'):
+                    qsp._computeBase__calculateMeth()
 
     @property
     def results(self):
@@ -859,6 +868,10 @@ class timeBase(stateBase):
     @samples.setter
     def samples(self, num):
         setAttrParam(self, '_timeBase__samples', num)
+
+    def _copyVals(self, other, keys):
+        for key in keys:
+            setattr(self, key, getattr(other, key))
 
     def _bound(self, other, # pylint: disable=dangerous-default-value
                params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput'],

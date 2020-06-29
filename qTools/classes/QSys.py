@@ -49,6 +49,7 @@ class genericQSys(qBaseSim):
         elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or
               (isinstance(self, compQSystem) and isinstance(other, compQSystem))):
             newComp = compQSystem()
+            newComp.simulation._copyVals(self.simulation, ['totalTime', 'stepSize', 'stepCount'])
             newComp.addSubSys(self)
             if other is self:
                 newComp.addSubSys(other.copy())
@@ -274,6 +275,7 @@ class compQSystem(genericQSys):
         if subSys._paramBoundBase__matrix is not None:
             for sys in subSys.subSys.values():
                 sys._paramBoundBase__matrix = None
+        # TODO big question here
         subSys.simulation._bound(self.simulation) # pylint: disable=protected-access
         self._compQSystem__qSystems[subSys.name] = subSys
         subSys.superSys = self
