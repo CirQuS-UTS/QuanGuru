@@ -76,6 +76,7 @@ def timeDependent(qSim):
 def timeEvolDefault(qSim, td):
     qSim._Simulation__compute() # pylint: disable=protected-access
     for ind in range(qSim.stepCount):
+        qSim._Simulation__index = ind # pylint: disable=protected-access
         if td:
             qSim.timeDependency.runSweep(qSim.timeDependency._indicesForSweep(ind, *qSim.timeDependency.inds))
         qSim.evolFunc(qSim)
