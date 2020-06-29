@@ -23,6 +23,12 @@ def _initStDec(_createAstate):
         return state
     return wrapper
 
+def _computeDef(sys, state): # pylint: disable=unused-argument
+    pass
+
+def _calculateDef(sys): # pylint: disable=unused-argument
+    pass
+
 class genericQSys(qBaseSim):
     instances = 0
     label = 'genericQSys'
@@ -50,6 +56,10 @@ class genericQSys(qBaseSim):
               (isinstance(self, compQSystem) and isinstance(other, compQSystem))):
             newComp = compQSystem()
             newComp.simulation._copyVals(self.simulation, ['totalTime', 'stepSize', 'stepCount'])
+            newComp.compute = _computeDef
+            newComp.simulation.compute = _computeDef
+            newComp.calculate = _calculateDef
+            newComp.simulation.calculate = _calculateDef
             newComp.addSubSys(self)
             if other is self:
                 newComp.addSubSys(other.copy())
