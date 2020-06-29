@@ -434,19 +434,19 @@ class computeBase(paramBoundBase):
         if self.qRes.superSys is self:
             self.qRes.superSys = self
 
-    def __compute(self, states):
+    def __compute(self, states, ignore=[]):
         """
         This is the actual compute function that is called in the time-evolution, it calls ``self.compute`` is it is a
         callable and does nothing otherwise.
         """
-
-        if callable(self.compute):
-            self.compute(self, *states) # pylint: disable=not-callable
-
-            # FIXME with calculate
-            for qsp in self.subSys.values():
-                if hasattr(qsp, '_computeBase__compute'):
-                    qsp._computeBase__compute(states)
+        if self not in ignore:
+            if callable(self.compute):
+                self.compute(self, *states) # pylint: disable=not-callable
+                ignore.append(self)
+                # FIXME with calculate
+                for qsp in self.subSys.values():
+                    if hasattr(qsp, '_computeBase__compute'):
+                        qsp._computeBase__compute(states, ignore=ignore)
 
     def __calculateMeth(self):
         """
