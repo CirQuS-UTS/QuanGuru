@@ -251,14 +251,13 @@ class Simulation(timeBase):
     def removeSubSys(self, subS, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
         self.removeQSystems(subS)
 
-    def __compute(self, ignore=[]):
-        if self not in ignore:
-            states = []
-            for protocol in self.subSys.keys():
-                states.append(protocol.currentState)
-                if protocol.simulation.delStates is False:
-                    self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
-            super()._computeBase__compute(states, ignore=ignore) # pylint: disable=no-member
+    def __compute(self): # pylint: disable=dangerous-default-value
+        states = []
+        for protocol in self.subSys.keys():
+            states.append(protocol.currentState)
+            if protocol.simulation.delStates is False:
+                self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
+        super()._computeBase__compute(states, sim=True) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None):
         if len(self.subSys.values()) == 0:

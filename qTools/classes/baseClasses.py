@@ -380,6 +380,8 @@ class computeBase(paramBoundBase):
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label: str = 'computeBase'
 
+    ignore = []
+
     __slots__ = ['qRes', 'compute', '__calculate', '__calculateAtStart']
 
     def __init__(self, **kwargs):
@@ -434,19 +436,21 @@ class computeBase(paramBoundBase):
         if self.qRes.superSys is self:
             self.qRes.superSys = self
 
-    def __compute(self, states, ignore=[]):
+    def __compute(self, states, sim=False): # pylint: disable=dangerous-default-value
         """
         This is the actual compute function that is called in the time-evolution, it calls ``self.compute`` is it is a
         callable and does nothing otherwise.
         """
-        if self not in ignore:
+
+        if self not in self.ignore:
+            computeBase.ignore.append(self)
             if callable(self.compute):
                 self.compute(self, *states) # pylint: disable=not-callable
-                ignore.append(self)
                 # FIXME with calculate
-                for qsp in self.subSys.values():
-                    if hasattr(qsp, '_computeBase__compute'):
-                        qsp._computeBase__compute(states, ignore=ignore)
+                if not sim:
+                    for qsp in self.subSys.values():
+                        if hasattr(qsp, '_computeBase__compute'):
+                            qsp._computeBase__compute(states)
 
     def __calculateMeth(self):
         """
