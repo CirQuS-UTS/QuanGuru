@@ -820,8 +820,13 @@ class timeBase(stateBase):
         """
 
         if self.totalTime is None:
-            self._timeBase__totalTime.value = self._timeBase__stepCount.value * self.stepSize # pylint: disable=E0237
-        self._timeBase__stepCount.value = int((self.totalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+            if not ((self.stepSize is None) and (self._timeBase__stepCount.value is None)):
+                self._timeBase__totalTime.value = self._timeBase__stepCount.value * self.stepSize # pylint: disable=E0237
+
+        try:
+            self._timeBase__stepCount.value = int((self.totalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+        except:
+            raise ValueError('?')
         return self._timeBase__stepCount.value
 
     @stepCount.setter
@@ -875,7 +880,9 @@ class timeBase(stateBase):
 
     def _copyVals(self, other, keys):
         for key in keys:
-            setattr(self, key, getattr(other, key))
+            val = getattr(other, key)
+            if val is not None:
+                setattr(self, key, val)
 
     def _bound(self, other, # pylint: disable=dangerous-default-value
                params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput'],
