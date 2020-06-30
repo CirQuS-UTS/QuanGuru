@@ -213,13 +213,14 @@ class QuantumSystem(genericQSys):
 
 class compQSystem(genericQSys):
     instances = 0
+    _externalInstances: int = 0
     label = 'QuantumSystem'
 
     __slots__ = ['__qCouplings', '__qSystems', 'couplingName']
 
     def __init__(self, **kwargs):
-        if self.__class__ == compQSystem:
-            self._incrementInstances(val=qSystem.instances)
+        if self.__class__.__name__ == 'compQSystem':
+            compQSystem._externalInstances = qSystem.instances + compQSystem.instances
         super().__init__()
         self.__qCouplings = OrderedDict()
         self.__qSystems = OrderedDict()
@@ -517,13 +518,14 @@ class term(paramBoundBase):
 
 class qSystem(genericQSys):
     instances = 0
+    _externalInstances: int = 0
     label = 'QuantumSystem'
 
     __slots__ = []
     #@qSystemInitErrors
     def __init__(self, **kwargs):
-        if self.__class__ == qSystem:
-            self._incrementInstances(val=compQSystem.instances)
+        if self.__class__.__name__ == 'qSystem':
+            qSystem._externalInstances = qSystem.instances + compQSystem.instances
         super().__init__()
         qSysKwargs = ['terms', 'subSys', 'name', 'superSys', 'dimension']
         for key in qSysKwargs:

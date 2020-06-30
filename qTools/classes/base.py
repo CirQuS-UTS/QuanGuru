@@ -373,7 +373,7 @@ class qUniversal:
         self._qUniversal__subSys[subSysClass.name] = subSysClass
 
     def __repr__(self):
-        return repr(self.name)
+        return repr(self.name + ' ' + str(self.__class__))
 
     @_recurseIfList
     def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
