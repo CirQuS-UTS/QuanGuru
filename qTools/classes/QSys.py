@@ -55,7 +55,8 @@ class genericQSys(qBaseSim):
         elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or
               (isinstance(self, compQSystem) and isinstance(other, compQSystem))):
             newComp = compQSystem()
-            newComp.simulation._copyVals(self.simulation, ['totalTime', 'stepSize', 'stepCount'])
+            # FIXME 'stepCount' getter creates problem with None defaults
+            newComp.simulation._copyVals(self.simulation, ['totalTime', 'stepSize'])
             newComp.compute = _computeDef
             newComp.simulation.compute = _computeDef
             newComp.calculate = _calculateDef
@@ -472,6 +473,11 @@ class term(paramBoundBase):
             self.freeMat = None
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
+    @property
+    def _freeMatSimple(self):
+        h = self._constructMatrices(dimsBefore=1, dimsAfter=1, setMat=False)
+        return h
+
     @freeMat.setter
     def freeMat(self, qOpsFunc):
         if callable(qOpsFunc):
@@ -484,7 +490,13 @@ class term(paramBoundBase):
                 raise ValueError('No operator is given for free Hamiltonian')
             self._constructMatrices()
 
-    def _constructMatrices(self):
+    def _constructMatrices(self, dimsBefore=None, dimsAfter=None, setMat=True):
+        if dimsBefore is None:
+            dimsBefore = self.superSys._dimsBefore # pylint: disable=no-member
+
+        if dimsAfter is None:
+            dimsAfter = self.superSys._dimsAfter # pylint: disable=no-member
+
         if not (isinstance(self.superSys.dimension, (int, int64, int32, int16)) and callable(self.operator)): # pylint: disable=no-member
             raise TypeError('?')
 
@@ -493,15 +505,15 @@ class term(paramBoundBase):
             dimension = 0.5*(dimension-1)
 
         if self.operator not in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
-            self._paramBoundBase__matrix = qOps.compositeOp(self.operator(dimension), #pylint:disable=assigning-non-slot
-                                                            self.superSys._dimsBefore, # pylint: disable=no-member
-                                                            self.superSys._dimsAfter)**self.order # pylint: disable=no-member
+            mat = qOps.compositeOp(self.operator(dimension), #pylint:disable=assigning-non-slot
+                                   dimsBefore, dimsAfter)**self.order
         else: # pylint: disable=bare-except
-            self._paramBoundBase__matrix = qOps.compositeOp( # pylint: disable=no-member, assigning-non-slot
-                self.operator(),
-                self.superSys._dimsBefore, # pylint: disable=no-member
-                self.superSys._dimsAfter)**self.order # pylint: disable=no-member
-        return self._paramBoundBase__matrix # pylint: disable=no-member
+            mat = qOps.compositeOp( # pylint: disable=no-member, assigning-non-slot
+                self.operator(), dimsBefore, dimsAfter)**self.order
+
+        if setMat:
+            self._paramBoundBase__matrix = mat #pylint:disable=assigning-non-slot
+        return mat
 
 class qSystem(genericQSys):
     instances = 0
@@ -513,7 +525,7 @@ class qSystem(genericQSys):
         if self.__class__ == qSystem:
             self._incrementInstances(val=compQSystem.instances)
         super().__init__()
-        qSysKwargs = ['terms', 'subSys', 'name', 'superSys']
+        qSysKwargs = ['terms', 'subSys', 'name', 'superSys', 'dimension']
         for key in qSysKwargs:
             val = kwargs.pop(key, None)
             if val is not None:
@@ -567,6 +579,10 @@ class qSystem(genericQSys):
             h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
             self._paramBoundBase__matrix = h # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
+
+    @property
+    def _totalHamSimple(self):
+        return sum([(obj.frequency * obj._freeMatSimple) for obj in self.subSys.values()])
 
     @property
     def freeMat(self):
