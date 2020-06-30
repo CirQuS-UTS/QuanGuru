@@ -481,6 +481,10 @@ class computeBase(paramBoundBase):
 
         return self.qRes.states
 
+    @property
+    def statesList(self):
+        return list(self.qRes.states.values())[0]
+
 class qBaseSim(computeBase):
     """
     This class is inhereted by the :class:`quantum systems <qTools.classes.QSys.genericQSys>` and

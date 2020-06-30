@@ -584,7 +584,7 @@ class qSystem(genericQSys):
 
     @property
     def _totalHamSimple(self):
-        return sum([(obj.frequency * obj._freeMatSimple) for obj in self.subSys.values()])
+        return sum([(obj.frequency * obj._freeMatSimple) for obj in self.subSys.values()])#pylint:disable=protected-access
 
     @property
     def freeMat(self):
