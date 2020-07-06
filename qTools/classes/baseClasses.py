@@ -939,9 +939,6 @@ class timeBase(stateBase):
         for key in (*keys, *params, '_timeBase__samples'):
             try:
                 if ((getattr(self, key)._bound is None) or re): # pylint: disable=protected-access
-                    if getattr(other, key)._bound in (None, False): # pylint: disable=protected-access
-                        getattr(self, key)._bound = getattr(other, key) # pylint: disable=protected-access
-                    elif isinstance(getattr(other, key)._bound, _parameter): # pylint: disable=protected-access
-                        getattr(self, key)._bound = getattr(other, key)._bound # pylint: disable=protected-access
+                    getattr(self, key)._bound = getattr(other, key) # pylint: disable=protected-access
             except AttributeError:
                 print('not bounding', key)

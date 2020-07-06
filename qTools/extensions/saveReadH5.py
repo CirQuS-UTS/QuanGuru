@@ -134,26 +134,27 @@ qResults.saveH5 = _qResSaveH5
 
 
 def _keySearch(sDict, sKey) -> bool:
+    boolean = False
     if len(sDict) == 0:
         boolean = False
-    elif sKey in sDict.keys():
-        if len(sDict[sKey]) == 0:
-            boolean = False
-        elif isinstance(sDict[sKey], dict):
-            boolean = _keySearch(sDict[sKey], list(sDict[sKey].keys())[0])
+    elif isinstance(sDict, dict):
+        if sKey in sDict.keys():
+            if len(sDict[sKey]) == 0:
+                boolean = False
+            elif isinstance(sDict[sKey], dict):
+                boolean = _keySearch(sDict[sKey], list(sDict[sKey].keys())[0])
+            else:
+                boolean = True
         else:
-            boolean = True
-    else:
-        boolean = False
-        for v in sDict.values():
-            boolean = _keySearch(v, sKey)
-            if boolean:
-                break
+            boolean = False
+            for v in sDict.values():
+                boolean = _keySearch(v, sKey)
+                if boolean:
+                    break
     return boolean
 
 def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1): # pylint: disable=too-many-arguments
     rDict = {}
-    print(depth, file)
     if not _keySearch(oldDict, keyTo):
         if hasattr(file, 'items'):
             if depth != 0:
@@ -165,7 +166,6 @@ def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1):
                         break
 
                     if keyTo == key:
-                        print(keyTo, keyCo, depth)
                         depth -= 1
                         rDict[key], depth = _readFrom(val, keyTo=None, keyCo=key, oldDict=oldDict, depth=depth,
                                                       initial=initial)
@@ -173,7 +173,6 @@ def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1):
                         rDict[key], depth = _readFrom(val, keyTo=keyTo, keyCo=key, oldDict=oldDict, depth=depth,
                                                       initial=initial)
             elif depth == 0:
-                print(file)
                 rList = []
                 for ind in range(len(file.keys())):
                     rList.append(list(file[str(ind)]))
