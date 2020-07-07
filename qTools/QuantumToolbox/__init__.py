@@ -14,7 +14,7 @@ from .functions import (
     fidelity, fidelityKet, fidelityPureMat, fidelityKetList, fidelityKetLists,
     entropy, entropyKet,
     iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat,
-    sortedEigens,
+    sortedEigens, _eigStat, _eigStatSymp,
     eigVecStatKet, eigVecStatKetList, eigVecStatKetNB,
     concurrence
 )

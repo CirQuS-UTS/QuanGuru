@@ -943,6 +943,25 @@ def sortedEigens(Ham: Matrix, mag=False) -> Tuple[floatList, List[ndarray]]:
         sortedVecsMat.append(mat2Vec(sortedVecs[:, ind]))
     return sortedVals, sortedVecsMat
 
+def _eigs(Mat: Matrix) -> floatList:
+    if isinstance(Mat, spmatrix):
+        Mat = Mat.A
+    return lina.eig(Mat)
+
+def _eigStat(Mat: Matrix) -> floatList:
+    return (np.abs(_eigs(Mat)[1].flatten()))**2
+
+def _eigStatSymp(Mat: Matrix) -> floatList:
+    componentsSymplectic = []
+    vecsSymplectic = _eigs(Mat)[1]
+    for ind in range(len(vecsSymplectic)):
+        elSymplectic = 0
+        for _ in range(int(len(vecsSymplectic)/2)-2):
+            p1Symplectic = (np.abs(vecsSymplectic[:, ind][elSymplectic]))**2
+            p2Symplectic = (np.abs(vecsSymplectic[:, ind][elSymplectic+1]))**2
+            elSymplectic += 2
+            componentsSymplectic.append(p1Symplectic+p2Symplectic)
+    return componentsSymplectic
 
 # TODO create the function for the result of eigenvec calculation
 def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
