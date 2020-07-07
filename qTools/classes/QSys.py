@@ -662,6 +662,7 @@ class qSystem(genericQSys):
 
     def addTerm(self, operator, frequency, order=1):
         newTerm = super().addSubSys(term, operator=operator, frequency=frequency, order=order, superSys=self)
+        newTerm._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         return newTerm
 
     @_recurseIfList
