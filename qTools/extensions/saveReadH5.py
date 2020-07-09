@@ -153,7 +153,7 @@ def _keySearch(sDict, sKey) -> bool:
                     break
     return boolean
 
-def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1): # pylint: disable=too-many-arguments
+def _readFrom(file, keyTo=None, oldDict=None, depth=-1, initial=-1): # pylint: disable=too-many-arguments
     rDict = {}
     if not _keySearch(oldDict, keyTo):
         if hasattr(file, 'items'):
@@ -167,10 +167,10 @@ def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1):
 
                     if keyTo == key:
                         depth -= 1
-                        rDict[key], depth = _readFrom(val, keyTo=None, keyCo=key, oldDict=oldDict, depth=depth,
+                        rDict[key], depth = _readFrom(val, keyTo=None, oldDict=oldDict, depth=depth,
                                                       initial=initial)
                     else:
-                        rDict[key], depth = _readFrom(val, keyTo=keyTo, keyCo=key, oldDict=oldDict, depth=depth,
+                        rDict[key], depth = _readFrom(val, keyTo=keyTo, oldDict=oldDict, depth=depth,
                                                       initial=initial)
             elif depth == 0:
                 rList = []
@@ -185,7 +185,7 @@ def _readFrom(file, keyTo=None, keyCo=None, oldDict=None, depth=-1, initial=-1):
 
 def readFrom(qRes, file, readKey, depth=-1):
     oldDict = qRes._qResBase__results
-    rDict, _ = _readFrom(file, keyTo=readKey, keyCo=None, oldDict=oldDict, depth=depth, initial=depth)
+    rDict, _ = _readFrom(file, keyTo=readKey, oldDict=oldDict, depth=depth, initial=depth)
     qRes._qResBase__results = rDict
     for k, v in oldDict.items():
         if v not in [[], {}]:
