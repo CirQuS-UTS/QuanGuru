@@ -93,6 +93,8 @@ def checkClass(classOf):
             clsDecoArg = globals()[classOf]
             if isinstance(inp, clsDecoArg):
                 addFunction(obj, inp, **kwargs)
+            elif isinstance(inp, _auxiliaryClass):
+                obj._qUniversal__subSys[inp.name] = inp
             elif isinstance(inp, str):
                 if inp in clsDecoArg.instNames.keys():
                     inp = wrapper(obj, clsDecoArg.instNames[inp], **kwargs)
@@ -153,6 +155,12 @@ class extendedList(list):
         for exIt in iterable:
             baseList.append(exIt)
         return baseList
+
+
+class _auxiliaryClass:#pylint:disable=too-few-public-methods
+    def __init__(self):
+        self.name = 'auxObj'
+        super().__init__()
 
 class qUniversal:
     """
@@ -230,11 +238,12 @@ class qUniversal:
 
     #: aux
     _auxiliary = {}
+    _auxiliaryObj = _auxiliaryClass()
 
     #: a list of str (attribute names) to be used with save method.
     toBeSaved: List[str] = extendedList(['name'])
 
-    __slots__ = ['__name', '__superSys', '__subSys', '__allInstances', '_internal', '__aux']
+    __slots__ = ['__name', '__superSys', '__subSys', '__allInstances', '_internal', '__aux', '__auxObj']
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -245,6 +254,7 @@ class qUniversal:
         self.__subSys = OrderedDict()
         self.__allInstances = qUniversal.instNames
         self.__aux = qUniversal._auxiliary
+        self.__auxObj = qUniversal._auxiliaryObj
         self._qUniversal__setKwargs(**kwargs)
 
     @property
@@ -254,6 +264,10 @@ class qUniversal:
     @aux.setter
     def aux(self, dictionary):
         setattr(self, '_qUniversal__aux', dictionary)
+
+    @property
+    def auxObj(self):
+        return self._qUniversal__auxObj
 
     def save(self):
         """

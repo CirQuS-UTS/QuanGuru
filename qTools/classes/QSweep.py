@@ -314,14 +314,15 @@ class Sweep(qUniversal):
                 raise ValueError('?')
 
         newSweep = _sweep(superSys=self, subSys=system, sweepKey=sweepKey, **kwargs)
-        if not isinstance(sweepKey, str):
-            newSweep._aux = True #pylint: disable=protected-access
-        elif not hasattr(list(newSweep.subSys.values())[0], sweepKey):
-            newSweep._aux = True #pylint: disable=protected-access
-        elif hasattr(list(newSweep.subSys.values())[0], sweepKey):
-            for sys in newSweep.subSys.values():
-                if not hasattr(sys, sweepKey):
-                    raise AttributeError("?")
+        if system is not self.auxObj:
+            if not isinstance(sweepKey, str):
+                newSweep._aux = True #pylint: disable=protected-access
+            elif not hasattr(list(newSweep.subSys.values())[0], sweepKey):
+                newSweep._aux = True #pylint: disable=protected-access
+            elif hasattr(list(newSweep.subSys.values())[0], sweepKey):
+                for sys in newSweep.subSys.values():
+                    if not hasattr(sys, sweepKey):
+                        raise AttributeError("?")
         super().addSubSys(newSweep)
         return newSweep
 
