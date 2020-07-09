@@ -13,6 +13,12 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
         coef = (dim - 1)*(dim - 2)
         dist = x*((1-x)**(dim - 1))
     val = coef*dist
+    if val > 10**30:
+        val = 10**30
+
+    if val < -10**30:
+        val = -10**30
+
     return val if val != 0 else 10**-30
 
 

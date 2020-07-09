@@ -69,6 +69,8 @@ class genericQSys(qBaseSim):
         elif isinstance(self, qSystem) and isinstance(other, compQSystem):
             other.addSubSys(self)
             newComp = other
+        elif isinstance(other, (float, int)):
+            newComp = self
         return newComp
 
     def __sub__(self, other):
@@ -795,9 +797,9 @@ class qCoupling(paramBoundBase):
         for ind in range(len(self._qUniversal__subSys)): # pylint: disable=no-member
             qts = []
             for indx in range(len(list(self._qUniversal__subSys.values())[ind])): # pylint: disable=no-member
-                sys = list(self._qUniversal__subSys.values())[ind][indx] # pylint: disable=no-member
+                sys = list(self._qUniversal__subSys.values())[ind][0][indx] # pylint: disable=no-member
                 order = sys.ind
-                oper = list(self._qUniversal__subSys.keys())[ind][indx] # pylint: disable=no-member
+                oper = list(self._qUniversal__subSys.values())[ind][1][indx] # pylint: disable=no-member
                 if oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
                     cHam = qOps.compositeOp(oper(), sys._dimsBefore, sys._dimsAfter)
                 else:
@@ -813,7 +815,8 @@ class qCoupling(paramBoundBase):
 
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
-            self._qUniversal__subSys[tuple(args[count])] = sys # pylint: disable=no-member
+            lo = len(self.subSys)
+            self._qUniversal__subSys[str(lo)] = (sys, tuple(args[count])) # pylint: disable=no-member
             count += 1
             if count < len(args):
                 count = self.__addTerm(count, ind, sys, *args)
@@ -825,11 +828,11 @@ class qCoupling(paramBoundBase):
             # TODO write a generalisation for this one
             if isinstance(args[counter][0], qSystem):
                 qSystems = args[counter]
-
                 if callable(args[counter+1][1]):
-                    if tuple(args[counter + 1]) in self._qUniversal__subSys.keys(): # pylint: disable=no-member
-                        print(tuple(args[counter + 1]), 'already exists')
-                    self._qUniversal__subSys[tuple(args[counter + 1])] = qSystems # pylint: disable=no-member
+                    #if tuple(args[counter + 1]) in self._qUniversal__subSys.keys(): # pylint: disable=no-member
+                    #    print(tuple(args[counter + 1]), 'already exists')
+                    lo = len(self.subSys)
+                    self._qUniversal__subSys[str(lo)] = (qSystems, tuple(args[counter + 1])) # pylint: disable=no-member
                     counter += 2
                 # TODO does not have to pass qSystem around
                 if counter < len(args):

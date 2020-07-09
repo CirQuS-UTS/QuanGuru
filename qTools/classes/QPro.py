@@ -139,7 +139,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
             td = False
             if len(self.timeDependency.sweeps) > 0:
                 lc = self.timeDependency.indMultip
-                td = False
+                td = True
 
             unitary = self._identity
             for ind in range(lc):
