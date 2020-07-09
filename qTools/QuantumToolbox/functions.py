@@ -893,7 +893,7 @@ def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
 
 
 # Eigenvector statistics
-def sortedEigens(Ham: Matrix, mag=False) -> Tuple[floatList, List[ndarray]]:
+def sortedEigens(Ham: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarray]]:
     """
     Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.
     If `mag is True`, sort is accordingly with the magnitude of the eigenvalues.
@@ -943,25 +943,32 @@ def sortedEigens(Ham: Matrix, mag=False) -> Tuple[floatList, List[ndarray]]:
         sortedVecsMat.append(mat2Vec(sortedVecs[:, ind]))
     return sortedVals, sortedVecsMat
 
-def _eigs(Mat: Matrix) -> floatList:
+def _eigs(Mat: Matrix) -> matrixList:
     if isinstance(Mat, spmatrix):
         Mat = Mat.A
     return lina.eig(Mat)
 
-def _eigStat(Mat: Matrix) -> floatList:
-    return (np.abs(_eigs(Mat)[1].flatten()))**2
+def _eigStat(Mat: Matrix, symp: bool = False) -> floatList:
+    return (np.abs(_eigs(Mat)[1].flatten()))**2 if not symp else _eigStatSymp(Mat)
 
-def _eigStatSymp(Mat: Matrix) -> floatList:
+def _eigStatEig(EigVecs: matrixList, symp=False) -> floatList:
+    return (np.abs(EigVecs.flatten()))**2 if not symp else _eigsStatEigSymp(EigVecs)
+
+def _eigsStatEigSymp(EigVecs: matrixList) -> floatList:
     componentsSymplectic = []
-    vecsSymplectic = _eigs(Mat)[1]
-    for ind in range(len(vecsSymplectic)):
+    dims = EigVecs.shape[0]
+    for ind in range(dims):
         elSymplectic = 0
-        for _ in range(int(len(vecsSymplectic)/2)-2):
-            p1Symplectic = (np.abs(vecsSymplectic[:, ind][elSymplectic]))**2
-            p2Symplectic = (np.abs(vecsSymplectic[:, ind][elSymplectic+1]))**2
+        for _ in range(int(dims/2)):
+            p1Symplectic = (np.abs(EigVecs[:, ind][elSymplectic]))**2
+            p2Symplectic = (np.abs(EigVecs[:, ind][elSymplectic+1]))**2
             elSymplectic += 2
             componentsSymplectic.append(p1Symplectic+p2Symplectic)
     return componentsSymplectic
+
+def _eigStatSymp(Mat: Matrix) -> floatList:
+    vecsSymplectic = _eigs(Mat)[1]
+    return _eigsStatEigSymp(vecsSymplectic)
 
 # TODO create the function for the result of eigenvec calculation
 def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
