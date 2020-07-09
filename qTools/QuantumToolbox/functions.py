@@ -951,10 +951,10 @@ def _eigs(Mat: Matrix) -> matrixList:
 def _eigStat(Mat: Matrix, symp: bool = False) -> floatList:
     return (np.abs(_eigs(Mat)[1].flatten()))**2 if not symp else _eigStatSymp(Mat)
 
-def _eigStatEig(EigVecs: matrixList, symp=False) -> floatList:
+def _eigStatEig(EigVecs: Matrix, symp=False) -> floatList:
     return (np.abs(EigVecs.flatten()))**2 if not symp else _eigsStatEigSymp(EigVecs)
 
-def _eigsStatEigSymp(EigVecs: matrixList) -> floatList:
+def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
     componentsSymplectic = []
     dims = EigVecs.shape[0]
     for ind in range(dims):
