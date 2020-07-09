@@ -193,6 +193,12 @@ class genericQSys(qBaseSim):
             system = self
         self.simulation.addProtocol(protocol=protocol, system=system, protocolRemove=protocolRemove)
 
+    def _timeDependency(self, time=None):
+        if time is None:
+            time = self.simulation._currentTime
+        for sys in self.subSys.values():
+            sys._timeDependency(time)
+
 class QuantumSystem(genericQSys):
     def __new__(cls, sysType='composite', **kwargs):
         singleKeys = ['frequency', 'operator', 'order', 'dimension']
@@ -229,6 +235,13 @@ class compQSystem(genericQSys):
         self.couplingName = None
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+
+    def _timeDependency(self, time=None):
+        if time is None:
+            time = self.simulation._currentTime
+        super()._timeDependency(time=time)
+        for coupling in self.qCouplings.values():
+            coupling._timeDependency(time)
 
     def save(self):
         saveDict = super().save()
@@ -414,7 +427,29 @@ class compQSystem(genericQSys):
         self.delMatrices(_exclude=[])
         return qSys
 
-class term(paramBoundBase):
+
+class _timeDep(paramBoundBase):
+    instances = 0
+    label = '_timeDep'
+
+    __slots__ = ['timeDependency']
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.timeDependency = None
+        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+
+    def _timeDependency(self, time=None):
+        if time is None:
+            time = self.superSys.simulation._currentTime
+
+        if callable(self.timeDependency):
+            if hasattr(self, 'frequency'):
+                self.frequency = self.timeDependency(self, time) # pylint: disable=assigning-non-slot,not-callable
+            elif hasattr(self, 'couplingStrength'):
+                self.couplingStrength = self.timeDependency(self, time) #pylint:disable=assigning-non-slot,not-callable
+
+class term(_timeDep):
     instances = 0
     label = 'term'
 
@@ -719,7 +754,7 @@ class Cavity(qSystem):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
 # quantum coupling object
-class qCoupling(paramBoundBase):
+class qCoupling(_timeDep):
     instances = 0
     label = 'qCoupling'
 

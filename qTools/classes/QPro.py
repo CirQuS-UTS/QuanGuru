@@ -108,6 +108,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
 
     @property
     def unitary(self):
+        self.superSys._timeDependency() # pylint: disable=no-member
         if self._paramUpdated:
             if not self.fixed:
                 self._paramBoundBase__matrix = self.getUnitary() # pylint: disable=assigning-non-slot
@@ -116,6 +117,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def getUnitary(self):
+        self.superSys._timeDependency() # pylint: disable=no-member
         initialBool = self._paramBoundBase__paramUpdated # pylint: disable=no-member,
         for update in self._genericProtocol__updates:
             update.setup()

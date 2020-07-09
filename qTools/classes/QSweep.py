@@ -15,7 +15,7 @@
 from functools import reduce
 from numpy import arange, logspace
 
-from .base import qUniversal, _recurseIfList
+from .base import qUniversal
 from .baseClasses import updateBase
 
 __all__ = [
@@ -124,12 +124,15 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         """
 
         if self._sweepList is None:
-            if self.logSweep is False:
-                self._sweepList = arange(self.sweepMin, self.sweepMax + self.sweepStep, # pylint: disable=no-member
-                                         self.sweepStep) # pylint: disable=no-member
-            elif self.logSweep is True:
-                self._sweepList = logspace(self.sweepMin, self.sweepMax,
-                                           num=self.sweepStep, base=10.0) # pylint: disable=no-member
+            try:
+                if self.logSweep is False:
+                    self._sweepList = arange(self.sweepMin, self.sweepMax + self.sweepStep, # pylint: disable=no-member
+                                             self.sweepStep) # pylint: disable=no-member
+                elif self.logSweep is True:
+                    self._sweepList = logspace(self.sweepMin, self.sweepMax,
+                                               num=self.sweepStep, base=10.0) # pylint: disable=no-member
+            except: #pylint:disable=bare-except
+                pass
         return self._sweepList
 
     @sweepList.setter
@@ -263,7 +266,7 @@ class Sweep(qUniversal):
     def sweeps(self, sysDict):
         super().addSubSys(sysDict)
 
-    @_recurseIfList
+    #@_recurseIfList
     def removeSweep(self, sys):
         """
         A method to remove a ``_sweep`` it self, or all the ``_sweep`` objects that contain a particular ``sys`` in it.

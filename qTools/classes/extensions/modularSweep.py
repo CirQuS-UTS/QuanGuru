@@ -66,7 +66,7 @@ def timeDependent(qSim):
         else:
             qSim.timeDependency._Sweep__inds = [qSim.stepCount] #pylint: disable=protected-access
         # TODO timeDependency multi-parameter sweep ?
-        #qSim._timeBase__stepCount._value = qSim.timeDependency.indMultip # pylint: disable=protected-access
+        qSim._timeBase__stepCount._value = qSim.timeDependency.indMultip # pylint: disable=protected-access
         for pro, sim in qSim.subSys.items(): # pylint: disable=protected-access
             sim.simulation._timeBase__stepCount._value = sim.simulation.timeDependency.indMultip # pylint: disable=protected-access
             pro.simulation._timeBase__stepCount._value = pro.simulation.timeDependency.indMultip # pylint: disable=protected-access

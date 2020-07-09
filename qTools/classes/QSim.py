@@ -6,7 +6,7 @@ import platform
 import multiprocessing
 
 from .base import _recurseIfList
-from .baseClasses import timeBase
+from .baseClasses import timeBase, qBaseSim
 from .QSweep import Sweep
 from .extensions.modularSweep import runSimulation
 from .extensions.modularSweep import timeEvolBase
@@ -106,7 +106,11 @@ class Simulation(timeBase):
 
     @property
     def _currentTime(self):
-        return self.stepSize*(self.__index+1)
+        if isinstance(self._timeBase__bound, Simulation): # pylint: disable=no-member
+            time = self._timeBase__bound._currentTime # pylint: disable=no-member
+        else:
+            time = self.stepSize*(self.__index+1)
+        return time
 
     @property
     def timeList(self):
@@ -201,14 +205,14 @@ class Simulation(timeBase):
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
                 self.removeSweep([subSys, subSys.simulation, subSys._freeEvol, subSys._freeEvol.simulation])
 
-    @_recurseIfList
+    #@_recurseIfList
     def removeSweep(self, system):
         self.Sweep.removeSweep(system)
         self.timeDependency.removeSweep(system)
         if ((isinstance(system, Simulation)) and (system is not self)):
             system.removeSweep(system)
 
-    @_recurseIfList
+    #@_recurseIfList
     def removeProtocol(self, Protocol):
         # FIXME what if freeEvol case, protocol then corresponds to qsys.name before simulation run
         #  or a freeEvol obj after run
@@ -219,7 +223,7 @@ class Simulation(timeBase):
 
     def addProtocol(self, protocol=None, system=None, protocolRemove=None):
         # TODO Decorate this
-        qSysClass = globals()['qBaseSim']
+        qSysClass = qBaseSim
         if system is None:
             if isinstance(protocol, qSysClass):
                 if isinstance(protocol.superSys, qSysClass):
