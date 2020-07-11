@@ -16,8 +16,8 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
     if val > 10**30:
         val = 10**30
 
-    if val < -10**30:
-        val = -10**30
+    if val < 10**-30:
+        val = 10**-30
 
     return val if val != 0 else 10**-30
 

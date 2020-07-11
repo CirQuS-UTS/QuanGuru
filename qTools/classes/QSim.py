@@ -106,10 +106,13 @@ class Simulation(timeBase):
 
     @property
     def _currentTime(self):
-        if isinstance(self._timeBase__bound, Simulation): # pylint: disable=no-member
-            time = self._timeBase__bound._currentTime # pylint: disable=no-member
-        else:
-            time = self.stepSize*(self.__index+1)
+        try:
+            if isinstance(self._timeBase__bound, Simulation): # pylint: disable=no-member
+                time = self._timeBase__bound._currentTime # pylint: disable=no-member
+            else:
+                time = self.stepSize*(self.__index+1)
+        except: #pylint:disable=bare-except
+            time = 0
         return time
 
     @property

@@ -650,8 +650,9 @@ class qSystem(genericQSys):
 
     @property
     def frequency(self):
-        frequencies = [obj._term__frequency for obj in list(self.subSys.values())] # pylint: disable=protected-access
-        return frequencies if len(frequencies) > 1 else frequencies[0]
+        #frequencies = [obj._term__frequency for obj in list(self.subSys.values())] # pylint: disable=protected-access
+        #return frequencies if len(frequencies) > 1 else frequencies[0]
+        return self.firstTerm.frequency
 
     @frequency.setter
     def frequency(self, freq):
@@ -698,7 +699,7 @@ class qSystem(genericQSys):
             sys.superSys = self
 
     def addTerm(self, operator, frequency, order=1):
-        newTerm = super().addSubSys(term, operator=operator, frequency=frequency, order=order, superSys=self)
+        newTerm = super().addSubSys(term(operator=operator, frequency=frequency, order=order, superSys=self))
         newTerm._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         return newTerm
 
