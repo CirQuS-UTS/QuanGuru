@@ -280,7 +280,8 @@ class Simulation(timeBase):
         _poolMemory.run(self, p, coreCount)
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
-        return self.qRes
+        # TODO Test this
+        return self.qRes._copyAllResBlank() # pylint: disable=protected-access
 
 class _poolMemory: # pylint: disable=too-few-public-methods
     coreCount = None
@@ -298,7 +299,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
     def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
         if ((cls.systemCheck() != 'Windows') and (cls.reRun is False)):
             cls.reRun = True
-            if cls.pythonSubVersion() == 8:
+            if ((cls.pythonSubVersion() == 8) and (multiprocessing.get_start_method() != 'fork')):
                 multiprocessing.set_start_method("fork")
 
         if p is True:
