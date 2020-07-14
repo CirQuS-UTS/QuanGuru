@@ -265,11 +265,8 @@ class Gate(genericProtocol):
 
     @system.setter
     def system(self, sys):
-        if not isinstance(sys, list):
-            sys = [sys]
-        for s in tuple(*[sys]):
-            self.addSubSys(s)
-        self.superSys = tuple(sys)[0]
+        self.addSubSys(sys)
+        self.superSys = list(self.subSys.values())[0]
 
     def addSys(self, sys):
         self.system = sys
