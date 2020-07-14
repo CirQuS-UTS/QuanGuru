@@ -14,9 +14,10 @@
 """
 
 #from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity
-from numpy import cos, sin # type: ignore
+import scipy.sparse as sp # type: ignore
+import numpy as np # type: ignore
 
-from .operators import sigmaz, sigmax, sigmay, identity
+#from .operators import sigmaz, sigmax, sigmay, identity
 from .customTypes import Matrix
 
 
@@ -27,6 +28,31 @@ from .customTypes import Matrix
 
 # These type aliases are used in type hinting of below methods
 # Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
+
+
+def _identityRot(dimension: int, sparse: bool = True, angle=0) -> Matrix:
+    return np.cos(angle)*sp.identity(dimension, format="csc") if sparse else np.cos(angle)*np.identity(dimension)
+
+def _sigmazRot(sparse: bool = True, angle=0) -> Matrix:
+    data = [1*np.sin(angle), -1*np.sin(angle)]
+    rows = [0, 1]
+    columns = [0, 1]
+    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
+    return n if sparse else n.toarray()
+
+def _sigmayRot(sparse: bool = True, angle=0) -> Matrix:
+    data = [-1j*np.sin(angle), 1j*np.sin(angle)]
+    rows = [0, 1]
+    columns = [1, 0]
+    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
+    return n if sparse else n.toarray()
+
+def _sigmaxRot(sparse: bool = True, angle=0) -> Matrix:
+    data = [1*np.sin(angle), 1*np.sin(angle)]
+    rows = [0, 1]
+    columns = [1, 0]
+    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
+    return n if sparse else n.toarray()
 
 
 def xRotation(angle: float, sparse: bool = True) -> Matrix:
@@ -52,7 +78,7 @@ def xRotation(angle: float, sparse: bool = True) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    rotUnitary = ((cos(angle)*identity(2, sparse))+(sin(angle)*sigmax(sparse=sparse)))
+    rotUnitary = _identityRot(2, sparse, angle) -  1j*_sigmaxRot(sparse=sparse, angle=angle)
     return rotUnitary
 
 
@@ -79,7 +105,7 @@ def yRotation(angle: float, sparse: bool = True) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    rotUnitary = ((cos(angle)*identity(2, sparse))+(sin(angle)*sigmay(sparse=sparse)))
+    rotUnitary = _identityRot(2, sparse, angle=angle) -  1j*_sigmayRot(sparse=sparse, angle=angle)
     return rotUnitary
 
 
@@ -106,7 +132,7 @@ def zRotation(angle: float, sparse: bool = True) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    rotUnitary = ((cos(angle)*identity(2, sparse))+(sin(angle)*sigmaz(sparse=sparse)))
+    rotUnitary = _identityRot(2, sparse, angle=angle) - 1j*_sigmazRot(sparse=sparse, angle=angle)
     return rotUnitary
 
 
