@@ -17,7 +17,7 @@
 import scipy.sparse as sp # type: ignore
 import numpy as np # type: ignore
 
-#from .operators import sigmaz, sigmax, sigmay, identity
+from .operators import sigmaz, sigmax, sigmay, identity
 from .customTypes import Matrix
 
 
@@ -78,7 +78,7 @@ def xRotation(angle: float, sparse: bool = True) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    rotUnitary = _identityRot(2, sparse, angle) -  1j*_sigmaxRot(sparse=sparse, angle=angle)
+    rotUnitary = np.cos(angle)*identity(2, sparse) - 1j*np.sin(angle)*sigmax(sparse=sparse)
     return rotUnitary
 
 
@@ -105,7 +105,7 @@ def yRotation(angle: float, sparse: bool = True) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    rotUnitary = _identityRot(2, sparse, angle=angle) -  1j*_sigmayRot(sparse=sparse, angle=angle)
+    rotUnitary = np.cos(angle)*identity(2, sparse) - 1j*np.sin(angle)*sigmay(sparse=sparse)
     return rotUnitary
 
 
@@ -132,7 +132,7 @@ def zRotation(angle: float, sparse: bool = True) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    rotUnitary = _identityRot(2, sparse, angle=angle) - 1j*_sigmazRot(sparse=sparse, angle=angle)
+    rotUnitary = np.cos(angle)*identity(2, sparse) - 1j*np.sin(angle)*sigmaz(sparse=sparse)
     return rotUnitary
 
 
