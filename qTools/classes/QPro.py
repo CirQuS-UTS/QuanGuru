@@ -171,7 +171,7 @@ class qProtocol(genericProtocol):
 
     @genericProtocol._paramUpdated.getter
     def _paramUpdated(self):# pylint: disable=invalid-overridden-method
-        # this approach can be extended to others and might get rid of _paramBound dictionary 
+        # this approach can be extended to others and might get rid of _paramBound dictionary
         for subS in self.subSys.values():
             if subS._paramUpdated:
                 self._paramBoundBase__paramUpdated = True # pylint: disable=assigning-non-slot
@@ -243,9 +243,10 @@ class freeEvolution(genericProtocol):
         #self._createUnitary = self.matrixExponentiation
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
+    _freqCoef = 2 * np.pi
     def matrixExponentiation(self):
         self._increaseExponentiationCount()
-        unitary = lio.LiouvillianExp(2 * np.pi * self.superSys.totalHam, # pylint: disable=no-member
+        unitary = lio.LiouvillianExp(self._freqCoef * self.superSys.totalHam, # pylint: disable=no-member
                                      timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples))
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary

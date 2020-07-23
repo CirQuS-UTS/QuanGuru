@@ -785,11 +785,17 @@ class qCoupling(_timeDep):
     # TODO might define setters
     @property
     def couplingOperators(self):
-        return list(self._qUniversal__subSys.keys()) # pylint: disable=no-member
+        ops = []
+        for co in self._qUniversal__subSys.values(): # pylint: disable=no-member
+            ops.append(co[1])
+        return ops
 
     @property
     def coupledSystems(self):
-        return list(self._qUniversal__subSys.values()) # pylint: disable=no-member
+        ops = []
+        for co in self._qUniversal__subSys.values(): # pylint: disable=no-member
+            ops.append(co[0])
+        return ops
 
     @property
     def totalHam(self):
@@ -885,12 +891,11 @@ class qCoupling(_timeDep):
 
     @_recurseIfList
     def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
-        _exclude.append(self)
-        subSysVals = self.coupledSystems
-        subSysKeys = self.couplingOperators
-        for ind, sysList in enumerate(subSysVals):
-            if subS in sysList:
-                super().removeSubSys(subSysKeys[ind], _exclude=_exclude)
+        vals = self._qUniversal__subSys.values() # pylint: disable=no-member
+        for ind, val in enumerate(vals):
+            systs = val[0]
+            if subS in systs:
+                self._qUniversal__subSys.pop(str(ind)) # pylint: disable=no-member
 
 class envCoupling(qCoupling):
     instances = 0

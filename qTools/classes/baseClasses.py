@@ -918,7 +918,7 @@ class timeBase(stateBase):
 
         :returns: None
         """
-        if other._timeBase__bound is not self:
+        if other._timeBase__bound is not self: #pylint: disable=too-many-nested-blocks
             self._timeBase__bound = other # pylint: disable=assigning-non-slot
             keys = ['_timeBase__stepSize', '_timeBase__totalTime', '_timeBase__stepCount']
             keysProp = ['stepSize', 'totalTime', 'stepCount']
