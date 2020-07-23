@@ -506,6 +506,10 @@ class term(_timeDep):
             self.freeMat = None
 
     @property
+    def totalHam(self):
+        return self.frequency*self.freeMat
+
+    @property
     def freeMat(self):
         if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
             self.freeMat = None

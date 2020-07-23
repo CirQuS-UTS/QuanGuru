@@ -918,27 +918,27 @@ class timeBase(stateBase):
 
         :returns: None
         """
+        if other._timeBase__bound is not self:
+            self._timeBase__bound = other # pylint: disable=assigning-non-slot
+            keys = ['_timeBase__stepSize', '_timeBase__totalTime', '_timeBase__stepCount']
+            keysProp = ['stepSize', 'totalTime', 'stepCount']
+            bounding = True
+            for ind, key in enumerate(keys):
+                if getattr(self, key)._bound is False: # pylint: disable=protected-access
+                    if getattr(other, key)._value is not None: # pylint: disable=protected-access
+                        setattr(self, keysProp[ind], getattr(self, key)._value) # pylint: disable=protected-access
 
-        self._timeBase__bound = other # pylint: disable=assigning-non-slot
-        keys = ['_timeBase__stepSize', '_timeBase__totalTime', '_timeBase__stepCount']
-        keysProp = ['stepSize', 'totalTime', 'stepCount']
-        bounding = True
-        for ind, key in enumerate(keys):
-            if getattr(self, key)._bound is False: # pylint: disable=protected-access
-                if getattr(other, key)._value is not None: # pylint: disable=protected-access
-                    setattr(self, keysProp[ind], getattr(self, key)._value) # pylint: disable=protected-access
+                    if bounding:
+                        for i, k in enumerate(keys):
+                            if ((getattr(self, k)._bound is None) and # pylint: disable=protected-access
+                                    (getattr(other, k)._value is not None)): # pylint: disable=protected-access
+                                setattr(self, keysProp[i], getattr(other, k)._value) # pylint: disable=protected-access
+                                break
+                        bounding = False
 
-                if bounding:
-                    for i, k in enumerate(keys):
-                        if ((getattr(self, k)._bound is None) and # pylint: disable=protected-access
-                                (getattr(other, k)._value is not None)): # pylint: disable=protected-access
-                            setattr(self, keysProp[i], getattr(other, k)._value) # pylint: disable=protected-access
-                            break
-                    bounding = False
-
-        for key in (*keys, *params, '_timeBase__samples'):
-            try:
-                if ((getattr(self, key)._bound is None) or re): # pylint: disable=protected-access
-                    getattr(self, key)._bound = getattr(other, key) # pylint: disable=protected-access
-            except AttributeError:
-                print('not bounding', key)
+            for key in (*keys, *params, '_timeBase__samples'):
+                try:
+                    if ((getattr(self, key)._bound is None) or re): # pylint: disable=protected-access
+                        getattr(self, key)._bound = getattr(other, key) # pylint: disable=protected-access
+                except AttributeError:
+                    print('not bounding', key)

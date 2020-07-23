@@ -169,6 +169,15 @@ class qProtocol(genericProtocol):
         #self._createUnitary = self._defCreateUnitary # pylint: disable=assigning-non-slot
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
+    @genericProtocol._paramUpdated.getter
+    def _paramUpdated(self):# pylint: disable=invalid-overridden-method
+        # this approach can be extended to others and might get rid of _paramBound dictionary 
+        for subS in self.subSys.values():
+            if subS._paramUpdated:
+                self._paramBoundBase__paramUpdated = True # pylint: disable=assigning-non-slot
+                break
+        return self._paramBoundBase__paramUpdated # pylint: disable=no-member
+
     @property
     def steps(self):
         return self._qUniversal__subSys # pylint: disable=no-member
@@ -303,10 +312,29 @@ class Update(updateBase):
     def memoryValue(self, value):
         self._Update__memoryValue = value # pylint: disable=assigning-non-slot
 
+    @property
+    def updateFunction(self):
+        """
+        The updateFunction property:
+
+        - **getter** : ``returns _updateBase__function`` which is used in custom sweeps
+        - **setter** : sets ``_updateBase__function`` callable
+        - **type** : ``callable``
+        """
+
+        return self._updateBase__function # pylint: disable=no-member
+
+    @updateFunction.setter
+    def updateFunction(self, func):
+        self._updateBase__function = func # pylint: disable=assigning-non-slot
+
     def _setup(self):
         self._Update__memoryValue = getattr(list(self.subSys.values())[0], self.key) # pylint:disable=assigning-non-slot
         if self.value != self.memoryValue:
-            super()._runUpdate(self.value)
+            if self._updateBase__function is None: # pylint: disable=no-member
+                super()._runUpdate(self.value)
+            else:
+                self._updateBase__function(self) # pylint: disable=no-member
 
     def _setback(self):
         if self.value != self.memoryValue:

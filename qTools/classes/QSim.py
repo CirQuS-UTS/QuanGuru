@@ -220,24 +220,29 @@ class Simulation(timeBase):
         # FIXME what if freeEvol case, protocol then corresponds to qsys.name before simulation run
         #  or a freeEvol obj after run
         qsys = self._qUniversal__subSys.pop(Protocol, None) # pylint: disable=no-member
-        self.removeSweep([Protocol, Protocol.simulation])
-        if qsys not in self.qSystems:
-            self.removeSweep(qsys)
+        if qsys is not None:
+            self.removeSweep([Protocol, Protocol.simulation])
+            if qsys not in self.qSystems:
+                self.removeSweep(qsys)
 
     def addProtocol(self, protocol=None, system=None, protocolRemove=None):
         # TODO Decorate this
         qSysClass = qBaseSim
-        if system is None:
+        if isinstance(protocol, list):
+            # should protocolRemove be a list ?
+            for p in protocol:
+                protocol = self.addProtocol(protocol=p, system=p.superSys, protocolRemove=protocolRemove)
+        elif system is None:
             if isinstance(protocol, qSysClass):
                 if isinstance(protocol.superSys, qSysClass):
-                    protocol = self.addProtocol(protocol.superSys, protocol, protocolRemove)
+                    protocol = self.addProtocol(protocol, protocol.superSys, protocolRemove)
                 else:
                     raise TypeError('?')
             else:
                 raise TypeError('?')
         elif isinstance(protocol.superSys, qSysClass):
             if system is protocol.superSys:
-                self.addQSystems(system, protocol)
+                self.addQSystems(subS=system, Protocol=protocol)
                 self.removeProtocol(Protocol=protocolRemove)
             else:
                 raise TypeError('?')
@@ -299,8 +304,12 @@ class _poolMemory: # pylint: disable=too-few-public-methods
     def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
         if ((cls.systemCheck() != 'Windows') and (cls.reRun is False)):
             cls.reRun = True
-            if ((cls.pythonSubVersion() == 8) and (multiprocessing.get_start_method() != 'fork')):
-                multiprocessing.set_start_method("fork")
+            if cls.pythonSubVersion() == 8:
+                try:
+                    #multiprocessing.get_start_method() != 'fork'
+                    multiprocessing.set_start_method("fork")
+                except: #pylint:disable=bare-except
+                    pass
 
         if p is True:
             if coreCount is None:
