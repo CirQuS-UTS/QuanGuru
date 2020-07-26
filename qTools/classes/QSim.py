@@ -208,14 +208,14 @@ class Simulation(timeBase):
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
                 self.removeSweep([subSys, subSys.simulation, subSys._freeEvol, subSys._freeEvol.simulation])
 
-    #@_recurseIfList
+    @_recurseIfList
     def removeSweep(self, system):
         self.Sweep.removeSweep(system)
         self.timeDependency.removeSweep(system)
         if ((isinstance(system, Simulation)) and (system is not self)):
             system.removeSweep(system)
 
-    #@_recurseIfList
+    @_recurseIfList
     def removeProtocol(self, Protocol):
         # FIXME what if freeEvol case, protocol then corresponds to qsys.name before simulation run
         #  or a freeEvol obj after run
@@ -243,7 +243,7 @@ class Simulation(timeBase):
         elif isinstance(protocol.superSys, qSysClass):
             if system is protocol.superSys:
                 self.addQSystems(subS=system, Protocol=protocol)
-                self.removeProtocol(Protocol=protocolRemove)
+                self.removeProtocol(protocolRemove)
             else:
                 raise TypeError('?')
         return protocol

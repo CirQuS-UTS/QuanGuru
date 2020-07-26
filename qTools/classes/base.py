@@ -1,6 +1,15 @@
 """
     This module contains ``qUniversal`` and ``extendedList`` classes, and ``checkClass`` decorator.
 
+    .. currentmodule:: qTools.classes.base
+
+    .. autosummary::
+        :toctree: ../docs/source
+
+        qUniversal
+        extendedList
+        checkClass
+
     Classes
     -------
     | :class:`qUniversal` : This class is inhereted by (almost) all the other classes in this library.
@@ -9,8 +18,7 @@
 
     Decorators
     ----------
-    | :func:`checkClass` : This is a **decorator with arguments and a recursive wrapper**, and it was initially created
-     to be used with :attr:`~qUniversal.subSys` dictionary of :class:`qUniversal` class.
+    | :func:`checkClass` :
 """
 
 from functools import wraps
@@ -23,7 +31,8 @@ __all__ = [
 
 def checkClass(classOf):
     """
-    This is a **decorator with arguments and a recursive wrapper**. Its arguments are:
+    This is a **decorator with arguments and a recursive wrapper**, and it was initially created to be used with
+    :attr:`~qUniversal.subSys` dictionary of :class:`qUniversal` class.
 
     Parameters
     ----------
@@ -121,7 +130,10 @@ def _recurseIfList(func):
             for s in sys:
                 r = recurse(obj, s, _exclude=_exclude)
         else:
-            r = func(obj, sys, _exclude=_exclude)
+            try:
+                r = func(obj, sys, _exclude=_exclude)
+            except TypeError:
+                r = func(obj, sys)
         return r
     return recurse
 
@@ -386,6 +398,25 @@ class qUniversal:
         subSysClass._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
         self._qUniversal__subSys[subSysClass.name] = subSysClass
 
+
+    def _remFromDict(self, subS, dictName):
+        dictSelf = getattr(self, dictName)
+        if subS in dictSelf.keys():
+            obj = dictSelf.pop(subS)
+            print(obj, ' is removed from of ' + self.name)
+        elif isinstance(subS, qUniversal):
+            if subS.name in dictSelf.keys():
+                obj = dictSelf.pop(subS.name)
+                print(obj, ' is removed from of ' + self.name)
+            else:
+                keys = list(dictSelf.keys())
+                vals = list(dictSelf.values())
+                for ind, key in enumerate(keys):
+                    if vals[ind] is subS:
+                        obj = dictSelf.pop(key, None)
+                        print(obj, ' is removed from of ' + self.name)
+
+
     @_recurseIfList
     def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
         """
@@ -394,20 +425,7 @@ class qUniversal:
         TODO Cover if the given key of obj or str is not in subSys dict.
         """
 
-        if subS in self._qUniversal__subSys.keys():
-            obj = self._qUniversal__subSys.pop(subS)
-            print(obj, ' is removed from subSys of ' + self.name)
-        elif isinstance(subS, qUniversal):
-            if subS.name in self._qUniversal__subSys.keys():
-                obj = self._qUniversal__subSys.pop(subS.name)
-                print(obj, ' is removed from subSys of ' + self.name)
-            else:
-                keys = list(self._qUniversal__subSys.keys())
-                vals = list(self._qUniversal__subSys.values())
-                for ind, key in enumerate(keys):
-                    if vals[ind] is subS:
-                        obj = self._qUniversal__subSys.pop(key, None)
-                        print(obj, ' is removed from subSys of ' + self.name)
+        self._remFromDict(subS, '_qUniversal__subSys')
 
     @property
     def superSys(self):

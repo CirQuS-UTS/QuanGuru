@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Evolutions &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hamiltonians" href="hamiltonians.html" />
+    <link rel="prev" title="Functions" href="functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../QuantumToolbox.html">QuantumToolbox</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="states.html">States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Evolutions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#types">Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hamiltonians.html">Hamiltonians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quasiProbabilities.html">Quasi-Probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customTypes.html">Custom Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Demos/Demos.html">Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../QuantumToolbox.html">QuantumToolbox</a> &raquo;</li>
+        
+      <li>Evolutions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/QuantumToolbox/evolutions.rst" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-qTools.QuantumToolbox.evolution">
+<span id="evolutions"></span><h1>Evolutions<a class="headerlink" href="#module-qTools.QuantumToolbox.evolution" title="Permalink to this headline">¶</a></h1>
+<p>Module of functions to create Unitary operator and open-system super-operators.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.evolution.Unitary" title="qTools.QuantumToolbox.evolution.Unitary"><code class="xref py py-func docutils literal notranslate"><span class="pre">Unitary()</span></code></a>: Creates <cite>Unitary</cite> time evolution operator for a given <cite>Hamiltonian</cite> and <cite>time step</cite>.</div>
+<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.evolution.Liouvillian" title="qTools.QuantumToolbox.evolution.Liouvillian"><code class="xref py py-func docutils literal notranslate"><span class="pre">Liouvillian()</span></code></a>: Creates <cite>Liouvillian super-operator</cite> for a given <cite>Hamiltonian</cite>, <cite>time step</cite>,
+and a <cite>list of collapse operators</cite> (with the correcponding <cite>list</cite> of <cite>decay rates</cite>).</div>
+<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.evolution.LiouvillianExp" title="qTools.QuantumToolbox.evolution.LiouvillianExp"><code class="xref py py-func docutils literal notranslate"><span class="pre">LiouvillianExp()</span></code></a>: Creates <cite>Liouvillian super-operator</cite> (and exponentiates) for a given <cite>Hamiltonian</cite>,
+<cite>time step</cite>,
+and a <cite>list of collapse operators</cite> (with the correcponding <cite>list</cite> of <cite>decay rates</cite>).</div>
+<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.evolution.dissipator" title="qTools.QuantumToolbox.evolution.dissipator"><code class="xref py py-func docutils literal notranslate"><span class="pre">dissipator()</span></code></a>: Creates the <cite>Lindblad dissipator</cite> super-operator for a <cite>collapse operator</cite>.</div>
+<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.evolution._preSO" title="qTools.QuantumToolbox.evolution._preSO"><code class="xref py py-func docutils literal notranslate"><span class="pre">_preSO()</span></code></a>: Creates <cite>pre super-operator</cite> for an <cite>operator</cite>.</div>
+<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.evolution._posSO" title="qTools.QuantumToolbox.evolution._posSO"><code class="xref py py-func docutils literal notranslate"><span class="pre">_posSO()</span></code></a>: Creates <cite>pos super-operator</cite> for an <cite>operator</cite>.</div>
+<div class="line"><a class="reference internal" href="#qTools.QuantumToolbox.evolution._preposSO" title="qTools.QuantumToolbox.evolution._preposSO"><code class="xref py py-func docutils literal notranslate"><span class="pre">_preposSO()</span></code></a>: Creates <cite>pre-pos super-operator</cite> for an <cite>operator</cite>.</div>
+</div>
+</div>
+<div class="section" id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><a class="reference internal" href="customTypes.html#qTools.QuantumToolbox.customTypes.Matrix" title="qTools.QuantumToolbox.customTypes.Matrix"><code class="xref py py-const docutils literal notranslate"><span class="pre">Matrix</span></code></a>: Union of (scipy) sparse and (numpy) array</div>
+</div>
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.evolution.Unitary">
+<code class="sig-name descname">Unitary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">timeStep</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/evolution.html#Unitary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.Unitary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>Unitary</cite> time evolution operator for a given <cite>Hamiltonian</cite> and <cite>time step</cite>.</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Hamiltonian</strong> (<em>Matrix</em>) – Hamiltonian of the system</p></li>
+<li><p><strong>timeStep</strong> (<em>float</em>) – time used in the exponentiation (default=1.0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unitary time evolution operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.evolution.Liouvillian">
+<code class="sig-name descname">Liouvillian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">collapseOperators</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">decayRates</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/evolution.html#Liouvillian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.Liouvillian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>Liouvillian</cite> super-operator for a given <cite>Hamiltonian</cite>, <cite>time step</cite>,
+and a <cite>list of collapse operators</cite> (with the correcponding <cite>list</cite> of <cite>decay rates</cite>).</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Hamiltonian</strong> (<em>Matrix</em><em> or </em><em>None</em>) – Hamiltonian of the system</p></li>
+<li><p><strong>collapseOperators</strong> (<em>list</em><em> (</em><em>of Matrix</em><em>)</em>) – <cite>list</cite> of collapse operator for Lindblad dissipator terms</p></li>
+<li><p><strong>decayRates`</strong> (<em>list</em><em> (</em><em>of float</em><em>)</em>) – <cite>list</cite> of decay rates (if not given assumed to be 1)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Liouvillian super-operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.evolution.LiouvillianExp">
+<code class="sig-name descname">LiouvillianExp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeStep</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">collapseOperators</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">decayRates</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">exp</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/evolution.html#LiouvillianExp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.LiouvillianExp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>Liovillian</cite> super-operator for a given <cite>Hamiltonian</cite>, <cite>time step</cite>,
+and a <cite>list of collapse operators</cite> (with the correcponding <cite>list</cite> of <cite>decay rates</cite>).</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Hamiltonian</strong> (<em>Matrix</em><em> or </em><em>None</em>) – Hamiltonian of the system</p></li>
+<li><p><strong>timeStep</strong> (<em>float</em>) – time used in the exponentiation (default=1)</p></li>
+<li><p><strong>collapseOperators</strong> (<em>list</em><em> (</em><em>of Matrix</em><em>)</em>) – <cite>list</cite> of collapse operator for Lindblad dissipator terms</p></li>
+<li><p><strong>decayRates</strong> (<em>list</em><em> (</em><em>of float</em><em>)</em>) – <cite>list</cite> of decay rates (if not given assumed to be 1)</p></li>
+<li><p><strong>exp</strong> (<em>bool</em>) – boolean to exponentiate the Liouvillian or not (=True by default)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(exponentiated) Liouvillian super-operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.evolution.dissipator">
+<code class="sig-name descname">dissipator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">collapseOperator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">identity</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/evolution.html#dissipator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution.dissipator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the <cite>Lindblad dissipator</cite> super-operator for a <cite>collapse operator</cite>.</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>collapseOperator</strong> (<em>Matrix</em>) – a collapse operator</p></li>
+<li><p><strong>identity</strong> (<em>Matrix</em><em> or </em><em>None</em>) – identity operator (exist for internal use and optimisation)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Lindblad dissipator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.evolution._preSO">
+<code class="sig-name descname">_preSO</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">identity</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/evolution.html#_preSO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution._preSO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>pre super-operator</cite> for an <cite>operator</cite>.</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Matrix</em>) – a collapse operator</p></li>
+<li><p><strong>identity</strong> (<em>Matrix</em><em> or </em><em>None</em>) – identity operator (exist for internal use and optimisations)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>pre</cite> super-operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.evolution._posSO">
+<code class="sig-name descname">_posSO</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">identity</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/evolution.html#_posSO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution._posSO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>pos</cite> super-operator for an operator.</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Matrix</em>) – a collapse operator</p></li>
+<li><p><strong>identity</strong> (<em>Matrix</em><em> or </em><em>None</em>) – identity operator (exist for internal use and optimisations)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>pos</cite> super-operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return : Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.evolution._preposSO">
+<code class="sig-name descname">_preposSO</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/evolution.html#_preposSO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.evolution._preposSO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>pre-pos super-operator</cite> for an operator.</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Matrix</em>) – a collapse operator</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>pre-pos</cite> super-operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return: Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hamiltonians.html" class="btn btn-neutral float-right" title="Hamiltonians" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="functions.html" class="btn btn-neutral float-left" title="Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/07/25.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

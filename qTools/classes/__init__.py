@@ -1,19 +1,18 @@
 """
-    Classes
-    =============================
+    ===============================
+    Classes (:mod:`qTools.classes`)
+    ===============================
 
-    .. toctree::
+    .. currentmodule:: qTools.classes
 
-    qUniversal <classes/base.rst>
-    Compute Base <classes/computeBase.rst>
-    Time Base <classes/timeBase.rst>
-    Update Base <classes/updateBase.rst>
-    Sweep <classes/Sweep.rst>
-    QSys <classes/QSys.rst>
+    .. autosummary::
+
+        base
+
 """
 
 from .base import qUniversal
-from .QSys import QuantumSystem, compQSystem, qCoupling, envCoupling, qSystem, Qubit, Spin, Cavity
+from .QSys import QuantumSystem, compQSystem, qCoupling, qSystem, Qubit, Spin, Cavity
 from .QPro import qProtocol, Gate, freeEvolution
 from .QSweep import Sweep
 from .QRes import qResults
