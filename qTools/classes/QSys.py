@@ -41,7 +41,7 @@ class genericQSys(qBaseSim):
         super().__init__()
         self.__unitary = freeEvolution(_internal=True)
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
-        self._qBaseSim__simulation.subSys[self._freeEvol] = self # pylint: disable=no-member
+        self._qBaseSim__simulation.addQSystems(subS=self, Protocol=self._freeEvol) # pylint: disable=no-member
         self.__dimension = None
 
         self.__dimsBefore = 1
@@ -56,7 +56,7 @@ class genericQSys(qBaseSim):
               (isinstance(self, compQSystem) and isinstance(other, compQSystem))):
             newComp = compQSystem()
             # FIXME 'stepCount' getter creates problem with None defaults
-            newComp.simulation._copyVals(self.simulation, ['totalTime', 'stepSize'])
+            newComp.simulation._copyVals(self.simulation, ['totalTime', 'stepSize', 'delStates'])
             newComp.compute = _computeDef
             newComp.simulation.compute = _computeDef
             newComp.calculate = _calculateDef
@@ -172,7 +172,7 @@ class genericQSys(qBaseSim):
     @property
     def unitary(self):
         unitary = self._genericQSys__unitary.unitary
-        self._paramUpdated = False
+        self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return unitary
 
     @qBaseSim.initialState.setter # pylint: disable=no-member
@@ -198,6 +198,7 @@ class genericQSys(qBaseSim):
             time = self.simulation._currentTime
         for sys in self.subSys.values():
             sys._timeDependency(time)
+        return time
 
 class QuantumSystem(genericQSys):
     def __new__(cls, sysType='composite', **kwargs):
@@ -237,9 +238,7 @@ class compQSystem(genericQSys):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _timeDependency(self, time=None):
-        if time is None:
-            time = self.simulation._currentTime
-        super()._timeDependency(time=time)
+        time = super()._timeDependency(time=time)
         for coupling in self.qCouplings.values():
             coupling._timeDependency(time)
 
@@ -268,6 +267,7 @@ class compQSystem(genericQSys):
     def totalHam(self): # pylint: disable=invalid-overridden-method
         if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             self._paramBoundBase__matrix = self.freeHam + self.couplingHam # pylint: disable=assigning-non-slot
+            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @property
@@ -513,6 +513,7 @@ class term(_timeDep):
     def freeMat(self):
         if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
             self.freeMat = None
+            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @property
@@ -621,6 +622,7 @@ class qSystem(genericQSys):
         if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
             self._paramBoundBase__matrix = h # pylint: disable=assigning-non-slot
+            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     @property
@@ -702,9 +704,8 @@ class qSystem(genericQSys):
         for sys in self.subSys.values():
             sys.superSys = self
 
-    def addTerm(self, operator, frequency, order=1):
-        newTerm = super().addSubSys(term(operator=operator, frequency=frequency, order=order, superSys=self))
-        newTerm._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
+    def addTerm(self, operator, frequency=0, order=1):
+        newTerm = self.addSubSys(term(operator=operator, frequency=frequency, order=order, superSys=self))
         return newTerm
 
     @_recurseIfList
@@ -759,9 +760,9 @@ class Cavity(qSystem):
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
 # quantum coupling object
-class qCoupling(_timeDep):
+class couplingBase(_timeDep):
     instances = 0
-    label = 'qCoupling'
+    label = 'couplingBase'
 
     toBeSaved = qBaseSim.toBeSaved.extendedCopy(['couplingStrength'])
 
@@ -798,19 +799,8 @@ class qCoupling(_timeDep):
         return ops
 
     @property
-    def totalHam(self):
-        if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
-            h = []
-            if self.couplingStrength != 0:
-                h = [self.couplingStrength * self.freeMat]
-            self._paramBoundBase__matrix = sum(h) # pylint: disable=assigning-non-slot
-        return self._paramBoundBase__matrix # pylint: disable=no-member
-
-    @property
     def freeMat(self):
-        if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
-            self.freeMat = None
-        return self._paramBoundBase__matrix # pylint: disable=no-member
+        return self._constructMatrices()
 
     @freeMat.setter
     def freeMat(self, qMat):
@@ -823,13 +813,13 @@ class qCoupling(_timeDep):
 
     @property
     def couplingStrength(self):
-        return self._qCoupling__couplingStrength
+        return self._couplingBase__couplingStrength
 
     @couplingStrength.setter
     def couplingStrength(self, strength):
         if strength == 0.0:
             strength = 0
-        setAttr(self, '_qCoupling__couplingStrength', strength)
+        setAttr(self, '_couplingBase__couplingStrength', strength)
 
     def __coupOrdering(self, qts): # pylint: disable=no-self-use
         qts = sorted(qts, key=lambda x: x[0], reverse=False)
@@ -855,9 +845,12 @@ class qCoupling(_timeDep):
                     cHam = qOps.compositeOp(oper(dimension), sys._dimsBefore, sys._dimsAfter)
                 ts = [order, cHam]
                 qts.append(ts)
-            cMats.append(self._qCoupling__coupOrdering(qts))
-        self._paramBoundBase__matrix = sum(cMats) # pylint: disable=assigning-non-slot
-        return self._paramBoundBase__matrix # pylint: disable=no-member
+            cMats.append(self._couplingBase__coupOrdering(qts))
+        h = []
+        if ((self.couplingStrength != 0) or (self.couplingStrength is not None)):
+            h = [self.couplingStrength * sum(cMats)]
+        self._paramBoundBase__matrix = sum(h) # pylint: disable=assigning-non-slot
+        return sum(cMats)
 
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
@@ -882,7 +875,7 @@ class qCoupling(_timeDep):
                     counter += 2
                 # TODO does not have to pass qSystem around
                 if counter < len(args):
-                    counter = self._qCoupling__addTerm(counter, 1, qSystems, *args)
+                    counter = self._couplingBase__addTerm(counter, 1, qSystems, *args)
         return self
 
     @_recurseIfList
@@ -897,12 +890,15 @@ class qCoupling(_timeDep):
             if subS in systs:
                 self._qUniversal__subSys.pop(str(ind)) # pylint: disable=no-member
 
-class envCoupling(qCoupling):
+class qCoupling(couplingBase):
     instances = 0
-    label = 'envCoupling'
+    label = 'qCoupling'
 
     __slots__ = []
 
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+    @property
+    def totalHam(self):
+        if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
+            self._constructMatrices()
+            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member

@@ -27,11 +27,13 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
             for i in range(len(sys)-1):
                 flipOp = operators.compositeOp(operators.sigmax(), sys[i+1]._dimsBefore, sys[i+1]._dimsAfter) @ flipOp
             self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
+        self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def _gateImplements(self):
         if self.implementation.lower() == 'instant':
             unitary = self.instantFlip()
+            self.fixed = True
         return unitary
 
 
@@ -43,6 +45,7 @@ class rotation(Gate): # pylint: disable=too-many-ancestors
         super().__init__()
         self.__angle = None
         self.rotationAxis = None
+        self.implementation = 'instant'
         #self._createUnitary = self._gateImplements
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -68,12 +71,14 @@ class rotation(Gate): # pylint: disable=too-many-ancestors
             for i in range(len(sys)-1):
                 flipOp = operators.compositeOp(rotOp(self.angle), sys[i+1]._dimsBefore, sys[i+1]._dimsAfter) @ flipOp
             self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
+        self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def _gateImplements(self):
         if self.implementation.lower() == 'instant':
             unitary = self._rotMat()
+            self.fixed = True
         return unitary
 
-rotation._createUnitary = rotation._rotMat # pylint: disable=protected-access
+rotation._createUnitary = rotation._gateImplements # pylint: disable=protected-access
 xGate._createUnitary = xGate._gateImplements

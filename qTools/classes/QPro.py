@@ -3,7 +3,7 @@ import numpy as np
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
-from .base import qUniversal
+from .base import qUniversal, checkClass
 from .baseClasses import _parameter, qBaseSim, updateBase
 from .QSweep import Sweep
 
@@ -103,12 +103,15 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     def superSys(self, supSys):
         qBaseSim.superSys.fset(self, supSys) # pylint: disable=no-member
         supSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
-        self.simulation._bound(supSys.simulation) # pylint: disable=protected-access
+        if self.simulation._timeBase__bound is None:
+            self.simulation._bound(supSys.simulation) # pylint: disable=protected-access
         self.simulation._qUniversal__subSys[self] = self.superSys # pylint: disable=protected-access
 
     @property
     def unitary(self):
-        self.superSys._timeDependency() # pylint: disable=no-member
+        if self.superSys is not None:
+            self.superSys._timeDependency() # pylint: disable=no-member
+
         if self._paramUpdated:
             if not self.fixed:
                 self._paramBoundBase__matrix = self.getUnitary() # pylint: disable=assigning-non-slot
@@ -117,16 +120,19 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def getUnitary(self):
-        self.superSys._timeDependency() # pylint: disable=no-member
-        initialBool = self._paramBoundBase__paramUpdated # pylint: disable=no-member,
+        if self.superSys is not None:
+            self.superSys._timeDependency() # pylint: disable=no-member
+
         for update in self._genericProtocol__updates:
             update.setup()
-        self._paramBoundBase__paramUpdated = initialBool # pylint: disable=assigning-non-slot
         self._paramBoundBase__matrix = self._getUnitary() # pylint: disable=no-member, assigning-non-slot
         for update in self._genericProtocol__updates:
             update.setback()
-        self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
+        self._paramUpdatedToFalse()
         return self._paramBoundBase__matrix # pylint: disable=no-member
+
+    def _paramUpdatedToFalse(self):
+        self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
 
     def _defGetUnitary(self):
         runCreate = False
@@ -153,7 +159,9 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
 
     @property
     def _identity(self):
-        if self._genericProtocol__identity is None:
+        if self.superSys is None:
+            self._genericProtocol__identity = identity(list(self.subSys.values())[0]._totalDim)#pylint:disable=E0237,E1101
+        elif self._genericProtocol__identity is None:
             self._genericProtocol__identity = identity(self.superSys._totalDim) # pylint: disable=E0237, E1101
         elif self._genericProtocol__identity.shape[0] != self.superSys._totalDim: # pylint: disable=E1101
             self._genericProtocol__identity = identity(self.superSys._totalDim) # pylint: disable=E0237, E1101
@@ -169,9 +177,13 @@ class qProtocol(genericProtocol):
         #self._createUnitary = self._defCreateUnitary # pylint: disable=assigning-non-slot
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
+    def _paramUpdatedToFalse(self):
+        super()._paramUpdatedToFalse()
+        for step in self.subSys.values():
+            step._paramUpdatedToFalse()
+
     @genericProtocol._paramUpdated.getter
     def _paramUpdated(self):# pylint: disable=invalid-overridden-method
-        # this approach can be extended to others and might get rid of _paramBound dictionary
         for subS in self.subSys.values():
             if subS._paramUpdated:
                 self._paramBoundBase__paramUpdated = True # pylint: disable=assigning-non-slot
@@ -191,7 +203,6 @@ class qProtocol(genericProtocol):
         Copy step ensures the exponentiation
         '''
         for step in args:
-            self._paramBoundBase__paramBound[step.name] = step # pylint: disable=no-member
             if step._genericProtocol__inProtocol:
                 super().addSubSys(copyStep(step))
             else:
@@ -199,13 +210,26 @@ class qProtocol(genericProtocol):
                 step._genericProtocol__inProtocol = True
                 step._genericProtocol__currentState._bound = self._genericProtocol__currentState #pylint:disable=W0212,E1101
                 step.simulation._bound(self.simulation, re=True) # pylint: disable=protected-access
-                if step.superSys is None:
+                if ((step.superSys is None) and (self.superSys is not None)):
                     step.superSys = self.superSys
+
+    def _puValues(self, step, vals):#pylint:disable=dangerous-default-value
+        subSysList = list(self.subSys.values())
+        ind = subSysList.index(step) + 1
+        if len(vals) == 0:
+            for st in subSysList[ind:]:
+                vals.append(st._paramUpdated)
+        else:
+            for ind2, st in enumerate(subSysList[ind:]):
+                st._paramUpdated = vals[ind2]
+        return vals
 
     def _defCreateUnitary(self):
         unitary = self._identity # pylint: disable=no-member
         for step in self.steps.values():
+            vals = self._puValues(step, [])
             unitary = step.getUnitary() @ unitary
+            self._puValues(step, vals)
         return unitary
 
 qProtocol._createUnitary = qProtocol._defCreateUnitary
@@ -226,6 +250,17 @@ class copyStep(qUniversal):
         saveDict = super().save()
         saveDict['superSys'] = self.superSys.name
         return saveDict
+
+    def _paramUpdatedToFalse(self):
+        pass
+
+    @property
+    def _paramUpdated(self):
+        return self.superSys._paramUpdated
+
+    @_paramUpdated.setter
+    def _paramUpdated(self, boolean):
+        pass
 
     def getUnitary(self):
         return self.superSys.unitary
@@ -264,19 +299,23 @@ class Gate(genericProtocol):
         self.__implementation = None
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
-    @genericProtocol.superSys.setter # pylint: disable=no-member
-    def superSys(self, supSys):
-        genericProtocol.superSys.fset(self, supSys) # pylint: disable=no-member
-        self.addSubSys(supSys)
-
     @property
     def system(self):
         return list(self.subSys.values())
 
+    @checkClass('qUniversal')
+    def addSubSys(self, subS, **kwargs):
+        newSys = super().addSubSys(subS, **kwargs)
+        if self.simulation._timeBase__bound is None:
+            self.simulation._bound(newSys.simulation) # pylint: disable=protected-access
+
+        if self.implementation.lower() != 'instant':
+            newSys._paramBoundBase__paramBound[self.name] = self
+        return newSys
+
     @system.setter
     def system(self, sys):
         self.addSubSys(sys)
-        self.superSys = list(self.subSys.values())[0]
 
     def addSys(self, sys):
         self.system = sys
@@ -330,13 +369,12 @@ class Update(updateBase):
         self._updateBase__function = func # pylint: disable=assigning-non-slot
 
     def _setup(self):
-        self._Update__memoryValue = getattr(list(self.subSys.values())[0], self.key) # pylint:disable=assigning-non-slot
-        if self.value != self.memoryValue:
-            if self._updateBase__function is None: # pylint: disable=no-member
-                super()._runUpdate(self.value)
-            else:
-                self._updateBase__function(self) # pylint: disable=no-member
+        self.memoryValue = getattr(list(self.subSys.values())[0], self.key)
+        if self._updateBase__function is None: # pylint: disable=no-member
+            super()._runUpdate(self.value)
+        else:
+            self._updateBase__function(self) # pylint: disable=no-member
 
     def _setback(self):
         if self.value != self.memoryValue:
-            super()._runUpdate(self._Update__memoryValue)
+            super()._runUpdate(self.memoryValue)

@@ -32,7 +32,7 @@ exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _allBoo
     ,_totalDim, _dimsBefore, _dimsAfter, _value, _freeEvol, _createUnitary, _gateImplements, _defCreateUnitary, _scale, _computeBase__calculate
     ,_computeBase__calculateMeth, _computeBase__compute, _currentTime, _timeDependency, _qUniversal__subSys, _timeBase__bound
     ,_genericQSys__HamMatrix, _compQSystem__couplingMatrix, _paramBoundBase__paramBound, _bound, _paramBoundBase__paramUpdated
-    ,_paramBoundBase__runParamUpdated, _genericProtocol__creating
+    ,_paramBoundBase__runParamUpdated, _genericProtocol__creating, _paramUpdatedToFalse
 
 [SIMILARITIES]
 min-similarity-lines = 5

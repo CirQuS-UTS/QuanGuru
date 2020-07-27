@@ -189,7 +189,6 @@ class Simulation(timeBase):
 
         # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS, **kwargs)
-        self._paramBoundBase__paramBound[subS.name] = subS # pylint: disable=no-member
         if subS.simulation is not self:
             subS.simulation._bound(self) # pylint: disable=protected-access
         if Protocol is not None:

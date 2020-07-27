@@ -21,7 +21,7 @@ from typing import Any, cast
 
 from collections import OrderedDict
 
-from .base import qUniversal
+from .base import qUniversal, checkClass, _recurseIfList
 from .QRes import qResults
 # pylint: disable = cyclic-import
 
@@ -210,6 +210,10 @@ def setAttr(obj, attrStr, val):
 
 def setAttrParam(obj, attrStr, val):
     oldVal = getattr(obj, attrStr).value
+    if obj._timeBase__bound is not None:
+        obj._timeBase__bound._paramBoundBase__paramBound.pop(obj.name, None)
+        obj._timeBase__bound = None
+
     if val != oldVal:
         getattr(obj, attrStr).value = val
         setattr(obj, '_paramUpdated', True)
@@ -282,28 +286,28 @@ class paramBoundBase(qUniversal):
 
         return self._paramBoundBase__paramBound
 
-    # @checkClass('qBase')
-    # def _createParamBound(self, bound, **kwargs) -> None:
-    #     """[summary]
+    @checkClass('qBase')
+    def _createParamBound(self, bound, **kwargs) -> None:
+        """[summary]
 
-    #     Parameters
-    #     ----------
-    #     bound : [type]
-    #         [description]
-    #     """
-    #     bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-    #     self._paramBoundBase__paramBound[bound.name] = bound
+        Parameters
+        ----------
+        bound : [type]
+            [description]
+        """
 
-    # def _breakParamBound(self, bound):
-    #     """[summary]
+        bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._paramBoundBase__paramBound[bound.name] = bound
 
-    #     Parameters
-    #     ----------
-    #     bound : [type]
-    #         [description]
-    #     """
-    #     obj = self._paramBoundBase__paramBound.pop(bound.name)
-    #     print(obj.name + ' is removed from paramBound of ' + self.name)
+    @_recurseIfList
+    def _breakParamBound(self, bound, _exclude=[]): # pylint: disable=dangerous-default-value
+        """
+        This method removes the given object from the ``__paramBound`` dictionary.
+
+        TODO Cover if the given key of obj or str is not in subSys dict.
+        """
+
+        self._remFromDict(bound, '_paramBoundBase__paramBound')
 
     @property
     def _paramUpdated(self):
@@ -573,30 +577,6 @@ class qBaseSim(computeBase):
         """
 
         return self.simulation.initialState
-
-    # @property
-    # def _openSystem(self):
-    #     return self._qBaseSim__openSystem
-
-    # @_openSystem.setter
-    # def _openSystem(self, boolean):
-    #     self._qBaseSim__openSystem = True
-    #     for sys in self._paramBoundBase__paramBound.values(): # pylint: disable=no-member
-    #         if hasattr(sys, '_openSystem'):
-    #             sys._openSystem = boolean
-
-    # @simulation.setter
-    # def simulation(self, sim):
-    #     if ((sim is None) or (sim == 'new')):
-    #         self._qBaseSim__simulation = Simulation(_internal=True, superSys=self) #pylint: disable=assigning-non-slot
-    #         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self #pylint: disable=protected-access
-    #     else:
-    #         self._qBaseSim__simulation = sim # pylint: disable=assigning-non-slot
-    #         sim._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
-    #         for sys in self.subSys.values():
-    #             if sys is not self:
-    #                 if hasattr(sys, 'simulation'):
-    #                     sys.simulation = sim
 
     def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
         """
@@ -918,7 +898,9 @@ class timeBase(stateBase):
 
         :returns: None
         """
+
         if other._timeBase__bound is not self: #pylint: disable=too-many-nested-blocks
+            other._paramBoundBase__paramBound[self.name] = self
             self._timeBase__bound = other # pylint: disable=assigning-non-slot
             keys = ['_timeBase__stepSize', '_timeBase__totalTime', '_timeBase__stepCount']
             keysProp = ['stepSize', 'totalTime', 'stepCount']
