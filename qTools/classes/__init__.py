@@ -13,7 +13,7 @@
 
 from .base import qUniversal
 from .QSys import QuantumSystem, compQSystem, qCoupling, qSystem, Qubit, Spin, Cavity
-from .QPro import qProtocol, Gate, freeEvolution
+from .QPro import qProtocol, Gate, freeEvolution, copyStep
 from .QSweep import Sweep
 from .QRes import qResults
 from .QSim import Simulation

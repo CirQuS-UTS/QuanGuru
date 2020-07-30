@@ -82,6 +82,9 @@ def timeEvolDefault(qSim, td):
     for protocol in qSim.subSys.keys():
         qSim.subSys[protocol]._computeBase__compute([protocol.currentState]) # pylint: disable=protected-access
         protocol._computeBase__compute([protocol.currentState]) # pylint: disable=protected-access
+        if hasattr(protocol, 'steps'):
+            if any([step.simulation.samples > 1 for step in protocol.steps.values()]):
+                protocol.stepSample = True
 
     for ind in range(qSim.stepCount):
         computeBase.ignore = []
@@ -99,7 +102,8 @@ def timeEvolDefault(qSim, td):
             system._computeBase__calculateMeth() # pylint: disable=protected-access
 
 def timeEvolBase(qSim):
-    for protocol in qSim.subSys.keys():
+    for protocol in qSim.subSys.keys(): #pylint:disable=too-many-nested-blocks
+        protocol.sampleStates = []
         qSim.subSys[protocol]._computeBase__compute([protocol.currentState]) # pylint: disable=protected-access
         sampleCompute = qSim is protocol.simulation
         for __ in range(int(protocol.simulation._timeBase__stepCount.value/qSim._timeBase__stepCount.value)): # pylint: disable=protected-access, line-too-long
@@ -107,8 +111,14 @@ def timeEvolBase(qSim):
                 if not sampleCompute:
                     protocol.simulation._Simulation__compute() # pylint: disable=protected-access
 
-                if protocol.compute is None:
+                if protocol.stepSample:
+                    for step in protocol.steps.values():
+                        for _ in range(step.simulation.samples):
+                            protocol.currentState = step.unitary @ protocol.currentState
+                            protocol.sampleStates.append(protocol.currentState)
+                elif protocol.compute is None:
                     protocol.currentState = protocol.unitary @ protocol.currentState
+                    protocol.sampleStates.append(protocol.currentState)
                 else:
                     for step in protocol.subSys.values():
                         protocol.currentState = step.unitary @ protocol.currentState

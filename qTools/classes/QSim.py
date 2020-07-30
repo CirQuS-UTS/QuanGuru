@@ -189,7 +189,10 @@ class Simulation(timeBase):
 
         # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS, **kwargs)
+        # TODO and above is to avoid recursive calls in _paramUpdated, but it is a temp solution
         if subS.simulation is not self:
+            if self in subS.simulation._paramBound.values():
+                subS.simulation._paramBound.pop(self.name)
             subS.simulation._bound(self) # pylint: disable=protected-access
         if Protocol is not None:
             self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name) # pylint: disable=no-member

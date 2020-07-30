@@ -19,7 +19,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         cls.numberOfExponentiations += 1
 
     __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates',
-                 '_getUnitary', 'timeDependency', '__identity']
+                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -30,6 +30,8 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         self.__ratio = 1
         self.__updates = []
         self._getUnitary = self._defGetUnitary
+        self.sampleStates = []
+        self.stepSample = False
         self.timeDependency = Sweep(superSys=self)
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -203,7 +205,9 @@ class qProtocol(genericProtocol):
         Copy step ensures the exponentiation
         '''
         for step in args:
-            if step._genericProtocol__inProtocol:
+            if isinstance(step, copyStep):
+                super().addSubSys(step)
+            elif step._genericProtocol__inProtocol:
                 super().addSubSys(copyStep(step))
             else:
                 super().addSubSys(step)
@@ -258,11 +262,19 @@ class copyStep(qUniversal):
     def _paramUpdated(self):
         return self.superSys._paramUpdated
 
+    @property
+    def simulation(self):
+        return self.superSys.simulation
+
     @_paramUpdated.setter
     def _paramUpdated(self, boolean):
         pass
 
     def getUnitary(self):
+        return self.superSys.unitary
+
+    @property
+    def unitary(self):
         return self.superSys.unitary
 
 class freeEvolution(genericProtocol):

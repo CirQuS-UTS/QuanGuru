@@ -442,7 +442,7 @@ class computeBase(paramBoundBase):
 
     def __compute(self, states, sim=False): # pylint: disable=dangerous-default-value
         """
-        This is the actual compute function that is called in the time-evolution, it calls ``self.compute`` is it is a
+        This is the actual compute function that is called in the time-evolution, it calls ``self.compute`` if it is a
         callable and does nothing otherwise.
         """
 
@@ -538,8 +538,9 @@ class qBaseSim(computeBase):
 
     @property
     def simParameters(self):
-        return (self.simulation.totalTime, self.simulation.stepSize, self.simulation.stepCount, self.simulation.samples,
-                self.simulation.delStates, self.simulation.compute)
+        return ('totalTime:', self.simulation.totalTime, 'stepSize:', self.simulation.stepSize, 'stepCount:',
+                self.simulation.stepCount, 'samples:', self.simulation.samples, 'delStates:',
+                self.simulation.delStates, 'compute:', self.simulation.compute)
 
     @simParameters.setter
     def simTotalTime(self, fTime):
