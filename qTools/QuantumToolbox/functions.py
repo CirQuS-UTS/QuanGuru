@@ -951,6 +951,10 @@ def _eigs(Mat: Matrix) -> matrixList:
 def _eigStat(Mat: Matrix, symp: bool = False) -> floatList:
     return (np.abs(_eigs(Mat)[1].flatten()))**2 if not symp else _eigStatSymp(Mat)
 
+def _eigStatSymp(Mat: Matrix) -> floatList:
+    vecsSymplectic = _eigs(Mat)[1]
+    return _eigsStatEigSymp(vecsSymplectic)
+
 def _eigStatEig(EigVecs: Matrix, symp=False) -> floatList:
     return (np.abs(EigVecs.flatten()))**2 if not symp else _eigsStatEigSymp(EigVecs)
 
@@ -965,10 +969,6 @@ def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
             elSymplectic += 2
             componentsSymplectic.append(p1Symplectic+p2Symplectic)
     return componentsSymplectic
-
-def _eigStatSymp(Mat: Matrix) -> floatList:
-    vecsSymplectic = _eigs(Mat)[1]
-    return _eigsStatEigSymp(vecsSymplectic)
 
 # TODO create the function for the result of eigenvec calculation
 def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:

@@ -424,7 +424,7 @@ def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
         d = int((2*j) + 1)
     elif isDim:
         d = int(j)
-        j = ((d-1)/2)
+        j = round((d-1)/2, 1)
     data = [j-i for i in range(d)]
     rows = range(0, d)
     columns = range(0, d)
@@ -485,7 +485,7 @@ def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
         d = int((2*j) + 1)
     elif isDim:
         d = int(j)
-        j = ((d-1)/2)
+        j = round((d-1)/2, 1)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
     rows = range(0, d-1)
@@ -547,7 +547,7 @@ def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
         d = int((2*j) + 1)
     elif isDim:
         d = int(j)
-        j = ((d-1)/2)
+        j = round((d-1)/2, 1)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
     rows = range(1, d)

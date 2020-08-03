@@ -869,6 +869,16 @@ class timeBase(stateBase):
             if val is not None:
                 setattr(self, key, val)
 
+    @staticmethod
+    def _boundTree(osys, tree=None):
+        if tree is None:
+            tree = []
+        bSys = osys._timeBase__bound
+        if bSys is not None:
+            tree.append(bSys)
+            tree = bSys._boundTree(bSys, tree)
+        return tree
+
     def _bound(self, other, # pylint: disable=dangerous-default-value
                params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput'],
                re=False):
@@ -900,7 +910,7 @@ class timeBase(stateBase):
         :returns: None
         """
 
-        if other._timeBase__bound is not self: #pylint: disable=too-many-nested-blocks
+        if self not in self._boundTree(osys=other): #pylint: disable=too-many-nested-blocks
             other._paramBoundBase__paramBound[self.name] = self
             self._timeBase__bound = other # pylint: disable=assigning-non-slot
             keys = ['_timeBase__stepSize', '_timeBase__totalTime', '_timeBase__stepCount']

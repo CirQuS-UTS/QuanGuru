@@ -23,9 +23,11 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
     def instantFlip(self):
         if self._paramBoundBase__matrix is None: # pylint: disable=no-member
             sys = list(self.subSys.values())
-            flipOp = operators.compositeOp(operators.sigmax(), sys[0]._dimsBefore, sys[0]._dimsAfter) # pylint: disable=no-member
+            flipOp = operators.compositeOp(operators.Jx(sys[0].dimension, isDim=True),
+                                           sys[0]._dimsBefore, sys[0]._dimsAfter) # pylint: disable=no-member
             for i in range(len(sys)-1):
-                flipOp = operators.compositeOp(operators.sigmax(), sys[i+1]._dimsBefore, sys[i+1]._dimsAfter) @ flipOp
+                flipOp = operators.compositeOp(operators.Jx(sys[i].dimension, isDim=True),
+                                               sys[i+1]._dimsBefore, sys[i+1]._dimsAfter) @ flipOp
             self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
