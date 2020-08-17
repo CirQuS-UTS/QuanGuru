@@ -181,7 +181,7 @@ def expectationMat(operator: Matrix, denMat: Matrix) -> float:
     """
 
     expc = ((operator @ denMat).diagonal()).sum()
-    return np.real(expc) if np.imag(expc) == 0.0 else expc
+    return np.real(expc) if np.imag(round(expc, 15)) == 0.0 else expc
 
 
 def expectationKet(operator: Matrix, ket: Matrix) -> float:

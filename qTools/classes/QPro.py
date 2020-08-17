@@ -320,9 +320,9 @@ class Gate(genericProtocol):
         newSys = super().addSubSys(subS, **kwargs)
         if self.simulation._timeBase__bound is None:
             self.simulation._bound(newSys.simulation) # pylint: disable=protected-access
-
-        if self.implementation.lower() != 'instant':
-            newSys._paramBoundBase__paramBound[self.name] = self
+        # FIXME this becomes 'fixed' unless the dimension is changed.
+        #if self.implementation.lower() != 'instant':
+        newSys._paramBoundBase__paramBound[self.name] = self
         return newSys
 
     @system.setter

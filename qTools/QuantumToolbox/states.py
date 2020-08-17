@@ -1,31 +1,32 @@
 """
     This module contains the functions to create, manipulate, convert, and/or normalise quantum states.
 
+    .. currentmodule:: qTools.QuantumToolbox
+
+
     Functions
     ---------
-    | :func:`basis` : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given
-        row.
-    | :func:`completeBasis` : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .
-    | :func:`basisBra` : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a
-        given column.
-    | :func:`zeros` : Creates a column matrix (ket) with all elements zero.
-    | :func:`superPos` : Function to create a `superposition ket` state from a given `dictionary` or `list`,
-        or `ket` state from a given `integer` (in this case, it is equivalent to basis function).
 
-    | :func:`densityMatrix` : Converts a `ket` state into a `density matrix`.
-    | :func:`completeBasisMat` : Creates a complete basis of `density matrices` for a given dimension or
-        convert a `ket basis` to `density matrix`.
+    .. autosummary::
+        basis
+        completeBasis
+        basisBra
+        zeros
+        superPos
 
-    | :func:`normalise` : Function to normalise `any` state (ket or density matrix).
-    | :func:`normaliseKet` : Function to normalise a `ket` state.
-    | :func:`normaliseMat` : Function to normalise a `density matrix`.
+        densityMatrix
+        completeBasisMat
 
-    | :func:`compositeState` : Function to create `composite ket` states.
-    | :func:`tensorProd` : Function to calculate tensor product of given (any number of) states (in the given order).
-    | :func:`partialTrace` : Calculates the partial trace of a `density matrix` of composite state.
+        normalise
+        normaliseKet
+        normaliseMat
 
-    | :func:`mat2Vec` : Converts `density matrix` into `density vector` (used in super-operator representation).
-    | :func:`vec2Mat` : Converts `density vector` into `density matrix`.
+        compositeState
+        tensorProd
+        partialTrace
+
+        mat2Vec
+        vec2Mat
 
     Types
     ^^^^^

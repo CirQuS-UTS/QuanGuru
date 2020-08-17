@@ -425,6 +425,8 @@ class compQSystem(genericQSys):
         if self.superSys is not None:
             self.superSys.updateDimension(qSys=qSys, newDimVal=newDimVal, oldDimVal=oldDimVal, _exclude=_exclude)
         self.delMatrices(_exclude=[])
+        for c in self.qCouplings.values():
+            c.delMatrices(_exclude=[])
         return qSys
 
 
@@ -610,7 +612,7 @@ class qSystem(genericQSys):
             sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
 
         setAttr(self, '_genericQSys__dimension', newDimVal)
-
+        # FIXME these should be called only if oldDim != newDim
         if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
             self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
 
