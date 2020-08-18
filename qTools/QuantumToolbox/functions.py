@@ -1049,9 +1049,6 @@ def traceDistance(A: Matrix, B:Matrix) ->float:
     --------
     # TODO
     """
-    # A = A.toarray()
-    # B = B.toarray()
-
     diff = A-B
 
     diff = diff.conj().T @ diff
