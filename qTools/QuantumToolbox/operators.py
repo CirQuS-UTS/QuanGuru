@@ -369,7 +369,7 @@ def sigmam(sparse: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `Z` operator for a given spin quantum number j.
 
@@ -424,7 +424,7 @@ def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
         d = int((2*j) + 1)
     elif isDim:
         d = int(j)
-        j = ((d-1)/2)
+        j = round((d-1)/2, 1)
     data = [j-i for i in range(d)]
     rows = range(0, d)
     columns = range(0, d)
@@ -432,7 +432,7 @@ def Jz(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `creation` operator for a given spin quantum number j.
 
@@ -485,7 +485,7 @@ def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
         d = int((2*j) + 1)
     elif isDim:
         d = int(j)
-        j = ((d-1)/2)
+        j = round((d-1)/2, 1)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
     rows = range(0, d-1)
@@ -494,7 +494,7 @@ def Jp(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `destruction` operator for a given spin quantum number j.
 
@@ -547,7 +547,7 @@ def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
         d = int((2*j) + 1)
     elif isDim:
         d = int(j)
-        j = ((d-1)/2)
+        j = round((d-1)/2, 1)
     m = [j-i for i in range(d)]
     data = [np.sqrt((j+m[i])*(j-m[i]+1)) for i in range(len(m) - 1)]
     rows = range(1, d)
@@ -556,7 +556,7 @@ def Jm(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jx(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `X` operator for a given spin quantum number j.
 
@@ -617,7 +617,7 @@ def Jx(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Jy(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the angular momentum (spin) `Y` operator for a given spin quantum number j.
 
@@ -678,7 +678,7 @@ def Jy(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-def Js(j: float, sparse: bool = True, isDim: bool = True) -> Matrix:
+def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     """
     Creates the total angular momentum (spin) operator for a given spin quantum number j.
 
@@ -967,7 +967,7 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
 
 
 # TODO Does this really work with ndarray ?
-def compositeOp(operator: Matrix, dimB: int, dimA: int) -> Matrix:
+def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
     """
     Creates a composite operator from a sub-system `operator`,
     i.e. tensor product with identities of dimensions dimB & dimA

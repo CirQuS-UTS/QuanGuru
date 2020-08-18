@@ -8,14 +8,28 @@
 
     Matrix creations should be sparse as default and return .A (or .toarray()) of the created sparse if sparse=False.
     Any function manipulating matrices should be designed to be independent of sparse or array, if possible.
+
+    .. autosummary::
+        :toctree: stubs
+
+        states
+        operators
+        evolution
+        functions
+        Hamiltonians
+        quasiProbabilities
+        rmtDistributions
+
 """
+
 from .functions import (
     expectation, expectationMat, expectationKet, expectationKetList, expectationMatList, expectationColArr,
     fidelity, fidelityKet, fidelityPureMat, fidelityKetList, fidelityKetLists,
     entropy, entropyKet,
     iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat,
-    sortedEigens,
-    eigVecStatKet, eigVecStatKetList, eigVecStatKetNB
+    sortedEigens, _eigStat, _eigStatSymp,
+    eigVecStatKet, eigVecStatKetList, eigVecStatKetNB,
+    concurrence
 )
 from .Hamiltonians import (cavQubFreeHam, RabiHam, JCHam, aJCHam)
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
@@ -41,3 +55,5 @@ from .states import (
     mat2Vec, vec2Mat
 )
 from .customTypes import (Matrix, intList, matrixList, supInp, ndOrListInt, ndOrList)
+
+from .rmtDistributions import (EigenVectorDist, WignerDyson, Poissonian)

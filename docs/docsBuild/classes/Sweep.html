@@ -1,0 +1,533 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sweep module &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../QuantumToolbox.html">QuantumToolbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../QuantumToolbox/Demos/Demos.html">Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Sweep module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/classes/Sweep.rst" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="sweep-module">
+<h1>Sweep module<a class="headerlink" href="#sweep-module" title="Permalink to this headline">¶</a></h1>
+<p>This module contain two classes related to sweep functionality.</p>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><a class="reference internal" href="#qTools.classes.QSweep._sweep" title="qTools.classes.QSweep._sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code></a> : This class is used internally to actually store relevant sweep information for objects/s.</div>
+<div class="line"><a class="reference internal" href="#qTools.classes.QSweep.Sweep" title="qTools.classes.QSweep.Sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sweep</span></code></a> : This class can be seen as a container for different <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> objects, but it is the one that is
+actually going to be used.</div>
+</div>
+<p>NOTE : Both of these classes are not actually intended to be instanciated by outside the library.
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code> objects <strong>has</strong> <code class="docutils literal notranslate"><span class="pre">Sweep/s</span></code> as their attributes, and
+<code class="docutils literal notranslate"><span class="pre">_sweep/s</span></code> are intended to be created by calling the relevant methods over <code class="docutils literal notranslate"><span class="pre">Simulation.Sweep</span></code>.</p>
+</div>
+<dl class="py class">
+<dt id="qTools.classes.QSweep._sweep">
+<em class="property">class </em><code class="sig-name descname">_sweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#_sweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep._sweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="computeBase.html#qTools.classes.baseClasses.updateBase" title="qTools.classes.baseClasses.updateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.baseClasses.updateBase</span></code></a></p>
+<p>This class essentially has a list of values, a dictionary of objects (<code class="docutils literal notranslate"><span class="pre">subSys</span></code>), and a key (name of an attribute).
+The purpose is to use the key to change the value of the corresponding attribute for all the objects to a value from
+the list of values. Rest of the attributes are used to create the list of values in different cases.</p>
+<dl class="py attribute">
+<dt id="qTools.classes.QSweep._sweep.sweepList">
+<code class="sig-name descname">sweepList</code><a class="headerlink" href="#qTools.classes.QSweep._sweep.sweepList" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of values can directly be assigned, and the other attributes are not needed in this case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">sweepMin &amp; sweepMax &amp; sweepStep</code></dt>
+<dd><p>These are used to create a list values from <code class="docutils literal notranslate"><span class="pre">sweepMin</span></code> to <code class="docutils literal notranslate"><span class="pre">sweepMax</span></code>. <code class="docutils literal notranslate"><span class="pre">sweepStep</span></code> is either number of
+steps from min-to-max or step-size. The first one is used in the case of logarithmic sweeps, and the latter in
+linear.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QSweep._sweep.logSweep">
+<code class="sig-name descname">logSweep</code><a class="headerlink" href="#qTools.classes.QSweep._sweep.logSweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this is true, the list of values will logarithmically (base 10) be separated, in this case <code class="docutils literal notranslate"><span class="pre">sweepStep</span></code> has
+to an <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QSweep._sweep.multiParam">
+<code class="sig-name descname">multiParam</code><a class="headerlink" href="#qTools.classes.QSweep._sweep.multiParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should be set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, if there are more than one <cite>_sweep</cite> objects exist, but they are not used
+simultaneously instead one is swept while the other is fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QSweep._sweep.instances">
+<code class="sig-name descname">instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QSweep._sweep.instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of instances of the class</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QSweep._sweep.label">
+<code class="sig-name descname">label</code><em class="property"> = '_sweep'</em><a class="headerlink" href="#qTools.classes.QSweep._sweep.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in default naming of objects. See <code class="xref py py-attr docutils literal notranslate"><span class="pre">label</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QSweep._sweep.toBeSaved">
+<code class="sig-name descname">toBeSaved</code><em class="property"> = ['name', 'key', 'sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep', 'multiParam']</em><a class="headerlink" href="#qTools.classes.QSweep._sweep.toBeSaved" title="Permalink to this definition">¶</a></dt>
+<dd><p>a list of str (attribute names) to be used with save method, it extends
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">toBeSaved</span></code> list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep._sweep.sweepFunction">
+<em class="property">property </em><code class="sig-name descname">sweepFunction</code><a class="headerlink" href="#qTools.classes.QSweep._sweep.sweepFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sweepFunction property:</p>
+<ul class="simple">
+<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_updateBase__function</span></code> which is used in custom sweeps</p></li>
+<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_updateBase__function</span></code> callable</p></li>
+<li><p><strong>type</strong> : <code class="docutils literal notranslate"><span class="pre">callable</span></code></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep._sweep.sweepKey">
+<em class="property">property </em><code class="sig-name descname">sweepKey</code><a class="headerlink" href="#qTools.classes.QSweep._sweep.sweepKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sweepKey property:</p>
+<ul class="simple">
+<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_updateBase__key</span></code> which is the name of an attribute to be swept, this property exists
+to create terminology</p></li>
+<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_updateBase__key</span></code> string</p></li>
+<li><p><strong>type</strong> : <code class="docutils literal notranslate"><span class="pre">str</span></code></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id0">
+<em class="property">property </em><code class="sig-name descname">sweepList</code><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sweepList property:</p>
+<ul class="simple">
+<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_updateBase__key</span></code> if it is <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">None</span></code>, otherwise, creates it using the min-max-step
+informations.
+TODO : this should raise an error, if neither a list nor sufficient/correct information to create a list is
+given.</p></li>
+<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_sweepList</span></code> to a given list</p></li>
+<li><p><strong>type</strong> : <code class="docutils literal notranslate"><span class="pre">list</span></code></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep._sweep._defSweep">
+<em class="property">static </em><code class="sig-name descname">_defSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#_sweep._defSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep._sweep._defSweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the default sweep function, see __init__, the <code class="docutils literal notranslate"><span class="pre">_timeBase__function</span></code> points to this.</p>
+<p>The method that uses all the objects to do simulations with sweeps uses length of <code class="docutils literal notranslate"><span class="pre">sweepList/s</span></code> (stored in
+__inds attribute of <a class="reference internal" href="#qTools.classes.QSweep.Sweep" title="qTools.classes.QSweep.Sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sweep</span></code></a>) and converts it to a relevant list of indices using modular arithmetic (
+which is introduced for multi-parameter sweeps), and those indices are fed to <a class="reference internal" href="#qTools.classes.QSweep._sweep.runSweep" title="qTools.classes.QSweep._sweep.runSweep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">runSweep()</span></code></a>, which does
+calls nothing but calls the <code class="docutils literal notranslate"><span class="pre">_updateBase__function</span></code> by feeding the <code class="docutils literal notranslate"><span class="pre">ind</span></code>. So, whatever the
+<code class="docutils literal notranslate"><span class="pre">_updateBase__function</span></code> is, it is the actual function to make updates to attribute (given by <code class="docutils literal notranslate"><span class="pre">key</span></code>).
+This method is the default the <code class="docutils literal notranslate"><span class="pre">_updateBase__function</span></code>, and it just calls the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">_runUpdate</span></code> by feeding it the value from the
+<code class="docutils literal notranslate"><span class="pre">sweepList</span></code> at the position <code class="docutils literal notranslate"><span class="pre">ind</span></code>. <code class="xref py py-meth docutils literal notranslate"><span class="pre">_runUpdate</span></code>
+function just sets the attribute (for the given key) of every <code class="docutils literal notranslate"><span class="pre">subSys</span></code> to a given value (<code class="docutils literal notranslate"><span class="pre">val</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ind</strong> (<em>int</em>) – Index of the value from <code class="docutils literal notranslate"><span class="pre">sweepList</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep._sweep.runSweep">
+<code class="sig-name descname">runSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ind</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#_sweep.runSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep._sweep.runSweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method wraps the <code class="docutils literal notranslate"><span class="pre">_updateBase__function</span></code>, so that this will be the function that is always called to run
+sweeps. This is not essential and could be removed, but it kind of creates a duck-typing with <code class="docutils literal notranslate"><span class="pre">Sweep</span></code> class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="qTools.classes.QSweep.Sweep">
+<em class="property">class </em><code class="sig-name descname">Sweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#Sweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep.Sweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../docs/source/qTools.classes.base.qUniversal.html#qTools.classes.base.qUniversal" title="qTools.classes.base.qUniversal"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.base.qUniversal</span></code></a></p>
+<p>This class can be considered as a container for <a class="reference internal" href="#qTools.classes.QSweep._sweep" title="qTools.classes.QSweep._sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code></a> objects and relevant methods. Instances of this
+class are used as attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code> objects, and those are
+intended to be used for <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> creations. This class inherits from
+<code class="xref py py-class docutils literal notranslate"><span class="pre">qUniversal</span></code> and stores <a class="reference internal" href="#qTools.classes.QSweep._sweep" title="qTools.classes.QSweep._sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code></a> objects in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code>
+dictionary, and it has two additional attributes. Againg, the attributes are private and the explanation below
+contain the relevant property, name-mangled attribute , and pure attribute names separated by <cite>or</cite>.</p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">inds or _Sweep__inds or __inds</code></dt>
+<dd><p>This is a list of <code class="docutils literal notranslate"><span class="pre">sweepList</span></code> length/s of <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> <strong>some</strong> of the object/s in <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary. The
+reason for <strong>some</strong> is that this list is introduced to be used with multi-parameter sweeps, and the values are
+appended to the list, if it is the first <code class="docutils literal notranslate"><span class="pre">sweep</span></code> to be included into <code class="docutils literal notranslate"><span class="pre">subSys</span></code> or <code class="docutils literal notranslate"><span class="pre">multiParam</span> <span class="pre">is</span> <span class="pre">True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">indMultip or _Sweep__indMultip or __indMultip</code></dt>
+<dd><p>This is just the multiplication of all the indices in <code class="docutils literal notranslate"><span class="pre">inds</span></code>. The actual function that uses all the objects
+to perform a simulation with sweeps, uses values from 0-indMultip as loop counter, and another function using
+some modular arithmetics creates a list of indices from the loop counter to use it for updates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QSweep.Sweep.instances">
+<code class="sig-name descname">instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QSweep.Sweep.instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of instances of the class</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QSweep.Sweep.label">
+<code class="sig-name descname">label</code><em class="property"> = 'Sweep'</em><a class="headerlink" href="#qTools.classes.QSweep.Sweep.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in default naming of objects. See <code class="xref py py-attr docutils literal notranslate"><span class="pre">label</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep.Sweep.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#Sweep.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep.Sweep.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method extends the <code class="xref py py-meth docutils literal notranslate"><span class="pre">save</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">qUniversal</span></code> by also
+calling the <code class="docutils literal notranslate"><span class="pre">save()</span></code> on the objects in <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep.Sweep.inds">
+<em class="property">property </em><code class="sig-name descname">inds</code><a class="headerlink" href="#qTools.classes.QSweep.Sweep.inds" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ind property:</p>
+<ul class="simple">
+<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_Sweep__inds</span></code></p></li>
+<li><p><strong>setter</strong> : there is no setter</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep.Sweep.indMultip">
+<em class="property">property </em><code class="sig-name descname">indMultip</code><a class="headerlink" href="#qTools.classes.QSweep.Sweep.indMultip" title="Permalink to this definition">¶</a></dt>
+<dd><p>The indMultip property:</p>
+<ul class="simple">
+<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_Sweep__indMultip</span></code></p></li>
+<li><p><strong>setter</strong> : there is no setter</p></li>
+</ul>
+<p>NOTE : The reason this property returns a pre-assingned value rather than calculating from the <code class="docutils literal notranslate"><span class="pre">inds</span></code> is to
+avoid calculating it over and over again, which could be avoided by checking if <code class="docutils literal notranslate"><span class="pre">_Sweep__indMultip</span> <span class="pre">is</span> <span class="pre">None</span></code>,
+but that might create other issues, such as re-running the same simulation after a change in <code class="docutils literal notranslate"><span class="pre">sweepList</span></code>
+length/s. It still can be improved, and it is possible to avoid such issues and get rid of <a class="reference internal" href="#qTools.classes.QSweep.Sweep.prepare" title="qTools.classes.QSweep.Sweep.prepare"><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare()</span></code></a>,
+which is called in <code class="docutils literal notranslate"><span class="pre">run</span></code> methods of <code class="docutils literal notranslate"><span class="pre">Simulations</span></code>, by some modifications in these properties.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep.Sweep.sweeps">
+<em class="property">property </em><code class="sig-name descname">sweeps</code><a class="headerlink" href="#qTools.classes.QSweep.Sweep.sweeps" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sweeps property wraps <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary to create new terminology, it basically:</p>
+<ul class="simple">
+<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">subSys</span></code> dictionary.</p></li>
+<li><p><strong>setter</strong> : works exactly as <code class="xref py py-meth docutils literal notranslate"><span class="pre">subSys</span></code> setter.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep.Sweep.removeSweep">
+<code class="sig-name descname">removeSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sys</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#Sweep.removeSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep.Sweep.removeSweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>A method to remove a <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> it self, or all the <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> objects that contain a particular <code class="docutils literal notranslate"><span class="pre">sys</span></code> in it.</p>
+<p>If the argument <code class="docutils literal notranslate"><span class="pre">sys</span></code> is an <a class="reference internal" href="#qTools.classes.QSweep._sweep" title="qTools.classes.QSweep._sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code></a> object, this method calls
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">removeSubSys</span></code> (since <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> objects are stored in
+<code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary of <code class="docutils literal notranslate"><span class="pre">Sweep</span></code> objects).</p>
+<p>Else, it calls the <code class="xref py py-meth docutils literal notranslate"><span class="pre">removeSubSys</span></code> on every <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> in its
+<code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary (since <code class="docutils literal notranslate"><span class="pre">systems</span></code> are stored in <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary of <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> objects).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep.Sweep.createSweep">
+<code class="sig-name descname">createSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">system</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sweepKey</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#Sweep.createSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep.Sweep.createSweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a new instance of <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> and assing its <code class="docutils literal notranslate"><span class="pre">system</span></code> and <code class="docutils literal notranslate"><span class="pre">sweepKey</span></code> to given system
+and sweepKey arguments of this method. Keyworded arguments are used to set the other attributes of the newly
+created <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>system</strong> (<em>Any</em>) – Since <code class="docutils literal notranslate"><span class="pre">system</span></code> property setter of <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> behaves exactly as
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">subSys</span></code> setter, this can be various things, from a single
+sytems to name of the system, or from a class to name of class, or a list/dict contaning any combination
+of these</p></li>
+<li><p><strong>sweepKey</strong> (<em>str</em>) – Name of the attribute of system/s that will be swept</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep.Sweep.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#Sweep.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep.Sweep.prepare" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called inside <code class="docutils literal notranslate"><span class="pre">run</span></code> method of <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> object/s to update <code class="docutils literal notranslate"><span class="pre">inds</span></code> and <code class="docutils literal notranslate"><span class="pre">indMultip</span></code>
+attributes/properties. The reason for this a bit argued in <a class="reference internal" href="#qTools.classes.QSweep.Sweep.indMultip" title="qTools.classes.QSweep.Sweep.indMultip"><code class="xref py py-meth docutils literal notranslate"><span class="pre">indMultip()</span></code></a>, but it is basically to ensure that
+any changes to <code class="docutils literal notranslate"><span class="pre">sweepList/s</span></code> or <code class="docutils literal notranslate"><span class="pre">multiParam/s</span></code> are accurately used/reflected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qTools.classes.QSweep.Sweep.runSweep">
+<code class="sig-name descname">runSweep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indList</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QSweep.html#Sweep.runSweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QSweep.Sweep.runSweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called in proper parts of the actual function running the simulations to run all the <code class="docutils literal notranslate"><span class="pre">_sweep</span></code>
+objects in a <code class="docutils literal notranslate"><span class="pre">Sweep</span></code>. indices from a given list <code class="docutils literal notranslate"><span class="pre">indList</span></code> are past to the <code class="docutils literal notranslate"><span class="pre">runSweep</span></code> method of <code class="docutils literal notranslate"><span class="pre">_sweep</span></code>
+objects, and it switches to a new index, if the <code class="docutils literal notranslate"><span class="pre">multiParam</span> <span class="pre">is</span> <span class="pre">True</span></code>. This means that the <code class="docutils literal notranslate"><span class="pre">_sweeps</span></code>
+<strong>should be created in an order</strong> such that <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> objects that run simultaneously <strong>have to be</strong> added to
+<code class="docutils literal notranslate"><span class="pre">subSys</span></code> one after the other.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/07/25.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

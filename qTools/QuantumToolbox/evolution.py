@@ -98,10 +98,11 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 
     if Hamiltonian is not None:
         sparse = sp.issparse(Hamiltonian)
+        dimensionOfHilbertSpace = Hamiltonian.shape[0]
     else:
         sparse = sp.issparse(collapseOperators[0])
+        dimensionOfHilbertSpace = collapseOperators[0].shape[0]
 
-    dimensionOfHilbertSpace = Hamiltonian.shape[0]
     if sparse is False:
         identity = np.identity(dimensionOfHilbertSpace)
     elif sparse is True:

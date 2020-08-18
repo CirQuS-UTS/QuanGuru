@@ -1,31 +1,32 @@
 """
     This module contains the functions to create, manipulate, convert, and/or normalise quantum states.
 
+    .. currentmodule:: qTools.QuantumToolbox
+
+
     Functions
     ---------
-    | :func:`basis` : Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given
-        row.
-    | :func:`completeBasis` : Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}` .
-    | :func:`basisBra` : Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a
-        given column.
-    | :func:`zeros` : Creates a column matrix (ket) with all elements zero.
-    | :func:`superPos` : Function to create a `superposition ket` state from a given `dictionary` or `list`,
-        or `ket` state from a given `integer` (in this case, it is equivalent to basis function).
 
-    | :func:`densityMatrix` : Converts a `ket` state into a `density matrix`.
-    | :func:`completeBasisMat` : Creates a complete basis of `density matrices` for a given dimension or
-        convert a `ket basis` to `density matrix`.
+    .. autosummary::
+        basis
+        completeBasis
+        basisBra
+        zeros
+        superPos
 
-    | :func:`normalise` : Function to normalise `any` state (ket or density matrix).
-    | :func:`normaliseKet` : Function to normalise a `ket` state.
-    | :func:`normaliseMat` : Function to normalise a `density matrix`.
+        densityMatrix
+        completeBasisMat
 
-    | :func:`compositeState` : Function to create `composite ket` states.
-    | :func:`tensorProd` : Function to calculate tensor product of given (any number of) states (in the given order).
-    | :func:`partialTrace` : Calculates the partial trace of a `density matrix` of composite state.
+        normalise
+        normaliseKet
+        normaliseMat
 
-    | :func:`mat2Vec` : Converts `density matrix` into `density vector` (used in super-operator representation).
-    | :func:`vec2Mat` : Converts `density vector` into `density matrix`.
+        compositeState
+        tensorProd
+        partialTrace
+
+        mat2Vec
+        vec2Mat
 
     Types
     ^^^^^
@@ -501,23 +502,17 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
     [0.        ]]
     """
 
-    if isinstance(excitations[0], int):
-        st = basis(dimensions[0], excitations[0], sparse)
-    else:
-        st = superPos(dimensions[0], excitations[0], sparse)
+    st = superPos(dimensions[0], excitations[0], sparse)
 
     for ind in range(len(dimensions)-1):
-        if isinstance(excitations[ind+1], int):
-            st = sp.kron(st, basis(dimensions[ind+1], excitations[ind+1], sparse), format='csc') # type: ignore
-        else:
-            st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
+        st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
     return st if sparse else st.A
 
 
 def tensorProd(*args: Matrix) -> Matrix:
     """
     Function to calculate tensor product of given (any number of) states (in the given order).
-
+    TODO test with ndarrays. sp.kron documentation says that it works with dense, not sure what if it means any array.
     The matrices can be sparse/ndarray, but they all should be the same either sparse/ndarray not a mixture.
 
     Parameters
@@ -536,13 +531,14 @@ def tensorProd(*args: Matrix) -> Matrix:
     """
 
     totalProd = args[0]
-    if isinstance(totalProd, sp.spmatrix):
-        kronProd = sp.kron
-    else:
-        kronProd = np.kron
+    if isinstance(totalProd, int):
+        totalProd = sp.identity(totalProd, format="csc")
 
     for ind in range(len(args)-1):
-        totalProd = kronProd(totalProd, args[ind+1], format='csc')
+        mat = args[ind+1]
+        if isinstance(args[ind+1], int):
+            mat = sp.identity(mat, format='csc')
+        totalProd = sp.kron(totalProd, mat, format='csc')
     return totalProd
 
 

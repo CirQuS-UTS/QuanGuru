@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qTools.classes.base.extendedList &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #051988" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../QuantumToolbox.html">QuantumToolbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../QuantumToolbox/Demos/Demos.html">Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>qTools.classes.base.extendedList</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/docs/source/qTools.classes.base.extendedList.rst" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="qtools-classes-base-extendedlist">
+<h1>qTools.classes.base.extendedList<a class="headerlink" href="#qtools-classes-base-extendedlist" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="qTools.classes.base.extendedList">
+<em class="property">class </em><code class="sig-name descname">extendedList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">()</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/qTools/classes/base.html#extendedList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.extendedList" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class extends the built-in <code class="docutils literal notranslate"><span class="pre">list</span></code> class. It is introduced to be used with
+<a class="reference internal" href="../../classes/qUniversal.html#qTools.classes.base.qUniversal.toBeSaved" title="qTools.classes.base.qUniversal.toBeSaved"><code class="xref py py-attr docutils literal notranslate"><span class="pre">toBeSaved</span></code></a> lists of every class that inherits from <a class="reference internal" href="qTools.classes.base.qUniversal.html#qTools.classes.base.qUniversal" title="qTools.classes.base.qUniversal"><code class="xref py py-class docutils literal notranslate"><span class="pre">qUniversal</span></code></a>.
+These lists contain the keys for <cite>the attributes to be saved</cite> (currently into a <cite>txt and hdf5 attributes</cite>).
+<a class="reference internal" href="../../classes/qUniversal.html#qTools.classes.base.qUniversal.toBeSaved" title="qTools.classes.base.qUniversal.toBeSaved"><code class="xref py py-attr docutils literal notranslate"><span class="pre">toBeSaved</span></code></a> is a class attribute and extending it through the inheritance tree is
+achieved by <cite>extendedCopy</cite> method of this class.</p>
+<p>Current saving methods are going to be improved, so, in future, this class might not be needed.</p>
+<dl class="py method">
+<dt id="qTools.classes.base.extendedList.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qTools.classes.base.extendedList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.base.extendedList.__init__" title="qTools.classes.base.extendedList.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code>(object, /)</p></td>
+<td><p>Append object to the end of the list.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code>()</p></td>
+<td><p>Remove all items from list.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code>()</p></td>
+<td><p>Return a shallow copy of the list.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code>(value, /)</p></td>
+<td><p>Return number of occurrences of value.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code>(iterable, /)</p></td>
+<td><p>Extend list by appending elements from the iterable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../classes/qUniversal.html#qTools.classes.base.extendedList.extendedCopy" title="qTools.classes.base.extendedList.extendedCopy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extendedCopy</span></code></a>(iterable)</p></td>
+<td><p>This methods returns a new instance of extendedList by concatenating the <code class="docutils literal notranslate"><span class="pre">self</span></code> with a given <code class="docutils literal notranslate"><span class="pre">iterable</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code>(value[, start, stop])</p></td>
+<td><p>Return first index of value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code>(index, object, /)</p></td>
+<td><p>Insert object before index.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code>([index])</p></td>
+<td><p>Remove and return item at index (default last).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code>(value, /)</p></td>
+<td><p>Remove first occurrence of value.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code>()</p></td>
+<td><p>Reverse <em>IN PLACE</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sort</span></code>(*[, key, reverse])</p></td>
+<td><p>Sort the list in ascending order and return None.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/07/25.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

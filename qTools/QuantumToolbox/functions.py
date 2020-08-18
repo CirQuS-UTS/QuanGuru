@@ -60,6 +60,9 @@ import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
+from .states import tensorProd, densityMatrix, mat2Vec
+from .operators import sigmay
+
 from .customTypes import Matrix, floatList, matrixList
 
 
@@ -178,7 +181,7 @@ def expectationMat(operator: Matrix, denMat: Matrix) -> float:
     """
 
     expc = ((operator @ denMat).diagonal()).sum()
-    return np.real(expc)
+    return np.real(expc) if np.imag(round(expc, 15)) == 0.0 else expc
 
 
 def expectationKet(operator: Matrix, ket: Matrix) -> float:
@@ -890,9 +893,11 @@ def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
 
 
 # Eigenvector statistics
-def sortedEigens(Ham: Matrix) -> Tuple[floatList, List[ndarray]]:
+def sortedEigens(Ham: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarray]]:
     """
     Calculates the `eigenvalues and eigenvectors` of a given Hamiltonian and `sorts` them.
+    If `mag is True`, sort is accordingly with the magnitude of the eigenvalues.
+    TODO update docstrings, change Ham to Matrix, since this can be used also for any matrix.
 
     Parameters
     ----------
@@ -926,11 +931,44 @@ def sortedEigens(Ham: Matrix) -> Tuple[floatList, List[ndarray]]:
         Ham = Ham.A
 
     eigVals, eigVecs = lina.eig(Ham)
-    idx = eigVals.argsort()
+    if mag:
+        mags = np.abs(eigVals)
+        idx = mags.argsort()
+    else:
+        idx = eigVals.argsort()
     sortedVals = eigVals[idx]
     sortedVecs = eigVecs[:, idx]
-    return sortedVals, sortedVecs
+    sortedVecsMat = []
+    for ind in range(len(sortedVecs)):
+        sortedVecsMat.append(mat2Vec(sortedVecs[:, ind]))
+    return sortedVals, sortedVecsMat
 
+def _eigs(Mat: Matrix) -> matrixList:
+    if isinstance(Mat, spmatrix):
+        Mat = Mat.A
+    return lina.eig(Mat)
+
+def _eigStat(Mat: Matrix, symp: bool = False) -> floatList:
+    return (np.abs(_eigs(Mat)[1].flatten()))**2 if not symp else _eigStatSymp(Mat)
+
+def _eigStatSymp(Mat: Matrix) -> floatList:
+    vecsSymplectic = _eigs(Mat)[1]
+    return _eigsStatEigSymp(vecsSymplectic)
+
+def _eigStatEig(EigVecs: Matrix, symp=False) -> floatList:
+    return (np.abs(EigVecs.flatten()))**2 if not symp else _eigsStatEigSymp(EigVecs)
+
+def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
+    componentsSymplectic = []
+    dims = EigVecs.shape[0]
+    for ind in range(dims):
+        elSymplectic = 0
+        for _ in range(int(dims/2)):
+            p1Symplectic = (np.abs(EigVecs[:, ind][elSymplectic]))**2
+            p2Symplectic = (np.abs(EigVecs[:, ind][elSymplectic+1]))**2
+            elSymplectic += 2
+            componentsSymplectic.append(p1Symplectic+p2Symplectic)
+    return componentsSymplectic
 
 # TODO create the function for the result of eigenvec calculation
 def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
@@ -1028,6 +1066,7 @@ def eigVecStatKetNB(ket: Matrix) -> float:
         ket = ket.A
     return np.real(ket.flatten())
 
+
 def traceDistance(A: Matrix, B:Matrix) ->float:
     """
     Calculates the trace distance between two matrices.
@@ -1054,3 +1093,27 @@ def traceDistance(A: Matrix, B:Matrix) ->float:
     diff = diff.conj().T @ diff
     vals = lina.eig(diff)[0]
     return float(np.real(0.5 * np.sum(np.sqrt(np.abs(vals)))))
+
+def concurrence(state: Matrix) -> float:
+    """
+    TODO docstrings
+    sqrtState = lina.sqrtm(state)
+    SySy = tensorProd(sigmay(), sigmay())
+    magicConj = SySy @ state.conj() @ SySy
+    R = sqrtState @ magicConj @ sqrtState
+    eigVals, _ = sortedEigens(lina.sqrtm(R))
+    eigVals = np.real(eigVals)
+    print(eigVals)
+    """
+
+    if not isinstance(state, np.ndarray):
+        state = state.A
+
+    if state.shape[0] != state.shape[1]:
+        state = densityMatrix(state)
+    SySy = tensorProd(sigmay(), sigmay())
+    magicConj = SySy @ state.conj() @ SySy
+    R = state @ magicConj
+    eigVals, _ = sortedEigens(R)
+    eigVals = np.real(np.sqrt(eigVals))
+    return max([0, np.round(eigVals[3] - eigVals[2] - eigVals[1] - eigVals[0], 15)])

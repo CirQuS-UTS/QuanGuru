@@ -169,6 +169,7 @@ release = '1'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
     'sphinx.ext.mathjax',
     'sphinx.ext.imgmath',

@@ -1,10 +1,10 @@
 from collections import defaultdict
-from qTools.classes.QUni import qUniversal
+
+from .base import qUniversal
 
 __all__ = [
     'qResults'
 ]
-
 
 class qResBlank:
     __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average', '__calculated']
@@ -31,7 +31,7 @@ class qResBase(qUniversal):
 
     __slots__ = ['__results', '__states', '__resultsLast', '__statesLast', '__average', '__calculated']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.__results = defaultdict(list)
         self.__average = defaultdict(list)
         self.__resultsLast = defaultdict(list)
@@ -101,19 +101,19 @@ class qResBase(qUniversal):
 
 class qResults(qResBase):
     instances = 0
+    _externalInstances = 0
+    _internalInstances = 0
     label = 'qResults'
     _allResults = {}
 
     __slots__ = ['allResults']
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         kwargs.pop('allResults', None)
         self.allResults = qResults._allResults
+        self.allResults[self.name] = self # pylint: disable=no-member
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-        self.allResults = qResults._allResults
-        if self.superSys is not None:
-            self.allResults[self.superSys.name] = self # pylint: disable=no-member
 
     def _copyAllResBlank(self):
         allResCopy = {}
@@ -125,27 +125,15 @@ class qResults(qResBase):
             newQRes._qResBlank__resultsLast = sys._qResBase__resultsLast # pylint: disable=assigning-non-slot
             newQRes._qResBlank__statesLast = sys._qResBase__statesLast # pylint: disable=assigning-non-slot
             newQRes._qResBlank__calculated = sys._qResBase__calculated # pylint: disable=assigning-non-slot
-            allResCopy[sys.superSys.name] = newQRes
+            allResCopy[sys.name] = newQRes
         return allResCopy
 
     @qResBase.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
-        removedFromAllRes = False
-        oldSupSys = self.superSys
         qResBase.superSys.fset(self, supSys) # pylint: disable=no-member
-        if oldSupSys is not None:
-            removedFromAllRes = True
-            removedSys = self.allResults.pop(oldSupSys.name) # pylint: disable=no-member
-            assert removedSys is self
-
-        if supSys is not None:
-            removedFromAllRes = False
-            self.allResults[self.superSys.name] = self # pylint: disable=no-member
-
-        if removedFromAllRes is True:
-            print('?')
-
+        self.allResults.pop(self.name) # pylint: disable=no-member
         self.name = self.superSys.name + 'Results' # pylint: disable=no-member
+        self.allResults[self.name] = self # pylint: disable=no-member
 
     def _reset(self):
         for qRes in self.allResults.values():
@@ -214,8 +202,9 @@ class qResults(qResBase):
         else:
             for _ in range(inds[counter]):
                 lisToAppend = lis[totalCount]
-                if len(lisToAppend) == 1:
-                    lisToAppend = lisToAppend[0]
+                if isinstance(lisToAppend, list):
+                    if len(lisToAppend) == 1:
+                        lisToAppend = lisToAppend[0]
                 newList.append(lisToAppend)
                 totalCount += 1
             return (newList, totalCount)
