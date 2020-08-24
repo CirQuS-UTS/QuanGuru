@@ -1066,6 +1066,34 @@ def eigVecStatKetNB(ket: Matrix) -> float:
         ket = ket.A
     return np.real(ket.flatten())
 
+
+def traceDistance(A: Matrix, B:Matrix) ->float:
+    """
+    Calculates the trace distance between two matrices.
+        
+    Parameters
+    ----------
+    A: Matrix
+        density matrix
+
+    B: Matrix
+        density matrix
+        
+    Returns
+    -------
+    return: float
+        Trace distance between A and B
+        
+    Examples
+    --------
+    # TODO
+    """
+    diff = A-B
+
+    diff = diff.conj().T @ diff
+    vals = lina.eig(diff)[0]
+    return float(np.real(0.5 * np.sum(np.sqrt(np.abs(vals)))))
+
 def concurrence(state: Matrix) -> float:
     """
     TODO docstrings
