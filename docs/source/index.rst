@@ -1,24 +1,17 @@
-.. Quantum Simulations documentation master file, created by
-   sphinx-quickstart on Thu May 14 21:47:21 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+#############################################
+{Name of the library goes here} documentation
+#############################################
 
-Welcome to Quantum Simulations's documentation!
-===============================================
+.. automodule:: qTools.__init__
 
 .. toctree::
-   :maxdepth: 4
-   :hidden:
+  :maxdepth: 2
+  :hidden:
 
-   QuantumToolbox <QuantumToolbox.rst>
-   Classes <classes.rst>
-   Demos <QuantumToolbox/Demos/Demos.rst>
+  QuantumToolbox <QuantumToolbox>
+  Classes <classes>
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. Hiding - Indices and tables
+   :ref:`genindex`
+   :ref:`modindex`
+   :ref:`search`
