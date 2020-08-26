@@ -91,7 +91,9 @@ def timeEvolDefault(qSim, td):
         qSim._Simulation__index = ind # pylint: disable=protected-access
         if td:
             qSim.timeDependency.runSweep(qSim.timeDependency._indicesForSweep(ind, *qSim.timeDependency.inds))
-        qSim.evolFunc(qSim)
+
+        if callable(qSim.evolFunc):
+            qSim.evolFunc(qSim)
         qSim._Simulation__compute() # pylint: disable=protected-access
 
     for protocol, system in qSim.subSys.items():

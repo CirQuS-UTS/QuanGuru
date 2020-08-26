@@ -1067,10 +1067,10 @@ def eigVecStatKetNB(ket: Matrix) -> float:
     return np.real(ket.flatten())
 
 
-def traceDistance(A: Matrix, B:Matrix) ->float:
+def traceDistance(A: Matrix, B: Matrix) ->float:
     """
     Calculates the trace distance between two matrices.
-        
+
     Parameters
     ----------
     A: Matrix
@@ -1078,12 +1078,12 @@ def traceDistance(A: Matrix, B:Matrix) ->float:
 
     B: Matrix
         density matrix
-        
+
     Returns
     -------
     return: float
         Trace distance between A and B
-        
+
     Examples
     --------
     # TODO
