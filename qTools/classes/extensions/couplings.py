@@ -1,5 +1,5 @@
 from qTools.classes.QSys import compQSystem, Qubit, Cavity, Spin
-from qTools.QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, Jx
+from qTools.QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax
 
 
 def checkCavQub(coupler):
@@ -44,12 +44,12 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
 
 
 @checkCavQub
-def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
+def Rabi(obj, couplingStrength, subSys1=None, subSys2=None, operator=sigmax):
     qsystems = [subSys1, subSys2]
     obj.couplingName = 'Rabi'
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj = obj.createSysCoupling(qsystems, [destroy, Jx], qsystems,
-                                            [create, Jx], superSys=obj, couplingStrength=2*couplingStrength)
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, operator], qsystems,
+                                            [create, operator], superSys=obj, couplingStrength=couplingStrength)
        #couplingObj.addTerm()
     # else:
     #     print('number')
