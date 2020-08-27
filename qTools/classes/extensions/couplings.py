@@ -44,12 +44,12 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
 
 
 @checkCavQub
-def Rabi(obj, couplingStrength, subSys1=None, subSys2=None, operator=sigmax):
+def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     obj.couplingName = 'Rabi'
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj = obj.createSysCoupling(qsystems, [destroy, operator], qsystems,
-                                            [create, operator], superSys=obj, couplingStrength=couplingStrength)
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], qsystems,
+                                            [create, sigmax], superSys=obj, couplingStrength=couplingStrength)
        #couplingObj.addTerm()
     # else:
     #     print('number')
