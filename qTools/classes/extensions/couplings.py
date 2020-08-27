@@ -49,7 +49,7 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     obj.couplingName = 'Rabi'
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj = obj.createSysCoupling(qsystems, [destroy, Jx], qsystems,
-                                            [create, Jx], superSys=obj, couplingStrength=couplingStrength/2)
+                                            [create, Jx], superSys=obj, couplingStrength=2*couplingStrength)
        #couplingObj.addTerm()
     # else:
     #     print('number')
