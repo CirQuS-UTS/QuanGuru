@@ -86,15 +86,15 @@ def timeEvolDefault(qSim, td):
             if any([step.simulation.samples > 1 for step in protocol.steps.values()]):
                 protocol.stepSample = True
 
-    for ind in range(qSim.stepCount):
-        computeBase.ignore = []
-        qSim._Simulation__index = ind # pylint: disable=protected-access
-        if td:
-            qSim.timeDependency.runSweep(qSim.timeDependency._indicesForSweep(ind, *qSim.timeDependency.inds))
+    if callable(qSim.evolFunc):
+        for ind in range(qSim.stepCount):
+            computeBase.ignore = []
+            qSim._Simulation__index = ind # pylint: disable=protected-access
+            if td:
+                qSim.timeDependency.runSweep(qSim.timeDependency._indicesForSweep(ind, *qSim.timeDependency.inds))
 
-        if callable(qSim.evolFunc):
             qSim.evolFunc(qSim)
-        qSim._Simulation__compute() # pylint: disable=protected-access
+            qSim._Simulation__compute() # pylint: disable=protected-access
 
     for protocol, system in qSim.subSys.items():
         if protocol._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access

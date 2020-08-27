@@ -65,6 +65,7 @@ class Simulation(timeBase):
 
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = 'Simulation'
+    _evolFuncDefault = timeEvolBase
 
     __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index']
 
@@ -78,7 +79,7 @@ class Simulation(timeBase):
         #self.timeDependent = False
         self.__index = -1
 
-        self.evolFunc = timeEvolBase
+        self.evolFunc = Simulation._evolFuncDefault
 
         if system is not None:
             self.addQSystems(system)
