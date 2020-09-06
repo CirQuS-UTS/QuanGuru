@@ -1,5 +1,5 @@
 from qTools.classes.QSys import compQSystem, Qubit, Cavity, Spin
-from qTools.QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax
+from qTools.QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax, Jx
 
 
 def checkCavQub(coupler):
@@ -58,5 +58,22 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     # couplingObj.name = 'JCcoupling'
     return couplingObj
 
+
+@checkCavQub
+def Dicke(obj, couplingStrength, subSys1=None, subSys2=None):
+    qsystems = [subSys1, subSys2]
+    obj.couplingName = 'Rabi'
+    if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, Jx], qsystems,
+                                            [create, Jx], superSys=obj, couplingStrength=couplingStrength)
+       #couplingObj.addTerm()
+    # else:
+    #     print('number')
+    #  couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj, couplingStrength=couplingStrength)
+    #     couplingObj.addTerm(qsystems,[create, destroy])
+    # couplingObj.name = 'JCcoupling'
+    return couplingObj
+
 compQSystem.JC = JC
 compQSystem.Rabi = Rabi
+compQSystem.Dicke = Dicke
