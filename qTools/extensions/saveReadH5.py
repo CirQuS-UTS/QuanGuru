@@ -5,6 +5,21 @@ import h5py
 from qTools.classes.QRes import qResults
 
 def makeDir(path=None):
+    """
+    A simple method to check if the directory for a given path exist and create the directory if not.
+    Or, it can be used get `sys.path[0]` with the default `path=None`.
+
+    Parameters
+    ----------
+    path : str or None, optional
+        path to a directory that may or may not exist, by default None
+
+    Returns
+    -------
+    str
+        the given path or the `sys.path[0]`
+    """
+
     if path is None:
         path = sys.path[0]
 
@@ -12,6 +27,59 @@ def makeDir(path=None):
         os.mkdir(path)
 
     return path
+
+def _reDict(inp, i=0, retDict={}, keyDict=None): # pylint: disable=dangerous-default-value
+    for key, val in inp.items():
+        if key in retDict.keys():
+            key = key + keyDict
+            if key in retDict.keys():
+                key = key + keyDict + '_' + str(i)
+                i += 1
+
+        if isinstance(val, dict):
+            retDict[key + '_'] = '|'
+            _reDict(val, i, retDict, keyDict=key)
+        else:
+            retDict[key] = val
+    return retDict
+
+def writeToTxt(path, timestamp, saveDict):
+    saveName = path + '/' + str(timestamp) + '.txt'
+    with open(saveName, 'w') as f:
+        f.write(' \n'.join(["%s = %s" % (k, v) for k, v in saveDict.items()]))
+
+def writeAttr(k, attributes, path, name):
+    """
+    Method write a dictionary or dictionary of dictionaries into attributes to a `h5` file and also into a txt. It first
+    converts the dictionary of dictionaries into a single dictionary, so if modifies any duplicate key.
+
+    Parameters
+    ----------
+    k : h5
+        `.h5` file to write the attributes
+    attributes : dict
+        a dictionary or dictionary of dictionaries to write as attributes and into a `.txt`
+    path : str
+        path for the `.txt` file
+    name : str
+        name for the `.txt` file
+
+    Returns
+    -------
+    h5
+        the given `.h5` file
+    """
+
+    # convertion to a single dictionary
+    attributes = _reDict(attributes)
+
+    writeToTxt(path, name, attributes)
+
+    for key, val in attributes.items():
+        #print(key, val)
+        if val != '|':
+            k.attrs[key] = val
+    return k
 
 def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=False): # pylint: disable=invalid-name
     if fileName is None:
@@ -35,37 +103,6 @@ def saveH5(dictionary, fileName=None, attributes=dict, path=None, irregular=Fals
     file.close()
     return path, fileName
 
-
-def _reDict(inp, i=0, retDict={}, keyDict=None): # pylint: disable=dangerous-default-value
-    for key, val in inp.items():
-        if key in retDict.keys():
-            key = key + keyDict
-            if key in retDict.keys():
-                key = key + keyDict + '_' + str(i)
-                i += 1
-
-        if isinstance(val, dict):
-            retDict[key + '_'] = '|'
-            _reDict(val, i, retDict, keyDict=key)
-        else:
-            retDict[key] = val
-    return retDict
-
-def writeToTxt(path, timestamp, saveDict):
-    saveName = path + '/' + str(timestamp) + '.txt'
-    with open(saveName, 'w') as f:
-        f.write(' \n'.join(["%s = %s" % (k, v) for k, v in saveDict.items()]))
-
-def writeAttr(k, attributes, path, name):
-    attributes = _reDict(attributes)
-    #print(attributes)
-    writeToTxt(path, name, attributes)
-
-    for key, val in attributes.items():
-        #print(key, val)
-        if val != '|':
-            k.attrs[key] = val
-    return k
 
 def readH5(path, fileName, key=None): # pylint: disable=invalid-name
     path = path + '/' + fileName + '.h5'

@@ -23,6 +23,7 @@ from collections import OrderedDict
 
 from .base import qUniversal, checkClass, _recurseIfList
 from .QRes import qResults
+from .tempConfig import classConfig
 # pylint: disable = cyclic-import
 
 class updateBase(qUniversal):
@@ -629,7 +630,7 @@ class stateBase(computeBase):
 
         self.__initialState = _parameter()
         self.__initialStateInput = _parameter()
-        self.__delStates = _parameter(False)
+        self.__delStates = _parameter(classConfig['delStates'])
 
         self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
 

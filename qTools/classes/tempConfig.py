@@ -1,0 +1,3 @@
+classConfig = {
+    'delStates': False
+}
