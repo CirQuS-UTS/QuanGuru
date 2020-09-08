@@ -277,7 +277,7 @@ class Simulation(timeBase):
                 self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
         super()._computeBase__compute(states, sim=True) # pylint: disable=no-member
 
-    def run(self, p=None, coreCount=None):
+    def run(self, p=None, coreCount=None, resetRes=True):
         if len(self.subSys.values()) == 0:
             self.addQSystems(self.superSys)
         self._freeEvol()
@@ -286,8 +286,9 @@ class Simulation(timeBase):
         for protocol in self.subSys.keys():
             protocol.prepare()
         self.Sweep.prepare()
-        for qres in self.qRes.allResults.values():
-            qres._reset() # pylint: disable=protected-access
+        if resetRes:
+            for qres in self.qRes.allResults.values():
+                qres._reset() # pylint: disable=protected-access
         _poolMemory.run(self, p, coreCount)
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val

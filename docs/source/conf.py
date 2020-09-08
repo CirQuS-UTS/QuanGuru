@@ -264,7 +264,7 @@ html_theme_options = {
     'navigation_depth': 4,
     'includehidden': True,
     'titles_only': False,
-    'style_nav_header_background': '#051988',
+    'style_nav_header_background': '#1D2951',
 
 }
 
