@@ -50,6 +50,4 @@ unit_test:
     script:
     - pwd
     - ls -l
-    - export PYTHONPATH=qTools:$PYTHONPATH
-    - cd tests
     - python3 -m pytest
