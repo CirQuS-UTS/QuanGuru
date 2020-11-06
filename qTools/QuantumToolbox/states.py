@@ -64,8 +64,6 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
     Creates a `ket` state for a given dimension with 1 (unit population) at a given row (state).
 
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
-
     Parameters
     ----------
     dimension : int
@@ -73,12 +71,12 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     state : int
         row to place 1, i.e. index for the populated state
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
     :return : Matrix
-        `ket` state as ``sparse if sparse=True else array``
+        requested `ket` state
 
     Examples
     --------
@@ -101,19 +99,17 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     """
     Creates a complete basis of `ket` states.
 
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
-
     Parameters
     ----------
     dimension : int
         dimension of Hilbert space
     sparse : bool
-        boolean for sparse or not (array)
+         if True(False), the returned Matrix types will be sparse(array)
 
     Returns
     -------
     :return : matrixList
-        a list (complete basis) of `ket` states as ``sparse if sparse=True else array``
+        a list (complete basis) of `ket` states
 
     Examples
     --------
@@ -142,8 +138,6 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
     Creates a `bra` state for a given dimension with 1 (unit population) at a given column (state).
 
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
-
     Parameters
     ----------
     dimension : int
@@ -151,12 +145,12 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     state : int
         column to place 1, i.e. index number for the populated state
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
     :return : Matrix
-        `bra` state as ``sparse if sparse=True else array``
+        requested `bra` state
 
     Examples
     --------

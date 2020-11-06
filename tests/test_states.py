@@ -1,5 +1,5 @@
 import numpy as np
-from qTools.QuantumToolbox.states import basis,completeBasis #pylint: disable=import-error
+from qTools.QuantumToolbox.states import basis,completeBasis,basisBra #pylint: disable=import-error
 
 def test_basis():
     testSparse = np.array([[0],[0],[0],[1],[0],[0],[0],[0],[0],[0],[0],[0],[0]])
@@ -21,3 +21,10 @@ def test_completeBasis():
     psiArray = completeBasis(3, sparse=False)
     assert all([(p.toarray() == t).all() for p,t in zip(psiSparse,testSparse)]) and \
            all([(p == t).all() for p,t in zip(psiArray,testArray)])
+
+def test_basisBra():
+    testSparse = np.array([[1,0,0,0,0,0]])
+    testArray = np.array([[0,0,0,0,0,0,0,1,0]])
+    psiSparse = basisBra(6, 0, sparse=True)
+    psiArray = basisBra(9, 7, sparse=False)
+    assert (psiSparse.toarray() == testSparse).all() and (psiArray == testArray).all()
