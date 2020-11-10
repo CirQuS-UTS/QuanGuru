@@ -80,7 +80,7 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> basis(2, 1)
+    >>> basis(13, 3)
     (0, 0)	1
 
     >>> basis(2, 1, sparse=False)
@@ -169,8 +169,6 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates a column matrix (ket) with all elements zero.
 
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
-
     Parameters
     ----------
     dimension : int
@@ -202,24 +200,22 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
 def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix:
     """
-    Function to create a `superposition ket` state from a given `dictionary` or `list`,
-    or `ket` state from a given `integer` (in this case, it is equivalent to basis function)
+    Create a `ket` state with amplitudes given from a `dictionary` or `list`.
 
     Parameters
     ----------
     dimension : int
         dimension of Hilbert space
     excitations : supInt (Union of int, list(int), dict(int:float))
-        There are 3 possible uses of this
-
-            1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
-            2. a `list` (e.g. [0,1,2]) for equally populated super-position
-            3. an `integer`, which is equivalent to basis function
+        
+            1. a `dictionary` with state:population (key:value). The generated state will be normalised.
+            2. a `list` of integers corresponding to states to be populated in equal super-position
+            3. an `integer`, to create a basis state (equivalent to `basis` function)
 
     Returns
     -------
     :return: Matrix
-        a superposition `ket` state
+        requested normalised `ket` state
 
     Examples
     --------
@@ -242,9 +238,11 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
             sts.append(np.sqrt(val)*basis(dimension, key, sparse))
     elif isinstance(excitations, int):
         sts = [basis(dimension, excitations, sparse)]
-    else:
+    elif all(isinstance(item, int) for item in excitations):
         for val in excitations:
             sts.append(basis(dimension, val, sparse))
+    else:
+        raise TypeError('Unsupported type for parameter excitations')
     sta = normalise(sum(sts))
     return sta
 
