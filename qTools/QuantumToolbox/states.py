@@ -323,7 +323,7 @@ def densityMatrix(ket: matrixOrMatrixList, probability: floatList = None) -> Mat
     if not isinstance(ket, list):
         ket = [ket]
         probability = [1]
-    return np.sum([p*outerProd(k) for k,p in zip(ket,probability)])
+    return np.sum([p*outerProd(k) for k,p in zip(ket,probability)]) # type: ignore
 
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,
                      sparse: bool = True) -> matrixList:
