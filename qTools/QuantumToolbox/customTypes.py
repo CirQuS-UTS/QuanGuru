@@ -37,3 +37,6 @@ ndOrListInt = Union[ndarray, intList]              # Type from the union of ndar
 
 #: Type from union of ndarray and list
 ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list
+
+#: Type from union of ndarray and list
+matrixOrMatrixList = Union[Matrix, matrixList]                     # Type from union of ndarray and list
