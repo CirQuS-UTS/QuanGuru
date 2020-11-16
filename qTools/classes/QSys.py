@@ -690,6 +690,8 @@ class qSystem(genericQSys):
         if not isinstance(subS, term):
             raise TypeError('?')
         newS = super().addSubSys(subS, superSys=self, **kwargs)
+        # FIXME use setAttr, check also for operator
+        self._paramUpdated = True
         newS._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
 
     @_recurseIfList

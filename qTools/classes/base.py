@@ -269,6 +269,9 @@ class qUniversal:
         self.__auxObj = qUniversal._auxiliaryObj
         self._qUniversal__setKwargs(**kwargs)
 
+    def __repr__(self):
+        return self.label + f'({self.name})'
+
     @property
     def aux(self):
         return self._qUniversal__aux
