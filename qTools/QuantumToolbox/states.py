@@ -82,10 +82,10 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> basis(2, 1)
+    >>> basis(2, 0)
     (0, 0)	1
 
-    >>> basis(2, 1, sparse=False)
+    >>> basis(2, 0, sparse=False)
     [[1]
     [0]]
     """
@@ -160,10 +160,10 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> basisBra(2, 1)
+    >>> basisBra(2, 0)
     (0, 0)	1
 
-    >>> basisBra(2, 1, sparse=False)
+    >>> basisBra(2, 0, sparse=False)
     [[1 0]]
     """
 
