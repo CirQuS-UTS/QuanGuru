@@ -1,5 +1,3 @@
-import sys
-sys.path.append('C:\\Users\\angsa\\Codes\\QuantumSimulations\\qTools')
 import QuantumToolbox.evolution as evo
 import numpy as np
 
