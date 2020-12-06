@@ -44,7 +44,7 @@ from numpy import ndarray  # type: ignore
 import scipy.sparse as sp # type: ignore
 import numpy as np # type: ignore
 
-from .customTypes import Matrix, intList, matrixList, supInp, ndOrListInt
+from .customTypes import Matrix, intList, floatList, matrixList, supInp, ndOrListInt, matrixOrMatrixList
 
 
 # do not delete these
@@ -64,8 +64,6 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
     Creates a `ket` state for a given dimension with 1 (unit population) at a given row (state).
 
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
-
     Parameters
     ----------
     dimension : int
@@ -73,12 +71,12 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     state : int
         row to place 1, i.e. index for the populated state
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
     :return : Matrix
-        `ket` state as ``sparse if sparse=True else array``
+        requested `ket` state
 
     Examples
     --------
@@ -101,19 +99,17 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     """
     Creates a complete basis of `ket` states.
 
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
-
     Parameters
     ----------
     dimension : int
         dimension of Hilbert space
     sparse : bool
-        boolean for sparse or not (array)
+         if True(False), the returned Matrix types will be sparse(array)
 
     Returns
     -------
     :return : matrixList
-        a list (complete basis) of `ket` states as ``sparse if sparse=True else array``
+        a list (complete basis) of `ket` states
 
     Examples
     --------
@@ -142,8 +138,6 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
     Creates a `bra` state for a given dimension with 1 (unit population) at a given column (state).
 
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
-
     Parameters
     ----------
     dimension : int
@@ -151,12 +145,12 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     state : int
         column to place 1, i.e. index number for the populated state
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
     :return : Matrix
-        `bra` state as ``sparse if sparse=True else array``
+        requested `bra` state
 
     Examples
     --------
@@ -174,8 +168,6 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
 def zeros(dimension: int, sparse: bool = True) -> Matrix:
     """
     Creates a column matrix (ket) with all elements zero.
-
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -208,24 +200,22 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
 def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix:
     """
-    Function to create a `superposition ket` state from a given `dictionary` or `list`,
-    or `ket` state from a given `integer` (in this case, it is equivalent to basis function)
+    Create a `ket` state with amplitudes given from a `dictionary` or `list`.
 
     Parameters
     ----------
     dimension : int
         dimension of Hilbert space
     excitations : supInt (Union of int, list(int), dict(int:float))
-        There are 3 possible uses of this
 
-            1. a `dictionary` with state:population (key:value), e.g. {0:0.2, 1:0.4, 2:0.4}
-            2. a `list` (e.g. [0,1,2]) for equally populated super-position
-            3. an `integer`, which is equivalent to basis function
+            1. a `dictionary` with state:population (key:value). The generated state will be normalised.
+            2. a `list` of integers corresponding to states to be populated in equal super-position
+            3. an `integer`, to create a basis state (equivalent to `basis` function)
 
     Returns
     -------
     :return: Matrix
-        a superposition `ket` state
+        requested normalised `ket` state
 
     Examples
     --------
@@ -248,28 +238,68 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
             sts.append(np.sqrt(val)*basis(dimension, key, sparse))
     elif isinstance(excitations, int):
         sts = [basis(dimension, excitations, sparse)]
-    else:
+    elif all(isinstance(item, int) for item in excitations):
         for val in excitations:
             sts.append(basis(dimension, val, sparse))
+    else:
+        raise TypeError('Unsupported type for parameter excitations')
     sta = normalise(sum(sts))
     return sta
 
 
-def densityMatrix(ket: Matrix) -> Matrix:
+def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
     """
-    Converts a `ket` state into a `density matrix`.
-
-    Keeps the sparse/array as sparse/array.
+    Computes the outer product (ket @ bra) of a `ket` vector with itself or with another `ket`.
 
     Parameters
     ----------
-    ket : Matrix
-        ket state
+    ket1 : Matrix
+        1st ket state
+    ket2 : Matrix
+        2nd ket state
 
     Returns
     -------
     :return: Matrix
-        density Matrix
+        operator in square matrix form resulting from the computed outer product
+
+    Examples
+    --------
+    >>> ket = basis(2, 0)
+    >>> mat = outerProd(ket)
+    (0, 0)	1
+
+    >>> ket = superPos(2, [0,1], sparse=False)
+    >>> mat = outerProd(ket)
+    [[0.5 0.5]
+     [0.5 0.5]]
+
+    >>> ket1 = superPos(2, [0,1], sparse=False)
+    >>> ket2 = basis(2, 0)
+    >>> mat = outerProd(ket1, ket2)
+    [[0.70710678 0.]
+     [0.70710678 0.]]
+    """
+
+    if ket2 is None:
+        ket2 = ket1
+    return ket1 @ ket2.conj().T
+
+def densityMatrix(ket: matrixOrMatrixList, probability: floatList = None) -> Matrix:
+    """
+    Computes the `density matrix` of a pure `ket` state or a mixed state from a list of kets and their associated probabilities.
+
+    Parameters
+    ----------
+    ket : matrixOrMatrixList
+        single ket state or list of kets
+    probability : floatList
+        list of probabilities (0 to 1) associated with the corresponding list of kets
+
+    Returns
+    -------
+    :return: Matrix
+        requested density matrix operator
 
     Examples
     --------
@@ -277,24 +307,23 @@ def densityMatrix(ket: Matrix) -> Matrix:
     >>> mat = densityMatrix(ket)
     (0, 0)	1
 
-    >>> ket = basis(2, 0, False)
-    >>> mat = densityMatrix(ket)
-    [[1 0]
-    [0 0]]
-
     >>> ket = superPos(2, [0,1], sparse=False)
     >>> mat = densityMatrix(ket)
     [[0.5 0.5]
     [0.5 0.5]]
 
-    >>> ket = superPos(2, {0:0.2, 1:0.8}, sparse=False)
-    >>> mat = densityMatrix(ket)
-    [[0.2 0.4]
-    [0.4 0.8]]
+    >>> ket1 = superPos(2, [0,1], sparse=False)
+    >>> ket2 = basis(2, 0)
+    >>> mat = densityMatrix([ket1,ket2],[0.5, 0.5])
+    [[0.75 0.5]
+    [0.5 0.25]]
+
     """
 
-    return ket @ (ket.conj().T)
-
+    if not isinstance(ket, list):
+        ket = [ket]
+        probability = [1]
+    return np.sum([p*outerProd(k) for k,p in zip(ket,probability)]) # type: ignore
 
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,
                      sparse: bool = True) -> matrixList:

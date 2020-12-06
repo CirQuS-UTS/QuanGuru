@@ -50,5 +50,4 @@ unit_test:
     script:
     - pwd
     - ls -l
-    - cd tests
     - python3 -m pytest
