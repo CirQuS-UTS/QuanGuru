@@ -48,5 +48,5 @@ from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
 
 from .rmtDistributions import (EigenVectorDist, WignerDyson, Poissonian)
 from ._undecided import (expectationKetList, expectationMatList, expectationColArr, fidelityKetList, fidelityKetLists)
-from ._IPR import (iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat)
+from ._ipr import (iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat)
 from ._eigenVecVal import (_eigStat, _eigStatSymp, eigVecStatKet, eigVecStatKetList, eigVecStatKetNB)

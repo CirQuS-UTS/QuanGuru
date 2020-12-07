@@ -4,7 +4,7 @@
     - trace ?
 """
 
-from numpy import ndarray
+from numpy import ndarray # type: ignore
 import numpy as np # type: ignore
 import scipy.sparse as sp # type: ignore
 

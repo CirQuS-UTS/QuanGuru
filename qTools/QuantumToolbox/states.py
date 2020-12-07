@@ -193,7 +193,7 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
     return Zeros if sparse else Zeros.A
 
 
-def weightedSum(summands: Iterable, weights: Iterable) -> Any:
+def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
     """ Weighted sum of given list of summands and weights
 
     Parameters
@@ -209,7 +209,7 @@ def weightedSum(summands: Iterable, weights: Iterable) -> Any:
         weighted sum
     """
 
-    return sum([weight*val for weight, val in zip(weights, summands)])
+    return sum([weight*val for weight, val in zip(weights, summands)]) if weights is not None else sum(summands)
 
 
 def superPos(dimension: int, excitations: supInp, populations: bool = True, sparse: bool = True) -> Matrix:
@@ -246,18 +246,21 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
     [1.]]
     """
 
-    sts = excitations
-    if isinstance(excitations, list):
+    if isinstance(excitations, dict):
+        sts = excitations
+        if populations:
+            sts = {k:np.sqrt(v) for (k, v) in sts.items()}
+    elif isinstance(excitations, int):
+        sts = {excitations:1}
+    elif all(isinstance(item, int) for item in excitations):
         sts = {k: 1 for k in excitations}
+    else:
+        raise TypeError('Unsupported type for parameter excitations')
 
-    if populations:
-        sts = {k:np.sqrt(v) for (k, v) in sts.items()}
-
-    sta = normalise(weightedSum([basis(dimension, excite, sparse) for excite in sts.keys()], list(sts.values())))
-    return basis(dimension, excitations, sparse) if isinstance(excitations, int) else sta
+    return normalise(weightedSum([basis(dimension, excite, sparse) for excite in sts.keys()], list(sts.values())))
 
 
-def densityMatrix(ket: matrixOrMatrixList, probability: floatList = None) -> Matrix:
+def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) -> Matrix:
     """
     Computes the `density matrix` of a pure `ket` state or a mixed state from a list of kets and their associated
     probabilities.

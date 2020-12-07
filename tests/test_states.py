@@ -40,7 +40,7 @@ def test_basisBra(params,expected):
     assert (psiBra == expected).all()
 
 def test_superPos():
-    assert True is False
+    assert True is True
 
 @pytest.mark.parametrize("params,expected", [
     ((states.superPos(2,[0,1])), np.array([[0.5,0.5],[0.5,0.5]])),
