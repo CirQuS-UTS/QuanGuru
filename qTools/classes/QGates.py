@@ -2,7 +2,7 @@ import numpy as np
 from .QPro import Gate
 from ..QuantumToolbox import evolution
 from ..QuantumToolbox import operators #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox import operations #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox import qubitRotations #pylint: disable=relative-beyond-top-level
 
 class xGate(Gate): # pylint: disable=too-many-ancestors
     instances = 0
@@ -79,11 +79,11 @@ class rotation(Gate): # pylint: disable=too-many-ancestors
         if self._paramBoundBase__matrix is None: # pylint: disable=no-member
             sys = list(self.subSys.values())
             if self.rotationAxis.lower() == 'x':
-                rotOp = operations.xRotation
+                rotOp = qubitRotations.xRotation
             elif self.rotationAxis.lower() == 'y':
-                rotOp = operations.yRotation
+                rotOp = qubitRotations.yRotation
             elif self.rotationAxis.lower() == 'z':
-                rotOp = operations.zRotation
+                rotOp = qubitRotations.zRotation
 
             flipOp = operators.compositeOp(rotOp(self.angle), sys[0]._dimsBefore, sys[0]._dimsAfter) # pylint: disable=no-member
             for i in range(len(sys)-1):

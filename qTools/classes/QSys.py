@@ -3,6 +3,7 @@ from numpy import (int64, int32, int16, ndarray)
 from scipy.sparse import issparse
 
 from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox import linearAlgebra as linAlg #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox import states as qSta #pylint: disable=relative-beyond-top-level
 
 from .base import checkClass, _recurseIfList
@@ -376,7 +377,7 @@ class compQSystem(genericQSys):
             inp = [qsys._createAstate(inp[qsys.ind]) for qsys in self.subSys.values()]
         else:
             raise TypeError('?')
-        return qSta.tensorProd(*inp)
+        return linAlg.tensorProd(*inp)
 
     def _constructMatrices(self):
         super()._constructMatrices()

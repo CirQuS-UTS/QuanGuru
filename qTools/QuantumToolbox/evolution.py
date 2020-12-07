@@ -26,6 +26,8 @@ import scipy.linalg as linA # type: ignore
 import scipy.sparse.linalg as slinA # type: ignore
 import numpy as np # type: ignore
 
+from .linearAlgebra import hc
+
 from .customTypes import Matrix
 
 
@@ -202,7 +204,7 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
         else:
             identity = np.identity(dimension)
 
-    dagger = collapseOperator.conj().T
+    dagger = hc(collapseOperator)
 
     number = dagger @ collapseOperator
     part1 = _preposSO(collapseOperator)

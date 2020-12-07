@@ -1,0 +1,242 @@
+from numpy import ndarray # type: ignore
+
+import numpy as np # type: ignore
+from scipy.sparse import spmatrix # type: ignore
+
+from .functions import fidelity
+
+from .customTypes import Matrix, floatList, matrixList
+
+
+# Delocalisation measures for various cases
+def iprKet(basis: matrixList, ket: Matrix) -> float:
+    """
+    Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.
+
+    Parameters
+    ----------
+    ket : matrixList
+        a ket state
+    basis : Matrix
+        a complete basis
+
+    Returns
+    -------
+    :return: float
+        inverse participation ratio
+
+    Examples
+    --------
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> completeBasis = qStates.completeBasis(dimension=2)
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> ipr0 = iprKet(completeBasis, state0)
+    1.1245136186770428
+
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> ipr1 = iprKet(completeBasis, state1)
+    2.000000000000001
+
+    >>> state2 = qStates.basis(2,1)
+    >>> ipr2 = iprKet(completeBasis, state2)
+    1.0
+    """
+
+    npc = 0.0
+    for basKet in basis:
+        fid = fidelity(basKet, ket)
+        npc += (fid**2)
+    return 1/npc
+
+
+def iprKetList(basis: matrixList, kets: matrixList) -> floatList:
+    """
+    Calculates the inverse participation ratio (a delocalisation measure) of a `list of ket` states in a given basis.
+
+    Simply calls iprKet in a loop.
+
+    Parameters
+    ----------
+    kets : matrixList
+        a `list` of ket states
+    basis : matrixList
+        a complete basis
+
+    Returns
+    -------
+    :return: floatList
+        a `list` of inverse participation ratios for the given list of ket states
+
+    Examples
+    --------
+    >>> completeBasis = qStates.completeBasis(dimension=2)
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> state2 = qStates.basis(2,1)
+    >>> state3 = qStates.basis(2,0)
+    >>> stateList = [state0, state1, state2, state3]
+    >>> iprList = iprKetList(completeBasis, stateList)
+    [1.1245136186770428, 2.000000000000001, 1.0, 1.0]
+    """
+
+    npcs = []
+    for ket in kets:
+        npcs.append(iprKet(basis, ket))
+    return npcs
+
+
+def iprKetNB(ket: Matrix) -> float:
+    """
+    Calculates the inverse participation ratio (a delocalisation measure) of a ket
+    by assuming that the basis is of the free Hamiltonian.
+
+    Parameters
+    ----------
+    ket : Matrix
+        a ket state
+
+    Returns
+    -------
+    :return: float
+        inverse participation ratio
+
+    Examples
+    --------
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> ipr0 = iprKetNB(state0)
+    1.1245136186770428
+
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> ipr1 = iprKetNB(state1)
+    2.000000000000001
+
+    >>> state2 = qStates.basis(2,1)
+    >>> ipr2 = iprKetNB(state2)
+    1.0
+
+    >>> state3 = qStates.basis(2,0)
+    >>> ipr3 = iprKetNB(state3)
+    1.0
+    """
+
+    # TODO Find a way around this
+    if isinstance(ket, spmatrix):
+        ket = ket.A
+    return 1/np.sum(np.power((np.abs(ket.flatten())), 4))
+
+
+def iprKetNBList(kets: matrixList) -> floatList:
+    """
+    Calculates the inverse participation ratio (a delocalisation measure) of a list kets
+    by assuming that the basis is of the free Hamiltonian.
+
+    Simply calls iprKetNB in a loop.
+
+    Parameters
+    ----------
+    kets: matrixList
+        a `list` of ket states
+
+    Returns
+    -------
+    :return: floatList
+        a `list` of inverse participation ratios
+
+    Examples
+    --------
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> state2 = qStates.basis(2,1)
+    >>> state3 = qStates.basis(2,0)
+    >>> stateList = [state0, state1, state2, state3]
+    >>> iprList = iprKetNBList(stateList)
+    [1.1245136186770428, 2.000000000000001, 1.0, 1.0]
+    """
+
+    IPRatio = []
+    for ket in kets:
+        IPRatio.append(iprKetNB(ket))
+    return IPRatio
+
+
+def iprKetNBmat(kets: ndarray) -> floatList:
+    """
+    Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states as the column`.
+
+    For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
+    TODO use if you know what you are doing.
+    This assumes the basis is of the free Hamiltonian.
+
+    Parameters
+    ----------
+    ket : ndarray
+        a density matrix
+
+    Returns
+    -------
+    :return: floatList
+        a `list` of inverse participation ratios
+
+    Examples
+    --------
+    >>> import qTools.QuantumToolbox.operators as qOperators
+    >>> ham = qOperators.sigmaz()
+    >>> eigValsHam, eigVecsHams = np.linalg.eig(ham.A)
+    >>> iprHam = iprKetNBmat(eigVecsHams)
+    [1.0, 1.0]
+
+    >>> unitary = sp.sparse.linalg.expm(ham)
+    >>> eigValsUni, eigVecsUni = np.linalg.eig(unitary.A)
+    >>> iprUni = iprKetNBmat(eigVecsUni)
+    [1.0, 1.0]
+    """
+
+    IPRatio = []
+    for ind in range(len(kets)):
+        IPRatio.append(iprKetNB(kets[:, ind]))
+    return IPRatio
+
+
+def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
+    """
+    Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in a given `basis`.
+
+    Parameters
+    ----------
+    denMat : matrixList
+        a density matrix
+    basis : Matrix
+        a complete basis
+
+    Returns
+    -------
+    :return: float
+        inverse participation ratio
+
+    Examples
+    --------
+    >>> import qTools.QuantumToolbox.states as qStates
+    >>> completeBasis = qStates.completeBasisMat(dimension=2)
+    >>> state0 = qStates.normalise(0.2*qStates.basis(2, 0) + 0.8*qStates.basis(2,1))
+    >>> denMat0 = qStates.densityMatrix(state0)
+    >>> ipr0 = iprPureDenMat(completeBasis, denMat0)
+    1.1245136186770428
+
+    >>> state1 = qStates.normalise(0.5*qStates.basis(2, 0) + 0.5*qStates.basis(2,1))
+    >>> denMat1 = qStates.densityMatrix(state1)
+    >>> ipr1 = iprPureDenMat(completeBasis, denMat1)
+    2.000000000000001
+
+    >>> state2 = qStates.basis(2,1)
+    >>> denMat2 = qStates.densityMatrix(state2)
+    >>> ipr2 = iprPureDenMat(completeBasis, denMat2)
+    1.0
+    """
+
+    npc = 0.0
+    for basKet in basis:
+        fid = fidelity(basKet, denMat)
+        npc += (fid**2)
+    return 1/npc

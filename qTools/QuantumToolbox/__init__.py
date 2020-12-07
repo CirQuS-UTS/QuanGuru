@@ -22,38 +22,31 @@
 
 """
 
-from .functions import (
-    expectation, expectationMat, expectationKet, expectationKetList, expectationMatList, expectationColArr,
-    fidelity, fidelityKet, fidelityPureMat, fidelityKetList, fidelityKetLists,
-    entropy, entropyKet,
-    iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat,
-    sortedEigens, _eigStat, _eigStatSymp,
-    eigVecStatKet, eigVecStatKetList, eigVecStatKetNB,
-    concurrence
+from .customTypes import (Matrix, intList, matrixList, supInp, ndOrListInt, ndOrList)
+from .linearAlgebra import (hc, innerProd, norm, outerProd, tensorProd, trace, partialTrace)
+from .states import (
+    basis, completeBasis, basisBra, zeros, weightedSum, superPos, densityMatrix, completeBasisMat, normalise,
+    compositeState, mat2Vec, vec2Mat
 )
+from .operators import (
+    number, destroy, create, identity, sigmaz, sigmay, sigmax, sigmap, sigmam, Jz, Jp, Jm, Jx, Jy, Js, operatorPow,
+    paritySUM, parityEXP, displacement, squeeze, compositeOp
+)
+from .functions import (expectation, fidelity, entropy, sortedEigens, concurrence)
+
+
+
+
+
+
 from .Hamiltonians import (cavQubFreeHam, RabiHam, JCHam, aJCHam)
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
-from .operators import (
-    number, destroy, create,
-    identity,
-    sigmaz, sigmay, sigmax, sigmap, sigmam,
-    Jz, Jp, Jm, Jx, Jy, Js,
-    operatorPow,
-    paritySUM, parityEXP,
-    displacement, squeeze,
-    compositeOp
-)
+
 from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
-from .states import (
-    basis, completeBasis, basisBra,
-    zeros,
-    superPos,
-    densityMatrix,
-    completeBasisMat,
-    normalise, normaliseKet, normaliseMat,
-    compositeState, tensorProd, partialTrace,
-    mat2Vec, vec2Mat
-)
-from .customTypes import (Matrix, intList, matrixList, supInp, ndOrListInt, ndOrList)
+
+
 
 from .rmtDistributions import (EigenVectorDist, WignerDyson, Poissonian)
+from ._undecided import (expectationKetList, expectationMatList, expectationColArr, fidelityKetList, fidelityKetLists)
+from ._IPR import (iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat)
+from ._eigenVecVal import (_eigStat, _eigStatSymp, eigVecStatKet, eigVecStatKetList, eigVecStatKetNB)

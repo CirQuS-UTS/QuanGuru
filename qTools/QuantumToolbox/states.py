@@ -18,8 +18,6 @@
         completeBasisMat
 
         normalise
-        normaliseKet
-        normaliseMat
 
         compositeState
         tensorProd
@@ -38,13 +36,14 @@
     | :const:`ndOrListInt <qTools.QuantumToolbox.customTypes.ndOrListInt>` : Union of ndarray and intList
 """
 
-from typing import Optional, List
-from numpy import ndarray  # type: ignore
+from typing import Optional, List, Iterable, Any
 
 import scipy.sparse as sp # type: ignore
 import numpy as np # type: ignore
 
-from .customTypes import Matrix, intList, floatList, matrixList, supInp, ndOrListInt, matrixOrMatrixList
+from .linearAlgebra import norm, outerProd, tensorProd, trace #pylint: disable=relative-beyond-top-level
+
+from .customTypes import Matrix, intList, floatList, matrixList, supInp, matrixOrMatrixList #pylint: disable=relative-beyond-top-level
 
 
 # do not delete these
@@ -97,7 +96,7 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
 def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     """
-    Creates a complete basis of `ket` states.
+    Creates a complete basis of `ket` states by basic list comprehension.
 
     Parameters
     ----------
@@ -128,10 +127,7 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     (1, 0)	1
     """
 
-    compBasis = []
-    for i in range(dimension):
-        compBasis.append(basis(dimension, i, sparse))
-    return compBasis
+    return [basis(dimension, i, sparse) for i in range(dimension)]
 
 
 def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
@@ -161,8 +157,7 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     [[1 0]]
     """
 
-    n = basis(dimension, state, sparse).T
-    return n
+    return basis(dimension, state, sparse).T
 
 
 def zeros(dimension: int, sparse: bool = True) -> Matrix:
@@ -198,9 +193,28 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
     return Zeros if sparse else Zeros.A
 
 
-def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix:
+def weightedSum(summands: Iterable, weights: Iterable) -> Any:
+    """ Weighted sum of given list of summands and weights
+
+    Parameters
+    ----------
+    summands : Iterable
+        List of matrices
+    weights : Iterable
+        List of weights
+
+    Returns
+    -------
+    :return: Any
+        weighted sum
     """
-    Create a `ket` state with amplitudes given from a `dictionary` or `list`.
+
+    return sum([weight*val for weight, val in zip(weights, summands)])
+
+
+def superPos(dimension: int, excitations: supInp, populations: bool = True, sparse: bool = True) -> Matrix:
+    """
+    Create a `ket` state with complex probability amplitudes given as a `dictionary` or `list`.
 
     Parameters
     ----------
@@ -232,62 +246,21 @@ def superPos(dimension: int, excitations: supInp, sparse: bool = True) -> Matrix
     [1.]]
     """
 
-    sts = []
-    if isinstance(excitations, dict):
-        for key, val in excitations.items():
-            sts.append(np.sqrt(val)*basis(dimension, key, sparse))
-    elif isinstance(excitations, int):
-        sts = [basis(dimension, excitations, sparse)]
-    elif all(isinstance(item, int) for item in excitations):
-        for val in excitations:
-            sts.append(basis(dimension, val, sparse))
-    else:
-        raise TypeError('Unsupported type for parameter excitations')
-    sta = normalise(sum(sts))
-    return sta
+    sts = excitations
+    if isinstance(excitations, list):
+        sts = {k: 1 for k in excitations}
 
+    if populations:
+        sts = {k:np.sqrt(v) for (k, v) in sts.items()}
 
-def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
-    """
-    Computes the outer product (ket @ bra) of a `ket` vector with itself or with another `ket`.
+    sta = normalise(weightedSum([basis(dimension, excite, sparse) for excite in sts.keys()], list(sts.values())))
+    return basis(dimension, excitations, sparse) if isinstance(excitations, int) else sta
 
-    Parameters
-    ----------
-    ket1 : Matrix
-        1st ket state
-    ket2 : Matrix
-        2nd ket state
-
-    Returns
-    -------
-    :return: Matrix
-        operator in square matrix form resulting from the computed outer product
-
-    Examples
-    --------
-    >>> ket = basis(2, 0)
-    >>> mat = outerProd(ket)
-    (0, 0)	1
-
-    >>> ket = superPos(2, [0,1], sparse=False)
-    >>> mat = outerProd(ket)
-    [[0.5 0.5]
-     [0.5 0.5]]
-
-    >>> ket1 = superPos(2, [0,1], sparse=False)
-    >>> ket2 = basis(2, 0)
-    >>> mat = outerProd(ket1, ket2)
-    [[0.70710678 0.]
-     [0.70710678 0.]]
-    """
-
-    if ket2 is None:
-        ket2 = ket1
-    return ket1 @ ket2.conj().T
 
 def densityMatrix(ket: matrixOrMatrixList, probability: floatList = None) -> Matrix:
     """
-    Computes the `density matrix` of a pure `ket` state or a mixed state from a list of kets and their associated probabilities.
+    Computes the `density matrix` of a pure `ket` state or a mixed state from a list of kets and their associated
+    probabilities.
 
     Parameters
     ----------
@@ -317,13 +290,10 @@ def densityMatrix(ket: matrixOrMatrixList, probability: floatList = None) -> Mat
     >>> mat = densityMatrix([ket1,ket2],[0.5, 0.5])
     [[0.75 0.5]
     [0.5 0.25]]
-
     """
 
-    if not isinstance(ket, list):
-        ket = [ket]
-        probability = [1]
-    return np.sum([p*outerProd(k) for k,p in zip(ket,probability)]) # type: ignore
+    return normalise(weightedSum([outerProd(k) for k in ket], probability)) if isinstance(ket, list) else outerProd(ket)
+
 
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,
                      sparse: bool = True) -> matrixList:
@@ -423,70 +393,10 @@ def normalise(state: Matrix) -> Matrix:
     """
 
     if state.shape[0] != state.shape[1]:
-        normalised = normaliseKet(state)
+        mag = 1 / norm(state)
     else:
-        normalised = normaliseMat(state)
-    return normalised
-
-
-def normaliseKet(ket: Matrix) -> Matrix:
-    """
-    Function to normalise a `ket` state.
-
-    Keeps the sparse/array as sparse/array
-
-    Parameters
-    ----------
-    state : Matrix
-        ket state to be normalised
-
-    Returns
-    -------
-    :return: Matrix
-        normalised `ket` state
-
-    Examples
-    --------
-    >>> import numpy as np
-    >>> nonNormalisedKet = np.sqrt(0.2)*basis(2,1) + np.sqrt(0.8)*basis(2,0)
-    >>> normalisedKet = normaliseKet(nonNormalisedKet)
-    [[0.89442719]
-    [0.4472136 ]]
-    """
-
-    mag = 1 / np.sqrt((((ket.conj().T) @ ket).diagonal()).sum())
-    ketn = mag * ket
-    return ketn
-
-
-def normaliseMat(denMat: Matrix) -> Matrix:
-    """
-    Function to normalise a `density matrix`.
-
-    Keeps the sparse/array as sparse/array
-
-    Parameters
-    ----------
-    state : Matrix
-        `density matrix` to be normalised
-
-    Returns
-    -------
-    :return: Matrix
-        normalised `density matrix`
-
-    Examples
-    --------
-    >>> import numpy as np
-    >>> nonNormalisedMat = densityMatrix(nonNormalisedKet)
-    >>> normalisedMat = normalise(nonNormalisedMat)
-    [[0.8 0.4]
-    [0.4 0.2]]
-    """
-
-    mag = 1 / (denMat.diagonal()).sum()
-    denMatn = mag * denMat
-    return denMatn
+        mag = 1 / trace(state)
+    return mag * state
 
 
 def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool = True) -> Matrix:
@@ -531,113 +441,8 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
     [0.        ]]
     """
 
-    st = superPos(dimensions[0], excitations[0], sparse)
-
-    for ind in range(len(dimensions)-1):
-        st = sp.kron(st, superPos(dimensions[ind+1], excitations[ind+1], sparse), format='csc')
+    st = tensorProd(*[superPos(dim, exs) for (dim, exs) in zip(dimensions, excitations)])
     return st if sparse else st.A
-
-
-def tensorProd(*args: Matrix) -> Matrix:
-    """
-    Function to calculate tensor product of given (any number of) states (in the given order).
-    TODO test with ndarrays. sp.kron documentation says that it works with dense, not sure what if it means any array.
-    The matrices can be sparse/ndarray, but they all should be the same either sparse/ndarray not a mixture.
-
-    Parameters
-    ----------
-    *args : Matrix
-        state matrices (arbitrary number of them)
-
-    Returns
-    -------
-    :return: Matrix
-        tensor product of given states (in the given order)
-
-    Examples
-    --------
-    # TODO Create some examples both in here and the demo script
-    """
-
-    totalProd = args[0]
-    if isinstance(totalProd, int):
-        totalProd = sp.identity(totalProd, format="csc")
-
-    for ind in range(len(args)-1):
-        mat = args[ind+1]
-        if isinstance(args[ind+1], int):
-            mat = sp.identity(mat, format='csc')
-        totalProd = sp.kron(totalProd, mat, format='csc')
-    return totalProd
-
-
-def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray:
-    """
-    Calculates the partial trace of a `density matrix` of composite state.
-
-    Parameters
-    ----------
-    keep : ndOrListInt
-        An array of indices of the spaces to keep after being traced. For instance, if the space is
-        A x B x C x D and we want to trace out B and D, keep = [0,2]
-    dims : ndOrListInt
-        An array of the dimensions of each space. For instance, if the space is A x B x C x D,
-        dims = [dim_A, dim_B, dim_C, dim_D]
-    state : Matrix
-        Matrix to trace
-
-    Returns
-    -------
-    :return : Matrix
-        Traced matrix
-
-    Examples
-    --------
-    >>> compositeState0 = compositeState(dimensions=[2, 2], excitations=[0,1], sparse=False)
-    >>> stateFirstSystem0 = partialTrace(keep=[0], dims=[2, 2], state=compositeState0)
-    [[1 0]
-    [0 0]]
-
-    >>> stateSecondSystem0 = partialTrace(keep=[1], dims=[2, 2], state=compositeState0)
-    [[0 0]
-    [0 1]]
-
-    >>> compositeState1 = compositeState(dimensions=[2, 2], excitations=[[0,1],1], sparse=False)
-    [[0. 0.]
-    [0. 1.]]
-
-    >>> stateFirstSystem1 = partialTrace(keep=[0], dims=[2, 2], state=compositeState1)
-    [[0.5 0.5]
-    [0.5 0.5]]
-
-    >>> stateSecondSystem1 = partialTrace(keep=[1], dims=[2, 2], state=compositeState1)
-    >>> compositeState2 = compositeState(dimensions=[2, 2], excitations=[0,{0:0.2, 1:0.8}], sparse=False)
-    >>> stateFirstSystem2 = partialTrace(keep=[0], dims=[2, 2], state=compositeState2)
-    [[1. 0.]
-    [0. 0.]]
-
-    >>> stateSecondSystem2 = partialTrace(keep=[1], dims=[2, 2], state=compositeState2)
-    [[0.2 0.4]
-    [0.4 0.8]]
-    """
-
-    if not isinstance(state, np.ndarray):
-        state = state.toarray()
-
-    rho = state
-    if rho.shape[0] != rho.shape[1]:
-        rho = (rho @ (rho.conj().T))
-
-    keep = np.asarray(keep)
-    dims = np.asarray(dims)
-    Ndim = dims.size
-    Nkeep = np.prod(dims[keep])
-
-    idx1 = list(range(Ndim))
-    idx2 = [Ndim+i if i in keep else i for i in range(Ndim)]
-    rhoA = rho.reshape(np.tile(dims, 2))
-    rhoA = np.einsum(rhoA, idx1+idx2, optimize=False)
-    return rhoA.reshape(Nkeep, Nkeep)
 
 
 def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
@@ -666,8 +471,7 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     [1]]
     """
 
-    vec = denMat.T.reshape(np.prod(np.shape(denMat)), 1)
-    return vec
+    return denMat.T.reshape(np.prod(np.shape(denMat)), 1)
 
 
 def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name

@@ -33,6 +33,7 @@ from .customTypes import Matrix
 def _identityRot(dimension: int, sparse: bool = True, angle=0) -> Matrix:
     return np.cos(angle)*sp.identity(dimension, format="csc") if sparse else np.cos(angle)*np.identity(dimension)
 
+
 def _sigmazRot(sparse: bool = True, angle=0) -> Matrix:
     data = [1*np.sin(angle), -1*np.sin(angle)]
     rows = [0, 1]
@@ -40,12 +41,14 @@ def _sigmazRot(sparse: bool = True, angle=0) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
+
 def _sigmayRot(sparse: bool = True, angle=0) -> Matrix:
     data = [-1j*np.sin(angle), 1j*np.sin(angle)]
     rows = [0, 1]
     columns = [1, 0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
+
 
 def _sigmaxRot(sparse: bool = True, angle=0) -> Matrix:
     data = [1*np.sin(angle), 1*np.sin(angle)]
@@ -168,5 +171,5 @@ def qubRotation(xyz: str, angle: float, sparse: bool = True) -> Matrix:
     elif xyz.lower() == 'z':
         rotUnitary = zRotation(angle, sparse)
     else:
-        print(xyz + ' is not supported')
+        raise ValueError(xyz + ' is not supported')
     return rotUnitary

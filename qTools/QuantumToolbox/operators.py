@@ -43,7 +43,7 @@ import scipy.linalg as linA # type: ignore
 from scipy.sparse.linalg import expm # type: ignore
 import numpy as np # type: ignore
 
-from .customTypes import Matrix
+from .customTypes import Matrix #pylint: disable=relative-beyond-top-level
 
 
 # do not delete these

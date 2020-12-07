@@ -1,4 +1,5 @@
 from .customTypes import Matrix as Matrix
+from .linearAlgebra import hc as hc
 from typing import Optional
 
 def Unitary(Hamiltonian: Matrix, timeStep: float=...) -> Matrix: ...
