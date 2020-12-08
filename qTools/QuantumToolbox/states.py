@@ -61,7 +61,7 @@ from .customTypes import Matrix, intList, floatList, matrixList, supInp, matrixO
 
 def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
-    Creates a `ket` state for a given dimension with 1 (unit population) at a given row (state).
+    Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given row.
 
     Parameters
     ----------
@@ -96,7 +96,7 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
 def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     """
-    Creates a complete basis of `ket` states by basic list comprehension.
+    Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}`.
 
     Parameters
     ----------
@@ -132,7 +132,7 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
 
 def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
-    Creates a `bra` state for a given dimension with 1 (unit population) at a given column (state).
+    Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a given column.
 
     Parameters
     ----------

@@ -1,7 +1,18 @@
 """
-    Module for some basic linear algebra.
+    Module containing some basic linear algebra methods for scipy.sparse and np.ndarray types.
 
-    - trace ?
+    Functions
+    ---------
+
+    .. autosummary::
+        hc
+        innerProd
+        norm
+        outerProd
+        tensorProd
+        trace
+        partialTrace
+
 """
 
 from numpy import ndarray # type: ignore
@@ -13,7 +24,8 @@ from .customTypes import Matrix, ndOrListInt #pylint: disable=relative-beyond-to
 
 def hc(matrix: Matrix) -> Matrix:
     """
-    Hermitian conjugate of a matrix
+    Hermitian conjugate (:math:`M^{\\dagger} := (M^{*})^{T}`) of a matrix :math:`M`, where * is complex conjugation, and
+    T is transposition.
 
     Parameters
     ----------
@@ -24,13 +36,38 @@ def hc(matrix: Matrix) -> Matrix:
     -------
     Matrix
         Hermitian conjugate of the given matrix
+
+    Examples
+    --------
+    >>> operEx1 = np.array([[1+1j, 2+2j],
+    >>>                     [3+3j, 4+4j]])
+    >>> hc(operEx1)
+    array([[1.-1.j, 3.-3.j],
+           [2.-2.j, 4.-4.j]])
+
+    >>> operEx2 = np.array([[0, 1],
+    >>>                    [1, 0]])
+    >>> hc(operEx2)
+    array([[0, 1],
+           [1, 0]])
+
+    >>> operEx3 = np.array([[1, 0, 0],
+    >>>                     [0, 1, 0],
+    >>>                     [1j, 0, 1]])
+    >>> hc(operEx3)
+    array([[1, 0, -1j],
+           [0, 1, 0],
+           [0, 0, 1]])
+
     """
+
     return matrix.T.conj()
 
 
 def innerProd(ket1: Matrix, ket2: Matrix = None) -> float:
     """
-    Computes the inner product (bra(ket2) @ ket1) of a `ket` vector with itself or with another `ket`.
+    Computes the inner product :math:`\\langle ket2 | ket1 \\rangle` of a ket vector with itself or with another,
+    where :math:`\\langle ket2| := |ket2 \\rangle^{\\dagger}`.
 
     Parameters
     ----------
@@ -46,7 +83,26 @@ def innerProd(ket1: Matrix, ket2: Matrix = None) -> float:
 
     Examples
     --------
-    TODO
+    >>> cMatEx1 = np.array([[1],
+    >>>                     [0]])
+    >>> innerProd(cMatEx1)
+    1
+
+    >>> cMatEx2 = np.array([[0],
+    >>>                     [1]])
+    >>> innerProd(cMatEx2)
+    1
+
+    >>> cMatEx3 = (1/5)*np.array([[3],
+    >>>                           [4j]])
+    >>> innerProd(cMatEx3)
+    1
+
+    >>> cMatEx4 = np.array([[1],
+    >>>                     [1j]])
+    >>> innerProd(cMatEx4)
+    2
+
     """
 
     if ket2 is None:
@@ -57,7 +113,9 @@ def innerProd(ket1: Matrix, ket2: Matrix = None) -> float:
 
 def norm(ket: Matrix) -> float:
     """
-    Norm of a ket state
+    Norm :math:`\\sqrt{\\langle ket | ket \\rangle}` of a ket state :math:`|ket \\rangle`,
+    where :math:`\\langle ket| := |ket \\rangle^{\\dagger}`. 
+    This function simply returns the square root of :func:`innerProd <qTools.QuantumToolbox.linearAlgebra.innerProd>`
 
     Parameters
     ----------
@@ -69,12 +127,14 @@ def norm(ket: Matrix) -> float:
     float
         norm of the state
     """
+
     return np.sqrt(innerProd(ket))
 
 
 def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
     """
-    Computes the outer product (ket @ bra) of a `ket` vector with itself or with another `ket`.
+    Computes the outer product :math:`|ket2 \\rangle\\langle ket1|` of a ket vector with itself or with another,
+    where :math:`\\langle ket2| := |ket2 \\rangle^{\\dagger}`.
 
     Parameters
     ----------
@@ -90,20 +150,31 @@ def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
 
     Examples
     --------
-    >>> ket = basis(2, 0)
-    >>> mat = outerProd(ket)
-    (0, 0)	1
+    >>> cMatEx1 = np.array([[1],
+    >>>                     [0]])
+    >>> outerProd(cMatEx1)
+    array([[1, 0],
+           [0, 0]])
 
-    >>> ket = superPos(2, [0,1], sparse=False)
-    >>> mat = outerProd(ket)
-    [[0.5 0.5]
-     [0.5 0.5]]
+    >>> cMatEx2 = np.array([[0],
+    >>>                     [1]])
+    >>> outerProd(cMatEx2)
+    array([[0, 0],
+           [0, 1]])
 
-    >>> ket1 = superPos(2, [0,1], sparse=False)
-    >>> ket2 = basis(2, 0)
-    >>> mat = outerProd(ket1, ket2)
-    [[0.70710678 0.]
-     [0.70710678 0.]]
+    >>> cMatEx3 = (1/5)*np.array([[3],
+    >>>                           [4j]])
+    >>> outerProd(cMatEx3)
+    array([[0.36+0.j  , 0.  -0.48j],
+           [0.  +0.48j, 0.64+0.j  ]])
+
+    >>> cMatEx4 = np.array([[1],
+    >>>                     [1j]])
+    >>> outerProd(cMatEx4)
+    array([[1+0.j , 0. -1j],
+           [0. +1j, 1+0.j ]])
+
+
     """
 
     if ket2 is None:
@@ -113,9 +184,8 @@ def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
 
 def tensorProd(*args: Matrix) -> Matrix:
     """
-    Function to calculate tensor product of given (any number of) states (in the given order).
-    TODO test with ndarrays. sp.kron documentation says that it works with dense, not sure what if it means any array.
-    The matrices can be sparse/ndarray, but they all should be the same either sparse/ndarray not a mixture.
+    Function to calculate tensor product :math:`\\otimes_{i} M_{i}` of given (any number i of)
+    states (:math:`\\{M_{i}\\}` in the given order).
 
     Parameters
     ----------
@@ -129,7 +199,41 @@ def tensorProd(*args: Matrix) -> Matrix:
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> cMatEx1 = np.array([[1],
+    >>>                     [0]])
+    >>> outerProd(cMatEx1)
+    >>> cMatEx2 = np.array([[0],
+    >>>                     [1]])
+    >>> tensorProd(cMatEx1, cMatEx2)
+    array([[0],
+           [1],
+           [0],
+           [0]], dtype=int64)
+    >>> tensorProd(cMatEx2, cMatEx1)
+    array([[0],
+           [0],
+           [1],
+           [0]], dtype=int64)
+
+    >>> operEx1 = np.array([[0, 1],
+    >>>                    [1, 0]])
+    >>> operEx2 = np.array([[1, 0, 0],
+    >>>                     [0, 1, 0],
+    >>>                     [1j, 0, 1]])
+    >>> tensorProd(operEx1, operEx2)
+    array([[0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 1, 0, 0, 0]], dtype=int64)
+    >>> tensorProd(operEx2, operEx1)
+    array([[0, 1, 0, 0, 0, 0],
+           [1, 0, 0, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 1, 0, 0, 0],
+           [0, 0, 0, 0, 0, 1],
+           [0, 0, 0, 0, 1, 0]], dtype=int64)
     """
 
     totalProd = args[0]
@@ -140,7 +244,7 @@ def tensorProd(*args: Matrix) -> Matrix:
 
 def trace(matrix: Matrix) -> float:
     """
-    Trace of a matrix.
+    Trace :math:`Tr(M) := \\sum_{i} M_{ii}` of a matrix `M`.
 
     Parameters
     ----------
@@ -151,7 +255,21 @@ def trace(matrix: Matrix) -> float:
     -------
     float
         trace of the given matrix
+
+    Examples
+    --------
+    >>> cMatEx1 = np.array([[1],
+    >>>                     [0]])
+    >>> trace(outerProd(cMatEx1))
+    1
+
+    >>> cMatEx2 = np.array([[0],
+    >>>                     [1]])
+    >>> trace(outerProd(cMatEx2))
+    1
+
     """
+
     return matrix.diagonal().sum()
 
 
@@ -177,32 +295,23 @@ def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray
 
     Examples
     --------
-    >>> compositeState0 = compositeState(dimensions=[2, 2], excitations=[0,1], sparse=False)
-    >>> stateFirstSystem0 = partialTrace(keep=[0], dims=[2, 2], state=compositeState0)
-    [[1 0]
-    [0 0]]
-
-    >>> stateSecondSystem0 = partialTrace(keep=[1], dims=[2, 2], state=compositeState0)
-    [[0 0]
-    [0 1]]
-
-    >>> compositeState1 = compositeState(dimensions=[2, 2], excitations=[[0,1],1], sparse=False)
-    [[0. 0.]
-    [0. 1.]]
-
-    >>> stateFirstSystem1 = partialTrace(keep=[0], dims=[2, 2], state=compositeState1)
-    [[0.5 0.5]
-    [0.5 0.5]]
-
-    >>> stateSecondSystem1 = partialTrace(keep=[1], dims=[2, 2], state=compositeState1)
-    >>> compositeState2 = compositeState(dimensions=[2, 2], excitations=[0,{0:0.2, 1:0.8}], sparse=False)
-    >>> stateFirstSystem2 = partialTrace(keep=[0], dims=[2, 2], state=compositeState2)
-    [[1. 0.]
-    [0. 0.]]
-
-    >>> stateSecondSystem2 = partialTrace(keep=[1], dims=[2, 2], state=compositeState2)
-    [[0.2 0.4]
-    [0.4 0.8]]
+    >>> cMatEx1 = np.array([[1],
+    >>>                     [0]])
+    >>> outerProd(cMatEx1)
+    >>> cMatEx2 = np.array([[0],
+    >>>                     [1]])
+    >>> partialTrace([0], [2, 2], outerProd(tensorProd(cMatEx1, cMatEx2)))
+    array([[1, 0],
+           [0, 0]], dtype=int64)
+    >>> partialTrace([1], [2, 2], outerProd(tensorProd(cMatEx1, cMatEx2)))
+    array([[0, 0],
+           [0, 1]], dtype=int64)
+    >>> partialTrace([0], [2, 2], outerProd(tensorProd(cMatEx2, cMatEx1)))
+    array([[0, 0],
+           [0, 1]], dtype=int64)
+    >>> partialTrace([1], [2, 2], outerProd(tensorProd(cMatEx2, cMatEx1)))
+    array([[1, 0],
+           [0, 0]], dtype=int64)
     """
 
     if not isinstance(state, np.ndarray):
