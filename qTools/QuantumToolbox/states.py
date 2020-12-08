@@ -1,8 +1,11 @@
 """
-    This module contains the functions to create, manipulate, convert, and/or normalise quantum states.
+    ============================================
+    States (:mod:`qTools.QuantumToolbox.states`)
+    ============================================
 
-    .. currentmodule:: qTools.QuantumToolbox
+    .. currentmodule:: qTools.QuantumToolbox.states
 
+    Module containing methods to create states, such as ket, bra, densityMatrix, superpositions, etc.
 
     Functions
     ---------
@@ -12,28 +15,15 @@
         completeBasis
         basisBra
         zeros
+        weightedSum
         superPos
-
         densityMatrix
         completeBasisMat
-
         normalise
-
         compositeState
-        tensorProd
-        partialTrace
-
         mat2Vec
         vec2Mat
 
-    Types
-    ^^^^^
-    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
-    | :const:`intList <qTools.QuantumToolbox.customTypes.intList>` : List of integers
-    | :const:`matrixList <qTools.QuantumToolbox.customTypes.matrixList>` : List of Matrices
-    | :const:`supInt <qTools.QuantumToolbox.customTypes.supInt>` : Union of the types: int, `intList`,
-        and dict[int:float] (used in super-position creations)
-    | :const:`ndOrListInt <qTools.QuantumToolbox.customTypes.ndOrListInt>` : Union of ndarray and intList
 """
 
 from typing import Optional, List, Iterable, Any
@@ -60,8 +50,11 @@ from .customTypes import Matrix, intList, floatList, matrixList, supInp, matrixO
 
 
 def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
-    """
-    Creates a `ket` state :math:`|n\\rangle` for a given dimension with 1 (unit population) at a given row.
+    r"""
+    Creates a `ket` state
+    :math:`|n=\textrm{state}\rangle := \begin{bmatrix} 0 \\ \vdots \\ 1 \textrm{(nth element)} \\ \vdots \\ 0
+    \end{bmatrix}_{\textrm{dimension}\times 1}`
+    for a given dimension with 1 (unit population) at a given row.
 
     Parameters
     ----------
@@ -95,8 +88,8 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
 
 def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
-    """
-    Creates a complete basis of `ket` states :math:`\\sum_n|n\\rangle = \\hat{\\mathbb{I}}`.
+    r"""
+    Creates a complete basis of `ket` states :math:`\sum_n|n\rangle = \hat{\mathbb{I}}`.
 
     Parameters
     ----------
@@ -131,8 +124,9 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
 
 
 def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
-    """
-    Creates a `bra` state :math:`\\langle n|` for a given dimension with 1 (unit population) at a given column.
+    r"""
+    Creates a `bra` state :math:`\langle n| := |n\rangle^{T}` for a given dimension with 1 (unit population) at a 
+    given column.
 
     Parameters
     ----------
@@ -161,7 +155,7 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
 
 def zeros(dimension: int, sparse: bool = True) -> Matrix:
-    """
+    r"""
     Creates a column matrix (ket) with all elements zero.
 
     Parameters
@@ -194,7 +188,7 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
 
 def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
-    """ Weighted sum of given list of summands and weights
+    r""" Weighted sum of given list of summands and weights
 
     Parameters
     ----------
@@ -213,7 +207,7 @@ def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
 
 
 def superPos(dimension: int, excitations: supInp, populations: bool = True, sparse: bool = True) -> Matrix:
-    """
+    r"""
     Create a `ket` state with complex probability amplitudes given as a `dictionary` or `list`.
 
     Parameters
@@ -261,7 +255,7 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
 
 
 def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) -> Matrix:
-    """
+    r"""
     Computes the `density matrix` of a pure `ket` state or a mixed state from a list of kets and their associated
     probabilities.
 
@@ -300,7 +294,7 @@ def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) ->
 
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,
                      sparse: bool = True) -> matrixList:
-    """
+    r"""
     Creates a complete basis of `density matrices` for a given dimension or convert a `ket basis` to `density matrix`.
 
     NOTE: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.
@@ -366,7 +360,7 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
 
 
 def normalise(state: Matrix) -> Matrix:
-    """
+    r"""
     Function to normalise `any` state (ket or density matrix).
 
     Keeps the sparse/array as sparse/array
@@ -403,7 +397,7 @@ def normalise(state: Matrix) -> Matrix:
 
 
 def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool = True) -> Matrix:
-    """
+    r"""
     Function to create `composite ket` states.
 
     Parameters
@@ -449,7 +443,7 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
 
 
 def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
-    """
+    r"""
     Converts `density matrix` into `density vector` (used in super-operator representation).
 
     Keeps the sparse/array as sparse/array
@@ -478,7 +472,7 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
 
 
 def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
-    """
+    r"""
     Converts `density vector` into `density matrix`.
 
     Keeps the sparse/array as sparse/array

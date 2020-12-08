@@ -1,4 +1,10 @@
 """
+    ===========================================================
+    Linear Algebra (:mod:`qTools.QuantumToolbox.linearAlgebra`)
+    ===========================================================
+
+    .. currentmodule:: qTools.QuantumToolbox.linearAlgebra
+
     Module containing some basic linear algebra methods for scipy.sparse and np.ndarray types.
 
     Functions
@@ -23,8 +29,8 @@ from .customTypes import Matrix, ndOrListInt #pylint: disable=relative-beyond-to
 
 
 def hc(matrix: Matrix) -> Matrix:
-    """
-    Hermitian conjugate (:math:`M^{\\dagger} := (M^{*})^{T}`) of a matrix :math:`M`, where * is complex conjugation, and
+    r"""
+    Hermitian conjugate (:math:`M^{\dagger} := (M^{*})^{T}`) of a matrix :math:`M`, where * is complex conjugation, and
     T is transposition.
 
     Parameters
@@ -65,9 +71,9 @@ def hc(matrix: Matrix) -> Matrix:
 
 
 def innerProd(ket1: Matrix, ket2: Matrix = None) -> float:
-    """
-    Computes the inner product :math:`\\langle ket2 | ket1 \\rangle` of a ket vector with itself or with another,
-    where :math:`\\langle ket2| := |ket2 \\rangle^{\\dagger}`.
+    r"""
+    Computes the inner product :math:`\langle ket2 | ket1 \rangle` of a ket vector with itself or with another,
+    where :math:`\langle ket2| := |ket2 \rangle^{\dagger}`.
 
     Parameters
     ----------
@@ -112,9 +118,9 @@ def innerProd(ket1: Matrix, ket2: Matrix = None) -> float:
 
 
 def norm(ket: Matrix) -> float:
-    """
-    Norm :math:`\\sqrt{\\langle ket | ket \\rangle}` of a ket state :math:`|ket \\rangle`,
-    where :math:`\\langle ket| := |ket \\rangle^{\\dagger}`. 
+    r"""
+    Norm :math:`\sqrt{\langle ket | ket \rangle}` of a ket state :math:`|ket \rangle`,
+    where :math:`\langle ket| := |ket \rangle^{\dagger}`.
     This function simply returns the square root of :func:`innerProd <qTools.QuantumToolbox.linearAlgebra.innerProd>`
 
     Parameters
@@ -132,9 +138,9 @@ def norm(ket: Matrix) -> float:
 
 
 def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
-    """
-    Computes the outer product :math:`|ket2 \\rangle\\langle ket1|` of a ket vector with itself or with another,
-    where :math:`\\langle ket2| := |ket2 \\rangle^{\\dagger}`.
+    r"""
+    Computes the outer product :math:`|ket2 \rangle\langle ket1|` of a ket vector with itself or with another,
+    where :math:`\langle ket2| := |ket2 \rangle^{\dagger}`.
 
     Parameters
     ----------
@@ -183,9 +189,9 @@ def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
 
 
 def tensorProd(*args: Matrix) -> Matrix:
-    """
-    Function to calculate tensor product :math:`\\otimes_{i} M_{i}` of given (any number i of)
-    states (:math:`\\{M_{i}\\}` in the given order).
+    r"""
+    Function to calculate tensor product :math:`\otimes_{i} M_{i}` of given (any number i of)
+    states (:math:`\{M_{i}\}` in the given order).
 
     Parameters
     ----------
@@ -243,8 +249,8 @@ def tensorProd(*args: Matrix) -> Matrix:
 
 
 def trace(matrix: Matrix) -> float:
-    """
-    Trace :math:`Tr(M) := \\sum_{i} M_{ii}` of a matrix `M`.
+    r"""
+    Trace :math:`Tr(M) := \sum_{i} M_{ii}` of a matrix `M`.
 
     Parameters
     ----------
@@ -274,7 +280,7 @@ def trace(matrix: Matrix) -> float:
 
 
 def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray:
-    """
+    r"""
     Calculates the partial trace of a `density matrix` of composite state.
 
     Parameters

@@ -1,9 +1,7 @@
-from re import match
-import pytest
-import numpy as np
 import random as rn
+import numpy as np
 import scipy.sparse as sp
-
+import pytest
 from qTools.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
 
 
