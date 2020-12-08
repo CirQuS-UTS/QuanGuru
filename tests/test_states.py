@@ -4,13 +4,25 @@ import pytest
 from qTools.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
 from qTools.QuantumToolbox import states #pylint: disable=import-error
 
-def generateRndDimAndExc(min):
+def generateRndDimAndExc(minval):
     dim = rn.randint(2, 20)
-    return dim, rn.randint(min, dim-1)
+    return dim, rn.randint(minval, dim-1)
+
+def generateRndStateParams():
+    dim, ncom = generateRndDimAndExc(1)
+    comps = list(dict.fromkeys([rn.randint(1, dim-1) for k in range(ncom)]))
+    pops = np.random.dirichlet(np.ones(len(comps)), size=1)[0]
+    excs = dict(zip(comps, pops))
+    return dim, excs
+
+def generateRndPureState(po=1):
+    dim, excs = generateRndStateParams()
+    state = sum([(np.sqrt(v)**po)*states.basis(dim, k) for k, v in excs.items()])
+    return state, dim, excs
 
 def test_basisByRandom():
     # generate random integers for dimension and excitation, then check item in excitation position is 1 and others 0
-    for _ in range(10):
+    for _ in range(5):
         dim, exc = generateRndDimAndExc(0)
         st = states.basis(dim, exc).A
         assert st[exc] == 1
@@ -56,8 +68,8 @@ def test_basisBra(params, expected):
 
 
 def test_superPosIntInput():
-    # superPos with integer input is equivalent to basis method, thus testing their equivalence with 10 random values
-    for _ in range(10):
+    # superPos with integer input is equivalent to basis method, thus testing their equivalence with 5 random values
+    for _ in range(5):
         dim, exc = generateRndDimAndExc(0)
         assert np.allclose(states.superPos(dim, exc).A, states.basis(dim, exc).A)
 
@@ -68,30 +80,25 @@ def test_superPosListInput():
     assert np.allclose(states.superPos(3, [0, 1, 2]).A, (1/np.sqrt(3))*(states.basis(3, 0) + states.basis(3, 1) +
                                                                         states.basis(3, 2)).A)
     for _ in range(5):
-        dim, ncom = generateRndDimAndExc(1)
-        comps = list(dict.fromkeys([rn.randint(1, dim-1) for k in range(ncom)]))
+        dim, comps = generateRndStateParams()
         state = sum([np.sqrt(1/len(comps))*states.basis(dim, k) for k in comps])
-        assert np.allclose(states.superPos(dim, comps).A, state.A)
+        assert np.allclose(states.superPos(dim, comps.keys()).A, state.A)
 
 def test_superPosDictInput():
     # testing the dict input by comparing randomly generated states with sum of basis
     for _ in range(5):
-        dim1, ncom = generateRndDimAndExc(1)
-        comps = list(dict.fromkeys([rn.randint(1, dim1-1) for k in range(ncom)]))
-        pops = np.random.dirichlet(np.ones(len(comps)), size=1)[0]
-        excs = dict(zip(comps, pops))
-        state = sum([np.sqrt(v)*states.basis(dim1, k) for k, v in excs.items()])
-        assert np.allclose(states.superPos(dim1, excs).A, state.A)
-        state = sum([v*states.basis(dim1, k) for k, v in excs.items()])
+        state, dim, excs = generateRndPureState()
+        assert np.allclose(states.superPos(dim, excs).A, state.A)
+        state, dim, excs = generateRndPureState(2)
         state = (1/la.norm(state))*state
-        assert np.allclose(states.superPos(dim1, excs, populations=False).A, state.A)
+        assert np.allclose(states.superPos(dim, excs, populations=False).A, state.A)
 
 @pytest.mark.parametrize("params,expected", [
     ((states.superPos(2, [0, 1])), np.array([[0.5, 0.5], [0.5, 0.5]])),
     ((states.superPos(2, [0, 1]), states.basis(2, 0)), np.array([[0.707, 0], [0.707, 0]]))
     ])
 def test_outerProd(params, expected):
-    rho = states.outerProd(*params)
+    rho = states.linAlOuterProd(*params)
     if not isinstance(rho, np.ndarray):
         rho = rho.A
     assert (np.around(rho, 3) == expected).all()
@@ -105,3 +112,17 @@ def test_densityMatrix(params, expected):
     if not isinstance(rho, np.ndarray):
         rho = rho.A
     assert (np.around(rho, 3) == expected).all()
+
+def test_densityMatrixRandomPure():
+    # test comparing the outer product of 5 random pure states with densityMatrix function outputs
+    for _ in range(5):
+        state, dim, excs = generateRndPureState()
+        assert np.allclose(states.densityMatrix(state).A, la.outerProd(state).A)
+
+def test_densityMatrixRandomMixed():
+    # test comparing the outer product of 5 random mixed states with densityMatrix function outputs
+    for _ in range(5):
+        dim, excs = generateRndStateParams()
+        comps = [states.basis(dim, k) for k in excs]
+        state = sum([v*(la.outerProd(states.basis(dim, k))) for k, v in excs.items()])
+        assert np.allclose(states.densityMatrix(comps, excs.values()).A, state.A)

@@ -31,9 +31,10 @@ from typing import Optional, List, Iterable, Any
 import scipy.sparse as sp # type: ignore
 import numpy as np # type: ignore
 
-from .linearAlgebra import norm, outerProd, tensorProd, trace #pylint: disable=relative-beyond-top-level
+from .linearAlgebra import (norm as linAlNorm, outerProd as linAlOuterProd,
+                            tensorProd as linAlTensorProd, trace as linAlTrace) #pylint: disable=relative-beyond-top-level
 
-from .customTypes import Matrix, intList, floatList, matrixList, supInp, matrixOrMatrixList #pylint: disable=relative-beyond-top-level
+from .customTypes import Matrix, intList, matrixList, supInp, matrixOrMatrixList #pylint: disable=relative-beyond-top-level
 
 
 # do not delete these
@@ -89,7 +90,8 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
 def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     r"""
-    Creates a complete basis of `ket` states :math:`\sum_n|n\rangle = \hat{\mathbb{I}}`.
+    Creates a complete basis of ket states :math:`\{|n\rangle\}`,
+    st :math:`\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}`.
 
     Parameters
     ----------
@@ -188,7 +190,7 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
 
 def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
-    r""" Weighted sum of given list of summands and weights
+    r""" Weighted sum :math:`\sum_{x}w_{x}x` of given list of summands :math:`\{x\}` and weights :math:`\{w_{x}\}`
 
     Parameters
     ----------
@@ -208,7 +210,7 @@ def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
 
 def superPos(dimension: int, excitations: supInp, populations: bool = True, sparse: bool = True) -> Matrix:
     r"""
-    Create a `ket` state with complex probability amplitudes given as a `dictionary` or `list`.
+    Creates a superposition ket state in various ways.
 
     Parameters
     ----------
@@ -219,6 +221,8 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
             1. a `dictionary` with state:population (key:value). The generated state will be normalised.
             2. a `list` of integers corresponding to states to be populated in equal super-position
             3. an `integer`, to create a basis state (equivalent to `basis` function)
+    populations : bool
+        If True (False) dictionary keys are the populations (complex probability amplitudes) 
 
     Returns
     -------
@@ -289,13 +293,15 @@ def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) ->
     [0.5 0.25]]
     """
 
-    return normalise(weightedSum([outerProd(k) for k in ket], probability)) if isinstance(ket, list) else outerProd(ket)
+    return normalise(weightedSum([linAlOuterProd(k) for k in ket], probability)) if isinstance(ket, list) else linAlOuterProd(ket) #pylint:disable=line-too-long
 
 
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,
                      sparse: bool = True) -> matrixList:
     r"""
-    Creates a complete basis of `density matrices` for a given dimension or convert a `ket basis` to `density matrix`.
+    Creates a complete basis :math:`\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}` of `density matrices`
+    :math:`\{|n\rangle\langle n|\}` for a given dimension or convert a `ket basis` :math:`\{|n\rangle\}` to 
+    `density matrix`.
 
     NOTE: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.
 
@@ -390,9 +396,9 @@ def normalise(state: Matrix) -> Matrix:
     """
 
     if state.shape[0] != state.shape[1]:
-        mag = 1 / norm(state)
+        mag = 1 / linAlNorm(state)
     else:
-        mag = 1 / trace(state)
+        mag = 1 / linAlTrace(state)
     return mag * state
 
 
@@ -438,7 +444,7 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
     [0.        ]]
     """
 
-    st = tensorProd(*[superPos(dim, exs) for (dim, exs) in zip(dimensions, excitations)])
+    st = linAlTensorProd(*[superPos(dim, exs) for (dim, exs) in zip(dimensions, excitations)])
     return st if sparse else st.A
 
 
