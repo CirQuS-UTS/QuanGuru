@@ -4,7 +4,6 @@ import scipy.sparse as sp
 import pytest
 from qTools.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
 
-
 oper = np.array(
     [
         [rn.random() + rn.random()*1j, rn.random() - rn.random()*1j, rn.random() + rn.random()*1j, rn.random()*1j],

@@ -1,11 +1,7 @@
 """
-    ============================================
-    States (:mod:`qTools.QuantumToolbox.states`)
-    ============================================
+    Module containing methods to create states, such as ket, bra, densityMatrix, superpositions, etc.
 
     .. currentmodule:: qTools.QuantumToolbox.states
-
-    Module containing methods to create states, such as ket, bra, densityMatrix, superpositions, etc.
 
     Functions
     ---------
@@ -68,7 +64,7 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         requested `ket` state
 
     Examples
@@ -102,22 +98,18 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
 
     Returns
     -------
-    :return : matrixList
+    matrixList
         a list (complete basis) of `ket` states
 
     Examples
     --------
-    >>> completeBasis0 = completeBasis(2, sparse=False)
-    >>> for state in completeBasis0:
-    >>>    print(state)
+    >>> completeBasis(2, sparse=False)
     [[1]
     [0]]
     [[0]
     [1]]
 
-    >>> completeBasis1 = completeBasis(2)
-    >>> for state in completeBasis1:
-    >>>    print(state)
+    >>> completeBasis(2)
     (0, 0)	1
     (1, 0)	1
     """
@@ -127,8 +119,8 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
 
 def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     r"""
-    Creates a `bra` state :math:`\langle n| := |n\rangle^{T}` for a given dimension with 1 (unit population) at a 
-    given column.
+    Creates a `bra` state :math:`\langle n| := |n\rangle^{T}` for a given dimension with 1 (unit population) at a
+    given column. This function simply returns transpose of :func:`basis <qTools.QuantumToolbox.linearAlgebra.basis>`.
 
     Parameters
     ----------
@@ -141,7 +133,7 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         requested `bra` state
 
     Examples
@@ -169,7 +161,7 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         ket of zeros
 
     Examples
@@ -201,7 +193,7 @@ def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
 
     Returns
     -------
-    :return: Any
+    Any
         weighted sum
     """
 
@@ -222,24 +214,24 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
             2. a `list` of integers corresponding to states to be populated in equal super-position
             3. an `integer`, to create a basis state (equivalent to `basis` function)
     populations : bool
-        If True (False) dictionary keys are the populations (complex probability amplitudes) 
+        If True (False) dictionary keys are the populations (complex probability amplitudes)
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         requested normalised `ket` state
 
     Examples
     --------
-    >>> ket = superPos(2, {0:0.2, 1:0.8}, sparse=False)
+    >>> superPos(2, {0:0.2, 1:0.8}, sparse=False)
     [[0.4472136 ]
     [0.89442719]]
 
-    >>> ket = superPos(2, [0,1], sparse=False)
+    >>> superPos(2, [0,1], sparse=False)
     [[0.70710678]
     [0.70710678]]
 
-    >>> ket = superPos(2, 1, sparse=False)
+    >>> superPos(2, 1, sparse=False)
     [[0.]
     [1.]]
     """
@@ -272,23 +264,23 @@ def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) ->
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         requested density matrix operator
 
     Examples
     --------
     >>> ket = basis(2, 0)
-    >>> mat = densityMatrix(ket)
+    >>> densityMatrix(ket)
     (0, 0)	1
 
     >>> ket = superPos(2, [0,1], sparse=False)
-    >>> mat = densityMatrix(ket)
+    >>> densityMatrix(ket)
     [[0.5 0.5]
     [0.5 0.5]]
 
     >>> ket1 = superPos(2, [0,1], sparse=False)
     >>> ket2 = basis(2, 0)
-    >>> mat = densityMatrix([ket1,ket2],[0.5, 0.5])
+    >>> densityMatrix([ket1,ket2],[0.5, 0.5])
     [[0.75 0.5]
     [0.5 0.25]]
     """
@@ -306,7 +298,6 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
     NOTE: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.
 
     For a given basis, this keeps the sparse/array as sparse/array.
-    For a given dimension, either as sparse (``sparse=True``) or array (``sparse=False``)
 
     Parameters
     ----------
@@ -315,40 +306,16 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
     compKetBase : matrixList or None
         a complete ket basis (or default None if dimension is given)
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
-    :return : matrixList
+    matrixList
         a list (complete basis) of `density matrices`
 
     :raises ValueError : raised if both complete ket basis and dimension are None (default). Dimension is used to create
 
-
-    Examples
-    --------
-
-    .. testcode::
-
-        from qTools import completeBasis, completeBasisMat
-        completeBasisMat1 = completeBasisMat(dimension=2, compKetBase=completeBasis1)
-        print('s')
-
-    .. testoutput::
-        :options: -ELLIPSIS, +NORMALIZE_WHITESPACE
-
-        (0, 1)	1
-        (1, 1)	1
-
-
-    .. doctest::
-
-        >>> print('x')
-        x
-
-    >>> completeBasisMat11 = completeBasisMat(dimension=2)
-    >>> for state in completeBasisMat11:
-    >>>    print(state)
+    >>> completeBasisMat(dimension=2)
     (0, 0)	1
     (1, 1)	1
     """
@@ -378,19 +345,19 @@ def normalise(state: Matrix) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         normalised state
 
     Examples
     --------
     >>> import numpy as np
     >>> nonNormalisedKet = np.sqrt(0.2)*basis(2,1) + np.sqrt(0.8)*basis(2,0)
-    >>> normalisedKet = normalise(nonNormalisedKet)
+    >>> normalise(nonNormalisedKet)
     [[0.89442719]
     [0.4472136 ]]
 
     >>> nonNormalisedMat = densityMatrix(nonNormalisedKet)
-    >>> normalisedMat = normalise(nonNormalisedMat)
+    >>> normalise(nonNormalisedMat)
     [[0.8 0.4]
     [0.4 0.2]]
     """
@@ -420,24 +387,24 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         composite ket state
 
     Examples
     --------
-    >>> compositeState0 = compositeState(dimensions=[2, 2], excitations=[0,1], sparse=False)
+    >>> compositeState(dimensions=[2, 2], excitations=[0,1], sparse=False)
     [[0]
     [1]
     [0]
     [0]]
 
-    >>> compositeState1 = compositeState(dimensions=[2, 2], excitations=[[0,1],1], sparse=False)
+    >>> compositeState(dimensions=[2, 2], excitations=[[0,1],1], sparse=False)
     [[0.        ]
     [0.70710678]
     [0.        ]
     [0.70710678]]
 
-    >>> compositeState2 = compositeState(dimensions=[2, 2], excitations=[0,{0:0.2, 1:0.8}], sparse=False)
+    >>> compositeState(dimensions=[2, 2], excitations=[0,{0:0.2, 1:0.8}], sparse=False)
     [[0.4472136 ]
     [0.89442719]
     [0.        ]
@@ -461,13 +428,13 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         density vector
 
     Examples
     --------
     >>> denMat = densityMatrix(ket=basis(dimension=2, state=1, sparse=True))
-    >>> denVec = mat2Vec(denMat=denMat)
+    >>> mat2Vec(denMat=denMat)
     [[0]
     [0]
     [0]
@@ -490,7 +457,7 @@ def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
 
     Parameters
     ----------
-    :return: Matrix
+    Matrix
         density matrix
 
     Examples
@@ -500,7 +467,7 @@ def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     [0 1]]
 
     >>> denVec = mat2Vec(denMat=denMat)
-    >>> denMatConverted = vec2mat(vec=denVec)
+    >>> vec2mat(vec=denVec)
     [[0 0]
     [0 1]]
     """

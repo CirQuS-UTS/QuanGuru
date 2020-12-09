@@ -24,7 +24,7 @@ def expectationKetList(operator: Matrix, kets: matrixList) -> floatList:
 
     Returns
     -------
-    :return: floatList
+    floatList
         `list` of expectation values of the `operator` for the list of `ket` states
 
     Examples
@@ -60,7 +60,7 @@ def expectationMatList(operator: Matrix, denMats: matrixList) -> floatList:
 
     Returns
     -------
-    :return: floatList
+    floatList
         `list` of expectation values of the `operator` for the list of `density matrices`
 
     Examples
@@ -103,7 +103,7 @@ def expectationColArr(operator: Matrix, states: ndarray) -> floatList:
 
     Returns
     -------
-    :return: floatList
+    floatList
         `list` of expectation values of the `operator` for a matrix of `ket` states
 
     Examples
@@ -140,7 +140,7 @@ def fidelityKetList(ket1: Matrix, ketList: matrixList) -> floatList:
 
     Returns
     -------
-    :return: floatList
+    floatList
         `list` of fidelities between `a ket state` and `list of ket states`
 
     Examples

@@ -50,7 +50,7 @@ def cavQubFreeHam(cavFreq: float, qubFreq: float, cavDim: int) -> Tuple[Matrix, 
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Cavity + Qubit Hamiltonian for given frequencies
 
     Examples
@@ -80,7 +80,7 @@ def RabiHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Rabi Hamiltonian for given frequencies
 
     Examples
@@ -112,7 +112,7 @@ def JCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Jaynes-Cummings Hamiltonian for given frequencies
 
     Examples
@@ -144,7 +144,7 @@ def aJCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         anti-Jaynes-Cummings Hamiltonian for given frequencies
 
     Examples

@@ -21,7 +21,7 @@ def nBarThermal(angFreq: float, temp: float, hbar: float = 1.0, kb: float = 1.0)
 
     Returns
     -------
-    :return: float
+    float
         Average excitation number
 
     Raises
@@ -53,7 +53,7 @@ def HeatCurrent(Lindbladian: Matrix, Hamiltonian: Matrix, denMat: Matrix) -> flo
 
     Returns
     -------
-    :return: float
+    float
         Heat current
     """
 
@@ -75,7 +75,7 @@ def qubitPolarisation(freq: float, temp: float) -> float:
 
     Returns
     -------
-    :return: float
+    float
         qubit polarisation, i.e. difference betwennn ground and excited state populations.
     """
 

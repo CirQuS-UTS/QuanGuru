@@ -73,7 +73,7 @@ def xRotation(angle: float, sparse: bool = True) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Qubit X rotation operator
 
     Examples
@@ -100,7 +100,7 @@ def yRotation(angle: float, sparse: bool = True) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Qubit Y rotation operator
 
     Examples
@@ -127,7 +127,7 @@ def zRotation(angle: float, sparse: bool = True) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Qubit Z rotation operator
 
     Examples
@@ -156,7 +156,7 @@ def qubRotation(xyz: str, angle: float, sparse: bool = True) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Qubit X/Y/Z rotation operator.
 
     Examples

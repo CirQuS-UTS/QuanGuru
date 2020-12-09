@@ -61,7 +61,7 @@ def Wigner(rho: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
     Returns
     -------
-    :returns : ndarray
+    ndarray
         Values representing the Wigner-function calculated over the specified range [vec, vec].
     """
 
@@ -108,7 +108,7 @@ def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
     Returns
     --------
-    :returns : array
+    array
         Values representing the Q-function calculated over the specified range [vec, vec].
     """
 
@@ -150,7 +150,7 @@ def _qfuncPure(psi: Matrix, alphaMat: ndarray) -> ndarray:
 
     Returns
     --------
-    :returns : array
+    array
         Values representing the Q-function calculated over the specified range [vec, vec].
     """
 

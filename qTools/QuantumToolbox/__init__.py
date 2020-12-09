@@ -9,16 +9,14 @@
     Matrix creations should be sparse as default and return .A (or .toarray()) of the created sparse if sparse=False.
     Any function manipulating matrices should be designed to be independent of sparse or array, if possible.
 
-    .. autosummary::
-        :toctree: stubs
+    .. currentmodule:: qTools.QuantumToolbox
 
+
+    .. autosummary::
+
+        linearAlgebra
         states
         operators
-        evolution
-        functions
-        Hamiltonians
-        quasiProbabilities
-        rmtDistributions
 
 """
 

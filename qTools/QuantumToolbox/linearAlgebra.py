@@ -1,11 +1,7 @@
 """
-    ===========================================================
-    Linear Algebra (:mod:`qTools.QuantumToolbox.linearAlgebra`)
-    ===========================================================
+    Module containing some basic linear algebra methods for scipy.sparse and np.ndarray types.
 
     .. currentmodule:: qTools.QuantumToolbox.linearAlgebra
-
-    Module containing some basic linear algebra methods for scipy.sparse and np.ndarray types.
 
     Functions
     ---------
@@ -84,7 +80,7 @@ def innerProd(ket1: Matrix, ket2: Matrix = None) -> float:
 
     Returns
     -------
-    :return: float
+    float
         inner product
 
     Examples
@@ -151,7 +147,7 @@ def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         operator in square matrix form resulting from the computed outer product
 
     Examples
@@ -200,7 +196,7 @@ def tensorProd(*args: Matrix) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         tensor product of given states (in the given order)
 
     Examples
@@ -296,7 +292,7 @@ def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         Traced matrix
 
     Examples

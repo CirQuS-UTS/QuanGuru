@@ -1,5 +1,6 @@
-States
------------------------------------
+====================================================
+Quantum States (:mod:`qTools.QuantumToolbox.states`)
+====================================================
 
 .. automodule:: qTools.QuantumToolbox.states
    :members:

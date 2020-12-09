@@ -55,7 +55,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         Unitary time evolution operator
 
     Examples
@@ -90,7 +90,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         Liouvillian super-operator
 
     Examples
@@ -146,7 +146,7 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         (exponentiated) Liouvillian super-operator
 
     Examples
@@ -188,7 +188,7 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         Lindblad dissipator
 
     Examples
@@ -228,7 +228,7 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         `pre` super-operator
 
     Examples
@@ -266,7 +266,7 @@ def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         `pos` super-operator
 
     Examples
@@ -304,7 +304,7 @@ def _preposSO(operator: Matrix) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         `pre-pos` super-operator
 
     Examples

@@ -28,7 +28,6 @@ def test_basisByRandom():
         assert st[exc] == 1
         assert all([(st[j] == 0) for j in range(dim) if j != exc])
 
-
 @pytest.mark.parametrize("params,expected", [
     ((8, 3, True), np.array([[0], [0], [0], [1], [0], [0], [0], [0]])),
     ((7, 6, False), np.array([[0], [0], [0], [0], [0], [0], [1]]))
@@ -65,7 +64,6 @@ def test_basisBra(params, expected):
     if not isinstance(psiBra, np.ndarray):
         psiBra = psiBra.A
     assert (psiBra == expected).all()
-
 
 def test_superPosIntInput():
     # superPos with integer input is equivalent to basis method, thus testing their equivalence with 5 random values
@@ -116,7 +114,7 @@ def test_densityMatrix(params, expected):
 def test_densityMatrixRandomPure():
     # test comparing the outer product of 5 random pure states with densityMatrix function outputs
     for _ in range(5):
-        state, dim, excs = generateRndPureState()
+        state, _, _ = generateRndPureState()
         assert np.allclose(states.densityMatrix(state).A, la.outerProd(state).A)
 
 def test_densityMatrixRandomMixed():

@@ -5,13 +5,12 @@
 .. automodule:: qTools.__init__
 
 .. toctree::
-  :maxdepth: 2
-  :hidden:
+    :maxdepth: 1
+    :hidden:
 
-  QuantumToolbox <QuantumToolbox>
-  Classes <classes>
+    QuantumToolbox <QuantumToolbox>
 
 .. Hiding - Indices and tables
-   :ref:`genindex`
-   :ref:`modindex`
-   :ref:`search`
+    :ref:`genindex`
+    :ref:`modindex`
+    :ref:`search`

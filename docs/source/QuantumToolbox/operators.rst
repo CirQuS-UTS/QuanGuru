@@ -1,5 +1,7 @@
-Operators
---------------------------------------
+==========================================================
+Quantum Operators (:mod:`qTools.QuantumToolbox.operators`)
+==========================================================
+
 
 .. automodule:: qTools.QuantumToolbox.operators
    :members:

@@ -22,7 +22,7 @@ def iprKet(basis: matrixList, ket: Matrix) -> float:
 
     Returns
     -------
-    :return: float
+    float
         inverse participation ratio
 
     Examples
@@ -64,7 +64,7 @@ def iprKetList(basis: matrixList, kets: matrixList) -> floatList:
 
     Returns
     -------
-    :return: floatList
+    floatList
         a `list` of inverse participation ratios for the given list of ket states
 
     Examples
@@ -97,7 +97,7 @@ def iprKetNB(ket: Matrix) -> float:
 
     Returns
     -------
-    :return: float
+    float
         inverse participation ratio
 
     Examples
@@ -140,7 +140,7 @@ def iprKetNBList(kets: matrixList) -> floatList:
 
     Returns
     -------
-    :return: floatList
+    floatList
         a `list` of inverse participation ratios
 
     Examples
@@ -176,7 +176,7 @@ def iprKetNBmat(kets: ndarray) -> floatList:
 
     Returns
     -------
-    :return: floatList
+    floatList
         a `list` of inverse participation ratios
 
     Examples
@@ -212,7 +212,7 @@ def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
 
     Returns
     -------
-    :return: float
+    float
         inverse participation ratio
 
     Examples

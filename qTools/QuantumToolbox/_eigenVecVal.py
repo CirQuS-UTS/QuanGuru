@@ -54,7 +54,7 @@ def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
 
     Returns
     -------
-    :return: floatList
+    floatList
         `list` of component values in the basis
 
     Examples
@@ -86,7 +86,7 @@ def eigVecStatKetList(basis: matrixList, kets: matrixList) -> List[floatList]:
 
     Returns
     -------
-    :return: List[floatList]
+    List[floatList]
         `list` of component values in the basis
 
     Examples

@@ -97,7 +97,7 @@ def expectation(operator: Matrix, state: Matrix) -> float:
 
     Returns
     -------
-    :return: float
+    float
         expectation value of the `operator` for the `state`
 
     Examples
@@ -156,7 +156,7 @@ def fidelity(state1: Matrix, state2: Matrix) -> float:
 
     Returns
     -------
-    :return: float
+    float
         `fidelity` between any `two states`
 
     Examples
@@ -219,7 +219,7 @@ def entropy(densMat: Matrix, base2: bool = False) -> float:
 
     Returns
     -------
-    :return: float
+    float
         the `entropy` of the given `density matrix`
 
     Examples
@@ -319,7 +319,7 @@ def sortedEigens(Ham: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarra
 
     Returns
     -------
-    :return: Tuple[floatList, List[ndarray]]
+    Tuple[floatList, List[ndarray]]
         `sorted` eigenvalues and eigenvectors
 
     Examples

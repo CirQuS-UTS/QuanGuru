@@ -184,6 +184,7 @@ extensions = [
     'IPython.sphinxext.ipython_console_highlighting'
 ]
 
+copybutton_prompt_text = ">>> "
 
 autodoc_member_order = 'bysource'
 napoleon_use_param = True
