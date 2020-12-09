@@ -160,3 +160,11 @@ def test_partialTrace(mats):
     for i in range(len(dims)):
         pti = la.partialTrace([i], dims, tensProd)
         assert np.allclose(pti, mats[i])
+
+@pytest.mark.parametrize("mat, n", [[cMatEx1, 1], [cMatEx2, 1], [cMatEx3, 1], [cMatEx4, np.sqrt(2)]])
+def test_norm(mat, n):
+    assert la.norm(mat) == n
+
+@pytest.mark.parametrize("mat, t", [[operEx1, 5+5j], [operEx2, 0], [operEx3, 3]])
+def test_trace(mat, t):
+    assert la.trace(mat) == t

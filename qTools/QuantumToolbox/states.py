@@ -182,7 +182,7 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
 
 def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
-    r""" Weighted sum :math:`\sum_{x}w_{x}x` of given list of summands :math:`\{x\}` and weights :math:`\{w_{x}\}`
+    r""" Weighted sum :math:`\sum_{x}w_{x}x` of given list of summands :math:`\{x\}` and weights :math:`\{w_{x}\}`.
 
     Parameters
     ----------

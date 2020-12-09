@@ -910,7 +910,6 @@ def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 
-# TODO Does this really work with ndarray ?
 def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
     r"""
     Creates a composite operator

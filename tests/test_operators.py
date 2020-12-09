@@ -17,7 +17,8 @@ def checkGivenRuleForAnArray(cOp, rule, *args):
 
 @pytest.mark.parametrize("op, rule", [[ops.number, lambda ind1, ind2: ind1*int(not bool(ind1-ind2))],
                                       [ops.create, lambda ind1, ind2: np.sqrt(ind1)*int(not bool(ind1-ind2-1))],
-                                      [ops.destroy, lambda ind1, ind2: np.sqrt(ind2)*int(not bool(ind2-ind1-1))]])
+                                      [ops.destroy, lambda ind1, ind2: np.sqrt(ind2)*int(not bool(ind2-ind1-1))],
+                                      [ops.identity, lambda ind1, ind2: int(not bool(ind1-ind2))]])
 def test_bosonOperators(op, rule):
     # check the value of each element against a given rule, i.e. the definition the matrices
     for _ in range(5):
