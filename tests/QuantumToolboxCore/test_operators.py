@@ -1,9 +1,9 @@
 import random as rn
 import numpy as np
 import pytest
-from qTools.QuantumToolbox import states
+from qTools.QuantumToolbox import states#pylint: disable=import-error
 from qTools.QuantumToolbox import operators as ops #pylint: disable=import-error
-from .constants import (sigmaMinusReference, sigmaPlusReference, sigmaXReference, sigmaYReference, sigmaZReference)
+from ..constants import (sigmaMinusReference, sigmaPlusReference, sigmaXReference, sigmaYReference, sigmaZReference)#pylint: disable=relative-beyond-top-level
 
 
 def checkGivenRuleForAnArray(cOp, rule, *args):

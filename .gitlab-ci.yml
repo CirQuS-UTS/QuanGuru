@@ -3,13 +3,14 @@ before_script:
 
 stages:
     - Static Analysis
-    - Test
+    - Unit Test
+    - Integration Test
 
 mypy:
     stage: Static Analysis
     tags:
         - qsimulations
-    allow_failure: true
+    allow_failure: false
     script:
     - pwd
     - ls -l
@@ -29,7 +30,7 @@ pylint:
     stage: Static Analysis
     tags:
         - qsimulations
-    allow_failure: true
+    allow_failure: false
     script:
         - pwd
         - python3 -m pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt || pylint-exit $?
@@ -43,11 +44,22 @@ pylint:
         expire_in: 4 weeks
 
 unit_test:
-    stage: Test
+    stage: Unit Test
     tags:
         - qsimulations
-    allow_failure: true
+    allow_failure: false
     script:
     - pwd
     - ls -l
-    - python3 -m pytest
+    - cd tests/QuantumToolboxCore
+    - python3 -m pytest 
+
+integration_test:
+    stage: Integration Test
+    tags:
+        - qsimulations
+    allow_failure: false
+    script:
+    - pwd
+    - ls -l
+    - python3 -m pytest --ignore=tests/QuantumToolboxCore
