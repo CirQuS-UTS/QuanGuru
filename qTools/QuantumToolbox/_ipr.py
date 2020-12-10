@@ -3,7 +3,7 @@ from numpy import ndarray # type: ignore
 import numpy as np # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
-from .functions import fidelity
+from .functions import fidelityPure
 
 from .customTypes import Matrix, floatList, matrixList
 
@@ -44,7 +44,7 @@ def iprKet(basis: matrixList, ket: Matrix) -> float:
 
     npc = 0.0
     for basKet in basis:
-        fid = fidelity(basKet, ket)
+        fid = fidelityPure(basKet, ket)
         npc += (fid**2)
     return 1/npc
 
@@ -237,6 +237,6 @@ def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
 
     npc = 0.0
     for basKet in basis:
-        fid = fidelity(basKet, denMat)
+        fid = fidelityPure(basKet, denMat)
         npc += (fid**2)
     return 1/npc

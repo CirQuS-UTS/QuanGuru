@@ -1,5 +1,5 @@
 from .customTypes import Matrix as Matrix, floatList as floatList, matrixList as matrixList
-from .functions import fidelity as fidelity
+from .functions import fidelityPure as fidelityPure
 from typing import List
 
 def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList: ...

@@ -1,5 +1,5 @@
 from .customTypes import Matrix as Matrix, floatList as floatList, matrixList as matrixList
-from .functions import fidelity as fidelity
+from .functions import fidelityPure as fidelityPure
 from numpy import ndarray as ndarray
 
 def iprKet(basis: matrixList, ket: Matrix) -> float: ...

@@ -1,22 +1,20 @@
-"""
-    Module of functions to create Unitary operator and open-system super-operators.
+r"""
+    Module containing functions to create Unitary operator and open-system super-operators.
+
+    .. currentmodule:: qTools.QuantumToolbox.evolution
 
     Functions
     ---------
-    | :func:`Unitary`: Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
-    | :func:`Liouvillian`: Creates `Liouvillian super-operator` for a given `Hamiltonian`, `time step`,
-        and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-    | :func:`LiouvillianExp`: Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`,
-        `time step`,
-        and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-    | :func:`dissipator`: Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
-    | :func:`_preSO`: Creates `pre super-operator` for an `operator`.
-    | :func:`_posSO`: Creates `pos super-operator` for an `operator`.
-    | :func:`_preposSO`: Creates `pre-pos super-operator` for an `operator`.
 
-    Types
-    -----
-    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>`: Union of (scipy) sparse and (numpy) array
+    .. autosummary::
+        Unitary
+        Liouvillian
+        LiouvillianExp
+
+        dissipator
+        _preSO
+        _posSO
+        _preposSO
 """
 
 from typing import Optional
@@ -41,7 +39,7 @@ from .customTypes import Matrix
 
 
 def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
-    """
+    r"""
     Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
 
     Keeps sparse/array as sparse/array.
@@ -73,7 +71,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value
                 collapseOperators: list = [], decayRates: list = []) -> Matrix:# pylint: disable=dangerous-default-value
-    """
+    r"""
     Creates `Liouvillian` super-operator for a given `Hamiltonian`, `time step`,
     and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
 
@@ -125,7 +123,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value
                    collapseOperators: list = [], decayRates: list = [],
                    exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
-    """
+    r"""
     Creates `Liovillian` super-operator for a given `Hamiltonian`, `time step`,
     and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
 
@@ -174,7 +172,7 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
 
 
 def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> Matrix:
-    """
+    r"""
     Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
 
     Keeps sparse/array as sparse/array.
@@ -214,7 +212,7 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
 
 
 def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
-    """
+    r"""
     Creates `pre super-operator` for an `operator`.
 
     Keeps sparse/array as sparse/array.
@@ -252,7 +250,7 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
 
 def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
-    """
+    r"""
     Creates `pos` super-operator for an operator.
 
     Keeps sparse/array as sparse/array.
@@ -290,7 +288,7 @@ def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
 
 def _preposSO(operator: Matrix) -> Matrix:
-    """
+    r"""
     Creates `pre-pos super-operator` for an operator.
 
     Keeps sparse/array as sparse/array.

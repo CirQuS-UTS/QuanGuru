@@ -124,3 +124,10 @@ def test_densityMatrixRandomMixed():
         comps = [states.basis(dim, k) for k in excs]
         state = sum([v*(la.outerProd(states.basis(dim, k))) for k, v in excs.items()])
         assert np.allclose(states.densityMatrix(comps, excs.values()).A, state.A)
+
+
+def test_normalise():
+    for _ in range(5):
+        dim, excs = generateRndStateParams()
+        state = sum([v*states.basis(dim, k) for k, v in excs.items()])
+        assert round(la.trace(states.normalise(la.outerProd(state))), 13) == 1

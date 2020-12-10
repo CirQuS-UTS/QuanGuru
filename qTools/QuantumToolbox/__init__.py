@@ -13,10 +13,15 @@
 
 
     .. autosummary::
-
         linearAlgebra
+
+    .. autosummary::
         states
         operators
+        evolution
+
+    .. autosummary::
+        functions
 
 """
 
@@ -30,20 +35,14 @@ from .operators import (
     number, destroy, create, identity, sigmaz, sigmay, sigmax, sigmap, sigmam, Jz, Jp, Jm, Jx, Jy, Js, operatorPow,
     paritySUM, parityEXP, displacement, squeeze, compositeOp
 )
-from .functions import (expectation, fidelity, entropy, sortedEigens, concurrence)
-
-
+from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
+from .functions import (expectation, fidelityPure, entropy, sortedEigens, concurrence)
 
 
 
 
 from .Hamiltonians import (cavQubFreeHam, RabiHam, JCHam, aJCHam)
-from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
-
 from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
-
-
-
 from .rmtDistributions import (EigenVectorDist, WignerDyson, Poissonian)
 from ._undecided import (expectationKetList, expectationMatList, expectationColArr, fidelityKetList, fidelityKetLists)
 from ._ipr import (iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat)

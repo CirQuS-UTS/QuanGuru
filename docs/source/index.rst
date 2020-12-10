@@ -5,8 +5,8 @@
 .. automodule:: qTools.__init__
 
 .. toctree::
+    :titlesonly:
     :maxdepth: 1
-    :hidden:
 
     QuantumToolbox <QuantumToolbox>
 

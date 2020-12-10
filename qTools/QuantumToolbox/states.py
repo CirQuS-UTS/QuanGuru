@@ -1,4 +1,4 @@
-"""
+r"""
     Module containing methods to create states, such as ket, bra, densityMatrix, superpositions, etc.
 
     .. currentmodule:: qTools.QuantumToolbox.states
@@ -8,15 +8,19 @@
 
     .. autosummary::
         basis
-        completeBasis
         basisBra
         zeros
-        weightedSum
+        completeBasis
+
+    .. autosummary::
         superPos
         densityMatrix
-        completeBasisMat
         normalise
         compositeState
+        completeBasisMat
+        weightedSum
+
+    .. autosummary::
         mat2Vec
         vec2Mat
 
@@ -69,12 +73,12 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> basis(2, 0)
+    >>> print(basis(2, 0))
     (0, 0)	1
 
     >>> basis(2, 0, sparse=False)
     [[1]
-    [0]]
+     [0]]
     """
 
     data = [1]
@@ -104,14 +108,11 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     Examples
     --------
     >>> completeBasis(2, sparse=False)
-    [[1]
-    [0]]
-    [[0]
-    [1]]
+    [array([[1],
+            [0]], dtype=int64),
+     array([[0],
+            [1]], dtype=int64)]
 
-    >>> completeBasis(2)
-    (0, 0)	1
-    (1, 0)	1
     """
 
     return [basis(dimension, i, sparse) for i in range(dimension)]
@@ -138,7 +139,7 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> basisBra(2, 0)
+    >>> print(basisBra(2, 0))
     (0, 0)	1
 
     >>> basisBra(2, 0, sparse=False)
@@ -166,12 +167,12 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> zeros(2)
+    >>> print(zeros(2))
     (0, 0)	0
 
     >>> zeros(2, sparse=False)
     [[0]
-    [0]]
+     [0]]
     """
 
     data = [0]
@@ -204,15 +205,39 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
     r"""
     Creates a superposition ket state in various ways.
 
+    Given `excitations` is
+
+        1. a `dictionary` : `keys = [k]` of the dictionary are the states ``basis(dimension, k)`` :math:`\forall k`,
+        and the values are
+
+            1. ``populations = True`` : `values =` :math:`[p_{k}]` are populations of the corresponding keys.
+            They do not need to sum to 1. The state gets normalised, so these are relative populations.
+
+            Output state
+
+                :math:`|ket\rangle = \frac{1}{\sum p_{k}}\sum \sqrt{p_{k}}` ``basis(dimension, k)``
+
+            2. ``populations = True`` : `values =` :math:`[c_{k}]` are the complex probability amplitudes. The output
+            state gets normalised.
+
+            Ouput state
+
+                :math:`|ket\rangle = \frac{1}{\sum c_{k}^{2}}\sum c_{k}` ``basis(dimension, k)``
+
+    2. a `list` [k] of N integers corresponding to states ``basis(dimension, k)`` :math:`\forall k` with equal weights
+
+        Output state
+
+            :math:`|ket\rangle = \frac{1}{\sqrt{N}}\sum` ``basis(dimension, k)``
+
+    3. an `integer`, to create a basis state (equivalent to ``basis`` function)
+
     Parameters
     ----------
     dimension : int
         dimension of Hilbert space
     excitations : supInt (Union of int, list(int), dict(int:float))
-
-            1. a `dictionary` with state:population (key:value). The generated state will be normalised.
-            2. a `list` of integers corresponding to states to be populated in equal super-position
-            3. an `integer`, to create a basis state (equivalent to `basis` function)
+        see above
     populations : bool
         If True (False) dictionary keys are the populations (complex probability amplitudes)
 
@@ -225,15 +250,15 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
     --------
     >>> superPos(2, {0:0.2, 1:0.8}, sparse=False)
     [[0.4472136 ]
-    [0.89442719]]
+     [0.89442719]]
 
     >>> superPos(2, [0,1], sparse=False)
     [[0.70710678]
-    [0.70710678]]
+     [0.70710678]]
 
     >>> superPos(2, 1, sparse=False)
     [[0.]
-    [1.]]
+     [1.]]
     """
 
     if isinstance(excitations, dict):
@@ -252,8 +277,19 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
 
 def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) -> Matrix:
     r"""
-    Computes the `density matrix` of a pure `ket` state or a mixed state from a list of kets and their associated
-    probabilities.
+    Computes the `density matrix` for both pure and mixed states.
+
+    1. Given a pure `ket` :math:`|\psi\rangle` state
+
+        Output state
+
+            :math:`\rho = |\psi\rangle\langle\psi|`
+
+    2. Given a list of kets states :math:`[|\psi_{i}\rangle]` and their associated probabilities :math:`[w_{i}]`
+
+        Output mixed state
+
+            :math:`\rho = \sum w_{i}|\psi_{i}\rangle\langle\psi_{i}|` from a list of kets
 
     Parameters
     ----------
@@ -270,19 +306,19 @@ def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) ->
     Examples
     --------
     >>> ket = basis(2, 0)
-    >>> densityMatrix(ket)
+    >>> print(densityMatrix(ket))
     (0, 0)	1
 
     >>> ket = superPos(2, [0,1], sparse=False)
     >>> densityMatrix(ket)
     [[0.5 0.5]
-    [0.5 0.5]]
+     [0.5 0.5]]
 
     >>> ket1 = superPos(2, [0,1], sparse=False)
     >>> ket2 = basis(2, 0)
     >>> densityMatrix([ket1,ket2],[0.5, 0.5])
     [[0.75 0.5]
-    [0.5 0.25]]
+     [0.5 0.25]]
     """
 
     return normalise(weightedSum([linAlOuterProd(k) for k in ket], probability)) if isinstance(ket, list) else linAlOuterProd(ket) #pylint:disable=line-too-long
@@ -291,9 +327,9 @@ def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) ->
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,
                      sparse: bool = True) -> matrixList:
     r"""
-    Creates a complete basis :math:`\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}` of `density matrices`
-    :math:`\{|n\rangle\langle n|\}` for a given dimension or convert a `ket basis` :math:`\{|n\rangle\}` to 
-    `density matrix`.
+    Creates a set of `density matrices` :math:`\{|n\rangle\langle n|\}` st
+    :math:`\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}` for a given dimension or
+    convert a `ket basis` :math:`\{|n\rangle\}` to `density matrix`.
 
     NOTE: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.
 
@@ -315,9 +351,14 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
 
     :raises ValueError : raised if both complete ket basis and dimension are None (default). Dimension is used to create
 
-    >>> completeBasisMat(dimension=2)
-    (0, 0)	1
-    (1, 1)	1
+    Examples
+    --------
+    >>> completeBasisMat(dimension=2, sparse=False)
+    [array([[1, 0],
+            [0, 0]], dtype=int64),
+     array([[0, 0],
+            [0, 1]], dtype=int64)]
+
     """
 
     if compKetBase is None:
@@ -335,6 +376,14 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
 def normalise(state: Matrix) -> Matrix:
     r"""
     Function to normalise `any` state (ket or density matrix).
+
+    For ket states :math:`|\psi\rangle`
+
+        :math:`\frac{1}{norm(|\psi\rangle)}|\psi\rangle`
+
+    For density matrices :math:`\rho``
+
+        :math:`\frac{1}{trace(\rho)}\rho`
 
     Keeps the sparse/array as sparse/array
 
@@ -371,7 +420,9 @@ def normalise(state: Matrix) -> Matrix:
 
 def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool = True) -> Matrix:
     r"""
-    Function to create `composite ket` states.
+    Function to create `composite ket` states. Uses :func:`superPos <qTools.QuantumToolbox.states.superPos>` to create
+    individual states and :func:`tensorProd <qTools.QuantumToolbox.linearAlgebra.tensorProd>` to calculate their tensor
+    product.
 
     Parameters
     ----------
@@ -394,21 +445,21 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
     --------
     >>> compositeState(dimensions=[2, 2], excitations=[0,1], sparse=False)
     [[0]
-    [1]
-    [0]
-    [0]]
+     [1]
+     [0]
+     [0]]
 
     >>> compositeState(dimensions=[2, 2], excitations=[[0,1],1], sparse=False)
     [[0.        ]
-    [0.70710678]
-    [0.        ]
-    [0.70710678]]
+     [0.70710678]
+     [0.        ]
+     s[0.70710678]]
 
     >>> compositeState(dimensions=[2, 2], excitations=[0,{0:0.2, 1:0.8}], sparse=False)
     [[0.4472136 ]
-    [0.89442719]
-    [0.        ]
-    [0.        ]]
+     [0.89442719]
+     [0.        ]
+     [0.        ]]
     """
 
     st = linAlTensorProd(*[superPos(dim, exs) for (dim, exs) in zip(dimensions, excitations)])
@@ -434,11 +485,11 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     Examples
     --------
     >>> denMat = densityMatrix(ket=basis(dimension=2, state=1, sparse=True))
-    >>> mat2Vec(denMat=denMat)
+    >>> mat2Vec(denMat=denMat).A
     [[0]
-    [0]
-    [0]
-    [1]]
+     [0]
+     [0]
+     [1]]
     """
 
     return denMat.T.reshape(np.prod(np.shape(denMat)), 1)
@@ -463,13 +514,14 @@ def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     Examples
     --------
     >>> denMat = densityMatrix(ket=basis(dimension=2, state=1, sparse=True))
+    >>> print(denMat.A)
     [[0 0]
-    [0 1]]
+     [0 1]]
 
     >>> denVec = mat2Vec(denMat=denMat)
-    >>> vec2mat(vec=denVec)
+    >>> vec2mat(vec=denVec).A
     [[0 0]
-    [0 1]]
+     [0 1]]
     """
 
     a = vec.shape

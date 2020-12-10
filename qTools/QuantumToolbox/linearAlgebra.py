@@ -1,4 +1,4 @@
-"""
+r"""
     Module containing some basic linear algebra methods for scipy.sparse and np.ndarray types.
 
     .. currentmodule:: qTools.QuantumToolbox.linearAlgebra
@@ -26,7 +26,7 @@ from .customTypes import Matrix, ndOrListInt #pylint: disable=relative-beyond-to
 
 def hc(matrix: Matrix) -> Matrix:
     r"""
-    Hermitian conjugate (:math:`M^{\dagger} := (M^{*})^{T}`) of a matrix :math:`M`, where * is complex conjugation, and
+    Hermitian conjugate :math:`M^{\dagger} := (M^{*})^{T}` of a matrix :math:`M`, where * is complex conjugation, and
     T is transposition.
 
     Parameters
@@ -203,7 +203,6 @@ def tensorProd(*args: Matrix) -> Matrix:
     --------
     >>> cMatEx1 = np.array([[1],
     >>>                     [0]])
-    >>> outerProd(cMatEx1)
     >>> cMatEx2 = np.array([[0],
     >>>                     [1]])
     >>> tensorProd(cMatEx1, cMatEx2)
@@ -299,7 +298,6 @@ def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray
     --------
     >>> cMatEx1 = np.array([[1],
     >>>                     [0]])
-    >>> outerProd(cMatEx1)
     >>> cMatEx2 = np.array([[0],
     >>>                     [1]])
     >>> partialTrace([0], [2, 2], outerProd(tensorProd(cMatEx1, cMatEx2)))

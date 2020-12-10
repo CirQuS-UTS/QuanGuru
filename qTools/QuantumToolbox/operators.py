@@ -1,4 +1,4 @@
-"""
+r"""
     Module containing methods to functions to create and/or manipulate quantum operators
 
     .. currentmodule:: qTools.QuantumToolbox.operators
@@ -7,12 +7,12 @@
     ---------
 
     .. autosummary::
+        identity
+
+    .. autosummary::
         number
         destroy
         create
-
-        identity
-
 
     .. autosummary::
         sigmaz
@@ -21,6 +21,7 @@
         sigmap
         sigmam
 
+    .. autosummary::
         Jp
         Jm
         Jx
@@ -28,12 +29,15 @@
         Jz
         Js
 
+    .. autosummary::
         displacement
         squeeze
 
-        paritySUM
+    .. autosummary::
         parityEXP
+        paritySUM
 
+    .. autosummary::
         compositeOp
         operatorPow
 
@@ -80,10 +84,10 @@ def number(dimension: int, sparse: bool = True) -> Matrix:
     --------
     >>> number(dimension=3, sparse=False)
     [[0 0 0]
-    [0 1 0]
-    [0 0 2]]
+     [0 1 0]
+     [0 0 2]]
 
-    >>> number(3)
+    >>> print(number(3))
     (0, 0)	0
     (1, 1)	1
     (2, 2)	2
@@ -114,14 +118,14 @@ def destroy(dimension: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> destroy(dimension=3)
+    >>> print(destroy(dimension=3))
     (0, 1)	1.0
     (1, 2)	1.4142135623730951
 
     >>> destroy(3, sparse=False)
     [[0.         1.         0.        ]
-    [0.         0.         1.41421356]
-    [0.         0.         0.        ]]
+     [0.         0.         1.41421356]
+     [0.         0.         0.        ]]
     """
 
     data = [np.sqrt(i+1) for i in range(dimension-1)]
@@ -149,14 +153,14 @@ def create(dimension: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> create(3)
+    >>> print(create(3))
     (1, 0)	1.0
     (2, 1)	1.4142135623730951
 
     >>> create(3, sparse=False)
     [[0.         0.         0.        ]
-    [1.         0.         0.        ]
-    [0.         1.41421356 0.        ]]
+     [1.         0.         0.        ]
+     [0.         1.41421356 0.        ]]
     """
 
     data = [np.sqrt(i+1) for i in range(dimension-1)]
@@ -168,7 +172,7 @@ def create(dimension: int, sparse: bool = True) -> Matrix:
 
 def identity(dimension: int, sparse: bool = True) -> Matrix:
     r"""
-    Creates the identity operator.
+    Creates the identity operator :math:`\mathbb{I}`.
 
     Parameters
     ----------
@@ -184,15 +188,15 @@ def identity(dimension: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> identity(3)
+    >>> print(identity(3))
     (0, 0)	1.0
     (1, 1)	1.0
     (2, 2)	1.0
 
     >>> identity(3, sparse=False)
     [[1. 0. 0.]
-    [0. 1. 0.]
-    [0. 0. 1.]]
+     [0. 1. 0.]
+     [0. 0. 1.]]
     """
 
     return sp.identity(dimension, format="csc") if sparse else np.identity(dimension)
@@ -216,9 +220,9 @@ def sigmaz(sparse: bool = True) -> Matrix:
     --------
     >>> sigmaz(sparse=False)
     [[ 1  0]
-    [ 0 -1]]
+     [ 0 -1]]
 
-    >>> sigmaz()
+    >>> print(sigmaz())
     (0, 0)	1
     (1, 1)	-1
     """
@@ -248,9 +252,9 @@ def sigmay(sparse: bool = True) -> Matrix:
     --------
     >>> sigmay(sparse=False)
     [[0.+0.j 0.-1.j]
-    [0.+1.j 0.+0.j]]
+     [0.+1.j 0.+0.j]]
 
-    >>> sigmay()
+    >>> print(sigmay())
     (1, 0)	1j
     (0, 1)	(-0-1j)
     """
@@ -280,9 +284,9 @@ def sigmax(sparse: bool = True) -> Matrix:
     --------
     >>> sigmax(sparse=False)
     [[0 1]
-    [1 0]]
+     [1 0]]
 
-    >>> sigmax()
+    >>> print(sigmax())
     (1, 0)	1
     (0, 1)	1
     """
@@ -296,7 +300,7 @@ def sigmax(sparse: bool = True) -> Matrix:
 
 def sigmap(sparse: bool = True) -> Matrix:
     r"""
-    Creates the `Pauli` (sigma +) :math:`\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) = 
+    Creates the `Pauli` (sigma +) :math:`\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =
     \begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}` operator.
 
     Parameters
@@ -313,9 +317,9 @@ def sigmap(sparse: bool = True) -> Matrix:
     --------
     >>> sigmap(sparse=False)
     [[0 1]
-    [0 0]]
+     [0 0]]
 
-    >>> sigmap()
+    >>> print(sigmap())
     (0, 1)	1
     """
 
@@ -328,7 +332,7 @@ def sigmap(sparse: bool = True) -> Matrix:
 
 def sigmam(sparse: bool = True) -> Matrix:
     r"""
-    Creates the `Pauli` (sigma -) :math:`\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) = 
+    Creates the `Pauli` (sigma -) :math:`\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =
     \begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}` operator.
 
     Parameters
@@ -345,9 +349,9 @@ def sigmam(sparse: bool = True) -> Matrix:
     --------
     >>> sigmam(sparse=False)
     [[0 0]
-    [1 0]]
+     [1 0]]
 
-    >>> sigmam()
+    >>> print(sigmam())
     (1, 0)	1
     """
 
@@ -382,27 +386,27 @@ def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
 
     Examples
     --------
-    >>> Jp(j=2, isDim=False, sparse=False)
+    >>> Jp(j=2, sparse=False)
     [[0.         2.         0.         0.         0.        ]
-    [0.         0.         2.44948974 0.         0.        ]
-    [0.         0.         0.         2.44948974 0.        ]
-    [0.         0.         0.         0.         2.        ]
-    [0.         0.         0.         0.         0.        ]]
+     [0.         0.         2.44948974 0.         0.        ]
+     [0.         0.         0.         2.44948974 0.        ]
+     [0.         0.         0.         0.         2.        ]
+     [0.         0.         0.         0.         0.        ]]
 
-    >>> Jp(j=2, isDim=False)
+    >>> print(Jp(j=2))
     (0, 1)	2.0
     (1, 2)	2.449489742783178
     (2, 3)	2.449489742783178
     (3, 4)	2.0
 
-    >>> Jp(j=5, sparse=False)
+    >>> Jp(j=5, sparse=False, isDim=True)
     [[0.         2.         0.         0.         0.        ]
-    [0.         0.         2.44948974 0.         0.        ]
-    [0.         0.         0.         2.44948974 0.        ]
-    [0.         0.         0.         0.         2.        ]
-    [0.         0.         0.         0.         0.        ]]
+     [0.         0.         2.44948974 0.         0.        ]
+     [0.         0.         0.         2.44948974 0.        ]
+     [0.         0.         0.         0.         2.        ]
+     [0.         0.         0.         0.         0.        ]]
 
-    >>> Jp(j=5, isDim=True)
+    >>> print(Jp(j=5, isDim=True))
     (0, 1)	2.0
     (1, 2)	2.449489742783178
     (2, 3)	2.449489742783178
@@ -447,25 +451,25 @@ def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     --------
     >>> Jm(j=2, isDim=False, sparse=False)
     [[0.         0.         0.         0.         0.        ]
-    [2.         0.         0.         0.         0.        ]
-    [0.         2.44948974 0.         0.         0.        ]
-    [0.         0.         2.44948974 0.         0.        ]
-    [0.         0.         0.         2.         0.        ]]
+     [2.         0.         0.         0.         0.        ]
+     [0.         2.44948974 0.         0.         0.        ]
+     [0.         0.         2.44948974 0.         0.        ]
+     [0.         0.         0.         2.         0.        ]]
 
-    >>> Jm(j=2, isDim=False)
+    >>> print(Jm(j=2, isDim=False))
     (1, 0)	2.0
     (2, 1)	2.449489742783178
     (3, 2)	2.449489742783178
     (4, 3)	2.0
 
-    >>> Jm(j=5, sparse=False)
+    >>> Jm(j=5, sparse=False, isDim=True)
     [[0.         0.         0.         0.         0.        ]
-    [2.         0.         0.         0.         0.        ]
-    [0.         2.44948974 0.         0.         0.        ]
-    [0.         0.         2.44948974 0.         0.        ]
-    [0.         0.         0.         2.         0.        ]]
+     [2.         0.         0.         0.         0.        ]
+     [0.         2.44948974 0.         0.         0.        ]
+     [0.         0.         2.44948974 0.         0.        ]
+     [0.         0.         0.         2.         0.        ]]
 
-    >>> Jm(j=5, isDim=True)
+    >>> print(Jm(j=5, isDim=True))
     (1, 0)	2.0
     (2, 1)	2.449489742783178
     (3, 2)	2.449489742783178
@@ -509,12 +513,12 @@ def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     --------
     >>> Jx(j=2, isDim=False, sparse=False)
     [[0.         1.         0.         0.         0.        ]
-    [1.         0.         1.22474487 0.         0.        ]
-    [0.         1.22474487 0.         1.22474487 0.        ]
-    [0.         0.         1.22474487 0.         1.        ]
-    [0.         0.         0.         1.         0.        ]]
+     [1.         0.         1.22474487 0.         0.        ]
+     [0.         1.22474487 0.         1.22474487 0.        ]
+     [0.         0.         1.22474487 0.         1.        ]
+     [0.         0.         0.         1.         0.        ]]
 
-    >>> Jx(j=2, isDim=False)
+    >>> print(Jx(j=2, isDim=False))
     (1, 0)	1.0
     (0, 1)	1.0
     (2, 1)	1.224744871391589
@@ -524,14 +528,14 @@ def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     (4, 3)	1.0
     (3, 4)	1.0
 
-    >>> Jx(j=5, sparse=False)
+    >>> Jx(j=5, sparse=False, isDim=True)
     [[0.         1.         0.         0.         0.        ]
-    [1.         0.         1.22474487 0.         0.        ]
-    [0.         1.22474487 0.         1.22474487 0.        ]
-    [0.         0.         1.22474487 0.         1.        ]
-    [0.         0.         0.         1.         0.        ]]
+     [1.         0.         1.22474487 0.         0.        ]
+     [0.         1.22474487 0.         1.22474487 0.        ]
+     [0.         0.         1.22474487 0.         1.        ]
+     [0.         0.         0.         1.         0.        ]]
 
-    >>> Jx(j=5, isDim=True)
+    >>> print(Jx(j=5, isDim=True))
     (1, 0)	1.0
     (0, 1)	1.0
     (2, 1)	1.224744871391589
@@ -571,12 +575,12 @@ def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     --------
     >>> Jy(j=2, isDim=False, sparse=False)
     [[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]
-    [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]
-    [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]
-    [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]
-    [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]
+     [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]
+     [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]
+     [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]
+     [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]
 
-    >>> Jy(j=2, isDim=False)
+    >>> print(Jy(j=2, isDim=False))
     (1, 0)	1j
     (0, 1)	-1j
     (2, 1)	1.224744871391589j
@@ -586,14 +590,14 @@ def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     (4, 3)	1j
     (3, 4)	-1j
 
-    >>> Jy(j=5, sparse=False)
+    >>> Jy(j=5, sparse=False, isDim=True)
     [[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]
-    [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]
-    [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]
-    [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]
-    [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]
+     [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]
+     [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]
+     [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]
+     [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]
 
-    >>> Jy(j=5, isDim=True)
+    >>> print(Jy(j=5, isDim=True))
     (1, 0)	1j
     (0, 1)	-1j
     (2, 1)	1.224744871391589j
@@ -630,26 +634,26 @@ def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     --------
     >>> Jz(j=2, isDim=False, sparse=False)
     [[ 2  0  0  0  0]
-    [ 0  1  0  0  0]
-    [ 0  0  0  0  0]
-    [ 0  0  0 -1  0]
-    [ 0  0  0  0 -2]]
+     [ 0  1  0  0  0]
+     [ 0  0  0  0  0]
+     [ 0  0  0 -1  0]
+     [ 0  0  0  0 -2]]
 
-    >>> Jz(j=2, isDim=False)
+    >>> print(Jz(j=2, isDim=False))
     (0, 0)	2
     (1, 1)	1
     (2, 2)	0
     (3, 3)	-1
     (4, 4)	-2
 
-    >>> Jz(j=5, sparse=False)
+    >>> Jz(j=5, sparse=False, isDim=True)
     [[ 2.  0.  0.  0.  0.]
-    [ 0.  1.  0.  0.  0.]
-    [ 0.  0.  0.  0.  0.]
-    [ 0.  0.  0. -1.  0.]
-    [ 0.  0.  0.  0. -2.]]
+     [ 0.  1.  0.  0.  0.]
+     [ 0.  0.  0.  0.  0.]
+     [ 0.  0.  0. -1.  0.]
+     [ 0.  0.  0.  0. -2.]]
 
-    >>> Jz(j=5, isDim=True)
+    >>> print(Jz(j=5, isDim=True))
     (0, 0)	2.0
     (1, 1)	1.0
     (2, 2)	0.0
@@ -692,26 +696,26 @@ def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     --------
     >>> Js(j=2, isDim=False, sparse=False)
     [[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
-    [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
-    [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
-    [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
-    [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
+     [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
+     [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
+     [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
+     [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
 
-    >>> Js(j=2, isDim=False)
+    >>> print(Js(j=2, isDim=False))
     (0, 0)	(6+0j)
     (1, 1)	(6+0j)
     (2, 2)	(5.999999999999999+0j)
     (3, 3)	(6+0j)
     (4, 4)	(6+0j)
 
-    >>> Js(j=5, sparse=False)
+    >>> Js(j=5, sparse=False, isDim=True)
     [[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
-    [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
-    [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
-    [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
-    [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
+     [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]
+     [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]
+     [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]
+     [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]
 
-    >>> Js(j=5, isDim=True)
+    >>> print(Js(j=5, isDim=True))
     (0, 0)	(6+0j)
     (1, 1)	(6+0j)
     (2, 2)	(5.999999999999999+0j)
@@ -749,11 +753,11 @@ def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     --------
     >>> displacement(alpha=1j, dim=4, sparse=False)
     [[ 0.60605894+0.j          0.        +0.6100857j  -0.41242505+0.j       0.        -0.30065525j]
-    [ 0.        +0.6100857j   0.02280184+0.j          0.        +0.34204129j        -0.71434114+0.j]
-    [-0.41242505+0.j          0.        +0.34204129j -0.56045527+0.j        0.        +0.63150869j]
-    [ 0.        -0.30065525j -0.71434114+0.j          0.        +0.63150869j        0.02280184+0.j]]
+     [ 0.        +0.6100857j   0.02280184+0.j          0.        +0.34204129j        -0.71434114+0.j]
+     [-0.41242505+0.j          0.        +0.34204129j -0.56045527+0.j        0.        +0.63150869j]
+     [ 0.        -0.30065525j -0.71434114+0.j          0.        +0.63150869j        0.02280184+0.j]]
 
-    >>> displacement(alpha=1j, dim=4)
+    >>> print(displacement(alpha=1j, dim=4))
     (0, 0)	(0.6060589372864117+0j)
     (1, 0)	0.610085698426889j
     (2, 0)	(-0.41242505189886125+0j)
@@ -802,11 +806,11 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     --------
     >>> squeeze(alpha=1j, dim=4, sparse=False)
     [[0.7602446 +0.j         0.        +0.j         0.        -0.64963694j      0.        +0.j        ]
-    [0.        +0.j         0.33918599+0.j         0.        +0.j               0.        -0.94071933j]
-    [0.        -0.64963694j 0.        +0.j         0.7602446 +0.j               0.        +0.j        ]
-    [0.        +0.j         0.        -0.94071933j 0.        +0.j               0.33918599+0.j        ]]
+     [0.        +0.j         0.33918599+0.j         0.        +0.j               0.        -0.94071933j]
+     [0.        -0.64963694j 0.        +0.j         0.7602446 +0.j               0.        +0.j        ]
+     [0.        +0.j         0.        -0.94071933j 0.        +0.j               0.33918599+0.j        ]]
 
-    >>> squeeze(alpha=1j, dim=4)
+    >>> print(squeeze(alpha=1j, dim=4))
     (0, 0)	(0.7602445970756301+0j)
     (2, 0)	-0.6496369390800625j
     (1, 1)	(0.3391859889869473+0j)
@@ -844,13 +848,13 @@ def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     >>> ham = number(dimension=5, sparse=False)
     >>> parityEXP(HamiltonianCavity=ham) # returns an array since ham is an array
     [[ 1.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
-    [ 0.+0.0000000e+00j -1.+1.2246468e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
-    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j]
-    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  -1.+3.6739404e-16j  0.+0.0000000e+00j]
-    [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  1.-4.8985872e-16j]]
+     [ 0.+0.0000000e+00j -1.+1.2246468e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]
+     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j]
+     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  -1.+3.6739404e-16j  0.+0.0000000e+00j]
+     [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  1.-4.8985872e-16j]]
 
     >>> ham = number(dimension=5)
-    >>> parityEXP(HamiltonianCavity=ham) # returns a sparse since ham is a sparse
+    >>> print(parityEXP(HamiltonianCavity=ham)) # returns a sparse since ham is a sparse
     (0, 0)	(1+0j)
     (0, 1)	0j
     (1, 1)	(-1+1.2246467991473532e-16j)
@@ -887,12 +891,12 @@ def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     --------
     >>> paritySUM(dimension=5, sparse=False)
     [[ 1.  0.  0.  0.  0.]
-    [ 0. -1.  0.  0.  0.]
-    [ 0.  0.  1.  0.  0.]
-    [ 0.  0.  0. -1.  0.]
-    [ 0.  0.  0.  0.  1.]]
+     [ 0. -1.  0.  0.  0.]
+     [ 0.  0.  1.  0.  0.]
+     [ 0.  0.  0. -1.  0.]
+     [ 0.  0.  0.  0.  1.]]
 
-    >>> paritySUM(dimension=5)
+    >>> print(paritySUM(dimension=5))
     (0, 0)	1.0
     (1, 1)	-1.0
     (2, 2)	1.0
@@ -934,32 +938,20 @@ def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
 
     Examples
     --------
-    TODO Update these
-    >>> compositeOp(operator=sigmaz(), dimB=0, dimA=2)
-    >>> print(szQ1.A)
+    >>> compositeOp(operator=sigmaz(), dimB=0, dimA=2).A
     [[ 1.  0.  0.  0.]
-    [ 0.  1.  0.  0.]
-    [ 0.  0. -1.  0.]
-    [ 0.  0.  0. -1.]]
+     [ 0.  1.  0.  0.]
+     [ 0.  0. -1.  0.]
+     [ 0.  0.  0. -1.]]
 
-    >>> compositeOp(operator=sigmaz(), dimB=2, dimA=0)
-    >>> print(szQ2.A)
+    >>> compositeOp(operator=sigmaz(), dimB=2, dimA=0).A
     [[ 1.  0.  0.  0.]
-    [ 0. -1.  0.  0.]
-    [ 0.  0.  1.  0.]
-    [ 0.  0.  0. -1.]]
+     [ 0. -1.  0.  0.]
+     [ 0.  0.  1.  0.]
+     [ 0.  0.  0. -1.]]
+
     """
 
-    # l = [a for a in [dimB, operator, dimA] if a is not 1]
-
-    # if (dimB <= 1) and (dimA > 1): # pylint: disable=R1716
-    #     oper = sp.kron(operator, sp.identity(dimA), format='csc')
-    # elif (dimB > 1) and (dimA <= 1): # pylint: disable=R1716
-    #     oper = sp.kron(sp.identity(dimB), operator, format='csc')
-    # elif (dimB > 1) and (dimA > 1):
-    #     oper = sp.kron(sp.kron(sp.identity(dimB), operator, format='csc'), sp.identity(dimA), format='csc')
-    # else:
-    #     oper = operator
     return tensorProd(*[a for a in [dimB, operator, dimA] if ((not isinstance(a, int)) or (a > 1))])
 
 
@@ -987,17 +979,17 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
     --------
     >>> operatorPow(op=sigmax, dim=2, power=2, sparse=False)
     [[1 0]
-    [0 1]]
+     [0 1]]
 
-    >>> operatorPow(op=sigmax, dim=2, power=2)
+    >>> print(operatorPow(op=sigmax, dim=2, power=2))
     (0, 0)	1
     (1, 1)	1
 
     >>> operatorPow(op=sigmax, dim=2, power=3, sparse=False)
     [[0 1]
-    [1 0]]
+     [1 0]]
 
-    >>> operatorPow(op=sigmax, dim=2, power=3)
+    >>> print(operatorPow(op=sigmax, dim=2, power=3))
     (1, 0)	1
     (0, 1)	1
     """

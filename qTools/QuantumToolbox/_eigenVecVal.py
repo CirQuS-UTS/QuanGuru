@@ -4,7 +4,7 @@ import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
-from .functions import fidelity
+from .functions import fidelityPure
 
 from .customTypes import Matrix, floatList, matrixList
 
@@ -68,7 +68,7 @@ def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
 
     comps = []
     for basKet in basis:
-        comps.append(fidelity(basKet, ket))
+        comps.append(fidelityPure(basKet, ket))
     return comps
 
 

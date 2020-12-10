@@ -1,5 +1,5 @@
-import numpy as np
 import random as rn
+import numpy as np
 import pytest
 from qTools.QuantumToolbox import states
 from qTools.QuantumToolbox import operators as ops #pylint: disable=import-error

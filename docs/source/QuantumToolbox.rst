@@ -10,9 +10,11 @@ Quantum Toolbox (:mod:`qTools.QuantumToolbox`)
    :show-inheritance:
 
 .. toctree::
-    :maxdepth: 0
-    :hidden:
+   :titlesonly:
+   :maxdepth: 1
 
-    Basic Linear Algebra <QuantumToolbox/linearAlgebra>
-    Quantum State <QuantumToolbox/states>
-    Quantum Operators <QuantumToolbox/operators>
+   Basic Linear Algebra <QuantumToolbox/linearAlgebra>
+   Quantum State <QuantumToolbox/states>
+   Quantum Operators <QuantumToolbox/operators>
+   Quantum Evolution <QuantumToolbox/evolution>
+   Basic Functions <QuantumToolbox/functions>
