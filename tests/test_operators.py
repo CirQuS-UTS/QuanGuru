@@ -15,10 +15,10 @@ def checkGivenRuleForAnArray(cOp, rule, *args):
             assert round(found.real, 13) == round(expected.real, 13)
             assert round(found.imag, 13) == round(expected.imag, 13)
 
-@pytest.mark.parametrize("op, rule", [[ops.number, lambda ind1, ind2: ind1*int(not bool(ind1-ind2))],
-                                      [ops.create, lambda ind1, ind2: np.sqrt(ind1)*int(not bool(ind1-ind2-1))],
-                                      [ops.destroy, lambda ind1, ind2: np.sqrt(ind2)*int(not bool(ind2-ind1-1))],
-                                      [ops.identity, lambda ind1, ind2: int(not bool(ind1-ind2))]])
+@pytest.mark.parametrize("op, rule", [[ops.number, lambda ind1, ind2: ind1*(not bool(ind1-ind2))],
+                                      [ops.create, lambda ind1, ind2: np.sqrt(ind1)*(not bool(ind1-ind2-1))],
+                                      [ops.destroy, lambda ind1, ind2: np.sqrt(ind2)*(not bool(ind2-ind1-1))],
+                                      [ops.identity, lambda ind1, ind2: (not bool(ind1-ind2))]])
 def test_bosonOperators(op, rule):
     # check the value of each element against a given rule, i.e. the definition the matrices
     for _ in range(5):
@@ -54,10 +54,10 @@ def test_ladderOperatorsOnRndPlaces(op, bo):
         assert np.allclose(states.normalise(rOp@state).A, states.basis(dim, sPos+bo).A)
 
 @pytest.mark.parametrize("op, rule", [
-    [ops.Jp, lambda ind1, ind2, jVal: np.sqrt(((2*jVal)-ind1)*(ind1+1))*int(not bool(ind2-ind1-1))],
-    [ops.Jm, lambda ind1, ind2, jVal: np.sqrt(((2*jVal)-ind2)*(ind2+1))*int(not bool(ind1-ind2-1))],
-    [ops.Jz, lambda ind1, ind2, jVal: (jVal - ind1)*int(not bool(ind1-ind2))],
-    [ops.Js, lambda ind1, ind2, jVal: (jVal*(jVal+1))*int(not bool(ind1-ind2))]
+    [ops.Jp, lambda ind1, ind2, jVal: np.sqrt(((2*jVal)-ind1)*(ind1+1))*(not bool(ind2-ind1-1))],
+    [ops.Jm, lambda ind1, ind2, jVal: np.sqrt(((2*jVal)-ind2)*(ind2+1))*(not bool(ind1-ind2-1))],
+    [ops.Jz, lambda ind1, ind2, jVal: (jVal - ind1)*(not bool(ind1-ind2))],
+    [ops.Js, lambda ind1, ind2, jVal: (jVal*(jVal+1))*(not bool(ind1-ind2))]
 ])
 def test_higherSpinOperators(op, rule):
     for _ in range(5):

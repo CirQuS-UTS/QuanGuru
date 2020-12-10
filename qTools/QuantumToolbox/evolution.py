@@ -40,7 +40,8 @@ from .customTypes import Matrix
 
 def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
     r"""
-    Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
+    Creates `Unitary` time evolution operator :math:`U(t) := e^{-i\hat{H}t}` for a given `Hamiltonian` :math:`\hat{H}`
+    and `time step t`.
 
     Keeps sparse/array as sparse/array.
 
@@ -72,8 +73,8 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value
                 collapseOperators: list = [], decayRates: list = []) -> Matrix:# pylint: disable=dangerous-default-value
     r"""
-    Creates `Liouvillian` super-operator for a given `Hamiltonian`, `time step`,
-    and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
+    Creates `Liouvillian` super-operator :math:`\hat{\mathcal{L}}` for a `Hamiltonian` :math:`\hat{H}`
+    and `collapse operators` (with corresponding `decay rates`).
 
     Keeps sparse/array as sparse/array.
 
@@ -124,8 +125,9 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
                    collapseOperators: list = [], decayRates: list = [],
                    exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
     r"""
-    Creates `Liovillian` super-operator for a given `Hamiltonian`, `time step`,
-    and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
+    Creates `Liouvillian` super-operator :math:`\hat{\mathcal{L}}` for a `Hamiltonian` :math:`\hat{H}`
+    and `collapse operators` (with corresponding `decay rates`),
+    and exponentiates for a `time step t`.
 
     Keeps sparse/array as sparse/array.
 
@@ -173,7 +175,8 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
 
 def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> Matrix:
     r"""
-    Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
+    Creates the `Lindblad dissipator` super-operator :math:`\mathcal{D}(\hat{c})` for a `collapse operator`
+    :math:`\hat{c}`.
 
     Keeps sparse/array as sparse/array.
 
