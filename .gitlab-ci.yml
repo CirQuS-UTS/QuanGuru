@@ -12,8 +12,6 @@ mypy:
         - qsimulations
     allow_failure: false
     script:
-    - pwd
-    - ls -l
     - cd qTools
     - python3 -m mypy QuantumToolbox
 
@@ -23,7 +21,6 @@ flake8:
         - qsimulations
     allow_failure: true
     script:
-    - pwd
     - python3 -m flake8 --max-line-length=140 qTools/*.py
 
 pylint:
@@ -32,7 +29,6 @@ pylint:
         - qsimulations
     allow_failure: false
     script:
-        - pwd
         - python3 -m pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt || pylint-exit $?
         - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
         - echo "Pylint score was $score"
@@ -49,10 +45,7 @@ unit_test:
         - qsimulations
     allow_failure: false
     script:
-    - pwd
-    - ls -l
-    - cd tests/QuantumToolboxCore
-    - python3 -m pytest 
+    - python3 -m pytest tests/QuantumToolboxCore test_linerAlgebra.py, test_states.py, test_operators.py
 
 integration_test:
     stage: Integration Test
@@ -60,6 +53,4 @@ integration_test:
         - qsimulations
     allow_failure: false
     script:
-    - pwd
-    - ls -l
     - python3 -m pytest --ignore=tests/QuantumToolboxCore
