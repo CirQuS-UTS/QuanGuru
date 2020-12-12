@@ -50,8 +50,7 @@ core_test:
 
 unit_test:
     stage: Unit Test
-    needs:
-      - core_test
+    needs: [core_test]
     tags:
         - qsimulations
     allow_failure: false
