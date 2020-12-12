@@ -39,13 +39,22 @@ pylint:
         when: always
         expire_in: 4 weeks
 
+core_test:
+    stage: Unit Test
+    tags:
+        - qsimulations
+    allow_failure: false
+    script:
+    - cd tests/QuantumToolboxCore
+    - python3 -m pytest test_linearAlgebra.py test_states.py test_operators.py
+
 unit_test:
     stage: Unit Test
     tags:
         - qsimulations
     allow_failure: false
     script:
-    - python3 -m pytest tests/QuantumToolboxCore test_linerAlgebra.py, test_states.py, test_operators.py
+    - python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration'
 
 integration_test:
     stage: Integration Test
@@ -53,4 +62,4 @@ integration_test:
         - qsimulations
     allow_failure: false
     script:
-    - python3 -m pytest --ignore=tests/QuantumToolboxCore
+    - python3 -m pytest -k 'Integration'
