@@ -3,7 +3,8 @@ before_script:
 
 stages:
     - Static Analysis
-    - Unit Test
+    - UnitTest:Core
+    - UnitTest:Rest
     - Integration Test
 
 mypy:
@@ -40,7 +41,7 @@ pylint:
         expire_in: 4 weeks
 
 core_test:
-    stage: Unit Test
+    stage: UnitTest:Core
     tags:
         - qsimulations
     allow_failure: false
@@ -49,8 +50,7 @@ core_test:
     - python3 -m pytest test_linearAlgebra.py test_states.py test_operators.py
 
 unit_test:
-    stage: Unit Test
-    needs: [core_test]
+    stage: UnitTest:Rest
     tags:
         - qsimulations
     allow_failure: false
