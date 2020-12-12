@@ -50,6 +50,8 @@ core_test:
 
 unit_test:
     stage: Unit Test
+    needs:
+      - core_test
     tags:
         - qsimulations
     allow_failure: false
@@ -62,4 +64,4 @@ integration_test:
         - qsimulations
     allow_failure: false
     script:
-    - python3 -m pytest -k 'Integration'
+    - python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'Integration'
