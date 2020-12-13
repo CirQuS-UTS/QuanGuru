@@ -1,9 +1,9 @@
 import random as rn
 import numpy as np
 import pytest
+from qTools.QuantumToolbox import linearAlgebra as la#pylint: disable=import-error
 from qTools.QuantumToolbox import states#pylint: disable=import-error
 from qTools.QuantumToolbox import operators as ops #pylint: disable=import-error
-from tests.constants import (sigmaMinusReference, sigmaPlusReference, sigmaXReference, sigmaYReference, sigmaZReference)#pylint: disable=import-error
 
 
 def checkGivenRuleForAnArray(cOp, rule, *args):
@@ -26,12 +26,12 @@ def test_bosonOperators(op, rule):
         numOp = op(dim).A
         checkGivenRuleForAnArray(numOp, rule)
 
-@pytest.mark.parametrize("op, fnc", [[sigmaMinusReference, ops.sigmam], [sigmaPlusReference, ops.sigmap],
-                                     [sigmaXReference, ops.sigmax], [sigmaYReference, ops.sigmay],
-                                     [sigmaZReference, ops.sigmaz]])
-def test_PauliSpinOperators(op, fnc): #pylint:disable=invalid-name
+@pytest.mark.parametrize("op, fnc", [['sigmaMinusReference', ops.sigmam], ['sigmaPlusReference', ops.sigmap],
+                                     ['sigmaXReference', ops.sigmax], ['sigmaYReference', ops.sigmay],
+                                     ['sigmaZReference', ops.sigmaz]])
+def test_PauliSpinOperators(op, fnc, constants): #pylint:disable=invalid-name
     # check against hard-coded reference arrays
-    assert np.allclose(fnc().A, op)
+    assert np.allclose(fnc().A, constants[op])
 
 @pytest.mark.parametrize("op, bo", [[ops.destroy, 0], [ops.create, 1], [ops.Jp, 0], [ops.Jm, 1]])
 def test_ladderOperatorsOnEdges(op, bo):
@@ -57,10 +57,30 @@ def test_ladderOperatorsOnRndPlaces(op, bo):
     [ops.Jp, lambda ind1, ind2, jVal: np.sqrt(((2*jVal)-ind1)*(ind1+1))*(not bool(ind2-ind1-1))],
     [ops.Jm, lambda ind1, ind2, jVal: np.sqrt(((2*jVal)-ind2)*(ind2+1))*(not bool(ind1-ind2-1))],
     [ops.Jz, lambda ind1, ind2, jVal: (jVal - ind1)*(not bool(ind1-ind2))],
-    [ops.Js, lambda ind1, ind2, jVal: (jVal*(jVal+1))*(not bool(ind1-ind2))]
-])
+    [ops.Js, lambda ind1, ind2, jVal: (jVal*(jVal+1))*(not bool(ind1-ind2))]])
 def test_higherSpinOperators(op, rule):
     for _ in range(5):
         jVal = 0.5*rn.randint(1, 20)
         jOp = op(jVal).A
         checkGivenRuleForAnArray(jOp, rule, jVal)
+
+def test_displacement():
+    # displacing vacuum gives vacuum state and test compares the resultant state properties with coherent state
+    vacuumState = states.basis(20, 0)
+    alphaReal = 1.5*rn.random()
+    alphaImag = 1.5*rn.random()
+    alpha = alphaReal+alphaImag*1j
+    displacementOp = ops.displacement(alpha, 20)
+    displacedVacuum = displacementOp @ vacuumState
+
+    # test the photon number distribution
+    for n in range(10):
+        calc = abs(la.innerProd(displacedVacuum, states.basis(20, n)))**2
+        expc = abs(((np.e**(-(abs(alpha)**2)/2))*((alpha**n)/(np.sqrt(np.math.factorial(n))))))**2
+        assert round(calc, 5) == round(expc, 5)
+
+    # test average photon number
+    assert round(la.trace(ops.number(20) @ states.densityMatrix(displacedVacuum)), 8) == round(abs(alpha)**2, 8)
+
+    # coherent state is the eigenstate of destroy with eigenvalue alpha
+    assert np.allclose((ops.destroy(20)@displacedVacuum).A, (alpha*displacedVacuum).A, atol=1e-04, rtol=1e-04)
