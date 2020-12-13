@@ -46,9 +46,9 @@ core_test:
         - qsimulations
     allow_failure: false
     script:
-    - export PYTHONPATH=pwd:$PYTHONPATH
-    - cd tests/QuantumToolboxCore
-    - python3 -m pytest test_linearAlgebra.py test_states.py test_operators.py
+    - python3 -m pytest tests/QuantumToolboxCore/test_linearAlgebra.py
+    - python3 -m pytest tests/QuantumToolboxCore/test_states.py
+    - python3 -m pytest tests/QuantumToolboxCore/test_operators.py
 
 unit_test:
     stage: UnitTest:Rest
