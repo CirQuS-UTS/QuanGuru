@@ -46,7 +46,7 @@ core_test:
         - qsimulations
     allow_failure: false
     script:
-    - export PATH=pwd:$PATH
+    - export PYTHONPATH=pwd:$PYTHONPATH
     - cd tests/QuantumToolboxCore
     - python3 -m pytest test_linearAlgebra.py test_states.py test_operators.py
 
