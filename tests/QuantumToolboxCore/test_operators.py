@@ -29,9 +29,9 @@ def test_bosonOperators(op, rule):
 @pytest.mark.parametrize("op, fnc", [['sigmaMinusReference', ops.sigmam], ['sigmaPlusReference', ops.sigmap],
                                      ['sigmaXReference', ops.sigmax], ['sigmaYReference', ops.sigmay],
                                      ['sigmaZReference', ops.sigmaz]])
-def test_PauliSpinOperators(op, fnc, constants): #pylint:disable=invalid-name
+def test_PauliSpinOperators(op, fnc, referenceValues): #pylint:disable=invalid-name
     # check against hard-coded reference arrays
-    assert np.allclose(fnc().A, constants[op])
+    assert np.allclose(fnc().A, referenceValues[op])
 
 @pytest.mark.parametrize("op, bo", [[ops.destroy, 0], [ops.create, 1], [ops.Jp, 0], [ops.Jm, 1]])
 def test_ladderOperatorsOnEdges(op, bo):
