@@ -64,4 +64,4 @@ integration_test:
         - qsimulations
     allow_failure: false
     script:
-    - python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Integration'
+    - python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'Integration'
