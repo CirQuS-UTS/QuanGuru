@@ -36,7 +36,7 @@ from .operators import (
     paritySUM, parityEXP, displacement, squeeze, compositeOp
 )
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
-from .functions import (expectation, fidelityPure, entropy, sortedEigens, concurrence)
+from .functions import (expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance)
 
 
 

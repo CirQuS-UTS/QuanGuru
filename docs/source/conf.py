@@ -16,6 +16,7 @@ sys.path.insert(0, os.path.abspath('.'))
 
 
 from pygments.style import Style
+from pygments.styles.autumn import AutumnStyle
 from pygments.token import Keyword, Name, Comment, String, Error, Text, \
     Number, Operator, Generic, Whitespace, Punctuation, Other, Literal
 
@@ -34,7 +35,7 @@ nbsphinx_prolog = """
         div.nboutput.container div.output_area,
         div.nboutput.container div[class*=highlight],
         div.nboutput.container div[class*=highlight] pre {
-            background: #272822;
+            background: #282a36;
         }
 
         div.nboutput.container div[class*=highlight] pre {
@@ -42,99 +43,95 @@ nbsphinx_prolog = """
         }
     </style>
 
-    
 """
+class DraculaStyle(Style):
 
-
-class customDark(Style):
-    """
-    This style is a slightly modified Monokai style.
-    """
-
-    background_color = "#272822"
-    highlight_color = "#49483e"
+    background_color = "#282a36"
+    default_style = ""
 
     styles = {
-        # No corresponding class for the following:
-        Text:                      "#8e6ba9", # class:  ''
-        Whitespace:                "",        # class: 'w'
-        Error:                     "#960050 bg:#1e0010", # class: 'err'
-        Other:                     "",        # class 'x'
+        Comment: "#6272a4",                         # class: 'c'
+        Comment.Hashbang: "#6272a4",                # class: 'ch'
+        Comment.Multiline: "#6272a4",               # class: 'cm'
+        Comment.Preproc: "#ff79c6",                 # class: 'cp'
+        Comment.Single: "#6272a4",                  # class: 'c1'
+        Comment.Special: "#6272a4",                 # class: 'cs'
 
-        Comment:                   "#75715e", # class: 'c'
-        Comment.Multiline:         "",        # class: 'cm'
-        Comment.Preproc:           "",        # class: 'cp'
-        Comment.Single:            "",        # class: 'c1'
-        Comment.Special:           "",        # class: 'cs'
+        Generic: "#f8f8f2",                         # class: 'g'
+        Generic.Deleted: "#8b080b",                 # class: 'gd'
+        Generic.Emph: "#f8f8f2 underline",          # class: 'ge'
+        Generic.Error: "#f8f8f2",                   # class: 'gr'
+        Generic.Heading: "#f8f8f2 bold",            # class: 'gh'
+        Generic.Inserted: "#f8f8f2 bold",           # class: 'gi'
+        Generic.Output: "#6ef5ff",                  # class: 'go'
+        Generic.Prompt: "#f8f8f2",                  # class: 'gp'
+        Generic.Strong: "#f8f8f2",                  # class: 'gs'
+        Generic.Subheading: "#f8f8f2 bold",         # class: 'gu'
+        Generic.Traceback: "#f8f8f2",               # class: 'gt'
 
-        Keyword:                   "#66d9ef", # class: 'k'
-        Keyword.Constant:          "",        # class: 'kc'
-        Keyword.Declaration:       "",        # class: 'kd'
-        Keyword.Namespace:         "#f92672", # class: 'kn'
-        Keyword.Pseudo:            "",        # class: 'kp'
-        Keyword.Reserved:          "",        # class: 'kr'
-        Keyword.Type:              "",        # class: 'kt'
+        Error: "#f8f8f2",                           # class: 'err'
 
-        Operator:                  "#f92672", # class: 'o'
-        Operator.Word:             "",        # class: 'ow' - like keywords
+        Keyword: "#ff79c6",                         # class: 'k'
+        Keyword.Constant: "#ff79c6",                # class: 'kc'
+        Keyword.Declaration: "#8be9fd italic",      # class: 'kd'
+        Keyword.Namespace: "#ff79c6",               # class: 'kn'
+        Keyword.Pseudo: "#ff79c6",                  # class: 'kp'
+        Keyword.Reserved: "#ff79c6",                # class: 'kr'
+        Keyword.Type: "#8be9fd",                    # class: 'kt'
 
-        Punctuation:               "#8e6ba9", # class: 'p'
+        Literal: "#f8f8f2",                         # class: 'l'
+        Literal.Date: "#f8f8f2",                    # class: 'ld'
 
-        Name:                      "#8e6ba9", # class: 'n'
-        Name.Attribute:            "#a6e22e", # class: 'na' - to be revised
-        Name.Builtin:              "#05aaeb", # class: 'nb'
-        Name.Builtin.Pseudo:       "",        # class: 'bp'
-        Name.Class:                "#a6e22e", # class: 'nc' - to be revised
-        Name.Constant:             "#66d9ef", # class: 'no' - to be revised
-        Name.Decorator:            "#a6e22e", # class: 'nd' - to be revised
-        Name.Entity:               "",        # class: 'ni'
-        Name.Exception:            "#a6e22e", # class: 'ne'
-        Name.Function:             "#a6e22e", # class: 'nf'
-        Name.Property:             "",        # class: 'py'
-        Name.Label:                "",        # class: 'nl'
-        Name.Namespace:            "",        # class: 'nn' - to be revised
-        Name.Other:                "#a6e22e", # class: 'nx'
-        Name.Tag:                  "#f92672", # class: 'nt' - like a keyword
-        Name.Variable:             "",        # class: 'nv' - to be revised
-        Name.Variable.Class:       "",        # class: 'vc' - to be revised
-        Name.Variable.Global:      "",        # class: 'vg' - to be revised
-        Name.Variable.Instance:    "",        # class: 'vi' - to be revised
+        Name: "#f8f8f2",                            # class: 'n'
+        Name.Attribute: "#50fa7b",                  # class: 'na'
+        Name.Builtin: "#8be9fd italic",             # class: 'nb'
+        Name.Builtin.Pseudo: "#f8f8f2",             # class: 'bp'
+        Name.Class: "#50fa7b",                      # class: 'nc'
+        Name.Constant: "#f8f8f2",                   # class: 'no'
+        Name.Decorator: "#f8f8f2",                  # class: 'nd'
+        Name.Entity: "#f8f8f2",                     # class: 'ni'
+        Name.Exception: "#f8f8f2",                  # class: 'ne'
+        Name.Function: "#50fa7b",                   # class: 'nf'
+        Name.Label: "#8be9fd italic",               # class: 'nl'
+        Name.Namespace: "#f8f8f2",                  # class: 'nn'
+        Name.Other: "#f8f8f2",                      # class: 'nx'
+        Name.Tag: "#ff79c6",                        # class: 'nt'
+        Name.Variable: "#8be9fd italic",            # class: 'nv'
+        Name.Variable.Class: "#8be9fd italic",      # class: 'vc'
+        Name.Variable.Global: "#8be9fd italic",     # class: 'vg'
+        Name.Variable.Instance: "#8be9fd italic",   # class: 'vi'
 
-        Number:                    "#ae81ff", # class: 'm'
-        Number.Float:              "#1c05eb", # class: 'mf'
-        Number.Hex:                "",        # class: 'mh'
-        Number.Integer:            "#1c05eb", # class: 'mi'
-        Number.Integer.Long:       "",        # class: 'il'
-        Number.Oct:                "",        # class: 'mo'
+        Number: "#bd93f9",                          # class: 'm'
+        Number.Bin: "#bd93f9",                      # class: 'mb'
+        Number.Float: "#bd93f9",                    # class: 'mf'
+        Number.Hex: "#bd93f9",                      # class: 'mh'
+        Number.Integer: "#bd93f9",                  # class: 'mi'
+        Number.Integer.Long: "#bd93f9",             # class: 'il'
+        Number.Oct: "#bd93f9",                      # class: 'mo'
 
-        Literal:                   "#ae81ff", # class: 'l'
-        Literal.Date:              "#e6db74", # class: 'ld'
+        Operator: "#ff79c6",                        # class: 'o'
+        Operator.Word: "#ff79c6",                   # class: 'ow'
 
-        String:                    "#e6db74", # class: 's'
-        String.Backtick:           "",        # class: 'sb'
-        String.Char:               "#8e6ba9", # class: 'sc'
-        String.Doc:                "",        # class: 'sd' - like a comment
-        String.Double:             "",        # class: 's2'
-        String.Escape:             "#ae81ff", # class: 'se'
-        String.Heredoc:            "",        # class: 'sh'
-        String.Interpol:           "",        # class: 'si'
-        String.Other:              "",        # class: 'sx'
-        String.Regex:              "",        # class: 'sr'
-        String.Single:             "",        # class: 's1'
-        String.Symbol:             "",        # class: 'ss'
+        Other: "#f8f8f2",                           # class: 'x'
 
+        Punctuation: "#f8f8f2",                     # class: 'p'
 
-        Generic:                   "",        # class: 'g'
-        Generic.Deleted:           "#f92672", # class: 'gd',
-        Generic.Emph:              "italic",  # class: 'ge'
-        Generic.Error:             "",        # class: 'gr'
-        Generic.Heading:           "",        # class: 'gh'
-        Generic.Inserted:          "#a6e22e", # class: 'gi'
-        Generic.Output:            "#66d9ef", # class: 'go'
-        Generic.Prompt:            "bold #f92672", # class: 'gp'
-        Generic.Strong:            "bold",    # class: 'gs'
-        Generic.Subheading:        "#75715e", # class: 'gu'
-        Generic.Traceback:         "",        # class: 'gt'
+        String: "#f1fa8c",                          # class: 's'
+        String.Backtick: "#f1fa8c",                 # class: 'sb'
+        String.Char: "#f1fa8c",                     # class: 'sc'
+        String.Doc: "#f1fa8c",                      # class: 'sd'
+        String.Double: "#f1fa8c",                   # class: 's2'
+        String.Escape: "#f1fa8c",                   # class: 'se'
+        String.Heredoc: "#f1fa8c",                  # class: 'sh'
+        String.Interpol: "#f1fa8c",                 # class: 'si'
+        String.Other: "#f1fa8c",                    # class: 'sx'
+        String.Regex: "#f1fa8c",                    # class: 'sr'
+        String.Single: "#f1fa8c",                   # class: 's1'
+        String.Symbol: "#f1fa8c",                   # class: 'ss'
+
+        Text: "#f8f8f2",                            # class: ''
+
+        Whitespace: "#f8f8f2"                       # class: 'w'
     }
 
 
@@ -150,7 +147,7 @@ def pygments_monkeypatch_style(mod_name, cls):
     STYLE_MAP[mod_name] = mod_name + "::" + cls_name
     #print(pygments.styles)
 
-pygments_monkeypatch_style("customDark", customDark)
+pygments_monkeypatch_style("dracula", DraculaStyle)
 
 # -- Project information -----------------------------------------------------
 
@@ -235,7 +232,7 @@ gettext_compact = False     # optional.
 exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'customDark'
+pygments_style = 'dracula'
 
 # A boolean that decides whether module names are prepended to all object names
 # (for object types where a “module” of some kind is defined), e.g. for

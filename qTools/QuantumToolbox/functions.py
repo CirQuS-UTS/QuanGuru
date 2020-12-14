@@ -8,11 +8,17 @@ r"""
 
     .. autosummary::
         expectation
+
+    .. autosummary::
         fidelityPure
-        entropy
         traceDistance
-        sortedEigens
+
+    .. autosummary::
+        entropy
         concurrence
+
+    .. autosummary::
+        sortedEigens
 
 """ #pylint:disable=too-many-lines
 
@@ -90,6 +96,7 @@ def expectation(operator: Matrix, state: Matrix) -> float:
     >>> denMat2 = densityMatrix(ket2)
     >>> expectation(operator=sigmaz(), state=denMat2)
     0
+
     """
 
     if state.shape[0] != state.shape[1]:
@@ -141,6 +148,7 @@ def fidelityPure(state1: Matrix, state2: Matrix) -> float:
     0.5
     >>> fidelity(state1=denMat1, state2=denMat2)
     0.5
+
     """
 
     if ((state1.shape[0] != state1.shape[1]) and (state2.shape[0] != state2.shape[1])):
@@ -203,6 +211,7 @@ def entropy(densMat: Matrix, base2: bool = False) -> float:
     >>> stateSecondSystemEntangled = partialTrace(keep=[1], dims=[2, 2], state=entangledMat)
     >>> entropy(stateSecondSystemEntangled)
     0.6931471805599454
+
     """
 
     if densMat.shape[0] != densMat.shape[1]:
@@ -246,12 +255,23 @@ def traceDistance(A: Matrix, B: Matrix) -> float:
 
     Examples
     --------
-    # TODO
+    >>> PhiPlus = qt.densityMatrix(qt.BellStates('Phi+'))
+    >>> qt.traceDistance(PhiPlus, PhiPlus)
+    0.0
+    >>> PhiMinus = qt.densityMatrix(qt.BellStates('Phi-'))
+    >>> qt.traceDistance(PhiPlus, PhiMinus)
+    1.0
+    >>> fourZero = qt.densityMatrix(qt.basis(4, 0))
+    >>> qt.traceDistance(PhiPlus, fourOne)
+    0.7071067811865475
+
     """
 
     diff = A-B
 
     diff = hc(diff) @ diff
+    if hasattr(diff, 'A'):
+        diff = diff.A
     vals = lina.eig(diff)[0]
     return np.real(0.5 * np.sum(np.sqrt(np.abs(vals))))
 
@@ -285,6 +305,7 @@ def sortedEigens(Mat: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarra
      [-0.55901699  0.25        0.35355339 -0.35355339  0.25       -0.55901699]
      [ 0.39528471 -0.53033009  0.25        0.25        0.53033009 -0.39528471]
      [-0.1767767   0.39528471 -0.55901699  0.55901699  0.39528471 -0.1767767 ]]
+
     """
 
     if not isinstance(Mat, np.ndarray):
@@ -325,7 +346,16 @@ def concurrence(state: Matrix) -> float:
 
     Examples
     --------
-    TODO
+    >>> PhiPlus = qt.densityMatrix(qt.BellStates('Phi+'))
+    >>> qt.concurrence(PhiPlus)
+    1.0
+    >>> PhiMinus = qt.densityMatrix(qt.BellStates('Phi-'))
+    >>> qt.concurrence(PhiMinus)
+    1.0
+    >>> fourZero = qt.densityMatrix(qt.basis(4, 0))
+    >>> qt.concurrence(fourZero)
+    0.0
+
     """
 
     # sqrtState = lina.sqrtm(state)
