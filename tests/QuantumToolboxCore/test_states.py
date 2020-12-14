@@ -113,3 +113,7 @@ def test_normalise(helpers):
         dim, excs = helpers.generateRndStateParams()
         state = sum([v*states.basis(dim, k) for k, v in excs.items()])
         assert round(la.trace(states.normalise(la.outerProd(state))), 13) == 1
+
+@pytest.mark.parametrize('name', ['Phi+', 'Phi-', 'Psi+', 'Psi-'])
+def test_BellStates(name, specialQubitStates): #pylint:disable=invalid-name
+    assert np.allclose(states.BellStates(name).A, specialQubitStates['Bell'+name])

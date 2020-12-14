@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.core.fromnumeric import product
 import pytest
 from qTools.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
 from qTools.QuantumToolbox import operators as ops #pylint: disable=import-error

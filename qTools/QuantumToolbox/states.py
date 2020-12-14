@@ -24,6 +24,9 @@ r"""
         mat2Vec
         vec2Mat
 
+    .. autosummary::
+        BellStates
+
 """
 
 from typing import Optional, List, Iterable, Any
@@ -528,3 +531,61 @@ def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     n = int(np.sqrt(a[0]))
     mat = vec.reshape((n, n)).T
     return mat
+
+
+def BellStates(bs: str = 'Phi+', sparse: bool = True) -> Matrix:
+    r"""
+    Creates a Bell state
+    :math:`\begin{cases} |\Phi^{+}\rangle := \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
+    \\ |\Phi^{+}\rangle := \frac{1}{\sqrt{2}}(|00\rangle - |11\rangle)
+    \\ |\Psi^{-}\rangle := \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)
+    \\ |\Psi^{+}\rangle := \frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)
+    \\ \end{cases}`, where :math:`|ab\rangle := |a\rangle\otimes|b\rangle`.
+
+    Parameters
+    ----------
+    bs : str, optional
+        String for different Bell states, by default 'Phi+'. Options are
+        ['Phi+' or '00', 'Phi-' or '01', 'Psi+' or '10', 'Psi-' or '11']
+    sparse : bool
+        if True(False), the returned Matrix type will be sparse(array)
+
+    Returns
+    -------
+    Matrix
+        Bell state
+
+    Examples
+    --------
+    >>> BellStates('Phi+').A
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
+    >>> BellStates('Phi-').A
+    array([[ 0.70710678],
+           [ 0.        ],
+           [ 0.        ],
+           [-0.70710678]])
+    >>> BellStates('Psi+').A
+    array([[0.        ],
+           [0.70710678],
+           [0.70710678],
+           [0.        ]])
+    >>> BellStates('Psi-').A
+    array([[ 0.        ],
+           [ 0.70710678],
+           [-0.70710678],
+           [ 0.        ]]
+    """
+
+    BellState = 0
+    if bs in ['Phi+', '00']:
+        BellState = (1/np.sqrt(2))*np.array([[1], [0], [0], [1]])
+    elif bs in ['Phi-', '01']:
+        BellState = (1/np.sqrt(2))*np.array([[1], [0], [0], [-1]])
+    elif bs in ['Psi+', '10']:
+        BellState = (1/np.sqrt(2))*np.array([[0], [1], [1], [0]])
+    elif bs in ['Psi-', '11']:
+        BellState = (1/np.sqrt(2))*np.array([[0], [1], [-1], [0]])
+    return sp.csr_matrix(BellState) if sparse else BellState

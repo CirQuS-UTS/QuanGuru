@@ -224,7 +224,7 @@ def entropy(densMat: Matrix, base2: bool = False) -> float:
     return S
 
 
-def traceDistance(A: Matrix, B: Matrix) ->float:
+def traceDistance(A: Matrix, B: Matrix) -> float:
     r"""
     Calculates the trace distance :math:`\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} =
     \frac{1}{2}Tr\left[\sqrt{(A-B)^{\dagger}(A-B)} \right]` between two matrices.
@@ -253,7 +253,7 @@ def traceDistance(A: Matrix, B: Matrix) ->float:
 
     diff = hc(diff) @ diff
     vals = lina.eig(diff)[0]
-    return float(np.real(0.5 * np.sum(np.sqrt(np.abs(vals)))))
+    return np.real(0.5 * np.sum(np.sqrt(np.abs(vals))))
 
 
 def sortedEigens(Mat: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarray]]:

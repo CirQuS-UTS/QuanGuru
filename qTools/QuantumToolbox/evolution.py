@@ -98,16 +98,11 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
     """
 
     if Hamiltonian is not None:
-        sparse = sp.issparse(Hamiltonian)
         dimensionOfHilbertSpace = Hamiltonian.shape[0]
     else:
-        sparse = sp.issparse(collapseOperators[0])
         dimensionOfHilbertSpace = collapseOperators[0].shape[0]
 
-    if sparse is False:
-        identity = np.identity(dimensionOfHilbertSpace)
-    elif sparse is True:
-        identity = sp.identity(dimensionOfHilbertSpace, format="csc")
+    identity = sp.identity(dimensionOfHilbertSpace, format="csc")
     hamPart1 = _preSO(Hamiltonian, identity)
     hamPart2 = _posSO(Hamiltonian, identity)
     hamPart = -1j * (hamPart1 - hamPart2)
@@ -197,13 +192,8 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
     # TODO Create some examples both in here and the demo script
     """
 
-    sparse = sp.issparse(collapseOperator)
     if identity is None:
-        dimension = collapseOperator.shape[0]
-        if sparse is True:
-            identity = sp.identity(dimension, format="csc")
-        else:
-            identity = np.identity(dimension)
+        identity = sp.identity(collapseOperator.shape[0], format="csc")
 
     dagger = hc(collapseOperator)
 
@@ -237,19 +227,10 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    sparse = sp.issparse(operator)
     if identity is None:
-        dimension = operator.shape[0]
-        if sparse is True:
-            identity = sp.identity(dimension, format="csc")
-        else:
-            identity = np.identity(dimension)
-
-    if sparse is True:
-        pre = sp.kron(identity, operator, format='csc')
-    else:
-        pre = np.kron(identity, operator)
-    return pre
+        identity = sp.identity(operator.shape[0], format="csc")
+    pre = sp.kron(identity, operator, format='csc')
+    return pre if sp.issparse(operator) else pre.A
 
 
 def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
@@ -275,19 +256,10 @@ def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    sparse = sp.issparse(operator)
     if identity is None:
-        dimension = operator.shape[0]
-        if sparse is True:
-            identity = sp.identity(dimension, format="csc")
-        else:
-            identity = np.identity(dimension)
-
-    if sparse is True:
-        pos = sp.kron(operator.transpose(), identity, format='csc')
-    else:
-        pos = np.kron(np.transpose(operator), identity)
-    return pos
+        identity = sp.identity(operator.shape[0], format="csc")
+    pos = sp.kron(operator.transpose(), identity, format='csc')
+    return pos if sp.issparse(operator) else pos.A
 
 
 def _preposSO(operator: Matrix) -> Matrix:
@@ -313,10 +285,5 @@ def _preposSO(operator: Matrix) -> Matrix:
     # TODO Create some examples both in here and the demo script
     """
 
-    sparse = sp.issparse(operator)
-
-    if sparse is True:
-        prepos = sp.kron(operator.conj(), operator, format='csc')
-    else:
-        prepos = np.kron(np.conjugate(operator), operator)
-    return prepos
+    prepos = sp.kron(operator.conj(), operator, format='csc')
+    return prepos if sp.issparse(operator) else prepos.A

@@ -29,7 +29,7 @@ from .customTypes import (Matrix, intList, matrixList, supInp, ndOrListInt, ndOr
 from .linearAlgebra import (hc, innerProd, norm, outerProd, tensorProd, trace, partialTrace)
 from .states import (
     basis, completeBasis, basisBra, zeros, weightedSum, superPos, densityMatrix, completeBasisMat, normalise,
-    compositeState, mat2Vec, vec2Mat
+    compositeState, mat2Vec, vec2Mat, BellStates
 )
 from .operators import (
     number, destroy, create, identity, sigmaz, sigmay, sigmax, sigmap, sigmam, Jz, Jp, Jm, Jx, Jy, Js, operatorPow,
