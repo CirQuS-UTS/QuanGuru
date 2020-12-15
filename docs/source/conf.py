@@ -272,7 +272,7 @@ sphinx_gallery_line_numbers = True
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 templates_path = ['_templates']
-html_css_files = ['style.css']
+html_css_files = ['style.css', 'custom.css', 'gallery.css']
 
 # html_logo = 'images/logo.png'
 # html_favicon = 'images/favicon.ico'

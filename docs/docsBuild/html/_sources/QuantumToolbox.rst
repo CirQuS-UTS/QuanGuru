@@ -19,5 +19,5 @@ Quantum Toolbox (:mod:`qTools.QuantumToolbox`)
    Quantum Evolution <QuantumToolbox/evolution>
    Basic Functions <QuantumToolbox/functions>
 
-
+   Random Matrix Theory Distributions <QuantumToolbox/rmtDistributions>
    Helper Functions <QuantumToolbox/_helpers>

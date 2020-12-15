@@ -39,13 +39,17 @@ from .operators import (
 )
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
 from .functions import (expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance)
-
-
 from ._helpers import (loopIt)
+
+
+
+from .rmtDistributions import (EigenVectorDist, WignerDyson, WignerSurmise, Poissonian)
+
+
 
 from .Hamiltonians import (cavQubFreeHam, RabiHam, JCHam, aJCHam)
 from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
-from .rmtDistributions import (EigenVectorDist, WignerDyson, Poissonian)
+
 from ._undecided import (expectationColArr)
 from ._ipr import (iprKet, iprKetNB, iprKetNBmat, iprPureDenMat)
 from ._eigenVecVal import (_eigStat, _eigStatSymp, eigVecStatKet, eigVecStatKetNB)
