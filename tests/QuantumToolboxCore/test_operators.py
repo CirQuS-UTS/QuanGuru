@@ -80,7 +80,7 @@ def test_displacement():
         assert round(calc, 5) == round(expc, 5)
 
     # test average photon number
-    assert round(la.trace(ops.number(20) @ states.densityMatrix(displacedVacuum)), 8) == round(abs(alpha)**2, 8)
+    assert round(la.trace(ops.number(20) @ states.densityMatrix(displacedVacuum)), 8).real == round(abs(alpha)**2, 8)
 
     # coherent state is the eigenstate of destroy with eigenvalue alpha
     assert np.allclose((ops.destroy(20)@displacedVacuum).A, (alpha*displacedVacuum).A, atol=1e-04, rtol=1e-04)

@@ -11,7 +11,20 @@ from .customTypes import Matrix, floatList, matrixList
 
 
 # Eigenvector statistics
-def _eigs(Mat: Matrix) -> matrixList:
+def _eigs(Mat: Matrix) -> tuple:
+    """
+    Calculates eigenvalue and eigenvectors of a given matrix.
+
+    Parameters
+    ----------
+    Mat : Matrix
+        a matrix
+
+    Returns
+    -------
+    tuple
+        tuple containing (eigenvalues, eigenvectors)
+    """
     if isinstance(Mat, spmatrix):
         Mat = Mat.A
     return lina.eig(Mat)
@@ -71,44 +84,9 @@ def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
         comps.append(fidelityPure(basKet, ket))
     return comps
 
-
-def eigVecStatKetList(basis: matrixList, kets: matrixList) -> List[floatList]:
-    """
-    Calculates components of a `list of ket states`
-    Main use is in eigenvector statistics.
-
-    Parameters
-    ----------
-    basis : matrixList
-        a complete basis
-    kets : matrixList
-        `list` of ket states
-
-    Returns
-    -------
-    List[floatList]
-        `list` of component values in the basis
-
-    Examples
-    --------
-    >>> import qTools.QuantumToolbox.states as qStates
-    >>> ket0 = qStates.basis(2, 0)
-    >>> ket1 = qStates.basis(2, 1)
-    >>> ketList = [ket0, ket1]
-    >>> completeBasis = qStates.completeBasis(dimension=2)
-    >>> components = eigVecStatKetList(basis=completeBasis, kets=ketList)
-    [[1, 0], [0, 1]]
-    """
-
-    compsList = []
-    for ket in kets:
-        compsList.append(eigVecStatKet(basis, ket))
-    return compsList
-
-
 def eigVecStatKetNB(ket: Matrix) -> float:
     """
-    Calculates the components of a ket by assuming that the basis is of the free Hamiltonian.
+    Calculates component amplitudes of a ket.
 
     Parameters
     ----------

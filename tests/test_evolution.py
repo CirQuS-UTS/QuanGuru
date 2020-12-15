@@ -30,4 +30,4 @@ dissipatorExpects = [np.array([[-1, 0, 0, 0], [0, -0.5, 0, 0], [0, 0, -0.5, 0], 
                      np.array([[0, 0, 0, 0], [0, -2, 0, 0], [0, 0, -2, 0], [0, 0, 0, 0]])]
 @pytest.mark.parametrize("op, expect", [[o, e] for (o, e) in zip(sigmaOpers, dissipatorExpects)])
 def test_dissipator(op, expect, referenceValues):
-    assert np.allclose(evo.dissipator(referenceValues[op]), expect) #pylint:disable=protected-access
+    assert np.allclose(evo.dissipator(referenceValues[op]), expect)
