@@ -18,3 +18,6 @@ Quantum Toolbox (:mod:`qTools.QuantumToolbox`)
    Quantum Operators <QuantumToolbox/operators>
    Quantum Evolution <QuantumToolbox/evolution>
    Basic Functions <QuantumToolbox/functions>
+
+
+   Helper Functions <QuantumToolbox/_helpers>

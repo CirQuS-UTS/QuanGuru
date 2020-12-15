@@ -7,11 +7,9 @@ from .functions import fidelityPure
 from .customTypes import Matrix, floatList, matrixList
 
 
-
-# Eigenvector statistics
 def _eigs(Mat: Matrix) -> tuple:
-    """
-    Calculates eigenvalue and eigenvectors of a given matrix.
+    r"""
+    Calculate eigenvalue and eigenvectors of a given matrix.
 
     Parameters
     ----------
@@ -28,6 +26,21 @@ def _eigs(Mat: Matrix) -> tuple:
     return lina.eig(Mat)
 
 def _eigStat(Mat: Matrix, symp: bool = False) -> floatList:
+    r"""
+    Calculate amplitudes of eigenvalue entries for a given matrix.
+
+    Parameters
+    ----------
+    Mat : Matrix
+        a matrix
+    symp : bool, optional
+        If True (False)
+
+    Returns
+    -------
+    floatList
+        [description]
+    """
     return (np.abs(_eigs(Mat)[1].flatten()))**2 if not symp else _eigStatSymp(Mat)
 
 def _eigStatSymp(Mat: Matrix) -> floatList:
@@ -51,7 +64,7 @@ def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
 
 # TODO create the function for the result of eigenvec calculation
 def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
-    """
+    r"""
     Calculates components of a `ket` in a basis.
 
     Main use is in eigenvector statistics.
@@ -83,7 +96,7 @@ def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
     return comps
 
 def eigVecStatKetNB(ket: Matrix) -> float:
-    """
+    r"""
     Calculates component amplitudes of a ket.
 
     Parameters

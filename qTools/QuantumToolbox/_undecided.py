@@ -6,9 +6,8 @@ from .customTypes import Matrix, floatList
 
 
 def expectationColArr(operator: Matrix, states: ndarray) -> floatList:
-    """
-    Calculates the expectation values of an `operator` for a list/matrix of `ket (column) states`.
-     by matrix multiplication.
+    r"""
+    Calculate expectation values of an `operator` for a list/matrix of `ket (column) states` by matrix multiplication.
 
     The `list` here is effectively a matrix whose columns are `ket` states for which we want the expectation values.
     For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.

@@ -1,4 +1,4 @@
-"""
+r"""
     QuantumToolbox consists **purely of Python functions** (no other objects) that create and/or use **matrices**.
     The **bold** parts of the previous sentence highlights two main design ideas of QuantumToolbox.
 
@@ -11,6 +11,8 @@
 
     .. currentmodule:: qTools.QuantumToolbox
 
+    Modules
+    -------
 
     .. autosummary::
         linearAlgebra

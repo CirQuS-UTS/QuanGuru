@@ -1,16 +1,18 @@
-"""
+r"""
     Module of functions to create quantum operations (such as rotations).
+
+    .. currentmodule:: qTools.QuantumToolbox.qubitRotations
 
     Functions
     ---------
-    | :func:`xRotation` : Creates the operator for Qubit `X rotation`
-    | :func:`yRotation` : Creates the operator for Qubit `Y rotation`
-    | :func:`zRotation` : Creates the operator for Qubit `Z rotation`
-    | :func:`qubRotation` : Creates the operator for Qubit rotation around given X/Y/Z
 
-    Types
-    ^^^^^
-    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
+    .. autosummary::
+
+        xRotation
+        yRotation
+        zRotation
+        qubRotation
+
 """
 
 #from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity

@@ -1,14 +1,18 @@
-"""
+r"""
     A module for custom types (Union etc) used in type hints of QuantumToolbox.
+
+    .. currentmodule:: qTools.QuantumToolbox.customTypes
 
     Types
     -----
-    | :const:`Matrix` : Type which is either spmatrix or nparray (created using TypeVar)
-    | :const:`intList` : Type for a list of integers
-    | :const:`floatList` : Type for a list of floats
-    | :const:`matrixList` : Type for a list `Matrix` types
-    | :const:`supInp` : Type from the union the types: int, `intList`, and a dict with int:float key:value combination
-    | :const:`ndOrListInt` : Type from the union of ndarray and intList
+
+    .. autosummary::
+        Matrix`
+        intList`
+        floatList`
+        matrixList`
+        supInp`
+        ndOrListInt`
 """
 
 from typing import Union, Dict, List

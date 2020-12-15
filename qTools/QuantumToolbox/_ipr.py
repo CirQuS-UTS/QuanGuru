@@ -1,3 +1,7 @@
+r"""
+    Functions to calculate delocalisation measure (Inverse participation ratio) in for various cases.
+
+"""
 from numpy import ndarray # type: ignore
 
 import numpy as np # type: ignore
@@ -8,10 +12,9 @@ from .functions import fidelityPure
 from .customTypes import Matrix, floatList, matrixList
 
 
-# Delocalisation measures for various cases
 def iprKet(basis: matrixList, ket: Matrix) -> float:
-    """
-    Calculates the inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.
+    r"""
+    Calculate inverse participation ratio (a delocalisation measure) of a `ket` in a given basis.
 
     Parameters
     ----------
@@ -50,7 +53,7 @@ def iprKet(basis: matrixList, ket: Matrix) -> float:
 
 
 def iprKetNB(ket: Matrix) -> float:
-    """
+    r"""
     Calculates the inverse participation ratio (a delocalisation measure) of a ket
     by assuming that the basis is of the free Hamiltonian.
 
@@ -91,7 +94,7 @@ def iprKetNB(ket: Matrix) -> float:
 
 
 def iprKetNBmat(kets: ndarray) -> floatList:
-    """
+    r"""
     Calculates the inverse participation ratio (a delocalisation measure) of `a matrix of ket states as the column`.
 
     For example the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
@@ -129,7 +132,7 @@ def iprKetNBmat(kets: ndarray) -> floatList:
 
 
 def iprPureDenMat(basis: matrixList, denMat: Matrix) -> float:
-    """
+    r"""
     Calculates the inverse participation ratio (a delocalisation measure) of a `density matrix` in a given `basis`.
 
     Parameters

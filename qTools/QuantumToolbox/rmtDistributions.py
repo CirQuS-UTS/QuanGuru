@@ -23,20 +23,6 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
 
 
 def WignerDyson(x: float, beta: int = 1) -> float:
-    """[summary]
-
-    Parameters
-    ----------
-    x : float
-        [description]
-    beta : int, optional
-        [description], by default 1
-
-    Returns
-    -------
-    float
-        [description]
-    """
     if beta == 1:
         coef = pi/2
         dist = (x ** beta) * (e ** (-(pi * (x ** 2)) / 4))
