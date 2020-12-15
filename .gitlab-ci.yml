@@ -13,8 +13,7 @@ mypy:
         - qsimulations
     allow_failure: false
     script:
-    - cd qTools
-    - python3 -m mypy
+    - python3 -m mypy qTools
 
 flake8:
     stage: Static Analysis
