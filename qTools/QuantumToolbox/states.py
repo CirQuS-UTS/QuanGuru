@@ -267,9 +267,9 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
     if isinstance(excitations, dict):
         sts = excitations
         if populations:
-            sts = {k:np.sqrt(v) for (k, v) in sts.items()}
+            sts = {k:np.sqrt(v) for (k, v) in sts.items()}  # noqa: E231
     elif isinstance(excitations, int):
-        sts = {excitations:1}
+        sts = {excitations:1}  # noqa: E231
     elif all(isinstance(item, int) for item in excitations):
         sts = {k: 1 for k in excitations}
     else:
@@ -324,7 +324,8 @@ def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) ->
      [0.5 0.25]]
     """
 
-    return normalise(weightedSum([linAlOuterProd(k) for k in ket], probability)) if isinstance(ket, list) else linAlOuterProd(ket) #pylint:disable=line-too-long
+    libool = isinstance(ket, list)
+    return normalise(weightedSum([linAlOuterProd(k) for k in ket], probability)) if libool else linAlOuterProd(ket)
 
 
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,

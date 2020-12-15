@@ -36,11 +36,11 @@ def sweepInitError(init):
         if obj.sweepList is None:
             className = obj.__class__.__name__
             print(className + ' requires either a list or relevant info, here are givens'
-                  + '\n' +
-                  'sweepList: ', obj.sweepList, '\n' +
-                  'sweepMax: ', obj.sweepMax, '\n' +
-                  'sweepMin: ', obj.sweepMin, '\n' +
-                  'sweepPert: ', obj.sweepPert, '\n' +
+                  + '\n' +  # noqa: W503, W504
+                  'sweepList: ', obj.sweepList, '\n' +  # noqa: W504
+                  'sweepMax: ', obj.sweepMax, '\n' +  # noqa: W504
+                  'sweepMin: ', obj.sweepMin, '\n' +  # noqa: W504
+                  'sweepPert: ', obj.sweepPert, '\n' +  # noqa: W504
                   'logSweep: ', obj.logSweep)
 
     return newFunction

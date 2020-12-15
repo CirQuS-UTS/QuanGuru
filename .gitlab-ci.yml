@@ -14,7 +14,7 @@ mypy:
     allow_failure: false
     script:
     - cd qTools
-    - python3 -m mypy QuantumToolbox
+    - python3 -m mypy
 
 flake8:
     stage: Static Analysis
@@ -22,7 +22,7 @@ flake8:
         - qsimulations
     allow_failure: true
     script:
-    - python3 -m flake8 --max-line-length=140 qTools/*.py
+    - python3 -m flake8 qTools
 
 pylint:
     stage: Static Analysis

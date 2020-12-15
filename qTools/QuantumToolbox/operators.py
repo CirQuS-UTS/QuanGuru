@@ -996,6 +996,6 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
 
     try:
         opPow = op(dim, sparse)**power
-    except: # pylint: disable=bare-except
+    except: # pylint: disable=bare-except # noqa: E722
         opPow = op(sparse)**power
     return opPow

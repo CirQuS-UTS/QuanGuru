@@ -1,5 +1,3 @@
-from typing import List
-
 import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore

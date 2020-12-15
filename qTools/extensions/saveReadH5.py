@@ -130,7 +130,7 @@ def readAll(path, fileName):
                     for key2, val2 in val1.items():
                         _rDict[key2] = list(val2)
                     rDict[key1] = _rDict
-                except: # pylint: disable=bare-except
+                except: # pylint: disable=bare-except # noqa: E722
                     rDict[key1] = list(val1)
             resDict[key] = rDict
     return resDict, f.attrs

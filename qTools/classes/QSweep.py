@@ -131,7 +131,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
                 elif self.logSweep is True:
                     self._sweepList = logspace(self.sweepMin, self.sweepMax,
                                                num=self.sweepStep, base=10.0) # pylint: disable=no-member
-            except: #pylint:disable=bare-except
+            except: #pylint:disable=bare-except # noqa: E722
                 pass
         return self._sweepList
 

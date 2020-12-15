@@ -50,7 +50,7 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], qsystems,
                                             [create, sigmax], superSys=obj, couplingStrength=couplingStrength)
-       #couplingObj.addTerm()
+        #couplingObj.addTerm()
     # else:
     #     print('number')
     #  couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj, couplingStrength=couplingStrength)
@@ -66,7 +66,7 @@ def Dicke(obj, couplingStrength, subSys1=None, subSys2=None):
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj = obj.createSysCoupling(qsystems, [destroy, Jx], qsystems,
                                             [create, Jx], superSys=obj, couplingStrength=couplingStrength)
-       #couplingObj.addTerm()
+        #couplingObj.addTerm()
     # else:
     #     print('number')
     #  couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj, couplingStrength=couplingStrength)

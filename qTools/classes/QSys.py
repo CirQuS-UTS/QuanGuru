@@ -53,7 +53,7 @@ class genericQSys(qBaseSim):
         if isinstance(self, compQSystem) and isinstance(other, qSystem):
             self.addSubSys(other)
             newComp = self
-        elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or
+        elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or  # noqa: W504
               (isinstance(self, compQSystem) and isinstance(other, compQSystem))):
             newComp = compQSystem()
             # FIXME 'stepCount' getter creates problem with None defaults

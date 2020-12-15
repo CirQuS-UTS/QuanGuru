@@ -21,7 +21,7 @@ from numpy import ndarray # type: ignore
 import numpy as np # type: ignore
 import scipy.sparse as sp # type: ignore
 
-from .customTypes import Matrix, ndOrListInt #pylint: disable=relative-beyond-top-level
+from .customTypes import Matrix, ndOrListInt # pylint: disable=relative-beyond-top-level
 
 
 def hc(matrix: Matrix) -> Matrix:
