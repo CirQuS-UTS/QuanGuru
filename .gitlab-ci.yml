@@ -61,6 +61,7 @@ unit_test:
     script:
     - python3 -m coverage report
     - python3 -m pytest --cov=qTools --cov-append --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration'
+    - python3 -m coverage erase
     - python3 -m coverage report
     artifacts:
         paths:
