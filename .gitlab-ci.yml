@@ -76,3 +76,6 @@ integration_test:
     - python3 -m pytest --cov=qTools --cov-append --ignore=tests/QuantumToolboxCore -k 'QuantumToolboxIntegration'
     - python3 -m coverage xml
     - python3 -m coverage report
+    artifacts:
+        reports:
+            cobertura: coverage.xml
