@@ -49,6 +49,10 @@ core_test:
     - python3 -m pytest --cov=qTools --cov-append tests/QuantumToolboxCore/test_states.py
     - python3 -m pytest --cov=qTools --cov-append tests/QuantumToolboxCore/test_operators.py
     - python3 -m coverage report
+    - python3 -m coverage xml
+    artifacts:
+        reports:
+            cobertura: coverage.xml
 
 unit_test:
     stage: UnitTest:Rest
@@ -58,6 +62,9 @@ unit_test:
     script:
     - python3 -m pytest --cov=qTools --cov-append --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration'
     - python3 -m coverage report
+    artifacts:
+        reports:
+            cobertura: coverage.xml
 
 integration_test:
     stage: Integration Test
@@ -66,4 +73,5 @@ integration_test:
     allow_failure: false
     script:
     - python3 -m pytest --cov=qTools --cov-append --ignore=tests/QuantumToolboxCore -k 'QuantumToolboxIntegration'
+    - python3 -m coverage xml
     - python3 -m coverage report
