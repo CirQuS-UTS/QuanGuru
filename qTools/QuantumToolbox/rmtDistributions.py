@@ -1,5 +1,5 @@
 r"""
-    Module containing some probability density functions (PDF) from Random Matrix Theory
+    Contains probability density functions (PDF) from Random Matrix Theory (RMT).
 
     .. currentmodule:: qTools.QuantumToolbox.rmtDistributions
 
@@ -22,8 +22,10 @@ import numpy as np # type: ignore
 
 def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
     r"""
-    Compute PDF :math:`P(x)` of eigenvector statistics at x for three universality classes
+    Computes PDF :math:`P(x)` of eigenvector statistics at x for three universality classes
     (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension :math:`dim`.
+
+    `Read here <https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006>`__
 
     Parameters
     ----------

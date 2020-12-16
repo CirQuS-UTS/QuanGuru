@@ -1,5 +1,5 @@
 r"""
-    Module of functions to create some standard Hamiltonians.
+    Contains functions to create some standard Hamiltonians.
 
     . currentmodule:: qTools.QuantumToolbox.Hamiltonians
 

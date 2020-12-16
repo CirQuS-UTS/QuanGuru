@@ -1,5 +1,5 @@
 r"""
-    Module of functions to create quantum operations (such as rotations).
+    Contains functions to create quantum operations (such as rotations).
 
     .. currentmodule:: qTools.QuantumToolbox.qubitRotations
 

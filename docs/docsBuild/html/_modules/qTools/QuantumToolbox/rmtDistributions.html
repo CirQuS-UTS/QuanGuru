@@ -164,7 +164,7 @@
             
   <h1>Source code for qTools.QuantumToolbox.rmtDistributions</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Module containing some probability density functions (PDF) from Random Matrix Theory</span>
+<span class="sd">    Contains probability density functions (PDF) from Random Matrix Theory (RMT).</span>
 
 <span class="sd">    .. currentmodule:: qTools.QuantumToolbox.rmtDistributions</span>
 
@@ -187,8 +187,10 @@
 
 <div class="viewcode-block" id="EigenVectorDist"><a class="viewcode-back" href="../../../QuantumToolbox/rmtDistributions.html#qTools.QuantumToolbox.rmtDistributions.EigenVectorDist">[docs]</a><span class="k">def</span> <span class="nf">EigenVectorDist</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute PDF :math:`P(x)` of eigenvector statistics at x for three universality classes</span>
+<span class="sd">    Computes PDF :math:`P(x)` of eigenvector statistics at x for three universality classes</span>
 <span class="sd">    (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension :math:`dim`.</span>
+
+<span class="sd">    `Read here &lt;https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006&gt;`__</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -286,7 +288,7 @@
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/12/16.
+        Last updated on 2020/12/17.
       </span>
 
     </p>

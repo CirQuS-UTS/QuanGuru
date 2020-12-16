@@ -1,5 +1,5 @@
 r"""
-    A module for custom types (Union etc) used in type hints of QuantumToolbox.
+    Contains custom types (Union etc) used in type hints of QuantumToolbox.
 
     .. currentmodule:: qTools.QuantumToolbox.customTypes
 

@@ -1,5 +1,5 @@
 r"""
-    Module containing some basic linear algebra methods for scipy.sparse and np.ndarray types.
+    Contains some basic linear algebra methods for scipy.sparse and np.ndarray types.
 
     .. currentmodule:: qTools.QuantumToolbox.linearAlgebra
 

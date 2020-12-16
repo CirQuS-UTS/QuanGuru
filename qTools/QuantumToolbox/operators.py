@@ -1,5 +1,5 @@
 r"""
-    Module containing methods to functions to create and/or manipulate quantum operators
+    Contains methods to functions to create and/or manipulate quantum operators
 
     .. currentmodule:: qTools.QuantumToolbox.operators
 

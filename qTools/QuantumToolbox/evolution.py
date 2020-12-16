@@ -1,5 +1,5 @@
 r"""
-    Module containing functions to create Unitary and open-system super-operators.
+    Contains functions to create Unitary and open-system super-operators.
 
     .. currentmodule:: qTools.QuantumToolbox.evolution
 

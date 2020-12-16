@@ -1,6 +1,6 @@
 r"""
     QuantumToolbox consists **purely of Python functions** (no other objects) that create and/or use **matrices**.
-    The **bold** parts of the previous sentence highlights two main design ideas of QuantumToolbox.
+    **Bold** parts of the previous sentence highlight two main ideas of QuantumToolbox.
 
     It only contains Python functions to make it familiar with a broader audience, so that anyone without any interest
     in object-oriented programming can still contribute to QuantumToolbox. While doing so, it is better to follow the
@@ -24,6 +24,10 @@ r"""
 
     .. autosummary::
         functions
+
+    .. autosummary::
+        rmtDistributions
+        _helpers
 
 """
 

@@ -1,5 +1,5 @@
 r"""
-    Module containing functions to calculate some basic quantities, such as expectations, fidelities, entropy etc.
+    Contains functions to calculate some basic quantities, such as expectations, fidelities, entropy etc.
 
     .. currentmodule:: qTools.QuantumToolbox.functions
 

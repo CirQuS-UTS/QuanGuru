@@ -6,6 +6,7 @@ stages:
     - UnitTest:Core
     - UnitTest:Rest
     - Integration Test
+    - cov
 
 mypy:
     stage: Static Analysis
@@ -46,7 +47,7 @@ core_test:
     allow_failure: false
     script:
     - python3 -m pytest tests/QuantumToolboxCore/test_linearAlgebra.py
-    - python3 -m pytest tests/QuantumToolboxCore/test_states.py
+    - python3 -m pytest --cov-append tests/QuantumToolboxCore/test_states.py
     - python3 -m pytest tests/QuantumToolboxCore/test_operators.py
 
 unit_test:
@@ -64,3 +65,12 @@ integration_test:
     allow_failure: false
     script:
     - python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'QuantumToolboxIntegration'
+
+coverage:
+    stage: cov
+    script:
+        - pytest --cov=qTools tests
+        - coverage xml
+    artifacts:
+        reports:
+            cobertura: coverage.xml

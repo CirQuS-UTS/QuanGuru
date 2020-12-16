@@ -1,5 +1,5 @@
 r"""
-    Module for some helper functions.
+    Contains some helper functions.
 
     .. currentmodule:: qTools.QuantumToolbox._helpers
 

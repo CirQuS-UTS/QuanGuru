@@ -1,5 +1,5 @@
 r"""
-    Module containing methods to create states, such as ket, bra, densityMatrix, superpositions, etc.
+    Contains methods to create states, such as ket, bra, densityMatrix, superpositions, etc.
 
     .. currentmodule:: qTools.QuantumToolbox.states
 

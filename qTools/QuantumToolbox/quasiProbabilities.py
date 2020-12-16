@@ -1,5 +1,5 @@
 r"""
-    Module of functions to calculate quasi-probability distributions (adapted from qutip).
+    Contains functions to calculate quasi-probability distributions (adapted from qutip).
 
     .. currentmodule:: qTools.QuantumToolbox.quasiProbabilities
 
