@@ -112,7 +112,7 @@ class Simulation(timeBase):
                 time = self._timeBase__bound._currentTime # pylint: disable=no-member
             else:
                 time = self.stepSize*(self.__index+1)
-        except: #pylint:disable=bare-except
+        except: #pylint:disable=bare-except # noqa: E722
             time = 0
         return time
 
@@ -315,7 +315,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
                 try:
                     #multiprocessing.get_start_method() != 'fork'
                     multiprocessing.set_start_method("fork")
-                except: #pylint:disable=bare-except
+                except: #pylint:disable=bare-except # noqa: E722
                     pass
 
         if p is True:

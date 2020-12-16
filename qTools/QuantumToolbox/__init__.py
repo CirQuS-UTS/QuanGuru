@@ -1,6 +1,6 @@
-"""
+r"""
     QuantumToolbox consists **purely of Python functions** (no other objects) that create and/or use **matrices**.
-    The **bold** parts of the previous sentence highlights two main design ideas of QuantumToolbox.
+    **Bold** parts of the previous sentence highlight two main ideas of QuantumToolbox.
 
     It only contains Python functions to make it familiar with a broader audience, so that anyone without any interest
     in object-oriented programming can still contribute to QuantumToolbox. While doing so, it is better to follow the
@@ -9,51 +9,51 @@
     Matrix creations should be sparse as default and return .A (or .toarray()) of the created sparse if sparse=False.
     Any function manipulating matrices should be designed to be independent of sparse or array, if possible.
 
-    .. autosummary::
-        :toctree: stubs
+    .. currentmodule:: qTools.QuantumToolbox
 
+    Modules
+    -------
+
+    .. autosummary::
+        linearAlgebra
+
+    .. autosummary::
         states
         operators
         evolution
+
+    .. autosummary::
         functions
-        Hamiltonians
-        quasiProbabilities
+
+    .. autosummary::
         rmtDistributions
+        _helpers
 
 """
 
-from .functions import (
-    expectation, expectationMat, expectationKet, expectationKetList, expectationMatList, expectationColArr,
-    fidelity, fidelityKet, fidelityPureMat, fidelityKetList, fidelityKetLists,
-    entropy, entropyKet,
-    iprKet, iprKetList, iprKetNB, iprKetNBList, iprKetNBmat, iprPureDenMat,
-    sortedEigens, _eigStat, _eigStatSymp,
-    eigVecStatKet, eigVecStatKetList, eigVecStatKetNB,
-    concurrence
-)
-from .Hamiltonians import (cavQubFreeHam, RabiHam, JCHam, aJCHam)
-from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
-from .operators import (
-    number, destroy, create,
-    identity,
-    sigmaz, sigmay, sigmax, sigmap, sigmam,
-    Jz, Jp, Jm, Jx, Jy, Js,
-    operatorPow,
-    paritySUM, parityEXP,
-    displacement, squeeze,
-    compositeOp
-)
-from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
-from .states import (
-    basis, completeBasis, basisBra,
-    zeros,
-    superPos,
-    densityMatrix,
-    completeBasisMat,
-    normalise, normaliseKet, normaliseMat,
-    compositeState, tensorProd, partialTrace,
-    mat2Vec, vec2Mat
-)
 from .customTypes import (Matrix, intList, matrixList, supInp, ndOrListInt, ndOrList)
+from .linearAlgebra import (hc, innerProd, norm, outerProd, tensorProd, trace, partialTrace)
+from .states import (
+    basis, completeBasis, basisBra, zeros, weightedSum, superPos, densityMatrix, completeBasisMat, normalise,
+    compositeState, mat2Vec, vec2Mat, BellStates
+)
+from .operators import (
+    number, destroy, create, identity, sigmaz, sigmay, sigmax, sigmap, sigmam, Jz, Jp, Jm, Jx, Jy, Js, operatorPow,
+    paritySUM, parityEXP, displacement, squeeze, compositeOp
+)
+from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
+from .functions import (expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance)
+from ._helpers import (loopIt)
 
-from .rmtDistributions import (EigenVectorDist, WignerDyson, Poissonian)
+
+
+from .rmtDistributions import (EigenVectorDist, WignerDyson, WignerSurmise, Poissonian)
+
+
+
+from .Hamiltonians import (cavQubFreeHam, RabiHam, JCHam, aJCHam)
+from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
+
+from ._undecided import (expectationColArr)
+from ._ipr import (iprKet, iprKetNB, iprKetNBmat, iprPureDenMat)
+from ._eigenVecVal import (_eigStat, _eigStatSymp, eigVecStatKet, eigVecStatKetNB)

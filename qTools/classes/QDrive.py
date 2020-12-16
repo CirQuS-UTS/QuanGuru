@@ -87,7 +87,7 @@ class pulse(genericDrive):
         setAttr(self, '_pulse__func', f)
 
     def apply(self, time):
-        return self._scale*self.func(time, *self.funcArgs, **self.funcKwargs) if self.t1 > time > self.t0 else super().apply(time) # pylint:disable=line-too-long
+        return self._scale*self.func(time, *self.funcArgs, **self.funcKwargs) if self.t1 > time > self.t0 else super().apply(time) # pylint:disable=line-too-long # noqa: E501
 
     def integrateShape(self, timePoints):
         integral = 0

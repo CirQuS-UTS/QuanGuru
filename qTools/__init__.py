@@ -1,4 +1,4 @@
-"""
+r"""
     This is a library.
 """
 

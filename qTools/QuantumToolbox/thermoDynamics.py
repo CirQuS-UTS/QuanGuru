@@ -3,8 +3,8 @@ from .states import mat2Vec, vec2Mat
 from .customTypes import Matrix
 
 def nBarThermal(angFreq: float, temp: float, hbar: float = 1.0, kb: float = 1.0) -> float:
-    """
-    Calculates the average excitation number for a Harmonic oscillator with frequeny `freq` at a temperature `temp`.
+    r"""
+    Calculates average excitation number of a bosonic field with frequeny `angFreq` at a temperature `temp`.
     Boltzmann and reduced Planck constants are by default :math:`\\hbar = k_{B} = 1`.
     TODO Physical constants' default values should be connected to simUnits.
 
@@ -21,7 +21,7 @@ def nBarThermal(angFreq: float, temp: float, hbar: float = 1.0, kb: float = 1.0)
 
     Returns
     -------
-    :return: float
+    float
         Average excitation number
 
     Raises
@@ -36,7 +36,7 @@ def nBarThermal(angFreq: float, temp: float, hbar: float = 1.0, kb: float = 1.0)
 
 
 def HeatCurrent(Lindbladian: Matrix, Hamiltonian: Matrix, denMat: Matrix) -> float:
-    """
+    r"""
     Calculates the heat current from a quantum system due to a Lindbladian term. It does not strictly speaing have to be
     a Lindbladian but any combination of terms from a Liouvillian. Disclaimer: physical meaning of those terms is not
     and cannot be interpreted by this function.
@@ -53,7 +53,7 @@ def HeatCurrent(Lindbladian: Matrix, Hamiltonian: Matrix, denMat: Matrix) -> flo
 
     Returns
     -------
-    :return: float
+    float
         Heat current
     """
 
@@ -63,7 +63,7 @@ def HeatCurrent(Lindbladian: Matrix, Hamiltonian: Matrix, denMat: Matrix) -> flo
 
 
 def qubitPolarisation(freq: float, temp: float) -> float:
-    """
+    r"""
     Returns the qubit polarisation for a given frequency and temperature.
 
     Parameters
@@ -75,7 +75,7 @@ def qubitPolarisation(freq: float, temp: float) -> float:
 
     Returns
     -------
-    :return: float
+    float
         qubit polarisation, i.e. difference betwennn ground and excited state populations.
     """
 

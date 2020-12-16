@@ -1,4 +1,4 @@
-import scipy.constants as sciConst
+import scipy.constants as sciConst  # type: ignore
 
 __all__ = [
     'settings',

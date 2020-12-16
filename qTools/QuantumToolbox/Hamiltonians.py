@@ -1,19 +1,17 @@
-"""
-    Module of functions to create some standard Hamiltonians.
+r"""
+    Contains functions to create some standard Hamiltonians.
+
+    . currentmodule:: qTools.QuantumToolbox.Hamiltonians
 
     Functions
     ---------
-    | :func:`cavQubFreeHam` : Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension
-    | :func:`RabiHam` : Creates Rabi Hamiltonian for given frequencies, coupling strength,
-        and truncated cavity dimension
-    | :func:`JCHam` : Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
-        and truncated cavity dimension
-    | :func:`aJCHam` : Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength,
-        and truncated cavity dimension
 
-    Types
-    ^^^^^
-    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
+    .. autosummary::
+
+        cavQubFreeHam
+        RabiHam
+        JCHam
+        aJCHam
 """
 
 #from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
@@ -36,7 +34,7 @@ from .customTypes import Matrix
 
 # TODO currently, there is no option for sparse or not
 def cavQubFreeHam(cavFreq: float, qubFreq: float, cavDim: int) -> Tuple[Matrix, Matrix]:
-    """
+    r"""
     Creates Cavity + Qubit Hamiltonian for given frequencies and truncated cavity dimension.
 
     Parameters
@@ -50,7 +48,7 @@ def cavQubFreeHam(cavFreq: float, qubFreq: float, cavDim: int) -> Tuple[Matrix, 
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Cavity + Qubit Hamiltonian for given frequencies
 
     Examples
@@ -64,7 +62,7 @@ def cavQubFreeHam(cavFreq: float, qubFreq: float, cavDim: int) -> Tuple[Matrix, 
 
 
 def RabiHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
-    """
+    r"""
     Creates Rabi Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.
 
     Parameters
@@ -80,7 +78,7 @@ def RabiHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Rabi Hamiltonian for given frequencies
 
     Examples
@@ -96,7 +94,7 @@ def RabiHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
 
 
 def JCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
-    """
+    r"""
     Creates Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.
 
     Parameters
@@ -112,7 +110,7 @@ def JCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         Jaynes-Cummings Hamiltonian for given frequencies
 
     Examples
@@ -128,7 +126,7 @@ def JCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
 
 
 def aJCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
-    """
+    r"""
     Creates anti-Jaynes-Cummings Hamiltonian for given frequencies, coupling strength, and truncated cavity dimension.
 
     Parameters
@@ -144,7 +142,7 @@ def aJCHam(cavFreq: float, qubFreq: float, g: float, cavDim: int) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         anti-Jaynes-Cummings Hamiltonian for given frequencies
 
     Examples

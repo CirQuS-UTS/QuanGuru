@@ -346,7 +346,7 @@ class paramBoundBase(qUniversal):
         """
 
         if self not in _exclude:
-            oldMat = self._paramBoundBase__matrix
+            oldMat = self._paramBoundBase__matrix # noqa: F841
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
             del oldMat
             _exclude.append(self)
@@ -653,13 +653,13 @@ class stateBase(computeBase):
             if isinstance(self._stateBase__initialState._bound, _parameter): # pylint: disable=protected-access
                 self._stateBase__initialState._value = self._timeBase__bound.initialState # pylint: disable=no-member
             else:
-                self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long
+                self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
         return self._stateBase__initialState.value # pylint: disable=no-member
 
     @initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self._stateBase__initialStateInput.value = inp # pylint: disable=no-member
-        self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(inp) # pylint: disable=protected-access, no-member, line-too-long
+        self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(inp) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
 
     @property
     def _initialStateInput(self):
@@ -702,7 +702,7 @@ class stateBase(computeBase):
 
         if self not in _exclude:
             _exclude = super().delMatrices(_exclude)
-            oldMat = self._stateBase__initialState.value
+            oldMat = self._stateBase__initialState.value  # noqa: 841
             self._stateBase__initialState.value = None # pylint: disable=no-member, protected-access
             del oldMat
         return _exclude
@@ -811,7 +811,7 @@ class timeBase(stateBase):
 
         try:
             self._timeBase__stepCount.value = int((self.totalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
-        except:
+        except:  # noqa: E722
             raise ValueError('?')
         return self._timeBase__stepCount.value
 
@@ -924,7 +924,7 @@ class timeBase(stateBase):
 
                     if bounding:
                         for i, k in enumerate(keys):
-                            if ((getattr(self, k)._bound is None) and # pylint: disable=protected-access
+                            if ((getattr(self, k)._bound is None) and # pylint: disable=protected-access # noqa: W504
                                     (getattr(other, k)._value is not None)): # pylint: disable=protected-access
                                 setattr(self, keysProp[i], getattr(other, k)._value) # pylint: disable=protected-access
                                 break

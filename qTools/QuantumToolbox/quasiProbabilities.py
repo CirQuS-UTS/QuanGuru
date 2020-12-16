@@ -1,17 +1,15 @@
-"""
-    Module of functions to calculate quasi-probability distributions (adapted from qutip).
+r"""
+    Contains functions to calculate quasi-probability distributions (adapted from qutip).
+
+    .. currentmodule:: qTools.QuantumToolbox.quasiProbabilities
 
     Functions
     ---------
-    | :func:`Wigner` : An iterative method to evaluate the Wigner functions for the Fock
-        state :math:`|m \\rangle \\langle n|`.
-    | :func:`HusimiQ` : Q-function of a given state vector or density matrix at points `vec + i * vec`.
-    | :func:`_qfuncPure` : Calculate the Q-function for a pure state.
 
-    Types
-    ^^^^^
-    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>` : Union of (scipy) sparse and (numpy) array
-    | :const:`ndOrListInt <qTools.QuantumToolbox.customTypes.ndOrListInt>` : Union of ndarray and intList
+    .. autosummary::
+        Wigner
+        HusimiQ
+        _qfuncPure
 """
 
 from numpy import ndarray # type: ignore
@@ -36,7 +34,7 @@ from .customTypes import Matrix, ndOrList
 # ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list
 
 def Wigner(rho: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
-    """
+    r"""
     An iterative method to evaluate the Wigner functions for the states :math:`|m \\rangle \\langle n|`.
 
     The Wigner function is calculated as
@@ -61,7 +59,7 @@ def Wigner(rho: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
     Returns
     -------
-    :returns : ndarray
+    ndarray
         Values representing the Wigner-function calculated over the specified range [vec, vec].
     """
 
@@ -93,7 +91,7 @@ def Wigner(rho: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
 
 def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
-    """
+    r"""
     Q-function of a given state vector or density matrix at points `vec + i * vec`
 
     Parameters
@@ -108,7 +106,7 @@ def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
     Returns
     --------
-    :returns : array
+    array
         Values representing the Q-function calculated over the specified range [vec, vec].
     """
 
@@ -135,7 +133,7 @@ def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
 
 def _qfuncPure(psi: Matrix, alphaMat: ndarray) -> ndarray:
-    """
+    r"""
     Calculates the Q-function for a pure state.
 
     Parameters
@@ -150,7 +148,7 @@ def _qfuncPure(psi: Matrix, alphaMat: ndarray) -> ndarray:
 
     Returns
     --------
-    :returns : array
+    array
         Values representing the Q-function calculated over the specified range [vec, vec].
     """
 

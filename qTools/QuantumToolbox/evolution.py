@@ -1,22 +1,20 @@
-"""
-    Module of functions to create Unitary operator and open-system super-operators.
+r"""
+    Contains functions to create Unitary and open-system super-operators.
+
+    .. currentmodule:: qTools.QuantumToolbox.evolution
 
     Functions
     ---------
-    | :func:`Unitary`: Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
-    | :func:`Liouvillian`: Creates `Liouvillian super-operator` for a given `Hamiltonian`, `time step`,
-        and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-    | :func:`LiouvillianExp`: Creates `Liouvillian super-operator` (and exponentiates) for a given `Hamiltonian`,
-        `time step`,
-        and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
-    | :func:`dissipator`: Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
-    | :func:`_preSO`: Creates `pre super-operator` for an `operator`.
-    | :func:`_posSO`: Creates `pos super-operator` for an `operator`.
-    | :func:`_preposSO`: Creates `pre-pos super-operator` for an `operator`.
 
-    Types
-    -----
-    | :const:`Matrix <qTools.QuantumToolbox.customTypes.Matrix>`: Union of (scipy) sparse and (numpy) array
+    .. autosummary::
+        Unitary
+        Liouvillian
+        LiouvillianExp
+
+        dissipator
+        _preSO
+        _posSO
+        _preposSO
 """
 
 from typing import Optional
@@ -24,7 +22,8 @@ from typing import Optional
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
 import scipy.sparse.linalg as slinA # type: ignore
-import numpy as np # type: ignore
+
+from .linearAlgebra import hc
 
 from .customTypes import Matrix
 
@@ -39,8 +38,9 @@ from .customTypes import Matrix
 
 
 def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
-    """
-    Creates `Unitary` time evolution operator for a given `Hamiltonian` and `time step`.
+    r"""
+    Creates `Unitary` time evolution operator :math:`U(t) := e^{-i\hat{H}t}` for a given `Hamiltonian` :math:`\hat{H}`
+    and `time step t`.
 
     Keeps sparse/array as sparse/array.
 
@@ -53,12 +53,15 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         Unitary time evolution operator
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> Unitary(2*np.pi*sigmaz(), 1).A
+    array([[1.+2.4492936e-16j, 0.+0.0000000e+00j],
+           [0.+0.0000000e+00j, 1.-2.4492936e-16j]])
+
     """
 
     sparse = sp.issparse(Hamiltonian)
@@ -71,9 +74,12 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value
                 collapseOperators: list = [], decayRates: list = []) -> Matrix:# pylint: disable=dangerous-default-value
-    """
-    Creates `Liouvillian` super-operator for a given `Hamiltonian`, `time step`,
-    and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
+    r"""
+    Creates `Liouvillian` super-operator
+    :math:`\hat{\mathcal{L}} := -i(\hat{H}\otimes\mathbb{I} + \mathbb{I}\otimes\hat{H}) +
+    \sum_{i}\kappa_{i}\hat{\mathcal{D}}(\hat{c}_{i})`
+    for a `Hamiltonian` :math:`\hat{H}`
+    and `collapse operators` :math:`\{\hat{c}_{i}\}` (with corresponding `decay rates` :math:`\{\kappa_{i}\}`).
 
     Keeps sparse/array as sparse/array.
 
@@ -88,25 +94,29 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         Liouvillian super-operator
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> Liouvillian(2*np.pi*sigmaz(), [2*np.pi*sigmaz()], [1]).A
+    array([[  0.         +0.j        ,   0.         +0.j        ,
+              0.         +0.j        ,   0.         +0.j        ],
+           [  0.         +0.j        , -78.95683521+12.56637061j,
+              0.         +0.j        ,   0.         +0.j        ],
+           [  0.         +0.j        ,   0.         +0.j        ,
+            -78.95683521-12.56637061j,   0.         +0.j        ],
+           [  0.         +0.j        ,   0.         +0.j        ,
+              0.         +0.j        ,   0.         +0.j        ]])
+
     """
 
     if Hamiltonian is not None:
-        sparse = sp.issparse(Hamiltonian)
         dimensionOfHilbertSpace = Hamiltonian.shape[0]
     else:
-        sparse = sp.issparse(collapseOperators[0])
         dimensionOfHilbertSpace = collapseOperators[0].shape[0]
 
-    if sparse is False:
-        identity = np.identity(dimensionOfHilbertSpace)
-    elif sparse is True:
-        identity = sp.identity(dimensionOfHilbertSpace, format="csc")
+    identity = sp.identity(dimensionOfHilbertSpace, format="csc")
     hamPart1 = _preSO(Hamiltonian, identity)
     hamPart2 = _posSO(Hamiltonian, identity)
     hamPart = -1j * (hamPart1 - hamPart2)
@@ -123,9 +133,9 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value
                    collapseOperators: list = [], decayRates: list = [],
                    exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
-    """
-    Creates `Liovillian` super-operator for a given `Hamiltonian`, `time step`,
-    and a `list of collapse operators` (with the correcponding `list` of `decay rates`).
+    r"""
+    For a `time step t`, creates `Liouvillian` :math:`\hat{\mathcal{L}}` and exponentiate it, or unitary :math:`U(t)`
+    for a `Hamiltonian` :math:`\hat{H}`.
 
     Keeps sparse/array as sparse/array.
 
@@ -144,12 +154,24 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         (exponentiated) Liouvillian super-operator
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [], []).A
+    array([[1.+2.4492936e-16j, 0.+0.0000000e+00j],
+           [0.+0.0000000e+00j, 1.-2.4492936e-16j]])
+
+    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [2*np.pi*sigmaz()], [1]).A
+    array([[1.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+            0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j],
+           [0.00000000e+00+0.00000000e+00j, 5.12250228e-35-2.50930241e-50j,
+            0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j],
+           [0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+            5.12250228e-35+2.50930241e-50j, 0.00000000e+00+0.00000000e+00j],
+           [0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+            0.00000000e+00+0.00000000e+00j, 1.00000000e+00+0.00000000e+00j]])
     """
 
     if Hamiltonian is not None:
@@ -172,8 +194,11 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
 
 
 def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> Matrix:
-    """
-    Creates the `Lindblad dissipator` super-operator for a `collapse operator`.
+    r"""
+    Creates the `Lindblad dissipator` super-operator
+    :math:`\hat{\mathcal{D}}(\hat{c}) := (\hat{c}^{\dagger})^{T}\otimes\hat{c} -
+    0.5(\mathbb{I}\otimes\hat{c}^{\dagger}\hat{c} + \hat{c}^{\dagger}\hat{c}\otimes\mathbb{I})`
+    for a `collapse operator` :math:`\hat{c}`.
 
     Keeps sparse/array as sparse/array.
 
@@ -186,23 +211,29 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         Lindblad dissipator
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> dissipator(sigmaz()).A
+    array([[ 0.,  0.,  0.,  0.],
+           [ 0., -2.,  0.,  0.],
+           [ 0.,  0., -2.,  0.],
+           [ 0.,  0.,  0.,  0.]])
+
+    >>> dissipator(sigmam()).A
+    array([[-1. ,  0. ,  0. ,  0. ],
+           [ 0. , -0.5,  0. ,  0. ],
+           [ 0. ,  0. , -0.5,  0. ],
+           [ 1. ,  0. ,  0. ,  0. ]])
+
     """
 
-    sparse = sp.issparse(collapseOperator)
     if identity is None:
-        dimension = collapseOperator.shape[0]
-        if sparse is True:
-            identity = sp.identity(dimension, format="csc")
-        else:
-            identity = np.identity(dimension)
+        identity = sp.identity(collapseOperator.shape[0], format="csc")
 
-    dagger = collapseOperator.conj().T
+    dagger = hc(collapseOperator)
 
     number = dagger @ collapseOperator
     part1 = _preposSO(collapseOperator)
@@ -212,8 +243,8 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
 
 
 def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
-    """
-    Creates `pre super-operator` for an `operator`.
+    r"""
+    Creates `pre super-operator` :math:`\mathbb{I}\otimes\hat{O}` for an `operator` :math:`\hat{O}`.
 
     Keeps sparse/array as sparse/array.
 
@@ -226,32 +257,28 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         `pre` super-operator
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> evolution._preSO(sigmam()).A
+    array([[0., 0., 0., 0.],
+           [1., 0., 0., 0.],
+           [0., 0., 0., 0.],
+           [0., 0., 1., 0.]])
+
     """
 
-    sparse = sp.issparse(operator)
     if identity is None:
-        dimension = operator.shape[0]
-        if sparse is True:
-            identity = sp.identity(dimension, format="csc")
-        else:
-            identity = np.identity(dimension)
-
-    if sparse is True:
-        pre = sp.kron(identity, operator, format='csc')
-    else:
-        pre = np.kron(identity, operator)
-    return pre
+        identity = sp.identity(operator.shape[0], format="csc")
+    pre = sp.kron(identity, operator, format='csc')
+    return pre if sp.issparse(operator) else pre.A
 
 
 def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
-    """
-    Creates `pos` super-operator for an operator.
+    r"""
+    Creates `pos super-operator` :math:`\hat{O}^{T}\otimes\mathbb{I}` for an `operator` :math:`\hat{O}`.
 
     Keeps sparse/array as sparse/array.
 
@@ -264,32 +291,28 @@ def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Returns
     -------
-    :return : Matrix
+    Matrix
         `pos` super-operator
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> evolution._posSO(sigmam()).A
+    array([[0., 0., 1., 0.],
+           [0., 0., 0., 1.],
+           [0., 0., 0., 0.],
+           [0., 0., 0., 0.]])
+
     """
 
-    sparse = sp.issparse(operator)
     if identity is None:
-        dimension = operator.shape[0]
-        if sparse is True:
-            identity = sp.identity(dimension, format="csc")
-        else:
-            identity = np.identity(dimension)
-
-    if sparse is True:
-        pos = sp.kron(operator.transpose(), identity, format='csc')
-    else:
-        pos = np.kron(np.transpose(operator), identity)
-    return pos
+        identity = sp.identity(operator.shape[0], format="csc")
+    pos = sp.kron(operator.transpose(), identity, format='csc')
+    return pos if sp.issparse(operator) else pos.A
 
 
 def _preposSO(operator: Matrix) -> Matrix:
-    """
-    Creates `pre-pos super-operator` for an operator.
+    r"""
+    Creates `pre-pos super-operator` :math:`(\hat{O}^{\dagger})^{T}\otimes\hat{O}` for an operator :math:`\hat{O}`.
 
     Keeps sparse/array as sparse/array.
 
@@ -302,18 +325,18 @@ def _preposSO(operator: Matrix) -> Matrix:
 
     Returns
     -------
-    :return: Matrix
+    Matrix
         `pre-pos` super-operator
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    >>> evolution._preposSO(sigmam()).A
+    array([[0, 0, 0, 0],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0],
+           [1, 0, 0, 0]], dtype=int64)
+
     """
 
-    sparse = sp.issparse(operator)
-
-    if sparse is True:
-        prepos = sp.kron(operator.conj(), operator, format='csc')
-    else:
-        prepos = np.kron(np.conjugate(operator), operator)
-    return prepos
+    prepos = sp.kron(operator.conj(), operator, format='csc')
+    return prepos if sp.issparse(operator) else prepos.A
