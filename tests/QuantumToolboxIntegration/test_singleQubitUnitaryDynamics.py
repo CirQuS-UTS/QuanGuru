@@ -3,6 +3,14 @@ import pytest
 from qTools.QuantumToolbox import linearAlgebra as la  #pylint: disable=import-error
 from qTools.QuantumToolbox import functions as fns #pylint: disable=import-error
 
+# unitary dynamics of a qubit and compare numerical results with the analytical calculations
+# NOTE these are also TUTORIALS of the library, so see the Tutorials for what these are doing and analytical
+# calculations.
+
+
+# two assertions are carried after running the time evolution: comparison of analytical and numerical values for
+# (i) real and imaginary parts of complex probability amplitudes, and (ii) expectation values of Pauli operators
+
 analyticalC0 = lambda t, c0, freq: c0*(np.e**(0.5*2*np.pi*1j*freq*t))
 analyticalC1 = lambda t, c1, freq: c1*(np.e**(-0.5*2*np.pi*1j*freq*t))
 
@@ -15,6 +23,8 @@ analyticCoef = {'C0real':[], 'C0imag':[], 'C1real':[], 'C1imag':[]}
 expectationsNumeric = {'sz':[], 'sx':[], 'sy':[]}
 expectationsAnalytic = {'sz':[], 'sx':[], 'sy':[]}
 
+# this is used as the calculate attribute of the qubit, and the singleQubit fixture evolve method calls this at every
+# step of the evolution. It stores both numerical and analytical results into the dictionaries used in assertions below.
 def singleQubitFreeCalculate(qub, state, i):
     ct1 = la.innerProd(state, qub.ket1) # <ket1|state> ordering is important
     ct0 = la.innerProd(state, qub.ket0)
