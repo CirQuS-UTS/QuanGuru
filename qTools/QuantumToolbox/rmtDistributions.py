@@ -25,7 +25,7 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
     Computes PDF :math:`P(x)` of eigenvector statistics at x for three universality classes
     (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension :math:`dim`.
 
-    `Read here <https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006>`__
+    `Read here more details and derivations. <https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006>`__
 
     Parameters
     ----------
@@ -65,6 +65,8 @@ def WignerDyson(x: float, beta: int = 1) -> float:
     r"""
     Calculate Wigner Surmise (Wigner-Dyson) PDF at x for three universality classes
     (COE (beta=1), CUE (beta=2), and CSE (beta=4)). Used in nearest-neighbour eigen-value/phase spacing statistics.
+
+    `For these definitions and more details. <https://doi.org/10.1080/00018732.2016.1198134>`__
 
     Parameters
     ----------

@@ -24,9 +24,11 @@ r"""
 
     .. autosummary::
         functions
+        qubitRotations
 
     .. autosummary::
         rmtDistributions
+        thermodynamics
         _helpers
 
 """
@@ -44,10 +46,9 @@ from .operators import (
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
 from .functions import (expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance)
 from ._helpers import (loopIt)
-
-
-
 from .rmtDistributions import (EigenVectorDist, WignerDyson, WignerSurmise, Poissonian)
+from .thermodynamics import(nBarThermal, qubitPolarisation, HeatCurrent)
+from .qubitRotations import(qubRotation, xRotation, yRotation, zRotation)
 
 
 
