@@ -57,10 +57,4 @@ from .qubitRotations import(qubRotation, xRotation, yRotation, zRotation)
 from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
 from .Hamiltonians import (qubCavFreeHam, RabiHam, JCHam, aJCHam)
 from ._ipr import (iprKet, iprKetNB)
-
-
-
-
-
-
 from ._eigenVecVal import (_eigStat, _eigStatSymp, _eigStatEig, eigVecStatKet)
