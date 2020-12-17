@@ -98,7 +98,7 @@ def _eigStatSymp(Mat: Matrix) -> floatList:
     vecsSymplectic = _eigs(Mat)[1]
     return _eigsStatEigSymp(vecsSymplectic)
 
-def _eigStatEig(EigVecs: matrixList, symp=False) -> floatList:
+def _eigStatEig(EigVecs: Matrix, symp=False) -> floatList:
     r"""
     Calculates all the amplitudes :math:`|c_{i,k}|^{2}` of entries :math:`|k\rangle := \begin{bmatrix} c_{1,k}
     \\ \vdots \\
@@ -111,7 +111,7 @@ def _eigStatEig(EigVecs: matrixList, symp=False) -> floatList:
 
     Parameters
     ----------
-    EigVecs : matrixList
+    EigVecs : Matrix
         a list of ket vectors
     symp : bool, optional
         If True (False) sum every odd entry amplitude with the following even entry amplitude.
@@ -127,13 +127,13 @@ def _eigStatEig(EigVecs: matrixList, symp=False) -> floatList:
     """
     return (np.abs(EigVecs.flatten()))**2 if not symp else _eigsStatEigSymp(EigVecs)
 
-def _eigsStatEigSymp(EigVecs: matrixList) -> floatList:
+def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
     r"""
     Intended for internal use, and used in eigenvector statistics calculation of symplectic class.
 
     Parameters
     ----------
-    EigVecs : matrixList
+    EigVecs : Matrix
         a list of ket vectors
 
     Returns

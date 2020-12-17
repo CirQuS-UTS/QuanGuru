@@ -54,7 +54,7 @@ def iprKet(basis: matrixList, ket: Matrix) -> float:
     1.0
     """
 
-    return 1/sum([fidelityPure(basKet, ket)**2 for basKet in basis])
+    return 1/sum([fidelityPure(basKet, ket)**2 for basKet in basis]) # type: ignore
 
 
 def iprKetNB(ket: Matrix) -> float:
