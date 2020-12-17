@@ -20,6 +20,9 @@ r"""
     .. autosummary::
         sortedEigens
 
+    .. autosummary::
+        _expectationColArr
+
 """ #pylint:disable=too-many-lines
 
 from typing import List, Tuple
@@ -319,9 +322,7 @@ def sortedEigens(Mat: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarra
         idx = eigVals.argsort()
     sortedVals = eigVals[idx]
     sortedVecs = eigVecs[:, idx]
-    sortedVecsMat = []
-    for ind in range(len(sortedVecs)):
-        sortedVecsMat.append(mat2Vec(sortedVecs[:, ind]))
+    sortedVecsMat = [mat2Vec(sortedVecs[:, ind]) for ind in range(len(sortedVecs))]
     return sortedVals, sortedVecsMat
 
 
@@ -378,3 +379,43 @@ def concurrence(state: Matrix) -> float:
     eigVals, _ = sortedEigens(R)
     eigVals = np.real(np.sqrt(eigVals))
     return max([0, np.round(eigVals[3] - eigVals[2] - eigVals[1] - eigVals[0], 15)])
+
+
+def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:
+    r"""
+    Calculates expectation values of an `operator` for a list/matrix of `ket (column) states` by matrix multiplication.
+
+    The `list` here is effectively a matrix whose columns are `ket` states for which we want the expectation values.
+    For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
+    TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.
+    So, it relies on states being orthonormal, if not there will be off-diagonal elements in the resultant matrix,
+    but still the diagonal elements are the expectation values, meaning it should work!
+
+    Parameters
+    ----------
+    operator : Matrix
+        matrix of a Hermitian operator
+    states : ndarray
+        ket states as the columns in the input matrix
+
+    Returns
+    -------
+    floatList
+        `list` of expectation values of the `operator` for a matrix of `ket` states
+
+    Examples
+    --------
+    >>> import qTools.QuantumToolbox.operators as qOperators
+    >>> ham = qOperators.sigmaz(sparse=False)
+    >>> eigVals, eigVecs = np.linalg.eig(ham)
+    >>> sz = qOperators.sigmaz()
+    >>> expectationColArr(sz, eigVecs)
+    [ 1. -1.]
+
+    >>> sx = qOperators.sigmax()
+    >>> expectationColArr(sx, eigVecs)
+    [0. 0.]
+    """
+
+    expMat = hc(states) @ operator @ states
+    return expMat.diagonal()

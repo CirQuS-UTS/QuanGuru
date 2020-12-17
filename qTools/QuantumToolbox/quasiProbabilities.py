@@ -35,11 +35,12 @@ from .customTypes import Matrix, ndOrList
 
 def Wigner(rho: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
     r"""
-    An iterative method to evaluate the Wigner functions for the states :math:`|m \\rangle \\langle n|`.
+    An iterative method to evaluate the Wigner functions for the states :math:`|m \rangle \langle n|` and use them in
+    a weighted sum to calculate Wigner function of any arbitrary state.
 
     The Wigner function is calculated as
-    :math:`W = \\sum_{mn} \\rho_{mn} W_{mn}` where :math:`W_{mn}` is the Wigner
-    function for the density matrix :math:`|m \\rangle \\langle n|`.
+    :math:`W = \sum_{mn} \rho_{mn} W_{mn}` where :math:`W_{mn}` is the Wigner
+    function for the density matrix :math:`|m \rangle \langle n|`.
 
     In this implementation, for each row m, Wlist contains the Wigner functions
     Wlist = :math:`[0, ..., W_{mm} , ..., W_{mN} ]`. As soon as one :math:`W_{mn}` Wigner function is
@@ -61,6 +62,10 @@ def Wigner(rho: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
     -------
     ndarray
         Values representing the Wigner-function calculated over the specified range [vec, vec].
+
+    Examples
+    --------
+    # TODO
     """
 
     if not isinstance(rho, np.ndarray):
@@ -108,6 +113,10 @@ def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
     --------
     array
         Values representing the Q-function calculated over the specified range [vec, vec].
+
+    Examples
+    --------
+    # TODO
     """
 
     X, Y = meshgrid(vec, vec)
@@ -150,6 +159,10 @@ def _qfuncPure(psi: Matrix, alphaMat: ndarray) -> ndarray:
     --------
     array
         Values representing the Q-function calculated over the specified range [vec, vec].
+
+    Examples
+    --------
+    # TODO
     """
 
     n = np.prod(psi.shape)

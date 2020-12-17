@@ -1,3 +1,22 @@
+r"""
+    Contains functions to calculate eigen-vector/value statistics in various cases.
+
+    .. currentmodule:: qTools.QuantumToolbox._eigenVecVal
+
+    Functions
+    ---------
+
+    .. autosummary::
+
+        _eigs
+        _eigStat
+        _eigStatEig
+        _eigStatSymp
+        _eigsStatEigSymp
+        eigVecStatKet
+
+"""
+
 import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore
@@ -9,7 +28,7 @@ from .customTypes import Matrix, floatList, matrixList
 
 def _eigs(Mat: Matrix) -> tuple:
     r"""
-    Calculate eigenvalue and eigenvectors of a given matrix.
+    Calculates eigenvalues and eigenvectors of a given matrix (intended for internal use).
 
     Parameters
     ----------
@@ -20,6 +39,10 @@ def _eigs(Mat: Matrix) -> tuple:
     -------
     tuple
         tuple containing (eigenvalues, eigenvectors)
+
+    Examples
+    --------
+    # TODO
     """
     if isinstance(Mat, spmatrix):
         Mat = Mat.A
@@ -27,30 +50,101 @@ def _eigs(Mat: Matrix) -> tuple:
 
 def _eigStat(Mat: Matrix, symp: bool = False) -> floatList:
     r"""
-    Calculate amplitudes of eigenvalue entries for a given matrix.
+    Calculates all the amplitudes :math:`|c_{i,k}|^{2}` of entries :math:`|k\rangle := \begin{bmatrix} c_{1,k}
+    \\ \vdots \\
+    c_{i,k}
+    \\ \vdots \\c_{\mathcal{D},k}
+    \end{bmatrix}_{\mathcal{D}\times 1}` for all the eigenvectors :math:`\{|k\rangle\}` of a given matrix.
+
+    symp is used to calculate eigenvector statistics of systems with degeneracies, corresponding to symplectic class by
+    summing every odd entry amplitude with the following even entry amplitude.
 
     Parameters
     ----------
     Mat : Matrix
         a matrix
     symp : bool, optional
-        If True (False)
+        If True (False) sum every odd entry amplitude with the following even entry amplitude.
 
     Returns
     -------
     floatList
-        [description]
+        list of entry amplitudes
+
+    Examples
+    --------
+    # TODO
     """
     return (np.abs(_eigs(Mat)[1].flatten()))**2 if not symp else _eigStatSymp(Mat)
 
 def _eigStatSymp(Mat: Matrix) -> floatList:
+    r"""
+    Intended for internal use, and used in eigenvector statistics calculation of symplectic class.
+
+    Parameters
+    ----------
+    Mat : Matrix
+        a matrix
+
+    Returns
+    -------
+    floatList
+        list of entry amplitudes
+
+    Examples
+    --------
+    # TODO
+    """
     vecsSymplectic = _eigs(Mat)[1]
     return _eigsStatEigSymp(vecsSymplectic)
 
-def _eigStatEig(EigVecs: Matrix, symp=False) -> floatList:
+def _eigStatEig(EigVecs: matrixList, symp=False) -> floatList:
+    r"""
+    Calculates all the amplitudes :math:`|c_{i,k}|^{2}` of entries :math:`|k\rangle := \begin{bmatrix} c_{1,k}
+    \\ \vdots \\
+    c_{i,k}
+    \\ \vdots \\c_{\mathcal{D},k}
+    \end{bmatrix}_{\mathcal{D}\times 1}` for a given list of eigenvectors :math:`\{|k\rangle\}`.
+
+    symp is used to calculate eigenvectors statistics of systems with degeneracies, corresponding to symplectic class by
+    summing every odd entry amplitude with the following even entry amplitude.
+
+    Parameters
+    ----------
+    EigVecs : matrixList
+        a list of ket vectors
+    symp : bool, optional
+        If True (False) sum every odd entry amplitude with the following even entry amplitude.
+
+    Returns
+    -------
+    floatList
+        list of entry amplitudes
+
+    Examples
+    --------
+    # TODO
+    """
     return (np.abs(EigVecs.flatten()))**2 if not symp else _eigsStatEigSymp(EigVecs)
 
-def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
+def _eigsStatEigSymp(EigVecs: matrixList) -> floatList:
+    r"""
+    Intended for internal use, and used in eigenvector statistics calculation of symplectic class.
+
+    Parameters
+    ----------
+    EigVecs : matrixList
+        a list of ket vectors
+
+    Returns
+    -------
+    floatList
+        list of entry amplitudes
+
+    Examples
+    --------
+    # TODO
+    """
     componentsSymplectic = []
     dims = EigVecs.shape[0]
     for ind in range(dims):
@@ -62,10 +156,10 @@ def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
             componentsSymplectic.append(p1Symplectic+p2Symplectic)
     return componentsSymplectic
 
-# TODO create the function for the result of eigenvec calculation
 def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
     r"""
-    Calculates components of a `ket` in a basis.
+    Calculates component amplitudes :math:`|c_{i,k}|^{2}` of a `ket` :math:`|k\rangle := \sum_{i}c_{i,k}|i\rangle` in a
+    basis :math:`\{|i\rangle\}`.
 
     Main use is in eigenvector statistics.
 
@@ -83,42 +177,10 @@ def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
 
     Examples
     --------
-    >>> import qTools.QuantumToolbox.states as qStates
-    >>> ket = qStates.basis(2, 1)
-    >>> completeBasis = qStates.completeBasis(dimension=2)
-    >>> components = eigVecStatKet(basis=completeBasis, ket=ket)
+    >>> ket = basis(2, 1)
+    >>> completeBasis = completeBasis(dimension=2)
+    >>> eigVecStatKet(basis=completeBasis, ket=ket)
     [0, 1]
     """
 
-    comps = []
-    for basKet in basis:
-        comps.append(fidelityPure(basKet, ket))
-    return comps
-
-def eigVecStatKetNB(ket: Matrix) -> float:
-    r"""
-    Calculates component amplitudes of a ket.
-
-    Parameters
-    ----------
-    ket : Matrix
-        a ket state or list of ket states
-
-    Returns
-    -------
-    return: float
-        list of components
-
-    Examples
-    --------
-    >>> import qTools.QuantumToolbox.states as qStates
-    >>> ket = qStates.basis(2, 1)
-    >>> completeBasis = qStates.completeBasis(dimension=2)
-    >>> components = eigVecStatKetNB(ket=ket)
-    [0 1]
-    """
-
-    # TODO Find a way around this
-    if isinstance(ket, spmatrix):
-        ket = ket.A
-    return np.real(ket.flatten())
+    return [fidelityPure(basKet, ket) for basKet in basis]

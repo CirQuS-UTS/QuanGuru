@@ -46,8 +46,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Helper Functions (qTools.QuantumToolbox._helpers)" href="_helpers.html" />
-    <link rel="prev" title="Basic Functions (qTools.QuantumToolbox.functions)" href="functions.html" /> 
+    <link rel="next" title="Eigen-vector/value Statistics (qTools.QuantumToolbox._eigenVecVal)" href="_eigenVecVal.html" />
+    <link rel="prev" title="Thermodynamical functions (qTools.QuantumToolbox.thermodynamics)" href="thermodynamics.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,7 +99,13 @@
 <li class="toctree-l2"><a class="reference internal" href="operators.html">Quantum Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evolution.html">Quantum Evolution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="functions.html">Basic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Hamiltonians.html">Common Hamiltonians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qubitRotations.html">Qubit Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quasiProbabilities.html">Quasi-Probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thermodynamics.html">Thermodynamical functions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Random Matrix Theory Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_eigenVecVal.html">Eigen-vector/value Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ipr.html">Inverse Participation Ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_helpers.html">Helper Functions</a></li>
 </ul>
 </li>
@@ -233,7 +239,7 @@
 <code class="sig-name descname">EigenVectorDist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">beta</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/rmtDistributions.html#EigenVectorDist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.rmtDistributions.EigenVectorDist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes PDF <img class="math" src="../_images/math/f01cb75ce76498bd7c3e6f4505d157bc0315ce1d.png" alt="P(x)"/> of eigenvector statistics at x for three universality classes
 (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension <img class="math" src="../_images/math/122b65559d80db81bab972ac9be3e0572394748c.png" alt="dim"/>.</p>
-<p><a class="reference external" href="https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006">Read here</a></p>
+<p><a class="reference external" href="https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006">Read here more details and derivations.</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -249,6 +255,8 @@
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
 </dd></dl>
 
 <dl class="py function">
@@ -256,6 +264,7 @@
 <code class="sig-name descname">WignerDyson</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">beta</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/rmtDistributions.html#WignerDyson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.rmtDistributions.WignerDyson" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate Wigner Surmise (Wigner-Dyson) PDF at x for three universality classes
 (COE (beta=1), CUE (beta=2), and CSE (beta=4)). Used in nearest-neighbour eigen-value/phase spacing statistics.</p>
+<p><a class="reference external" href="https://doi.org/10.1080/00018732.2016.1198134">For these definitions and more details.</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -270,6 +279,8 @@
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
 </dd></dl>
 
 <dl class="py function">
@@ -290,6 +301,8 @@
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
 </dd></dl>
 
 </div>
@@ -303,10 +316,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="_helpers.html" class="btn btn-neutral float-right" title="Helper Functions (qTools.QuantumToolbox._helpers)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="_eigenVecVal.html" class="btn btn-neutral float-right" title="Eigen-vector/value Statistics (qTools.QuantumToolbox._eigenVecVal)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="functions.html" class="btn btn-neutral float-left" title="Basic Functions (qTools.QuantumToolbox.functions)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="thermodynamics.html" class="btn btn-neutral float-left" title="Thermodynamical functions (qTools.QuantumToolbox.thermodynamics)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -318,7 +331,7 @@
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/12/17.
+        Last updated on 2020/12/18.
       </span>
 
     </p>

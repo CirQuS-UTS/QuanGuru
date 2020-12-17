@@ -185,6 +185,9 @@
 <span class="sd">    .. autosummary::</span>
 <span class="sd">        sortedEigens</span>
 
+<span class="sd">    .. autosummary::</span>
+<span class="sd">        _expectationColArr</span>
+
 <span class="sd">&quot;&quot;&quot;</span> <span class="c1">#pylint:disable=too-many-lines</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
@@ -484,9 +487,7 @@
         <span class="n">idx</span> <span class="o">=</span> <span class="n">eigVals</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
     <span class="n">sortedVals</span> <span class="o">=</span> <span class="n">eigVals</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
     <span class="n">sortedVecs</span> <span class="o">=</span> <span class="n">eigVecs</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span>
-    <span class="n">sortedVecsMat</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sortedVecs</span><span class="p">)):</span>
-        <span class="n">sortedVecsMat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mat2Vec</span><span class="p">(</span><span class="n">sortedVecs</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">]))</span>
+    <span class="n">sortedVecsMat</span> <span class="o">=</span> <span class="p">[</span><span class="n">mat2Vec</span><span class="p">(</span><span class="n">sortedVecs</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">])</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sortedVecs</span><span class="p">))]</span>
     <span class="k">return</span> <span class="n">sortedVals</span><span class="p">,</span> <span class="n">sortedVecsMat</span></div>
 
 
@@ -543,6 +544,46 @@
     <span class="n">eigVals</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sortedEigens</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
     <span class="n">eigVals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigVals</span><span class="p">))</span>
     <span class="k">return</span> <span class="nb">max</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">eigVals</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">15</span><span class="p">)])</span></div>
+
+
+<div class="viewcode-block" id="_expectationColArr"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions._expectationColArr">[docs]</a><span class="k">def</span> <span class="nf">_expectationColArr</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates expectation values of an `operator` for a list/matrix of `ket (column) states` by matrix multiplication.</span>
+
+<span class="sd">    The `list` here is effectively a matrix whose columns are `ket` states for which we want the expectation values.</span>
+<span class="sd">    For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.</span>
+<span class="sd">    TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.</span>
+<span class="sd">    So, it relies on states being orthonormal, if not there will be off-diagonal elements in the resultant matrix,</span>
+<span class="sd">    but still the diagonal elements are the expectation values, meaning it should work!</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    operator : Matrix</span>
+<span class="sd">        matrix of a Hermitian operator</span>
+<span class="sd">    states : ndarray</span>
+<span class="sd">        ket states as the columns in the input matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    floatList</span>
+<span class="sd">        `list` of expectation values of the `operator` for a matrix of `ket` states</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.operators as qOperators</span>
+<span class="sd">    &gt;&gt;&gt; ham = qOperators.sigmaz(sparse=False)</span>
+<span class="sd">    &gt;&gt;&gt; eigVals, eigVecs = np.linalg.eig(ham)</span>
+<span class="sd">    &gt;&gt;&gt; sz = qOperators.sigmaz()</span>
+<span class="sd">    &gt;&gt;&gt; expectationColArr(sz, eigVecs)</span>
+<span class="sd">    [ 1. -1.]</span>
+
+<span class="sd">    &gt;&gt;&gt; sx = qOperators.sigmax()</span>
+<span class="sd">    &gt;&gt;&gt; expectationColArr(sx, eigVecs)</span>
+<span class="sd">    [0. 0.]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">expMat</span> <span class="o">=</span> <span class="n">hc</span><span class="p">(</span><span class="n">states</span><span class="p">)</span> <span class="o">@</span> <span class="n">operator</span> <span class="o">@</span> <span class="n">states</span>
+    <span class="k">return</span> <span class="n">expMat</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span></div>
 </pre></div>
 
            </div>
@@ -558,7 +599,7 @@
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/12/17.
+        Last updated on 2020/12/18.
       </span>
 
     </p>

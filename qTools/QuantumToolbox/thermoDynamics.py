@@ -46,6 +46,10 @@ def nBarThermal(angFreq: float, temp: float, hbar: float = 1.0, kb: float = 1.0)
     ------
     ValueError
         If average number is infinite.
+
+    Examples
+    --------
+    # TODO
     """
 
     if exp((hbar*angFreq) / (temp*kb)) == 1:
@@ -71,6 +75,10 @@ def qubitPolarisation(freq: float, temp: float) -> float:
     -------
     float
         qubit polarisation, i.e. difference betwennn ground and excited state populations.
+
+    Examples
+    --------
+    # TODO
     """
 
     populationRatio = exp(-freq/temp)
@@ -100,6 +108,10 @@ def HeatCurrent(Lindbladian: Matrix, Hamiltonian: Matrix, denMat: Matrix) -> flo
     -------
     float
         Heat current
+
+    Examples
+    --------
+    # TODO
     """
 
     full = mat2Vec(Lindbladian * vec2Mat(denMat))

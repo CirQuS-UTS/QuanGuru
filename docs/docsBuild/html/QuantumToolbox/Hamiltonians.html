@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Common Hamiltonians (qTools.QuantumToolbox.Hamiltonians) &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Qubit Rotations (qTools.QuantumToolbox.qubitRotations)" href="qubitRotations.html" />
+    <link rel="prev" title="Basic Functions (qTools.QuantumToolbox.functions)" href="functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #1D2951" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../QuantumToolbox.html">QuantumToolbox</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="linearAlgebra.html">Basic Linear Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">Quantum State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators.html">Quantum Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evolution.html">Quantum Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Basic Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Common Hamiltonians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qubitRotations.html">Qubit Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quasiProbabilities.html">Quasi-Probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thermodynamics.html">Thermodynamical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rmtDistributions.html">Random Matrix Theory Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_eigenVecVal.html">Eigen-vector/value Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ipr.html">Inverse Participation Ratio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_helpers.html">Helper Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Demos/Demos.html">Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../QuantumToolbox.html">Quantum Toolbox (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox</span></code>)</a> &raquo;</li>
+        
+      <li>Common Hamiltonians (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.Hamiltonians</span></code>)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/QuantumToolbox/Hamiltonians.rst" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-qTools.QuantumToolbox.Hamiltonians">
+<span id="common-hamiltonians-qtools-quantumtoolbox-hamiltonians"></span><h1>Common Hamiltonians (<a class="reference internal" href="#module-qTools.QuantumToolbox.Hamiltonians" title="qTools.QuantumToolbox.Hamiltonians"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.Hamiltonians</span></code></a>)<a class="headerlink" href="#module-qTools.QuantumToolbox.Hamiltonians" title="Permalink to this headline">¶</a></h1>
+<p>Contains functions to create some standard Hamiltonians.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.Hamiltonians.qubCavFreeHam" title="qTools.QuantumToolbox.Hamiltonians.qubCavFreeHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qubCavFreeHam</span></code></a>(qubFreq, cavFreq, cavDim)</p></td>
+<td><p>Creates Qubit + Cavity Hamiltonian <img class="math" src="../_images/math/6863289047aa628b4824782a90d58d4ed031dffc.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}"/> for given frequencies and truncated cavity dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.Hamiltonians.RabiHam" title="qTools.QuantumToolbox.Hamiltonians.RabiHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RabiHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
+<td><p>Creates Rabi Hamiltonian <img class="math" src="../_images/math/c0439a2d53ccd620e47c98e25ee5461d621b84ce.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})"/> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.Hamiltonians.JCHam" title="qTools.QuantumToolbox.Hamiltonians.JCHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JCHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
+<td><p>Creates Jaynes-Cummings Hamiltonian <img class="math" src="../_images/math/ebe33a41c9130623be364e4ddb1e957c7c643498.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})"/> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.Hamiltonians.aJCHam" title="qTools.QuantumToolbox.Hamiltonians.aJCHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aJCHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
+<td><p>Creates anti-Jaynes-Cummings Hamiltonian <img class="math" src="../_images/math/d4a7f91f77f487154269ac2a613eb2f7f5640082.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})"/> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.Hamiltonians.qubCavFreeHam">
+<code class="sig-name descname">qubCavFreeHam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qubFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavDim</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">, </span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/Hamiltonians.html#qubCavFreeHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.qubCavFreeHam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Qubit + Cavity Hamiltonian <img class="math" src="../_images/math/6863289047aa628b4824782a90d58d4ed031dffc.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}"/>
+for
+given frequencies and truncated cavity dimension.</p>
+<p>Hilbert space ordering is <img class="math" src="../_images/math/ff721afbe82590179d8a478941f6b0c8b8a56c9f.png" alt="Qubit\otimes Cavity"/>, i.e. qubit first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Qubit + Cavity Hamiltonian for given frequencies and truncated cavity dimension.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.Hamiltonians.RabiHam">
+<code class="sig-name descname">RabiHam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qubFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavDim</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/Hamiltonians.html#RabiHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.RabiHam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Rabi Hamiltonian <img class="math" src="../_images/math/b7fce1987c76df5f4007e4913939b20b7b5ea1ba.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
++ g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})"/> for given frequencies, coupling strength, and truncated cavity
+dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rabi Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.Hamiltonians.JCHam">
+<code class="sig-name descname">JCHam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qubFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavDim</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/Hamiltonians.html#JCHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.JCHam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Jaynes-Cummings Hamiltonian <img class="math" src="../_images/math/060ec7ca13e649049fe312d7461d344a7badc248.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
++ g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})"/> for given frequencies, coupling strength, and
+truncated
+cavity dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Jaynes-Cummings Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.Hamiltonians.aJCHam">
+<code class="sig-name descname">aJCHam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qubFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">cavDim</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/Hamiltonians.html#aJCHam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.Hamiltonians.aJCHam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates anti-Jaynes-Cummings Hamiltonian <img class="math" src="../_images/math/025e1c3ddf37e27e5e870df39886a4fdf75645d8.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} +
+\omega_{c}\hat{a}^{\dagger}\hat{a}
++ g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})"/> for given frequencies, coupling strength, and
+truncated
+cavity dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>anti-Jaynes-Cummings Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="qubitRotations.html" class="btn btn-neutral float-right" title="Qubit Rotations (qTools.QuantumToolbox.qubitRotations)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="functions.html" class="btn btn-neutral float-left" title="Basic Functions (qTools.QuantumToolbox.functions)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/12/18.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

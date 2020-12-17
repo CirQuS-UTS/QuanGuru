@@ -18,6 +18,11 @@ Quantum Toolbox (:mod:`qTools.QuantumToolbox`)
    Quantum Operators <QuantumToolbox/operators>
    Quantum Evolution <QuantumToolbox/evolution>
    Basic Functions <QuantumToolbox/functions>
-
+   Common Hamiltonians <QuantumToolbox/Hamiltonians>
+   Qubit Rotations <QuantumToolbox/qubitRotations>
+   Quasi-Probabilities <QuantumToolbox/quasiProbabilities>
+   Thermodynamical functions <QuantumToolbox/thermodynamics>
    Random Matrix Theory Distributions <QuantumToolbox/rmtDistributions>
+   Eigen-vector/value Statistics <QuantumToolbox/_eigenVecVal>
+   Inverse Participation Ratio <QuantumToolbox/_ipr>
    Helper Functions <QuantumToolbox/_helpers>

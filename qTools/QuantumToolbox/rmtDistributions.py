@@ -40,6 +40,10 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
     -------
     float
         Eigenvector statistics PDF at x
+
+    Examples
+    --------
+    # TODO
     """
 
     if beta == 1:
@@ -79,6 +83,10 @@ def WignerDyson(x: float, beta: int = 1) -> float:
     -------
     float
         Wigner Surmise (Wigner-Dyson) PDF at x
+
+    Examples
+    --------
+    # TODO
     """
 
     if beta == 1:
@@ -108,5 +116,9 @@ def Poissonian(x: float, lam: float) -> float:
     -------
     float
          Poisson PDF at x.
+
+    Examples
+    --------
+    # TODO
     """
     return ((np.e**(-gammaln(x+1)))*(lam**x))*(np.e**(-lam))
