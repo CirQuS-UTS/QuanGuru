@@ -96,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../QuantumToolbox.html">QuantumToolbox</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Demos.html">Tutorials</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Single Qubit Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Master-equation">Master equation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_displacementOperator.html">Displaced Vacuum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3_squeezeOperator.html">Squeezed Vacuum</a></li>
 </ul>
@@ -450,6 +451,42 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="Single-Qubit-Evolution">
 <h1>Single Qubit Evolution<a class="headerlink" href="#Single-Qubit-Evolution" title="Permalink to this headline">¶</a></h1>
+<p>Single qubit Hamiltonian is:</p>
+<p><img class="math" src="../../_images/math/02e534cfa8c116bbb5a25e4f25774474324f3b5f.png" alt="\large\hat{H}=\frac{w_{q}}{2}\hat{\sigma}_{z}"/></p>
+<p>where</p>
+<p><img class="math" src="../../_images/math/60ac53787e155c477f334d8e82899265d1722275.png" alt="\large\hat{\sigma_{z}}:=|1 \times 1|-|0 \times 0|"/> is the Pauli-z operator</p>
+<p><img class="math" src="../../_images/math/a98f798be09bf6cd3f6b53e2cc63ca51ed8ef791.png" alt="|\psi(0)\rangle=C_{0}(0)|0\rangle+C_{1}(0)|1\rangle"/> s.t. <img class="math" src="../../_images/math/36fd48a1b1b1a466abf6def8854941b4399e6922.png" alt="\left|C_{0}(0)\right|^{2}+\left|C_{1}(0)\right|^{2}=1"/></p>
+<p>Schrodinger equation <img class="math" src="../../_images/math/19f0527f23b131d17ba54d1b226b7afe5e2cfe50.png" alt="\frac{d}{d t}|\psi(t)\rangle=-i \hat{H}|\psi(t)\rangle"/></p>
+<p><img class="math" src="../../_images/math/cd904b4629bd4550cab1ea90b541abf5e28a6670.png" alt="\frac{d}{d t} C_{0}(t)|0\rangle+\frac{d}{d t} C_{1}(t)|1\rangle=-\frac{i}{2} w_{q}(C_{0}(t) \underbrace{\hat{\sigma}_{z}|0\rangle}_{-|0\rangle}+C_{1}(t) \underbrace{\hat{\sigma}_{z}|1\rangle}_{|1\rangle})"/></p>
+<ol class="arabic simple">
+<li><p><img class="math" src="../../_images/math/1ed1aeb7e0bf8abb4151f293dac0aa497b4c77b1.png" alt="\frac{d}{d t} C_{0}(t)=\frac{i}{2} w_{q} C_{0}(t) \quad \rightarrow \quad C_{0}(t)=C_{0}(0) e^{i \omega_{q} t/ 2} \quad\left|C_{0}(t)\right|^{2}=\left|C_{0}(0)\right|^{2}"/></p></li>
+<li><p><img class="math" src="../../_images/math/cd7e0ad18d9570de9cb360121bc4468c734f5f39.png" alt="\frac{d}{d t} C_{1}(t)=-\frac{i}{2} w_{1} C_{1}(t) \rightarrow C_{1}(t)=C_{1}(0) e^{-i \omega_{q} t / 2} \quad\left|C_{1}(t)\right|^{2}=\left|C_{1}(t)\right|^{2}"/></p></li>
+</ol>
+<p>Matrix representation <img class="math" src="../../_images/math/7efe1bc17d67da0ecc0e153264a713c15227b6aa.png" alt="|1\rangle=\left[\begin{array}{l}1 \\ 0\end{array}\right] \&amp;|0\rangle=\left[\begin{array}{l}0 \\ 1\end{array}\right] \Rightarrow \hat{\sigma_{z}}=\left[\begin{array}{cc}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]"/></p>
+<p><img class="math" src="../../_images/math/e285ef95754af353057ab06a112ad5aa6412f7a1.png" alt="|\psi(0)\rangle=\left[\begin{array}{l}C_{0}(0) \\ C_{1}(0)\end{array}\right] ; \quad \frac{d}{d t}\left[\begin{array}{l}C_{1}(t) \\ C_{0}(t)\end{array}\right]=-i \frac{w}{2}\left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]\left[\begin{array}{l}C_{1}(t) \\ C_{0}(t)\end{array}\right]=\left[\begin{array}{l}-i \frac{i \omega_{q}}{2} C_{1}(t) \\ i \frac{\omega_{q}}{2} C_{0}(t)\end{array}\right]"/></p>
+<p><img class="math" src="../../_images/math/e1d21d13d3e91c6e6d4c6466ffc6fce9faed2254.png" alt="\left[\hat{H}, \hat{\sigma}_{z}\right]=0 \Rightarrow\left\langle\hat{\sigma}_{z}\right\rangle"/> is a constant of <img class="math" src="../../_images/math/8432e5f42205212387f5b42c84703d855bcdc071.png" alt="\mathrm{motion}"/></p>
+<p><img class="math" src="../../_images/math/a12080539785c18b7a4e5e1ca458270bbdbc74c7.png" alt="|\psi(t)\rangle=C_{0}(0) e^{i w_{q} t / 2}|0\rangle+C_{1}(0) e^{-i \omega_{q} t / 2}|1\rangle"/></p>
+<p><img class="math" src="../../_images/math/21b416754f044607a5bc52ef596dd9eaac079abc.png" alt="\langle\psi(t)|=c_{0}^{*}(0) e^{-i w_{q} t / 2}\langle 0|+C_{1}^{*}(0) e^{i \omega_{q} t / 2}\langle 1|"/></p>
+<p><img class="math" src="../../_images/math/511baa291f01bcb2c1ff349b86c4527c1c30719c.png" alt="\left\langle\psi(t)\left|\hat{\sigma_{z}}\right| \psi(t)\right\rangle=\left|c_{0}(v)\right|^{2} \underbrace{\left\langle 0\left|\hat{\sigma}_{1}\right| 0\right\rangle}_{-1}+\left|C_{1}(0)\right|^{2} \underbrace{\left\langle 1\left|\hat{\sigma}_{1}\right| 1\right\rangle}_{1} +C_{0}^{*}(0) C_{1}(0) e^{-i \omega_{q} t} \overbrace{\left\langle 0\left|\hat{\sigma}_{z}\right| 1\right\rangle}^{0} + C_{0}(0) C_{1}^{*}(0) e^{i \omega_{q} t} \overbrace{\left\langle 1\left|\hat{\sigma}_{z}\right| 0\right\rangle}^{0}"/></p>
+<p><img class="math" src="../../_images/math/3aed4aadcd3d51e004f7f6523f7be3ff7a6bda4c.png" alt="\left\langle\hat{\sigma_{z}}(t)\right\rangle=\left|C_{1}(0)\right|^{2}-\left|C_{0}(0)\right|^{2} \quad \text { Spin polarization is conserved. }"/></p>
+<p><img class="math" src="../../_images/math/fc57d3728945f00115ac78811c8aa970bc8d228b.png" alt="\hat{\sigma}_{x}:=|1 \times 0|+|0 \times 1| \quad \&amp; \quad \hat{\sigma}_{y}:=\frac{1}{i}(|1 \times 0|-|0 \times 1| \mid)=i(|0 \times 1|-|1 \times 0|)"/></p>
+<p><img class="math" src="../../_images/math/94573d9ff2322184e076b47897b69871902a799a.png" alt="\left\langle\psi(t)\left|\hat{\sigma_{i}}\right| \psi(t)\right\rangle=\left|c_{0}(0)\right|^{2}\left\langle 0\left|\hat{\sigma}_{i}\right| 0\right\rangle+\left|C_{1}(0)\right|^{2}\left\langle 1\left|\hat{\sigma}_{i}\right| 1\right\rangle+C_{0}^{*}(0) C_{1}(0) e^{-i \omega_{q} t}\left\langle 0\left|\hat{\sigma}_{i}\right| 1\right\rangle + C_{0}(0) C_{1}^{*}(0) e^{i \omega_{q} t}\left\langle 1\left|\hat{\sigma}_{i}\right| 0\right\rangle"/></p>
+<p><img class="math" src="../../_images/math/2bd25da017588d92eec4648dd582330b1f0c4a10.png" alt="\left\langle 0\left|\hat{\sigma}_{x}\right| 0\right\rangle=\left\langle 1\left|\hat{\sigma}_{x}\right| 1\right\rangle=\left\langle 0\left|\hat{\sigma}_{y}\right| 0\right\rangle=\left\langle 1\left|\hat{\sigma}_{y}\right| 1\right\rangle=0"/></p>
+<p><img class="math" src="../../_images/math/9694e93444bce5ad1e7ef542f10d298be6f9bed4.png" alt="\left\langle 0\left|\hat{\sigma}_{x}\right| 1\right\rangle=\left\langle 1\left|\hat{\sigma}_{x}\right| 0\right\rangle=1 \quad \&amp; \quad\left\langle 0\left|\hat{\sigma}_{y}\right| 1\right\rangle=-\left\langle 1\left|\hat{\sigma}_{y}\right| 0\right\rangle=i"/></p>
+<p><img class="math" src="../../_images/math/8f8730c317486b04fe0807157ff13104eb2aef26.png" alt="\left\langle\hat{\sigma}_{x}\right\rangle=C_{0}^{*}(0) C_{1}(0) e^{-i \omega_{4} t}+C_{1}^{*}(0) C_{0}(0) e^{i w_{q} t}=2 \operatorname{Re}\left(C_{0}^{*}(0) C_{1}(0) e^{-i \omega_{q} t}\right)"/></p>
+<p><img class="math" src="../../_images/math/cf3134ad765ef71f6b6c9bea5151eb275f74d25c.png" alt="\left\langle\hat{\sigma}_{y}\right\rangle=i\left(C_{0}^{*}(0) C_{1}(0) e^{-i m_{4} t}+C_{1}^{*}(0) C_{0}(0) e^{i w_{0} t}\right)=2 R_{e}\left(i\left(_{0}^{*}(0) C_{1}(0) e^{-i w_{q} t}\right)\right."/></p>
+<p><img class="math" src="../../_images/math/d250e219f91fd26dee99114826b646149a0d709e.png" alt="|x+\rangle=\frac{1}{\sqrt{2}}(|1\rangle+|0\rangle) \quad \&amp; \quad|x-\rangle=\frac{1}{\sqrt{2}}(|1\rangle-|0\rangle)"/></p>
+<p><img class="math" src="../../_images/math/7f28e8b3b2ef273d75d54120eb0cf8a3a28b77c1.png" alt="P_{x \pm}(t)=|\langle x \pm \mid \psi(t)\rangle|^{2}"/></p>
+<p><img class="math" src="../../_images/math/9e897919b032ef00dfbddcc9f6dd472b61b3b7db.png" alt="\langle\pm \mid \psi(t)\rangle=\frac{1}{\sqrt{2}}\left(\pm C_{0}(0) e^{i \omega_{q} t / 2}\langle 0 \mid 0\rangle+C_{1}(0) e^{-i \omega_{9}^{\dagger} t / 2}\langle 1 \mid 1\rangle\right)"/></p>
+<p><img class="math" src="../../_images/math/bab9c126fac2f1c3dd628b66e405f625e4da1c9d.png" alt="P_{x \pm}(t)=\frac{1}{2}\left(\left|C_{0}(0)\right|^{2}+\left|C_{1}(0)\right|^{2} \pm\left(C_{0}^{*} \cos \alpha_{1}(0) e^{-i w_{9} t}+C_{0} \cdot(0) C_{1}^{*}[0) e^{i \omega_{4} t}\right)\right)"/></p>
+<p><img class="math" src="../../_images/math/519dd2f645a3038ef839878a385dcf47110aad0a.png" alt="=\frac{1}{2}\left(\left|C_{1}(0)\right|^{2}+\left|C_{0}(0)\right|^{2} \pm 2 \operatorname{Re}\left(C_{0}(0) C_{1}^{*}(0) e^{i \omega_{q} t}\right)\right)"/></p>
+<p>Unitary time evolution operator <img class="math" src="../../_images/math/72f47d728048e6e266a31e37155b140b5a0ade48.png" alt="|\psi(t)\rangle=U(t)|\psi(0)\rangle \rightarrow i \frac{d}{d t} U(t)=\hat{H} u(t)"/></p>
+<p><img class="math" src="../../_images/math/d7d5b87568e7201dd8fc0080ebd5165df5fce2f2.png" alt="U(t)=e^{-i \hat{H} t}"/></p>
+<p><img class="math" src="../../_images/math/bf34e99cb2ba5097161974eb6921c1c484ebfb13.png" alt="U(t)=\left[\begin{array}{ll}e^{-i \omega_{0} t / 2} &amp; 0 \\ 0 &amp; e^{i \omega_{q} t / 2}\end{array}\right]"/></p>
+</div>
+<div class="section" id="Master-equation">
+<h1>Master equation<a class="headerlink" href="#Master-equation" title="Permalink to this headline">¶</a></h1>
+<p><img class="math" src="../../_images/math/c6bca446d91aed75bbfbe1e34aa03e0f370505ff.png" alt="\dot{\hat{\rho}}=\hat{\mathcal{L}} \hat{\rho}=-i\left[\hat{H}_{1} \hat{p}\right]+\sum_{i=1}^{n-1} k_{i}\left(\hat{F}_{i} \hat{p} F_{i}^{+}-\frac{1}{2}\left\{\hat{F}_{i}^{+} \hat{F}_{i}, \hat{\rho}\right\}\right)"/></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -597,7 +634,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_7_0.svg" src="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_7_0.svg" /></div>
+<img alt="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_9_0.svg" src="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_9_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -635,7 +672,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_8_0.svg" src="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_8_0.svg" /></div>
+<img alt="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_10_0.svg" src="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_10_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -674,7 +711,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_9_0.svg" src="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_9_0.svg" /></div>
+<img alt="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_11_0.svg" src="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_11_0.svg" /></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -700,7 +737,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_11_0.svg" src="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_11_0.svg" /></div>
+<img alt="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_13_0.svg" src="../../_images/QuantumToolbox_Demos_1_singleQubitFreeEvolution_13_0.svg" /></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

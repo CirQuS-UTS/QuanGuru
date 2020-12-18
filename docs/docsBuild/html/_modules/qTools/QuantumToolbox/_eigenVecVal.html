@@ -263,7 +263,7 @@
     <span class="n">vecsSymplectic</span> <span class="o">=</span> <span class="n">_eigs</span><span class="p">(</span><span class="n">Mat</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">_eigsStatEigSymp</span><span class="p">(</span><span class="n">vecsSymplectic</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="_eigStatEig"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigStatEig">[docs]</a><span class="k">def</span> <span class="nf">_eigStatEig</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">symp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="_eigStatEig"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigStatEig">[docs]</a><span class="k">def</span> <span class="nf">_eigStatEig</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">symp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates all the amplitudes :math:`|c_{i,k}|^{2}` of entries :math:`|k\rangle := \begin{bmatrix} c_{1,k}</span>
 <span class="sd">    \\ \vdots \\</span>
@@ -276,7 +276,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    EigVecs : matrixList</span>
+<span class="sd">    EigVecs : Matrix</span>
 <span class="sd">        a list of ket vectors</span>
 <span class="sd">    symp : bool, optional</span>
 <span class="sd">        If True (False) sum every odd entry amplitude with the following even entry amplitude.</span>
@@ -292,13 +292,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">EigVecs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span><span class="o">**</span><span class="mi">2</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">symp</span> <span class="k">else</span> <span class="n">_eigsStatEigSymp</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="_eigsStatEigSymp"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigsStatEigSymp">[docs]</a><span class="k">def</span> <span class="nf">_eigsStatEigSymp</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="_eigsStatEigSymp"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigsStatEigSymp">[docs]</a><span class="k">def</span> <span class="nf">_eigsStatEigSymp</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    EigVecs : matrixList</span>
+<span class="sd">    EigVecs : Matrix</span>
 <span class="sd">        a list of ket vectors</span>
 
 <span class="sd">    Returns</span>
