@@ -15,7 +15,6 @@ r"""
 
 """
 
-import scipy.sparse as sp # type: ignore
 import numpy as np # type: ignore
 
 from .operators import sigmaz, sigmax, sigmay, identity
