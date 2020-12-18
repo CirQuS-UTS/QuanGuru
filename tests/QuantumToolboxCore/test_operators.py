@@ -7,6 +7,8 @@ from qTools.QuantumToolbox import operators as ops #pylint: disable=import-error
 
 
 def checkGivenRuleForAnArray(cOp, rule, *args):
+    # assert correctness of elements in a matrix by comparing against a given rule that calculated the expected value
+    # used in many tests below to verify the operator entries are as expected from a given rule
     dim = cOp.shape[0]
     for ind1 in range(dim):
         for ind2 in range(dim):
@@ -59,13 +61,15 @@ def test_ladderOperatorsOnRndPlaces(op, bo):
     [ops.Jz, lambda ind1, ind2, jVal: (jVal - ind1)*(not bool(ind1-ind2))],
     [ops.Js, lambda ind1, ind2, jVal: (jVal*(jVal+1))*(not bool(ind1-ind2))]])
 def test_higherSpinOperators(op, rule):
+    # check the value of each element against a given rule, i.e. the definition the matrices
     for _ in range(5):
         jVal = 0.5*rn.randint(1, 20)
         jOp = op(jVal).A
         checkGivenRuleForAnArray(jOp, rule, jVal)
 
 def test_displacement():
-    # displacing vacuum gives vacuum state and test compares the resultant state properties with coherent state
+    # displacing vacuum should give a coherent state and test compares the resultant state properties with coherent
+    # state properties
     vacuumState = states.basis(20, 0)
     alphaReal = 1.5*rn.random()
     alphaImag = 1.5*rn.random()

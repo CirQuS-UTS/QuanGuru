@@ -1,5 +1,5 @@
 r"""
-    Contains functions to create quantum operations (such as rotations).
+    Contains functions to create qubit rotation operators.
 
     .. currentmodule:: qTools.QuantumToolbox.qubitRotations
 
@@ -8,15 +8,13 @@ r"""
 
     .. autosummary::
 
+        qubRotation
         xRotation
         yRotation
         zRotation
-        qubRotation
 
 """
 
-#from qTools.QuantumToolbox.operators import sigmaz, sigmax, sigmay, identity
-import scipy.sparse as sp # type: ignore
 import numpy as np # type: ignore
 
 from .operators import sigmaz, sigmax, sigmay, identity
@@ -32,138 +30,102 @@ from .customTypes import Matrix
 # Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
 
 
-def _identityRot(dimension: int, sparse: bool = True, angle=0) -> Matrix:
-    return np.cos(angle)*sp.identity(dimension, format="csc") if sparse else np.cos(angle)*np.identity(dimension)
-
-
-def _sigmazRot(sparse: bool = True, angle=0) -> Matrix:
-    data = [1*np.sin(angle), -1*np.sin(angle)]
-    rows = [0, 1]
-    columns = [0, 1]
-    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
-    return n if sparse else n.toarray()
-
-
-def _sigmayRot(sparse: bool = True, angle=0) -> Matrix:
-    data = [-1j*np.sin(angle), 1j*np.sin(angle)]
-    rows = [0, 1]
-    columns = [1, 0]
-    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
-    return n if sparse else n.toarray()
-
-
-def _sigmaxRot(sparse: bool = True, angle=0) -> Matrix:
-    data = [1*np.sin(angle), 1*np.sin(angle)]
-    rows = [0, 1]
-    columns = [1, 0]
-    n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
-    return n if sparse else n.toarray()
-
-
 def xRotation(angle: float, sparse: bool = True) -> Matrix:
-    """
-    Creates the operator for Qubit `X rotation`.
-
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
+    r"""
+    Creates the operator :math:`R_{x}(\theta)` for qubit rotation around the x-axis by `angle` :math:`\theta`.
 
     Parameters
     ----------
     angle : float
-        angle of rotation around `X`
+        angle of rotation around `x`
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
     Matrix
-        Qubit X rotation operator
+        Qubit X rotation operator :math:`R_{x}(\theta)`
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    # TODO
     """
 
-    rotUnitary = np.cos(angle)*identity(2, sparse) - 1j*np.sin(angle)*sigmax(sparse=sparse)
+    rotUnitary = round(np.cos(angle), 15)*identity(2, sparse) - 1j*round(np.sin(angle), 15)*sigmax(sparse=sparse)
     return rotUnitary
 
 
 def yRotation(angle: float, sparse: bool = True) -> Matrix:
-    """
-    Creates the operator for Qubit `Y rotation`.
-
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
+    r"""
+    Creates the operator :math:`R_{y}(\theta)` for qubit rotation around the y-axis by `angle` :math:`\theta`.
 
     Parameters
     ----------
     angle : float
-        angle of rotation around `Y`
+        angle of rotation around `y`
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
     Matrix
-        Qubit Y rotation operator
+        Qubit Y rotation operator :math:`R_{y}(\theta)`
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    # TODO
     """
 
-    rotUnitary = np.cos(angle)*identity(2, sparse) - 1j*np.sin(angle)*sigmay(sparse=sparse)
+    rotUnitary = round(np.cos(angle), 15)*identity(2, sparse) - 1j*round(np.sin(angle), 15)*sigmay(sparse=sparse)
     return rotUnitary
 
 
 def zRotation(angle: float, sparse: bool = True) -> Matrix:
-    """
-    Creates the operator for Qubit `Z rotation`.
-
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
+    r"""
+    Creates the operator :math:`R_{z}(\theta)` for qubit rotation around the z-axis by `angle` :math:`\theta`.
 
     Parameters
     ----------
     angle : float
-        angle of rotation around `Z`
+        angle of rotation around `z`
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
     Matrix
-        Qubit Z rotation operator
+        Qubit Z rotation operator :math:`R_{z}(\theta)`
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    # TODO
     """
 
-    rotUnitary = np.cos(angle)*identity(2, sparse) - 1j*np.sin(angle)*sigmaz(sparse=sparse)
+    rotUnitary = round(np.cos(angle), 15)*identity(2, sparse) - 1j*round(np.sin(angle), 15)*sigmaz(sparse=sparse)
     return rotUnitary
 
 
 def qubRotation(xyz: str, angle: float, sparse: bool = True) -> Matrix:
-    """
-    Creates the operator for Qubit rotation around given X/Y/Z.
-
-    Either as sparse (``sparse=True``) or array (``sparse=False``)
+    r"""
+    Creates the operator :math:`R_{i}(\theta)` for qubit rotation around the i = x/y/z-axis by `angle` :math:`\theta`.
 
     Parameters
     ----------
     xyz : str
-        string for rotation direction
+        string for rotation direction x, y, or z
     angle : float
-        angle of rotation around `x`
+        angle of rotation
     sparse : bool
-        boolean for sparse or not (array)
+        if True(False), the returned Matrix type will be sparse(array)
 
     Returns
     -------
     Matrix
-        Qubit X/Y/Z rotation operator.
+        Qubit x/y/z rotation operator.
 
     Examples
     --------
-    # TODO Create some examples both in here and the demo script
+    # TODO
     """
 
     if xyz.lower() == 'x':

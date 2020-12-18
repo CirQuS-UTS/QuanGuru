@@ -190,7 +190,7 @@
 <span class="sd">    Computes PDF :math:`P(x)` of eigenvector statistics at x for three universality classes</span>
 <span class="sd">    (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension :math:`dim`.</span>
 
-<span class="sd">    `Read here &lt;https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006&gt;`__</span>
+<span class="sd">    `Read here more details and derivations. &lt;https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006&gt;`__</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -205,6 +205,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Eigenvector statistics PDF at x</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">beta</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -231,6 +235,8 @@
 <span class="sd">    Calculate Wigner Surmise (Wigner-Dyson) PDF at x for three universality classes</span>
 <span class="sd">    (COE (beta=1), CUE (beta=2), and CSE (beta=4)). Used in nearest-neighbour eigen-value/phase spacing statistics.</span>
 
+<span class="sd">    `For these definitions and more details. &lt;https://doi.org/10.1080/00018732.2016.1198134&gt;`__</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x : float</span>
@@ -242,6 +248,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Wigner Surmise (Wigner-Dyson) PDF at x</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">beta</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -271,6 +281,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">         Poisson PDF at x.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">gammaln</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span><span class="n">lam</span><span class="o">**</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">lam</span><span class="p">))</span></div>
 </pre></div>
@@ -288,7 +302,7 @@
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/12/17.
+        Last updated on 2020/12/18.
       </span>
 
     </p>

@@ -46,7 +46,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Random Matrix Theory Distributions (qTools.QuantumToolbox.rmtDistributions)" href="rmtDistributions.html" />
+    <link rel="next" title="Common Hamiltonians (qTools.QuantumToolbox.Hamiltonians)" href="Hamiltonians.html" />
     <link rel="prev" title="Quantum Evolution (qTools.QuantumToolbox.evolution)" href="evolution.html" /> 
 </head>
 
@@ -99,7 +99,13 @@
 <li class="toctree-l2"><a class="reference internal" href="operators.html">Quantum Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evolution.html">Quantum Evolution</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Basic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Hamiltonians.html">Common Hamiltonians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qubitRotations.html">Qubit Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quasiProbabilities.html">Quasi-Probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thermodynamics.html">Thermodynamical functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rmtDistributions.html">Random Matrix Theory Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_eigenVecVal.html">Eigen-vector/value Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ipr.html">Inverse Participation Ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_helpers.html">Helper Functions</a></li>
 </ul>
 </li>
@@ -247,6 +253,17 @@
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.functions.sortedEigens" title="qTools.QuantumToolbox.functions.sortedEigens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sortedEigens</span></code></a>(Mat[, mag])</p></td>
 <td><p>Calculates <cite>eigenvalues and eigenvectors</cite> of a given matrix and <cite>sorts</cite> them.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.functions._expectationColArr" title="qTools.QuantumToolbox.functions._expectationColArr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_expectationColArr</span></code></a>(operator, states)</p></td>
+<td><p>Calculates expectation values of an <cite>operator</cite> for a list/matrix of <cite>ket (column) states</cite> by matrix multiplication.</p></td>
 </tr>
 </tbody>
 </table>
@@ -502,6 +519,45 @@ of two qubit state <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403
 </div>
 </dd></dl>
 
+<dl class="py function">
+<dt id="qTools.QuantumToolbox.functions._expectationColArr">
+<code class="sig-name descname">_expectationColArr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">states</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>float<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/functions.html#_expectationColArr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.functions._expectationColArr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates expectation values of an <cite>operator</cite> for a list/matrix of <cite>ket (column) states</cite> by matrix multiplication.</p>
+<p>The <cite>list</cite> here is effectively a matrix whose columns are <cite>ket</cite> states for which we want the expectation values.
+For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
+TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.
+So, it relies on states being orthonormal, if not there will be off-diagonal elements in the resultant matrix,
+but still the diagonal elements are the expectation values, meaning it should work!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Matrix</em>) – matrix of a Hermitian operator</p></li>
+<li><p><strong>states</strong> (<em>ndarray</em>) – ket states as the columns in the input matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>list</cite> of expectation values of the <cite>operator</cite> for a matrix of <cite>ket</cite> states</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>floatList</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">qTools.QuantumToolbox.operators</span> <span class="k">as</span> <span class="nn">qOperators</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">qOperators</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigVals</span><span class="p">,</span> <span class="n">eigVecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">ham</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sz</span> <span class="o">=</span> <span class="n">qOperators</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectationColArr</span><span class="p">(</span><span class="n">sz</span><span class="p">,</span> <span class="n">eigVecs</span><span class="p">)</span>
+<span class="go">[ 1. -1.]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sx</span> <span class="o">=</span> <span class="n">qOperators</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectationColArr</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">eigVecs</span><span class="p">)</span>
+<span class="go">[0. 0.]</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 
@@ -513,7 +569,7 @@ of two qubit state <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="rmtDistributions.html" class="btn btn-neutral float-right" title="Random Matrix Theory Distributions (qTools.QuantumToolbox.rmtDistributions)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Hamiltonians.html" class="btn btn-neutral float-right" title="Common Hamiltonians (qTools.QuantumToolbox.Hamiltonians)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="evolution.html" class="btn btn-neutral float-left" title="Quantum Evolution (qTools.QuantumToolbox.evolution)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -528,7 +584,7 @@ of two qubit state <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/12/17.
+        Last updated on 2020/12/18.
       </span>
 
     </p>

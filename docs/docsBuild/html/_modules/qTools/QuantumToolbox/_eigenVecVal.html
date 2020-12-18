@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qTools.QuantumToolbox._eigenVecVal &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+        <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #1D2951" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox.html">QuantumToolbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Demos/Demos.html">Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>qTools.QuantumToolbox._eigenVecVal</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qTools.QuantumToolbox._eigenVecVal</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contains functions to calculate eigen-vector/value statistics in various cases.</span>
+
+<span class="sd">    .. currentmodule:: qTools.QuantumToolbox._eigenVecVal</span>
+
+<span class="sd">    Functions</span>
+<span class="sd">    ---------</span>
+
+<span class="sd">    .. autosummary::</span>
+
+<span class="sd">        _eigs</span>
+<span class="sd">        _eigStat</span>
+<span class="sd">        _eigStatEig</span>
+<span class="sd">        _eigStatSymp</span>
+<span class="sd">        _eigsStatEigSymp</span>
+<span class="sd">        eigVecStatKet</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># type: ignore</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">lina</span> <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">spmatrix</span> <span class="c1"># type: ignore</span>
+
+<span class="kn">from</span> <span class="nn">.functions</span> <span class="kn">import</span> <span class="n">fidelityPure</span>
+
+<span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">floatList</span><span class="p">,</span> <span class="n">matrixList</span>
+
+
+<div class="viewcode-block" id="_eigs"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigs">[docs]</a><span class="k">def</span> <span class="nf">_eigs</span><span class="p">(</span><span class="n">Mat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates eigenvalues and eigenvectors of a given matrix (intended for internal use).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Mat : Matrix</span>
+<span class="sd">        a matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        tuple containing (eigenvalues, eigenvectors)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Mat</span><span class="p">,</span> <span class="n">spmatrix</span><span class="p">):</span>
+        <span class="n">Mat</span> <span class="o">=</span> <span class="n">Mat</span><span class="o">.</span><span class="n">A</span>
+    <span class="k">return</span> <span class="n">lina</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">Mat</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="_eigStat"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigStat">[docs]</a><span class="k">def</span> <span class="nf">_eigStat</span><span class="p">(</span><span class="n">Mat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">symp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates all the amplitudes :math:`|c_{i,k}|^{2}` of entries :math:`|k\rangle := \begin{bmatrix} c_{1,k}</span>
+<span class="sd">    \\ \vdots \\</span>
+<span class="sd">    c_{i,k}</span>
+<span class="sd">    \\ \vdots \\c_{\mathcal{D},k}</span>
+<span class="sd">    \end{bmatrix}_{\mathcal{D}\times 1}` for all the eigenvectors :math:`\{|k\rangle\}` of a given matrix.</span>
+
+<span class="sd">    symp is used to calculate eigenvector statistics of systems with degeneracies, corresponding to symplectic class by</span>
+<span class="sd">    summing every odd entry amplitude with the following even entry amplitude.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Mat : Matrix</span>
+<span class="sd">        a matrix</span>
+<span class="sd">    symp : bool, optional</span>
+<span class="sd">        If True (False) sum every odd entry amplitude with the following even entry amplitude.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    floatList</span>
+<span class="sd">        list of entry amplitudes</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">_eigs</span><span class="p">(</span><span class="n">Mat</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span><span class="o">**</span><span class="mi">2</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">symp</span> <span class="k">else</span> <span class="n">_eigStatSymp</span><span class="p">(</span><span class="n">Mat</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="_eigStatSymp"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigStatSymp">[docs]</a><span class="k">def</span> <span class="nf">_eigStatSymp</span><span class="p">(</span><span class="n">Mat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Mat : Matrix</span>
+<span class="sd">        a matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    floatList</span>
+<span class="sd">        list of entry amplitudes</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vecsSymplectic</span> <span class="o">=</span> <span class="n">_eigs</span><span class="p">(</span><span class="n">Mat</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_eigsStatEigSymp</span><span class="p">(</span><span class="n">vecsSymplectic</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="_eigStatEig"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigStatEig">[docs]</a><span class="k">def</span> <span class="nf">_eigStatEig</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">symp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates all the amplitudes :math:`|c_{i,k}|^{2}` of entries :math:`|k\rangle := \begin{bmatrix} c_{1,k}</span>
+<span class="sd">    \\ \vdots \\</span>
+<span class="sd">    c_{i,k}</span>
+<span class="sd">    \\ \vdots \\c_{\mathcal{D},k}</span>
+<span class="sd">    \end{bmatrix}_{\mathcal{D}\times 1}` for a given list of eigenvectors :math:`\{|k\rangle\}`.</span>
+
+<span class="sd">    symp is used to calculate eigenvectors statistics of systems with degeneracies, corresponding to symplectic class by</span>
+<span class="sd">    summing every odd entry amplitude with the following even entry amplitude.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    EigVecs : matrixList</span>
+<span class="sd">        a list of ket vectors</span>
+<span class="sd">    symp : bool, optional</span>
+<span class="sd">        If True (False) sum every odd entry amplitude with the following even entry amplitude.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    floatList</span>
+<span class="sd">        list of entry amplitudes</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">EigVecs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span><span class="o">**</span><span class="mi">2</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">symp</span> <span class="k">else</span> <span class="n">_eigsStatEigSymp</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="_eigsStatEigSymp"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal._eigsStatEigSymp">[docs]</a><span class="k">def</span> <span class="nf">_eigsStatEigSymp</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    EigVecs : matrixList</span>
+<span class="sd">        a list of ket vectors</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    floatList</span>
+<span class="sd">        list of entry amplitudes</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">componentsSymplectic</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="n">EigVecs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dims</span><span class="p">):</span>
+        <span class="n">elSymplectic</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dims</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
+            <span class="n">p1Symplectic</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">][</span><span class="n">elSymplectic</span><span class="p">]))</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">p2Symplectic</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">EigVecs</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">][</span><span class="n">elSymplectic</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">elSymplectic</span> <span class="o">+=</span> <span class="mi">2</span>
+            <span class="n">componentsSymplectic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p1Symplectic</span><span class="o">+</span><span class="n">p2Symplectic</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">componentsSymplectic</span></div>
+
+<div class="viewcode-block" id="eigVecStatKet"><a class="viewcode-back" href="../../../QuantumToolbox/_eigenVecVal.html#qTools.QuantumToolbox._eigenVecVal.eigVecStatKet">[docs]</a><span class="k">def</span> <span class="nf">eigVecStatKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates component amplitudes :math:`|c_{i,k}|^{2}` of a `ket` :math:`|k\rangle := \sum_{i}c_{i,k}|i\rangle` in a</span>
+<span class="sd">    basis :math:`\{|i\rangle\}`.</span>
+
+<span class="sd">    Main use is in eigenvector statistics.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    basis : matrixList</span>
+<span class="sd">        a complete basis</span>
+<span class="sd">    ket : Matrix</span>
+<span class="sd">        the ket state</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    floatList</span>
+<span class="sd">        `list` of component values in the basis</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; ket = basis(2, 1)</span>
+<span class="sd">    &gt;&gt;&gt; completeBasis = completeBasis(dimension=2)</span>
+<span class="sd">    &gt;&gt;&gt; eigVecStatKet(basis=completeBasis, ket=ket)</span>
+<span class="sd">    [0, 1]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">basKet</span><span class="p">,</span> <span class="n">ket</span><span class="p">)</span> <span class="k">for</span> <span class="n">basKet</span> <span class="ow">in</span> <span class="n">basis</span><span class="p">]</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2020/12/18.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

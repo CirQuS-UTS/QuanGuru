@@ -24,9 +24,14 @@ r"""
 
     .. autosummary::
         functions
+        Hamiltonians
+        qubitRotations
+        quasiProbabilities
 
     .. autosummary::
         rmtDistributions
+        _ipr
+        thermodynamics
         _helpers
 
 """
@@ -42,18 +47,14 @@ from .operators import (
     paritySUM, parityEXP, displacement, squeeze, compositeOp
 )
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
-from .functions import (expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance)
+from .functions import (
+    expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance, _expectationColArr
+)
 from ._helpers import (loopIt)
-
-
-
 from .rmtDistributions import (EigenVectorDist, WignerDyson, WignerSurmise, Poissonian)
-
-
-
-from .Hamiltonians import (cavQubFreeHam, RabiHam, JCHam, aJCHam)
+from .thermodynamics import(nBarThermal, qubitPolarisation, HeatCurrent) # type: ignore
+from .qubitRotations import(qubRotation, xRotation, yRotation, zRotation)
 from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
-
-from ._undecided import (expectationColArr)
-from ._ipr import (iprKet, iprKetNB, iprKetNBmat, iprPureDenMat)
-from ._eigenVecVal import (_eigStat, _eigStatSymp, eigVecStatKet, eigVecStatKetNB)
+from .Hamiltonians import (qubCavFreeHam, RabiHam, JCHam, aJCHam)
+from ._ipr import (iprKet, iprKetNB)
+from ._eigenVecVal import (_eigStat, _eigStatSymp, _eigStatEig, eigVecStatKet)

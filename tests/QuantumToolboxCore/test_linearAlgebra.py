@@ -4,6 +4,7 @@ import scipy.sparse as sp
 import pytest
 from qTools.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
 
+# a random 4 x 4 (complex-valued) matrix to be used is testing linearAlgebra functions
 oper = np.array(
     [
         [rn.random() + rn.random()*1j, rn.random() - rn.random()*1j, rn.random() + rn.random()*1j, rn.random()*1j],
@@ -12,18 +13,21 @@ oper = np.array(
         [rn.random(), rn.random()*1j, rn.random()-rn.random()*1j, rn.random()-rn.random()*1j]
     ])
 
+# a (hard-coded) 2 x 2 (complex-valued) matrix to be used is testing linearAlgebra functions
 operEx1 = np.array(
     [
         [1+1j, 2+2j],
         [3+3j, 4+4j]
     ])
 
+# a (hard-coded) 2 x 2 (real-valued) matrix to be used is testing linearAlgebra functions
 operEx2 = np.array(
     [
         [0, 1],
         [1, 0]
     ])
 
+# a (hard-coded) 2 x 2 (complex-valued) matrix to be used is testing linearAlgebra functions
 operEx3 = np.array(
     [
         [1, 0, 0],
@@ -44,6 +48,7 @@ def test_hermitianCongujation(op):
             assert (n.real-nc.real) == 0
             assert (n.imag+nc.imag) == 0
 
+# list of elements in below column matrices to be used is testing linearAlgebra functions
 cmind1 = [1, 0]
 cmind2 = [0, 1]
 cmind3 = [3/5, 4j/5]
@@ -51,6 +56,7 @@ cmind4 = [1, 1j]
 inps1 = [rn.random()+rn.random()*1j for i in range(5)]
 inps2 = [rn.random()+rn.random()*1j for i in range(5)]
 
+# some column matrices to be used is testing linearAlgebra functions
 cMatEx1 = np.array(
     [
         [1],
@@ -93,6 +99,7 @@ cMat2 = np.array(
         [inps2[4]]
     ])
 
+# some bundling of column matrices and their corresponding entry lists to be used is testing linearAlgebra functions
 forSelf = [(cMatEx1, cmind1), (cMatEx2, cmind2), (cMatEx3, cmind3), (cMatEx4, cmind4), (cMat1, inps1), (cMat2, inps2)]
 forOthers = [([cMatEx1, cMatEx2], [cmind1, cmind2]), ([cMatEx1, cMatEx3], [cmind1, cmind3]),
              ([cMatEx1, cMatEx4], [cmind1, cmind4]), ([cMatEx2, cMatEx1], [cmind2, cmind1]), 
@@ -138,7 +145,7 @@ def test_outerProductWithOther(columnMats, elements):
                                   [cMatEx1, cMatEx4, cMatEx3, cMatEx2], [cMat1, cMat2, cMat1], [cMat1, cMat2],
                                   [oper, 4, oper], [operEx1, 3, operEx2], [operEx3, operEx1, operEx2]])
 def test_tensorProduct(mats):
-    # the functions is recursive, here it is tested by doing the same thing in a for loop
+    # the function is recursive, here it is tested by doing the same thing in a for loop
     tenProd = la.tensorProd(*mats).A
     totalProd = 1
     for arg in mats:
@@ -152,7 +159,7 @@ def test_tensorProduct(mats):
                                   [cMatEx3, cMatEx1, cMatEx2, cMatEx1], [cMatEx2, cMatEx3, cMatEx2, cMatEx3],
                                   [cMatEx1, cMatEx3, cMatEx2, cMatEx2], [cMatEx3, cMatEx3, cMatEx2, cMatEx2]])
 def test_partialTrace(mats):
-    # trace is too simple to test, this one calculates a tensor product and takes partial trace and compare with the
+    # calculates a tensor product and takes partial trace and compares with the
     # given matrices (inputs are columns matrices, so first creates square matrices using outerProd)
     dims = [mat.shape[0] for mat in mats]
     mats = [la.outerProd(mat) for mat in mats]
@@ -163,8 +170,10 @@ def test_partialTrace(mats):
 
 @pytest.mark.parametrize("mat, n", [[cMatEx1, 1], [cMatEx2, 1], [cMatEx3, 1], [cMatEx4, np.sqrt(2)]])
 def test_norm(mat, n):
+    # calculate the norm and compare it with the expected results
     assert la.norm(mat) == n
 
 @pytest.mark.parametrize("mat, t", [[operEx1, 5+5j], [operEx2, 0], [operEx3, 3]])
 def test_trace(mat, t):
+    # calculate the trace and compare it with the expected results
     assert la.trace(mat) == t
