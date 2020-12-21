@@ -328,7 +328,7 @@ def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) ->
     return normalise(weightedSum([linAlOuterProd(k) for k in ket], probability)) if libool else linAlOuterProd(ket)
 
 
-def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None,
+def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None, #pylint:disable=unsubscriptable-object
                      sparse: bool = True) -> matrixList:
     r"""
     Creates a set of `density matrices` :math:`\{|n\rangle\langle n|\}` st

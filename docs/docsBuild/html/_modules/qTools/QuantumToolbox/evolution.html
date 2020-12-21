@@ -17,11 +17,12 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/thebelab.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
 
   
   
@@ -38,9 +39,9 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
         <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="../../../_static/thebelab-helper.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -98,7 +99,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox.html">QuantumToolbox</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Demos/Demos.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">Tutorials</a></li>
 </ul>
 
             
@@ -237,7 +238,7 @@
     <span class="k">return</span> <span class="n">liouvillianEXP</span></div>
 
 
-<div class="viewcode-block" id="Liouvillian"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.Liouvillian">[docs]</a><span class="k">def</span> <span class="nf">Liouvillian</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+<div class="viewcode-block" id="Liouvillian"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.Liouvillian">[docs]</a><span class="k">def</span> <span class="nf">Liouvillian</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value,unsubscriptable-object</span>
                 <span class="n">collapseOperators</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">decayRates</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span><span class="c1"># pylint: disable=dangerous-default-value</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `Liouvillian` super-operator</span>
@@ -295,7 +296,7 @@
     <span class="k">return</span> <span class="n">liouvillian</span></div>
 
 
-<div class="viewcode-block" id="LiouvillianExp"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.LiouvillianExp">[docs]</a><span class="k">def</span> <span class="nf">LiouvillianExp</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span><span class="c1"># pylint: disable=dangerous-default-value</span>
+<div class="viewcode-block" id="LiouvillianExp"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.LiouvillianExp">[docs]</a><span class="k">def</span> <span class="nf">LiouvillianExp</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span><span class="c1"># pylint: disable=dangerous-default-value,unsubscriptable-object</span>
                    <span class="n">collapseOperators</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">decayRates</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span>
                    <span class="n">exp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -358,7 +359,7 @@
     <span class="k">return</span> <span class="n">liouvillianEXP</span></div>
 
 
-<div class="viewcode-block" id="dissipator"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.dissipator">[docs]</a><span class="k">def</span> <span class="nf">dissipator</span><span class="p">(</span><span class="n">collapseOperator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="dissipator"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.dissipator">[docs]</a><span class="k">def</span> <span class="nf">dissipator</span><span class="p">(</span><span class="n">collapseOperator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span><span class="c1">#pylint:disable=unsubscriptable-object</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Lindblad dissipator` super-operator</span>
 <span class="sd">    :math:`\hat{\mathcal{D}}(\hat{c}) := (\hat{c}^{\dagger})^{T}\otimes\hat{c} -</span>
@@ -520,7 +521,7 @@
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/12/18.
+        Last updated on 2020/12/22.
       </span>
 
     </p>

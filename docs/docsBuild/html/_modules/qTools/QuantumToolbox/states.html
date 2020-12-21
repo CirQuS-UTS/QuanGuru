@@ -17,11 +17,12 @@
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/thebelab.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
 
   
   
@@ -38,9 +39,9 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
         <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="../../../_static/thebelab-helper.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -98,7 +99,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox.html">QuantumToolbox</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Demos/Demos.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">Tutorials</a></li>
 </ul>
 
             
@@ -493,7 +494,7 @@
     <span class="k">return</span> <span class="n">normalise</span><span class="p">(</span><span class="n">weightedSum</span><span class="p">([</span><span class="n">linAlOuterProd</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ket</span><span class="p">],</span> <span class="n">probability</span><span class="p">))</span> <span class="k">if</span> <span class="n">libool</span> <span class="k">else</span> <span class="n">linAlOuterProd</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="completeBasisMat"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#qTools.QuantumToolbox.states.completeBasisMat">[docs]</a><span class="k">def</span> <span class="nf">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">compKetBase</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">matrixList</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="completeBasisMat"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#qTools.QuantumToolbox.states.completeBasisMat">[docs]</a><span class="k">def</span> <span class="nf">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">compKetBase</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">matrixList</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1">#pylint:disable=unsubscriptable-object</span>
                      <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matrixList</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a set of `density matrices` :math:`\{|n\rangle\langle n|\}` st</span>
@@ -770,7 +771,7 @@
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/12/18.
+        Last updated on 2020/12/22.
       </span>
 
     </p>

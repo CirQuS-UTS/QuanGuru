@@ -1,0 +1,17 @@
+matplotlib
+
+pylint>=2.4.4
+flake8>=3.8.4
+mypy
+
+pytest
+pytest-cov
+anybadge
+
+sphinx
+nbsphinx
+jupyter_sphinx
+sphinx_tabs
+sphinx_copybutton
+recommonmark
+sphinx_rtd_theme

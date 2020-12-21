@@ -13,11 +13,16 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/thebelab.css" type="text/css" />
   <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/style.css" type="text/css" />
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
 
   
   
@@ -34,7 +39,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script src="../_static/thebelab-helper.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -109,7 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="_helpers.html">Helper Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Demos/Demos.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/Tutorials.html">Tutorials</a></li>
 </ul>
 
             
@@ -403,7 +408,7 @@ given column. This function simply returns transpose of <code class="xref py py-
 
 <dl class="py function">
 <dt id="qTools.QuantumToolbox.states.weightedSum">
-<code class="sig-name descname">weightedSum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">summands</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">weights</span><span class="p">:</span> <span class="n">Iterable</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#weightedSum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.weightedSum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">weightedSum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">summands</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">weights</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Iterable<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#weightedSum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.weightedSum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Weighted sum <img class="math" src="../_images/math/ac7921f0d6889bcc521c42a8587487f175b98a31.png" alt="\sum_{x}w_{x}x"/> of given list of summands <img class="math" src="../_images/math/a352c5bdeb53feade0f70fa8dfc2b14a1c7fa2b3.png" alt="\{x\}"/> and weights <img class="math" src="../_images/math/63774ec666a93bd05e73c18566d7a3e6c517324c.png" alt="\{w_{x}\}"/>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -490,7 +495,7 @@ state gets normalised.</p>
 
 <dl class="py function">
 <dt id="qTools.QuantumToolbox.states.densityMatrix">
-<code class="sig-name descname">densityMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ket</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">, </span>List<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">probability</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span>Any<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#densityMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.densityMatrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">densityMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ket</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">, </span>List<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">probability</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Iterable<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/states.html#densityMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.states.densityMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the <cite>density matrix</cite> for both pure and mixed states.</p>
 <ol class="arabic">
 <li><p>Given a pure <cite>ket</cite> <img class="math" src="../_images/math/07f23ef79cc65bafc4a06fc6b1cc989b566ee1ff.png" alt="|\psi\rangle"/> state</p>
@@ -797,7 +802,7 @@ See: <cite>superPos</cite> function</p></li>
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2020/12/18.
+        Last updated on 2020/12/22.
       </span>
 
     </p>

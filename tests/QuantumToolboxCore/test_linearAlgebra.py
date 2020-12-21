@@ -112,13 +112,13 @@ forOthers = [([cMatEx1, cMatEx2], [cmind1, cmind2]), ([cMatEx1, cMatEx3], [cmind
 @pytest.mark.parametrize("columnMat, elements", forSelf)
 def test_innerProductWithItself(columnMat, elements):
     # Calculate the inner product and compare the output with explicit definition (difference need to be zero)
-    assert round(la.innerProd(columnMat) - sum([i * np.conj(i) for i in elements]), 14) == 0+0j
+    assert np.round(la.innerProd(columnMat) - sum([i * np.conj(i) for i in elements]), 14) == 0+0j
 
 @pytest.mark.parametrize("columnMats, elements", forOthers)
 def test_innerProductWithOther(columnMats, elements):
     # Calculate the inner product and compare the output with explicit definition (difference need to be zero)
     dif = la.innerProd(columnMats[0], columnMats[1]) - sum([i * np.conj(j) for (i, j) in zip(elements[0], elements[1])])
-    assert round(dif, 14) == 0+0j
+    assert np.round(dif, 14) == 0+0j
 
 @pytest.mark.parametrize("columnMat, elements", forSelf)
 def test_outerProductWithItself(columnMat, elements):
@@ -128,7 +128,7 @@ def test_outerProductWithItself(columnMat, elements):
     for ind1 in range(dim):
         for ind2 in range(dim):
             dif = outProd[ind1][ind2] - elements[ind1] * np.conj(elements[ind2])
-            assert round(dif, 14) == 0+0j
+            assert np.round(dif, 14) == 0+0j
 
 @pytest.mark.parametrize("columnMats, elements", forOthers)
 def test_outerProductWithOther(columnMats, elements):
@@ -138,7 +138,7 @@ def test_outerProductWithOther(columnMats, elements):
     for ind1 in range(dim):
         for ind2 in range(dim):
             dif = outProd[ind1][ind2] - elements[0][ind1] * np.conj(elements[1][ind2])
-            assert round(dif, 14) == 0+0j
+            assert np.round(dif, 14) == 0+0j
 
 @pytest.mark.parametrize("mats", [[cMatEx1, cMatEx2], [cMatEx1, cMatEx3], [cMatEx1, cMatEx4], [cMatEx2, cMatEx3],
                                   [cMatEx1, cMatEx2, cMatEx3], [cMatEx1, cMatEx4, cMatEx3], [cMatEx2, cMatEx4, cMatEx3],

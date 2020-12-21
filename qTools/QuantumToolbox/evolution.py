@@ -72,7 +72,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
     return liouvillianEXP
 
 
-def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value
+def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value,unsubscriptable-object
                 collapseOperators: list = [], decayRates: list = []) -> Matrix:# pylint: disable=dangerous-default-value
     r"""
     Creates `Liouvillian` super-operator
@@ -130,7 +130,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
     return liouvillian
 
 
-def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value
+def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value,unsubscriptable-object
                    collapseOperators: list = [], decayRates: list = [],
                    exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
     r"""
@@ -193,7 +193,7 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
     return liouvillianEXP
 
 
-def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> Matrix:
+def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> Matrix:#pylint:disable=unsubscriptable-object
     r"""
     Creates the `Lindblad dissipator` super-operator
     :math:`\hat{\mathcal{D}}(\hat{c}) := (\hat{c}^{\dagger})^{T}\otimes\hat{c} -

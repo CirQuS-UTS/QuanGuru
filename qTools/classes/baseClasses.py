@@ -812,7 +812,7 @@ class timeBase(stateBase):
         try:
             self._timeBase__stepCount.value = int((self.totalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
         except:  # noqa: E722
-            raise ValueError('?')
+            raise ValueError('?') # pylint: disable=raise-missing-from
         return self._timeBase__stepCount.value
 
     @stepCount.setter

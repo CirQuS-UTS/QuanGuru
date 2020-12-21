@@ -12,7 +12,9 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
+from pathlib import Path
+path = str(Path(os.getcwd()))
+sys.path.insert(0, path)
 
 
 from pygments.style import Style
