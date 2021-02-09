@@ -11,6 +11,7 @@ Quantum Toolbox (:mod:`qTools.QuantumToolbox`)
 
 .. toctree::
    :titlesonly:
+   :hidden:
    :maxdepth: 2
 
    Basic Linear Algebra <QuantumToolbox/linearAlgebra>

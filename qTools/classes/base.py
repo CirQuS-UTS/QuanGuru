@@ -1,33 +1,213 @@
-"""
-    This module contains ``qUniversal`` and ``extendedList`` classes, and ``checkClass`` decorator.
+r"""
+    Module for naming etc.
 
     .. currentmodule:: qTools.classes.base
 
     .. autosummary::
-        :toctree: ../docs/source
 
-        qUniversal
-        extendedList
-        checkClass
+        keySearch
+        aliasDict
+        aliasClass
 
-    Classes
-    -------
-    | :class:`qUniversal` : This class is inhereted by (almost) all the other classes in this library.
-    | :class:`extendedList` : This class extends the built-in class ``list``. It is introduced to be used with
-     :meth:`toBeSaved <qUniversal.toBeSaved>` lists.
-
-    Decorators
-    ----------
-    | :func:`checkClass` :
 """
-
 from functools import wraps
-from typing import Dict, List
 from collections import OrderedDict
+import warnings
+from typing import Hashable, Dict, Optional, List, Union, Any, Tuple
 
 __all__ = [
     'qUniversal'
 ]
+
+
+def keySearch(obj: Dict, k: Any) -> Hashable:
+    r"""
+    Method to find a key or any other obj equal to the key in a dictonary. This method is used in
+    :class:`~aliasDict` class (extending ``dict`` class) to find the actual key when using :class:`~aliasClass` as the
+    key, which returns equal for a specific
+    string (its name) or any other string in its list of aliases.
+
+    Parameters
+    ----------
+    obj : Dict
+        The dictionary to search the key
+    k : Any
+        The key to search in the dictonary (obj)
+
+    Returns
+    -------
+    Hashable
+        If the key itself or no equality is found in the dictonary keys, returns the key.
+        If an equal key is found in the dictonary, returns the equal key from the dictonary.
+    """
+    # NOTE this returns the first match, meaning there can be more than one equality. Example, two string keys in the
+    # dictionary and the given key is an aliasClass object with these keys in its members (tuple of its name and
+    # aliasess)
+    if k not in obj.keys():
+        for key in obj.keys():
+            if k == key:
+                k = key
+                break
+    return k
+
+class aliasDict(dict):
+    r"""
+    Extending the dictionary class to treat the keys satisfying ``key1 == keys2`` as the same key. This functionality is
+    implemented to use
+    :class:`~aliasClass` objects as keys and to get the value by using the aliasClass object itself, its name, or any of
+    its aliases as the key.
+
+    TODO might also need to overwrite update and setdefault methods (tests passed with regular strings)
+    """
+    def __getitem__(self, k: Any) -> Any:
+        r"""
+        Gets the value from the dictonary for a given key or any of the keys that is equal to the given key.
+        """
+        k = keySearch(self, k)
+        return super().__getitem__(k)
+
+    def __setitem__(self, k: Any, v: Any) -> Any:
+        r"""
+        Updates the value of a key in the dictonary, if the given key exists or any of the keys is equal to given key,
+        otherwise creates an item (ie key:value pair) in the dictionary.
+        """
+        # might need to overwrite update and setdefault
+        k = keySearch(self, k)
+        super().__setitem__(k, v)
+
+    def __delitem__(self, k: Any) -> None:
+        r"""
+        Deletes the item for a given key or any of the keys that is equal to the given key.
+        """
+        k = keySearch(self, k)
+        super().__delitem__(k)
+
+class aliasClass:
+    r"""
+    aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name
+    attribute of qObjects and to work with the extended dictionary :class:`~aliasDict`.
+    The default name of qObjects is assigned to be ``__name`` attribute, and the user assigned aliases for a qObject
+    are stored in the ``__alias`` list. The string representation and hash value of an aliasClass objects is obtained
+    from its name.
+    """
+
+    __slots__ = ["__name", "__alias"]
+
+    def __init__(self, name: Optional[str] = None, alias: List = list) -> None: #pylint:disable=unsubscriptable-object
+        assert isinstance(name, str) or (name is None), "name should be a string."
+        #: (unique) name of an aliasClass object, set&get through the :py:attr:`~aliasClass.name` property. Default
+        #: value is
+        #: ``None``, and it can be set to any string (which cannot be changed later, unless directly overwritting
+        #: ``self._aliasClass__name``)
+        self.__name: Optional[str] = name #pylint:disable=unsubscriptable-object
+        #: list of aliases of an aliasClass objects, set&get through the :py:attr:`~aliasClass.alias` property
+        self.__alias: List = [] if isinstance(alias, type) else alias if isinstance(alias, list) else [alias]
+
+    @property
+    def name(self) -> Union[str, None]: #pylint:disable=unsubscriptable-object
+        r"""
+        Getter of the name property, returns ``self.__name``.
+
+        Returns
+        -------
+        Union[str, None]
+            ``self.__name``
+        """
+        return self._aliasClass__name #pylint:disable = no-member
+
+    @name.setter
+    def name(self, name: str) -> None:
+        r"""
+        Setter of the name property, sets ``self.__name`` to given ``name`` provided that the ``self.__name is None``
+        and the given ``name`` is a string. This means that the name can only be a string and cannot be changed
+        once set. Unless, of course, directly overwriting the protected attribute.
+
+        Parameters
+        ----------
+        name : str
+            name for the aliasClass object. If the object already has string name, it cannot be changed.
+
+        Raises
+        ------
+        TypeError
+            Raised if given name is not string
+        """
+        if self._aliasClass__name is None: #pylint:disable = no-member
+            if not isinstance(name, str):
+                raise TypeError("name should be a string.")
+            self._aliasClass__name = name  #pylint:disable = no-member, assigning-non-slot
+        else:
+            warnings.warn("name cannot be changed")
+
+    @property
+    def alias(self) -> List:
+        r"""
+        Getter of the alias list.
+
+        Returns
+        -------
+        List
+            the list of aliases of the  object
+        """
+        return self._aliasClass__alias #pylint:disable = no-member
+
+    @alias.setter
+    def alias(self, ali: Any) -> None:
+        r"""
+        Setter of the alias property, adds a new alias for the aliasClass object
+
+        Parameters
+        ----------
+        ali : Any
+            an alias for the object
+        """
+        if isinstance(ali, list):
+            self._aliasClass__alias.extend(ali)
+        else:
+            self._aliasClass__alias.append(ali) #pylint:disable = no-member
+
+    def __members(self) -> Tuple:
+        r"""
+        Returns
+        -------
+        Tuple
+            a tuple containing the name and all aliases
+        """
+        return (self.name, *self._aliasClass__alias) #pylint:disable = no-member
+
+    def __repr__(self) -> str:
+        r"""
+        String representation of the object, which is equal to ``self.name``.
+
+        Returns
+        -------
+        str
+            ``self.name``
+        """
+        return self.name
+
+    def __eq__(self, other: Union["aliasClass", str]) -> bool:  #pylint:disable=unsubscriptable-object
+        r"""
+        Equality of any two aliasClass objects (or an aliasClass object to a string) is determined by comparing their
+        names and all
+        their aliases (or to given string), if at least one of them are the same (or the same as the given string),
+        aliasClass objects (or the aliasClass object and the given string) are considereed to be equal.
+
+        Parameters
+        ----------
+        other : Union[aliasClass, str]
+            aliasClass object or string to check the equality with self
+        """
+        if type(other) is type(self):
+            return any(it in self._aliasClass__members() for it in other._aliasClass__members())#pylint:disable = no-member
+        return any(it == other for it in self._aliasClass__members())                #pylint:disable = no-member
+
+    def __hash__(self) -> int:
+        r"""
+        Hash value of an aliasClass object is equal to hash of its name.
+        """
+        return hash(self.name)
+
 
 def checkClass(classOf):
     """
@@ -167,7 +347,6 @@ class extendedList(list):
         for exIt in iterable:
             baseList.append(exIt)
         return baseList
-
 
 class _auxiliaryClass:#pylint:disable=too-few-public-methods
     def __init__(self):

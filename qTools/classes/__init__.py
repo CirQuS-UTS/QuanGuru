@@ -1,7 +1,5 @@
-"""
-    ===============================
-    Classes (:mod:`qTools.classes`)
-    ===============================
+r"""
+    This module contains objects
 
     .. currentmodule:: qTools.classes
 

@@ -1,0 +1,975 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qTools.classes.base &mdash; Quantum Simulations 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+        <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+        <script src="../../../_static/thebelab-helper.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #1D2951" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Quantum Simulations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox.html">QuantumToolbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Quantum Simulations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>qTools.classes.base</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qTools.classes.base</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Module for naming etc.</span>
+
+<span class="sd">    .. currentmodule:: qTools.classes.base</span>
+
+<span class="sd">    .. autosummary::</span>
+
+<span class="sd">        keySearch</span>
+<span class="sd">        aliasDict</span>
+<span class="sd">        aliasClass</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span>
+
+
+<div class="viewcode-block" id="keySearch"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.keySearch">[docs]</a><span class="k">def</span> <span class="nf">keySearch</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Hashable</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method to find a key or any other obj equal to the key in a dictonary. This method is used in</span>
+<span class="sd">    :class:`~aliasDict` class (extending ``dict`` class) to find the actual key when using :class:`~aliasClass` as the</span>
+<span class="sd">    key, which returns equal for a specific</span>
+<span class="sd">    string (its name) or any other string in its list of aliases.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    obj : Dict</span>
+<span class="sd">        The dictionary to search the key</span>
+<span class="sd">    k : Any</span>
+<span class="sd">        The key to search in the dictonary (obj)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Hashable</span>
+<span class="sd">        If the key itself or no equality is found in the dictonary keys, returns the key.</span>
+<span class="sd">        If an equal key is found in the dictonary, returns the equal key from the dictonary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="n">key</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">k</span></div>
+
+<div class="viewcode-block" id="aliasDict"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.aliasDict">[docs]</a><span class="k">class</span> <span class="nc">aliasDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extending the dictionary class to treat the keys satisfying ``key1 == keys2`` as the same key. This functionality is</span>
+<span class="sd">    implemented to use</span>
+<span class="sd">    :class:`~aliasClass` objects as keys and to get the value by using the aliasClass object itself, its name, or any of</span>
+<span class="sd">    its aliases as the key.</span>
+
+<span class="sd">    TODO might also need to overwrite update and setdefault methods (tests passed with regular strings)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the value from the dictonary for a given key or any of the keys that is equal to the given key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">keySearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the value of a key in the dictonary, if the given key exists or any of the keys is equal to given key,</span>
+<span class="sd">        otherwise creates an item (ie key:value pair) in the dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># might need to overwrite update and setdefault</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">keySearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes the item for a given key or any of the keys that is equal to the given key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">keySearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__delitem__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="aliasClass"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.aliasClass">[docs]</a><span class="k">class</span> <span class="nc">aliasClass</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name</span>
+<span class="sd">    attribute of qObjects and to work with the extended dictionary :class:`~aliasDict`.</span>
+<span class="sd">    The default name of qObjects is assigned to be ``__name`` attribute, and the user assigned aliases for a qObject</span>
+<span class="sd">    are stored in the ``__alias`` list. The string representation and hash value of an aliasClass objects is obtained</span>
+<span class="sd">    from its name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;__name&quot;</span><span class="p">,</span> <span class="s2">&quot;__alias&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="c1">#pylint:disable=unsubscriptable-object</span>
+        <span class="c1">#: (unique) name of an aliasClass object, set&amp;get through the :py:attr:`~aliasClass.name` property. Default</span>
+        <span class="c1">#: value is</span>
+        <span class="c1">#: ``None``, and it can be set to any string (which cannot be changed later, unless directly overwritting</span>
+        <span class="c1">#: ``self._aliasClass__name``)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span> <span class="c1">#pylint:disable=unsubscriptable-object</span>
+        <span class="c1">#: list of aliases of an aliasClass objects, set&amp;get through the :py:attr:`~aliasClass.alias` property</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__alias</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span> <span class="c1">#pylint:disable=unsubscriptable-object</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter of the name property, returns ``self.__name``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Union[str, None]</span>
+<span class="sd">            returns ``self.__name``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__name</span> <span class="c1">#pylint:disable = no-member</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter of the name property, sets ``self.__name`` to given ``name`` provided that the ``self.__name is None``</span>
+<span class="sd">        and the given ``name`` is a string. This means that the name can only be a string and cannot be changed</span>
+<span class="sd">        once set. Unless, of course, directly overwriting the protected attribute.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            name for the aliasClass object. If the object already has string name, it cannot be changed.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            Raised if given name is not string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1">#pylint:disable = no-member</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;name should be a string.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__name</span> <span class="o">=</span> <span class="n">name</span>  <span class="c1">#pylint:disable = no-member, assigning-non-slot</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;name cannot be changed&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">alias</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter of the alias list.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List</span>
+<span class="sd">            Returns the list of aliases of the  object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__alias</span>                                               <span class="c1">#pylint:disable = no-member</span>
+
+    <span class="nd">@alias</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ali</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter of the alias property, adds a new alias for the aliasClass object</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ali : Any</span>
+<span class="sd">            an alias for the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__alias</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ali</span><span class="p">)</span>                                          <span class="c1">#pylint:disable = no-member</span>
+
+    <span class="k">def</span> <span class="nf">__members</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Tuple</span>
+<span class="sd">            a tuple containing the name and all aliases</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__alias</span><span class="p">)</span>                                 <span class="c1">#pylint:disable = no-member</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        String representation of the object, which is equal to ``self.name``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            ``self.name``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;aliasClass&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1">#pylint:disable=unsubscriptable-object</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Equality of any two aliasClass objects (or an aliasClass object to a string) is determined by comparing their</span>
+<span class="sd">        names and all</span>
+<span class="sd">        their aliases (or to given string), if at least one of them are the same (or the same as the given string),</span>
+<span class="sd">        aliasClass objects (or the aliasClass object and the given string) are considereed to be equal.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        other : Union[aliasClass, str]</span>
+<span class="sd">            aliasClass object or string to check the equality with self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">it</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__members</span><span class="p">()</span> <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">_aliasClass__members</span><span class="p">())</span><span class="c1">#pylint:disable = no-member</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">other</span> <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__members</span><span class="p">())</span>                <span class="c1">#pylint:disable = no-member</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hash value of an aliasClass object is equal to hash of its name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;qUniversal&#39;</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="checkClass"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.checkClass">[docs]</a><span class="k">def</span> <span class="nf">checkClass</span><span class="p">(</span><span class="n">classOf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a **decorator with arguments and a recursive wrapper**, and it was initially created to be used with</span>
+<span class="sd">    :attr:`~qUniversal.subSys` dictionary of :class:`qUniversal` class.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    classOf : str</span>
+<span class="sd">        name of a class</span>
+
+
+<span class="sd">    This decorater was initially created to be used with :attr:`~qUniversal.subSys` dictionary of</span>
+<span class="sd">    :class:`qUniversal` (`classOf`) class, and the idea is to cover possible misuse of</span>
+<span class="sd">    :meth:`add &lt;qUniversal.addSubSys&gt;`/:meth:`create &lt;qUniversal.createSubSys&gt;`/:meth:`remove &lt;qUniversal.removeSubSys&gt;`</span>
+<span class="sd">    `subSys` methods (while also creating flexibility). For example,</span>
+<span class="sd">    if  the class itself is given, instead of an instance, to :meth:`addSubSys &lt;qUniversal.addSubSys&gt;` method, this</span>
+<span class="sd">    decorator creates a new instance and includes the new instance to the dictionary. This also enables the flexible use</span>
+<span class="sd">    of :meth:`addSubSys &lt;qUniversal.addSubSys&gt;` as :meth:`createSubSys &lt;qUniversal.createSubSys&gt;`. The wrapper covers</span>
+<span class="sd">    some other scenarios like giving a ``list`` of instances to be included etc. This decorator is also used for</span>
+<span class="sd">    :meth:`_createParamBound &lt;qTools.classes.computeBase.paramBoundBase._createParamBound&gt;` and</span>
+<span class="sd">    :meth:`_breakParamBound &lt;qTools.classes.computeBase.paramBoundBase._breakParamBound&gt;` methods for</span>
+<span class="sd">    :attr:`_paramBound &lt;qTools.classes.computeBase.paramBoundBase._paramBound&gt;` dictionary of</span>
+<span class="sd">    :class:`paramBoundBase &lt;qTools.classes.computeBase.paramBoundBase&gt;` class.</span>
+
+<span class="sd">    **Note** : The wrapper of this decorator assumes that the input (`inp`) to the decorated method is an instance</span>
+<span class="sd">    of :class:`qUniversal` or :class:`its child classes`. `classOf` argument is used for this purpose. It is</span>
+<span class="sd">    ``&#39;qUniversal&#39;`` in the most general case, but any other class in the inheritance tree can be used to impose a</span>
+<span class="sd">    further restriction (as in :attr:`_paramBound &lt;qTools.classes.computeBase.paramBoundBase._paramBound&gt;`).</span>
+
+<span class="sd">    The wrapper works by first finding the intended class by using its name (`classOf`) with ``global()``. Then,</span>
+
+<span class="sd">    0. If the `input (inp)` is an instance of this class (`classOf`), it calls the `addRemoveFunction`</span>
+<span class="sd">    (the decorated method, which does the actual adding/removing).</span>
+
+<span class="sd">    Other input cases covered by this decorator are</span>
+
+<span class="sd">        1. input is a `string`, and it can be</span>
+
+<span class="sd">            - name of an `instance` : finds the object from the :attr:`instNames &lt;qUniversal.instNames&gt;` dict</span>
+<span class="sd">              and makes a recursive call (which will trigger 0., if the object is an instance of `classOf` or `its</span>
+<span class="sd">              child classes`).</span>
+<span class="sd">            - name of a `class` : creates an instance of the `class` (which has to be a child-class of `classOf`)</span>
+<span class="sd">              and makes a recursive call (which will trigger 0., if the `class` is a child-class of `classOf`).</span>
+
+<span class="sd">        2. input is a `dictionary`: keys are **not** used currently, but each value in the dictionary is used in a</span>
+<span class="sd">           recursive call, meaning anything in this list from 0. to 5. may be trigerred again depending on the value</span>
+<span class="sd">           type.</span>
+<span class="sd">        3. input is a `class`: creates an instance of the `class` (which has to be a child-class of `classOf`)</span>
+<span class="sd">           and makes a recursive call (which will trigger 0., if the `class` is a child-class of `classOf`).</span>
+<span class="sd">        4. input is other types of `iterable`: call itself for every element of the iterable, meaning anything in this</span>
+<span class="sd">           list from 0. to 5. may be trigerred again depending on the value type.</span>
+
+<span class="sd">    TODO : should raise an error if,</span>
+
+<span class="sd">            0. the object is not an instance of `classOf` (or `its child-classes`)</span>
+<span class="sd">            1. given name</span>
+
+<span class="sd">                - is in `instNames`, but the object is not an instance of `classOf` or `its child-classes`.</span>
+<span class="sd">                - corresponds to a class that is not `classOf` or `its child class`.</span>
+<span class="sd">                - does not correspond to a key in `instNames` or any `class`.</span>
+
+<span class="sd">            2. Other cases will raise a relevant error for values of the `dictionary`.</span>
+<span class="sd">            3. given class is not `classOf` or `its child class`.</span>
+<span class="sd">            4. Other cases will raise a relevant error for values of the `iterable`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">addDecorator</span><span class="p">(</span><span class="n">addFunction</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">addFunction</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">clsDecoArg</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">classOf</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">clsDecoArg</span><span class="p">):</span>
+                <span class="n">addFunction</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">_auxiliaryClass</span><span class="p">):</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">_qUniversal__subSys</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">inp</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">clsDecoArg</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">inp</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">clsDecoArg</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">inp</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">clsInput</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">inp</span><span class="p">]</span>
+                    <span class="n">inp</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">clsInput</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="n">inp</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="c1"># what to do with the keys?</span>
+                    <span class="n">inp</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">inp</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">:</span>
+                <span class="n">newSys</span> <span class="o">=</span> <span class="n">inp</span><span class="p">()</span>
+                <span class="n">inp</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">newSys</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="n">inp</span><span class="p">:</span>
+                    <span class="n">inp</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">inp</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">addDecorator</span></div>
+
+<div class="viewcode-block" id="_recurseIfList"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base._recurseIfList">[docs]</a><span class="k">def</span> <span class="nf">_recurseIfList</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sys</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">recurse</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">sys</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span>
+    <span class="k">return</span> <span class="n">recurse</span></div>
+
+<div class="viewcode-block" id="extendedList"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.extendedList">[docs]</a><span class="k">class</span> <span class="nc">extendedList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class extends the built-in ``list`` class. It is introduced to be used with</span>
+<span class="sd">    :attr:`toBeSaved &lt;qUniversal.toBeSaved&gt;` lists of every class that inherits from :class:`qUniversal`.</span>
+<span class="sd">    These lists contain the keys for `the attributes to be saved` (currently into a `txt and hdf5 attributes`).</span>
+<span class="sd">    :attr:`toBeSaved &lt;qUniversal.toBeSaved&gt;` is a class attribute and extending it through the inheritance tree is</span>
+<span class="sd">    achieved by `extendedCopy` method of this class.</span>
+
+<span class="sd">    Current saving methods are going to be improved, so, in future, this class might not be needed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="extendedList.extendedCopy"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.extendedList.extendedCopy">[docs]</a>    <span class="k">def</span> <span class="nf">extendedCopy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterable</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This methods returns a new instance of extendedList by concatenating the ``self`` with a given ``iterable``.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        iterable : list, tuple, or extendedList</span>
+<span class="sd">            Existing iterable is extended by this.</span>
+
+
+<span class="sd">        :returns: A new instance of extendedList</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">baseList</span> <span class="o">=</span> <span class="n">extendedList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">baseList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">exIt</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+            <span class="n">baseList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exIt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">baseList</span></div></div>
+
+<div class="viewcode-block" id="_auxiliaryClass"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base._auxiliaryClass">[docs]</a><span class="k">class</span> <span class="nc">_auxiliaryClass</span><span class="p">:</span><span class="c1">#pylint:disable=too-few-public-methods</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;auxObj&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="qUniversal"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal">[docs]</a><span class="k">class</span> <span class="nc">qUniversal</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is inhereted by (almost) all the other classes in this library. It is best understood by considering</span>
+<span class="sd">    its attributes.</span>
+
+<span class="sd">    Note: Most attributes are `private` (with name mangling) and reached/modified by a `property getter/setter`. The</span>
+<span class="sd">    attribute explanations below uses the property names for such cases together with the name-mangled and</span>
+<span class="sd">    pure attribute names separated by `or`. The reason behind the use of properties is to ensure that some</span>
+<span class="sd">    internal functionalties are maintained, especially in the child-classes that extend these properties. For example,</span>
+<span class="sd">    uniqueness of object name is achieved by the .name setter calling another method.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name or _qUniversal__name or __name: ``str``</span>
+<span class="sd">        Every-object inheriting from qUniversal will have a `unique` name.</span>
+
+<span class="sd">        Default names for internally (by the library) and externally (by the user) created objects differ by an</span>
+<span class="sd">        underscore. Default names are always the class `label` (a class attribute and always the same as class</span>
+<span class="sd">        name) or `_label` plus, respectively, the number of external or internal instances, which are also kept as</span>
+<span class="sd">        class attributes. Note that the `default` name for an object will</span>
+<span class="sd">        always be `label` +number of instances. For example, if this is the list of name for existing instances</span>
+<span class="sd">        ``[&#39;qUniversal1, &#39;bob&#39;, &#39;alice&#39;]`` , name of the next instance will be ``&#39;qUniversal4&#39;`` (not `qUniversal2`).</span>
+
+<span class="sd">        Special names can be assigned by ``obj.name = &#39;new Name&#39;`` after object creation or</span>
+<span class="sd">        by ``obj = qUniversal(name=&#39;new Name&#39;)`` while instantiation. The special names also has to be unique. If a</span>
+<span class="sd">        duplicate name is assigned to another object, it is changed to</span>
+<span class="sd">        ``&#39;new Name&#39; + (number of external instances)``.</span>
+<span class="sd">    _internal : ``bool``</span>
+<span class="sd">        This is a boolean to distinguish between internally (``True``) and externally (``False``) created objects.</span>
+<span class="sd">        Mainly usedfor naming.</span>
+<span class="sd">    _qUniversal__allInstances or __allInstances : ``dict``</span>
+<span class="sd">        This is an instance attribute pointing to class attribute :attr:`instNames &lt;qUniversal.instNames&gt;`. This exist</span>
+<span class="sd">        to `ensure a proper access` to any object using the method :meth:`getObjByName &lt;qUniversal.getObjByName&gt;`</span>
+<span class="sd">        **during multi-processing**.</span>
+<span class="sd">    superSys or _qUniversal__superSys or __superSys : ``Any``</span>
+<span class="sd">        This is used in many places in the library to share information between objects. `superSys` is</span>
+<span class="sd">        (almost for all classes) is a `single system`. This is mainly introduced to be used when an object needs to use</span>
+<span class="sd">        `several attribute values` of another object.</span>
+<span class="sd">    subSys or _qUniversal__subSys or __subSys: ``OrderedDict``</span>
+<span class="sd">        The purpose is, same as `superSys`, to share information, but this is a dictionary of objects, and it is</span>
+<span class="sd">        mainly introduced to be used when an object needs the `same attribute value/s` from `several` other objects.</span>
+
+<span class="sd">        Note: `subSys-superSys` **DOES NOT** define a hierarchy, meaning that if an object A is in `subSys` of B, this</span>
+<span class="sd">        **does not** mean B is `superSys` of A. Even further, A can even be the superSys of B at the same time.</span>
+<span class="sd">        If needed, such a hierarchy, needs to be introduced explicitly in the sub-classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;qUniversal&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Together with :attr:`_externalInstances &lt;qUniversal._externalInstances&gt;`</span>
+<span class="sd">    and :attr:`_internalInstances &lt;qUniversal._internalInstances&gt;`,</span>
+<span class="sd">    `label` is used in `default` naming of the objects.</span>
+<span class="sd">    It is the same as class name, and the default names for the objects explicitly created by the user are</span>
+<span class="sd">    ``label+_externalInstances``, and the object created internally are named as ``_label+_internalInstances``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">instNames</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a dictionary with keys as instance names and values as instances. This is kept to ensure that the names are</span>
+<span class="sd">    unique, but it is conveniently used for other purposes, such as reaching an object from any part of the code just</span>
+<span class="sd">    by using its name. NOTE : It contains instances of ``qUniversal`` and ``all its child classes``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: This is the number of instances that are explicitly created by the user.</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1">#: This is the number of instances that are created internally by the library.</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1">#: Total number of instances of the class = ``_internalInstances + _externalInstances```</span>
+    <span class="n">instances</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">_totalInst</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1">#: aux</span>
+    <span class="n">_auxiliary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_auxiliaryObj</span> <span class="o">=</span> <span class="n">_auxiliaryClass</span><span class="p">()</span>
+
+    <span class="c1">#: a list of str (attribute names) to be used with save method.</span>
+    <span class="n">toBeSaved</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">extendedList</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__name&#39;</span><span class="p">,</span> <span class="s1">&#39;__superSys&#39;</span><span class="p">,</span> <span class="s1">&#39;__subSys&#39;</span><span class="p">,</span> <span class="s1">&#39;__allInstances&#39;</span><span class="p">,</span> <span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="s1">&#39;__aux&#39;</span><span class="p">,</span> <span class="s1">&#39;__auxObj&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_incrementInstances</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__namer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__superSys</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__subSys</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__allInstances</span> <span class="o">=</span> <span class="n">qUniversal</span><span class="o">.</span><span class="n">instNames</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__aux</span> <span class="o">=</span> <span class="n">qUniversal</span><span class="o">.</span><span class="n">_auxiliary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__auxObj</span> <span class="o">=</span> <span class="n">qUniversal</span><span class="o">.</span><span class="n">_auxiliaryObj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">aux</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__aux</span>
+
+    <span class="nd">@aux</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">aux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qUniversal__aux&#39;</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">auxObj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__auxObj</span>
+
+<div class="viewcode-block" id="qUniversal.save"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method creates &amp; ``returnss`` a dictionary with keys from :attr:`toBeSaved &lt;qUniversal.toBeSaved&gt;` list and</span>
+<span class="sd">        the values from the corresponding values of the object.</span>
+
+<span class="sd">        This is used to collect the same relevant information for all the instances and use the resultant dictionary</span>
+<span class="sd">        with some other (format specific) save method. For example, this is currently used with</span>
+<span class="sd">        :meth:`saveH5 &lt;qTools.classes.extensions.saveReadH5.saveH5&gt;`</span>
+<span class="sd">        and :meth:`writeToTxt &lt;qTools.classes.extensions.saveReadH5.writeToTxt&gt;` methods.</span>
+
+<span class="sd">        TODO : **This is introduced as a quick solution for saving and will be improved/changed**.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">saveDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">toBeSaved</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">saveDict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="n">saveDict</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">return</span> <span class="n">saveDict</span></div>
+
+<div class="viewcode-block" id="qUniversal.getObjByName"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.getObjByName">[docs]</a>    <span class="k">def</span> <span class="nf">getObjByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method finds &amp; ``returnss`` the instance of qUniversal (or its child classes) with the given name.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            name of the object to be returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__allInstances</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">__setKwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is used to set the attributes of the object from the given keywords and values.</span>
+<span class="sd">        It is introduced to be used while instantiation of the object. It ``returns None``.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : Any</span>
+<span class="sd">            Any attribute from the __slots__ (should take name-mangling into account, if used by a child class) or</span>
+<span class="sd">            the name of corresponding property with an appropriate value type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<div class="viewcode-block" id="qUniversal.resetSubSys"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.resetSubSys">[docs]</a>    <span class="k">def</span> <span class="nf">resetSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is a trivial method. It just sets the ``subSys`` dict to a new empty ``OrderedDict``. There are two reasons</span>
+<span class="sd">        leading to its introduction:</span>
+
+<span class="sd">            1. The ``__subSys`` is a private attribute and the `subSys setter` is more useful when</span>
+<span class="sd">               used for adding new system rather than assigning a whole new ``OrderedDict``.</span>
+<span class="sd">            2. To complement :meth:`add &lt;qUniversal.addSubSys&gt;`/:meth:`create &lt;qUniversal.createSubSys&gt;`/</span>
+<span class="sd">               :meth:`remove &lt;qUniversal.removeSubSys&gt;` SubSys methods.</span>
+
+<span class="sd">        It ``returns None``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">oldDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__subSys</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qUniversal__subSys&#39;</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">())</span>
+        <span class="k">del</span> <span class="n">oldDict</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">subSys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The subSys property:</span>
+
+<span class="sd">        - **getter** : ``returns __subSys`` an ``OrderedDict``.</span>
+<span class="sd">        - **setter** : adds the given object/s to ``__subSys``. It calls the :meth:`addSubSys &lt;qUniversal.addSubSys&gt;`,</span>
+<span class="sd">          so it can used to add a single object, `list/dict/tuple/orderedDict` of objects, by giving the name of the</span>
+<span class="sd">          system, or giving class name to add a new instance of that class.</span>
+<span class="sd">        - **type** : ``list or dict or tuple or orderedDict``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__subSys</span>
+
+    <span class="nd">@subSys</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">subSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resetSubSys</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">subS</span><span class="p">)</span>
+
+<div class="viewcode-block" id="qUniversal.addSubSys"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.addSubSys">[docs]</a>    <span class="nd">@checkClass</span><span class="p">(</span><span class="s1">&#39;qUniversal&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The main body of this method just adds the given object into ``__subSys`` dictionary and</span>
+<span class="sd">        calls :meth:`__setKwargs &lt;qUniversal._qUniversal__setKwargs&gt;` on the object for the given keyworded arguments.</span>
+
+<span class="sd">        However, this method is decorated by :func:`checkClass`, so it does much more than that is the main body.</span>
+<span class="sd">        See the decorator docstrings of :func:`checkClass` for more detail.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        subS: qUniversal</span>
+<span class="sd">            The object to add into ``__subSys`` dictionary</span>
+<span class="sd">        kwargs: Any</span>
+<span class="sd">            Keyworded arguments to be used with :meth:`__setKwargs &lt;qUniversal._qUniversal__setKwargs&gt;` to set some</span>
+<span class="sd">            attributes of the given `subS`.</span>
+
+
+<span class="sd">        :returns: `subS` (an instance of qUniversal or its child classes)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">subS</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=W0212</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__subSys</span><span class="p">[</span><span class="n">subS</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">subS</span></div>
+
+<div class="viewcode-block" id="qUniversal.createSubSys"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.createSubSys">[docs]</a>    <span class="nd">@checkClass</span><span class="p">(</span><span class="s1">&#39;qUniversal&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">createSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSysClass</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The main body and functionality of this method are exactly the same as :meth:`addSubSys &lt;qUniversal.addSubSys&gt;`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">subSysClass</span><span class="o">.</span><span class="n">_qUniversal__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=W0212</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__subSys</span><span class="p">[</span><span class="n">subSysClass</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">subSysClass</span></div>
+
+
+<div class="viewcode-block" id="qUniversal._remFromDict"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal._remFromDict">[docs]</a>    <span class="k">def</span> <span class="nf">_remFromDict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">,</span> <span class="n">dictName</span><span class="p">):</span>
+        <span class="n">dictSelf</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dictName</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">subS</span> <span class="ow">in</span> <span class="n">dictSelf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">dictSelf</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">subS</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39; is removed from of &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="n">qUniversal</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">subS</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">dictSelf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="n">dictSelf</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">subS</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39; is removed from of &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dictSelf</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dictSelf</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">keys</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">vals</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="ow">is</span> <span class="n">subS</span><span class="p">:</span>
+                        <span class="n">obj</span> <span class="o">=</span> <span class="n">dictSelf</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39; is removed from of &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="qUniversal.removeSubSys"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.removeSubSys">[docs]</a>    <span class="nd">@_recurseIfList</span>
+    <span class="k">def</span> <span class="nf">removeSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method removes the given object from the ``__subSys`` dictionary.</span>
+
+<span class="sd">        TODO Cover if the given key of obj or str is not in subSys dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remFromDict</span><span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="s1">&#39;_qUniversal__subSys&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">superSys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The superSys property:</span>
+
+<span class="sd">        - **getter** : ``returns __superSys`` attribute value</span>
+<span class="sd">        - **setter** : sets the ``__superSys`` attribute value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__superSys</span>
+
+    <span class="nd">@superSys</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">superSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supSys</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qUniversal__superSys&#39;</span><span class="p">,</span> <span class="n">supSys</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The name property:</span>
+
+<span class="sd">        - **getter** : ``returns __name`` attribute value</span>
+<span class="sd">        - **setter** : after calling :meth:`updateNames &lt;qUniversal.updateNames&gt;` method of qUniversal class to</span>
+<span class="sd">          ensure the uniqueness of names, sets the ``__name`` attribute value to `name`.</span>
+<span class="sd">        - **types** : ``str``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qUniversal__name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">qUniversal</span><span class="o">.</span><span class="n">updateNames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qUniversal__name&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<div class="viewcode-block" id="qUniversal.copy"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is a method to create n `empty` copies of an object. This method is introduced here to be extended in child</span>
+<span class="sd">        class. In here, it ** does not copy ** the object, but creates n new objects of the same class and sets the</span>
+<span class="sd">        given kwargs.</span>
+
+
+<span class="sd">        :returns: a single object of the same class if n = 1 else ``Tuple`` with `n` objects</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">newSystems</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="c1"># pylint: disable=W0612</span>
+            <span class="n">sysClass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="n">newSystems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sysClass</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">newSystems</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">newS</span> <span class="o">=</span> <span class="n">newSystems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">newS</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">newSystems</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="n">newS</span></div>
+
+    <span class="k">def</span> <span class="nf">__namer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is the naming method used internally for default names. It uses class `label` and correspoding number of</span>
+<span class="sd">        instances (internal or external).</span>
+
+<span class="sd">        To get the cls label and the corresponding number of instances for internal/external, it calls class methods</span>
+<span class="sd">        :meth:`clsLabel` and :meth:`clsInstances` with the :attr:`_internal` boolean value.</span>
+
+<span class="sd">        :returns:</span>
+<span class="sd">            the name string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clsLabel</span><span class="p">()</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clsInstances</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">clsLabel</span><span class="p">()</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clsInstances</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal</span><span class="p">))</span>
+        <span class="n">qUniversal</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="n">name</span>
+
+<div class="viewcode-block" id="qUniversal.updateNames"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.updateNames">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">updateNames</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This ``classmethod`` ensures that an objects name is unique, and the :attr:`instNames &lt;qUniversal.instNames&gt;`</span>
+<span class="sd">        dictionary contains the correct name as the key, meaning not an old name or more than 1 keys for the same object</span>
+
+<span class="sd">        This is a **recursive** method that calls itself if the given `name` exists in</span>
+<span class="sd">        :attr:`instNames &lt;qUniversal.instNames&gt;` keys and the value is not the `obj`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obj : qUniversal</span>
+<span class="sd">            The object to be renamed</span>
+<span class="sd">        name : str</span>
+<span class="sd">            New name for the `obj`</span>
+
+
+<span class="sd">        :returns: `name`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A duplicate name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> is given,&#39;</span><span class="p">)</span>
+                <span class="n">name</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_externalInstances</span><span class="p">)</span> <span class="c1"># pylint: disable=protected-access</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;it is changed to </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">updateNames</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="c1"># can skip this and keep two keys for a system?</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">instNames</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="k">return</span> <span class="n">name</span></div>
+
+<div class="viewcode-block" id="qUniversal._incrementInstances"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal._incrementInstances">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_incrementInstances</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">boolean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is called inside __init__ to increase internal/external number</span>
+<span class="sd">        of instances depending on the `boolean`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">qUniversal</span><span class="o">.</span><span class="n">_totalInst</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">instances</span> <span class="o">+=</span> <span class="n">val</span>
+        <span class="k">if</span> <span class="n">boolean</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_externalInstances</span> <span class="o">+=</span> <span class="n">val</span>
+        <span class="k">elif</span> <span class="n">boolean</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_internalInstances</span> <span class="o">+=</span> <span class="n">val</span></div>
+
+<div class="viewcode-block" id="qUniversal.clsInstances"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.clsInstances">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">clsInstances</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_internal</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This class method **returns** the number of instances:</span>
+
+<span class="sd">            1. Total number, ``if _internal is None``</span>
+<span class="sd">            2. internal, ``if _internal is True``</span>
+<span class="sd">            3. external, ``if _internal is False``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">_internal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">insCount</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instances</span>
+        <span class="k">elif</span> <span class="n">_internal</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">insCount</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_internalInstances</span>
+        <span class="k">elif</span> <span class="n">_internal</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">insCount</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_externalInstances</span>
+        <span class="k">return</span> <span class="n">insCount</span></div>
+
+<div class="viewcode-block" id="qUniversal.clsLabel"><a class="viewcode-back" href="../../../classes/base.html#qTools.classes.base.qUniversal.clsLabel">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">clsLabel</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method **returns** the class label.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">label</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Cahit Kargi
+      <span class="lastupdated">
+        Last updated on 2021/02/09.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

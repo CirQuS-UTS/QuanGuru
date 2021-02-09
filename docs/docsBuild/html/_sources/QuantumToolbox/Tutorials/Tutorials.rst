@@ -3,6 +3,7 @@ QuantumToolbox Demos
 
 .. nbgallery::
    :glob:
+   :hidden:
 
    *
 

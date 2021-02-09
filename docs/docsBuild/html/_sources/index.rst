@@ -9,6 +9,7 @@
     :maxdepth: 2
 
     QuantumToolbox <QuantumToolbox>
+    Classes <classes>
     Tutorials <QuantumToolbox/Tutorials/Tutorials>
 
 .. Hiding - Indices and tables
