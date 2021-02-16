@@ -1,10 +1,11 @@
 import random
+import pickle
 import string
 import pytest
 import qTools.classes.base as qbase #pylint: disable=import-error
 
 def randString(N):
-    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+    return str(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N)))
 
 strings = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10))]
 
@@ -192,6 +193,22 @@ def test_aliasDictWithAliasClassAndRegularStrings(): # pylint: disable=too-many-
             assert alDict[listOfAliasObj[-1]] == randStr
             break
 
+def test_aliasDictPicklingAndRepr():
+    # create a list of aliasClass objects to be used as the key and extend with strings, then shuffle
+    names = [randString(random.randint(1, 10)) for _ in range(5)]
+    aliases1 = [randString(random.randint(1, 10)) for _ in range(5)]
+    aliases2 = [randString(random.randint(1, 10)) for _ in range(5)]
+    listOfAliasObj = [qbase.aliasClass(name=names[i], alias=[aliases1[i], aliases2[i]]) for i in range(5)]
+    listOfAliasObj.extend(strings)
+    random.shuffle(listOfAliasObj)
+    # create a dictionary with values are the keys
+    alDict = qbase.aliasDict()
+    alDict.update(dict(zip(listOfAliasObj, listOfAliasObj)))
+
+    aldictpicle = pickle.loads(pickle.dumps(alDict))
+    assert aldictpicle == alDict
+    assert eval(repr(alDict)) == alDict
+
 def test_aliasNamingBothAtInstantiationAndAfter():
     # testing the name property of alias object.
 
@@ -256,7 +273,7 @@ def test_aliasClassAliasProperty():
 def test_stringRepresntaionOfAliasClass():
     # test the string representation of aliasClass is equal to its name
     aliasObj = qbase.aliasClass(name=strings[0], alias=strings[1:3])
-    strRep = repr(aliasObj)
+    strRep = str(aliasObj)
     assert aliasObj.name == strRep
 
 def test_equalityOfTwoAliasClassInstances():

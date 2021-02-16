@@ -105,7 +105,7 @@ def expectation(operator: Matrix, state: Matrix) -> float:
     if state.shape[0] != state.shape[1]:
         state = densityMatrix(state)
     expc = trace(operator @ state)
-    return np.real(expc) if np.imag(round(expc, 15)) == 0.0 else expc
+    return np.real(expc) if np.imag(np.round(expc, 15)) == 0.0 else expc
 
 
 def fidelityPure(state1: Matrix, state2: Matrix) -> float:

@@ -6,6 +6,7 @@ mypy
 
 pytest
 pytest-cov
+pytest-depends
 anybadge
 
 sphinx

@@ -21,12 +21,12 @@ from typing import Any, cast
 
 from collections import OrderedDict
 
-from .base import qUniversal, checkClass, _recurseIfList
+from .base import qBase, addDecorator, _recurseIfList
 from .QRes import qResults
 from .tempConfig import classConfig
 # pylint: disable = cyclic-import
 
-class updateBase(qUniversal):
+class updateBase(qBase):
     """
     This class has only two attributes, which are private attributes intended to be used with different properties in
     the ``_sweep`` and ``Update`` classes to enable different terminologies for the same functionality.
@@ -50,10 +50,6 @@ class updateBase(qUniversal):
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = 'updateBase'
 
-    #: a list of str (attribute names) to be used with save method, it extends
-    #: :attr:`toBeSaved <qTools.classes.QUni.qUniversal.toBeSaved>` list.
-    toBeSaved = qUniversal.toBeSaved.extendedCopy(['key'])
-
     __slots__ = ['__key', '__function', '_aux']
 
     def __init__(self, **kwargs):
@@ -63,21 +59,7 @@ class updateBase(qUniversal):
         self.__function = None
         self._aux = False
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    def save(self):
-        """
-        This method extends the :meth:`save <qTools.classes.QUni.qUniversal.save>` of :class:`qUniversal` by using the
-        extended :attr:`toBeSaved <qTools.classes.QUni.qUniversal.toBeSaved>` list and also collecting some of the
-        information under a single key.
-        """
-
-        saveDict = super().save()
-        sysDict = []
-        for sys in self.subSys.values():
-            sysDict.append(sys.name)
-        saveDict['systems'] = sysDict
-        return saveDict
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def key(self):
@@ -219,7 +201,7 @@ def setAttrParam(obj, attrStr, val):
         getattr(obj, attrStr).value = val
         setattr(obj, '_paramUpdated', True)
 
-class paramBoundBase(qUniversal):
+class paramBoundBase(qBase):
     """
     There are two types of parametric bounds/relations in this library,
 
@@ -277,7 +259,7 @@ class paramBoundBase(qUniversal):
         self.__matrix = None
         self.__paramUpdated = True
         self.__paramBound = OrderedDict()
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def _paramBound(self):
@@ -287,7 +269,7 @@ class paramBoundBase(qUniversal):
 
         return self._paramBoundBase__paramBound
 
-    @checkClass('qBase')
+    @addDecorator
     def _createParamBound(self, bound, **kwargs) -> None:
         """[summary]
 
@@ -296,8 +278,8 @@ class paramBoundBase(qUniversal):
         bound : [type]
             [description]
         """
-
-        bound._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        assert isinstance(bound, paramBoundBase), "type error message"
+        bound._named__setKwargs(**kwargs) # pylint: disable=no-member
         self._paramBoundBase__paramBound[bound.name] = bound
 
     @_recurseIfList
@@ -307,8 +289,8 @@ class paramBoundBase(qUniversal):
 
         TODO Cover if the given key of obj or str is not in subSys dict.
         """
-
-        self._remFromDict(bound, '_paramBoundBase__paramBound')
+        pass
+        #self._remFromDict(bound, '_paramBoundBase__paramBound')
 
     @property
     def _paramUpdated(self):
@@ -394,7 +376,7 @@ class computeBase(paramBoundBase):
         self.compute = None
         self.__calculate = None
         self.__calculateAtStart = True
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
         self.qRes = qResults(superSys=self, _internal=True)
 
     @property
@@ -523,7 +505,7 @@ class qBaseSim(computeBase):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.__simulation = Simulation(_internal=True, superSys=self)
         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
         # self.__openSystem = False
 
     @property
@@ -632,7 +614,7 @@ class stateBase(computeBase):
         self.__initialStateInput = _parameter()
         self.__delStates = _parameter(classConfig['delStates'])
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def initialState(self):
@@ -676,7 +658,7 @@ class stateBase(computeBase):
         See :meth:`getObjByName <qTools.classes.QUni.qUniversal.getObjByName>` for details.
         """
 
-        return super().getObjByName(name)
+        return super().getByNameOrAlias(name)
 
     @property
     def delStates(self):
@@ -742,28 +724,7 @@ class timeBase(stateBase):
         self.__stepCount = _parameter()
         self.__bound = None
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    def save(self):
-        """
-        This method extends the :meth:`save <qTools.classes.QUni.qUniversal.save>` of :class:`qUniversal`. This one uses
-        an alternative approach to :attr:`toBeSaved <qTools.classes.QUni.qUniversal.toBeSaved>` list, which is defining
-        the list inside the function as opposed to being a class attribute. There are advantages and disadvantages for
-        both approaches, but these methods are temporary anyway.
-        """
-
-        keys = ['stepSize', 'totalTime', 'samples', 'stepCount']
-        try:
-            saveDict = super().save()
-        except TypeError:
-            saveDict = {}
-
-        if self.superSys is not None:
-            saveDict['superSys'] = self.superSys.name # pylint: disable=no-member
-
-        for key in keys:
-            saveDict[key] = getattr(self, key)
-        return saveDict
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def totalTime(self):

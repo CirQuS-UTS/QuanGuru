@@ -15,7 +15,7 @@
 from functools import reduce
 from numpy import arange, logspace
 
-from .base import qUniversal, _recurseIfList
+from .base import qBase, _recurseIfList
 from .baseClasses import updateBase
 
 __all__ = [
@@ -50,11 +50,6 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = '_sweep'
 
-    #: a list of str (attribute names) to be used with save method, it extends
-    #: :attr:`toBeSaved <qTools.classes.QUni.qUniversal.toBeSaved>` list.
-    toBeSaved = updateBase.toBeSaved.extendedCopy(['sweepMax', 'sweepMin', 'sweepStep', 'sweepList', 'logSweep',
-                                                   'multiParam'])
-
     __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam', '__index']
 
     #@sweepInitError
@@ -71,7 +66,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         self.multiParam = False
         self.__index = -1
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def index(self):
@@ -172,7 +167,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         self.__index = ind-1 # pylint: disable=assigning-non-slot
         self._updateBase__function(self) # pylint: disable=no-member
 
-class Sweep(qUniversal):
+class Sweep(qBase):
     """
     This class can be considered as a container for :class:`_sweep` objects and relevant methods. Instances of this
     class are used as attributes of :class:`Simulation <qTools.classes.Simulation.Simulation>` objects, and those are
@@ -208,20 +203,7 @@ class Sweep(qUniversal):
         self.__inds = []
         self.__indMultip = 1
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    def save(self):
-        """
-        This method extends the :meth:`save <qTools.classes.QUni.qUniversal.save>` of :class:`qUniversal` by also
-        calling the ``save()`` on the objects in ``subSys`` dictionary.
-        """
-
-        saveDict = super().save()
-        sweepsDict = {}
-        for sw in self.subSys.values():
-            sweepsDict[sw.name] = sw.save()
-        saveDict['sweeps'] = sweepsDict
-        return saveDict
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def inds(self):
@@ -260,7 +242,7 @@ class Sweep(qUniversal):
         - **setter** : works exactly as :meth:`subSys <qTools.classes.QUni.qUniversal.subSys>` setter.
         """
 
-        return self._qUniversal__subSys # pylint: disable=no-member
+        return self._qBase__subSys # pylint: disable=no-member
 
     @sweeps.setter
     def sweeps(self, sysDict):

@@ -84,26 +84,7 @@ class Simulation(timeBase):
         if system is not None:
             self.addQSystems(system)
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    def save(self):
-        """
-        This method extends the :meth:`save <qTools.classes.QUni.qUniversal.save>` of :class:`qUniversal` by calling the
-        ``save`` method on the ``keys()`` (protocols) and ``values()`` (quantum systems) of its ``subSys`` dictionary,
-        ``Sweep``, and ``timeDependency`` attributes, and then using the resultant dictionaries to extend ``saveDict``.
-        """
-
-        saveDict = super().save()
-        sysDict = {}
-        for pro, system in self.subSys.items():
-            syDict = system.save()
-            syDict[pro.name] = pro.save()
-            sysDict[system.name] = syDict
-        saveDict['qSystems'] = sysDict
-        saveDict['Sweep'] = self.Sweep.save()
-        saveDict['timeDependency'] = self.timeDependency.save()
-        saveDict['timeList'] = self.timeList
-        return saveDict
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def _currentTime(self):
@@ -199,7 +180,7 @@ class Simulation(timeBase):
             subS.simulation._bound(self) # pylint: disable=protected-access
 
         if Protocol is not None:
-            self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name) # pylint: disable=no-member
+            self._qBase__subSys[Protocol] = self._qBase__subSys.pop(subS.name) # pylint: disable=no-member
         return (subS, Protocol)
 
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
@@ -208,7 +189,7 @@ class Simulation(timeBase):
 
     @_recurseIfList
     def removeQSystems(self, subS):
-        for key, subSys in self._qUniversal__subSys.items(): # pylint: disable=no-member
+        for key, subSys in self._qBase__subSys.items(): # pylint: disable=no-member
             if ((subSys is subS) or (subSys.name == subS)):
                 super().removeSubSys(key, _exclude=[]) # pylint: disable=no-member
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
@@ -225,7 +206,7 @@ class Simulation(timeBase):
     def removeProtocol(self, Protocol):
         # FIXME what if freeEvol case, protocol then corresponds to qsys.name before simulation run
         #  or a freeEvol obj after run
-        qsys = self._qUniversal__subSys.pop(Protocol, None) # pylint: disable=no-member
+        qsys = self._qBase__subSys.pop(Protocol, None) # pylint: disable=no-member
         if qsys is not None:
             self.removeSweep([Protocol, Protocol.simulation])
             if qsys not in self.qSystems:

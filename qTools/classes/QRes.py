@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from .base import qUniversal
+from .base import qBase
 
 __all__ = [
     'qResults'
@@ -25,7 +25,7 @@ class qResBlank:
     def states(self):
         return self._qResBlank__statesLast
 
-class qResBase(qUniversal):
+class qResBase(qBase):
     instances = 0
     label = 'qResBase'
 
@@ -38,7 +38,7 @@ class qResBase(qUniversal):
         self.__states = defaultdict(list)
         self.__statesLast = defaultdict(list)
         self.__calculated = defaultdict(list)
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def calculated(self):
@@ -113,7 +113,7 @@ class qResults(qResBase):
         kwargs.pop('allResults', None)
         self.allResults = qResults._allResults
         self.allResults[self.name] = self # pylint: disable=no-member
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _copyAllResBlank(self):
         allResCopy = {}

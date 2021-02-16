@@ -6,7 +6,7 @@ class genericDrive(paramBoundBase):
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def totalShape(self, timeList):
         if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
@@ -23,11 +23,11 @@ class qDrive(genericDrive):
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def pulses(self):
-        return self._qUniversal__subSys # pylint: disable=no-member
+        return self._qBase__subSys # pylint: disable=no-member
 
     @pulses.setter
     def pulses(self, npulse):
@@ -60,7 +60,7 @@ class pulse(genericDrive):
         self.funcKwargs = {}
         self.funcArgs = []
         self._scale = 1
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def t0(self): #pylint:disable=invalid-name

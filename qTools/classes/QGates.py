@@ -13,7 +13,7 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
         self.__angle = None
         self.phase = 1
         #self._createUnitary = self._gateImplements
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def angle(self):
@@ -65,7 +65,7 @@ class rotation(Gate): # pylint: disable=too-many-ancestors
         self.rotationAxis = None
         self.implementation = 'instant'
         #self._createUnitary = self._gateImplements
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def angle(self):

@@ -3,7 +3,7 @@ import numpy as np
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
-from .base import qUniversal, checkClass
+from .base import qBase, addDecorator
 from .baseClasses import _parameter, qBaseSim, updateBase
 from .QSweep import Sweep
 
@@ -33,7 +33,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         self.sampleStates = []
         self.stepSample = False
         self.timeDependency = Sweep(superSys=self)
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def currentState(self):
@@ -47,14 +47,6 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     def initialState(self, inp):
         self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
         self.simulation._stateBase__initialState.value = self.superSys._createAstate(inp) # pylint:disable=W0212,E1101
-
-    def save(self):
-        saveDict = super().save()
-        stepsDict = {}
-        for sys in self.subSys.values():
-            stepsDict[sys.name] = sys.save()
-        saveDict['steps'] = stepsDict
-        return saveDict
 
     def createUpdate(self, **kwargs):
         update = Update(**kwargs)
@@ -107,7 +99,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         supSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         if self.simulation._timeBase__bound is None:
             self.simulation._bound(supSys.simulation) # pylint: disable=protected-access
-        self.simulation._qUniversal__subSys[self] = self.superSys # pylint: disable=protected-access
+        self.simulation._qBase__subSys[self] = self.superSys # pylint: disable=protected-access
 
     @property
     def unitary(self):
@@ -177,7 +169,7 @@ class qProtocol(genericProtocol):
     def __init__(self, **kwargs):
         super().__init__()
         #self._createUnitary = self._defCreateUnitary # pylint: disable=assigning-non-slot
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _paramUpdatedToFalse(self):
         super()._paramUpdatedToFalse()
@@ -194,7 +186,7 @@ class qProtocol(genericProtocol):
 
     @property
     def steps(self):
-        return self._qUniversal__subSys # pylint: disable=no-member
+        return self._qBase__subSys # pylint: disable=no-member
 
     @steps.setter
     def steps(self, stps):
@@ -239,7 +231,7 @@ class qProtocol(genericProtocol):
 qProtocol._createUnitary = qProtocol._defCreateUnitary
 
 
-class copyStep(qUniversal):
+class copyStep(qBase):
     instances = 0
     label = 'copyStep'
 
@@ -248,12 +240,7 @@ class copyStep(qUniversal):
     def __init__(self, superSys, **kwargs):
         super().__init__()
         self.superSys = superSys
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    def save(self):
-        saveDict = super().save()
-        saveDict['superSys'] = self.superSys.name
-        return saveDict
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _paramUpdatedToFalse(self):
         pass
@@ -288,7 +275,7 @@ class freeEvolution(genericProtocol):
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         #self._createUnitary = self.matrixExponentiation
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     _freqCoef = 2 * np.pi
     def matrixExponentiation(self):
@@ -309,13 +296,13 @@ class Gate(genericProtocol):
     def __init__(self, **kwargs):
         super().__init__()
         self.__implementation = None
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def system(self):
         return list(self.subSys.values())
 
-    @checkClass('qUniversal')
+    @addDecorator
     def addSubSys(self, subS, **kwargs):
         newSys = super().addSubSys(subS, **kwargs)
         if self.simulation._timeBase__bound is None:
@@ -344,8 +331,6 @@ class Update(updateBase):
     instances = 0
     label = 'Update'
 
-    toBeSaved = qUniversal.toBeSaved.extendedCopy(['value'])
-
     __slots__ = ['value', '__memoryValue', 'setup', 'setback']
 
     def __init__(self, **kwargs):
@@ -354,7 +339,7 @@ class Update(updateBase):
         self.setup = self._setup
         self.setback = self._setback
         self.__memoryValue = None
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def memoryValue(self):

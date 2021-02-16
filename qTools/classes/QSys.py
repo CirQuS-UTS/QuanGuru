@@ -6,7 +6,7 @@ from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-
 from ..QuantumToolbox import linearAlgebra as linAlg #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox import states as qSta #pylint: disable=relative-beyond-top-level
 
-from .base import checkClass, _recurseIfList
+from .base import addDecorator, _recurseIfList
 from .baseClasses import qBaseSim, paramBoundBase, setAttr
 #from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from .QPro import freeEvolution
@@ -34,8 +34,6 @@ class genericQSys(qBaseSim):
     instances = 0
     label = 'genericQSys'
 
-    toBeSaved = qBaseSim.toBeSaved.extendedCopy(['dimension'])
-
     __slots__ = ['__unitary', '__dimension', '__dimsBefore', '__dimsAfter']
 
     def __init__(self, **kwargs):
@@ -47,7 +45,7 @@ class genericQSys(qBaseSim):
 
         self.__dimsBefore = 1
         self.__dimsAfter = 1
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def __add__(self, other):
         if isinstance(self, compQSystem) and isinstance(other, qSystem):
@@ -85,17 +83,6 @@ class genericQSys(qBaseSim):
             newComp.addSubSys(self.copy())
         return newComp
 
-    def save(self):
-        saveDict = super().save()
-        if self.simulation._stateBase__initialStateInput.value is not None:# pylint: disable=no-member, protected-access
-            if hasattr(self.simulation._stateBase__initialStateInput.value, 'A'): # pylint: disable=E1101, W0212
-                saveDict['_stateBase__initialStateInput'] =\
-                    self.simulation._stateBase__initialStateInput.value.A # pylint: disable=no-member, protected-access
-            else:
-                saveDict['_stateBase__initialStateInput'] =\
-                    self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member, protected-access
-        return saveDict
-
     def copy(self, **kwargs): # pylint: disable=arguments-differ
         subSysList = []
         for sys in self.subSys.values():
@@ -110,7 +97,7 @@ class genericQSys(qBaseSim):
 
         if self.simulation._stateBase__initialStateInput._value is not None:
             newSys.initialState = self.simulation._stateBase__initialStateInput.value
-        newSys._qUniversal__setKwargs(**kwargs)
+        newSys._named__setKwargs(**kwargs)
         return newSys
 
     @property
@@ -236,24 +223,12 @@ class compQSystem(genericQSys):
         self.__qSystems = OrderedDict()
         self.couplingName = None
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _timeDependency(self, time=None):
         time = super()._timeDependency(time=time)
         for coupling in self.qCouplings.values():
             coupling._timeDependency(time)
-
-    def save(self):
-        saveDict = super().save()
-        qsys = {}
-        for sys in self.subSys.values():
-            qsys[sys.name] = sys.save()
-        saveDict['qSystems'] = qsys
-        qcou = {}
-        for cou in self.qCouplings.values():
-            qcou[cou.name] = cou.save()
-        saveDict['qCouplings'] = qcou
-        return saveDict
 
     @property
     def subSysDimensions(self):
@@ -280,11 +255,11 @@ class compQSystem(genericQSys):
     def qSystems(self):
         return self._compQSystem__qSystems # pylint: disable=no-member
 
-    @checkClass('qUniversal')
+    @addDecorator
     def addSubSys(self, subSys, **kwargs): # pylint: disable=arguments-differ
         newSys = super().addSubSys(subSys, **kwargs)
         if isinstance(newSys, qCoupling):
-            self._compQSystem__addCoupling(self._qUniversal__subSys.pop(newSys.name))  # pylint: disable=no-member
+            self._compQSystem__addCoupling(self._qBase__subSys.pop(newSys.name))  # pylint: disable=no-member
         elif isinstance(newSys, genericQSys):
             self._compQSystem__addSub(newSys)
         else:
@@ -312,11 +287,11 @@ class compQSystem(genericQSys):
     @_recurseIfList
     def removeSubSys(self, subS, _exclude=[]):#pylint:disable=arguments-differ,dangerous-default-value,too-many-branches
         if isinstance(subS, str):
-            subS = self.getObjByName(subS)
+            subS = self.getByNameOrAlias(subS)
         couplings = list(self.qCouplings.values())
         for coupling in couplings:
             coupling.removeSubSys(subS, _exclude=_exclude)
-            if len(coupling._qUniversal__subSys) == 0: # pylint: disable=protected-access
+            if len(coupling._qBase__subSys) == 0: # pylint: disable=protected-access
                 self.qCouplings.pop(coupling.name)
 
         if subS in list(self.subSys.values()):
@@ -430,7 +405,6 @@ class compQSystem(genericQSys):
             c.delMatrices(_exclude=[])
         return qSys
 
-
 class _timeDep(paramBoundBase):
     instances = 0
     label = '_timeDep'
@@ -440,7 +414,7 @@ class _timeDep(paramBoundBase):
     def __init__(self, **kwargs):
         super().__init__()
         self.timeDependency = None
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _timeDependency(self, time=None):
         if time is None:
@@ -463,7 +437,7 @@ class term(_timeDep):
         self.__frequency = None
         self.__operator = None
         self.__order = 1
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def copy(self, **kwargs):  # pylint: disable=arguments-differ
         newSys = super().copy(frequency=self.frequency, operator=self.operator, order=self.order, **kwargs)
@@ -577,7 +551,7 @@ class qSystem(genericQSys):
             val = kwargs.pop(key, None)
             if val is not None:
                 setattr(self, key, val)
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
         if len(self.subSys) == 0:
             self.addSubSys(term(superSys=self, **kwargs))
@@ -589,18 +563,6 @@ class qSystem(genericQSys):
         for ii, sys in enumerate(self.subSys.values()):
             if sys.name == (oldName + 'term' + str(ii)):
                 sys.name = self.superSys.name + 'term' + str(ii+1) # pylint: disable=no-member
-
-    def save(self):
-        saveDict = super().save()
-        qsys = {}
-        for sys in self.subSys.values():
-            qsys[sys.operator.__name__] = {
-                'frequency': sys.frequency,
-                'operator': sys.operator.__name__,
-                'order': sys.order
-            }
-        saveDict['terms'] = qsys
-        return saveDict
 
     @genericQSys.dimension.setter # pylint: disable=no-member
     def dimension(self, newDimVal):
@@ -685,7 +647,7 @@ class qSystem(genericQSys):
         qSys = list(self.subSys.values())
         return qSys if len(qSys) > 1 else qSys[0]
 
-    @checkClass('qUniversal')
+    @addDecorator
     def addSubSys(self, subS, **kwargs):
         kwargs.pop('superSys', None)
         if not isinstance(subS, term):
@@ -732,7 +694,7 @@ class Spin(qSystem):
         super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
         self.operator = qOps.Jz
         self.__jValue = None
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def jValue(self):
@@ -752,7 +714,7 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
         super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
         kwargs['dimension'] = 2
         self.operator = qOps.Jz
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
 class Cavity(qSystem):
     instances = 0
@@ -762,14 +724,11 @@ class Cavity(qSystem):
     def __init__(self, **kwargs):
         super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
         self.operator = qOps.number
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-# quantum coupling object
 class couplingBase(_timeDep):
     instances = 0
     label = 'couplingBase'
-
-    toBeSaved = qBaseSim.toBeSaved.extendedCopy(['couplingStrength'])
 
     __slots__ = ['__couplingStrength']
 
@@ -777,29 +736,21 @@ class couplingBase(_timeDep):
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.__couplingStrength = None
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
         self.addTerm(*args)
-
-    def save(self):
-        saveDict = super().save()
-        qsys = {}
-        for idx, sys in enumerate(self.coupledSystems):
-            qsys['term' + str(idx)] = [[op.__name__ for op in self.couplingOperators[idx]], [sy.name for sy in sys]]
-        saveDict['terms'] = qsys
-        return saveDict
 
     # TODO might define setters
     @property
     def couplingOperators(self):
         ops = []
-        for co in self._qUniversal__subSys.values(): # pylint: disable=no-member
+        for co in self._qBase__subSys.values(): # pylint: disable=no-member
             ops.append(co[1])
         return ops
 
     @property
     def coupledSystems(self):
         ops = []
-        for co in self._qUniversal__subSys.values(): # pylint: disable=no-member
+        for co in self._qBase__subSys.values(): # pylint: disable=no-member
             ops.append(co[0])
         return ops
 
@@ -812,7 +763,7 @@ class couplingBase(_timeDep):
         if qMat is not None:
             self._paramBoundBase__matrix = qMat # pylint: disable=no-member, assigning-non-slot
         else:
-            if len(self._qUniversal__subSys) == 0: # pylint: disable=no-member
+            if len(self._qBase__subSys) == 0: # pylint: disable=no-member
                 raise ValueError('No operator is given for coupling Hamiltonian')
             self._constructMatrices()
 
@@ -835,12 +786,12 @@ class couplingBase(_timeDep):
 
     def _constructMatrices(self):
         cMats = []
-        for ind in range(len(self._qUniversal__subSys)): # pylint: disable=no-member
+        for ind in range(len(self._qBase__subSys)): # pylint: disable=no-member
             qts = []
-            for indx in range(len(list(self._qUniversal__subSys.values())[ind])): # pylint: disable=no-member
-                sys = list(self._qUniversal__subSys.values())[ind][0][indx] # pylint: disable=no-member
+            for indx in range(len(list(self._qBase__subSys.values())[ind])): # pylint: disable=no-member
+                sys = list(self._qBase__subSys.values())[ind][0][indx] # pylint: disable=no-member
                 order = sys.ind
-                oper = list(self._qUniversal__subSys.values())[ind][1][indx] # pylint: disable=no-member
+                oper = list(self._qBase__subSys.values())[ind][1][indx] # pylint: disable=no-member
                 if oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
                     cHam = qOps.compositeOp(oper(), sys._dimsBefore, sys._dimsAfter)
                 else:
@@ -860,7 +811,7 @@ class couplingBase(_timeDep):
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
             lo = len(self.subSys)
-            self._qUniversal__subSys[str(lo)] = (sys, tuple(args[count])) # pylint: disable=no-member
+            self._qBase__subSys[str(lo)] = (sys, tuple(args[count])) # pylint: disable=no-member
             count += 1
             if count < len(args):
                 count = self.__addTerm(count, ind, sys, *args)
@@ -873,10 +824,10 @@ class couplingBase(_timeDep):
             if isinstance(args[counter][0], qSystem):
                 qSystems = args[counter]
                 if callable(args[counter+1][1]):
-                    #if tuple(args[counter + 1]) in self._qUniversal__subSys.keys(): # pylint: disable=no-member
+                    #if tuple(args[counter + 1]) in self._qBase__subSys.keys(): # pylint: disable=no-member
                     #    print(tuple(args[counter + 1]), 'already exists')
                     lo = len(self.subSys)
-                    self._qUniversal__subSys[str(lo)] = (qSystems, tuple(args[counter + 1])) # pylint: disable=no-member
+                    self._qBase__subSys[str(lo)] = (qSystems, tuple(args[counter + 1])) # pylint: disable=no-member
                     counter += 2
                 # TODO does not have to pass qSystem around
                 if counter < len(args):
@@ -889,11 +840,11 @@ class couplingBase(_timeDep):
 
     @_recurseIfList
     def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
-        vals = self._qUniversal__subSys.values() # pylint: disable=no-member
+        vals = self._qBase__subSys.values() # pylint: disable=no-member
         for ind, val in enumerate(vals):
             systs = val[0]
             if subS in systs:
-                self._qUniversal__subSys.pop(str(ind)) # pylint: disable=no-member
+                self._qBase__subSys.pop(str(ind)) # pylint: disable=no-member
 
 class qCoupling(couplingBase):
     instances = 0
