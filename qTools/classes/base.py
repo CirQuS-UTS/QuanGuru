@@ -1,23 +1,24 @@
 r"""
-    Module for naming etc.
+    This module contains two main base classes and other helper classes, functions, decorators.
 
     .. currentmodule:: qTools.classes.base
 
     .. autosummary::
+        named
+        qBase
 
         keySearch
         aliasDict
         aliasClass
-        named
+        
         _auxiliaryClass
         _recurseIfList
         addDecorator
 
 """
+
 from functools import wraps
 #import weakref
-from collections import OrderedDict
-from random import seed
 import warnings
 from typing import Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
@@ -78,7 +79,7 @@ class aliasDict(dict):
         """
         try:
             return self.__getitem__(key)
-        except: #pylint:disable=bare-except
+        except: #pylint:disable=bare-except  # noqa: E722
             return default
 
     def __setitem__(self, k: Hashable, v: Any) -> None:
@@ -191,9 +192,8 @@ class aliasClass:
         TypeError
             Raised if given name is not string
         """
+        assert isinstance(name, str) or (name is None), "name should be a string."
         if self._aliasClass__name is None: #pylint:disable = no-member
-            if not isinstance(name, str):
-                raise TypeError("name should be a string.")
             self._aliasClass__name = name  #pylint:disable = no-member, assigning-non-slot
         else:
             warnings.warn("name cannot be changed")
@@ -211,7 +211,7 @@ class aliasClass:
         return self._aliasClass__alias #pylint:disable = no-member
 
     @alias.setter
-    def alias(self, ali: Any) -> None:
+    def alias(self, ali: str) -> None:
         r"""
         Setter of the alias property, adds a new alias for the aliasClass object
 
@@ -220,11 +220,8 @@ class aliasClass:
         ali : Any
             an alias for the object
         """
-        if isinstance(ali, list):
-            self._aliasClass__alias.extend([a for a in ali if a not in self._aliasClass__alias])
-        else:
-            if ali not in self._aliasClass__alias: #pylint:disable = no-member
-                self._aliasClass__alias.append(ali) #pylint:disable = no-member
+        if ali not in self._aliasClass__alias: #pylint:disable = no-member
+            self._aliasClass__alias.append(ali) #pylint:disable = no-member
 
     def __members(self) -> Tuple:
         r"""
@@ -274,6 +271,23 @@ class aliasClass:
         """
         return hash(self.name)
 
+def _recurseIfList(func):
+    r"""
+    a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
+    certain objects). It is used in various places of the library (exclude is useful/used in some of them).
+    """
+    def recurse(obj, inp, _exclude=[]): # pylint: disable=dangerous-default-value
+        if isinstance(inp, (list, tuple)):
+            for s in inp:
+                r = recurse(obj, s, _exclude=_exclude)
+        else:
+            try:
+                r = func(obj, inp, _exclude=_exclude)
+            except: #pylint:disable=bare-except   # noqa: E722
+                r = func(obj, inp)
+        return r
+    return recurse
+
 class named:
     r"""
     This class implements a name attribute and a naming mechanism. It is inhereted by all the other qObjects so that
@@ -301,11 +315,11 @@ class named:
     #: alias using the :class:`getByName` method
     #: _allInstacesDict = weakref.WeakValueDictionary() (could not pickle, so returned back to regular dict which
     #: has problems with garbage collection in jupyter sessions)
-    _allInstacesDict = {}
+    _allInstacesDict = aliasDict()
 
     __slots__ = ["__name", "_internal", "__weakref__", "_allInstaces"]
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__()
         #: boolean to distinguish internally and explicitly created instances.
         self._internal: bool = kwargs.pop('_internal', False)
@@ -313,7 +327,7 @@ class named:
         #: protected name attribute as an instance of :class:`~named` class
         self.__name: aliasClass = aliasClass(name=self._named__namer())
         self._named__setKwargs(**kwargs)
-        named._allInstacesDict[self.name.name] = self
+        named._allInstacesDict[self.name] = self
         #: used in :meth:`~named.getByNameOrAlias` to properly pickle and reach updated objects during multi-processing
         self._allInstaces = named._allInstacesDict
 
@@ -334,11 +348,7 @@ class named:
         r"""
         Returns a reference for an object using its name or any alias.
         """
-        obj = None
-        for _, v in self._allInstaces.items():
-            if name == v.name:
-                obj = v
-
+        obj = self._allInstaces.get(name)
         if obj is None:
             raise ValueError("No object with the given name/alias is found!")
         return obj
@@ -384,12 +394,12 @@ class named:
         return self._named__name.alias
 
     @alias.setter
+    @_recurseIfList
     def alias(self, ali: str) -> None:
         for _, v in self._allInstacesDict.items():
-            if ali == v.name:
-                if v == self:
-                    break
-                raise ValueError("Given alias already exist and is assigned to: " + f"{v.name}")
+            if v.name == ali:
+                if v != self:
+                    raise ValueError(f"Given alias ({ali}) already exist and is assigned to: " + f"{v.name}")
         self._named__name.alias = ali
 
     @classmethod
@@ -427,7 +437,7 @@ class named:
         self.__class__._internalInstances = 0 # pylint:disable=protected-access
         self.__class__._instances = 0 # pylint:disable=protected-access
         named._totalNumberOfInst = 0
-        self.__class__._allInstacesDict = {} # pylint:disable=protected-access
+        named._allInstacesDict = aliasDict() # pylint:disable=protected-access
         #self.__class__._allInstacesDict = weakref.WeakValueDictionary() # pylint:disable=protected-access
 
     def __setKwargs(self, **kwargs) -> None:
@@ -450,26 +460,9 @@ class _auxiliaryClass:#pylint:disable=too-few-public-methods
     r"""
     an auxiliary class used to instantiate a dummy object for the :attr:`~qBase._auxiliaryObj` attribute.
     """
-    def __init__(self):
+    def __init__(self) -> None:
         self.name = 'auxObj'
         super().__init__()
-
-def _recurseIfList(func):
-    r"""
-    a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
-    certain objects). It is used in various places of the library (exclude is useful/used in some of them).
-    """
-    def recurse(obj, inp, _exclude=[]): # pylint: disable=dangerous-default-value
-        if isinstance(inp, (list, tuple)):
-            for s in inp:
-                r = recurse(obj, s, _exclude=_exclude)
-        else:
-            try:
-                r = func(obj, inp, _exclude=_exclude)
-            except: #pylint:disable=bare-except
-                r = func(obj, inp)
-        return r
-    return recurse
 
 def addDecorator(addFunction):
     r"""
@@ -515,7 +508,7 @@ def addDecorator(addFunction):
     def wrapper(obj, inp, **kwargs):
         if isinstance(inp, named):
             inp = addFunction(obj, inp, **kwargs)
-        elif isinstance(inp, str):
+        elif isinstance(inp, (str, aliasClass)):
             inp = addFunction(obj, obj.getByNameOrAlias(inp), **kwargs) # pylint:disable=protected-access
         elif inp.__class__ is type:
             inp = wrapper(obj, inp(), **kwargs)
@@ -540,12 +533,12 @@ class qBase(named):
 
     __slots__ = ['__superSys', '__subSys', '__aux', '__auxObj']
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
         #: protected attribute for super system property
         self.__superSys: Any = None
-         #: protected attribute for sub-system dictionary
-        self.__subSys: Dict = OrderedDict()
+        #: protected attribute for sub-system dictionary
+        self.__subSys: Dict = aliasDict()
         #: attribute for the class attribiute _auxiliary (this is required due to pickling in multi-processing)
         self.__aux = qBase._auxiliary
         #: attribute for the class attribiute _auxiliaryObj (this is required due to pickling in multi-processing)
@@ -553,7 +546,7 @@ class qBase(named):
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
     @property
-    def aux(self):
+    def aux(self) -> Dict:
         r"""
         property to get and set auxiliary items into auxiliary dictionary. The setter updates the existing dictionary
         (instead of an single element into the existing dictionary) with a given one, ie. adds key:value pair for the
@@ -562,30 +555,30 @@ class qBase(named):
         return self._qBase__aux
 
     @aux.setter
-    def aux(self, dictionary):
+    def aux(self, dictionary: Dict) -> None:
         self._qBase__aux.update(dictionary)
         #setattr(self, '_qBase__aux', dictionary) used to replace the library, now updates.
 
     @property
-    def auxObj(self):
+    def auxObj(self) -> _auxiliaryClass:
         r"""
         property to reach and set auxiliary attributes into auxiliary object
         """
         return self._qBase__auxObj
 
     @property
-    def superSys(self):
+    def superSys(self) -> Any:
         r"""
         superSys property get/sets __superSys protected attribute
         """
         return self._qBase__superSys
 
     @superSys.setter
-    def superSys(self, supSys):
+    def superSys(self, supSys: Any) -> None:
         setattr(self, '_qBase__superSys', supSys)
 
     @property
-    def subSys(self):
+    def subSys(self) -> Dict:
         r"""
         subSys property gets the subSystem dictonary, and adds the given object/s to ``__subSys`` dictionary.
         It calls the :meth:`addSubSys <qBase.addSubSys>`,
@@ -595,23 +588,25 @@ class qBase(named):
         return self._qBase__subSys
 
     @subSys.setter
-    def subSys(self, subS):
+    def subSys(self, subS: Any) -> None:
         self.resetSubSys()
         self.addSubSys(subS)
 
     @addDecorator
-    def addSubSys(self, subS, **kwargs):
+    def addSubSys(self, subS: named, **kwargs) -> named:
         assert isinstance(subS, named), "Add method is restricted to the class named or its child classes!"
         subS._named__setKwargs(**kwargs) # pylint: disable=W0212
         self._qBase__subSys[subS.name] = subS
+        return subS
 
-    def createSubSys(self, subSysClass, **kwargs) -> named:
+    def createSubSys(self, subSysClass: Any, **kwargs) -> named:
         r"""
         Simply calls and returns the :meth:`~qBase.addSubSys` method, which is decorated to also cover creation.
         """
         return self.addSubSys(subSysClass, **kwargs)
 
-    def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
+    @_recurseIfList
+    def removeSubSys(self, subS: Any, _exclude=[]) -> None: # pylint: disable=dangerous-default-value
         r"""
         Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will
         raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
@@ -622,13 +617,13 @@ class qBase(named):
         assert isinstance(subS, named), "Given object is not an instance of named!"
         self.subSys.pop(subS.name)
 
-    def resetSubSys(self):
+    def resetSubSys(self) -> None:
         r"""
         clear() the subSys dictionary.
         """
         self._qBase__subSys.clear()
 
-    def copy(self, **kwargs):
+    def copy(self, **kwargs) -> "qBase":
         r"""
         Creates n `empty` copies of an object. This method is introduced here to be extended in child
         class. In here, it ** does not copy ** the object, but creates n new objects of the same class and sets the

@@ -13,43 +13,43 @@ def test_aliasDictWithRegularStrings():
     # testing the aliasDict class with regular strings to see that the basic dictonary functionalities are not broken.
     alDict = qbase.aliasDict()
     # add a single item and verify
-    alDict[1] = 2
-    assert alDict[1] == 2
+    alDict[strings[0]] = 2
+    assert alDict[strings[0]] == 2
     # change the value and verify
-    alDict[1] = 3
-    assert alDict[1] == 3
-    assert alDict[1] != 2
+    alDict[strings[0]] = 3
+    assert alDict[strings[0]] == 3
+    assert alDict[strings[0]] != 2
     # remove the item and verify
-    del alDict[1]
+    del alDict[strings[0]]
     assert len(alDict) == 0
 
     # add two items and verify
-    alDict[1] = 2
-    alDict[1] = 1
-    assert alDict[1] == 1
-    alDict[2] = 3
-    alDict[1] = 2
-    assert alDict[1] == 2
-    assert alDict[2] == 3
+    alDict[strings[0]] = 2
+    alDict[strings[0]] = 1
+    assert alDict[strings[0]] == 1
+    alDict[strings[1]] = 3
+    alDict[strings[0]] = 2
+    assert alDict[strings[0]] == 2
+    assert alDict[strings[1]] == 3
     # change one of them and verify
-    alDict[1] = 4
-    assert alDict[1] == 4
-    assert alDict[1] != 2
-    alDict[2] = 2
-    assert alDict[2] == 2
-    assert alDict[2] != 3
+    alDict[strings[0]] = 4
+    assert alDict[strings[0]] == 4
+    assert alDict[strings[0]] != 2
+    alDict[strings[1]] = 2
+    assert alDict[strings[1]] == 2
+    assert alDict[strings[1]] != 3
     # remove one and verify
-    del alDict[1]
+    del alDict[strings[0]]
     assert len(alDict) == 1
-    alDict[2] = 1
+    alDict[strings[1]] = 1
     assert len(alDict) == 1
-    assert alDict[2] == 1
-    assert alDict[2] != 2
-    del alDict[2]
+    assert alDict[strings[1]] == 1
+    assert alDict[strings[1]] != 2
+    del alDict[strings[1]]
     assert len(alDict) == 0
-    alDict[1] = 1
+    alDict[strings[1]] = 1
     assert len(alDict) == 1
-    assert alDict[1] == 1
+    assert alDict[strings[1]] == 1
 
     # update works properly
     alDict.update(dict(zip(strings[:-1], strings[:-1])))
@@ -115,11 +115,14 @@ def test_aliasDictWithAliasClassAndRegularStrings(): # pylint: disable=too-many-
     # aliases) of an aliasClass object, this changes the first key that the search method finds. For example, in an
     # ordered dict, it will change the earliest element
     assert len(alDict) == 0
+    # add an item both for the name an alias of aliasObj2, then aliasObj2 as the key gets the earlier one
     alDict[aliasObj2.name] = 2
     alDict[aliasObj1.name] = 1
     alDict[aliasObj2.alias[0]] = 1
+    # aliasObj2 gets 2 because thats added earlier and alias[0] gets 1 because it is the key itself
     assert alDict[aliasObj2] == 2
     assert alDict[aliasObj2.alias[0]] == 1
+    # some other alias raises an error
     with pytest.raises(KeyError):
         val = alDict[aliasObj2.alias[1]]
     del alDict[aliasObj2]
@@ -204,7 +207,7 @@ def test_aliasDictPicklingAndRepr():
     # create a dictionary with values are the keys
     alDict = qbase.aliasDict()
     alDict.update(dict(zip(listOfAliasObj, listOfAliasObj)))
-
+    # pickle dumps and loads, then check it is equal
     aldictpicle = pickle.loads(pickle.dumps(alDict))
     assert aldictpicle == alDict
     assert eval(repr(alDict)) == alDict
@@ -225,9 +228,9 @@ def test_aliasNamingBothAtInstantiationAndAfter():
 
     # 2) test that the name has to be string, i.e. raises error otherwise.
     aliasObj = qbase.aliasClass()
-    with pytest.raises(TypeError):
+    with pytest.raises(AssertionError):
         aliasObj.name = 2
-    with pytest.raises(TypeError):
+    with pytest.raises(AssertionError):
         aliasObj.name = qbase.aliasClass()
     with pytest.raises(AssertionError):
         qbase.aliasClass(name=2)
@@ -246,26 +249,17 @@ def test_aliasClassAliasProperty():
     assert aliasObj.alias == []
 
     # 2) test assigning alias at instantiation
-    # a) a list of aliases
-    aliasObj = qbase.aliasClass(alias=strings)
-    assert aliasObj.alias == strings
-    # b) a single alias
     aliasObj = qbase.aliasClass(alias=strings[0])
     assert strings[0] in aliasObj.alias
     assert aliasObj.alias == [strings[0]]
 
     # 3) after instantiation
-    # a) a list of aliases
-    aliasObj = qbase.aliasClass()
-    aliasObj.alias = strings
-    assert aliasObj.alias == strings
-    # b) a single alias
-    # b.1) first alias
+    # a) first alias
     aliasObj = qbase.aliasClass()
     aliasObj.alias=strings[0]
     assert strings[0] in aliasObj.alias
     assert aliasObj.alias == [strings[0]]
-    # b.2) second alias
+    # b) second alias
     aliasObj.alias=strings[1]
     assert strings[1] in aliasObj.alias
     assert aliasObj.alias == strings[0:2]
@@ -277,7 +271,7 @@ def test_stringRepresntaionOfAliasClass():
     assert aliasObj.name == strRep
 
 def test_equalityOfTwoAliasClassInstances():
-    # they should be equal if there is a match in their names or an alias
+    # any two aliasClass instances should be equal if there is a match in their names or an alias
     # cases: 1) name = name, 2) name = an alias, 3) an alias = another alias, 4) name = name & an alias = another alias,
     # 5) no equality, and 6) ob1 != ob4 and ob1 = ob3 does not imply ob3 != ob4, they might be equal
     aliasObj1 = qbase.aliasClass(name=strings[0], alias=strings[1])

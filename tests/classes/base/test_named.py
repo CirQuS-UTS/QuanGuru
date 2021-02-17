@@ -6,8 +6,10 @@ from functools import partial
 import pytest
 import qTools.classes.base as qbase #pylint: disable=import-error
 
+qbase.named()._resetAll() # pylint:disable=protected-access
+
 def randString(N):
-    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+    return str(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N)))
 
 strings = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10))]
 
@@ -39,6 +41,8 @@ def test_instanceNumberIncrementationsAndDefaultNames(cls):
         # verify total numbers are correct
         assert obInternal._instances == 2*(i+1) # pylint:disable=protected-access
         assert qbase.named._totalNumberOfInst == 2*(i+1) # pylint:disable=protected-access
+    qbase.named()._resetAll() # pylint:disable=protected-access
+    cls()._resetAll() # pylint:disable=protected-access
 
 @pytest.mark.parametrize("cls", [qbase.named, qbase.qBase])
 def test_addingAliasInNamedOrChildInstances(cls):
@@ -46,16 +50,27 @@ def test_addingAliasInNamedOrChildInstances(cls):
     # method, which raises an error if the given name/alias does not belong to any object
     for i in range(2):
         obj = cls(_internal=bool(i))
-        obj.alias = strings[0:-1]
-        for s in [obj.name, obj.name.name, *strings[0:-1]]:
+        obd = cls(_internal=bool(i))
+        print(obd._allInstacesDict)
+        strings2 = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10))]
+        # add a list of alias
+        obj.alias = strings2[0:-1]
+        # make sure you cannot add an exisiting alias to another object
+        with pytest.raises(ValueError):
+            obd.alias = strings2[0]
+        # reach by its name, name.name, and any alias
+        for s in [obj.name, obj.name.name, *strings2[0:-1]]:
             assert obj.name == s
             assert obj.getByNameOrAlias(s) is obj
+        # some random str does not work
         with pytest.raises(ValueError):
-            obj.getByNameOrAlias(strings[-1])
+            obj.getByNameOrAlias(strings2[-1])
+    # reset to uncouple tests
     qbase.named()._resetAll() # pylint:disable=protected-access
     cls()._resetAll() # pylint:disable=protected-access
 
 def forMultiProcessingTest(obj, i):
+    # used in the below multiprocessing test to check you can get the object by its name alias etc. during multiprocess
     setattr(obj, "_internal", i)
     obj.alias = strings[0: random.randint(1, len(strings)-1)]
     assert obj.getByNameOrAlias(obj.name) is obj
@@ -64,9 +79,12 @@ def forMultiProcessingTest(obj, i):
 
 @pytest.mark.parametrize("cls", [qbase.named, qbase.qBase])
 def test_getByNameOrAliasWithMultiProcessing(cls):
+    # first make sure that the object properly pickles. the equality is satisfied just by looking at their names, since
+    # the names are unique
     ob = cls(_internal=False)
     ob1 = pickle.loads(pickle.dumps(ob))
     assert ob1 == ob
+    # create a pool and call forMultiProcessingTest in the map
     _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1)
     _pool.map(partial(forMultiProcessingTest, ob), range(5), chunksize=1)
     _pool.close()
