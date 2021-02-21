@@ -24,13 +24,12 @@ class updateBase(qBase):
     r"""
     Base class for :class:`~_sweep` and :class:`~Update` classes, which are used respectively in parameter sweeps and
     step updates in protocols.
-    This class implements a default method to change the value of an attribute (str of the attribute is
-    stored in key) of the objects in the subSys dictionary. It can also sweep/update auxiliary dictionary by
+    This class implements a default method to change the value of an attribute (str of the attribute name is
+    stored in self.key) of the objects in the subSys dictionary. It can also sweep/update auxiliary dictionary by
     setting the aux boolean to True. The default method
     can be changed to anything by pointing function attribute to any other Callable.
     """
-
-    #: class label used in default naming
+    #: (**class attribute**) class label used in default naming
     label: str = 'updateBase'
 
     __slots__ = ['__key', '__function', '_aux']
@@ -60,7 +59,7 @@ class updateBase(qBase):
     @property
     def system(self) -> Union[List, named]:
         r"""
-        system property wraps ``subSys`` dictionary to create new terminology, it basically:
+        system property wraps ``subSys`` dictionary to create a new terminology, it basically:
 
         gets subSys[0] if there is only one item in it, else  list(subSys.values())
         setter works exactly as :meth:`addSubSys <qTools.classes.base.qBase.addSubSys>` method.
@@ -69,7 +68,7 @@ class updateBase(qBase):
         return qSys if len(qSys) > 1 else qSys[0]
 
     @system.setter
-    def system(self, qSys) -> None:
+    def system(self, qSys: Any) -> None:
         super().addSubSys(qSys)
 
     def _runUpdate(self, val: Any) -> None:
@@ -86,16 +85,18 @@ class updateBase(qBase):
 
 class _parameter: # pylint: disable=too-few-public-methods
     r"""
-    There are two types of parametric bounds/relations in this library,
+    _parameter instances can be bound to each other to implement a (value) dependecy between them.
+
+    There are two types of parametric bounds/relations/dependencies in this library,
 
         1. Value of an attribute in an instance is bound to the value of the same attribute in another instance, meaning
            it gets its value from its bound.
         2. Not the value of the attribute itself, but any change in its value is important for another object.
 
-    This class wraps (composition) the value of a parameter (attribute) to create a hierarchical dependency required for
-    the first case. The second case is covered by :class:`~paramBoundBase`.
+    This class wraps (composition) the value of a parameter (an attribute) to create a hierarchical dependency required
+    for the first case. The second case is covered by :class:`~paramBoundBase`.
 
-    It is intended to be used with `private attributes` and the corresponding properties retunrs the ``value`` of
+    It is intended to be used with `private attributes` and the corresponding properties returns the ``value`` of
     that attribute (which is a _parameter object).
 
     If a ``_parameter`` is given another ``_parameter`` as its ``_bound``, it returns the ``value`` of its ``_bound``,
@@ -122,8 +123,9 @@ class _parameter: # pylint: disable=too-few-public-methods
     __slots__ = ['_value', '_bound']
 
     def __init__(self, value: Any = None, bound: '_parameter' = None) -> None:
+        assert bound is not self, "cannot bound a _parameter to itself!"
         #: the value to be wrapped
-        self._value : Any = value #pylint:disable=unsubscriptable-object
+        self._value: Any = value #pylint:disable=unsubscriptable-object
         #: bounded _parameter object, self is not bounded to anything when this is None or any other object that does
         #: not have a ``value`` attribute. Assigned to False when a bound is broken (by updating the value).
         self._bound: "_parameter" = bound
@@ -136,7 +138,7 @@ class _parameter: # pylint: disable=too-few-public-methods
         which should be an instance of :class:`~_parameter` object but can be any other object with an ``_value``
         &/ ``_bound`` attribute.
 
-        Setter assignes the ``_value`` to a given input and ``_bound`` to ``False``
+        Setter assigns the ``_value`` to a given input and ``_bound`` to ``False``
         (meaning the bound to any other object is broken, and value is different than the default, which is None)
         """
         if hasattr(self._bound, 'value'):
@@ -162,7 +164,7 @@ def setAttrParam(obj: "paramBoundBase", attrStr: str, val: Any) -> None:
     r"""
     a customised setattr that changes the value stored as the ``value`` attribute of a _parameter object.
     The value (and _paramUpdated) is changed, if the new value is different than the old/existing. In any case, it
-    breaks existing timeBase and parameter bounds.
+    breaks existing timeBase bounds (bound between :class:`~Simulation` instances).
     """
     oldVal = getattr(obj, attrStr).value
     if obj._timeBase__bound is not None:
@@ -175,6 +177,8 @@ def setAttrParam(obj: "paramBoundBase", attrStr: str, val: Any) -> None:
 
 class paramBoundBase(qBase):
     r"""
+    Implements a mechanism to inform a set of objects when a (relevant) change happens on self.
+
     There are two types of parametric bounds/relations in this library,
 
         1. Value of an attribute in an instance is bound to the value of the same attribute in another instance, meaning
@@ -183,28 +187,27 @@ class paramBoundBase(qBase):
 
     First case is covered by the :class:`~_parameter` , and the second is by this class.
 
-    Such bound is used to make sure that a **protocol** does not re-create (re-exponentiate)
+    Such bound, for example, is used to make sure that a **protocol** does not re-create (re-exponentiate)
     its **unitary matrix**, unless a relevant parameter is changed. If the ``__paramUpdated`` is ``False``, a protocol
     is not going to re-create its unitary, the ``__paramUpdated`` is set to ``True`` only by an object which contain
     the protocol in its ``__paramBound`` dictionary and changes its ``__paramUpdated`` to ``True`` by calling
     :meth:`_paramUpdated <paramBoundBase._paramUpdated>` property. These sort of dependencies are implemented in the
     library and are not meant for external modifications by a user.
     """
-
-    #: class label used in default naming
+    #: (**class attribute**) class label used in default naming
     label: str = 'paramBoundBase'
 
     __slots__ = ['__paramUpdated', '__paramBound', '__matrix']
 
     def __init__(self, **kwargs) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
-        #: This stores a matrix in some sub-classes, such as protocols ``__matrix`` is their unitary, single quantum
+        #: This stores a matrix in some sub-classes, e.g. protocols ``__matrix`` store their unitary, single quantum
         #: systems use it for their ``freeMat``
         self.__matrix = None
         #: Signals that a parameter is updated. This is set to ``True`` when a parameter is updated by :meth:`~setAttr`,
         #: :meth:`~setAttrParam` methods, or True/False by another object, if this object is in anothers paramBound.
         self.__paramUpdated = True
-        # NOTE : protocols check only their own _paramUpdated for re-creation, so, they only set their own
+        # NOTE protocols check only their own _paramUpdated for re-creation, so, they only set their own
         # _paramUpdated back after re-creation. This means that the dependency of _paramUpdated boolean is different
         # than :class:`~_parameter` class.
 
@@ -227,7 +230,7 @@ class paramBoundBase(qBase):
     def _createParamBound(self, bound: "paramBoundBase", **kwargs) -> "paramBoundBase":
         r"""
         creates a bound to ``self``, ie. given ``bound`` (have to be an :class:`~paramBoundBase` instance) objects
-        `__paramUpdated` boolean of the given ``bound`` is updated whenever self updates its.
+        `__paramUpdated` boolean is updated whenever self updates its.
         """
         assert isinstance(bound, paramBoundBase), "Given object is not an instance of paramBoundBase!"
         bound._named__setKwargs(**kwargs) # pylint: disable=no-member
@@ -239,9 +242,9 @@ class paramBoundBase(qBase):
         r"""
         This method removes the given object from the ``__paramBound`` dictionary.
         """
-        if not isinstance(bound, named):
+        if not isinstance(bound, paramBoundBase):
             bound = self.getByNameOrAlias(bound)
-        assert isinstance(bound, named), "Given object is not an instance of named!"
+        assert isinstance(bound, paramBoundBase), "Given object is not an instance of paramBoundBase!"
         self._paramBoundBase__paramBound.pop(bound.name)
 
     @property
@@ -261,7 +264,7 @@ class paramBoundBase(qBase):
 
     def delMatrices(self, _exclude: List = []) -> List: # pylint: disable=dangerous-default-value
         r"""
-        This method deletes (sets to ``None``) the ``__matrix`` value for self and calls the ``delMatrices`` for on the
+        This method deletes (sets to ``None``) the ``__matrix`` value for self and calls the ``delMatrices`` for the
         objects in ``__paramBound`` and ``subSys`` dictionaries. Also, calls ``del`` on the old value of ``__matrix``.
 
         Parameters
@@ -289,130 +292,64 @@ class paramBoundBase(qBase):
 
 class computeBase(paramBoundBase):
     r"""
-    Contains 3 attributes relevant to run-time calculations/computations and result storage.
-
-    Attributes
-    ----------
-    qRes : qResults
-        This attribute is an instance of :class:`qResults <qTools.classes.QRes.qResults>`, which is used to store
-        simulation results and states.
-    compute : Callable or None
-        This is by default ``None``, but if it is assingned to be a function that is written in a particular format,
-        it is called at each step of the time evolution to perform whatever is in its body, which is intended to be
-        certain computations on the current state of the system and store them in the ``self.qRes.results``.
-        TODO : create a simple demo and a cross-reference
-    calculate : Callable or None
-        This is by default ``None``, but if it is assingned to be a function that is written in a particular format,
-        it is called at certain stages of simulation (like in the beginning of time-evolution etc.), to perform
-        some calculation, which are going to be needed in the compute, and store them in the ``self.qRes.calculated``.
-        TODO : create a simple demo and a cross-reference
+    Implements 3 attributes (and mechanisms) relevant to run-time calculations/computations and result storage.
     """
-
-    #: Total number of instances of the class
-    instances: int = 0
-
-    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
+    #: (**class attribute**) class label used in default naming
     label: str = 'computeBase'
 
-    ignore = []
-
-    __slots__ = ['qRes', 'compute', '__calculate', '__calculateAtStart']
+    __slots__ = ['qRes', 'compute', 'calculateStart', 'calculateEnd']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.compute: Callable = None
         r"""
-        This is by default ``None``, but if it is assigned to a function written in a particular format,
-        the function is called at each step of the time evolution. It is intended to be
-        certain computations on the current state of the system and store them in the ``self.qRes.results``.
+        Function to call at each step of the time evolution, by default ``None``. It needs to be written in the
+        appropriate form  TODO create examples/tutorial and link here.
+        It is intended to perform computations on the current state of the system and store the results
+        in the ``self.qRes.results``.
         """
-        self.__calculate: Callable = None
+        self.calculateStart: Callable = None
         r"""
-        This is by default ``None``, but if it is assigned to a function written in a particular format,
-        it is called at certain stages of simulation (like in the beginning of time-evolution etc.), to perform
-        some calculation, which might be needed in the compute, and store them in the ``self.qRes.calculated``.
+        Function to call at the beginning of time-evolution (or simulation) to perform
+        some calculations, which might be needed in the compute, and store them in the ``self.qRes.calculated``.
+        This is by default ``None``.
         """
-        self.__calculateAtStart: str = True
+        self.calculateEnd: str = True
         r"""
-        This a protected boolean updated through the :py:attr:`~calculateAt` which uses strings to decide on the bool.
-        It is used to determine, when, before (True) or after (False) time evolution, the calculate function is going to
-        be called.
+        Function to call at the end of time-evolution (or simulation) to perform
+        some calculations, which might be needed in the compute, and store them in the ``self.qRes.calculated``.
+        This is by default ``None``.
         """
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
         #: This attribute is an instance of :class:`~qResults`, which is used to store simulation results and states.
         self.qRes: qResults = qResults(superSys=self, _internal=True)
 
-    @property
-    def calculate(self):
+    def __compute(self, states): # pylint: disable=dangerous-default-value
         r"""
-        Property to get&set the _computeBase__calculate protected attribbute. Setter deal
-        """
-        return self._computeBase__calculate
-
-    @calculate.setter
-    def calculate(self, inp):
-        if callable(inp):
-            self._computeBase__calculate = inp #pylint: disable=assigning-non-slot
-        elif ((isinstance(inp, (list, tuple))) and (len(inp) == 2)):
-            if callable(inp[0]):
-                self._computeBase__calculate = inp[0] #pylint: disable=assigning-non-slot
-                self.calculateAt = inp[1]
-            elif callable(inp[1]):
-                self._computeBase__calculate = inp[1] #pylint: disable=assigning-non-slot
-                self.calculateAt = inp[0]
-            else:
-                raise TypeError('No callable is given!')
-        else:
-            raise TypeError(f'{inp.__class__} type is not supported!')
-
-    @property
-    def calculateAt(self):
-        if self._computeBase__calculateAtStart: #pylint: disable=assigning-non-slot
-            string = 'begining'
-        else:
-            string = 'end'
-        return string
-
-    @calculateAt.setter
-    def calculateAt(self, string):
-        if string.lower() in ['start', 'begin', 'begining']:
-            self._computeBase__calculateAtStart = True #pylint: disable=assigning-non-slot
-        elif string.lower() in ['end']:
-            self._computeBase__calculateAtStart = False #pylint: disable=assigning-non-slot
-
-    def __compute(self, states, sim=False): # pylint: disable=dangerous-default-value
-        """
         This is the actual compute function that is called in the time-evolution, it calls ``self.compute`` if it is a
         callable and does nothing otherwise.
         """
+        if callable(self.compute):
+            self.compute(self, *states) # pylint: disable=not-callable
 
-        if self not in self.ignore:
-            computeBase.ignore.append(self)
-            if callable(self.compute):
-                self.compute(self, *states) # pylint: disable=not-callable
-                # FIXME with calculate
-                if not sim:
-                    for qsp in self.subSys.values():
-                        if hasattr(qsp, '_computeBase__compute'):
-                            qsp._computeBase__compute(states)
-
-    def __calculateMeth(self):
+    def __calculate(self, where: str = "start"):
+        r"""
+        This is the actual calculate function that is called in the time-evolution, it calls
+        (if callable, does nothing otherwise) ``self.calculateStart``
+        or ``self.calculateEnd`` depending on the given string `where`.
         """
-        This is the actual calculate function that is called in the time-evolution, it calls ``self.calculate`` if it is
-        a callable and does nothing otherwise.
-        """
+        if where == "start":
+            meth = self.calculateStart
+        elif where == "end":
+            meth = self.calculateEnd
 
-        if callable(self.calculate):
-            self._computeBase__calculate(self) # pylint: disable=not-callable
-            # FIXME with compute
-            for qsp in self.subSys.values():
-                if hasattr(qsp, '_computeBase__calculate'):
-                    qsp._computeBase__calculateMeth()
+        if callable(meth):
+            meth(self) # pylint: disable=not-callable
 
     @paramBoundBase.alias.setter
     def alias(self, ali: str) -> None:
         r"""
-        Extends the alias setter to assign an alias (givenAlias + Result) to self.qRes as well.
+        Extends the alias setter to assign an alias (givenAlias + Results) to self.qRes as well.
         """
         named.alias.fset(self, ali) #pylint:disable=no-member
         self.qRes.alias = ali + "Results"
@@ -430,9 +367,6 @@ class computeBase(paramBoundBase):
         returns ``self.qRes.states``.
         """
         return self.qRes.states
-    # @property
-    # def statesList(self):
-    #     return list(self.qRes.states.values())[0]
 
 class qBaseSim(computeBase):
     """

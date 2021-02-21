@@ -77,7 +77,7 @@ def timeDependent(qSim):
 # This flexibility should be reflected into protocol object
 
 def timeEvolDefault(qSim, td):
-    computeBase.ignore = []
+    #computeBase.ignore = []
     qSim._Simulation__compute() # pylint: disable=protected-access
     for protocol in qSim.subSys.keys():
         qSim.subSys[protocol]._computeBase__compute([protocol.currentState]) # pylint: disable=protected-access
@@ -88,7 +88,7 @@ def timeEvolDefault(qSim, td):
 
     if callable(qSim.evolFunc):
         for ind in range(qSim.stepCount):
-            computeBase.ignore = []
+            #computeBase.ignore = []
             qSim._Simulation__index = ind # pylint: disable=protected-access
             if td:
                 qSim.timeDependency.runSweep(qSim.timeDependency._indicesForSweep(ind, *qSim.timeDependency.inds))
