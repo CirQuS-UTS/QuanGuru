@@ -1,5 +1,5 @@
 r"""
-    This module contains two main base classes and other helper classes, functions, decorators.
+    Contains two main base classes (for naming and sub/superSys) and their helper classes, functions, decorators.
 
     .. currentmodule:: qTools.classes.base
 
@@ -7,10 +7,12 @@ r"""
         named
         qBase
 
+    .. autosummary::
+        aliasClass
         keySearch
         aliasDict
-        aliasClass
-        
+
+    .. autosummary::
         _auxiliaryClass
         _recurseIfList
         addDecorator
@@ -26,6 +28,107 @@ __all__ = [
     'qBase', 'named'
 ]
 
+class aliasClass:
+    r"""
+    aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name
+    attribute of qObjects and to work with the extended dictionary :class:`~aliasDict`.
+    The default name of qObjects is assigned to be ``__name`` attribute, and the user assigned aliases for a qObject
+    are stored in the ``__alias`` list. The string representation and hash value of an aliasClass objects is obtained
+    from its name.
+    """
+
+    __slots__ = ["__name", "__alias"]
+
+    def __init__(self, name: Optional[str] = None, alias: List = list) -> None: #pylint:disable=unsubscriptable-object
+        assert isinstance(name, str) or (name is None), "name should be a string."
+        self.__name: Optional[str] = name #pylint:disable=unsubscriptable-object
+        r"""
+        Protected name attribute of an aliasClass object, set&get through the :py:attr:`~aliasClass.name` property.
+        Default is ``None``. It can be set to any string (which cannot be changed later, unless directly overwritting
+        ``self._aliasClass__name``).
+        """
+        #: list of aliases of an aliasClass objects, set&get through the :py:attr:`~aliasClass.alias` property
+        self.__alias: List = [] if isinstance(alias, type) else alias if isinstance(alias, list) else [alias]
+
+    @property
+    def name(self) -> Union[str, None]: #pylint:disable=unsubscriptable-object
+        r"""
+        Getter of the name property, returns ``self.__name``.
+
+        Setter of the name property, sets ``self.__name`` to given ``name`` provided that the ``self.__name is None``
+        and the given ``name`` is a string. This means that the name can only be a string and cannot be changed
+        once set. Unless, of course, directly overwriting the protected attribute.
+
+        Raises
+        ------
+        TypeError
+            Raised if given name is not string
+        """
+        return self._aliasClass__name #pylint:disable = no-member
+
+    @name.setter
+    def name(self, name: str) -> None:
+        assert isinstance(name, str) or (name is None), "name should be a string."
+        if self._aliasClass__name is None: #pylint:disable = no-member
+            self._aliasClass__name = name  #pylint:disable = no-member, assigning-non-slot
+        else:
+            warnings.warn("name cannot be changed")
+
+    @property
+    def alias(self) -> List:
+        r"""
+        Getter of the alias property, returns the alias list.
+
+        Setter of the alias property, adds a new alias for the aliasClass object (if the given alias is not already
+        in the list).
+        """
+        return self._aliasClass__alias #pylint:disable = no-member
+
+    @alias.setter
+    def alias(self, ali: str) -> None:
+        if ali not in self._aliasClass__alias: #pylint:disable = no-member
+            self._aliasClass__alias.append(ali) #pylint:disable = no-member
+
+    def __members(self) -> Tuple:
+        r"""
+        :returns: a tuple containing the name and all aliases
+        """
+        return (self.name, *self._aliasClass__alias) #pylint:disable = no-member
+
+    def __repr__(self) -> str:
+        r"""
+        representation of the object is equal to ``repr(self.name)``.
+        """
+        return repr(self.name)
+
+    def __str__(self) -> str:
+        r"""
+        string representation of the object is its name
+        """
+        return self.name
+
+    def __eq__(self, other: Union["aliasClass", str]) -> bool:  #pylint:disable=unsubscriptable-object
+        r"""
+        Equality of any two aliasClass objects (or an aliasClass object to a string) is determined by comparing their
+        names and all
+        their aliases (or to given string), if at least one of them are the same (or the same as the given string),
+        aliasClass objects (or the aliasClass object and the given string) are considereed to be equal.
+
+        Parameters
+        ----------
+        other : Union[aliasClass, str]
+            aliasClass object or string to check the equality with self
+        """
+        if type(other) is type(self):
+            return any(it in self._aliasClass__members() for it in other._aliasClass__members())#pylint:disable = no-member
+        return any(it == other for it in self._aliasClass__members())                #pylint:disable = no-member
+
+    def __hash__(self) -> int:
+        r"""
+        Hash value of an aliasClass object is equal to hash of its name.
+        """
+        return hash(self.name)
+
 def keySearch(obj: Dict, k: Any) -> Hashable:
     r"""
     Method to find a key or any other obj equal to the key in a ``dictonary.keys()``. This method is used in
@@ -40,11 +143,9 @@ def keySearch(obj: Dict, k: Any) -> Hashable:
     k : Any
         The key to search in the dictonary (obj)
 
-    Returns
-    -------
-    Hashable
-        If the key itself or no equality is found in the dictonary keys, returns the key.
-        If an equal key is found in the dictonary, returns the equal key from the dictonary.
+
+    :returns: the key, if the key itself or no equality is found in the dictonary keys. returns the equal key from the
+              dictonary, if an equal key is found in the dictonary.
     """
     # NOTE this returns the first match, meaning there can be more than one equality. Example, two string keys in the
     # dictionary and the given key is an aliasClass object with these keys in its members (tuple of its name and
@@ -142,135 +243,6 @@ class aliasDict(dict):
         """
         return type(self)(self)
 
-class aliasClass:
-    r"""
-    aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name
-    attribute of qObjects and to work with the extended dictionary :class:`~aliasDict`.
-    The default name of qObjects is assigned to be ``__name`` attribute, and the user assigned aliases for a qObject
-    are stored in the ``__alias`` list. The string representation and hash value of an aliasClass objects is obtained
-    from its name.
-    """
-
-    __slots__ = ["__name", "__alias"]
-
-    def __init__(self, name: Optional[str] = None, alias: List = list) -> None: #pylint:disable=unsubscriptable-object
-        assert isinstance(name, str) or (name is None), "name should be a string."
-        #: (unique) name of an aliasClass object, set&get through the :py:attr:`~aliasClass.name` property. Default
-        #: value is
-        #: ``None``, and it can be set to any string (which cannot be changed later, unless directly overwritting
-        #: ``self._aliasClass__name``)
-        self.__name: Optional[str] = name #pylint:disable=unsubscriptable-object
-        #: list of aliases of an aliasClass objects, set&get through the :py:attr:`~aliasClass.alias` property
-        self.__alias: List = [] if isinstance(alias, type) else alias if isinstance(alias, list) else [alias]
-
-    @property
-    def name(self) -> Union[str, None]: #pylint:disable=unsubscriptable-object
-        r"""
-        Getter of the name property, returns ``self.__name``.
-
-        Returns
-        -------
-        Union[str, None]
-            ``self.__name``
-        """
-        return self._aliasClass__name #pylint:disable = no-member
-
-    @name.setter
-    def name(self, name: str) -> None:
-        r"""
-        Setter of the name property, sets ``self.__name`` to given ``name`` provided that the ``self.__name is None``
-        and the given ``name`` is a string. This means that the name can only be a string and cannot be changed
-        once set. Unless, of course, directly overwriting the protected attribute.
-
-        Parameters
-        ----------
-        name : str
-            name for the aliasClass object. If the object already has string name, it cannot be changed.
-
-        Raises
-        ------
-        TypeError
-            Raised if given name is not string
-        """
-        assert isinstance(name, str) or (name is None), "name should be a string."
-        if self._aliasClass__name is None: #pylint:disable = no-member
-            self._aliasClass__name = name  #pylint:disable = no-member, assigning-non-slot
-        else:
-            warnings.warn("name cannot be changed")
-
-    @property
-    def alias(self) -> List:
-        r"""
-        Getter of the alias list.
-
-        Returns
-        -------
-        List
-            the list of aliases of the  object
-        """
-        return self._aliasClass__alias #pylint:disable = no-member
-
-    @alias.setter
-    def alias(self, ali: str) -> None:
-        r"""
-        Setter of the alias property, adds a new alias for the aliasClass object
-
-        Parameters
-        ----------
-        ali : Any
-            an alias for the object
-        """
-        if ali not in self._aliasClass__alias: #pylint:disable = no-member
-            self._aliasClass__alias.append(ali) #pylint:disable = no-member
-
-    def __members(self) -> Tuple:
-        r"""
-        Returns
-        -------
-        Tuple
-            a tuple containing the name and all aliases
-        """
-        return (self.name, *self._aliasClass__alias) #pylint:disable = no-member
-
-    def __repr__(self) -> str:
-        r"""
-        representation of the object is equal to ``repr(self.name)``.
-
-        Returns
-        -------
-        str
-            ``self.name``
-        """
-        return repr(self.name)
-
-    def __str__(self) -> str:
-        r"""
-        string representation of the object is its name
-        """
-        return self.name
-
-    def __eq__(self, other: Union["aliasClass", str]) -> bool:  #pylint:disable=unsubscriptable-object
-        r"""
-        Equality of any two aliasClass objects (or an aliasClass object to a string) is determined by comparing their
-        names and all
-        their aliases (or to given string), if at least one of them are the same (or the same as the given string),
-        aliasClass objects (or the aliasClass object and the given string) are considereed to be equal.
-
-        Parameters
-        ----------
-        other : Union[aliasClass, str]
-            aliasClass object or string to check the equality with self
-        """
-        if type(other) is type(self):
-            return any(it in self._aliasClass__members() for it in other._aliasClass__members())#pylint:disable = no-member
-        return any(it == other for it in self._aliasClass__members())                #pylint:disable = no-member
-
-    def __hash__(self) -> int:
-        r"""
-        Hash value of an aliasClass object is equal to hash of its name.
-        """
-        return hash(self.name)
-
 def _recurseIfList(func):
     r"""
     a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
@@ -290,30 +262,31 @@ def _recurseIfList(func):
 
 class named:
     r"""
-    This class implements a name attribute and a naming mechanism. It is inhereted by all the other qObjects so that
-    they have a unique default names and users are able to assign aliases for any object with the naming mechanism,
-    which uses the :class:`~aliasClass`.
+    Implements a name attribute and a naming standard. It is inhereted by all the other qObjects so that
+    they have unique default names, and users are able to assign aliases for any object. It uses the
+    :class:`~aliasClass` for its name attribute to enable this.
 
     Default naming is ``(_)class.label (same as class name) + number of instances created in a session``.
     The optional _ in the name is to distinguish between the objects created internally which is not trivially known
-    for a user, and the object explicitly created by user does not have an underscore in their names.
+    by the user. The objects explicitly created by the user does not have an underscore in their names.
     There are 4 class attribute to achieve these, 1 the label and 3 for keeping number of (internal, external, and
     total number of) instances.
     One last counter is the total number of instances of the classes inherited from named.
     """
-    #: class label used in default naming
+    #: (**class attribute**) class label used in default naming
     label: str = 'named'
-    #: number of instances created internally by the library
+    #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
-    #: number of instances created explicitly by the user
+    #: (**class attribute**) number of instances created explicitly by the user
     _externalInstances: int = 0
-    #: number of total instances = _internalInstances + _externalInstances
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
-    #: total number of instances including named and all the child classes
+    #: (**class attribute**) total number of instances including named and all the child classes
     _totalNumberOfInst: int = 0
-    #: a weakValue dictionary to store a weakref to every instance. This is used to reach any instance by its name or
+    #: (**class attribute**) a weakValue dictionary to store a weakref to every instance.
+    #: This is used to reach any instance by its name or
     #: alias using the :class:`getByName` method
-    #: _allInstacesDict = weakref.WeakValueDictionary() (could not pickle, so returned back to regular dict which
+    #: _allInstacesDict = weakref.WeakValueDictionary() (could not pickle, so, for now, uses aliasDict which
     #: has problems with garbage collection in jupyter sessions)
     _allInstacesDict = aliasDict()
 
@@ -324,7 +297,7 @@ class named:
         #: boolean to distinguish internally and explicitly created instances.
         self._internal: bool = kwargs.pop('_internal', False)
         self._incrementInstances()
-        #: protected name attribute as an instance of :class:`~named` class
+        #: protected name attribute is an instance of :class:`~named` class
         self.__name: aliasClass = aliasClass(name=self._named__namer())
         self._named__setKwargs(**kwargs)
         named._allInstacesDict[self.name] = self
@@ -337,16 +310,11 @@ class named:
         """
         return f'{self.name}'
 
-    def __eq__(self, o: "named") -> bool:
-        r"""
-        Since the objects have unique names, the equality is computed by name comparision.
-        """
-        assert isinstance(o, named), f"{o} is not a named instance!"
-        return self.name == o.name
-
     def getByNameOrAlias(self, name: Union[str, aliasClass]) -> "named": #pylint:disable=unsubscriptable-object
         r"""
         Returns a reference for an object using its name or any alias.
+
+        Raises ValueError if it cannot find any object for the given name (or alias).
         """
         obj = self._allInstaces.get(name)
         if obj is None:
@@ -368,10 +336,7 @@ class named:
         r"""
         Generates the default names.
 
-        Returns
-        -------
-        str
-            default name
+        :returns: the default name
         """
         if self._internal is False:
             name = self.clsLabel() + str(self.clsInstances(self._internal))
@@ -382,14 +347,17 @@ class named:
     @property
     def name(self) -> aliasClass:
         r"""
-        name property  ``returns __name`` protected attribute value
+        Getter of the name property  ``returns __name`` protected attribute. There is no setter, names are not allowed
+        to be changed but can assign an alias.
         """
         return self._named__name
 
     @property
     def alias(self) -> List:
         r"""
-        alias property sets and returns the list of aliases. Does not allow duplicate alias.
+        alias property gets the list of aliases.
+
+        Sets (adds/extends into the list) alias (single/list of alias). Does not allow duplicate alias.
         """
         return self._named__name.alias
 
@@ -405,9 +373,8 @@ class named:
     @classmethod
     def clsLabel(cls) -> str:
         r"""
-        This method **returns** the class label.
+        Returns the class label.
         """
-
         return cls.label
 
     @classmethod
@@ -419,7 +386,6 @@ class named:
             2. internal, ``if _internal is True``
             3. external, ``if _internal is False``
         """
-
         if _internal is None:
             insCount = cls._instances
         elif _internal is True:
@@ -452,7 +418,6 @@ class named:
             Any attribute from the __slots__ (should take name-mangling into account, if used by a child class) or
             the name of corresponding property with an appropriate value type.
         """
-
         for key, value in kwargs.items():
             setattr(self, key, value)
 
@@ -492,9 +457,9 @@ def addDecorator(addFunction):
 
     Other input cases covered by this decorator are
 
-        2. If the input is a `string`, i.e. name of an `instance`: finds the object from the
-            :attr:`instNames <named._allInstacesDict>` dict and calls the `addFunction`.
-        3. If the input is a `class`, creates an instance of the `class` (has to be a child-class of :class`~named`)
+        2. If the input is a `string`, i.e. name/alias of an `instance`: finds the object from the
+           :attr:`instNames <named._allInstacesDict>` dict and calls the `addFunction`.
+        3. If the input is a `class`, creates an instance of the `class` (has to be a child-class of :class:`~named` )
            and makes a recursive call (which will trigger 1).
         4. If the input is a `list` or `tuple`: makes a recursive call, which is handled by the :meth:`~_recurseIfList``
            to iterate over every element of the given iterable, meaning anything in this
@@ -502,7 +467,6 @@ def addDecorator(addFunction):
            (this can be combined with dict type to create nested dictionaries)
         5. raises an error if the object to be added is not an instance of :class:`~named`.
     """
-
     @wraps(addFunction)
     @_recurseIfList
     def wrapper(obj, inp, **kwargs):
@@ -521,14 +485,14 @@ def addDecorator(addFunction):
 
 class qBase(named):
     r"""
-    Contains the sub/super-system attributes, auxiliary object and dictionary, and copy method.
+    Implements the sub/super-system attributes, auxiliary object and dictionary, and copy method.
     """
-    #: class label used in default naming
+    #: (**class attribute**) class label used in default naming
     label: str = 'qBase'
 
-    #: aux dictionary to store auxiliary things as items to reach from any object
+    #: (**class attribute**) aux dictionary to store auxiliary things as items to reach from any instance
     _auxiliary: Dict = {}
-    #: aux object to store auxiliary things as attributes to reach from any object
+    #: (**class attribute**) aux object to store auxiliary things as attributes to reach from any instance
     _auxiliaryObj: _auxiliaryClass = _auxiliaryClass()
 
     __slots__ = ['__superSys', '__subSys', '__aux', '__auxObj']
@@ -580,7 +544,9 @@ class qBase(named):
     @property
     def subSys(self) -> Dict:
         r"""
-        subSys property gets the subSystem dictonary, and adds the given object/s to ``__subSys`` dictionary.
+        subSys property gets the subSystem dictonary.
+
+        Setter resets the existing dictionary and adss the given object/s to ``__subSys`` dictionary.
         It calls the :meth:`addSubSys <qBase.addSubSys>`,
         so it can used to add a single object, `list/tuple` of objects, by giving the name of the
         system, or giving class name to add a new instance of that class. Be aware that the setter resets the existing.
@@ -594,6 +560,12 @@ class qBase(named):
 
     @addDecorator
     def addSubSys(self, subS: named, **kwargs) -> named:
+        r"""
+        Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
+        an instance and adds), and list/tuple containing any combination of these.
+
+        TODO add example &/ link to a tutorial
+        """
         assert isinstance(subS, named), "Add method is restricted to the class named or its child classes!"
         subS._named__setKwargs(**kwargs) # pylint: disable=W0212
         self._qBase__subSys[subS.name] = subS

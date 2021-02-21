@@ -51,7 +51,6 @@ def test_addingAliasInNamedOrChildInstances(cls):
     for i in range(2):
         obj = cls(_internal=bool(i))
         obd = cls(_internal=bool(i))
-        print(obd._allInstacesDict)
         strings2 = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10))]
         # add a list of alias
         obj.alias = strings2[0:-1]
@@ -83,7 +82,7 @@ def test_getByNameOrAliasWithMultiProcessing(cls):
     # the names are unique
     ob = cls(_internal=False)
     ob1 = pickle.loads(pickle.dumps(ob))
-    assert ob1 == ob
+    assert ob1.name == ob.name
     # create a pool and call forMultiProcessingTest in the map
     _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1)
     _pool.map(partial(forMultiProcessingTest, ob), range(5), chunksize=1)

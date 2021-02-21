@@ -1,133 +1,111 @@
+r"""
+    This module contains some base classes and the _parameter class.
+
+    .. currentmodule:: qTools.classes.baseClasses
+
+    .. autosummary::
+
+        _parameter
+
+    .. autosummary::
+
+        updateBase
+        paramBoundBase
+
 """
-    This module contains some of the base classes and the _parameter class.
+from typing import Any, Callable, Dict, List, Union, cast
 
-    Classes
-    -------
-    | :class:`_parameter` : This is a simple class to wrap certain parameters (attributes) to create a
-        hierarchical dependency.
-    | :class:`paramBoundBase` : This class is the start of an inheritance tree that extend to
-        :class:`quantum systems <qTools.classes.QSys.genericQSys>`,
-        :class:`protocols <qTools.classes.QPro.genericProtocol>`,
-        and :class:`Simulation <qTools.classes.Simulation.Simulation>`.
-    | :class:`computeBase` : This class contains 3 attributes that are relevant to run-time calculations/computations
-        and result storage.
-    | :class:`qBaseSim` : This class branches the inheritance started by paramBoundBase, and this branch extends to
-        :class:`quantum systems <qTools.classes.QSys.genericQSys>` and
-        :class:`protocols <qTools.classes.QPro.genericProtocol>`.
-    | :class:`stateBase`: This class branches the inheritance started by paramBoundBase, and this branch extends to
-        :class:`Simulation <qTools.classes.Simulation.Simulation>`.
-"""
-from typing import Any, cast
-
-from collections import OrderedDict
-
-from .base import qBase, addDecorator, _recurseIfList
+from .base import named, qBase, addDecorator, _recurseIfList, aliasDict
 from .QRes import qResults
 from .tempConfig import classConfig
 # pylint: disable = cyclic-import
 
 class updateBase(qBase):
-    """
-    This class has only two attributes, which are private attributes intended to be used with different properties in
-    the ``_sweep`` and ``Update`` classes to enable different terminologies for the same functionality.
-
-    Attributes
-    ----------
-    key or _updateBase__key or __key : str
-        This string value is the name of an attribute for the objects in ``subSys`` dictionary of an instance of
-        updateBase, and the value of that attribute is updated by **an update function**.
-    _updateBase__function or __function : Callable or None
-        This is the aforementioned **update function**. This is not completely implemented in ``Update`` class, but the
-        ``_sweep`` class, which will also be updated, has its basic use, which is pointing it to a default method to be
-        used in updating the relevant attributes. The goal of making this an attribute is to enable user defined
-        functions to be used, if some form of customisation is needed. TODO : cross-reference this to fixed sample-rate
-        for varying-step-size demos.
+    r"""
+    Base class for :class:`~_sweep` and :class:`~Update` classes, which are used respectively in parameter sweeps and
+    step updates in protocols.
+    This class implements a default method to change the value of an attribute (str of the attribute is
+    stored in key) of the objects in the subSys dictionary. It can also sweep/update auxiliary dictionary by
+    setting the aux boolean to True. The default method
+    can be changed to anything by pointing function attribute to any other Callable.
     """
 
-    #: Total number of instances of the class
-    instances: int = 0
-
-    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
-    label = 'updateBase'
+    #: class label used in default naming
+    label: str = 'updateBase'
 
     __slots__ = ['__key', '__function', '_aux']
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__()
-
-        self.__key = None
-        self.__function = None
-        self._aux = False
-
+        #: string for an attribute of the objects in ``subSys`` dictionary, used in getattr().
+        self.__key: str = None
+        #: attribute for custom sweep/update methods. Assigned to some default methods in childs, and sweep/update
+        #: methods can be customised by re-assigning this.
+        self.__function: Callable = None
+        #: boolean to switch from subSys attribute sweep/update (False) to auxiliary dictonary key sweep/update (True)
+        self._aux: bool = False
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
-    def key(self):
+    def key(self) -> str:
+        r"""
+        Gets and sets the  _updateBase__key protected attribute
         """
-        The key property:
-
-        - **getter** : ``returns _updateBase__key``
-        - **setter** : sets ``_updateBase__key`` string
-        - **type** : ``str``
-        """
-
         return self._updateBase__key
 
     @key.setter
-    def key(self, keyStr):
+    def key(self, keyStr: str) -> None:
         self._updateBase__key = keyStr # pylint: disable=assigning-non-slot
 
     @property
-    def system(self):
-        """
-        The system property wraps ``subSys`` dictionary to create new terminology, it basically:
+    def system(self) -> Union[List, named]:
+        r"""
+        system property wraps ``subSys`` dictionary to create new terminology, it basically:
 
-        - **getter** : ``returns subSys[0]`` if there is only one item in it, else ``returns list(subSys.values())``.
-        - **setter** : works exactly as :meth:`subSys <qTools.classes.QUni.qUniversal.subSys>` setter.
+        gets subSys[0] if there is only one item in it, else  list(subSys.values())
+        setter works exactly as :meth:`addSubSys <qTools.classes.base.qBase.addSubSys>` method.
         """
-
         qSys = list(self.subSys.values())
         return qSys if len(qSys) > 1 else qSys[0]
 
     @system.setter
-    def system(self, qSys):
+    def system(self, qSys) -> None:
         super().addSubSys(qSys)
 
-    def _runUpdate(self, val):
-        """
-        This simple method sets the attribute (for the given key) of every ``subSys`` to a given value (``val``). It
+    def _runUpdate(self, val: Any) -> None:
+        r"""
+        a simple method to set the attribute (for the given key) of every ``subSys`` to a given value (``val``), if _aux
+        bool is False. If _aux True, updates the value for the given key in aux dictionary
         returns ``None``.
         """
-
-        for subSys in self.subSys.values():
-            try:
+        if self._aux is False:
+            for subSys in self.subSys.values():
                 setattr(subSys, self._updateBase__key, val)
-            except AttributeError as attrErr:
-                if self._aux is True:
-                    subSys.aux[self._updateBase__key] = val
-                else:
-                    raise attrErr
+        elif self._aux is True:
+            self.aux[self._updateBase__key] = val
 
 class _parameter: # pylint: disable=too-few-public-methods
-    """
+    r"""
     There are two types of parametric bounds/relations in this library,
 
-        1. Value of an attribute of an object is bound to the value of the same attribute in another object, meaning
+        1. Value of an attribute in an instance is bound to the value of the same attribute in another instance, meaning
            it gets its value from its bound.
         2. Not the value of the attribute itself, but any change in its value is important for another object.
 
-    This is a simple class to wrap certain parameters (attributes) to create a hierarchical dependency required for the
-    first case. The second case is covered by :class:`paramBoundBase`.
+    This class wraps (composition) the value of a parameter (attribute) to create a hierarchical dependency required for
+    the first case. The second case is covered by :class:`~paramBoundBase`.
 
-    It is intended to be used with `private attributes` and the corresponding properties returning ``value`` of
+    It is intended to be used with `private attributes` and the corresponding properties retunrs the ``value`` of
     that attribute (which is a _parameter object).
 
     If a ``_parameter`` is given another ``_parameter`` as its ``_bound``, it returns the ``value`` of its ``_bound``,
-    while keeping its ``_value`` unchanged (which is mostly left to be ``None``). So, it keeps calling ``value``
-    until the ``_bound`` does not have a ``value`` attribute/property and finally ``returns _value``.
+    while keeping its ``_value`` unchanged (which is mostly left to be ``None``). This is the same for the bound
+    one, which meeans a chain of dependecy is achieved by bounding each object to another.
+
+    bounds can be broken by explicitly setting the ``value``.
 
     TODO update this list and add cross-references.
-    This class is used in ``stepSize``, ``totalTime``, ``stepCount``, ``initialState`` etc. The goal of having such
+    Used in ``stepSize``, ``totalTime``, ``stepCount``, ``initialState`` etc. The goal of having such
     dependency is that, for example, when simulating a quantum system simultaneously using more than 1 protocol, we
     can assign an ``initialState`` for the quantum system, and all the protocols ``initialState`` will by default be
     ``_bound`` to quantum systems ``initialState`` and get their value from it.
@@ -139,59 +117,53 @@ class _parameter: # pylint: disable=too-few-public-methods
     This class can be replaced by a proxy class.
     However, this is intended to be used completely internally (private attributes + properties),
     this simple option should suffice.
-
-    Attributes
-    ----------
-    _value : Optional[Any]
-        This is any object to be wrapped (default ``None``).
-    _bound : None or False or _parameter
-        The object to be used as the bound.
-        ``None`` and ``False`` both mean that there is **no bound**, but
-        they are used to distinguish between the value being the one given in __init__ method or set later
-        by ``value`` property. (default ``None``).
     """
 
     __slots__ = ['_value', '_bound']
 
     def __init__(self, value: Any = None, bound: '_parameter' = None) -> None:
-        """
-        The init for _parameter has two optional arguments _value and _bound, both of them are ``None`` by default.
-        """
-
-        self._value = value
-        self._bound = bound
+        #: the value to be wrapped
+        self._value : Any = value #pylint:disable=unsubscriptable-object
+        #: bounded _parameter object, self is not bounded to anything when this is None or any other object that does
+        #: not have a ``value`` attribute. Assigned to False when a bound is broken (by updating the value).
+        self._bound: "_parameter" = bound
 
     @property
     def value(self) -> Any:
-        """
-        This a property method with the
+        r"""
+        Property to get the ``_value`` of self, if ``bound`` does not have ``value`` as an attribute,
+        else returns the ``value`` of the ``_bound``,
+        which should be an instance of :class:`~_parameter` object but can be any other object with an ``_value``
+        &/ ``_bound`` attribute.
 
-        - **getter** : ``returns _value`` of self, if ``bound`` does not have ``value``,
-          else ``returns`` the ``value`` of the ``_bound``
-          which should be a :class:`_parameter` object or have a ``_value`` &/ ``_bound`` attribute.
-        - **setter(value)** : sets the ``_value`` to a given `input value` and ``_bound`` to ``False``
-          (signaling its different than the initialisation)
-        - **type**: ``Any``
+        Setter assignes the ``_value`` to a given input and ``_bound`` to ``False``
+        (meaning the bound to any other object is broken, and value is different than the default, which is None)
         """
-
         if hasattr(self._bound, 'value'):
             self._bound = cast(_parameter, self._bound)
             return self._bound.value
         return self._value
 
     @value.setter
-    def value(self, value: Any):
+    def value(self, value: Any) -> None:
         self._bound = False
         self._value = value
 
-
-def setAttr(obj, attrStr, val):
+def setAttr(obj: "paramBoundBase", attrStr: str, val: Any) -> None:
+    r"""
+    a customised setattr that changes the value (and _paramUpdated) if the new value is different than the old/existing.
+    """
     oldVal = getattr(obj, attrStr)
     if val != oldVal:
         setattr(obj, attrStr, val)
         setattr(obj, '_paramUpdated', True)
 
-def setAttrParam(obj, attrStr, val):
+def setAttrParam(obj: "paramBoundBase", attrStr: str, val: Any) -> None:
+    r"""
+    a customised setattr that changes the value stored as the ``value`` attribute of a _parameter object.
+    The value (and _paramUpdated) is changed, if the new value is different than the old/existing. In any case, it
+    breaks existing timeBase and parameter bounds.
+    """
     oldVal = getattr(obj, attrStr).value
     if obj._timeBase__bound is not None:
         obj._timeBase__bound._paramBoundBase__paramBound.pop(obj.name, None)
@@ -202,117 +174,93 @@ def setAttrParam(obj, attrStr, val):
         setattr(obj, '_paramUpdated', True)
 
 class paramBoundBase(qBase):
-    """
+    r"""
     There are two types of parametric bounds/relations in this library,
 
-        1. Value of an attribute of an object is bound to the value of same attribute of another object, meaning
+        1. Value of an attribute in an instance is bound to the value of the same attribute in another instance, meaning
            it gets its value from its bound.
         2. Not the value of the attribute itself, but any change in its value is important for another object.
 
-    First case is covered by the :class:`_parameter` and the second case is covered by this class.
-    This type of bound is used to make sure that a **protocol** does not re-create (re-exponentiate)
+    First case is covered by the :class:`~_parameter` , and the second is by this class.
+
+    Such bound is used to make sure that a **protocol** does not re-create (re-exponentiate)
     its **unitary matrix**, unless a relevant parameter is changed. If the ``__paramUpdated`` is ``False``, a protocol
     is not going to re-create its unitary, the ``__paramUpdated`` is set to ``True`` only by an object which contain
     the protocol in its ``__paramBound`` dictionary and changes its ``__paramUpdated`` to ``True`` by calling
     :meth:`_paramUpdated <paramBoundBase._paramUpdated>` property. These sort of dependencies are implemented in the
-    library and are not meant for external modifications.
-
-    NOTE : This class is the start of an inheritance tree that extend to
-    :class:`quantum systems <qTools.classes.QSys.genericQSys>`,
-    :class:`protocols <qTools.classes.QPro.genericProtocol>`,
-    and :class:`Simulation <qTools.classes.Simulation.Simulation>`.
-
-    The attributes are private (with name-mangling) and properties &/ methods are used to change their values. Below
-    explanations contain property names for such cases with actual attribute names separated by `or`.
-
-    Attributes
-    ----------
-    _paramUpdated or _paramBoundBase__paramBound or __paramBound: bool
-        This is set to ``True`` when a parameter is updated and set back to ``False`` after unitary creation by protocol
-
-        NOTE : protocols check only their own ``_paramUpdated`` for re-creation, so, they only set their own
-        ``_paramUpdated`` back after re-creation. This means that the dependency of ``_paramUpdated`` boolean is not
-        similar to :class:`_parameter` class.
-
-        The getter of ``_paramUpdated`` simply returns the ``_paramBoundBase__paramBound`` boolean for ``self``. While,
-        the setter of ``_paramUpdated``, sets ``_paramBoundBase__paramBound`` boolean for ``self`` and all the other
-        objects in ``__paramBound`` dictionary (if they have such an attribute).
-    _paramBound or _paramBoundBase__paramBound or __paramBound: dict
-        This is a dictionary of objects whose ``_paramUpdated`` boolean value needs to be updated, if ``_paramUpdated``
-        of ``self`` is updated (but not the other way around and, unlike :class:`_parameter` setting the ones
-        value does not break the relation).
-    _paramBoundBase__matrix or __matrix : Matrix
-        This is used for storing a relevant matrix in some sub-classes, such as protocols ``__matrix`` is their unitary
-        , and single quantum systems use it for their ``freeMat``.
+    library and are not meant for external modifications by a user.
     """
 
-    #: Total number of instances of the class
-    instances: int = 0
-
-    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
+    #: class label used in default naming
     label: str = 'paramBoundBase'
 
     __slots__ = ['__paramUpdated', '__paramBound', '__matrix']
 
-    def __init__(self, **kwargs: Any) -> None:
+    def __init__(self, **kwargs) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
+        #: This stores a matrix in some sub-classes, such as protocols ``__matrix`` is their unitary, single quantum
+        #: systems use it for their ``freeMat``
         self.__matrix = None
+        #: Signals that a parameter is updated. This is set to ``True`` when a parameter is updated by :meth:`~setAttr`,
+        #: :meth:`~setAttrParam` methods, or True/False by another object, if this object is in anothers paramBound.
         self.__paramUpdated = True
-        self.__paramBound = OrderedDict()
+        # NOTE : protocols check only their own _paramUpdated for re-creation, so, they only set their own
+        # _paramUpdated back after re-creation. This means that the dependency of _paramUpdated boolean is different
+        # than :class:`~_parameter` class.
+
+        #: a dictionary of objects whose ``_paramUpdated`` boolean value needs to be updated, if ``_paramUpdated``
+        #: of ``self`` is updated (but not the other way around and, unlike :class:`_parameter` setting ones
+        #: value does not break the relation).
+        self.__paramBound = aliasDict()
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
-    def _paramBound(self):
+    def _paramBound(self) -> Dict:
+        r"""
+        returns ``_paramBoundBase__paramBound`` dictionary. Since the bound mechanish is meant for internal use, this
+        provide an information of the bound structure, but does not have a setter. Creating/breaking a bound has their
+        specific methods.
         """
-        This property ``returns _paramBoundBase__paramBound`` dictionary, and does not have a setter.
-        """
-
         return self._paramBoundBase__paramBound
 
     @addDecorator
-    def _createParamBound(self, bound, **kwargs) -> None:
-        """[summary]
-
-        Parameters
-        ----------
-        bound : [type]
-            [description]
+    def _createParamBound(self, bound: "paramBoundBase", **kwargs) -> "paramBoundBase":
+        r"""
+        creates a bound to ``self``, ie. given ``bound`` (have to be an :class:`~paramBoundBase` instance) objects
+        `__paramUpdated` boolean of the given ``bound`` is updated whenever self updates its.
         """
-        assert isinstance(bound, paramBoundBase), "type error message"
+        assert isinstance(bound, paramBoundBase), "Given object is not an instance of paramBoundBase!"
         bound._named__setKwargs(**kwargs) # pylint: disable=no-member
         self._paramBoundBase__paramBound[bound.name] = bound
+        return bound
 
     @_recurseIfList
-    def _breakParamBound(self, bound, _exclude=[]): # pylint: disable=dangerous-default-value
-        """
+    def _breakParamBound(self, bound: "paramBoundBase", _exclude=[]) -> None: # pylint: disable=dangerous-default-value
+        r"""
         This method removes the given object from the ``__paramBound`` dictionary.
-
-        TODO Cover if the given key of obj or str is not in subSys dict.
         """
-        pass
-        #self._remFromDict(bound, '_paramBoundBase__paramBound')
+        if not isinstance(bound, named):
+            bound = self.getByNameOrAlias(bound)
+        assert isinstance(bound, named), "Given object is not an instance of named!"
+        self._paramBoundBase__paramBound.pop(bound.name)
 
     @property
-    def _paramUpdated(self):
-        """
-        The _paramUpdated property:
-
-        - **getter** : ``returns _paramBoundBase__paramUpdated`` boolean.
-        - **setter** : sets ``_paramBoundBase__paramUpdated`` boolean for ``self`` and all the other objects in
-          ``__paramBound`` dictionary (if they have such an attribute).
-        - **type** : ``bool``
+    def _paramUpdated(self) -> bool:
+        r"""
+        Gets ``_paramBoundBase__paramUpdated`` boolean, and sets it for ``self`` and all the other objects in
+        ``__paramBound`` dictionary.
         """
 
         return self._paramBoundBase__paramUpdated
 
     @_paramUpdated.setter
-    def _paramUpdated(self, boolean):
+    def _paramUpdated(self, boolean: bool):
         self._paramBoundBase__paramUpdated = boolean # pylint: disable=assigning-non-slot
         for sys in self._paramBoundBase__paramBound.values():
             sys._paramUpdated = boolean
 
-    def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
-        """
+    def delMatrices(self, _exclude: List = []) -> List: # pylint: disable=dangerous-default-value
+        r"""
         This method deletes (sets to ``None``) the ``__matrix`` value for self and calls the ``delMatrices`` for on the
         objects in ``__paramBound`` and ``subSys`` dictionaries. Also, calls ``del`` on the old value of ``__matrix``.
 
@@ -322,9 +270,8 @@ class paramBoundBase(qBase):
             This is used internally to avoid infinite loops in the cases when an object has another in its
             ``__paramBound``, while it is in ``subSys`` of the other. By default []
 
-
-        :returns: returns the _exclude list, which should contain references to all the objects whose ``__matrix``
-            attribute is set to ``None``
+        :returns: the _exclude list, which should contain references to all the objects whose ``__matrix`` attribute is
+            set to ``None``
         """
 
         if self not in _exclude:
@@ -341,8 +288,8 @@ class paramBoundBase(qBase):
         return _exclude
 
 class computeBase(paramBoundBase):
-    """
-    This class contains 3 attributes that are relevant to run-time calculations/computations and result storage.
+    r"""
+    Contains 3 attributes relevant to run-time calculations/computations and result storage.
 
     Attributes
     ----------
@@ -373,21 +320,40 @@ class computeBase(paramBoundBase):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        self.compute = None
-        self.__calculate = None
-        self.__calculateAtStart = True
+        self.compute: Callable = None
+        r"""
+        This is by default ``None``, but if it is assigned to a function written in a particular format,
+        the function is called at each step of the time evolution. It is intended to be
+        certain computations on the current state of the system and store them in the ``self.qRes.results``.
+        """
+        self.__calculate: Callable = None
+        r"""
+        This is by default ``None``, but if it is assigned to a function written in a particular format,
+        it is called at certain stages of simulation (like in the beginning of time-evolution etc.), to perform
+        some calculation, which might be needed in the compute, and store them in the ``self.qRes.calculated``.
+        """
+        self.__calculateAtStart: str = True
+        r"""
+        This a protected boolean updated through the :py:attr:`~calculateAt` which uses strings to decide on the bool.
+        It is used to determine, when, before (True) or after (False) time evolution, the calculate function is going to
+        be called.
+        """
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
-        self.qRes = qResults(superSys=self, _internal=True)
+        #: This attribute is an instance of :class:`~qResults`, which is used to store simulation results and states.
+        self.qRes: qResults = qResults(superSys=self, _internal=True)
 
     @property
     def calculate(self):
+        r"""
+        Property to get&set the _computeBase__calculate protected attribbute. Setter deal
+        """
         return self._computeBase__calculate
 
     @calculate.setter
     def calculate(self, inp):
         if callable(inp):
             self._computeBase__calculate = inp #pylint: disable=assigning-non-slot
-        else:
+        elif ((isinstance(inp, (list, tuple))) and (len(inp) == 2)):
             if callable(inp[0]):
                 self._computeBase__calculate = inp[0] #pylint: disable=assigning-non-slot
                 self.calculateAt = inp[1]
@@ -395,14 +361,16 @@ class computeBase(paramBoundBase):
                 self._computeBase__calculate = inp[1] #pylint: disable=assigning-non-slot
                 self.calculateAt = inp[0]
             else:
-                raise TypeError('?')
+                raise TypeError('No callable is given!')
+        else:
+            raise TypeError(f'{inp.__class__} type is not supported!')
 
     @property
     def calculateAt(self):
         if self._computeBase__calculateAtStart: #pylint: disable=assigning-non-slot
             string = 'begining'
         else:
-            string = 'start'
+            string = 'end'
         return string
 
     @calculateAt.setter
@@ -411,17 +379,6 @@ class computeBase(paramBoundBase):
             self._computeBase__calculateAtStart = True #pylint: disable=assigning-non-slot
         elif string.lower() in ['end']:
             self._computeBase__calculateAtStart = False #pylint: disable=assigning-non-slot
-
-    @paramBoundBase.name.setter # pylint: disable=no-member
-    def name(self, name):
-        """
-        This setter extends setter of name property in qUniversal by also
-        changing the name of ``qRes``, which is an instance of :class:`qResults <qTools.classes.QRes.qResults>`.
-        """
-
-        paramBoundBase.name.fset(self, name) # pylint: disable=no-member
-        if self.qRes.superSys is self:
-            self.qRes.superSys = self
 
     def __compute(self, states, sim=False): # pylint: disable=dangerous-default-value
         """
@@ -441,7 +398,7 @@ class computeBase(paramBoundBase):
 
     def __calculateMeth(self):
         """
-        This is the actual calculate function that is called in the time-evolution, it calls ``self.calculate`` is it is
+        This is the actual calculate function that is called in the time-evolution, it calls ``self.calculate`` if it is
         a callable and does nothing otherwise.
         """
 
@@ -452,25 +409,30 @@ class computeBase(paramBoundBase):
                 if hasattr(qsp, '_computeBase__calculate'):
                     qsp._computeBase__calculateMeth()
 
+    @paramBoundBase.alias.setter
+    def alias(self, ali: str) -> None:
+        r"""
+        Extends the alias setter to assign an alias (givenAlias + Result) to self.qRes as well.
+        """
+        named.alias.fset(self, ali) #pylint:disable=no-member
+        self.qRes.alias = ali + "Results"
+
     @property
     def results(self):
+        r"""
+        returns ``self.qRes.results``.
         """
-        This property ``returns results`` attribute of ``qRes``.
-        """
-
         return self.qRes.results
 
     @property
     def states(self):
+        r"""
+        returns ``self.qRes.states``.
         """
-        This property ``returns states`` attribute of ``qRes``.
-        """
-
         return self.qRes.states
-
-    @property
-    def statesList(self):
-        return list(self.qRes.states.values())[0]
+    # @property
+    # def statesList(self):
+    #     return list(self.qRes.states.values())[0]
 
 class qBaseSim(computeBase):
     """

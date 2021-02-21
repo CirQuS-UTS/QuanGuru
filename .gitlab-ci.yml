@@ -37,7 +37,6 @@ pylint:
         paths:
             - pylint.svg
         when: always
-        expire_in: 4 weeks
 
 core_test:
     stage: UnitTest:Core

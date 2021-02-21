@@ -13,3 +13,4 @@ Classes (:mod:`qTools.classes`)
    :maxdepth: 2
 
    Base class <classes/base>
+   BaseClasses <classes/baseClasses>

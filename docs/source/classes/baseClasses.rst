@@ -1,8 +1,8 @@
-=========================================
-base classes (:mod:`qTools.classes.base`)
-=========================================
+================================================
+base classes (:mod:`qTools.classes.baseClasses`)
+================================================
 
-.. automodule:: qTools.classes.base
+.. automodule:: qTools.classes.baseClasses
    :ignore-module-all:
    :members:
    :private-members:

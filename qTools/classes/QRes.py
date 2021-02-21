@@ -132,7 +132,7 @@ class qResults(qResBase):
     def superSys(self, supSys):
         qResBase.superSys.fset(self, supSys) # pylint: disable=no-member
         self.allResults.pop(self.name) # pylint: disable=no-member
-        self.name = self.superSys.name + 'Results' # pylint: disable=no-member
+        #self.name = self.superSys.name + 'Results' # pylint: disable=no-member
         self.allResults[self.name] = self # pylint: disable=no-member
 
     def _reset(self):
