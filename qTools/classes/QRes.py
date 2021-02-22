@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from .base import qBase
+from .base import qBase, aliasDict
 
 __all__ = [
     'qResults'
@@ -104,7 +104,7 @@ class qResults(qResBase):
     _externalInstances = 0
     _internalInstances = 0
     label = 'qResults'
-    _allResults = {}
+    _allResults = aliasDict()
 
     __slots__ = ['allResults']
 

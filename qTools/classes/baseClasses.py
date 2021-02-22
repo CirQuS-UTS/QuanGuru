@@ -299,7 +299,7 @@ class computeBase(paramBoundBase):
 
     __slots__ = ['qRes', 'compute', 'calculateStart', 'calculateEnd']
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.compute: Callable = None
         r"""
@@ -322,9 +322,9 @@ class computeBase(paramBoundBase):
         """
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
         #: This attribute is an instance of :class:`~qResults`, which is used to store simulation results and states.
-        self.qRes: qResults = qResults(superSys=self, _internal=True)
+        self.qRes: qResults = qResults(superSys=self, _internal=True, alias=self.name.name+"Results")
 
-    def __compute(self, states): # pylint: disable=dangerous-default-value
+    def __compute(self, states) -> None: # pylint: disable=dangerous-default-value
         r"""
         This is the actual compute function that is called in the time-evolution, it calls ``self.compute`` if it is a
         callable and does nothing otherwise.
@@ -332,7 +332,7 @@ class computeBase(paramBoundBase):
         if callable(self.compute):
             self.compute(self, *states) # pylint: disable=not-callable
 
-    def __calculate(self, where: str = "start"):
+    def __calculate(self, where: str = "start") -> None:
         r"""
         This is the actual calculate function that is called in the time-evolution, it calls
         (if callable, does nothing otherwise) ``self.calculateStart``
@@ -355,22 +355,22 @@ class computeBase(paramBoundBase):
         self.qRes.alias = ali + "Results"
 
     @property
-    def results(self):
+    def results(self) -> Dict:
         r"""
         returns ``self.qRes.results``.
         """
         return self.qRes.results
 
     @property
-    def states(self):
+    def states(self) -> Dict:
         r"""
         returns ``self.qRes.states``.
         """
         return self.qRes.states
 
 class qBaseSim(computeBase):
-    """
-    This class is inhereted by the :class:`quantum systems <qTools.classes.QSys.genericQSys>` and
+    r"""
+    Inhereted by the :class:`quantum systems <qTools.classes.QSys.genericQSys>` and
     :class:`protocols <qTools.classes.QPro.genericProtocol>` and has a
     simulation attribute which is an instance of :class:`Simulation <qTools.classes.Simulation.Simulation>`. The goal
     for such an attribute is to increase possible ways of running a
@@ -380,25 +380,17 @@ class qBaseSim(computeBase):
     NOTE : This class branches the inheritance started by :class:`paramBoundBase`, and this branch extends to
     :class:`quantum systems <qTools.classes.QSys.genericQSys>` and
     :class:`protocols <qTools.classes.QPro.genericProtocol>`.
-
-    Attributes
-    ----------
-    simulation or _qBaseSim__simulation or simulation : Simulation
-        This an instance of Simulation which can just be run by
-        ``self.simulation.run`` without any explicit Simulation creation and/or ``subSys`` addition call.
     """
-
-    #: Total number of instances of the class
-    instances: int = 0
-
-    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
+    #: (**class attribute**) class label used in default naming
     label = 'qBaseSim'
 
     __slots__ = ['__simulation']
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         from qTools.classes.QSim import Simulation # pylint: disable=import-outside-toplevel
         super().__init__(_internal=kwargs.pop('_internal', False))
+        #: an instance of Simulation (as a protected attribute) to run
+        # ``self.simulation.run`` without any explicit Simulation creation and/or ``subSys`` addition call.
         self.__simulation = Simulation(_internal=True, superSys=self)
         self._qBaseSim__simulation._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
@@ -406,129 +398,143 @@ class qBaseSim(computeBase):
 
     @property
     def simulation(self):
+        r"""
+        ``returns _qBaseSim__simulation`` attribute (an instance of :class:`~Simulation`).
         """
-        This property ``returns _qBaseSim__simulation`` attribute.
-        """
-
         return self._qBaseSim__simulation
 
     def runSimulation(self, p=None, coreCount=None):
+        r"""
+        an alternative to run the simulation, equivalent to ``self.simulation.run()``
+        """
         return self._qBaseSim__simulation.run(p=p, coreCount=coreCount)
 
     @property
     def simParameters(self):
+        r"""
+        returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
+        simulation object and getting values from there.
+
+        There are various setters of this property with different names to set the relevant attribute of the simulation.
+        # TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?
+        """
         return ('totalTime:', self.simulation.totalTime, 'stepSize:', self.simulation.stepSize, 'stepCount:',
                 self.simulation.stepCount, 'samples:', self.simulation.samples, 'delStates:',
                 self.simulation.delStates, 'compute:', self.simulation.compute)
 
     @simParameters.setter
     def simTotalTime(self, fTime):
+        r"""
+        setter for the totalTime of Simulation, equivalent to ``self.simulation.totalTime = fTime``
+        """
         self.simulation.totalTime = fTime
 
     @simParameters.setter
     def simStepSize(self, stepsize):
+        r"""
+        setter for the stepSize of Simulation, equivalent to ``self.simulation.stepSize = stepsize``
+        """
         self.simulation.stepSize = stepsize
 
     @simParameters.setter
     def simStepCount(self, num):
+        r"""
+        setter for the stepCount of Simulation, equivalent to ``self.simulation.stepCount = num``
+        """
         self.simulation.stepCount = num
 
     @simParameters.setter
     def simSamples(self, num):
+        r"""
+        setter for the samples of Simulation, equivalent to ``self.simulation.samples = num``
+        """
         self.simulation.samples = num
 
     @simParameters.setter
     def simCompute(self, func):
+        r"""
+        setter for the compute of Simulation, equivalent to ``self.simulation.compute = func``
+        """
         self.simulation.compute = func
 
     @simParameters.setter
     def simDelStates(self, boolean):
+        r"""
+        setter for the delStates of Simulation, equivalent to ``self.simulation.delStates = boolean``
+        """
         self.simulation.delStates = boolean
 
     @property
     def initialState(self):
+        r"""
+        Getter for the simulation initial state, equivalent to ``self.simulation.initialState``.
+        This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None
+        for single systems (if its state is set).
         """
-            This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None
-             for single systems,
-            if its state is set.
-            If single system initial state is not set, it will try creating here,
-             but single system does not have qSystem,
-              so will raise the below error.
-        """
-
         return self.simulation.initialState
 
     def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
-        """
+        r"""
         This method extends :meth:`delMatrices <paramBoundBase.delMatrices>` of :class:`computeBase` to also call
-        :meth:`delMatrices <paramBoundBase.delMatrices>` also on ``self.simulation``.
+        :meth:`delMatrices <paramBoundBase.delMatrices>` on ``self.simulation``.
         """
-
         if self not in _exclude:
             _exclude = super().delMatrices(_exclude)
             _exclude = self.simulation.delMatrices(_exclude)
         return _exclude
 
 class stateBase(computeBase):
-    """
-    This base class contains relevant attributes and methods for ``initialState`` and a boolean to determine to keep or
+    r"""
+    Contains attributes and methods for ``initialState`` and a boolean to determine whether to store or
     discard time-evolved states. Since, we can use :meth:`compute <computeBase.compute>` to compute quantities of
-    interest at the run-time of simulation, we don't need to keep the states and can save memory.
+    interest at the run-time of simulation, we don't need to keep the states and can discard them to save memory.
 
-    NOTE : This class branches the inheritance started by :class:`paramBoundBase`, and this branch extends to
+    NOTE : This class branches the inheritance started by :class:`paramBoundBase` and extends to
     :class:`Simulation <qTools.classes.Simulation.Simulation>`.
 
     NOTE : All three attributes of this class (and all 4 of timeBase) are instances of :class:`_parameter`, so they have
     a corresponding property.
-
-    Attributes
-    ----------
-    delState or _stateBase__delStates or __delStates : bool
-        This boolean is used to determine delete/discard (``True``) time-evolved states (to save memory) and keep only
-        the ``initialState`` and ``currentState`` of the system. By default, it is ``False`` and states will be stored
-        in the corresponding protocols ``qRes.states``.
-    initialState or _stateBase__initialState or __initialState: Matrix
-        This _parameter object attributes value is set to be ``initialState`` matrix
-    _initialStateInput or _stateBase__initialStateInput or __initialStateInput :
-        This is the input used to create ``initialState``, there are various ways to create ``initialState``, so its
-        value is changes depending on the case. This information is kept so that it can be used in cases where a new
-        reconstruction of ``initialState`` is required, e.g. when system dimension is swept or changed.
     """
-
-    #: Total number of instances of the class
-    instances: int = 0
-
-    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
+    #: (**class attribute**) class label used in default naming
     label = 'stateBase'
 
     __slots__ = ['__delStates', '__initialState', '__initialStateInput']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-
+        #: This attribute is a :class:`~_parameter` and value stores the ``initialState`` matrix
         self.__initialState = _parameter()
         self.__initialStateInput = _parameter()
+        r"""
+        Input used in the creation of the ``initialState``, there are various ways to create ``initialState``, so its
+        value changes depending on the case. This information is kept so that it can be used in cases where a new
+        reconstruction of ``initialState`` is required, e.g. when system dimension is swept or changed.
+        """
         self.__delStates = _parameter(classConfig['delStates'])
-
+        r"""
+        This boolean determines if we delete/discard (``True``) time-evolved states (to save memory) and keep only
+        the ``initialState`` and ``currentState`` of the system. By default, it is ``False`` and states will be stored
+        in the corresponding protocols ``qRes.states``.
+        """
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def initialState(self):
-        """
-        The initialState property:
+        r"""
+        The initialState property ``returns _stateBase__initialState.value`` if it is not ``None``. Otherwise, uses
+        first element in its ``subSys`` dictionary values to create and assign its value. This assumes that, to be able
+        to assign a state to a Simulation, it needs at least one quantum system in its ``subSys`` dictionary, and the
+        subSys have method to create the state (``_createAstate``). This requirement, by default, is satisfied by the
+        internally created Simulation objects that are attributes of quantum systems and protocols.
 
-        - **getter** : ``returns _stateBase__initialState.value`` if it is not ``None``. Otherwise, uses first element
-          in its ``subSys`` dictionary values to create and assign its value. This assumes that, to be able to assign
-          a state to a Simulation, it needs at least one quantum system in its ``subSys`` dictionary. This requirement
-          is by default satisfied by the internally created Simulation objects, which are attributes of quantum systems
-          and protocols.
-        - **setter** : sets ``_stateBase__initialState.value`` matrix for ``self`` by using the first element of
-          ``subSys`` dictionary values.
-        - **type** : ``Matrix``
+        Setter sets ``_stateBase__initialState.value`` matrix for ``self`` by using the first element of ``subSys``
+        dictionary values.
         """
 
         if self._stateBase__initialState.value is None: # pylint: disable=no-member
             if isinstance(self._stateBase__initialState._bound, _parameter): # pylint: disable=protected-access
+                # might seem redundant, but required to make sure that bound creates its initial state by calling the
+                # _createAstate
                 self._stateBase__initialState._value = self._timeBase__bound.initialState # pylint: disable=no-member
             else:
                 self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
@@ -541,31 +547,24 @@ class stateBase(computeBase):
 
     @property
     def _initialStateInput(self):
+        r"""
+        ``returns _stateBase__initialStateInput.value``.
         """
-        This property ``returns _stateBase__initialStateInput.value``.
-        """
-
         return self._stateBase__initialStateInput.value
 
-    def getResultByName(self, name):
+    def getResultByNameOrAlias(self, name):
+        r"""
+        This method exists to enrich the terminology, it just ``returns super().getByNameOrAlias(name)``, which returns
+        the object with the given `name`.
+        See :meth:`getByNameOrAlias <qTools.classes.base.named.getByNameOrAlias>` for details.
         """
-        This method exists to enrich the terminology, it just ``returns super().getObjByName(name)``, which returns the
-        object with the given `name`.
-        See :meth:`getObjByName <qTools.classes.QUni.qUniversal.getObjByName>` for details.
-        """
-
         return super().getByNameOrAlias(name)
 
     @property
     def delStates(self):
+        r"""
+        gets and sets ``_stateBase__delStates.value`` boolean
         """
-        The delStates property:
-
-        - **getter** : ``returns _stateBase__delStates.value``
-        - **setter** : sets ``_stateBase__delStates.value`` boolean
-        - **type** : ``boolean``
-        """
-
         return self._stateBase__delStates.value
 
     @delStates.setter
@@ -573,11 +572,10 @@ class stateBase(computeBase):
         self._stateBase__delStates.value = boolean
 
     def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
-        """
+        r"""
         This method extends :meth:`delMatrices <paramBoundBase.delMatrices>` to also set
         the ``_stateBase__initialState.value`` to ``None`` and del the old value.
         """
-
         if self not in _exclude:
             _exclude = super().delMatrices(_exclude)
             oldMat = self._stateBase__initialState.value  # noqa: 841
@@ -586,57 +584,51 @@ class stateBase(computeBase):
         return _exclude
 
 class timeBase(stateBase):
-    """
-    This base class contain 3 basis time information, namely total time of simulation (``totalTime``), step size for
+    r"""
+    Implements 3 basic time information, namely total time of simulation (``totalTime``), step size for
     each unitary (``stepSize``), and number of steps (``stepCount = totalTime/stepSize``). Additionally, one more
     parameter, namely, number of samples
     (``samples``) is introduced to be used with time-dependent Hamiltonians, where a continuous parameter
     is discretely changed at every ``stepSize`` and more than one ``samples`` are desired during the ``stepSize``.
 
-    These 4 attributes are all :class:`_parameter <qTools.classes.computeBase._parameter>` objects and private
-    attributes, so they are modified by the corresponding properties (names here are property names). One other use of
+    These 4 attributes are all :class:`_parameter <qTools.classes.computeBase._parameter>` instances and protected
+    attributes, meaning they are modified by the corresponding properties. One other functionality of
     property is to create flexible use of these attributes. For example, not all 3 of ``stepSize``, ``totalTime``, and
     ``stepCount`` are need to be explicitly defined, any of these two would be sufficient, since the 3rd can be
     calculated using the two. So, property setters&getters also covers such cases. Another flexibility ensured by the
     properties is when ``_bound`` are broken.
-
-    Attribute names and these explanations are enough to understand the basics for these 4 paramaters of timeBase class.
-    See below for more details on the corresponding properties.
     """
-
-    #: Total number of instances of the class
-    instances: int = 0
-
-    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
+    #: (**class attribute**) class label used in default naming
     label = 'timeBase'
 
     __slots__ = ['__totalTime', '__stepSize', '__samples', '__stepCount', '__bound']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
+        #: _parameter storing the total time of simulation
         self.__totalTime = _parameter()
+        #: _parameter storing the step size of simulation
         self.__stepSize = _parameter()
+        #: _parameter storing number of samples in each step, by default 1.
         self.__samples = _parameter(1)
+        #: _parameter storing the number of steps, i.e totalTime/stepSize.
         self.__stepCount = _parameter()
+        #: if bound to another object, meaning the _parameters of this gets their value from the others _parameters,
+        #: this attribute is a reference to another. Else None.
         self.__bound = None
-
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def totalTime(self):
+        r"""
+        gets and sets ``_timeBase__totalTime.value``, and also sets the ``_timeBase__stepCount.value``
+        conditioned on that ``stepSize`` is not ``None``. It also sets
+        :meth:`_paramUpdated <qTools.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
+        these, it sets ``_timeBase__stepSize._value`` to ``_timeBase__stepSize._bound._value``, if
+        ``_timeBase__stepSize._bound`` is not ``None or False``. This is introduced to provide a flexible
+        use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
+        has a ``_bound`` and can obtain the second one from the ``_bound``.
         """
-        The totalTime property:
-
-        - **getter** : ``returns _timeBase__totalTime.value``.
-        - **setter** : sets ``_timeBase__totalTime.value``, and also ``_timeBase__stepCount.value`` conditioned on that
-          ``stepSize`` is not ``None``. It also sets
-          :meth:`_paramUpdated <qTools.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
-          these, it sets ``_timeBase__stepSize._value`` to ``_timeBase__stepSize._bound._value``, if
-          ``_timeBase__stepSize._bound`` is not ``None or False``. This is introduced to provide a flexible
-          use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-          has a ``_bound`` and can obtain the second one from the ``_bound``.
-        """
-
         return self._timeBase__totalTime.value
 
     @totalTime.setter
@@ -649,19 +641,15 @@ class timeBase(stateBase):
 
     @property
     def stepCount(self):
+        r"""
+        gets and sets ``_timeBase__stepCount.value``. getter also try seting the ``totalTime`` if it is ``None``.
+        Setter also sets ``_timeBase__stepSize.value`` conditioned on that ``totalTime`` is not ``None``. It also sets
+        :meth:`_paramUpdated <qTools.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
+        these, it sets ``_timeBase__totalTime._value`` to ``_timeBase__totalTime._bound._value``, if
+        ``_timeBase__totalTime._bound`` is not ``None or False``. This is introduced to provide a flexible
+        use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
+        has a ``_bound`` and can obtain the second one from the ``_bound``.
         """
-        The stepCount property:
-
-        - **getter** : ``returns _timeBase__stepCount.value`` but also sets ``totalTime`` if it is ``None``.
-        - **setter** : sets ``_timeBase__stepCount.value`` and also ``_timeBase__stepSize.value`` conditioned on that
-          ``totalTime`` is not ``None``. It also sets
-          :meth:`_paramUpdated <qTools.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
-          these, it sets ``_timeBase__totalTime._value`` to ``_timeBase__totalTime._bound._value``, if
-          ``_timeBase__totalTime._bound`` is not ``None or False``. This is introduced to provide a flexible
-          use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-          has a ``_bound`` and can obtain the second one from the ``_bound``.
-        """
-
         if self.totalTime is None:
             if not ((self.stepSize is None) and (self._timeBase__stepCount.value is None)):
                 self._timeBase__totalTime.value = self._timeBase__stepCount.value * self.stepSize # pylint: disable=E0237
@@ -682,19 +670,15 @@ class timeBase(stateBase):
 
     @property
     def stepSize(self):
+        r"""
+        gets and sets ``_timeBase__stepSize.value``, and also ``_timeBase__stepCount.value`` conditioned on that
+        ``totalTime`` is not ``None``. It also sets
+        :meth:`_paramUpdated <qTools.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
+        these, it sets ``_timeBase__totalTime._value`` to ``_timeBase__totalTime._bound._value``, if
+        ``_timeBase__totalTime._bound`` is not ``None or False``. This is introduced to provide a flexible
+        use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
+        has a ``_bound`` and can obtain the second one from the ``_bound``.
         """
-        The stepSize property:
-
-        - **getter** : ``returns _timeBase__stepSize.value``.
-        - **setter** : sets ``_timeBase__stepSize.value`` and also ``_timeBase__stepCount.value`` conditioned on that
-          ``totalTime`` is not ``None``. It also sets
-          :meth:`_paramUpdated <qTools.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
-          these, it sets ``_timeBase__totalTime._value`` to ``_timeBase__totalTime._bound._value``, if
-          ``_timeBase__totalTime._bound`` is not ``None or False``. This is introduced to provide a flexible
-          use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-          has a ``_bound`` and can obtain the second one from the ``_bound``.
-        """
-
         return self._timeBase__stepSize.value
 
     @stepSize.setter
@@ -707,12 +691,9 @@ class timeBase(stateBase):
 
     @property
     def samples(self):
-        """
-        The samples property:
-
-        - **getter** : ``returns _timeBase__samples.value``.
-        - **setter** : sets ``_timeBase__samples.value`` and also
-          :meth:`_paramUpdated <qTools.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``.
+        r"""
+        gets and sets ``_timeBase__samples.value`` and also sets
+        :meth:`_paramUpdated <qTools.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``.
         """
 
         return self._timeBase__samples.value
@@ -722,6 +703,9 @@ class timeBase(stateBase):
         setAttrParam(self, '_timeBase__samples', num)
 
     def _copyVals(self, other, keys):
+        r"""
+        Method to copy the values for given attributes (as keys) from ``other`` to ``self``.
+        """
         for key in keys:
             val = getattr(other, key)
             if val is not None:
@@ -729,6 +713,10 @@ class timeBase(stateBase):
 
     @staticmethod
     def _boundTree(osys, tree=None):
+        r"""
+        Creates a tree of bound instances starting from the given ``osys``. A primitive method used in debugging and to
+        be improved.
+        """
         if tree is None:
             tree = []
         bSys = osys._timeBase__bound
@@ -740,10 +728,10 @@ class timeBase(stateBase):
     def _bound(self, other, # pylint: disable=dangerous-default-value
                params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput'],
                re=False):
-        """
+        r"""
         This method is used internally at appropriate places to create bound between different simulation instances in
-        the intended hierarchical order. Meaning, when a :class:`quantum system <qTools.classes.QSys.genericQSys>` is
-        added to ``subSys`` of explicitly created :class:`Simulation <qTools.classes.Simulation.Simulation>`.
+        the intended hierarchical order. For example, when a :class:`quantum system <qTools.classes.QSys.genericQSys>`
+        is added to ``subSys`` of explicitly created :class:`Simulation <qTools.classes.Simulation.Simulation>`,
         The parameters of any :class:`protocol.simulation <qTools.classes.QPro.genericProtocol>` for that system will
         be bound to ``(quantum system).simulation`` which will be bound to explicitly created Simulation. This method
         creates such a bound between two ``Simulation`` objects, and it is used in appropriate places of the library.
@@ -763,9 +751,6 @@ class timeBase(stateBase):
             which the same bound will be created. The difference between ``param`` and ``timeBase`` parameters is that
             the latter ones has a functional dependency to each other, meaning a break in one of them should
             appropriately be reflected to the others.
-
-
-        :returns: None
         """
 
         if self not in self._boundTree(osys=other): #pylint: disable=too-many-nested-blocks

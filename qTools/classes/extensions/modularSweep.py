@@ -1,19 +1,19 @@
 from functools import partial
 
-from ..baseClasses import computeBase
+#from ..baseClasses import computeBase
 
 
 def runSimulation(qSim, p):
-    if qSim._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
-        qSim._computeBase__calculateMeth() # pylint: disable=protected-access
+    # if qSim._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
+    #     qSim._computeBase__calculateMeth() # pylint: disable=protected-access
 
     if p is None:
         nonParalEvol(qSim)
     else:
         paralEvol(qSim, p)
 
-    if qSim._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
-        qSim._computeBase__calculateMeth() # pylint: disable=protected-access
+    # if qSim._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
+    #     qSim._computeBase__calculateMeth() # pylint: disable=protected-access
 
 
 # This is the single process function
@@ -47,12 +47,12 @@ def _runSweepAndPrep(qSim, ind):
 
     qSim.qRes._resetLast(calculateException=qSim.qRes) # pylint: disable=protected-access
 
-    for protocol, system in qSim.subSys.items():
-        if protocol._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
-            protocol._computeBase__calculateMeth() # pylint: disable=protected-access
+    # for protocol, system in qSim.subSys.items():
+    #     if protocol._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
+    #         protocol._computeBase__calculateMeth() # pylint: disable=protected-access
 
-        if system._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
-            system._computeBase__calculateMeth() # pylint: disable=protected-access
+    #     if system._computeBase__calculateAtStart in (True, None): #pylint: disable=protected-access
+    #         system._computeBase__calculateMeth() # pylint: disable=protected-access
 
     timeDependent(qSim)
 
@@ -96,12 +96,12 @@ def timeEvolDefault(qSim, td):
             qSim.evolFunc(qSim)
             qSim._Simulation__compute() # pylint: disable=protected-access
 
-    for protocol, system in qSim.subSys.items():
-        if protocol._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
-            protocol._computeBase__calculateMeth() # pylint: disable=protected-access
+    # for protocol, system in qSim.subSys.items():
+    #     if protocol._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
+    #         protocol._computeBase__calculateMeth() # pylint: disable=protected-access
 
-        if system._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
-            system._computeBase__calculateMeth() # pylint: disable=protected-access
+    #     if system._computeBase__calculateAtStart in (False, None): #pylint: disable=protected-access
+    #         system._computeBase__calculateMeth() # pylint: disable=protected-access
 
 def timeEvolBase(qSim):
     for protocol in qSim.subSys.keys(): #pylint:disable=too-many-nested-blocks

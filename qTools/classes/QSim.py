@@ -255,8 +255,8 @@ class Simulation(timeBase):
         for protocol in self.subSys.keys():
             states.append(protocol.currentState)
             if protocol.simulation.delStates is False:
-                self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
-        super()._computeBase__compute(states, sim=True) # pylint: disable=no-member
+                self.qRes.states[protocol.name.name+'Results'].append(protocol.currentState)
+        super()._computeBase__compute(states) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None, resetRes=True):
         if len(self.subSys.values()) == 0:
@@ -274,7 +274,7 @@ class Simulation(timeBase):
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         # TODO Test this
-        return self.qRes._copyAllResBlank() # pylint: disable=protected-access
+        return self
 
 class _poolMemory: # pylint: disable=too-few-public-methods
     coreCount = None

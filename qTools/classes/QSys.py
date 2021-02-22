@@ -20,7 +20,11 @@ def _initStDec(_createAstate):
         else:
             if inp is None:
                 inp = obj.simulation._stateBase__initialStateInput.value
-            state = _createAstate(obj, inp)
+
+            if isinstance(obj.dimension, int):
+                state = _createAstate(obj, inp)
+            else:
+                state = None
         return state
     return wrapper
 
@@ -58,8 +62,8 @@ class genericQSys(qBaseSim):
             newComp.simulation._copyVals(self.simulation, ['totalTime', 'stepSize', 'delStates'])
             newComp.compute = _computeDef
             newComp.simulation.compute = _computeDef
-            newComp.calculate = _calculateDef
-            newComp.simulation.calculate = _calculateDef
+            #newComp.calculate = _calculateDef
+            #newComp.simulation.calculate = _calculateDef
             newComp.addSubSys(self)
             if other is self:
                 newComp.addSubSys(other.copy())
@@ -649,10 +653,10 @@ class qSystem(genericQSys):
 
     @addDecorator
     def addSubSys(self, subS, **kwargs):
-        kwargs.pop('superSys', None)
         if not isinstance(subS, term):
             raise TypeError('?')
-        newS = super().addSubSys(subS, superSys=self, **kwargs)
+        kwargs['superSys'] = self
+        newS = super().addSubSys(subS, **kwargs)
         # FIXME use setAttr, check also for operator
         self._paramUpdated = True
         newS._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
@@ -685,7 +689,7 @@ class qSystem(genericQSys):
             raise ValueError(self.name + ' is not given an initial state')
         return qSta.superPos(self.dimension, inp)
 
-class Spin(qSystem):
+class Spin(qSystem): # pylint: disable=too-many-ancestors
     instances = 0
     label = 'Spin'
 

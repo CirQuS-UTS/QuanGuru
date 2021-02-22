@@ -248,15 +248,15 @@ def _recurseIfList(func):
     a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
     certain objects). It is used in various places of the library (exclude is useful/used in some of them).
     """
-    def recurse(obj, inp, _exclude=[]): # pylint: disable=dangerous-default-value
+    def recurse(obj, inp, _exclude=[], **kwargs): # pylint: disable=dangerous-default-value
         if isinstance(inp, (list, tuple)):
             for s in inp:
-                r = recurse(obj, s, _exclude=_exclude)
+                r = recurse(obj, s, _exclude=_exclude, **kwargs)
         else:
             try:
-                r = func(obj, inp, _exclude=_exclude)
+                r = func(obj, inp, _exclude=_exclude, **kwargs)
             except: #pylint:disable=bare-except   # noqa: E722
-                r = func(obj, inp)
+                r = func(obj, inp, **kwargs)
         return r
     return recurse
 
