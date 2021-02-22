@@ -102,6 +102,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../classes.html">Classes</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Base class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="baseClasses.html">BaseClasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QRes.html">Results Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../QuantumToolbox/Tutorials/Tutorials.html">Tutorials</a></li>
@@ -702,6 +703,12 @@ non-existing keys and changes the value for existing keys.</p>
 <dd><p>superSys property get/sets __superSys protected attribute</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt id="qTools.classes.base.qBase.__name">
+<code class="sig-name descname">__name</code><em class="property">: <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass">qTools.classes.base.aliasClass</a></em><a class="headerlink" href="#qTools.classes.base.qBase.__name" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected name attribute is an instance of <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a> class</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="qTools.classes.base.qBase.subSys">
 <em class="property">property </em><code class="sig-name descname">subSys</code><a class="headerlink" href="#qTools.classes.base.qBase.subSys" title="Permalink to this definition">¶</a></dt>
@@ -728,8 +735,11 @@ an instance and adds), and list/tuple containing any combination of these.</p>
 
 <dl class="py method">
 <dt id="qTools.classes.base.qBase.removeSubSys">
-<code class="sig-name descname">removeSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inp</span></em>, <em class="sig-param"><span class="n">_exclude</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/base.html#qBase.removeSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.qBase.removeSubSys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">removeSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subS</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">_exclude</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#qBase.removeSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.qBase.removeSubSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will
+raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
+named class.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.base.qBase.resetSubSys">

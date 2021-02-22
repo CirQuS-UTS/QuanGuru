@@ -11,6 +11,10 @@ r"""
 
         updateBase
         paramBoundBase
+        computeBase
+        qBaseSim
+        stateBase
+        timeBase
 
 """
 from typing import Any, Callable, Dict, List, Union, cast
@@ -269,12 +273,15 @@ class paramBoundBase(qBase):
 
         Parameters
         ----------
+
         _exclude : list, optional
             This is used internally to avoid infinite loops in the cases when an object has another in its
             ``__paramBound``, while it is in ``subSys`` of the other. By default []
 
+
         :returns: the _exclude list, which should contain references to all the objects whose ``__matrix`` attribute is
             set to ``None``
+
         """
 
         if self not in _exclude:
@@ -314,7 +321,7 @@ class computeBase(paramBoundBase):
         some calculations, which might be needed in the compute, and store them in the ``self.qRes.calculated``.
         This is by default ``None``.
         """
-        self.calculateEnd: str = True
+        self.calculateEnd: Callable = None
         r"""
         Function to call at the end of time-evolution (or simulation) to perform
         some calculations, which might be needed in the compute, and store them in the ``self.qRes.calculated``.

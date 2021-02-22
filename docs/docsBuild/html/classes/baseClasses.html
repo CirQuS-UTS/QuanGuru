@@ -51,7 +51,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="QuantumToolbox Demos" href="../QuantumToolbox/Tutorials/Tutorials.html" />
+    <link rel="next" title="Results Class (qTools.classes.QRes)" href="QRes.html" />
     <link rel="prev" title="base classes (qTools.classes.base)" href="base.html" /> 
 </head>
 
@@ -102,6 +102,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../classes.html">Classes</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="base.html">Base class</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">BaseClasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QRes.html">Results Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../QuantumToolbox/Tutorials/Tutorials.html">Tutorials</a></li>
@@ -206,7 +207,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.baseClasses._parameter" title="qTools.classes.baseClasses._parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_parameter</span></code></a>(value, bound)</p></td>
-<td><p>There are two types of parametric bounds/relations in this library,</p></td>
+<td><p>_parameter instances can be bound to each other to implement a (value) dependecy between them.</p></td>
 </tr>
 </tbody>
 </table>
@@ -220,7 +221,19 @@
 <td><p>Base class for <code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code> classes, which are used respectively in parameter sweeps and step updates in protocols.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a>(**kwargs)</p></td>
-<td><p>There are two types of parametric bounds/relations in this library,</p></td>
+<td><p>Implements a mechanism to inform a set of objects when a (relevant) change happens on self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.baseClasses.computeBase" title="qTools.classes.baseClasses.computeBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">computeBase</span></code></a>(**kwargs)</p></td>
+<td><p>Implements 3 attributes (and mechanisms) relevant to run-time calculations/computations and result storage.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#qTools.classes.baseClasses.qBaseSim" title="qTools.classes.baseClasses.qBaseSim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qBaseSim</span></code></a>(**kwargs)</p></td>
+<td><p>Inhereted by the <code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">protocols</span></code> and has a simulation attribute which is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.baseClasses.stateBase" title="qTools.classes.baseClasses.stateBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stateBase</span></code></a>(**kwargs)</p></td>
+<td><p>Contains attributes and methods for <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and a boolean to determine whether to store or discard time-evolved states.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#qTools.classes.baseClasses.timeBase" title="qTools.classes.baseClasses.timeBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeBase</span></code></a>(**kwargs)</p></td>
+<td><p>Implements 3 basic time information, namely total time of simulation (<code class="docutils literal notranslate"><span class="pre">totalTime</span></code>), step size for each unitary (<code class="docutils literal notranslate"><span class="pre">stepSize</span></code>), and number of steps (<code class="docutils literal notranslate"><span class="pre">stepCount</span> <span class="pre">=</span> <span class="pre">totalTime/stepSize</span></code>).</p></td>
 </tr>
 </tbody>
 </table>
@@ -230,14 +243,14 @@
 <dd><p>Bases: <a class="reference internal" href="base.html#qTools.classes.base.qBase" title="qTools.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.base.qBase</span></code></a></p>
 <p>Base class for <code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code> classes, which are used respectively in parameter sweeps and
 step updates in protocols.
-This class implements a default method to change the value of an attribute (str of the attribute is
-stored in key) of the objects in the subSys dictionary. It can also sweep/update auxiliary dictionary by
+This class implements a default method to change the value of an attribute (str of the attribute name is
+stored in self.key) of the objects in the subSys dictionary. It can also sweep/update auxiliary dictionary by
 setting the aux boolean to True. The default method
 can be changed to anything by pointing function attribute to any other Callable.</p>
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.updateBase.label">
 <code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'updateBase'</em><a class="headerlink" href="#qTools.classes.baseClasses.updateBase.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>class label used in default naming</p>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -268,7 +281,7 @@ methods can be customised by re-assigning this.</p>
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.updateBase.system">
 <em class="property">property </em><code class="sig-name descname">system</code><a class="headerlink" href="#qTools.classes.baseClasses.updateBase.system" title="Permalink to this definition">¶</a></dt>
-<dd><p>system property wraps <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary to create new terminology, it basically:</p>
+<dd><p>system property wraps <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary to create a new terminology, it basically:</p>
 <p>gets subSys[0] if there is only one item in it, else  list(subSys.values())
 setter works exactly as <a class="reference internal" href="base.html#qTools.classes.base.qBase.addSubSys" title="qTools.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a> method.</p>
 </dd></dl>
@@ -287,7 +300,8 @@ returns <code class="docutils literal notranslate"><span class="pre">None</span>
 <dt id="qTools.classes.baseClasses._parameter">
 <em class="property">class </em><code class="sig-name descname">_parameter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Any<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bound</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#qTools.classes.baseClasses._parameter" title="qTools.classes.baseClasses._parameter">qTools.classes.baseClasses._parameter</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#_parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses._parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>There are two types of parametric bounds/relations in this library,</p>
+<p>_parameter instances can be bound to each other to implement a (value) dependecy between them.</p>
+<p>There are two types of parametric bounds/relations/dependencies in this library,</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li><p>Value of an attribute in an instance is bound to the value of the same attribute in another instance, meaning
@@ -295,9 +309,9 @@ it gets its value from its bound.</p></li>
 <li><p>Not the value of the attribute itself, but any change in its value is important for another object.</p></li>
 </ol>
 </div></blockquote>
-<p>This class wraps (composition) the value of a parameter (attribute) to create a hierarchical dependency required for
-the first case. The second case is covered by <a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a>.</p>
-<p>It is intended to be used with <cite>private attributes</cite> and the corresponding properties retunrs the <code class="docutils literal notranslate"><span class="pre">value</span></code> of
+<p>This class wraps (composition) the value of a parameter (an attribute) to create a hierarchical dependency required
+for the first case. The second case is covered by <a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a>.</p>
+<p>It is intended to be used with <cite>private attributes</cite> and the corresponding properties returns the <code class="docutils literal notranslate"><span class="pre">value</span></code> of
 that attribute (which is a _parameter object).</p>
 <p>If a <code class="docutils literal notranslate"><span class="pre">_parameter</span></code> is given another <code class="docutils literal notranslate"><span class="pre">_parameter</span></code> as its <code class="docutils literal notranslate"><span class="pre">_bound</span></code>, it returns the <code class="docutils literal notranslate"><span class="pre">value</span></code> of its <code class="docutils literal notranslate"><span class="pre">_bound</span></code>,
 while keeping its <code class="docutils literal notranslate"><span class="pre">_value</span></code> unchanged (which is mostly left to be <code class="docutils literal notranslate"><span class="pre">None</span></code>). This is the same for the bound
@@ -335,7 +349,7 @@ not have a <code class="docutils literal notranslate"><span class="pre">value</s
 else returns the <code class="docutils literal notranslate"><span class="pre">value</span></code> of the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>,
 which should be an instance of <a class="reference internal" href="#qTools.classes.baseClasses._parameter" title="qTools.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a> object but can be any other object with an <code class="docutils literal notranslate"><span class="pre">_value</span></code>
 &amp;/ <code class="docutils literal notranslate"><span class="pre">_bound</span></code> attribute.</p>
-<p>Setter assignes the <code class="docutils literal notranslate"><span class="pre">_value</span></code> to a given input and <code class="docutils literal notranslate"><span class="pre">_bound</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code>
+<p>Setter assigns the <code class="docutils literal notranslate"><span class="pre">_value</span></code> to a given input and <code class="docutils literal notranslate"><span class="pre">_bound</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code>
 (meaning the bound to any other object is broken, and value is different than the default, which is None)</p>
 </dd></dl>
 
@@ -352,13 +366,14 @@ which should be an instance of <a class="reference internal" href="#qTools.class
 <code class="sig-name descname">setAttrParam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase">qTools.classes.baseClasses.paramBoundBase</a></span></em>, <em class="sig-param"><span class="n">attrStr</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">val</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#setAttrParam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.setAttrParam" title="Permalink to this definition">¶</a></dt>
 <dd><p>a customised setattr that changes the value stored as the <code class="docutils literal notranslate"><span class="pre">value</span></code> attribute of a _parameter object.
 The value (and _paramUpdated) is changed, if the new value is different than the old/existing. In any case, it
-breaks existing timeBase and parameter bounds.</p>
+breaks existing timeBase bounds (bound between <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code> instances).</p>
 </dd></dl>
 
 <dl class="py class">
 <dt id="qTools.classes.baseClasses.paramBoundBase">
 <em class="property">class </em><code class="sig-name descname">paramBoundBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#paramBoundBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.paramBoundBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#qTools.classes.base.qBase" title="qTools.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.base.qBase</span></code></a></p>
+<p>Implements a mechanism to inform a set of objects when a (relevant) change happens on self.</p>
 <p>There are two types of parametric bounds/relations in this library,</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -368,7 +383,7 @@ it gets its value from its bound.</p></li>
 </ol>
 </div></blockquote>
 <p>First case is covered by the <a class="reference internal" href="#qTools.classes.baseClasses._parameter" title="qTools.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a> , and the second is by this class.</p>
-<p>Such bound is used to make sure that a <strong>protocol</strong> does not re-create (re-exponentiate)
+<p>Such bound, for example, is used to make sure that a <strong>protocol</strong> does not re-create (re-exponentiate)
 its <strong>unitary matrix</strong>, unless a relevant parameter is changed. If the <code class="docutils literal notranslate"><span class="pre">__paramUpdated</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, a protocol
 is not going to re-create its unitary, the <code class="docutils literal notranslate"><span class="pre">__paramUpdated</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> only by an object which contain
 the protocol in its <code class="docutils literal notranslate"><span class="pre">__paramBound</span></code> dictionary and changes its <code class="docutils literal notranslate"><span class="pre">__paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> by calling
@@ -377,13 +392,13 @@ library and are not meant for external modifications by a user.</p>
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.paramBoundBase.label">
 <code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'paramBoundBase'</em><a class="headerlink" href="#qTools.classes.baseClasses.paramBoundBase.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>class label used in default naming</p>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.paramBoundBase.__matrix">
 <code class="sig-name descname">__matrix</code><a class="headerlink" href="#qTools.classes.baseClasses.paramBoundBase.__matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>This stores a matrix in some sub-classes, such as protocols <code class="docutils literal notranslate"><span class="pre">__matrix</span></code> is their unitary, single quantum
+<dd><p>This stores a matrix in some sub-classes, e.g. protocols <code class="docutils literal notranslate"><span class="pre">__matrix</span></code> store their unitary, single quantum
 systems use it for their <code class="docutils literal notranslate"><span class="pre">freeMat</span></code></p>
 </dd></dl>
 
@@ -414,13 +429,14 @@ specific methods.</p>
 <dt id="qTools.classes.baseClasses.paramBoundBase._createParamBound">
 <code class="sig-name descname">_createParamBound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bound</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase">qTools.classes.baseClasses.paramBoundBase</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase">qTools.classes.baseClasses.paramBoundBase</a><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#paramBoundBase._createParamBound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.paramBoundBase._createParamBound" title="Permalink to this definition">¶</a></dt>
 <dd><p>creates a bound to <code class="docutils literal notranslate"><span class="pre">self</span></code>, ie. given <code class="docutils literal notranslate"><span class="pre">bound</span></code> (have to be an <a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a> instance) objects
-<cite>__paramUpdated</cite> boolean of the given <code class="docutils literal notranslate"><span class="pre">bound</span></code> is updated whenever self updates its.</p>
+<cite>__paramUpdated</cite> boolean is updated whenever self updates its.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.paramBoundBase._breakParamBound">
-<code class="sig-name descname">_breakParamBound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inp</span></em>, <em class="sig-param"><span class="n">_exclude</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qTools.classes.baseClasses.paramBoundBase._breakParamBound" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">_breakParamBound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bound</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase">qTools.classes.baseClasses.paramBoundBase</a></span></em>, <em class="sig-param"><span class="n">_exclude</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#paramBoundBase._breakParamBound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.paramBoundBase._breakParamBound" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method removes the given object from the <code class="docutils literal notranslate"><span class="pre">__paramBound</span></code> dictionary.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.paramBoundBase._paramUpdated">
@@ -432,16 +448,18 @@ specific methods.</p>
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.paramBoundBase.delMatrices">
 <code class="sig-name descname">delMatrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_exclude</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span> &#x2192; List<a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#paramBoundBase.delMatrices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.paramBoundBase.delMatrices" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method deletes (sets to <code class="docutils literal notranslate"><span class="pre">None</span></code>) the <code class="docutils literal notranslate"><span class="pre">__matrix</span></code> value for self and calls the <code class="docutils literal notranslate"><span class="pre">delMatrices</span></code> for on the
+<dd><p>This method deletes (sets to <code class="docutils literal notranslate"><span class="pre">None</span></code>) the <code class="docutils literal notranslate"><span class="pre">__matrix</span></code> value for self and calls the <code class="docutils literal notranslate"><span class="pre">delMatrices</span></code> for the
 objects in <code class="docutils literal notranslate"><span class="pre">__paramBound</span></code> and <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionaries. Also, calls <code class="docutils literal notranslate"><span class="pre">del</span></code> on the old value of <code class="docutils literal notranslate"><span class="pre">__matrix</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>_exclude</strong> (<em>list</em><em>, </em><em>optional</em>) – This is used internally to avoid infinite loops in the cases when an object has another in its
 <code class="docutils literal notranslate"><span class="pre">__paramBound</span></code>, while it is in <code class="docutils literal notranslate"><span class="pre">subSys</span></code> of the other. By default []</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the _exclude list, which should contain references to all the objects whose <code class="docutils literal notranslate"><span class="pre">__matrix</span></code> attribute is
+set to <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
 </dl>
-<p>:param : set to <code class="docutils literal notranslate"><span class="pre">None</span></code>
-:type : returns: the _exclude list, which should contain references to all the objects whose <code class="docutils literal notranslate"><span class="pre">__matrix</span></code> attribute is</p>
 </dd></dl>
 
 </dd></dl>
@@ -450,117 +468,57 @@ objects in <code class="docutils literal notranslate"><span class="pre">__paramB
 <dt id="qTools.classes.baseClasses.computeBase">
 <em class="property">class </em><code class="sig-name descname">computeBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#computeBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.computeBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.baseClasses.paramBoundBase</span></code></a></p>
-<p>Contains 3 attributes relevant to run-time calculations/computations and result storage.</p>
+<p>Implements 3 attributes (and mechanisms) relevant to run-time calculations/computations and result storage.</p>
 <dl class="py attribute">
-<dt id="qTools.classes.baseClasses.computeBase.qRes">
-<code class="sig-name descname">qRes</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.qRes" title="Permalink to this definition">¶</a></dt>
-<dd><p>This attribute is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">qResults</span></code>, which is used to store
-simulation results and states.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>qResults</p>
-</dd>
-</dl>
+<dt id="qTools.classes.baseClasses.computeBase.label">
+<code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'computeBase'</em><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.computeBase.compute">
 <code class="sig-name descname">compute</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.compute" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>, but if it is assingned to be a function that is written in a particular format,
-it is called at each step of the time evolution to perform whatever is in its body, which is intended to be
-certain computations on the current state of the system and store them in the <code class="docutils literal notranslate"><span class="pre">self.qRes.results</span></code>.
-TODO : create a simple demo and a cross-reference</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Callable or None</p>
-</dd>
-</dl>
+<dd><p>Function to call at each step of the time evolution, by default <code class="docutils literal notranslate"><span class="pre">None</span></code>. It needs to be written in the
+appropriate form  TODO create examples/tutorial and link here.
+It is intended to perform computations on the current state of the system and store the results
+in the <code class="docutils literal notranslate"><span class="pre">self.qRes.results</span></code>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.baseClasses.computeBase.calculate">
-<code class="sig-name descname">calculate</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.calculate" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>, but if it is assingned to be a function that is written in a particular format,
-it is called at certain stages of simulation (like in the beginning of time-evolution etc.), to perform
-some calculation, which are going to be needed in the compute, and store them in the <code class="docutils literal notranslate"><span class="pre">self.qRes.calculated</span></code>.
-TODO : create a simple demo and a cross-reference</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Callable or None</p>
-</dd>
-</dl>
+<dt id="qTools.classes.baseClasses.computeBase.calculateStart">
+<code class="sig-name descname">calculateStart</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.calculateStart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to call at the beginning of time-evolution (or simulation) to perform
+some calculations, which might be needed in the compute, and store them in the <code class="docutils literal notranslate"><span class="pre">self.qRes.calculated</span></code>.
+This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.baseClasses.computeBase.instances">
-<code class="sig-name descname">instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>Total number of instances of the class</p>
+<dt id="qTools.classes.baseClasses.computeBase.calculateEnd">
+<code class="sig-name descname">calculateEnd</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.calculateEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to call at the end of time-evolution (or simulation) to perform
+some calculations, which might be needed in the compute, and store them in the <code class="docutils literal notranslate"><span class="pre">self.qRes.calculated</span></code>.
+This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.baseClasses.computeBase.label">
-<code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'computeBase'</em><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used in default naming of objects. See <code class="xref py py-attr docutils literal notranslate"><span class="pre">label</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="qTools.classes.baseClasses.computeBase.ignore">
-<code class="sig-name descname">ignore</code><em class="property"> = []</em><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.ignore" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="id0">
-<code class="sig-name descname">compute</code><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>, but if it is assigned to a function written in a particular format,
-the function is called at each step of the time evolution. It is intended to be
-certain computations on the current state of the system and store them in the <code class="docutils literal notranslate"><span class="pre">self.qRes.results</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="qTools.classes.baseClasses.computeBase.__calculate">
-<code class="sig-name descname">__calculate</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.__calculate" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>, but if it is assigned to a function written in a particular format,
-it is called at certain stages of simulation (like in the beginning of time-evolution etc.), to perform
-some calculation, which might be needed in the compute, and store them in the <code class="docutils literal notranslate"><span class="pre">self.qRes.calculated</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="qTools.classes.baseClasses.computeBase.__calculateAtStart">
-<code class="sig-name descname">__calculateAtStart</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.__calculateAtStart" title="Permalink to this definition">¶</a></dt>
-<dd><p>This a protected boolean updated through the <a class="reference internal" href="#qTools.classes.baseClasses.computeBase.calculateAt" title="qTools.classes.baseClasses.computeBase.calculateAt"><code class="xref py py-attr docutils literal notranslate"><span class="pre">calculateAt</span></code></a> which uses strings to decide on the bool.
-It is used to determine, when, before (True) or after (False) time evolution, the calculate function is going to
-be called.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="id1">
-<code class="sig-name descname">qRes</code><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dt id="qTools.classes.baseClasses.computeBase.qRes">
+<code class="sig-name descname">qRes</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.qRes" title="Permalink to this definition">¶</a></dt>
 <dd><p>This attribute is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">qResults</span></code>, which is used to store simulation results and states.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="id2">
-<em class="property">property </em><code class="sig-name descname">calculate</code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property to get&amp;set the _computeBase__calculate protected attribbute. Setter deal</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="qTools.classes.baseClasses.computeBase.calculateAt">
-<em class="property">property </em><code class="sig-name descname">calculateAt</code><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.calculateAt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt id="qTools.classes.baseClasses.computeBase.__compute">
-<code class="sig-name descname">__compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">states</span></em>, <em class="sig-param"><span class="n">sim</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.__compute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">states</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#qTools.classes.baseClasses.computeBase.__compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the actual compute function that is called in the time-evolution, it calls <code class="docutils literal notranslate"><span class="pre">self.compute</span></code> if it is a
 callable and does nothing otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.baseClasses.computeBase.__calculateMeth">
-<code class="sig-name descname">__calculateMeth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qTools.classes.baseClasses.computeBase.__calculateMeth" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the actual calculate function that is called in the time-evolution, it calls <code class="docutils literal notranslate"><span class="pre">self.calculate</span></code> if it is
-a callable and does nothing otherwise.</p>
+<dt id="qTools.classes.baseClasses.computeBase.__calculate">
+<code class="sig-name descname">__calculate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">where</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'start'</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#qTools.classes.baseClasses.computeBase.__calculate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the actual calculate function that is called in the time-evolution, it calls
+(if callable, does nothing otherwise) <code class="docutils literal notranslate"><span class="pre">self.calculateStart</span></code>
+or <code class="docutils literal notranslate"><span class="pre">self.calculateEnd</span></code> depending on the given string <cite>where</cite>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -588,7 +546,7 @@ a callable and does nothing otherwise.</p>
 <dt id="qTools.classes.baseClasses.qBaseSim">
 <em class="property">class </em><code class="sig-name descname">qBaseSim</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#qBaseSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#qTools.classes.baseClasses.computeBase" title="qTools.classes.baseClasses.computeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.baseClasses.computeBase</span></code></a></p>
-<p>This class is inhereted by the <code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code> and
+<p>Inhereted by the <code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code> and
 <code class="xref py py-class docutils literal notranslate"><span class="pre">protocols</span></code> and has a
 simulation attribute which is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>. The goal
 for such an attribute is to increase possible ways of running a
@@ -598,27 +556,9 @@ TODO : create a simple demo and a cross-reference</p>
 <code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code> and
 <code class="xref py py-class docutils literal notranslate"><span class="pre">protocols</span></code>.</p>
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">simulation or _qBaseSim__simulation or simulation</code></dt>
-<dd><p>This an instance of Simulation which can just be run by
-<code class="docutils literal notranslate"><span class="pre">self.simulation.run</span></code> without any explicit Simulation creation and/or <code class="docutils literal notranslate"><span class="pre">subSys</span></code> addition call.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Simulation</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="qTools.classes.baseClasses.qBaseSim.instances">
-<code class="sig-name descname">instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>Total number of instances of the class</p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt id="qTools.classes.baseClasses.qBaseSim.label">
 <code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'qBaseSim'</em><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used in default naming of objects. See <code class="xref py py-attr docutils literal notranslate"><span class="pre">label</span></code>.</p>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -629,71 +569,109 @@ TODO : create a simple demo and a cross-reference</p>
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.simulation">
 <em class="property">property </em><code class="sig-name descname">simulation</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.simulation" title="Permalink to this definition">¶</a></dt>
-<dd><p>This property <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_qBaseSim__simulation</span></code> attribute.</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_qBaseSim__simulation</span></code> attribute (an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.runSimulation">
 <code class="sig-name descname">runSimulation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">coreCount</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#qBaseSim.runSimulation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.runSimulation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>an alternative to run the simulation, equivalent to <code class="docutils literal notranslate"><span class="pre">self.simulation.run()</span></code></p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.simParameters">
 <em class="property">property </em><code class="sig-name descname">simParameters</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.simParameters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
+simulation object and getting values from there.</p>
+<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
+# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.simTotalTime">
 <em class="property">property </em><code class="sig-name descname">simTotalTime</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.simTotalTime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
+simulation object and getting values from there.</p>
+<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
+# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.simStepSize">
 <em class="property">property </em><code class="sig-name descname">simStepSize</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.simStepSize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
+simulation object and getting values from there.</p>
+<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
+# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.simStepCount">
 <em class="property">property </em><code class="sig-name descname">simStepCount</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.simStepCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
+simulation object and getting values from there.</p>
+<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
+# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.simSamples">
 <em class="property">property </em><code class="sig-name descname">simSamples</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.simSamples" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
+simulation object and getting values from there.</p>
+<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
+# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.simCompute">
 <em class="property">property </em><code class="sig-name descname">simCompute</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.simCompute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
+simulation object and getting values from there.</p>
+<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
+# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.simDelStates">
 <em class="property">property </em><code class="sig-name descname">simDelStates</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.simDelStates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
+simulation object and getting values from there.</p>
+<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
+# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.initialState">
 <em class="property">property </em><code class="sig-name descname">initialState</code><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.initialState" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None</dt><dd><p>for single systems,</p>
-</dd>
-</dl>
-<p>if its state is set.
-If single system initial state is not set, it will try creating here,</p>
-<blockquote>
-<div><dl class="simple">
-<dt>but single system does not have qSystem,</dt><dd><p>so will raise the below error.</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Getter for the simulation initial state, equivalent to <code class="docutils literal notranslate"><span class="pre">self.simulation.initialState</span></code>.
+This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None
+for single systems (if its state is set).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.qBaseSim.delMatrices">
 <code class="sig-name descname">delMatrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_exclude</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#qBaseSim.delMatrices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.delMatrices" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method extends <a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase.delMatrices" title="qTools.classes.baseClasses.paramBoundBase.delMatrices"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delMatrices</span></code></a> of <a class="reference internal" href="#qTools.classes.baseClasses.computeBase" title="qTools.classes.baseClasses.computeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">computeBase</span></code></a> to also call
-<a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase.delMatrices" title="qTools.classes.baseClasses.paramBoundBase.delMatrices"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delMatrices</span></code></a> also on <code class="docutils literal notranslate"><span class="pre">self.simulation</span></code>.</p>
+<a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase.delMatrices" title="qTools.classes.baseClasses.paramBoundBase.delMatrices"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delMatrices</span></code></a> on <code class="docutils literal notranslate"><span class="pre">self.simulation</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.qBaseSim.__superSys">
+<code class="sig-name descname">__superSys</code><em class="property">: Any</em><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.__superSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected attribute for super system property</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.qBaseSim.__subSys">
+<code class="sig-name descname">__subSys</code><em class="property">: Dict</em><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.__subSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected attribute for sub-system dictionary</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.qBaseSim.__name">
+<code class="sig-name descname">__name</code><em class="property">: aliasClass</em><a class="headerlink" href="#qTools.classes.baseClasses.qBaseSim.__name" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected name attribute is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code> class</p>
 </dd></dl>
 
 </dd></dl>
@@ -702,111 +680,71 @@ If single system initial state is not set, it will try creating here,</p>
 <dt id="qTools.classes.baseClasses.stateBase">
 <em class="property">class </em><code class="sig-name descname">stateBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#stateBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.stateBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#qTools.classes.baseClasses.computeBase" title="qTools.classes.baseClasses.computeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.baseClasses.computeBase</span></code></a></p>
-<p>This base class contains relevant attributes and methods for <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and a boolean to determine to keep or
-discard time-evolved states. Since, we can use <a class="reference internal" href="#id0" title="qTools.classes.baseClasses.computeBase.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute</span></code></a> to compute quantities of
-interest at the run-time of simulation, we don’t need to keep the states and can save memory.</p>
-<p>NOTE : This class branches the inheritance started by <a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a>, and this branch extends to
+<p>Contains attributes and methods for <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and a boolean to determine whether to store or
+discard time-evolved states. Since, we can use <a class="reference internal" href="#qTools.classes.baseClasses.computeBase.compute" title="qTools.classes.baseClasses.computeBase.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute</span></code></a> to compute quantities of
+interest at the run-time of simulation, we don’t need to keep the states and can discard them to save memory.</p>
+<p>NOTE : This class branches the inheritance started by <a class="reference internal" href="#qTools.classes.baseClasses.paramBoundBase" title="qTools.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a> and extends to
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>.</p>
 <p>NOTE : All three attributes of this class (and all 4 of timeBase) are instances of <a class="reference internal" href="#qTools.classes.baseClasses._parameter" title="qTools.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a>, so they have
 a corresponding property.</p>
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">delState or _stateBase__delStates or __delStates</code></dt>
-<dd><p>This boolean is used to determine delete/discard (<code class="docutils literal notranslate"><span class="pre">True</span></code>) time-evolved states (to save memory) and keep only
-the <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and <code class="docutils literal notranslate"><span class="pre">currentState</span></code> of the system. By default, it is <code class="docutils literal notranslate"><span class="pre">False</span></code> and states will be stored
-in the corresponding protocols <code class="docutils literal notranslate"><span class="pre">qRes.states</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">initialState or _stateBase__initialState or __initialState</code></dt>
-<dd><p>This _parameter object attributes value is set to be <code class="docutils literal notranslate"><span class="pre">initialState</span></code> matrix</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">_initialStateInput or _stateBase__initialStateInput or __initialStateInput</code></dt>
-<dd><p>This is the input used to create <code class="docutils literal notranslate"><span class="pre">initialState</span></code>, there are various ways to create <code class="docutils literal notranslate"><span class="pre">initialState</span></code>, so its
-value is changes depending on the case. This information is kept so that it can be used in cases where a new
-reconstruction of <code class="docutils literal notranslate"><span class="pre">initialState</span></code> is required, e.g. when system dimension is swept or changed.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="qTools.classes.baseClasses.stateBase.instances">
-<code class="sig-name descname">instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>Total number of instances of the class</p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt id="qTools.classes.baseClasses.stateBase.label">
 <code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'stateBase'</em><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used in default naming of objects. See <code class="xref py py-attr docutils literal notranslate"><span class="pre">label</span></code>.</p>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.stateBase.__initialState">
 <code class="sig-name descname">__initialState</code><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.__initialState" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This attribute is a <a class="reference internal" href="#qTools.classes.baseClasses._parameter" title="qTools.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a> and value stores the <code class="docutils literal notranslate"><span class="pre">initialState</span></code> matrix</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.stateBase.__initialStateInput">
 <code class="sig-name descname">__initialStateInput</code><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.__initialStateInput" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Input used in the creation of the <code class="docutils literal notranslate"><span class="pre">initialState</span></code>, there are various ways to create <code class="docutils literal notranslate"><span class="pre">initialState</span></code>, so its
+value changes depending on the case. This information is kept so that it can be used in cases where a new
+reconstruction of <code class="docutils literal notranslate"><span class="pre">initialState</span></code> is required, e.g. when system dimension is swept or changed.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.stateBase.__delStates">
 <code class="sig-name descname">__delStates</code><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.__delStates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This boolean determines if we delete/discard (<code class="docutils literal notranslate"><span class="pre">True</span></code>) time-evolved states (to save memory) and keep only
+the <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and <code class="docutils literal notranslate"><span class="pre">currentState</span></code> of the system. By default, it is <code class="docutils literal notranslate"><span class="pre">False</span></code> and states will be stored
+in the corresponding protocols <code class="docutils literal notranslate"><span class="pre">qRes.states</span></code>.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.stateBase.initialState">
 <em class="property">property </em><code class="sig-name descname">initialState</code><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.initialState" title="Permalink to this definition">¶</a></dt>
-<dd><p>The initialState property:</p>
-<ul class="simple">
-<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_stateBase__initialState.value</span></code> if it is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. Otherwise, uses first element
-in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary values to create and assign its value. This assumes that, to be able to assign
-a state to a Simulation, it needs at least one quantum system in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary. This requirement
-is by default satisfied by the internally created Simulation objects, which are attributes of quantum systems
-and protocols.</p></li>
-<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_stateBase__initialState.value</span></code> matrix for <code class="docutils literal notranslate"><span class="pre">self</span></code> by using the first element of
-<code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary values.</p></li>
-<li><p><strong>type</strong> : <code class="docutils literal notranslate"><span class="pre">Matrix</span></code></p></li>
-</ul>
+<dd><p>The initialState property <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_stateBase__initialState.value</span></code> if it is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. Otherwise, uses
+first element in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary values to create and assign its value. This assumes that, to be able
+to assign a state to a Simulation, it needs at least one quantum system in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary, and the
+subSys have method to create the state (<code class="docutils literal notranslate"><span class="pre">_createAstate</span></code>). This requirement, by default, is satisfied by the
+internally created Simulation objects that are attributes of quantum systems and protocols.</p>
+<p>Setter sets <code class="docutils literal notranslate"><span class="pre">_stateBase__initialState.value</span></code> matrix for <code class="docutils literal notranslate"><span class="pre">self</span></code> by using the first element of <code class="docutils literal notranslate"><span class="pre">subSys</span></code>
+dictionary values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.stateBase._initialStateInput">
 <em class="property">property </em><code class="sig-name descname">_initialStateInput</code><a class="headerlink" href="#qTools.classes.baseClasses.stateBase._initialStateInput" title="Permalink to this definition">¶</a></dt>
-<dd><p>This property <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_stateBase__initialStateInput.value</span></code>.</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_stateBase__initialStateInput.value</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.baseClasses.stateBase.getResultByName">
-<code class="sig-name descname">getResultByName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#stateBase.getResultByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.getResultByName" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method exists to enrich the terminology, it just <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">super().getObjByName(name)</span></code>, which returns the
-object with the given <cite>name</cite>.
-See <code class="xref py py-meth docutils literal notranslate"><span class="pre">getObjByName</span></code> for details.</p>
+<dt id="qTools.classes.baseClasses.stateBase.getResultByNameOrAlias">
+<code class="sig-name descname">getResultByNameOrAlias</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#stateBase.getResultByNameOrAlias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.getResultByNameOrAlias" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method exists to enrich the terminology, it just <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">super().getByNameOrAlias(name)</span></code>, which returns
+the object with the given <cite>name</cite>.
+See <a class="reference internal" href="base.html#qTools.classes.base.named.getByNameOrAlias" title="qTools.classes.base.named.getByNameOrAlias"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getByNameOrAlias</span></code></a> for details.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.stateBase.delStates">
 <em class="property">property </em><code class="sig-name descname">delStates</code><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.delStates" title="Permalink to this definition">¶</a></dt>
-<dd><p>The delStates property:</p>
-<ul class="simple">
-<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_stateBase__delStates.value</span></code></p></li>
-<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_stateBase__delStates.value</span></code> boolean</p></li>
-<li><p><strong>type</strong> : <code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></li>
-</ul>
+<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_stateBase__delStates.value</span></code> boolean</p>
 </dd></dl>
 
 <dl class="py method">
@@ -816,137 +754,158 @@ See <code class="xref py py-meth docutils literal notranslate"><span class="pre"
 the <code class="docutils literal notranslate"><span class="pre">_stateBase__initialState.value</span></code> to <code class="docutils literal notranslate"><span class="pre">None</span></code> and del the old value.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.stateBase.__superSys">
+<code class="sig-name descname">__superSys</code><em class="property">: Any</em><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.__superSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected attribute for super system property</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.stateBase.__subSys">
+<code class="sig-name descname">__subSys</code><em class="property">: Dict</em><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.__subSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected attribute for sub-system dictionary</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.stateBase.__name">
+<code class="sig-name descname">__name</code><em class="property">: aliasClass</em><a class="headerlink" href="#qTools.classes.baseClasses.stateBase.__name" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected name attribute is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code> class</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt id="qTools.classes.baseClasses.timeBase">
 <em class="property">class </em><code class="sig-name descname">timeBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#timeBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.timeBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#qTools.classes.baseClasses.stateBase" title="qTools.classes.baseClasses.stateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.baseClasses.stateBase</span></code></a></p>
-<p>This base class contain 3 basis time information, namely total time of simulation (<code class="docutils literal notranslate"><span class="pre">totalTime</span></code>), step size for
+<p>Implements 3 basic time information, namely total time of simulation (<code class="docutils literal notranslate"><span class="pre">totalTime</span></code>), step size for
 each unitary (<code class="docutils literal notranslate"><span class="pre">stepSize</span></code>), and number of steps (<code class="docutils literal notranslate"><span class="pre">stepCount</span> <span class="pre">=</span> <span class="pre">totalTime/stepSize</span></code>). Additionally, one more
 parameter, namely, number of samples
 (<code class="docutils literal notranslate"><span class="pre">samples</span></code>) is introduced to be used with time-dependent Hamiltonians, where a continuous parameter
 is discretely changed at every <code class="docutils literal notranslate"><span class="pre">stepSize</span></code> and more than one <code class="docutils literal notranslate"><span class="pre">samples</span></code> are desired during the <code class="docutils literal notranslate"><span class="pre">stepSize</span></code>.</p>
-<p>These 4 attributes are all <code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code> objects and private
-attributes, so they are modified by the corresponding properties (names here are property names). One other use of
+<p>These 4 attributes are all <code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code> instances and protected
+attributes, meaning they are modified by the corresponding properties. One other functionality of
 property is to create flexible use of these attributes. For example, not all 3 of <code class="docutils literal notranslate"><span class="pre">stepSize</span></code>, <code class="docutils literal notranslate"><span class="pre">totalTime</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">stepCount</span></code> are need to be explicitly defined, any of these two would be sufficient, since the 3rd can be
 calculated using the two. So, property setters&amp;getters also covers such cases. Another flexibility ensured by the
 properties is when <code class="docutils literal notranslate"><span class="pre">_bound</span></code> are broken.</p>
-<p>Attribute names and these explanations are enough to understand the basics for these 4 paramaters of timeBase class.
-See below for more details on the corresponding properties.</p>
-<dl class="py attribute">
-<dt id="qTools.classes.baseClasses.timeBase.instances">
-<code class="sig-name descname">instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>Total number of instances of the class</p>
-</dd></dl>
-
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.timeBase.label">
 <code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'timeBase'</em><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used in default naming of objects. See <code class="xref py py-attr docutils literal notranslate"><span class="pre">label</span></code>.</p>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.timeBase.__totalTime">
 <code class="sig-name descname">__totalTime</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.__totalTime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>_parameter storing the total time of simulation</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.timeBase.__stepSize">
 <code class="sig-name descname">__stepSize</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.__stepSize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>_parameter storing the step size of simulation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.timeBase.__superSys">
+<code class="sig-name descname">__superSys</code><em class="property">: Any</em><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.__superSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected attribute for super system property</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.timeBase.__subSys">
+<code class="sig-name descname">__subSys</code><em class="property">: Dict</em><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.__subSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected attribute for sub-system dictionary</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.baseClasses.timeBase.__name">
+<code class="sig-name descname">__name</code><em class="property">: aliasClass</em><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.__name" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected name attribute is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code> class</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.timeBase.__samples">
 <code class="sig-name descname">__samples</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.__samples" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>_parameter storing number of samples in each step, by default 1.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.timeBase.__stepCount">
 <code class="sig-name descname">__stepCount</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.__stepCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>_parameter storing the number of steps, i.e totalTime/stepSize.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.baseClasses.timeBase.__bound">
 <code class="sig-name descname">__bound</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.__bound" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>if bound to another object, meaning the _parameters of this gets their value from the others _parameters,
+this attribute is a reference to another. Else None.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.timeBase.totalTime">
 <em class="property">property </em><code class="sig-name descname">totalTime</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.totalTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>The totalTime property:</p>
-<ul class="simple">
-<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_timeBase__totalTime.value</span></code>.</p></li>
-<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime.value</span></code>, and also <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code> conditioned on that
-<code class="docutils literal notranslate"><span class="pre">stepSize</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. It also sets
+<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime.value</span></code>, and also sets the <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code>
+conditioned on that <code class="docutils literal notranslate"><span class="pre">stepSize</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. It also sets
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Additionally to
 these, it sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize._value</span></code> to <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize._bound._value</span></code>, if
 <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize._bound</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span> <span class="pre">or</span> <span class="pre">False</span></code>. This is introduced to provide a flexible
 use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p></li>
-</ul>
+has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.timeBase.stepCount">
 <em class="property">property </em><code class="sig-name descname">stepCount</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.stepCount" title="Permalink to this definition">¶</a></dt>
-<dd><p>The stepCount property:</p>
-<ul class="simple">
-<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_timeBase__stepCount.value</span></code> but also sets <code class="docutils literal notranslate"><span class="pre">totalTime</span></code> if it is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code> and also <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize.value</span></code> conditioned on that
-<code class="docutils literal notranslate"><span class="pre">totalTime</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. It also sets
+<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code>. getter also try seting the <code class="docutils literal notranslate"><span class="pre">totalTime</span></code> if it is <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+Setter also sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize.value</span></code> conditioned on that <code class="docutils literal notranslate"><span class="pre">totalTime</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. It also sets
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Additionally to
 these, it sets <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._value</span></code> to <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._bound._value</span></code>, if
 <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._bound</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span> <span class="pre">or</span> <span class="pre">False</span></code>. This is introduced to provide a flexible
 use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p></li>
-</ul>
+has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.timeBase.stepSize">
 <em class="property">property </em><code class="sig-name descname">stepSize</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.stepSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>The stepSize property:</p>
-<ul class="simple">
-<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_timeBase__stepSize.value</span></code>.</p></li>
-<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize.value</span></code> and also <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code> conditioned on that
+<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize.value</span></code>, and also <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code> conditioned on that
 <code class="docutils literal notranslate"><span class="pre">totalTime</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. It also sets
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Additionally to
 these, it sets <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._value</span></code> to <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._bound._value</span></code>, if
 <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._bound</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span> <span class="pre">or</span> <span class="pre">False</span></code>. This is introduced to provide a flexible
 use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p></li>
-</ul>
+has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.timeBase.samples">
 <em class="property">property </em><code class="sig-name descname">samples</code><a class="headerlink" href="#qTools.classes.baseClasses.timeBase.samples" title="Permalink to this definition">¶</a></dt>
-<dd><p>The samples property:</p>
-<ul class="simple">
-<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_timeBase__samples.value</span></code>.</p></li>
-<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_timeBase__samples.value</span></code> and also
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
-</ul>
+<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_timeBase__samples.value</span></code> and also sets
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.timeBase._copyVals">
 <code class="sig-name descname">_copyVals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">keys</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#timeBase._copyVals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.timeBase._copyVals" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method to copy the values for given attributes (as keys) from <code class="docutils literal notranslate"><span class="pre">other</span></code> to <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.timeBase._boundTree">
 <em class="property">static </em><code class="sig-name descname">_boundTree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">osys</span></em>, <em class="sig-param"><span class="n">tree</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#timeBase._boundTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.timeBase._boundTree" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Creates a tree of bound instances starting from the given <code class="docutils literal notranslate"><span class="pre">osys</span></code>. A primitive method used in debugging and to
+be improved.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.baseClasses.timeBase._bound">
 <code class="sig-name descname">_bound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput']</span></em>, <em class="sig-param"><span class="n">re</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/baseClasses.html#timeBase._bound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.baseClasses.timeBase._bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is used internally at appropriate places to create bound between different simulation instances in
-the intended hierarchical order. Meaning, when a <code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">system</span></code> is
-added to <code class="docutils literal notranslate"><span class="pre">subSys</span></code> of explicitly created <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>.
+the intended hierarchical order. For example, when a <code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">system</span></code>
+is added to <code class="docutils literal notranslate"><span class="pre">subSys</span></code> of explicitly created <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>,
 The parameters of any <code class="xref py py-class docutils literal notranslate"><span class="pre">protocol.simulation</span></code> for that system will
 be bound to <code class="docutils literal notranslate"><span class="pre">(quantum</span> <span class="pre">system).simulation</span></code> which will be bound to explicitly created Simulation. This method
 creates such a bound between two <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> objects, and it is used in appropriate places of the library.
@@ -964,9 +923,6 @@ the latter ones has a functional dependency to each other, meaning a break in on
 appropriately be reflected to the others.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -982,7 +938,7 @@ appropriately be reflected to the others.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../QuantumToolbox/Tutorials/Tutorials.html" class="btn btn-neutral float-right" title="QuantumToolbox Demos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="QRes.html" class="btn btn-neutral float-right" title="Results Class (qTools.classes.QRes)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="base.html" class="btn btn-neutral float-left" title="base classes (qTools.classes.base)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -997,7 +953,7 @@ appropriately be reflected to the others.</p></li>
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2021/02/22.
+        Last updated on 2021/02/23.
       </span>
 
     </p>

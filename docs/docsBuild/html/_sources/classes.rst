@@ -14,3 +14,4 @@ Classes (:mod:`qTools.classes`)
 
    Base class <classes/base>
    BaseClasses <classes/baseClasses>
+   Results Classes <classes/QRes>
