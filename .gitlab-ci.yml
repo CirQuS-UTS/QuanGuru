@@ -76,7 +76,7 @@ integration_test:
         - "unit_test"
     script:
     - python3 -m coverage report
-    - python3 -m pytest --cov=qTools --cov-append --ignore=tests/QuantumToolboxCore -k 'QuantumToolboxIntegration and Integration'
+    - python3 -m pytest --cov=qTools --cov-append --ignore=tests/QuantumToolboxCore -k 'QuantumToolboxIntegration or Integration'
     - python3 -m coverage xml
     - python3 -m coverage report
     artifacts:
