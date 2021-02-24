@@ -3,6 +3,12 @@ from numpy import pi
 from .baseClasses import paramBoundBase, setAttr
 
 class genericDrive(paramBoundBase):
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
@@ -20,6 +26,12 @@ class genericDrive(paramBoundBase):
         return 0
 
 class qDrive(genericDrive):
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
@@ -51,6 +63,12 @@ class qDrive(genericDrive):
 
 
 class pulse(genericDrive):
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     __slots__ = ['__t0', '__t1', '__func', 'funcArgs', 'funcKwargs', '_scale']
     def __init__(self, **kwargs):
         super().__init__()

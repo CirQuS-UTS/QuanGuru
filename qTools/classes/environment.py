@@ -4,16 +4,26 @@ from .QSys import couplingBase, _timeDep
 
 
 class environment(_timeDep):
-    instances = 0
     label = 'environment'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     @property
     def envCouplings(self):
         return self.subSys.values()
 
 class envCoupling(couplingBase):
-    instances = 0
     label = 'envCoupling'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['type', '__envMatrix']
 

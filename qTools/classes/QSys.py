@@ -35,10 +35,15 @@ def _calculateDef(sys): # pylint: disable=unused-argument
     pass
 
 class genericQSys(qBaseSim):
-    instances = 0
     label = 'genericQSys'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
-    __slots__ = ['__unitary', '__dimension', '__dimsBefore', '__dimsAfter']
+    __slots__ = ['__unitary', '__dimension', '__dimsBefore', '__dimsAfter', '_inpCoef']
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -46,7 +51,7 @@ class genericQSys(qBaseSim):
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
         self._qBaseSim__simulation.addQSystems(subS=self, Protocol=self._freeEvol) # pylint: disable=no-member
         self.__dimension = None
-
+        self._inpCoef = False
         self.__dimsBefore = 1
         self.__dimsAfter = 1
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
@@ -193,6 +198,12 @@ class genericQSys(qBaseSim):
         return time
 
 class QuantumSystem(genericQSys):
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     def __new__(cls, sysType='composite', **kwargs):
         singleKeys = ['frequency', 'operator', 'order', 'dimension']
         for key in singleKeys:
@@ -213,15 +224,19 @@ class QuantumSystem(genericQSys):
     __slots__ = []
 
 class compQSystem(genericQSys):
-    instances = 0
-    _externalInstances: int = 0
     label = 'QuantumSystem'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__qCouplings', '__qSystems', 'couplingName']
 
     def __init__(self, **kwargs):
         if self.__class__.__name__ == 'compQSystem':
-            compQSystem._externalInstances = qSystem.instances + compQSystem.instances
+            compQSystem._externalInstances = qSystem._instances + compQSystem._instances
         super().__init__()
         self.__qCouplings = OrderedDict()
         self.__qSystems = OrderedDict()
@@ -410,8 +425,13 @@ class compQSystem(genericQSys):
         return qSys
 
 class _timeDep(paramBoundBase):
-    instances = 0
     label = '_timeDep'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['timeDependency']
 
@@ -431,8 +451,13 @@ class _timeDep(paramBoundBase):
                 self.couplingStrength = self.timeDependency(self, time) #pylint:disable=assigning-non-slot,not-callable
 
 class term(_timeDep):
-    instances = 0
     label = 'term'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__frequency', '__operator', '__order']
 
@@ -447,15 +472,15 @@ class term(_timeDep):
         newSys = super().copy(frequency=self.frequency, operator=self.operator, order=self.order, **kwargs)
         return newSys
 
-    @paramBoundBase.superSys.setter
-    def superSys(self, supSys):
-        paramBoundBase.superSys.fset(self, supSys) # pylint: disable=no-member
-        for i in range(self.instances + 1):
-            if self.name == str('term' + str(i)):
-                name = self.superSys.name + 'term' + str(len(self.superSys.subSys)+1) # pylint: disable=no-member
-                self.name = name
-                self.superSys.terms = list(self.superSys.subSys.values()) # pylint: disable=no-member
-                break
+    # @paramBoundBase.superSys.setter
+    # def superSys(self, supSys):
+    #     paramBoundBase.superSys.fset(self, supSys) # pylint: disable=no-member
+        #for i in range(self._instances + 1):
+            # if self.name == str('term' + str(i)):
+            #     name = self.superSys.name.name + 'term' + str(len(self.superSys.subSys)+1) # pylint: disable=no-member
+            #     self.alias = name
+            #     self.superSys.terms = list(self.superSys.subSys.values()) # pylint: disable=no-member
+            #     break
 
     @property
     def operator(self):
@@ -540,15 +565,19 @@ class term(_timeDep):
         return mat
 
 class qSystem(genericQSys):
-    instances = 0
-    _externalInstances: int = 0
     label = 'QuantumSystem'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = []
     #@qSystemInitErrors
     def __init__(self, **kwargs):
         if self.__class__.__name__ == 'qSystem':
-            qSystem._externalInstances = qSystem.instances + compQSystem.instances
+            qSystem._externalInstances = qSystem._instances + compQSystem._instances
         super().__init__()
         qSysKwargs = ['terms', 'subSys', 'name', 'superSys', 'dimension']
         for key in qSysKwargs:
@@ -687,11 +716,16 @@ class qSystem(genericQSys):
     def _createAstate(self, inp=None):
         if inp is None:
             raise ValueError(self.name + ' is not given an initial state')
-        return qSta.superPos(self.dimension, inp)
+        return qSta.superPos(self.dimension, inp, not self._inpCoef)
 
 class Spin(qSystem): # pylint: disable=too-many-ancestors
-    instances = 0
     label = 'Spin'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
@@ -710,8 +744,13 @@ class Spin(qSystem): # pylint: disable=too-many-ancestors
         self.dimension = int((2*value) + 1)
 
 class Qubit(Spin): # pylint: disable=too-many-ancestors
-    instances = 0
     label = 'Qubit'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = []
     def __init__(self, **kwargs):
@@ -720,9 +759,14 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
         self.operator = qOps.Jz
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-class Cavity(qSystem):
-    instances = 0
+class Cavity(qSystem): # pylint: disable=too-many-ancestors
     label = 'Cavity'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = []
     def __init__(self, **kwargs):
@@ -731,8 +775,13 @@ class Cavity(qSystem):
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
 class couplingBase(_timeDep):
-    instances = 0
     label = 'couplingBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__couplingStrength']
 
@@ -851,8 +900,13 @@ class couplingBase(_timeDep):
                 self._qBase__subSys.pop(str(ind)) # pylint: disable=no-member
 
 class qCoupling(couplingBase):
-    instances = 0
     label = 'qCoupling'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = []
 

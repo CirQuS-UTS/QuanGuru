@@ -191,7 +191,7 @@
 <div class="viewcode-block" id="qResBlank"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResBlank">[docs]</a><span class="k">class</span> <span class="nc">qResBlank</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a simplified version of :class:`~qResBase`, and it is used in time evolution returns of multi-processing</span>
-<span class="sd">    (pool.map()). Since :class:`~qResBase` inherets from :class:`~named`, they contain a dictionary with :class:`~named`</span>
+<span class="sd">    (pool.map()). Since :class:`~qResBase` inherits from :class:`~named`, they contain a dictionary with :class:`~named`</span>
 <span class="sd">    instances (incl. quantum system and protocol with large matrices), and multi-processing returns a duplicate/copy</span>
 <span class="sd">    of each object in the dictionary.</span>
 <span class="sd">    Introduced to save memory, this class is introduced and :meth:`~qResults._copyAllResBlank` is used in multi-process</span>
@@ -240,6 +240,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;qResBase&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="n">resKeys</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -347,6 +353,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;qResults&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
     <span class="c1">#: (**class attribute**) dictionary to store all the qResults instances, used in several places.</span>
     <span class="n">_allResults</span> <span class="o">=</span> <span class="n">aliasDict</span><span class="p">()</span>
 
@@ -382,7 +395,7 @@
 
 <div class="viewcode-block" id="qResults._reset"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._reset">[docs]</a>    <span class="k">def</span> <span class="nf">_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method to empty (creates and assigned them to new defaultdıcts) all the previous results/states dicts.</span>
+<span class="sd">        Method to empty (creates and assigned them to new defaultdicts) all the previous results/states dicts.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">qRes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allResults</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">qRes</span><span class="o">.</span><span class="n">_qResBase__results</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
@@ -395,7 +408,7 @@
 <div class="viewcode-block" id="qResults._resetLast"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._resetLast">[docs]</a>    <span class="k">def</span> <span class="nf">_resetLast</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to reset the Last dictionaries only, and it is called before the time evolution to empty the Last. After</span>
-<span class="sd">        the time evolution (depending on single/multi-process), these are moved to reguler results by the corresponding</span>
+<span class="sd">        the time evolution (depending on single/multi-process), these are moved to regular results by the corresponding</span>
 <span class="sd">        methods below. At the end of the simulation, these are made equal to regular, so that the setter/getter</span>
 <span class="sd">        properties of results/states (returning Last ones) works during and after the simulation to set/get the results.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -406,7 +419,7 @@
 
 <div class="viewcode-block" id="qResults._organiseMultiProcRes"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._organiseMultiProcRes">[docs]</a>    <span class="k">def</span> <span class="nf">_organiseMultiProcRes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        multi-processing returns are dictionaries containing :class:`~qResBlanck` instances with single time trace</span>
+<span class="sd">        multi-processing returns are dictionaries containing :class:`~qResBlank` instances with single time trace</span>
 <span class="sd">        (see :meth:`~_copyAllResBlank`), this method re-writes the results into corresponding :class:`~qResults` objects</span>
 <span class="sd">        and re-shapes them into correct sweep and time trace structure. Calls other methods of the class for these.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -499,7 +512,7 @@
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2021/02/23.
+        Last updated on 2021/02/24.
       </span>
 
     </p>

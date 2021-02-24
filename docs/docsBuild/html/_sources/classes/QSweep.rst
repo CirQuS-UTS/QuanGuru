@@ -1,8 +1,8 @@
 ============================================
-Results Classes (:mod:`qTools.classes.QRes`)
+Sweep Classes (:mod:`qTools.classes.QSweep`)
 ============================================
 
-.. automodule:: qTools.classes.QRes
+.. automodule:: qTools.classes.QSweep
    :ignore-module-all:
    :members:
    :private-members:

@@ -131,7 +131,7 @@ class aliasClass:
 
 def keySearch(obj: Dict, k: Any) -> Hashable:
     r"""
-    Method to find a key or any other obj equal to the key in a ``dictonary.keys()``. This method is used in
+    Method to find a key or any other obj equal to the key in a ``dictionary.keys()``. This method is used in
     :class:`~aliasDict` class (extending ``dict`` class) to find the actual key when using :class:`~aliasClass` as the
     key, which returns equal for a specific
     string (its name) or any other string in its list of aliases.
@@ -141,11 +141,11 @@ def keySearch(obj: Dict, k: Any) -> Hashable:
     obj : Dict
         The dictionary to search the key
     k : Any
-        The key to search in the dictonary (obj)
+        The key to search in the dictionary (obj)
 
 
-    :returns: the key, if the key itself or no equality is found in the dictonary keys. returns the equal key from the
-              dictonary, if an equal key is found in the dictonary.
+    :returns: the key, if the key itself or no equality is found in the dictionary keys. returns the equal key from the
+              dictionary, if an equal key is found in the dictionary.
     """
     # NOTE this returns the first match, meaning there can be more than one equality. Example, two string keys in the
     # dictionary and the given key is an aliasClass object with these keys in its members (tuple of its name and
@@ -164,12 +164,12 @@ class aliasDict(dict):
     :class:`~aliasClass` objects as keys and to get the value by using the aliasClass object itself, its name, or any of
     its aliases as the key.
 
-    NOTE no explicit tests for most of the extended/overriden methods, be careful in modifcations.
+    NOTE no explicit tests for most of the extended methods, be careful in modifications.
     """
     def __getitem__(self, k: Hashable) -> Any:
         r"""
-        Gets the value from the dictonary for a given key or any of the keys that is equal to the given key.
-        This enables to get a value using an :class:`~aliasClass` object itself, its name, or any any of it alises.
+        Gets the value from the dictionary for a given key or any of the keys that is equal to the given key.
+        This enables to get a value using an :class:`~aliasClass` object itself, its name, or any any of it aliases.
         """
         k = keySearch(self, k)
         return super().__getitem__(k)
@@ -185,9 +185,9 @@ class aliasDict(dict):
 
     def __setitem__(self, k: Hashable, v: Any) -> None:
         r"""
-        Updates the value of a key in the dictonary, if the given key exists or any of the keys is equal to given key,
+        Updates the value of a key in the dictionary, if the given key exists or any of the keys is equal to given key,
         otherwise creates an item (ie key:value pair) in the dictionary.
-        This enables to set a value using an :class:`~aliasClass` object itself, its name, or any any of it alises.
+        This enables to set a value using an :class:`~aliasClass` object itself, its name, or any any of it aliases.
         """
         # might need to overwrite update and setdefault
         k = keySearch(self, k)
@@ -196,7 +196,7 @@ class aliasDict(dict):
     def __delitem__(self, k: Hashable) -> None:
         r"""
         Deletes the item for a given key or any of the keys that is equal to the given key.
-        This enables to delete a value using an :class:`~aliasClass` object itself, its name, or any any of it alises.
+        This enables to delete a value using an :class:`~aliasClass` object itself, its name, or any any of it aliases.
         """
         k = keySearch(self, k)
         super().__delitem__(k)
@@ -204,7 +204,7 @@ class aliasDict(dict):
     def __contains__(self, o: Hashable) -> bool:
         r"""
         Returns ``True`` if the key or any object equal to the key exists.
-        This enables to ``return True`` for an :class:`~aliasClass` object itself, its name, or any of it alises.
+        This enables to ``return True`` for an :class:`~aliasClass` object itself, its name, or any of it aliases.
         """
         return super().__contains__(keySearch(self, o))
         #any([o == k for k in self.keys()])
@@ -432,7 +432,7 @@ class _auxiliaryClass:#pylint:disable=too-few-public-methods
 
 def addDecorator(addFunction):
     r"""
-    A recursive decorator for methods like addSubSys which add items into dictonaries (eg. subSys dictionary).
+    A recursive decorator for methods like addSubSys which add items into dictionaries (eg. subSys dictionary).
 
     It is initially created to be used with :attr:`~qBase.subSys` dictionary of
     :class:`~qBase` class, and the idea is to cover possible misuse of
@@ -490,6 +490,12 @@ class qBase(named):
     """
     #: (**class attribute**) class label used in default naming
     label: str = 'qBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     #: (**class attribute**) aux dictionary to store auxiliary things as items to reach from any instance
     _auxiliary: Dict = {}
@@ -504,9 +510,9 @@ class qBase(named):
         self.__superSys: Any = None
         #: protected attribute for sub-system dictionary
         self.__subSys: Dict = aliasDict()
-        #: attribute for the class attribiute _auxiliary (this is required due to pickling in multi-processing)
+        #: attribute for the class attribute _auxiliary (this is required due to pickling in multi-processing)
         self.__aux = qBase._auxiliary
-        #: attribute for the class attribiute _auxiliaryObj (this is required due to pickling in multi-processing)
+        #: attribute for the class attribute _auxiliaryObj (this is required due to pickling in multi-processing)
         self.__auxObj = qBase._auxiliaryObj
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
@@ -545,9 +551,9 @@ class qBase(named):
     @property
     def subSys(self) -> Dict:
         r"""
-        subSys property gets the subSystem dictonary.
+        subSys property gets the subSystem dictionary.
 
-        Setter resets the existing dictionary and adss the given object/s to ``__subSys`` dictionary.
+        Setter resets the existing dictionary and adds the given object/s to ``__subSys`` dictionary.
         It calls the :meth:`addSubSys <qBase.addSubSys>`,
         so it can used to add a single object, `list/tuple` of objects, by giving the name of the
         system, or giving class name to add a new instance of that class. Be aware that the setter resets the existing.

@@ -166,7 +166,7 @@
             
   <h1>Source code for qTools.classes.baseClasses</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This module contains some base classes and the _parameter class.</span>
+<span class="sd">    Contains some base classes and the _parameter class.</span>
 
 <span class="sd">    .. currentmodule:: qTools.classes.baseClasses</span>
 
@@ -202,6 +202,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;updateBase&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__key&#39;</span><span class="p">,</span> <span class="s1">&#39;__function&#39;</span><span class="p">,</span> <span class="s1">&#39;_aux&#39;</span><span class="p">]</span>
 
@@ -209,10 +215,10 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1">#: string for an attribute of the objects in ``subSys`` dictionary, used in getattr().</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="c1">#: attribute for custom sweep/update methods. Assigned to some default methods in childs, and sweep/update</span>
-        <span class="c1">#: methods can be customised by re-assigning this.</span>
+        <span class="c1">#: attribute for custom sweep/update methods. Assigned to some default methods in child, and sweep/update</span>
+        <span class="c1">#: methods can be customized by re-assigning this.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="c1">#: boolean to switch from subSys attribute sweep/update (False) to auxiliary dictonary key sweep/update (True)</span>
+        <span class="c1">#: boolean to switch from subSys attribute sweep/update (False) to auxiliary dictionary key sweep/update (True)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_aux</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
@@ -256,7 +262,7 @@
 
 <div class="viewcode-block" id="_parameter"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses._parameter">[docs]</a><span class="k">class</span> <span class="nc">_parameter</span><span class="p">:</span> <span class="c1"># pylint: disable=too-few-public-methods</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    _parameter instances can be bound to each other to implement a (value) dependecy between them.</span>
+<span class="sd">    _parameter instances can be bound to each other to implement a (value) dependency between them.</span>
 
 <span class="sd">    There are two types of parametric bounds/relations/dependencies in this library,</span>
 
@@ -272,7 +278,7 @@
 
 <span class="sd">    If a ``_parameter`` is given another ``_parameter`` as its ``_bound``, it returns the ``value`` of its ``_bound``,</span>
 <span class="sd">    while keeping its ``_value`` unchanged (which is mostly left to be ``None``). This is the same for the bound</span>
-<span class="sd">    one, which meeans a chain of dependecy is achieved by bounding each object to another.</span>
+<span class="sd">    one, which means a chain of dependency is achieved by bounding each object to another.</span>
 
 <span class="sd">    bounds can be broken by explicitly setting the ``value``.</span>
 
@@ -324,7 +330,8 @@
 
 <div class="viewcode-block" id="setAttr"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.setAttr">[docs]</a><span class="k">def</span> <span class="nf">setAttr</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    a customised setattr that changes the value (and _paramUpdated) if the new value is different than the old/existing.</span>
+<span class="sd">    a customized setattr that changes the value (and _paramUpdated) if the new value is different than the old/existing.</span>
+<span class="sd">    Especially useful for multi parameter sweeps (see :class:`~_sweep`).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">oldVal</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="n">oldVal</span><span class="p">:</span>
@@ -333,9 +340,10 @@
 
 <div class="viewcode-block" id="setAttrParam"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.setAttrParam">[docs]</a><span class="k">def</span> <span class="nf">setAttrParam</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    a customised setattr that changes the value stored as the ``value`` attribute of a _parameter object.</span>
+<span class="sd">    a customized setattr that changes the value stored as the ``value`` attribute of a _parameter object.</span>
 <span class="sd">    The value (and _paramUpdated) is changed, if the new value is different than the old/existing. In any case, it</span>
 <span class="sd">    breaks existing timeBase bounds (bound between :class:`~Simulation` instances).</span>
+<span class="sd">    Especially useful for multi parameter sweeps (see :class:`~_sweep`).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">oldVal</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
     <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">_timeBase__bound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -367,6 +375,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;paramBoundBase&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__paramUpdated&#39;</span><span class="p">,</span> <span class="s1">&#39;__paramBound&#39;</span><span class="p">,</span> <span class="s1">&#39;__matrix&#39;</span><span class="p">]</span>
 
@@ -376,7 +390,7 @@
         <span class="c1">#: systems use it for their ``freeMat``</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__matrix</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1">#: Signals that a parameter is updated. This is set to ``True`` when a parameter is updated by :meth:`~setAttr`,</span>
-        <span class="c1">#: :meth:`~setAttrParam` methods, or True/False by another object, if this object is in anothers paramBound.</span>
+        <span class="c1">#: :meth:`~setAttrParam` methods, or True/False by another object, if this object is in another paramBound.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__paramUpdated</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1"># NOTE protocols check only their own _paramUpdated for re-creation, so, they only set their own</span>
         <span class="c1"># _paramUpdated back after re-creation. This means that the dependency of _paramUpdated boolean is different</span>
@@ -391,7 +405,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_paramBound</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        returns ``_paramBoundBase__paramBound`` dictionary. Since the bound mechanish is meant for internal use, this</span>
+<span class="sd">        returns ``_paramBoundBase__paramBound`` dictionary. Since the bound mechanism is meant for internal use, this</span>
 <span class="sd">        provide an information of the bound structure, but does not have a setter. Creating/breaking a bound has their</span>
 <span class="sd">        specific methods.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -470,6 +484,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;computeBase&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;qRes&#39;</span><span class="p">,</span> <span class="s1">&#39;compute&#39;</span><span class="p">,</span> <span class="s1">&#39;calculateStart&#39;</span><span class="p">,</span> <span class="s1">&#39;calculateEnd&#39;</span><span class="p">]</span>
 
@@ -538,9 +558,12 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">states</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        returns ``self.qRes.states``.</span>
+<span class="sd">        returns ``stateList if len(list(self.qRes.states.values())) &gt; 1 else stateList[0]`` where stateList is</span>
+<span class="sd">        ``list(self.qRes.states.values())``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span></div>
+        <span class="c1">#return self.qRes.states</span>
+        <span class="n">stateList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">stateList</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">stateList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="qBaseSim"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.qBaseSim">[docs]</a><span class="k">class</span> <span class="nc">qBaseSim</span><span class="p">(</span><span class="n">computeBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -557,6 +580,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;qBaseSim&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__simulation&#39;</span><span class="p">]</span>
 
@@ -671,6 +700,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;stateBase&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__delStates&#39;</span><span class="p">,</span> <span class="s1">&#39;__initialState&#39;</span><span class="p">,</span> <span class="s1">&#39;__initialStateInput&#39;</span><span class="p">]</span>
 
@@ -762,7 +797,7 @@
 <span class="sd">    Implements 3 basic time information, namely total time of simulation (``totalTime``), step size for</span>
 <span class="sd">    each unitary (``stepSize``), and number of steps (``stepCount = totalTime/stepSize``). Additionally, one more</span>
 <span class="sd">    parameter, namely, number of samples</span>
-<span class="sd">    (``samples``) is introduced to be used with time-dependent Hamiltonians, where a continuous parameter</span>
+<span class="sd">    (``samples``) is introduced to be used with time-dependent Hamiltonian, where a continuous parameter</span>
 <span class="sd">    is discretely changed at every ``stepSize`` and more than one ``samples`` are desired during the ``stepSize``.</span>
 
 <span class="sd">    These 4 attributes are all :class:`_parameter &lt;qTools.classes.computeBase._parameter&gt;` instances and protected</span>
@@ -774,6 +809,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;timeBase&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__totalTime&#39;</span><span class="p">,</span> <span class="s1">&#39;__stepSize&#39;</span><span class="p">,</span> <span class="s1">&#39;__samples&#39;</span><span class="p">,</span> <span class="s1">&#39;__stepCount&#39;</span><span class="p">,</span> <span class="s1">&#39;__bound&#39;</span><span class="p">]</span>
 
@@ -967,7 +1008,7 @@
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2021/02/23.
+        Last updated on 2021/02/24.
       </span>
 
     </p>

@@ -10,8 +10,14 @@ from .QSweep import Sweep
 # under construction
 
 class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attributes
-    instances = 0
     label = 'genericProtocol'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
     numberOfExponentiations = 0
 
     @classmethod
@@ -162,8 +168,13 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         return self._genericProtocol__identity
 
 class qProtocol(genericProtocol):
-    instances = 0
     label = 'qProtocol'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = []
     def __init__(self, **kwargs):
@@ -232,8 +243,13 @@ qProtocol._createUnitary = qProtocol._defCreateUnitary
 
 
 class copyStep(qBase):
-    instances = 0
     label = 'copyStep'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = []
 
@@ -265,10 +281,13 @@ class copyStep(qBase):
         return self.superSys.unitary
 
 class freeEvolution(genericProtocol):
-    instances = 0
-    _externalInstances = 0
-    _internalInstances = 0
     label = 'freeEvolution'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = []
 
@@ -288,8 +307,13 @@ class freeEvolution(genericProtocol):
 freeEvolution._createUnitary = freeEvolution.matrixExponentiation
 
 class Gate(genericProtocol):
-    instances = 0
     label = 'Gate'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__implementation']
 
@@ -328,8 +352,13 @@ class Gate(genericProtocol):
         self._Gate__implementation = typeStr # pylint: disable=assigning-non-slot
 
 class Update(updateBase):
-    instances = 0
     label = 'Update'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['value', '__memoryValue', 'setup', 'setback']
 

@@ -1,5 +1,5 @@
 r"""
-    This module contains some base classes and the _parameter class.
+    Contains some base classes and the _parameter class.
 
     .. currentmodule:: qTools.classes.baseClasses
 
@@ -35,6 +35,12 @@ class updateBase(qBase):
     """
     #: (**class attribute**) class label used in default naming
     label: str = 'updateBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__key', '__function', '_aux']
 
@@ -42,10 +48,10 @@ class updateBase(qBase):
         super().__init__()
         #: string for an attribute of the objects in ``subSys`` dictionary, used in getattr().
         self.__key: str = None
-        #: attribute for custom sweep/update methods. Assigned to some default methods in childs, and sweep/update
-        #: methods can be customised by re-assigning this.
+        #: attribute for custom sweep/update methods. Assigned to some default methods in child, and sweep/update
+        #: methods can be customized by re-assigning this.
         self.__function: Callable = None
-        #: boolean to switch from subSys attribute sweep/update (False) to auxiliary dictonary key sweep/update (True)
+        #: boolean to switch from subSys attribute sweep/update (False) to auxiliary dictionary key sweep/update (True)
         self._aux: bool = False
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -89,7 +95,7 @@ class updateBase(qBase):
 
 class _parameter: # pylint: disable=too-few-public-methods
     r"""
-    _parameter instances can be bound to each other to implement a (value) dependecy between them.
+    _parameter instances can be bound to each other to implement a (value) dependency between them.
 
     There are two types of parametric bounds/relations/dependencies in this library,
 
@@ -105,7 +111,7 @@ class _parameter: # pylint: disable=too-few-public-methods
 
     If a ``_parameter`` is given another ``_parameter`` as its ``_bound``, it returns the ``value`` of its ``_bound``,
     while keeping its ``_value`` unchanged (which is mostly left to be ``None``). This is the same for the bound
-    one, which meeans a chain of dependecy is achieved by bounding each object to another.
+    one, which means a chain of dependency is achieved by bounding each object to another.
 
     bounds can be broken by explicitly setting the ``value``.
 
@@ -157,7 +163,8 @@ class _parameter: # pylint: disable=too-few-public-methods
 
 def setAttr(obj: "paramBoundBase", attrStr: str, val: Any) -> None:
     r"""
-    a customised setattr that changes the value (and _paramUpdated) if the new value is different than the old/existing.
+    a customized setattr that changes the value (and _paramUpdated) if the new value is different than the old/existing.
+    Especially useful for multi parameter sweeps (see :class:`~_sweep`).
     """
     oldVal = getattr(obj, attrStr)
     if val != oldVal:
@@ -166,9 +173,10 @@ def setAttr(obj: "paramBoundBase", attrStr: str, val: Any) -> None:
 
 def setAttrParam(obj: "paramBoundBase", attrStr: str, val: Any) -> None:
     r"""
-    a customised setattr that changes the value stored as the ``value`` attribute of a _parameter object.
+    a customized setattr that changes the value stored as the ``value`` attribute of a _parameter object.
     The value (and _paramUpdated) is changed, if the new value is different than the old/existing. In any case, it
     breaks existing timeBase bounds (bound between :class:`~Simulation` instances).
+    Especially useful for multi parameter sweeps (see :class:`~_sweep`).
     """
     oldVal = getattr(obj, attrStr).value
     if obj._timeBase__bound is not None:
@@ -200,6 +208,12 @@ class paramBoundBase(qBase):
     """
     #: (**class attribute**) class label used in default naming
     label: str = 'paramBoundBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__paramUpdated', '__paramBound', '__matrix']
 
@@ -209,7 +223,7 @@ class paramBoundBase(qBase):
         #: systems use it for their ``freeMat``
         self.__matrix = None
         #: Signals that a parameter is updated. This is set to ``True`` when a parameter is updated by :meth:`~setAttr`,
-        #: :meth:`~setAttrParam` methods, or True/False by another object, if this object is in anothers paramBound.
+        #: :meth:`~setAttrParam` methods, or True/False by another object, if this object is in another paramBound.
         self.__paramUpdated = True
         # NOTE protocols check only their own _paramUpdated for re-creation, so, they only set their own
         # _paramUpdated back after re-creation. This means that the dependency of _paramUpdated boolean is different
@@ -224,7 +238,7 @@ class paramBoundBase(qBase):
     @property
     def _paramBound(self) -> Dict:
         r"""
-        returns ``_paramBoundBase__paramBound`` dictionary. Since the bound mechanish is meant for internal use, this
+        returns ``_paramBoundBase__paramBound`` dictionary. Since the bound mechanism is meant for internal use, this
         provide an information of the bound structure, but does not have a setter. Creating/breaking a bound has their
         specific methods.
         """
@@ -303,6 +317,12 @@ class computeBase(paramBoundBase):
     """
     #: (**class attribute**) class label used in default naming
     label: str = 'computeBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['qRes', 'compute', 'calculateStart', 'calculateEnd']
 
@@ -371,9 +391,12 @@ class computeBase(paramBoundBase):
     @property
     def states(self) -> Dict:
         r"""
-        returns ``self.qRes.states``.
+        returns ``stateList if len(list(self.qRes.states.values())) > 1 else stateList[0]`` where stateList is
+        ``list(self.qRes.states.values())``.
         """
-        return self.qRes.states
+        #return self.qRes.states
+        stateList = list(self.qRes.states.values())
+        return stateList if len(list(self.qRes.states.values())) > 1 else stateList[0]
 
 class qBaseSim(computeBase):
     r"""
@@ -390,6 +413,12 @@ class qBaseSim(computeBase):
     """
     #: (**class attribute**) class label used in default naming
     label = 'qBaseSim'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__simulation']
 
@@ -504,6 +533,12 @@ class stateBase(computeBase):
     """
     #: (**class attribute**) class label used in default naming
     label = 'stateBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__delStates', '__initialState', '__initialStateInput']
 
@@ -595,7 +630,7 @@ class timeBase(stateBase):
     Implements 3 basic time information, namely total time of simulation (``totalTime``), step size for
     each unitary (``stepSize``), and number of steps (``stepCount = totalTime/stepSize``). Additionally, one more
     parameter, namely, number of samples
-    (``samples``) is introduced to be used with time-dependent Hamiltonians, where a continuous parameter
+    (``samples``) is introduced to be used with time-dependent Hamiltonian, where a continuous parameter
     is discretely changed at every ``stepSize`` and more than one ``samples`` are desired during the ``stepSize``.
 
     These 4 attributes are all :class:`_parameter <qTools.classes.computeBase._parameter>` instances and protected
@@ -607,6 +642,12 @@ class timeBase(stateBase):
     """
     #: (**class attribute**) class label used in default naming
     label = 'timeBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['__totalTime', '__stepSize', '__samples', '__stepCount', '__bound']
 

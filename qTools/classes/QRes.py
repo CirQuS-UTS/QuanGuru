@@ -24,7 +24,7 @@ resKeys = ['__results', '__states', '__resultsLast', '__statesLast', '__average'
 class qResBlank:
     r"""
     This is a simplified version of :class:`~qResBase`, and it is used in time evolution returns of multi-processing
-    (pool.map()). Since :class:`~qResBase` inherets from :class:`~named`, they contain a dictionary with :class:`~named`
+    (pool.map()). Since :class:`~qResBase` inherits from :class:`~named`, they contain a dictionary with :class:`~named`
     instances (incl. quantum system and protocol with large matrices), and multi-processing returns a duplicate/copy
     of each object in the dictionary.
     Introduced to save memory, this class is introduced and :meth:`~qResults._copyAllResBlank` is used in multi-process
@@ -73,6 +73,12 @@ class qResBase(qBase):
     """
     #: (**class attribute**) class label used in default naming
     label = 'qResBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = resKeys
     def __init__(self, **kwargs):
@@ -180,6 +186,13 @@ class qResults(qResBase):
     """
     #: (**class attribute**) class label used in default naming
     label = 'qResults'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
     #: (**class attribute**) dictionary to store all the qResults instances, used in several places.
     _allResults = aliasDict()
 
@@ -215,7 +228,7 @@ class qResults(qResBase):
 
     def _reset(self):
         r"""
-        Method to empty (creates and assigned them to new defaultdıcts) all the previous results/states dicts.
+        Method to empty (creates and assigned them to new defaultdicts) all the previous results/states dicts.
         """
         for qRes in self.allResults.values():
             qRes._qResBase__results = defaultdict(list)
@@ -228,7 +241,7 @@ class qResults(qResBase):
     def _resetLast(self):
         r"""
         Method to reset the Last dictionaries only, and it is called before the time evolution to empty the Last. After
-        the time evolution (depending on single/multi-process), these are moved to reguler results by the corresponding
+        the time evolution (depending on single/multi-process), these are moved to regular results by the corresponding
         methods below. At the end of the simulation, these are made equal to regular, so that the setter/getter
         properties of results/states (returning Last ones) works during and after the simulation to set/get the results.
         """
@@ -239,7 +252,7 @@ class qResults(qResBase):
 
     def _organiseMultiProcRes(self, results, inds):
         r"""
-        multi-processing returns are dictionaries containing :class:`~qResBlanck` instances with single time trace
+        multi-processing returns are dictionaries containing :class:`~qResBlank` instances with single time trace
         (see :meth:`~_copyAllResBlank`), this method re-writes the results into corresponding :class:`~qResults` objects
         and re-shapes them into correct sweep and time trace structure. Calls other methods of the class for these.
         """

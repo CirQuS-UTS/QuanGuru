@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Results Class (qTools.classes.QRes) &mdash; Quantum Simulations 1 documentation</title>
+  <title>Results Classes (qTools.classes.QRes) &mdash; Quantum Simulations 1 documentation</title>
   
 
   
@@ -51,7 +51,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="QuantumToolbox Demos" href="../QuantumToolbox/Tutorials/Tutorials.html" />
+    <link rel="next" title="Sweep Classes (qTools.classes.QSweep)" href="QSweep.html" />
     <link rel="prev" title="base classes (qTools.classes.baseClasses)" href="baseClasses.html" /> 
 </head>
 
@@ -103,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="base.html">Base class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="baseClasses.html">BaseClasses</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Results Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QSweep.html">Sweep Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../QuantumToolbox/Tutorials/Tutorials.html">Tutorials</a></li>
@@ -154,7 +155,7 @@
         
           <li><a href="../classes.html">Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.classes</span></code>)</a> &raquo;</li>
         
-      <li>Results Class (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.classes.QRes</span></code>)</li>
+      <li>Results Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.classes.QRes</span></code>)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -198,7 +199,7 @@
 }
 </style>
 <div class="section" id="module-qTools.classes.QRes">
-<span id="results-class-qtools-classes-qres"></span><h1>Results Class (<a class="reference internal" href="#module-qTools.classes.QRes" title="qTools.classes.QRes"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.classes.QRes</span></code></a>)<a class="headerlink" href="#module-qTools.classes.QRes" title="Permalink to this headline">¶</a></h1>
+<span id="results-classes-qtools-classes-qres"></span><h1>Results Classes (<a class="reference internal" href="#module-qTools.classes.QRes" title="qTools.classes.QRes"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.classes.QRes</span></code></a>)<a class="headerlink" href="#module-qTools.classes.QRes" title="Permalink to this headline">¶</a></h1>
 <p>Contains qResults, qResBase, and qResBlank classes used in storing various types of simulation results.</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -228,7 +229,7 @@
 <em class="property">class </em><code class="sig-name descname">qResBlank</code><a class="reference internal" href="../_modules/qTools/classes/QRes.html#qResBlank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QRes.qResBlank" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This is a simplified version of <a class="reference internal" href="#qTools.classes.QRes.qResBase" title="qTools.classes.QRes.qResBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qResBase</span></code></a>, and it is used in time evolution returns of multi-processing
-(pool.map()). Since <a class="reference internal" href="#qTools.classes.QRes.qResBase" title="qTools.classes.QRes.qResBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qResBase</span></code></a> inherets from <code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code>, they contain a dictionary with <code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code>
+(pool.map()). Since <a class="reference internal" href="#qTools.classes.QRes.qResBase" title="qTools.classes.QRes.qResBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qResBase</span></code></a> inherits from <code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code>, they contain a dictionary with <code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code>
 instances (incl. quantum system and protocol with large matrices), and multi-processing returns a duplicate/copy
 of each object in the dictionary.
 Introduced to save memory, this class is introduced and <a class="reference internal" href="#qTools.classes.QRes.qResults._copyAllResBlank" title="qTools.classes.QRes.qResults._copyAllResBlank"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_copyAllResBlank()</span></code></a> is used in multi-process
@@ -298,6 +299,24 @@ into a <a class="reference internal" href="#qTools.classes.QRes.qResBlank" title
 <dt id="qTools.classes.QRes.qResBase.label">
 <code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'qResBase'</em><a class="headerlink" href="#qTools.classes.QRes.qResBase.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QRes.qResBase._internalInstances">
+<code class="sig-name descname">_internalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QRes.qResBase._internalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QRes.qResBase._externalInstances">
+<code class="sig-name descname">_externalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QRes.qResBase._externalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QRes.qResBase._instances">
+<code class="sig-name descname">_instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QRes.qResBase._instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -409,6 +428,24 @@ is avoided (since qResBlank does not inherit from named, ie. does not contain th
 </dd></dl>
 
 <dl class="py attribute">
+<dt id="qTools.classes.QRes.qResults._internalInstances">
+<code class="sig-name descname">_internalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QRes.qResults._internalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QRes.qResults._externalInstances">
+<code class="sig-name descname">_externalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QRes.qResults._externalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.QRes.qResults._instances">
+<code class="sig-name descname">_instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.QRes.qResults._instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="qTools.classes.QRes.qResults._allResults">
 <code class="sig-name descname">_allResults</code><em class="property"> = {}</em><a class="headerlink" href="#qTools.classes.QRes.qResults._allResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) dictionary to store all the qResults instances, used in several places.</p>
@@ -433,14 +470,14 @@ by <a class="reference internal" href="#qTools.classes.QRes.qResults._organiseMu
 <dl class="py method">
 <dt id="qTools.classes.QRes.qResults._reset">
 <code class="sig-name descname">_reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QRes.html#qResults._reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QRes.qResults._reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method to empty (creates and assigned them to new defaultdıcts) all the previous results/states dicts.</p>
+<dd><p>Method to empty (creates and assigned them to new defaultdicts) all the previous results/states dicts.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.QRes.qResults._resetLast">
 <code class="sig-name descname">_resetLast</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QRes.html#qResults._resetLast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QRes.qResults._resetLast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to reset the Last dictionaries only, and it is called before the time evolution to empty the Last. After
-the time evolution (depending on single/multi-process), these are moved to reguler results by the corresponding
+the time evolution (depending on single/multi-process), these are moved to regular results by the corresponding
 methods below. At the end of the simulation, these are made equal to regular, so that the setter/getter
 properties of results/states (returning Last ones) works during and after the simulation to set/get the results.</p>
 </dd></dl>
@@ -448,7 +485,7 @@ properties of results/states (returning Last ones) works during and after the si
 <dl class="py method">
 <dt id="qTools.classes.QRes.qResults._organiseMultiProcRes">
 <code class="sig-name descname">_organiseMultiProcRes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">inds</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/QRes.html#qResults._organiseMultiProcRes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.QRes.qResults._organiseMultiProcRes" title="Permalink to this definition">¶</a></dt>
-<dd><p>multi-processing returns are dictionaries containing <code class="xref py py-class docutils literal notranslate"><span class="pre">qResBlanck</span></code> instances with single time trace
+<dd><p>multi-processing returns are dictionaries containing <a class="reference internal" href="#qTools.classes.QRes.qResBlank" title="qTools.classes.QRes.qResBlank"><code class="xref py py-class docutils literal notranslate"><span class="pre">qResBlank</span></code></a> instances with single time trace
 (see <a class="reference internal" href="#qTools.classes.QRes.qResults._copyAllResBlank" title="qTools.classes.QRes.qResults._copyAllResBlank"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_copyAllResBlank()</span></code></a>), this method re-writes the results into corresponding <a class="reference internal" href="#qTools.classes.QRes.qResults" title="qTools.classes.QRes.qResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">qResults</span></code></a> objects
 and re-shapes them into correct sweep and time trace structure. Calls other methods of the class for these.</p>
 </dd></dl>
@@ -502,24 +539,6 @@ has to be reshaped.</p>
 <code class="sig-name descname">saveH5</code><span class="sig-paren">(</span><em class="sig-param">fileName=None</em>, <em class="sig-param">attributes=&lt;class 'dict'&gt;</em>, <em class="sig-param">path=None</em>, <em class="sig-param">irregular=False</em><span class="sig-paren">)</span><a class="headerlink" href="#qTools.classes.QRes.qResults.saveH5" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="qTools.classes.QRes.qResults.__superSys">
-<code class="sig-name descname">__superSys</code><em class="property">: Any</em><a class="headerlink" href="#qTools.classes.QRes.qResults.__superSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected attribute for super system property</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="qTools.classes.QRes.qResults.__subSys">
-<code class="sig-name descname">__subSys</code><em class="property">: Dict</em><a class="headerlink" href="#qTools.classes.QRes.qResults.__subSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected attribute for sub-system dictionary</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="qTools.classes.QRes.qResults.__name">
-<code class="sig-name descname">__name</code><em class="property">: <a class="reference internal" href="base.html#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass">qTools.classes.base.aliasClass</a></em><a class="headerlink" href="#qTools.classes.QRes.qResults.__name" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected name attribute is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code> class</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -532,7 +551,7 @@ has to be reshaped.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../QuantumToolbox/Tutorials/Tutorials.html" class="btn btn-neutral float-right" title="QuantumToolbox Demos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="QSweep.html" class="btn btn-neutral float-right" title="Sweep Classes (qTools.classes.QSweep)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="baseClasses.html" class="btn btn-neutral float-left" title="base classes (qTools.classes.baseClasses)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -547,7 +566,7 @@ has to be reshaped.</p>
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2021/02/23.
+        Last updated on 2021/02/24.
       </span>
 
     </p>

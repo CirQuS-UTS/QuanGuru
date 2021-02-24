@@ -5,8 +5,13 @@ from ..QuantumToolbox import operators #pylint: disable=relative-beyond-top-leve
 from ..QuantumToolbox import qubitRotations #pylint: disable=relative-beyond-top-level
 
 class xGate(Gate): # pylint: disable=too-many-ancestors
-    instances = 0
     label = 'xGate'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     __slots__ = ['__angle', 'phase']
     def __init__(self, **kwargs):
         super().__init__()
@@ -56,8 +61,13 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
 
 
 class rotation(Gate): # pylint: disable=too-many-ancestors
-    instances = 0
     label = 'rotation'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     __slots__ = ['__angle', 'rotationAxis']
     def __init__(self, **kwargs):
         super().__init__()

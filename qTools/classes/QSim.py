@@ -53,18 +53,15 @@ class Simulation(timeBase):
         There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.
         TODO : errors are not properly implemented yet.
     """
-
-    #: This is the number of instances that are explicitly created by the user.
-    _externalInstances: int = 0
-
-    #: This is the number of instances that are created internally by the library.
-    _internalInstances: int = 0
-
-    #: Total number of instances of the class = ``_internalInstances + _externalInstances```
-    instances = 0
-
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = 'Simulation'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
     _evolFuncDefault = timeEvolBase
 
     __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index']
@@ -255,7 +252,10 @@ class Simulation(timeBase):
         for protocol in self.subSys.keys():
             states.append(protocol.currentState)
             if protocol.simulation.delStates is False:
-                self.qRes.states[protocol.name.name+'Results'].append(protocol.currentState)
+                if protocol._internal: #pylint:disable=protected-access
+                    self.qRes.states[protocol.superSys.name.name+'Results'].append(protocol.currentState)
+                else:
+                    self.qRes.states[protocol.name.name+'Results'].append(protocol.currentState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None, resetRes=True):
@@ -277,22 +277,27 @@ class Simulation(timeBase):
         return self
 
 class _poolMemory: # pylint: disable=too-few-public-methods
+    r"""
+    handles creation and closing of pools for multi-processing (mp), some other small mp settings (such as setting
+    set_start_method to fork etc.), and also calls
+    :meth:`~runSimulation: method inside its only method :meth:`~run`.
+    This class is introduced to make life a bit easier for user
+    (ie. do not need to import multiprocessing or create&close pools) but also to avoid bunch of bugs due to pickling
+    etc.
+    """
+    #: stores the number of cores used in multiprocessing
     coreCount = None
+    #: boolean to ensure that the library does not try setting set_start_method to fork when a simulation is re-run.
     reRun = False
-
-    @staticmethod
-    def systemCheck():
-        return platform.system()
-
-    @staticmethod
-    def pythonSubVersion():
-        return sys.version_info[1]
 
     @classmethod
     def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
-        if ((cls.systemCheck() != 'Windows') and (cls.reRun is False)):
+        r"""
+        This is the only method in the class, and it carries the tasks described in the class description.
+        """
+        if ((platform.system() != 'Windows') and (cls.reRun is False)):
             cls.reRun = True
-            if cls.pythonSubVersion() >= 8:
+            if sys.version_info[1] >= 8:
                 try:
                     #multiprocessing.get_start_method() != 'fork'
                     multiprocessing.set_start_method("fork")

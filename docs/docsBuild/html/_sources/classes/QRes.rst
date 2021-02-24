@@ -1,6 +1,6 @@
-==========================================
-Results Class (:mod:`qTools.classes.QRes`)
-==========================================
+============================================
+Results Classes (:mod:`qTools.classes.QRes`)
+============================================
 
 .. automodule:: qTools.classes.QRes
    :ignore-module-all:

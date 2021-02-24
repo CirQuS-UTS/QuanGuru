@@ -103,6 +103,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Base class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="baseClasses.html">BaseClasses</a></li>
 <li class="toctree-l2"><a class="reference internal" href="QRes.html">Results Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QSweep.html">Sweep Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../QuantumToolbox/Tutorials/Tutorials.html">Tutorials</a></li>
@@ -224,7 +225,7 @@
 <td><p>aliasClass provides a flexible naming functionality for the qObjects.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#qTools.classes.base.keySearch" title="qTools.classes.base.keySearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keySearch</span></code></a>(obj, k)</p></td>
-<td><p>Method to find a key or any other obj equal to the key in a <code class="docutils literal notranslate"><span class="pre">dictonary.keys()</span></code>.</p></td>
+<td><p>Method to find a key or any other obj equal to the key in a <code class="docutils literal notranslate"><span class="pre">dictionary.keys()</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.base.aliasDict" title="qTools.classes.base.aliasDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aliasDict</span></code></a></p></td>
 <td><p>Extending the dictionary class to treat the keys satisfying <code class="docutils literal notranslate"><span class="pre">key1</span> <span class="pre">==</span> <span class="pre">keys2</span></code> as the same key.</p></td>
@@ -244,7 +245,7 @@
 <td><p>a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude certain objects).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.base.addDecorator" title="qTools.classes.base.addDecorator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addDecorator</span></code></a>(addFunction)</p></td>
-<td><p>A recursive decorator for methods like addSubSys which add items into dictonaries (eg.</p></td>
+<td><p>A recursive decorator for methods like addSubSys which add items into dictionaries (eg.</p></td>
 </tr>
 </tbody>
 </table>
@@ -340,7 +341,7 @@ aliasClass objects (or the aliasClass object and the given string) are considere
 <dl class="py function">
 <dt id="qTools.classes.base.keySearch">
 <code class="sig-name descname">keySearch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span></em>, <em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Hashable<a class="reference internal" href="../_modules/qTools/classes/base.html#keySearch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.keySearch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method to find a key or any other obj equal to the key in a <code class="docutils literal notranslate"><span class="pre">dictonary.keys()</span></code>. This method is used in
+<dd><p>Method to find a key or any other obj equal to the key in a <code class="docutils literal notranslate"><span class="pre">dictionary.keys()</span></code>. This method is used in
 <a class="reference internal" href="#qTools.classes.base.aliasDict" title="qTools.classes.base.aliasDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasDict</span></code></a> class (extending <code class="docutils literal notranslate"><span class="pre">dict</span></code> class) to find the actual key when using <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> as the
 key, which returns equal for a specific
 string (its name) or any other string in its list of aliases.</p>
@@ -348,12 +349,12 @@ string (its name) or any other string in its list of aliases.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>Dict</em>) – The dictionary to search the key</p></li>
-<li><p><strong>k</strong> (<em>Any</em>) – The key to search in the dictonary (obj)</p></li>
+<li><p><strong>k</strong> (<em>Any</em>) – The key to search in the dictionary (obj)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the key, if the key itself or no equality is found in the dictonary keys. returns the equal key from the
-dictonary, if an equal key is found in the dictonary.</p>
+<dd class="field-even"><p>the key, if the key itself or no equality is found in the dictionary keys. returns the equal key from the
+dictionary, if an equal key is found in the dictionary.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -366,12 +367,12 @@ dictonary, if an equal key is found in the dictonary.</p>
 implemented to use
 <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> objects as keys and to get the value by using the aliasClass object itself, its name, or any of
 its aliases as the key.</p>
-<p>NOTE no explicit tests for most of the extended/overriden methods, be careful in modifcations.</p>
+<p>NOTE no explicit tests for most of the extended methods, be careful in modifications.</p>
 <dl class="py method">
 <dt id="qTools.classes.base.aliasDict.__getitem__">
 <code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the value from the dictonary for a given key or any of the keys that is equal to the given key.
-This enables to get a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it alises.</p>
+<dd><p>Gets the value from the dictionary for a given key or any of the keys that is equal to the given key.
+This enables to get a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -383,23 +384,23 @@ This enables to get a value using an <a class="reference internal" href="#qTools
 <dl class="py method">
 <dt id="qTools.classes.base.aliasDict.__setitem__">
 <code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="n">v</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates the value of a key in the dictonary, if the given key exists or any of the keys is equal to given key,
+<dd><p>Updates the value of a key in the dictionary, if the given key exists or any of the keys is equal to given key,
 otherwise creates an item (ie key:value pair) in the dictionary.
-This enables to set a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it alises.</p>
+This enables to set a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.base.aliasDict.__delitem__">
 <code class="sig-name descname">__delitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.__delitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the item for a given key or any of the keys that is equal to the given key.
-This enables to delete a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it alises.</p>
+This enables to delete a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="qTools.classes.base.aliasDict.__contains__">
 <code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">o</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.__contains__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the key or any object equal to the key exists.
-This enables to <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">True</span></code> for an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any of it alises.</p>
+This enables to <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">True</span></code> for an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -602,7 +603,7 @@ the name of corresponding property with an appropriate value type.</p>
 <dl class="py function">
 <dt id="qTools.classes.base.addDecorator">
 <code class="sig-name descname">addDecorator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">addFunction</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/base.html#addDecorator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.addDecorator" title="Permalink to this definition">¶</a></dt>
-<dd><p>A recursive decorator for methods like addSubSys which add items into dictonaries (eg. subSys dictionary).</p>
+<dd><p>A recursive decorator for methods like addSubSys which add items into dictionaries (eg. subSys dictionary).</p>
 <p>It is initially created to be used with <a class="reference internal" href="#qTools.classes.base.qBase.subSys" title="qTools.classes.base.qBase.subSys"><code class="xref py py-attr docutils literal notranslate"><span class="pre">subSys</span></code></a> dictionary of
 <a class="reference internal" href="#qTools.classes.base.qBase" title="qTools.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qBase</span></code></a> class, and the idea is to cover possible misuse of
 <a class="reference internal" href="#qTools.classes.base.qBase.addSubSys" title="qTools.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add</span></code></a>/<a class="reference internal" href="#qTools.classes.base.qBase.createSubSys" title="qTools.classes.base.qBase.createSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create</span></code></a>
@@ -648,6 +649,24 @@ list from 1. to 4. may be trigerred again depending on the value of the element 
 </dd></dl>
 
 <dl class="py attribute">
+<dt id="qTools.classes.base.qBase._internalInstances">
+<code class="sig-name descname">_internalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.qBase._internalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.base.qBase._externalInstances">
+<code class="sig-name descname">_externalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.qBase._externalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="qTools.classes.base.qBase._instances">
+<code class="sig-name descname">_instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.qBase._instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="qTools.classes.base.qBase._auxiliary">
 <code class="sig-name descname">_auxiliary</code><em class="property">: Dict</em><em class="property"> = {}</em><a class="headerlink" href="#qTools.classes.base.qBase._auxiliary" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) aux dictionary to store auxiliary things as items to reach from any instance</p>
@@ -674,13 +693,13 @@ list from 1. to 4. may be trigerred again depending on the value of the element 
 <dl class="py attribute">
 <dt id="qTools.classes.base.qBase.__aux">
 <code class="sig-name descname">__aux</code><a class="headerlink" href="#qTools.classes.base.qBase.__aux" title="Permalink to this definition">¶</a></dt>
-<dd><p>attribute for the class attribiute _auxiliary (this is required due to pickling in multi-processing)</p>
+<dd><p>attribute for the class attribute _auxiliary (this is required due to pickling in multi-processing)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="qTools.classes.base.qBase.__auxObj">
 <code class="sig-name descname">__auxObj</code><a class="headerlink" href="#qTools.classes.base.qBase.__auxObj" title="Permalink to this definition">¶</a></dt>
-<dd><p>attribute for the class attribiute _auxiliaryObj (this is required due to pickling in multi-processing)</p>
+<dd><p>attribute for the class attribute _auxiliaryObj (this is required due to pickling in multi-processing)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -703,17 +722,11 @@ non-existing keys and changes the value for existing keys.</p>
 <dd><p>superSys property get/sets __superSys protected attribute</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt id="qTools.classes.base.qBase.__name">
-<code class="sig-name descname">__name</code><em class="property">: <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass">qTools.classes.base.aliasClass</a></em><a class="headerlink" href="#qTools.classes.base.qBase.__name" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected name attribute is an instance of <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a> class</p>
-</dd></dl>
-
 <dl class="py method">
 <dt id="qTools.classes.base.qBase.subSys">
 <em class="property">property </em><code class="sig-name descname">subSys</code><a class="headerlink" href="#qTools.classes.base.qBase.subSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>subSys property gets the subSystem dictonary.</p>
-<p>Setter resets the existing dictionary and adss the given object/s to <code class="docutils literal notranslate"><span class="pre">__subSys</span></code> dictionary.
+<dd><p>subSys property gets the subSystem dictionary.</p>
+<p>Setter resets the existing dictionary and adds the given object/s to <code class="docutils literal notranslate"><span class="pre">__subSys</span></code> dictionary.
 It calls the <a class="reference internal" href="#qTools.classes.base.qBase.addSubSys" title="qTools.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a>,
 so it can used to add a single object, <cite>list/tuple</cite> of objects, by giving the name of the
 system, or giving class name to add a new instance of that class. Be aware that the setter resets the existing.</p>
@@ -782,7 +795,7 @@ given kwargs.</p>
         
         &copy; Copyright 2020, Cahit Kargi
       <span class="lastupdated">
-        Last updated on 2021/02/22.
+        Last updated on 2021/02/24.
       </span>
 
     </p>
