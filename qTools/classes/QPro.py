@@ -1,3 +1,10 @@
+r"""
+    Contains the classes for protocols.
+
+    .. currentmodule:: qTools.classes.QPro
+
+    .. autosummary::
+"""
 import numpy as np
 
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
@@ -6,8 +13,6 @@ from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond
 from .base import qBase, addDecorator
 from .baseClasses import _parameter, qBaseSim, updateBase
 from .QSweep import Sweep
-
-# under construction
 
 class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attributes
     label = 'genericProtocol'
@@ -240,7 +245,6 @@ class qProtocol(genericProtocol):
         return unitary
 
 qProtocol._createUnitary = qProtocol._defCreateUnitary
-
 
 class copyStep(qBase):
     label = 'copyStep'

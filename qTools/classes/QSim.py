@@ -44,7 +44,7 @@ class Simulation(timeBase):
         This is the default evolution method, which calls ``.unitary`` attribute on protocols and matrix multiply the
         resultant unitary with the ``.initialState``. It is possible to use this with other solution methods where
         the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
-        by matrix exponentiation or the time-dependency is not incorporated by ``timeDependecy``.
+        by matrix exponentiation or the time-dependency is not incorporated by ``timeDependency``.
 
 
     Raises

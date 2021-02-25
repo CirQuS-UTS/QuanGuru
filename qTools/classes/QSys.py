@@ -35,6 +35,11 @@ def _calculateDef(sys): # pylint: disable=unused-argument
     pass
 
 class genericQSys(qBaseSim):
+    r"""
+    Base class for both single (:class:`~qSystem`) and composite (:class:`~compQSystem`) quantum system classes.
+    The ultimate goal is to make those two classes the same by combining them in here. Currently, a proxy
+    :class:`~QuantumSystem` is introduced as a temporary solution.
+    """
     label = 'genericQSys'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -47,10 +52,14 @@ class genericQSys(qBaseSim):
 
     def __init__(self, **kwargs):
         super().__init__()
+        #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
         self._qBaseSim__simulation.addQSystems(subS=self, Protocol=self._freeEvol) # pylint: disable=no-member
+        #: dimension of Hilbert space of the quantum system
         self.__dimension = None
+        #: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)
+        #: or the populations
         self._inpCoef = False
         self.__dimsBefore = 1
         self.__dimsAfter = 1
@@ -129,6 +138,7 @@ class genericQSys(qBaseSim):
         oldVal = self._dimsBefore
         setAttr(self, '_genericQSys__dimsBefore', val)
         for sys in self.subSys.values():
+            sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
             if isinstance(sys, genericQSys):
                 sys._dimsBefore = int((sys._dimsBefore*val)/oldVal)
 
@@ -143,6 +153,7 @@ class genericQSys(qBaseSim):
         oldVal = self._dimsAfter
         setAttr(self, '_genericQSys__dimsAfter', val)
         for sys in self.subSys.values():
+            sys.delMatrices(_exclude=[]) # pylint: disable=protected-access
             if isinstance(sys, genericQSys):
                 sys._dimsAfter = int((sys._dimsAfter*val)/oldVal)
 
@@ -424,7 +435,7 @@ class compQSystem(genericQSys):
             c.delMatrices(_exclude=[])
         return qSys
 
-class _timeDep(paramBoundBase):
+class termTimeDep(paramBoundBase):
     label = '_timeDep'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -433,12 +444,73 @@ class _timeDep(paramBoundBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['timeDependency']
+    __slots__ = ['timeDependency', '__frequency', '__order', '__operator']
 
     def __init__(self, **kwargs):
         super().__init__()
         self.timeDependency = None
+        self.__frequency = None
+        self.__order = 1
+        self.__operator = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    def copy(self, **kwargs):  # pylint: disable=arguments-differ
+        newSys = super().copy(frequency=self.frequency, operator=self.operator, order=self.order, **kwargs)
+        return newSys
+
+    @property
+    def operator(self):
+        return self._termTimeDep__operator
+
+    @operator.setter
+    def operator(self, op):
+        self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
+        setAttr(self, '_termTimeDep__operator', op)
+
+    @property
+    def order(self):
+        return self._termTimeDep__order
+
+    @order.setter
+    def order(self, ordVal):
+        setAttr(self, '_termTimeDep__order', ordVal)
+        if self._paramBoundBase__matrix is not None: # pylint: disable=no-member
+            self.freeMat = None
+
+    @property
+    def frequency(self):
+        return self._termTimeDep__frequency
+
+    @frequency.setter
+    def frequency(self, freq):
+        freq = 0 if freq == 0.0 else freq
+        setAttr(self, '_termTimeDep__frequency', freq)
+
+    def _constructMatrices(self):
+        pass
+
+    @property
+    def totalHam(self):
+        return self.frequency*self.freeMat
+
+    @property
+    def freeMat(self):
+        #if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
+        if self._paramBoundBase__matrix is None: # pylint: disable=no-member
+            self.freeMat = None
+            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
+
+    @freeMat.setter
+    def freeMat(self, qMat):
+        if qMat is not None:
+            self._paramBoundBase__matrix = qMat # pylint: disable=no-member, assigning-non-slot
+        else:
+            #if len(self._qBase__subSys) == 0: # pylint: disable=no-member
+            #    raise ValueError('No operator is given for coupling Hamiltonian')
+            #if self.operator is None:
+            #    raise ValueError('No operator is given for free Hamiltonian')
+            self._constructMatrices()
 
     def _timeDependency(self, time=None):
         if time is None:
@@ -450,7 +522,7 @@ class _timeDep(paramBoundBase):
             elif hasattr(self, 'couplingStrength'):
                 self.couplingStrength = self.timeDependency(self, time) #pylint:disable=assigning-non-slot,not-callable
 
-class term(_timeDep):
+class term(termTimeDep):
     label = 'term'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -459,87 +531,25 @@ class term(_timeDep):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__frequency', '__operator', '__order']
+    __slots__ = []
 
-    def __init__(self, **kwargs):
-        super().__init__()
-        self.__frequency = None
-        self.__operator = None
-        self.__order = 1
-        self._named__setKwargs(**kwargs) # pylint: disable=no-member
-
-    def copy(self, **kwargs):  # pylint: disable=arguments-differ
-        newSys = super().copy(frequency=self.frequency, operator=self.operator, order=self.order, **kwargs)
-        return newSys
-
-    # @paramBoundBase.superSys.setter
-    # def superSys(self, supSys):
-    #     paramBoundBase.superSys.fset(self, supSys) # pylint: disable=no-member
-        #for i in range(self._instances + 1):
-            # if self.name == str('term' + str(i)):
-            #     name = self.superSys.name.name + 'term' + str(len(self.superSys.subSys)+1) # pylint: disable=no-member
-            #     self.alias = name
-            #     self.superSys.terms = list(self.superSys.subSys.values()) # pylint: disable=no-member
-            #     break
-
-    @property
-    def operator(self):
-        return self._term__operator
-
-    @operator.setter
-    def operator(self, op):
-        self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
-        setAttr(self, '_term__operator', op)
-
-    @property
-    def frequency(self):
-        return self._term__frequency
-
-    @frequency.setter
-    def frequency(self, freq):
-        if freq == 0.0:
-            freq = 0
-        setAttr(self, '_term__frequency', freq)
-
-    @property
-    def order(self):
-        return self._term__order
-
-    @order.setter
-    def order(self, ordVal):
-        setAttr(self, '_term__order', ordVal)
-        if self._paramBoundBase__matrix is not None: # pylint: disable=no-member
-            self.freeMat = None
-
-    @property
-    def totalHam(self):
-        return self.frequency*self.freeMat
-
-    @property
-    def freeMat(self):
-        if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
-            self.freeMat = None
-            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
-        return self._paramBoundBase__matrix # pylint: disable=no-member
+    @paramBoundBase.superSys.setter
+    def superSys(self, supSys):
+        r"""
+        Extends superSys setter to also add aliases to self.
+        New aliases are (any name/alias of superSys) + Term + (number of terms)
+        TODO What if there is already a superSys, and also alias list contains user given aliases as well.
+        """
+        paramBoundBase.superSys.fset(self, supSys) # pylint: disable=no-member
+        termCount = len(self.superSys.subSys) if self in self.superSys.subSys.values() else len(self.superSys.subSys)+1 # pylint: disable=no-member
+        self.alias = [na+"Term"+str(termCount) for na in self.superSys.name._aliasClass__members()] # pylint: disable=no-member, protected-access
 
     @property
     def _freeMatSimple(self):
         h = self._constructMatrices(dimsBefore=1, dimsAfter=1, setMat=False)
         return h
 
-    @freeMat.setter
-    def freeMat(self, qOpsFunc):
-        if callable(qOpsFunc):
-            self.operator = qOpsFunc
-            self._constructMatrices()
-        elif qOpsFunc is not None:
-            self._paramBoundBase__matrix = qOpsFunc  # pylint: disable=assigning-non-slot
-        else:
-            if self.operator is None:
-                raise ValueError('No operator is given for free Hamiltonian')
-            self._constructMatrices()
-
-    def _constructMatrices(self, dimsBefore=None, dimsAfter=None, setMat=True):
+    def _constructMatrices(self, dimsBefore=None, dimsAfter=None, setMat=True): #pylint:disable=arguments-differ
         if dimsBefore is None:
             dimsBefore = self.superSys._dimsBefore # pylint: disable=no-member
 
@@ -645,7 +655,7 @@ class qSystem(genericQSys):
 
     @property
     def operator(self):
-        operators = [obj._term__operator for obj in list(self.subSys.values())] # pylint: disable=protected-access
+        operators = [obj._termTimeDep__operator for obj in list(self.subSys.values())] # pylint: disable=protected-access
         return operators if len(operators) > 1 else operators[0]
 
     @operator.setter
@@ -654,7 +664,7 @@ class qSystem(genericQSys):
 
     @property
     def frequency(self):
-        #frequencies = [obj._term__frequency for obj in list(self.subSys.values())] # pylint: disable=protected-access
+        #frequencies = [obj._termTimeDep__frequency for obj in list(self.subSys.values())] # pylint: disable=protected-access
         #return frequencies if len(frequencies) > 1 else frequencies[0]
         return self.firstTerm.frequency
 
@@ -664,7 +674,7 @@ class qSystem(genericQSys):
 
     @property
     def order(self):
-        orders = [obj._term__order for obj in list(self.subSys.values())] # pylint: disable=protected-access
+        orders = [obj._termTimeDep__order for obj in list(self.subSys.values())] # pylint: disable=protected-access
         return orders if len(orders) > 1 else orders[0]
 
     @order.setter
@@ -689,6 +699,7 @@ class qSystem(genericQSys):
         # FIXME use setAttr, check also for operator
         self._paramUpdated = True
         newS._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
+        return subS
 
     @_recurseIfList
     def removeSubSys(self, subS, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
@@ -774,8 +785,8 @@ class Cavity(qSystem): # pylint: disable=too-many-ancestors
         self.operator = qOps.number
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-class couplingBase(_timeDep):
-    label = 'couplingBase'
+class qCoupling(termTimeDep):
+    label = 'qCoupling'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
@@ -783,12 +794,11 @@ class couplingBase(_timeDep):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__couplingStrength']
+    __slots__ = []
 
     #@qCouplingInitErrors
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self.__couplingStrength = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
         self.addTerm(*args)
 
@@ -808,27 +818,12 @@ class couplingBase(_timeDep):
         return ops
 
     @property
-    def freeMat(self):
-        return self._constructMatrices()
-
-    @freeMat.setter
-    def freeMat(self, qMat):
-        if qMat is not None:
-            self._paramBoundBase__matrix = qMat # pylint: disable=no-member, assigning-non-slot
-        else:
-            if len(self._qBase__subSys) == 0: # pylint: disable=no-member
-                raise ValueError('No operator is given for coupling Hamiltonian')
-            self._constructMatrices()
-
-    @property
     def couplingStrength(self):
-        return self._couplingBase__couplingStrength
+        return self.frequency
 
     @couplingStrength.setter
     def couplingStrength(self, strength):
-        if strength == 0.0:
-            strength = 0
-        setAttr(self, '_couplingBase__couplingStrength', strength)
+        self.frequency = strength
 
     def __coupOrdering(self, qts): # pylint: disable=no-self-use
         qts = sorted(qts, key=lambda x: x[0], reverse=False)
@@ -854,12 +849,12 @@ class couplingBase(_timeDep):
                     cHam = qOps.compositeOp(oper(dimension), sys._dimsBefore, sys._dimsAfter)
                 ts = [order, cHam]
                 qts.append(ts)
-            cMats.append(self._couplingBase__coupOrdering(qts))
-        h = []
-        if ((self.couplingStrength != 0) or (self.couplingStrength is not None)):
-            h = [self.couplingStrength * sum(cMats)]
-        self._paramBoundBase__matrix = sum(h) # pylint: disable=assigning-non-slot
-        return sum(cMats)
+            cMats.append(self._qCoupling__coupOrdering(qts))
+        #h = []
+        #if ((self.couplingStrength != 0) or (self.couplingStrength is not None)):
+        #    h = [self.couplingStrength * sum(cMats)]
+        self._paramBoundBase__matrix = sum(cMats) # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def __addTerm(self, count, ind, sys, *args):
         if callable(args[count][ind]):
@@ -884,7 +879,8 @@ class couplingBase(_timeDep):
                     counter += 2
                 # TODO does not have to pass qSystem around
                 if counter < len(args):
-                    counter = self._couplingBase__addTerm(counter, 1, qSystems, *args)
+                    counter = self._qCoupling__addTerm(counter, 1, qSystems, *args)
+        self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
         return self
 
     @_recurseIfList
@@ -898,21 +894,3 @@ class couplingBase(_timeDep):
             systs = val[0]
             if subS in systs:
                 self._qBase__subSys.pop(str(ind)) # pylint: disable=no-member
-
-class qCoupling(couplingBase):
-    label = 'qCoupling'
-    #: (**class attribute**) number of instances created internally by the library
-    _internalInstances: int = 0
-    #: (**class attribute**) number of instances created explicitly by the user
-    _externalInstances: int = 0
-    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
-    _instances: int = 0
-
-    __slots__ = []
-
-    @property
-    def totalHam(self):
-        if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
-            self._constructMatrices()
-            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
-        return self._paramBoundBase__matrix # pylint: disable=no-member

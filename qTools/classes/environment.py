@@ -1,6 +1,6 @@
 from ..QuantumToolbox import evolution as qEvo #pylint: disable=relative-beyond-top-level
 
-from .QSys import couplingBase, _timeDep
+from .QSys import qCoupling, _timeDep
 
 
 class environment(_timeDep):
@@ -16,7 +16,7 @@ class environment(_timeDep):
     def envCouplings(self):
         return self.subSys.values()
 
-class envCoupling(couplingBase):
+class envCoupling(qCoupling):
     label = 'envCoupling'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0

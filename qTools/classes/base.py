@@ -471,7 +471,7 @@ def addDecorator(addFunction):
     @wraps(addFunction)
     @_recurseIfList
     def wrapper(obj, inp, **kwargs):
-        if isinstance(inp, named):
+        if isinstance(inp, (named,_auxiliaryClass)):
             inp = addFunction(obj, inp, **kwargs)
         elif isinstance(inp, (str, aliasClass)):
             inp = addFunction(obj, obj.getByNameOrAlias(inp), **kwargs) # pylint:disable=protected-access
@@ -573,8 +573,9 @@ class qBase(named):
 
         TODO add example &/ link to a tutorial
         """
-        assert isinstance(subS, named), "Add method is restricted to the class named or its child classes!"
-        subS._named__setKwargs(**kwargs) # pylint: disable=W0212
+        assert isinstance(subS, (named, _auxiliaryClass)), "Add method is restricted to named or its child classes!"
+        if isinstance(subS, named):
+            subS._named__setKwargs(**kwargs) # pylint: disable=W0212
         self._qBase__subSys[subS.name] = subS
         return subS
 

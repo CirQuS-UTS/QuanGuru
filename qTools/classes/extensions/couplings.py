@@ -39,7 +39,7 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
         couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj,
                                             couplingStrength=couplingStrength)
         couplingObj.addTerm(qsystems, [create, destroy])
-    couplingObj.name = 'JCcoupling'
+    couplingObj.alias = 'JCcoupling'
     return couplingObj
 
 

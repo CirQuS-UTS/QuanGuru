@@ -59,7 +59,6 @@ class xGate(Gate): # pylint: disable=too-many-ancestors
             #self.fixed = True
         return unitary
 
-
 class rotation(Gate): # pylint: disable=too-many-ancestors
     label = 'rotation'
     #: (**class attribute**) number of instances created internally by the library

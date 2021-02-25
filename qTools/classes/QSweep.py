@@ -219,7 +219,7 @@ class Sweep(qBase):
     @property
     def sweeps(self):
         r"""
-        The sweeps property wraps ``subSys`` dictionary to create new terminology, it works exactly as 
+        The sweeps property wraps ``subSys`` dictionary to create new terminology, it works exactly as
         :meth:`subSys <qTools.classes.base.qBase.subSys>`.
         """
         return self._qBase__subSys # pylint: disable=no-member
@@ -262,7 +262,7 @@ class Sweep(qBase):
         system : Any
             Since ``system`` property setter of ``_sweep`` behaves exactly as
             :meth:`subSys <qTools.classes.base.qBase.subSys>` setter, this can be various things, from a single
-            sytems to name/alias of the system, or from a class to a list/tuple contaning any combination
+            system to name/alias of the system, or from a class to a list/tuple contaning any combination
             of these.
         sweepKey : str
             Name of the attribute of system/s that will be swept
