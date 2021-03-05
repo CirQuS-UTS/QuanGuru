@@ -541,8 +541,8 @@ class term(termTimeDep):
         TODO What if there is already a superSys, and also alias list contains user given aliases as well.
         """
         paramBoundBase.superSys.fset(self, supSys) # pylint: disable=no-member
-        termCount = len(self.superSys.subSys) if self in self.superSys.subSys.values() else len(self.superSys.subSys)+1 # pylint: disable=no-member
-        self.alias = [na+"Term"+str(termCount) for na in self.superSys.name._aliasClass__members()] # pylint: disable=no-member, protected-access
+        termCount = len(self.superSys.subSys) if self in self.superSys.subSys.values() else len(self.superSys.subSys)+1 # pylint: disable=no-member,line-too-long # noqa: E501
+        self.alias = [na+"Term"+str(termCount) for na in self.superSys.name._aliasClass__members()] # pylint: disable=no-member, protected-access,line-too-long # noqa: E501
 
     @property
     def _freeMatSimple(self):

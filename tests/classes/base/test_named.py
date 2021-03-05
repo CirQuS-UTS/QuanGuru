@@ -3,6 +3,7 @@ import string
 import pickle
 import multiprocessing
 from functools import partial
+from attr import s
 import pytest
 import qTools.classes.base as qbase #pylint: disable=import-error
 
@@ -27,7 +28,7 @@ def test_instanceNumberIncrementationsAndDefaultNames(cls):
         # verify the name is correct
         assert obExternal.name == cls.label + str(cls._externalInstances) # pylint:disable=protected-access
         # verify the string repr matches name
-        assert repr(obExternal) == obExternal.name
+        assert str(obExternal) == obExternal.name
 
         # create an internal instance
         obInternal = cls(_internal=True)
@@ -36,7 +37,7 @@ def test_instanceNumberIncrementationsAndDefaultNames(cls):
         # verify the name is correct
         assert obInternal.name == "_" + cls.label + str(cls._internalInstances) # pylint:disable=protected-access
         # verify the string repr matches name
-        assert repr(obExternal) == obExternal.name
+        assert str(obExternal) == obExternal.name
 
         # verify total numbers are correct
         assert obInternal._instances == 2*(i+1) # pylint:disable=protected-access

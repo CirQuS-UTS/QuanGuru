@@ -13,6 +13,7 @@ def comp(simOB, st):
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_singleQubitSimpleEvolution(bo, singleQubit):
+    qt.freeEvolution._freqCoef = 2*np.pi
     # evolve a single qubit
     freq = 10*rn.random()
     p0 = np.sqrt(0.5)
@@ -23,6 +24,7 @@ def test_singleQubitSimpleEvolution(bo, singleQubit):
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_singleQubitSweepEvolution(bo, singleQubit):
+    qt.freeEvolution._freqCoef = 2*np.pi
     # evolve a single qubits
     freqs = [10*rn.random(),10*rn.random(),10*rn.random()]
     c0 = rn.random() + 1j*rn.random()

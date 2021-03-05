@@ -305,9 +305,9 @@ class named:
         #: used in :meth:`~named.getByNameOrAlias` to properly pickle and reach updated objects during multi-processing
         self._allInstaces = named._allInstacesDict
 
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         r"""
-        representation of the object is the default name
+        string representation of the object is the default name
         """
         return f'{self.name}'
 
@@ -471,7 +471,7 @@ def addDecorator(addFunction):
     @wraps(addFunction)
     @_recurseIfList
     def wrapper(obj, inp, **kwargs):
-        if isinstance(inp, (named,_auxiliaryClass)):
+        if isinstance(inp, (named, _auxiliaryClass)):
             inp = addFunction(obj, inp, **kwargs)
         elif isinstance(inp, (str, aliasClass)):
             inp = addFunction(obj, obj.getByNameOrAlias(inp), **kwargs) # pylint:disable=protected-access
