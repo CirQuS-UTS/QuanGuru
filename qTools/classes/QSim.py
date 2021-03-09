@@ -123,7 +123,7 @@ class Simulation(timeBase):
         keys = self.protocols
         for key in keys:
             qSys = self.subSys[key]
-            if isinstance(key, str):
+            if not isinstance(key, qBaseSim):
                 self.subSys[qSys._freeEvol] = self.subSys.pop(key) # pylint: disable=protected-access
             else:
                 self.subSys[key] = self.subSys.pop(key)

@@ -621,7 +621,7 @@ class stateBase(computeBase):
         if self not in _exclude:
             _exclude = super().delMatrices(_exclude)
             oldMat = self._stateBase__initialState.value  # noqa: 841
-            self._stateBase__initialState.value = None # pylint: disable=no-member, protected-access
+            self._stateBase__initialState._value = None # pylint: disable=no-member, protected-access
             del oldMat
         return _exclude
 
@@ -784,6 +784,13 @@ class timeBase(stateBase):
         be bound to ``(quantum system).simulation`` which will be bound to explicitly created Simulation. This method
         creates such a bound between two ``Simulation`` objects, and it is used in appropriate places of the library.
         Such a bound is broken or not created at all, if a parameter is explicitly assigned for a protocol or system.
+
+        - if self _parameter attributes have bound False (meaning set a value before)
+
+            - copies the value from other, if value in other is not None.
+            - is any self _parameter bound is None, and the same value in other is not, sets it and breaks the loop
+
+        - tries bounding if bound is None
 
         NOTE : This method is intended purely for internal uses!
 
