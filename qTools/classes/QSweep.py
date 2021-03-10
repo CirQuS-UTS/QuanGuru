@@ -283,7 +283,7 @@ class Sweep(qBase):
                 for sys in newSweep.subSys.values():
                     if not hasattr(sys, sweepKey):
                         raise AttributeError("?")
-            # ignores when object is given with a key it does not have        
+            # ignores when object is given with a key it does not have
             #elif not hasattr(list(newSweep.subSys.values())[0], sweepKey):
             #    newSweep._aux = True #pylint: disable=protected-access
         super().addSubSys(newSweep)

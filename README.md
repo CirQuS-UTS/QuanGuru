@@ -1,56 +1,31 @@
 # Read Me
 
-## To contribute
+Also, I (mostly) use [camelCase](https://code.research.uts.edu.au/mKQuantum/QuantumSimulations/-/wikis/Variable%20Naming%20Conventions)
 
-Below is a list of key programming/Python concepts used in various parts of the library. I have divided them into two
-parts for classes and QuantumToolbox, and into 3 parts for classes.
+## (Rough) Development Plan
 
-Also, I mostly use [camelCase](https://code.research.uts.edu.au/mKQuantum/QuantumSimulations/-/wikis/Variable%20Naming%20Conventions)
+QuantumToolbox is already simple enough and stable. In parallel to future developments of classes, further additions and
+improvements can be implemented in QuantumToolbox. I already have functions (for special state creations, operator norm
+etc.) in my repo under possibleFutureQuantumToolbox. These functions and more can be implemented into QuantumToolbox
+with proper tests, documentation etc.
 
-I created below list quickly glancing the classes and modules. Please let me know, if there is anything to be included
-here. I mean, after seeing something that is not listed here, you might google learn it, but please also let
-me know, so that this list is updated and becomes more complete for future.
+### Short term plan for the improvements on current code
 
-### Classes
+1. Completing essential unit and integration tests
+1. Restructuring and writing docstring for QSys, QPro, and QSim
+1. Save extensions for QResults
+1. Writing tutorials and further improvements in docstring and tests
 
-#### 1. Essentials
+### pip installable
 
-1. Define a class, inherit from it (with the use of `super().__init__()`), and use class magics such as `__slots__` and
-`__new__`. 
-1. Instance and class attributes. Attribute naming with `_` and `__` -> name mangling
-1. Instance, class, and static methods and use of `super()` to extend these in sub-classes
-1. Property decorator (`getter/setter`) and use of `fset` and `fget` to extend these in sub-classes
-1. User defined decorators, argumented decorators, and recursion
-1. `setattr`, `getattr`, and `hasattr` bult-in methods
-1. `*args` and `**kwargs` use in methods/functions
+At this point, we should have a stable version with enough documentation and make it pip available.
 
-#### 2. More details
+### Future development 
+Further additions will always have to be with proper tests, tutorials, docstring etc.
 
-1. extensions and monkey-patching, and duck-typing
-1. Multi-processing basics with `Pool` and pickling
-1. Mutable vs immutable types. Use of mutable types as default values for arguments in functions and methods (not a bug
-a feature and we use it in some methods, mostly recursive methods). Also possibly, pass by reference and value.
-1. `try-except-else-finally`
-
-#### 3. Full extend
-
-1. Inheritance vs composition
-1. Module magics such as `__all__`
-1. reStructured text and docstrings in numpy style, and **Sphinx** (`conf.py`, `Makefile`, etc.)
-1. type hints and **mypy** (partially used)
-1. linter settings and **pylint**
-1. CI/CD tools (for gitlab)
-
-### QuantumToolbox
-
-1. Libraries for matrix creation and manipulation, such as `scipy.sparse`, `scipy.sparse.linalg`, `scipy.linalg` etc.
-1. `@` matrix multiplication method. See [the PEP reference.](https://www.python.org/dev/peps/pep-0465/)
-1. type hints and **mypy**
-
-## Existing Documentation
-
-A useful link for latex math symbols to use in docstrings: https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject
-Not every latex command works, but almost all of them can be obtained by some combination of these.
+1. Implementation of SCQubits and QDrive using Adrien's work.
+1. Open system simulation capability for the classes
+1. Interfacing to other libraries such as QuTiP.
 
 To read the existing documentation: docs -> docsBuild -> index.html
 Then, choose QuantumToolbox from the menu on the left.
