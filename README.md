@@ -9,18 +9,18 @@ improvements can be implemented in QuantumToolbox. I already have functions (for
 etc.) in my repo under possibleFutureQuantumToolbox. These functions and more can be implemented into QuantumToolbox
 with proper tests, documentation etc.
 
-### Short term plan for the improvements on current code
+### 1. Short term plan for the improvements on current code
 
 1. Completing essential unit and integration tests
 1. Restructuring and writing docstring for QSys, QPro, and QSim
 1. Save extensions for QResults
 1. Writing tutorials and further improvements in docstring and tests
 
-### pip installable
+### 2. pip installable
 
 At this point, we should have a stable version with enough documentation and make it pip available.
 
-### Future development 
+### 3. Future development 
 Further additions will always have to be with proper tests, tutorials, docstring etc.
 
 1. Implementation of SCQubits and QDrive using Adrien's work.

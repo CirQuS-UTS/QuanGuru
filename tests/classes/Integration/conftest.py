@@ -42,6 +42,41 @@ class _twoQubitsExchange:
     @staticmethod
     def sz1Exp(a11, a00, c1, c2, rbf, detun, cStg, t): return np.abs(a11)**2 - np.abs(a00)**2 + ((((rbf-detun)/(2*cStg))**2)-1)*(np.abs(c1)**2) + ((((rbf+detun)/(2*cStg))**2)-1)*(np.abs(c2)**2) - 4*((c1*np.conjugate(c2)*np.exp(-1j*rbf*t)).real)
 
+class _JC:
+    # implement the analytical solutions
+    @staticmethod
+    def quanGenRabiFreq(g, detun=0, n=0):
+        return np.sqrt((detun**2) + (4*(g**2)*(n+1)))
+    @staticmethod
+    def c1(qRf, qgRf, detun, cn, cn1):
+        d = (-qRf*cn) + (cn1*(qgRf - detun))
+        return d/(2*qgRf)
+    @staticmethod
+    def c2(qRf, qgRf, detun, cn, cn1):
+        d = (qRf*cn) + (cn1*(qgRf + detun))
+        return d/(2*qgRf)
+    @staticmethod
+    def c_n_1(n, wr, detun, qRf, qgRf, c_1, c_2, t):
+        fp = c_1*np.exp(-1j*(((n+0.5)*wr) - (0.5*qgRf))*t*2*np.pi)*(-(qgRf + detun))
+        sp = c_2*np.exp(-1j*(((n+0.5)*wr) + (0.5*qgRf))*t*2*np.pi)*((qgRf - detun))
+        return (fp+sp)/qRf
+    @staticmethod
+    def c_np1_0(n, wr, detun, qRf, qgRf, c_1, c_2, t):
+        fp = c_1*np.exp(-1j*(((n+0.5)*wr) - (0.5*qgRf))*t*2*np.pi)
+        sp = c_2*np.exp(-1j*(((n+0.5)*wr) + (0.5*qgRf))*t*2*np.pi)
+        return fp+sp
+    @staticmethod
+    def cavQubStateToInds(n, qubEx):
+        return 2*n + (not qubEx)
+    @staticmethod
+    def cavQubIndsToState(ind):
+        n = ind//2
+        qub = int(not ind % 2)
+        return (n, qub)
+    @staticmethod
+    def c00(c0in, wq, t):
+        return c0in*np.exp(1j*wq*t*np.pi)
+
 @pytest.fixture
 def singleQubit():
     # singleQubit fixture used to access above class and its method from the tests
@@ -51,3 +86,7 @@ def singleQubit():
 def twoQubitsExchange():
     # singleQubit fixture used to access above class and its method from the tests
     return _twoQubitsExchange()
+
+@pytest.fixture
+def JC():
+    return _JC()

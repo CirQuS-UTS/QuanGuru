@@ -39,14 +39,14 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
         couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj,
                                             couplingStrength=couplingStrength)
         couplingObj.addTerm(qsystems, [create, destroy])
-    couplingObj.alias = 'JCcoupling'
+    #couplingObj.alias = 'JCcoupling'
     return couplingObj
 
 
 @checkCavQub
 def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
-    obj.couplingName = 'Rabi'
+    #obj.couplingName = 'Rabi'
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], qsystems,
                                             [create, sigmax], superSys=obj, couplingStrength=couplingStrength)
