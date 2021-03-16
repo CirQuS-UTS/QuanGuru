@@ -404,13 +404,13 @@ class compQSystem(genericQSys):
                 elif qS.ind > ind:
                     qS._dimsBefore = int((qS._dimsBefore*newDimVal)/oldDimVal)
 
-            if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=no-member
-                self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member
+            #if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=no-member
+            #    self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=no-member
             self._paramUpdated = True
             #self._constructMatrices()
-            for sys in self.subSys.values():
-                if sys.simulation._stateBase__initialStateInput.value is not None:
-                    sys.initialState = sys.simulation._stateBase__initialStateInput.value
+            #for sys in self.subSys.values():
+            #    if sys.simulation._stateBase__initialStateInput.value is not None:
+            #        sys.initialState = sys.simulation._stateBase__initialStateInput.value
 
         if self not in _exclude:
             _exclude.append(self)
@@ -619,8 +619,8 @@ class qSystem(genericQSys):
 
         setAttr(self, '_genericQSys__dimension', newDimVal)
         # FIXME these should be called only if oldDim != newDim
-        if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
-            self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
+        #if self.simulation._stateBase__initialStateInput.value is not None: # pylint: disable=protected-access
+        #    self.initialState = self.simulation._stateBase__initialStateInput.value # pylint: disable=protected-access
 
         if isinstance(self.superSys, compQSystem):
             self.superSys.updateDimension(self, newDimVal, oldDimVal, _exclude=[]) # pylint: disable=no-member

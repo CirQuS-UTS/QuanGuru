@@ -23,7 +23,8 @@ def test_twoQubitExchange(twoQubitsExchange):
     # define the qubit frequencies and the coupling strength randomly
     freq1 = 2*random.random()
     freq2 = 2*random.random()
-    cStg = 2*random.random()
+    gList =  [2*random.random() for _ in range(4)]
+    cStg = gList[0]
 
     # define the initial coefficients randomly
     c00inp = random.random() + 1j*random.random()
@@ -47,8 +48,8 @@ def test_twoQubitExchange(twoQubitsExchange):
     qbIn = qb1 + qb2
 
     # couple the qubits with the random coupling strength
-    qbIn.createSysCoupling([qb1, qb2], [qt.sigmam, qt.sigmap], couplingStrength=cStg)
-    qbIn.createSysCoupling([qb1, qb2], [qt.sigmap, qt.sigmam], couplingStrength=cStg)
+    coupling1 = qbIn.createSysCoupling([qb1, qb2], [qt.sigmam, qt.sigmap], couplingStrength=cStg)
+    coupling2 = qbIn.createSysCoupling([qb1, qb2], [qt.sigmap, qt.sigmam], couplingStrength=cStg)
 
     # create the initial state with the random coefficients
     qbIn.initialState = c00inp*qt.basis(4, 0) + c10inp*qt.basis(4, 1) + c01inp*qt.basis(4, 2) + c11inp*qt.basis(4, 3)
@@ -61,24 +62,28 @@ def test_twoQubitExchange(twoQubitsExchange):
 
     qbIn.simCompute = comp
     qbIn.simDelStates = True
+    cSweep1 = qbIn.simulation.Sweep.createSweep(system=coupling1, sweepKey="couplingStrength", sweepList=gList)
+    cSweep2 = qbIn.simulation.Sweep.createSweep(system=coupling2, sweepKey="couplingStrength", sweepList=gList)
     qbIn.runSimulation()
-    rabifreq = twoQubitsExchange.rbFreq(freq2, freq1, cStg)
-    detun = freq2 - freq1
-    c1 = twoQubitsExchange.c_1(rabifreq, c10inp, c01inp, detun, cStg)
-    c2 = twoQubitsExchange.c_2(rabifreq, c10inp, c01inp, detun, cStg)
 
-    assert np.allclose([twoQubitsExchange.sz1Exp(c00inp, c11inp, c1, c2, rabifreq, detun, cStg, t) for t in qbIn.simulation.timeList], qbIn.simulation.results["sz1"])
+    for ind, cStg in enumerate(gList):
+        rabifreq = twoQubitsExchange.rbFreq(freq2, freq1, cStg)
+        detun = freq2 - freq1
+        c1 = twoQubitsExchange.c_1(rabifreq, c10inp, c01inp, detun, cStg)
+        c2 = twoQubitsExchange.c_2(rabifreq, c10inp, c01inp, detun, cStg)
 
-    assert np.allclose([twoQubitsExchange.c01(rabifreq, c10inp, c01inp, detun, cStg, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c01real"])
-    assert np.allclose([twoQubitsExchange.c01(rabifreq, c10inp, c01inp, detun, cStg, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c01imag"])
+        assert np.allclose([twoQubitsExchange.sz1Exp(c00inp, c11inp, c1, c2, rabifreq, detun, cStg, t) for t in qbIn.simulation.timeList], qbIn.simulation.results["sz1"][ind])
 
-    assert np.allclose([twoQubitsExchange.c10(rabifreq, c10inp, c01inp, detun, cStg, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c10real"])
-    assert np.allclose([twoQubitsExchange.c10(rabifreq, c10inp, c01inp, detun, cStg, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c10imag"])
+        assert np.allclose([twoQubitsExchange.c01(rabifreq, c10inp, c01inp, detun, cStg, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c01real"][ind])
+        assert np.allclose([twoQubitsExchange.c01(rabifreq, c10inp, c01inp, detun, cStg, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c01imag"][ind])
 
-    assert np.allclose([twoQubitsExchange.c00(freq1, freq2, c00inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c00real"])
-    assert np.allclose([twoQubitsExchange.c00(freq1, freq2, c00inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c00imag"])
+        assert np.allclose([twoQubitsExchange.c10(rabifreq, c10inp, c01inp, detun, cStg, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c10real"][ind])
+        assert np.allclose([twoQubitsExchange.c10(rabifreq, c10inp, c01inp, detun, cStg, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c10imag"][ind])
 
-    assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c11real"])
-    assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c11imag"])
+        assert np.allclose([twoQubitsExchange.c00(freq1, freq2, c00inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c00real"][ind])
+        assert np.allclose([twoQubitsExchange.c00(freq1, freq2, c00inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c00imag"][ind])
+
+        assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c11real"][ind])
+        assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c11imag"][ind])
 
     qt.freeEvolution._freqCoef = 2*np.pi

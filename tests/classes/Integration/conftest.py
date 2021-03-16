@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+import random
 import qTools as qt #pylint: disable=import-error
 
 
@@ -43,6 +44,43 @@ class _twoQubitsExchange:
     def sz1Exp(a11, a00, c1, c2, rbf, detun, cStg, t): return np.abs(a11)**2 - np.abs(a00)**2 + ((((rbf-detun)/(2*cStg))**2)-1)*(np.abs(c1)**2) + ((((rbf+detun)/(2*cStg))**2)-1)*(np.abs(c2)**2) - 4*((c1*np.conjugate(c2)*np.exp(-1j*rbf*t)).real)
 
 class _JC:
+    def __init__(self) -> None:
+        # define the qubit frequencies and the coupling strength randomly
+        self.qubFreq = 2*random.random()
+        self.resFreq = 2*random.random()
+        self.gStg = 2*random.random()
+        self.detuning = self.resFreq-self.qubFreq
+
+        self.cavDim = random.randint(5, 15)
+
+        # define the initial coefficients randomly
+        self.stateCoefs = [random.random() + 1j*random.random() for i in range((2*self.cavDim)-2)]
+
+        # normalise the initial coefficients
+        self.cTotNorm = np.sqrt(sum([a.real**2 + a.imag**2 for a in self.stateCoefs]))
+        self.stateCoefs = [self.stateCoefs[i]/self.cTotNorm for i in range((2*self.cavDim)-2)]
+        # make sure it is normalised
+        np.sqrt(sum([a.real**2 + a.imag**2 for a in self.stateCoefs]))
+
+        self.cav = qt.Cavity(dimension=self.cavDim, frequency=self.resFreq)
+        self.qub = qt.Qubit(frequency=self.qubFreq)
+
+        self.jc = self.cav + self.qub
+        self.couplingObj = self.jc.JC(self.gStg)
+
+        self.jc.simStepSize = 0.01
+        self.jc.simTotalTime = 8
+        self.jc.simCompute = self.comp
+        self.jc.simDelStates = True
+    @staticmethod
+    def comp(sim, st):
+        #sim.qRes.result = ("sz1", expectation(photonNum, st))
+        #sim.qRes.result = ("sz2", expectation(qubSz, st))
+        dim = sim.auxObj.dim
+        #dim = st.shape[0] # FIXME This causes bug in _reShape
+        for i in range(dim-2):
+            sim.qRes.result = (str(i) + "real", st.A[i][0].real)
+            sim.qRes.result = (str(i) + "imag", st.A[i][0].imag)
     # implement the analytical solutions
     @staticmethod
     def quanGenRabiFreq(g, detun=0, n=0):
