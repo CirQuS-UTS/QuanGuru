@@ -3,6 +3,7 @@ from numpy import pi
 from .baseClasses import paramBoundBase, setAttr
 
 class genericDrive(paramBoundBase):
+    label = 'genericDrive'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
@@ -26,6 +27,7 @@ class genericDrive(paramBoundBase):
         return 0
 
 class qDrive(genericDrive):
+    label = 'qDrive'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
@@ -61,8 +63,8 @@ class qDrive(genericDrive):
             coef += p.apply(time)
         return coef
 
-
 class pulse(genericDrive):
+    label = 'pulse'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user

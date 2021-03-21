@@ -1,9 +1,9 @@
 from ..QuantumToolbox import evolution as qEvo #pylint: disable=relative-beyond-top-level
 
-from .QSys import qCoupling, _timeDep
+from .QSys import qCoupling, termTimeDep
 
 
-class environment(_timeDep):
+class environment(termTimeDep): # pylint:disable=too-few-public-methods
     label = 'environment'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0

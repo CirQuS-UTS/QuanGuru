@@ -53,7 +53,7 @@ from .functions import (
 from ._helpers import (loopIt)
 from .rmtDistributions import (EigenVectorDist, WignerDyson, WignerSurmise, Poissonian)
 from .thermodynamics import(nBarThermal, qubitPolarisation, HeatCurrent)
-from .qubitRotations import(qubRotation, xRotation, yRotation, zRotation)
+from .spinRotations import(qubRotation, xRotation, yRotation, zRotation)
 from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
 from .Hamiltonians import (qubCavFreeHam, RabiHam, JCHam, aJCHam)
 from ._ipr import (iprKet, iprKetNB)
