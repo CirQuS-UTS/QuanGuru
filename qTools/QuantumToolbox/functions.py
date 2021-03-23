@@ -419,3 +419,12 @@ def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:
 
     expMat = hc(states) @ operator @ states
     return expMat.diagonal()
+
+def standardDev(operator, state, expect=False):
+    expSq = (expectation(operator, state))
+    SqExp = expectation(operator**2, state)
+    return np.sqrt(SqExp - (expSq**2)) if not expect else (np.sqrt(SqExp - (expSq**2)), expSq)
+
+def spectralNorm(operator):
+    vals, _ = sortedEigens(hc(operator)@operator)
+    return np.sqrt(np.real(max(vals))), vals
