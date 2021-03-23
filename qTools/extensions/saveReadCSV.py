@@ -86,4 +86,4 @@ def saveQResCSV(qRes, path=None):
     for key, val in results.items():
         result = val.results
         if len(result.keys()) > 0:
-            _saveDictToCSV(result, path, key)
+            _saveDictToCSV(result, path, key._allStringSum())

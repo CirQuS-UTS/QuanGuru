@@ -95,6 +95,15 @@ class aliasClass:
         """
         return (self.name, *self._aliasClass__alias) #pylint:disable = no-member
 
+    def _allStringSum(self) -> str:
+        r"""
+        Adds and returns all the strings in members
+        """
+        sumStr = self.name
+        for s in self._aliasClass__alias:
+            sumStr += s
+        return sumStr
+
     def __repr__(self) -> str:
         r"""
         representation of the object is equal to ``repr(self.name)``.
