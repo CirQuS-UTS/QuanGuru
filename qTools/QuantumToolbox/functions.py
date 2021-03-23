@@ -155,7 +155,7 @@ def fidelityPure(state1: Matrix, state2: Matrix) -> float:
     """
 
     if ((state1.shape[0] != state1.shape[1]) and (state2.shape[0] != state2.shape[1])):
-        fid = abs(innerProd(state1, state2))**2
+        fid = np.round(abs(innerProd(state1, state2)), 20)**2
     else:
         if state1.shape[0] != state1.shape[1]:
             state1 = densityMatrix(state1)

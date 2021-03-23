@@ -56,7 +56,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
                 flipOpN = operators.compositeOp(rotOp(sys[i+1].dimension, isDim=True),
                                                 sys[i+1]._dimsBefore, sys[i+1]._dimsAfter)
                 flipUn = evolution.Unitary(self.phase*self.angle*flipOpN) @ flipUn
-            self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
+            self._paramBoundBase__matrix = flipUn # pylint: disable=assigning-non-slot
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
