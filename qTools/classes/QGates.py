@@ -92,10 +92,10 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def _gateImplements(self):
-        if self.implementation.lower() in ('instant', 'flip'): # pylint: disable=no-member
-            unitary = self.instantFlip()
-        else:
+        if self.implementation is None:
             unitary = self._rotMat()
+        elif self.implementation.lower() in ('instant', 'flip'): # pylint: disable=no-member
+            unitary = self.instantFlip()
         return unitary
 
 SpinRotation._createUnitary = SpinRotation._rotMat # pylint: disable=protected-access
