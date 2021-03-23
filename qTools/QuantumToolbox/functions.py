@@ -425,6 +425,6 @@ def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float:
     SqExp = expectation(operator**2, state)
     return np.sqrt(SqExp - (expSq**2)) if not expect else (np.sqrt(SqExp - (expSq**2)), expSq)
 
-def spectralNorm(operator: Matrix) -> float:
+def spectralNorm(operator: Matrix) -> Tuple:
     vals, _ = sortedEigens(hc(operator)@operator)
-    return np.sqrt(np.real(max(vals))), vals
+    return (np.sqrt(np.real(max(vals))), vals)

@@ -1,7 +1,7 @@
 r"""
     Contains functions to create qubit rotation operators.
 
-    .. currentmodule:: qTools.QuantumToolbox.qubitRotations
+    .. currentmodule:: qTools.QuantumToolbox.spinRotations
 
     Functions
     ---------

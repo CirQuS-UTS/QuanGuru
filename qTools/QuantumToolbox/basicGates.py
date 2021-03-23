@@ -1,5 +1,5 @@
-import numpy as np
-import scipy.sparse as sp
+import numpy as np # type: ignore
+import scipy.sparse as sp # type: ignore
 from .customTypes import Matrix
 
 def CNOT(sparse: bool = True) -> Matrix:
