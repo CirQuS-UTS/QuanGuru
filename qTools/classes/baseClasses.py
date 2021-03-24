@@ -357,7 +357,7 @@ class computeBase(paramBoundBase):
         callable and does nothing otherwise.
         """
         if callable(self.compute):
-            self.compute(self, *states) # pylint: disable=not-callable
+            self.compute(self, states) # pylint: disable=not-callable
 
     def __calculate(self, where: str = "start") -> None:
         r"""
