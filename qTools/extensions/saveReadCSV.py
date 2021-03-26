@@ -1,6 +1,6 @@
 import csv
-import numpy as np
 from datetime import datetime
+import numpy as np
 from ._helpers import makeDir
 
 def saveCSV(data, path=None, fileName=None):
@@ -29,13 +29,13 @@ def saveCSV(data, path=None, fileName=None):
         fileName = datetime.timestamp(now)
     path = makeDir(path)
 
-    with open(path + '/' + str(fileName) + '.txt', 'w') as csv_file:
-        csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    with open(path + '/' + str(fileName) + '.txt', 'w') as csvFile:
+        csvWriter = csv.writer(csvFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         if isinstance(data[0], (list, np.ndarray)):
             for ind in range(len(data)):
-                csv_writer.writerow([data[ind][ind2] for ind2 in range(len(data[ind]))])
+                csvWriter.writerow([data[ind][ind2] for ind2 in range(len(data[ind]))])
         elif isinstance(data[0], (float, int, np.complex128)):
-            csv_writer.writerow([data[ind2] for ind2 in range(len(data))])
+            csvWriter.writerow([data[ind2] for ind2 in range(len(data))])
 
     return path
 
@@ -55,11 +55,11 @@ def readCSV(path, datatype=float):
     """
 
     data = []
-    with open(path) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-        for row in csv_reader:
-            line_count += 1
+    with open(path) as csvFile:
+        csvReader = csv.reader(csvFile, delimiter=',')
+        lineCount = 0
+        for row in csvReader:
+            lineCount += 1
             if datatype != np.complex128:
                 data.append(np.array(list(row), dtype=datatype))
             else:
@@ -70,7 +70,7 @@ def readCSV(path, datatype=float):
 def _recursiveSaveList(data, path=None, fileName=None):
     if isinstance(data[0], (list, np.ndarray)):
         if isinstance(data[0][0], (list, np.ndarray)):
-            for ind in range(len(data)):
+            for ind in range(len(data)): #pylint:disable=consider-using-enumerate
                 _recursiveSaveList(data[ind], path=path, fileName=fileName+str(ind))
         elif isinstance(data[0][0], (float, int, np.complex128)):
             saveCSV(data, path=path, fileName=fileName)

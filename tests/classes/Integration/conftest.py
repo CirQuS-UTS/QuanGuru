@@ -73,7 +73,8 @@ class _JC:
         self.jc.simCompute = self.comp
         self.jc.simDelStates = True
     @staticmethod
-    def comp(sim, st):
+    def comp(sim, states):
+        st = states[0]
         #sim.qRes.result = ("sz1", expectation(photonNum, st))
         #sim.qRes.result = ("sz2", expectation(qubSz, st))
         dim = sim.auxObj.dim

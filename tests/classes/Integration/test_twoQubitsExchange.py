@@ -5,7 +5,8 @@ import qTools as qt
 qub1Sz = qt.tensorProd(qt.sigmaz(), qt.identity(2))
 qub2Sz = qt.tensorProd(qt.identity(2), qt.sigmaz())
 # store the real and imaginary parts for each coeffiecient at each step
-def comp(sim, st):
+def comp(sim, states):
+    st = states[0]
     sim.qRes.result = ("sz1", qt.expectation(qub1Sz, st))
     sim.qRes.result = ("sz2", qt.expectation(qub2Sz, st))
     sim.qRes.result = ("c00real", st.A[0][0].real)

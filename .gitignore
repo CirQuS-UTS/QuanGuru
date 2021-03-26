@@ -130,3 +130,6 @@ Fabio/
 qTools/QuantumToolbox/Demos/tryHere.py
 .vscode/QuantumSimulations.code-workspace
 docs/source copy
+
+!tests/classes/Integration/tdd/tdd.pyc
+!tests/classes/Integration/thd/thd.pyc

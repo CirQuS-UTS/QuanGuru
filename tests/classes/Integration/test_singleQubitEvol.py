@@ -6,7 +6,8 @@ import qTools as qt
 sz = qt.sigmaz()
 sy = qt.sigmay()
 sx = qt.sigmax()
-def comp(simOB, st):
+def comp(simOB, states):
+    st = states[0]
     simOB.qRes.result = ["x", qt.expectation(sx, st)]
     simOB.qRes.result = ["y", qt.expectation(sy, st)]
     simOB.qRes.result = ["z", qt.expectation(sz, st)]
