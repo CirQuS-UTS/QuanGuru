@@ -68,6 +68,8 @@ def timeDependent(qSim):
 # These are the specific solution method, user should define their own timeEvol function to use other solution methods
 # This flexibility should be reflected into protocol object
 def timeEvolDefault(qSim, td):
+    for protocol in qSim.subSys.keys():
+        protocol.sampleStates = []
     qSim._Simulation__compute() # pylint: disable=protected-access
     for protocol in qSim.subSys.keys():
         qSim.subSys[protocol]._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
