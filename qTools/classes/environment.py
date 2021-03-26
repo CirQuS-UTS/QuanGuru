@@ -1,19 +1,29 @@
 from ..QuantumToolbox import evolution as qEvo #pylint: disable=relative-beyond-top-level
 
-from .QSys import couplingBase, _timeDep
+from .QSys import qCoupling, termTimeDep
 
 
-class environment(_timeDep):
-    instances = 0
+class environment(termTimeDep): # pylint:disable=too-few-public-methods
     label = 'environment'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     @property
     def envCouplings(self):
         return self.subSys.values()
 
-class envCoupling(couplingBase):
-    instances = 0
+class envCoupling(qCoupling):
     label = 'envCoupling'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
 
     __slots__ = ['type', '__envMatrix']
 

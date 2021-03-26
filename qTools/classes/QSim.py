@@ -44,7 +44,7 @@ class Simulation(timeBase):
         This is the default evolution method, which calls ``.unitary`` attribute on protocols and matrix multiply the
         resultant unitary with the ``.initialState``. It is possible to use this with other solution methods where
         the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
-        by matrix exponentiation or the time-dependency is not incorporated by ``timeDependecy``.
+        by matrix exponentiation or the time-dependency is not incorporated by ``timeDependency``.
 
 
     Raises
@@ -53,18 +53,15 @@ class Simulation(timeBase):
         There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.
         TODO : errors are not properly implemented yet.
     """
-
-    #: This is the number of instances that are explicitly created by the user.
-    _externalInstances: int = 0
-
-    #: This is the number of instances that are created internally by the library.
-    _internalInstances: int = 0
-
-    #: Total number of instances of the class = ``_internalInstances + _externalInstances```
-    instances = 0
-
     #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
     label = 'Simulation'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
     _evolFuncDefault = timeEvolBase
 
     __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index']
@@ -84,26 +81,7 @@ class Simulation(timeBase):
         if system is not None:
             self.addQSystems(system)
 
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
-
-    def save(self):
-        """
-        This method extends the :meth:`save <qTools.classes.QUni.qUniversal.save>` of :class:`qUniversal` by calling the
-        ``save`` method on the ``keys()`` (protocols) and ``values()`` (quantum systems) of its ``subSys`` dictionary,
-        ``Sweep``, and ``timeDependency`` attributes, and then using the resultant dictionaries to extend ``saveDict``.
-        """
-
-        saveDict = super().save()
-        sysDict = {}
-        for pro, system in self.subSys.items():
-            syDict = system.save()
-            syDict[pro.name] = pro.save()
-            sysDict[system.name] = syDict
-        saveDict['qSystems'] = sysDict
-        saveDict['Sweep'] = self.Sweep.save()
-        saveDict['timeDependency'] = self.timeDependency.save()
-        saveDict['timeList'] = self.timeList
-        return saveDict
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def _currentTime(self):
@@ -145,7 +123,7 @@ class Simulation(timeBase):
         keys = self.protocols
         for key in keys:
             qSys = self.subSys[key]
-            if isinstance(key, str):
+            if not isinstance(key, qBaseSim):
                 self.subSys[qSys._freeEvol] = self.subSys.pop(key) # pylint: disable=protected-access
             else:
                 self.subSys[key] = self.subSys.pop(key)
@@ -199,7 +177,7 @@ class Simulation(timeBase):
             subS.simulation._bound(self) # pylint: disable=protected-access
 
         if Protocol is not None:
-            self._qUniversal__subSys[Protocol] = self._qUniversal__subSys.pop(subS.name) # pylint: disable=no-member
+            self._qBase__subSys[Protocol] = self._qBase__subSys.pop(subS.name) # pylint: disable=no-member
         return (subS, Protocol)
 
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
@@ -208,7 +186,7 @@ class Simulation(timeBase):
 
     @_recurseIfList
     def removeQSystems(self, subS):
-        for key, subSys in self._qUniversal__subSys.items(): # pylint: disable=no-member
+        for key, subSys in self._qBase__subSys.items(): # pylint: disable=no-member
             if ((subSys is subS) or (subSys.name == subS)):
                 super().removeSubSys(key, _exclude=[]) # pylint: disable=no-member
                 print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
@@ -225,7 +203,7 @@ class Simulation(timeBase):
     def removeProtocol(self, Protocol):
         # FIXME what if freeEvol case, protocol then corresponds to qsys.name before simulation run
         #  or a freeEvol obj after run
-        qsys = self._qUniversal__subSys.pop(Protocol, None) # pylint: disable=no-member
+        qsys = self._qBase__subSys.pop(Protocol, None) # pylint: disable=no-member
         if qsys is not None:
             self.removeSweep([Protocol, Protocol.simulation])
             if qsys not in self.qSystems:
@@ -274,8 +252,11 @@ class Simulation(timeBase):
         for protocol in self.subSys.keys():
             states.append(protocol.currentState)
             if protocol.simulation.delStates is False:
-                self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
-        super()._computeBase__compute(states, sim=True) # pylint: disable=no-member
+                if protocol._internal: #pylint:disable=protected-access
+                    self.qRes.states[protocol.superSys.name.name+'Results'].append(protocol.currentState)
+                else:
+                    self.qRes.states[protocol.name.name+'Results'].append(protocol.currentState)
+        super()._computeBase__compute(states) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None, resetRes=True):
         if len(self.subSys.values()) == 0:
@@ -293,25 +274,30 @@ class Simulation(timeBase):
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         # TODO Test this
-        return self.qRes._copyAllResBlank() # pylint: disable=protected-access
+        return self
 
 class _poolMemory: # pylint: disable=too-few-public-methods
+    r"""
+    handles creation and closing of pools for multi-processing (mp), some other small mp settings (such as setting
+    set_start_method to fork etc.), and also calls
+    :meth:`~runSimulation: method inside its only method :meth:`~run`.
+    This class is introduced to make life a bit easier for user
+    (ie. do not need to import multiprocessing or create&close pools) but also to avoid bunch of bugs due to pickling
+    etc.
+    """
+    #: stores the number of cores used in multiprocessing
     coreCount = None
+    #: boolean to ensure that the library does not try setting set_start_method to fork when a simulation is re-run.
     reRun = False
-
-    @staticmethod
-    def systemCheck():
-        return platform.system()
-
-    @staticmethod
-    def pythonSubVersion():
-        return sys.version_info[1]
 
     @classmethod
     def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
-        if ((cls.systemCheck() != 'Windows') and (cls.reRun is False)):
+        r"""
+        This is the only method in the class, and it carries the tasks described in the class description.
+        """
+        if ((platform.system() != 'Windows') and (cls.reRun is False)):
             cls.reRun = True
-            if cls.pythonSubVersion() == 8:
+            if sys.version_info[1] >= 8:
                 try:
                     #multiprocessing.get_start_method() != 'fork'
                     multiprocessing.set_start_method("fork")

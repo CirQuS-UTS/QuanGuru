@@ -3,10 +3,17 @@ from numpy import pi
 from .baseClasses import paramBoundBase, setAttr
 
 class genericDrive(paramBoundBase):
+    label = 'genericDrive'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def totalShape(self, timeList):
         if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
@@ -20,14 +27,21 @@ class genericDrive(paramBoundBase):
         return 0
 
 class qDrive(genericDrive):
+    label = 'qDrive'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__()
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def pulses(self):
-        return self._qUniversal__subSys # pylint: disable=no-member
+        return self._qBase__subSys # pylint: disable=no-member
 
     @pulses.setter
     def pulses(self, npulse):
@@ -49,8 +63,14 @@ class qDrive(genericDrive):
             coef += p.apply(time)
         return coef
 
-
 class pulse(genericDrive):
+    label = 'pulse'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
     __slots__ = ['__t0', '__t1', '__func', 'funcArgs', 'funcKwargs', '_scale']
     def __init__(self, **kwargs):
         super().__init__()
@@ -60,7 +80,7 @@ class pulse(genericDrive):
         self.funcKwargs = {}
         self.funcArgs = []
         self._scale = 1
-        self._qUniversal__setKwargs(**kwargs) # pylint: disable=no-member
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def t0(self): #pylint:disable=invalid-name

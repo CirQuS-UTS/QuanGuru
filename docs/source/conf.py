@@ -12,7 +12,9 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
+from pathlib import Path
+path = str(Path(os.getcwd()))
+sys.path.insert(0, path)
 
 
 from pygments.style import Style
@@ -21,29 +23,29 @@ from pygments.token import Keyword, Name, Comment, String, Error, Text, \
     Number, Operator, Generic, Whitespace, Punctuation, Other, Literal
 
 # notebook customisation
-nbsphinx_prolog = """
-.. raw:: html
+# nbsphinx_prolog = """
+# .. raw:: html
 
-    <style>
-        div.nbinput.container,
-        div.nbinput.container div.prompt,
-        div.nbinput.container div.input_area,
-        div.nbinput.container div[class*=highlight],
-        div.nbinput.container div[class*=highlight] pre,
-        div.nboutput.container,
-        div.nboutput.container div.prompt,
-        div.nboutput.container div.output_area,
-        div.nboutput.container div[class*=highlight],
-        div.nboutput.container div[class*=highlight] pre {
-            background: #282a36;
-        }
+#     <style>
+#         div.nbinput.container,
+#         div.nbinput.container div.prompt,
+#         div.nbinput.container div.input_area,
+#         div.nbinput.container div[class*=highlight],
+#         div.nbinput.container div[class*=highlight] pre,
+#         div.nboutput.container,
+#         div.nboutput.container div.prompt,
+#         div.nboutput.container div.output_area,
+#         div.nboutput.container div[class*=highlight],
+#         div.nboutput.container div[class*=highlight] pre {
+#             background: #282a36;
+#         }
 
-        div.nboutput.container div[class*=highlight] pre {
-        color: #c1303c;
-        }
-    </style>
+#         div.nboutput.container div[class*=highlight] pre {
+#         color: #c1303c;
+#         }
+#     </style>
 
-"""
+# """
 class DraculaStyle(Style):
 
     background_color = "#282a36"
@@ -232,7 +234,7 @@ gettext_compact = False     # optional.
 exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'dracula'
+#pygments_style = 'dracula'
 
 # A boolean that decides whether module names are prepended to all object names
 # (for object types where a “module” of some kind is defined), e.g. for
@@ -245,26 +247,26 @@ add_module_names = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "pydata_sphinx_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {
-    'logo_only': False,
-    'display_version': True,
-    'prev_next_buttons_location': 'bottom',
-    'style_external_links': False,
-    # Toc options
-    'collapse_navigation': True,
-    'sticky_navigation': True,
-    'navigation_depth': 2,
-    'includehidden': True,
-    'titles_only': False,
-    'style_nav_header_background': '#1D2951',
+# html_theme_options = {
+#     'logo_only': False,
+#     'display_version': True,
+#     'prev_next_buttons_location': 'bottom',
+#     'style_external_links': False,
+#     # Toc options
+#     'collapse_navigation': True,
+#     'sticky_navigation': True,
+#     'navigation_depth': 2,
+#     'includehidden': True,
+#     'titles_only': False,
+#     'style_nav_header_background': '#1D2951',
 
-}
+# }
 
 sphinx_gallery_line_numbers = True
 # Add any paths that contain custom static files (such as style sheets) here,

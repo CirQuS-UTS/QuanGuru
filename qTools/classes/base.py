@@ -1,326 +1,426 @@
-"""
-    This module contains ``qUniversal`` and ``extendedList`` classes, and ``checkClass`` decorator.
+r"""
+    Contains two main base classes (for naming and sub/superSys) and their helper classes, functions, decorators.
 
     .. currentmodule:: qTools.classes.base
 
     .. autosummary::
-        :toctree: ../docs/source
+        named
+        qBase
 
-        qUniversal
-        extendedList
-        checkClass
+    .. autosummary::
+        aliasClass
+        keySearch
+        aliasDict
 
-    Classes
-    -------
-    | :class:`qUniversal` : This class is inhereted by (almost) all the other classes in this library.
-    | :class:`extendedList` : This class extends the built-in class ``list``. It is introduced to be used with
-     :meth:`toBeSaved <qUniversal.toBeSaved>` lists.
+    .. autosummary::
+        _auxiliaryClass
+        _recurseIfList
+        addDecorator
 
-    Decorators
-    ----------
-    | :func:`checkClass` :
 """
 
 from functools import wraps
-from typing import Dict, List
-from collections import OrderedDict
+#import weakref
+import warnings
+from typing import Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
 __all__ = [
-    'qUniversal'
+    'qBase', 'named'
 ]
 
-def checkClass(classOf):
+class aliasClass:
+    r"""
+    aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name
+    attribute of qObjects and to work with the extended dictionary :class:`~aliasDict`.
+    The default name of qObjects is assigned to be ``__name`` attribute, and the user assigned aliases for a qObject
+    are stored in the ``__alias`` list. The string representation and hash value of an aliasClass objects is obtained
+    from its name.
     """
-    This is a **decorator with arguments and a recursive wrapper**, and it was initially created to be used with
-    :attr:`~qUniversal.subSys` dictionary of :class:`qUniversal` class.
+
+    __slots__ = ["__name", "__alias"]
+
+    def __init__(self, name: Optional[str] = None, alias: List = list) -> None: #pylint:disable=unsubscriptable-object
+        assert isinstance(name, str) or (name is None), "name should be a string."
+        self.__name: Optional[str] = name #pylint:disable=unsubscriptable-object
+        r"""
+        Protected name attribute of an aliasClass object, set&get through the :py:attr:`~aliasClass.name` property.
+        Default is ``None``. It can be set to any string (which cannot be changed later, unless directly overwritting
+        ``self._aliasClass__name``).
+        """
+        #: list of aliases of an aliasClass objects, set&get through the :py:attr:`~aliasClass.alias` property
+        self.__alias: List = [] if isinstance(alias, type) else alias if isinstance(alias, list) else [alias]
+
+    @property
+    def name(self) -> Union[str, None]: #pylint:disable=unsubscriptable-object
+        r"""
+        Getter of the name property, returns ``self.__name``.
+
+        Setter of the name property, sets ``self.__name`` to given ``name`` provided that the ``self.__name is None``
+        and the given ``name`` is a string. This means that the name can only be a string and cannot be changed
+        once set. Unless, of course, directly overwriting the protected attribute.
+
+        Raises
+        ------
+        TypeError
+            Raised if given name is not string
+        """
+        return self._aliasClass__name #pylint:disable = no-member
+
+    @name.setter
+    def name(self, name: str) -> None:
+        assert isinstance(name, str) or (name is None), "name should be a string."
+        if self._aliasClass__name is None: #pylint:disable = no-member
+            self._aliasClass__name = name  #pylint:disable = no-member, assigning-non-slot
+        else:
+            warnings.warn("name cannot be changed")
+
+    @property
+    def alias(self) -> List:
+        r"""
+        Getter of the alias property, returns the alias list.
+
+        Setter of the alias property, adds a new alias for the aliasClass object (if the given alias is not already
+        in the list).
+        """
+        return self._aliasClass__alias #pylint:disable = no-member
+
+    @alias.setter
+    def alias(self, ali: str) -> None:
+        if ali not in self._aliasClass__alias: #pylint:disable = no-member
+            self._aliasClass__alias.append(ali) #pylint:disable = no-member
+
+    def __members(self) -> Tuple:
+        r"""
+        :returns: a tuple containing the name and all aliases
+        """
+        return (self.name, *self._aliasClass__alias) #pylint:disable = no-member
+
+    def _allStringSum(self) -> str:
+        r"""
+        Adds and returns all the strings in members
+        """
+        sumStr = self.name
+        for s in self._aliasClass__alias:
+            sumStr += s
+        return sumStr
+
+    def __repr__(self) -> str:
+        r"""
+        representation of the object is equal to ``repr(self.name)``.
+        """
+        return repr(self.name)
+
+    def __str__(self) -> str:
+        r"""
+        string representation of the object is its name
+        """
+        return self.name
+
+    def __eq__(self, other: Union["aliasClass", str]) -> bool:  #pylint:disable=unsubscriptable-object
+        r"""
+        Equality of any two aliasClass objects (or an aliasClass object to a string) is determined by comparing their
+        names and all
+        their aliases (or to given string), if at least one of them are the same (or the same as the given string),
+        aliasClass objects (or the aliasClass object and the given string) are considereed to be equal.
+
+        Parameters
+        ----------
+        other : Union[aliasClass, str]
+            aliasClass object or string to check the equality with self
+        """
+        if type(other) is type(self):
+            return any(it in self._aliasClass__members() for it in other._aliasClass__members())#pylint:disable = no-member
+        return any(it == other for it in self._aliasClass__members())                #pylint:disable = no-member
+
+    def __hash__(self) -> int:
+        r"""
+        Hash value of an aliasClass object is equal to hash of its name.
+        """
+        return hash(self.name)
+
+def keySearch(obj: Dict, k: Any) -> Hashable:
+    r"""
+    Method to find a key or any other obj equal to the key in a ``dictionary.keys()``. This method is used in
+    :class:`~aliasDict` class (extending ``dict`` class) to find the actual key when using :class:`~aliasClass` as the
+    key, which returns equal for a specific
+    string (its name) or any other string in its list of aliases.
 
     Parameters
     ----------
-    classOf : str
-        name of a class
+    obj : Dict
+        The dictionary to search the key
+    k : Any
+        The key to search in the dictionary (obj)
 
 
-    This decorater was initially created to be used with :attr:`~qUniversal.subSys` dictionary of
-    :class:`qUniversal` (`classOf`) class, and the idea is to cover possible misuse of
-    :meth:`add <qUniversal.addSubSys>`/:meth:`create <qUniversal.createSubSys>`/:meth:`remove <qUniversal.removeSubSys>`
-    `subSys` methods (while also creating flexibility). For example,
-    if  the class itself is given, instead of an instance, to :meth:`addSubSys <qUniversal.addSubSys>` method, this
-    decorator creates a new instance and includes the new instance to the dictionary. This also enables the flexible use
-    of :meth:`addSubSys <qUniversal.addSubSys>` as :meth:`createSubSys <qUniversal.createSubSys>`. The wrapper covers
-    some other scenarios like giving a ``list`` of instances to be included etc. This decorator is also used for
-    :meth:`_createParamBound <qTools.classes.computeBase.paramBoundBase._createParamBound>` and
-    :meth:`_breakParamBound <qTools.classes.computeBase.paramBoundBase._breakParamBound>` methods for
-    :attr:`_paramBound <qTools.classes.computeBase.paramBoundBase._paramBound>` dictionary of
-    :class:`paramBoundBase <qTools.classes.computeBase.paramBoundBase>` class.
-
-    **Note** : The wrapper of this decorator assumes that the input (`inp`) to the decorated method is an instance
-    of :class:`qUniversal` or :class:`its child classes`. `classOf` argument is used for this purpose. It is
-    ``'qUniversal'`` in the most general case, but any other class in the inheritance tree can be used to impose a
-    further restriction (as in :attr:`_paramBound <qTools.classes.computeBase.paramBoundBase._paramBound>`).
-
-    The wrapper works by first finding the intended class by using its name (`classOf`) with ``global()``. Then,
-
-    0. If the `input (inp)` is an instance of this class (`classOf`), it calls the `addRemoveFunction`
-    (the decorated method, which does the actual adding/removing).
-
-    Other input cases covered by this decorator are
-
-        1. input is a `string`, and it can be
-
-            - name of an `instance` : finds the object from the :attr:`instNames <qUniversal.instNames>` dict
-              and makes a recursive call (which will trigger 0., if the object is an instance of `classOf` or `its
-              child classes`).
-            - name of a `class` : creates an instance of the `class` (which has to be a child-class of `classOf`)
-              and makes a recursive call (which will trigger 0., if the `class` is a child-class of `classOf`).
-
-        2. input is a `dictionary`: keys are **not** used currently, but each value in the dictionary is used in a
-           recursive call, meaning anything in this list from 0. to 5. may be trigerred again depending on the value
-           type.
-        3. input is a `class`: creates an instance of the `class` (which has to be a child-class of `classOf`)
-           and makes a recursive call (which will trigger 0., if the `class` is a child-class of `classOf`).
-        4. input is other types of `iterable`: call itself for every element of the iterable, meaning anything in this
-           list from 0. to 5. may be trigerred again depending on the value type.
-
-    TODO : should raise an error if,
-
-            0. the object is not an instance of `classOf` (or `its child-classes`)
-            1. given name
-
-                - is in `instNames`, but the object is not an instance of `classOf` or `its child-classes`.
-                - corresponds to a class that is not `classOf` or `its child class`.
-                - does not correspond to a key in `instNames` or any `class`.
-
-            2. Other cases will raise a relevant error for values of the `dictionary`.
-            3. given class is not `classOf` or `its child class`.
-            4. Other cases will raise a relevant error for values of the `iterable`.
-
+    :returns: the key, if the key itself or no equality is found in the dictionary keys. returns the equal key from the
+              dictionary, if an equal key is found in the dictionary.
     """
+    # NOTE this returns the first match, meaning there can be more than one equality. Example, two string keys in the
+    # dictionary and the given key is an aliasClass object with these keys in its members (tuple of its name and
+    # aliasess)
+    if k not in obj.keys():
+        for key in obj.keys():
+            if k == key:
+                k = key
+                break
+    return k
 
-    def addDecorator(addFunction):
-        @wraps(addFunction)
-        def wrapper(obj, inp, **kwargs):
-            clsDecoArg = globals()[classOf]
-            if isinstance(inp, clsDecoArg):
-                addFunction(obj, inp, **kwargs)
-            elif isinstance(inp, _auxiliaryClass):
-                obj._qUniversal__subSys[inp.name] = inp
-            elif isinstance(inp, str):
-                if inp in clsDecoArg.instNames.keys():
-                    inp = wrapper(obj, clsDecoArg.instNames[inp], **kwargs)
-                else:
-                    clsInput = globals()[inp]
-                    inp = wrapper(obj, clsInput, **kwargs)
-            elif isinstance(inp, dict):
-                for sys in inp.values():
-                    # what to do with the keys?
-                    inp = wrapper(obj, sys, **kwargs)
-            elif inp.__class__ is type:
-                newSys = inp()
-                inp = wrapper(obj, newSys, **kwargs)
-            else:
-                for sys in inp:
-                    inp = wrapper(obj, sys, **kwargs)
-            return inp
-        return wrapper
-    return addDecorator
+class aliasDict(dict):
+    r"""
+    Extending the dictionary class to treat the keys satisfying ``key1 == keys2`` as the same key. This functionality is
+    implemented to use
+    :class:`~aliasClass` objects as keys and to get the value by using the aliasClass object itself, its name, or any of
+    its aliases as the key.
+
+    NOTE no explicit tests for most of the extended methods, be careful in modifications.
+    """
+    def __getitem__(self, k: Hashable) -> Any:
+        r"""
+        Gets the value from the dictionary for a given key or any of the keys that is equal to the given key.
+        This enables to get a value using an :class:`~aliasClass` object itself, its name, or any any of it aliases.
+        """
+        k = keySearch(self, k)
+        return super().__getitem__(k)
+
+    def get(self, key: Hashable, default: Optional[Any] = None) -> Any: #pylint:disable=unsubscriptable-object
+        r"""
+        Modified get method to be compatible with extended :meth:`~__getitem__` method.
+        """
+        try:
+            return self.__getitem__(key)
+        except: #pylint:disable=bare-except  # noqa: E722
+            return default
+
+    def __setitem__(self, k: Hashable, v: Any) -> None:
+        r"""
+        Updates the value of a key in the dictionary, if the given key exists or any of the keys is equal to given key,
+        otherwise creates an item (ie key:value pair) in the dictionary.
+        This enables to set a value using an :class:`~aliasClass` object itself, its name, or any any of it aliases.
+        """
+        # might need to overwrite update and setdefault
+        k = keySearch(self, k)
+        super().__setitem__(k, v)
+
+    def __delitem__(self, k: Hashable) -> None:
+        r"""
+        Deletes the item for a given key or any of the keys that is equal to the given key.
+        This enables to delete a value using an :class:`~aliasClass` object itself, its name, or any any of it aliases.
+        """
+        k = keySearch(self, k)
+        super().__delitem__(k)
+
+    def __contains__(self, o: Hashable) -> bool:
+        r"""
+        Returns ``True`` if the key or any object equal to the key exists.
+        This enables to ``return True`` for an :class:`~aliasClass` object itself, its name, or any of it aliases.
+        """
+        return super().__contains__(keySearch(self, o))
+        #any([o == k for k in self.keys()])
+
+    def update(self, mapping: Optional[Mapping] = (), **kwargs) -> None:  #pylint:disable=unsubscriptable-object
+        r"""
+        update method compatible with the extended get/set methods.
+        """
+        if hasattr(mapping, "keys"):
+            for k in mapping:
+                self[k] = mapping[k]
+        else:
+            for k, v in mapping:
+                self[k] = v
+        for k in kwargs:
+            self[k] = kwargs[k]
+
+    def setdefault(self, __key: Hashable, __default: Any) -> Any:
+        r"""
+        Modified setdefault method to be compatible with extended :meth:`~__setitem__` & :meth:`~__getitem__` methods.
+        """
+        if not self.__contains__(__key):
+            self.__setitem__(__key, __default)
+        return self.__getitem__(__key)
+
+    def pop(self, k: Hashable, *args) -> Any:
+        r"""
+        pop method compatible with the extended methods.
+        """
+        k = keySearch(self, k)
+        return super().pop(k, *args)
+
+    def copy(self) -> "aliasDict":
+        r"""
+        copy method to make sure the type is correct.
+        """
+        return type(self)(self)
 
 def _recurseIfList(func):
-    def recurse(obj, sys, _exclude=[]): # pylint: disable=dangerous-default-value
-        if isinstance(sys, list):
-            for s in sys:
-                r = recurse(obj, s, _exclude=_exclude)
+    r"""
+    a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
+    certain objects). It is used in various places of the library (exclude is useful/used in some of them).
+    """
+    @wraps(func)
+    def recurse(obj, inp, _exclude=[], **kwargs): # pylint: disable=dangerous-default-value
+        if isinstance(inp, (list, tuple)):
+            for s in inp:
+                r = recurse(obj, s, _exclude=_exclude, **kwargs)
         else:
             try:
-                r = func(obj, sys, _exclude=_exclude)
-            except TypeError:
-                r = func(obj, sys)
+                r = func(obj, inp, _exclude=_exclude, **kwargs)
+            except: #pylint:disable=bare-except   # noqa: E722
+                r = func(obj, inp, **kwargs)
         return r
     return recurse
 
-class extendedList(list):
+class named:
+    r"""
+    Implements a name attribute and a naming standard. It is inhereted by all the other qObjects so that
+    they have unique default names, and users are able to assign aliases for any object. It uses the
+    :class:`~aliasClass` for its name attribute to enable this.
+
+    Default naming is ``(_)class.label (same as class name) + number of instances created in a session``.
+    The optional _ in the name is to distinguish between the objects created internally which is not trivially known
+    by the user. The objects explicitly created by the user does not have an underscore in their names.
+    There are 4 class attribute to achieve these, 1 the label and 3 for keeping number of (internal, external, and
+    total number of) instances.
+    One last counter is the total number of instances of the classes inherited from named.
     """
-    This class extends the built-in ``list`` class. It is introduced to be used with
-    :attr:`toBeSaved <qUniversal.toBeSaved>` lists of every class that inherits from :class:`qUniversal`.
-    These lists contain the keys for `the attributes to be saved` (currently into a `txt and hdf5 attributes`).
-    :attr:`toBeSaved <qUniversal.toBeSaved>` is a class attribute and extending it through the inheritance tree is
-    achieved by `extendedCopy` method of this class.
-
-    Current saving methods are going to be improved, so, in future, this class might not be needed.
-    """
-
-    def extendedCopy(self, iterable):
-        """
-        This methods returns a new instance of extendedList by concatenating the ``self`` with a given ``iterable``.
-
-        Parameters
-        ----------
-        iterable : list, tuple, or extendedList
-            Existing iterable is extended by this.
-
-
-        :returns: A new instance of extendedList
-        """
-
-        baseList = extendedList()
-        for it in self:
-            baseList.append(it)
-        for exIt in iterable:
-            baseList.append(exIt)
-        return baseList
-
-
-class _auxiliaryClass:#pylint:disable=too-few-public-methods
-    def __init__(self):
-        self.name = 'auxObj'
-        super().__init__()
-
-class qUniversal:
-    """
-    This class is inhereted by (almost) all the other classes in this library. It is best understood by considering
-    its attributes.
-
-    Note: Most attributes are `private` (with name mangling) and reached/modified by a `property getter/setter`. The
-    attribute explanations below uses the property names for such cases together with the name-mangled and
-    pure attribute names separated by `or`. The reason behind the use of properties is to ensure that some
-    internal functionalties are maintained, especially in the child-classes that extend these properties. For example,
-    uniqueness of object name is achieved by the .name setter calling another method.
-
-    Attributes
-    ----------
-    name or _qUniversal__name or __name: ``str``
-        Every-object inheriting from qUniversal will have a `unique` name.
-
-        Default names for internally (by the library) and externally (by the user) created objects differ by an
-        underscore. Default names are always the class `label` (a class attribute and always the same as class
-        name) or `_label` plus, respectively, the number of external or internal instances, which are also kept as
-        class attributes. Note that the `default` name for an object will
-        always be `label` +number of instances. For example, if this is the list of name for existing instances
-        ``['qUniversal1, 'bob', 'alice']`` , name of the next instance will be ``'qUniversal4'`` (not `qUniversal2`).
-
-        Special names can be assigned by ``obj.name = 'new Name'`` after object creation or
-        by ``obj = qUniversal(name='new Name')`` while instantiation. The special names also has to be unique. If a
-        duplicate name is assigned to another object, it is changed to
-        ``'new Name' + (number of external instances)``.
-    _internal : ``bool``
-        This is a boolean to distinguish between internally (``True``) and externally (``False``) created objects.
-        Mainly usedfor naming.
-    _qUniversal__allInstances or __allInstances : ``dict``
-        This is an instance attribute pointing to class attribute :attr:`instNames <qUniversal.instNames>`. This exist
-        to `ensure a proper access` to any object using the method :meth:`getObjByName <qUniversal.getObjByName>`
-        **during multi-processing**.
-    superSys or _qUniversal__superSys or __superSys : ``Any``
-        This is used in many places in the library to share information between objects. `superSys` is
-        (almost for all classes) is a `single system`. This is mainly introduced to be used when an object needs to use
-        `several attribute values` of another object.
-    subSys or _qUniversal__subSys or __subSys: ``OrderedDict``
-        The purpose is, same as `superSys`, to share information, but this is a dictionary of objects, and it is
-        mainly introduced to be used when an object needs the `same attribute value/s` from `several` other objects.
-
-        Note: `subSys-superSys` **DOES NOT** define a hierarchy, meaning that if an object A is in `subSys` of B, this
-        **does not** mean B is `superSys` of A. Even further, A can even be the superSys of B at the same time.
-        If needed, such a hierarchy, needs to be introduced explicitly in the sub-classes.
-    """
-
-    label: str = 'qUniversal'
-    """
-    Together with :attr:`_externalInstances <qUniversal._externalInstances>`
-    and :attr:`_internalInstances <qUniversal._internalInstances>`,
-    `label` is used in `default` naming of the objects.
-    It is the same as class name, and the default names for the objects explicitly created by the user are
-    ``label+_externalInstances``, and the object created internally are named as ``_label+_internalInstances``
-    """
-
-    instNames: Dict = {}
-    """
-    This is a dictionary with keys as instance names and values as instances. This is kept to ensure that the names are
-    unique, but it is conveniently used for other purposes, such as reaching an object from any part of the code just
-    by using its name. NOTE : It contains instances of ``qUniversal`` and ``all its child classes``.
-    """
-
-    #: This is the number of instances that are explicitly created by the user.
-    _externalInstances: int = 0
-
-    #: This is the number of instances that are created internally by the library.
+    #: (**class attribute**) class label used in default naming
+    label: str = 'named'
+    #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+    #: (**class attribute**) total number of instances including named and all the child classes
+    _totalNumberOfInst: int = 0
+    #: (**class attribute**) a weakValue dictionary to store a weakref to every instance.
+    #: This is used to reach any instance by its name or
+    #: alias using the :class:`getByName` method
+    #: _allInstacesDict = weakref.WeakValueDictionary() (could not pickle, so, for now, uses aliasDict which
+    #: has problems with garbage collection in jupyter sessions)
+    _allInstacesDict = aliasDict()
 
-    #: Total number of instances of the class = ``_internalInstances + _externalInstances```
-    instances = 0
+    __slots__ = ["__name", "_internal", "__weakref__", "_allInstaces"]
 
-    _totalInst = 0
-
-    #: aux
-    _auxiliary = {}
-    _auxiliaryObj = _auxiliaryClass()
-
-    #: a list of str (attribute names) to be used with save method.
-    toBeSaved: List[str] = extendedList(['name'])
-
-    __slots__ = ['__name', '__superSys', '__subSys', '__allInstances', '_internal', '__aux', '__auxObj']
-
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__()
-        self._internal = kwargs.pop('_internal', False)
-        self._incrementInstances(self._internal)
-        self.__name = self._qUniversal__namer()
-        self.__superSys = None
-        self.__subSys = OrderedDict()
-        self.__allInstances = qUniversal.instNames
-        self.__aux = qUniversal._auxiliary
-        self.__auxObj = qUniversal._auxiliaryObj
-        self._qUniversal__setKwargs(**kwargs)
+        #: boolean to distinguish internally and explicitly created instances.
+        self._internal: bool = kwargs.pop('_internal', False)
+        self._incrementInstances()
+        #: protected name attribute is an instance of :class:`~named` class
+        self.__name: aliasClass = aliasClass(name=self._named__namer())
+        self._named__setKwargs(**kwargs)
+        named._allInstacesDict[self.name] = self
+        #: used in :meth:`~named.getByNameOrAlias` to properly pickle and reach updated objects during multi-processing
+        self._allInstaces = named._allInstacesDict
 
-    def __repr__(self):
-        return self.label + f'({self.name})'
+    def __str__(self) -> str:
+        r"""
+        string representation of the object is the default name
+        """
+        return f'{self.name}'
+
+    def getByNameOrAlias(self, name: Union[str, aliasClass]) -> "named": #pylint:disable=unsubscriptable-object
+        r"""
+        Returns a reference for an object using its name or any alias.
+
+        Raises ValueError if it cannot find any object for the given name (or alias).
+        """
+        obj = self._allInstaces.get(name)
+        if obj is None:
+            raise ValueError("No object with the given name/alias is found!")
+        return obj
+
+    def _incrementInstances(self) -> None:
+        r"""
+        Method used inside __init__ to increase internal/external and total number of instances.
+        """
+        named._totalNumberOfInst += 1
+        self.__class__._instances += 1
+        if self._internal is False:
+            self.__class__._externalInstances += 1
+        elif self._internal is True:
+            self.__class__._internalInstances += 1
+
+    def __namer(self) -> str:
+        r"""
+        Generates the default names.
+
+        :returns: the default name
+        """
+        if self._internal is False:
+            name = self.clsLabel() + str(self.clsInstances(self._internal))
+        else:
+            name = '_' + self.clsLabel() + str(self.clsInstances(self._internal))
+        return name
 
     @property
-    def aux(self):
-        return self._qUniversal__aux
-
-    @aux.setter
-    def aux(self, dictionary):
-        setattr(self, '_qUniversal__aux', dictionary)
+    def name(self) -> aliasClass:
+        r"""
+        Getter of the name property  ``returns __name`` protected attribute. There is no setter, names are not allowed
+        to be changed but can assign an alias.
+        """
+        return self._named__name
 
     @property
-    def auxObj(self):
-        return self._qUniversal__auxObj
+    def alias(self) -> List:
+        r"""
+        alias property gets the list of aliases.
 
-    def save(self):
+        Sets (adds/extends into the list) alias (single/list of alias). Does not allow duplicate alias.
         """
-        This method creates & ``returnss`` a dictionary with keys from :attr:`toBeSaved <qUniversal.toBeSaved>` list and
-        the values from the corresponding values of the object.
+        return self._named__name.alias
 
-        This is used to collect the same relevant information for all the instances and use the resultant dictionary
-        with some other (format specific) save method. For example, this is currently used with
-        :meth:`saveH5 <qTools.classes.extensions.saveReadH5.saveH5>`
-        and :meth:`writeToTxt <qTools.classes.extensions.saveReadH5.writeToTxt>` methods.
+    @alias.setter
+    @_recurseIfList
+    def alias(self, ali: str) -> None:
+        for _, v in self._allInstacesDict.items():
+            if v.name == ali:
+                if v != self:
+                    raise ValueError(f"Given alias ({ali}) already exist and is assigned to: " + f"{v.name}")
+        self._named__name.alias = ali
 
-        TODO : **This is introduced as a quick solution for saving and will be improved/changed**.
+    @classmethod
+    def clsLabel(cls) -> str:
+        r"""
+        Returns the class label.
         """
+        return cls.label
 
-        saveDict = {}
-        for k in self.toBeSaved:
-            val = getattr(self, k)
-            if val is not None:
-                saveDict[k] = val
-        saveDict['class'] = self.__class__.__name__
-        return saveDict
+    @classmethod
+    def clsInstances(cls, _internal: Optional[bool] = None) -> int: #pylint:disable=unsubscriptable-object
+        r"""
+        This class method **returns** the number of instances:
 
-    def getObjByName(self, name):
+            1. Total number, ``if _internal is None``
+            2. internal, ``if _internal is True``
+            3. external, ``if _internal is False``
         """
-        This method finds & ``returnss`` the instance of qUniversal (or its child classes) with the given name.
+        if _internal is None:
+            insCount = cls._instances
+        elif _internal is True:
+            insCount = cls._internalInstances
+        elif _internal is False:
+            insCount = cls._externalInstances
+        return insCount
 
-        Parameters
-        ----------
-        name : str
-            name of the object to be returned.
+    def _resetAll(self) -> None:
+        r"""
+        Resets the counters and empties the weakref dictionary. Goal is to make this an equivalent to restarting a
+        script or notebook.
         """
+        self.__class__._externalInstances = 0 # pylint:disable=protected-access
+        self.__class__._internalInstances = 0 # pylint:disable=protected-access
+        self.__class__._instances = 0 # pylint:disable=protected-access
+        named._totalNumberOfInst = 0
+        named._allInstacesDict = aliasDict() # pylint:disable=protected-access
+        #self.__class__._allInstacesDict = weakref.WeakValueDictionary() # pylint:disable=protected-access
 
-        return self._qUniversal__allInstances[name]
-
-    def __setKwargs(self, **kwargs):
-        """
-        This is used to set the attributes of the object from the given keywords and values.
-        It is introduced to be used while instantiation of the object. It ``returns None``.
+    def __setKwargs(self, **kwargs) -> None:
+        r"""
+        Method to set the attributes of the object from the given keywords and values.
+        It is introduced to be used while instantiation of the object so that the protected attributes are set through
+        the correspoding properties.
 
         Parameters
         ----------
@@ -328,253 +428,198 @@ class qUniversal:
             Any attribute from the __slots__ (should take name-mangling into account, if used by a child class) or
             the name of corresponding property with an appropriate value type.
         """
-
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def resetSubSys(self):
-        """
-        This is a trivial method. It just sets the ``subSys`` dict to a new empty ``OrderedDict``. There are two reasons
-        leading to its introduction:
+class _auxiliaryClass:#pylint:disable=too-few-public-methods
+    r"""
+    an auxiliary class used to instantiate a dummy object for the :attr:`~qBase._auxiliaryObj` attribute.
+    """
+    def __init__(self) -> None:
+        self.name = 'auxObj'
+        super().__init__()
 
-            1. The ``__subSys`` is a private attribute and the `subSys setter` is more useful when
-               used for adding new system rather than assigning a whole new ``OrderedDict``.
-            2. To complement :meth:`add <qUniversal.addSubSys>`/:meth:`create <qUniversal.createSubSys>`/
-               :meth:`remove <qUniversal.removeSubSys>` SubSys methods.
+def addDecorator(addFunction):
+    r"""
+    A recursive decorator for methods like addSubSys which add items into dictionaries (eg. subSys dictionary).
 
-        It ``returns None``.
-        """
+    It is initially created to be used with :attr:`~qBase.subSys` dictionary of
+    :class:`~qBase` class, and the idea is to cover possible misuse of
+    :meth:`add <qBase.addSubSys>`/:meth:`create <qBase.createSubSys>`
+    `subSys` methods (while also creating flexibility).
 
-        oldDict = self._qUniversal__subSys
-        setattr(self, '_qUniversal__subSys', OrderedDict())
-        del oldDict
+    For example,
+    if, instead of an instance, the class itself is given to :meth:`addSubSys <qBase.addSubSys>` method, this
+    decorator creates a new instance and includes the new instance to the dictionary.
+    This also enables the flexible use
+    of :meth:`addSubSys <qBase.addSubSys>` as replacement for :meth:`createSubSys <qBase.createSubSys>`.
+
+    The wrapper is also decorated with the :meth:`~_recurseIfList` to make it recursive for list/tuple inputs.
+
+    This decorator is also used for
+    :meth:`_createParamBound <qTools.classes.computeBase.paramBoundBase._createParamBound>` and
+    :meth:`_breakParamBound <qTools.classes.computeBase.paramBoundBase._breakParamBound>` methods for
+    :attr:`_paramBound <qTools.classes.computeBase.paramBoundBase._paramBound>` dictionary of
+    :class:`paramBoundBase <qTools.classes.computeBase.paramBoundBase>` class.
+
+    1. If the `input (inp)` is an instance of :class:`~named`, it calls the `addFunction`
+    (the decorated method that does the actual adding) and its added into the relevant dictionary.
+
+    Other input cases covered by this decorator are
+
+        2. If the input is a `string`, i.e. name/alias of an `instance`: finds the object from the
+           :attr:`instNames <named._allInstacesDict>` dict and calls the `addFunction`.
+        3. If the input is a `class`, creates an instance of the `class` (has to be a child-class of :class:`~named` )
+           and makes a recursive call (which will trigger 1).
+        4. If the input is a `list` or `tuple`: makes a recursive call, which is handled by the :meth:`~_recurseIfList``
+           to iterate over every element of the given iterable, meaning anything in this
+           list from 1. to 4. may be trigerred again depending on the value of the element in the iterable.
+           (this can be combined with dict type to create nested dictionaries)
+        5. raises an error if the object to be added is not an instance of :class:`~named`.
+    """
+    @wraps(addFunction)
+    @_recurseIfList
+    def wrapper(obj, inp, **kwargs):
+        if isinstance(inp, (named, _auxiliaryClass)):
+            inp = addFunction(obj, inp, **kwargs)
+        elif isinstance(inp, (str, aliasClass)):
+            inp = addFunction(obj, obj.getByNameOrAlias(inp), **kwargs) # pylint:disable=protected-access
+        elif inp.__class__ is type:
+            inp = wrapper(obj, inp(), **kwargs)
+        elif isinstance(inp, (list, tuple)):
+            inp = wrapper(obj, inp, **kwargs)
+        else:
+            raise TypeError("Add function does not support " + f"{inp.__class__} types")
+        return inp
+    return wrapper
+
+class qBase(named):
+    r"""
+    Implements the sub/super-system attributes, auxiliary object and dictionary, and copy method.
+    """
+    #: (**class attribute**) class label used in default naming
+    label: str = 'qBase'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    #: (**class attribute**) aux dictionary to store auxiliary things as items to reach from any instance
+    _auxiliary: Dict = {}
+    #: (**class attribute**) aux object to store auxiliary things as attributes to reach from any instance
+    _auxiliaryObj: _auxiliaryClass = _auxiliaryClass()
+
+    __slots__ = ['__superSys', '__subSys', '__aux', '__auxObj']
+
+    def __init__(self, **kwargs) -> None:
+        super().__init__(_internal=kwargs.pop('_internal', False))
+        #: protected attribute for super system property
+        self.__superSys: Any = None
+        #: protected attribute for sub-system dictionary
+        self.__subSys: Dict = aliasDict()
+        #: attribute for the class attribute _auxiliary (this is required due to pickling in multi-processing)
+        self.__aux = qBase._auxiliary
+        #: attribute for the class attribute _auxiliaryObj (this is required due to pickling in multi-processing)
+        self.__auxObj = qBase._auxiliaryObj
+        self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
     @property
-    def subSys(self):
+    def aux(self) -> Dict:
+        r"""
+        property to get and set auxiliary items into auxiliary dictionary. The setter updates the existing dictionary
+        (instead of an single element into the existing dictionary) with a given one, ie. adds key:value pair for the
+        non-existing keys and changes the value for existing keys.
         """
-        The subSys property:
+        return self._qBase__aux
 
-        - **getter** : ``returns __subSys`` an ``OrderedDict``.
-        - **setter** : adds the given object/s to ``__subSys``. It calls the :meth:`addSubSys <qUniversal.addSubSys>`,
-          so it can used to add a single object, `list/dict/tuple/orderedDict` of objects, by giving the name of the
-          system, or giving class name to add a new instance of that class.
-        - **type** : ``list or dict or tuple or orderedDict``
+    @aux.setter
+    def aux(self, dictionary: Dict) -> None:
+        self._qBase__aux.update(dictionary)
+        #setattr(self, '_qBase__aux', dictionary) used to replace the library, now updates.
+
+    @property
+    def auxObj(self) -> _auxiliaryClass:
+        r"""
+        property to reach and set auxiliary attributes into auxiliary object
         """
+        return self._qBase__auxObj
 
-        return self._qUniversal__subSys
+    @property
+    def superSys(self) -> Any:
+        r"""
+        superSys property get/sets __superSys protected attribute
+        """
+        return self._qBase__superSys
+
+    @superSys.setter
+    def superSys(self, supSys: Any) -> None:
+        setattr(self, '_qBase__superSys', supSys)
+
+    @property
+    def subSys(self) -> Dict:
+        r"""
+        subSys property gets the subSystem dictionary.
+
+        Setter resets the existing dictionary and adds the given object/s to ``__subSys`` dictionary.
+        It calls the :meth:`addSubSys <qBase.addSubSys>`,
+        so it can used to add a single object, `list/tuple` of objects, by giving the name of the
+        system, or giving class name to add a new instance of that class. Be aware that the setter resets the existing.
+        """
+        return self._qBase__subSys
 
     @subSys.setter
-    def subSys(self, subS):
+    def subSys(self, subS: Any) -> None:
         self.resetSubSys()
         self.addSubSys(subS)
 
-    @checkClass('qUniversal')
-    def addSubSys(self, subS, **kwargs):
+    @addDecorator
+    def addSubSys(self, subS: named, **kwargs) -> named:
+        r"""
+        Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
+        an instance and adds), and list/tuple containing any combination of these.
+
+        TODO add example &/ link to a tutorial
         """
-        The main body of this method just adds the given object into ``__subSys`` dictionary and
-        calls :meth:`__setKwargs <qUniversal._qUniversal__setKwargs>` on the object for the given keyworded arguments.
+        assert isinstance(subS, (named, _auxiliaryClass)), "Add method is restricted to named or its child classes!"
+        if isinstance(subS, named):
+            subS._named__setKwargs(**kwargs) # pylint: disable=W0212
+        self._qBase__subSys[subS.name] = subS
+        return subS
 
-        However, this method is decorated by :func:`checkClass`, so it does much more than that is the main body.
-        See the decorator docstrings of :func:`checkClass` for more detail.
-
-        Parameters
-        ----------
-        subS: qUniversal
-            The object to add into ``__subSys`` dictionary
-        kwargs: Any
-            Keyworded arguments to be used with :meth:`__setKwargs <qUniversal._qUniversal__setKwargs>` to set some
-            attributes of the given `subS`.
-
-
-        :returns: `subS` (an instance of qUniversal or its child classes)
+    def createSubSys(self, subSysClass: Any, **kwargs) -> named:
+        r"""
+        Simply calls and returns the :meth:`~qBase.addSubSys` method, which is decorated to also cover creation.
         """
-
-        subS._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
-        self._qUniversal__subSys[subS.name] = subS
-
-    @checkClass('qUniversal')
-    def createSubSys(self, subSysClass, **kwargs):
-        """
-        The main body and functionality of this method are exactly the same as :meth:`addSubSys <qUniversal.addSubSys>`.
-        """
-
-        subSysClass._qUniversal__setKwargs(**kwargs) # pylint: disable=W0212
-        self._qUniversal__subSys[subSysClass.name] = subSysClass
-
-
-    def _remFromDict(self, subS, dictName):
-        dictSelf = getattr(self, dictName)
-        if subS in dictSelf.keys():
-            obj = dictSelf.pop(subS)
-            print(obj, ' is removed from of ' + self.name)
-        elif isinstance(subS, qUniversal):
-            if subS.name in dictSelf.keys():
-                obj = dictSelf.pop(subS.name)
-                print(obj, ' is removed from of ' + self.name)
-            else:
-                keys = list(dictSelf.keys())
-                vals = list(dictSelf.values())
-                for ind, key in enumerate(keys):
-                    if vals[ind] is subS:
-                        obj = dictSelf.pop(key, None)
-                        print(obj, ' is removed from of ' + self.name)
-
+        return self.addSubSys(subSysClass, **kwargs)
 
     @_recurseIfList
-    def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
+    def removeSubSys(self, subS: Any, _exclude=[]) -> None: # pylint: disable=dangerous-default-value
+        r"""
+        Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will
+        raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
+        named class.
         """
-        This method removes the given object from the ``__subSys`` dictionary.
+        if not isinstance(subS, named):
+            subS = self.getByNameOrAlias(subS)
+        assert isinstance(subS, named), "Given object is not an instance of named!"
+        self.subSys.pop(subS.name)
 
-        TODO Cover if the given key of obj or str is not in subSys dict.
+    def resetSubSys(self) -> None:
+        r"""
+        clear() the subSys dictionary.
         """
+        self._qBase__subSys.clear()
 
-        self._remFromDict(subS, '_qUniversal__subSys')
-
-    @property
-    def superSys(self):
-        """
-        The superSys property:
-
-        - **getter** : ``returns __superSys`` attribute value
-        - **setter** : sets the ``__superSys`` attribute value
-        """
-
-        return self._qUniversal__superSys
-
-    @superSys.setter
-    def superSys(self, supSys):
-        setattr(self, '_qUniversal__superSys', supSys)
-
-    @property
-    def name(self):
-        """
-        The name property:
-
-        - **getter** : ``returns __name`` attribute value
-        - **setter** : after calling :meth:`updateNames <qUniversal.updateNames>` method of qUniversal class to
-          ensure the uniqueness of names, sets the ``__name`` attribute value to `name`.
-        - **types** : ``str``
-        """
-
-        return self._qUniversal__name
-
-    @name.setter
-    def name(self, name):
-        name = qUniversal.updateNames(self, name)
-        setattr(self, '_qUniversal__name', name)
-
-    def copy(self, n=1, **kwargs):
-        """
-        This is a method to create n `empty` copies of an object. This method is introduced here to be extended in child
+    def copy(self, **kwargs) -> "qBase":
+        r"""
+        Creates n `empty` copies of an object. This method is introduced here to be extended in child
         class. In here, it ** does not copy ** the object, but creates n new objects of the same class and sets the
         given kwargs.
-
-
-        :returns: a single object of the same class if n = 1 else ``Tuple`` with `n` objects
         """
-
-        newSystems = []
-        for ind in range(n): # pylint: disable=W0612
-            sysClass = self.__class__
-            newSystems.append(sysClass(**kwargs))
-
-        if len(newSystems) == 1:
-            newS = newSystems[0]
-        else:
-            newS = (*newSystems,)
-        return newS
-
-    def __namer(self):
-        """
-        This is the naming method used internally for default names. It uses class `label` and correspoding number of
-        instances (internal or external).
-
-        To get the cls label and the corresponding number of instances for internal/external, it calls class methods
-        :meth:`clsLabel` and :meth:`clsInstances` with the :attr:`_internal` boolean value.
-
-        :returns:
-            the name string
-        """
-
-        if self._internal is False:
-            name = self.clsLabel() + str(self.clsInstances(self._internal))
-        else:
-            name = '_' + self.clsLabel() + str(self.clsInstances(self._internal))
-        qUniversal.instNames[name] = self
-        return name
-
-    @classmethod
-    def updateNames(cls, obj, name):
-        """
-        This ``classmethod`` ensures that an objects name is unique, and the :attr:`instNames <qUniversal.instNames>`
-        dictionary contains the correct name as the key, meaning not an old name or more than 1 keys for the same object
-
-        This is a **recursive** method that calls itself if the given `name` exists in
-        :attr:`instNames <qUniversal.instNames>` keys and the value is not the `obj`.
-
-        Parameters
-        ----------
-        obj : qUniversal
-            The object to be renamed
-        name : str
-            New name for the `obj`
-
-
-        :returns: `name`
-        """
-
-        if name in cls.instNames.keys():
-            if obj is cls.instNames[name]:
-                cls.instNames[name] = cls.instNames.pop(obj.name)
-            else:
-                print(f'A duplicate name {name} is given,')
-                name += str(obj.__class__._externalInstances) # pylint: disable=protected-access
-                print(f'it is changed to {name}')
-                return cls.updateNames(obj, name)
-        else:
-            if obj in cls.instNames.values():
-                # can skip this and keep two keys for a system?
-                cls.instNames[name] = cls.instNames.pop(obj.name)
-            else:
-                cls.instNames[name] = obj
-        return name
-
-    @classmethod
-    def _incrementInstances(cls, boolean=False, val=1):
-        """
-        This method is called inside __init__ to increase internal/external number
-        of instances depending on the `boolean`.
-        """
-
-        qUniversal._totalInst += 1
-        cls.instances += val
-        if boolean is False:
-            cls._externalInstances += val
-        elif boolean is True:
-            cls._internalInstances += val
-
-    @classmethod
-    def clsInstances(cls, _internal=None):
-        """
-        This class method **returns** the number of instances:
-
-            1. Total number, ``if _internal is None``
-            2. internal, ``if _internal is True``
-            3. external, ``if _internal is False``
-        """
-
-        if _internal is None:
-            insCount = cls.instances
-        elif _internal is True:
-            insCount = cls._internalInstances
-        elif _internal is False:
-            insCount = cls._externalInstances
-        return insCount
-
-    @classmethod
-    def clsLabel(cls):
-        """
-        This method **returns** the class label.
-        """
-
-        return cls.label
+        #newSystems = []
+        #for _ in range(n): # pylint: disable=W0612
+        sysClass = self.__class__
+        return sysClass(**kwargs)
+        #return (*newSystems,)

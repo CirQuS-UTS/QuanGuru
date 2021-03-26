@@ -1,13 +1,24 @@
 import random as rn
+import multiprocessing
+import platform
 import sys
 import os
 from pathlib import Path
 import numpy as np
 import pytest
+
+if platform.system() != 'Windows':
+    if sys.version_info[1] >= 8:
+        try:
+            #multiprocessing.get_start_method() != 'fork'
+            multiprocessing.set_start_method("fork")
+        except: #pylint:disable=bare-except # noqa: E722
+            pass
+
 path = str(Path(os.getcwd()))
 sys.path.insert(0, path)
 from qTools.QuantumToolbox import states#pylint: disable=import-error,wrong-import-position
-from qTools.QuantumToolbox import operators as ops #pylint: disable=import-error
+from qTools.QuantumToolbox import operators as ops #pylint: disable=import-error,wrong-import-position
 
 class Helpers:
     # used for the helper function fixture, put any helper function for testing as a static method in here and use

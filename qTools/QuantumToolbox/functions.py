@@ -105,7 +105,7 @@ def expectation(operator: Matrix, state: Matrix) -> float:
     if state.shape[0] != state.shape[1]:
         state = densityMatrix(state)
     expc = trace(operator @ state)
-    return np.real(expc) if np.imag(round(expc, 15)) == 0.0 else expc
+    return np.real(expc) if np.round(expc.imag, 14) == 0.0 else expc
 
 
 def fidelityPure(state1: Matrix, state2: Matrix) -> float:
@@ -155,7 +155,7 @@ def fidelityPure(state1: Matrix, state2: Matrix) -> float:
     """
 
     if ((state1.shape[0] != state1.shape[1]) and (state2.shape[0] != state2.shape[1])):
-        fid = abs(innerProd(state1, state2))**2
+        fid = np.round(abs(innerProd(state1, state2)), 20)**2
     else:
         if state1.shape[0] != state1.shape[1]:
             state1 = densityMatrix(state1)
@@ -419,3 +419,12 @@ def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:
 
     expMat = hc(states) @ operator @ states
     return expMat.diagonal()
+
+def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float:
+    expSq = (expectation(operator, state))
+    SqExp = expectation(operator**2, state)
+    return np.sqrt(SqExp - (expSq**2)) if not expect else (np.sqrt(SqExp - (expSq**2)), expSq)
+
+def spectralNorm(operator: Matrix) -> Tuple:
+    vals, _ = sortedEigens(hc(operator)@operator)
+    return (np.sqrt(np.real(max(vals))), vals)

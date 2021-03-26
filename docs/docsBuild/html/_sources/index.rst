@@ -9,7 +9,8 @@
     :maxdepth: 2
 
     QuantumToolbox <QuantumToolbox>
-    Tutorials <QuantumToolbox/Demos/Demos>
+    Classes <classes>
+    Tutorials <QuantumToolbox/Tutorials/Tutorials>
 
 .. Hiding - Indices and tables
     :ref:`genindex`

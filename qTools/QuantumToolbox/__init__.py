@@ -25,7 +25,7 @@ r"""
     .. autosummary::
         functions
         Hamiltonians
-        qubitRotations
+        spinRotations
         quasiProbabilities
 
     .. autosummary::
@@ -48,13 +48,15 @@ from .operators import (
 )
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
 from .functions import (
-    expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance, _expectationColArr
+    expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance, _expectationColArr,
+    standardDev, spectralNorm
 )
 from ._helpers import (loopIt)
 from .rmtDistributions import (EigenVectorDist, WignerDyson, WignerSurmise, Poissonian)
 from .thermodynamics import(nBarThermal, qubitPolarisation, HeatCurrent)
-from .qubitRotations import(qubRotation, xRotation, yRotation, zRotation)
+from .spinRotations import(qubRotation, xRotation, yRotation, zRotation)
 from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
 from .Hamiltonians import (qubCavFreeHam, RabiHam, JCHam, aJCHam)
-from ._ipr import (iprKet, iprKetNB)
-from ._eigenVecVal import (_eigStat, _eigStatSymp, _eigStatEig, eigVecStatKet)
+from .IPR import (iprKet, iprKetNB)
+from .eigenVecVal import (_eigs, _eigStat, _eigStatSymp, _eigStatEig, eigVecStatKet)
+from .basicGates import (CNOT, CPHASE, Hadamard)

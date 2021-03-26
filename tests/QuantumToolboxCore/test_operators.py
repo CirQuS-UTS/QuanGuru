@@ -14,8 +14,8 @@ def checkGivenRuleForAnArray(cOp, rule, *args):
         for ind2 in range(dim):
             expected = rule(ind1, ind2, *args)
             found = cOp[ind1][ind2]
-            assert round(found.real, 13) == round(expected.real, 13)
-            assert round(found.imag, 13) == round(expected.imag, 13)
+            assert np.round(found.real, 13) == np.round(expected.real, 13)
+            assert np.round(found.imag, 13) == np.round(expected.imag, 13)
 
 @pytest.mark.parametrize("op, rule", [[ops.number, lambda ind1, ind2: ind1*(not bool(ind1-ind2))],
                                       [ops.create, lambda ind1, ind2: np.sqrt(ind1)*(not bool(ind1-ind2-1))],
@@ -81,10 +81,10 @@ def test_displacement():
     for n in range(10):
         calc = abs(la.innerProd(displacedVacuum, states.basis(20, n)))**2
         expc = abs(((np.e**(-(abs(alpha)**2)/2))*((alpha**n)/(np.sqrt(np.math.factorial(n))))))**2
-        assert round(calc, 5) == round(expc, 5)
+        assert np.round(calc, 5) == np.round(expc, 5)
 
     # test average photon number
-    assert round(la.trace(ops.number(20) @ states.densityMatrix(displacedVacuum)), 8).real == round(abs(alpha)**2, 8)
+    assert np.round(la.trace(ops.number(20) @ states.densityMatrix(displacedVacuum)), 8).real == np.round(abs(alpha)**2, 8)
 
     # coherent state is the eigenstate of destroy with eigenvalue alpha
     assert np.allclose((ops.destroy(20)@displacedVacuum).A, (alpha*displacedVacuum).A, atol=1e-04, rtol=1e-04)
