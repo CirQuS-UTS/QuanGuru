@@ -1,5 +1,5 @@
 r"""
-    This is a library.
+    QuanGuru (pronounced Kangaroo) is a Python library for Quantum Sciences. This first module consists of tools for numerical simulations of Quantum systems.
 """
 
 
