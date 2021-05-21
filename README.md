@@ -21,8 +21,8 @@ We (mostly) use [camelCase](https://code.research.uts.edu.au/mKQuantum/QuantumSi
 ## (Rough) Development Plan
 
 QuantumToolbox is already simple enough and stable. In parallel to future developments of classes, further additions and
-improvements can be implemented in QuantumToolbox. I already have functions (for special state creations, operator norm
-etc.) in my repo under possibleFutureQuantumToolbox. These functions and more can be implemented into QuantumToolbox
+improvements is going to be implemented in QuantumToolbox. There are already other functions (for special state creations, operator norm
+etc.) in another private repo under possibleFutureQuantumToolbox. These functions and more can be implemented into QuantumToolbox
 with proper tests, documentation etc.
 
 ### 1. Short term plan for the improvements on current code
