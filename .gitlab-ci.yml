@@ -33,7 +33,7 @@ pylint:
         - python3 -m pylint --rcfile=.pylintrc --output-format=text qTools/*.py | tee pylint.txt || pylint-exit $?
         - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
         - echo "Pylint score was $score"
-        - python3 -m anybadge --value=$score --file=pylint.svg pylint
+        - python3 -m anybadge --value=$score --file=pylint/pylint.svg pylint
     artifacts:
         paths:
             - ./pylint/
