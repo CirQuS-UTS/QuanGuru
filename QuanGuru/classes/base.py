@@ -1,7 +1,7 @@
 r"""
     Contains two main base classes (for naming and sub/superSys) and their helper classes, functions, decorators.
 
-    .. currentmodule:: qTools.classes.base
+    .. currentmodule:: QuanGuru.classes.base
 
     .. autosummary::
         named
@@ -457,10 +457,10 @@ def addDecorator(addFunction):
     The wrapper is also decorated with the :meth:`~_recurseIfList` to make it recursive for list/tuple inputs.
 
     This decorator is also used for
-    :meth:`_createParamBound <qTools.classes.computeBase.paramBoundBase._createParamBound>` and
-    :meth:`_breakParamBound <qTools.classes.computeBase.paramBoundBase._breakParamBound>` methods for
-    :attr:`_paramBound <qTools.classes.computeBase.paramBoundBase._paramBound>` dictionary of
-    :class:`paramBoundBase <qTools.classes.computeBase.paramBoundBase>` class.
+    :meth:`_createParamBound <QuanGuru.classes.computeBase.paramBoundBase._createParamBound>` and
+    :meth:`_breakParamBound <QuanGuru.classes.computeBase.paramBoundBase._breakParamBound>` methods for
+    :attr:`_paramBound <QuanGuru.classes.computeBase.paramBoundBase._paramBound>` dictionary of
+    :class:`paramBoundBase <QuanGuru.classes.computeBase.paramBoundBase>` class.
 
     1. If the `input (inp)` is an instance of :class:`~named`, it calls the `addFunction`
     (the decorated method that does the actual adding) and its added into the relevant dictionary.

@@ -1,8 +1,8 @@
 =================================================================
-Basic Linear Algebra (:mod:`qTools.QuantumToolbox.linearAlgebra`)
+Basic Linear Algebra (:mod:`QuanGuru.QuantumToolbox.linearAlgebra`)
 =================================================================
 
-.. automodule:: qTools.QuantumToolbox.linearAlgebra
+.. automodule:: QuanGuru.QuantumToolbox.linearAlgebra
    :members:
    :private-members:
    :undoc-members:

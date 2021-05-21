@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.QuantumToolbox.quasiProbabilities &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.QuantumToolbox.quasiProbabilities &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.QuantumToolbox.quasiProbabilities</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.QuantumToolbox.quasiProbabilities</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains functions to calculate quasi-probability distributions (adapted from qutip).</span>
 
-<span class="sd">    .. currentmodule:: qTools.QuantumToolbox.quasiProbabilities</span>
+<span class="sd">    .. currentmodule:: QuanGuru.QuantumToolbox.quasiProbabilities</span>
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
@@ -169,7 +169,7 @@
                    <span class="n">copy</span><span class="p">,</span> <span class="n">meshgrid</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">polyval</span><span class="p">,</span> <span class="n">fliplr</span><span class="p">,</span> <span class="n">conjugate</span><span class="p">)</span> <span class="c1"># type: ignore</span>
 <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">factorial</span> <span class="c1"># type: ignore</span>
 <span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span> <span class="c1"># type: ignore</span>
-<span class="c1">#from qTools.QuantumToolbox.states as densityMatrix</span>
+<span class="c1">#from QuanGuru.QuantumToolbox.states as densityMatrix</span>
 
 <span class="kn">from</span> <span class="nn">.states</span> <span class="kn">import</span> <span class="n">densityMatrix</span>
 <span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ndOrList</span>
@@ -184,7 +184,7 @@
 <span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
 <span class="c1"># ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list</span>
 
-<div class="viewcode-block" id="Wigner"><a class="viewcode-back" href="../../../QuantumToolbox/quasiProbabilities.html#qTools.QuantumToolbox.quasiProbabilities.Wigner">[docs]</a><span class="k">def</span> <span class="nf">Wigner</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">vec</span><span class="p">:</span> <span class="n">ndOrList</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="Wigner"><a class="viewcode-back" href="../../../QuantumToolbox/quasiProbabilities.html#QuanGuru.QuantumToolbox.quasiProbabilities.Wigner">[docs]</a><span class="k">def</span> <span class="nf">Wigner</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">vec</span><span class="p">:</span> <span class="n">ndOrList</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An iterative method to evaluate the Wigner functions for the states :math:`|m \rangle \langle n|` and use them in</span>
 <span class="sd">    a weighted sum to calculate Wigner function of any arbitrary state.</span>
@@ -246,7 +246,7 @@
     <span class="k">return</span> <span class="n">W</span> <span class="o">*</span> <span class="n">g</span> <span class="o">**</span> <span class="mi">2</span></div>
 
 
-<div class="viewcode-block" id="HusimiQ"><a class="viewcode-back" href="../../../QuantumToolbox/quasiProbabilities.html#qTools.QuantumToolbox.quasiProbabilities.HusimiQ">[docs]</a><span class="k">def</span> <span class="nf">HusimiQ</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">vec</span><span class="p">:</span> <span class="n">ndOrList</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="HusimiQ"><a class="viewcode-back" href="../../../QuantumToolbox/quasiProbabilities.html#QuanGuru.QuantumToolbox.quasiProbabilities.HusimiQ">[docs]</a><span class="k">def</span> <span class="nf">HusimiQ</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">vec</span><span class="p">:</span> <span class="n">ndOrList</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Q-function of a given state vector or density matrix at points `vec + i * vec`</span>
 
@@ -292,7 +292,7 @@
     <span class="k">return</span> <span class="n">qmat</span></div>
 
 
-<div class="viewcode-block" id="_qfuncPure"><a class="viewcode-back" href="../../../QuantumToolbox/quasiProbabilities.html#qTools.QuantumToolbox.quasiProbabilities._qfuncPure">[docs]</a><span class="k">def</span> <span class="nf">_qfuncPure</span><span class="p">(</span><span class="n">psi</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">alphaMat</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="_qfuncPure"><a class="viewcode-back" href="../../../QuantumToolbox/quasiProbabilities.html#QuanGuru.QuantumToolbox.quasiProbabilities._qfuncPure">[docs]</a><span class="k">def</span> <span class="nf">_qfuncPure</span><span class="p">(</span><span class="n">psi</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">alphaMat</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the Q-function for a pure state.</span>
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.QuantumToolbox.rmtDistributions &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.QuantumToolbox.rmtDistributions &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.QuantumToolbox.rmtDistributions</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.QuantumToolbox.rmtDistributions</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains probability density functions (PDF) from Random Matrix Theory (RMT).</span>
 
-<span class="sd">    .. currentmodule:: qTools.QuantumToolbox.rmtDistributions</span>
+<span class="sd">    .. currentmodule:: QuanGuru.QuantumToolbox.rmtDistributions</span>
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
@@ -171,7 +171,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># type: ignore</span>
 
 
-<div class="viewcode-block" id="EigenVectorDist"><a class="viewcode-back" href="../../../QuantumToolbox/rmtDistributions.html#qTools.QuantumToolbox.rmtDistributions.EigenVectorDist">[docs]</a><span class="k">def</span> <span class="nf">EigenVectorDist</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="EigenVectorDist"><a class="viewcode-back" href="../../../QuantumToolbox/rmtDistributions.html#QuanGuru.QuantumToolbox.rmtDistributions.EigenVectorDist">[docs]</a><span class="k">def</span> <span class="nf">EigenVectorDist</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes PDF :math:`P(x)` of eigenvector statistics at x for three universality classes</span>
 <span class="sd">    (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension :math:`dim`.</span>
@@ -216,7 +216,7 @@
     <span class="k">return</span> <span class="n">val</span> <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">30</span></div>
 
 
-<div class="viewcode-block" id="WignerDyson"><a class="viewcode-back" href="../../../QuantumToolbox/rmtDistributions.html#qTools.QuantumToolbox.rmtDistributions.WignerDyson">[docs]</a><span class="k">def</span> <span class="nf">WignerDyson</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="WignerDyson"><a class="viewcode-back" href="../../../QuantumToolbox/rmtDistributions.html#QuanGuru.QuantumToolbox.rmtDistributions.WignerDyson">[docs]</a><span class="k">def</span> <span class="nf">WignerDyson</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate Wigner Surmise (Wigner-Dyson) PDF at x for three universality classes</span>
 <span class="sd">    (COE (beta=1), CUE (beta=2), and CSE (beta=4)). Used in nearest-neighbour eigen-value/phase spacing statistics.</span>
@@ -252,7 +252,7 @@
 
 <span class="n">WignerSurmise</span> <span class="o">=</span> <span class="n">WignerDyson</span>
 
-<div class="viewcode-block" id="Poissonian"><a class="viewcode-back" href="../../../QuantumToolbox/rmtDistributions.html#qTools.QuantumToolbox.rmtDistributions.Poissonian">[docs]</a><span class="k">def</span> <span class="nf">Poissonian</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lam</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="Poissonian"><a class="viewcode-back" href="../../../QuantumToolbox/rmtDistributions.html#QuanGuru.QuantumToolbox.rmtDistributions.Poissonian">[docs]</a><span class="k">def</span> <span class="nf">Poissonian</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lam</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Poisson PDF at x.</span>
 

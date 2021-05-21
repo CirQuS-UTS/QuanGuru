@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thermodynamical functions (qTools.QuantumToolbox.thermodynamics) &#8212; Quantum Simulations 1 documentation</title>
+    <title>Thermodynamical functions (QuanGuru.QuantumToolbox.thermodynamics) &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -52,8 +52,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Random Matrix Theory Distributions (qTools.QuantumToolbox.rmtDistributions)" href="rmtDistributions.html" />
-    <link rel="prev" title="Quasi-Probabilities (qTools.QuantumToolbox.quasiProbabilities)" href="quasiProbabilities.html" />
+    <link rel="next" title="Random Matrix Theory Distributions (QuanGuru.QuantumToolbox.rmtDistributions)" href="rmtDistributions.html" />
+    <link rel="prev" title="Quasi-Probabilities (QuanGuru.QuantumToolbox.quasiProbabilities)" href="quasiProbabilities.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
   </head>
@@ -235,8 +235,8 @@
               
               <div>
                 
-  <div class="section" id="module-qTools.QuantumToolbox.thermodynamics">
-<span id="thermodynamical-functions-qtools-quantumtoolbox-thermodynamics"></span><h1>Thermodynamical functions (<a class="reference internal" href="#module-qTools.QuantumToolbox.thermodynamics" title="qTools.QuantumToolbox.thermodynamics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.thermodynamics</span></code></a>)<a class="headerlink" href="#module-qTools.QuantumToolbox.thermodynamics" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-QuanGuru.QuantumToolbox.thermodynamics">
+<span id="thermodynamical-functions-QuanGuru-quantumtoolbox-thermodynamics"></span><h1>Thermodynamical functions (<a class="reference internal" href="#module-QuanGuru.QuantumToolbox.thermodynamics" title="QuanGuru.QuantumToolbox.thermodynamics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox.thermodynamics</span></code></a>)<a class="headerlink" href="#module-QuanGuru.QuantumToolbox.thermodynamics" title="Permalink to this headline">¶</a></h1>
 <p>Contains methods to calculate certain quantities used in thermal states, open systems, and quantum thermodynamics.
 TODO update docstring examples and write some tests after writing some tutorials</p>
 <div class="section" id="functions">
@@ -247,20 +247,20 @@ TODO update docstring examples and write some tests after writing some tutorials
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.thermodynamics.nBarThermal" title="qTools.QuantumToolbox.thermodynamics.nBarThermal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nBarThermal</span></code></a>(angFreq, temp[, hbar, kb])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.thermodynamics.nBarThermal" title="QuanGuru.QuantumToolbox.thermodynamics.nBarThermal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nBarThermal</span></code></a>(angFreq, temp[, hbar, kb])</p></td>
 <td><p>Calculates average excitation number <img class="math" src="../_images/math/2104b7f5bf018026631a8756fb0619f0398ca45d.png" alt="\bar{n}(T) := 1/(e^{\hbar \omega / k_{b}T} - 1)"/> of a bosonic field with frequeny <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> at a temperature T.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.thermodynamics.qubitPolarisation" title="qTools.QuantumToolbox.thermodynamics.qubitPolarisation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qubitPolarisation</span></code></a>(freq, temp)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.thermodynamics.qubitPolarisation" title="QuanGuru.QuantumToolbox.thermodynamics.qubitPolarisation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qubitPolarisation</span></code></a>(freq, temp)</p></td>
 <td><p>Returns the polarisation <img class="math" src="../_images/math/b04d9d230735de770d303d022afd3384775b05f0.png" alt="\langle\hat{\sigma}_{z}\rangle := P_{1} - P_{0}"/> of a qubit with frequency <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> in a thermal state of temperature T.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.thermodynamics.HeatCurrent" title="qTools.QuantumToolbox.thermodynamics.HeatCurrent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HeatCurrent</span></code></a>(Lindbladian, Hamiltonian, denMat)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.thermodynamics.HeatCurrent" title="QuanGuru.QuantumToolbox.thermodynamics.HeatCurrent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HeatCurrent</span></code></a>(Lindbladian, Hamiltonian, denMat)</p></td>
 <td><p>Calculates the heat current <img class="math" src="../_images/math/2212e25efba70578595089358ee48e0d9f195ff9.png" alt="\mathcal{J}:=Tr(\dot{\rho}\hat{H})"/> due to given Lindbladian <img class="math" src="../_images/math/3785b9861381690ac6b21bf5c3888e704d1ba9eb.png" alt="\hat{\mathcal{L}}"/>.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.thermodynamics.nBarThermal">
-<code class="sig-name descname">nBarThermal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">angFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">temp</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">hbar</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">kb</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/thermodynamics.html#nBarThermal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.thermodynamics.nBarThermal" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.thermodynamics.nBarThermal">
+<code class="sig-name descname">nBarThermal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">angFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">temp</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">hbar</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">kb</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/thermodynamics.html#nBarThermal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.thermodynamics.nBarThermal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates average excitation number <img class="math" src="../_images/math/2104b7f5bf018026631a8756fb0619f0398ca45d.png" alt="\bar{n}(T) := 1/(e^{\hbar \omega / k_{b}T} - 1)"/> of a bosonic field with
 frequeny <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> at a temperature T.
 Boltzmann and reduced Planck constants are by default <img class="math" src="../_images/math/ac376f5d0de4955a65ca6d5b68f89e08d2b78357.png" alt="\hbar = k_{B} = 1"/>.
@@ -289,8 +289,8 @@ TODO Physical constants’ default values should be connected to simUnits.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.thermodynamics.qubitPolarisation">
-<code class="sig-name descname">qubitPolarisation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">freq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">temp</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/thermodynamics.html#qubitPolarisation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.thermodynamics.qubitPolarisation" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.thermodynamics.qubitPolarisation">
+<code class="sig-name descname">qubitPolarisation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">freq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">temp</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/thermodynamics.html#qubitPolarisation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.thermodynamics.qubitPolarisation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the polarisation <img class="math" src="../_images/math/b04d9d230735de770d303d022afd3384775b05f0.png" alt="\langle\hat{\sigma}_{z}\rangle := P_{1} - P_{0}"/> of a qubit with frequency
 <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/>
 in a thermal state of temperature T. <img class="math" src="../_images/math/8242a17e70e75201da194a15608b7fad526267d7.png" alt="P_{1}"/> and <img class="math" src="../_images/math/cef180ac30eda1bd3252896e81fbe1539ca789e7.png" alt="P_{0}"/> are excited and ground state populations
@@ -315,8 +315,8 @@ satisfying <img class="math" src="../_images/math/c5f88abe8da60c99645a4444964924
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.thermodynamics.HeatCurrent">
-<code class="sig-name descname">HeatCurrent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Lindbladian</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">denMat</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/thermodynamics.html#HeatCurrent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.thermodynamics.HeatCurrent" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.thermodynamics.HeatCurrent">
+<code class="sig-name descname">HeatCurrent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Lindbladian</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">denMat</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/thermodynamics.html#HeatCurrent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.thermodynamics.HeatCurrent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the heat current <img class="math" src="../_images/math/2212e25efba70578595089358ee48e0d9f195ff9.png" alt="\mathcal{J}:=Tr(\dot{\rho}\hat{H})"/> due to given Lindbladian
 <img class="math" src="../_images/math/3785b9861381690ac6b21bf5c3888e704d1ba9eb.png" alt="\hat{\mathcal{L}}"/>.
 Here, <img class="math" src="../_images/math/b5d453cd164a1584c9b627c35add844357eeb425.png" alt="\hat{H}"/> is the system Hamiltonian, and the time derivative of density matrix is
@@ -352,8 +352,8 @@ TODO Write a bit of the theory here to better explain this function.</p>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="quasiProbabilities.html" title="previous page">Quasi-Probabilities (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.quasiProbabilities</span></code>)</a>
-    <a class='right-next' id="next-link" href="rmtDistributions.html" title="next page">Random Matrix Theory Distributions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.rmtDistributions</span></code>)</a>
+    <a class='left-prev' id="prev-link" href="quasiProbabilities.html" title="previous page">Quasi-Probabilities (<code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox.quasiProbabilities</span></code>)</a>
+    <a class='right-next' id="next-link" href="rmtDistributions.html" title="next page">Random Matrix Theory Distributions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox.rmtDistributions</span></code>)</a>
 
               </div>
               

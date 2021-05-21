@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
-from qTools.QuantumToolbox import linearAlgebra as la  #pylint: disable=import-error
-from qTools.QuantumToolbox import functions as fns #pylint: disable=import-error
+from QuanGuru.QuantumToolbox import linearAlgebra as la  #pylint: disable=import-error
+from QuanGuru.QuantumToolbox import functions as fns #pylint: disable=import-error
 
 # unitary dynamics of a qubit and compare numerical results with the analytical calculations
 # NOTE these are also TUTORIALS of the library, so see the Tutorials for what these are doing and analytical

@@ -1,8 +1,8 @@
 ========================================================
-Basic Functions (:mod:`qTools.QuantumToolbox.functions`)
+Basic Functions (:mod:`QuanGuru.QuantumToolbox.functions`)
 ========================================================
 
-.. automodule:: qTools.QuantumToolbox.functions
+.. automodule:: QuanGuru.QuantumToolbox.functions
    :members:
    :private-members:
    :undoc-members:

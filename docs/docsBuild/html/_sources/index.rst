@@ -2,7 +2,7 @@
 {Name of the library goes here} documentation
 #############################################
 
-.. automodule:: qTools.__init__
+.. automodule:: QuanGuru.__init__
 
 .. toctree::
     :titlesonly:

@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-import qTools as qt
+import QuanGuru as qt
 import tests.classes.Integration.tdd.tdd as td
 #import tests.classes.Integration.tdd.tddData as tdData
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.classes.QRes &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.classes.QRes &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.classes.QRes</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.classes.QRes</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains qResults, qResBase, and qResBlank classes used in storing various types of simulation results.</span>
 
-<span class="sd">    .. currentmodule:: qTools.classes.QRes</span>
+<span class="sd">    .. currentmodule:: QuanGuru.classes.QRes</span>
 
 <span class="sd">    .. autosummary::</span>
 
@@ -172,7 +172,7 @@
 <span class="c1">#: used as the slots in :class:`~qResBlank` and :class:`~qResBase`.</span>
 <span class="n">resKeys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__results&#39;</span><span class="p">,</span> <span class="s1">&#39;__states&#39;</span><span class="p">,</span> <span class="s1">&#39;__resultsLast&#39;</span><span class="p">,</span> <span class="s1">&#39;__statesLast&#39;</span><span class="p">,</span> <span class="s1">&#39;__average&#39;</span><span class="p">,</span> <span class="s1">&#39;__calculated&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="qResBlank"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResBlank">[docs]</a><span class="k">class</span> <span class="nc">qResBlank</span><span class="p">:</span>
+<div class="viewcode-block" id="qResBlank"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResBlank">[docs]</a><span class="k">class</span> <span class="nc">qResBlank</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a simplified version of :class:`~qResBase`, and it is used in time evolution returns of multi-processing</span>
 <span class="sd">    (pool.map()). Since :class:`~qResBase` inherits from :class:`~named`, they contain a dictionary with :class:`~named`</span>
@@ -214,7 +214,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qResBlank__statesLast</span> <span class="c1"># pylint: disable=no-member</span></div>
 
-<div class="viewcode-block" id="qResBase"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResBase">[docs]</a><span class="k">class</span> <span class="nc">qResBase</span><span class="p">(</span><span class="n">qBase</span><span class="p">):</span>
+<div class="viewcode-block" id="qResBase"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResBase">[docs]</a><span class="k">class</span> <span class="nc">qResBase</span><span class="p">(</span><span class="n">qBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for qResults implements the defaultdict attributes (used to store various quantities) and property/method</span>
 <span class="sd">    to store quantities in them. `Last` ones store a single time trace (the very last one) and are reset in the</span>
@@ -292,7 +292,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_qResBase__average</span><span class="p">[</span><span class="n">keyValList</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># pylint: disable=no-member</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qResBase__resultsLast</span><span class="p">[</span><span class="n">keyValList</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">val</span> <span class="c1"># pylint: disable=no-member</span>
 
-<div class="viewcode-block" id="qResBase.resultsMethod"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResBase.resultsMethod">[docs]</a>    <span class="k">def</span> <span class="nf">resultsMethod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="qResBase.resultsMethod"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResBase.resultsMethod">[docs]</a>    <span class="k">def</span> <span class="nf">resultsMethod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method also stores results and is an alternative to :py:attr:`~results` property. It is aimed to provide</span>
 <span class="sd">        enriched syntax. Might also implement average.</span>
@@ -321,7 +321,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qResBase__statesLast</span> <span class="c1"># pylint: disable=no-member</span></div>
 
-<div class="viewcode-block" id="qResults"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults">[docs]</a><span class="k">class</span> <span class="nc">qResults</span><span class="p">(</span><span class="n">qResBase</span><span class="p">):</span>
+<div class="viewcode-block" id="qResults"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults">[docs]</a><span class="k">class</span> <span class="nc">qResults</span><span class="p">(</span><span class="n">qResBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extends the :class:`~qResBase` and introduces methods to reset, organise, copy, etc. for the results/states/etc.</span>
 <span class="sd">    The results/states/etc are stored in the correspoding Last during time evolution and are appended into a single list</span>
@@ -357,7 +357,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">allResults</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># pylint: disable=no-member</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
-<div class="viewcode-block" id="qResults._copyAllResBlank"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._copyAllResBlank">[docs]</a>    <span class="k">def</span> <span class="nf">_copyAllResBlank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="qResults._copyAllResBlank"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._copyAllResBlank">[docs]</a>    <span class="k">def</span> <span class="nf">_copyAllResBlank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        method to copy the dictionaries of all the :class:`~qResults` instances into new :class:`~qResBlank` instances,</span>
 <span class="sd">        and store them into another dictionary with the name of the corresponding qResults instance. The returned</span>
@@ -377,7 +377,7 @@
             <span class="n">allResCopy</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">newQRes</span>
         <span class="k">return</span> <span class="n">allResCopy</span></div>
 
-<div class="viewcode-block" id="qResults._reset"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._reset">[docs]</a>    <span class="k">def</span> <span class="nf">_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="qResults._reset"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._reset">[docs]</a>    <span class="k">def</span> <span class="nf">_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to empty (creates and assigned them to new defaultdicts) all the previous results/states dicts.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -389,7 +389,7 @@
             <span class="n">qRes</span><span class="o">.</span><span class="n">_qResBase__statesLast</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
             <span class="n">qRes</span><span class="o">.</span><span class="n">_qResBase__calculated</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="qResults._resetLast"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._resetLast">[docs]</a>    <span class="k">def</span> <span class="nf">_resetLast</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="qResults._resetLast"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._resetLast">[docs]</a>    <span class="k">def</span> <span class="nf">_resetLast</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to reset the Last dictionaries only, and it is called before the time evolution to empty the Last. After</span>
 <span class="sd">        the time evolution (depending on single/multi-process), these are moved to regular results by the corresponding</span>
@@ -401,7 +401,7 @@
             <span class="n">qRes</span><span class="o">.</span><span class="n">_qResBase__statesLast</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
             <span class="n">qRes</span><span class="o">.</span><span class="n">_qResBase__average</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="qResults._organiseMultiProcRes"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._organiseMultiProcRes">[docs]</a>    <span class="k">def</span> <span class="nf">_organiseMultiProcRes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
+<div class="viewcode-block" id="qResults._organiseMultiProcRes"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._organiseMultiProcRes">[docs]</a>    <span class="k">def</span> <span class="nf">_organiseMultiProcRes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        multi-processing returns are dictionaries containing :class:`~qResBlank` instances with single time trace</span>
 <span class="sd">        (see :meth:`~_copyAllResBlank`), this method re-writes the results into corresponding :class:`~qResults` objects</span>
@@ -412,7 +412,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_organise</span><span class="p">(</span><span class="n">keyUni</span><span class="p">,</span> <span class="n">valUni</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finaliseAll</span><span class="p">(</span><span class="n">inds</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="qResults._finaliseAll"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._finaliseAll">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="qResults._finaliseAll"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._finaliseAll">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_finaliseAll</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls the :meth:`~_finalise` method, which reshapes the results/states list using the given list of indices</span>
@@ -421,7 +421,7 @@
         <span class="k">for</span> <span class="n">qres</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_allResults</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">qres</span><span class="o">.</span><span class="n">_finalise</span><span class="p">(</span><span class="n">inds</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="qResults._organise"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._organise">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="qResults._organise"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._organise">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_organise</span><span class="p">(</span><span class="n">keyUni</span><span class="p">,</span> <span class="n">valUni</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        At the end of time evolution, :meth:`~_organise` creates a single list containing all the results/states for</span>
@@ -433,7 +433,7 @@
         <span class="k">for</span> <span class="n">key1</span><span class="p">,</span> <span class="n">val1</span><span class="p">,</span> <span class="ow">in</span> <span class="n">valUni</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">qResults</span><span class="o">.</span><span class="n">_allResults</span><span class="p">[</span><span class="n">keyUni</span><span class="p">]</span><span class="o">.</span><span class="n">_qResBase__states</span><span class="p">[</span><span class="n">key1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val1</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span></div>
 
-<div class="viewcode-block" id="qResults._organiseSingleProcRes"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._organiseSingleProcRes">[docs]</a>    <span class="k">def</span> <span class="nf">_organiseSingleProcRes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="qResults._organiseSingleProcRes"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._organiseSingleProcRes">[docs]</a>    <span class="k">def</span> <span class="nf">_organiseSingleProcRes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        organising the single-process results by simply calling :meth:`~_organise` on every qResults instance in</span>
 <span class="sd">        allResults dictionary. This needs to be finalised, ie. creates a single list containing every sweep, so the list</span>
@@ -442,7 +442,7 @@
         <span class="k">for</span> <span class="n">keyUni</span><span class="p">,</span> <span class="n">valUni</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allResults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_organise</span><span class="p">(</span><span class="n">keyUni</span><span class="p">,</span> <span class="n">valUni</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="qResults._finalise"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._finalise">[docs]</a>    <span class="k">def</span> <span class="nf">_finalise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
+<div class="viewcode-block" id="qResults._finalise"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._finalise">[docs]</a>    <span class="k">def</span> <span class="nf">_finalise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        method to reshape the results/states list using the given list of indices (ie. length of each sweep).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -460,7 +460,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_qResBase__resultsLast</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qResBase__results</span> <span class="c1"># pylint: disable=assigning-non-slot, no-member</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qResBase__statesLast</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qResBase__states</span> <span class="c1"># pylint: disable=assigning-non-slot, no-member</span></div>
 
-<div class="viewcode-block" id="qResults._reShape"><a class="viewcode-back" href="../../../classes/QRes.html#qTools.classes.QRes.qResults._reShape">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="qResults._reShape"><a class="viewcode-back" href="../../../classes/QRes.html#QuanGuru.classes.QRes.qResults._reShape">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_reShape</span><span class="p">(</span><span class="n">lis</span><span class="p">,</span> <span class="n">inds</span><span class="p">,</span> <span class="n">counter</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">totalCount</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        a recursive method to reshape a list/listOfLists into given indices form.</span>

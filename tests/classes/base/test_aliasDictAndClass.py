@@ -2,7 +2,7 @@ import random
 import pickle
 import string
 import pytest
-import qTools.classes.base as qbase #pylint: disable=import-error
+import QuanGuru.classes.base as qbase #pylint: disable=import-error
 
 def randString(N):
     return str(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N)))

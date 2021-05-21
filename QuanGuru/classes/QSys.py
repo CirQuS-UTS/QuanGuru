@@ -8,7 +8,7 @@ from ..QuantumToolbox import states as qSta #pylint: disable=relative-beyond-top
 
 from .base import addDecorator, _recurseIfList
 from .baseClasses import qBaseSim, paramBoundBase, setAttr
-#from qTools.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
+#from QuanGuru.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from .QPro import freeEvolution
 
 def _initStDec(_createAstate):

@@ -1,7 +1,7 @@
 r"""
     Contains some basic linear algebra methods for scipy.sparse and np.ndarray types.
 
-    .. currentmodule:: qTools.QuantumToolbox.linearAlgebra
+    .. currentmodule:: QuanGuru.QuantumToolbox.linearAlgebra
 
     Functions
     ---------
@@ -117,7 +117,7 @@ def norm(ket: Matrix) -> float:
     r"""
     Norm :math:`\sqrt{\langle ket | ket \rangle}` of a ket state :math:`|ket \rangle`,
     where :math:`\langle ket| := |ket \rangle^{\dagger}`.
-    This function simply returns the square root of :func:`innerProd <qTools.QuantumToolbox.linearAlgebra.innerProd>`
+    This function simply returns the square root of :func:`innerProd <QuanGuru.QuantumToolbox.linearAlgebra.innerProd>`
 
     Parameters
     ----------

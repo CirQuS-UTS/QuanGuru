@@ -1,7 +1,7 @@
 r"""
     Contains functions to calculate delocalisation measure (Inverse participation ratio, shortly IPR) in various cases.
 
-    .. currentmodule:: qTools.QuantumToolbox._ipr
+    .. currentmodule:: QuanGuru.QuantumToolbox._ipr
 
     Functions
     ---------

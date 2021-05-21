@@ -1,8 +1,8 @@
 ================================================
-base classes (:mod:`qTools.classes.baseClasses`)
+base classes (:mod:`QuanGuru.classes.baseClasses`)
 ================================================
 
-.. automodule:: qTools.classes.baseClasses
+.. automodule:: QuanGuru.classes.baseClasses
    :ignore-module-all:
    :members:
    :private-members:

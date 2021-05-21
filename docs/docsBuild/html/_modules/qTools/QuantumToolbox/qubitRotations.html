@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.QuantumToolbox.qubitRotations &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.QuantumToolbox.qubitRotations &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.QuantumToolbox.qubitRotations</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.QuantumToolbox.qubitRotations</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains functions to create qubit rotation operators.</span>
 
-<span class="sd">    .. currentmodule:: qTools.QuantumToolbox.qubitRotations</span>
+<span class="sd">    .. currentmodule:: QuanGuru.QuantumToolbox.qubitRotations</span>
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
@@ -181,7 +181,7 @@
 <span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
 
 
-<div class="viewcode-block" id="xRotation"><a class="viewcode-back" href="../../../QuantumToolbox/qubitRotations.html#qTools.QuantumToolbox.qubitRotations.xRotation">[docs]</a><span class="k">def</span> <span class="nf">xRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="xRotation"><a class="viewcode-back" href="../../../QuantumToolbox/qubitRotations.html#QuanGuru.QuantumToolbox.qubitRotations.xRotation">[docs]</a><span class="k">def</span> <span class="nf">xRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the operator :math:`R_{x}(\theta)` for qubit rotation around the x-axis by `angle` :math:`\theta`.</span>
 
@@ -206,7 +206,7 @@
     <span class="k">return</span> <span class="n">rotUnitary</span></div>
 
 
-<div class="viewcode-block" id="yRotation"><a class="viewcode-back" href="../../../QuantumToolbox/qubitRotations.html#qTools.QuantumToolbox.qubitRotations.yRotation">[docs]</a><span class="k">def</span> <span class="nf">yRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="yRotation"><a class="viewcode-back" href="../../../QuantumToolbox/qubitRotations.html#QuanGuru.QuantumToolbox.qubitRotations.yRotation">[docs]</a><span class="k">def</span> <span class="nf">yRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the operator :math:`R_{y}(\theta)` for qubit rotation around the y-axis by `angle` :math:`\theta`.</span>
 
@@ -231,7 +231,7 @@
     <span class="k">return</span> <span class="n">rotUnitary</span></div>
 
 
-<div class="viewcode-block" id="zRotation"><a class="viewcode-back" href="../../../QuantumToolbox/qubitRotations.html#qTools.QuantumToolbox.qubitRotations.zRotation">[docs]</a><span class="k">def</span> <span class="nf">zRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="zRotation"><a class="viewcode-back" href="../../../QuantumToolbox/qubitRotations.html#QuanGuru.QuantumToolbox.qubitRotations.zRotation">[docs]</a><span class="k">def</span> <span class="nf">zRotation</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the operator :math:`R_{z}(\theta)` for qubit rotation around the z-axis by `angle` :math:`\theta`.</span>
 
@@ -256,7 +256,7 @@
     <span class="k">return</span> <span class="n">rotUnitary</span></div>
 
 
-<div class="viewcode-block" id="qubRotation"><a class="viewcode-back" href="../../../QuantumToolbox/qubitRotations.html#qTools.QuantumToolbox.qubitRotations.qubRotation">[docs]</a><span class="k">def</span> <span class="nf">qubRotation</span><span class="p">(</span><span class="n">xyz</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="qubRotation"><a class="viewcode-back" href="../../../QuantumToolbox/qubitRotations.html#QuanGuru.QuantumToolbox.qubitRotations.qubRotation">[docs]</a><span class="k">def</span> <span class="nf">qubRotation</span><span class="p">(</span><span class="n">xyz</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the operator :math:`R_{i}(\theta)` for qubit rotation around the i = x/y/z-axis by `angle` :math:`\theta`.</span>
 

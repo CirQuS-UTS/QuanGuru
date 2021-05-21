@@ -1,8 +1,8 @@
 ==========================================================
-Quantum Operators (:mod:`qTools.QuantumToolbox.operators`)
+Quantum Operators (:mod:`QuanGuru.QuantumToolbox.operators`)
 ==========================================================
 
-.. automodule:: qTools.QuantumToolbox.operators
+.. automodule:: QuanGuru.QuantumToolbox.operators
    :members:
    :private-members:
    :undoc-members:

@@ -1,8 +1,8 @@
 =============================================================
-Qubit Rotations (:mod:`qTools.QuantumToolbox.qubitRotations`)
+Qubit Rotations (:mod:`QuanGuru.QuantumToolbox.qubitRotations`)
 =============================================================
 
-.. automodule:: qTools.QuantumToolbox.qubitRotations
+.. automodule:: QuanGuru.QuantumToolbox.qubitRotations
    :members:
    :private-members:
    :undoc-members:

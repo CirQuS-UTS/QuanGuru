@@ -1,7 +1,7 @@
 r"""
     Contains the classes for protocols.
 
-    .. currentmodule:: qTools.classes.QPro
+    .. currentmodule:: QuanGuru.classes.QPro
 
     .. autosummary::
 """

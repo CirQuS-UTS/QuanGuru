@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-import qTools as qt
+import QuanGuru as qt
 import tests.classes.Integration.thd.thd as th
 
 fp2ZExp = qt.readCSV("tests/classes/Integration/thd/thdData/fp2ZExp.txt")

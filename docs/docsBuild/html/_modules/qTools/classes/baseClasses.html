@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.classes.baseClasses &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.classes.baseClasses &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.classes.baseClasses</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.classes.baseClasses</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains some base classes and the _parameter class.</span>
 
-<span class="sd">    .. currentmodule:: qTools.classes.baseClasses</span>
+<span class="sd">    .. currentmodule:: QuanGuru.classes.baseClasses</span>
 
 <span class="sd">    .. autosummary::</span>
 
@@ -175,7 +175,7 @@
 <span class="kn">from</span> <span class="nn">.tempConfig</span> <span class="kn">import</span> <span class="n">classConfig</span>
 <span class="c1"># pylint: disable = cyclic-import</span>
 
-<div class="viewcode-block" id="updateBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.updateBase">[docs]</a><span class="k">class</span> <span class="nc">updateBase</span><span class="p">(</span><span class="n">qBase</span><span class="p">):</span>
+<div class="viewcode-block" id="updateBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.updateBase">[docs]</a><span class="k">class</span> <span class="nc">updateBase</span><span class="p">(</span><span class="n">qBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for :class:`~_sweep` and :class:`~Update` classes, which are used respectively in parameter sweeps and</span>
 <span class="sd">    step updates in protocols.</span>
@@ -223,7 +223,7 @@
 <span class="sd">        system property wraps ``subSys`` dictionary to create a new terminology, it basically:</span>
 
 <span class="sd">        gets subSys[0] if there is only one item in it, else  list(subSys.values())</span>
-<span class="sd">        setter works exactly as :meth:`addSubSys &lt;qTools.classes.base.qBase.addSubSys&gt;` method.</span>
+<span class="sd">        setter works exactly as :meth:`addSubSys &lt;QuanGuru.classes.base.qBase.addSubSys&gt;` method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">qSys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">qSys</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">qSys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">qSys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -232,7 +232,7 @@
     <span class="k">def</span> <span class="nf">system</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qSys</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">qSys</span><span class="p">)</span>
 
-<div class="viewcode-block" id="updateBase._runUpdate"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.updateBase._runUpdate">[docs]</a>    <span class="k">def</span> <span class="nf">_runUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="updateBase._runUpdate"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.updateBase._runUpdate">[docs]</a>    <span class="k">def</span> <span class="nf">_runUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        a simple method to set the attribute (for the given key) of every ``subSys`` to a given value (``val``), if _aux</span>
 <span class="sd">        bool is False. If _aux True, updates the value for the given key in aux dictionary</span>
@@ -244,7 +244,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aux</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aux</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></div></div>
 
-<div class="viewcode-block" id="_parameter"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses._parameter">[docs]</a><span class="k">class</span> <span class="nc">_parameter</span><span class="p">:</span> <span class="c1"># pylint: disable=too-few-public-methods</span>
+<div class="viewcode-block" id="_parameter"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses._parameter">[docs]</a><span class="k">class</span> <span class="nc">_parameter</span><span class="p">:</span> <span class="c1"># pylint: disable=too-few-public-methods</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    _parameter instances can be bound to each other to implement a (value) dependency between them.</span>
 
@@ -312,7 +312,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="setAttr"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.setAttr">[docs]</a><span class="k">def</span> <span class="nf">setAttr</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="setAttr"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.setAttr">[docs]</a><span class="k">def</span> <span class="nf">setAttr</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    a customized setattr that changes the value (and _paramUpdated) if the new value is different than the old/existing.</span>
 <span class="sd">    Especially useful for multi parameter sweeps (see :class:`~_sweep`).</span>
@@ -322,7 +322,7 @@
         <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;_paramUpdated&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="setAttrParam"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.setAttrParam">[docs]</a><span class="k">def</span> <span class="nf">setAttrParam</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="setAttrParam"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.setAttrParam">[docs]</a><span class="k">def</span> <span class="nf">setAttrParam</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    a customized setattr that changes the value stored as the ``value`` attribute of a _parameter object.</span>
 <span class="sd">    The value (and _paramUpdated) is changed, if the new value is different than the old/existing. In any case, it</span>
@@ -338,7 +338,7 @@
         <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attrStr</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">val</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;_paramUpdated&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="paramBoundBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.paramBoundBase">[docs]</a><span class="k">class</span> <span class="nc">paramBoundBase</span><span class="p">(</span><span class="n">qBase</span><span class="p">):</span>
+<div class="viewcode-block" id="paramBoundBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.paramBoundBase">[docs]</a><span class="k">class</span> <span class="nc">paramBoundBase</span><span class="p">(</span><span class="n">qBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implements a mechanism to inform a set of objects when a (relevant) change happens on self.</span>
 
@@ -395,7 +395,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span>
 
-<div class="viewcode-block" id="paramBoundBase._createParamBound"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.paramBoundBase._createParamBound">[docs]</a>    <span class="nd">@addDecorator</span>
+<div class="viewcode-block" id="paramBoundBase._createParamBound"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.paramBoundBase._createParamBound">[docs]</a>    <span class="nd">@addDecorator</span>
     <span class="k">def</span> <span class="nf">_createParamBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bound</span><span class="p">:</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        creates a bound to ``self``, ie. given ``bound`` (have to be an :class:`~paramBoundBase` instance) objects</span>
@@ -406,7 +406,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="n">bound</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">bound</span>
         <span class="k">return</span> <span class="n">bound</span></div>
 
-<div class="viewcode-block" id="paramBoundBase._breakParamBound"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.paramBoundBase._breakParamBound">[docs]</a>    <span class="nd">@_recurseIfList</span>
+<div class="viewcode-block" id="paramBoundBase._breakParamBound"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.paramBoundBase._breakParamBound">[docs]</a>    <span class="nd">@_recurseIfList</span>
     <span class="k">def</span> <span class="nf">_breakParamBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bound</span><span class="p">:</span> <span class="s2">&quot;paramBoundBase&quot;</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method removes the given object from the ``__paramBound`` dictionary.</span>
@@ -431,7 +431,7 @@
         <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">_paramUpdated</span> <span class="o">=</span> <span class="n">boolean</span>
 
-<div class="viewcode-block" id="paramBoundBase.delMatrices"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.paramBoundBase.delMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+<div class="viewcode-block" id="paramBoundBase.delMatrices"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.paramBoundBase.delMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method deletes (sets to ``None``) the ``__matrix`` value for self and calls the ``delMatrices`` for the</span>
 <span class="sd">        objects in ``__paramBound`` and ``subSys`` dictionaries. Also, calls ``del`` on the old value of ``__matrix``.</span>
@@ -462,7 +462,7 @@
                     <span class="n">_exclude</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_exclude</span></div></div>
 
-<div class="viewcode-block" id="computeBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.computeBase">[docs]</a><span class="k">class</span> <span class="nc">computeBase</span><span class="p">(</span><span class="n">paramBoundBase</span><span class="p">):</span>
+<div class="viewcode-block" id="computeBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.computeBase">[docs]</a><span class="k">class</span> <span class="nc">computeBase</span><span class="p">(</span><span class="n">paramBoundBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implements 3 attributes (and mechanisms) relevant to run-time calculations/computations and result storage.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -549,18 +549,18 @@
         <span class="n">stateList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">stateList</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">stateList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="qBaseSim"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.qBaseSim">[docs]</a><span class="k">class</span> <span class="nc">qBaseSim</span><span class="p">(</span><span class="n">computeBase</span><span class="p">):</span>
+<div class="viewcode-block" id="qBaseSim"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.qBaseSim">[docs]</a><span class="k">class</span> <span class="nc">qBaseSim</span><span class="p">(</span><span class="n">computeBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Inhereted by the :class:`quantum systems &lt;qTools.classes.QSys.genericQSys&gt;` and</span>
-<span class="sd">    :class:`protocols &lt;qTools.classes.QPro.genericProtocol&gt;` and has a</span>
-<span class="sd">    simulation attribute which is an instance of :class:`Simulation &lt;qTools.classes.Simulation.Simulation&gt;`. The goal</span>
+<span class="sd">    Inhereted by the :class:`quantum systems &lt;QuanGuru.classes.QSys.genericQSys&gt;` and</span>
+<span class="sd">    :class:`protocols &lt;QuanGuru.classes.QPro.genericProtocol&gt;` and has a</span>
+<span class="sd">    simulation attribute which is an instance of :class:`Simulation &lt;QuanGuru.classes.Simulation.Simulation&gt;`. The goal</span>
 <span class="sd">    for such an attribute is to increase possible ways of running a</span>
-<span class="sd">    :class:`Simulation &lt;qTools.classes.Simulation.Simulation&gt;`.</span>
+<span class="sd">    :class:`Simulation &lt;QuanGuru.classes.Simulation.Simulation&gt;`.</span>
 <span class="sd">    TODO : create a simple demo and a cross-reference</span>
 
 <span class="sd">    NOTE : This class branches the inheritance started by :class:`paramBoundBase`, and this branch extends to</span>
-<span class="sd">    :class:`quantum systems &lt;qTools.classes.QSys.genericQSys&gt;` and</span>
-<span class="sd">    :class:`protocols &lt;qTools.classes.QPro.genericProtocol&gt;`.</span>
+<span class="sd">    :class:`quantum systems &lt;QuanGuru.classes.QSys.genericQSys&gt;` and</span>
+<span class="sd">    :class:`protocols &lt;QuanGuru.classes.QPro.genericProtocol&gt;`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;qBaseSim&#39;</span>
@@ -574,7 +574,7 @@
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__simulation&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">qTools.classes.QSim</span> <span class="kn">import</span> <span class="n">Simulation</span> <span class="c1"># pylint: disable=import-outside-toplevel</span>
+        <span class="kn">from</span> <span class="nn">QuanGuru.classes.QSim</span> <span class="kn">import</span> <span class="n">Simulation</span> <span class="c1"># pylint: disable=import-outside-toplevel</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
         <span class="c1">#: an instance of Simulation (as a protected attribute) to run</span>
         <span class="c1"># ``self.simulation.run`` without any explicit Simulation creation and/or ``subSys`` addition call.</span>
@@ -590,7 +590,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qBaseSim__simulation</span>
 
-<div class="viewcode-block" id="qBaseSim.runSimulation"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.qBaseSim.runSimulation">[docs]</a>    <span class="k">def</span> <span class="nf">runSimulation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coreCount</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="qBaseSim.runSimulation"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.qBaseSim.runSimulation">[docs]</a>    <span class="k">def</span> <span class="nf">runSimulation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coreCount</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        an alternative to run the simulation, equivalent to ``self.simulation.run()``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -660,7 +660,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span>
 
-<div class="viewcode-block" id="qBaseSim.delMatrices"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.qBaseSim.delMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+<div class="viewcode-block" id="qBaseSim.delMatrices"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.qBaseSim.delMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method extends :meth:`delMatrices &lt;paramBoundBase.delMatrices&gt;` of :class:`computeBase` to also call</span>
 <span class="sd">        :meth:`delMatrices &lt;paramBoundBase.delMatrices&gt;` on ``self.simulation``.</span>
@@ -670,14 +670,14 @@
             <span class="n">_exclude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_exclude</span></div></div>
 
-<div class="viewcode-block" id="stateBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.stateBase">[docs]</a><span class="k">class</span> <span class="nc">stateBase</span><span class="p">(</span><span class="n">computeBase</span><span class="p">):</span>
+<div class="viewcode-block" id="stateBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.stateBase">[docs]</a><span class="k">class</span> <span class="nc">stateBase</span><span class="p">(</span><span class="n">computeBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains attributes and methods for ``initialState`` and a boolean to determine whether to store or</span>
 <span class="sd">    discard time-evolved states. Since, we can use :meth:`compute &lt;computeBase.compute&gt;` to compute quantities of</span>
 <span class="sd">    interest at the run-time of simulation, we don&#39;t need to keep the states and can discard them to save memory.</span>
 
 <span class="sd">    NOTE : This class branches the inheritance started by :class:`paramBoundBase` and extends to</span>
-<span class="sd">    :class:`Simulation &lt;qTools.classes.Simulation.Simulation&gt;`.</span>
+<span class="sd">    :class:`Simulation &lt;QuanGuru.classes.Simulation.Simulation&gt;`.</span>
 
 <span class="sd">    NOTE : All three attributes of this class (and all 4 of timeBase) are instances of :class:`_parameter`, so they have</span>
 <span class="sd">    a corresponding property.</span>
@@ -745,11 +745,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialStateInput</span><span class="o">.</span><span class="n">value</span>
 
-<div class="viewcode-block" id="stateBase.getResultByNameOrAlias"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.stateBase.getResultByNameOrAlias">[docs]</a>    <span class="k">def</span> <span class="nf">getResultByNameOrAlias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="stateBase.getResultByNameOrAlias"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.stateBase.getResultByNameOrAlias">[docs]</a>    <span class="k">def</span> <span class="nf">getResultByNameOrAlias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method exists to enrich the terminology, it just ``returns super().getByNameOrAlias(name)``, which returns</span>
 <span class="sd">        the object with the given `name`.</span>
-<span class="sd">        See :meth:`getByNameOrAlias &lt;qTools.classes.base.named.getByNameOrAlias&gt;` for details.</span>
+<span class="sd">        See :meth:`getByNameOrAlias &lt;QuanGuru.classes.base.named.getByNameOrAlias&gt;` for details.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 
@@ -764,7 +764,7 @@
     <span class="k">def</span> <span class="nf">delStates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boolean</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__delStates</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">boolean</span>
 
-<div class="viewcode-block" id="stateBase.delMatrices"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.stateBase.delMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+<div class="viewcode-block" id="stateBase.delMatrices"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.stateBase.delMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method extends :meth:`delMatrices &lt;paramBoundBase.delMatrices&gt;` to also set</span>
 <span class="sd">        the ``_stateBase__initialState.value`` to ``None`` and del the old value.</span>
@@ -776,7 +776,7 @@
             <span class="k">del</span> <span class="n">oldMat</span>
         <span class="k">return</span> <span class="n">_exclude</span></div></div>
 
-<div class="viewcode-block" id="timeBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.timeBase">[docs]</a><span class="k">class</span> <span class="nc">timeBase</span><span class="p">(</span><span class="n">stateBase</span><span class="p">):</span>
+<div class="viewcode-block" id="timeBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.timeBase">[docs]</a><span class="k">class</span> <span class="nc">timeBase</span><span class="p">(</span><span class="n">stateBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implements 3 basic time information, namely total time of simulation (``totalTime``), step size for</span>
 <span class="sd">    each unitary (``stepSize``), and number of steps (``stepCount = totalTime/stepSize``). Additionally, one more</span>
@@ -784,7 +784,7 @@
 <span class="sd">    (``samples``) is introduced to be used with time-dependent Hamiltonian, where a continuous parameter</span>
 <span class="sd">    is discretely changed at every ``stepSize`` and more than one ``samples`` are desired during the ``stepSize``.</span>
 
-<span class="sd">    These 4 attributes are all :class:`_parameter &lt;qTools.classes.computeBase._parameter&gt;` instances and protected</span>
+<span class="sd">    These 4 attributes are all :class:`_parameter &lt;QuanGuru.classes.computeBase._parameter&gt;` instances and protected</span>
 <span class="sd">    attributes, meaning they are modified by the corresponding properties. One other functionality of</span>
 <span class="sd">    property is to create flexible use of these attributes. For example, not all 3 of ``stepSize``, ``totalTime``, and</span>
 <span class="sd">    ``stepCount`` are need to be explicitly defined, any of these two would be sufficient, since the 3rd can be</span>
@@ -822,7 +822,7 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gets and sets ``_timeBase__totalTime.value``, and also sets the ``_timeBase__stepCount.value``</span>
 <span class="sd">        conditioned on that ``stepSize`` is not ``None``. It also sets</span>
-<span class="sd">        :meth:`_paramUpdated &lt;qTools.classes.computeBase.paramBoundBase._paramUpdated&gt;` to ``True``. Additionally to</span>
+<span class="sd">        :meth:`_paramUpdated &lt;QuanGuru.classes.computeBase.paramBoundBase._paramUpdated&gt;` to ``True``. Additionally to</span>
 <span class="sd">        these, it sets ``_timeBase__stepSize._value`` to ``_timeBase__stepSize._bound._value``, if</span>
 <span class="sd">        ``_timeBase__stepSize._bound`` is not ``None or False``. This is introduced to provide a flexible</span>
 <span class="sd">        use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already</span>
@@ -843,7 +843,7 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gets and sets ``_timeBase__stepCount.value``. getter also try seting the ``totalTime`` if it is ``None``.</span>
 <span class="sd">        Setter also sets ``_timeBase__stepSize.value`` conditioned on that ``totalTime`` is not ``None``. It also sets</span>
-<span class="sd">        :meth:`_paramUpdated &lt;qTools.classes.computeBase.paramBoundBase._paramUpdated&gt;` to ``True``. Additionally to</span>
+<span class="sd">        :meth:`_paramUpdated &lt;QuanGuru.classes.computeBase.paramBoundBase._paramUpdated&gt;` to ``True``. Additionally to</span>
 <span class="sd">        these, it sets ``_timeBase__totalTime._value`` to ``_timeBase__totalTime._bound._value``, if</span>
 <span class="sd">        ``_timeBase__totalTime._bound`` is not ``None or False``. This is introduced to provide a flexible</span>
 <span class="sd">        use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already</span>
@@ -872,7 +872,7 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gets and sets ``_timeBase__stepSize.value``, and also ``_timeBase__stepCount.value`` conditioned on that</span>
 <span class="sd">        ``totalTime`` is not ``None``. It also sets</span>
-<span class="sd">        :meth:`_paramUpdated &lt;qTools.classes.computeBase.paramBoundBase._paramUpdated&gt;` to ``True``. Additionally to</span>
+<span class="sd">        :meth:`_paramUpdated &lt;QuanGuru.classes.computeBase.paramBoundBase._paramUpdated&gt;` to ``True``. Additionally to</span>
 <span class="sd">        these, it sets ``_timeBase__totalTime._value`` to ``_timeBase__totalTime._bound._value``, if</span>
 <span class="sd">        ``_timeBase__totalTime._bound`` is not ``None or False``. This is introduced to provide a flexible</span>
 <span class="sd">        use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already</span>
@@ -892,7 +892,7 @@
     <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gets and sets ``_timeBase__samples.value`` and also sets</span>
-<span class="sd">        :meth:`_paramUpdated &lt;qTools.classes.computeBase.paramBoundBase._paramUpdated&gt;` to ``True``.</span>
+<span class="sd">        :meth:`_paramUpdated &lt;QuanGuru.classes.computeBase.paramBoundBase._paramUpdated&gt;` to ``True``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeBase__samples</span><span class="o">.</span><span class="n">value</span>
@@ -901,7 +901,7 @@
     <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
         <span class="n">setAttrParam</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_timeBase__samples&#39;</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
 
-<div class="viewcode-block" id="timeBase._copyVals"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.timeBase._copyVals">[docs]</a>    <span class="k">def</span> <span class="nf">_copyVals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+<div class="viewcode-block" id="timeBase._copyVals"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.timeBase._copyVals">[docs]</a>    <span class="k">def</span> <span class="nf">_copyVals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to copy the values for given attributes (as keys) from ``other`` to ``self``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -910,7 +910,7 @@
             <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="timeBase._boundTree"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.timeBase._boundTree">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="timeBase._boundTree"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.timeBase._boundTree">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_boundTree</span><span class="p">(</span><span class="n">osys</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a tree of bound instances starting from the given ``osys``. A primitive method used in debugging and to</span>
@@ -924,14 +924,14 @@
             <span class="n">tree</span> <span class="o">=</span> <span class="n">bSys</span><span class="o">.</span><span class="n">_boundTree</span><span class="p">(</span><span class="n">bSys</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">tree</span></div>
 
-<div class="viewcode-block" id="timeBase._bound"><a class="viewcode-back" href="../../../classes/baseClasses.html#qTools.classes.baseClasses.timeBase._bound">[docs]</a>    <span class="k">def</span> <span class="nf">_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+<div class="viewcode-block" id="timeBase._bound"><a class="viewcode-back" href="../../../classes/baseClasses.html#QuanGuru.classes.baseClasses.timeBase._bound">[docs]</a>    <span class="k">def</span> <span class="nf">_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
                <span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_stateBase__delStates&#39;</span><span class="p">,</span> <span class="s1">&#39;_stateBase__initialState&#39;</span><span class="p">,</span> <span class="s1">&#39;_stateBase__initialStateInput&#39;</span><span class="p">],</span>
                <span class="n">re</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used internally at appropriate places to create bound between different simulation instances in</span>
-<span class="sd">        the intended hierarchical order. For example, when a :class:`quantum system &lt;qTools.classes.QSys.genericQSys&gt;`</span>
-<span class="sd">        is added to ``subSys`` of explicitly created :class:`Simulation &lt;qTools.classes.Simulation.Simulation&gt;`,</span>
-<span class="sd">        The parameters of any :class:`protocol.simulation &lt;qTools.classes.QPro.genericProtocol&gt;` for that system will</span>
+<span class="sd">        the intended hierarchical order. For example, when a :class:`quantum system &lt;QuanGuru.classes.QSys.genericQSys&gt;`</span>
+<span class="sd">        is added to ``subSys`` of explicitly created :class:`Simulation &lt;QuanGuru.classes.Simulation.Simulation&gt;`,</span>
+<span class="sd">        The parameters of any :class:`protocol.simulation &lt;QuanGuru.classes.QPro.genericProtocol&gt;` for that system will</span>
 <span class="sd">        be bound to ``(quantum system).simulation`` which will be bound to explicitly created Simulation. This method</span>
 <span class="sd">        creates such a bound between two ``Simulation`` objects, and it is used in appropriate places of the library.</span>
 <span class="sd">        Such a bound is broken or not created at all, if a parameter is explicitly assigned for a protocol or system.</span>

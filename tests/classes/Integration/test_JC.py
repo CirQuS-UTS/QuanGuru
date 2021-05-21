@@ -2,7 +2,7 @@ import numpy as np
 from numpy.core.fromnumeric import sort
 import pytest
 import random
-import qTools as qt
+import QuanGuru as qt
 
 def comp(sim, st):
     #sim.qRes.result = ("sz1", expectation(photonNum, st))

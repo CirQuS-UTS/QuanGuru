@@ -1,7 +1,7 @@
 r"""
     Contains functions to create some standard Hamiltonians.
 
-    .. currentmodule:: qTools.QuantumToolbox.Hamiltonians
+    .. currentmodule:: QuanGuru.QuantumToolbox.Hamiltonians
 
     Functions
     ---------
@@ -14,7 +14,7 @@ r"""
         aJCHam
 """
 
-#from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
+#from QuanGuru.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
 
 from typing import Tuple
 import scipy.sparse as sp # type: ignore

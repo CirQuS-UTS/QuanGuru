@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.QuantumToolbox.functions &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.QuantumToolbox.functions &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.QuantumToolbox.functions</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.QuantumToolbox.functions</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains functions to calculate some basic quantities, such as expectations, fidelities, entropy etc.</span>
 
-<span class="sd">    .. currentmodule:: qTools.QuantumToolbox.functions</span>
+<span class="sd">    .. currentmodule:: QuanGuru.QuantumToolbox.functions</span>
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
@@ -200,7 +200,7 @@
 <span class="c1"># matrixList = List[Matrix]                           # Type for a list `Matrix` types</span>
 
 
-<div class="viewcode-block" id="expectation"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.expectation">[docs]</a><span class="k">def</span> <span class="nf">expectation</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="expectation"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#QuanGuru.QuantumToolbox.functions.expectation">[docs]</a><span class="k">def</span> <span class="nf">expectation</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the expectation value</span>
 <span class="sd">    :math:`\langle \hat{O}\rangle := \langle \psi | \hat{O} |\psi \rangle \equiv</span>
@@ -211,8 +211,8 @@
 <span class="sd">    State can either be a `ket` or `density matrix`.</span>
 <span class="sd">    State and operator can both be sparse or array or any combination of the two.</span>
 
-<span class="sd">    Calculates the :func:`densityMatrix &lt;qTools.QuantumToolbox.states.densityMatrix&gt;`, then uses</span>
-<span class="sd">    :func:`trace &lt;qTools.QuantumToolbox.linearAlgebra.trace&gt;`.</span>
+<span class="sd">    Calculates the :func:`densityMatrix &lt;QuanGuru.QuantumToolbox.states.densityMatrix&gt;`, then uses</span>
+<span class="sd">    :func:`trace &lt;QuanGuru.QuantumToolbox.linearAlgebra.trace&gt;`.</span>
 
 <span class="sd">    Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</span>
 
@@ -259,7 +259,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">expc</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">expc</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">expc</span></div>
 
 
-<div class="viewcode-block" id="fidelityPure"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.fidelityPure">[docs]</a><span class="k">def</span> <span class="nf">fidelityPure</span><span class="p">(</span><span class="n">state1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="fidelityPure"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#QuanGuru.QuantumToolbox.functions.fidelityPure">[docs]</a><span class="k">def</span> <span class="nf">fidelityPure</span><span class="p">(</span><span class="n">state1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates `fidelity`</span>
 <span class="sd">    :math:`\mathcal{F}(\psi_{1}, \psi_{2}) := |\langle \psi_{2}|\psi_{1}\rangle|^{2} =</span>
@@ -318,7 +318,7 @@
     <span class="k">return</span> <span class="n">fid</span></div>
 
 
-<div class="viewcode-block" id="entropy"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.entropy">[docs]</a><span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">densMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="entropy"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#QuanGuru.QuantumToolbox.functions.entropy">[docs]</a><span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">densMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the `entropy` :math:`\mathcal{S}(\rho) := -Tr(\rho\ln\rho)`  of a given `density matrix` :math`\rho`.</span>
 
@@ -387,7 +387,7 @@
     <span class="k">return</span> <span class="n">S</span></div>
 
 
-<div class="viewcode-block" id="traceDistance"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.traceDistance">[docs]</a><span class="k">def</span> <span class="nf">traceDistance</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="traceDistance"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#QuanGuru.QuantumToolbox.functions.traceDistance">[docs]</a><span class="k">def</span> <span class="nf">traceDistance</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the trace distance :math:`\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} =</span>
 <span class="sd">    \frac{1}{2}Tr\left[\sqrt{(A-B)^{\dagger}(A-B)} \right]` between two matrices.</span>
@@ -430,7 +430,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">vals</span><span class="p">))))</span></div>
 
 
-<div class="viewcode-block" id="sortedEigens"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.sortedEigens">[docs]</a><span class="k">def</span> <span class="nf">sortedEigens</span><span class="p">(</span><span class="n">Mat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">mag</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">floatList</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ndarray</span><span class="p">]]:</span>
+<div class="viewcode-block" id="sortedEigens"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#QuanGuru.QuantumToolbox.functions.sortedEigens">[docs]</a><span class="k">def</span> <span class="nf">sortedEigens</span><span class="p">(</span><span class="n">Mat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">mag</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">floatList</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ndarray</span><span class="p">]]:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates `eigenvalues and eigenvectors` of a given matrix and `sorts` them.</span>
 
@@ -477,7 +477,7 @@
     <span class="k">return</span> <span class="n">sortedVals</span><span class="p">,</span> <span class="n">sortedVecsMat</span></div>
 
 
-<div class="viewcode-block" id="concurrence"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions.concurrence">[docs]</a><span class="k">def</span> <span class="nf">concurrence</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="concurrence"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#QuanGuru.QuantumToolbox.functions.concurrence">[docs]</a><span class="k">def</span> <span class="nf">concurrence</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the `concurrence` :math:`\mathcal{C}(\rho) := \max(0, \lambda_{1}-\lambda_{2}-\lambda_{3}-\lambda_{4})`</span>
 <span class="sd">    of two qubit state :math:`\rho`, where :math:`\lambda_{i}` are sorted eigenvalues</span>
@@ -532,7 +532,7 @@
     <span class="k">return</span> <span class="nb">max</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">eigVals</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">15</span><span class="p">)])</span></div>
 
 
-<div class="viewcode-block" id="_expectationColArr"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#qTools.QuantumToolbox.functions._expectationColArr">[docs]</a><span class="k">def</span> <span class="nf">_expectationColArr</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
+<div class="viewcode-block" id="_expectationColArr"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#QuanGuru.QuantumToolbox.functions._expectationColArr">[docs]</a><span class="k">def</span> <span class="nf">_expectationColArr</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates expectation values of an `operator` for a list/matrix of `ket (column) states` by matrix multiplication.</span>
 
@@ -556,7 +556,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import qTools.QuantumToolbox.operators as qOperators</span>
+<span class="sd">    &gt;&gt;&gt; import QuanGuru.QuantumToolbox.operators as qOperators</span>
 <span class="sd">    &gt;&gt;&gt; ham = qOperators.sigmaz(sparse=False)</span>
 <span class="sd">    &gt;&gt;&gt; eigVals, eigVecs = np.linalg.eig(ham)</span>
 <span class="sd">    &gt;&gt;&gt; sz = qOperators.sigmaz()</span>

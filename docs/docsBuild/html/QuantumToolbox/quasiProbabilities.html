@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quasi-Probabilities (qTools.QuantumToolbox.quasiProbabilities) &#8212; Quantum Simulations 1 documentation</title>
+    <title>Quasi-Probabilities (QuanGuru.QuantumToolbox.quasiProbabilities) &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -52,8 +52,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Thermodynamical functions (qTools.QuantumToolbox.thermodynamics)" href="thermodynamics.html" />
-    <link rel="prev" title="Qubit Rotations (qTools.QuantumToolbox.qubitRotations)" href="qubitRotations.html" />
+    <link rel="next" title="Thermodynamical functions (QuanGuru.QuantumToolbox.thermodynamics)" href="thermodynamics.html" />
+    <link rel="prev" title="Qubit Rotations (QuanGuru.QuantumToolbox.qubitRotations)" href="qubitRotations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
   </head>
@@ -235,8 +235,8 @@
               
               <div>
                 
-  <div class="section" id="module-qTools.QuantumToolbox.quasiProbabilities">
-<span id="quasi-probabilities-qtools-quantumtoolbox-quasiprobabilities"></span><h1>Quasi-Probabilities (<a class="reference internal" href="#module-qTools.QuantumToolbox.quasiProbabilities" title="qTools.QuantumToolbox.quasiProbabilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.quasiProbabilities</span></code></a>)<a class="headerlink" href="#module-qTools.QuantumToolbox.quasiProbabilities" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-QuanGuru.QuantumToolbox.quasiProbabilities">
+<span id="quasi-probabilities-QuanGuru-quantumtoolbox-quasiprobabilities"></span><h1>Quasi-Probabilities (<a class="reference internal" href="#module-QuanGuru.QuantumToolbox.quasiProbabilities" title="QuanGuru.QuantumToolbox.quasiProbabilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox.quasiProbabilities</span></code></a>)<a class="headerlink" href="#module-QuanGuru.QuantumToolbox.quasiProbabilities" title="Permalink to this headline">¶</a></h1>
 <p>Contains functions to calculate quasi-probability distributions (adapted from qutip).</p>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
@@ -246,20 +246,20 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.quasiProbabilities.Wigner" title="qTools.QuantumToolbox.quasiProbabilities.Wigner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Wigner</span></code></a>(rho, vec[, g])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.quasiProbabilities.Wigner" title="QuanGuru.QuantumToolbox.quasiProbabilities.Wigner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Wigner</span></code></a>(rho, vec[, g])</p></td>
 <td><p>An iterative method to evaluate the Wigner functions for the states <img class="math" src="../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/> and use them in a weighted sum to calculate Wigner function of any arbitrary state.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.quasiProbabilities.HusimiQ" title="qTools.QuantumToolbox.quasiProbabilities.HusimiQ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HusimiQ</span></code></a>(state, vec[, g])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.quasiProbabilities.HusimiQ" title="QuanGuru.QuantumToolbox.quasiProbabilities.HusimiQ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HusimiQ</span></code></a>(state, vec[, g])</p></td>
 <td><p>Q-function of a given state vector or density matrix at points <cite>vec + i * vec</cite></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.quasiProbabilities._qfuncPure" title="qTools.QuantumToolbox.quasiProbabilities._qfuncPure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_qfuncPure</span></code></a>(psi, alphaMat)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.quasiProbabilities._qfuncPure" title="QuanGuru.QuantumToolbox.quasiProbabilities._qfuncPure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_qfuncPure</span></code></a>(psi, alphaMat)</p></td>
 <td><p>Calculates the Q-function for a pure state.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.quasiProbabilities.Wigner">
-<code class="sig-name descname">Wigner</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">vec</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>list<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.4142135623730951</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/qTools/QuantumToolbox/quasiProbabilities.html#Wigner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.quasiProbabilities.Wigner" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.quasiProbabilities.Wigner">
+<code class="sig-name descname">Wigner</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">vec</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>list<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.4142135623730951</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/quasiProbabilities.html#Wigner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.quasiProbabilities.Wigner" title="Permalink to this definition">¶</a></dt>
 <dd><p>An iterative method to evaluate the Wigner functions for the states <img class="math" src="../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/> and use them in
 a weighted sum to calculate Wigner function of any arbitrary state.</p>
 <p>The Wigner function is calculated as
@@ -291,8 +291,8 @@ This creates a square grid of the phase space.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.quasiProbabilities.HusimiQ">
-<code class="sig-name descname">HusimiQ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">vec</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>list<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.4142135623730951</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/qTools/QuantumToolbox/quasiProbabilities.html#HusimiQ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.quasiProbabilities.HusimiQ" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.quasiProbabilities.HusimiQ">
+<code class="sig-name descname">HusimiQ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">vec</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>list<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.4142135623730951</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/quasiProbabilities.html#HusimiQ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.quasiProbabilities.HusimiQ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Q-function of a given state vector or density matrix at points <cite>vec + i * vec</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -315,8 +315,8 @@ This creates a square grid of the phase space.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.quasiProbabilities._qfuncPure">
-<code class="sig-name descname">_qfuncPure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">psi</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">alphaMat</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/qTools/QuantumToolbox/quasiProbabilities.html#_qfuncPure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.quasiProbabilities._qfuncPure" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.quasiProbabilities._qfuncPure">
+<code class="sig-name descname">_qfuncPure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">psi</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">alphaMat</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/quasiProbabilities.html#_qfuncPure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.quasiProbabilities._qfuncPure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Q-function for a pure state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -347,8 +347,8 @@ This creates a square grid of the phase space.</p></li>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="qubitRotations.html" title="previous page">Qubit Rotations (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.qubitRotations</span></code>)</a>
-    <a class='right-next' id="next-link" href="thermodynamics.html" title="next page">Thermodynamical functions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.thermodynamics</span></code>)</a>
+    <a class='left-prev' id="prev-link" href="qubitRotations.html" title="previous page">Qubit Rotations (<code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox.qubitRotations</span></code>)</a>
+    <a class='right-next' id="next-link" href="thermodynamics.html" title="next page">Thermodynamical functions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox.thermodynamics</span></code>)</a>
 
               </div>
               

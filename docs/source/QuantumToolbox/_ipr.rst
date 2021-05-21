@@ -1,8 +1,8 @@
 ===============================================================
-Inverse Participation Ratio (:mod:`qTools.QuantumToolbox._ipr`)
+Inverse Participation Ratio (:mod:`QuanGuru.QuantumToolbox._ipr`)
 ===============================================================
 
-.. automodule:: qTools.QuantumToolbox._ipr
+.. automodule:: QuanGuru.QuantumToolbox._ipr
    :members:
    :private-members:
    :undoc-members:

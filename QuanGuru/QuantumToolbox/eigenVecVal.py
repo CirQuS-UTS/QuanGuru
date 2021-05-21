@@ -1,7 +1,7 @@
 r"""
     Contains functions to calculate eigen-vector/value statistics in various cases.
 
-    .. currentmodule:: qTools.QuantumToolbox._eigenVecVal
+    .. currentmodule:: QuanGuru.QuantumToolbox._eigenVecVal
 
     Functions
     ---------

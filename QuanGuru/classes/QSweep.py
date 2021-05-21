@@ -1,10 +1,10 @@
 r"""
     Contains two classes used for sweep functionalities.
     NOTE : Both of these classes are not intended to be directly instanciated by the user.
-    :class:`Simulation <qTools.classes.Simulation.Simulation>` objects **has** ``Sweep/s`` as their attributes, and
+    :class:`Simulation <QuanGuru.classes.Simulation.Simulation>` objects **has** ``Sweep/s`` as their attributes, and
     ``_sweep/s`` are intended to be created by calling the relevant methods over ``Simulation.Sweep``.
 
-    .. currentmodule:: qTools.classes.QSweep
+    .. currentmodule:: QuanGuru.classes.QSweep
 
     .. autosummary::
 
@@ -134,8 +134,8 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
     def _defSweep(self): # pylint: disable=bad-staticmethod-argument
         r"""
         This is the default sweep function, and it just calls the
-        :meth:`_runUpdate <qTools.classes.updateBase.updateBase._runUpdate>` by feeding it the value from the
-        ``sweepList`` at the position ``ind``. :meth:`_runUpdate <qTools.classes.updateBase.updateBase._runUpdate>`
+        :meth:`_runUpdate <QuanGuru.classes.updateBase.updateBase._runUpdate>` by feeding it the value from the
+        ``sweepList`` at the position ``ind``. :meth:`_runUpdate <QuanGuru.classes.updateBase.updateBase._runUpdate>`
         function just sets the attribute (for the given key) of every ``subSys`` to a given value (``val``).
 
         The modularSweep methods uses multiplication of length of ``sweepList/s`` (stored in
@@ -167,10 +167,10 @@ class Sweep(qBase):
     dictionary, and it has two additional private attributes to store sweep lengths and their multiplications, which are
     used in modularSweep and by :meth:`~_indicesForSweep` to carry multi parameter sweeps.
     Instances of this
-    class are used as attributes of :class:`Simulation <qTools.classes.Simulation.Simulation>` objects, and those are
+    class are used as attributes of :class:`Simulation <QuanGuru.classes.Simulation.Simulation>` objects, and those are
     intended to be used for ``_sweep`` creations.
     """
-    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
+    #: Used in default naming of objects. See :attr:`label <QuanGuru.classes.QUni.qUniversal.label>`.
     label = 'Sweep'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -220,7 +220,7 @@ class Sweep(qBase):
     def sweeps(self):
         r"""
         The sweeps property wraps ``subSys`` dictionary to create new terminology, it works exactly as
-        :meth:`subSys <qTools.classes.base.qBase.subSys>`.
+        :meth:`subSys <QuanGuru.classes.base.qBase.subSys>`.
         """
         return self._qBase__subSys # pylint: disable=no-member
 
@@ -232,14 +232,14 @@ class Sweep(qBase):
     def removeSweep(self, sys):
         r"""
         Removes a ``_sweep`` it self, or all the ``_sweep`` objects that contain a particular ``sys`` in it.
-        Since, it uses :meth:`removeSubSys <qTools.classes.base.qBase.removeSubSys>`, it works exactly the same, meaning
+        Since, it uses :meth:`removeSubSys <QuanGuru.classes.base.qBase.removeSubSys>`, it works exactly the same, meaning
         names/aliases/objects/listOfObjects can be used to remove.
 
         If the argument ``sys`` is an :class:`_sweep` object, this method calls
-        :meth:`removeSubSys <qTools.classes.base.qBase.removeSubSys>` (since ``_sweep`` objects are stored in
+        :meth:`removeSubSys <QuanGuru.classes.base.qBase.removeSubSys>` (since ``_sweep`` objects are stored in
         ``subSys`` dictionary of ``Sweep`` objects).
 
-        Else, it calls the :meth:`removeSubSys <qTools.classes.base.qBase.removeSubSys>` on every ``_sweep`` in its
+        Else, it calls the :meth:`removeSubSys <QuanGuru.classes.base.qBase.removeSubSys>` on every ``_sweep`` in its
         ``subSys`` dictionary (since ``systems`` are stored in ``subSys`` dictionary of ``_sweep`` objects).
         """
         if isinstance(sys, _sweep):
@@ -261,7 +261,7 @@ class Sweep(qBase):
         ----------
         system : Any
             Since ``system`` property setter of ``_sweep`` behaves exactly as
-            :meth:`subSys <qTools.classes.base.qBase.subSys>` setter, this can be various things, from a single
+            :meth:`subSys <QuanGuru.classes.base.qBase.subSys>` setter, this can be various things, from a single
             system to name/alias of the system, or from a class to a list/tuple contaning any combination
             of these.
         sweepKey : str

@@ -1,8 +1,8 @@
 ===============================
-Classes (:mod:`qTools.classes`)
+Classes (:mod:`QuanGuru.classes`)
 ===============================
 
-.. automodule:: qTools.classes.__init__
+.. automodule:: QuanGuru.classes.__init__
    :no-members:
    :no-inherited-members:
    :no-special-members:

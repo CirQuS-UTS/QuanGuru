@@ -1,8 +1,8 @@
 ========================================================
-Helper Functions (:mod:`qTools.QuantumToolbox._helpers`)
+Helper Functions (:mod:`QuanGuru.QuantumToolbox._helpers`)
 ========================================================
 
-.. automodule:: qTools.QuantumToolbox._helpers
+.. automodule:: QuanGuru.QuantumToolbox._helpers
    :members:
    :private-members:
    :undoc-members:

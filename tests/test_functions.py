@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
-from qTools.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
-from qTools.QuantumToolbox import operators as ops #pylint: disable=import-error
-from qTools.QuantumToolbox import functions as fns #pylint: disable=import-error
+from QuanGuru.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
+from QuanGuru.QuantumToolbox import operators as ops #pylint: disable=import-error
+from QuanGuru.QuantumToolbox import functions as fns #pylint: disable=import-error
 #testCase = collections.namedtuple('testCase', ['operator', 'state', 'expected'])
 
 def test_expectationWithNumber(helpers):

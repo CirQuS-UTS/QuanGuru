@@ -1,7 +1,7 @@
 r"""
     Contains functions to calculate quasi-probability distributions (adapted from qutip).
 
-    .. currentmodule:: qTools.QuantumToolbox.quasiProbabilities
+    .. currentmodule:: QuanGuru.QuantumToolbox.quasiProbabilities
 
     Functions
     ---------
@@ -18,7 +18,7 @@ from numpy import (zeros, array, arange, exp, real, conj, pi,
                    copy, meshgrid, size, polyval, fliplr, conjugate) # type: ignore
 from scipy.special import factorial # type: ignore
 import scipy.linalg as la # type: ignore
-#from qTools.QuantumToolbox.states as densityMatrix
+#from QuanGuru.QuantumToolbox.states as densityMatrix
 
 from .states import densityMatrix
 from .customTypes import Matrix, ndOrList

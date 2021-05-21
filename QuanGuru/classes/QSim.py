@@ -15,8 +15,8 @@ from .extensions.modularSweep import timeEvolBase
 class Simulation(timeBase):
     """
     Simulation class collects all the pieces together to run a simulation. Its ``subSys`` dictionary contain
-    :class:`protocols <qTools.classes.QPro.genericProtocol>`, :class:`quantum systems <qTools.classes.QSys.genericQSys>`
-    as ``key:value``, respectively. It has two :class:`sweeps <qTools.classes.Sweep.Sweep>`, meaning 2 of its attributes
+    :class:`protocols <QuanGuru.classes.QPro.genericProtocol>`, :class:`quantum systems <QuanGuru.classes.QSys.genericQSys>`
+    as ``key:value``, respectively. It has two :class:`sweeps <QuanGuru.classes.Sweep.Sweep>`, meaning 2 of its attributes
     are ``Sweep`` objects. Its ``run`` method, after running some preparations, runs the actual function/s that run
     ``Sweeps`` and evolve the system by calling ``evolFunc`` attribute of ``Simulation`` object, which is a function
     that, by default, calls ``.unitary`` method on protocols, which by default creates the unitary by matrix
@@ -33,7 +33,7 @@ class Simulation(timeBase):
     ----------
     Sweep : ``Sweep``
         This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an
-        instance of :class:`Sweep <qTools.classes.Sweep.Sweep>`. The use of this attribute in ``runSimulation`` function
+        instance of :class:`Sweep <QuanGuru.classes.Sweep.Sweep>`. The use of this attribute in ``runSimulation`` function
         is independent of ``evolFunc`` or time-dependent part of the simulation. This is simply to sweep multiple
         parameters.
     timeDependency: ``Sweep``
@@ -53,7 +53,7 @@ class Simulation(timeBase):
         There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.
         TODO : errors are not properly implemented yet.
     """
-    #: Used in default naming of objects. See :attr:`label <qTools.classes.QUni.qUniversal.label>`.
+    #: Used in default naming of objects. See :attr:`label <QuanGuru.classes.QUni.qUniversal.label>`.
     label = 'Simulation'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -110,7 +110,7 @@ class Simulation(timeBase):
         """
         This function is meant purely for internal use. When a quantum system is added to a ``Simulation`` without
         providing a protocol, the key in ``subSys`` dictionary will be the default case inherited from
-        :class:`qUniversal <qTools.classes.QUni.qUniversal>`, i.e. name of the quantum system object. This method
+        :class:`qUniversal <QuanGuru.classes.QUni.qUniversal>`, i.e. name of the quantum system object. This method
         is called inside the :meth:`run` method to ensure that the key is switched to a ``freeEvolution``. By this
         we ensure that the default evolution is just a free evolution under the given systems Hamiltonian and explicit
         creation of a ``freeEvolution`` object is not required. These are achieved by replacing the ``str`` key by
@@ -150,7 +150,7 @@ class Simulation(timeBase):
     def addQSystems(self, subS, Protocol=None, **kwargs):
         """
         Quantum systems and the corresponding protocols are, respectively, stored as the values and keys of ``subSys``
-        dictionary, so this method extends :meth:`addSubSys <qTools.classes.QUni.qUniversal>` method by an additional
+        dictionary, so this method extends :meth:`addSubSys <QuanGuru.classes.QUni.qUniversal>` method by an additional
         argument, i.e. ``Protocol`` to be used as the key, and also by creating the hierarchical
 
         Parameters

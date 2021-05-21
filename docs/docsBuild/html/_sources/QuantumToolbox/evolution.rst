@@ -1,8 +1,8 @@
 ==========================================================
-Quantum Evolution (:mod:`qTools.QuantumToolbox.evolution`)
+Quantum Evolution (:mod:`QuanGuru.QuantumToolbox.evolution`)
 ==========================================================
 
-.. automodule:: qTools.QuantumToolbox.evolution
+.. automodule:: QuanGuru.QuantumToolbox.evolution
    :members:
    :private-members:
    :undoc-members:

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic Linear Algebra (qTools.QuantumToolbox.linearAlgebra) &#8212; Quantum Simulations 1 documentation</title>
+    <title>Basic Linear Algebra (QuanGuru.QuantumToolbox.linearAlgebra) &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -52,8 +52,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Quantum States (qTools.QuantumToolbox.states)" href="states.html" />
-    <link rel="prev" title="Quantum Toolbox (qTools.QuantumToolbox)" href="../QuantumToolbox.html" />
+    <link rel="next" title="Quantum States (QuanGuru.QuantumToolbox.states)" href="states.html" />
+    <link rel="prev" title="Quantum Toolbox (QuanGuru.QuantumToolbox)" href="../QuantumToolbox.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
   </head>
@@ -235,8 +235,8 @@
               
               <div>
                 
-  <div class="section" id="module-qTools.QuantumToolbox.linearAlgebra">
-<span id="basic-linear-algebra-qtools-quantumtoolbox-linearalgebra"></span><h1>Basic Linear Algebra (<a class="reference internal" href="#module-qTools.QuantumToolbox.linearAlgebra" title="qTools.QuantumToolbox.linearAlgebra"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.linearAlgebra</span></code></a>)<a class="headerlink" href="#module-qTools.QuantumToolbox.linearAlgebra" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-QuanGuru.QuantumToolbox.linearAlgebra">
+<span id="basic-linear-algebra-QuanGuru-quantumtoolbox-linearalgebra"></span><h1>Basic Linear Algebra (<a class="reference internal" href="#module-QuanGuru.QuantumToolbox.linearAlgebra" title="QuanGuru.QuantumToolbox.linearAlgebra"><code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox.linearAlgebra</span></code></a>)<a class="headerlink" href="#module-QuanGuru.QuantumToolbox.linearAlgebra" title="Permalink to this headline">¶</a></h1>
 <p>Contains some basic linear algebra methods for scipy.sparse and np.ndarray types.</p>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
@@ -246,32 +246,32 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.linearAlgebra.hc" title="qTools.QuantumToolbox.linearAlgebra.hc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hc</span></code></a>(matrix)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.linearAlgebra.hc" title="QuanGuru.QuantumToolbox.linearAlgebra.hc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hc</span></code></a>(matrix)</p></td>
 <td><p>Hermitian conjugate <img class="math" src="../_images/math/fc67f8de9364ecccc178ae3a6bce80c168a03ae1.png" alt="M^{\dagger} := (M^{*})^{T}"/> of a matrix <img class="math" src="../_images/math/4abba779877abb276b98ccb2b4ba9bf2e41947ab.png" alt="M"/>, where * is complex conjugation, and T is transposition.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.linearAlgebra.innerProd" title="qTools.QuantumToolbox.linearAlgebra.innerProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">innerProd</span></code></a>(ket1[, ket2])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.linearAlgebra.innerProd" title="QuanGuru.QuantumToolbox.linearAlgebra.innerProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">innerProd</span></code></a>(ket1[, ket2])</p></td>
 <td><p>Computes the inner product <img class="math" src="../_images/math/32e4ec1788934b60cbb2d63d7e3473c2a4ac5fa8.png" alt="\langle ket2 | ket1 \rangle"/> of a ket vector with itself or with another, where <img class="math" src="../_images/math/02a3224ec5669e40eeb0f08ca89556bb03ec9ef3.png" alt="\langle ket2| := |ket2 \rangle^{\dagger}"/>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.linearAlgebra.norm" title="qTools.QuantumToolbox.linearAlgebra.norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code></a>(ket)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.linearAlgebra.norm" title="QuanGuru.QuantumToolbox.linearAlgebra.norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code></a>(ket)</p></td>
 <td><p>Norm <img class="math" src="../_images/math/803a641a657d04a3b86c355be64a231fb8124fea.png" alt="\sqrt{\langle ket | ket \rangle}"/> of a ket state <img class="math" src="../_images/math/b1476a1891f9681c522a093b80b63825616c2530.png" alt="|ket \rangle"/>, where <img class="math" src="../_images/math/7c3ab323df6d4172bce42e642b6da4c758d2ae43.png" alt="\langle ket| := |ket \rangle^{\dagger}"/>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.linearAlgebra.outerProd" title="qTools.QuantumToolbox.linearAlgebra.outerProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outerProd</span></code></a>(ket1[, ket2])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.linearAlgebra.outerProd" title="QuanGuru.QuantumToolbox.linearAlgebra.outerProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outerProd</span></code></a>(ket1[, ket2])</p></td>
 <td><p>Computes the outer product <img class="math" src="../_images/math/72721b749057532d12ecdbece7b68989684fc081.png" alt="|ket2 \rangle\langle ket1|"/> of a ket vector with itself or with another, where <img class="math" src="../_images/math/02a3224ec5669e40eeb0f08ca89556bb03ec9ef3.png" alt="\langle ket2| := |ket2 \rangle^{\dagger}"/>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.linearAlgebra.tensorProd" title="qTools.QuantumToolbox.linearAlgebra.tensorProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensorProd</span></code></a>(*args)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.linearAlgebra.tensorProd" title="QuanGuru.QuantumToolbox.linearAlgebra.tensorProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensorProd</span></code></a>(*args)</p></td>
 <td><p>Function to calculate tensor product <img class="math" src="../_images/math/1e65a0cf4dcd22a4712435d562d49f35415e2199.png" alt="\otimes_{i} M_{i}"/> of given (any number i of) states (<img class="math" src="../_images/math/3c1e17ab8332fbca52980219b9175cedcbd74db6.png" alt="\{M_{i}\}"/> in the given order).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.linearAlgebra.trace" title="qTools.QuantumToolbox.linearAlgebra.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace</span></code></a>(matrix)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.linearAlgebra.trace" title="QuanGuru.QuantumToolbox.linearAlgebra.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace</span></code></a>(matrix)</p></td>
 <td><p>Trace <img class="math" src="../_images/math/2ebcd36d8008dcb7b2add0db2575b7b200c80bb5.png" alt="Tr(M) := \sum_{i} M_{ii}"/> of a matrix <cite>M</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.QuantumToolbox.linearAlgebra.partialTrace" title="qTools.QuantumToolbox.linearAlgebra.partialTrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partialTrace</span></code></a>(keep, dims, state)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.QuantumToolbox.linearAlgebra.partialTrace" title="QuanGuru.QuantumToolbox.linearAlgebra.partialTrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partialTrace</span></code></a>(keep, dims, state)</p></td>
 <td><p>Calculates the partial trace of a <cite>density matrix</cite> of composite state.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.linearAlgebra.hc">
-<code class="sig-name descname">hc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/linearAlgebra.html#hc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.linearAlgebra.hc" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.linearAlgebra.hc">
+<code class="sig-name descname">hc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/linearAlgebra.html#hc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.linearAlgebra.hc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hermitian conjugate <img class="math" src="../_images/math/fc67f8de9364ecccc178ae3a6bce80c168a03ae1.png" alt="M^{\dagger} := (M^{*})^{T}"/> of a matrix <img class="math" src="../_images/math/4abba779877abb276b98ccb2b4ba9bf2e41947ab.png" alt="M"/>, where * is complex conjugation, and
 T is transposition.</p>
 <dl class="field-list simple">
@@ -312,8 +312,8 @@ T is transposition.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.linearAlgebra.innerProd">
-<code class="sig-name descname">innerProd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ket1</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">ket2</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/linearAlgebra.html#innerProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.linearAlgebra.innerProd" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.linearAlgebra.innerProd">
+<code class="sig-name descname">innerProd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ket1</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">ket2</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/linearAlgebra.html#innerProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.linearAlgebra.innerProd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the inner product <img class="math" src="../_images/math/32e4ec1788934b60cbb2d63d7e3473c2a4ac5fa8.png" alt="\langle ket2 | ket1 \rangle"/> of a ket vector with itself or with another,
 where <img class="math" src="../_images/math/02a3224ec5669e40eeb0f08ca89556bb03ec9ef3.png" alt="\langle ket2| := |ket2 \rangle^{\dagger}"/>.</p>
 <dl class="field-list simple">
@@ -358,11 +358,11 @@ where <img class="math" src="../_images/math/02a3224ec5669e40eeb0f08ca89556bb03e
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.linearAlgebra.norm">
-<code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ket</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/linearAlgebra.html#norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.linearAlgebra.norm" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.linearAlgebra.norm">
+<code class="sig-name descname">norm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ket</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/linearAlgebra.html#norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.linearAlgebra.norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Norm <img class="math" src="../_images/math/803a641a657d04a3b86c355be64a231fb8124fea.png" alt="\sqrt{\langle ket | ket \rangle}"/> of a ket state <img class="math" src="../_images/math/b1476a1891f9681c522a093b80b63825616c2530.png" alt="|ket \rangle"/>,
 where <img class="math" src="../_images/math/7c3ab323df6d4172bce42e642b6da4c758d2ae43.png" alt="\langle ket| := |ket \rangle^{\dagger}"/>.
-This function simply returns the square root of <a class="reference internal" href="#qTools.QuantumToolbox.linearAlgebra.innerProd" title="qTools.QuantumToolbox.linearAlgebra.innerProd"><code class="xref py py-func docutils literal notranslate"><span class="pre">innerProd</span></code></a></p>
+This function simply returns the square root of <a class="reference internal" href="#QuanGuru.QuantumToolbox.linearAlgebra.innerProd" title="QuanGuru.QuantumToolbox.linearAlgebra.innerProd"><code class="xref py py-func docutils literal notranslate"><span class="pre">innerProd</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>ket</strong> (<em>Matrix</em>) – a ket state</p>
@@ -377,8 +377,8 @@ This function simply returns the square root of <a class="reference internal" hr
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.linearAlgebra.outerProd">
-<code class="sig-name descname">outerProd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ket1</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">ket2</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/linearAlgebra.html#outerProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.linearAlgebra.outerProd" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.linearAlgebra.outerProd">
+<code class="sig-name descname">outerProd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ket1</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">ket2</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/linearAlgebra.html#outerProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.linearAlgebra.outerProd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the outer product <img class="math" src="../_images/math/72721b749057532d12ecdbece7b68989684fc081.png" alt="|ket2 \rangle\langle ket1|"/> of a ket vector with itself or with another,
 where <img class="math" src="../_images/math/02a3224ec5669e40eeb0f08ca89556bb03ec9ef3.png" alt="\langle ket2| := |ket2 \rangle^{\dagger}"/>.</p>
 <dl class="field-list simple">
@@ -427,8 +427,8 @@ where <img class="math" src="../_images/math/02a3224ec5669e40eeb0f08ca89556bb03e
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.linearAlgebra.tensorProd">
-<code class="sig-name descname">tensorProd</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/qTools/QuantumToolbox/linearAlgebra.html#tensorProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.linearAlgebra.tensorProd" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.linearAlgebra.tensorProd">
+<code class="sig-name descname">tensorProd</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/linearAlgebra.html#tensorProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.linearAlgebra.tensorProd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to calculate tensor product <img class="math" src="../_images/math/1e65a0cf4dcd22a4712435d562d49f35415e2199.png" alt="\otimes_{i} M_{i}"/> of given (any number i of)
 states (<img class="math" src="../_images/math/3c1e17ab8332fbca52980219b9175cedcbd74db6.png" alt="\{M_{i}\}"/> in the given order).</p>
 <dl class="field-list simple">
@@ -483,8 +483,8 @@ states (<img class="math" src="../_images/math/3c1e17ab8332fbca52980219b9175cedc
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.linearAlgebra.trace">
-<code class="sig-name descname">trace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/qTools/QuantumToolbox/linearAlgebra.html#trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.linearAlgebra.trace" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.linearAlgebra.trace">
+<code class="sig-name descname">trace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/linearAlgebra.html#trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.linearAlgebra.trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trace <img class="math" src="../_images/math/2ebcd36d8008dcb7b2add0db2575b7b200c80bb5.png" alt="Tr(M) := \sum_{i} M_{ii}"/> of a matrix <cite>M</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -513,8 +513,8 @@ states (<img class="math" src="../_images/math/3c1e17ab8332fbca52980219b9175cedc
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.QuantumToolbox.linearAlgebra.partialTrace">
-<code class="sig-name descname">partialTrace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keep</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">dims</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/qTools/QuantumToolbox/linearAlgebra.html#partialTrace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.QuantumToolbox.linearAlgebra.partialTrace" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.QuantumToolbox.linearAlgebra.partialTrace">
+<code class="sig-name descname">partialTrace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keep</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">dims</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/QuanGuru/QuantumToolbox/linearAlgebra.html#partialTrace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.QuantumToolbox.linearAlgebra.partialTrace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the partial trace of a <cite>density matrix</cite> of composite state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -563,8 +563,8 @@ dims = [dim_A, dim_B, dim_C, dim_D]</p></li>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="../QuantumToolbox.html" title="previous page">Quantum Toolbox (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox</span></code>)</a>
-    <a class='right-next' id="next-link" href="states.html" title="next page">Quantum States (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.QuantumToolbox.states</span></code>)</a>
+    <a class='left-prev' id="prev-link" href="../QuantumToolbox.html" title="previous page">Quantum Toolbox (<code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox</span></code>)</a>
+    <a class='right-next' id="next-link" href="states.html" title="next page">Quantum States (<code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.QuantumToolbox.states</span></code>)</a>
 
               </div>
               

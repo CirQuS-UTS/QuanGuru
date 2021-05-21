@@ -1,6 +1,6 @@
 import numpy as np
 import random
-import qTools as qt
+import QuanGuru as qt
 
 qub1Sz = qt.tensorProd(qt.sigmaz(), qt.identity(2))
 qub2Sz = qt.tensorProd(qt.identity(2), qt.sigmaz())

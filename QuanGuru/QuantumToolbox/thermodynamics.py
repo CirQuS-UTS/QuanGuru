@@ -2,7 +2,7 @@ r"""
     Contains methods to calculate certain quantities used in thermal states, open systems, and quantum thermodynamics.
     TODO update docstring examples and write some tests after writing some tutorials
 
-    .. currentmodule:: qTools.QuantumToolbox.thermodynamics
+    .. currentmodule:: QuanGuru.QuantumToolbox.thermodynamics
 
     Functions
     ---------

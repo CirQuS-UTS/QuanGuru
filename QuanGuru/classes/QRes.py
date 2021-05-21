@@ -1,7 +1,7 @@
 r"""
     Contains qResults, qResBase, and qResBlank classes used in storing various types of simulation results.
 
-    .. currentmodule:: qTools.classes.QRes
+    .. currentmodule:: QuanGuru.classes.QRes
 
     .. autosummary::
 

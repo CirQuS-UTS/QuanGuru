@@ -1,7 +1,7 @@
 r"""
     This module contains objects
 
-    .. currentmodule:: qTools.classes
+    .. currentmodule:: QuanGuru.classes
 
     .. autosummary::
 

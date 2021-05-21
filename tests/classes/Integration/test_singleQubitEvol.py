@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 import random as rn
-import qTools as qt
+import QuanGuru as qt
 
 sz = qt.sigmaz()
 sy = qt.sigmay()

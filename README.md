@@ -10,6 +10,7 @@ and [Nathan K. Langford](https://github.com/nklangford)
 
 ![Pipeline](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/badges/master/pipeline.svg)
 ![Coverage](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/badges/master/coverage.svg?job=integration_test)
+![Pylint](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/-/jobs/artifacts/master/raw/pylint/pylint.svg?job=pylint)
 
 
 QuanGuru (pronounced Kangaroo) is a Python library for Quantum Sciences. This first module consists of tools for numerical simulations of Quantum systems.

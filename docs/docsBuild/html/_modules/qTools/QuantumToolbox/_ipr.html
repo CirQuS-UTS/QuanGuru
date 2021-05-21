@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.QuantumToolbox._ipr &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.QuantumToolbox._ipr &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.QuantumToolbox._ipr</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.QuantumToolbox._ipr</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains functions to calculate delocalisation measure (Inverse participation ratio, shortly IPR) in various cases.</span>
 
-<span class="sd">    .. currentmodule:: qTools.QuantumToolbox._ipr</span>
+<span class="sd">    .. currentmodule:: QuanGuru.QuantumToolbox._ipr</span>
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
@@ -172,7 +172,7 @@
 <span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">matrixList</span>
 
 
-<div class="viewcode-block" id="iprKet"><a class="viewcode-back" href="../../../QuantumToolbox/_ipr.html#qTools.QuantumToolbox._ipr.iprKet">[docs]</a><span class="k">def</span> <span class="nf">iprKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="iprKet"><a class="viewcode-back" href="../../../QuantumToolbox/_ipr.html#QuanGuru.QuantumToolbox._ipr.iprKet">[docs]</a><span class="k">def</span> <span class="nf">iprKet</span><span class="p">(</span><span class="n">basis</span><span class="p">:</span> <span class="n">matrixList</span><span class="p">,</span> <span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates inverse participation ratio :math:`1/(\sum_{i}|c_{i,k}|^{4})` of a `ket`</span>
 <span class="sd">    :math:`|k\rangle = \sum_{i}c_{i,k}|i\rangle` in a given basis :math:`\{|i\rangle\}`. The complex probability</span>
@@ -208,7 +208,7 @@
     <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="nb">sum</span><span class="p">([</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">basKet</span><span class="p">,</span> <span class="n">ket</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">basKet</span> <span class="ow">in</span> <span class="n">basis</span><span class="p">])</span> <span class="c1"># type: ignore</span></div>
 
 
-<div class="viewcode-block" id="iprKetNB"><a class="viewcode-back" href="../../../QuantumToolbox/_ipr.html#qTools.QuantumToolbox._ipr.iprKetNB">[docs]</a><span class="k">def</span> <span class="nf">iprKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="iprKetNB"><a class="viewcode-back" href="../../../QuantumToolbox/_ipr.html#QuanGuru.QuantumToolbox._ipr.iprKetNB">[docs]</a><span class="k">def</span> <span class="nf">iprKetNB</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the IPR :math:`1/\sum_{i}|c_{i,k}|^{4}` of a ket :math:`|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\</span>
 <span class="sd">    c_{i,k}</span>

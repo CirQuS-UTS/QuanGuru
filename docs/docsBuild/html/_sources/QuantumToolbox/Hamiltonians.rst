@@ -1,8 +1,8 @@
 ===============================================================
-Common Hamiltonians (:mod:`qTools.QuantumToolbox.Hamiltonians`)
+Common Hamiltonians (:mod:`QuanGuru.QuantumToolbox.Hamiltonians`)
 ===============================================================
 
-.. automodule:: qTools.QuantumToolbox.Hamiltonians
+.. automodule:: QuanGuru.QuantumToolbox.Hamiltonians
    :members:
    :private-members:
    :undoc-members:

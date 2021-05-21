@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>base classes (qTools.classes.base) &#8212; Quantum Simulations 1 documentation</title>
+    <title>base classes (QuanGuru.classes.base) &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -52,8 +52,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="base classes (qTools.classes.baseClasses)" href="baseClasses.html" />
-    <link rel="prev" title="Classes (qTools.classes)" href="../classes.html" />
+    <link rel="next" title="base classes (QuanGuru.classes.baseClasses)" href="baseClasses.html" />
+    <link rel="prev" title="Classes (QuanGuru.classes)" href="../classes.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
   </head>
@@ -174,8 +174,8 @@
               
               <div>
                 
-  <div class="section" id="module-qTools.classes.base">
-<span id="base-classes-qtools-classes-base"></span><h1>base classes (<a class="reference internal" href="#module-qTools.classes.base" title="qTools.classes.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.classes.base</span></code></a>)<a class="headerlink" href="#module-qTools.classes.base" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-QuanGuru.classes.base">
+<span id="base-classes-QuanGuru-classes-base"></span><h1>base classes (<a class="reference internal" href="#module-QuanGuru.classes.base" title="QuanGuru.classes.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.classes.base</span></code></a>)<a class="headerlink" href="#module-QuanGuru.classes.base" title="Permalink to this headline">¶</a></h1>
 <p>Contains two main base classes (for naming and sub/superSys) and their helper classes, functions, decorators.</p>
 <table class="longtable table autosummary">
 <colgroup>
@@ -183,10 +183,10 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named</span></code></a>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named</span></code></a>(**kwargs)</p></td>
 <td><p>Implements a name attribute and a naming standard.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#qTools.classes.base.qBase" title="qTools.classes.base.qBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qBase</span></code></a>(**kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#QuanGuru.classes.base.qBase" title="QuanGuru.classes.base.qBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qBase</span></code></a>(**kwargs)</p></td>
 <td><p>Implements the sub/super-system attributes, auxiliary object and dictionary, and copy method.</p></td>
 </tr>
 </tbody>
@@ -197,13 +197,13 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aliasClass</span></code></a>(name, alias)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aliasClass</span></code></a>(name, alias)</p></td>
 <td><p>aliasClass provides a flexible naming functionality for the qObjects.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#qTools.classes.base.keySearch" title="qTools.classes.base.keySearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keySearch</span></code></a>(obj, k)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#QuanGuru.classes.base.keySearch" title="QuanGuru.classes.base.keySearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keySearch</span></code></a>(obj, k)</p></td>
 <td><p>Method to find a key or any other obj equal to the key in a <code class="docutils literal notranslate"><span class="pre">dictionary.keys()</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.base.aliasDict" title="qTools.classes.base.aliasDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aliasDict</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.classes.base.aliasDict" title="QuanGuru.classes.base.aliasDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aliasDict</span></code></a></p></td>
 <td><p>Extending the dictionary class to treat the keys satisfying <code class="docutils literal notranslate"><span class="pre">key1</span> <span class="pre">==</span> <span class="pre">keys2</span></code> as the same key.</p></td>
 </tr>
 </tbody>
@@ -214,43 +214,43 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.base._auxiliaryClass" title="qTools.classes.base._auxiliaryClass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_auxiliaryClass</span></code></a>()</p></td>
-<td><p>an auxiliary class used to instantiate a dummy object for the <a class="reference internal" href="#qTools.classes.base.qBase._auxiliaryObj" title="qTools.classes.base.qBase._auxiliaryObj"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_auxiliaryObj</span></code></a> attribute.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.classes.base._auxiliaryClass" title="QuanGuru.classes.base._auxiliaryClass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_auxiliaryClass</span></code></a>()</p></td>
+<td><p>an auxiliary class used to instantiate a dummy object for the <a class="reference internal" href="#QuanGuru.classes.base.qBase._auxiliaryObj" title="QuanGuru.classes.base.qBase._auxiliaryObj"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_auxiliaryObj</span></code></a> attribute.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#qTools.classes.base._recurseIfList" title="qTools.classes.base._recurseIfList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_recurseIfList</span></code></a>(func)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#QuanGuru.classes.base._recurseIfList" title="QuanGuru.classes.base._recurseIfList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_recurseIfList</span></code></a>(func)</p></td>
 <td><p>a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude certain objects).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#qTools.classes.base.addDecorator" title="qTools.classes.base.addDecorator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addDecorator</span></code></a>(addFunction)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#QuanGuru.classes.base.addDecorator" title="QuanGuru.classes.base.addDecorator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addDecorator</span></code></a>(addFunction)</p></td>
 <td><p>A recursive decorator for methods like addSubSys which add items into dictionaries (eg.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
-<dt id="qTools.classes.base.aliasClass">
-<em class="property">class </em><code class="sig-name descname">aliasClass</code><span class="sig-paren">(</span><em class="sig-param">name: Optional[str] = None</em>, <em class="sig-param">alias: List = &lt;class 'list'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/base.html#aliasClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasClass" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasClass">
+<em class="property">class </em><code class="sig-name descname">aliasClass</code><span class="sig-paren">(</span><em class="sig-param">name: Optional[str] = None</em>, <em class="sig-param">alias: List = &lt;class 'list'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasClass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name
-attribute of qObjects and to work with the extended dictionary <a class="reference internal" href="#qTools.classes.base.aliasDict" title="qTools.classes.base.aliasDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasDict</span></code></a>.
+attribute of qObjects and to work with the extended dictionary <a class="reference internal" href="#QuanGuru.classes.base.aliasDict" title="QuanGuru.classes.base.aliasDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasDict</span></code></a>.
 The default name of qObjects is assigned to be <code class="docutils literal notranslate"><span class="pre">__name</span></code> attribute, and the user assigned aliases for a qObject
 are stored in the <code class="docutils literal notranslate"><span class="pre">__alias</span></code> list. The string representation and hash value of an aliasClass objects is obtained
 from its name.</p>
 <dl class="py attribute">
-<dt id="qTools.classes.base.aliasClass.__name">
-<code class="sig-name descname">__name</code><a class="headerlink" href="#qTools.classes.base.aliasClass.__name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Protected name attribute of an aliasClass object, set&amp;get through the <a class="reference internal" href="#qTools.classes.base.aliasClass.name" title="qTools.classes.base.aliasClass.name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code></a> property.
+<dt id="QuanGuru.classes.base.aliasClass.__name">
+<code class="sig-name descname">__name</code><a class="headerlink" href="#QuanGuru.classes.base.aliasClass.__name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Protected name attribute of an aliasClass object, set&amp;get through the <a class="reference internal" href="#QuanGuru.classes.base.aliasClass.name" title="QuanGuru.classes.base.aliasClass.name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code></a> property.
 Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>. It can be set to any string (which cannot be changed later, unless directly overwritting
 <code class="docutils literal notranslate"><span class="pre">self._aliasClass__name</span></code>).</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.aliasClass.__alias">
-<code class="sig-name descname">__alias</code><a class="headerlink" href="#qTools.classes.base.aliasClass.__alias" title="Permalink to this definition">¶</a></dt>
-<dd><p>list of aliases of an aliasClass objects, set&amp;get through the <a class="reference internal" href="#qTools.classes.base.aliasClass.alias" title="qTools.classes.base.aliasClass.alias"><code class="xref py py-attr docutils literal notranslate"><span class="pre">alias</span></code></a> property</p>
+<dt id="QuanGuru.classes.base.aliasClass.__alias">
+<code class="sig-name descname">__alias</code><a class="headerlink" href="#QuanGuru.classes.base.aliasClass.__alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of aliases of an aliasClass objects, set&amp;get through the <a class="reference internal" href="#QuanGuru.classes.base.aliasClass.alias" title="QuanGuru.classes.base.aliasClass.alias"><code class="xref py py-attr docutils literal notranslate"><span class="pre">alias</span></code></a> property</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasClass.name">
-<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#qTools.classes.base.aliasClass.name" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasClass.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#QuanGuru.classes.base.aliasClass.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Getter of the name property, returns <code class="docutils literal notranslate"><span class="pre">self.__name</span></code>.</p>
 <p>Setter of the name property, sets <code class="docutils literal notranslate"><span class="pre">self.__name</span></code> to given <code class="docutils literal notranslate"><span class="pre">name</span></code> provided that the <code class="docutils literal notranslate"><span class="pre">self.__name</span> <span class="pre">is</span> <span class="pre">None</span></code>
 and the given <code class="docutils literal notranslate"><span class="pre">name</span></code> is a string. This means that the name can only be a string and cannot be changed
@@ -263,16 +263,16 @@ once set. Unless, of course, directly overwriting the protected attribute.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasClass.alias">
-<em class="property">property </em><code class="sig-name descname">alias</code><a class="headerlink" href="#qTools.classes.base.aliasClass.alias" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasClass.alias">
+<em class="property">property </em><code class="sig-name descname">alias</code><a class="headerlink" href="#QuanGuru.classes.base.aliasClass.alias" title="Permalink to this definition">¶</a></dt>
 <dd><p>Getter of the alias property, returns the alias list.</p>
 <p>Setter of the alias property, adds a new alias for the aliasClass object (if the given alias is not already
 in the list).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasClass.__members">
-<code class="sig-name descname">__members</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple<a class="headerlink" href="#qTools.classes.base.aliasClass.__members" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasClass.__members">
+<code class="sig-name descname">__members</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple<a class="headerlink" href="#QuanGuru.classes.base.aliasClass.__members" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>a tuple containing the name and all aliases</p>
@@ -281,44 +281,44 @@ in the list).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasClass.__repr__">
-<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasClass.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasClass.__repr__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasClass.__repr__">
+<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasClass.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasClass.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>representation of the object is equal to <code class="docutils literal notranslate"><span class="pre">repr(self.name)</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasClass.__str__">
-<code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasClass.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasClass.__str__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasClass.__str__">
+<code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasClass.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasClass.__str__" title="Permalink to this definition">¶</a></dt>
 <dd><p>string representation of the object is its name</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasClass.__eq__">
-<code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass">qTools.classes.base.aliasClass</a><span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasClass.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasClass.__eq__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasClass.__eq__">
+<code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass">QuanGuru.classes.base.aliasClass</a><span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasClass.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasClass.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Equality of any two aliasClass objects (or an aliasClass object to a string) is determined by comparing their
 names and all
 their aliases (or to given string), if at least one of them are the same (or the same as the given string),
 aliasClass objects (or the aliasClass object and the given string) are considereed to be equal.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>other</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><em>aliasClass</em></a><em>, </em><em>str</em><em>]</em>) – aliasClass object or string to check the equality with self</p>
+<dd class="field-odd"><p><strong>other</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><em>aliasClass</em></a><em>, </em><em>str</em><em>]</em>) – aliasClass object or string to check the equality with self</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasClass.__hash__">
-<code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasClass.__hash__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasClass.__hash__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasClass.__hash__">
+<code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasClass.__hash__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasClass.__hash__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hash value of an aliasClass object is equal to hash of its name.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.classes.base.keySearch">
-<code class="sig-name descname">keySearch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span></em>, <em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Hashable<a class="reference internal" href="../_modules/qTools/classes/base.html#keySearch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.keySearch" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.keySearch">
+<code class="sig-name descname">keySearch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span></em>, <em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Hashable<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#keySearch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.keySearch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to find a key or any other obj equal to the key in a <code class="docutils literal notranslate"><span class="pre">dictionary.keys()</span></code>. This method is used in
-<a class="reference internal" href="#qTools.classes.base.aliasDict" title="qTools.classes.base.aliasDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasDict</span></code></a> class (extending <code class="docutils literal notranslate"><span class="pre">dict</span></code> class) to find the actual key when using <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> as the
+<a class="reference internal" href="#QuanGuru.classes.base.aliasDict" title="QuanGuru.classes.base.aliasDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasDict</span></code></a> class (extending <code class="docutils literal notranslate"><span class="pre">dict</span></code> class) to find the actual key when using <a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> as the
 key, which returns equal for a specific
 string (its name) or any other string in its list of aliases.</p>
 <dl class="field-list simple">
@@ -336,89 +336,89 @@ dictionary, if an equal key is found in the dictionary.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="qTools.classes.base.aliasDict">
-<em class="property">class </em><code class="sig-name descname">aliasDict</code><a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasDict">
+<em class="property">class </em><code class="sig-name descname">aliasDict</code><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 <p>Extending the dictionary class to treat the keys satisfying <code class="docutils literal notranslate"><span class="pre">key1</span> <span class="pre">==</span> <span class="pre">keys2</span></code> as the same key. This functionality is
 implemented to use
-<a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> objects as keys and to get the value by using the aliasClass object itself, its name, or any of
+<a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> objects as keys and to get the value by using the aliasClass object itself, its name, or any of
 its aliases as the key.</p>
 <p>NOTE no explicit tests for most of the extended methods, be careful in modifications.</p>
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.__getitem__">
-<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasDict.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the value from the dictionary for a given key or any of the keys that is equal to the given key.
-This enables to get a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
+This enables to get a value using an <a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.get">
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="n">default</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Any<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Modified get method to be compatible with extended <a class="reference internal" href="#qTools.classes.base.aliasDict.__getitem__" title="qTools.classes.base.aliasDict.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> method.</p>
+<dt id="QuanGuru.classes.base.aliasDict.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="n">default</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Any<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modified get method to be compatible with extended <a class="reference internal" href="#QuanGuru.classes.base.aliasDict.__getitem__" title="QuanGuru.classes.base.aliasDict.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> method.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.__setitem__">
-<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="n">v</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasDict.__setitem__">
+<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="n">v</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.__setitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the value of a key in the dictionary, if the given key exists or any of the keys is equal to given key,
 otherwise creates an item (ie key:value pair) in the dictionary.
-This enables to set a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
+This enables to set a value using an <a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.__delitem__">
-<code class="sig-name descname">__delitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.__delitem__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasDict.__delitem__">
+<code class="sig-name descname">__delitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.__delitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the item for a given key or any of the keys that is equal to the given key.
-This enables to delete a value using an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
+This enables to delete a value using an <a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.__contains__">
-<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">o</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.__contains__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasDict.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">o</span><span class="p">:</span> <span class="n">Hashable</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.__contains__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the key or any object equal to the key exists.
-This enables to <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">True</span></code> for an <a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any of it aliases.</p>
+This enables to <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">True</span></code> for an <a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapping</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Mapping<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">()</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.update" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasDict.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapping</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Mapping<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">()</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>update method compatible with the extended get/set methods.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.setdefault">
-<code class="sig-name descname">setdefault</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_aliasDict__key</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="n">_aliasDict__default</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.setdefault"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.setdefault" title="Permalink to this definition">¶</a></dt>
-<dd><p>Modified setdefault method to be compatible with extended <a class="reference internal" href="#qTools.classes.base.aliasDict.__setitem__" title="qTools.classes.base.aliasDict.__setitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__setitem__()</span></code></a> &amp; <a class="reference internal" href="#qTools.classes.base.aliasDict.__getitem__" title="qTools.classes.base.aliasDict.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> methods.</p>
+<dt id="QuanGuru.classes.base.aliasDict.setdefault">
+<code class="sig-name descname">setdefault</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_aliasDict__key</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="n">_aliasDict__default</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.setdefault"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.setdefault" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modified setdefault method to be compatible with extended <a class="reference internal" href="#QuanGuru.classes.base.aliasDict.__setitem__" title="QuanGuru.classes.base.aliasDict.__setitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__setitem__()</span></code></a> &amp; <a class="reference internal" href="#QuanGuru.classes.base.aliasDict.__getitem__" title="QuanGuru.classes.base.aliasDict.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> methods.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.pop">
-<code class="sig-name descname">pop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.pop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.pop" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasDict.pop">
+<code class="sig-name descname">pop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.pop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.pop" title="Permalink to this definition">¶</a></dt>
 <dd><p>pop method compatible with the extended methods.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.aliasDict.copy">
-<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#qTools.classes.base.aliasDict" title="qTools.classes.base.aliasDict">qTools.classes.base.aliasDict</a><a class="reference internal" href="../_modules/qTools/classes/base.html#aliasDict.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.aliasDict.copy" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.aliasDict.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#QuanGuru.classes.base.aliasDict" title="QuanGuru.classes.base.aliasDict">QuanGuru.classes.base.aliasDict</a><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#aliasDict.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.aliasDict.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>copy method to make sure the type is correct.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.classes.base._recurseIfList">
-<code class="sig-name descname">_recurseIfList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/base.html#_recurseIfList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base._recurseIfList" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base._recurseIfList">
+<code class="sig-name descname">_recurseIfList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#_recurseIfList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base._recurseIfList" title="Permalink to this definition">¶</a></dt>
 <dd><p>a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
 certain objects). It is used in various places of the library (exclude is useful/used in some of them).</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="qTools.classes.base.named">
-<em class="property">class </em><code class="sig-name descname">named</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/base.html#named"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.named" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named">
+<em class="property">class </em><code class="sig-name descname">named</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#named"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.named" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements a name attribute and a naming standard. It is inhereted by all the other qObjects so that
 they have unique default names, and users are able to assign aliases for any object. It uses the
-<a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> for its name attribute to enable this.</p>
+<a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> for its name attribute to enable this.</p>
 <p>Default naming is <code class="docutils literal notranslate"><span class="pre">(_)class.label</span> <span class="pre">(same</span> <span class="pre">as</span> <span class="pre">class</span> <span class="pre">name)</span> <span class="pre">+</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">instances</span> <span class="pre">created</span> <span class="pre">in</span> <span class="pre">a</span> <span class="pre">session</span></code>.
 The optional _ in the name is to distinguish between the objects created internally which is not trivially known
 by the user. The objects explicitly created by the user does not have an underscore in their names.
@@ -426,38 +426,38 @@ There are 4 class attribute to achieve these, 1 the label and 3 for keeping numb
 total number of) instances.
 One last counter is the total number of instances of the classes inherited from named.</p>
 <dl class="py attribute">
-<dt id="qTools.classes.base.named.label">
-<code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'named'</em><a class="headerlink" href="#qTools.classes.base.named.label" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.label">
+<code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'named'</em><a class="headerlink" href="#QuanGuru.classes.base.named.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.named._internalInstances">
-<code class="sig-name descname">_internalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.named._internalInstances" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named._internalInstances">
+<code class="sig-name descname">_internalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#QuanGuru.classes.base.named._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.named._externalInstances">
-<code class="sig-name descname">_externalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.named._externalInstances" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named._externalInstances">
+<code class="sig-name descname">_externalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#QuanGuru.classes.base.named._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.named._instances">
-<code class="sig-name descname">_instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.named._instances" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named._instances">
+<code class="sig-name descname">_instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#QuanGuru.classes.base.named._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.named._totalNumberOfInst">
-<code class="sig-name descname">_totalNumberOfInst</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.named._totalNumberOfInst" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named._totalNumberOfInst">
+<code class="sig-name descname">_totalNumberOfInst</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#QuanGuru.classes.base.named._totalNumberOfInst" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) total number of instances including named and all the child classes</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.named._allInstacesDict">
-<code class="sig-name descname">_allInstacesDict</code><em class="property"> = {}</em><a class="headerlink" href="#qTools.classes.base.named._allInstacesDict" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named._allInstacesDict">
+<code class="sig-name descname">_allInstacesDict</code><em class="property"> = {}</em><a class="headerlink" href="#QuanGuru.classes.base.named._allInstacesDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) a weakValue dictionary to store a weakref to every instance.
 This is used to reach any instance by its name or
 alias using the <code class="xref py py-class docutils literal notranslate"><span class="pre">getByName</span></code> method
@@ -466,45 +466,45 @@ has problems with garbage collection in jupyter sessions)</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.named._internal">
-<code class="sig-name descname">_internal</code><a class="headerlink" href="#qTools.classes.base.named._internal" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named._internal">
+<code class="sig-name descname">_internal</code><a class="headerlink" href="#QuanGuru.classes.base.named._internal" title="Permalink to this definition">¶</a></dt>
 <dd><p>boolean to distinguish internally and explicitly created instances.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.named.__name">
-<code class="sig-name descname">__name</code><a class="headerlink" href="#qTools.classes.base.named.__name" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected name attribute is an instance of <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a> class</p>
+<dt id="QuanGuru.classes.base.named.__name">
+<code class="sig-name descname">__name</code><a class="headerlink" href="#QuanGuru.classes.base.named.__name" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected name attribute is an instance of <a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a> class</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.named._allInstaces">
-<code class="sig-name descname">_allInstaces</code><a class="headerlink" href="#qTools.classes.base.named._allInstaces" title="Permalink to this definition">¶</a></dt>
-<dd><p>used in <a class="reference internal" href="#qTools.classes.base.named.getByNameOrAlias" title="qTools.classes.base.named.getByNameOrAlias"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getByNameOrAlias()</span></code></a> to properly pickle and reach updated objects during multi-processing</p>
+<dt id="QuanGuru.classes.base.named._allInstaces">
+<code class="sig-name descname">_allInstaces</code><a class="headerlink" href="#QuanGuru.classes.base.named._allInstaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>used in <a class="reference internal" href="#QuanGuru.classes.base.named.getByNameOrAlias" title="QuanGuru.classes.base.named.getByNameOrAlias"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getByNameOrAlias()</span></code></a> to properly pickle and reach updated objects during multi-processing</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named.__repr__">
-<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="../_modules/qTools/classes/base.html#named.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.named.__repr__" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.__repr__">
+<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#named.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.named.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>representation of the object is the default name</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named.getByNameOrAlias">
-<code class="sig-name descname">getByNameOrAlias</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>str<span class="p">, </span><a class="reference internal" href="#qTools.classes.base.aliasClass" title="qTools.classes.base.aliasClass">qTools.classes.base.aliasClass</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named">qTools.classes.base.named</a><a class="reference internal" href="../_modules/qTools/classes/base.html#named.getByNameOrAlias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.named.getByNameOrAlias" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.getByNameOrAlias">
+<code class="sig-name descname">getByNameOrAlias</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>str<span class="p">, </span><a class="reference internal" href="#QuanGuru.classes.base.aliasClass" title="QuanGuru.classes.base.aliasClass">QuanGuru.classes.base.aliasClass</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named">QuanGuru.classes.base.named</a><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#named.getByNameOrAlias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.named.getByNameOrAlias" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a reference for an object using its name or any alias.</p>
 <p>Raises ValueError if it cannot find any object for the given name (or alias).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named._incrementInstances">
-<code class="sig-name descname">_incrementInstances</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#named._incrementInstances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.named._incrementInstances" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named._incrementInstances">
+<code class="sig-name descname">_incrementInstances</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#named._incrementInstances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.named._incrementInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method used inside __init__ to increase internal/external and total number of instances.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named.__namer">
-<code class="sig-name descname">__namer</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#qTools.classes.base.named.__namer" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.__namer">
+<code class="sig-name descname">__namer</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#QuanGuru.classes.base.named.__namer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates the default names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -514,28 +514,28 @@ has problems with garbage collection in jupyter sessions)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named.name">
-<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#qTools.classes.base.named.name" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#QuanGuru.classes.base.named.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Getter of the name property  <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">__name</span></code> protected attribute. There is no setter, names are not allowed
 to be changed but can assign an alias.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named.alias">
-<em class="property">property </em><code class="sig-name descname">alias</code><a class="headerlink" href="#qTools.classes.base.named.alias" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.alias">
+<em class="property">property </em><code class="sig-name descname">alias</code><a class="headerlink" href="#QuanGuru.classes.base.named.alias" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias property gets the list of aliases.</p>
 <p>Sets (adds/extends into the list) alias (single/list of alias). Does not allow duplicate alias.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named.clsLabel">
-<em class="property">classmethod </em><code class="sig-name descname">clsLabel</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="../_modules/qTools/classes/base.html#named.clsLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.named.clsLabel" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.clsLabel">
+<em class="property">classmethod </em><code class="sig-name descname">clsLabel</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#named.clsLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.named.clsLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the class label.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named.clsInstances">
-<em class="property">classmethod </em><code class="sig-name descname">clsInstances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_internal</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../_modules/qTools/classes/base.html#named.clsInstances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.named.clsInstances" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.clsInstances">
+<em class="property">classmethod </em><code class="sig-name descname">clsInstances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_internal</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#named.clsInstances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.named.clsInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class method <strong>returns</strong> the number of instances:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -547,15 +547,15 @@ to be changed but can assign an alias.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named._resetAll">
-<code class="sig-name descname">_resetAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#named._resetAll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.named._resetAll" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named._resetAll">
+<code class="sig-name descname">_resetAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#named._resetAll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.named._resetAll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets the counters and empties the weakref dictionary. Goal is to make this an equivalent to restarting a
 script or notebook.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.named.__setKwargs">
-<code class="sig-name descname">__setKwargs</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#qTools.classes.base.named.__setKwargs" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.named.__setKwargs">
+<code class="sig-name descname">__setKwargs</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#QuanGuru.classes.base.named.__setKwargs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to set the attributes of the object from the given keywords and values.
 It is introduced to be used while instantiation of the object so that the protected attributes are set through
 the correspoding properties.</p>
@@ -570,175 +570,175 @@ the name of corresponding property with an appropriate value type.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="qTools.classes.base._auxiliaryClass">
-<em class="property">class </em><code class="sig-name descname">_auxiliaryClass</code><a class="reference internal" href="../_modules/qTools/classes/base.html#_auxiliaryClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base._auxiliaryClass" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base._auxiliaryClass">
+<em class="property">class </em><code class="sig-name descname">_auxiliaryClass</code><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#_auxiliaryClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base._auxiliaryClass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>an auxiliary class used to instantiate a dummy object for the <a class="reference internal" href="#qTools.classes.base.qBase._auxiliaryObj" title="qTools.classes.base.qBase._auxiliaryObj"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_auxiliaryObj</span></code></a> attribute.</p>
+<p>an auxiliary class used to instantiate a dummy object for the <a class="reference internal" href="#QuanGuru.classes.base.qBase._auxiliaryObj" title="QuanGuru.classes.base.qBase._auxiliaryObj"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_auxiliaryObj</span></code></a> attribute.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qTools.classes.base.addDecorator">
-<code class="sig-name descname">addDecorator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">addFunction</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/base.html#addDecorator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.addDecorator" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.addDecorator">
+<code class="sig-name descname">addDecorator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">addFunction</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#addDecorator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.addDecorator" title="Permalink to this definition">¶</a></dt>
 <dd><p>A recursive decorator for methods like addSubSys which add items into dictionaries (eg. subSys dictionary).</p>
-<p>It is initially created to be used with <a class="reference internal" href="#qTools.classes.base.qBase.subSys" title="qTools.classes.base.qBase.subSys"><code class="xref py py-attr docutils literal notranslate"><span class="pre">subSys</span></code></a> dictionary of
-<a class="reference internal" href="#qTools.classes.base.qBase" title="qTools.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qBase</span></code></a> class, and the idea is to cover possible misuse of
-<a class="reference internal" href="#qTools.classes.base.qBase.addSubSys" title="qTools.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add</span></code></a>/<a class="reference internal" href="#qTools.classes.base.qBase.createSubSys" title="qTools.classes.base.qBase.createSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create</span></code></a>
+<p>It is initially created to be used with <a class="reference internal" href="#QuanGuru.classes.base.qBase.subSys" title="QuanGuru.classes.base.qBase.subSys"><code class="xref py py-attr docutils literal notranslate"><span class="pre">subSys</span></code></a> dictionary of
+<a class="reference internal" href="#QuanGuru.classes.base.qBase" title="QuanGuru.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qBase</span></code></a> class, and the idea is to cover possible misuse of
+<a class="reference internal" href="#QuanGuru.classes.base.qBase.addSubSys" title="QuanGuru.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add</span></code></a>/<a class="reference internal" href="#QuanGuru.classes.base.qBase.createSubSys" title="QuanGuru.classes.base.qBase.createSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create</span></code></a>
 <cite>subSys</cite> methods (while also creating flexibility).</p>
 <p>For example,
-if, instead of an instance, the class itself is given to <a class="reference internal" href="#qTools.classes.base.qBase.addSubSys" title="qTools.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a> method, this
+if, instead of an instance, the class itself is given to <a class="reference internal" href="#QuanGuru.classes.base.qBase.addSubSys" title="QuanGuru.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a> method, this
 decorator creates a new instance and includes the new instance to the dictionary.
 This also enables the flexible use
-of <a class="reference internal" href="#qTools.classes.base.qBase.addSubSys" title="qTools.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a> as replacement for <a class="reference internal" href="#qTools.classes.base.qBase.createSubSys" title="qTools.classes.base.qBase.createSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">createSubSys</span></code></a>.</p>
-<p>The wrapper is also decorated with the <a class="reference internal" href="#qTools.classes.base._recurseIfList" title="qTools.classes.base._recurseIfList"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_recurseIfList()</span></code></a> to make it recursive for list/tuple inputs.</p>
+of <a class="reference internal" href="#QuanGuru.classes.base.qBase.addSubSys" title="QuanGuru.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a> as replacement for <a class="reference internal" href="#QuanGuru.classes.base.qBase.createSubSys" title="QuanGuru.classes.base.qBase.createSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">createSubSys</span></code></a>.</p>
+<p>The wrapper is also decorated with the <a class="reference internal" href="#QuanGuru.classes.base._recurseIfList" title="QuanGuru.classes.base._recurseIfList"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_recurseIfList()</span></code></a> to make it recursive for list/tuple inputs.</p>
 <p>This decorator is also used for
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_createParamBound</span></code> and
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_breakParamBound</span></code> methods for
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">_paramBound</span></code> dictionary of
 <code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code> class.</p>
-<p>1. If the <cite>input (inp)</cite> is an instance of <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a>, it calls the <cite>addFunction</cite>
+<p>1. If the <cite>input (inp)</cite> is an instance of <a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a>, it calls the <cite>addFunction</cite>
 (the decorated method that does the actual adding) and its added into the relevant dictionary.</p>
 <p>Other input cases covered by this decorator are</p>
 <blockquote>
 <div><ol class="arabic simple" start="2">
 <li><p>If the input is a <cite>string</cite>, i.e. name/alias of an <cite>instance</cite>: finds the object from the
-<a class="reference internal" href="#qTools.classes.base.named._allInstacesDict" title="qTools.classes.base.named._allInstacesDict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">instNames</span></code></a> dict and calls the <cite>addFunction</cite>.</p></li>
-<li><p>If the input is a <cite>class</cite>, creates an instance of the <cite>class</cite> (has to be a child-class of <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a> )
+<a class="reference internal" href="#QuanGuru.classes.base.named._allInstacesDict" title="QuanGuru.classes.base.named._allInstacesDict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">instNames</span></code></a> dict and calls the <cite>addFunction</cite>.</p></li>
+<li><p>If the input is a <cite>class</cite>, creates an instance of the <cite>class</cite> (has to be a child-class of <a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a> )
 and makes a recursive call (which will trigger 1).</p></li>
 <li><p>If the input is a <cite>list</cite> or <cite>tuple</cite>: makes a recursive call, which is handled by the <code class="xref py py-meth docutils literal notranslate"><span class="pre">_recurseIfList`()</span></code>
 to iterate over every element of the given iterable, meaning anything in this
 list from 1. to 4. may be trigerred again depending on the value of the element in the iterable.
 (this can be combined with dict type to create nested dictionaries)</p></li>
-<li><p>raises an error if the object to be added is not an instance of <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a>.</p></li>
+<li><p>raises an error if the object to be added is not an instance of <a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a>.</p></li>
 </ol>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
-<dt id="qTools.classes.base.qBase">
-<em class="property">class </em><code class="sig-name descname">qBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qTools/classes/base.html#qBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.qBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">qTools.classes.base.named</span></code></a></p>
+<dt id="QuanGuru.classes.base.qBase">
+<em class="property">class </em><code class="sig-name descname">qBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#qBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.qBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuanGuru.classes.base.named</span></code></a></p>
 <p>Implements the sub/super-system attributes, auxiliary object and dictionary, and copy method.</p>
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase.label">
-<code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'qBase'</em><a class="headerlink" href="#qTools.classes.base.qBase.label" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.label">
+<code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = 'qBase'</em><a class="headerlink" href="#QuanGuru.classes.base.qBase.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase._internalInstances">
-<code class="sig-name descname">_internalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.qBase._internalInstances" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase._internalInstances">
+<code class="sig-name descname">_internalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#QuanGuru.classes.base.qBase._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase._externalInstances">
-<code class="sig-name descname">_externalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.qBase._externalInstances" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase._externalInstances">
+<code class="sig-name descname">_externalInstances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#QuanGuru.classes.base.qBase._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase._instances">
-<code class="sig-name descname">_instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#qTools.classes.base.qBase._instances" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase._instances">
+<code class="sig-name descname">_instances</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#QuanGuru.classes.base.qBase._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase._auxiliary">
-<code class="sig-name descname">_auxiliary</code><em class="property">: Dict</em><em class="property"> = {}</em><a class="headerlink" href="#qTools.classes.base.qBase._auxiliary" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase._auxiliary">
+<code class="sig-name descname">_auxiliary</code><em class="property">: Dict</em><em class="property"> = {}</em><a class="headerlink" href="#QuanGuru.classes.base.qBase._auxiliary" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) aux dictionary to store auxiliary things as items to reach from any instance</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase._auxiliaryObj">
-<code class="sig-name descname">_auxiliaryObj</code><em class="property">: <a class="reference internal" href="#qTools.classes.base._auxiliaryClass" title="qTools.classes.base._auxiliaryClass">qTools.classes.base._auxiliaryClass</a></em><em class="property"> = &lt;qTools.classes.base._auxiliaryClass object&gt;</em><a class="headerlink" href="#qTools.classes.base.qBase._auxiliaryObj" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase._auxiliaryObj">
+<code class="sig-name descname">_auxiliaryObj</code><em class="property">: <a class="reference internal" href="#QuanGuru.classes.base._auxiliaryClass" title="QuanGuru.classes.base._auxiliaryClass">QuanGuru.classes.base._auxiliaryClass</a></em><em class="property"> = &lt;QuanGuru.classes.base._auxiliaryClass object&gt;</em><a class="headerlink" href="#QuanGuru.classes.base.qBase._auxiliaryObj" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) aux object to store auxiliary things as attributes to reach from any instance</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase.__superSys">
-<code class="sig-name descname">__superSys</code><a class="headerlink" href="#qTools.classes.base.qBase.__superSys" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.__superSys">
+<code class="sig-name descname">__superSys</code><a class="headerlink" href="#QuanGuru.classes.base.qBase.__superSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected attribute for super system property</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase.__subSys">
-<code class="sig-name descname">__subSys</code><a class="headerlink" href="#qTools.classes.base.qBase.__subSys" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.__subSys">
+<code class="sig-name descname">__subSys</code><a class="headerlink" href="#QuanGuru.classes.base.qBase.__subSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected attribute for sub-system dictionary</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase.__aux">
-<code class="sig-name descname">__aux</code><a class="headerlink" href="#qTools.classes.base.qBase.__aux" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.__aux">
+<code class="sig-name descname">__aux</code><a class="headerlink" href="#QuanGuru.classes.base.qBase.__aux" title="Permalink to this definition">¶</a></dt>
 <dd><p>attribute for the class attribute _auxiliary (this is required due to pickling in multi-processing)</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="qTools.classes.base.qBase.__auxObj">
-<code class="sig-name descname">__auxObj</code><a class="headerlink" href="#qTools.classes.base.qBase.__auxObj" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.__auxObj">
+<code class="sig-name descname">__auxObj</code><a class="headerlink" href="#QuanGuru.classes.base.qBase.__auxObj" title="Permalink to this definition">¶</a></dt>
 <dd><p>attribute for the class attribute _auxiliaryObj (this is required due to pickling in multi-processing)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.aux">
-<em class="property">property </em><code class="sig-name descname">aux</code><a class="headerlink" href="#qTools.classes.base.qBase.aux" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.aux">
+<em class="property">property </em><code class="sig-name descname">aux</code><a class="headerlink" href="#QuanGuru.classes.base.qBase.aux" title="Permalink to this definition">¶</a></dt>
 <dd><p>property to get and set auxiliary items into auxiliary dictionary. The setter updates the existing dictionary
 (instead of an single element into the existing dictionary) with a given one, ie. adds key:value pair for the
 non-existing keys and changes the value for existing keys.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.auxObj">
-<em class="property">property </em><code class="sig-name descname">auxObj</code><a class="headerlink" href="#qTools.classes.base.qBase.auxObj" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.auxObj">
+<em class="property">property </em><code class="sig-name descname">auxObj</code><a class="headerlink" href="#QuanGuru.classes.base.qBase.auxObj" title="Permalink to this definition">¶</a></dt>
 <dd><p>property to reach and set auxiliary attributes into auxiliary object</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.superSys">
-<em class="property">property </em><code class="sig-name descname">superSys</code><a class="headerlink" href="#qTools.classes.base.qBase.superSys" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.superSys">
+<em class="property">property </em><code class="sig-name descname">superSys</code><a class="headerlink" href="#QuanGuru.classes.base.qBase.superSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>superSys property get/sets __superSys protected attribute</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.subSys">
-<em class="property">property </em><code class="sig-name descname">subSys</code><a class="headerlink" href="#qTools.classes.base.qBase.subSys" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.subSys">
+<em class="property">property </em><code class="sig-name descname">subSys</code><a class="headerlink" href="#QuanGuru.classes.base.qBase.subSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>subSys property gets the subSystem dictionary.</p>
 <p>Setter resets the existing dictionary and adds the given object/s to <code class="docutils literal notranslate"><span class="pre">__subSys</span></code> dictionary.
-It calls the <a class="reference internal" href="#qTools.classes.base.qBase.addSubSys" title="qTools.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a>,
+It calls the <a class="reference internal" href="#QuanGuru.classes.base.qBase.addSubSys" title="QuanGuru.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a>,
 so it can used to add a single object, <cite>list/tuple</cite> of objects, by giving the name of the
 system, or giving class name to add a new instance of that class. Be aware that the setter resets the existing.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.addSubSys">
-<code class="sig-name descname">addSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subS</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named">qTools.classes.base.named</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named">qTools.classes.base.named</a><a class="reference internal" href="../_modules/qTools/classes/base.html#qBase.addSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.qBase.addSubSys" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.addSubSys">
+<code class="sig-name descname">addSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subS</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named">QuanGuru.classes.base.named</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named">QuanGuru.classes.base.named</a><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#qBase.addSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.qBase.addSubSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
 an instance and adds), and list/tuple containing any combination of these.</p>
 <p>TODO add example &amp;/ link to a tutorial</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.createSubSys">
-<code class="sig-name descname">createSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subSysClass</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#qTools.classes.base.named" title="qTools.classes.base.named">qTools.classes.base.named</a><a class="reference internal" href="../_modules/qTools/classes/base.html#qBase.createSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.qBase.createSubSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simply calls and returns the <a class="reference internal" href="#qTools.classes.base.qBase.addSubSys" title="qTools.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys()</span></code></a> method, which is decorated to also cover creation.</p>
+<dt id="QuanGuru.classes.base.qBase.createSubSys">
+<code class="sig-name descname">createSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subSysClass</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#QuanGuru.classes.base.named" title="QuanGuru.classes.base.named">QuanGuru.classes.base.named</a><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#qBase.createSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.qBase.createSubSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simply calls and returns the <a class="reference internal" href="#QuanGuru.classes.base.qBase.addSubSys" title="QuanGuru.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys()</span></code></a> method, which is decorated to also cover creation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.removeSubSys">
-<code class="sig-name descname">removeSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subS</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">_exclude</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#qBase.removeSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.qBase.removeSubSys" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.removeSubSys">
+<code class="sig-name descname">removeSubSys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subS</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">_exclude</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#qBase.removeSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.qBase.removeSubSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will
 raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
 named class.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.resetSubSys">
-<code class="sig-name descname">resetSubSys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/qTools/classes/base.html#qBase.resetSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.qBase.resetSubSys" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.resetSubSys">
+<code class="sig-name descname">resetSubSys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/QuanGuru/classes/base.html#qBase.resetSubSys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.qBase.resetSubSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>clear() the subSys dictionary.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qTools.classes.base.qBase.copy">
-<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#qTools.classes.base.qBase" title="qTools.classes.base.qBase">qTools.classes.base.qBase</a><a class="reference internal" href="../_modules/qTools/classes/base.html#qBase.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qTools.classes.base.qBase.copy" title="Permalink to this definition">¶</a></dt>
+<dt id="QuanGuru.classes.base.qBase.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#QuanGuru.classes.base.qBase" title="QuanGuru.classes.base.qBase">QuanGuru.classes.base.qBase</a><a class="reference internal" href="../_modules/QuanGuru/classes/base.html#qBase.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#QuanGuru.classes.base.qBase.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates n <cite>empty</cite> copies of an object. This method is introduced here to be extended in child
 class. In here, it ** does not copy ** the object, but creates n new objects of the same class and sets the
 given kwargs.</p>
@@ -754,8 +754,8 @@ given kwargs.</p>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="../classes.html" title="previous page">Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.classes</span></code>)</a>
-    <a class='right-next' id="next-link" href="baseClasses.html" title="next page">base classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qTools.classes.baseClasses</span></code>)</a>
+    <a class='left-prev' id="prev-link" href="../classes.html" title="previous page">Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.classes</span></code>)</a>
+    <a class='right-next' id="next-link" href="baseClasses.html" title="next page">base classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">QuanGuru.classes.baseClasses</span></code>)</a>
 
               </div>
               

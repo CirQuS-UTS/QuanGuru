@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.QuantumToolbox.Hamiltonians &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.QuantumToolbox.Hamiltonians &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.QuantumToolbox.Hamiltonians</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.QuantumToolbox.Hamiltonians</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains functions to create some standard Hamiltonians.</span>
 
-<span class="sd">    .. currentmodule:: qTools.QuantumToolbox.Hamiltonians</span>
+<span class="sd">    .. currentmodule:: QuanGuru.QuantumToolbox.Hamiltonians</span>
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
@@ -165,7 +165,7 @@
 <span class="sd">        aJCHam</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c1">#from qTools.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap</span>
+<span class="c1">#from QuanGuru.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 <span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span> <span class="c1"># type: ignore</span>
@@ -184,7 +184,7 @@
 
 
 <span class="c1"># TODO currently, there is no option for sparse or not</span>
-<div class="viewcode-block" id="qubCavFreeHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#qTools.QuantumToolbox.Hamiltonians.qubCavFreeHam">[docs]</a><span class="k">def</span> <span class="nf">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Matrix</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">]:</span>
+<div class="viewcode-block" id="qubCavFreeHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#QuanGuru.QuantumToolbox.Hamiltonians.qubCavFreeHam">[docs]</a><span class="k">def</span> <span class="nf">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Matrix</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">]:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates Qubit + Cavity Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}`</span>
 <span class="sd">    for</span>
@@ -216,7 +216,7 @@
     <span class="k">return</span> <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span></div>
 
 
-<div class="viewcode-block" id="RabiHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#qTools.QuantumToolbox.Hamiltonians.RabiHam">[docs]</a><span class="k">def</span> <span class="nf">RabiHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="RabiHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#QuanGuru.QuantumToolbox.Hamiltonians.RabiHam">[docs]</a><span class="k">def</span> <span class="nf">RabiHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates Rabi Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
 <span class="sd">    + g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})` for given frequencies, coupling strength, and truncated cavity</span>
@@ -250,7 +250,7 @@
     <span class="k">return</span> <span class="n">rabiHam</span></div>
 
 
-<div class="viewcode-block" id="JCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#qTools.QuantumToolbox.Hamiltonians.JCHam">[docs]</a><span class="k">def</span> <span class="nf">JCHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="JCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#QuanGuru.QuantumToolbox.Hamiltonians.JCHam">[docs]</a><span class="k">def</span> <span class="nf">JCHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates Jaynes-Cummings Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
 <span class="sd">    + g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})` for given frequencies, coupling strength, and</span>
@@ -284,7 +284,7 @@
     <span class="k">return</span> <span class="n">JCHamil</span></div>
 
 
-<div class="viewcode-block" id="aJCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#qTools.QuantumToolbox.Hamiltonians.aJCHam">[docs]</a><span class="k">def</span> <span class="nf">aJCHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="aJCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#QuanGuru.QuantumToolbox.Hamiltonians.aJCHam">[docs]</a><span class="k">def</span> <span class="nf">aJCHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates anti-Jaynes-Cummings Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} +</span>
 <span class="sd">    \omega_{c}\hat{a}^{\dagger}\hat{a}</span>

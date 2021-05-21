@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-import qTools as qt
+import QuanGuru as qt
 import tests.classes.Integration.tkt.tkt as tk
 
 ex = qt.readCSV("tests/classes/Integration/tkt/tktData/ex.txt")

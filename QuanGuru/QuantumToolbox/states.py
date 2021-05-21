@@ -1,7 +1,7 @@
 r"""
     Contains methods to create states, such as ket, bra, densityMatrix, superpositions, etc.
 
-    .. currentmodule:: qTools.QuantumToolbox.states
+    .. currentmodule:: QuanGuru.QuantumToolbox.states
 
     Functions
     ---------
@@ -124,7 +124,7 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
 def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     r"""
     Creates a `bra` state :math:`\langle n| := |n\rangle^{T}` for a given dimension with 1 (unit population) at a
-    given column. This function simply returns transpose of :func:`basis <qTools.QuantumToolbox.linearAlgebra.basis>`.
+    given column. This function simply returns transpose of :func:`basis <QuanGuru.QuantumToolbox.linearAlgebra.basis>`.
 
     Parameters
     ----------
@@ -424,8 +424,8 @@ def normalise(state: Matrix) -> Matrix:
 
 def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool = True) -> Matrix:
     r"""
-    Function to create `composite ket` states. Uses :func:`superPos <qTools.QuantumToolbox.states.superPos>` to create
-    individual states and :func:`tensorProd <qTools.QuantumToolbox.linearAlgebra.tensorProd>` to calculate their tensor
+    Function to create `composite ket` states. Uses :func:`superPos <QuanGuru.QuantumToolbox.states.superPos>` to create
+    individual states and :func:`tensorProd <QuanGuru.QuantumToolbox.linearAlgebra.tensorProd>` to calculate their tensor
     product.
 
     Parameters

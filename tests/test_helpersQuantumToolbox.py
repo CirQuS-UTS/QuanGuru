@@ -1,4 +1,4 @@
-from qTools.QuantumToolbox import _helpers #pylint: disable=import-error
+from QuanGuru.QuantumToolbox import _helpers #pylint: disable=import-error
 
 def test_loopIt():
     # testing the (multivariate) function looping helper with a simple multiplication function

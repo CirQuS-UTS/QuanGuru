@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qTools.QuantumToolbox.evolution &#8212; Quantum Simulations 1 documentation</title>
+    <title>QuanGuru.QuantumToolbox.evolution &#8212; Quantum Simulations 1 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -148,11 +148,11 @@
               
               <div>
                 
-  <h1>Source code for qTools.QuantumToolbox.evolution</h1><div class="highlight"><pre>
+  <h1>Source code for QuanGuru.QuantumToolbox.evolution</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains functions to create Unitary and open-system super-operators.</span>
 
-<span class="sd">    .. currentmodule:: qTools.QuantumToolbox.evolution</span>
+<span class="sd">    .. currentmodule:: QuanGuru.QuantumToolbox.evolution</span>
 
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
@@ -188,7 +188,7 @@
 <span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
 
 
-<div class="viewcode-block" id="Unitary"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.Unitary">[docs]</a><span class="k">def</span> <span class="nf">Unitary</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="Unitary"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#QuanGuru.QuantumToolbox.evolution.Unitary">[docs]</a><span class="k">def</span> <span class="nf">Unitary</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `Unitary` time evolution operator :math:`U(t) := e^{-i\hat{H}t}` for a given `Hamiltonian` :math:`\hat{H}`</span>
 <span class="sd">    and `time step t`.</span>
@@ -223,7 +223,7 @@
     <span class="k">return</span> <span class="n">liouvillianEXP</span></div>
 
 
-<div class="viewcode-block" id="Liouvillian"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.Liouvillian">[docs]</a><span class="k">def</span> <span class="nf">Liouvillian</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value,unsubscriptable-object</span>
+<div class="viewcode-block" id="Liouvillian"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#QuanGuru.QuantumToolbox.evolution.Liouvillian">[docs]</a><span class="k">def</span> <span class="nf">Liouvillian</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value,unsubscriptable-object</span>
                 <span class="n">collapseOperators</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">decayRates</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span><span class="c1"># pylint: disable=dangerous-default-value</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `Liouvillian` super-operator</span>
@@ -281,7 +281,7 @@
     <span class="k">return</span> <span class="n">liouvillian</span></div>
 
 
-<div class="viewcode-block" id="LiouvillianExp"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.LiouvillianExp">[docs]</a><span class="k">def</span> <span class="nf">LiouvillianExp</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span><span class="c1"># pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501</span>
+<div class="viewcode-block" id="LiouvillianExp"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#QuanGuru.QuantumToolbox.evolution.LiouvillianExp">[docs]</a><span class="k">def</span> <span class="nf">LiouvillianExp</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span><span class="c1"># pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501</span>
                    <span class="n">collapseOperators</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">decayRates</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span>
                    <span class="n">exp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -344,7 +344,7 @@
     <span class="k">return</span> <span class="n">liouvillianEXP</span></div>
 
 
-<div class="viewcode-block" id="dissipator"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution.dissipator">[docs]</a><span class="k">def</span> <span class="nf">dissipator</span><span class="p">(</span><span class="n">collapseOperator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span><span class="c1">#pylint:disable=unsubscriptable-object</span>
+<div class="viewcode-block" id="dissipator"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#QuanGuru.QuantumToolbox.evolution.dissipator">[docs]</a><span class="k">def</span> <span class="nf">dissipator</span><span class="p">(</span><span class="n">collapseOperator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span><span class="c1">#pylint:disable=unsubscriptable-object</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Lindblad dissipator` super-operator</span>
 <span class="sd">    :math:`\hat{\mathcal{D}}(\hat{c}) := (\hat{c}^{\dagger})^{T}\otimes\hat{c} -</span>
@@ -393,7 +393,7 @@
     <span class="k">return</span> <span class="n">part1</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">part2</span> <span class="o">+</span> <span class="n">part3</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="_preSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution._preSO">[docs]</a><span class="k">def</span> <span class="nf">_preSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Matrix</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="_preSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#QuanGuru.QuantumToolbox.evolution._preSO">[docs]</a><span class="k">def</span> <span class="nf">_preSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Matrix</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `pre super-operator` :math:`\mathbb{I}\otimes\hat{O}` for an `operator` :math:`\hat{O}`.</span>
 
@@ -427,7 +427,7 @@
     <span class="k">return</span> <span class="n">pre</span> <span class="k">if</span> <span class="n">sp</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span> <span class="k">else</span> <span class="n">pre</span><span class="o">.</span><span class="n">A</span></div>
 
 
-<div class="viewcode-block" id="_posSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution._posSO">[docs]</a><span class="k">def</span> <span class="nf">_posSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Matrix</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="_posSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#QuanGuru.QuantumToolbox.evolution._posSO">[docs]</a><span class="k">def</span> <span class="nf">_posSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Matrix</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `pos super-operator` :math:`\hat{O}^{T}\otimes\mathbb{I}` for an `operator` :math:`\hat{O}`.</span>
 
@@ -461,7 +461,7 @@
     <span class="k">return</span> <span class="n">pos</span> <span class="k">if</span> <span class="n">sp</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span> <span class="k">else</span> <span class="n">pos</span><span class="o">.</span><span class="n">A</span></div>
 
 
-<div class="viewcode-block" id="_preposSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#qTools.QuantumToolbox.evolution._preposSO">[docs]</a><span class="k">def</span> <span class="nf">_preposSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="_preposSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#QuanGuru.QuantumToolbox.evolution._preposSO">[docs]</a><span class="k">def</span> <span class="nf">_preposSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `pre-pos super-operator` :math:`(\hat{O}^{\dagger})^{T}\otimes\hat{O}` for an operator :math:`\hat{O}`.</span>
 
