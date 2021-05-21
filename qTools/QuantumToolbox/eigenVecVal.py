@@ -17,11 +17,13 @@ r"""
 
 """
 
+from typing import Tuple
 import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
 from .functions import fidelityPure
+from .states import mat2Vec
 
 from .customTypes import Matrix, floatList, matrixList
 
@@ -156,7 +158,7 @@ def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
             componentsSymplectic.append(p1Symplectic+p2Symplectic)
     return componentsSymplectic
 
-def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
+def eigVecStatKet(basis: matrixList, ket: Matrix, symp=False) -> Tuple:
     r"""
     Calculates component amplitudes :math:`|c_{i,k}|^{2}` of a `ket` :math:`|k\rangle := \sum_{i}c_{i,k}|i\rangle` in a
     basis :math:`\{|i\rangle\}`.
@@ -182,5 +184,11 @@ def eigVecStatKet(basis: matrixList, ket: Matrix) -> floatList:
     >>> eigVecStatKet(basis=completeBasis, ket=ket)
     [0, 1]
     """
+    regStat = [fidelityPure(mat2Vec(state), ket) for state in basis]
+    symStat = []
+    elSymplectic = 0
+    for _ in range(int(len(regStat)/2)):
+        symStat.append(regStat[elSymplectic+1] + regStat[elSymplectic])
+        elSymplectic += 2
 
-    return [fidelityPure(basKet, ket) for basKet in basis]
+    return regStat, symStat

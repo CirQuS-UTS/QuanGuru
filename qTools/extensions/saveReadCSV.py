@@ -39,7 +39,7 @@ def saveCSV(data, path=None, fileName=None):
 
     return path
 
-def readCSV(path, datatype=float):
+def readCSV(path, datatype=float, realVal=True):
     """
     Function to read from a CSV file in the given path. Rows of the CSV file are read in as list into an arrays.
 
@@ -64,7 +64,7 @@ def readCSV(path, datatype=float):
                 data.append(np.array(list(row), dtype=datatype))
             else:
                 li = np.genfromtxt(list(row), delimiter=',', dtype=np.complex)
-                data.append(np.real(li))
+                data.append(np.real(li) if realVal else li)
     return data if len(data) > 1 else data[0]
 
 def _recursiveSaveList(data, path=None, fileName=None):
@@ -77,7 +77,7 @@ def _recursiveSaveList(data, path=None, fileName=None):
     elif isinstance(data[0], (float, int, np.complex128)):
         saveCSV(data[0], path=path, fileName=fileName)
 
-def _saveDictToCSV(data, path=None, fileName=None):
+def _saveDictToCSV(data, path=None, fileName=''):
     for key, val in data.items():
         _recursiveSaveList(val, path, fileName=fileName+key)
 
