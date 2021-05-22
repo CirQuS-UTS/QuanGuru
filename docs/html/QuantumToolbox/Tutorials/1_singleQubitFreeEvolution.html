@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Single Qubit Evolution &#8212; QuanGuru 1 documentation</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_tabs/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Displaced Vacuum" href="2_displacementOperator.html" />
+    <link rel="prev" title="QuantumToolbox Demos" href="Tutorials.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../../index.html">
+    
+      <p class="title">QuanGuru</p>
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../QuantumToolbox.html">QuantumToolbox</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../classes.html">Classes</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="Tutorials.html">Tutorials</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+          
+            
+                <li class="active">
+                    <a href="">Single Qubit Evolution</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="2_displacementOperator.html">Displaced Vacuum</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="3_squeezeOperator.html">Squeezed Vacuum</a>
+                </li>
+            
+          
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#" class="nav-link">Single Qubit Evolution</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#Master-equation" class="nav-link">Master equation</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">notebooks.standardImports</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Single-Qubit-Evolution">
+<h1>Single Qubit Evolution<a class="headerlink" href="#Single-Qubit-Evolution" title="Permalink to this headline">¶</a></h1>
+<p>Single qubit Hamiltonian is:</p>
+<p><img class="math" src="../../_images/math/02e534cfa8c116bbb5a25e4f25774474324f3b5f.png" alt="\large\hat{H}=\frac{w_{q}}{2}\hat{\sigma}_{z}"/></p>
+<p>where</p>
+<p><img class="math" src="../../_images/math/60ac53787e155c477f334d8e82899265d1722275.png" alt="\large\hat{\sigma_{z}}:=|1 \times 1|-|0 \times 0|"/> is the Pauli-z operator</p>
+<p><img class="math" src="../../_images/math/a98f798be09bf6cd3f6b53e2cc63ca51ed8ef791.png" alt="|\psi(0)\rangle=C_{0}(0)|0\rangle+C_{1}(0)|1\rangle"/> s.t. <img class="math" src="../../_images/math/36fd48a1b1b1a466abf6def8854941b4399e6922.png" alt="\left|C_{0}(0)\right|^{2}+\left|C_{1}(0)\right|^{2}=1"/></p>
+<p>Schrodinger equation <img class="math" src="../../_images/math/19f0527f23b131d17ba54d1b226b7afe5e2cfe50.png" alt="\frac{d}{d t}|\psi(t)\rangle=-i \hat{H}|\psi(t)\rangle"/></p>
+<p><img class="math" src="../../_images/math/cd904b4629bd4550cab1ea90b541abf5e28a6670.png" alt="\frac{d}{d t} C_{0}(t)|0\rangle+\frac{d}{d t} C_{1}(t)|1\rangle=-\frac{i}{2} w_{q}(C_{0}(t) \underbrace{\hat{\sigma}_{z}|0\rangle}_{-|0\rangle}+C_{1}(t) \underbrace{\hat{\sigma}_{z}|1\rangle}_{|1\rangle})"/></p>
+<ol class="arabic simple">
+<li><p><img class="math" src="../../_images/math/1ed1aeb7e0bf8abb4151f293dac0aa497b4c77b1.png" alt="\frac{d}{d t} C_{0}(t)=\frac{i}{2} w_{q} C_{0}(t) \quad \rightarrow \quad C_{0}(t)=C_{0}(0) e^{i \omega_{q} t/ 2} \quad\left|C_{0}(t)\right|^{2}=\left|C_{0}(0)\right|^{2}"/></p></li>
+<li><p><img class="math" src="../../_images/math/cd7e0ad18d9570de9cb360121bc4468c734f5f39.png" alt="\frac{d}{d t} C_{1}(t)=-\frac{i}{2} w_{1} C_{1}(t) \rightarrow C_{1}(t)=C_{1}(0) e^{-i \omega_{q} t / 2} \quad\left|C_{1}(t)\right|^{2}=\left|C_{1}(t)\right|^{2}"/></p></li>
+</ol>
+<p>Matrix representation <img class="math" src="../../_images/math/7efe1bc17d67da0ecc0e153264a713c15227b6aa.png" alt="|1\rangle=\left[\begin{array}{l}1 \\ 0\end{array}\right] \&amp;|0\rangle=\left[\begin{array}{l}0 \\ 1\end{array}\right] \Rightarrow \hat{\sigma_{z}}=\left[\begin{array}{cc}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]"/></p>
+<p><img class="math" src="../../_images/math/e285ef95754af353057ab06a112ad5aa6412f7a1.png" alt="|\psi(0)\rangle=\left[\begin{array}{l}C_{0}(0) \\ C_{1}(0)\end{array}\right] ; \quad \frac{d}{d t}\left[\begin{array}{l}C_{1}(t) \\ C_{0}(t)\end{array}\right]=-i \frac{w}{2}\left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]\left[\begin{array}{l}C_{1}(t) \\ C_{0}(t)\end{array}\right]=\left[\begin{array}{l}-i \frac{i \omega_{q}}{2} C_{1}(t) \\ i \frac{\omega_{q}}{2} C_{0}(t)\end{array}\right]"/></p>
+<p><img class="math" src="../../_images/math/e1d21d13d3e91c6e6d4c6466ffc6fce9faed2254.png" alt="\left[\hat{H}, \hat{\sigma}_{z}\right]=0 \Rightarrow\left\langle\hat{\sigma}_{z}\right\rangle"/> is a constant of <img class="math" src="../../_images/math/8432e5f42205212387f5b42c84703d855bcdc071.png" alt="\mathrm{motion}"/></p>
+<p><img class="math" src="../../_images/math/a12080539785c18b7a4e5e1ca458270bbdbc74c7.png" alt="|\psi(t)\rangle=C_{0}(0) e^{i w_{q} t / 2}|0\rangle+C_{1}(0) e^{-i \omega_{q} t / 2}|1\rangle"/></p>
+<p><img class="math" src="../../_images/math/21b416754f044607a5bc52ef596dd9eaac079abc.png" alt="\langle\psi(t)|=c_{0}^{*}(0) e^{-i w_{q} t / 2}\langle 0|+C_{1}^{*}(0) e^{i \omega_{q} t / 2}\langle 1|"/></p>
+<p><img class="math" src="../../_images/math/511baa291f01bcb2c1ff349b86c4527c1c30719c.png" alt="\left\langle\psi(t)\left|\hat{\sigma_{z}}\right| \psi(t)\right\rangle=\left|c_{0}(v)\right|^{2} \underbrace{\left\langle 0\left|\hat{\sigma}_{1}\right| 0\right\rangle}_{-1}+\left|C_{1}(0)\right|^{2} \underbrace{\left\langle 1\left|\hat{\sigma}_{1}\right| 1\right\rangle}_{1} +C_{0}^{*}(0) C_{1}(0) e^{-i \omega_{q} t} \overbrace{\left\langle 0\left|\hat{\sigma}_{z}\right| 1\right\rangle}^{0} + C_{0}(0) C_{1}^{*}(0) e^{i \omega_{q} t} \overbrace{\left\langle 1\left|\hat{\sigma}_{z}\right| 0\right\rangle}^{0}"/></p>
+<p><img class="math" src="../../_images/math/3aed4aadcd3d51e004f7f6523f7be3ff7a6bda4c.png" alt="\left\langle\hat{\sigma_{z}}(t)\right\rangle=\left|C_{1}(0)\right|^{2}-\left|C_{0}(0)\right|^{2} \quad \text { Spin polarization is conserved. }"/></p>
+<p><img class="math" src="../../_images/math/fc57d3728945f00115ac78811c8aa970bc8d228b.png" alt="\hat{\sigma}_{x}:=|1 \times 0|+|0 \times 1| \quad \&amp; \quad \hat{\sigma}_{y}:=\frac{1}{i}(|1 \times 0|-|0 \times 1| \mid)=i(|0 \times 1|-|1 \times 0|)"/></p>
+<p><img class="math" src="../../_images/math/94573d9ff2322184e076b47897b69871902a799a.png" alt="\left\langle\psi(t)\left|\hat{\sigma_{i}}\right| \psi(t)\right\rangle=\left|c_{0}(0)\right|^{2}\left\langle 0\left|\hat{\sigma}_{i}\right| 0\right\rangle+\left|C_{1}(0)\right|^{2}\left\langle 1\left|\hat{\sigma}_{i}\right| 1\right\rangle+C_{0}^{*}(0) C_{1}(0) e^{-i \omega_{q} t}\left\langle 0\left|\hat{\sigma}_{i}\right| 1\right\rangle + C_{0}(0) C_{1}^{*}(0) e^{i \omega_{q} t}\left\langle 1\left|\hat{\sigma}_{i}\right| 0\right\rangle"/></p>
+<p><img class="math" src="../../_images/math/2bd25da017588d92eec4648dd582330b1f0c4a10.png" alt="\left\langle 0\left|\hat{\sigma}_{x}\right| 0\right\rangle=\left\langle 1\left|\hat{\sigma}_{x}\right| 1\right\rangle=\left\langle 0\left|\hat{\sigma}_{y}\right| 0\right\rangle=\left\langle 1\left|\hat{\sigma}_{y}\right| 1\right\rangle=0"/></p>
+<p><img class="math" src="../../_images/math/9694e93444bce5ad1e7ef542f10d298be6f9bed4.png" alt="\left\langle 0\left|\hat{\sigma}_{x}\right| 1\right\rangle=\left\langle 1\left|\hat{\sigma}_{x}\right| 0\right\rangle=1 \quad \&amp; \quad\left\langle 0\left|\hat{\sigma}_{y}\right| 1\right\rangle=-\left\langle 1\left|\hat{\sigma}_{y}\right| 0\right\rangle=i"/></p>
+<p><img class="math" src="../../_images/math/8f8730c317486b04fe0807157ff13104eb2aef26.png" alt="\left\langle\hat{\sigma}_{x}\right\rangle=C_{0}^{*}(0) C_{1}(0) e^{-i \omega_{4} t}+C_{1}^{*}(0) C_{0}(0) e^{i w_{q} t}=2 \operatorname{Re}\left(C_{0}^{*}(0) C_{1}(0) e^{-i \omega_{q} t}\right)"/></p>
+<p><img class="math" src="../../_images/math/cf3134ad765ef71f6b6c9bea5151eb275f74d25c.png" alt="\left\langle\hat{\sigma}_{y}\right\rangle=i\left(C_{0}^{*}(0) C_{1}(0) e^{-i m_{4} t}+C_{1}^{*}(0) C_{0}(0) e^{i w_{0} t}\right)=2 R_{e}\left(i\left(_{0}^{*}(0) C_{1}(0) e^{-i w_{q} t}\right)\right."/></p>
+<p><img class="math" src="../../_images/math/d250e219f91fd26dee99114826b646149a0d709e.png" alt="|x+\rangle=\frac{1}{\sqrt{2}}(|1\rangle+|0\rangle) \quad \&amp; \quad|x-\rangle=\frac{1}{\sqrt{2}}(|1\rangle-|0\rangle)"/></p>
+<p><img class="math" src="../../_images/math/7f28e8b3b2ef273d75d54120eb0cf8a3a28b77c1.png" alt="P_{x \pm}(t)=|\langle x \pm \mid \psi(t)\rangle|^{2}"/></p>
+<p><img class="math" src="../../_images/math/9e897919b032ef00dfbddcc9f6dd472b61b3b7db.png" alt="\langle\pm \mid \psi(t)\rangle=\frac{1}{\sqrt{2}}\left(\pm C_{0}(0) e^{i \omega_{q} t / 2}\langle 0 \mid 0\rangle+C_{1}(0) e^{-i \omega_{9}^{\dagger} t / 2}\langle 1 \mid 1\rangle\right)"/></p>
+<p><img class="math" src="../../_images/math/bab9c126fac2f1c3dd628b66e405f625e4da1c9d.png" alt="P_{x \pm}(t)=\frac{1}{2}\left(\left|C_{0}(0)\right|^{2}+\left|C_{1}(0)\right|^{2} \pm\left(C_{0}^{*} \cos \alpha_{1}(0) e^{-i w_{9} t}+C_{0} \cdot(0) C_{1}^{*}[0) e^{i \omega_{4} t}\right)\right)"/></p>
+<p><img class="math" src="../../_images/math/519dd2f645a3038ef839878a385dcf47110aad0a.png" alt="=\frac{1}{2}\left(\left|C_{1}(0)\right|^{2}+\left|C_{0}(0)\right|^{2} \pm 2 \operatorname{Re}\left(C_{0}(0) C_{1}^{*}(0) e^{i \omega_{q} t}\right)\right)"/></p>
+<p>Unitary time evolution operator <img class="math" src="../../_images/math/72f47d728048e6e266a31e37155b140b5a0ade48.png" alt="|\psi(t)\rangle=U(t)|\psi(0)\rangle \rightarrow i \frac{d}{d t} U(t)=\hat{H} u(t)"/></p>
+<p><img class="math" src="../../_images/math/d7d5b87568e7201dd8fc0080ebd5165df5fce2f2.png" alt="U(t)=e^{-i \hat{H} t}"/></p>
+<p><img class="math" src="../../_images/math/bf34e99cb2ba5097161974eb6921c1c484ebfb13.png" alt="U(t)=\left[\begin{array}{ll}e^{-i \omega_{0} t / 2} &amp; 0 \\ 0 &amp; e^{i \omega_{q} t / 2}\end{array}\right]"/></p>
+</div>
+<div class="section" id="Master-equation">
+<h1>Master equation<a class="headerlink" href="#Master-equation" title="Permalink to this headline">¶</a></h1>
+<p><img class="math" src="../../_images/math/c6bca446d91aed75bbfbe1e34aa03e0f370505ff.png" alt="\dot{\hat{\rho}}=\hat{\mathcal{L}} \hat{\rho}=-i\left[\hat{H}_{1} \hat{p}\right]+\sum_{i=1}^{n-1} k_{i}\left(\hat{F}_{i} \hat{p} F_{i}^{+}-\frac{1}{2}\left\{\hat{F}_{i}^{+} \hat{F}_{i}, \hat{\rho}\right\}\right)"/></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">initialC0real</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">initialC0imag</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">initialC1real</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">initialC1imag</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">initialC0</span> <span class="o">=</span> <span class="p">(</span><span class="n">initialC0real</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">initialC0imag</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">initialC0real</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">initialC0imag</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">initialC1</span> <span class="o">=</span> <span class="p">(</span><span class="n">initialC1real</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">initialC1imag</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">initialC1real</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">initialC1imag</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">sz</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
+<span class="n">sy</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">sigmay</span><span class="p">()</span>
+<span class="n">sx</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
+
+<span class="n">ket1</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">ket0</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">qubitHamiltonian</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">frequency</span><span class="o">*</span><span class="n">sz</span>
+
+<span class="n">initialState</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">initialC1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">initialC0</span><span class="p">},</span> <span class="n">populations</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">initialC0</span> <span class="o">=</span> <span class="n">initialState</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">initialC1</span> <span class="o">=</span> <span class="n">initialState</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">analyticalC0</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span> <span class="p">:</span> <span class="n">initialC0</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">frequency</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+<span class="n">analyticalC1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span> <span class="p">:</span> <span class="n">initialC1</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">frequency</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+
+<span class="n">expectationsAnalytic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sz&#39;</span><span class="p">:[],</span> <span class="s1">&#39;sx&#39;</span><span class="p">:[],</span> <span class="s1">&#39;sy&#39;</span><span class="p">:[]}</span>
+<span class="n">sxExpectation1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">initialC0</span><span class="p">)</span><span class="o">*</span><span class="n">initialC1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">frequency</span><span class="o">*</span><span class="n">t</span><span class="p">))</span><span class="o">.</span><span class="n">real</span>
+<span class="n">szExpectation2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">initialC1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">initialC0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">stepSize</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">finalTime</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">stepSize</span>
+<span class="n">stepCount</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">finalTime</span> <span class="o">/</span> <span class="n">stepSize</span><span class="p">)</span>
+
+<span class="n">unitaryEvolution</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">Unitary</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">qubitHamiltonian</span><span class="p">,</span> <span class="n">stepSize</span><span class="p">)</span>
+<span class="n">stepDiff</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">qubitHamiltonian</span><span class="o">*</span><span class="n">stepSize</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">numericalTimeC_0real</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">numericalTimeC_0imag</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">numericalTimeC_1real</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">numericalTimeC_1imag</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">szExpectation</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sxExpectation</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">syExpectation</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">state</span> <span class="o">=</span> <span class="n">initialState</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stepCount</span><span class="p">):</span>
+    <span class="n">ct1</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">innerProd</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">ket1</span><span class="p">)</span> <span class="c1"># &lt;ket1|state&gt; ordering is important</span>
+    <span class="n">ct0</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">innerProd</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">ket0</span><span class="p">)</span>
+
+    <span class="n">numericalTimeC_0real</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ct0</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+    <span class="n">numericalTimeC_0imag</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ct0</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+
+    <span class="n">numericalTimeC_1real</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ct1</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+    <span class="n">numericalTimeC_1imag</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ct1</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+
+    <span class="n">szExpectation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sz</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
+    <span class="n">syExpectation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
+    <span class="n">sxExpectation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
+
+    <span class="n">expectationsAnalytic</span><span class="p">[</span><span class="s1">&#39;sx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sxExpectation1</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">stepSize</span><span class="p">))</span>
+    <span class="n">expectationsAnalytic</span><span class="p">[</span><span class="s1">&#39;sz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">szExpectation2</span><span class="p">)</span>
+
+    <span class="n">state</span> <span class="o">=</span> <span class="n">unitaryEvolution</span> <span class="o">@</span> <span class="n">state</span>
+    <span class="c1">#state += stepDiff @ state</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">timeList</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">stepSize</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stepCount</span><span class="p">)]</span>
+
+<span class="n">C_0Analytical</span> <span class="o">=</span> <span class="p">[</span><span class="n">analyticalC0</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">stepSize</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stepCount</span><span class="p">)]</span>
+<span class="n">C_0Analyticalr</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">real</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C_0Analytical</span><span class="p">]</span>
+<span class="n">C_0Analyticali</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">imag</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C_0Analytical</span><span class="p">]</span>
+
+<span class="n">C_1Analytical</span> <span class="o">=</span> <span class="p">[</span><span class="n">analyticalC1</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">stepSize</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stepCount</span><span class="p">)]</span>
+<span class="n">C_1Analyticalr</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">real</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C_1Analytical</span><span class="p">]</span>
+<span class="n">C_1Analyticali</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">imag</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C_1Analytical</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">cm2inch</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">numericalTimeC_0real</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">C_0Analyticalr</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">numericalTimeC_0imag</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">C_0Analyticali</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">tck</span><span class="o">.</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">tck</span><span class="o">.</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/QuantumToolbox_Tutorials_1_singleQubitFreeEvolution_9_0.svg" src="../../_images/QuantumToolbox_Tutorials_1_singleQubitFreeEvolution_9_0.svg" /></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">cm2inch</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">numericalTimeC_1real</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">C_1Analyticalr</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">numericalTimeC_1imag</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">C_1Analyticali</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">tck</span><span class="o">.</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">tck</span><span class="o">.</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/QuantumToolbox_Tutorials_1_singleQubitFreeEvolution_10_0.svg" src="../../_images/QuantumToolbox_Tutorials_1_singleQubitFreeEvolution_10_0.svg" /></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">cm2inch</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="c1">#fig, ax = plt.subplots(figsize=cm2inch(8, 6))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">szExpectation</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">expectationsAnalytic</span><span class="p">[</span><span class="s1">&#39;sz&#39;</span><span class="p">],</span> <span class="s1">&#39;-.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">syExpectation</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">sxExpectation</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">expectationsAnalytic</span><span class="p">[</span><span class="s1">&#39;sx&#39;</span><span class="p">],</span> <span class="s1">&#39;-.&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">tck</span><span class="o">.</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">tck</span><span class="o">.</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/QuantumToolbox_Tutorials_1_singleQubitFreeEvolution_11_0.svg" src="../../_images/QuantumToolbox_Tutorials_1_singleQubitFreeEvolution_11_0.svg" /></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">qutip</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span> <span class="o">=</span> <span class="n">qutip</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_points</span><span class="p">([</span><span class="n">sxExpectation</span><span class="p">,</span> <span class="n">syExpectation</span><span class="p">,</span> <span class="n">szExpectation</span><span class="p">])</span>
+<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/QuantumToolbox_Tutorials_1_singleQubitFreeEvolution_13_0.svg" src="../../_images/QuantumToolbox_Tutorials_1_singleQubitFreeEvolution_13_0.svg" /></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="Tutorials.html" title="previous page">QuantumToolbox Demos</a>
+    <a class='right-next' id="next-link" href="2_displacementOperator.html" title="next page">Displaced Vacuum</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020, Cahit Kargi.<br/>
+        Last updated on 2021/05/22.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
