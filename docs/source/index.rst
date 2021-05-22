@@ -1,6 +1,6 @@
-#############################################
-{Name of the library goes here} documentation
-#############################################
+######################
+QuanGuru documentation
+######################
 
 .. automodule:: QuanGuru.__init__
 

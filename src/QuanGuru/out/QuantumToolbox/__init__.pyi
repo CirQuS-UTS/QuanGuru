@@ -1,7 +1,7 @@
 from .Hamiltonians import JCHam as JCHam, RabiHam as RabiHam, aJCHam as aJCHam, qubCavFreeHam as qubCavFreeHam
-from ._eigenVecVal import eigVecStatKet as eigVecStatKet
+from .eigenVecVal import eigVecStatKet as eigVecStatKet
 from ._helpers import loopIt as loopIt
-from ._ipr import iprKet as iprKet, iprKetNB as iprKetNB
+from .IPR import iprKet as iprKet, iprKetNB as iprKetNB
 from .customTypes import Matrix as Matrix, intList as intList, matrixList as matrixList, ndOrList as ndOrList, ndOrListInt as ndOrListInt, supInp as supInp
 from .evolution import Liouvillian as Liouvillian, LiouvillianExp as LiouvillianExp, Unitary as Unitary, dissipator as dissipator
 from .functions import concurrence as concurrence, entropy as entropy, expectation as expectation, fidelityPure as fidelityPure, sortedEigens as sortedEigens, traceDistance as traceDistance

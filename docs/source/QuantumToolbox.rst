@@ -1,6 +1,6 @@
-==============================================
+================================================
 Quantum Toolbox (:mod:`QuanGuru.QuantumToolbox`)
-==============================================
+================================================
 
 
 .. automodule:: QuanGuru.QuantumToolbox.__init__
@@ -20,10 +20,10 @@ Quantum Toolbox (:mod:`QuanGuru.QuantumToolbox`)
    Quantum Evolution <QuantumToolbox/evolution>
    Basic Functions <QuantumToolbox/functions>
    Common Hamiltonians <QuantumToolbox/Hamiltonians>
-   Qubit Rotations <QuantumToolbox/qubitRotations>
+   Qubit Rotations <QuantumToolbox/spinRotations>
    Quasi-Probabilities <QuantumToolbox/quasiProbabilities>
    Thermodynamical functions <QuantumToolbox/thermodynamics>
    Random Matrix Theory Distributions <QuantumToolbox/rmtDistributions>
-   Eigen-vector/value Statistics <QuantumToolbox/_eigenVecVal>
-   Inverse Participation Ratio <QuantumToolbox/_ipr>
+   Eigen-vector/value Statistics <QuantumToolbox/eigenVecVal>
+   Inverse Participation Ratio <QuantumToolbox/IPR>
    Helper Functions <QuantumToolbox/_helpers>

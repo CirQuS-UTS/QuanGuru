@@ -153,7 +153,7 @@ pygments_monkeypatch_style("dracula", DraculaStyle)
 
 # -- Project information -----------------------------------------------------
 
-project = 'Quantum Simulations'
+project = 'QuanGuru'
 copyright = '2020, Cahit Kargi'
 author = 'Cahit Kargi'
 

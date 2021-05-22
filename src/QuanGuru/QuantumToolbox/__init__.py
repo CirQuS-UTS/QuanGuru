@@ -26,11 +26,13 @@ r"""
         functions
         Hamiltonians
         spinRotations
+        basicGates
         quasiProbabilities
 
     .. autosummary::
+        eigenVecVal
         rmtDistributions
-        _ipr
+        IPR
         thermodynamics
         _helpers
 
