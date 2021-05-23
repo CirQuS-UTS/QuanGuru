@@ -8,40 +8,40 @@ Giorge Gemisis,
 [Juan Pablo Dehollain](https://github.com/jpdehollain),
 and [Nathan K. Langford](https://github.com/nklangford)
 
-![Pipeline](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/badges/master/pipeline.svg)
+<!-- ![Pipeline](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/badges/master/pipeline.svg)
 ![Coverage](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/badges/master/coverage.svg?job=integration_test)
-![Pylint](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/-/jobs/artifacts/master/raw/pylint/pylint.svg?job=pylint)
+![Pylint](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/-/jobs/artifacts/master/raw/pylint/pylint.svg?job=pylint) -->
 
 
-QuanGuru (pronounced Kangaroo) is a Python library for Quantum Sciences. This first module consists of tools for numerical simulations of Quantum systems.
+QuanGuru (pronounced Kangaroo) is a Python library for Quantum Sciences.
 It is still under-development, and the rough development plan is provided below.
+This first module consists of tools for numerical simulations of Quantum systems, and it consists of two main sub-modules: (i) QuantumToolbox, and (ii) classes.
+QuantumToolbox consists **purely of Python functions** (no other objects) that create and/or use **matrices**.
+The module classes (to be renamed later) contains classes to create flexible, simple, and object-oriented simulation scripts.
+Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be used as a standalone library to carry the same simulations.
 
 We (mostly) use [camelCase](https://code.research.uts.edu.au/mKQuantum/QuantumSimulations/-/wikis/Variable%20Naming%20Conventions)
 
 ## (Rough) Development Plan
 
-QuantumToolbox is already simple enough and stable. In parallel to future developments of classes, further additions and
-improvements is going to be implemented in QuantumToolbox. There are already other functions (for special state creations, operator norm
-etc.) in another private repo under possibleFutureQuantumToolbox. These functions and more can be implemented into QuantumToolbox
-with proper tests, documentation etc.
+QuantumToolbox is already simple enough and stable.
+In parallel to the developments of classes, further additions and improvements are going to be implemented in QuantumToolbox.
+There are already other functions (for special state creations, eigen-value statistics etc.) in another private repo.
 
 ### 1. Short term plan for the improvements on current code
 
-1. Completing essential unit and integration tests
+1. Complete the migration from gitlab (private server) to github, meaning re-establish CI/CD, pages, wiki, issues, etc.
 1. Restructuring and writing docstring for QSys, QPro, QGate, and QSim
-1. Docstring for extensions
-1. Writing tutorials and further improvements in docstring and tests
+1. Docstring for the extensions
+1. Writing tutorials, further improvements in docstring and more tests
 
 ### 2. pip installable
 
 At this point, we should have a stable version with enough documentation to make it pip available.
 
 ### 3. Future development 
-Further additions will always have to be with proper tests, tutorials, docstring etc.
+Further additions have to be with proper tests, tutorials, docstring etc.
 
 1. Implementation of SCQubits and QDrive using Adrien's work.
 1. Open system simulation capability for the classes
 1. Interfacing to other libraries such as QuTiP.
-
-To read the existing documentation: docs -> docsBuild -> index.html
-Then, choose QuantumToolbox from the menu on the left.
