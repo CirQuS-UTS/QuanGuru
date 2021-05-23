@@ -1,7 +1,7 @@
 r"""
     Contains functions to create Unitary and open-system super-operators.
 
-    .. currentmodule:: QuanGuru.QuantumToolbox.evolution
+    .. currentmodule:: quanguru.QuantumToolbox.evolution
 
     Functions
     ---------

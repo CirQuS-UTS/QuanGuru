@@ -1,8 +1,8 @@
 ==========================================================================
-Eigen-vector/value Statistics (:mod:`QuanGuru.QuantumToolbox.eigenVecVal`)
+Eigen-vector/value Statistics (:mod:`quanguru.QuantumToolbox.eigenVecVal`)
 ==========================================================================
 
-.. automodule:: QuanGuru.QuantumToolbox.eigenVecVal
+.. automodule:: quanguru.QuantumToolbox.eigenVecVal
    :members:
    :private-members:
    :undoc-members:

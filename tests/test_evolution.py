@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-import QuanGuru.QuantumToolbox.evolution as evo#pylint: disable=import-error
+import quanguru.QuantumToolbox.evolution as evo#pylint: disable=import-error
 
 sigmaOpers = ["sigmaMinusReference", "sigmaPlusReference", "sigmaZReference"]
 

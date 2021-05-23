@@ -1,7 +1,7 @@
 r"""
     Contains custom types (Union etc) used in type hints of QuantumToolbox.
 
-    .. currentmodule:: QuanGuru.QuantumToolbox.customTypes
+    .. currentmodule:: quanguru.QuantumToolbox.customTypes
 
     Types
     -----

@@ -1,7 +1,7 @@
 r"""
     Contains some helper functions.
 
-    .. currentmodule:: QuanGuru.QuantumToolbox._helpers
+    .. currentmodule:: quanguru.QuantumToolbox._helpers
 
     Functions
     ---------

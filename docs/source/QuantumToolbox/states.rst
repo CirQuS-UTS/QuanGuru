@@ -1,8 +1,8 @@
 ======================================================
-Quantum States (:mod:`QuanGuru.QuantumToolbox.states`)
+Quantum States (:mod:`quanguru.QuantumToolbox.states`)
 ======================================================
 
-.. automodule:: QuanGuru.QuantumToolbox.states
+.. automodule:: quanguru.QuantumToolbox.states
    :members:
    :private-members:
    :undoc-members:

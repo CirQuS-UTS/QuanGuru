@@ -1,8 +1,8 @@
 =================================
-Classes (:mod:`QuanGuru.classes`)
+Classes (:mod:`quanguru.classes`)
 =================================
 
-.. automodule:: QuanGuru.classes.__init__
+.. automodule:: quanguru.classes.__init__
    :no-members:
    :no-inherited-members:
    :no-special-members:

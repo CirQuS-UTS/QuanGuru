@@ -1,8 +1,8 @@
 ==============================================
-Sweep Classes (:mod:`QuanGuru.classes.QSweep`)
+Sweep Classes (:mod:`quanguru.classes.QSweep`)
 ==============================================
 
-.. automodule:: QuanGuru.classes.QSweep
+.. automodule:: quanguru.classes.QSweep
    :ignore-module-all:
    :members:
    :private-members:

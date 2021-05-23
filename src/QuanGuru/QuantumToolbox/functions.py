@@ -1,7 +1,7 @@
 r"""
     Contains functions to calculate some basic quantities, such as expectations, fidelities, entropy etc.
 
-    .. currentmodule:: QuanGuru.QuantumToolbox.functions
+    .. currentmodule:: quanguru.QuantumToolbox.functions
 
     Functions
     ---------
@@ -60,8 +60,8 @@ def expectation(operator: Matrix, state: Matrix) -> float:
     State can either be a `ket` or `density matrix`.
     State and operator can both be sparse or array or any combination of the two.
 
-    Calculates the :func:`densityMatrix <QuanGuru.QuantumToolbox.states.densityMatrix>`, then uses
-    :func:`trace <QuanGuru.QuantumToolbox.linearAlgebra.trace>`.
+    Calculates the :func:`densityMatrix <quanguru.QuantumToolbox.states.densityMatrix>`, then uses
+    :func:`trace <quanguru.QuantumToolbox.linearAlgebra.trace>`.
 
     Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.
 
@@ -405,7 +405,7 @@ def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:
 
     Examples
     --------
-    >>> import QuanGuru.QuantumToolbox.operators as qOperators
+    >>> import quanguru.QuantumToolbox.operators as qOperators
     >>> ham = qOperators.sigmaz(sparse=False)
     >>> eigVals, eigVecs = np.linalg.eig(ham)
     >>> sz = qOperators.sigmaz()

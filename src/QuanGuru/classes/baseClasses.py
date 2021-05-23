@@ -1,7 +1,7 @@
 r"""
     Contains some base classes and the _parameter class.
 
-    .. currentmodule:: QuanGuru.classes.baseClasses
+    .. currentmodule:: quanguru.classes.baseClasses
 
     .. autosummary::
 
@@ -72,7 +72,7 @@ class updateBase(qBase):
         system property wraps ``subSys`` dictionary to create a new terminology, it basically:
 
         gets subSys[0] if there is only one item in it, else  list(subSys.values())
-        setter works exactly as :meth:`addSubSys <QuanGuru.classes.base.qBase.addSubSys>` method.
+        setter works exactly as :meth:`addSubSys <quanguru.classes.base.qBase.addSubSys>` method.
         """
         qSys = list(self.subSys.values())
         return qSys if len(qSys) > 1 else qSys[0]
@@ -400,16 +400,16 @@ class computeBase(paramBoundBase):
 
 class qBaseSim(computeBase):
     r"""
-    Inhereted by the :class:`quantum systems <QuanGuru.classes.QSys.genericQSys>` and
-    :class:`protocols <QuanGuru.classes.QPro.genericProtocol>` and has a
-    simulation attribute which is an instance of :class:`Simulation <QuanGuru.classes.Simulation.Simulation>`. The goal
+    Inhereted by the :class:`quantum systems <quanguru.classes.QSys.genericQSys>` and
+    :class:`protocols <quanguru.classes.QPro.genericProtocol>` and has a
+    simulation attribute which is an instance of :class:`Simulation <quanguru.classes.Simulation.Simulation>`. The goal
     for such an attribute is to increase possible ways of running a
-    :class:`Simulation <QuanGuru.classes.Simulation.Simulation>`.
+    :class:`Simulation <quanguru.classes.Simulation.Simulation>`.
     TODO : create a simple demo and a cross-reference
 
     NOTE : This class branches the inheritance started by :class:`paramBoundBase`, and this branch extends to
-    :class:`quantum systems <QuanGuru.classes.QSys.genericQSys>` and
-    :class:`protocols <QuanGuru.classes.QPro.genericProtocol>`.
+    :class:`quantum systems <quanguru.classes.QSys.genericQSys>` and
+    :class:`protocols <quanguru.classes.QPro.genericProtocol>`.
     """
     #: (**class attribute**) class label used in default naming
     label = 'qBaseSim'
@@ -423,7 +423,7 @@ class qBaseSim(computeBase):
     __slots__ = ['__simulation']
 
     def __init__(self, **kwargs) -> None:
-        from QuanGuru.classes.QSim import Simulation # pylint: disable=import-outside-toplevel
+        from quanguru.classes.QSim import Simulation # pylint: disable=import-outside-toplevel
         super().__init__(_internal=kwargs.pop('_internal', False))
         #: an instance of Simulation (as a protected attribute) to run
         # ``self.simulation.run`` without any explicit Simulation creation and/or ``subSys`` addition call.
@@ -526,7 +526,7 @@ class stateBase(computeBase):
     interest at the run-time of simulation, we don't need to keep the states and can discard them to save memory.
 
     NOTE : This class branches the inheritance started by :class:`paramBoundBase` and extends to
-    :class:`Simulation <QuanGuru.classes.Simulation.Simulation>`.
+    :class:`Simulation <quanguru.classes.Simulation.Simulation>`.
 
     NOTE : All three attributes of this class (and all 4 of timeBase) are instances of :class:`_parameter`, so they have
     a corresponding property.
@@ -598,7 +598,7 @@ class stateBase(computeBase):
         r"""
         This method exists to enrich the terminology, it just ``returns super().getByNameOrAlias(name)``, which returns
         the object with the given `name`.
-        See :meth:`getByNameOrAlias <QuanGuru.classes.base.named.getByNameOrAlias>` for details.
+        See :meth:`getByNameOrAlias <quanguru.classes.base.named.getByNameOrAlias>` for details.
         """
         return super().getByNameOrAlias(name)
 
@@ -633,7 +633,7 @@ class timeBase(stateBase):
     (``samples``) is introduced to be used with time-dependent Hamiltonian, where a continuous parameter
     is discretely changed at every ``stepSize`` and more than one ``samples`` are desired during the ``stepSize``.
 
-    These 4 attributes are all :class:`_parameter <QuanGuru.classes.computeBase._parameter>` instances and protected
+    These 4 attributes are all :class:`_parameter <quanguru.classes.computeBase._parameter>` instances and protected
     attributes, meaning they are modified by the corresponding properties. One other functionality of
     property is to create flexible use of these attributes. For example, not all 3 of ``stepSize``, ``totalTime``, and
     ``stepCount`` are need to be explicitly defined, any of these two would be sufficient, since the 3rd can be
@@ -671,7 +671,7 @@ class timeBase(stateBase):
         r"""
         gets and sets ``_timeBase__totalTime.value``, and also sets the ``_timeBase__stepCount.value``
         conditioned on that ``stepSize`` is not ``None``. It also sets
-        :meth:`_paramUpdated <QuanGuru.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
+        :meth:`_paramUpdated <quanguru.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
         these, it sets ``_timeBase__stepSize._value`` to ``_timeBase__stepSize._bound._value``, if
         ``_timeBase__stepSize._bound`` is not ``None or False``. This is introduced to provide a flexible
         use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
@@ -692,7 +692,7 @@ class timeBase(stateBase):
         r"""
         gets and sets ``_timeBase__stepCount.value``. getter also try seting the ``totalTime`` if it is ``None``.
         Setter also sets ``_timeBase__stepSize.value`` conditioned on that ``totalTime`` is not ``None``. It also sets
-        :meth:`_paramUpdated <QuanGuru.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
+        :meth:`_paramUpdated <quanguru.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
         these, it sets ``_timeBase__totalTime._value`` to ``_timeBase__totalTime._bound._value``, if
         ``_timeBase__totalTime._bound`` is not ``None or False``. This is introduced to provide a flexible
         use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
@@ -721,7 +721,7 @@ class timeBase(stateBase):
         r"""
         gets and sets ``_timeBase__stepSize.value``, and also ``_timeBase__stepCount.value`` conditioned on that
         ``totalTime`` is not ``None``. It also sets
-        :meth:`_paramUpdated <QuanGuru.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
+        :meth:`_paramUpdated <quanguru.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``. Additionally to
         these, it sets ``_timeBase__totalTime._value`` to ``_timeBase__totalTime._bound._value``, if
         ``_timeBase__totalTime._bound`` is not ``None or False``. This is introduced to provide a flexible
         use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
@@ -741,7 +741,7 @@ class timeBase(stateBase):
     def samples(self):
         r"""
         gets and sets ``_timeBase__samples.value`` and also sets
-        :meth:`_paramUpdated <QuanGuru.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``.
+        :meth:`_paramUpdated <quanguru.classes.computeBase.paramBoundBase._paramUpdated>` to ``True``.
         """
 
         return self._timeBase__samples.value
@@ -778,9 +778,9 @@ class timeBase(stateBase):
                re=False):
         r"""
         This method is used internally at appropriate places to create bound between different simulation instances in
-        the intended hierarchical order. For example, when a :class:`quantum system <QuanGuru.classes.QSys.genericQSys>`
-        is added to ``subSys`` of explicitly created :class:`Simulation <QuanGuru.classes.Simulation.Simulation>`,
-        The parameters of any :class:`protocol.simulation <QuanGuru.classes.QPro.genericProtocol>` for that system will
+        the intended hierarchical order. For example, when a :class:`quantum system <quanguru.classes.QSys.genericQSys>`
+        is added to ``subSys`` of explicitly created :class:`Simulation <quanguru.classes.Simulation.Simulation>`,
+        The parameters of any :class:`protocol.simulation <quanguru.classes.QPro.genericProtocol>` for that system will
         be bound to ``(quantum system).simulation`` which will be bound to explicitly created Simulation. This method
         creates such a bound between two ``Simulation`` objects, and it is used in appropriate places of the library.
         Such a bound is broken or not created at all, if a parameter is explicitly assigned for a protocol or system.

@@ -1,8 +1,8 @@
 =======================================================================
-Quasi-Probabilities (:mod:`QuanGuru.QuantumToolbox.quasiProbabilities`)
+Quasi-Probabilities (:mod:`quanguru.QuantumToolbox.quasiProbabilities`)
 =======================================================================
 
-.. automodule:: QuanGuru.QuantumToolbox.quasiProbabilities
+.. automodule:: quanguru.QuantumToolbox.quasiProbabilities
    :members:
    :private-members:
    :undoc-members:

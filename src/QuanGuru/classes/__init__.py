@@ -1,7 +1,7 @@
 r"""
     This module contains objects
 
-    .. currentmodule:: QuanGuru.classes
+    .. currentmodule:: quanguru.classes
 
     .. autosummary::
 

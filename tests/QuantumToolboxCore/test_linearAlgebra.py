@@ -2,7 +2,7 @@ import random as rn
 import numpy as np
 import scipy.sparse as sp
 import pytest
-from QuanGuru.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
+from quanguru.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
 
 # a random 4 x 4 (complex-valued) matrix to be used is testing linearAlgebra functions
 oper = np.array(

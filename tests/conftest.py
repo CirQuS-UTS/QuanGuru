@@ -17,8 +17,8 @@ if platform.system() != 'Windows':
 
 path = str(Path(os.getcwd()))
 sys.path.insert(0, path)
-from QuanGuru.QuantumToolbox import states#pylint: disable=import-error,wrong-import-position
-from QuanGuru.QuantumToolbox import operators as ops #pylint: disable=import-error,wrong-import-position
+from quanguru.QuantumToolbox import states#pylint: disable=import-error,wrong-import-position
+from quanguru.QuantumToolbox import operators as ops #pylint: disable=import-error,wrong-import-position
 
 class Helpers:
     # used for the helper function fixture, put any helper function for testing as a static method in here and use

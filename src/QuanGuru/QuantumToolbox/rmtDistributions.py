@@ -1,7 +1,7 @@
 r"""
     Contains probability density functions (PDF) from Random Matrix Theory (RMT).
 
-    .. currentmodule:: QuanGuru.QuantumToolbox.rmtDistributions
+    .. currentmodule:: quanguru.QuantumToolbox.rmtDistributions
 
     Functions
     ---------

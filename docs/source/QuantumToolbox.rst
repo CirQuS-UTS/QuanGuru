@@ -1,9 +1,9 @@
 ================================================
-Quantum Toolbox (:mod:`QuanGuru.QuantumToolbox`)
+Quantum Toolbox (:mod:`quanguru.QuantumToolbox`)
 ================================================
 
 
-.. automodule:: QuanGuru.QuantumToolbox.__init__
+.. automodule:: quanguru.QuantumToolbox.__init__
    :members:
    :private-members:
    :undoc-members:

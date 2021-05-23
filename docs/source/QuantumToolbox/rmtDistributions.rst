@@ -1,8 +1,8 @@
 ====================================================================================
-Random Matrix Theory Distributions (:mod:`QuanGuru.QuantumToolbox.rmtDistributions`)
+Random Matrix Theory Distributions (:mod:`quanguru.QuantumToolbox.rmtDistributions`)
 ====================================================================================
 
-.. automodule:: QuanGuru.QuantumToolbox.rmtDistributions
+.. automodule:: quanguru.QuantumToolbox.rmtDistributions
    :members:
    :private-members:
    :undoc-members:

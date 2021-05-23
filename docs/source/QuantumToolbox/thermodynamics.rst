@@ -1,8 +1,8 @@
 =========================================================================
-Thermodynamical functions (:mod:`QuanGuru.QuantumToolbox.thermodynamics`)
+Thermodynamical functions (:mod:`quanguru.QuantumToolbox.thermodynamics`)
 =========================================================================
 
-.. automodule:: QuanGuru.QuantumToolbox.thermodynamics
+.. automodule:: quanguru.QuantumToolbox.thermodynamics
    :members:
    :private-members:
    :undoc-members:

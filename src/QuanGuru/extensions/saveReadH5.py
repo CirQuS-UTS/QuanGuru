@@ -1,6 +1,6 @@
 # from datetime import datetime
 # #import h5py
-# from QuanGuru.classes.QRes import qResults
+# from quanguru.classes.QRes import qResults
 # from ._helpers import makeDir
 
 # def _reDict(inp, i=0, retDict={}, keyDict=None): # pylint: disable=dangerous-default-value

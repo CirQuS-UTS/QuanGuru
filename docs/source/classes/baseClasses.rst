@@ -1,8 +1,8 @@
 ==================================================
-base classes (:mod:`QuanGuru.classes.baseClasses`)
+base classes (:mod:`quanguru.classes.baseClasses`)
 ==================================================
 
-.. automodule:: QuanGuru.classes.baseClasses
+.. automodule:: quanguru.classes.baseClasses
    :ignore-module-all:
    :members:
    :private-members:

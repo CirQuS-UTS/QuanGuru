@@ -21,7 +21,7 @@ flake8:
         - qsimulations
     allow_failure: true
     script:
-    - python3 -m flake8 QuanGuru
+    - python3 -m flake8 quanguru
 
 pylint:
     stage: Static Analysis
@@ -30,7 +30,7 @@ pylint:
     allow_failure: false
     script:
         - mkdir ./pylint
-        - python3 -m pylint --rcfile=.pylintrc --output-format=text QuanGuru/*.py | tee pylint.txt || pylint-exit $?
+        - python3 -m pylint --rcfile=.pylintrc --output-format=text quanguru/*.py | tee pylint.txt || pylint-exit $?
         - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
         - echo "Pylint score was $score"
         - python3 -m anybadge --value=$score --file=pylint/pylint.svg pylint
@@ -45,9 +45,9 @@ core_test:
         - qsimulations
     allow_failure: false
     script:
-    - python3 -m pytest --cov=QuanGuru tests/QuantumToolboxCore/test_linearAlgebra.py
-    - python3 -m pytest --cov=QuanGuru --cov-append tests/QuantumToolboxCore/test_states.py
-    - python3 -m pytest --cov=QuanGuru --cov-append tests/QuantumToolboxCore/test_operators.py
+    - python3 -m pytest --cov=quanguru tests/QuantumToolboxCore/test_linearAlgebra.py
+    - python3 -m pytest --cov=quanguru --cov-append tests/QuantumToolboxCore/test_states.py
+    - python3 -m pytest --cov=quanguru --cov-append tests/QuantumToolboxCore/test_operators.py
     - python3 -m coverage report
     artifacts:
         paths:
@@ -62,7 +62,7 @@ unit_test:
         - "core_test"
     script:
     - python3 -m coverage report
-    - python3 -m pytest --cov=QuanGuru --cov-append --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration'
+    - python3 -m pytest --cov=quanguru --cov-append --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration'
     - python3 -m coverage report
     artifacts:
         paths:
@@ -77,7 +77,7 @@ integration_test:
         - "unit_test"
     script:
     - python3 -m coverage report
-    - python3 -m pytest --cov=QuanGuru --cov-append --ignore=tests/QuantumToolboxCore -k 'QuantumToolboxIntegration or Integration'
+    - python3 -m pytest --cov=quanguru --cov-append --ignore=tests/QuantumToolboxCore -k 'QuantumToolboxIntegration or Integration'
     - python3 -m coverage xml
     - python3 -m coverage report
     artifacts:

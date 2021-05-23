@@ -1,5 +1,5 @@
-from QuanGuru.classes.QSys import compQSystem, Qubit, Cavity, Spin
-from QuanGuru.QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax, Jx
+from quanguru.classes.QSys import compQSystem, Qubit, Cavity, Spin
+from quanguru.QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax, Jx
 
 
 def checkCavQub(coupler):

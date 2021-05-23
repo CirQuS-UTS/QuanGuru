@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 import random
-import QuanGuru as qt #pylint: disable=import-error
+import quanguru as qt #pylint: disable=import-error
 
 
 class _singleQubit:

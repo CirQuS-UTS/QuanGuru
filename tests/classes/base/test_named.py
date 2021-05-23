@@ -5,7 +5,7 @@ import multiprocessing
 from functools import partial
 from attr import s
 import pytest
-import QuanGuru.classes.base as qbase #pylint: disable=import-error
+import quanguru.classes.base as qbase #pylint: disable=import-error
 
 qbase.named()._resetAll() # pylint:disable=protected-access
 

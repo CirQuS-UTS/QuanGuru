@@ -1,8 +1,8 @@
 ==============================================
-Results Classes (:mod:`QuanGuru.classes.QRes`)
+Results Classes (:mod:`quanguru.classes.QRes`)
 ==============================================
 
-.. automodule:: QuanGuru.classes.QRes
+.. automodule:: quanguru.classes.QRes
    :ignore-module-all:
    :members:
    :private-members:

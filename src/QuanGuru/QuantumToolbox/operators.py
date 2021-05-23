@@ -1,7 +1,7 @@
 r"""
     Contains methods to functions to create and/or manipulate quantum operators
 
-    .. currentmodule:: QuanGuru.QuantumToolbox.operators
+    .. currentmodule:: quanguru.QuantumToolbox.operators
 
     Functions
     ---------
@@ -920,7 +920,7 @@ def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
     :math:`\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}`
     ,ie tensor product with identities of dimensions before dimB and after dimA
 
-    NOTE simply calls and returns :func:`tensorProd <QuanGuru.QuantumToolbox.linearAlgebra.tensorProd>`
+    NOTE simply calls and returns :func:`tensorProd <quanguru.QuantumToolbox.linearAlgebra.tensorProd>`
 
     Parameters
     ----------

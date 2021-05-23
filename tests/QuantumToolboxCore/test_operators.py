@@ -1,9 +1,9 @@
 import random as rn
 import numpy as np
 import pytest
-from QuanGuru.QuantumToolbox import linearAlgebra as la#pylint: disable=import-error
-from QuanGuru.QuantumToolbox import states#pylint: disable=import-error
-from QuanGuru.QuantumToolbox import operators as ops #pylint: disable=import-error
+from quanguru.QuantumToolbox import linearAlgebra as la#pylint: disable=import-error
+from quanguru.QuantumToolbox import states#pylint: disable=import-error
+from quanguru.QuantumToolbox import operators as ops #pylint: disable=import-error
 
 
 def checkGivenRuleForAnArray(cOp, rule, *args):

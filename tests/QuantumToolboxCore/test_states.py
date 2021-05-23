@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
-from QuanGuru.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
-from QuanGuru.QuantumToolbox import states #pylint: disable=import-error
+from quanguru.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
+from quanguru.QuantumToolbox import states #pylint: disable=import-error
 
 def test_basisByRandom(helpers):
     # generate random integers for dimension and excitation, then check item in excitation position is 1 and others 0

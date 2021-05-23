@@ -1,8 +1,8 @@
 ######################
-QuanGuru documentation
+quanguru documentation
 ######################
 
-.. automodule:: QuanGuru.__init__
+.. automodule:: quanguru.__init__
 
 .. toctree::
     :titlesonly:
