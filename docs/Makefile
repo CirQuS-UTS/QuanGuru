@@ -9,7 +9,7 @@ SOURCEDIR	  = source
 BUILDDIR      = build
 
 GH_PAGES_SOURCES = source Makefile
-GH_PAGES_BASE_BRANCH = stable
+GH_PAGES_BASE_BRANCH = main
 
 # Put it first so that "make" without argument is like "make help".
 help:
