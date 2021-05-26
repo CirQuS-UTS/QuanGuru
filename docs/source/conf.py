@@ -180,6 +180,7 @@ extensions = [
     'sphinx_copybutton',
     'nbsphinx',
     'recommonmark',
+    "sphinx.ext.githubpages",
     'IPython.sphinxext.ipython_console_highlighting'
 ]
 
