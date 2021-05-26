@@ -2,8 +2,6 @@
 QuanGuru documentation
 ######################
 
-.. mdinclude:: ../../README.md
-
 .. toctree::
     :titlesonly:
     :maxdepth: 2
@@ -11,6 +9,8 @@ QuanGuru documentation
     QuantumToolbox <QuantumToolbox>
     Classes <classes>
     Tutorials <QuantumToolbox/Tutorials/Tutorials>
+
+.. mdinclude:: ../../README.md
 
 .. Hiding - Indices and tables
     :ref:`genindex`
