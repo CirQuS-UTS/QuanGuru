@@ -2,7 +2,7 @@
 QuanGuru documentation
 ######################
 
-.. automodule:: quanguru.__init__
+.. mdinclude:: ../../README.md
 
 .. toctree::
     :titlesonly:
