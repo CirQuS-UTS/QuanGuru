@@ -1,5 +1,0 @@
-include LICENSE
-include requirements.txt
-
-# Include the tests files.
-graft tests
