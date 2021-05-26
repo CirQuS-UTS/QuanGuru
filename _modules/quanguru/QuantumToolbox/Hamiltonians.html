@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quanguru.QuantumToolbox.Hamiltonians &#8212; quanguru 1 documentation</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_tabs/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+    <script src="../../../_static/sphinx_tabs/tabs.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../../../index.html">
+    
+      <p class="title">quanguru</p>
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../QuantumToolbox.html">QuantumToolbox</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../classes.html">Classes</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">Tutorials</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for quanguru.QuantumToolbox.Hamiltonians</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contains functions to create some standard Hamiltonians.</span>
+
+<span class="sd">    .. currentmodule:: quanguru.QuantumToolbox.Hamiltonians</span>
+
+<span class="sd">    Functions</span>
+<span class="sd">    ---------</span>
+
+<span class="sd">    .. autosummary::</span>
+
+<span class="sd">        qubCavFreeHam</span>
+<span class="sd">        RabiHam</span>
+<span class="sd">        JCHam</span>
+<span class="sd">        aJCHam</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">#from quanguru.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span> <span class="c1"># type: ignore</span>
+
+<span class="kn">from</span> <span class="nn">.operators</span> <span class="kn">import</span> <span class="n">number</span><span class="p">,</span> <span class="n">identity</span><span class="p">,</span> <span class="n">sigmaz</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">destroy</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">,</span> <span class="n">sigmam</span><span class="p">,</span> <span class="n">sigmap</span>
+<span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span>
+
+
+<span class="c1"># do not delete these</span>
+<span class="c1"># from typing import Tuple, TypeVar</span>
+<span class="c1"># from numpy import ndarray</span>
+<span class="c1"># from scipy.sparse import spmatrix</span>
+
+<span class="c1"># These type aliases are used in type hinting of below methods</span>
+<span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
+
+
+<span class="c1"># TODO currently, there is no option for sparse or not</span>
+<div class="viewcode-block" id="qubCavFreeHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam">[docs]</a><span class="k">def</span> <span class="nf">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Matrix</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">]:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates Qubit + Cavity Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}`</span>
+<span class="sd">    for</span>
+<span class="sd">    given frequencies and truncated cavity dimension.</span>
+
+<span class="sd">    Hilbert space ordering is :math:`Qubit\otimes Cavity`, i.e. qubit first.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    qubFreq : float</span>
+<span class="sd">        qubit frequency</span>
+<span class="sd">    cavFreq : float</span>
+<span class="sd">        cavity frequency</span>
+<span class="sd">    cavDim : int</span>
+<span class="sd">        (truncated) dimension for cavity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        Qubit + Cavity Hamiltonian for given frequencies and truncated cavity dimension.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cavHam</span> <span class="o">=</span> <span class="n">cavFreq</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">number</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span>
+    <span class="n">qubHam</span> <span class="o">=</span> <span class="n">qubFreq</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">identity</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span></div>
+
+
+<div class="viewcode-block" id="RabiHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.RabiHam">[docs]</a><span class="k">def</span> <span class="nf">RabiHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates Rabi Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
+<span class="sd">    + g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})` for given frequencies, coupling strength, and truncated cavity</span>
+<span class="sd">    dimension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cavFreq : float</span>
+<span class="sd">        cavity frequency</span>
+<span class="sd">    qubFreq : float</span>
+<span class="sd">        qubit frequency</span>
+<span class="sd">    g : float</span>
+<span class="sd">        coupling strength</span>
+<span class="sd">    cavDim : int</span>
+<span class="sd">        (truncated) dimension for cavity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        Rabi Hamiltonian for given frequencies</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO Create some examples both in here and the demo script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span> <span class="o">=</span> <span class="n">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">)</span>
+    <span class="n">couplingRabi</span> <span class="o">=</span> <span class="n">g</span><span class="o">*</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmax</span><span class="p">(),</span> <span class="n">create</span><span class="p">(</span><span class="n">cavDim</span><span class="p">)</span> <span class="o">+</span> <span class="n">destroy</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">))</span>
+
+    <span class="n">rabiHam</span> <span class="o">=</span> <span class="n">cavHam</span> <span class="o">+</span> <span class="n">qubHam</span> <span class="o">+</span> <span class="n">couplingRabi</span>
+    <span class="k">return</span> <span class="n">rabiHam</span></div>
+
+
+<div class="viewcode-block" id="JCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.JCHam">[docs]</a><span class="k">def</span> <span class="nf">JCHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates Jaynes-Cummings Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
+<span class="sd">    + g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})` for given frequencies, coupling strength, and</span>
+<span class="sd">    truncated</span>
+<span class="sd">    cavity dimension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cavFreq : float</span>
+<span class="sd">        cavity frequency</span>
+<span class="sd">    qubFreq : float</span>
+<span class="sd">        qubit frequency</span>
+<span class="sd">    g : float</span>
+<span class="sd">        coupling strength</span>
+<span class="sd">    cavDim : int</span>
+<span class="sd">        (truncated) dimension for cavity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        Jaynes-Cummings Hamiltonian for given frequencies</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO Create some examples both in here and the demo script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span> <span class="o">=</span> <span class="n">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">)</span>
+    <span class="n">couplingJC</span> <span class="o">=</span> <span class="n">g</span><span class="o">*</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmam</span><span class="p">(),</span> <span class="n">create</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmap</span><span class="p">(),</span> <span class="n">destroy</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">))</span>
+    <span class="n">JCHamil</span> <span class="o">=</span> <span class="n">cavHam</span> <span class="o">+</span> <span class="n">qubHam</span> <span class="o">+</span> <span class="n">couplingJC</span>
+    <span class="k">return</span> <span class="n">JCHamil</span></div>
+
+
+<div class="viewcode-block" id="aJCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.aJCHam">[docs]</a><span class="k">def</span> <span class="nf">aJCHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates anti-Jaynes-Cummings Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} +</span>
+<span class="sd">    \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
+<span class="sd">    + g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})` for given frequencies, coupling strength, and</span>
+<span class="sd">    truncated</span>
+<span class="sd">    cavity dimension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cavFreq : float</span>
+<span class="sd">        cavity frequency</span>
+<span class="sd">    qubFreq : float</span>
+<span class="sd">        qubit frequency</span>
+<span class="sd">    g : float</span>
+<span class="sd">        coupling strength</span>
+<span class="sd">    cavDim : int</span>
+<span class="sd">        (truncated) dimension for cavity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        anti-Jaynes-Cummings Hamiltonian for given frequencies</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO Create some examples both in here and the demo script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span> <span class="o">=</span> <span class="n">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">)</span>
+    <span class="n">couplingAJC</span> <span class="o">=</span> <span class="n">g</span><span class="o">*</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmap</span><span class="p">(),</span> <span class="n">create</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmam</span><span class="p">(),</span> <span class="n">destroy</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">))</span>
+    <span class="n">AJCHamil</span> <span class="o">=</span> <span class="n">cavHam</span> <span class="o">+</span> <span class="n">qubHam</span> <span class="o">+</span> <span class="n">couplingAJC</span>
+    <span class="k">return</span> <span class="n">AJCHamil</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020, Cahit Kargi.<br/>
+        Last updated on 2021/05/27.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

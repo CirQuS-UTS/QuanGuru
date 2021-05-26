@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Functions (quanguru.QuantumToolbox.functions) &#8212; quanguru 1 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Common Hamiltonians (quanguru.QuantumToolbox.Hamiltonians)" href="Hamiltonians.html" />
+    <link rel="prev" title="Quantum Evolution (quanguru.QuantumToolbox.evolution)" href="evolution.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <p class="title">quanguru</p>
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../QuantumToolbox.html">QuantumToolbox</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../classes.html">Classes</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="Tutorials/Tutorials.html">Tutorials</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+          
+            
+                <li class="">
+                    <a href="linearAlgebra.html">Basic Linear Algebra</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="states.html">Quantum State</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="operators.html">Quantum Operators</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="evolution.html">Quantum Evolution</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Basic Functions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="Hamiltonians.html">Common Hamiltonians</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="spinRotations.html">Qubit Rotations</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="quasiProbabilities.html">Quasi-Probabilities</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="thermodynamics.html">Thermodynamical functions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="rmtDistributions.html">Random Matrix Theory Distributions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="eigenVecVal.html">Eigen-vector/value Statistics</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="IPR.html">Inverse Participation Ratio</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="_helpers.html">Helper Functions</a>
+                </li>
+            
+          
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#functions" class="nav-link">Functions</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-quanguru.QuantumToolbox.functions">
+<span id="basic-functions-quanguru-quantumtoolbox-functions"></span><h1>Basic Functions (<a class="reference internal" href="#module-quanguru.QuantumToolbox.functions" title="quanguru.QuantumToolbox.functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.functions</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.functions" title="Permalink to this headline">¶</a></h1>
+<p>Contains functions to calculate some basic quantities, such as expectations, fidelities, entropy etc.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.expectation" title="quanguru.QuantumToolbox.functions.expectation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expectation</span></code></a>(operator, state)</p></td>
+<td><p>Calculates the expectation value <img class="math" src="../_images/math/5bd002c29ccb4739edff666d9d661fa3b5bc3abd.png" alt="\langle \hat{O}\rangle := \langle \psi | \hat{O} |\psi \rangle \equiv \textrm{Tr}(\hat{O}|\psi \rangle\langle \psi |)"/> of an <cite>operator</cite> <img class="math" src="../_images/math/8c080a4c97007565bf12d721801a0c0be1b21771.png" alt="\hat{O}"/> for a given <cite>state</cite> <img class="math" src="../_images/math/af45dcc938308431dfcd03eb148975e1fe4012d3.png" alt="|\psi \rangle"/>.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.fidelityPure" title="quanguru.QuantumToolbox.functions.fidelityPure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fidelityPure</span></code></a>(state1, state2)</p></td>
+<td><p>Calculates <cite>fidelity</cite> <img class="math" src="../_images/math/b77ed2280ccb1f2956454a4c04fc4ec61e1965ce.png" alt="\mathcal{F}(\psi_{1}, \psi_{2}) := |\langle \psi_{2}|\psi_{1}\rangle|^{2} = Tr(|\psi_{1}\rangle\langle \psi_{1}|\psi_{2}\rangle|\psi_{2}\rangle)"/> between <cite>two pure states</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.traceDistance" title="quanguru.QuantumToolbox.functions.traceDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">traceDistance</span></code></a>(A, B)</p></td>
+<td><p>Calculates the trace distance <img class="math" src="../_images/math/406ffc71d1b4600acb7ed793903344ddb79ff0ec.png" alt="\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} = \frac{1}{2}Tr\left[\sqrt{(A-B)^{\dagger}(A-B)} \right]"/> between two matrices.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.entropy" title="quanguru.QuantumToolbox.functions.entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entropy</span></code></a>(densMat[, base2])</p></td>
+<td><p>Calculates the <cite>entropy</cite> <img class="math" src="../_images/math/3d35e66289aeaf6c208e9174ab9d3bab1c3272b0.png" alt="\mathcal{S}(\rho) := -Tr(\rho\ln\rho)"/>  of a given <cite>density matrix</cite> :math`rho`.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.concurrence" title="quanguru.QuantumToolbox.functions.concurrence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concurrence</span></code></a>(state)</p></td>
+<td><p>Calculates the <cite>concurrence</cite> <img class="math" src="../_images/math/ec2f31e5f0044627a4d4a7a91ab4e70e62acbf6a.png" alt="\mathcal{C}(\rho) := \max(0, \lambda_{1}-\lambda_{2}-\lambda_{3}-\lambda_{4})"/> of two qubit state <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.png" alt="\rho"/>, where <img class="math" src="../_images/math/e0e01b66436c1a8da66594d22a8c96e80cf4e0d9.png" alt="\lambda_{i}"/> are sorted eigenvalues <img class="math" src="../_images/math/c7d150c2bb7113026b91107b303208dce9b80f78.png" alt="R = \sqrt{\sqrt{\rho}\tilde{\rho}\sqrt{\rho}}"/> with <img class="math" src="../_images/math/5eb6e660f36bdffa0b0b65634289c015cfdf608e.png" alt="\tilde{\rho} = (\sigma_{y}\otimes\sigma_{y})\rho^{*}(\sigma_{y}\otimes\sigma_{y})"/>.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.sortedEigens" title="quanguru.QuantumToolbox.functions.sortedEigens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sortedEigens</span></code></a>(Mat[, mag])</p></td>
+<td><p>Calculates <cite>eigenvalues and eigenvectors</cite> of a given matrix and <cite>sorts</cite> them.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions._expectationColArr" title="quanguru.QuantumToolbox.functions._expectationColArr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_expectationColArr</span></code></a>(operator, states)</p></td>
+<td><p>Calculates expectation values of an <cite>operator</cite> for a list/matrix of <cite>ket (column) states</cite> by matrix multiplication.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions.expectation">
+<code class="sig-name descname">expectation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#expectation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.expectation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the expectation value
+<img class="math" src="../_images/math/82331931b95501d7b29298437514581169a1d5c7.png" alt="\langle \hat{O}\rangle := \langle \psi | \hat{O} |\psi \rangle \equiv
+\textrm{Tr}(\hat{O}|\psi \rangle\langle \psi |)"/>
+of an <cite>operator</cite> <img class="math" src="../_images/math/8c080a4c97007565bf12d721801a0c0be1b21771.png" alt="\hat{O}"/>
+for a given <cite>state</cite> <img class="math" src="../_images/math/af45dcc938308431dfcd03eb148975e1fe4012d3.png" alt="|\psi \rangle"/>.</p>
+<p>State can either be a <cite>ket</cite> or <cite>density matrix</cite>.
+State and operator can both be sparse or array or any combination of the two.</p>
+<p>Calculates the <a class="reference internal" href="states.html#quanguru.QuantumToolbox.states.densityMatrix" title="quanguru.QuantumToolbox.states.densityMatrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">densityMatrix</span></code></a>, then uses
+<a class="reference internal" href="linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.trace" title="quanguru.QuantumToolbox.linearAlgebra.trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">trace</span></code></a>.</p>
+<p>Operator has to be the matrix (sparse or not), cannot pass a reference to operator function from the toolbox.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Matrix</em>) – an operator as a matrix</p></li>
+<li><p><strong>state</strong> (<em>Matrix</em>) – a quantum state</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>expectation value of the <cite>operator</cite> for the <cite>state</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectation</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">state</span><span class="o">=</span><span class="n">ket</span><span class="p">)</span>
+<span class="go">-1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">denMat</span><span class="p">)</span>
+<span class="go">-1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectation</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">state</span><span class="o">=</span><span class="n">ket1</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denMat1</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectation</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">state</span><span class="o">=</span><span class="n">denMat1</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectation</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">state</span><span class="o">=</span><span class="n">ket2</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denMat2</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectation</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">state</span><span class="o">=</span><span class="n">denMat2</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions.fidelityPure">
+<code class="sig-name descname">fidelityPure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state1</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">state2</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#fidelityPure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.fidelityPure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates <cite>fidelity</cite>
+<img class="math" src="../_images/math/b91d5ed162438b9a8ad53a2ce921327b6668aba3.png" alt="\mathcal{F}(\psi_{1}, \psi_{2}) := |\langle \psi_{2}|\psi_{1}\rangle|^{2} =
+Tr(|\psi_{1}\rangle\langle \psi_{1}|\psi_{2}\rangle|\psi_{2}\rangle)"/>
+between <cite>two pure states</cite>.</p>
+<p>States can either be a <cite>ket</cite> or <cite>density matrix</cite>,
+and they can both be sparse or array or any combination of the two.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state1</strong> (<em>Matrix</em>) – <cite>ket</cite> state or <cite>density matrix</cite></p></li>
+<li><p><strong>state2</strong> (<em>Matrix</em>) – <cite>ket</cite> state or <cite>density matrix</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>fidelity</cite> between any <cite>two states</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ket0</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ket1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ket2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="o">=</span><span class="n">ket0</span><span class="p">,</span> <span class="n">state2</span><span class="o">=</span><span class="n">ket1</span><span class="p">)</span>
+<span class="go">0.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="o">=</span><span class="n">ket0</span><span class="p">,</span> <span class="n">state2</span><span class="o">=</span><span class="n">ket2</span><span class="p">)</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="o">=</span><span class="n">ket1</span><span class="p">,</span> <span class="n">state2</span><span class="o">=</span><span class="n">ket2</span><span class="p">)</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denMat0</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denMat1</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">denMat2</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="o">=</span><span class="n">denMat0</span><span class="p">,</span> <span class="n">state2</span><span class="o">=</span><span class="n">denMat1</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="o">=</span><span class="n">denMat0</span><span class="p">,</span> <span class="n">state2</span><span class="o">=</span><span class="n">denMat2</span><span class="p">)</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fidelity</span><span class="p">(</span><span class="n">state1</span><span class="o">=</span><span class="n">denMat1</span><span class="p">,</span> <span class="n">state2</span><span class="o">=</span><span class="n">denMat2</span><span class="p">)</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions.entropy">
+<code class="sig-name descname">entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">densMat</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">base2</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the <cite>entropy</cite> <img class="math" src="../_images/math/3d35e66289aeaf6c208e9174ab9d3bab1c3272b0.png" alt="\mathcal{S}(\rho) := -Tr(\rho\ln\rho)"/>  of a given <cite>density matrix</cite> :math`rho`.</p>
+<p>Input has to be a density matrix by definition, but works with a given ket state as well.
+Uses exponential basis as default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>densMat</strong> (<em>Matrix</em>) – a density matrix</p></li>
+<li><p><strong>base2</strong> (<em>bool</em>) – option to calculate in base 2</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the <cite>entropy</cite> of the given <cite>density matrix</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeStateKet</span> <span class="o">=</span> <span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropyKet</span><span class="p">(</span><span class="n">compositeStateKet</span><span class="p">)</span>
+<span class="go">-0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compositeStateMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">compositeStateKet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">(</span><span class="n">compositeStateMat</span><span class="p">)</span>
+<span class="go">-0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stateFirstSystem</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">compositeStateKet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">(</span><span class="n">stateFirstSystem</span><span class="p">)</span>
+<span class="go">-0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stateSecondSystem</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">compositeStateKet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">(</span><span class="n">stateSecondSystem</span><span class="p">)</span>
+<span class="go">-0.0</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entangledKet</span> <span class="o">=</span> <span class="n">normalise</span><span class="p">(</span><span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">+ compositeState(dimensions=[2, 2], excitations=[1,0], sparse=True))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropyKet</span><span class="p">(</span><span class="n">entangledKet</span><span class="p">)</span>
+<span class="go">2.2204460492503126e-16</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entangledMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">entangledKet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">(</span><span class="n">entangledMat</span><span class="p">)</span>
+<span class="go">2.2204460492503126e-16</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stateFirstSystemEntangled</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">entangledKet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">(</span><span class="n">stateFirstSystemEntangled</span><span class="p">)</span>
+<span class="go">0.6931471805599454</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stateSecondSystemEntangled</span> <span class="o">=</span> <span class="n">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="n">entangledMat</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">(</span><span class="n">stateSecondSystemEntangled</span><span class="p">)</span>
+<span class="go">0.6931471805599454</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions.traceDistance">
+<code class="sig-name descname">traceDistance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">B</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#traceDistance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.traceDistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the trace distance <img class="math" src="../_images/math/07f8412e0651a807ef37a81f3820c64a0744754a.png" alt="\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} =
+\frac{1}{2}Tr\left[\sqrt{(A-B)^{\dagger}(A-B)} \right]"/> between two matrices.</p>
+<p># TODO implement a method for trace norm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>Matrix</em>) – density matrix</p></li>
+<li><p><strong>B</strong> (<em>Matrix</em>) – density matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>return</strong> – Trace distance between A and B</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PhiPlus</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">BellStates</span><span class="p">(</span><span class="s1">&#39;Phi+&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qt</span><span class="o">.</span><span class="n">traceDistance</span><span class="p">(</span><span class="n">PhiPlus</span><span class="p">,</span> <span class="n">PhiPlus</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PhiMinus</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">BellStates</span><span class="p">(</span><span class="s1">&#39;Phi-&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qt</span><span class="o">.</span><span class="n">traceDistance</span><span class="p">(</span><span class="n">PhiPlus</span><span class="p">,</span> <span class="n">PhiMinus</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fourZero</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qt</span><span class="o">.</span><span class="n">traceDistance</span><span class="p">(</span><span class="n">PhiPlus</span><span class="p">,</span> <span class="n">fourOne</span><span class="p">)</span>
+<span class="go">0.7071067811865475</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions.sortedEigens">
+<code class="sig-name descname">sortedEigens</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Mat</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">mag</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>List<span class="p">[</span>float<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#sortedEigens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.sortedEigens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates <cite>eigenvalues and eigenvectors</cite> of a given matrix and <cite>sorts</cite> them.</p>
+<p>If <cite>mag is True</cite>, sort is accordingly with the magnitude of the eigenvalues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Mat</strong> (<em>Matrix</em>) – a Matrix</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>sorted</cite> eigenvalues and eigenvectors</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[floatList, List[ndarray]]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">qOperators</span><span class="o">.</span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigVals</span><span class="p">,</span> <span class="n">eigVecs</span> <span class="o">=</span> <span class="n">sortedEigens</span><span class="p">(</span><span class="n">ham</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eigVals</span><span class="p">)</span>
+<span class="go">[-2.5+0.j -1.5+0.j -0.5+0.j  0.5+0.j  1.5+0.j  2.5+0.j]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eigVecs</span><span class="p">)</span>
+<span class="go">[[ 0.1767767   0.39528471  0.55901699  0.55901699 -0.39528471 -0.1767767 ]</span>
+<span class="go"> [-0.39528471 -0.53033009 -0.25        0.25       -0.53033009 -0.39528471]</span>
+<span class="go"> [ 0.55901699  0.25       -0.35355339 -0.35355339 -0.25       -0.55901699]</span>
+<span class="go"> [-0.55901699  0.25        0.35355339 -0.35355339  0.25       -0.55901699]</span>
+<span class="go"> [ 0.39528471 -0.53033009  0.25        0.25        0.53033009 -0.39528471]</span>
+<span class="go"> [-0.1767767   0.39528471 -0.55901699  0.55901699  0.39528471 -0.1767767 ]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions.concurrence">
+<code class="sig-name descname">concurrence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#concurrence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.concurrence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the <cite>concurrence</cite> <img class="math" src="../_images/math/ec2f31e5f0044627a4d4a7a91ab4e70e62acbf6a.png" alt="\mathcal{C}(\rho) := \max(0, \lambda_{1}-\lambda_{2}-\lambda_{3}-\lambda_{4})"/>
+of two qubit state <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.png" alt="\rho"/>, where <img class="math" src="../_images/math/e0e01b66436c1a8da66594d22a8c96e80cf4e0d9.png" alt="\lambda_{i}"/> are sorted eigenvalues
+<img class="math" src="../_images/math/c7d150c2bb7113026b91107b303208dce9b80f78.png" alt="R = \sqrt{\sqrt{\rho}\tilde{\rho}\sqrt{\rho}}"/> with
+<img class="math" src="../_images/math/5eb6e660f36bdffa0b0b65634289c015cfdf608e.png" alt="\tilde{\rho} = (\sigma_{y}\otimes\sigma_{y})\rho^{*}(\sigma_{y}\otimes\sigma_{y})"/>.</p>
+<p>Works both with ket states and density matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>Matrix</em>) – two qubit state</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>concurrence of the state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PhiPlus</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">BellStates</span><span class="p">(</span><span class="s1">&#39;Phi+&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qt</span><span class="o">.</span><span class="n">concurrence</span><span class="p">(</span><span class="n">PhiPlus</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PhiMinus</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">BellStates</span><span class="p">(</span><span class="s1">&#39;Phi-&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qt</span><span class="o">.</span><span class="n">concurrence</span><span class="p">(</span><span class="n">PhiMinus</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fourZero</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qt</span><span class="o">.</span><span class="n">concurrence</span><span class="p">(</span><span class="n">fourZero</span><span class="p">)</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions._expectationColArr">
+<code class="sig-name descname">_expectationColArr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">states</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>float<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#_expectationColArr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions._expectationColArr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates expectation values of an <cite>operator</cite> for a list/matrix of <cite>ket (column) states</cite> by matrix multiplication.</p>
+<p>The <cite>list</cite> here is effectively a matrix whose columns are <cite>ket</cite> states for which we want the expectation values.
+For example, the eigenstates obtained from eigenvalue calculations of numpy or scipy are this form.
+TODO introduced to be used with eigenvectors, needs to be tested for non-mutually orthogonal states.
+So, it relies on states being orthonormal, if not there will be off-diagonal elements in the resultant matrix,
+but still the diagonal elements are the expectation values, meaning it should work!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Matrix</em>) – matrix of a Hermitian operator</p></li>
+<li><p><strong>states</strong> (<em>ndarray</em>) – ket states as the columns in the input matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>list</cite> of expectation values of the <cite>operator</cite> for a matrix of <cite>ket</cite> states</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>floatList</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">quanguru.QuantumToolbox.operators</span> <span class="k">as</span> <span class="nn">qOperators</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">qOperators</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigVals</span><span class="p">,</span> <span class="n">eigVecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">ham</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sz</span> <span class="o">=</span> <span class="n">qOperators</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectationColArr</span><span class="p">(</span><span class="n">sz</span><span class="p">,</span> <span class="n">eigVecs</span><span class="p">)</span>
+<span class="go">[ 1. -1.]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sx</span> <span class="o">=</span> <span class="n">qOperators</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expectationColArr</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">eigVecs</span><span class="p">)</span>
+<span class="go">[0. 0.]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions.standardDev">
+<code class="sig-name descname">standardDev</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">expect</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#standardDev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.standardDev" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.functions.spectralNorm">
+<code class="sig-name descname">spectralNorm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#spectralNorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.spectralNorm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="evolution.html" title="previous page">Quantum Evolution (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.evolution</span></code>)</a>
+    <a class='right-next' id="next-link" href="Hamiltonians.html" title="next page">Common Hamiltonians (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.Hamiltonians</span></code>)</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020, Cahit Kargi.<br/>
+        Last updated on 2021/05/27.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

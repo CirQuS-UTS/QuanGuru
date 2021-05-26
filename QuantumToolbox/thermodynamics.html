@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thermodynamical functions (quanguru.QuantumToolbox.thermodynamics) &#8212; quanguru 1 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Random Matrix Theory Distributions (quanguru.QuantumToolbox.rmtDistributions)" href="rmtDistributions.html" />
+    <link rel="prev" title="Quasi-Probabilities (quanguru.QuantumToolbox.quasiProbabilities)" href="quasiProbabilities.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <p class="title">quanguru</p>
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../QuantumToolbox.html">QuantumToolbox</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../classes.html">Classes</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="Tutorials/Tutorials.html">Tutorials</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+          
+            
+                <li class="">
+                    <a href="linearAlgebra.html">Basic Linear Algebra</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="states.html">Quantum State</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="operators.html">Quantum Operators</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="evolution.html">Quantum Evolution</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="functions.html">Basic Functions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="Hamiltonians.html">Common Hamiltonians</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="spinRotations.html">Qubit Rotations</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="quasiProbabilities.html">Quasi-Probabilities</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Thermodynamical functions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="rmtDistributions.html">Random Matrix Theory Distributions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="eigenVecVal.html">Eigen-vector/value Statistics</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="IPR.html">Inverse Participation Ratio</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="_helpers.html">Helper Functions</a>
+                </li>
+            
+          
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#functions" class="nav-link">Functions</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-quanguru.QuantumToolbox.thermodynamics">
+<span id="thermodynamical-functions-quanguru-quantumtoolbox-thermodynamics"></span><h1>Thermodynamical functions (<a class="reference internal" href="#module-quanguru.QuantumToolbox.thermodynamics" title="quanguru.QuantumToolbox.thermodynamics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.thermodynamics</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.thermodynamics" title="Permalink to this headline">¶</a></h1>
+<p>Contains methods to calculate certain quantities used in thermal states, open systems, and quantum thermodynamics.
+TODO update docstring examples and write some tests after writing some tutorials</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.thermodynamics.nBarThermal" title="quanguru.QuantumToolbox.thermodynamics.nBarThermal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nBarThermal</span></code></a>(angFreq, temp[, hbar, kb])</p></td>
+<td><p>Calculates average excitation number <img class="math" src="../_images/math/2104b7f5bf018026631a8756fb0619f0398ca45d.png" alt="\bar{n}(T) := 1/(e^{\hbar \omega / k_{b}T} - 1)"/> of a bosonic field with frequeny <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> at a temperature T.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.thermodynamics.qubitPolarisation" title="quanguru.QuantumToolbox.thermodynamics.qubitPolarisation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qubitPolarisation</span></code></a>(freq, temp)</p></td>
+<td><p>Returns the polarisation <img class="math" src="../_images/math/b04d9d230735de770d303d022afd3384775b05f0.png" alt="\langle\hat{\sigma}_{z}\rangle := P_{1} - P_{0}"/> of a qubit with frequency <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> in a thermal state of temperature T.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.thermodynamics.HeatCurrent" title="quanguru.QuantumToolbox.thermodynamics.HeatCurrent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HeatCurrent</span></code></a>(Lindbladian, Hamiltonian, denMat)</p></td>
+<td><p>Calculates the heat current <img class="math" src="../_images/math/2212e25efba70578595089358ee48e0d9f195ff9.png" alt="\mathcal{J}:=Tr(\dot{\rho}\hat{H})"/> due to given Lindbladian <img class="math" src="../_images/math/3785b9861381690ac6b21bf5c3888e704d1ba9eb.png" alt="\hat{\mathcal{L}}"/>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.thermodynamics.nBarThermal">
+<code class="sig-name descname">nBarThermal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">angFreq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">temp</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">hbar</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">kb</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/thermodynamics.html#nBarThermal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.thermodynamics.nBarThermal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates average excitation number <img class="math" src="../_images/math/2104b7f5bf018026631a8756fb0619f0398ca45d.png" alt="\bar{n}(T) := 1/(e^{\hbar \omega / k_{b}T} - 1)"/> of a bosonic field with
+frequeny <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> at a temperature T.
+Boltzmann and reduced Planck constants are by default <img class="math" src="../_images/math/ac376f5d0de4955a65ca6d5b68f89e08d2b78357.png" alt="\hbar = k_{B} = 1"/>.
+TODO Physical constants’ default values should be connected to simUnits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angFreq</strong> (<em>float</em>) – (angular) frequency of the bosonic field</p></li>
+<li><p><strong>temp</strong> (<em>float</em>) – temperature</p></li>
+<li><p><strong>hbar</strong> (<em>float</em>) – reduced Planck’s constant</p></li>
+<li><p><strong>kb</strong> (<em>float</em>) – Boltzmann constant</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Average excitation number</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If average number is infinite.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.thermodynamics.qubitPolarisation">
+<code class="sig-name descname">qubitPolarisation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">freq</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">temp</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/thermodynamics.html#qubitPolarisation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.thermodynamics.qubitPolarisation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the polarisation <img class="math" src="../_images/math/b04d9d230735de770d303d022afd3384775b05f0.png" alt="\langle\hat{\sigma}_{z}\rangle := P_{1} - P_{0}"/> of a qubit with frequency
+<img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/>
+in a thermal state of temperature T. <img class="math" src="../_images/math/8242a17e70e75201da194a15608b7fad526267d7.png" alt="P_{1}"/> and <img class="math" src="../_images/math/cef180ac30eda1bd3252896e81fbe1539ca789e7.png" alt="P_{0}"/> are excited and ground state populations
+satisfying <img class="math" src="../_images/math/c5f88abe8da60c99645a44449649246a4c59f42c.png" alt="P_{1} + P_{0} = 1"/>, and thermal state populations also satisfy
+<img class="math" src="../_images/math/8a333f4f624a80523ef2dc6f7238e5cb616f8c35.png" alt="\frac{P_{1}}{P_{0}} := e^{\omega/T}"/>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>freq</strong> (<em>float</em>) – frequency of the qubit</p></li>
+<li><p><strong>temp</strong> (<em>float</em>) – temperature of the qubit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>qubit polarisation, i.e. difference betwennn ground and excited state populations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.thermodynamics.HeatCurrent">
+<code class="sig-name descname">HeatCurrent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Lindbladian</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">denMat</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/thermodynamics.html#HeatCurrent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.thermodynamics.HeatCurrent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the heat current <img class="math" src="../_images/math/2212e25efba70578595089358ee48e0d9f195ff9.png" alt="\mathcal{J}:=Tr(\dot{\rho}\hat{H})"/> due to given Lindbladian
+<img class="math" src="../_images/math/3785b9861381690ac6b21bf5c3888e704d1ba9eb.png" alt="\hat{\mathcal{L}}"/>.
+Here, <img class="math" src="../_images/math/b5d453cd164a1584c9b627c35add844357eeb425.png" alt="\hat{H}"/> is the system Hamiltonian, and the time derivative of density matrix is
+<img class="math" src="../_images/math/f4f8494504924153d7edd11bd841ac649e1f0e96.png" alt="\dot{\rho}mathcal{L}"/>. It does not strictly speaking have to be
+a Lindbladian but any combination of terms from a Liouvillian. Disclaimer: physical meaning of those terms is not
+and cannot be interpreted by this function.
+TODO Write a bit of the theory here to better explain this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Lindbladian</strong> (<em>Matrix</em>) – a Lindbladian or any combination of terms from a Liouvillian</p></li>
+<li><p><strong>Hamiltonian</strong> (<em>Matrix</em>) – Hamiltonian of the system</p></li>
+<li><p><strong>denMat</strong> (<em>Matrix</em>) – Density matrix (state) of the system</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Heat current</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="quasiProbabilities.html" title="previous page">Quasi-Probabilities (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.quasiProbabilities</span></code>)</a>
+    <a class='right-next' id="next-link" href="rmtDistributions.html" title="next page">Random Matrix Theory Distributions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.rmtDistributions</span></code>)</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020, Cahit Kargi.<br/>
+        Last updated on 2021/05/27.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

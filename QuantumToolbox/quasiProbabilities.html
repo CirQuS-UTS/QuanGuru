@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quasi-Probabilities (quanguru.QuantumToolbox.quasiProbabilities) &#8212; quanguru 1 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Thermodynamical functions (quanguru.QuantumToolbox.thermodynamics)" href="thermodynamics.html" />
+    <link rel="prev" title="Qubit Rotations (quanguru.QuantumToolbox.spinRotations)" href="spinRotations.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <p class="title">quanguru</p>
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../QuantumToolbox.html">QuantumToolbox</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../classes.html">Classes</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="Tutorials/Tutorials.html">Tutorials</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+          
+            
+                <li class="">
+                    <a href="linearAlgebra.html">Basic Linear Algebra</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="states.html">Quantum State</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="operators.html">Quantum Operators</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="evolution.html">Quantum Evolution</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="functions.html">Basic Functions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="Hamiltonians.html">Common Hamiltonians</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="spinRotations.html">Qubit Rotations</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Quasi-Probabilities</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="thermodynamics.html">Thermodynamical functions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="rmtDistributions.html">Random Matrix Theory Distributions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="eigenVecVal.html">Eigen-vector/value Statistics</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="IPR.html">Inverse Participation Ratio</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="_helpers.html">Helper Functions</a>
+                </li>
+            
+          
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#functions" class="nav-link">Functions</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-quanguru.QuantumToolbox.quasiProbabilities">
+<span id="quasi-probabilities-quanguru-quantumtoolbox-quasiprobabilities"></span><h1>Quasi-Probabilities (<a class="reference internal" href="#module-quanguru.QuantumToolbox.quasiProbabilities" title="quanguru.QuantumToolbox.quasiProbabilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.quasiProbabilities</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.quasiProbabilities" title="Permalink to this headline">¶</a></h1>
+<p>Contains functions to calculate quasi-probability distributions (adapted from qutip).</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.quasiProbabilities.Wigner" title="quanguru.QuantumToolbox.quasiProbabilities.Wigner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Wigner</span></code></a>(rho, vec[, g])</p></td>
+<td><p>An iterative method to evaluate the Wigner functions for the states <img class="math" src="../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/> and use them in a weighted sum to calculate Wigner function of any arbitrary state.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.quasiProbabilities.HusimiQ" title="quanguru.QuantumToolbox.quasiProbabilities.HusimiQ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HusimiQ</span></code></a>(state, vec[, g])</p></td>
+<td><p>Q-function of a given state vector or density matrix at points <cite>vec + i * vec</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.quasiProbabilities._qfuncPure" title="quanguru.QuantumToolbox.quasiProbabilities._qfuncPure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_qfuncPure</span></code></a>(psi, alphaMat)</p></td>
+<td><p>Calculates the Q-function for a pure state.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.quasiProbabilities.Wigner">
+<code class="sig-name descname">Wigner</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">vec</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>list<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.4142135623730951</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/quasiProbabilities.html#Wigner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.quasiProbabilities.Wigner" title="Permalink to this definition">¶</a></dt>
+<dd><p>An iterative method to evaluate the Wigner functions for the states <img class="math" src="../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/> and use them in
+a weighted sum to calculate Wigner function of any arbitrary state.</p>
+<p>The Wigner function is calculated as
+<img class="math" src="../_images/math/185fa2432aff3024a222e5cd491c6de39d1e1bb1.png" alt="W = \sum_{mn} \rho_{mn} W_{mn}"/> where <img class="math" src="../_images/math/66ee3fc9a8ab287c0b4b4623e05195c7557c2f2a.png" alt="W_{mn}"/> is the Wigner
+function for the density matrix <img class="math" src="../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/>.</p>
+<p>In this implementation, for each row m, Wlist contains the Wigner functions
+Wlist = <img class="math" src="../_images/math/3aed6f14664ed56a4ea56f1f5354b3d55204ebc3.png" alt="[0, ..., W_{mm} , ..., W_{mN} ]"/>. As soon as one <img class="math" src="../_images/math/66ee3fc9a8ab287c0b4b4623e05195c7557c2f2a.png" alt="W_{mn}"/> Wigner function is
+calculated, the corresponding contribution is added to the total Wigner
+function, weighted by the corresponding element in the density matrix
+<img class="math" src="../_images/math/ff5ec037f53005468c983513b0070f22ecf3d220.png" alt="\\rho_{mn}"/>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>Matrix</em>) – Density matrix or ket state.</p></li>
+<li><p><strong>vec</strong> (<em>ndOrList</em>) – An array (or list) to define the (coarse-grained) Phase space.
+This creates a square grid of the phase space.</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – Scaling factor for <cite>a = 0.5 * g * (x + iy)</cite>, default <cite>g = sqrt(2)</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Values representing the Wigner-function calculated over the specified range [vec, vec].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.quasiProbabilities.HusimiQ">
+<code class="sig-name descname">HusimiQ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">vec</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>list<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.4142135623730951</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/quasiProbabilities.html#HusimiQ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.quasiProbabilities.HusimiQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Q-function of a given state vector or density matrix at points <cite>vec + i * vec</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>Matrix</em>) – density matrix or ket state</p></li>
+<li><p><strong>vec</strong> (<em>ndOrList</em>) – An array (or list) to define the (coarse-grained) Phase space.
+This creates a square grid of the phase space.</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – Scaling factor for <cite>a = 0.5 * g * (x + iy)</cite>, default <cite>g = sqrt(2)</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Values representing the Q-function calculated over the specified range [vec, vec].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="quanguru.QuantumToolbox.quasiProbabilities._qfuncPure">
+<code class="sig-name descname">_qfuncPure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">psi</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">alphaMat</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/quasiProbabilities.html#_qfuncPure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.quasiProbabilities._qfuncPure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Q-function for a pure state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>psi</strong> (<em>Matrix</em>) – a pure state</p></li>
+<li><p><strong>vec</strong> (<em>ndOrList</em>) – an array (or list) to define the (coarse-grained) Phase space.
+This creates a square grid of the phase space.</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – Scaling factor for <cite>a = 0.5 * g * (x + iy)</cite>, default <cite>g = sqrt(2)</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Values representing the Q-function calculated over the specified range [vec, vec].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="spinRotations.html" title="previous page">Qubit Rotations (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.spinRotations</span></code>)</a>
+    <a class='right-next' id="next-link" href="thermodynamics.html" title="next page">Thermodynamical functions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.thermodynamics</span></code>)</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020, Cahit Kargi.<br/>
+        Last updated on 2021/05/27.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
