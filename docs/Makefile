@@ -6,7 +6,7 @@
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR	  = source
-BUILDDIR      = build
+BUILDDIR      = _build
 
 GH_PAGES_SOURCES = source Makefile
 GH_PAGES_BASE_BRANCH = main
