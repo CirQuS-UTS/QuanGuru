@@ -20,6 +20,7 @@ help:
 .PHONY: gh-pages
 .ONESHELL:
 gh-pages:
+	make html
 	rm -rf /tmp/gh-pages
 	cp -r $(BUILDDIR)/html /tmp/gh-pages
 	git checkout gh-pages
