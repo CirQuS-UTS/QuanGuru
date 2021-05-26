@@ -269,6 +269,37 @@ html_theme = "pydata_sphinx_theme"
 
 # }
 
+html_theme_options = {
+    # Navigation bar title. (Default: ``project`` value)
+    "navbar_title": "QuanGuru",
+    # Tab name for entire site. (Default: "Site")
+    "navbar_site_name": "Documentation",
+    # 3rd argument = True indicates an arbitrary url
+    "navbar_links": [
+        ("Code", "https://github.com/CirQuS-UTS/QuanGuru", True),
+    ],
+    # Render the next and previous page links in navbar. (Default: true)
+    "navbar_sidebarrel": False,
+    # Render the current pages TOC in the navbar. (Default: true)
+    "navbar_pagenav": False,
+    # Global TOC depth for "site" navbar tab. (Default: 1)
+    # Switching to -1 shows all levels.
+    "globaltoc_depth": 2,
+    # Include hidden TOCs in Site navbar?
+    #
+    # Note: If this is "false", you cannot have mixed ``:hidden:`` and
+    # non-hidden ``toctree`` directives in the same page, or else the build
+    # will break.
+    #
+    # Values: "true" (default) or "false"
+    "globaltoc_includehidden": "true",
+    "navbar_fixed_top": "true",
+    # Hide documentation (.rst) source
+    "source_link_position": None,
+    "bootswatch_theme": "paper",
+    "bootstrap_version": "3",
+}
+
 sphinx_gallery_line_numbers = True
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
