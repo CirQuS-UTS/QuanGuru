@@ -8,6 +8,9 @@ SPHINXBUILD   ?= sphinx-build
 SOURCEDIR	  = source
 BUILDDIR      = build
 
+GH_PAGES_SOURCES = source Makefile
+GH_PAGES_BASE_BRANCH = stable
+
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
