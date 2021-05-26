@@ -1,5 +1,5 @@
 ######################
-quanguru documentation
+QuanGuru documentation
 ######################
 
 .. automodule:: quanguru.__init__
