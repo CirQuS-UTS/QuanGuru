@@ -7,7 +7,7 @@ QuanGuru documentation
     :maxdepth: 2
 
     QuantumToolbox <QuantumToolbox>
-    Classes <classes>
+    Classes (Objects for OOP, module to be renamed later) <classes>
     Tutorials <QuantumToolbox/Tutorials/Tutorials>
 
 .. mdinclude:: ../../README.md
