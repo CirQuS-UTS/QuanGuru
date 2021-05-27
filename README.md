@@ -15,10 +15,18 @@ and [Nathan K. Langford](https://github.com/nklangford)
 
 QuanGuru (pronounced Kangaroo) is a Python library for Quantum Sciences.
 It is still under-development, and the rough development plan is provided below.
-This first module consists of tools for numerical simulations of Quantum systems, and it consists of two main sub-modules: (i) QuantumToolbox, and (ii) classes (objects for OOP, module to be renamed later).
+The [github repo is in here](https://github.com/CirQuS-UTS/QuanGuru) and the [existing documentation is in here](https://cirqus-uts.github.io/QuanGuru/).
+It can already be installed via pip
+```bash
+pip install quanguru
+```
+
+This first module consists of tools for numerical simulations of Quantum systems, and it contains of two main sub-modules: (i) QuantumToolbox, and (ii) classes (objects for OOP, module to be renamed later).
 QuantumToolbox consists **purely of Python functions** (no other objects) that create and/or use **matrices**.
 The module classes (to be renamed later) contains classes to create flexible, simple, and object-oriented simulation scripts.
 Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be used as a standalone library to carry the same simulations.
+
+
 
 We (mostly) use [camelCase](https://code.research.uts.edu.au/mKQuantum/QuantumSimulations/-/wikis/Variable%20Naming%20Conventions)
 
