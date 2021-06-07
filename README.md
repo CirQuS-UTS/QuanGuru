@@ -13,7 +13,7 @@ and [Nathan K. Langford](https://github.com/nklangford)
 ![Pylint](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/-/jobs/artifacts/master/raw/pylint/pylint.svg?job=pylint) -->
 
 
-QuanGuru (pronounced Kangaroo) is a Python library for Quantum Sciences.
+QuanGuru is a Python library for Quantum Sciences.
 It is still under-development, and the rough development plan is provided below.
 The [github repo is in here](https://github.com/CirQuS-UTS/QuanGuru) and the [existing documentation is in here](https://cirqus-uts.github.io/QuanGuru/).
 It can already be installed via pip
@@ -45,7 +45,7 @@ There are already other functions (for special state creations, eigen-value stat
 
 ### 2. pip installable
 
-At this point, we should have a stable version with enough documentation to make it pip available.
+At this point, we should have a stable version with enough documentation for the version 1.
 
 ### 3. Future development 
 Further additions have to be with proper tests, tutorials, docstring etc.

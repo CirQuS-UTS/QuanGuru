@@ -6,6 +6,9 @@ r"""
     .. autosummary::
 
         base
+        baseClasses
+        QRes
+        QSweep
 
 """
 
