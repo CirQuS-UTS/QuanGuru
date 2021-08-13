@@ -52,4 +52,4 @@ Further additions have to be with proper tests, tutorials, docstring etc.
 
 1. Implementation of SCQubits and QDrive using Adrien's work.
 1. Open system simulation capability for the classes
-1. Interfacing to other libraries such as QuTiP.
+1. Interfacing to other libraries.
