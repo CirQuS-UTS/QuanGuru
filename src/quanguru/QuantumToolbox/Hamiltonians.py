@@ -18,6 +18,7 @@ r"""
 
 from typing import Tuple
 import scipy.sparse as sp # type: ignore
+import numpy as np # type: ignore
 
 from .operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
 from .customTypes import Matrix
@@ -166,3 +167,40 @@ def aJCHam(qubFreq: float, cavFreq: float, g: float, cavDim: int) -> Matrix:
     couplingAJC = g*(sp.kron(sigmap(), create(cavDim), format='csc') + sp.kron(sigmam(), destroy(cavDim), format='csc'))
     AJCHamil = cavHam + qubHam + couplingAJC
     return AJCHamil
+
+def UJC(wq: float, wc: float, g: float, t: float, dimC: int, sparse=False) -> Matrix: #pylint:disable=too-many-arguments
+    """ Analytical implementation of the time independante Jaynes-Cummings Unitary evolution
+        see Stenholm 1973 (https://doi.org/10.1016/0370-1573(73)90011-2)
+        #TODO: explain the basis
+
+    Args:
+        wq (float):
+            qubit frequency
+        wc (float):
+            cavity frequency
+        g (float):
+            coupling strength
+        t (float):
+            evolution time
+        dimC (int):
+            cavity dimention
+
+    Returns:
+        Matrix:
+            Unitary matrix describing free evolution of the Jaynes-Cummings model
+    """
+
+    D = wq-wc
+    n = np.arange(1, dimC)
+    U = np.zeros((2*dimC, 2*dimC), dtype=np.complex128)
+
+    U[2*n, 2*n] = np.cos((n*g**2+D**2/4)**0.5*t)+1j/2*D*np.sin((n*g**2+D**2/4)**0.5*t)/(n*g**2+D**2/4)**0.5
+    U[2*n, 2*n] *= np.exp(-1j*wc*(n-0.5)*t)
+    U[2*n-1, 2*n-1] = np.cos((n*g**2+D**2/4)**0.5*t)-1j/2*D*np.sin((n*g**2+D**2/4)**0.5*t)/(n*g**2+D**2/4)**0.5
+    U[2*n-1, 2*n-1] *= np.exp(-1j*wc*(n-0.5)*t)
+    U[2*n, 2*n-1] = -1j*n**0.5*g*np.sin((n*g**2+D**2/4)**0.5*t)/(n*g**2+D**2/4)**0.5*np.exp(-1j*wc*(n-0.5)*t)
+    U[2*n-1, 2*n] = -1j*n**0.5*g*np.sin((n*g**2+D**2/4)**0.5*t)/(n*g**2+D**2/4)**0.5*np.exp(-1j*wc*(n-0.5)*t)
+    U[0, 0] = (np.cos(D/2*t)+1j*np.sin(D/2*t))*np.exp(1j*wc*0.5*t)
+    U[-1, -1] = (np.cos(D/2*t)-1j*np.sin(D/2*t))*np.exp(-1j*wc*(dimC-0.5)*t)
+
+    return sp.csc_matrix(U) if sparse else U
