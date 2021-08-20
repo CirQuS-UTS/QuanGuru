@@ -17,7 +17,7 @@ r"""
         _preposSO
 """
 
-from typing import Optional
+from typing import List, Optional
 
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
@@ -73,7 +73,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
 
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value,unsubscriptable-object
-                collapseOperators: list = [], decayRates: list = []) -> Matrix:# pylint: disable=dangerous-default-value
+                collapseOperators: Optional[List] = None, decayRates: Optional[List] = None) -> Matrix:# pylint: disable=dangerous-default-value
     r"""
     Creates `Liouvillian` super-operator
     :math:`\hat{\mathcal{L}} := -i(\hat{H}\otimes\mathbb{I} + \mathbb{I}\otimes\hat{H}) +
@@ -121,17 +121,18 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
     hamPart2 = _posSO(Hamiltonian, identity)
     hamPart = -1j * (hamPart1 - hamPart2)
     liouvillian = hamPart
-    for idx, collapseOperator in enumerate(collapseOperators):
-        collapsePart = dissipator(collapseOperator, identity)
-        if len(decayRates) != 0:
-            liouvillian += decayRates[idx]*collapsePart
-        else:
-            liouvillian += collapsePart
+    if isinstance(collapseOperators, list):
+        for idx, collapseOperator in enumerate(collapseOperators):
+            collapsePart = dissipator(collapseOperator, identity)
+            if len(decayRates) != 0:
+                liouvillian += decayRates[idx]*collapsePart
+            else:
+                liouvillian += collapsePart
     return liouvillian
 
 
 def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
-                   collapseOperators: list = [], decayRates: list = [],
+                   collapseOperators: Optional[List] = None, decayRates: Optional[List] = None,
                    exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
     r"""
     For a `time step t`, creates `Liouvillian` :math:`\hat{\mathcal{L}}` and exponentiate it, or unitary :math:`U(t)`
@@ -179,7 +180,7 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
     else:
         sparse = sp.issparse(collapseOperators[0])
 
-    if len(collapseOperators) > 0:
+    if isinstance(collapseOperators, list):
         liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates)
         if exp is True:
             if sparse is True:

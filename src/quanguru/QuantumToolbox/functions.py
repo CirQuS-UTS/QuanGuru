@@ -105,7 +105,7 @@ def expectation(operator: Matrix, state: Matrix) -> float:
     if state.shape[0] != state.shape[1]:
         state = densityMatrix(state)
     expc = trace(operator @ state)
-    return np.real(expc) if np.round(expc.imag, 14) == 0.0 else expc
+    return np.real(expc) if np.round(expc.imag, 12) == 0.0 else expc
 
 
 def fidelityPure(state1: Matrix, state2: Matrix) -> float:
@@ -165,6 +165,14 @@ def fidelityPure(state1: Matrix, state2: Matrix) -> float:
 
         fid = np.real(trace(state1 @ state2))
     return fid
+
+def _fidelityTest(state1: Matrix, state2: Matrix) -> float:
+    r"""
+    Calculates `fidelity`
+    """
+    matsqrt = lina.sqrtm(state1.A)
+    fid = trace(lina.sqrtm(matsqrt @ state2.A  @ matsqrt))
+    return np.real(fid**2)
 
 
 def entropy(densMat: Matrix, base2: bool = False) -> float:

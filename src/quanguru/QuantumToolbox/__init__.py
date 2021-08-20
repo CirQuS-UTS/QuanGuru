@@ -51,7 +51,7 @@ from .operators import (
 from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _posSO, _preposSO)
 from .functions import (
     expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance, _expectationColArr,
-    standardDev, spectralNorm
+    standardDev, spectralNorm, _fidelityTest
 )
 from ._helpers import (loopIt)
 from .rmtDistributions import (EigenVectorDist, WignerDyson, WignerSurmise, Poissonian)
