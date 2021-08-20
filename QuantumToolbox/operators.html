@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quantum Operators (quanguru.QuantumToolbox.operators) &#8212; QuanGuru 1 documentation</title>
     
-  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,28 +20,21 @@
 
     
       
-  <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/style.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -48,7 +42,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,48 +50,68 @@
     <link rel="prev" title="Quantum States (quanguru.QuantumToolbox.states)" href="states.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
-<div class="container-xl">
+    <div class="container-fluid" id="banner"></div>
 
-    <a class="navbar-brand" href="../index.html">
     
-      <p class="title">QuanGuru</p>
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
     
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">QuanGuru</p>
+</a>
 
-    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
-      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
-        
-        
-        <li class="nav-item active">
-            <a class="nav-link" href="../QuantumToolbox.html">QuantumToolbox</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="../classes.html">Classes (Objects for OOP, module to be renamed later)</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="Tutorials/Tutorials.html">Tutorials</a>
-        </li>
-        
-        
-      </ul>
+    
+  </div>
 
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
       
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../QuantumToolbox.html">
+  QuantumToolbox
+ </a>
+</li>
 
-      <ul class="navbar-nav">
-        
-        
-      </ul>
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="Tutorials/Tutorials.html">
+  Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
     </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
 </div>
     </nav>
     
@@ -105,131 +119,120 @@
     <div class="container-xl">
       <div class="row">
           
-          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form>
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="linearAlgebra.html">
+   Basic Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="states.html">
+   Quantum State
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Quantum Operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="evolution.html">
+   Quantum Evolution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="functions.html">
+   Basic Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Hamiltonians.html">
+   Common Hamiltonians
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="spinRotations.html">
+   Qubit Rotations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="quasiProbabilities.html">
+   Quasi-Probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="thermodynamics.html">
+   Thermodynamical functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="rmtDistributions.html">
+   Random Matrix Theory Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eigenVecVal.html">
+   Eigen-vector/value Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="IPR.html">
+   Inverse Participation Ratio
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="_helpers.html">
+   Helper Functions
+  </a>
+ </li>
+</ul>
 
-    <div class="bd-toc-item active">
-    
-  
-    <ul class="nav bd-sidenav">
-        
-        
-          
+  </div>
+</nav>
+            </div>
             
-                <li class="">
-                    <a href="linearAlgebra.html">Basic Linear Algebra</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="states.html">Quantum State</a>
-                </li>
-            
-          
-            
-                <li class="active">
-                    <a href="">Quantum Operators</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="evolution.html">Quantum Evolution</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="functions.html">Basic Functions</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="Hamiltonians.html">Common Hamiltonians</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="spinRotations.html">Qubit Rotations</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="quasiProbabilities.html">Quasi-Probabilities</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="thermodynamics.html">Thermodynamical functions</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="rmtDistributions.html">Random Matrix Theory Distributions</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="eigenVecVal.html">Eigen-vector/value Statistics</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="IPR.html">Inverse Participation Ratio</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="_helpers.html">Helper Functions</a>
-                </li>
-            
-          
-        
-        
-        
-        
-        
-        
-      </ul>
-  
-  </nav>
-          </div>
           
 
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
               
+              <div class="toc-item">
+                
 <div class="tocsection onthispage pt-5 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
 <nav id="bd-toc-nav">
-    <ul class="nav section-nav flex-column">
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#functions" class="nav-link">Functions</a>
-        </li>
-    
-    </ul>
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functions">
+   Functions
+  </a>
+ </li>
+</ul>
+
 </nav>
-
-
+              </div>
               
+              <div class="toc-item">
+                
+              </div>
+              
+            
           </div>
           
 
+          
+          
+            
           
           <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
               
@@ -360,8 +363,8 @@
 </tbody>
 </table>
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.number">
-<code class="sig-name descname">number</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.number" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.number">
+<span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.number" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the (bosonic) number <img class="math" src="../_images/math/e04eda26e27683c9c8c973e6458141fbfa94dd43.png" alt="\hat{n} := a^{\dagger}a"/> operator (in Fock basis).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -393,8 +396,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.destroy">
-<code class="sig-name descname">destroy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.destroy" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.destroy">
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#destroy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.destroy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the bosonic <cite>annihilation</cite> <img class="math" src="../_images/math/1b1a2b99575ee3eedd6e311fa15461e9c49012cb.png" alt="\hat{a}"/> operator (in Fock basis).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -425,8 +428,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.create">
-<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.create" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the bosonic <cite>creation</cite> <img class="math" src="../_images/math/2f9d9efe16954af247b44db0481257c56d42ceb7.png" alt="\hat{a}^{\dagger}"/> operator (in Fock basis).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -457,8 +460,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.identity">
-<code class="sig-name descname">identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#identity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.identity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.identity">
+<span class="sig-name descname"><span class="pre">identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the identity operator <img class="math" src="../_images/math/0d6abd5a1f9ca640c9beb3c3a57153bff1be55a9.png" alt="\mathbb{I}"/>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -490,8 +493,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.sigmaz">
-<code class="sig-name descname">sigmaz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmaz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmaz" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmaz">
+<span class="sig-name descname"><span class="pre">sigmaz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmaz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmaz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> (sigma z) <img class="math" src="../_images/math/b5ab723795ef3e3a05e7251d53b67b08008d9915.png" alt="\hat{\sigma}_{z} := \begin{bmatrix} 1, \ \ 0 \\ 0, -1 \end{bmatrix}"/> operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -518,8 +521,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.sigmay">
-<code class="sig-name descname">sigmay</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmay" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmay">
+<span class="sig-name descname"><span class="pre">sigmay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmay" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> (sigma y) <img class="math" src="../_images/math/c906b17b302de0de09752cf551e750a3d1049f05.png" alt="\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}"/> operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -546,8 +549,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.sigmax">
-<code class="sig-name descname">sigmax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmax" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmax">
+<span class="sig-name descname"><span class="pre">sigmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmax" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> (sigma x) <img class="math" src="../_images/math/bb00cf2a2f0e06ca85f2b906430df38821471666.png" alt="\hat{\sigma}_{x} := \begin{bmatrix} 0, 1 \\ 1, 0 \end{bmatrix}"/> operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -574,8 +577,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.sigmap">
-<code class="sig-name descname">sigmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmap" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmap">
+<span class="sig-name descname"><span class="pre">sigmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> (sigma +) <img class="math" src="../_images/math/899ed164f69a6a7a27cad680e1c9ec7a6906c856.png" alt="\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =
 \begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}"/> operator.</p>
 <dl class="field-list simple">
@@ -602,8 +605,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.sigmam">
-<code class="sig-name descname">sigmam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmam" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmam">
+<span class="sig-name descname"><span class="pre">sigmam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the <cite>Pauli</cite> (sigma -) <img class="math" src="../_images/math/99b95604fcc4e9a24529c5338a13fd4a52bc95da.png" alt="\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =
 \begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}"/> operator.</p>
 <dl class="field-list simple">
@@ -630,8 +633,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.Jp">
-<code class="sig-name descname">Jp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jp" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jp">
+<span class="sig-name descname"><span class="pre">Jp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>raising</cite> operator
 <img class="math" src="../_images/math/906153e8094407dc873d1a73df548bdc728f15fc.png" alt="\hat{J}_{+} := \frac{1}{2}(\hat{J}_{x}+i\hat{J}_{y})"/> for a given spin quantum number j.</p>
 <p>NOTE This is a direct matrix construction, i.e. it does not use the Jx and Jy functions, and this function is used
@@ -685,8 +688,8 @@ in Jx and Jy implementations</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.Jm">
-<code class="sig-name descname">Jm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jm" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jm">
+<span class="sig-name descname"><span class="pre">Jm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>lowering</cite> operator
 <img class="math" src="../_images/math/3175cc19988c673be77bd30ea6e017000c14718c.png" alt="\hat{J}_{-} := \frac{1}{2}(\hat{J}_{x}-i\hat{J}_{y})"/> for a given spin quantum number j.</p>
 <p>NOTE This is a direct matrix construction, i.e. it does not use the Jx and Jy functions, and this function is used
@@ -740,8 +743,8 @@ in Jx and Jy implementations</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.Jx">
-<code class="sig-name descname">Jx</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jx" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jx">
+<span class="sig-name descname"><span class="pre">Jx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>X</cite> operator <img class="math" src="../_images/math/0f8de1c3f71779c9f8695b87b7c1da66fa4c39cd.png" alt="\hat{J}_{x}"/> for a given spin quantum number j.</p>
 <p>NOTE This function uses the definition <img class="math" src="../_images/math/d0e337132f55d95e51b9bd5a19a3815232670c1b.png" alt="\hat{J}_{x} =\frac{1}{2}(\hat{J}_{p}+\hat{J}_{m})"/> and calls Jp and Jm
 There are no test for this method, it rely on Jp and Jm</p>
@@ -802,8 +805,8 @@ There are no test for this method, it rely on Jp and Jm</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.Jy">
-<code class="sig-name descname">Jy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jy" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jy">
+<span class="sig-name descname"><span class="pre">Jy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>Y</cite> operator <img class="math" src="../_images/math/1e53619c089824646861d86bdb04206f1dbbc11e.png" alt="\hat{J}_{y}"/> for a given spin quantum number j.</p>
 <p>NOTE This function uses the definition <img class="math" src="../_images/math/089a3096c42b93b34398ba188d2f0afceb64e0c8.png" alt="\hat{J}_{y}=\frac{1}{2j}(\hat{J}_{p}-\hat{J}_{m})"/> and calls Jp and Jm
 There are no test for this method, it rely on Jp and Jm</p>
@@ -864,8 +867,8 @@ There are no test for this method, it rely on Jp and Jm</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.Jz">
-<code class="sig-name descname">Jz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jz" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jz">
+<span class="sig-name descname"><span class="pre">Jz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the angular momentum (spin) <cite>Z</cite> operator <img class="math" src="../_images/math/9377d0a885dc089ed09db7fe0555d6e28f8e47d1.png" alt="\hat{J}_{z}"/> for a given spin quantum number j.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -918,8 +921,8 @@ There are no test for this method, it rely on Jp and Jm</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.Js">
-<code class="sig-name descname">Js</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">isDim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Js"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Js" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Js">
+<span class="sig-name descname"><span class="pre">Js</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Js"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Js" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the total angular momentum (spin) operator
 <img class="math" src="../_images/math/46f6b9521b7c3fc18249efe6ec0bf59d754174c6.png" alt="\hat{J}_{s} := \hat{J}_{x}^{2} + \hat{J}_{y}^{2}+ \hat{J}_{z}^{2}"/> for a given spin quantum number j.</p>
 <blockquote>
@@ -976,8 +979,8 @@ There are no test for this method, it rely on Jp and Jm</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.displacement">
-<code class="sig-name descname">displacement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="p">:</span> <span class="n">complex</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#displacement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.displacement" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.displacement">
+<span class="sig-name descname"><span class="pre">displacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#displacement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.displacement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the displacement operator <img class="math" src="../_images/math/90da6f2f22aeeb8b0910ea01e6136f1f963f0237.png" alt="\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}"/>
 for a given displacement parameter <img class="math" src="../_images/math/2f5aa019312e1bbc969deab8dca8b00f76025404.png" alt="\alpha"/>.</p>
 <p>NOTE can be implemented without matrix exponentiation</p>
@@ -1026,8 +1029,8 @@ for a given displacement parameter <img class="math" src="../_images/math/2f5aa0
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.squeeze">
-<code class="sig-name descname">squeeze</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="p">:</span> <span class="n">complex</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#squeeze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.squeeze" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.squeeze">
+<span class="sig-name descname"><span class="pre">squeeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#squeeze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.squeeze" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the squeezing operator <img class="math" src="../_images/math/3779ad2bc1cdbf4722dc6c2e2ee5b19ed8d31840.png" alt="\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}"/>
 for a given squeezing parameter <img class="math" src="../_images/math/2f5aa019312e1bbc969deab8dca8b00f76025404.png" alt="\alpha"/>.</p>
 <p>NOTE can be implemented without matrix exponentiation</p>
@@ -1068,8 +1071,8 @@ for a given squeezing parameter <img class="math" src="../_images/math/2f5aa0193
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.parityEXP">
-<code class="sig-name descname">parityEXP</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">HamiltonianCavity</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#parityEXP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.parityEXP" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.parityEXP">
+<span class="sig-name descname"><span class="pre">parityEXP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HamiltonianCavity</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#parityEXP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.parityEXP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a parity operator <img class="math" src="../_images/math/7609966f4327b4e60ee42a343d25bd3a4b9be08b.png" alt="\hat{P}(\hat{H}) := e^{i\pi\hat{H}}"/> by exponenting a given Hamiltonian
 <img class="math" src="../_images/math/b5d453cd164a1584c9b627c35add844357eeb425.png" alt="\hat{H}"/>.</p>
 <p>Keeps sparse/array as sparse/array.</p>
@@ -1110,8 +1113,8 @@ for a given squeezing parameter <img class="math" src="../_images/math/2f5aa0193
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.paritySUM">
-<code class="sig-name descname">paritySUM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimension</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#paritySUM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.paritySUM" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.paritySUM">
+<span class="sig-name descname"><span class="pre">paritySUM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#paritySUM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.paritySUM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a parity operator by explicitly placing alternating +/- into a matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1147,8 +1150,8 @@ for a given squeezing parameter <img class="math" src="../_images/math/2f5aa0193
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.compositeOp">
-<code class="sig-name descname">compositeOp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operator</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">dimB</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dimA</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#compositeOp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.compositeOp" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.compositeOp">
+<span class="sig-name descname"><span class="pre">compositeOp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimB</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimA</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#compositeOp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.compositeOp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a composite operator
 <img class="math" src="../_images/math/658be43f49ee1474247fadadd2b583a21398f017.png" alt="\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}"/>
 ,ie tensor product with identities of dimensions before dimB and after dimA</p>
@@ -1186,8 +1189,8 @@ for a given squeezing parameter <img class="math" src="../_images/math/2f5aa0193
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.operators.operatorPow">
-<code class="sig-name descname">operatorPow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">power</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sparse</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>scipy.sparse.base.spmatrix<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#operatorPow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.operatorPow" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.operatorPow">
+<span class="sig-name descname"><span class="pre">operatorPow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#operatorPow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.operatorPow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1247,18 +1250,24 @@ for a given squeezing parameter <img class="math" src="../_images/math/2f5aa0193
 
       </div>
     </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-    
-  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
-
-
-    <footer class="footer mt-5 mt-md-0">
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
-    <p>
-          &copy; Copyright 2020, Cahit Kargi.<br/>
-        Last updated on 2021/06/08.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.0.<br/>
-    </p>
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+</p>
+    </div>
+    
   </div>
 </footer>
   </body>

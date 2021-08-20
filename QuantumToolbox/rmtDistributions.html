@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random Matrix Theory Distributions (quanguru.QuantumToolbox.rmtDistributions) &#8212; QuanGuru 1 documentation</title>
     
-  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,28 +20,21 @@
 
     
       
-  <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx_tabs/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/style.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -48,7 +42,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,48 +50,68 @@
     <link rel="prev" title="Thermodynamical functions (quanguru.QuantumToolbox.thermodynamics)" href="thermodynamics.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
-<div class="container-xl">
+    <div class="container-fluid" id="banner"></div>
 
-    <a class="navbar-brand" href="../index.html">
     
-      <p class="title">QuanGuru</p>
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
     
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">QuanGuru</p>
+</a>
 
-    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
-      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
-        
-        
-        <li class="nav-item active">
-            <a class="nav-link" href="../QuantumToolbox.html">QuantumToolbox</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="../classes.html">Classes (Objects for OOP, module to be renamed later)</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="Tutorials/Tutorials.html">Tutorials</a>
-        </li>
-        
-        
-      </ul>
+    
+  </div>
 
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
       
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../QuantumToolbox.html">
+  QuantumToolbox
+ </a>
+</li>
 
-      <ul class="navbar-nav">
-        
-        
-      </ul>
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="Tutorials/Tutorials.html">
+  Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
     </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
 </div>
     </nav>
     
@@ -105,131 +119,120 @@
     <div class="container-xl">
       <div class="row">
           
-          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form>
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="linearAlgebra.html">
+   Basic Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="states.html">
+   Quantum State
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="operators.html">
+   Quantum Operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="evolution.html">
+   Quantum Evolution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="functions.html">
+   Basic Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Hamiltonians.html">
+   Common Hamiltonians
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="spinRotations.html">
+   Qubit Rotations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="quasiProbabilities.html">
+   Quasi-Probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="thermodynamics.html">
+   Thermodynamical functions
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Random Matrix Theory Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eigenVecVal.html">
+   Eigen-vector/value Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="IPR.html">
+   Inverse Participation Ratio
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="_helpers.html">
+   Helper Functions
+  </a>
+ </li>
+</ul>
 
-    <div class="bd-toc-item active">
-    
-  
-    <ul class="nav bd-sidenav">
-        
-        
-          
+  </div>
+</nav>
+            </div>
             
-                <li class="">
-                    <a href="linearAlgebra.html">Basic Linear Algebra</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="states.html">Quantum State</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="operators.html">Quantum Operators</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="evolution.html">Quantum Evolution</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="functions.html">Basic Functions</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="Hamiltonians.html">Common Hamiltonians</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="spinRotations.html">Qubit Rotations</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="quasiProbabilities.html">Quasi-Probabilities</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="thermodynamics.html">Thermodynamical functions</a>
-                </li>
-            
-          
-            
-                <li class="active">
-                    <a href="">Random Matrix Theory Distributions</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="eigenVecVal.html">Eigen-vector/value Statistics</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="IPR.html">Inverse Participation Ratio</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="_helpers.html">Helper Functions</a>
-                </li>
-            
-          
-        
-        
-        
-        
-        
-        
-      </ul>
-  
-  </nav>
-          </div>
           
 
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
               
+              <div class="toc-item">
+                
 <div class="tocsection onthispage pt-5 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
 <nav id="bd-toc-nav">
-    <ul class="nav section-nav flex-column">
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#functions" class="nav-link">Functions</a>
-        </li>
-    
-    </ul>
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functions">
+   Functions
+  </a>
+ </li>
+</ul>
+
 </nav>
-
-
+              </div>
               
+              <div class="toc-item">
+                
+              </div>
+              
+            
           </div>
           
 
+          
+          
+            
           
           <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
               
@@ -269,8 +272,8 @@
 </tbody>
 </table>
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.rmtDistributions.EigenVectorDist">
-<code class="sig-name descname">EigenVectorDist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">beta</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/rmtDistributions.html#EigenVectorDist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.rmtDistributions.EigenVectorDist" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.rmtDistributions.EigenVectorDist">
+<span class="sig-name descname"><span class="pre">EigenVectorDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/rmtDistributions.html#EigenVectorDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.rmtDistributions.EigenVectorDist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes PDF <img class="math" src="../_images/math/f01cb75ce76498bd7c3e6f4505d157bc0315ce1d.png" alt="P(x)"/> of eigenvector statistics at x for three universality classes
 (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension <img class="math" src="../_images/math/122b65559d80db81bab972ac9be3e0572394748c.png" alt="dim"/>.</p>
 <p><a class="reference external" href="https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006">Read here more details and derivations.</a></p>
@@ -294,8 +297,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.rmtDistributions.WignerDyson">
-<code class="sig-name descname">WignerDyson</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">beta</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/rmtDistributions.html#WignerDyson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.rmtDistributions.WignerDyson" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.rmtDistributions.WignerDyson">
+<span class="sig-name descname"><span class="pre">WignerDyson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/rmtDistributions.html#WignerDyson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.rmtDistributions.WignerDyson" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate Wigner Surmise (Wigner-Dyson) PDF at x for three universality classes
 (COE (beta=1), CUE (beta=2), and CSE (beta=4)). Used in nearest-neighbour eigen-value/phase spacing statistics.</p>
 <p><a class="reference external" href="https://doi.org/10.1080/00018732.2016.1198134">For these definitions and more details.</a></p>
@@ -318,8 +321,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="quanguru.QuantumToolbox.rmtDistributions.Poissonian">
-<code class="sig-name descname">Poissonian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">lam</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../_modules/quanguru/QuantumToolbox/rmtDistributions.html#Poissonian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quanguru.QuantumToolbox.rmtDistributions.Poissonian" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.rmtDistributions.Poissonian">
+<span class="sig-name descname"><span class="pre">Poissonian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/rmtDistributions.html#Poissonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.rmtDistributions.Poissonian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Poisson PDF at x.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -358,18 +361,24 @@
 
       </div>
     </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-    
-  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
-
-
-    <footer class="footer mt-5 mt-md-0">
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
-    <p>
-          &copy; Copyright 2020, Cahit Kargi.<br/>
-        Last updated on 2021/06/08.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.0.<br/>
-    </p>
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+</p>
+    </div>
+    
   </div>
 </footer>
   </body>
