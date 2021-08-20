@@ -24,17 +24,17 @@ def test_tddFromSaved(bo):
     td.simulation.run(p=bo)
     # NOTE for some reason some of the component amplitudes in the eigenvector statistics are
     # different from the saved (most are the same)
-    # assert np.allclose(vecStat05Dig[0], td.dd.results["vecStat"][0][0])
-    # assert np.allclose(vecStat05Dig[1], td.dd.results["vecStat"][0][1])
+    assert np.allclose(vecStat05Dig[0], td.dd.results["vecStat"][0][0])
+    assert np.allclose(vecStat05Dig[1], td.dd.results["vecStat"][0][1])
 
-    # assert np.allclose(vecStat6Dig[0], td.dd.results["vecStat"][1][0])
-    # assert np.allclose(vecStat6Dig[1], td.dd.results["vecStat"][1][1])
+    assert np.allclose(vecStat6Dig[0], td.dd.results["vecStat"][1][0])
+    assert np.allclose(vecStat6Dig[1], td.dd.results["vecStat"][1][1])
 
-    # assert np.allclose(vecStat05Ide[0], td.ds.results["vecStat"][0][0])
-    # assert np.allclose(vecStat05Ide[1], td.ds.results["vecStat"][0][1])
+    assert np.allclose(vecStat05Ide[0], td.ds.results["vecStat"][0][0])
+    assert np.allclose(vecStat05Ide[1], td.ds.results["vecStat"][0][1])
 
-    # assert np.allclose(vecStat6Ide[0], td.ds.results["vecStat"][1][0])
-    # assert np.allclose(vecStat6Ide[1], td.ds.results["vecStat"][1][1])
+    assert np.allclose(vecStat6Ide[0], td.ds.results["vecStat"][1][0])
+    assert np.allclose(vecStat6Ide[1], td.ds.results["vecStat"][1][1])
 
     assert np.allclose(nDig05[0], td.simulation.results["nDig"][0][0])
     assert np.allclose(nDig05[1], td.simulation.results["nDig"][0][1])

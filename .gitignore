@@ -134,3 +134,4 @@ docs/source copy
 !tests/classes/Integration/tdd/tdd.pyc
 !tests/classes/Integration/thd/thd.pyc
 !tests/classes/Integration/tkt/tkt.pyc
+macVenv/

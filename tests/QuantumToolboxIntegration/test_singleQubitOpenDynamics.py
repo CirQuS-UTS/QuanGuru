@@ -8,6 +8,8 @@ import numpy as np
 # currently includes 2 cases: (i) decay only, and (ii) unitary evolution by calling Liouville method without giving
 # any collapse operators. For now, only looks at excited state populations
 
+# TODO this is an unfinished test. below two tests are the same and it actually is not testing open system dynamics.
+
 decayRateSM = rn.random()
 
 excitedPopulation = lambda t: 0.5*np.exp(-(0.00001*(decayRateSM+1)*2+1j)*50*t)
