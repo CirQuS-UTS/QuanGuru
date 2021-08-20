@@ -46,7 +46,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
         else:
             raise ValueError('unknown axis')
 
-    def _rotMat(self):
+    def _rotMat(self, collapseOps = None, decayRates = None, openSys=False): #pylint:disable=unused-argument
         if ((self._paramBoundBase__matrix is None) or (self._paramBoundBase__paramUpdated is True)): # pylint: disable=no-member
             sys = list(self.subSys.values())
             rotOp = self._rotationOp
@@ -56,7 +56,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
                 flipOpN = operators.compositeOp(rotOp(sys[i+1].dimension, isDim=True),
                                                 sys[i+1]._dimsBefore, sys[i+1]._dimsAfter)
                 flipUn = evolution.Unitary(self.phase*self.angle*flipOpN) @ flipUn
-            self._paramBoundBase__matrix = flipUn # pylint: disable=assigning-non-slot
+            self._paramBoundBase__matrix = evolution._preposSO(flipUn) if (openSys or isinstance(collapseOps, list)) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
@@ -75,7 +75,7 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
         #self._createUnitary = self._gateImplements
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-    def instantFlip(self):
+    def instantFlip(self, openSys=False):
         if ((self._paramBoundBase__matrix is None) or (self._paramBoundBase__paramUpdated is True)): # pylint: disable=no-member
             sys = list(self.subSys.values())
             if self.rotationAxis.lower() == 'x':
@@ -87,15 +87,15 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
             flipOp = operators.compositeOp(rotOp(self.angle), sys[0]._dimsBefore, sys[0]._dimsAfter) # pylint: disable=no-member
             for i in range(len(sys)-1):
                 flipOp = operators.compositeOp(rotOp(self.angle), sys[i+1]._dimsBefore, sys[i+1]._dimsAfter) @ flipOp
-            self._paramBoundBase__matrix = flipOp # pylint: disable=assigning-non-slot
+            self._paramBoundBase__matrix = evolution._preposSO(flipOp) if openSys else flipOp # pylint: disable=assigning-non-slot,protected-access
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def _gateImplements(self):
+    def _gateImplements(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
         if self.implementation is None:
-            unitary = self._rotMat()
+            unitary = self._rotMat(openSys = isinstance(collapseOps, list))
         elif self.implementation.lower() in ('instant', 'flip'): # pylint: disable=no-member
-            unitary = self.instantFlip()
+            unitary = self.instantFlip(openSys = isinstance(collapseOps, list))
         return unitary
 
 SpinRotation._createUnitary = SpinRotation._rotMat # pylint: disable=protected-access

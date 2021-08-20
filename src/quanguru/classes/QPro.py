@@ -7,6 +7,7 @@ r"""
 """
 import numpy as np
 
+from ..QuantumToolbox.linearAlgebra import hc #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
@@ -30,10 +31,11 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         cls.numberOfExponentiations += 1
 
     __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates',
-                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample']
+                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', '_antiStep']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
+        self._antiStep = False
         self.__currentState = _parameter()
         self.__identity = None
         self.__inProtocol = False
@@ -88,13 +90,13 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     def system(self, supSys):
         self.superSys = supSys # pylint: disable=no-member
 
-    def prepare(self):
+    def prepare(self, collapseOps = None, decayRates = None):
         if self.fixed is True:
-            self.getUnitary()
+            self.getUnitary(collapseOps, decayRates)
 
         for step in self.subSys.values():
             if isinstance(step, genericProtocol):
-                step.prepare()
+                step.prepare(collapseOps, decayRates)
 
     @property
     def fixed(self):
@@ -112,25 +114,24 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
             self.simulation._bound(supSys.simulation) # pylint: disable=protected-access
         self.simulation._qBase__subSys[self] = self.superSys # pylint: disable=protected-access
 
-    @property
-    def unitary(self):
+    def unitary(self, collapseOps = None, decayRates = None):
         if self.superSys is not None:
             self.superSys._timeDependency() # pylint: disable=no-member
 
         if self._paramUpdated:
             if not self.fixed:
-                self._paramBoundBase__matrix = self.getUnitary() # pylint: disable=assigning-non-slot
+                self._paramBoundBase__matrix = self.getUnitary(collapseOps, decayRates) # pylint: disable=assigning-non-slot
         elif self._paramBoundBase__matrix is None: # pylint: disable=no-member
-            self._paramBoundBase__matrix = self.getUnitary() # pylint: disable=assigning-non-slot
+            self._paramBoundBase__matrix = self.getUnitary(collapseOps, decayRates) # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def getUnitary(self):
+    def getUnitary(self, collapseOps = None, decayRates = None):
         if self.superSys is not None:
             self.superSys._timeDependency() # pylint: disable=no-member
 
         for update in self._genericProtocol__updates:
             update.setup()
-        self._paramBoundBase__matrix = self._getUnitary() # pylint: disable=no-member, assigning-non-slot
+        self._paramBoundBase__matrix = self._getUnitary(collapseOps, decayRates) # pylint: disable=no-member, assigning-non-slot
         for update in self._genericProtocol__updates:
             update.setback()
         self._paramUpdatedToFalse()
@@ -139,7 +140,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     def _paramUpdatedToFalse(self):
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
 
-    def _defGetUnitary(self):
+    def _defGetUnitary(self, collapseOps = None, decayRates = None):
         runCreate = False
         if self._paramUpdated:
             if not self.fixed:
@@ -154,22 +155,26 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
                 lc = self.timeDependency.indMultip
                 td = True
 
-            unitary = self._identity
+            unitary = self._identity(openSys=isinstance(collapseOps, list))
+            #print(isinstance(collapseOps, list), unitary.shape, self.alias)
             for ind in range(lc):
                 if td:
                     self.timeDependency.runSweep(self.timeDependency._indicesForSweep(ind, *self.timeDependency.inds))
-                unitary = self._createUnitary() @ unitary # pylint: disable=no-member
+                #print(self._createUnitary(collapseOps, decayRates).shape, self.name, self.alias, unitary.shape)
+                unitary = self._createUnitary(collapseOps, decayRates) @ unitary # pylint: disable=no-member
             self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    @property
-    def _identity(self):
+    def _identity(self, openSys=False):
+        dimension = 0
         if self.superSys is None:
-            self._genericProtocol__identity = identity(list(self.subSys.values())[0]._totalDim)#pylint:disable=E0237,E1101
-        elif self._genericProtocol__identity is None:
-            self._genericProtocol__identity = identity(self.superSys._totalDim) # pylint: disable=E0237, E1101
-        elif self._genericProtocol__identity.shape[0] != self.superSys._totalDim: # pylint: disable=E1101
-            self._genericProtocol__identity = identity(self.superSys._totalDim) # pylint: disable=E0237, E1101
+            dimension = list(self.subSys.values())[0]._totalDim#pylint:disable=E0237,E1101
+        dimension = self.superSys._totalDim if (dimension == 0) else dimension # pylint: disable=E0237, E1101
+        #elif self._genericProtocol__identity is None:
+        #    dimension = self.superSys._totalDim # pylint: disable=E0237, E1101
+        #elif self._genericProtocol__identity.shape[0] != self.superSys._totalDim: # pylint: disable=E1101
+        #    dimension = self.superSys._totalDim # pylint: disable=E0237, E1101
+        self._genericProtocol__identity = identity(dimension = dimension**2 if openSys else dimension)# pylint: disable=E0237, E1101
         return self._genericProtocol__identity
 
 class qProtocol(genericProtocol):
@@ -236,11 +241,11 @@ class qProtocol(genericProtocol):
                 st._paramUpdated = vals[ind2]
         return vals
 
-    def _defCreateUnitary(self):
-        unitary = self._identity # pylint: disable=no-member
+    def _defCreateUnitary(self, collapseOps = None, decayRates = None):
+        unitary = self._identity(openSys=isinstance(collapseOps, list)) # pylint: disable=no-member
         for step in self.steps.values():
             vals = self._puValues(step, [])
-            unitary = step.getUnitary() @ unitary
+            unitary = step.getUnitary(collapseOps, decayRates) @ unitary
             self._puValues(step, vals)
         return unitary
 
@@ -277,12 +282,11 @@ class copyStep(qBase):
     def _paramUpdated(self, boolean):
         pass
 
-    def getUnitary(self):
-        return self.superSys.unitary
+    def getUnitary(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
+        return self.superSys.unitary(collapseOps, decayRates)
 
-    @property
-    def unitary(self):
-        return self.superSys.unitary
+    def unitary(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
+        return self.superSys.unitary(collapseOps, decayRates)
 
 class freeEvolution(genericProtocol):
     label = 'freeEvolution'
@@ -301,10 +305,12 @@ class freeEvolution(genericProtocol):
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     _freqCoef = 2 * np.pi
-    def matrixExponentiation(self):
+    def matrixExponentiation(self, collapseOps = None, decayRates = None):
+        collapseOpsA = [hc(op) for op in collapseOps] if self._antiStep else collapseOps
         self._increaseExponentiationCount()
         unitary = lio.LiouvillianExp(self._freqCoef * self.superSys.totalHam, # pylint: disable=no-member
-                                     timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples))
+                                     timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples),
+                                     collapseOperators=collapseOpsA, decayRates=decayRates)
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
 

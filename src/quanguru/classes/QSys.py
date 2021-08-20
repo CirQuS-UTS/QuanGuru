@@ -177,9 +177,8 @@ class genericQSys(qBaseSim):
     def _freeEvol(self):
         return self._genericQSys__unitary
 
-    @property
     def unitary(self):
-        unitary = self._genericQSys__unitary.unitary
+        unitary = self._genericQSys__unitary.unitary()
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return unitary
 

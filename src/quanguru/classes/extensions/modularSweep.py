@@ -93,10 +93,10 @@ def timeEvolBase(qSim):
         if protocol.stepSample:
             for step in protocol.steps.values():
                 for _ in range(step.simulation.samples):
-                    protocol.currentState = step.unitary @ protocol.currentState
+                    protocol.currentState = step.unitary() @ protocol.currentState
                     protocol.sampleStates.append(protocol.currentState)
         else:
-            protocol.currentState = protocol.unitary @ protocol.currentState
+            protocol.currentState = protocol.unitary() @ protocol.currentState
         #protocol.sampleStates = []
         #qSim.subSys[protocol]._computeBase__compute([protocol.currentState]) # pylint: disable=protected-access
         #sampleCompute = qSim is protocol.simulation
