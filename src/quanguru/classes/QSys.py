@@ -114,8 +114,8 @@ class genericQSys(qBaseSim):
                 newSys.addSubSys(sys)
 
         if self.simulation._stateBase__initialStateInput._value is not None:
-            newSys.initialState = self.simulation._stateBase__initialStateInput.value
-        newSys._named__setKwargs(**kwargs)
+            newSys.initialState = self.simulation._stateBase__initialStateInput.value #pylint:disable=assigning-non-slot
+        newSys._named__setKwargs(**kwargs) #pylint:disable=no-member
         return newSys
 
     @property
@@ -314,42 +314,42 @@ class compQSystem(genericQSys):
         return subSys
 
     @_recurseIfList
-    def removeSubSys(self, subS, _exclude=[]):#pylint:disable=arguments-differ,dangerous-default-value,too-many-branches
-        if isinstance(subS, str):
-            subS = self.getByNameOrAlias(subS)
+    def removeSubSys(self, subSys, _exclude=[]):#pylint:disable=arguments-differ,dangerous-default-value,too-many-branches
+        if isinstance(subSys, str):
+            subSys = self.getByNameOrAlias(subSys)
         couplings = list(self.qCouplings.values())
         for coupling in couplings:
-            coupling.removeSubSys(subS, _exclude=_exclude)
+            coupling.removeSubSys(subSys, _exclude=_exclude)
             if len(coupling._qBase__subSys) == 0: # pylint: disable=protected-access
                 self.qCouplings.pop(coupling.name)
 
-        if subS in list(self.subSys.values()):
+        if subSys in list(self.subSys.values()):
             for qS in self.subSys.values():
                 qS.simulation._stateBase__initialState._value = None
-                if qS.ind < subS.ind:
-                    qS._dimsAfter = int(qS._dimsAfter/subS.dimension)
-                elif qS.ind > subS.ind:
-                    qS._dimsBefore = int(qS._dimsBefore/subS.dimension)
-            self.qSystems.pop(subS.name)
+                if qS.ind < subSys.ind:
+                    qS._dimsAfter = int(qS._dimsAfter/subSys.dimension)
+                elif qS.ind > subSys.ind:
+                    qS._dimsBefore = int(qS._dimsBefore/subSys.dimension)
+            self.qSystems.pop(subSys.name)
             _exclude.append(self)
-            super().removeSubSys(subS, _exclude=_exclude)
-        elif subS in self.qCouplings.values():
-            self.qCouplings.pop(subS.name)
+            super().removeSubSys(subSys, _exclude=_exclude)
+        elif subSys in self.qCouplings.values():
+            self.qCouplings.pop(subSys.name)
 
         if self not in _exclude:
             _exclude.append(self)
             if ((self._dimsAfter != 1) or (self._dimsBefore != 1)):
-                if self.ind < subS.superSys.ind:
-                    self._dimsAfter = int(self._dimsAfter/subS.dimension)
-                elif self.ind > subS.superSys.ind:
-                    self._dimsBefore = int(self._dimsBefore/subS.dimension)
+                if self.ind < subSys.superSys.ind:
+                    self._dimsAfter = int(self._dimsAfter/subSys.dimension)
+                elif self.ind > subSys.superSys.ind:
+                    self._dimsBefore = int(self._dimsBefore/subSys.dimension)
 
             for sys in self.subSys.values():
-                sys.removeSubSys(subS, _exclude=_exclude)
+                sys.removeSubSys(subSys, _exclude=_exclude)
                 #_exclude.append(sys)
 
         if self.superSys is not None:
-            self.superSys.removeSubSys(subS, _exclude=_exclude)
+            self.superSys.removeSubSys(subSys, _exclude=_exclude)
             _exclude.append(self.superSys)
 
         self.delMatrices(_exclude=[])
@@ -690,27 +690,27 @@ class qSystem(genericQSys):
         return qSys if len(qSys) > 1 else qSys[0]
 
     @addDecorator
-    def addSubSys(self, subS, **kwargs):
-        if not isinstance(subS, term):
+    def addSubSys(self, subSys, **kwargs):
+        if not isinstance(subSys, term):
             raise TypeError('?')
         kwargs['superSys'] = self
-        newS = super().addSubSys(subS, **kwargs)
+        newS = super().addSubSys(subSys, **kwargs)
         # FIXME use setAttr, check also for operator
         self._paramUpdated = True
         newS._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
-        return subS
+        return subSys
 
     @_recurseIfList
-    def removeSubSys(self, subS, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
+    def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
         if self not in _exclude:
             _exclude.append(self)
             if self.superSys is not None:
-                self.superSys.removeSubSys(subS, _exclude=_exclude)
-            super().removeSubSys(subS, _exclude=_exclude)
+                self.superSys.removeSubSys(subSys, _exclude=_exclude)
+            super().removeSubSys(subSys, _exclude=_exclude)
 
     @terms.setter
-    def terms(self, subS):
-        genericQSys.subSys.fset(self, subS) # pylint: disable=no-member
+    def terms(self, subSys):
+        genericQSys.subSys.fset(self, subSys) # pylint: disable=no-member
         for sys in self.subSys.values():
             sys.superSys = self
 
@@ -887,9 +887,9 @@ class qCoupling(termTimeDep):
         self.removeSubSys(sys, _exclude=[])
 
     @_recurseIfList
-    def removeSubSys(self, subS, _exclude=[]): # pylint: disable=dangerous-default-value
+    def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=dangerous-default-value
         vals = self._qBase__subSys.values() # pylint: disable=no-member
         for ind, val in enumerate(vals):
             systs = val[0]
-            if subS in systs:
+            if subSys in systs:
                 self._qBase__subSys.pop(str(ind)) # pylint: disable=no-member

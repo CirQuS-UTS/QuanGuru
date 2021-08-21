@@ -17,6 +17,20 @@ r"""
         _recurseIfList
         addDecorator
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `saveCSV`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `readCSV`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `saveQResCSV`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_recursiveSaveList`       |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_saveDictToCSV`           |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 from functools import wraps
@@ -228,8 +242,8 @@ class aliasDict(dict):
         else:
             for k, v in mapping:
                 self[k] = v
-        for k in kwargs:
-            self[k] = kwargs[k]
+        for k, v in kwargs.items():
+            self[k] = v
 
     def setdefault(self, __key: Hashable, __default: Any) -> Any:
         r"""
@@ -575,18 +589,18 @@ class qBase(named):
         self.addSubSys(subS)
 
     @addDecorator
-    def addSubSys(self, subS: named, **kwargs) -> named:
+    def addSubSys(self, subSys: named, **kwargs) -> named:
         r"""
         Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
         an instance and adds), and list/tuple containing any combination of these.
 
         TODO add example &/ link to a tutorial
         """
-        assert isinstance(subS, (named, _auxiliaryClass)), "Add method is restricted to named or its child classes!"
-        if isinstance(subS, named):
-            subS._named__setKwargs(**kwargs) # pylint: disable=W0212
-        self._qBase__subSys[subS.name] = subS
-        return subS
+        assert isinstance(subSys, (named, _auxiliaryClass)), "Add method is restricted to named or its child classes!"
+        if isinstance(subSys, named):
+            subSys._named__setKwargs(**kwargs) # pylint: disable=W0212
+        self._qBase__subSys[subSys.name] = subSys
+        return subSys
 
     def createSubSys(self, subSysClass: Any, **kwargs) -> named:
         r"""
@@ -595,16 +609,16 @@ class qBase(named):
         return self.addSubSys(subSysClass, **kwargs)
 
     @_recurseIfList
-    def removeSubSys(self, subS: Any, _exclude=[]) -> None: # pylint: disable=dangerous-default-value
+    def removeSubSys(self, subSys: Any, _exclude=[]) -> None: # pylint: disable=dangerous-default-value
         r"""
         Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will
         raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
         named class.
         """
-        if not isinstance(subS, named):
-            subS = self.getByNameOrAlias(subS)
-        assert isinstance(subS, named), "Given object is not an instance of named!"
-        self.subSys.pop(subS.name)
+        if not isinstance(subSys, named):
+            subSys = self.getByNameOrAlias(subSys)
+        assert isinstance(subSys, named), "Given object is not an instance of named!"
+        self.subSys.pop(subSys.name)
 
     def resetSubSys(self) -> None:
         r"""

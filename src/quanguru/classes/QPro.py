@@ -337,8 +337,8 @@ class Gate(genericProtocol):
         return list(self.subSys.values())
 
     @addDecorator
-    def addSubSys(self, subS, **kwargs):
-        newSys = super().addSubSys(subS, **kwargs)
+    def addSubSys(self, subSys, **kwargs):
+        newSys = super().addSubSys(subSys, **kwargs)
         if self.simulation._timeBase__bound is None:
             self.simulation._bound(newSys.simulation) # pylint: disable=protected-access
         # FIXME this becomes 'fixed' unless the dimension is changed.

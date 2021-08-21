@@ -232,7 +232,8 @@ class Sweep(qBase):
     def removeSweep(self, sys):
         r"""
         Removes a ``_sweep`` it self, or all the ``_sweep`` objects that contain a particular ``sys`` in it.
-        Since, it uses :meth:`removeSubSys <quanguru.classes.base.qBase.removeSubSys>`, it works exactly the same, meaning
+        Since, it uses :meth:`removeSubSys <quanguru.classes.base.qBase.removeSubSys>`, it works exactly the same,
+        meaning
         names/aliases/objects/listOfObjects can be used to remove.
 
         If the argument ``sys`` is an :class:`_sweep` object, this method calls

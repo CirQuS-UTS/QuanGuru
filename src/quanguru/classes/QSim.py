@@ -15,8 +15,10 @@ from .extensions.modularSweep import timeEvolBase
 class Simulation(timeBase):
     """
     Simulation class collects all the pieces together to run a simulation. Its ``subSys`` dictionary contain
-    :class:`protocols <quanguru.classes.QPro.genericProtocol>`, :class:`quantum systems <quanguru.classes.QSys.genericQSys>`
-    as ``key:value``, respectively. It has two :class:`sweeps <quanguru.classes.Sweep.Sweep>`, meaning 2 of its attributes
+    :class:`protocols <quanguru.classes.QPro.genericProtocol>`, :class:`quantum systems
+    <quanguru.classes.QSys.genericQSys>`
+    as ``key:value``, respectively. It has two :class:`sweeps <quanguru.classes.Sweep.Sweep>`, meaning 2 of its
+    attributes
     are ``Sweep`` objects. Its ``run`` method, after running some preparations, runs the actual function/s that run
     ``Sweeps`` and evolve the system by calling ``evolFunc`` attribute of ``Simulation`` object, which is a function
     that, by default, calls ``.unitary`` method on protocols, which by default creates the unitary by matrix
@@ -33,7 +35,8 @@ class Simulation(timeBase):
     ----------
     Sweep : ``Sweep``
         This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an
-        instance of :class:`Sweep <quanguru.classes.Sweep.Sweep>`. The use of this attribute in ``runSimulation`` function
+        instance of :class:`Sweep <quanguru.classes.Sweep.Sweep>`. The use of this attribute in ``runSimulation``
+        function
         is independent of ``evolFunc`` or time-dependent part of the simulation. This is simply to sweep multiple
         parameters.
     timeDependency: ``Sweep``
@@ -244,8 +247,8 @@ class Simulation(timeBase):
         return newSys
 
     @_recurseIfList
-    def removeSubSys(self, subS, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
-        self.removeQSystems(subS)
+    def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
+        self.removeQSystems(subSys)
 
     def __compute(self): # pylint: disable=dangerous-default-value
         states = []
@@ -307,13 +310,13 @@ class _poolMemory: # pylint: disable=too-few-public-methods
         if p is True:
             if coreCount is None:
                 if _poolMemory.coreCount is None:
-                    _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1)
+                    _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1) #pylint:disable=consider-using-with
                 else:
-                    _pool = multiprocessing.Pool(processes=_poolMemory.coreCount)
+                    _pool = multiprocessing.Pool(processes=_poolMemory.coreCount) #pylint:disable=consider-using-with
             elif isinstance(coreCount, int):
-                _pool = multiprocessing.Pool(processes=coreCount)
+                _pool = multiprocessing.Pool(processes=coreCount) #pylint:disable=consider-using-with
             elif coreCount.lower() == 'all':
-                _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1)
+                _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1) #pylint:disable=consider-using-with
             else:
                 # FIXME should raise error
                 print('error')
@@ -321,10 +324,10 @@ class _poolMemory: # pylint: disable=too-few-public-methods
             _pool = None
         elif p is not None:
             # FIXME if p is not a pool, this should raise error
-            _pool = multiprocessing.Pool(processes=p._processes) # pylint: disable=protected-access
+            _pool = multiprocessing.Pool(processes=p._processes) # pylint: disable=protected-access,consider-using-with
         elif p is None:
             if _poolMemory.coreCount is not None:
-                _pool = multiprocessing.Pool(processes=_poolMemory.coreCount)
+                _pool = multiprocessing.Pool(processes=_poolMemory.coreCount) #pylint:disable=consider-using-with
             else:
                 _pool = None
         runSimulation(qSim, _pool)

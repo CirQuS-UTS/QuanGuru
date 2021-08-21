@@ -4,7 +4,7 @@ def runSimulation(qSim, p):
     # NOTE determine if more samples of a protocol step are requested.
     for protocol, _ in qSim.subSys.items():
         if hasattr(protocol, 'steps'):
-            if any([step.simulation.samples > 1 for step in protocol.steps.values()]):
+            if any((step.simulation.samples > 1 for step in protocol.steps.values())):
                 protocol.stepSample = True
 
     if p is None:
