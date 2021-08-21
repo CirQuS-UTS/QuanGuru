@@ -25,7 +25,8 @@
 
 # def writeAttr(k, attributes, path, name):
 #     """
-#     Method write a dictionary or dictionary of dictionaries into attributes to a `h5` file and also into a txt. It first
+#     Method write a dictionary or dictionary of dictionaries into attributes to a `h5` file and also into a txt. It
+#     first
 #     converts the dictionary of dictionaries into a single dictionary, so if modifies any duplicate key.
 
 #     Parameters

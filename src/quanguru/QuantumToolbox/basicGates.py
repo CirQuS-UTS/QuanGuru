@@ -1,3 +1,23 @@
+r"""
+    Contains some basic single and two qubit gates.
+
+    .. currentmodule:: quanguru.QuantumToolbox.basicGates
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `CNOT`                    |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `CPHASE`                  |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `Hadamard`                |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
+"""
+
+
 import numpy as np # type: ignore
 import scipy.sparse as sp # type: ignore
 from .customTypes import Matrix

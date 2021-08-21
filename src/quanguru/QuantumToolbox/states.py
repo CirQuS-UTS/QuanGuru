@@ -27,6 +27,28 @@ r"""
     .. autosummary::
         BellStates
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `basis`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `basisBra`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `zeros`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `completeBasis`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `superPos`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `densityMatrix`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `normalise`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `compositeState`          |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `completeBasisMat`        |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `weightedSum`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `mat2Vec`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `vec2Mat`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `BellStates`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 from typing import Optional, List, Iterable, Any
@@ -90,7 +112,6 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return n if sparse else n.A
 
-
 def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     r"""
     Creates a complete basis of ket states :math:`\{|n\rangle\}`,
@@ -119,7 +140,6 @@ def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     """
 
     return [basis(dimension, i, sparse) for i in range(dimension)]
-
 
 def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     r"""
@@ -150,7 +170,6 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
     """
 
     return basis(dimension, state, sparse).T
-
 
 def zeros(dimension: int, sparse: bool = True) -> Matrix:
     r"""
@@ -184,7 +203,6 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
     return Zeros if sparse else Zeros.A
 
-
 def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
     r""" Weighted sum :math:`\sum_{x}w_{x}x` of given list of summands :math:`\{x\}` and weights :math:`\{w_{x}\}`.
 
@@ -199,10 +217,13 @@ def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
     -------
     Any
         weighted sum
+
+    Examples
+    --------
+    # TODO
     """
 
     return sum([weight*val for weight, val in zip(weights, summands)]) if weights is not None else sum(summands)
-
 
 def superPos(dimension: int, excitations: supInp, populations: bool = True, sparse: bool = True) -> Matrix:
     r"""
@@ -277,7 +298,6 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
 
     return normalise(weightedSum([basis(dimension, excite, sparse) for excite in sts.keys()], list(sts.values())))
 
-
 def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) -> Matrix:
     r"""
     Computes the `density matrix` for both pure and mixed states.
@@ -327,7 +347,6 @@ def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) ->
     libool = isinstance(ket, list)
     return normalise(weightedSum([linAlOuterProd(k) for k in ket], probability)) if libool else linAlOuterProd(ket)
 
-
 def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matrixList] = None, #pylint:disable=unsubscriptable-object
                      sparse: bool = True) -> matrixList:
     r"""
@@ -376,7 +395,6 @@ def completeBasisMat(dimension: Optional[int] = None, compKetBase: Optional[matr
         compBase[i] = densityMatrix(state)
     return compBase
 
-
 def normalise(state: Matrix) -> Matrix:
     r"""
     Function to normalise `any` state (ket or density matrix).
@@ -421,12 +439,11 @@ def normalise(state: Matrix) -> Matrix:
         mag = 1 / linAlTrace(state)
     return mag * state
 
-
 def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool = True) -> Matrix:
     r"""
     Function to create `composite ket` states. Uses :func:`superPos <quanguru.QuantumToolbox.states.superPos>` to create
-    individual states and :func:`tensorProd <quanguru.QuantumToolbox.linearAlgebra.tensorProd>` to calculate their tensor
-    product.
+    individual states and :func:`tensorProd <quanguru.QuantumToolbox.linearAlgebra.tensorProd>` to calculate their
+    tensor product.
 
     Parameters
     ----------
@@ -469,7 +486,6 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
     st = linAlTensorProd(*[superPos(dim, exs) for (dim, exs) in zip(dimensions, excitations)])
     return st if sparse else st.A
 
-
 def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     r"""
     Converts `density matrix` into `density vector` (used in super-operator representation).
@@ -497,7 +513,6 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     """
 
     return denMat.T.reshape(np.prod(np.shape(denMat)), 1)
-
 
 def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     r"""
@@ -532,7 +547,6 @@ def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     n = int(np.sqrt(a[0]))
     mat = vec.reshape((n, n)).T
     return mat
-
 
 def BellStates(bs: str = 'Phi+', sparse: bool = True) -> Matrix:
     r"""

@@ -12,6 +12,22 @@ r"""
         RabiHam
         JCHam
         aJCHam
+        UJC
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `qubCavFreeHam`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `RabiHam`                 |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `JCHam`                   |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `aJCHam`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `UJC`                     |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 #from quanguru.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap
@@ -65,7 +81,6 @@ def qubCavFreeHam(qubFreq: float, cavFreq: float, cavDim: int) -> Tuple[Matrix, 
     qubHam = qubFreq * sp.kron(sigmaz(), identity(cavDim), format='csc')
     return cavHam, qubHam
 
-
 def RabiHam(qubFreq: float, cavFreq: float, g: float, cavDim: int) -> Matrix:
     r"""
     Creates Rabi Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
@@ -99,7 +114,6 @@ def RabiHam(qubFreq: float, cavFreq: float, g: float, cavDim: int) -> Matrix:
     rabiHam = cavHam + qubHam + couplingRabi
     return rabiHam
 
-
 def JCHam(qubFreq: float, cavFreq: float, g: float, cavDim: int) -> Matrix:
     r"""
     Creates Jaynes-Cummings Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
@@ -132,7 +146,6 @@ def JCHam(qubFreq: float, cavFreq: float, g: float, cavDim: int) -> Matrix:
     couplingJC = g*(sp.kron(sigmam(), create(cavDim), format='csc') + sp.kron(sigmap(), destroy(cavDim), format='csc'))
     JCHamil = cavHam + qubHam + couplingJC
     return JCHamil
-
 
 def aJCHam(qubFreq: float, cavFreq: float, g: float, cavDim: int) -> Matrix:
     r"""
@@ -188,6 +201,10 @@ def UJC(wq: float, wc: float, g: float, t: float, dimC: int, sparse=False) -> Ma
     Returns:
         Matrix:
             Unitary matrix describing free evolution of the Jaynes-Cummings model
+
+    Examples
+    --------
+    # TODO Create some examples both in here and the demo script
     """
 
     D = wq-wc

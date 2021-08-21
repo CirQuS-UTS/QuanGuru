@@ -11,6 +11,17 @@ r"""
         iprKet
         iprKetNB
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `iprKet`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `iprKetNB`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 import numpy as np # type: ignore
@@ -55,7 +66,6 @@ def iprKet(basis: matrixList, ket: Matrix) -> float:
     """
 
     return 1/sum([fidelityPure(basKet, ket)**2 for basKet in basis]) # type: ignore
-
 
 def iprKetNB(ket: Matrix) -> float:
     r"""

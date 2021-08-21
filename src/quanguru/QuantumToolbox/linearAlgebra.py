@@ -15,6 +15,22 @@ r"""
         trace
         partialTrace
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `hc`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `innerProd`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `norm`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+       `outerProd`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `tensorProd`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `trace`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `partialTrace`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 from numpy import ndarray # type: ignore
@@ -65,7 +81,6 @@ def hc(matrix: Matrix) -> Matrix:
 
     return matrix.T.conj()
 
-
 def innerProd(ket1: Matrix, ket2: Matrix = None) -> float:
     r"""
     Computes the inner product :math:`\langle ket2 | ket1 \rangle` of a ket vector with itself or with another,
@@ -112,7 +127,6 @@ def innerProd(ket1: Matrix, ket2: Matrix = None) -> float:
     overlap = (hc(ket2) @ ket1).diagonal().sum()
     return overlap
 
-
 def norm(ket: Matrix) -> float:
     r"""
     Norm :math:`\sqrt{\langle ket | ket \rangle}` of a ket state :math:`|ket \rangle`,
@@ -128,10 +142,13 @@ def norm(ket: Matrix) -> float:
     -------
     float
         norm of the state
+
+    Examples
+    --------
+    # TODO
     """
 
     return np.sqrt(innerProd(ket))
-
 
 def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
     r"""
@@ -182,7 +199,6 @@ def outerProd(ket1: Matrix, ket2: Matrix = None) -> Matrix:
     if ket2 is None:
         ket2 = ket1
     return ket1 @ hc(ket2)
-
 
 def tensorProd(*args: Matrix) -> Matrix:
     r"""
@@ -242,7 +258,6 @@ def tensorProd(*args: Matrix) -> Matrix:
         totalProd = sp.identity(totalProd, format="csc")
     return sp.kron(totalProd, tensorProd(*args[1:]), format='csc') if len(args) > 1 else totalProd
 
-
 def trace(matrix: Matrix) -> float:
     r"""
     Trace :math:`Tr(M) := \sum_{i} M_{ii}` of a matrix `M`.
@@ -272,7 +287,6 @@ def trace(matrix: Matrix) -> float:
     """
 
     return matrix.diagonal().sum()
-
 
 def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray:
     r"""

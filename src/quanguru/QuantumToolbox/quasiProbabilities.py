@@ -10,6 +10,19 @@ r"""
         Wigner
         HusimiQ
         _qfuncPure
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `Wigner`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `HusimiQ`                 |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `_qfuncPure`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 from numpy import ndarray # type: ignore

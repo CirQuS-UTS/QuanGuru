@@ -1,5 +1,5 @@
 r"""
-    Contains some helper functions.
+    Contains some helper functions. Just a place holder for now.
 
     .. currentmodule:: quanguru.QuantumToolbox._helpers
 
@@ -10,6 +10,15 @@ r"""
 
         loopIt
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2002
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `loopIt`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
 
 """
 
@@ -45,5 +54,4 @@ def loopIt(func: Callable, *inps: Iterable) -> List:
     [0, 6, 48, 162, 384, 750, 1296, 2058, 3072, 4374]
 
     """
-
     return [func(*inp) for inp in zip(*inps)]

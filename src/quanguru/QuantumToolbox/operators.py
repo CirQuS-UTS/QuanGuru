@@ -41,6 +41,36 @@ r"""
         compositeOp
         operatorPow
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `identity`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `number`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `destroy`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `create`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `sigmaz`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `sigmay`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `sigmax`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `sigmap`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `sigmam`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `Jp`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `Jm`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `Jx`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `Jy`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `Jz`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `Js`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `displacement`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `squeeze`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `parityEXP`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `paritySUM`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `compositeOp`             |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `operatorPow`             |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """ #pylint:disable=too-many-lines
 
 from typing import Callable

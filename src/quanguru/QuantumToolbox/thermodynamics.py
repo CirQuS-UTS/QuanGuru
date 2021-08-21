@@ -13,6 +13,18 @@ r"""
         qubitPolarisation
         HeatCurrent
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `nBarThermal`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `qubitPolarisation`       |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `HeatCurrent`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 from numpy import exp, real # type: ignore

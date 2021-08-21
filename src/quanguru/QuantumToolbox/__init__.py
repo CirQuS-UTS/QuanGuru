@@ -35,6 +35,7 @@ r"""
         IPR
         thermodynamics
         _helpers
+        customTypes
 
 """
 
@@ -58,7 +59,7 @@ from .rmtDistributions import (EigenVectorDist, WignerDyson, WignerSurmise, Pois
 from .thermodynamics import(nBarThermal, qubitPolarisation, HeatCurrent)
 from .spinRotations import(qubRotation, xRotation, yRotation, zRotation)
 from .quasiProbabilities import (Wigner, HusimiQ, _qfuncPure)
-from .Hamiltonians import (qubCavFreeHam, RabiHam, JCHam, aJCHam)
+from .Hamiltonians import (qubCavFreeHam, RabiHam, JCHam, aJCHam, UJC)
 from .IPR import (iprKet, iprKetNB)
 from .eigenVecVal import (_eigs, _eigStat, _eigStatSymp, _eigStatEig, eigVecStatKet)
 from .basicGates import (CNOT, CPHASE, Hadamard)

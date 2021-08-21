@@ -15,6 +15,21 @@ r"""
         _eigsStatEigSymp
         eigVecStatKet
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `_eigs`                   |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `_eigStat`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `_eigStatSymp`            |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `_eigStatEig`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `_eigsStatEigSymp`        |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `eigVecStatKet`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 from typing import Tuple
@@ -158,7 +173,7 @@ def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
             componentsSymplectic.append(p1Symplectic+p2Symplectic)
     return componentsSymplectic
 
-def eigVecStatKet(basis: matrixList, ket: Matrix, symp=False) -> Tuple:
+def eigVecStatKet(basis: matrixList, ket: Matrix, symp=True) -> Tuple:
     r"""
     Calculates component amplitudes :math:`|c_{i,k}|^{2}` of a `ket` :math:`|k\rangle := \sum_{i}c_{i,k}|i\rangle` in a
     basis :math:`\{|i\rangle\}`.
@@ -186,9 +201,9 @@ def eigVecStatKet(basis: matrixList, ket: Matrix, symp=False) -> Tuple:
     """
     regStat = [fidelityPure(mat2Vec(state), ket) for state in basis]
     symStat = []
-    elSymplectic = 0
-    for _ in range(int(len(regStat)/2)):
-        symStat.append(regStat[elSymplectic+1] + regStat[elSymplectic])
-        elSymplectic += 2
-
+    if symp:
+        elSymplectic = 0
+        for _ in range(int(len(regStat)/2)):
+            symStat.append(regStat[elSymplectic+1] + regStat[elSymplectic])
+            elSymplectic += 2
     return regStat, symStat

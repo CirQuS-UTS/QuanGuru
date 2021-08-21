@@ -23,6 +23,25 @@ r"""
     .. autosummary::
         _expectationColArr
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `expectation`             |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `fidelityPure`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_fidelityTest`           |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `entropy`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `traceDistance`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `sortedEigens`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `concurrence`             |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_expectationColArr`      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `standardDev`             |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `spectralNorm`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """ #pylint:disable=too-many-lines
 
 from typing import List, Tuple
@@ -107,7 +126,6 @@ def expectation(operator: Matrix, state: Matrix) -> float:
     expc = trace(operator @ state)
     return np.real(expc) if np.round(expc.imag, 12) == 0.0 else expc
 
-
 def fidelityPure(state1: Matrix, state2: Matrix) -> float:
     r"""
     Calculates `fidelity`
@@ -173,7 +191,6 @@ def _fidelityTest(state1: Matrix, state2: Matrix) -> float:
     matsqrt = lina.sqrtm(state1.A)
     fid = trace(lina.sqrtm(matsqrt @ state2.A  @ matsqrt))
     return np.real(fid**2)
-
 
 def entropy(densMat: Matrix, base2: bool = False) -> float:
     r"""
@@ -243,7 +260,6 @@ def entropy(densMat: Matrix, base2: bool = False) -> float:
     S = float(np.real(-sum(nzvals * logvals)))
     return S
 
-
 def traceDistance(A: Matrix, B: Matrix) -> float:
     r"""
     Calculates the trace distance :math:`\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} =
@@ -285,7 +301,6 @@ def traceDistance(A: Matrix, B: Matrix) -> float:
         diff = diff.A
     vals = lina.eig(diff)[0]
     return np.real(0.5 * np.sum(np.sqrt(np.abs(vals))))
-
 
 def sortedEigens(Mat: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarray]]:
     r"""
@@ -332,7 +347,6 @@ def sortedEigens(Mat: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarra
     sortedVecs = eigVecs[:, idx]
     sortedVecsMat = [mat2Vec(sortedVecs[:, ind]) for ind in range(len(sortedVecs))]
     return sortedVals, sortedVecsMat
-
 
 def concurrence(state: Matrix) -> float:
     r"""
@@ -387,7 +401,6 @@ def concurrence(state: Matrix) -> float:
     eigVals, _ = sortedEigens(R)
     eigVals = np.real(np.sqrt(eigVals))
     return max([0, np.round(eigVals[3] - eigVals[2] - eigVals[1] - eigVals[0], 15)])
-
 
 def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:
     r"""

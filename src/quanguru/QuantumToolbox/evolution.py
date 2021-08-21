@@ -15,6 +15,23 @@ r"""
         _preSO
         _posSO
         _preposSO
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `Unitary`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `Liouvillian`             |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `LiouvillianExp`          |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `dissipator`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_preSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_posSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_preposSO`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 
 from typing import List, Optional
@@ -70,7 +87,6 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
     else:
         liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep)
     return liouvillianEXP
-
 
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value,unsubscriptable-object
                 collapseOperators: Optional[List] = None, decayRates: Optional[List] = None) -> Matrix:# pylint: disable=dangerous-default-value
@@ -129,7 +145,6 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
             else:
                 liouvillian += collapsePart
     return liouvillian
-
 
 def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
                    collapseOperators: Optional[List] = None, decayRates: Optional[List] = None,
@@ -193,7 +208,6 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
         liouvillianEXP = Unitary(Hamiltonian, timeStep)
     return liouvillianEXP
 
-
 def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> Matrix:#pylint:disable=unsubscriptable-object
     r"""
     Creates the `Lindblad dissipator` super-operator
@@ -242,7 +256,6 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
     part3 = _posSO(number, identity)
     return part1 - (0.5 * (part2 + part3))
 
-
 def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     r"""
     Creates `pre super-operator` :math:`\mathbb{I}\otimes\hat{O}` for an `operator` :math:`\hat{O}`.
@@ -276,7 +289,6 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     pre = sp.kron(identity, operator, format='csc')
     return pre if sp.issparse(operator) else pre.A
 
-
 def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     r"""
     Creates `pos super-operator` :math:`\hat{O}^{T}\otimes\mathbb{I}` for an `operator` :math:`\hat{O}`.
@@ -309,7 +321,6 @@ def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
         identity = sp.identity(operator.shape[0], format="csc")
     pos = sp.kron(operator.transpose(), identity, format='csc')
     return pos if sp.issparse(operator) else pos.A
-
 
 def _preposSO(operator: Matrix) -> Matrix:
     r"""

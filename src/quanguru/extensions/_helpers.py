@@ -1,3 +1,26 @@
+r"""
+    Contains some helper functions used in saving methods.
+
+    .. currentmodule:: quanguru.extensions._helpers
+
+    Functions
+    ---------
+
+    .. autosummary::
+
+        makeDir
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `makeDir`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+"""
+
 import os
 import sys
 

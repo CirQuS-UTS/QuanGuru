@@ -9,9 +9,24 @@ r"""
     .. autosummary::
 
         qubRotation
+        spinRotation
         xRotation
         yRotation
         zRotation
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+       `qubRotation`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `spinRotation`            |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `xRotation`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `yRotation`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `zRotation`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
 
 """
 
@@ -55,7 +70,6 @@ def xRotation(angle: float, sparse: bool = True) -> Matrix:
     rotUnitary = round(np.cos(angle), 15)*identity(2, sparse) - 1j*round(np.sin(angle), 15)*sigmax(sparse=sparse)
     return rotUnitary
 
-
 def yRotation(angle: float, sparse: bool = True) -> Matrix:
     r"""
     Creates the operator :math:`R_{y}(\theta)` for qubit rotation around the y-axis by `angle` :math:`\theta`.
@@ -80,7 +94,6 @@ def yRotation(angle: float, sparse: bool = True) -> Matrix:
     rotUnitary = round(np.cos(angle), 15)*identity(2, sparse) - 1j*round(np.sin(angle), 15)*sigmay(sparse=sparse)
     return rotUnitary
 
-
 def zRotation(angle: float, sparse: bool = True) -> Matrix:
     r"""
     Creates the operator :math:`R_{z}(\theta)` for qubit rotation around the z-axis by `angle` :math:`\theta`.
@@ -104,7 +117,6 @@ def zRotation(angle: float, sparse: bool = True) -> Matrix:
     angle = angle/2
     rotUnitary = round(np.cos(angle), 15)*identity(2, sparse) - 1j*round(np.sin(angle), 15)*sigmaz(sparse=sparse)
     return rotUnitary
-
 
 def qubRotation(xyz: str, angle: float, sparse: bool = True) -> Matrix:
     r"""

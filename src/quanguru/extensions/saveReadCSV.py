@@ -1,3 +1,34 @@
+r"""
+    Contains data saving (into CSV) functions.
+
+    .. currentmodule:: quanguru.extensions.saveReadCSV
+
+    Functions
+    ---------
+
+    .. autosummary::
+
+        saveCSV
+        readCSV
+        saveQResCSV
+        _recursiveSaveList
+        _saveDictToCSV
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `saveCSV`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `readCSV`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `saveQResCSV`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_recursiveSaveList`       |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_saveDictToCSV`           |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+"""
+
 import csv
 from datetime import datetime
 import numpy as np
