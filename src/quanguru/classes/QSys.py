@@ -1,3 +1,49 @@
+"""
+    This module contain classes for Quantum systems.
+
+    .. currentmodule:: quanguru.classes.QSys
+
+    .. autosummary::
+
+        genericQSys
+        QuantumSystem
+        compQSystem
+        termTimeDep
+        term
+        qSystem
+        qCoupling
+        Spin
+        Qubit
+        Cavity
+        _initStDec
+        _computeDef
+        _calculateDef
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `genericQSys`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `QuantumSystem`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `compQSystem`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `termTimeDep`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `term`                     |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `qSystem`                  |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `qCoupling`                |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Spin`                     |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Qubit`                    |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Cavity`                   |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_initStDec`               |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_computeDef`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_calculateDef`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
+
+"""
+
 from collections import OrderedDict
 from numpy import (int64, int32, int16, ndarray)
 from scipy.sparse import issparse

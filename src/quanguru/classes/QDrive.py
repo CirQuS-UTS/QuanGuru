@@ -1,3 +1,16 @@
+"""
+    THESE ARE JUST SOME INITIAL IDEAS. NOT COMPLETED OR USED YET.
+
+    .. currentmodule:: quanguru.classes.QDrive
+
+    .. autosummary::
+
+        genericDrive
+        qDrive
+        pulse
+
+"""
+
 from numpy import pi
 
 from .baseClasses import paramBoundBase, setAttr

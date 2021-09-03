@@ -1,5 +1,25 @@
 """
     This module contain :class:`Simulation` and :class:`_poolMemory` classes.
+
+    .. currentmodule:: quanguru.classes.QSim
+
+    .. autosummary::
+
+        Simulation
+        _poolMemory
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `Simulation`               |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_poolMemory`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
+
 """
 import sys
 import platform
@@ -73,12 +93,15 @@ class Simulation(timeBase):
     def __init__(self, system=None, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
 
+        #: sweep object
         self.Sweep = Sweep(superSys=self)
+        #: sweep object
         self.timeDependency = Sweep(superSys=self)
 
         #self.timeDependent = False
         self.__index = -1
 
+        #: evolve function
         self.evolFunc = Simulation._evolFuncDefault
 
         if system is not None:

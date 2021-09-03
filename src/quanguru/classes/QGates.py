@@ -1,3 +1,26 @@
+"""
+    Contains for protocol/step objects for gate operations.
+
+    .. currentmodule:: quanguru.classes.QGates
+
+    .. autosummary::
+
+        SpinRotation
+        xGate
+
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `SpinRotation`             |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `xGate`                    |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+"""
+
 from .QPro import Gate
 from .baseClasses import setAttr
 from ..QuantumToolbox import evolution

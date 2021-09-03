@@ -16,6 +16,24 @@ r"""
         stateBase
         timeBase
 
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `updateBase`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_parameter`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `setAttr`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `setAttrParam`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `paramBoundBase`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `computeBase`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `qBaseSim`                 |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `stateBase`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `timeBase`                 |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
 """
 from typing import Any, Callable, Dict, List, Union, cast
 

@@ -99,7 +99,7 @@ def qubitPolarisation(freq: float, temp: float) -> float:
 
 def HeatCurrent(Lindbladian: Matrix, Hamiltonian: Matrix, denMat: Matrix) -> float:
     r"""
-    Calculates the heat current :math:`\mathcal{J}:=Tr(\dot{\rho}\hat{H})` due to given Lindbladian
+    Calculates the heat current :math:`\mathcal{J}:=Tr(\dot{\rho}\hat{H})`, where :math:`\dot{\rho} := \hat{\mathcal{L}}\rho` is obtained using the given Lindbladian
     :math:`\hat{\mathcal{L}}`.
     Here, :math:`\hat{H}` is the system Hamiltonian, and the time derivative of density matrix is
     :math:`\dot{\rho}mathcal{L}`. It does not strictly speaking have to be

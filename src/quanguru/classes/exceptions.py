@@ -1,3 +1,16 @@
+"""
+    THESE ARE JUST SOME INITIAL IDEAS. NOT COMPLETED OR USED YET.
+    
+    .. currentmodule:: quanguru.classes.exceptions
+
+    .. autosummary::
+
+        qSystemInitErrors
+        qCouplingInitErrors
+        sweepInitError
+
+"""
+
 # TODO turn prints into actual error raise, they are print for testing
 
 def qSystemInitErrors(init):
@@ -26,7 +39,6 @@ def qCouplingInitErrors(init):
         #    if len(obj._qCoupling__cFncs) != len(obj._qCoupling__qSys):
         #        className = obj.__class__.__name__
         #        print(className + ' requires same number of systems as coupling functions')
-
     return newFunction
 
 
@@ -42,5 +54,4 @@ def sweepInitError(init):
                   'sweepMin: ', obj.sweepMin, '\n' +  # noqa: W504
                   'sweepPert: ', obj.sweepPert, '\n' +  # noqa: W504
                   'logSweep: ', obj.logSweep)
-
     return newFunction

@@ -1,3 +1,15 @@
+"""
+    THESE ARE JUST SOME INITIAL IDEAS. NOT COMPLETED OR USED YET.
+
+    .. currentmodule:: quanguru.classes.environment
+
+    .. autosummary::
+
+        environment
+        envCoupling
+
+"""
+
 from ..QuantumToolbox import evolution as qEvo #pylint: disable=relative-beyond-top-level
 
 from .QSys import qCoupling, termTimeDep

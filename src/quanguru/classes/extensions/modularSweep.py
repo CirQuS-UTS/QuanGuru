@@ -1,3 +1,38 @@
+"""
+    Contain an implementation of the sweep that uses modular arithmetic.
+
+    .. currentmodule:: quanguru.classes.extensions.modularSweep
+
+    .. autosummary::
+
+        runSimulation
+        nonParalEvol
+        paralEvol
+        parallelTimeEvol
+        _runSweepAndPrep
+        timeDependent
+        timeEvolDefault
+        timeEvolBase
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `runSimulation`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `nonParalEvol`             |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `paralEvol`                |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `parallelTimeEvol`         |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_runSweepAndPrep`         |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `timeDependent`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `timeEvolDefault`          |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `timeEvolBase`             |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
+"""
+
 from functools import partial
 
 def runSimulation(qSim, p):

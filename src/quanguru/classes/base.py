@@ -24,11 +24,14 @@ r"""
     =======================    ==================   ==============   ================   ===============
        **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
     =======================    ==================   ==============   ================   ===============
-      `saveCSV`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `readCSV`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `saveQResCSV`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_recursiveSaveList`       |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_saveDictToCSV`           |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `named`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+      `qBase`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+      `aliasClass`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+      `keySearch`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `aliasDict`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+      `_auxiliaryClass`          |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_recurseIfList`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `addDecorator`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
 """

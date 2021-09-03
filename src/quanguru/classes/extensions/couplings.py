@@ -1,3 +1,30 @@
+"""
+    Contains methods that creates the objects for certain common couplings.
+
+    .. currentmodule:: quanguru.classes.extensions.couplings
+
+    .. autosummary::
+
+        checkCavQub
+        JC
+        Rabi
+        Dicke
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================   ==============   ================   ===============
+       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================    ==================   ==============   ================   ===============
+      `checkCavQub`             |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `JC`                      |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Rabi`                    |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Dicke`                   |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+    =======================    ==================   ==============   ================   ===============
+
+"""
+
 from quanguru.classes.QSys import compQSystem, Qubit, Cavity, Spin
 from quanguru.QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax, Jx
 
