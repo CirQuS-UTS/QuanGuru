@@ -176,6 +176,28 @@
 <span class="sd">    .. autosummary::</span>
 <span class="sd">        BellStates</span>
 
+<span class="sd">    .. |c| unicode:: U+2705</span>
+<span class="sd">    .. |x| unicode:: U+274C</span>
+<span class="sd">    .. |w| unicode:: U+2000</span>
+
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       `basis`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `basisBra`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `zeros`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `completeBasis`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `superPos`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `densityMatrix`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `normalise`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `compositeState`          |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `completeBasisMat`        |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `weightedSum`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `mat2Vec`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `vec2Mat`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `BellStates`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Any</span>
@@ -239,7 +261,6 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">A</span></div>
 
-
 <div class="viewcode-block" id="completeBasis"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.completeBasis">[docs]</a><span class="k">def</span> <span class="nf">completeBasis</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matrixList</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a complete basis of ket states :math:`\{|n\rangle\}`,</span>
@@ -268,7 +289,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="p">[</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">sparse</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dimension</span><span class="p">)]</span></div>
-
 
 <div class="viewcode-block" id="basisBra"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.basisBra">[docs]</a><span class="k">def</span> <span class="nf">basisBra</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -299,7 +319,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">sparse</span><span class="p">)</span><span class="o">.</span><span class="n">T</span></div>
-
 
 <div class="viewcode-block" id="zeros"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.zeros">[docs]</a><span class="k">def</span> <span class="nf">zeros</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -333,7 +352,6 @@
     <span class="n">Zeros</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">Zeros</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">Zeros</span><span class="o">.</span><span class="n">A</span></div>
 
-
 <div class="viewcode-block" id="weightedSum"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.weightedSum">[docs]</a><span class="k">def</span> <span class="nf">weightedSum</span><span class="p">(</span><span class="n">summands</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">weights</span><span class="p">:</span> <span class="n">Iterable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot; Weighted sum :math:`\sum_{x}w_{x}x` of given list of summands :math:`\{x\}` and weights :math:`\{w_{x}\}`.</span>
 
@@ -348,10 +366,13 @@
 <span class="sd">    -------</span>
 <span class="sd">    Any</span>
 <span class="sd">        weighted sum</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">weight</span><span class="o">*</span><span class="n">val</span> <span class="k">for</span> <span class="n">weight</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">summands</span><span class="p">)])</span> <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">sum</span><span class="p">(</span><span class="n">summands</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="superPos"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.superPos">[docs]</a><span class="k">def</span> <span class="nf">superPos</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">excitations</span><span class="p">:</span> <span class="n">supInp</span><span class="p">,</span> <span class="n">populations</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -426,7 +447,6 @@
 
     <span class="k">return</span> <span class="n">normalise</span><span class="p">(</span><span class="n">weightedSum</span><span class="p">([</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">excite</span><span class="p">,</span> <span class="n">sparse</span><span class="p">)</span> <span class="k">for</span> <span class="n">excite</span> <span class="ow">in</span> <span class="n">sts</span><span class="o">.</span><span class="n">keys</span><span class="p">()],</span> <span class="nb">list</span><span class="p">(</span><span class="n">sts</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span></div>
 
-
 <div class="viewcode-block" id="densityMatrix"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.densityMatrix">[docs]</a><span class="k">def</span> <span class="nf">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">matrixOrMatrixList</span><span class="p">,</span> <span class="n">probability</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the `density matrix` for both pure and mixed states.</span>
@@ -476,7 +496,6 @@
     <span class="n">libool</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ket</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">normalise</span><span class="p">(</span><span class="n">weightedSum</span><span class="p">([</span><span class="n">linAlOuterProd</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ket</span><span class="p">],</span> <span class="n">probability</span><span class="p">))</span> <span class="k">if</span> <span class="n">libool</span> <span class="k">else</span> <span class="n">linAlOuterProd</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span></div>
 
-
 <div class="viewcode-block" id="completeBasisMat"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.completeBasisMat">[docs]</a><span class="k">def</span> <span class="nf">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">compKetBase</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">matrixList</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1">#pylint:disable=unsubscriptable-object</span>
                      <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matrixList</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -525,7 +544,6 @@
         <span class="n">compBase</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">compBase</span></div>
 
-
 <div class="viewcode-block" id="normalise"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.normalise">[docs]</a><span class="k">def</span> <span class="nf">normalise</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to normalise `any` state (ket or density matrix).</span>
@@ -570,12 +588,11 @@
         <span class="n">mag</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">linAlTrace</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">mag</span> <span class="o">*</span> <span class="n">state</span></div>
 
-
 <div class="viewcode-block" id="compositeState"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.compositeState">[docs]</a><span class="k">def</span> <span class="nf">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="p">:</span> <span class="n">intList</span><span class="p">,</span> <span class="n">excitations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">supInp</span><span class="p">],</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to create `composite ket` states. Uses :func:`superPos &lt;quanguru.QuantumToolbox.states.superPos&gt;` to create</span>
-<span class="sd">    individual states and :func:`tensorProd &lt;quanguru.QuantumToolbox.linearAlgebra.tensorProd&gt;` to calculate their tensor</span>
-<span class="sd">    product.</span>
+<span class="sd">    individual states and :func:`tensorProd &lt;quanguru.QuantumToolbox.linearAlgebra.tensorProd&gt;` to calculate their</span>
+<span class="sd">    tensor product.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -618,7 +635,6 @@
     <span class="n">st</span> <span class="o">=</span> <span class="n">linAlTensorProd</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">superPos</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">exs</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">exs</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">excitations</span><span class="p">)])</span>
     <span class="k">return</span> <span class="n">st</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">st</span><span class="o">.</span><span class="n">A</span></div>
 
-
 <div class="viewcode-block" id="mat2Vec"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.mat2Vec">[docs]</a><span class="k">def</span> <span class="nf">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1"># pylint: disable=invalid-name</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts `density matrix` into `density vector` (used in super-operator representation).</span>
@@ -646,7 +662,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">denMat</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">denMat</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="vec2Mat"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.vec2Mat">[docs]</a><span class="k">def</span> <span class="nf">vec2Mat</span><span class="p">(</span><span class="n">vec</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1"># pylint: disable=invalid-name</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -681,7 +696,6 @@
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="n">mat</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
     <span class="k">return</span> <span class="n">mat</span></div>
-
 
 <div class="viewcode-block" id="BellStates"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.BellStates">[docs]</a><span class="k">def</span> <span class="nf">BellStates</span><span class="p">(</span><span class="n">bs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Phi+&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -768,7 +782,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
 </p>
     </div>
     

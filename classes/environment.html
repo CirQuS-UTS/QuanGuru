@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>environment classes (quanguru.classes.environment) &#8212; QuanGuru 1 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="QDrive classes (quanguru.classes.QDrive)" href="QDrive.html" />
+    <link rel="prev" title="QGates classes (quanguru.classes.QGates)" href="QGates.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">QuanGuru</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../QuantumToolbox.html">
+  QuantumToolbox
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../QuantumToolbox/Tutorials/Tutorials.html">
+  Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="base.html">
+   Base class
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="baseClasses.html">
+   BaseClasses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QRes.html">
+   Results Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSweep.html">
+   Sweep Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSim.html">
+   Simulation Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSys.html">
+   Quantum System Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QPro.html">
+   QProtocol Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QGates.html">
+   QGates Classes
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Environment Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QDrive.html">
+   QDrive Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exceptions.html">
+   Exceptions
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="extensions.html">
+   Extensions
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="modularSweep.html">
+     Modular arithmetic sweep
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="couplings.html">
+     Common Couplings
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-quanguru.classes.environment">
+<span id="environment-classes-quanguru-classes-environment"></span><h1>environment classes (<a class="reference internal" href="#module-quanguru.classes.environment" title="quanguru.classes.environment"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.environment</span></code></a>)<a class="headerlink" href="#module-quanguru.classes.environment" title="Permalink to this headline">¶</a></h1>
+<p>THESE ARE JUST SOME INITIAL IDEAS. NOT COMPLETED OR USED YET.</p>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.environment.environment" title="quanguru.classes.environment.environment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">environment</span></code></a>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.environment.envCoupling" title="quanguru.classes.environment.envCoupling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">envCoupling</span></code></a>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/environment.html#environment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.environment.environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="QSys.html#quanguru.classes.QSys.termTimeDep" title="quanguru.classes.QSys.termTimeDep"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.termTimeDep</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'environment'</span></em><a class="headerlink" href="#quanguru.classes.environment.environment.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.environment._internalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.environment._externalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.environment._instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment.envCouplings">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">envCouplings</span></span><a class="headerlink" href="#quanguru.classes.environment.environment.envCouplings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment.timeDependency">
+<span class="sig-name descname"><span class="pre">timeDependency</span></span><a class="headerlink" href="#quanguru.classes.environment.environment.timeDependency" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that can be assigned by the user to update the parameters a function of time. The library passes the
+current time to this function</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment.__frequency">
+<span class="sig-name descname"><span class="pre">__frequency</span></span><a class="headerlink" href="#quanguru.classes.environment.environment.__frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>frequency of the term, it is is the coupling strength in the case of coupling term</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment.__order">
+<span class="sig-name descname"><span class="pre">__order</span></span><a class="headerlink" href="#quanguru.classes.environment.environment.__order" title="Permalink to this definition">¶</a></dt>
+<dd><p>the order/power for the operator of the term. The operator is raised to the power in this value</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.environment.__operator">
+<span class="sig-name descname"><span class="pre">__operator</span></span><a class="headerlink" href="#quanguru.classes.environment.environment.__operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>operator for the term</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.environment.envCoupling">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">envCoupling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/environment.html#envCoupling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.environment.envCoupling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="QSys.html#quanguru.classes.QSys.qCoupling" title="quanguru.classes.QSys.qCoupling"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.qCoupling</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.envCoupling.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'envCoupling'</span></em><a class="headerlink" href="#quanguru.classes.environment.envCoupling.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.envCoupling._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.envCoupling._internalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.envCoupling._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.envCoupling._externalInstances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.envCoupling._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.envCoupling._instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.envCoupling.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#quanguru.classes.environment.envCoupling.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.envCoupling.__envMatrix">
+<span class="sig-name descname"><span class="pre">__envMatrix</span></span><a class="headerlink" href="#quanguru.classes.environment.envCoupling.__envMatrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.envCoupling.dissipator">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">dissipator</span></span><a class="headerlink" href="#quanguru.classes.environment.envCoupling.dissipator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="QGates.html" title="previous page">QGates classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QGates</span></code>)</a>
+    <a class='right-next' id="next-link" href="QDrive.html" title="next page">QDrive classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QDrive</span></code>)</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

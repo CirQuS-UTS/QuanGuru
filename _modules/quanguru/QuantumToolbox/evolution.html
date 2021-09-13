@@ -164,6 +164,23 @@
 <span class="sd">        _preSO</span>
 <span class="sd">        _posSO</span>
 <span class="sd">        _preposSO</span>
+
+<span class="sd">    .. |c| unicode:: U+2705</span>
+<span class="sd">    .. |x| unicode:: U+274C</span>
+<span class="sd">    .. |w| unicode:: U+2000</span>
+
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       `Unitary`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `Liouvillian`             |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `LiouvillianExp`          |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `dissipator`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `_preSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `_posSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `_preposSO`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
@@ -219,7 +236,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">liouvillianEXP</span> <span class="o">=</span> <span class="n">linA</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">Hamiltonian</span> <span class="o">*</span> <span class="n">timeStep</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">liouvillianEXP</span></div>
-
 
 <div class="viewcode-block" id="Liouvillian"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution.Liouvillian">[docs]</a><span class="k">def</span> <span class="nf">Liouvillian</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># pylint: disable=dangerous-default-value,unsubscriptable-object</span>
                 <span class="n">collapseOperators</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">decayRates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span><span class="c1"># pylint: disable=dangerous-default-value</span>
@@ -278,7 +294,6 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">liouvillian</span> <span class="o">+=</span> <span class="n">collapsePart</span>
     <span class="k">return</span> <span class="n">liouvillian</span></div>
-
 
 <div class="viewcode-block" id="LiouvillianExp"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution.LiouvillianExp">[docs]</a><span class="k">def</span> <span class="nf">LiouvillianExp</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span><span class="c1"># pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501</span>
                    <span class="n">collapseOperators</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">decayRates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -342,7 +357,6 @@
         <span class="n">liouvillianEXP</span> <span class="o">=</span> <span class="n">Unitary</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">,</span> <span class="n">timeStep</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">liouvillianEXP</span></div>
 
-
 <div class="viewcode-block" id="dissipator"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution.dissipator">[docs]</a><span class="k">def</span> <span class="nf">dissipator</span><span class="p">(</span><span class="n">collapseOperator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span><span class="c1">#pylint:disable=unsubscriptable-object</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Lindblad dissipator` super-operator</span>
@@ -391,7 +405,6 @@
     <span class="n">part3</span> <span class="o">=</span> <span class="n">_posSO</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">identity</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">part1</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">part2</span> <span class="o">+</span> <span class="n">part3</span><span class="p">))</span></div>
 
-
 <div class="viewcode-block" id="_preSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution._preSO">[docs]</a><span class="k">def</span> <span class="nf">_preSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Matrix</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `pre super-operator` :math:`\mathbb{I}\otimes\hat{O}` for an `operator` :math:`\hat{O}`.</span>
@@ -425,7 +438,6 @@
     <span class="n">pre</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">identity</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pre</span> <span class="k">if</span> <span class="n">sp</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span> <span class="k">else</span> <span class="n">pre</span><span class="o">.</span><span class="n">A</span></div>
 
-
 <div class="viewcode-block" id="_posSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution._posSO">[docs]</a><span class="k">def</span> <span class="nf">_posSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="n">Matrix</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates `pos super-operator` :math:`\hat{O}^{T}\otimes\mathbb{I}` for an `operator` :math:`\hat{O}`.</span>
@@ -458,7 +470,6 @@
         <span class="n">identity</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csc&quot;</span><span class="p">)</span>
     <span class="n">pos</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">identity</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pos</span> <span class="k">if</span> <span class="n">sp</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span> <span class="k">else</span> <span class="n">pos</span><span class="o">.</span><span class="n">A</span></div>
-
 
 <div class="viewcode-block" id="_preposSO"><a class="viewcode-back" href="../../../QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution._preposSO">[docs]</a><span class="k">def</span> <span class="nf">_preposSO</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -519,7 +530,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
 </p>
     </div>
     

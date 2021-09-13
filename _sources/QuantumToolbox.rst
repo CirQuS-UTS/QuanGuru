@@ -21,6 +21,7 @@ Quantum Toolbox (:mod:`quanguru.QuantumToolbox`)
    Basic Functions <QuantumToolbox/functions>
    Common Hamiltonians <QuantumToolbox/Hamiltonians>
    Qubit Rotations <QuantumToolbox/spinRotations>
+   Basic Gates <QuantumToolbox/basicGates>
    Quasi-Probabilities <QuantumToolbox/quasiProbabilities>
    Thermodynamical functions <QuantumToolbox/thermodynamics>
    Random Matrix Theory Distributions <QuantumToolbox/rmtDistributions>

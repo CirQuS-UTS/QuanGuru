@@ -166,6 +166,23 @@
 <span class="sd">        _recurseIfList</span>
 <span class="sd">        addDecorator</span>
 
+<span class="sd">    .. |c| unicode:: U+2705</span>
+<span class="sd">    .. |x| unicode:: U+274C</span>
+<span class="sd">    .. |w| unicode:: U+2000</span>
+
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">      `named`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">      `qBase`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">      `aliasClass`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">      `keySearch`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `aliasDict`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">      `_auxiliaryClass`          |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `_recurseIfList`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `addDecorator`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
@@ -377,8 +394,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
                 <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span></div>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
 
 <div class="viewcode-block" id="aliasDict.setdefault"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.aliasDict.setdefault">[docs]</a>    <span class="k">def</span> <span class="nf">setdefault</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__key</span><span class="p">:</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">__default</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -724,18 +741,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">subS</span><span class="p">)</span>
 
 <div class="viewcode-block" id="qBase.addSubSys"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.qBase.addSubSys">[docs]</a>    <span class="nd">@addDecorator</span>
-    <span class="k">def</span> <span class="nf">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">:</span> <span class="n">named</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">named</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">:</span> <span class="n">named</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">named</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates</span>
 <span class="sd">        an instance and adds), and list/tuple containing any combination of these.</span>
 
 <span class="sd">        TODO add example &amp;/ link to a tutorial</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="p">(</span><span class="n">named</span><span class="p">,</span> <span class="n">_auxiliaryClass</span><span class="p">)),</span> <span class="s2">&quot;Add method is restricted to named or its child classes!&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="n">named</span><span class="p">):</span>
-            <span class="n">subS</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=W0212</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qBase__subSys</span><span class="p">[</span><span class="n">subS</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">subS</span>
-        <span class="k">return</span> <span class="n">subS</span></div>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="p">(</span><span class="n">named</span><span class="p">,</span> <span class="n">_auxiliaryClass</span><span class="p">)),</span> <span class="s2">&quot;Add method is restricted to named or its child classes!&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">named</span><span class="p">):</span>
+            <span class="n">subSys</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=W0212</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qBase__subSys</span><span class="p">[</span><span class="n">subSys</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">subSys</span>
+        <span class="k">return</span> <span class="n">subSys</span></div>
 
 <div class="viewcode-block" id="qBase.createSubSys"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.qBase.createSubSys">[docs]</a>    <span class="k">def</span> <span class="nf">createSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSysClass</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">named</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -744,16 +761,16 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">subSysClass</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="qBase.removeSubSys"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.qBase.removeSubSys">[docs]</a>    <span class="nd">@_recurseIfList</span>
-    <span class="k">def</span> <span class="nf">removeSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+    <span class="k">def</span> <span class="nf">removeSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will</span>
 <span class="sd">        raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of</span>
 <span class="sd">        named class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="n">named</span><span class="p">):</span>
-            <span class="n">subS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">subS</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="n">named</span><span class="p">),</span> <span class="s2">&quot;Given object is not an instance of named!&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">subS</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">named</span><span class="p">):</span>
+            <span class="n">subSys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">subSys</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">named</span><span class="p">),</span> <span class="s2">&quot;Given object is not an instance of named!&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">subSys</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="qBase.resetSubSys"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.qBase.resetSubSys">[docs]</a>    <span class="k">def</span> <span class="nf">resetSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -801,7 +818,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
 </p>
     </div>
     

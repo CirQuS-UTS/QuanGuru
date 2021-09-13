@@ -172,6 +172,25 @@
 <span class="sd">    .. autosummary::</span>
 <span class="sd">        _expectationColArr</span>
 
+<span class="sd">    .. |c| unicode:: U+2705</span>
+<span class="sd">    .. |x| unicode:: U+274C</span>
+<span class="sd">    .. |w| unicode:: U+2000</span>
+
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       `expectation`             |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `fidelityPure`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `_fidelityTest`           |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `entropy`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `traceDistance`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `sortedEigens`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `concurrence`             |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `_expectationColArr`      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `standardDev`             |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `spectralNorm`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+
 <span class="sd">&quot;&quot;&quot;</span> <span class="c1">#pylint:disable=too-many-lines</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
@@ -256,7 +275,6 @@
     <span class="n">expc</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">operator</span> <span class="o">@</span> <span class="n">state</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">expc</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">expc</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">expc</span></div>
 
-
 <div class="viewcode-block" id="fidelityPure"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions.fidelityPure">[docs]</a><span class="k">def</span> <span class="nf">fidelityPure</span><span class="p">(</span><span class="n">state1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">state2</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates `fidelity`</span>
@@ -322,7 +340,6 @@
     <span class="n">matsqrt</span> <span class="o">=</span> <span class="n">lina</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">state1</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
     <span class="n">fid</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">lina</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">matsqrt</span> <span class="o">@</span> <span class="n">state2</span><span class="o">.</span><span class="n">A</span>  <span class="o">@</span> <span class="n">matsqrt</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">fid</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="entropy"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions.entropy">[docs]</a><span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">densMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">base2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -392,7 +409,6 @@
     <span class="n">S</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="n">nzvals</span> <span class="o">*</span> <span class="n">logvals</span><span class="p">)))</span>
     <span class="k">return</span> <span class="n">S</span></div>
 
-
 <div class="viewcode-block" id="traceDistance"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions.traceDistance">[docs]</a><span class="k">def</span> <span class="nf">traceDistance</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the trace distance :math:`\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} =</span>
@@ -434,7 +450,6 @@
         <span class="n">diff</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">A</span>
     <span class="n">vals</span> <span class="o">=</span> <span class="n">lina</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">diff</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">vals</span><span class="p">))))</span></div>
-
 
 <div class="viewcode-block" id="sortedEigens"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions.sortedEigens">[docs]</a><span class="k">def</span> <span class="nf">sortedEigens</span><span class="p">(</span><span class="n">Mat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">mag</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">floatList</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ndarray</span><span class="p">]]:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -481,7 +496,6 @@
     <span class="n">sortedVecs</span> <span class="o">=</span> <span class="n">eigVecs</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span>
     <span class="n">sortedVecsMat</span> <span class="o">=</span> <span class="p">[</span><span class="n">mat2Vec</span><span class="p">(</span><span class="n">sortedVecs</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">])</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sortedVecs</span><span class="p">))]</span>
     <span class="k">return</span> <span class="n">sortedVals</span><span class="p">,</span> <span class="n">sortedVecsMat</span></div>
-
 
 <div class="viewcode-block" id="concurrence"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions.concurrence">[docs]</a><span class="k">def</span> <span class="nf">concurrence</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -536,7 +550,6 @@
     <span class="n">eigVals</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sortedEigens</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
     <span class="n">eigVals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigVals</span><span class="p">))</span>
     <span class="k">return</span> <span class="nb">max</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">eigVals</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">15</span><span class="p">)])</span></div>
-
 
 <div class="viewcode-block" id="_expectationColArr"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions._expectationColArr">[docs]</a><span class="k">def</span> <span class="nf">_expectationColArr</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -614,7 +627,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
 </p>
     </div>
     

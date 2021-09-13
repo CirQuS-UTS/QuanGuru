@@ -164,6 +164,22 @@
 <span class="sd">        trace</span>
 <span class="sd">        partialTrace</span>
 
+<span class="sd">    .. |c| unicode:: U+2705</span>
+<span class="sd">    .. |x| unicode:: U+274C</span>
+<span class="sd">    .. |w| unicode:: U+2000</span>
+
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       `hc`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `innerProd`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `norm`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `outerProd`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `tensorProd`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `trace`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">       `partialTrace`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span> <span class="c1"># type: ignore</span>
@@ -214,7 +230,6 @@
 
     <span class="k">return</span> <span class="n">matrix</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span></div>
 
-
 <div class="viewcode-block" id="innerProd"><a class="viewcode-back" href="../../../QuantumToolbox/linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.innerProd">[docs]</a><span class="k">def</span> <span class="nf">innerProd</span><span class="p">(</span><span class="n">ket1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ket2</span><span class="p">:</span> <span class="n">Matrix</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the inner product :math:`\langle ket2 | ket1 \rangle` of a ket vector with itself or with another,</span>
@@ -261,7 +276,6 @@
     <span class="n">overlap</span> <span class="o">=</span> <span class="p">(</span><span class="n">hc</span><span class="p">(</span><span class="n">ket2</span><span class="p">)</span> <span class="o">@</span> <span class="n">ket1</span><span class="p">)</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">overlap</span></div>
 
-
 <div class="viewcode-block" id="norm"><a class="viewcode-back" href="../../../QuantumToolbox/linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.norm">[docs]</a><span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">ket</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Norm :math:`\sqrt{\langle ket | ket \rangle}` of a ket state :math:`|ket \rangle`,</span>
@@ -277,10 +291,13 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        norm of the state</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">innerProd</span><span class="p">(</span><span class="n">ket</span><span class="p">))</span></div>
-
 
 <div class="viewcode-block" id="outerProd"><a class="viewcode-back" href="../../../QuantumToolbox/linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.outerProd">[docs]</a><span class="k">def</span> <span class="nf">outerProd</span><span class="p">(</span><span class="n">ket1</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">ket2</span><span class="p">:</span> <span class="n">Matrix</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -331,7 +348,6 @@
     <span class="k">if</span> <span class="n">ket2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ket2</span> <span class="o">=</span> <span class="n">ket1</span>
     <span class="k">return</span> <span class="n">ket1</span> <span class="o">@</span> <span class="n">hc</span><span class="p">(</span><span class="n">ket2</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="tensorProd"><a class="viewcode-back" href="../../../QuantumToolbox/linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.tensorProd">[docs]</a><span class="k">def</span> <span class="nf">tensorProd</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -391,7 +407,6 @@
         <span class="n">totalProd</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">totalProd</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csc&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">totalProd</span><span class="p">,</span> <span class="n">tensorProd</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">totalProd</span></div>
 
-
 <div class="viewcode-block" id="trace"><a class="viewcode-back" href="../../../QuantumToolbox/linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.trace">[docs]</a><span class="k">def</span> <span class="nf">trace</span><span class="p">(</span><span class="n">matrix</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Trace :math:`Tr(M) := \sum_{i} M_{ii}` of a matrix `M`.</span>
@@ -421,7 +436,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">matrix</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
-
 
 <div class="viewcode-block" id="partialTrace"><a class="viewcode-back" href="../../../QuantumToolbox/linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.partialTrace">[docs]</a><span class="k">def</span> <span class="nf">partialTrace</span><span class="p">(</span><span class="n">keep</span><span class="p">:</span> <span class="n">ndOrListInt</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">ndOrListInt</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -509,7 +523,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
 </p>
     </div>
     
