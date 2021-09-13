@@ -26,12 +26,12 @@
     =======================    ==================   ==============   ================   ===============
        **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
     =======================    ==================   ==============   ================   ===============
-      `genericQSys`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `QuantumSystem`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `compQSystem`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `termTimeDep`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `term`                     |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `qSystem`                  |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `genericQSys`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `QuantumSystem`            |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `compQSystem`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `termTimeDep`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `term`                     |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `qSystem`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
       `qCoupling`                |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
       `Spin`                     |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
       `Qubit`                    |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
@@ -41,8 +41,7 @@
       `_calculateDef`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
-
-"""
+""" #pylint: disable=too-many-lines
 
 from collections import OrderedDict
 from numpy import (int64, int32, int16, ndarray)
@@ -58,6 +57,9 @@ from .baseClasses import qBaseSim, paramBoundBase, setAttr
 from .QPro import freeEvolution
 
 def _initStDec(_createAstate):
+    r"""
+    Decorater to handle different inputs for initial state creation.
+    """
     def wrapper(obj, inp=None):
         if (issparse(inp) or isinstance(inp, ndarray)):
             if inp.shape[0] != obj.dimension:
@@ -75,17 +77,24 @@ def _initStDec(_createAstate):
     return wrapper
 
 def _computeDef(sys, state): # pylint: disable=unused-argument
-    pass
+    r"""
+    Dummy compute method used when creating a copy of quantum systems.
+    TODO I am not happy with this solution.
+    """
 
 def _calculateDef(sys): # pylint: disable=unused-argument
-    pass
+    r"""
+    Dummy calculate method used when creating a copy of quantum systems.
+    TODO I am not happy with this solution.
+    """
 
 class genericQSys(qBaseSim):
     r"""
-    Base class for both single (:class:`~qSystem`) and composite (:class:`~compQSystem`) quantum system classes.
-    The ultimate goal is to make those two classes the same by combining them in here. Currently, a proxy
-    :class:`~QuantumSystem` is introduced as a temporary solution.
+    Base class for both single (:class:`~qSystem`) and composite (:class:`~compQSystem`) quantum system classes, and I
+    hope to combine those two classes in here. Currently, a proxy :class:`~QuantumSystem` is introduced as a
+    temporary solution.
     """
+    #: (**class attribute**) class label used in default naming
     label = 'genericQSys'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -107,11 +116,18 @@ class genericQSys(qBaseSim):
         #: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)
         #: or the populations
         self._inpCoef = False
+        #: Total dimension of the other quantum systems **before** ``self`` in a composite system.
+        #: It is 1, when ``self``` is the first system in the composite system or ``self`` is not in a composite system.
         self.__dimsBefore = 1
+        #: Total dimension of the other quantum systems **after** ``self`` in a composite system.
+        #: It is 1, when ``self`` is the last system in the composite system.
         self.__dimsAfter = 1
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def __add__(self, other):
+        r"""
+        With this method, ``+`` creates a composite quantum system between ``self`` and the ``other`` quantum system.
+        """
         if isinstance(self, compQSystem) and isinstance(other, qSystem):
             self.addSubSys(other)
             newComp = self
@@ -137,10 +153,18 @@ class genericQSys(qBaseSim):
         return newComp
 
     def __sub__(self, other):
+        r"""
+        With this method, ``-`` removes the ``other`` from ``self``, which should be the composite quantum system
+        containing other.
+        """
         self.removeSubSys(other, _exclude=[])
         return self
 
     def __rmul__(self, other):
+        r"""
+        With this method, ``*`` creates a composite quantum system that contains ``N=other`` many quantum systems with
+        the same ``type`` as ``self``.
+        """
         newComp = compQSystem()
         newComp.addSubSys(self)
         for _ in range(other - 1):
@@ -148,6 +172,9 @@ class genericQSys(qBaseSim):
         return newComp
 
     def copy(self, **kwargs): # pylint: disable=arguments-differ
+        r"""
+        Create a copy of ``self`` and also change the parameter of the newly created copy with ``kwargs``.
+        """
         subSysList = []
         for sys in self.subSys.values():
             subSysList.append(sys.copy())
@@ -166,6 +193,11 @@ class genericQSys(qBaseSim):
 
     @property
     def ind(self):
+        r"""
+        If ``self`` is in a composite quantum system, this return an index representing the position of ``self`` in the
+        composite system, else it returns 0.
+        Also, the first system in a composite quantum system is at index 0.
+        """
         ind = 0
         if self.superSys is not None:
             ind += list(self.superSys.subSys.values()).index(self)
@@ -175,6 +207,10 @@ class genericQSys(qBaseSim):
 
     @property
     def _dimsBefore(self):
+        r"""
+        Property to set and get the :attr:`~genericQSys.__dimsBefore`. Getter can be used to get information, but the
+        setter is intended purely for internal use.
+        """
         return self._genericQSys__dimsBefore if self._genericQSys__dimsBefore != 0 else 1
 
     @_dimsBefore.setter
@@ -190,6 +226,10 @@ class genericQSys(qBaseSim):
 
     @property
     def _dimsAfter(self):
+        r"""
+        Property to set and get the :attr:`~genericQSys.__dimsAfter`. Getter can be used to get information, but the
+        setter is intended purely for internal use.
+        """
         return self._genericQSys__dimsAfter if self._genericQSys__dimsAfter != 0 else 1
 
     @_dimsAfter.setter
@@ -205,6 +245,9 @@ class genericQSys(qBaseSim):
 
     @property
     def dimension(self):
+        r"""
+        Property to get the dimension of the quantum system. There is no setter as it is handled internally.
+        """
         if self._genericQSys__dimension is None:
             try:
                 dims = self.subSysDimensions
@@ -217,19 +260,34 @@ class genericQSys(qBaseSim):
 
     @property
     def _totalDim(self):
+        r"""
+        :attr:`genericQSys.dimension` returns the dimension of a quantum system itself, meaning it does not contain the
+        dimensions of the other systems if ``self`` is in a composite system, ``_totalDim`` returns the total dimension
+        by also taking the dimensions before and after ``self`` in a composte system.
+        """
         return self.dimension * self._dimsBefore * self._dimsAfter#pylint:disable=E1101
 
     @property
     def _freeEvol(self):
+        r"""
+        Property to get the ``default`` internal ``freeEvolution`` proptocol.
+        """
         return self._genericQSys__unitary
 
     def unitary(self):
+        r"""
+        Returns the unitary evolution operator for ``self``.
+        """
         unitary = self._genericQSys__unitary.unitary()
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return unitary
 
     @qBaseSim.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
+        r"""
+        Sets the initial state from a given input ``inp``,
+        see :meth:`baseClasses.stateBase.initialState` for different types of inputs.
+        """
         if self.superSys is not None:
             self.superSys.simulation._stateBase__initialState._value = None
         self.simulation.initialState = inp # pylint: disable=no-member, protected-access
@@ -238,15 +296,29 @@ class genericQSys(qBaseSim):
                 list(self.qSystems.values())[ind].initialState = it # pylint: disable=no-member
 
     def _constructMatrices(self):
+        r"""
+        The matrices for operators constructed and de-constructed whenever they should be, and this method is used
+        internally in various places when the matrices are needed to be constructed.
+        """
         for sys in self.subSys.values():
             sys._constructMatrices() # pylint: disable=protected-access
 
     def addProtocol(self, protocol=None, system=None, protocolRemove=None):
+        r"""
+        adds the given ``protocol`` into ``self.simulation`` and uses ``self`` as ``system`` if it is not given.
+        It also can removed a protocol (``protocolRemove``) at the same time.
+        """
         if system is None:
             system = self
         self.simulation.addProtocol(protocol=protocol, system=system, protocolRemove=protocolRemove)
 
     def _timeDependency(self, time=None):
+        r"""
+        Passes down the current time in evolution to all the ``subSys``, which eventually are either ``term`` or
+        ``qCoupling`` objects that are child classes of ``termTimeDep``, which updates the ``frequency`` of the
+        corresponding coupling or term using the ``timeDependency`` method created and given by the user.
+        TODO Create a demo and hyperlink here.
+        """
         if time is None:
             time = self.simulation._currentTime
         for sys in self.subSys.values():
@@ -254,6 +326,11 @@ class genericQSys(qBaseSim):
         return time
 
 class QuantumSystem(genericQSys):
+    r"""
+    This class can be used for creating either a composite or a single quantum system depending on the given ``kwargs``,
+    if no ``kwargs`` given, it creates a composite system by default.
+    """
+
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
@@ -280,6 +357,11 @@ class QuantumSystem(genericQSys):
     __slots__ = []
 
 class compQSystem(genericQSys):
+    r"""
+    Class for composite quantum systems.
+    """
+
+    #: (**class attribute**) class label used in default naming
     label = 'QuantumSystem'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -294,28 +376,46 @@ class compQSystem(genericQSys):
         if self.__class__.__name__ == 'compQSystem':
             compQSystem._externalInstances = qSystem._instances + compQSystem._instances
         super().__init__()
+        #: an ordered dictionary for the coupling terms
         self.__qCouplings = OrderedDict()
+        #: an ordered dictionary for the quantum systems
         self.__qSystems = OrderedDict()
+        #: if the coupling terms are some special kind, you may want to give it a name
         self.couplingName = None
 
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _timeDependency(self, time=None):
+        r"""
+        Passes down the current time in evolution to all the ``subSys``, which eventually are either ``term`` or
+        ``qCoupling`` objects that are child classes of ``termTimeDep``, which updates the ``frequency`` of the
+        corresponding coupling or term using the ``timeDependency`` method created and given by the user.
+        TODO Create a demo and hyperlink here.
+        """
         time = super()._timeDependency(time=time)
         for coupling in self.qCouplings.values():
             coupling._timeDependency(time)
 
     @property
     def subSysDimensions(self):
+        r"""
+        Returns a list of dimensions of the quantum systems contained in ``self``, which is a composite system.
+        """
         return [sys.dimension for sys in self.subSys.values()]
 
     @property
     def freeHam(self):
+        r"""
+        returns the Hamiltonian without the coupling terms.
+        """
         ham = sum([val.totalHam for val in self.qSystems.values()])
         return ham
 
     @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
+        r"""
+        returns the total Hamiltonian of ``self`` including the coupling terms.
+        """
         if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             self._paramBoundBase__matrix = self.freeHam + self.couplingHam # pylint: disable=assigning-non-slot
             self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
@@ -323,15 +423,24 @@ class compQSystem(genericQSys):
 
     @property
     def couplingHam(self):
+        r"""
+        returns only the coupling terms of the Hamiltonian.
+        """
         cham = sum([val.totalHam for val in self.qCouplings.values()])
         return cham
 
     @property
     def qSystems(self):
+        r"""
+        returns the ordered dictionary that contains the sub-systems.
+        """
         return self._compQSystem__qSystems # pylint: disable=no-member
 
     @addDecorator
     def addSubSys(self, subSys, **kwargs): # pylint: disable=arguments-differ
+        r"""
+        Add a quantum system to ``self``. Note that composite systems can contain other composite systems as sub-systems
+        """
         newSys = super().addSubSys(subSys, **kwargs)
         if isinstance(newSys, qCoupling):
             self._compQSystem__addCoupling(self._qBase__subSys.pop(newSys.name))  # pylint: disable=no-member
@@ -343,9 +452,16 @@ class compQSystem(genericQSys):
         return newSys
 
     def createSubSys(self, subSysClass, **kwargs):
+        r"""
+        Create a subsystem of the given ``subSysClass`` class and also set the given ``kwargs`` to newly created system.
+        """
         return self.addSubSys(subSysClass, **kwargs)
 
     def __addSub(self, subSys):
+        r"""
+        internal method used to update relevant information (such as dimension before/after) for the existing and newly
+        added sub-systems. This is purely for internal use.
+        """
         for subS in self._compQSystem__qSystems.values():
             subS._dimsAfter *= subSys.dimension
             subSys._dimsBefore *= subS.dimension
@@ -361,6 +477,10 @@ class compQSystem(genericQSys):
 
     @_recurseIfList
     def removeSubSys(self, subSys, _exclude=[]):#pylint:disable=arguments-differ,dangerous-default-value,too-many-branches
+        r"""
+        Removes a quantum system from the composite system ``self`` and updates the relevant information in the
+        remaining sub-systems (such as dimension before/after).
+        """
         if isinstance(subSys, str):
             subSys = self.getByNameOrAlias(subSys)
         couplings = list(self.qCouplings.values())
@@ -404,23 +524,41 @@ class compQSystem(genericQSys):
 
     @property
     def qCouplings(self):
+        r"""
+        returns the ordered dictionary of coupling terms.
+        """
         return self._compQSystem__qCouplings
 
     def __addCoupling(self, couplingObj):
+        r"""
+        Internal method used when adding a coupling term.
+        """
         self._compQSystem__qCouplings[couplingObj.name] = couplingObj
         couplingObj.superSys = self
         return couplingObj
 
     def createSysCoupling(self, *args, **kwargs):
+        r"""
+        Creates a coupling term, sets the ``kwargs`` for that coupling, and uses ``args`` for the coupling operators
+        and the corresponding operators, see addTerm in qCoupling to understand how args works.
+        TODO Create a tutorial and hyperlink here
+        """
         newCoupling = self.addSubSys(qCoupling, **kwargs)
         newCoupling.addTerm(*args)
         return newCoupling
 
     def addSysCoupling(self, couplingObj):
+        r"""
+        Adds the given coupling term to ``self``.
+        TODO Create a tutorial and hyperlink here
+        """
         self.addSubSys(couplingObj)
 
     @_initStDec
     def _createAstate(self, inp=None):
+        r"""
+        Creates the initial state using the ``inp`` input, and this method is for internal use.
+        """
         if inp is None:
             inp = [qsys._createAstate() for qsys in self.subSys.values()]
         elif isinstance(inp, list):
@@ -430,11 +568,19 @@ class compQSystem(genericQSys):
         return linAlg.tensorProd(*inp)
 
     def _constructMatrices(self):
+        r"""
+        The matrices for operators constructed and de-constructed whenever they should be, and this method is used
+        internally in various places when the matrices are needed to be constructed.
+        """
         super()._constructMatrices()
         for sys in self.qCouplings.values():
             sys._constructMatrices() # pylint: disable=protected-access
 
     def updateDimension(self, qSys, newDimVal, oldDimVal=None, _exclude=[]):#pylint:disable=dangerous-default-value,too-many-branches
+        r"""
+        This method is called when the dimension of a subSys ``qSys`` is changed, so that the relevant changes are
+        reflected to dimension before/after information for the other systems in the composite system.
+        """
         # TODO can be combined with removeSubSys by a decorator or another method to simplfy both
         if oldDimVal is None:
             oldDimVal = qSys._genericQSys__dimension
@@ -481,6 +627,10 @@ class compQSystem(genericQSys):
         return qSys
 
 class termTimeDep(paramBoundBase):
+    r"""
+    Parent class for :class:`~term` and :class:`~qCoupling` and I hope to combine those two in here.
+    """
+    #: (**class attribute**) class label used in default naming
     label = '_timeDep'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -493,18 +643,30 @@ class termTimeDep(paramBoundBase):
 
     def __init__(self, **kwargs):
         super().__init__()
+        #: function that can be assigned by the user to update the parameters a function of time. The library passes the
+        #: current time to this function
         self.timeDependency = None
+        #: frequency of the term, it is is the coupling strength in the case of coupling term
         self.__frequency = None
+        # TODO Create a tutorial
+        #: the order/power for the operator of the term. The operator is raised to the power in this value
         self.__order = 1
+        #: operator for the term
         self.__operator = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def copy(self, **kwargs):  # pylint: disable=arguments-differ
+        r"""
+        Create a copy ``self`` and change the values of the attributes given in ``kwargs``.
+        """
         newSys = super().copy(frequency=self.frequency, operator=self.operator, order=self.order, **kwargs)
         return newSys
 
     @property
     def operator(self):
+        r"""
+        Sets and gets the operator for term.
+        """
         return self._termTimeDep__operator
 
     @operator.setter
@@ -514,6 +676,9 @@ class termTimeDep(paramBoundBase):
 
     @property
     def order(self):
+        r"""
+        Sets and gets the order of the operator of the term.
+        """
         return self._termTimeDep__order
 
     @order.setter
@@ -524,6 +689,9 @@ class termTimeDep(paramBoundBase):
 
     @property
     def frequency(self):
+        r"""
+        Sets and gets the frequency of the term.
+        """
         return self._termTimeDep__frequency
 
     @frequency.setter
@@ -532,14 +700,24 @@ class termTimeDep(paramBoundBase):
         setAttr(self, '_termTimeDep__frequency', freq)
 
     def _constructMatrices(self):
-        pass
+        r"""
+        The matrices for operators constructed and de-constructed whenever they should be, and this method is used
+        internally in various places when the matrices are needed to be constructed.
+        Currently, this is just pass and extended in the child classes, and the goal is to combine those methods in here
+        """
 
     @property
     def totalHam(self):
+        r"""
+        Return the total Hamiltonian for this term.
+        """
         return self.frequency*self.freeMat
 
     @property
     def freeMat(self):
+        r"""
+        Gets and sets the free matrix, i.e. without the frequency (equivalent to frequency =1) of the term.
+        """
         #if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
         if self._paramBoundBase__matrix is None: # pylint: disable=no-member
             self.freeMat = None
@@ -558,6 +736,10 @@ class termTimeDep(paramBoundBase):
             self._constructMatrices()
 
     def _timeDependency(self, time=None):
+        r"""
+        Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
+        to update the relevant parameters (such as frequency of the term) as a function of time.
+        """
         if time is None:
             time = self.superSys.simulation._currentTime
 
@@ -568,6 +750,10 @@ class termTimeDep(paramBoundBase):
                 self.couplingStrength = self.timeDependency(self, time) #pylint:disable=assigning-non-slot,not-callable
 
 class term(termTimeDep):
+    r"""
+    Term object for simple (i.e. non-coupling) terms in the Hamiltonian.
+    """
+    #: (**class attribute**) class label used in default naming
     label = 'term'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -591,10 +777,18 @@ class term(termTimeDep):
 
     @property
     def _freeMatSimple(self):
+        r"""
+        Return the matrix corresponding to the operator of the term, but this method does not make it into a composite
+        operator even if the term belongs to a system in a composite quantum system.
+        """
         h = self._constructMatrices(dimsBefore=1, dimsAfter=1, setMat=False)
         return h
 
     def _constructMatrices(self, dimsBefore=None, dimsAfter=None, setMat=True): #pylint:disable=arguments-differ
+        r"""
+        The matrices for operators constructed and de-constructed whenever they should be, and this method is used
+        internally in various places when the matrices are needed to be constructed.
+        """
         if dimsBefore is None:
             dimsBefore = self.superSys._dimsBefore # pylint: disable=no-member
 
@@ -620,6 +814,10 @@ class term(termTimeDep):
         return mat
 
 class qSystem(genericQSys):
+    r"""
+    Class for single quantum systems, used as the parent for :class:`~Cavity`, :class:`~Spin`, and :class:`~Qubit`.
+    """
+    #: (**class attribute**) class label used in default naming
     label = 'QuantumSystem'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -654,6 +852,11 @@ class qSystem(genericQSys):
 
     @genericQSys.dimension.setter # pylint: disable=no-member
     def dimension(self, newDimVal):
+        r"""
+        Setter for the dimension of single quantum system. It deletes the existing matrices for the operators, unitaries
+        etc, that uses the previous dimension information. It also takes care of updating the dimension before/after
+        information for the other quantum system systems if ``self`` is in a composite system.
+        """
         if not isinstance(newDimVal, (int, int64, int32, int16)):
             raise ValueError('Dimension is not int')
 
@@ -672,6 +875,9 @@ class qSystem(genericQSys):
 
     @property
     def totalHam(self): # pylint: disable=invalid-overridden-method
+        r"""
+        Returns the total Hamiltonian of the single quantum system.
+        """
         if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
             self._paramBoundBase__matrix = h # pylint: disable=assigning-non-slot
@@ -680,14 +886,25 @@ class qSystem(genericQSys):
 
     @property
     def _totalHamSimple(self):
+        r"""
+        returns the total Hamiltonian of the single quantum system, but this method does not take the dimension
+        before/after into account even if ``self`` is a sub-system of a composite system.
+        """
         return sum([(obj.frequency * obj._freeMatSimple) for obj in self.subSys.values()])#pylint:disable=protected-access
 
     @property
     def freeMat(self):
+        r"""
+        returns the free (i.e. no frequency or, equivalently frequency=1) matrix for the operator of the first term in
+        its Hamiltonian.
+        """
         return self.firstTerm.freeMat # pylint: disable=no-member
 
     @freeMat.setter
     def freeMat(self, qOpsFunc):
+        r"""
+        Setter for the freeMat. This is used internally in construct matrices methods.
+        """
         if callable(qOpsFunc):
             self.firstTerm.operator = qOpsFunc
             self.firstTerm._constructMatrices() # pylint: disable=protected-access
@@ -700,6 +917,9 @@ class qSystem(genericQSys):
 
     @property
     def operator(self):
+        r"""
+        Gets a list of the operators for the terms in its Hamiltonian, and sets the operator only for the first term.
+        """
         operators = [obj._termTimeDep__operator for obj in list(self.subSys.values())] # pylint: disable=protected-access
         return operators if len(operators) > 1 else operators[0]
 
@@ -709,6 +929,9 @@ class qSystem(genericQSys):
 
     @property
     def frequency(self):
+        r"""
+        Setter and getter of the frequency of the first term in its Hamiltonian.
+        """
         #frequencies = [obj._termTimeDep__frequency for obj in list(self.subSys.values())] # pylint: disable=protected-access
         #return frequencies if len(frequencies) > 1 else frequencies[0]
         return self.firstTerm.frequency
@@ -719,6 +942,9 @@ class qSystem(genericQSys):
 
     @property
     def order(self):
+        r"""
+        Sets and gets the order/power of the operator of the first term in its Hamiltonian.
+        """
         orders = [obj._termTimeDep__order for obj in list(self.subSys.values())] # pylint: disable=protected-access
         return orders if len(orders) > 1 else orders[0]
 
@@ -728,15 +954,24 @@ class qSystem(genericQSys):
 
     @property
     def firstTerm(self):
+        r"""
+        Returns the first term in its Hamiltonian
+        """
         return list(self.subSys.values())[0]
 
     @property
     def terms(self):
+        r"""
+        returns a list of the term objects used for its Hamiltonian.
+        """
         qSys = list(self.subSys.values())
         return qSys if len(qSys) > 1 else qSys[0]
 
     @addDecorator
     def addSubSys(self, subSys, **kwargs):
+        r"""
+        extends the addSubSys method from the parent classes and uses it add terms to its Hamiltonian.
+        """
         if not isinstance(subSys, term):
             raise TypeError('?')
         kwargs['superSys'] = self
@@ -748,6 +983,9 @@ class qSystem(genericQSys):
 
     @_recurseIfList
     def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
+        r"""
+        Method to remove a term from its Hamiltonian.
+        """
         if self not in _exclude:
             _exclude.append(self)
             if self.superSys is not None:
@@ -756,25 +994,42 @@ class qSystem(genericQSys):
 
     @terms.setter
     def terms(self, subSys):
+        r"""
+        add terms to its Hamiltonian with this setter.
+        """
         genericQSys.subSys.fset(self, subSys) # pylint: disable=no-member
         for sys in self.subSys.values():
             sys.superSys = self
 
     def addTerm(self, operator, frequency=0, order=1):
+        r"""
+        Calls the addSubSys to add terms, this method is created to provide a more intuitive name than addSubSys
+        """
         newTerm = self.addSubSys(term(operator=operator, frequency=frequency, order=order, superSys=self))
         return newTerm
 
     @_recurseIfList
     def removeTerm(self, termObj):
+        r"""
+        Calls the removeSubSys to remove terms, this method is created to provide a more intuitive name than
+        removeSubSys
+        """
         self.removeSubSys(termObj, _exclude=[])
 
     @_initStDec
     def _createAstate(self, inp=None):
+        r"""
+        Internal method to create initial states.
+        """
         if inp is None:
             raise ValueError(self.name + ' is not given an initial state')
         return qSta.superPos(self.dimension, inp, not self._inpCoef)
 
 class Spin(qSystem): # pylint: disable=too-many-ancestors
+    r"""
+    Object for a single Spin system with spin j (jValue).
+    """
+    #: (**class attribute**) class label used in default naming
     label = 'Spin'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -786,12 +1041,17 @@ class Spin(qSystem): # pylint: disable=too-many-ancestors
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
         super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
+        #: operator for (the first term in) its Hamiltonian
         self.operator = qOps.Jz
+        #: spin quantum number
         self.__jValue = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def jValue(self):
+        r"""
+        Gets and sets the spin quantum number
+        """
         return (self._genericQSys__dimension-1)/2 # pylint: disable=no-member
 
     @jValue.setter
@@ -800,6 +1060,10 @@ class Spin(qSystem): # pylint: disable=too-many-ancestors
         self.dimension = int((2*value) + 1)
 
 class Qubit(Spin): # pylint: disable=too-many-ancestors
+    r"""
+    Spin 1/2 special case of Spin class, i.e. a Qubit.
+    """
+    #: (**class attribute**) class label used in default naming
     label = 'Qubit'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -816,6 +1080,11 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
 class Cavity(qSystem): # pylint: disable=too-many-ancestors
+    r"""
+    Cavity class, the only difference from a generic quantum object is that, by default, its operator is the number
+    operator.
+    """
+    #: (**class attribute**) class label used in default naming
     label = 'Cavity'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -831,6 +1100,10 @@ class Cavity(qSystem): # pylint: disable=too-many-ancestors
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
 class qCoupling(termTimeDep):
+    r"""
+    Class to create coupling terms between quantum systems.
+    """
+    #: (**class attribute**) class label used in default naming
     label = 'qCoupling'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -850,6 +1123,9 @@ class qCoupling(termTimeDep):
     # TODO might define setters
     @property
     def couplingOperators(self):
+        r"""
+        returns a list of coupling operators stored in this coupling term
+        """
         ops = []
         for co in self._qBase__subSys.values(): # pylint: disable=no-member
             ops.append(co[1])
@@ -857,6 +1133,9 @@ class qCoupling(termTimeDep):
 
     @property
     def coupledSystems(self):
+        r"""
+        returns the list of coupled systems by this coupling term
+        """
         ops = []
         for co in self._qBase__subSys.values(): # pylint: disable=no-member
             ops.append(co[0])
@@ -864,6 +1143,9 @@ class qCoupling(termTimeDep):
 
     @property
     def couplingStrength(self):
+        r"""
+        Gets and sets the coupling strength for this coupling. This is simply an alternative terminology for frequency.
+        """
         return self.frequency
 
     @couplingStrength.setter
@@ -871,6 +1153,10 @@ class qCoupling(termTimeDep):
         self.frequency = strength
 
     def __coupOrdering(self, qts): # pylint: disable=no-self-use
+        r"""
+        method used internally to make some sorting of the operators. This is implemented so that there are some
+        flexibilities for user when creating coupling.
+        """
         qts = sorted(qts, key=lambda x: x[0], reverse=False)
         oper = qts[0][1]
         for ops in range(len(qts)-1):
@@ -878,6 +1164,10 @@ class qCoupling(termTimeDep):
         return oper
 
     def _constructMatrices(self):
+        r"""
+        The matrices for operators constructed and de-constructed whenever they should be, and this method is used
+        internally in various places when the matrices are needed to be constructed.
+        """
         cMats = []
         for ind in range(len(self._qBase__subSys)): # pylint: disable=no-member
             qts = []
@@ -902,6 +1192,9 @@ class qCoupling(termTimeDep):
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def __addTerm(self, count, ind, sys, *args):
+        r"""
+        used internally when adding terms to the coupling.
+        """
         if callable(args[count][ind]):
             lo = len(self.subSys)
             self._qBase__subSys[str(lo)] = (sys, tuple(args[count])) # pylint: disable=no-member
@@ -911,6 +1204,9 @@ class qCoupling(termTimeDep):
         return count
 
     def addTerm(self, *args):
+        r"""
+        method to add terms to the coupling.
+        """
         counter = 0
         while counter in range(len(args)):
             # TODO write a generalisation for this one
@@ -930,10 +1226,16 @@ class qCoupling(termTimeDep):
 
     @_recurseIfList
     def removeSysCoupling(self, sys):
+        r"""
+        method to remove terms from the coupling, simply calls removeSubSys, this method is to create terminology
+        """
         self.removeSubSys(sys, _exclude=[])
 
     @_recurseIfList
     def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=dangerous-default-value
+        r"""
+        method to remove terms from the coupling
+        """
         vals = self._qBase__subSys.values() # pylint: disable=no-member
         for ind, val in enumerate(vals):
             systs = val[0]
