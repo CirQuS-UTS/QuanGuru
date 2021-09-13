@@ -1,5 +1,5 @@
 """
-    This module contain classes for Quantum systems.
+    Contains classes for Quantum systems.
 
     .. currentmodule:: quanguru.classes.QSys
 

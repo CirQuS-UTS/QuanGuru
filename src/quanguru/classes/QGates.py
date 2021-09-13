@@ -1,5 +1,5 @@
 """
-    Contains for protocol/step objects for gate operations.
+    Contains protocol/step objects for gate operations.
 
     .. currentmodule:: quanguru.classes.QGates
 

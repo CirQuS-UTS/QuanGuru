@@ -1,5 +1,5 @@
 """
-    This module contain :class:`Simulation` and :class:`_poolMemory` classes.
+    Contains :class:`Simulation` and :class:`_poolMemory` classes.
 
     .. currentmodule:: quanguru.classes.QSim
 
