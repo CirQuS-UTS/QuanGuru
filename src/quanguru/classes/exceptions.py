@@ -1,6 +1,6 @@
 """
     THESE ARE JUST SOME INITIAL IDEAS. NOT COMPLETED OR USED YET.
-    
+
     .. currentmodule:: quanguru.classes.exceptions
 
     .. autosummary::

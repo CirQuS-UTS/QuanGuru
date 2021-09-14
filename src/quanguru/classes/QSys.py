@@ -32,13 +32,13 @@
       `termTimeDep`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
       `term`                     |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
       `qSystem`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `qCoupling`                |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `Spin`                     |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `Qubit`                    |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `Cavity`                   |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_initStDec`               |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_computeDef`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_calculateDef`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `qCoupling`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Spin`                     |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Qubit`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Cavity`                   |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_initStDec`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_computeDef`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_calculateDef`            |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
 """ #pylint: disable=too-many-lines
@@ -419,7 +419,7 @@ class compQSystem(genericQSys):
         if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             self._paramBoundBase__matrix = self.freeHam + self.couplingHam # pylint: disable=assigning-non-slot
             self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
-        return self._paramBoundBase__matrix # pylint: disable=no-member
+        return self._paramBoundBase__matrix # pylint: disable=no-member, assigning-non-slot
 
     @property
     def couplingHam(self):
@@ -445,7 +445,7 @@ class compQSystem(genericQSys):
         if isinstance(newSys, qCoupling):
             self._compQSystem__addCoupling(self._qBase__subSys.pop(newSys.name))  # pylint: disable=no-member
         elif isinstance(newSys, genericQSys):
-            self._compQSystem__addSub(newSys)
+            self._compQSystem__addSub(newSys)# pylint: disable=no-member
         else:
             raise TypeError('?')
         newSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
@@ -716,7 +716,7 @@ class termTimeDep(paramBoundBase):
     @property
     def freeMat(self):
         r"""
-        Gets and sets the free matrix, i.e. without the frequency (equivalent to frequency =1) of the term.
+        Gets and sets the free matrix, ie without the frequency (or, equivalently frequency=1) of the term.
         """
         #if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member
         if self._paramBoundBase__matrix is None: # pylint: disable=no-member
@@ -837,10 +837,10 @@ class qSystem(genericQSys):
             val = kwargs.pop(key, None)
             if val is not None:
                 setattr(self, key, val)
-        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
         if len(self.subSys) == 0:
             self.addSubSys(term(superSys=self, **kwargs))
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     # @genericQSys.name.setter #pylint: disable=no-member
     # def name(self, name):

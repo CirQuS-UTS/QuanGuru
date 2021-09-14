@@ -14,11 +14,11 @@ Classes (:mod:`quanguru.classes`)
 
    Base class <classes/base>
    BaseClasses <classes/baseClasses>
+   Quantum System Classes <classes/QSys>
+   Simulation Classes <classes/QSim>
+   QProtocol Classes <classes/QPro>
    Results Classes <classes/QRes>
    Sweep Classes <classes/QSweep>
-   Simulation Classes <classes/QSim>
-   Quantum System Classes <classes/QSys>
-   QProtocol Classes <classes/QPro>
    QGates Classes <classes/QGates>
    Environment Classes <classes/environment>
    QDrive Classes <classes/QDrive>

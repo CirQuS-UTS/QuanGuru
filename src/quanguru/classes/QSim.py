@@ -15,8 +15,8 @@
     =======================    ==================   ==============   ================   ===============
        **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
     =======================    ==================   ==============   ================   ===============
-      `Simulation`               |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_poolMemory`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `Simulation`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+      `_poolMemory`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
 
@@ -34,7 +34,7 @@ from .extensions.modularSweep import timeEvolBase
 
 class Simulation(timeBase):
     """
-    Simulation class collects all the pieces together to run a simulation. Its ``subSys`` dictionary contain
+    Simulation class collects all the pieces together to run a simulation. Its ``subSys`` dictionary contains
     :class:`protocols <quanguru.classes.QPro.genericProtocol>`, :class:`quantum systems
     <quanguru.classes.QSys.genericQSys>`
     as ``key:value``, respectively. It has two :class:`sweeps <quanguru.classes.Sweep.Sweep>`, meaning 2 of its
@@ -76,7 +76,7 @@ class Simulation(timeBase):
         There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.
         TODO : errors are not properly implemented yet.
     """
-    #: Used in default naming of objects. See :attr:`label <quanguru.classes.QUni.qUniversal.label>`.
+    #: (**class attribute**) class label used in default naming
     label = 'Simulation'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -84,7 +84,8 @@ class Simulation(timeBase):
     _externalInstances: int = 0
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
-
+    #: default evolution method. You can always assign a different evolution method for an instance of Simulation
+    #: class, but by re-assigning this class attribute, you can change the evolution method for all the future instances
     _evolFuncDefault = timeEvolBase
 
     __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index']
@@ -93,15 +94,20 @@ class Simulation(timeBase):
     def __init__(self, system=None, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
 
-        #: sweep object
+        #: sweep object that contains information about the systems and their parameters to be swept.
+        #: TODO create tutorial
         self.Sweep = Sweep(superSys=self)
-        #: sweep object
+        #: sweep object that contains information for parameters that will be changed as a function of time. Note that
+        #: this is not the only way to make time-dependent parameters. Actually, the alternative in timeDependency in
+        #: term objects is much better solution than this.
+        #: TODO create tutorial
         self.timeDependency = Sweep(superSys=self)
 
-        #self.timeDependent = False
+        #: this is counter for the number of steps in the time evolution, so this counter times the step size gives the
+        #: current time in evolution. this is intended purely for internal use.
         self.__index = -1
 
-        #: evolve function
+        #: default function that implements the actual time evolution in each step. TODO Create tutorial.
         self.evolFunc = Simulation._evolFuncDefault
 
         if system is not None:
@@ -111,6 +117,10 @@ class Simulation(timeBase):
 
     @property
     def _currentTime(self):
+        r"""
+        Returns the current time in time evolution, which is equal to the current number of steps in the evolution times
+        the step size.
+        """
         try:
             if isinstance(self._timeBase__bound, Simulation): # pylint: disable=no-member
                 time = self._timeBase__bound._currentTime # pylint: disable=no-member
@@ -122,21 +132,23 @@ class Simulation(timeBase):
 
     @property
     def timeList(self):
+        r"""
+        Returns a list of the time points of the time evolution.
+        """
         return [x*self.stepSize for x in range(self.stepCount+1)]
 
     @property
     def protocols(self):
         """
-        The protocols property returns the protocols (``keys in subSys``) as a ``list``.
+        Returns a list of protocols (``keys in subSys``) contained in this simulation.
         """
-
         return list(self.subSys.keys())
 
     def _freeEvol(self):
         """
         This function is meant purely for internal use. When a quantum system is added to a ``Simulation`` without
         providing a protocol, the key in ``subSys`` dictionary will be the default case inherited from
-        :class:`qUniversal <quanguru.classes.QUni.qUniversal>`, i.e. name of the quantum system object. This method
+        :class:`qBase <quanguru.classes.base.qBase>`, i.e. name of the quantum system object. This method
         is called inside the :meth:`run` method to ensure that the key is switched to a ``freeEvolution``. By this
         we ensure that the default evolution is just a free evolution under the given systems Hamiltonian and explicit
         creation of a ``freeEvolution`` object is not required. These are achieved by replacing the ``str`` key by
@@ -145,7 +157,6 @@ class Simulation(timeBase):
         :meth:`addProtocol` is called to replace the ``freeEvolution``, there is no need to try reaching internally
         created object but just using the ``system.name`` for ``protocolRemove`` argument of :meth:`addProtocol`.
         """
-
         keys = self.protocols
         for key in keys:
             qSys = self.subSys[key]
@@ -157,9 +168,8 @@ class Simulation(timeBase):
     @property
     def qSystems(self):
         """
-        The qSystems property returns the quantum systems (``values in subSys``) as a ``list``.
+        Returns a list of quantum systems (``values in subSys``) contained in this simulation.
         """
-
         return list(self.subSys.values())
 
     @property
@@ -168,7 +178,6 @@ class Simulation(timeBase):
         The qEvolutions property returns actual protocols rather than simply returning (``keys in subSys``), which
         can be the system name before running the simulation, as in :meth:`protocols` property.
         """
-
         self._freeEvol()
         qPros = list(self.subSys.keys())
         return qPros if len(qPros) > 1 else qPros[0]
@@ -191,7 +200,6 @@ class Simulation(timeBase):
         [type]
             [description]
         """
-
         # TODO print a message, if the same system included more than once without giving a protocol
         subS = super().addSubSys(subS, **kwargs)
         # TODO and above is to avoid recursive calls in _paramUpdated, but it is a temp solution
@@ -207,11 +215,18 @@ class Simulation(timeBase):
         return (subS, Protocol)
 
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
+        r"""
+        Create a quantum system of given ``subSysClass`` class and (optional) add a ``Protocol`` for it. ``kwargs`` here
+        are used for setting the parameters of newly created quantum system.
+        """
         newSys, Protocol = self.addQSystems(subSysClass, Protocol, **kwargs)
         return (newSys, Protocol)
 
     @_recurseIfList
     def removeQSystems(self, subS):
+        r"""
+        Remove a quantum system and corresponding sweeps from the simulation.
+        """
         #for key, subSys in self._qBase__subSys.items(): # pylint: disable=no-member
         #    if ((subSys is subS) or (subSys.name == subS)):
         super().removeSubSys(subS, _exclude=[]) # pylint: disable=no-member
@@ -220,6 +235,9 @@ class Simulation(timeBase):
 
     @_recurseIfList
     def removeSweep(self, system):
+        r"""
+        Remove a sweep from the simulation.
+        """
         self.Sweep.removeSweep(system)
         self.timeDependency.removeSweep(system)
         if ((isinstance(system, Simulation)) and (system is not self)):
@@ -227,6 +245,9 @@ class Simulation(timeBase):
 
     @_recurseIfList
     def removeProtocol(self, Protocol):
+        r"""
+        Remove a protocoal and corresponding sweeps from the simulation.
+        """
         # FIXME what if freeEvol case, protocol then corresponds to qsys.name before simulation run
         #  or a freeEvol obj after run
         qsys = self._qBase__subSys.pop(Protocol, None) # pylint: disable=no-member
@@ -236,6 +257,9 @@ class Simulation(timeBase):
                 self.removeSweep(qsys)
 
     def addProtocol(self, protocol=None, system=None, protocolRemove=None):
+        r"""
+        Add a ``protocol`` for the (optional) ``system`` and (optional) remove an existing protocol ``protocolRemove``.
+        """
         # TODO Decorate this
         qSysClass = qBaseSim
         if isinstance(protocol, list):
@@ -260,20 +284,34 @@ class Simulation(timeBase):
 
     # overwriting methods from qUniversal
     def addSubSys(self, subS, Protocol=None, **kwargs): # pylint: disable=arguments-differ
+        r"""
+        Add a quantum system ``subS`` to the simulation and a (optional) ``protocol`` for it. ``kwargs`` can be used for
+        setting parameters for the quantum system.
+        """
         newSys = super().addSubSys(subS, **kwargs)
         newSys, Protocol = self.addQSystems(newSys, Protocol)
         return newSys
 
     def createSubSys(self, subSysClass, Protocol=None, **kwargs): # pylint: disable=arguments-differ
+        r"""
+        Create and add a quantum system of a given class ``subSysClass`` and a (optional) ``protocol`` for it.
+        ``kwargs`` can be used for setting parameters for the quantum system.
+        """
         newSys = super().createSubSys(subSysClass, **kwargs)
         newSys, Protocol = self.createQSystems(newSys, Protocol)
         return newSys
 
     @_recurseIfList
     def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
+        r"""
+        Remove a quantum system from the simulation.
+        """
         self.removeQSystems(subSys)
 
     def __compute(self): # pylint: disable=dangerous-default-value
+        r"""
+        Internal compute method that passes the states to all the other compute functions of ``computeBase`` instances.
+        """
         states = []
         for protocol in self.subSys.keys():
             states.append(protocol.currentState)
@@ -285,6 +323,18 @@ class Simulation(timeBase):
         super()._computeBase__compute(states) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None, resetRes=True):
+        r"""
+        Call this function to run the simulation. It runs certain other preparation before running the simulation.
+
+        Parameters
+        ----------
+        p : Boolean
+            If ``True`` uses multiprocessing to run sweeps
+        coreCount: int
+            Number of cores used for multiprocessing, uses `` (avaliable number of cores) - 1`` as default.
+        resetRes: Boolean
+            If ``False``, does not delete the results from the previous run of the simulation. ``True`` by default.
+        """
         if len(self.subSys.values()) == 0:
             self.addQSystems(self.superSys)
         self._freeEvol()
