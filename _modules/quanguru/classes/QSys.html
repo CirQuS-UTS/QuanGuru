@@ -181,13 +181,13 @@
 <span class="sd">      `termTimeDep`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
 <span class="sd">      `term`                     |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
 <span class="sd">      `qSystem`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `qCoupling`                |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `Spin`                     |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `Qubit`                    |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `Cavity`                   |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `_initStDec`               |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `_computeDef`              |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `_calculateDef`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `qCoupling`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `Spin`                     |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `Qubit`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `Cavity`                   |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `_initStDec`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `_computeDef`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `_calculateDef`            |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
 <span class="sd">    =======================    ==================   ==============   ================   ===============</span>
 
 <span class="sd">&quot;&quot;&quot;</span> <span class="c1">#pylint: disable=too-many-lines</span>
@@ -568,7 +568,7 @@
         <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)):</span> <span class="c1"># pylint: disable=no-member</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freeHam</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">couplingHam</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramUpdated</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="c1"># pylint: disable=no-member, assigning-non-slot</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">couplingHam</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -594,7 +594,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">newSys</span><span class="p">,</span> <span class="n">qCoupling</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_compQSystem__addCoupling</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qBase__subSys</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>  <span class="c1"># pylint: disable=no-member</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">newSys</span><span class="p">,</span> <span class="n">genericQSys</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_compQSystem__addSub</span><span class="p">(</span><span class="n">newSys</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_compQSystem__addSub</span><span class="p">(</span><span class="n">newSys</span><span class="p">)</span><span class="c1"># pylint: disable=no-member</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)</span>
         <span class="n">newSys</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># pylint: disable=protected-access</span>
@@ -865,7 +865,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">freeMat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets and sets the free matrix, i.e. without the frequency (equivalent to frequency =1) of the term.</span>
+<span class="sd">        Gets and sets the free matrix, ie without the frequency (or, equivalently frequency=1) of the term.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">#if ((self._paramBoundBase__matrix is None) or (self._paramUpdated)): # pylint: disable=no-member</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint: disable=no-member</span>
@@ -986,10 +986,10 @@
             <span class="n">val</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">term</span><span class="p">(</span><span class="n">superSys</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
     <span class="c1"># @genericQSys.name.setter #pylint: disable=no-member</span>
     <span class="c1"># def name(self, name):</span>

@@ -46,8 +46,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Quantum system classes (quanguru.classes.QSys)" href="QSys.html" />
-    <link rel="prev" title="Sweep Classes (quanguru.classes.QSweep)" href="QSweep.html" />
+    <link rel="next" title="QProtocol classes (quanguru.classes.QPro)" href="QPro.html" />
+    <link rel="prev" title="Quantum system classes (quanguru.classes.QSys)" href="QSys.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -138,13 +138,8 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="QRes.html">
-   Results Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QSweep.html">
-   Sweep Classes
+  <a class="reference internal" href="QSys.html">
+   Quantum System Classes
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -153,13 +148,18 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="QSys.html">
-   Quantum System Classes
+  <a class="reference internal" href="QPro.html">
+   QProtocol Classes
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="QPro.html">
-   QProtocol Classes
+  <a class="reference internal" href="QRes.html">
+   Results Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSweep.html">
+   Sweep Classes
   </a>
  </li>
  <li class="toctree-l1">
@@ -275,13 +275,13 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><cite>Simulation</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
 <tr class="row-odd"><td><p><cite>_poolMemory</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
@@ -292,7 +292,7 @@
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation">
 <em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="baseClasses.html#quanguru.classes.baseClasses.timeBase" title="quanguru.classes.baseClasses.timeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.timeBase</span></code></a></p>
-<p>Simulation class collects all the pieces together to run a simulation. Its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary contain
+<p>Simulation class collects all the pieces together to run a simulation. Its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary contains
 <a class="reference internal" href="QPro.html#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols</span></code></a>, <a class="reference internal" href="QSys.html#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code></a>
 as <code class="docutils literal notranslate"><span class="pre">key:value</span></code>, respectively. It has two <code class="xref py py-class docutils literal notranslate"><span class="pre">sweeps</span></code>, meaning 2 of its
 attributes
@@ -356,7 +356,7 @@ by matrix exponentiation or the time-dependency is not incorporated by <code cla
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.label">
 <span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'Simulation'</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used in default naming of objects. See <code class="xref py py-attr docutils literal notranslate"><span class="pre">label</span></code>.</p>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -380,45 +380,56 @@ by matrix exponentiation or the time-dependency is not incorporated by <code cla
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._evolFuncDefault">
 <span class="sig-name descname"><span class="pre">_evolFuncDefault</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSim.Simulation._evolFuncDefault" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>default evolution method. You can always assign a different evolution method for an instance of Simulation
+class, but by re-assigning this class attribute, you can change the evolution method for all the future instances</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id0">
 <span class="sig-name descname"><span class="pre">Sweep</span></span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd><p>sweep object</p>
+<dd><p>sweep object that contains information about the systems and their parameters to be swept.
+TODO create tutorial</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id1">
 <span class="sig-name descname"><span class="pre">timeDependency</span></span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
-<dd><p>sweep object</p>
+<dd><p>sweep object that contains information for parameters that will be changed as a function of time. Note that
+this is not the only way to make time-dependent parameters. Actually, the alternative in timeDependency in
+term objects is much better solution than this.
+TODO create tutorial</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.__index">
 <span class="sig-name descname"><span class="pre">__index</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.__index" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>this is counter for the number of steps in the time evolution, so this counter times the step size gives the
+current time in evolution. this is intended purely for internal use.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id2">
 <span class="sig-name descname"><span class="pre">evolFunc</span></span><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
-<dd><p>evolve function</p>
+<dd><p>default function that implements the actual time evolution in each step. TODO Create tutorial.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._currentTime">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">_currentTime</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation._currentTime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the current time in time evolution, which is equal to the current number of steps in the evolution times
+the step size.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.timeList">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">timeList</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.timeList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns a list of the time points of the time evolution.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.protocols">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">protocols</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.protocols" title="Permalink to this definition">¶</a></dt>
-<dd><p>The protocols property returns the protocols (<code class="docutils literal notranslate"><span class="pre">keys</span> <span class="pre">in</span> <span class="pre">subSys</span></code>) as a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
+<dd><p>Returns a list of protocols (<code class="docutils literal notranslate"><span class="pre">keys</span> <span class="pre">in</span> <span class="pre">subSys</span></code>) contained in this simulation.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -426,7 +437,7 @@ by matrix exponentiation or the time-dependency is not incorporated by <code cla
 <span class="sig-name descname"><span class="pre">_freeEvol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation._freeEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation._freeEvol" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is meant purely for internal use. When a quantum system is added to a <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> without
 providing a protocol, the key in <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary will be the default case inherited from
-<code class="xref py py-class docutils literal notranslate"><span class="pre">qUniversal</span></code>, i.e. name of the quantum system object. This method
+<a class="reference internal" href="base.html#quanguru.classes.base.qBase" title="quanguru.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qBase</span></code></a>, i.e. name of the quantum system object. This method
 is called inside the <a class="reference internal" href="#quanguru.classes.QSim.Simulation.run" title="quanguru.classes.QSim.Simulation.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method to ensure that the key is switched to a <code class="docutils literal notranslate"><span class="pre">freeEvolution</span></code>. By this
 we ensure that the default evolution is just a free evolution under the given systems Hamiltonian and explicit
 creation of a <code class="docutils literal notranslate"><span class="pre">freeEvolution</span></code> object is not required. These are achieved by replacing the <code class="docutils literal notranslate"><span class="pre">str</span></code> key by
@@ -439,7 +450,7 @@ created object but just using the <code class="docutils literal notranslate"><sp
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.qSystems">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">qSystems</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.qSystems" title="Permalink to this definition">¶</a></dt>
-<dd><p>The qSystems property returns the quantum systems (<code class="docutils literal notranslate"><span class="pre">values</span> <span class="pre">in</span> <span class="pre">subSys</span></code>) as a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
+<dd><p>Returns a list of quantum systems (<code class="docutils literal notranslate"><span class="pre">values</span> <span class="pre">in</span> <span class="pre">subSys</span></code>) contained in this simulation.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -474,59 +485,74 @@ argument, i.e. <code class="docutils literal notranslate"><span class="pre">Prot
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.createQSystems">
 <span class="sig-name descname"><span class="pre">createQSystems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSysClass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.createQSystems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.createQSystems" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Create a quantum system of given <code class="docutils literal notranslate"><span class="pre">subSysClass</span></code> class and (optional) add a <code class="docutils literal notranslate"><span class="pre">Protocol</span></code> for it. <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> here
+are used for setting the parameters of newly created quantum system.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.removeQSystems">
 <span class="sig-name descname"><span class="pre">removeQSystems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeQSystems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeQSystems" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Remove a quantum system and corresponding sweeps from the simulation.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.removeSweep">
 <span class="sig-name descname"><span class="pre">removeSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeSweep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Remove a sweep from the simulation.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.removeProtocol">
 <span class="sig-name descname"><span class="pre">removeProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Protocol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeProtocol" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Remove a protocoal and corresponding sweeps from the simulation.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.addProtocol">
 <span class="sig-name descname"><span class="pre">addProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocolRemove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.addProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.addProtocol" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add a <code class="docutils literal notranslate"><span class="pre">protocol</span></code> for the (optional) <code class="docutils literal notranslate"><span class="pre">system</span></code> and (optional) remove an existing protocol <code class="docutils literal notranslate"><span class="pre">protocolRemove</span></code>.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.addSubSys">
 <span class="sig-name descname"><span class="pre">addSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.addSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.addSubSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
-an instance and adds), and list/tuple containing any combination of these.</p>
-<p>TODO add example &amp;/ link to a tutorial</p>
+<dd><p>Add a quantum system <code class="docutils literal notranslate"><span class="pre">subS</span></code> to the simulation and a (optional) <code class="docutils literal notranslate"><span class="pre">protocol</span></code> for it. <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> can be used for
+setting parameters for the quantum system.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.createSubSys">
 <span class="sig-name descname"><span class="pre">createSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSysClass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.createSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.createSubSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simply calls and returns the <code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys()</span></code> method, which is decorated to also cover creation.</p>
+<dd><p>Create and add a quantum system of a given class <code class="docutils literal notranslate"><span class="pre">subSysClass</span></code> and a (optional) <code class="docutils literal notranslate"><span class="pre">protocol</span></code> for it.
+<code class="docutils literal notranslate"><span class="pre">kwargs</span></code> can be used for setting parameters for the quantum system.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.removeSubSys">
 <span class="sig-name descname"><span class="pre">removeSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeSubSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will
-raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
-named class.</p>
+<dd><p>Remove a quantum system from the simulation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.__compute">
 <span class="sig-name descname"><span class="pre">__compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.__compute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Internal compute method that passes the states to all the other compute functions of <code class="docutils literal notranslate"><span class="pre">computeBase</span></code> instances.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coreCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resetRes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Call this function to run the simulation. It runs certain other preparation before running the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>Boolean</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> uses multiprocessing to run sweeps</p></li>
+<li><p><strong>coreCount</strong> (<em>int</em>) – Number of cores used for multiprocessing, uses `` (avaliable number of cores) - 1`` as default.</p></li>
+<li><p><strong>resetRes</strong> (<em>Boolean</em>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, does not delete the results from the previous run of the simulation. <code class="docutils literal notranslate"><span class="pre">True</span></code> by default.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -568,8 +594,8 @@ etc.</p>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="QSweep.html" title="previous page">Sweep Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSweep</span></code>)</a>
-    <a class='right-next' id="next-link" href="QSys.html" title="next page">Quantum system classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSys</span></code>)</a>
+    <a class='left-prev' id="prev-link" href="QSys.html" title="previous page">Quantum system classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSys</span></code>)</a>
+    <a class='right-next' id="next-link" href="QPro.html" title="next page">QProtocol classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QPro</span></code>)</a>
 
               </div>
               

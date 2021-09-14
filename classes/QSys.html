@@ -46,8 +46,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="QProtocol classes (quanguru.classes.QPro)" href="QPro.html" />
-    <link rel="prev" title="Simulation classes (quanguru.classes.QSim)" href="QSim.html" />
+    <link rel="next" title="Simulation classes (quanguru.classes.QSim)" href="QSim.html" />
+    <link rel="prev" title="base classes (quanguru.classes.baseClasses)" href="baseClasses.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -137,6 +137,21 @@
    BaseClasses
   </a>
  </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Quantum System Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSim.html">
+   Simulation Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QPro.html">
+   QProtocol Classes
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="QRes.html">
    Results Classes
@@ -145,21 +160,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="QSweep.html">
    Sweep Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QSim.html">
-   Simulation Classes
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Quantum System Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QPro.html">
-   QProtocol Classes
   </a>
  </li>
  <li class="toctree-l1">
@@ -344,43 +344,43 @@
 <td><p>    ❌</p></td>
 </tr>
 <tr class="row-even"><td><p><cite>qCoupling</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
 <tr class="row-odd"><td><p><cite>Spin</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
 <tr class="row-even"><td><p><cite>Qubit</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
 <tr class="row-odd"><td><p><cite>Cavity</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
 <tr class="row-even"><td><p><cite>_initStDec</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
 <tr class="row-odd"><td><p><cite>_computeDef</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
 <tr class="row-even"><td><p><cite>_calculateDef</cite></p></td>
-<td><p>      ❌</p></td>
+<td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
@@ -879,7 +879,7 @@ Currently, this is just pass and extended in the child classes, and the goal is 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep.freeMat">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">freeMat</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.freeMat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets and sets the free matrix, i.e. without the frequency (equivalent to frequency =1) of the term.</p>
+<dd><p>Gets and sets the free matrix, ie without the frequency (or, equivalently frequency=1) of the term.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1260,8 +1260,8 @@ internally in various places when the matrices are needed to be constructed.</p>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="QSim.html" title="previous page">Simulation classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSim</span></code>)</a>
-    <a class='right-next' id="next-link" href="QPro.html" title="next page">QProtocol classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QPro</span></code>)</a>
+    <a class='left-prev' id="prev-link" href="baseClasses.html" title="previous page">base classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses</span></code>)</a>
+    <a class='right-next' id="next-link" href="QSim.html" title="next page">Simulation classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSim</span></code>)</a>
 
               </div>
               
