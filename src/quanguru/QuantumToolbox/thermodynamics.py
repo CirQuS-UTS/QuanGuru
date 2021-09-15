@@ -64,6 +64,8 @@ def nBarThermal(angFreq: float, temp: float, hbar: float = 1.0, kb: float = 1.0)
     # TODO
     """
 
+    if temp == 0:
+        return 0
     if exp((hbar*angFreq) / (temp*kb)) == 1:
         raise ValueError('?')
     return 1.0 / (exp((hbar*angFreq) / (temp*kb)) - 1)
