@@ -30,7 +30,6 @@ r"""
 """
 import numpy as np
 
-from ..QuantumToolbox.linearAlgebra import hc #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
@@ -53,12 +52,11 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     def _increaseExponentiationCount(cls):
         cls.numberOfExponentiations += 1
 
-    __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates',
-                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', '_antiStep']
+    __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '__dissipator', '_openSys',
+                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        self._antiStep = False
         self.__currentState = _parameter()
         self.__identity = None
         self.__inProtocol = False
@@ -69,7 +67,22 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         self.sampleStates = []
         self.stepSample = False
         self.timeDependency = Sweep(superSys=self)
+        self.__dissipator = {}
+        self._openSys = False
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def _dissipator(self):
+        return self._genericProtocol__dissipator
+
+    @property
+    def _isOpen(self):
+        subOpen = any((s._isOpen for s in self.subSys.values() if hasattr(s, '_isOpen'))) # pylint: disable=protected-access
+        self._openSys = len(self._dissipator) > 0 or subOpen or self._openSys
+        for s in self.subSys.values():
+            if hasattr(s, '_openSys'):
+                s._openSys = self._openSys # pylint: disable=protected-access
+        return self._openSys
 
     @property
     def currentState(self):
@@ -137,7 +150,9 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
             self.simulation._bound(supSys.simulation) # pylint: disable=protected-access
         self.simulation._qBase__subSys[self] = self.superSys # pylint: disable=protected-access
 
-    def unitary(self, collapseOps = None, decayRates = None):
+    def unitary(self):
+        collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.keys()]
+        decayRates = None if not self._isOpen else list(self._dissipator.values())
         if self.superSys is not None:
             self.superSys._timeDependency() # pylint: disable=no-member
 
@@ -149,6 +164,12 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def getUnitary(self, collapseOps = None, decayRates = None):
+        if collapseOps is None:
+            collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.keys()]
+            decayRates = None if not self._isOpen else list(self._dissipator.values())
+        else:
+            collapseOps = collapseOps + [ds.jOperMatrix for ds in self._dissipator.keys()]
+            decayRates = decayRates + list(self._dissipator.values())
         if self.superSys is not None:
             self.superSys._timeDependency() # pylint: disable=no-member
 
@@ -178,12 +199,10 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
                 lc = self.timeDependency.indMultip
                 td = True
 
-            unitary = self._identity(openSys=isinstance(collapseOps, list))
-            #print(isinstance(collapseOps, list), unitary.shape, self.alias)
+            unitary = self._identity(openSys=self._isOpen)
             for ind in range(lc):
                 if td:
                     self.timeDependency.runSweep(self.timeDependency._indicesForSweep(ind, *self.timeDependency.inds))
-                #print(self._createUnitary(collapseOps, decayRates).shape, self.name, self.alias, unitary.shape)
                 unitary = self._createUnitary(collapseOps, decayRates) @ unitary # pylint: disable=no-member
             self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
@@ -265,7 +284,7 @@ class qProtocol(genericProtocol):
         return vals
 
     def _defCreateUnitary(self, collapseOps = None, decayRates = None):
-        unitary = self._identity(openSys=isinstance(collapseOps, list)) # pylint: disable=no-member
+        unitary = self._identity(openSys=self._isOpen) # pylint: disable=no-member
         for step in self.steps.values():
             vals = self._puValues(step, [])
             unitary = step.getUnitary(collapseOps, decayRates) @ unitary
@@ -306,10 +325,14 @@ class copyStep(qBase):
         pass
 
     def getUnitary(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
-        return self.superSys.unitary(collapseOps, decayRates)
+        return self.superSys.unitary()
 
-    def unitary(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
-        return self.superSys.unitary(collapseOps, decayRates)
+    def unitary(self): #pylint:disable=unused-argument
+        return self.superSys.unitary()
+
+    @property
+    def _isOpen(self):
+        return self.superSys._isOpen # pylint: disable=protected-access
 
 class freeEvolution(genericProtocol):
     label = 'freeEvolution'
@@ -329,11 +352,10 @@ class freeEvolution(genericProtocol):
 
     _freqCoef = 2 * np.pi
     def matrixExponentiation(self, collapseOps = None, decayRates = None):
-        collapseOpsA = [hc(op) for op in collapseOps] if self._antiStep else collapseOps
         self._increaseExponentiationCount()
         unitary = lio.LiouvillianExp(self._freqCoef * self.superSys.totalHam, # pylint: disable=no-member
                                      timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples),
-                                     collapseOperators=collapseOpsA, decayRates=decayRates)
+                                     collapseOperators=collapseOps, decayRates=decayRates)
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
 

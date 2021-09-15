@@ -79,7 +79,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
                 flipOpN = operators.compositeOp(rotOp(sys[i+1].dimension, isDim=True),
                                                 sys[i+1]._dimsBefore, sys[i+1]._dimsAfter)
                 flipUn = evolution.Unitary(self.phase*self.angle*flipOpN) @ flipUn
-            self._paramBoundBase__matrix = evolution._preposSO(flipUn) if (openSys or isinstance(collapseOps, list)) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
+            self._paramBoundBase__matrix = evolution._preposSO(flipUn) if (openSys or isinstance(collapseOps, list) or self._isOpen) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
@@ -116,9 +116,9 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
 
     def _gateImplements(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
         if self.implementation is None:
-            unitary = self._rotMat(openSys = isinstance(collapseOps, list))
+            unitary = self._rotMat(openSys = isinstance(collapseOps, list) or self._isOpen)
         elif self.implementation.lower() in ('instant', 'flip'): # pylint: disable=no-member
-            unitary = self.instantFlip(openSys = isinstance(collapseOps, list))
+            unitary = self.instantFlip(openSys = isinstance(collapseOps, list) or self._isOpen)
         return unitary
 
 SpinRotation._createUnitary = SpinRotation._rotMat # pylint: disable=protected-access
