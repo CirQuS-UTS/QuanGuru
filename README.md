@@ -43,7 +43,7 @@ There are already other functions (for special state creations, eigen-value stat
 1. Docstring for the extensions
 1. Writing tutorials, further improvements in docstring and more tests
 
-### 2. pip installable
+### 2. Version 1
 
 At this point, we should have a stable version with enough documentation for the version 1.
 
@@ -51,5 +51,4 @@ At this point, we should have a stable version with enough documentation for the
 Further additions have to be with proper tests, tutorials, docstring etc.
 
 1. Implementation of SCQubits and QDrive using Adrien's work.
-1. Open system simulation capability for the classes
 1. Interfacing to other libraries.
