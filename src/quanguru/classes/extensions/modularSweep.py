@@ -34,6 +34,7 @@
 """
 
 from functools import partial
+import quanguru.QuantumToolbox as qt
 
 def runSimulation(qSim, p):
     # NOTE determine if more samples of a protocol step are requested.
@@ -71,7 +72,7 @@ def _runSweepAndPrep(qSim, ind):
         qSim.Sweep.runSweep(qSim.Sweep._indicesForSweep(ind, *qSim.Sweep.inds))
 
     for protocol in qSim.subSys.keys():
-        protocol.currentState = protocol.initialState
+        protocol.currentState = protocol.initialState if not protocol._isOpen else qt.densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
 
     qSim.qRes._resetLast() # pylint: disable=protected-access
     qSim._computeBase__calculate(where="start")
@@ -124,14 +125,19 @@ def timeEvolDefault(qSim, td):
 
 def timeEvolBase(qSim):
     for protocol in qSim.subSys.keys(): #pylint:disable=too-many-nested-blocks
-        protocol.sampleStates = []
-        if protocol.stepSample:
-            for step in protocol.steps.values():
-                for _ in range(step.simulation.samples):
-                    protocol.currentState = step.unitary() @ protocol.currentState
-                    protocol.sampleStates.append(protocol.currentState)
+        if protocol._isOpen: # pylint: disable=protected-access
+            state = qt.mat2Vec(protocol.currentState)
+            state = protocol.unitary() @ state
+            protocol.currentState = qt.vec2Mat(state)
         else:
-            protocol.currentState = protocol.unitary() @ protocol.currentState
+            protocol.sampleStates = []
+            if protocol.stepSample:
+                for step in protocol.steps.values():
+                    for _ in range(step.simulation.samples):
+                        protocol.currentState = step.unitary() @ protocol.currentState
+                        protocol.sampleStates.append(protocol.currentState)
+            else:
+                protocol.currentState = protocol.unitary() @ protocol.currentState
         #protocol.sampleStates = []
         #qSim.subSys[protocol]._computeBase__compute([protocol.currentState]) # pylint: disable=protected-access
         #sampleCompute = qSim is protocol.simulation
