@@ -90,8 +90,8 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
         liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep)
     return liouvillianEXP
 
-def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value,unsubscriptable-object
-                collapseOperators: Optional[List] = None, decayRates: Optional[List] = None) -> Matrix:# pylint: disable=dangerous-default-value
+def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optional[List] = None, # pylint: disable=dangerous-default-value,unsubscriptable-object
+                decayRates: Optional[List] = None, _double: bool = False) -> Matrix:# pylint: disable=dangerous-default-value
     r"""
     TODO : I have generalised the functions, docs need to be updated.
     Creates `Liouvillian` super-operator
@@ -142,12 +142,12 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
     liouvillian = hamPart
     if isinstance(collapseOperators, list):
         for idx, collapseOperator in enumerate(collapseOperators):
-            if isinstance(collapseOperator, tuple):
-                collapsePart = dissipator(collapseOperator[0], collapseOperator[1])
-            elif collapseOperator.shape[0] == Hamiltonian.shape[0]:
-                collapsePart = dissipator(collapseOperator, identity=identity)
+            if collapseOperator.shape[0] == Hamiltonian.shape[0]:
+                collapsePart = dissipator(collapseOperator, identity=identity, _double=_double)
             elif collapseOperator.shape[0] == (Hamiltonian.shape[0]**2):
                 collapsePart = collapseOperator
+            elif isinstance(collapseOperator, tuple):
+                collapsePart = dissipator(collapseOperator[0], collapseOperator[1], _double=_double)
             else:
                 raise "Dimension mismatch"
 
@@ -159,7 +159,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 
 def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
                    collapseOperators: Optional[List] = None, decayRates: Optional[List] = None,
-                   exp: bool = True) -> Matrix: # pylint: disable=dangerous-default-value
+                   exp: bool = True, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
     r"""
     For a `time step t`, creates `Liouvillian` :math:`\hat{\mathcal{L}}` and exponentiate it, or unitary :math:`U(t)`
     for a `Hamiltonian` :math:`\hat{H}`.
@@ -207,7 +207,7 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
         sparse = sp.issparse(collapseOperators[0])
 
     if isinstance(collapseOperators, list):
-        liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates)
+        liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates, _double=_double)
         if exp is True:
             if sparse is True:
                 liouvillianEXP = slinA.expm(liouvillian * timeStep)
@@ -370,15 +370,19 @@ def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
 
 def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Optional[Matrix] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object,too-many-arguments # noqa: E501
                collapseOperators: Optional[List] = None, decayRates: Optional[List] = None,
-               calcFunc: Optional[Callable] = None, delStates: Optional[bool] = False) -> Matrix: # pylint: disable=dangerous-default-value
+               calcFunc: Optional[Callable] = None, delStates: Optional[bool] = False, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
     # TODO : write docstrings
-    LiouExp = LiouvillianExp(Hamiltonian, timeStep=timeStep, collapseOperators=collapseOperators, decayRates=decayRates)
-    rhoL = densityMatrix(initialState)
+    LiouExp = LiouvillianExp(Hamiltonian, timeStep=timeStep, collapseOperators=collapseOperators, decayRates=decayRates,
+                             _double = _double)
+    rhoL = initialState
     if initialState.shape[0] != initialState.shape[1]:
         rhoL = densityMatrix(initialState)
-    resultList = [initialState]
+    resultList = [rhoL]
+    if calcFunc is not None:
+        calcFunc(rhoL)
+    rhoL = mat2Vec(rhoL)
     for _ in range(int(totalTime/timeStep)):
-        rhoL = LiouExp @ mat2Vec(rhoL)
+        rhoL = LiouExp @ rhoL
         denMat = vec2Mat(rhoL)
         if calcFunc is not None:
             calcFunc(denMat)
@@ -388,8 +392,8 @@ def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Opti
     return resultList
 
 def steadyState(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optional[List] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
-               decayRates: Optional[List] = None) -> Matrix: # pylint: disable=dangerous-default-value
+               decayRates: Optional[List] = None, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
     # TODO : write docstrings
-    Liou = Liouvillian(Hamiltonian, collapseOperators=collapseOperators, decayRates=decayRates)
+    Liou = Liouvillian(Hamiltonian, collapseOperators=collapseOperators, decayRates=decayRates, _double=_double)
     _, vecs = sortedEigens(Liou, mag=True)
     return vecs[0]
