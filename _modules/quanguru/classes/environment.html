@@ -159,26 +159,43 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">..QuantumToolbox</span> <span class="kn">import</span> <span class="n">evolution</span> <span class="k">as</span> <span class="n">qEvo</span> <span class="c1">#pylint: disable=relative-beyond-top-level</span>
+<span class="kn">from</span> <span class="nn">quanguru.QuantumToolbox.thermodynamics</span> <span class="kn">import</span> <span class="n">nBarThermal</span>
+<span class="kn">from</span> <span class="nn">quanguru.QuantumToolbox.operators</span> <span class="kn">import</span> <span class="n">compositeOp</span>
+<span class="kn">from</span> <span class="nn">.baseClasses</span> <span class="kn">import</span> <span class="n">paramBoundBase</span><span class="p">,</span> <span class="n">setAttr</span>
 
-<span class="kn">from</span> <span class="nn">.QSys</span> <span class="kn">import</span> <span class="n">qCoupling</span><span class="p">,</span> <span class="n">termTimeDep</span>
-
-
-<div class="viewcode-block" id="environment"><a class="viewcode-back" href="../../../classes/environment.html#quanguru.classes.environment.environment">[docs]</a><span class="k">class</span> <span class="nc">environment</span><span class="p">(</span><span class="n">termTimeDep</span><span class="p">):</span> <span class="c1"># pylint:disable=too-few-public-methods</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;environment&#39;</span>
+<div class="viewcode-block" id="_genericOpen"><a class="viewcode-back" href="../../../classes/environment.html#quanguru.classes.environment._genericOpen">[docs]</a><span class="k">class</span> <span class="nc">_genericOpen</span><span class="p">(</span><span class="n">paramBoundBase</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parent class for ``thermalBath`` and ``dissipator``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#: (**class attribute**) class label used in default naming</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_genericOpen&#39;</span>
     <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
     <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
     <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
     <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">envCouplings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
+    <span class="k">def</span> <span class="nf">system</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get and set the system to which the bath is attached.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span>
 
-<div class="viewcode-block" id="envCoupling"><a class="viewcode-back" href="../../../classes/environment.html#quanguru.classes.environment.envCoupling">[docs]</a><span class="k">class</span> <span class="nc">envCoupling</span><span class="p">(</span><span class="n">qCoupling</span><span class="p">):</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;envCoupling&#39;</span>
+    <span class="nd">@system</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">system</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supSys</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="o">=</span> <span class="n">supSys</span> <span class="c1"># pylint: disable=no-member</span>
+
+    <span class="nd">@paramBoundBase</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">setter</span> <span class="c1"># pylint: disable=no-member</span>
+    <span class="k">def</span> <span class="nf">superSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supSys</span><span class="p">):</span>
+        <span class="n">paramBoundBase</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supSys</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">supSys</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># pylint: disable=protected-access</span></div>
+
+<div class="viewcode-block" id="dissipatorObj"><a class="viewcode-back" href="../../../classes/environment.html#quanguru.classes.environment.dissipatorObj">[docs]</a><span class="k">class</span> <span class="nc">dissipatorObj</span><span class="p">(</span><span class="n">_genericOpen</span><span class="p">):</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;dissipator&#39;</span>
     <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
     <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
@@ -186,19 +203,149 @@
     <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
     <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;__envMatrix&#39;</span><span class="p">]</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;__operator&#39;</span><span class="p">,</span> <span class="s1">&#39;__rate&#39;</span><span class="p">,</span> <span class="s1">&#39;__bath&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;dissipator&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__envMatrix</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__operator</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rate</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bath</span> <span class="o">=</span> <span class="n">thermalBath</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets and sets the temperature of the bath.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dissipatorObj__bath</span><span class="o">.</span><span class="n">temperature</span>
+
+    <span class="nd">@temperature</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dissipatorObj__bath</span><span class="o">.</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temp</span>
+
+    <span class="nd">@_genericOpen</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">setter</span> <span class="c1"># pylint: disable=no-member</span>
+    <span class="k">def</span> <span class="nf">superSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supSys</span><span class="p">):</span>
+        <span class="n">_genericOpen</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supSys</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addToProtocol</span><span class="p">(</span><span class="n">supSys</span><span class="o">.</span><span class="n">_freeEvol</span><span class="p">)</span>
+
+<div class="viewcode-block" id="dissipatorObj.addToProtocol"><a class="viewcode-back" href="../../../classes/environment.html#quanguru.classes.environment.dissipatorObj.addToProtocol">[docs]</a>    <span class="k">def</span> <span class="nf">addToProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">):</span>
+        <span class="n">protocol</span><span class="o">.</span><span class="n">_genericProtocol__dissipator</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jRate</span> <span class="c1">#pylint:disable=protected-access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="n">protocol</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">protocol</span> <span class="c1"># pylint: disable=no-member</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">jRate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dissipatorObj__rate</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dissipatorObj__bath</span><span class="o">.</span><span class="n">nBar</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+
+    <span class="nd">@jRate</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">jRate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+        <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_dissipatorObj__rate&#39;</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">jOper</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dissipatorObj__operator</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">jOperMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="c1"># pylint:disable=no-member</span>
+
+    <span class="nd">@jOperMatrix</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">jOperMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jOpMat</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">jOpMat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">):</span>
+            <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_paramBoundBase__matrix&#39;</span><span class="p">,</span>
+                    <span class="n">compositeOp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jOper</span><span class="p">,</span> <span class="n">dimA</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">_dimsAfter</span><span class="p">,</span> <span class="n">dimB</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">_dimsBefore</span><span class="p">))</span> <span class="c1"># pylint:disable=no-member</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramUpdated</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># pylint:disable=assigning-non-slot</span>
+
+    <span class="nd">@jOper</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">jOper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jop</span><span class="p">):</span>
+        <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_dissipatorObj__operator&#39;</span><span class="p">,</span> <span class="n">jop</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">jOperMatrix</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="thermalBath"><a class="viewcode-back" href="../../../classes/environment.html#quanguru.classes.environment.thermalBath">[docs]</a><span class="k">class</span> <span class="nc">thermalBath</span><span class="p">(</span><span class="n">_genericOpen</span><span class="p">):</span> <span class="c1"># pylint:disable=too-few-public-methods</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Object for a thermal bath that contains several ``dissipator``, which is a child class of this.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#: (**class attribute**) class label used in default naming</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;environment&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;__charFreq&#39;</span><span class="p">,</span> <span class="s1">&#39;__nbar&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1">#: temperature of the bath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__temperature</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1">#: characteristics frequency of the bath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__charFreq</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1">#: nbar corresponding to the above temperature and frequency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__nbar</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">jOpers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">ds</span><span class="o">.</span><span class="n">jOper</span> <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span> <span class="c1"># pylint: disable=no-member</span>
+
+    <span class="nd">@jOpers</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">jOpers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">systems</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">op</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ops</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dissipator</span> <span class="o">=</span> <span class="n">dissipatorObj</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">systems</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">jOper</span><span class="o">=</span><span class="n">op</span><span class="p">,</span> <span class="n">jRate</span><span class="o">=</span><span class="n">rates</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dissipator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_envCoupling__envMatrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)):</span> <span class="c1"># pylint: disable=no-member</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;dissipator&quot;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_envCoupling__envMatrix</span> <span class="o">=</span> <span class="n">qEvo</span><span class="o">.</span><span class="n">dissipator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">freeMat</span><span class="p">)</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_envCoupling__envMatrix</span> <span class="c1"># pylint: disable=no-member</span></div>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get and set the dissipator objects that contain the jump operator from which the dissipator term is going to be</span>
+<span class="sd">        created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span>
+
+    <span class="nd">@_genericOpen</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">subSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">):</span>
+        <span class="n">_genericOpen</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">)</span>
+        <span class="n">subS</span><span class="o">.</span><span class="n">_dissipatorObj__bath</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1">#pylint:disable=protected-access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="n">subS</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">subS</span> <span class="c1"># pylint: disable=no-member</span>
+
+    <span class="nd">@dissipator</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">dissipator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="n">dissipatorObj</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span> <span class="o">=</span> <span class="n">subS</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets and sets the temperature of the bath.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thermalBath__temperature</span>
+
+    <span class="nd">@temperature</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">):</span>
+        <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_thermalBath__temperature&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">charFreq</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets and sets the characteristics frequency of the bath.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thermalBath__charFreq</span>
+
+    <span class="nd">@charFreq</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">charFreq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
+        <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_thermalBath__charFreq&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nBar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the nBar of the thermal bath, and re-calculates the ``nBar`` if the ``temperature`` or ``charFreq`` are</span>
+<span class="sd">        changed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">:</span>
+            <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_thermalBath__nbar&#39;</span><span class="p">,</span> <span class="n">nBarThermal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">charFreq</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramUpdated</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># pylint:disable=assigning-non-slot</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thermalBath__nbar</span></div>
 </pre></div>
 
               </div>
