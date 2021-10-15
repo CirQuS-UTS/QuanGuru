@@ -79,7 +79,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
                 flipOpN = operators.compositeOp(rotOp(sys[i+1].dimension, isDim=True),
                                                 sys[i+1]._dimsBefore, sys[i+1]._dimsAfter)
                 flipUn = evolution.Unitary(self.phase*self.angle*flipOpN) @ flipUn
-            self._paramBoundBase__matrix = evolution._preposSO(flipUn) if (openSys or isinstance(collapseOps, list) or self._isOpen) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
+            self._paramBoundBase__matrix = evolution._prepostSO(flipUn) if (openSys or isinstance(collapseOps, list) or self._isOpen) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
@@ -110,7 +110,7 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
             flipOp = operators.compositeOp(rotOp(self.angle), sys[0]._dimsBefore, sys[0]._dimsAfter) # pylint: disable=no-member
             for i in range(len(sys)-1):
                 flipOp = operators.compositeOp(rotOp(self.angle), sys[i+1]._dimsBefore, sys[i+1]._dimsAfter) @ flipOp
-            self._paramBoundBase__matrix = evolution._preposSO(flipOp) if openSys else flipOp # pylint: disable=assigning-non-slot,protected-access
+            self._paramBoundBase__matrix = evolution._prepostSO(flipOp) if openSys else flipOp # pylint: disable=assigning-non-slot,protected-access
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 

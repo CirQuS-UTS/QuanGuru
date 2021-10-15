@@ -13,8 +13,8 @@ r"""
 
         dissipator
         _preSO
-        _posSO
-        _preposSO
+        _postSO
+        _prepostSO
 
     .. |c| unicode:: U+2705
     .. |x| unicode:: U+274C
@@ -28,19 +28,21 @@ r"""
        `LiouvillianExp`          |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
        `dissipator`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `_preSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `_posSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `_preposSO`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_postSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_prepostSO`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
 """
 
-from typing import List, Optional
+from typing import Callable, List, Optional
 
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
 import scipy.sparse.linalg as slinA # type: ignore
 
 from .linearAlgebra import hc
+from .functions import sortedEigens
+from .states import densityMatrix, mat2Vec, vec2Mat
 
 from .customTypes import Matrix
 
@@ -91,6 +93,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerous-default-value,unsubscriptable-object
                 collapseOperators: Optional[List] = None, decayRates: Optional[List] = None) -> Matrix:# pylint: disable=dangerous-default-value
     r"""
+    TODO : I have generalised the functions, docs need to be updated.
     Creates `Liouvillian` super-operator
     :math:`\hat{\mathcal{L}} := -i(\hat{H}\otimes\mathbb{I} + \mathbb{I}\otimes\hat{H}) +
     \sum_{i}\kappa_{i}\hat{\mathcal{D}}(\hat{c}_{i})`
@@ -134,16 +137,24 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, # pylint: disable=dangerou
 
     identity = sp.identity(dimensionOfHilbertSpace, format="csc")
     hamPart1 = _preSO(Hamiltonian, identity)
-    hamPart2 = _posSO(Hamiltonian, identity)
+    hamPart2 = _postSO(Hamiltonian, identity)
     hamPart = -1j * (hamPart1 - hamPart2)
     liouvillian = hamPart
     if isinstance(collapseOperators, list):
         for idx, collapseOperator in enumerate(collapseOperators):
-            collapsePart = dissipator(collapseOperator, identity)
-            if len(decayRates) != 0:
-                liouvillian += decayRates[idx]*collapsePart
+            if isinstance(collapseOperator, tuple):
+                collapsePart = dissipator(collapseOperator[0], collapseOperator[1])
+            elif collapseOperator.shape[0] == Hamiltonian.shape[0]:
+                collapsePart = dissipator(collapseOperator, identity=identity)
+            elif collapseOperator.shape[0] == (Hamiltonian.shape[0]**2):
+                collapsePart = collapseOperator
             else:
+                raise "Dimension mismatch"
+
+            if decayRates is None:
                 liouvillian += collapsePart
+            elif len(decayRates) != 0:
+                liouvillian += decayRates[idx]*collapsePart      
     return liouvillian
 
 def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
@@ -208,8 +219,10 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
         liouvillianEXP = Unitary(Hamiltonian, timeStep)
     return liouvillianEXP
 
-def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> Matrix:#pylint:disable=unsubscriptable-object
+def dissipator(operatorA: Matrix, operatorB: Optional[Matrix] = None,
+               identity: Optional[Matrix] = None, _double: bool = False) -> Matrix:#pylint:disable=unsubscriptable-object
     r"""
+    TODO : I have generalised the functions, docs need to be updated.
     Creates the `Lindblad dissipator` super-operator
     :math:`\hat{\mathcal{D}}(\hat{c}) := (\hat{c}^{\dagger})^{T}\otimes\hat{c} -
     0.5(\mathbb{I}\otimes\hat{c}^{\dagger}\hat{c} + \hat{c}^{\dagger}\hat{c}\otimes\mathbb{I})`
@@ -244,17 +257,17 @@ def dissipator(collapseOperator: Matrix, identity: Optional[Matrix] = None) -> M
            [ 1. ,  0. ,  0. ,  0. ]])
 
     """
-
     if identity is None:
-        identity = sp.identity(collapseOperator.shape[0], format="csc")
+        identity = sp.identity(operatorA.shape[0], format="csc")
 
-    dagger = hc(collapseOperator)
+    if operatorB is None:
+        operatorB = hc(operatorA)
 
-    number = dagger @ collapseOperator
-    part1 = _preposSO(collapseOperator)
+    number = operatorB @ operatorA
+    part1 = _prepostSO(operatorA, operatorB)
     part2 = _preSO(number, identity)
-    part3 = _posSO(number, identity)
-    return part1 - (0.5 * (part2 + part3))
+    part3 = _postSO(number, identity)
+    return (1+int(_double))*(part1 - (0.5 * (part2 + part3)))
 
 def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     r"""
@@ -289,7 +302,7 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     pre = sp.kron(identity, operator, format='csc')
     return pre if sp.issparse(operator) else pre.A
 
-def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
+def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     r"""
     Creates `pos super-operator` :math:`\hat{O}^{T}\otimes\mathbb{I}` for an `operator` :math:`\hat{O}`.
 
@@ -305,11 +318,11 @@ def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     Returns
     -------
     Matrix
-        `pos` super-operator
+        `post` super-operator
 
     Examples
     --------
-    >>> evolution._posSO(sigmam()).A
+    >>> evolution._postSO(sigmam()).A
     array([[0., 0., 1., 0.],
            [0., 0., 0., 1.],
            [0., 0., 0., 0.],
@@ -322,33 +335,61 @@ def _posSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     pos = sp.kron(operator.transpose(), identity, format='csc')
     return pos if sp.issparse(operator) else pos.A
 
-def _preposSO(operator: Matrix) -> Matrix:
+def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
     r"""
-    Creates `pre-pos super-operator` :math:`(\hat{O}^{\dagger})^{T}\otimes\hat{O}` for an operator :math:`\hat{O}`.
+    TODO : I have generalised the functions, docs need to be updated.
+    Creates `pre-pos super-operator` :math:`(\hat{B}^{\dagger})^{T}\otimes\hat{A}` for an operator :math:`\hat{O}`.
 
     Keeps sparse/array as sparse/array.
 
     Parameters
     ----------
-    operator : Matrix
-        a collapse operator
-    sparse : bool
-        boolean for sparse or not (array)
+    operatorA : Matrix
+        collapse operator A
+    operatorB : Matrix
+        collapse operator B
 
     Returns
     -------
     Matrix
-        `pre-pos` super-operator
+        `pre-post` super-operator
 
     Examples
     --------
-    >>> evolution._preposSO(sigmam()).A
+    >>> evolution._prepostSO(sigmam()).A
     array([[0, 0, 0, 0],
            [0, 0, 0, 0],
            [0, 0, 0, 0],
            [1, 0, 0, 0]], dtype=int64)
 
     """
+    if operatorB is None:
+        operatorB = operatorA
+    prepost = sp.kron(operatorB.transpose(), operatorA, format='csc')
+    return prepost if sp.issparse(operatorA) else prepost.A
 
-    prepos = sp.kron(operator.conj(), operator, format='csc')
-    return prepos if sp.issparse(operator) else prepos.A
+def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Optional[Matrix] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object,too-many-arguments # noqa: E501
+               collapseOperators: Optional[List] = None, decayRates: Optional[List] = None,
+               calcFunc: Optional[Callable] = None, delStates: Optional[bool] = False) -> Matrix: # pylint: disable=dangerous-default-value
+    # TODO : write docstrings
+    LiouExp = LiouvillianExp(Hamiltonian, timeStep=timeStep, collapseOperators=collapseOperators, decayRates=decayRates)
+    rhoL = densityMatrix(initialState)
+    if initialState.shape[0] != initialState.shape[1]:
+        rhoL = densityMatrix(initialState)
+    resultList = [initialState]
+    for _ in range(int(totalTime/timeStep)):
+        rhoL = LiouExp @ mat2Vec(rhoL)
+        denMat = vec2Mat(rhoL)
+        if calcFunc is not None:
+            calcFunc(denMat)
+
+        if not delStates:
+            resultList.append(denMat)
+    return resultList
+
+def steadyState(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optional[List] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
+               decayRates: Optional[List] = None) -> Matrix: # pylint: disable=dangerous-default-value
+    # TODO : write docstrings
+    Liou = Liouvillian(Hamiltonian, collapseOperators=collapseOperators, decayRates=decayRates)
+    _, vecs = sortedEigens(Liou, mag=True)
+    return vecs[0]

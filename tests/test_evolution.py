@@ -16,17 +16,17 @@ posExpects = [np.array([[0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0]])
               np.array([[0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [0, 1, 0, 0]]),
               np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, -1, 0], [0, 0, 0, -1]])]
 @pytest.mark.parametrize("op, expect", [[o, e] for (o, e) in zip(sigmaOpers, posExpects)])
-def test_posSO(op, expect, referenceValues):
+def test_postSO(op, expect, referenceValues):
     # test the posSO for sigma -, +, and Z operators by comparing expected results
-    assert np.allclose(evo._posSO(referenceValues[op]), expect) #pylint:disable=protected-access
+    assert np.allclose(evo._postSO(referenceValues[op]), expect) #pylint:disable=protected-access
 
 preposExpects = [np.array([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0]]),
                  np.array([[0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]),
                  np.array([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])]
 @pytest.mark.parametrize("op, expect", [[o, e] for (o, e) in zip(sigmaOpers, preposExpects)])
-def test_preposSO(op, expect, referenceValues):
+def test_prepostSO(op, expect, referenceValues):
     # test the preposSO for sigma -, +, and Z operators by comparing expected results
-    assert np.allclose(evo._preposSO(referenceValues[op]), expect) #pylint:disable=protected-access
+    assert np.allclose(evo._prepostSO(referenceValues[op], referenceValues[op].T), expect) #pylint:disable=protected-access
 
 dissipatorExpects = [np.array([[-1, 0, 0, 0], [0, -0.5, 0, 0], [0, 0, -0.5, 0], [1, 0, 0, 0]]),
                      np.array([[0, 0, 0, 1], [0, -0.5, 0, 0], [0, 0, -0.5, 0], [0, 0, 0, -1]]),
