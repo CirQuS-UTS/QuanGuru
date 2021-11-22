@@ -343,6 +343,8 @@ class named:
 
         Raises ValueError if it cannot find any object for the given name (or alias).
         """
+        if isinstance(name, named):
+            return name
         obj = self._allInstaces.get(name)
         if obj is None:
             raise ValueError("No object with the given name/alias is found!")
