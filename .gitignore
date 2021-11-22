@@ -123,6 +123,8 @@ dmypy.json
 
 
 # local files/folders
+/src/quanguru/*.png
+/src/quanguru/*.dot
 2020/
 .ipynb_checkpoints/
 Cahit/
