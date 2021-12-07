@@ -49,6 +49,7 @@ from numpy import ndarray # type: ignore
 
 import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
+from scipy.sparse import issparse
 
 from .linearAlgebra import hc, tensorProd, trace, innerProd
 from .states import densityMatrix, mat2Vec
@@ -188,8 +189,13 @@ def _fidelityTest(state1: Matrix, state2: Matrix) -> float:
     r"""
     Calculates `fidelity`
     """
-    matsqrt = lina.sqrtm(state1.A)
-    fid = trace(lina.sqrtm(matsqrt @ state2.A  @ matsqrt))
+    if issparse(state1):
+        state1 = state1.A
+
+    if issparse(state2):
+        state2 = state2.A
+    matsqrt = lina.sqrtm(state1)
+    fid = trace(lina.sqrtm(matsqrt @ state2  @ matsqrt))
     return np.real(fid**2)
 
 def entropy(densMat: Matrix, base2: bool = False) -> float:

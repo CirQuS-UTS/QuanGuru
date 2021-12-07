@@ -129,7 +129,6 @@ def number(dimension: int, sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
-
 def destroy(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the bosonic `annihilation` :math:`\hat{a}` operator (in Fock basis).
@@ -163,7 +162,6 @@ def destroy(dimension: int, sparse: bool = True) -> Matrix:
     columns = range(1, dimension)
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
-
 
 def create(dimension: int, sparse: bool = True) -> Matrix:
     r"""
@@ -199,7 +197,6 @@ def create(dimension: int, sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
-
 def identity(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the identity operator :math:`\mathbb{I}`.
@@ -230,7 +227,6 @@ def identity(dimension: int, sparse: bool = True) -> Matrix:
     """
 
     return sp.identity(dimension, format="csc") if sparse else np.identity(dimension)
-
 
 def sigmaz(sparse: bool = True) -> Matrix:
     r"""
@@ -263,7 +259,6 @@ def sigmaz(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-
 def sigmay(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma y) :math:`\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}` operator.
@@ -294,7 +289,6 @@ def sigmay(sparse: bool = True) -> Matrix:
     columns = [1, 0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
-
 
 def sigmax(sparse: bool = True) -> Matrix:
     r"""
@@ -327,7 +321,6 @@ def sigmax(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-
 def sigmap(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma +) :math:`\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =
@@ -359,7 +352,6 @@ def sigmap(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
-
 def sigmam(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma -) :math:`\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =
@@ -390,7 +382,6 @@ def sigmam(sparse: bool = True) -> Matrix:
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
-
 
 def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
@@ -454,7 +445,6 @@ def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-
 def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `lowering` operator
@@ -517,7 +507,6 @@ def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-
 def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `X` operator :math:`\hat{J}_{x}` for a given spin quantum number j.
@@ -578,7 +567,6 @@ def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
 
     n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
-
 
 def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
@@ -641,7 +629,6 @@ def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = (1/(2j))*(Jp(j, isDim=isDim) - Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-
 def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `Z` operator :math:`\hat{J}_{z}` for a given spin quantum number j.
@@ -701,7 +688,6 @@ def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-
 def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the total angular momentum (spin) operator
@@ -757,7 +743,6 @@ def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
         + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-
 def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the displacement operator :math:`\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}`
@@ -810,7 +795,6 @@ def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     n = expm(oper)
     return n if sparse else n.A
 
-
 def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the squeezing operator :math:`\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}`
@@ -854,7 +838,6 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     oper = -(alpha * (create(dim)@create(dim))) + (np.conj(alpha) * (destroy(dim)@destroy(dim)))
     n = expm(0.5*oper)
     return n if sparse else n.A
-
 
 def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     r"""
@@ -900,7 +883,6 @@ def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     parEX = ((1j * np.pi) * HamiltonianCavity)
     return expm(parEX) if sparse else linA.expm(parEX)
 
-
 def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates a parity operator by explicitly placing alternating +/- into a matrix.
@@ -943,7 +925,6 @@ def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
-
 def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
     r"""
     Creates a composite operator
@@ -983,7 +964,6 @@ def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
     """
 
     return tensorProd(*[a for a in [dimB, operator, dimA] if ((not isinstance(a, int)) or (a > 1))])
-
 
 def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matrix:
     r"""

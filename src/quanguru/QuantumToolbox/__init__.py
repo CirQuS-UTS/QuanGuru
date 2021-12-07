@@ -49,7 +49,9 @@ from .operators import (
     number, destroy, create, identity, sigmaz, sigmay, sigmax, sigmap, sigmam, Jz, Jp, Jm, Jx, Jy, Js, operatorPow,
     paritySUM, parityEXP, displacement, squeeze, compositeOp
 )
-from .evolution import (Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _postSO, _prepostSO, evolveOpen)
+from .evolution import (
+    Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _postSO, _prepostSO, evolveOpen, steadyState
+)
 from .functions import (
     expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance, _expectationColArr,
     standardDev, spectralNorm, _fidelityTest
