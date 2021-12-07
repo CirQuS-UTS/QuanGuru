@@ -255,6 +255,9 @@ class qProtocol(genericProtocol):
     def steps(self, stps):
         self.addStep(*stps)
 
+    def addSubSys(self, subSys, **kwargs):
+        return self.addStep(subSys, **kwargs)
+
     def addStep(self, *args):
         '''
         Copy step ensures the exponentiation

@@ -851,3 +851,10 @@ class timeBase(stateBase):
                         getattr(self, key)._bound = getattr(other, key) # pylint: disable=protected-access
                 except AttributeError:
                     print('not bounding', key)
+
+    def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
+        if self not in _exclude:
+            _exclude = super().delMatrices(_exclude=_exclude)
+            if isinstance(self._timeBase__bound, timeBase):
+                _exclude = self._timeBase__bound.delMatrices(_exclude=_exclude)
+        return _exclude
