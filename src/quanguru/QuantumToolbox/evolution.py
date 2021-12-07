@@ -28,8 +28,8 @@ r"""
        `LiouvillianExp`          |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
        `dissipator`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `_preSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `_postSO`                  |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `_prepostSO`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_postSO`                 |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_prepostSO`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
 """
@@ -149,12 +149,12 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
             elif isinstance(collapseOperator, tuple):
                 collapsePart = dissipator(collapseOperator[0], collapseOperator[1], _double=_double)
             else:
-                raise "Dimension mismatch"
+                raise ValueError("Dimension mismatch")
 
             if decayRates is None:
                 liouvillian += collapsePart
             elif len(decayRates) != 0:
-                liouvillian += decayRates[idx]*collapsePart      
+                liouvillian += decayRates[idx]*collapsePart
     return liouvillian
 
 def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
@@ -394,6 +394,7 @@ def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Opti
 def steadyState(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optional[List] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
                decayRates: Optional[List] = None, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
     # TODO : write docstrings
-    Liou = Liouvillian(Hamiltonian, collapseOperators=collapseOperators, decayRates=decayRates, _double=_double)
-    _, vecs = sortedEigens(Liou, mag=True)
-    return vecs[0]
+    Liou = LiouvillianExp(Hamiltonian, timeStep=1, collapseOperators=collapseOperators, decayRates=decayRates,
+                          _double=_double)
+    vals, vecs = sortedEigens(Liou, mag=True)
+    return vals, vecs
