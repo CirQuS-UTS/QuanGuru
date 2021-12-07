@@ -340,7 +340,7 @@ class QuantumSystem(genericQSys):
     def __new__(cls, sysType='composite', **kwargs):
         singleKeys = ['frequency', 'operator', 'order', 'dimension']
         for key in singleKeys:
-            if key in kwargs.keys():
+            if key in kwargs:
                 sysType = 'single'
 
         if sysType == 'composite':
@@ -832,7 +832,8 @@ class qSystem(genericQSys):
         if self.__class__.__name__ == 'qSystem':
             qSystem._externalInstances = qSystem._instances + compQSystem._instances
         super().__init__()
-        qSysKwargs = ['terms', 'subSys', 'name', 'superSys', 'dimension']
+        # TODO
+        qSysKwargs = ['terms', 'subSys', 'name', 'superSys', 'dimension', 'alias']
         for key in qSysKwargs:
             val = kwargs.pop(key, None)
             if val is not None:
@@ -1210,8 +1211,8 @@ class qCoupling(termTimeDep):
         counter = 0
         while counter in range(len(args)):
             # TODO write a generalisation for this one
-            if isinstance(args[counter][0], qSystem):
-                qSystems = args[counter]
+            if isinstance(self.getByNameOrAlias(args[counter][0]), qSystem):
+                qSystems = [self.getByNameOrAlias(obj) for obj in args[counter]]
                 if callable(args[counter+1][1]):
                     #if tuple(args[counter + 1]) in self._qBase__subSys.keys(): # pylint: disable=no-member
                     #    print(tuple(args[counter + 1]), 'already exists')
@@ -1221,6 +1222,9 @@ class qCoupling(termTimeDep):
                 # TODO does not have to pass qSystem around
                 if counter < len(args):
                     counter = self._qCoupling__addTerm(counter, 1, qSystems, *args)
+            else:
+                # TODO raise a meaningful error
+                break
         self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
         return self
 
