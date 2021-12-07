@@ -162,7 +162,7 @@ class Simulation(timeBase):
             qSys = self.subSys[key]
             if not isinstance(key, qBaseSim):
                 self.subSys[qSys._freeEvol] = self.subSys.pop(key) # pylint: disable=protected-access
-            else:
+            else: # this may seem redundant, but this is to keep the order in which the systems are added
                 self.subSys[key] = self.subSys.pop(key)
 
     @property
@@ -200,18 +200,29 @@ class Simulation(timeBase):
         [type]
             [description]
         """
+        # this horrible solution needs to be fixed!
+        if subS not in self._qBase__subSys.values(): # pylint: disable=no-member
+            subS = super().addSubSys(subS, **kwargs)
+            subS = self._qBase__subSys.pop(subS.name) # pylint: disable=no-member
+        #print(subS)
         # TODO print a message, if the same system included more than once without giving a protocol
-        subS = super().addSubSys(subS, **kwargs)
+
+        if Protocol is not None: # .pop here is to keep the order in  which the systems are added
+            self._qBase__subSys[Protocol] = subS # pylint: disable=no-member
+        elif subS not in self._qBase__subSys.values(): # pylint: disable=no-member
+            self._qBase__subSys[subS.name] = subS # pylint: disable=no-member
+        #elif subS not in self._qBase__subSys.values(): # pylint: disable=no-member
+        #    subS = super().addSubSys(subS, **kwargs)
+        #elif (subS.name != Protocol) and (Protocol is not None):
+        #    self._qBase__subSys[Protocol] = self.getByNameOrAlias(subS) # pylint: disable=no-member
         # TODO and above is to avoid recursive calls in _paramUpdated, but it is a temp solution
         # bug in kicked-top
         #if ((subS.simulation is not self) or (subS is not refSys)):
+        #print(subS)
         if subS.simulation is not self:
             if self in subS.simulation._paramBound.values():
                 subS.simulation._paramBound.pop(self.name)
             subS.simulation._bound(self) # pylint: disable=protected-access
-
-        if Protocol is not None:
-            self._qBase__subSys[Protocol] = self._qBase__subSys.pop(subS.name) # pylint: disable=no-member
         return (subS, Protocol)
 
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
@@ -288,8 +299,8 @@ class Simulation(timeBase):
         Add a quantum system ``subS`` to the simulation and a (optional) ``protocol`` for it. ``kwargs`` can be used for
         setting parameters for the quantum system.
         """
-        newSys = super().addSubSys(subS, **kwargs)
-        newSys, Protocol = self.addQSystems(newSys, Protocol)
+        #newSys = super().addSubSys(subS, **kwargs)
+        newSys, Protocol = self.addQSystems(subS, Protocol, **kwargs)
         return newSys
 
     def createSubSys(self, subSysClass, Protocol=None, **kwargs): # pylint: disable=arguments-differ
