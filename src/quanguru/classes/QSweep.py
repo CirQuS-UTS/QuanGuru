@@ -58,7 +58,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam', '__index']
+    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam', '_sweepIndex']
 
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -84,19 +84,19 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         #: stores the index of the value (from the _sweepList) currently being assigned by the sweep function. Used by
         #: the default methods but also useful for custom methods. It is calculated by the modular arithmetic in
         #: modularSweep and passed to here by :class:`~Sweep` object containing self in its subSys. It starts from -1
-        #: and the correspoding property returns __index + 1, while the :meth:`~runSweep` sets it to ind+1 for a given
+        #: and the correspoding property returns _sweepIndex + 1, while the :meth:`~runSweep` sets it to ind+1 for a given
         #: ind from modularSweep. This whole ordeal is due to make sure that python list indexing and modular arithmetic
         #: properly agrees for the sweep functionality. I feel it can be improved but will leave as it is for now.
-        self.__index = -1
+        self._sweepIndex = -1
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
     def index(self):
         r"""
-        returns ``self.__index + 1``. reason for +1 is explained in :py:attr:`~__index`. There is no setter, the value
-        of __index is updated by the :meth:`~runSweep` and is an internal process.
+        returns ``self._sweepIndex + 1``. reason for +1 is explained in :py:attr:`~_sweepIndex`. There is no setter, the value
+        of _sweepIndex is updated by the :meth:`~runSweep` and is an internal process.
         """
-        return self.__index + 1
+        return self._sweepIndex + 1
 
     @property
     def sweepFunction(self):
@@ -169,7 +169,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         sweeps. This is not essential and could be removed, but it kind of creates a duck-typing with ``Sweep`` class,
         when we might want to use a nested sweep.
         """
-        self.__index = ind-1 # pylint: disable=assigning-non-slot
+        self._sweepIndex = ind-1 # pylint: disable=assigning-non-slot
         self._updateBase__function(self) # pylint: disable=no-member
 
 class Sweep(qBase):

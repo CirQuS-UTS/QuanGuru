@@ -39,7 +39,11 @@ r"""
 from functools import wraps
 #import weakref
 import warnings
+import weakref
+from itertools import chain
 from typing import Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
+
+from attr import has
 
 __all__ = [
     'qBase', 'named'
@@ -319,6 +323,40 @@ class named:
 
     __slots__ = ["__name", "_internal", "__weakref__", "_allInstaces"]
 
+    @classmethod
+    def _findInSlots(cls, k):
+        if hasattr(cls, "__slots__"):
+            if k in cls.__slots__:
+                k =  "_" + cls.__name__
+            elif cls.__base__ != object:
+                k = cls.__base__._findInSlots(k) # pylint: disable=no-member,protected-access
+        return k
+
+    def __getstate__(self):
+        for k, v in self._allInstaces.items(): # pylint: disable=protected-access
+            if ((not isinstance(v, named)) and (v is not None)):
+                self._allInstaces[k] = v() # pylint: disable=protected-access
+        state = {}
+        slots = chain.from_iterable(getattr(cls, '__slots__', []) for cls in self.__class__.__mro__)
+        for k in slots:
+            if k == '__weakref__':
+                continue
+
+            if (k.startswith("__") and (not k.endswith("__"))):
+                k = self._findInSlots(k) + k
+                state[k] = getattr(self, k)
+            else:
+                state[k] = getattr(self, k)
+        return state
+
+    def __setstate__(self, state):
+        for slot in state:
+            setattr(self, slot, state[slot])
+
+        for k, v in self._allInstaces.items(): # pylint: disable=protected-access
+            if isinstance(v, named):
+                self._allInstaces[k] = weakref.ref(v, None) # pylint: disable=protected-access
+
     def __init__(self, **kwargs) -> None:
         super().__init__()
         #: boolean to distinguish internally and explicitly created instances.
@@ -327,7 +365,7 @@ class named:
         #: protected name attribute is an instance of :class:`~named` class
         self.__name: aliasClass = aliasClass(name=self._named__namer())
         self._named__setKwargs(**kwargs)
-        named._allInstacesDict[self.name] = self
+        named._allInstacesDict[self.name] = weakref.ref(self, None)
         #: used in :meth:`~named.getByNameOrAlias` to properly pickle and reach updated objects during multi-processing
         self._allInstaces = named._allInstacesDict
 
@@ -348,7 +386,7 @@ class named:
         obj = self._allInstaces.get(name)
         if obj is None:
             raise ValueError("No object with the given name/alias is found!")
-        return obj
+        return obj if isinstance(obj, named) else obj()
 
     def _incrementInstances(self) -> None:
         r"""
@@ -393,10 +431,9 @@ class named:
     @alias.setter
     @_recurseIfList
     def alias(self, ali: str) -> None:
-        for _, v in self._allInstacesDict.items():
-            if v.name == ali:
-                if v != self:
-                    raise ValueError(f"Given alias ({ali}) already exist and is assigned to: " + f"{v.name}")
+        for k, v in self._allInstacesDict.items():
+            if ((k == ali) and (v() != self)):
+                raise ValueError(f"Given alias ({ali}) already exist and is assigned to: " + f"{v().name}")
         self._named__name.alias = ali
 
     @classmethod

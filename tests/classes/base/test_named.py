@@ -82,7 +82,8 @@ def test_getByNameOrAliasWithMultiProcessing(cls):
     # first make sure that the object properly pickles. the equality is satisfied just by looking at their names, since
     # the names are unique
     ob = cls(_internal=False)
-    ob1 = pickle.loads(pickle.dumps(ob))
+    obp = pickle.dumps(ob)
+    ob1 = pickle.loads(obp)
     assert ob1.name == ob.name
     # create a pool and call forMultiProcessingTest in the map
     _pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1)
