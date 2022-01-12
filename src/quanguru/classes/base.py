@@ -49,6 +49,24 @@ __all__ = [
     'qBase', 'named'
 ]
 
+def _recurseIfList(func):
+    r"""
+    a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
+    certain objects). It is used in various places of the library (exclude is useful/used in some of them).
+    """
+    @wraps(func)
+    def recurse(obj, inp, _exclude=[], **kwargs): # pylint: disable=dangerous-default-value
+        if isinstance(inp, (list, tuple)):
+            for s in inp:
+                r = recurse(obj, s, _exclude=_exclude, **kwargs)
+        else:
+            try:
+                r = func(obj, inp, _exclude=_exclude, **kwargs)
+            except: #pylint:disable=bare-except   # noqa: E722
+                r = func(obj, inp, **kwargs)
+        return r
+    return recurse
+
 class aliasClass:
     r"""
     aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name
@@ -106,9 +124,9 @@ class aliasClass:
         return self._aliasClass__alias #pylint:disable = no-member
 
     @alias.setter
-    def alias(self, ali: str) -> None:
-        if ali not in self._aliasClass__alias: #pylint:disable = no-member
-            self._aliasClass__alias.append(ali) #pylint:disable = no-member
+    @_recurseIfList
+    def alias(self, ali: Any) -> None:
+        self._aliasClass__alias.append(ali) #pylint:disable = no-member
 
     def __members(self) -> Tuple:
         r"""
@@ -272,24 +290,6 @@ class aliasDict(dict):
         copy method to make sure the type is correct.
         """
         return type(self)(self)
-
-def _recurseIfList(func):
-    r"""
-    a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
-    certain objects). It is used in various places of the library (exclude is useful/used in some of them).
-    """
-    @wraps(func)
-    def recurse(obj, inp, _exclude=[], **kwargs): # pylint: disable=dangerous-default-value
-        if isinstance(inp, (list, tuple)):
-            for s in inp:
-                r = recurse(obj, s, _exclude=_exclude, **kwargs)
-        else:
-            try:
-                r = func(obj, inp, _exclude=_exclude, **kwargs)
-            except: #pylint:disable=bare-except   # noqa: E722
-                r = func(obj, inp, **kwargs)
-        return r
-    return recurse
 
 class named:
     r"""
