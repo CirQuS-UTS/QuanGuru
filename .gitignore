@@ -139,3 +139,6 @@ docs/source copy
 
 macVenv/
 quanguruDevEnv/
+tests/classes/Integration/tdd/_orDQDS.py
+tests/classes/Integration/thd/_orDQHS.py
+tests/classes/Integration/tkt/_orKT.py

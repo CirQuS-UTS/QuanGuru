@@ -228,11 +228,11 @@ def test_aliasNamingBothAtInstantiationAndAfter():
 
     # 2) test that the name has to be string, i.e. raises error otherwise.
     aliasObj = qbase.aliasClass()
-    with pytest.raises(AssertionError):
+    with pytest.raises(TypeError):
         aliasObj.name = 2
-    with pytest.raises(AssertionError):
+    with pytest.raises(TypeError):
         aliasObj.name = qbase.aliasClass()
-    with pytest.raises(AssertionError):
+    with pytest.raises(TypeError):
         qbase.aliasClass(name=2)
 
     # 3) test that the name cannot be changed after its set to a string

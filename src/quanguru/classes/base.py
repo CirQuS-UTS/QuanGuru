@@ -43,7 +43,7 @@ import weakref
 from itertools import chain
 from typing import Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
-from attr import has
+from .exceptions import raiseAttrType
 
 __all__ = [
     'qBase', 'named'
@@ -60,6 +60,7 @@ class aliasClass:
 
     __slots__ = ["__name", "__alias"]
 
+    @raiseAttrType("name", [str, type(None)])
     def __init__(self, name: Optional[str] = None, alias: List = list) -> None: #pylint:disable=unsubscriptable-object
         assert isinstance(name, str) or (name is None), "name should be a string."
         self.__name: Optional[str] = name #pylint:disable=unsubscriptable-object
@@ -88,8 +89,10 @@ class aliasClass:
         return self._aliasClass__name #pylint:disable = no-member
 
     @name.setter
+    @raiseAttrType("name", [str, type(None)])
     def name(self, name: str) -> None:
-        assert isinstance(name, str) or (name is None), "name should be a string."
+        if not (isinstance(name, str) or (name is None)): raise TypeError("name should be a string") #pylint:disable=multiple-statements
+
         if self._aliasClass__name is None: #pylint:disable = no-member
             self._aliasClass__name = name  #pylint:disable = no-member, assigning-non-slot
         else:
