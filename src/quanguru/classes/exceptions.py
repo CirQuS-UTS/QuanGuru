@@ -10,10 +10,10 @@
         sweepInitError
 
 """
-def raiseAttrType(attrName, expectedTypes):
+def raiseAttrType(expectedTypes, attrName=None):
     def decorate(f):
         def typeCheck(obj, *args, **kwargs):
-            val = kwargs.get(attrName, None)
+            val = args[0] if attrName is None else kwargs.get(attrName, None)
             if not any(isinstance(val, t) for t in expectedTypes): raise TypeError("name should be a string") #pylint:disable=multiple-statements
             f(obj, *args, **kwargs)
         return typeCheck
