@@ -10,7 +10,7 @@ def randString(N):
 strings = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10))]
 
 def test_aliasDictWithRegularStrings():
-    # testing the aliasDict class with regular strings to see that the basic dictonary functionalities are not broken.
+    # testing the aliasDict class with regular strings to see that the basic dictionary functionalities are not broken.
     alDict = qbase.aliasDict()
     # add a single item and verify
     alDict[strings[0]] = 2
@@ -111,7 +111,7 @@ def test_aliasDictWithAliasClassAndRegularStrings(): # pylint: disable=too-many-
 
     # if a string key equal to the name (or an alias) of an aliasClass object already exists, alias object and its name
     # (or the alias) can be used to change the value but not any alias (or name/any other alias)
-    # NOTE if there are more than one string keys in the dictonary that are in the members (tuple of its name and
+    # NOTE if there are more than one string keys in the dictionary that are in the members (tuple of its name and
     # aliases) of an aliasClass object, this changes the first key that the search method finds. For example, in an
     # ordered dict, it will change the earliest element
     assert len(alDict) == 0
@@ -174,7 +174,7 @@ def test_aliasDictWithAliasClassAndRegularStrings(): # pylint: disable=too-many-
     # create a dictionary with values are the keys
     alDict.update(dict(zip(listOfAliasObj[:-1], listOfAliasObj[:-1])))
 
-    # check the dictonary contains the right key:value pair by directly using the objects themselves
+    # check the dictionary contains the right key:value pair by directly using the objects themselves
     for s in listOfAliasObj[:-1]:
         assert alDict[s] == s
 
@@ -212,7 +212,7 @@ def test_aliasDictPicklingAndRepr():
     assert aldictpicle == alDict
     assert eval(repr(alDict)) == alDict
 
-def test_aliasNamingBothAtInstantiationAndAfter():
+def test_aliasClassNamingBothAtInstantiationAndAfter():
     # testing the name property of alias object.
 
     # 1) test two different ways of naming it:
@@ -264,7 +264,7 @@ def test_aliasClassAliasProperty():
     assert strings[1] in aliasObj.alias
     assert aliasObj.alias == strings[0:2]
 
-def test_stringRepresntaionOfAliasClass():
+def test_stringRepresentationOfAliasClass():
     # test the string representation of aliasClass is equal to its name
     aliasObj = qbase.aliasClass(name=strings[0], alias=strings[1:3])
     strRep = str(aliasObj)

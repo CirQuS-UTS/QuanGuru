@@ -41,7 +41,7 @@ from functools import wraps
 import warnings
 import weakref
 from itertools import chain
-from typing import Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
+from typing import Callable, Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
 from .exceptions import raiseAttrType
 
@@ -49,7 +49,7 @@ __all__ = [
     'qBase', 'named'
 ]
 
-def _recurseIfList(func):
+def _recurseIfList(func: Callable) -> Callable:
     r"""
     a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
     certain objects). It is used in various places of the library (exclude is useful/used in some of them).
@@ -79,7 +79,7 @@ class aliasClass:
     __slots__ = ["__name", "__alias"]
 
     @raiseAttrType([str, type(None)], "name")
-    def __init__(self, name: Optional[str] = None, alias: List = list) -> None: #pylint:disable=unsubscriptable-object
+    def __init__(self, name: Optional[str] = None, alias: List[Any] = list) -> None: #pylint:disable=unsubscriptable-object
         self.__name: Optional[str] = name #pylint:disable=unsubscriptable-object
         r"""
         Protected name attribute of an aliasClass object, set&get through the :py:attr:`~aliasClass.name` property.
@@ -87,7 +87,7 @@ class aliasClass:
         ``self._aliasClass__name``).
         """
         #: list of aliases of an aliasClass objects, set&get through the :py:attr:`~aliasClass.alias` property
-        self.__alias: List = [] if isinstance(alias, type) else alias if isinstance(alias, list) else [alias]
+        self.__alias: List[Any] = [] if isinstance(alias, type) else alias if isinstance(alias, list) else [alias]
 
     @property
     def name(self) -> Union[str, None]: #pylint:disable=unsubscriptable-object
