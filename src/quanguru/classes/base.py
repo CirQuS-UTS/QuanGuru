@@ -196,7 +196,7 @@ def keySearch(obj: Dict, k: Any) -> Hashable:
     """
     # NOTE this returns the first match, meaning there can be more than one equality. Example, two string keys in the
     # dictionary and the given key is an aliasClass object with these keys in its members (tuple of its name and
-    # aliasess)
+    # aliases)
     if k not in obj.keys():
         for key in obj.keys():
             if k == key:
