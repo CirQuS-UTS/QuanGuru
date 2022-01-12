@@ -37,7 +37,7 @@ r"""
 """
 
 from functools import wraps
-#import weakref
+
 import warnings
 import weakref
 from itertools import chain
@@ -54,7 +54,7 @@ def _recurseIfList(func):
     a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
     certain objects). It is used in various places of the library (exclude is useful/used in some of them).
     """
-    @wraps(func)
+    @wraps(func) # needed for the func.__name__
     def recurse(obj, inp, _exclude=[], **kwargs): # pylint: disable=dangerous-default-value
         if isinstance(inp, (list, tuple)):
             for s in inp:
@@ -69,7 +69,7 @@ def _recurseIfList(func):
 
 class aliasClass:
     r"""
-    aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name
+    aliasClass is introduced for the naming functionality of the qObjects. It is created to be used as the name
     attribute of qObjects and to work with the extended dictionary :class:`~aliasDict`.
     The default name of qObjects is assigned to be ``__name`` attribute, and the user assigned aliases for a qObject
     are stored in the ``__alias`` list. The string representation and hash value of an aliasClass objects is obtained
@@ -136,12 +136,11 @@ class aliasClass:
 
     def _allStringSum(self) -> str:
         r"""
-        Adds and returns all the strings in members
+        Adds and returns all the strings in members.
+
+        This is currently used with the saveCSV method to add this string to file name
         """
-        sumStr = self.name
-        for s in self._aliasClass__alias:
-            sumStr += s
-        return sumStr
+        return "".join(s for s in self._aliasClass__members() if isinstance(s, str))
 
     def __repr__(self) -> str:
         r"""
