@@ -461,16 +461,23 @@ class named:
             insCount = cls._externalInstances
         return insCount
 
-    def _resetAll(self) -> None:
+    @classmethod
+    def _resetAllSubProc(cls):
+        cls._externalInstances = 0 # pylint:disable=protected-access
+        cls._internalInstances = 0 # pylint:disable=protected-access
+        cls._instances = 0 # pylint:disable=protected-access
+        for otherCLS in cls.__subclasses__():
+            otherCLS._resetAllSubProc() # pylint:disable=protected-access
+
+    @classmethod
+    def _resetAll(cls) -> None:
         r"""
         Resets the counters and empties the weakref dictionary. Goal is to make this an equivalent to restarting a
         script or notebook.
         """
-        self.__class__._externalInstances = 0 # pylint:disable=protected-access
-        self.__class__._internalInstances = 0 # pylint:disable=protected-access
-        self.__class__._instances = 0 # pylint:disable=protected-access
         named._totalNumberOfInst = 0
         named._allInstacesDict = aliasDict() # pylint:disable=protected-access
+        named._resetAllSubProc() # pylint:disable=protected-access
         #self.__class__._allInstacesDict = weakref.WeakValueDictionary() # pylint:disable=protected-access
 
     def __setKwargs(self, **kwargs) -> None:
