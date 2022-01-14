@@ -37,6 +37,7 @@ r"""
 """
 
 from functools import wraps
+import inspect
 
 import warnings
 import weakref
@@ -60,9 +61,9 @@ def _recurseIfList(func: Callable) -> Callable:
             for s in inp:
                 r = recurse(obj, s, _exclude=_exclude, **kwargs)
         else:
-            try:
+            if _exclude in inspect.getfullargspec(func).args:
                 r = func(obj, inp, _exclude=_exclude, **kwargs)
-            except: #pylint:disable=bare-except   # noqa: E722
+            else: #pylint:disable=bare-except   # noqa: E722
                 r = func(obj, inp, **kwargs)
         return r
     return recurse
@@ -356,6 +357,7 @@ class named:
             if isinstance(v, named):
                 self._allInstaces[k] = weakref.ref(v, None) # pylint: disable=protected-access
 
+    @raiseAttrType([bool, type(None)], "_internal")
     def __init__(self, **kwargs) -> None:
         super().__init__()
         #: boolean to distinguish internally and explicitly created instances.
