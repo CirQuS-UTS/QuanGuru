@@ -432,7 +432,8 @@ class named:
     @_recurseIfList
     def alias(self, ali: str) -> None:
         for k, v in self._allInstacesDict.items():
-            checkNotVal((k == ali) and (v() != self), True,
+            wv = v if not isinstance(v, weakref.ReferenceType) else v()
+            checkNotVal((k == ali) and (wv != self), True,
                          f"Given alias ({ali}) already exist and is assigned to: " + f"{k.name}")
         self._named__name.alias = ali
 
