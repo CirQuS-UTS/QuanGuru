@@ -44,7 +44,7 @@ import weakref
 from itertools import chain
 from typing import Callable, Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
-from .exceptions import raiseAttrType
+from .exceptions import raiseAttrType, checkNotVal
 
 __all__ = [
     'qBase', 'named'
@@ -384,9 +384,8 @@ class named:
         """
         if isinstance(name, named):
             return name
-        obj = self._allInstaces.get(name)
-        if obj is None:
-            raise ValueError("No object with the given name/alias is found!")
+        obj = checkNotVal(self._allInstaces.get(name), None,
+                           "No object with the given name/alias is found!")
         return obj if isinstance(obj, named) else obj()
 
     def _incrementInstances(self) -> None:
@@ -433,8 +432,8 @@ class named:
     @_recurseIfList
     def alias(self, ali: str) -> None:
         for k, v in self._allInstacesDict.items():
-            if ((k == ali) and (v() != self)):
-                raise ValueError(f"Given alias ({ali}) already exist and is assigned to: " + f"{v().name}")
+            checkNotVal((k == ali) and (v() != self), True,
+                         f"Given alias ({ali}) already exist and is assigned to: " + f"{k.name}")
         self._named__name.alias = ali
 
     @classmethod

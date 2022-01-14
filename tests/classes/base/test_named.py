@@ -3,7 +3,6 @@ import string
 import pickle
 import multiprocessing
 from functools import partial
-from attr import s
 import pytest
 import quanguru.classes.base as qbase #pylint: disable=import-error
 
