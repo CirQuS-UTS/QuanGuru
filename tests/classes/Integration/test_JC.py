@@ -2,7 +2,7 @@ import numpy as np
 from numpy.core.fromnumeric import sort
 import pytest
 import random
-import quanguru as qt
+import quanguru as qg
 
 def comp(sim, st):
     #sim.qRes.result = ("sz1", expectation(photonNum, st))
@@ -22,9 +22,9 @@ def test_JCEvolution(bo, multiSweep, multiParam, JC):
     JC.cav.dimension = cavDimList[0]
     JC.qub.initialState = initQubList[0]
     JC.cav.initialState = initCavList[0]
-    #JC.jc.initialState = qt.normalise(sum([JC.stateCoefs[i]*qt.basis(2*JC.cavDim, i) for i in range((2*JC.cavDim)-2)]))
+    #JC.jc.initialState = qg.normalise(sum([JC.stateCoefs[i]*qg.basis(2*JC.cavDim, i) for i in range((2*JC.cavDim)-2)]))
     assert JC.jc.initialState is not None
-    assert np.round(qt.norm(JC.jc.initialState), 12) == 1
+    assert np.round(qg.norm(JC.jc.initialState), 12) == 1
     JC.jc.auxObj.dim = 2*cavDimList[0]
     stepSizeList = [0.05*random.random() for k in range(4)]
     sweep = JC.jc.simulation.Sweep.createSweep(system=JC.jc.simulation, sweepKey="stepSize", sweepList=stepSizeList)

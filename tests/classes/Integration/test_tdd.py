@@ -1,23 +1,23 @@
 import pytest
 import numpy as np
-import quanguru as qt
+import quanguru as qg
 import tests.classes.Integration.tdd._orDQDS as td
 #import tests.classes.Integration.tdd.tddData as tdData
 
-# vecStat05Dig =  qt.readCSV("tests/classes/Integration/tdd/tddData/vecStat05Dig.txt")
-# vecStat6Dig =  qt.readCSV("tests/classes/Integration/tdd/tddData/vecStat6Dig.txt")
+# vecStat05Dig =  qg.readCSV("tests/classes/Integration/tdd/tddData/vecStat05Dig.txt")
+# vecStat6Dig =  qg.readCSV("tests/classes/Integration/tdd/tddData/vecStat6Dig.txt")
 
-# vecStat05Ide =  qt.readCSV("tests/classes/Integration/tdd/tddData/vecStat05Ide.txt")
-# vecStat6Ide =  qt.readCSV("tests/classes/Integration/tdd/tddData/vecStat6Ide.txt")
+# vecStat05Ide =  qg.readCSV("tests/classes/Integration/tdd/tddData/vecStat05Ide.txt")
+# vecStat6Ide =  qg.readCSV("tests/classes/Integration/tdd/tddData/vecStat6Ide.txt")
 
-nDig05 =  qt.readCSV("tests/classes/Integration/tdd/tddData/nDig05.txt")
-nDig6 =  qt.readCSV("tests/classes/Integration/tdd/tddData/nDig6.txt")
+nDig05 =  qg.readCSV("tests/classes/Integration/tdd/tddData/nDig05.txt")
+nDig6 =  qg.readCSV("tests/classes/Integration/tdd/tddData/nDig6.txt")
 
-nIde05 =  qt.readCSV("tests/classes/Integration/tdd/tddData/nIde05.txt")
-nIde6 =  qt.readCSV("tests/classes/Integration/tdd/tddData/nIde6.txt")
+nIde05 =  qg.readCSV("tests/classes/Integration/tdd/tddData/nIde05.txt")
+nIde6 =  qg.readCSV("tests/classes/Integration/tdd/tddData/nIde6.txt")
 
-sfid05 = qt.readCSV("tests/classes/Integration/tdd/tddData/sfid05.txt")
-sfid6 = qt.readCSV("tests/classes/Integration/tdd/tddData/sfid6.txt")
+sfid05 = qg.readCSV("tests/classes/Integration/tdd/tddData/sfid05.txt")
+sfid6 = qg.readCSV("tests/classes/Integration/tdd/tddData/sfid6.txt")
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_tddFromSaved(bo):

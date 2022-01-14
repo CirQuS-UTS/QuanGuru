@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 import random
-import quanguru as qt #pylint: disable=import-error
+import quanguru as qg #pylint: disable=import-error
 
 
 class _singleQubit:
@@ -20,9 +20,9 @@ class _singleQubit:
     @staticmethod
     def analyticalC1(t, c1, freq): return c1*(np.e**(0.5*2*np.pi*1j*freq*t))
 
-    sz = qt.sigmaz()
-    sy = qt.sigmay()
-    sx = qt.sigmax()
+    sz = qg.sigmaz()
+    sy = qg.sigmay()
+    sx = qg.sigmax()
 
 class _twoQubitsExchange:
     # implement the analytical solutions
@@ -62,8 +62,8 @@ class _JC:
         # make sure it is normalised
         np.sqrt(sum([a.real**2 + a.imag**2 for a in self.stateCoefs]))
 
-        self.cav = qt.Cavity(dimension=self.cavDim, frequency=self.resFreq)
-        self.qub = qt.Qubit(frequency=self.qubFreq)
+        self.cav = qg.Cavity(dimension=self.cavDim, frequency=self.resFreq)
+        self.qub = qg.Qubit(frequency=self.qubFreq)
 
         self.jc = self.cav + self.qub
         self.couplingObj = self.jc.JC(self.gStg)

@@ -1,25 +1,25 @@
 import pytest
 import numpy as np
-import quanguru as qt
+import quanguru as qg
 import tests.classes.Integration.thd._orDQHS as th
 
-fp2ZExp = qt.readCSV("tests/classes/Integration/thd/thdData/fp2ZExp.txt")
-fp2YExp = qt.readCSV("tests/classes/Integration/thd/thdData/fp2YExp.txt")
+fp2ZExp = qg.readCSV("tests/classes/Integration/thd/thdData/fp2ZExp.txt")
+fp2YExp = qg.readCSV("tests/classes/Integration/thd/thdData/fp2YExp.txt")
 
-fp3ZExp = qt.readCSV("tests/classes/Integration/thd/thdData/fp3ZExp.txt")
-fp3YExp = qt.readCSV("tests/classes/Integration/thd/thdData/fp3YExp.txt")
+fp3ZExp = qg.readCSV("tests/classes/Integration/thd/thdData/fp3ZExp.txt")
+fp3YExp = qg.readCSV("tests/classes/Integration/thd/thdData/fp3YExp.txt")
 
-qp2ZExp = qt.readCSV("tests/classes/Integration/thd/thdData/qp2ZExp.txt")
-qp2YExp = qt.readCSV("tests/classes/Integration/thd/thdData/qp2YExp.txt")
+qp2ZExp = qg.readCSV("tests/classes/Integration/thd/thdData/qp2ZExp.txt")
+qp2YExp = qg.readCSV("tests/classes/Integration/thd/thdData/qp2YExp.txt")
 
-qp3ZExp = qt.readCSV("tests/classes/Integration/thd/thdData/qp3ZExp.txt")
-qp3YExp = qt.readCSV("tests/classes/Integration/thd/thdData/qp3YExp.txt")
+qp3ZExp = qg.readCSV("tests/classes/Integration/thd/thdData/qp3ZExp.txt")
+qp3YExp = qg.readCSV("tests/classes/Integration/thd/thdData/qp3YExp.txt")
 
-sfid2Y = qt.readCSV("tests/classes/Integration/thd/thdData/sfid2Y.txt")
-sfid2Z = qt.readCSV("tests/classes/Integration/thd/thdData/sfid2Z.txt")
+sfid2Y = qg.readCSV("tests/classes/Integration/thd/thdData/sfid2Y.txt")
+sfid2Z = qg.readCSV("tests/classes/Integration/thd/thdData/sfid2Z.txt")
 
-sfid3Y = qt.readCSV("tests/classes/Integration/thd/thdData/sfid3Y.txt")
-sfid3Z = qt.readCSV("tests/classes/Integration/thd/thdData/sfid3Z.txt")
+sfid3Y = qg.readCSV("tests/classes/Integration/thd/thdData/sfid3Y.txt")
+sfid3Z = qg.readCSV("tests/classes/Integration/thd/thdData/sfid3Z.txt")
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_thdFromSaved(bo):

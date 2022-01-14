@@ -1,14 +1,14 @@
 import numpy as np
 import random
-import quanguru as qt
+import quanguru as qg
 
-qub1Sz = qt.tensorProd(qt.sigmaz(), qt.identity(2))
-qub2Sz = qt.tensorProd(qt.identity(2), qt.sigmaz())
+qub1Sz = qg.tensorProd(qg.sigmaz(), qg.identity(2))
+qub2Sz = qg.tensorProd(qg.identity(2), qg.sigmaz())
 # store the real and imaginary parts for each coeffiecient at each step
 def comp(sim, states):
     st = states[0]
-    sim.qRes.result = ("sz1", qt.expectation(qub1Sz, st))
-    sim.qRes.result = ("sz2", qt.expectation(qub2Sz, st))
+    sim.qRes.result = ("sz1", qg.expectation(qub1Sz, st))
+    sim.qRes.result = ("sz2", qg.expectation(qub2Sz, st))
     sim.qRes.result = ("c00real", st.A[0][0].real)
     sim.qRes.result = ("c00imag", st.A[0][0].imag)
     sim.qRes.result = ("c10real", st.A[1][0].real)
@@ -19,7 +19,7 @@ def comp(sim, states):
     sim.qRes.result = ("c11imag", st.A[3][0].imag)
 
 def test_twoQubitExchange(twoQubitsExchange):
-    qt.freeEvolution._freqCoef = 1
+    qg.freeEvolution._freqCoef = 1
 
     # define the qubit frequencies and the coupling strength randomly
     freq1 = 2*random.random()
@@ -44,18 +44,18 @@ def test_twoQubitExchange(twoQubitsExchange):
 
 
     # create two qubits with the random frequencies
-    qb1 = qt.Qubit(frequency=freq1)
-    qb2 = qt.Qubit(frequency=freq2)
+    qb1 = qg.Qubit(frequency=freq1)
+    qb2 = qg.Qubit(frequency=freq2)
     qbIn = qb1 + qb2
 
     # couple the qubits with the random coupling strength
-    coupling1 = qbIn.createSysCoupling([qb1, qb2], [qt.sigmam, qt.sigmap], couplingStrength=cStg)
-    coupling2 = qbIn.createSysCoupling([qb1, qb2], [qt.sigmap, qt.sigmam], couplingStrength=cStg)
+    coupling1 = qbIn.createSysCoupling([qb1, qb2], [qg.sigmam, qg.sigmap], couplingStrength=cStg)
+    coupling2 = qbIn.createSysCoupling([qb1, qb2], [qg.sigmap, qg.sigmam], couplingStrength=cStg)
 
     # create the initial state with the random coefficients
-    qbIn.initialState = c00inp*qt.basis(4, 0) + c10inp*qt.basis(4, 1) + c01inp*qt.basis(4, 2) + c11inp*qt.basis(4, 3)
+    qbIn.initialState = c00inp*qg.basis(4, 0) + c10inp*qg.basis(4, 1) + c01inp*qg.basis(4, 2) + c11inp*qg.basis(4, 3)
     # make sure it is normalised
-    assert np.round(qt.norm(qbIn.initialState), 12) == 1
+    assert np.round(qg.norm(qbIn.initialState), 12) == 1
 
     # define simulation step size and total time
     qbIn.simStepSize = 0.01
@@ -87,4 +87,4 @@ def test_twoQubitExchange(twoQubitsExchange):
         assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c11real"][ind])
         assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c11imag"][ind])
 
-    qt.freeEvolution._freqCoef = 2*np.pi
+    qg.freeEvolution._freqCoef = 2*np.pi
