@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>quanguru.classes.baseClasses &#8212; QuanGuru 1 documentation</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
-
+    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
-
+    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -48,7 +48,10 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -120,7 +123,8 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -128,6 +132,9 @@
     
   </div>
 </nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
             </div>
             
           
@@ -186,6 +193,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">raiseAttrType</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">named</span><span class="p">,</span> <span class="n">qBase</span><span class="p">,</span> <span class="n">addDecorator</span><span class="p">,</span> <span class="n">_recurseIfList</span><span class="p">,</span> <span class="n">aliasDict</span>
 <span class="kn">from</span> <span class="nn">.QRes</span> <span class="kn">import</span> <span class="n">qResults</span>
 <span class="kn">from</span> <span class="nn">.tempConfig</span> <span class="kn">import</span> <span class="n">classConfig</span>
@@ -193,12 +201,12 @@
 
 <div class="viewcode-block" id="updateBase"><a class="viewcode-back" href="../../../classes/baseClasses.html#quanguru.classes.baseClasses.updateBase">[docs]</a><span class="k">class</span> <span class="nc">updateBase</span><span class="p">(</span><span class="n">qBase</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Base class for :class:`~_sweep` and :class:`~Update` classes, which are used respectively in parameter sweeps and</span>
-<span class="sd">    step updates in protocols.</span>
-<span class="sd">    This class implements a default method to change the value of an attribute (str of the attribute name is</span>
-<span class="sd">    stored in self.key) of the objects in the subSys dictionary. It can also sweep/update auxiliary dictionary by</span>
-<span class="sd">    setting the aux boolean to True. The default method</span>
-<span class="sd">    can be changed to anything by pointing function attribute to any other Callable.</span>
+<span class="sd">    Base class for :class:`~_sweep` and :class:`~Update` classes, which are used in parameter sweeps and step updates in</span>
+<span class="sd">    protocols, respectively.</span>
+<span class="sd">    This class implements a default method to change the value of an attribute (``str`` of the attribute name is</span>
+<span class="sd">    stored in ``self.key``) of the objects in the ``subSys`` dictionary.</span>
+<span class="sd">    It can also sweep/update auxiliary dictionary by setting the ``aux`` boolean to ``True``.</span>
+<span class="sd">    The default method can be changed to anything by pointing the ``function`` attribute to any other ``Callable``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;updateBase&#39;</span>
@@ -541,12 +549,13 @@
             <span class="n">meth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># pylint: disable=not-callable</span>
 
     <span class="nd">@paramBoundBase</span><span class="o">.</span><span class="n">alias</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@raiseAttrType</span><span class="p">([</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)],</span> <span class="s2">&quot;ali&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ali</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extends the alias setter to assign an alias (givenAlias + Results) to self.qRes as well.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">named</span><span class="o">.</span><span class="n">alias</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ali</span><span class="p">)</span> <span class="c1">#pylint:disable=no-member</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">alias</span> <span class="o">=</span> <span class="n">ali</span> <span class="o">+</span> <span class="s2">&quot;Results&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">alias</span> <span class="o">=</span> <span class="n">ali</span> <span class="o">+</span> <span class="s2">&quot;Results&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ali</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="s2">&quot;Results&quot;</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">ali</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
@@ -999,16 +1008,22 @@
                     <span class="k">if</span> <span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">_bound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">re</span><span class="p">):</span> <span class="c1"># pylint: disable=protected-access</span>
                         <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="c1"># pylint: disable=protected-access</span>
                 <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;not bounding&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></div></div>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;not bounding&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="timeBase.delMatrices"><a class="viewcode-back" href="../../../classes/baseClasses.html#quanguru.classes.baseClasses.timeBase.delMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
+            <span class="n">_exclude</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeBase__bound</span><span class="p">,</span> <span class="n">timeBase</span><span class="p">):</span>
+                <span class="n">_exclude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeBase__bound</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_exclude</span></div></div>
 </pre></div>
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
               
           </main>
           
@@ -1016,20 +1031,19 @@
       </div>
     </div>
   
-  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
-
+    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
   <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
       <p class="copyright">
-    &copy; Copyright 2020, Cahit Kargi.<br/>
+    &copy; Copyright 2020, Cahit Kargi.<br>
 </p>
     </div>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
 </p>
     </div>
     

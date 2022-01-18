@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sweep Classes (quanguru.classes.QSweep) &#8212; QuanGuru 1 documentation</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
-
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
-
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -49,7 +49,10 @@
     <link rel="next" title="QGates classes (quanguru.classes.QGates)" href="QGates.html" />
     <link rel="prev" title="Results Classes (quanguru.classes.QRes)" href="QRes.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -121,7 +124,8 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -208,6 +212,9 @@
 
   </div>
 </nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
             </div>
             
           
@@ -293,7 +300,7 @@ NOTE : Both of these classes are not intended to be directly instanciated by the
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">_sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#_sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep._sweep" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#_sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep._sweep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="baseClasses.html#quanguru.classes.baseClasses.updateBase" title="quanguru.classes.baseClasses.updateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.updateBase</span></code></a></p>
 <p>Implements methods and attributes to sweep the value of an attribute for some objects for a list of values.
 The default sweep <a class="reference internal" href="#quanguru.classes.QSweep._sweep._defSweep" title="quanguru.classes.QSweep._sweep._defSweep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_defSweep()</span></code></a> sweeps the value for a given attribute
@@ -309,25 +316,25 @@ is not set to <code class="docutils literal notranslate"><span class="pre">True<
 achieved by the <a class="reference internal" href="#quanguru.classes.QSweep.Sweep" title="quanguru.classes.QSweep.Sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sweep</span></code></a> class.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'_sweep'</span></em><a class="headerlink" href="#quanguru.classes.QSweep._sweep.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'_sweep'</span></em><a class="headerlink" href="#quanguru.classes.QSweep._sweep.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep._sweep._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep._sweep._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep._sweep._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep._sweep._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep._sweep._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep._sweep._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -378,45 +385,45 @@ values at the same index are swept) or a multi-parameter sweep (fix one sweep th
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep.__index">
-<span class="sig-name descname"><span class="pre">__index</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.__index" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep._sweepIndex">
+<span class="sig-name descname"><span class="pre">_sweepIndex</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep._sweepIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>stores the index of the value (from the _sweepList) currently being assigned by the sweep function. Used by
 the default methods but also useful for custom methods. It is calculated by the modular arithmetic in
 modularSweep and passed to here by <a class="reference internal" href="#quanguru.classes.QSweep.Sweep" title="quanguru.classes.QSweep.Sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sweep</span></code></a> object containing self in its subSys. It starts from -1
-and the correspoding property returns __index + 1, while the <a class="reference internal" href="#quanguru.classes.QSweep._sweep.runSweep" title="quanguru.classes.QSweep._sweep.runSweep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">runSweep()</span></code></a> sets it to ind+1 for a given
+and the correspoding property returns _sweepIndex + 1, while the <a class="reference internal" href="#quanguru.classes.QSweep._sweep.runSweep" title="quanguru.classes.QSweep._sweep.runSweep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">runSweep()</span></code></a> sets it to ind+1 for a given
 ind from modularSweep. This whole ordeal is due to make sure that python list indexing and modular arithmetic
 properly agrees for the sweep functionality. I feel it can be improved but will leave as it is for now.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep.index">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.index" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns <code class="docutils literal notranslate"><span class="pre">self.__index</span> <span class="pre">+</span> <span class="pre">1</span></code>. reason for +1 is explained in <a class="reference internal" href="#quanguru.classes.QSweep._sweep.__index" title="quanguru.classes.QSweep._sweep.__index"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__index</span></code></a>. There is no setter, the value
-of __index is updated by the <a class="reference internal" href="#quanguru.classes.QSweep._sweep.runSweep" title="quanguru.classes.QSweep._sweep.runSweep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">runSweep()</span></code></a> and is an internal process.</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns <code class="docutils literal notranslate"><span class="pre">self._sweepIndex</span> <span class="pre">+</span> <span class="pre">1</span></code>. reason for +1 is explained in <a class="reference internal" href="#quanguru.classes.QSweep._sweep._sweepIndex" title="quanguru.classes.QSweep._sweep._sweepIndex"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_sweepIndex</span></code></a>. There is no setter, the value
+of _sweepIndex is updated by the <a class="reference internal" href="#quanguru.classes.QSweep._sweep.runSweep" title="quanguru.classes.QSweep._sweep.runSweep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">runSweep()</span></code></a> and is an internal process.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep.sweepFunction">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sweepFunction</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.sweepFunction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sweepFunction</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.sweepFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>gets and set <a class="reference internal" href="#quanguru.classes.QSweep._sweep._updateBase__function" title="quanguru.classes.QSweep._sweep._updateBase__function"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_updateBase__function</span></code></a>, which should point to a Callable.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep.sweepKey">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sweepKey</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.sweepKey" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sweepKey</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.sweepKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>gets and sets <code class="xref py py-attr docutils literal notranslate"><span class="pre">_updateBase__key</span></code>, which should be string.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep.sweepList">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sweepList</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.sweepList" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sweepList</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.sweepList" title="Permalink to this definition">¶</a></dt>
 <dd><p>gets and sets <a class="reference internal" href="#quanguru.classes.QSweep._sweep._sweepList" title="quanguru.classes.QSweep._sweep._sweepList"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_sweepList</span></code></a>. Setter requires a list input, if it is not set, getter tries creating the
 list (and setting <a class="reference internal" href="#quanguru.classes.QSweep._sweep._sweepList" title="quanguru.classes.QSweep._sweep._sweepList"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_sweepList</span></code></a>) using sweepMin-sweepMax-sweepStep attributes.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep._defSweep">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">_defSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#_sweep._defSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep._sweep._defSweep" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_defSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#_sweep._defSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep._sweep._defSweep" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the default sweep function, and it just calls the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_runUpdate</span></code> by feeding it the value from the
 <code class="docutils literal notranslate"><span class="pre">sweepList</span></code> at the position <code class="docutils literal notranslate"><span class="pre">ind</span></code>. <code class="xref py py-meth docutils literal notranslate"><span class="pre">_runUpdate</span></code>
@@ -439,16 +446,11 @@ sweeps. This is not essential and could be removed, but it kind of creates a duc
 when we might want to use a nested sweep.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep._sweep__index">
-<span class="sig-name descname"><span class="pre">_sweep__index</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep._sweep__index" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#Sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep.Sweep" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#Sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep.Sweep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#quanguru.classes.base.qBase" title="quanguru.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.base.qBase</span></code></a></p>
 <p>A container class for <a class="reference internal" href="#quanguru.classes.QSweep._sweep" title="quanguru.classes.QSweep._sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code></a> objects and relevant methods for creating/removing and carrying
 multi-parameter sweeps. It stores <a class="reference internal" href="#quanguru.classes.QSweep._sweep" title="quanguru.classes.QSweep._sweep"><code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code></a> objects in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code>
@@ -459,25 +461,25 @@ class are used as attributes of <code class="xref py py-class docutils literal n
 intended to be used for <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> creations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'Sweep'</span></em><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Sweep'</span></em><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used in default naming of objects. See <code class="xref py py-attr docutils literal notranslate"><span class="pre">label</span></code>.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep.Sweep._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep.Sweep._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep.Sweep._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep.Sweep._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep.Sweep._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSweep.Sweep._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -497,13 +499,13 @@ appended to the list, if it is the first <code class="docutils literal notransla
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep.inds">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">inds</span></span><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.inds" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">inds</span></span><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.inds" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_Sweep__inds</span></code> and there is no setter</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep.indMultip">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">indMultip</span></span><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.indMultip" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">indMultip</span></span><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.indMultip" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_Sweep__indMultip</span></code>, and there is no setter</p>
 <p>NOTE : The reason this property returns a pre-assingned value rather than calculating from the <code class="docutils literal notranslate"><span class="pre">inds</span></code> is to
 avoid calculating it over and over again, which could be avoided by checking if <code class="docutils literal notranslate"><span class="pre">_Sweep__indMultip</span> <span class="pre">is</span> <span class="pre">None</span></code>,
@@ -514,7 +516,7 @@ which is called in <code class="docutils literal notranslate"><span class="pre">
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep.sweeps">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sweeps</span></span><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.sweeps" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sweeps</span></span><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.sweeps" title="Permalink to this definition">¶</a></dt>
 <dd><p>The sweeps property wraps <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary to create new terminology, it works exactly as
 <a class="reference internal" href="base.html#quanguru.classes.base.qBase.subSys" title="quanguru.classes.base.qBase.subSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">subSys</span></code></a>.</p>
 </dd></dl>
@@ -575,7 +577,7 @@ objects, and it switches to a new index, if the <code class="docutils literal no
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSweep.Sweep._indicesForSweep">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">_indicesForSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#Sweep._indicesForSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep.Sweep._indicesForSweep" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_indicesForSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#Sweep._indicesForSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep.Sweep._indicesForSweep" title="Permalink to this definition">¶</a></dt>
 <dd><p>method used in modularSweep to calculate indices for each sweepList from the loop counter <code class="docutils literal notranslate"><span class="pre">ìnd</span></code> using the
 total lengths <code class="docutils literal notranslate"><span class="pre">*args</span></code>. It is hard to describe the exact calculation in words, but it is trivial to see from
 the math (TODO) which i will do later.</p>
@@ -594,12 +596,23 @@ the first sweepList simply is the reminder of inp with args[0].</p>
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="QRes.html" title="previous page">Results Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QRes</span></code>)</a>
-    <a class='right-next' id="next-link" href="QGates.html" title="next page">QGates classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QGates</span></code>)</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="QRes.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Results Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QRes</span></code>)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="QGates.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">QGates classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QGates</span></code>)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -607,20 +620,19 @@ the first sweepList simply is the reminder of inp with args[0].</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
-
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
   <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
       <p class="copyright">
-    &copy; Copyright 2020, Cahit Kargi.<br/>
+    &copy; Copyright 2020, Cahit Kargi.<br>
 </p>
     </div>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
 </p>
     </div>
     

@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>base classes (quanguru.classes.base) &#8212; QuanGuru 1 documentation</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
-
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
-
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -49,7 +49,10 @@
     <link rel="next" title="base classes (quanguru.classes.baseClasses)" href="baseClasses.html" />
     <link rel="prev" title="Classes (quanguru.classes)" href="../classes.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -121,7 +124,8 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -208,6 +212,9 @@
 
   </div>
 </nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
             </div>
             
           
@@ -264,7 +271,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aliasClass</span></code></a>(name, alias)</p></td>
-<td><p>aliasClass provides a flexible naming functionality for the qObjects.</p></td>
+<td><p>aliasClass is introduced for the naming functionality of the qObjects.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.base.keySearch" title="quanguru.classes.base.keySearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keySearch</span></code></a>(obj, k)</p></td>
 <td><p>Method to find a key or any other obj equal to the key in a <code class="docutils literal notranslate"><span class="pre">dictionary.keys()</span></code>.</p></td>
@@ -358,18 +365,25 @@
 </tr>
 </tbody>
 </table>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.classes.base._recurseIfList">
+<span class="sig-name descname"><span class="pre">_recurseIfList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#_recurseIfList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base._recurseIfList" title="Permalink to this definition">¶</a></dt>
+<dd><p>a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
+certain objects). It is used in various places of the library (exclude is useful/used in some of them).</p>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasClass">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">aliasClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">None</span></em>, <em class="sig-param"><span class="pre">alias:</span> <span class="pre">List</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'list'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aliasClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias:</span> <span class="pre">typing.List[typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasClass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>aliasClass provides a flexible naming functionality for the qObjects. It is created to be used as the name
+<p>aliasClass is introduced for the naming functionality of the qObjects. It is created to be used as the name
 attribute of qObjects and to work with the extended dictionary <a class="reference internal" href="#quanguru.classes.base.aliasDict" title="quanguru.classes.base.aliasDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasDict</span></code></a>.
 The default name of qObjects is assigned to be <code class="docutils literal notranslate"><span class="pre">__name</span></code> attribute, and the user assigned aliases for a qObject
 are stored in the <code class="docutils literal notranslate"><span class="pre">__alias</span></code> list. The string representation and hash value of an aliasClass objects is obtained
 from its name.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasClass.__name">
-<span class="sig-name descname"><span class="pre">__name</span></span><a class="headerlink" href="#quanguru.classes.base.aliasClass.__name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#quanguru.classes.base.aliasClass.__name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Protected name attribute of an aliasClass object, set&amp;get through the <a class="reference internal" href="#quanguru.classes.base.aliasClass.name" title="quanguru.classes.base.aliasClass.name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code></a> property.
 Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>. It can be set to any string (which cannot be changed later, unless directly overwritting
 <code class="docutils literal notranslate"><span class="pre">self._aliasClass__name</span></code>).</p>
@@ -377,13 +391,13 @@ Default is <code class="docutils literal notranslate"><span class="pre">None</sp
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasClass.__alias">
-<span class="sig-name descname"><span class="pre">__alias</span></span><a class="headerlink" href="#quanguru.classes.base.aliasClass.__alias" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__alias</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#quanguru.classes.base.aliasClass.__alias" title="Permalink to this definition">¶</a></dt>
 <dd><p>list of aliases of an aliasClass objects, set&amp;get through the <a class="reference internal" href="#quanguru.classes.base.aliasClass.alias" title="quanguru.classes.base.aliasClass.alias"><code class="xref py py-attr docutils literal notranslate"><span class="pre">alias</span></code></a> property</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasClass.name">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional[str]</span></em><a class="headerlink" href="#quanguru.classes.base.aliasClass.name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#quanguru.classes.base.aliasClass.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Getter of the name property, returns <code class="docutils literal notranslate"><span class="pre">self.__name</span></code>.</p>
 <p>Setter of the name property, sets <code class="docutils literal notranslate"><span class="pre">self.__name</span></code> to given <code class="docutils literal notranslate"><span class="pre">name</span></code> provided that the <code class="docutils literal notranslate"><span class="pre">self.__name</span> <span class="pre">is</span> <span class="pre">None</span></code>
 and the given <code class="docutils literal notranslate"><span class="pre">name</span></code> is a string. This means that the name can only be a string and cannot be changed
@@ -397,7 +411,7 @@ once set. Unless, of course, directly overwriting the protected attribute.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasClass.alias">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span></em><a class="headerlink" href="#quanguru.classes.base.aliasClass.alias" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#quanguru.classes.base.aliasClass.alias" title="Permalink to this definition">¶</a></dt>
 <dd><p>Getter of the alias property, returns the alias list.</p>
 <p>Setter of the alias property, adds a new alias for the aliasClass object (if the given alias is not already
 in the list).</p>
@@ -416,7 +430,8 @@ in the list).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasClass._allStringSum">
 <span class="sig-name descname"><span class="pre">_allStringSum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasClass._allStringSum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasClass._allStringSum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds and returns all the strings in members</p>
+<dd><p>Adds and returns all the strings in members.</p>
+<p>This is currently used with the saveCSV method to add this string to file name</p>
 </dd></dl>
 
 <dl class="py method">
@@ -433,7 +448,7 @@ in the list).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasClass.__eq__">
-<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><span class="pre">quanguru.classes.base.aliasClass</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasClass.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasClass.__eq__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><span class="pre">quanguru.classes.base.aliasClass</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasClass.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasClass.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Equality of any two aliasClass objects (or an aliasClass object to a string) is determined by comparing their
 names and all
 their aliases (or to given string), if at least one of them are the same (or the same as the given string),
@@ -455,7 +470,7 @@ aliasClass objects (or the aliasClass object and the given string) are considere
 
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.classes.base.keySearch">
-<span class="sig-name descname"><span class="pre">keySearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Hashable</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#keySearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.keySearch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keySearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Hashable</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#keySearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.keySearch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to find a key or any other obj equal to the key in a <code class="docutils literal notranslate"><span class="pre">dictionary.keys()</span></code>. This method is used in
 <a class="reference internal" href="#quanguru.classes.base.aliasDict" title="quanguru.classes.base.aliasDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasDict</span></code></a> class (extending <code class="docutils literal notranslate"><span class="pre">dict</span></code> class) to find the actual key when using <a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> as the
 key, which returns equal for a specific
@@ -476,7 +491,7 @@ dictionary, if an equal key is found in the dictionary.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">aliasDict</span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aliasDict</span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 <p>Extending the dictionary class to treat the keys satisfying <code class="docutils literal notranslate"><span class="pre">key1</span> <span class="pre">==</span> <span class="pre">keys2</span></code> as the same key. This functionality is
 implemented to use
@@ -485,20 +500,20 @@ its aliases as the key.</p>
 <p>NOTE no explicit tests for most of the extended methods, be careful in modifications.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.__getitem__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the value from the dictionary for a given key or any of the keys that is equal to the given key.
 This enables to get a value using an <a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Hashable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.get" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modified get method to be compatible with extended <a class="reference internal" href="#quanguru.classes.base.aliasDict.__getitem__" title="quanguru.classes.base.aliasDict.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> method.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict.__setitem__">
-<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Hashable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.__setitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.__setitem__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.__setitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.__setitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the value of a key in the dictionary, if the given key exists or any of the keys is equal to given key,
 otherwise creates an item (ie key:value pair) in the dictionary.
 This enables to set a value using an <a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
@@ -506,33 +521,33 @@ This enables to set a value using an <a class="reference internal" href="#quangu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict.__delitem__">
-<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.__delitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.__delitem__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.__delitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.__delitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the item for a given key or any of the keys that is equal to the given key.
 This enables to delete a value using an <a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict.__contains__">
-<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.__contains__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.__contains__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.__contains__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.__contains__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the key or any object equal to the key exists.
 This enables to <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">True</span></code> for an <a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">aliasClass</span></code></a> object itself, its name, or any of it aliases.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Mapping</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.update" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Mapping</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>update method compatible with the extended get/set methods.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict.setdefault">
-<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_aliasDict__key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Hashable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_aliasDict__default</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.setdefault"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.setdefault" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_aliasDict__key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_aliasDict__default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.setdefault"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.setdefault" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modified setdefault method to be compatible with extended <a class="reference internal" href="#quanguru.classes.base.aliasDict.__setitem__" title="quanguru.classes.base.aliasDict.__setitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__setitem__()</span></code></a> &amp; <a class="reference internal" href="#quanguru.classes.base.aliasDict.__getitem__" title="quanguru.classes.base.aliasDict.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> methods.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.aliasDict.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Hashable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.pop" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#aliasDict.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.aliasDict.pop" title="Permalink to this definition">¶</a></dt>
 <dd><p>pop method compatible with the extended methods.</p>
 </dd></dl>
 
@@ -544,16 +559,9 @@ This enables to <code class="docutils literal notranslate"><span class="pre">ret
 
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.base._recurseIfList">
-<span class="sig-name descname"><span class="pre">_recurseIfList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#_recurseIfList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base._recurseIfList" title="Permalink to this definition">¶</a></dt>
-<dd><p>a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
-certain objects). It is used in various places of the library (exclude is useful/used in some of them).</p>
-</dd></dl>
-
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.base.named">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">named</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">named</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements a name attribute and a naming standard. It is inhereted by all the other qObjects so that
 they have unique default names, and users are able to assign aliases for any object. It uses the
@@ -566,37 +574,37 @@ total number of) instances.
 One last counter is the total number of instances of the classes inherited from named.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.named.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'named'</span></em><a class="headerlink" href="#quanguru.classes.base.named.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'named'</span></em><a class="headerlink" href="#quanguru.classes.base.named.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.named._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.named._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.named._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.named._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.named._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.named._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.named._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.named._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.named._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.named._totalNumberOfInst">
-<span class="sig-name descname"><span class="pre">_totalNumberOfInst</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.named._totalNumberOfInst" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_totalNumberOfInst</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.named._totalNumberOfInst" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) total number of instances including named and all the child classes</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.named._allInstacesDict">
-<span class="sig-name descname"><span class="pre">_allInstacesDict</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="headerlink" href="#quanguru.classes.base.named._allInstacesDict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_allInstacesDict</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#quanguru.classes.base.named._allInstacesDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) a weakValue dictionary to store a weakref to every instance.
 This is used to reach any instance by its name or
 alias using the <code class="xref py py-class docutils literal notranslate"><span class="pre">getByName</span></code> method
@@ -604,15 +612,30 @@ _allInstacesDict = weakref.WeakValueDictionary() (could not pickle, so, for now,
 has problems with garbage collection in jupyter sessions)</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.base.named._findInSlots">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_findInSlots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named._findInSlots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named._findInSlots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.base.named.__getstate__">
+<span class="sig-name descname"><span class="pre">__getstate__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named.__getstate__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named.__getstate__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.base.named.__setstate__">
+<span class="sig-name descname"><span class="pre">__setstate__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named.__setstate__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named.__setstate__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.named._internal">
-<span class="sig-name descname"><span class="pre">_internal</span></span><a class="headerlink" href="#quanguru.classes.base.named._internal" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#quanguru.classes.base.named._internal" title="Permalink to this definition">¶</a></dt>
 <dd><p>boolean to distinguish internally and explicitly created instances.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.named.__name">
-<span class="sig-name descname"><span class="pre">__name</span></span><a class="headerlink" href="#quanguru.classes.base.named.__name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><span class="pre">quanguru.classes.base.aliasClass</span></a></em><a class="headerlink" href="#quanguru.classes.base.named.__name" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected name attribute is an instance of <a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">named</span></code></a> class</p>
 </dd></dl>
 
@@ -630,7 +653,7 @@ has problems with garbage collection in jupyter sessions)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.named.getByNameOrAlias">
-<span class="sig-name descname"><span class="pre">getByNameOrAlias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><span class="pre">quanguru.classes.base.aliasClass</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><span class="pre">quanguru.classes.base.named</span></a></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named.getByNameOrAlias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named.getByNameOrAlias" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getByNameOrAlias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><span class="pre">quanguru.classes.base.aliasClass</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><span class="pre">quanguru.classes.base.named</span></a></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named.getByNameOrAlias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named.getByNameOrAlias" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a reference for an object using its name or any alias.</p>
 <p>Raises ValueError if it cannot find any object for the given name (or alias).</p>
 </dd></dl>
@@ -654,27 +677,27 @@ has problems with garbage collection in jupyter sessions)</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.base.named.name">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <span class="pre">quanguru.classes.base.aliasClass</span></em><a class="headerlink" href="#quanguru.classes.base.named.name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#quanguru.classes.base.aliasClass" title="quanguru.classes.base.aliasClass"><span class="pre">quanguru.classes.base.aliasClass</span></a></em><a class="headerlink" href="#quanguru.classes.base.named.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Getter of the name property  <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">__name</span></code> protected attribute. There is no setter, names are not allowed
 to be changed but can assign an alias.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.base.named.alias">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span></em><a class="headerlink" href="#quanguru.classes.base.named.alias" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#quanguru.classes.base.named.alias" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias property gets the list of aliases.</p>
 <p>Sets (adds/extends into the list) alias (single/list of alias). Does not allow duplicate alias.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.named.clsLabel">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">clsLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named.clsLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named.clsLabel" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clsLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named.clsLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named.clsLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the class label.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.named.clsInstances">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">clsInstances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_internal</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named.clsInstances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named.clsInstances" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clsInstances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_internal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named.clsInstances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named.clsInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class method <strong>returns</strong> the number of instances:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -686,8 +709,13 @@ to be changed but can assign an alias.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.base.named._resetAllSubProc">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_resetAllSubProc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named._resetAllSubProc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named._resetAllSubProc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.named._resetAll">
-<span class="sig-name descname"><span class="pre">_resetAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named._resetAll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named._resetAll" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_resetAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#named._resetAll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.named._resetAll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets the counters and empties the weakref dictionary. Goal is to make this an equivalent to restarting a
 script or notebook.</p>
 </dd></dl>
@@ -710,7 +738,7 @@ the name of corresponding property with an appropriate value type.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.base._auxiliaryClass">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">_auxiliaryClass</span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#_auxiliaryClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base._auxiliaryClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_auxiliaryClass</span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#_auxiliaryClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base._auxiliaryClass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>an auxiliary class used to instantiate a dummy object for the <a class="reference internal" href="#quanguru.classes.base.qBase._auxiliaryObj" title="quanguru.classes.base.qBase._auxiliaryObj"><code class="xref py py-attr docutils literal notranslate"><span class="pre">_auxiliaryObj</span></code></a> attribute.</p>
 </dd></dl>
@@ -754,54 +782,54 @@ list from 1. to 4. may be trigerred again depending on the value of the element 
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">qBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#qBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.qBase" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/base.html#qBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.qBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.base.named</span></code></a></p>
 <p>Implements the sub/super-system attributes, auxiliary object and dictionary, and copy method.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'qBase'</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'qBase'</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase._auxiliary">
-<span class="sig-name descname"><span class="pre">_auxiliary</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span></em><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._auxiliary" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_auxiliary</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._auxiliary" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) aux dictionary to store auxiliary things as items to reach from any instance</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase._auxiliaryObj">
-<span class="sig-name descname"><span class="pre">_auxiliaryObj</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#quanguru.classes.base._auxiliaryClass" title="quanguru.classes.base._auxiliaryClass"><span class="pre">quanguru.classes.base._auxiliaryClass</span></a></em><em class="property"> <span class="pre">=</span> <span class="pre">&lt;quanguru.classes.base._auxiliaryClass</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._auxiliaryObj" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_auxiliaryObj</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#quanguru.classes.base._auxiliaryClass" title="quanguru.classes.base._auxiliaryClass"><span class="pre">quanguru.classes.base._auxiliaryClass</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;quanguru.classes.base._auxiliaryClass</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#quanguru.classes.base.qBase._auxiliaryObj" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) aux object to store auxiliary things as attributes to reach from any instance</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.__superSys">
-<span class="sig-name descname"><span class="pre">__superSys</span></span><a class="headerlink" href="#quanguru.classes.base.qBase.__superSys" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__superSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.__superSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected attribute for super system property</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.__subSys">
-<span class="sig-name descname"><span class="pre">__subSys</span></span><a class="headerlink" href="#quanguru.classes.base.qBase.__subSys" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__subSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.__subSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected attribute for sub-system dictionary</p>
 </dd></dl>
 
@@ -819,7 +847,7 @@ list from 1. to 4. may be trigerred again depending on the value of the element 
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.aux">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">aux</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.aux" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aux</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.aux" title="Permalink to this definition">¶</a></dt>
 <dd><p>property to get and set auxiliary items into auxiliary dictionary. The setter updates the existing dictionary
 (instead of an single element into the existing dictionary) with a given one, ie. adds key:value pair for the
 non-existing keys and changes the value for existing keys.</p>
@@ -827,19 +855,19 @@ non-existing keys and changes the value for existing keys.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.auxObj">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">auxObj</span></span><em class="property"><span class="pre">:</span> <span class="pre">quanguru.classes.base._auxiliaryClass</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.auxObj" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auxObj</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#quanguru.classes.base._auxiliaryClass" title="quanguru.classes.base._auxiliaryClass"><span class="pre">quanguru.classes.base._auxiliaryClass</span></a></em><a class="headerlink" href="#quanguru.classes.base.qBase.auxObj" title="Permalink to this definition">¶</a></dt>
 <dd><p>property to reach and set auxiliary attributes into auxiliary object</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.superSys">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">superSys</span></span><em class="property"><span class="pre">:</span> <span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.superSys" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">superSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.superSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>superSys property get/sets __superSys protected attribute</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.subSys">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">subSys</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.subSys" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><a class="headerlink" href="#quanguru.classes.base.qBase.subSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>subSys property gets the subSystem dictionary.</p>
 <p>Setter resets the existing dictionary and adds the given object/s to <code class="docutils literal notranslate"><span class="pre">__subSys</span></code> dictionary.
 It calls the <a class="reference internal" href="#quanguru.classes.base.qBase.addSubSys" title="quanguru.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code></a>,
@@ -849,7 +877,7 @@ system, or giving class name to add a new instance of that class. Be aware that 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.addSubSys">
-<span class="sig-name descname"><span class="pre">addSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><span class="pre">quanguru.classes.base.named</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><span class="pre">quanguru.classes.base.named</span></a></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#qBase.addSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.qBase.addSubSys" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">addSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><span class="pre">quanguru.classes.base.named</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><span class="pre">quanguru.classes.base.named</span></a></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#qBase.addSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.qBase.addSubSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
 an instance and adds), and list/tuple containing any combination of these.</p>
 <p>TODO add example &amp;/ link to a tutorial</p>
@@ -857,13 +885,13 @@ an instance and adds), and list/tuple containing any combination of these.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.createSubSys">
-<span class="sig-name descname"><span class="pre">createSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSysClass</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><span class="pre">quanguru.classes.base.named</span></a></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#qBase.createSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.qBase.createSubSys" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">createSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSysClass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#quanguru.classes.base.named" title="quanguru.classes.base.named"><span class="pre">quanguru.classes.base.named</span></a></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#qBase.createSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.qBase.createSubSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simply calls and returns the <a class="reference internal" href="#quanguru.classes.base.qBase.addSubSys" title="quanguru.classes.base.qBase.addSubSys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys()</span></code></a> method, which is decorated to also cover creation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.base.qBase.removeSubSys">
-<span class="sig-name descname"><span class="pre">removeSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#qBase.removeSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.qBase.removeSubSys" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">removeSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/base.html#qBase.removeSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.base.qBase.removeSubSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will
 raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
 named class.</p>
@@ -891,12 +919,23 @@ given kwargs.</p>
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="../classes.html" title="previous page">Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes</span></code>)</a>
-    <a class='right-next' id="next-link" href="baseClasses.html" title="next page">base classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses</span></code>)</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../classes.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes</span></code>)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="baseClasses.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">base classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses</span></code>)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -904,20 +943,19 @@ given kwargs.</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
-
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
   <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
       <p class="copyright">
-    &copy; Copyright 2020, Cahit Kargi.<br/>
+    &copy; Copyright 2020, Cahit Kargi.<br>
 </p>
     </div>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
 </p>
     </div>
     

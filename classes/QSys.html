@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quantum system classes (quanguru.classes.QSys) &#8212; QuanGuru 1 documentation</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
-
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
-
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -49,7 +49,10 @@
     <link rel="next" title="Simulation classes (quanguru.classes.QSim)" href="QSim.html" />
     <link rel="prev" title="base classes (quanguru.classes.baseClasses)" href="baseClasses.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -121,7 +124,8 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -208,6 +212,9 @@
 
   </div>
 </nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
             </div>
             
           
@@ -409,32 +416,32 @@ TODO I am not happy with this solution.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">genericQSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#genericQSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.genericQSys" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">genericQSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#genericQSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.genericQSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="baseClasses.html#quanguru.classes.baseClasses.qBaseSim" title="quanguru.classes.baseClasses.qBaseSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.qBaseSim</span></code></a></p>
 <p>Base class for both single (<a class="reference internal" href="#quanguru.classes.QSys.qSystem" title="quanguru.classes.QSys.qSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">qSystem</span></code></a>) and composite (<a class="reference internal" href="#quanguru.classes.QSys.compQSystem" title="quanguru.classes.QSys.compQSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">compQSystem</span></code></a>) quantum system classes, and I
 hope to combine those two classes in here. Currently, a proxy <a class="reference internal" href="#quanguru.classes.QSys.QuantumSystem" title="quanguru.classes.QSys.QuantumSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantumSystem</span></code></a> is introduced as a
 temporary solution.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'genericQSys'</span></em><a class="headerlink" href="#quanguru.classes.QSys.genericQSys.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genericQSys'</span></em><a class="headerlink" href="#quanguru.classes.QSys.genericQSys.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -499,7 +506,7 @@ the same <code class="docutils literal notranslate"><span class="pre">type</span
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys.ind">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">ind</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys.ind" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ind</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys.ind" title="Permalink to this definition">¶</a></dt>
 <dd><p>If <code class="docutils literal notranslate"><span class="pre">self</span></code> is in a composite quantum system, this return an index representing the position of <code class="docutils literal notranslate"><span class="pre">self</span></code> in the
 composite system, else it returns 0.
 Also, the first system in a composite quantum system is at index 0.</p>
@@ -507,27 +514,27 @@ Also, the first system in a composite quantum system is at index 0.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys._dimsBefore">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">_dimsBefore</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._dimsBefore" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_dimsBefore</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._dimsBefore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property to set and get the <a class="reference internal" href="#quanguru.classes.QSys.genericQSys.__dimsBefore" title="quanguru.classes.QSys.genericQSys.__dimsBefore"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__dimsBefore</span></code></a>. Getter can be used to get information, but the
 setter is intended purely for internal use.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys._dimsAfter">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">_dimsAfter</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._dimsAfter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_dimsAfter</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._dimsAfter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property to set and get the <a class="reference internal" href="#quanguru.classes.QSys.genericQSys.__dimsAfter" title="quanguru.classes.QSys.genericQSys.__dimsAfter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__dimsAfter</span></code></a>. Getter can be used to get information, but the
 setter is intended purely for internal use.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys.dimension">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">dimension</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys.dimension" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dimension</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys.dimension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property to get the dimension of the quantum system. There is no setter as it is handled internally.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys._totalDim">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">_totalDim</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._totalDim" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_totalDim</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._totalDim" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference internal" href="#quanguru.classes.QSys.genericQSys.dimension" title="quanguru.classes.QSys.genericQSys.dimension"><code class="xref py py-attr docutils literal notranslate"><span class="pre">genericQSys.dimension</span></code></a> returns the dimension of a quantum system itself, meaning it does not contain the
 dimensions of the other systems if <code class="docutils literal notranslate"><span class="pre">self</span></code> is in a composite system, <code class="docutils literal notranslate"><span class="pre">_totalDim</span></code> returns the total dimension
 by also taking the dimensions before and after <code class="docutils literal notranslate"><span class="pre">self</span></code> in a composte system.</p>
@@ -535,7 +542,7 @@ by also taking the dimensions before and after <code class="docutils literal not
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys._freeEvol">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">_freeEvol</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._freeEvol" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_freeEvol</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys._freeEvol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property to get the <code class="docutils literal notranslate"><span class="pre">default</span></code> internal <code class="docutils literal notranslate"><span class="pre">freeEvolution</span></code> proptocol.</p>
 </dd></dl>
 
@@ -547,7 +554,7 @@ by also taking the dimensions before and after <code class="docutils literal not
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.genericQSys.initialState">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">initialState</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys.initialState" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialState</span></span><a class="headerlink" href="#quanguru.classes.QSys.genericQSys.initialState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Getter for the simulation initial state, equivalent to <code class="docutils literal notranslate"><span class="pre">self.simulation.initialState</span></code>.
 This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None
 for single systems (if its state is set).</p>
@@ -580,61 +587,61 @@ TODO Create a demo and hyperlink here.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.QuantumSystem">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">QuantumSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sysType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'composite'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#QuantumSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QuantumSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sysType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'composite'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#QuantumSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.genericQSys</span></code></a></p>
 <p>This class can be used for creating either a composite or a single quantum system depending on the given <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>,
 if no <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> given, it creates a composite system by default.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.QuantumSystem._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.QuantumSystem._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.QuantumSystem._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.QuantumSystem.__new__">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sysType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'composite'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#QuantumSystem.__new__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem.__new__" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sysType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'composite'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#QuantumSystem.__new__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.QuantumSystem.__new__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">compQSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#compQSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.compQSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compQSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#compQSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.compQSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.genericQSys</span></code></a></p>
 <p>Class for composite quantum systems.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'QuantumSystem'</span></em><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'QuantumSystem'</span></em><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.compQSystem._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.compQSystem._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.compQSystem._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.compQSystem._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.compQSystem._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.compQSystem._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -667,31 +674,31 @@ TODO Create a demo and hyperlink here.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem.subSysDimensions">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">subSysDimensions</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.subSysDimensions" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subSysDimensions</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.subSysDimensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of dimensions of the quantum systems contained in <code class="docutils literal notranslate"><span class="pre">self</span></code>, which is a composite system.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem.freeHam">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">freeHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.freeHam" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">freeHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.freeHam" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the Hamiltonian without the coupling terms.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem.totalHam">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">totalHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.totalHam" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">totalHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.totalHam" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the total Hamiltonian of <code class="docutils literal notranslate"><span class="pre">self</span></code> including the coupling terms.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem.couplingHam">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">couplingHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.couplingHam" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">couplingHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.couplingHam" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns only the coupling terms of the Hamiltonian.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem.qSystems">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">qSystems</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.qSystems" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qSystems</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.qSystems" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the ordered dictionary that contains the sub-systems.</p>
 </dd></dl>
 
@@ -723,7 +730,7 @@ remaining sub-systems (such as dimension before/after).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.compQSystem.qCouplings">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">qCouplings</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.qCouplings" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qCouplings</span></span><a class="headerlink" href="#quanguru.classes.QSys.compQSystem.qCouplings" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the ordered dictionary of coupling terms.</p>
 </dd></dl>
 
@@ -786,30 +793,30 @@ reflected to dimension before/after information for the other systems in the com
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">termTimeDep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#termTimeDep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">termTimeDep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#termTimeDep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="baseClasses.html#quanguru.classes.baseClasses.paramBoundBase" title="quanguru.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.paramBoundBase</span></code></a></p>
 <p>Parent class for <a class="reference internal" href="#quanguru.classes.QSys.term" title="quanguru.classes.QSys.term"><code class="xref py py-class docutils literal notranslate"><span class="pre">term</span></code></a> and <a class="reference internal" href="#quanguru.classes.QSys.qCoupling" title="quanguru.classes.QSys.qCoupling"><code class="xref py py-class docutils literal notranslate"><span class="pre">qCoupling</span></code></a> and I hope to combine those two in here.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'_timeDep'</span></em><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'_timeDep'</span></em><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -846,19 +853,19 @@ current time to this function</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep.operator">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">operator</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.operator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">operator</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.operator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets and gets the operator for term.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep.order">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">order</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.order" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">order</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets and gets the order of the operator of the term.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep.frequency">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">frequency</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.frequency" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets and gets the frequency of the term.</p>
 </dd></dl>
 
@@ -872,13 +879,13 @@ Currently, this is just pass and extended in the child classes, and the goal is 
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep.totalHam">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">totalHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.totalHam" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">totalHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.totalHam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the total Hamiltonian for this term.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.termTimeDep.freeMat">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">freeMat</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.freeMat" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">freeMat</span></span><a class="headerlink" href="#quanguru.classes.QSys.termTimeDep.freeMat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets and sets the free matrix, ie without the frequency (or, equivalently frequency=1) of the term.</p>
 </dd></dl>
 
@@ -893,42 +900,42 @@ to update the relevant parameters (such as frequency of the term) as a function 
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.term">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">term</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#term"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.term" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">term</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#term"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.term" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSys.termTimeDep" title="quanguru.classes.QSys.termTimeDep"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.termTimeDep</span></code></a></p>
 <p>Term object for simple (i.e. non-coupling) terms in the Hamiltonian.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.term.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'term'</span></em><a class="headerlink" href="#quanguru.classes.QSys.term.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'term'</span></em><a class="headerlink" href="#quanguru.classes.QSys.term.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.term._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.term._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.term._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.term._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.term._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.term._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.term._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.term._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.term._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.term.superSys">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">superSys</span></span><em class="property"><span class="pre">:</span> <span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.QSys.term.superSys" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">superSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.QSys.term.superSys" title="Permalink to this definition">¶</a></dt>
 <dd><p>superSys property get/sets __superSys protected attribute</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.term._freeMatSimple">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">_freeMatSimple</span></span><a class="headerlink" href="#quanguru.classes.QSys.term._freeMatSimple" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_freeMatSimple</span></span><a class="headerlink" href="#quanguru.classes.QSys.term._freeMatSimple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the matrix corresponding to the operator of the term, but this method does not make it into a composite
 operator even if the term belongs to a system in a composite quantum system.</p>
 </dd></dl>
@@ -944,80 +951,80 @@ internally in various places when the matrices are needed to be constructed.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">qSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#qSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.qSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#qSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.qSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.genericQSys</span></code></a></p>
 <p>Class for single quantum systems, used as the parent for <a class="reference internal" href="#quanguru.classes.QSys.Cavity" title="quanguru.classes.QSys.Cavity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cavity</span></code></a>, <a class="reference internal" href="#quanguru.classes.QSys.Spin" title="quanguru.classes.QSys.Spin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Spin</span></code></a>, and <a class="reference internal" href="#quanguru.classes.QSys.Qubit" title="quanguru.classes.QSys.Qubit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Qubit</span></code></a>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'QuantumSystem'</span></em><a class="headerlink" href="#quanguru.classes.QSys.qSystem.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'QuantumSystem'</span></em><a class="headerlink" href="#quanguru.classes.QSys.qSystem.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qSystem._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qSystem._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qSystem._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qSystem._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qSystem._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qSystem._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.dimension">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">dimension</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.dimension" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dimension</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.dimension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property to get the dimension of the quantum system. There is no setter as it is handled internally.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.totalHam">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">totalHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.totalHam" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">totalHam</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.totalHam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the total Hamiltonian of the single quantum system.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem._totalHamSimple">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">_totalHamSimple</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem._totalHamSimple" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_totalHamSimple</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem._totalHamSimple" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the total Hamiltonian of the single quantum system, but this method does not take the dimension
 before/after into account even if <code class="docutils literal notranslate"><span class="pre">self</span></code> is a sub-system of a composite system.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.freeMat">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">freeMat</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.freeMat" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">freeMat</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.freeMat" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the free (i.e. no frequency or, equivalently frequency=1) matrix for the operator of the first term in
 its Hamiltonian.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.operator">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">operator</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.operator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">operator</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.operator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a list of the operators for the terms in its Hamiltonian, and sets the operator only for the first term.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.frequency">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">frequency</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.frequency" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setter and getter of the frequency of the first term in its Hamiltonian.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.order">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">order</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.order" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">order</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets and gets the order/power of the operator of the first term in its Hamiltonian.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.firstTerm">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">firstTerm</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.firstTerm" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">firstTerm</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.firstTerm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the first term in its Hamiltonian</p>
 </dd></dl>
 
@@ -1035,7 +1042,7 @@ its Hamiltonian.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qSystem.terms">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">terms</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.terms" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terms</span></span><a class="headerlink" href="#quanguru.classes.QSys.qSystem.terms" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns a list of the term objects used for its Hamiltonian.</p>
 </dd></dl>
 
@@ -1061,30 +1068,30 @@ removeSubSys</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Spin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Spin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#Spin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.Spin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Spin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#Spin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.Spin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSys.qSystem" title="quanguru.classes.QSys.qSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.qSystem</span></code></a></p>
 <p>Object for a single Spin system with spin j (jValue).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Spin.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'Spin'</span></em><a class="headerlink" href="#quanguru.classes.QSys.Spin.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Spin'</span></em><a class="headerlink" href="#quanguru.classes.QSys.Spin.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Spin._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Spin._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Spin._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Spin._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Spin._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Spin._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Spin._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Spin._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Spin._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -1096,7 +1103,7 @@ removeSubSys</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Spin.jValue">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">jValue</span></span><a class="headerlink" href="#quanguru.classes.QSys.Spin.jValue" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jValue</span></span><a class="headerlink" href="#quanguru.classes.QSys.Spin.jValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets and sets the spin quantum number</p>
 </dd></dl>
 
@@ -1104,30 +1111,30 @@ removeSubSys</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Qubit">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Qubit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#Qubit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.Qubit" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Qubit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#Qubit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.Qubit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSys.Spin" title="quanguru.classes.QSys.Spin"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.Spin</span></code></a></p>
 <p>Spin 1/2 special case of Spin class, i.e. a Qubit.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Qubit.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'Qubit'</span></em><a class="headerlink" href="#quanguru.classes.QSys.Qubit.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Qubit'</span></em><a class="headerlink" href="#quanguru.classes.QSys.Qubit.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Qubit._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Qubit._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Qubit._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Qubit._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Qubit._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Qubit._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Qubit._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Qubit._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Qubit._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -1135,31 +1142,31 @@ removeSubSys</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Cavity">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Cavity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#Cavity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.Cavity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Cavity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#Cavity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.Cavity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSys.qSystem" title="quanguru.classes.QSys.qSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.qSystem</span></code></a></p>
 <p>Cavity class, the only difference from a generic quantum object is that, by default, its operator is the number
 operator.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Cavity.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'Cavity'</span></em><a class="headerlink" href="#quanguru.classes.QSys.Cavity.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Cavity'</span></em><a class="headerlink" href="#quanguru.classes.QSys.Cavity.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Cavity._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Cavity._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Cavity._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Cavity._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Cavity._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Cavity._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.Cavity._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Cavity._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.Cavity._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -1167,48 +1174,48 @@ operator.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qCoupling">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">qCoupling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#qCoupling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.qCoupling" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qCoupling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSys.html#qCoupling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSys.qCoupling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSys.termTimeDep" title="quanguru.classes.QSys.termTimeDep"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSys.termTimeDep</span></code></a></p>
 <p>Class to create coupling terms between quantum systems.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qCoupling.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'qCoupling'</span></em><a class="headerlink" href="#quanguru.classes.QSys.qCoupling.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'qCoupling'</span></em><a class="headerlink" href="#quanguru.classes.QSys.qCoupling.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qCoupling._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qCoupling._internalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qCoupling._internalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qCoupling._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qCoupling._externalInstances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qCoupling._externalInstances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qCoupling._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qCoupling._instances" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSys.qCoupling._instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qCoupling.couplingOperators">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">couplingOperators</span></span><a class="headerlink" href="#quanguru.classes.QSys.qCoupling.couplingOperators" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">couplingOperators</span></span><a class="headerlink" href="#quanguru.classes.QSys.qCoupling.couplingOperators" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns a list of coupling operators stored in this coupling term</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qCoupling.coupledSystems">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">coupledSystems</span></span><a class="headerlink" href="#quanguru.classes.QSys.qCoupling.coupledSystems" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coupledSystems</span></span><a class="headerlink" href="#quanguru.classes.QSys.qCoupling.coupledSystems" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the list of coupled systems by this coupling term</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSys.qCoupling.couplingStrength">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">couplingStrength</span></span><a class="headerlink" href="#quanguru.classes.QSys.qCoupling.couplingStrength" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">couplingStrength</span></span><a class="headerlink" href="#quanguru.classes.QSys.qCoupling.couplingStrength" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets and sets the coupling strength for this coupling. This is simply an alternative terminology for frequency.</p>
 </dd></dl>
 
@@ -1258,12 +1265,23 @@ internally in various places when the matrices are needed to be constructed.</p>
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="baseClasses.html" title="previous page">base classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses</span></code>)</a>
-    <a class='right-next' id="next-link" href="QSim.html" title="next page">Simulation classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSim</span></code>)</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="baseClasses.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">base classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses</span></code>)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="QSim.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Simulation classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSim</span></code>)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -1271,20 +1289,19 @@ internally in various places when the matrices are needed to be constructed.</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
-
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
   <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
       <p class="copyright">
-    &copy; Copyright 2020, Cahit Kargi.<br/>
+    &copy; Copyright 2020, Cahit Kargi.<br>
 </p>
     </div>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
 </p>
     </div>
     
