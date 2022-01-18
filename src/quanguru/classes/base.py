@@ -37,13 +37,14 @@ r"""
 """
 
 from functools import wraps
+import inspect
 
 import warnings
 import weakref
 from itertools import chain
 from typing import Callable, Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
-from .exceptions import raiseAttrType
+from .exceptions import raiseAttrType, checkNotVal
 
 __all__ = [
     'qBase', 'named'
@@ -60,9 +61,9 @@ def _recurseIfList(func: Callable) -> Callable:
             for s in inp:
                 r = recurse(obj, s, _exclude=_exclude, **kwargs)
         else:
-            try:
+            if _exclude in inspect.getfullargspec(func).args:
                 r = func(obj, inp, _exclude=_exclude, **kwargs)
-            except: #pylint:disable=bare-except   # noqa: E722
+            else: #pylint:disable=bare-except   # noqa: E722
                 r = func(obj, inp, **kwargs)
         return r
     return recurse
@@ -356,6 +357,7 @@ class named:
             if isinstance(v, named):
                 self._allInstaces[k] = weakref.ref(v, None) # pylint: disable=protected-access
 
+    @raiseAttrType([bool, type(None)], "_internal")
     def __init__(self, **kwargs) -> None:
         super().__init__()
         #: boolean to distinguish internally and explicitly created instances.
@@ -382,9 +384,8 @@ class named:
         """
         if isinstance(name, named):
             return name
-        obj = self._allInstaces.get(name)
-        if obj is None:
-            raise ValueError("No object with the given name/alias is found!")
+        obj = checkNotVal(self._allInstaces.get(name), None,
+                           "No object with the given name/alias is found!")
         return obj if isinstance(obj, named) else obj()
 
     def _incrementInstances(self) -> None:
@@ -431,8 +432,9 @@ class named:
     @_recurseIfList
     def alias(self, ali: str) -> None:
         for k, v in self._allInstacesDict.items():
-            if ((k == ali) and (v() != self)):
-                raise ValueError(f"Given alias ({ali}) already exist and is assigned to: " + f"{v().name}")
+            wv = v if not isinstance(v, weakref.ReferenceType) else v()
+            checkNotVal((k == ali) and (wv != self), True,
+                         f"Given alias ({ali}) already exist and is assigned to: " + f"{k.name}")
         self._named__name.alias = ali
 
     @classmethod
@@ -459,16 +461,23 @@ class named:
             insCount = cls._externalInstances
         return insCount
 
-    def _resetAll(self) -> None:
+    @classmethod
+    def _resetAllSubProc(cls):
+        cls._externalInstances = 0 # pylint:disable=protected-access
+        cls._internalInstances = 0 # pylint:disable=protected-access
+        cls._instances = 0 # pylint:disable=protected-access
+        for otherCLS in cls.__subclasses__():
+            otherCLS._resetAllSubProc() # pylint:disable=protected-access
+
+    @classmethod
+    def _resetAll(cls) -> None:
         r"""
         Resets the counters and empties the weakref dictionary. Goal is to make this an equivalent to restarting a
         script or notebook.
         """
-        self.__class__._externalInstances = 0 # pylint:disable=protected-access
-        self.__class__._internalInstances = 0 # pylint:disable=protected-access
-        self.__class__._instances = 0 # pylint:disable=protected-access
         named._totalNumberOfInst = 0
         named._allInstacesDict = aliasDict() # pylint:disable=protected-access
+        named._resetAllSubProc() # pylint:disable=protected-access
         #self.__class__._allInstacesDict = weakref.WeakValueDictionary() # pylint:disable=protected-access
 
     def __setKwargs(self, **kwargs) -> None:

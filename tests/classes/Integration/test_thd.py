@@ -1,7 +1,6 @@
 import pytest
 import numpy as np
 import quanguru as qg
-import tests.classes.Integration.thd._orDQHS as th
 
 fp2ZExp = qg.readCSV("tests/classes/Integration/thd/thdData/fp2ZExp.txt")
 fp2YExp = qg.readCSV("tests/classes/Integration/thd/thdData/fp2YExp.txt")
@@ -23,6 +22,7 @@ sfid3Z = qg.readCSV("tests/classes/Integration/thd/thdData/sfid3Z.txt")
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_thdFromSaved(bo):
+    import tests.classes.Integration.thd._orDQHS as th
     th.simulation.run(p=bo)
 
     assert np.allclose(fp2ZExp[0], th.simulation.results["fp2ZExp"][0])
