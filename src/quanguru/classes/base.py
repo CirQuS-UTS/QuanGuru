@@ -270,7 +270,7 @@ class aliasDict(dict):
         for k, v in kwargs.items():
             self[k] = v
 
-    def setdefault(self, __key: Hashable, __default: Any) -> Any:
+    def setdefault(self, __key: Hashable, __default: Optional[Any] = None) -> Any:
         r"""
         Modified setdefault method to be compatible with extended :meth:`~__setitem__` & :meth:`~__getitem__` methods.
         """
