@@ -17,8 +17,7 @@ strings = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10
 def test_instanceNumberIncrementationsAndDefaultNames(cls):
     # resetting the numbers for the parametrization
     qbase.named()._resetAll() # pylint:disable=protected-access
-    cls()._resetAll() # pylint:disable=protected-access
-    # create 5 objects and verify each number and name is correct. parametrised to be tested with child classes
+    # create 5 objects and verify each number and name are correct. parametrised to be tested with child classes
     for i in range(5):
         # create an external/explicit instance
         obExternal = cls()
@@ -28,6 +27,9 @@ def test_instanceNumberIncrementationsAndDefaultNames(cls):
         assert obExternal.name == cls.label + str(cls._externalInstances) # pylint:disable=protected-access
         # verify the string repr matches name
         assert str(obExternal) == obExternal.name
+        # verify that the name cannot be changed
+        with pytest.raises(AttributeError):
+            obExternal.name = randString(random.randint(4, 10))
 
         # create an internal instance
         obInternal = cls(_internal=True)
@@ -36,37 +38,84 @@ def test_instanceNumberIncrementationsAndDefaultNames(cls):
         # verify the name is correct
         assert obInternal.name == "_" + cls.label + str(cls._internalInstances) # pylint:disable=protected-access
         # verify the string repr matches name
-        assert str(obExternal) == obExternal.name
+        assert str(obInternal) == obInternal.name
+        # verify that the name cannot be changed
+        with pytest.raises(AttributeError):
+            obInternal.name = randString(random.randint(4, 10))
 
         # verify total numbers are correct
         assert obInternal._instances == 2*(i+1) # pylint:disable=protected-access
+        assert obExternal._instances == 2*(i+1) # pylint:disable=protected-access
         assert qbase.named._totalNumberOfInst == 2*(i+1) # pylint:disable=protected-access
     qbase.named()._resetAll() # pylint:disable=protected-access
-    cls()._resetAll() # pylint:disable=protected-access
 
-@pytest.mark.parametrize("cls", [qbase.named, qbase.qBase])
-def test_addingAliasInNamedOrChildInstances(cls):
+def _aliasAddSub(aobj, astrings):
+    # created for test_addingAliasInNamedOrChildInstances
+    # tests getByNameOrAlias and equality of name to any string in aliases
+    # reach by its name, name.name, and any alias
+    for s in [aobj.name, aobj.name.name, *astrings]:
+        assert aobj.name == s
+        assert aobj.getByNameOrAlias(s) is aobj
+    
+    # some random str does not work
+    with pytest.raises(ValueError):
+        aobj.getByNameOrAlias(randString(random.randint(1, 10)))
+
+def _createWithoutAlias(cls, stri):
+    # created for test_addingAliasInNamedOrChildInstances
+    # create two objects without any alias
+    obj1 = cls(_internal=bool(random.randint(0,1)))
+    # run the sub-routine
+    _aliasAddSub(obj1, [])
+    obj2 = cls(_internal=bool(random.randint(0,1)))
+    # run the sub-routine
+    _aliasAddSub(obj2, [])
+    return obj1, obj2
+
+def _createWithAlias(cls, stri):
+    # created for test_addingAliasInNamedOrChildInstances
+    # create with a list of aliases
+    obj3 = cls(_internal=bool(random.randint(0,1)), alias=stri[0:2])
+    # run the sub-routine
+    _aliasAddSub(obj3, stri[0:2])
+    # create with a single alias
+    obj4 = cls(_internal=bool(random.randint(0,1)), alias=stri[2])
+    # run the sub-routine
+    _aliasAddSub(obj4, [stri[2]])
+    return obj3, obj4
+
+@pytest.mark.parametrize("cls, reset", [
+                         [qbase.named, True], [qbase.qBase, True],
+                         [qbase.named, False], [qbase.qBase, False]
+                         ])
+def test_addingAliasInNamedOrChildInstances(cls, reset):
     # adding alias to an instance of named class and reaching it using its name or an alias by using getByNameOrAlias
     # method, which raises an error if the given name/alias does not belong to any object
+    createFuncList = [_createWithoutAlias, _createWithAlias]
     for i in range(2):
-        obj = cls(_internal=bool(i))
-        obd = cls(_internal=bool(i))
-        strings2 = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10))]
+        if reset:
+            qbase.named()._resetAll() # pylint:disable=protected-access
+        strings2 = [randString(random.randint(3, 10)) for _ in range(9)]
+
+        ob1, ob2 = createFuncList[i](cls, strings2)
+        ob3, ob4 = createFuncList[(i+1)%2](cls, strings2)
+        
         # add a list of alias
-        obj.alias = strings2[0:-1]
-        # make sure you cannot add an exisiting alias to another object
+        ob1.alias = strings2[3]
+        ob2.alias = strings2[4:6]
+        ob3.alias = strings2[6]
+        ob4.alias = strings2[7:]
+
+        # make sure you cannot add an existing alias to another object
         with pytest.raises(ValueError):
-            obd.alias = strings2[0]
-        # reach by its name, name.name, and any alias
-        for s in [obj.name, obj.name.name, *strings2[0:-1]]:
-            assert obj.name == s
-            assert obj.getByNameOrAlias(s) is obj
-        # some random str does not work
+            ob2.alias = strings2[0]
+
+        # make sure you cannot add an existing alias to another object
         with pytest.raises(ValueError):
-            obj.getByNameOrAlias(strings2[-1])
+            ob4.alias = strings2[0:2]
+
     # reset to uncouple tests
     qbase.named()._resetAll() # pylint:disable=protected-access
-    cls()._resetAll() # pylint:disable=protected-access
 
 def forMultiProcessingTest(obj, i):
     # used in the below multiprocessing test to check you can get the object by its name alias etc. during multiprocess
@@ -91,4 +140,3 @@ def test_getByNameOrAliasWithMultiProcessing(cls):
     _pool.close()
     _pool.join()
     qbase.named()._resetAll() # pylint:disable=protected-access
-    cls()._resetAll() # pylint:disable=protected-access
