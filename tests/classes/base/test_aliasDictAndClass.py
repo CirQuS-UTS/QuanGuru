@@ -4,12 +4,8 @@ import string
 import pytest
 import quanguru.classes.base as qbase #pylint: disable=import-error
 
-def randString(N):
-    return str(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N)))
-
-strings = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10))]
-
-def test_aliasDictWithRegularStrings():
+def test_aliasDictWithRegularStrings(helpers):
+    strings = helpers.randStringList()
     # testing the aliasDict class with regular strings to see that the basic dictionary functionalities are not broken.
     alDict = qbase.aliasDict()
     # add a single item and verify
@@ -56,7 +52,7 @@ def test_aliasDictWithRegularStrings():
     for s in strings[:-1]:
         assert alDict[s] == s
     # setdefault changes value for an existing key
-    randStr = randString(random.randint(4, 10))
+    randStr = helpers.randString(random.randint(4, 10))
     randInt = random.randint(0, len(alDict)-2)
     val = alDict.setdefault(strings[randInt], randStr)
     assert alDict[strings[randInt]] == val
@@ -67,13 +63,14 @@ def test_aliasDictWithRegularStrings():
     alDict.setdefault(strings[-1], randStr)
     assert alDict[strings[-1]] == randStr
 
-def test_aliasDictWithAliasClassAndRegularStrings(): # pylint: disable=too-many-statements
+def test_aliasDictWithAliasClassAndRegularStrings(helpers):
+    strings = helpers.randStringList() # pylint: disable=too-many-statements
     # testing the aliasDict class with regular strings and AliasClass object keys.
     alDict = qbase.aliasDict()
-    aliasObj1 = qbase.aliasClass(name=randString(random.randint(1, 10)),
-                                alias=[randString(random.randint(1, 10)), randString(random.randint(1, 10))])
-    aliasObj2 = qbase.aliasClass(name=randString(random.randint(1, 10)),
-                                alias=[randString(random.randint(1, 10)), randString(random.randint(1, 10))])
+    aliasObj1 = qbase.aliasClass(name=helpers.randString(random.randint(1, 10)),
+                                alias=[helpers.randString(random.randint(1, 10)), helpers.randString(random.randint(1, 10))])
+    aliasObj2 = qbase.aliasClass(name=helpers.randString(random.randint(1, 10)),
+                                alias=[helpers.randString(random.randint(1, 10)), helpers.randString(random.randint(1, 10))])
     # add a single item and verify by using the object, its name, and each alias
     alDict[aliasObj1] = 2
     assert alDict[aliasObj1] == 2
@@ -161,9 +158,9 @@ def test_aliasDictWithAliasClassAndRegularStrings(): # pylint: disable=too-many-
     assert len(alDict) == 0
 
     # create a list of aliasClass objects to be used as the key and extend with strings, then shuffle
-    names = [randString(random.randint(1, 10)) for _ in range(5)]
-    aliases1 = [randString(random.randint(1, 10)) for _ in range(5)]
-    aliases2 = [randString(random.randint(1, 10)) for _ in range(5)]
+    names = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
+    aliases1 = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
+    aliases2 = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
     listOfAliasObj = [qbase.aliasClass(name=names[i], alias=[aliases1[i], aliases2[i]]) for i in range(5)]
     listOfAliasObj.extend(strings)
     while True:
@@ -187,7 +184,7 @@ def test_aliasDictWithAliasClassAndRegularStrings(): # pylint: disable=too-many-
 
     # verify that setdefault works with aliasClass objs
     while True:
-        randStr = randString(random.randint(4, 10))
+        randStr = helpers.randString(random.randint(4, 10))
         randInt = random.randint(0, len(alDict)-2)
         if isinstance(alDict[listOfAliasObj[randInt]], qbase.aliasClass):
             val = alDict.setdefault(listOfAliasObj[randInt], randStr)
@@ -196,11 +193,12 @@ def test_aliasDictWithAliasClassAndRegularStrings(): # pylint: disable=too-many-
             assert alDict[listOfAliasObj[-1]] == randStr
             break
 
-def test_aliasDictPicklingAndRepr():
+def test_aliasDictPicklingAndRepr(helpers):
+    strings = helpers.randStringList()
     # create a list of aliasClass objects to be used as the key and extend with strings, then shuffle
-    names = [randString(random.randint(1, 10)) for _ in range(5)]
-    aliases1 = [randString(random.randint(1, 10)) for _ in range(5)]
-    aliases2 = [randString(random.randint(1, 10)) for _ in range(5)]
+    names = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
+    aliases1 = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
+    aliases2 = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
     listOfAliasObj = [qbase.aliasClass(name=names[i], alias=[aliases1[i], aliases2[i]]) for i in range(5)]
     listOfAliasObj.extend(strings)
     random.shuffle(listOfAliasObj)
@@ -212,7 +210,8 @@ def test_aliasDictPicklingAndRepr():
     assert aldictpicle == alDict
     assert eval(repr(alDict)) == alDict
 
-def test_aliasClassNamingBothAtInstantiationAndAfter():
+def test_aliasClassNamingBothAtInstantiationAndAfter(helpers):
+    strings = helpers.randStringList()
     # testing the name property of alias object.
 
     # 1) test two different ways of naming it:
@@ -242,7 +241,8 @@ def test_aliasClassNamingBothAtInstantiationAndAfter():
         aliasObj.name = strings[3]
     assert aliasObj.name == strings[2]
 
-def test_aliasClassAliasProperty():
+def test_aliasClassAliasProperty(helpers):
+    strings = helpers.randStringList()
     # test adding new aliases
     # 1) empty list if not assigned
     aliasObj = qbase.aliasClass()
@@ -264,13 +264,15 @@ def test_aliasClassAliasProperty():
     assert strings[1] in aliasObj.alias
     assert aliasObj.alias == strings[0:2]
 
-def test_stringRepresentationOfAliasClass():
+def test_stringRepresentationOfAliasClass(helpers):
+    strings = helpers.randStringList()
     # test the string representation of aliasClass is equal to its name
     aliasObj = qbase.aliasClass(name=strings[0], alias=strings[1:3])
     strRep = str(aliasObj)
     assert aliasObj.name == strRep
 
-def test_equalityOfTwoAliasClassInstances():
+def test_equalityOfTwoAliasClassInstances(helpers):
+    strings = helpers.randStringList()
     # any two aliasClass instances should be equal if there is a match in their names or an alias
     # cases: 1) name = name, 2) name = an alias, 3) an alias = another alias, 4) name = name & an alias = another alias,
     # 5) no equality, and 6) ob1 != ob4 and ob1 = ob3 does not imply ob3 != ob4, they might be equal
@@ -286,7 +288,8 @@ def test_equalityOfTwoAliasClassInstances():
     assert aliasObj1 != aliasObj4 # case 5
     assert aliasObj3 == aliasObj4 # case 6
 
-def test_hashValueOfAliasObjects():
+def test_hashValueOfAliasObjects(helpers):
+    strings = helpers.randStringList()
     # hash value is equal to the hash of the name and not to some other string
     aliasObj = qbase.aliasClass(name=strings[0], alias=strings[1:3])
     assert hash(aliasObj) == hash(strings[0])
