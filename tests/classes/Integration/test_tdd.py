@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 import quanguru as qg
-import tests.classes.Integration.tdd._orDQDS as td
+
 #import tests.classes.Integration.tdd.tddData as tdData
 
 # vecStat05Dig =  qg.readCSV("tests/classes/Integration/tdd/tddData/vecStat05Dig.txt")
@@ -21,6 +21,7 @@ sfid6 = qg.readCSV("tests/classes/Integration/tdd/tddData/sfid6.txt")
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_tddFromSaved(bo):
+    import tests.classes.Integration.tdd._orDQDS as td
     td.simulation.run(p=bo)
     # NOTE for some reason some of the component amplitudes in the eigenvector statistics are
     # different from the saved (most are the same)

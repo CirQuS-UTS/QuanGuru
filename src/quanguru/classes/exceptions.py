@@ -19,10 +19,17 @@ def raiseAttrType(expectedTypes, attrName=0):
             val = args[attrName] if isinstance(attrName, int) else kwargs.get(attrName, None)
             aKey = attrName if isinstance(attrName, str) else f"{attrName}th argument"
             if not any(isinstance(val, t) for t in expectedTypes):
-                raise TypeError(aKey + f" should be of type {expectedTypes}, but {type(val)} is given") #pylint:disable=multiple-statements
+                tNames = [str(ety) for ety in expectedTypes]
+                msg = aKey + " should be an instance of " + ", ".join(tNames) + f", but {type(val)} is given"
+                raise TypeError(msg) #pylint:disable=multiple-statements
             f(obj, *args, **kwargs)
         return typeCheck
     return decorate
+
+def checkNotVal(someObj, val, msg):
+    if someObj == val:
+        raise ValueError(msg)
+    return someObj
 
 # TODO turn prints into actual error raise, they are print for testing
 
