@@ -37,6 +37,7 @@ r"""
 """
 from typing import Any, Callable, Dict, List, Union, cast
 
+from .exceptions import raiseAttrType
 from .base import named, qBase, addDecorator, _recurseIfList, aliasDict
 from .QRes import qResults
 from .tempConfig import classConfig
@@ -44,12 +45,12 @@ from .tempConfig import classConfig
 
 class updateBase(qBase):
     r"""
-    Base class for :class:`~_sweep` and :class:`~Update` classes, which are used respectively in parameter sweeps and
-    step updates in protocols.
-    This class implements a default method to change the value of an attribute (str of the attribute name is
-    stored in self.key) of the objects in the subSys dictionary. It can also sweep/update auxiliary dictionary by
-    setting the aux boolean to True. The default method
-    can be changed to anything by pointing function attribute to any other Callable.
+    Base class for :class:`~_sweep` and :class:`~Update` classes, which are used in parameter sweeps and step updates in
+    protocols, respectively.
+    This class implements a default method to change the value of an attribute (``str`` of the attribute name is
+    stored in ``self.key``) of the objects in the ``subSys`` dictionary.
+    It can also sweep/update auxiliary dictionary by setting the ``aux`` boolean to ``True``.
+    The default method can be changed to anything by pointing the ``function`` attribute to any other ``Callable``.
     """
     #: (**class attribute**) class label used in default naming
     label: str = 'updateBase'
@@ -392,12 +393,13 @@ class computeBase(paramBoundBase):
             meth(self) # pylint: disable=not-callable
 
     @paramBoundBase.alias.setter
+    @raiseAttrType([str, list, type(None)], "ali")
     def alias(self, ali: str) -> None:
         r"""
         Extends the alias setter to assign an alias (givenAlias + Results) to self.qRes as well.
         """
         named.alias.fset(self, ali) #pylint:disable=no-member
-        self.qRes.alias = ali + "Results"
+        self.qRes.alias = ali + "Results" if isinstance(ali, str) else [a+"Results" for a in ali]
 
     @property
     def results(self) -> Dict:
