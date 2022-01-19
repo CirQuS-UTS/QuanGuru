@@ -21,18 +21,18 @@ r"""
     .. |x| unicode:: U+274C
     .. |w| unicode:: U+2000
 
-    =======================    ==================   ==============   ================   ===============
-       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
-    =======================    ==================   ==============   ================   ===============
-      `named`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
-      `qBase`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
-      `aliasClass`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
-      `keySearch`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `aliasDict`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
-      `_auxiliaryClass`          |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_recurseIfList`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `addDecorator`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-    =======================    ==================   ==============   ================   ===============
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `named`                    |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `qBase`                    |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+      `aliasClass`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `keySearch`                |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `aliasDict`                |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `_auxiliaryClass`          |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `_recurseIfList`           |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `addDecorator`             |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+    =======================    ==================    ================   ===============
 
 """
 
@@ -53,7 +53,8 @@ __all__ = [
 def _recurseIfList(func: Callable) -> Callable:
     r"""
     a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
-    certain objects). It is used in various places of the library (exclude is useful/used in some of them).
+    certain objects). It is used in various places of the library (exclude is useful/used in some of them to avoid
+    infinite recursive calls).
     """
     @wraps(func) # needed for the func.__name__
     def recurse(obj, inp, _exclude=[], **kwargs): # pylint: disable=dangerous-default-value
