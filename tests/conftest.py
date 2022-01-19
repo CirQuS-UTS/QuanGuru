@@ -1,4 +1,5 @@
 import random as rn
+import string
 import multiprocessing
 import platform
 import sys
@@ -45,6 +46,12 @@ class Helpers:
         dim, excs = Helpers.generateRndStateParams(dim)
         state = sum([(np.sqrt(v)**po)*states.basis(dim, k) for k, v in excs.items()])
         return state, dim, excs
+    @staticmethod
+    def randString(N):
+        return str(''.join(rn.choice(string.ascii_uppercase + string.digits) for _ in range(N)))
+    @staticmethod
+    def randStringList(n=4, N=10):
+        return [Helpers.randString(rn.randint(1, 10)) for _ in range(rn.randint(n, N))]
 
 @pytest.fixture
 def helpers():

@@ -3,13 +3,9 @@ import string
 import pytest
 import quanguru.classes.base as qbase #pylint: disable=import-error
 
-def randString(N):
-    return str(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N)))
-
-strings = [randString(random.randint(1, 10)) for _ in range(random.randint(4, 10))]
-
 @pytest.mark.parametrize("cls", [qbase.qBase])
-def test_auxDictAndObj(cls):
+def test_auxDictAndObj(cls, helpers):
+    strings = helpers.randStringList()
     # create internal and external instances and add items to aux dictionary
     for i in range(2):
         inst1 = cls(_internal=bool(i))
@@ -82,14 +78,14 @@ def assertRemoved(remOb, mainOb):
         mainOb.subSys[remOb.alias[0]]
 
 @pytest.mark.parametrize("cls", [qbase.qBase])
-def test_subSysAddRemoveResetMethods(cls):
+def test_subSysAddRemoveResetMethods(cls, helpers):
     # create internal and external instances and add items to aux dictionary
     for i in range(2):
         # create a single object and a list object to be used for subSys
         inst1 = cls(_internal=bool(i))
         insts = [cls(_internal=bool(i)) for x in range(8)]
         # create bunch of strings to be used as alias
-        strings2 = [randString(random.randint(1, 10)) for _ in range(12)]
+        strings2 = [helpers.randString(random.randint(1, 10)) for _ in range(12)]
         # add the first element and assert that its in the subSys
         inst1.addSubSys(insts[0])
         assert insts[0] in inst1.subSys.values()
