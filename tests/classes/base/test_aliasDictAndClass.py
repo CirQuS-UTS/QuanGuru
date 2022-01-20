@@ -67,10 +67,10 @@ def test_aliasDictWithAliasClassAndRegularStrings(helpers):
     strings = helpers.randStringList() # pylint: disable=too-many-statements
     # testing the aliasDict class with regular strings and AliasClass object keys.
     alDict = qbase.aliasDict()
-    aliasObj1 = qbase.aliasClass(name=helpers.randString(random.randint(1, 10)),
-                                alias=[helpers.randString(random.randint(1, 10)), helpers.randString(random.randint(1, 10))])
-    aliasObj2 = qbase.aliasClass(name=helpers.randString(random.randint(1, 10)),
-                                alias=[helpers.randString(random.randint(1, 10)), helpers.randString(random.randint(1, 10))])
+    aliasObj1 = qbase.aliasClass(name=helpers.randString(random.randint(3, 10)),
+                                alias=[helpers.randString(random.randint(3, 10)), helpers.randString(random.randint(3, 10))])
+    aliasObj2 = qbase.aliasClass(name=helpers.randString(random.randint(3, 10)),
+                                alias=[helpers.randString(random.randint(3, 10)), helpers.randString(random.randint(3, 10))])
     # add a single item and verify by using the object, its name, and each alias
     alDict[aliasObj1] = 2
     assert alDict[aliasObj1] == 2
@@ -158,9 +158,9 @@ def test_aliasDictWithAliasClassAndRegularStrings(helpers):
     assert len(alDict) == 0
 
     # create a list of aliasClass objects to be used as the key and extend with strings, then shuffle
-    names = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
-    aliases1 = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
-    aliases2 = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
+    names = [helpers.randString(random.randint(3, 10)) for _ in range(5)]
+    aliases1 = [helpers.randString(random.randint(3, 10)) for _ in range(5)]
+    aliases2 = [helpers.randString(random.randint(3, 10)) for _ in range(5)]
     listOfAliasObj = [qbase.aliasClass(name=names[i], alias=[aliases1[i], aliases2[i]]) for i in range(5)]
     listOfAliasObj.extend(strings)
     while True:
@@ -196,9 +196,9 @@ def test_aliasDictWithAliasClassAndRegularStrings(helpers):
 def test_aliasDictPicklingAndRepr(helpers):
     strings = helpers.randStringList()
     # create a list of aliasClass objects to be used as the key and extend with strings, then shuffle
-    names = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
-    aliases1 = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
-    aliases2 = [helpers.randString(random.randint(1, 10)) for _ in range(5)]
+    names = [helpers.randString(random.randint(3, 10)) for _ in range(5)]
+    aliases1 = [helpers.randString(random.randint(3, 10)) for _ in range(5)]
+    aliases2 = [helpers.randString(random.randint(3, 10)) for _ in range(5)]
     listOfAliasObj = [qbase.aliasClass(name=names[i], alias=[aliases1[i], aliases2[i]]) for i in range(5)]
     listOfAliasObj.extend(strings)
     random.shuffle(listOfAliasObj)

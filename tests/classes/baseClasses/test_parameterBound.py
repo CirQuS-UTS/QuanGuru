@@ -1,4 +1,8 @@
+from email.mime import base
 import random
+from turtle import right
+
+import pytest
 import quanguru.classes.baseClasses as baseClasses #pylint: disable=import-error
 
 def _parameterClassTestSub(ob, v1, v2, bo):
@@ -58,3 +62,88 @@ def test_parameterClass(helpers):
     p4.value = strings[6]
     _parameterClassTestSub(p3, strings[5], strings[5], False)
     _parameterClassTestSub(p4, strings[6], strings[6], False)
+
+def test_paramBoundBaseCreateBreakBound():
+    # should work only with other paramBoundBase objects
+    pb1 = baseClasses.paramBoundBase()
+    pb2 = baseClasses.paramBoundBase()
+
+    # _paramBound does not have a getter
+    with pytest.raises(AttributeError):
+        pbAR1 = baseClasses.paramBoundBase(_paramBound=pb1)
+    with pytest.raises(AttributeError):
+        pb2._paramBound = pb1
+
+    # cannot bound with self
+    with pytest.raises(ValueError):
+        pb1._createParamBound(pb1)
+
+    with pytest.raises(ValueError):
+        pb2._createParamBound(pb2)
+
+    # create a bound and verify
+    pb2._createParamBound(pb1)
+    assert pb1 in pb2._paramBoundBase__paramBound.values()
+    assert pb1 in pb2._paramBound.values()
+
+    # break the bound and verify
+    pb2._breakParamBound(pb1)
+    assert pb1 not in pb2._paramBoundBase__paramBound.values()
+    assert pb1 not in pb2._paramBound.values()
+
+def test_paramBoundBaseCreateBreakBoundWithList(helpers):
+    # create some paramBound objects
+    # and create and break the bounds by giving list of objects
+    pbObj = [baseClasses.paramBoundBase() for ind in range(6)]
+    assert all([pbObj[ind]._paramBound == {} for ind in range(6)])
+
+    riSmaller = random.randint(1, 4)
+    riBigger = random.randint(riSmaller, 6)
+
+    added = pbObj[riSmaller:riBigger]
+    notAdded = [po for po in pbObj if po not in added]
+
+    pbObj[0]._createParamBound(added)
+
+    assert all([po in pbObj[0]._paramBound.values() for po in added])
+    assert all([po not in pbObj[0]._paramBound.values() for po in notAdded])
+    
+
+def test_paramBoundBaseParamUpdated():
+    # should work only with other paramBoundBase objects
+    pb1 = baseClasses.paramBoundBase()
+    assert pb1._paramUpdated is True
+    pb2 = baseClasses.paramBoundBase()
+    assert pb2._paramUpdated is True
+
+    pb2._paramUpdated = False
+    assert pb2._paramUpdated is False
+    assert pb1._paramUpdated is True
+
+    pb2._createParamBound(pb1)
+    
+    pb2._paramUpdated = False
+    assert pb2._paramUpdated is False
+    assert pb1._paramUpdated is False
+
+    pb2._breakParamBound(pb1)
+
+    pb2._paramUpdated = True
+    assert pb2._paramUpdated is True
+    assert pb1._paramUpdated is False
+
+def test_paramBoundDelMatrices(helpers):
+    # create some paramBound objects
+    # store something in their _paramBoundBase__matrix
+    # _createParamBound or addSubSys, then delMatrices through one
+    strings = helpers.randStringList(7,8) 
+    pbObj = [baseClasses.paramBoundBase() for ind in range(6)]
+    assert all([pbObj[ind]._paramBoundBase__matrix == None for ind in range(6)])
+    for ind in range(6):
+        pbObj[ind]._paramBoundBase__matrix = strings[ind]
+    assert all([pbObj[ind]._paramBoundBase__matrix == strings[ind] for ind in range(6)])
+    pbObj[0].addSubSys(pbObj[1:3])
+    pbObj[0]._createParamBound(pbObj[3:6])
+    assert all([pbObj[ind]._paramBoundBase__matrix == strings[ind] for ind in range(6)])
+    pbObj[0].delMatrices()
+    assert all([pbObj[ind]._paramBoundBase__matrix == None for ind in range(6)])

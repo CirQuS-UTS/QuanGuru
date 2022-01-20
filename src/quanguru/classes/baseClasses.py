@@ -269,7 +269,8 @@ class paramBoundBase(qBase):
         creates a bound to ``self``, ie. given ``bound`` (have to be an :class:`~paramBoundBase` instance) objects
         `__paramUpdated` boolean is updated whenever self updates its.
         """
-        assert isinstance(bound, paramBoundBase), "Given object is not an instance of paramBoundBase!"
+        checkNotVal(bound, self, 'Cannot bound an object to itself')
+        checkCorType(bound, paramBoundBase, '_createParamBound')
         bound._named__setKwargs(**kwargs) # pylint: disable=no-member
         self._paramBoundBase__paramBound[bound.name] = bound
         return bound
@@ -279,9 +280,7 @@ class paramBoundBase(qBase):
         r"""
         This method removes the given object from the ``__paramBound`` dictionary.
         """
-        if not isinstance(bound, paramBoundBase):
-            bound = self.getByNameOrAlias(bound)
-        assert isinstance(bound, paramBoundBase), "Given object is not an instance of paramBoundBase!"
+        bound = checkCorType(self.getByNameOrAlias(bound), paramBoundBase, '_breakParamBound')
         self._paramBoundBase__paramBound.pop(bound.name)
 
     @property

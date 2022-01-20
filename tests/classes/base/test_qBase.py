@@ -85,7 +85,7 @@ def test_subSysAddRemoveResetMethods(cls, helpers):
         inst1 = cls(_internal=bool(i))
         insts = [cls(_internal=bool(i)) for x in range(8)]
         # create bunch of strings to be used as alias
-        strings2 = [helpers.randString(random.randint(1, 10)) for _ in range(12)]
+        strings2 = [helpers.randString(random.randint(3, 10)) for _ in range(12)]
         # add the first element and assert that its in the subSys
         inst1.addSubSys(insts[0])
         assert insts[0] in inst1.subSys.values()

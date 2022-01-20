@@ -125,7 +125,7 @@ def test_getByNameOrAliasWithMultiProcessing(cls, helpers):
     strings = helpers.randStringList()
     # first make sure that the object properly pickles. the equality is satisfied just by looking at their names, since
     # the names are unique
-    ob = cls(_internal=False, alias=[helpers.randString(random.randint(1, 10)), helpers.randString(random.randint(1, 10))])
+    ob = cls(_internal=False, alias=[helpers.randString(random.randint(3, 10)), helpers.randString(random.randint(3, 10))])
     obp = pickle.dumps(ob)
     ob1 = pickle.loads(obp)
     assert ob1.name == ob.name
