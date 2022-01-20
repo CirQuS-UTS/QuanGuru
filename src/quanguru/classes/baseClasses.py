@@ -37,7 +37,7 @@ r"""
 """
 from typing import Any, Callable, Dict, List, Union, cast
 
-from .exceptions import raiseAttrType
+from .exceptions import raiseAttrType, checkCorType
 from .base import named, qBase, addDecorator, _recurseIfList, aliasDict
 from .QRes import qResults
 from .tempConfig import classConfig
@@ -71,7 +71,7 @@ class updateBase(qBase):
         #: methods can be customized by re-assigning this.
         self.__function: Callable = None
         #: boolean to switch from subSys attribute sweep/update (False) to auxiliary dictionary key sweep/update (True)
-        self._aux: bool = False
+        self._aux: bool = checkCorType(kwargs.pop('_aux', False), bool, '_aux')
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property

@@ -93,8 +93,8 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
     @property
     def index(self):
         r"""
-        returns ``self._sweepIndex + 1``. reason for +1 is explained in :py:attr:`~_sweepIndex`. There is no setter, the value
-        of _sweepIndex is updated by the :meth:`~runSweep` and is an internal process.
+        returns ``self._sweepIndex + 1``. reason for +1 is explained in :py:attr:`~_sweepIndex`. There is no setter,
+        the value of _sweepIndex is updated by the :meth:`~runSweep` and is an internal process.
         """
         return self._sweepIndex + 1
 

@@ -64,7 +64,7 @@ def _recurseIfList(func: Callable) -> Callable:
         else:
             if _exclude in inspect.getfullargspec(func).args:
                 r = func(obj, inp, _exclude=_exclude, **kwargs)
-            else: #pylint:disable=bare-except   # noqa: E722
+            else:
                 r = func(obj, inp, **kwargs)
         return r
     return recurse
