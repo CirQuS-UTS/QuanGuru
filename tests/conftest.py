@@ -51,7 +51,7 @@ class Helpers:
         return str(''.join(rn.choice(string.ascii_uppercase + string.digits) for _ in range(N)))
     @staticmethod
     def randStringList(n=4, N=10):
-        return [Helpers.randString(rn.randint(1, 10)) for _ in range(rn.randint(n, N))]
+        return [Helpers.randString(rn.randint(3, 10)) for _ in range(rn.randint(n, N))]
 
 @pytest.fixture
 def helpers():

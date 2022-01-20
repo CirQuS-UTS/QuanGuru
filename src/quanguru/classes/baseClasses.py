@@ -37,7 +37,7 @@ r"""
 """
 from typing import Any, Callable, Dict, List, Union, cast
 
-from .exceptions import raiseAttrType, checkCorType
+from .exceptions import raiseAttrType, checkCorType, checkNotVal
 from .base import named, qBase, addDecorator, _recurseIfList, aliasDict
 from .QRes import qResults
 from .tempConfig import classConfig
@@ -152,13 +152,12 @@ class _parameter: # pylint: disable=too-few-public-methods
 
     __slots__ = ['_value', '_bound']
 
-    def __init__(self, value: Any = None, bound: '_parameter' = None) -> None:
-        assert bound is not self, "cannot bound a _parameter to itself!"
+    def __init__(self, value: Any = None, _bound: '_parameter' = None) -> None:
         #: the value to be wrapped
         self._value: Any = value #pylint:disable=unsubscriptable-object
         #: bounded _parameter object, self is not bounded to anything when this is None or any other object that does
         #: not have a ``value`` attribute. Assigned to False when a bound is broken (by updating the value).
-        self._bound: "_parameter" = bound
+        self._bound: '_parameter' = _bound
 
     @property
     def value(self) -> Any:
