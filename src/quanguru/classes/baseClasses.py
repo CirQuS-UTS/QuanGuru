@@ -110,7 +110,7 @@ class updateBase(qBase):
             for subSys in self.subSys.values():
                 setattr(subSys, self._updateBase__key, val)
         elif self._aux is True:
-            self.aux[self._updateBase__key] = val
+            self.auxDict[self._updateBase__key] = val
 
 class _parameter: # pylint: disable=too-few-public-methods
     r"""

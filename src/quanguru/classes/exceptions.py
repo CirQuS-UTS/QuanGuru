@@ -31,7 +31,7 @@ def checkNotVal(someObj, val, msg):
         raise ValueError(msg)
     return someObj
 
-def checkNotType(someObj, someType, msg):
+def checkEqType(someObj, someType, msg):
     if not isinstance(someObj, someType):
         raise ValueError(msg)
     return someObj
