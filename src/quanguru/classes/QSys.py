@@ -106,7 +106,7 @@ class genericQSys(qBaseSim):
     __slots__ = ['__unitary', '__dimension', '__dimsBefore', '__dimsAfter', '_inpCoef']
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
@@ -375,7 +375,7 @@ class compQSystem(genericQSys):
     def __init__(self, **kwargs):
         if self.__class__.__name__ == 'compQSystem':
             compQSystem._externalInstances = qSystem._instances + compQSystem._instances
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         #: an ordered dictionary for the coupling terms
         self.__qCouplings = OrderedDict()
         #: an ordered dictionary for the quantum systems
@@ -642,7 +642,7 @@ class termTimeDep(paramBoundBase):
     __slots__ = ['timeDependency', '__frequency', '__order', '__operator']
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         #: function that can be assigned by the user to update the parameters a function of time. The library passes the
         #: current time to this function
         self.timeDependency = None
@@ -831,7 +831,7 @@ class qSystem(genericQSys):
     def __init__(self, **kwargs):
         if self.__class__.__name__ == 'qSystem':
             qSystem._externalInstances = qSystem._instances + compQSystem._instances
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         # TODO
         qSysKwargs = ['terms', 'subSys', 'name', 'superSys', 'dimension', 'alias']
         for key in qSysKwargs:
@@ -1041,7 +1041,8 @@ class Spin(qSystem): # pylint: disable=too-many-ancestors
 
     __slots__ = ['__jValue']
     def __init__(self, **kwargs):
-        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
+        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None),
+                         _internal=kwargs.pop('_internal', False))
         #: operator for (the first term in) its Hamiltonian
         self.operator = qOps.Jz
         #: spin quantum number
@@ -1075,7 +1076,8 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
+        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None),
+                         _internal=kwargs.pop('_internal', False))
         kwargs['dimension'] = 2
         self.operator = qOps.Jz
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
@@ -1096,7 +1098,8 @@ class Cavity(qSystem): # pylint: disable=too-many-ancestors
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
+        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None),
+                         _internal=kwargs.pop('_internal', False))
         self.operator = qOps.number
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -1117,7 +1120,7 @@ class qCoupling(termTimeDep):
 
     #@qCouplingInitErrors
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
         self.addTerm(*args)
 

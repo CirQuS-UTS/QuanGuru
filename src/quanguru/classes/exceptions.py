@@ -31,6 +31,11 @@ def checkNotVal(someObj, val, msg):
         raise ValueError(msg)
     return someObj
 
+def checkNotType(someObj, someType, msg):
+    if not isinstance(someObj, someType):
+        raise ValueError(msg)
+    return someObj
+
 # TODO turn prints into actual error raise, they are print for testing
 
 def qSystemInitErrors(init):

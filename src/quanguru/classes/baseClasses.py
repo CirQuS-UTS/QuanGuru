@@ -64,7 +64,7 @@ class updateBase(qBase):
     __slots__ = ['__key', '__function', '_aux']
 
     def __init__(self, **kwargs) -> None:
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         #: string for an attribute of the objects in ``subSys`` dictionary, used in getattr().
         self.__key: str = None
         #: attribute for custom sweep/update methods. Assigned to some default methods in child, and sweep/update

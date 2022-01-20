@@ -44,7 +44,7 @@ import weakref
 from itertools import chain
 from typing import Callable, Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
-from .exceptions import raiseAttrType, checkNotVal
+from .exceptions import raiseAttrType, checkNotVal, checkNotType
 
 __all__ = [
     'qBase', 'named'
@@ -256,7 +256,6 @@ class aliasDict(dict):
         This enables to ``return True`` for an :class:`~aliasClass` object itself, its name, or any of it aliases.
         """
         return super().__contains__(keySearch(self, o))
-        #any([o == k for k in self.keys()])
 
     def update(self, mapping: Optional[Mapping] = (), **kwargs) -> None:  #pylint:disable=unsubscriptable-object
         r"""
@@ -647,7 +646,6 @@ class qBase(named):
 
         TODO add example &/ link to a tutorial
         """
-        assert isinstance(subSys, (named, _auxiliaryClass)), "Add method is restricted to named or its child classes!"
         if isinstance(subSys, named):
             subSys._named__setKwargs(**kwargs) # pylint: disable=W0212
         self._qBase__subSys[subSys.name] = subSys
@@ -668,7 +666,7 @@ class qBase(named):
         """
         if not isinstance(subSys, named):
             subSys = self.getByNameOrAlias(subSys)
-        assert isinstance(subSys, named), "Given object is not an instance of named!"
+        checkNotType(subSys, named, "Given object is not an instance of named or _auxiliaryClass!")
         self.subSys.pop(subSys.name)
 
     def resetSubSys(self) -> None:
