@@ -20,19 +20,19 @@ r"""
     .. |x| unicode:: U+274C
     .. |w| unicode:: U+2000
 
-    =======================    ==================   ==============   ================   ===============
-       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
-    =======================    ==================   ==============   ================   ===============
-      `updateBase`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_parameter`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `setAttr`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `setAttrParam`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `paramBoundBase`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `computeBase`              |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `qBaseSim`                 |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `stateBase`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `timeBase`                 |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-    =======================    ==================   ==============   ================   ===============
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `updateBase`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `_parameter`               |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `setAttr`                  |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `setAttrParam`             |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `paramBoundBase`           |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `computeBase`              |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `qBaseSim`                 |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `stateBase`                |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `timeBase`                 |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+    =======================    ==================    ================   ===============
 
 """
 from typing import Any, Callable, Dict, List, Union, cast
@@ -64,7 +64,7 @@ class updateBase(qBase):
     __slots__ = ['__key', '__function', '_aux']
 
     def __init__(self, **kwargs) -> None:
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         #: string for an attribute of the objects in ``subSys`` dictionary, used in getattr().
         self.__key: str = None
         #: attribute for custom sweep/update methods. Assigned to some default methods in child, and sweep/update
@@ -110,7 +110,7 @@ class updateBase(qBase):
             for subSys in self.subSys.values():
                 setattr(subSys, self._updateBase__key, val)
         elif self._aux is True:
-            self.aux[self._updateBase__key] = val
+            self.auxDict[self._updateBase__key] = val
 
 class _parameter: # pylint: disable=too-few-public-methods
     r"""

@@ -21,18 +21,18 @@ r"""
     .. |x| unicode:: U+274C
     .. |w| unicode:: U+2000
 
-    =======================    ==================   ==============   ================   ===============
-       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
-    =======================    ==================   ==============   ================   ===============
-      `named`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
-      `qBase`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
-      `aliasClass`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
-      `keySearch`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `aliasDict`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
-      `_auxiliaryClass`          |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `_recurseIfList`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `addDecorator`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-    =======================    ==================   ==============   ================   ===============
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `named`                    |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `qBase`                    |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+      `aliasClass`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `keySearch`                |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `aliasDict`                |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+      `_auxiliaryClass`          |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `_recurseIfList`           |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `addDecorator`             |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+    =======================    ==================    ================   ===============
 
 """
 
@@ -44,7 +44,7 @@ import weakref
 from itertools import chain
 from typing import Callable, Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
-from .exceptions import raiseAttrType, checkNotVal
+from .exceptions import raiseAttrType, checkNotVal, checkEqType
 
 __all__ = [
     'qBase', 'named'
@@ -53,7 +53,8 @@ __all__ = [
 def _recurseIfList(func: Callable) -> Callable:
     r"""
     a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude
-    certain objects). It is used in various places of the library (exclude is useful/used in some of them).
+    certain objects). It is used in various places of the library (exclude is useful/used in some of them to avoid
+    infinite recursive calls).
     """
     @wraps(func) # needed for the func.__name__
     def recurse(obj, inp, _exclude=[], **kwargs): # pylint: disable=dangerous-default-value
@@ -255,7 +256,6 @@ class aliasDict(dict):
         This enables to ``return True`` for an :class:`~aliasClass` object itself, its name, or any of it aliases.
         """
         return super().__contains__(keySearch(self, o))
-        #any([o == k for k in self.keys()])
 
     def update(self, mapping: Optional[Mapping] = (), **kwargs) -> None:  #pylint:disable=unsubscriptable-object
         r"""
@@ -434,7 +434,7 @@ class named:
         for k, v in self._allInstacesDict.items():
             wv = v if not isinstance(v, weakref.ReferenceType) else v()
             checkNotVal((k == ali) and (wv != self), True,
-                         f"Given alias ({ali}) already exist and is assigned to: " + f"{k.name}")
+                         f"Given alias ({ali}) already exist and is assigned to: {k.name}")
         self._named__name.alias = ali
 
     @classmethod
@@ -502,6 +502,15 @@ class _auxiliaryClass:#pylint:disable=too-few-public-methods
     def __init__(self) -> None:
         self.name = 'auxObj'
         super().__init__()
+
+    def _named__setKwargs(self, **kwargs) -> None: #pylint:disable=invalid-name
+        r"""
+        Method to set the attributes of the object from the given keywords and values.
+        It is introduced to be used while instantiation of the object so that the protected attributes are set through
+        the correspoding properties.
+        """
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
 def addDecorator(addFunction):
     r"""
@@ -571,11 +580,11 @@ class qBase(named):
     _instances: int = 0
 
     #: (**class attribute**) aux dictionary to store auxiliary things as items to reach from any instance
-    _auxiliary: Dict = {}
+    _auxiliaryDict: Dict = {}
     #: (**class attribute**) aux object to store auxiliary things as attributes to reach from any instance
     _auxiliaryObj: _auxiliaryClass = _auxiliaryClass()
 
-    __slots__ = ['__superSys', '__subSys', '__aux', '__auxObj']
+    __slots__ = ['__superSys', '__subSys', '__auxDict', '__auxObj']
 
     def __init__(self, **kwargs) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -584,24 +593,23 @@ class qBase(named):
         #: protected attribute for sub-system dictionary
         self.__subSys: Dict = aliasDict()
         #: attribute for the class attribute _auxiliary (this is required due to pickling in multi-processing)
-        self.__aux = qBase._auxiliary
+        self.__auxDict = qBase._auxiliaryDict
         #: attribute for the class attribute _auxiliaryObj (this is required due to pickling in multi-processing)
         self.__auxObj = qBase._auxiliaryObj
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
     @property
-    def aux(self) -> Dict:
+    def auxDict(self) -> Dict:
         r"""
         property to get and set auxiliary items into auxiliary dictionary. The setter updates the existing dictionary
         (instead of an single element into the existing dictionary) with a given one, ie. adds key:value pair for the
         non-existing keys and changes the value for existing keys.
         """
-        return self._qBase__aux
+        return self._qBase__auxDict
 
-    @aux.setter
-    def aux(self, dictionary: Dict) -> None:
-        self._qBase__aux.update(dictionary)
-        #setattr(self, '_qBase__aux', dictionary) used to replace the library, now updates.
+    @auxDict.setter
+    def auxDict(self, dictionary: Dict) -> None:
+        self._qBase__auxDict.update(dictionary)
 
     @property
     def auxObj(self) -> _auxiliaryClass:
@@ -646,9 +654,7 @@ class qBase(named):
 
         TODO add example &/ link to a tutorial
         """
-        assert isinstance(subSys, (named, _auxiliaryClass)), "Add method is restricted to named or its child classes!"
-        if isinstance(subSys, named):
-            subSys._named__setKwargs(**kwargs) # pylint: disable=W0212
+        subSys._named__setKwargs(**kwargs) # pylint: disable=W0212
         self._qBase__subSys[subSys.name] = subSys
         return subSys
 
@@ -665,9 +671,8 @@ class qBase(named):
         raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
         named class.
         """
-        if not isinstance(subSys, named):
-            subSys = self.getByNameOrAlias(subSys)
-        assert isinstance(subSys, named), "Given object is not an instance of named!"
+        subSys = self.getByNameOrAlias(subSys)
+        checkEqType(subSys, (named, _auxiliaryClass), "Given object is not an instance of named or _auxiliaryClass!")
         self.subSys.pop(subSys.name)
 
     def resetSubSys(self) -> None:
@@ -678,12 +683,8 @@ class qBase(named):
 
     def copy(self, **kwargs) -> "qBase":
         r"""
-        Creates n `empty` copies of an object. This method is introduced here to be extended in child
-        class. In here, it ** does not copy ** the object, but creates n new objects of the same class and sets the
-        given kwargs.
+        Creates an `empty` copy of `self`. This method is introduced here to be extended in child class.
+        In here, it ** does not copy ** the object, but creates a new object of the same class and sets the given kwargs
         """
-        #newSystems = []
-        #for _ in range(n): # pylint: disable=W0612
         sysClass = self.__class__
         return sysClass(**kwargs)
-        #return (*newSystems,)

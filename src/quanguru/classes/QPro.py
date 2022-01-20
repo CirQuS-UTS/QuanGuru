@@ -16,16 +16,16 @@ r"""
     .. |x| unicode:: U+274C
     .. |w| unicode:: U+2000
 
-    =======================    ==================   ==============   ================   ===============
-       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
-    =======================    ==================   ==============   ================   ===============
-      `genericProtocol`          |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `qProtocol`                |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `copyStep`                 |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `freeEvolution`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `Gate`                     |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `Update`                   |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-    =======================    ==================   ==============   ================   ===============
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `genericProtocol`          |w| |w| |w| |x|       |w| |w| |x|        |w| |w| |x|
+      `qProtocol`                |w| |w| |w| |x|       |w| |w| |x|        |w| |w| |x|
+      `copyStep`                 |w| |w| |w| |x|       |w| |w| |x|        |w| |w| |x|
+      `freeEvolution`            |w| |w| |w| |x|       |w| |w| |x|        |w| |w| |x|
+      `Gate`                     |w| |w| |w| |x|       |w| |w| |x|        |w| |w| |x|
+      `Update`                   |w| |w| |w| |x|       |w| |w| |x|        |w| |w| |x|
+    =======================    ==================    ================   ===============
 
 """
 import numpy as np
@@ -230,7 +230,7 @@ class qProtocol(genericProtocol):
 
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         #self._createUnitary = self._defCreateUnitary # pylint: disable=assigning-non-slot
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -308,7 +308,7 @@ class copyStep(qBase):
     __slots__ = []
 
     def __init__(self, superSys, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.superSys = superSys
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -376,7 +376,7 @@ class Gate(genericProtocol):
     __slots__ = ['__implementation']
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.__implementation = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -421,7 +421,7 @@ class Update(updateBase):
     __slots__ = ['value', '__memoryValue', 'setup', 'setback']
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.value = None
         self.setup = self._setup
         self.setback = self._setback

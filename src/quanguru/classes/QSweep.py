@@ -15,12 +15,12 @@ r"""
     .. |x| unicode:: U+274C
     .. |w| unicode:: U+2000
 
-    =======================    ==================   ==============   ================   ===============
-       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
-    =======================    ==================   ==============   ================   ===============
-      `_sweep`                   |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `Sweep`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-    =======================    ==================   ==============   ================   ===============
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `_sweep`                   |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `Sweep`                    |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+    =======================    ==================    ================   ===============
 
 """
 
@@ -62,7 +62,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
 
     #@sweepInitError
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         #: protected attribute pointing to a sweep function, by default :meth:`~_defSweep`. This attribute get&set
         #: using the sweepFunction property to replace default with a customized sweep method.
         self._updateBase__function = self._defSweep # pylint: disable=assigning-non-slot
@@ -195,7 +195,7 @@ class Sweep(qBase):
 
     # TODO init errors
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.__inds = []
         r"""
         a list of ``sweepList`` length/s of multi-parameter ``_sweep`` object/s in ``subSys`` dictionary, meaning the

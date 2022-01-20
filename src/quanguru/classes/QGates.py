@@ -13,12 +13,12 @@
     .. |x| unicode:: U+274C
     .. |w| unicode:: U+2000
 
-    =======================    ==================   ==============   ================   ===============
-       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
-    =======================    ==================   ==============   ================   ===============
-      `SpinRotation`             |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-      `xGate`                    |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-    =======================    ==================   ==============   ================   ===============
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `SpinRotation`             |w| |w| |w| |x|       |w| |w| |x|        |w| |w| |x|
+      `xGate`                    |w| |w| |w| |x|       |w| |w| |x|        |w| |w| |x|
+    =======================    ==================    ================   ===============
 """
 
 from .QPro import Gate
@@ -37,7 +37,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
     _instances: int = 0
     __slots__ = ['__angle', '__rotationAxis', 'phase', '_rotationOp']
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.__angle = None
         self.__rotationAxis = None
         self._rotationOp = None
@@ -93,7 +93,7 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
     _instances: int = 0
     __slots__ = []
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(_internal=kwargs.pop('_internal', False))
         self.rotationAxis = 'x'
         #self._createUnitary = self._gateImplements
         self._named__setKwargs(**kwargs) # pylint: disable=no-member

@@ -131,13 +131,13 @@ def test_updateBaseWithAuxDict():
     randInt2 = random.randint(1, 100)
     # let's create a qBase, and store something in aux dictionary
     qa = base.qBase()
-    qa.aux['some key'] = randInt1
+    qa.auxDict['some key'] = randInt1
 
     # let's create a updateBase, but this time we won't give system, but set _aux to True
     s5 = baseClasses.updateBase(_aux=True, key='some key')
     # assert the current value of aux['some key']
-    assert qa.aux['some key'] == randInt1
+    assert qa.auxDict['some key'] == randInt1
     # run the update with the new value for the aux['some key']
     s5._runUpdate(randInt2)
     # assert that the aux['some key'] is updated 
-    assert qa.aux['some key'] == randInt2
+    assert qa.auxDict['some key'] == randInt2

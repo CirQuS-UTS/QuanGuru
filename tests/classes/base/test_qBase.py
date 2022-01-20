@@ -14,26 +14,26 @@ def test_auxDictAndObj(cls, helpers):
         # 1) test the auxiliary dictionary
 
         # verify that the dictionaries are the same
-        assert inst1.aux is inst2.aux
-        assert inst1.aux is cls._auxiliary
+        assert inst1.auxDict is inst2.auxDict
+        assert inst1.auxDict is cls._auxiliaryDict
         # add items
-        inst1.aux[strings[0]] = strings[1]
-        inst2.aux[strings[2]] = strings[3]
+        inst1.auxDict[strings[0]] = strings[1]
+        inst2.auxDict[strings[2]] = strings[3]
         # verify that the dictionaries are still the same
-        assert inst1.aux is inst2.aux
-        assert inst1.aux is cls._auxiliary
+        assert inst1.auxDict is inst2.auxDict
+        assert inst1.auxDict is cls._auxiliaryDict
         # verify that the cross calls works (duh! the same dictionary)
-        assert inst2.aux[strings[0]] == strings[1]
-        assert inst1.aux[strings[2]] == strings[3]
+        assert inst2.auxDict[strings[0]] == strings[1]
+        assert inst1.auxDict[strings[2]] == strings[3]
 
         # test the setter, which updates the dict
-        inst1.aux = {1:1.1, 2:2.2}
+        inst1.auxDict = {1:1.1, 2:2.2}
         # verify that the dictionaries are still the same
-        assert inst1.aux is inst2.aux
-        assert inst1.aux is cls._auxiliary
+        assert inst1.auxDict is inst2.auxDict
+        assert inst1.auxDict is cls._auxiliaryDict
         # verify that the cross calls works (duh! the same dictionary)
-        assert inst2.aux[1] == 1.1
-        assert inst2.aux[2] == 2.2
+        assert inst2.auxDict[1] == 1.1
+        assert inst2.auxDict[2] == 2.2
 
         # 2) test the auxiliary object
 
