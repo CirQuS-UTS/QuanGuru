@@ -44,7 +44,7 @@ import weakref
 from itertools import chain
 from typing import Callable, Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
-from .exceptions import raiseAttrType, checkNotVal, checkEqType
+from .exceptions import raiseAttrType, checkNotVal, checkCorType
 
 __all__ = [
     'qBase', 'named'
@@ -80,8 +80,8 @@ class aliasClass:
 
     __slots__ = ["__name", "__alias"]
 
-    @raiseAttrType([str, type(None)], "name")
     def __init__(self, name: Optional[str] = None, alias: List[Any] = list) -> None: #pylint:disable=unsubscriptable-object
+        checkCorType(name, (str, type(None)), 'name')
         self.__name: Optional[str] = name #pylint:disable=unsubscriptable-object
         r"""
         Protected name attribute of an aliasClass object, set&get through the :py:attr:`~aliasClass.name` property.
@@ -108,7 +108,7 @@ class aliasClass:
         return self._aliasClass__name #pylint:disable = no-member
 
     @name.setter
-    @raiseAttrType([str, type(None)])
+    @raiseAttrType(str, attrPrintName='name')
     def name(self, name: str) -> None:
         if self._aliasClass__name is None: #pylint:disable = no-member
             self._aliasClass__name = name  #pylint:disable = no-member, assigning-non-slot
@@ -357,11 +357,10 @@ class named:
             if isinstance(v, named):
                 self._allInstaces[k] = weakref.ref(v, None) # pylint: disable=protected-access
 
-    @raiseAttrType([bool, type(None)], "_internal")
     def __init__(self, **kwargs) -> None:
-        super().__init__()
         #: boolean to distinguish internally and explicitly created instances.
-        self._internal: bool = kwargs.pop('_internal', False)
+        self._internal: bool = checkCorType(kwargs.pop('_internal', False), bool, '_internal')
+        super().__init__()
         self._incrementInstances()
         #: protected name attribute is an instance of :class:`~named` class
         self.__name: aliasClass = aliasClass(name=self._named__namer())
@@ -672,7 +671,7 @@ class qBase(named):
         named class.
         """
         subSys = self.getByNameOrAlias(subSys)
-        checkEqType(subSys, (named, _auxiliaryClass), "Given object is not an instance of named or _auxiliaryClass!")
+        checkCorType(subSys, (named, _auxiliaryClass), 'removeSubSys')
         self.subSys.pop(subSys.name)
 
     def resetSubSys(self) -> None:

@@ -82,6 +82,7 @@ class updateBase(qBase):
         return self._updateBase__key
 
     @key.setter
+    @raiseAttrType(str, attrPrintName='key')
     def key(self, keyStr: str) -> None:
         self._updateBase__key = keyStr # pylint: disable=assigning-non-slot
 
@@ -393,7 +394,7 @@ class computeBase(paramBoundBase):
             meth(self) # pylint: disable=not-callable
 
     @paramBoundBase.alias.setter
-    @raiseAttrType([str, list, type(None)], "ali")
+    @raiseAttrType([str, list], attrPrintName="alias")
     def alias(self, ali: str) -> None:
         r"""
         Extends the alias setter to assign an alias (givenAlias + Results) to self.qRes as well.
