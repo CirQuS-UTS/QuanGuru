@@ -92,7 +92,7 @@ def test_subSysAddRemoveResetMethods(cls, helpers):
         assert inst1.subSys[insts[0].name] is insts[0]
         # add alias and assert that you can get it by any of the alias
         insts[0].alias = strings2[0:1]
-        assert all([inst1.subSys[key] is insts[0] for key in strings2[0:1]])
+        assert all(inst1.subSys[key] is insts[0] for key in strings2[0:1])
 
         # add a subSys by giving the class (instead of an instance)
         newIns = inst1.addSubSys(cls)
@@ -101,7 +101,7 @@ def test_subSysAddRemoveResetMethods(cls, helpers):
         assert inst1.subSys[newIns.name] is newIns
         # add alias and assert that you can get it by any of the alias
         newIns.alias = strings2[2:3]
-        assert all([inst1.subSys[key] is newIns for key in strings2[2:3]])
+        assert all(inst1.subSys[key] is newIns for key in strings2[2:3])
 
         # add a subSys by its name
         retIns = inst1.addSubSys(insts[1].name)
@@ -109,7 +109,7 @@ def test_subSysAddRemoveResetMethods(cls, helpers):
         assert insts[1] in inst1.subSys.values()
         assert inst1.subSys[insts[1].name] is retIns
         insts[1].alias = strings2[4:5]
-        assert all([inst1.subSys[key] is retIns for key in strings2[4:5]])
+        assert all(inst1.subSys[key] is retIns for key in strings2[4:5])
 
         # add a subSys by it alias
         assert insts[2] not in inst1.subSys.values()
@@ -125,7 +125,7 @@ def test_subSysAddRemoveResetMethods(cls, helpers):
         assert insts[3] in inst1.subSys.values()
         assert inst1.subSys[insts[3].name] is retIns
         insts[3].alias = strings2[8:9]
-        assert all([inst1.subSys[key] is retIns for key in strings2[8:9]])
+        assert all(inst1.subSys[key] is retIns for key in strings2[8:9])
 
         # add a list of subSys
         insts[4].alias = strings2[10]

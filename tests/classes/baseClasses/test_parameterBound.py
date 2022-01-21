@@ -92,7 +92,7 @@ def test_paramBoundBaseCreateBreakBoundWithList(helpers):
     # create some paramBound objects
     # and create and break the bounds by giving list of objects
     pbObj = [baseClasses.paramBoundBase() for ind in range(6)]
-    assert all([pbObj[ind]._paramBound == {} for ind in range(6)])
+    assert all(pbObj[ind]._paramBound == {} for ind in range(6))
 
     riSmaller = random.randint(1, 4)
     riBigger = random.randint(riSmaller, 6)
@@ -102,8 +102,8 @@ def test_paramBoundBaseCreateBreakBoundWithList(helpers):
 
     pbObj[0]._createParamBound(added)
 
-    assert all([po in pbObj[0]._paramBound.values() for po in added])
-    assert all([po not in pbObj[0]._paramBound.values() for po in notAdded])
+    assert all(po in pbObj[0]._paramBound.values() for po in added)
+    assert all(po not in pbObj[0]._paramBound.values() for po in notAdded)
     
 
 def test_paramBoundBaseParamUpdated():
@@ -135,12 +135,12 @@ def test_paramBoundDelMatrices(helpers):
     # _createParamBound or addSubSys, then delMatrices through one
     strings = helpers.randStringList(7,8) 
     pbObj = [baseClasses.paramBoundBase() for ind in range(6)]
-    assert all([pbObj[ind]._paramBoundBase__matrix == None for ind in range(6)])
+    assert all(pbObj[ind]._paramBoundBase__matrix == None for ind in range(6))
     for ind in range(6):
         pbObj[ind]._paramBoundBase__matrix = strings[ind]
-    assert all([pbObj[ind]._paramBoundBase__matrix == strings[ind] for ind in range(6)])
+    assert all(pbObj[ind]._paramBoundBase__matrix == strings[ind] for ind in range(6))
     pbObj[0].addSubSys(pbObj[1:3])
     pbObj[0]._createParamBound(pbObj[3:6])
-    assert all([pbObj[ind]._paramBoundBase__matrix == strings[ind] for ind in range(6)])
+    assert all(pbObj[ind]._paramBoundBase__matrix == strings[ind] for ind in range(6))
     pbObj[0].delMatrices()
-    assert all([pbObj[ind]._paramBoundBase__matrix == None for ind in range(6)])
+    assert all(pbObj[ind]._paramBoundBase__matrix == None for ind in range(6))

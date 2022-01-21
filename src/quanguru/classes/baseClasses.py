@@ -345,6 +345,9 @@ class computeBase(paramBoundBase):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
+        kwargs.pop('qRes', None)
+        #: This attribute is an instance of :class:`~qResults`, which is used to store simulation results and states.
+        self.qRes: qResults = qResults(superSys=self, _internal=True, alias=self.name.name+"Results")
         self.compute: Callable = None
         r"""
         Function to call at each step of the time evolution, by default ``None``. It needs to be written in the
@@ -365,8 +368,6 @@ class computeBase(paramBoundBase):
         This is by default ``None``.
         """
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
-        #: This attribute is an instance of :class:`~qResults`, which is used to store simulation results and states.
-        self.qRes: qResults = qResults(superSys=self, _internal=True, alias=self.name.name+"Results")
 
     def __compute(self, states, *args, **kwargs) -> None: # pylint: disable=dangerous-default-value
         r"""
@@ -393,13 +394,15 @@ class computeBase(paramBoundBase):
         return attrNotValWarn(meth, None, 'calculate'+where+' should be a callable but ' + str(type(meth)) + 'is given')
 
     @paramBoundBase.alias.setter
-    @raiseAttrType([str, list], attrPrintName="alias")
     def alias(self, ali: str) -> None:
         r"""
         Extends the alias setter to assign an alias (givenAlias + Results) to self.qRes as well.
         """
         named.alias.fset(self, ali) #pylint:disable=no-member
-        self.qRes.alias = ali + "Results" if isinstance(ali, str) else [a+"Results" for a in ali]
+        if isinstance(ali, str):
+            self.qRes.alias = ali + "Results"
+        elif isinstance(ali, list):
+            self.qRes.alias = [a+"Results" for a in ali if isinstance(a, str)]
 
     @property
     def results(self) -> Dict:
