@@ -21,11 +21,9 @@ r"""
        **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
     =======================    ==================    ================   ===============
       `updateBase`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
-      `_parameter`               |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
-      `setAttr`                  |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
-      `setAttrParam`             |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
-      `paramBoundBase`           |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
-      `computeBase`              |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `_parameter`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+      `paramBoundBase`           |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+      `computeBase`              |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
     =======================    ==================    ================   ===============
 
 """

@@ -1,3 +1,24 @@
+r"""
+    Contains the parent class of quantum systems and protocols.
+    Every system and protocol has a simulation, and this class creates this composition.
+
+    .. currentmodule:: quanguru.classes.QSimComp
+
+    .. autosummary::
+
+        QSimComp
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `QSimComp`                 |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
+    =======================    ==================    ================   ===============
+
+"""
 from .baseClasses import computeBase
 from .QSim import Simulation # pylint: disable=import-outside-toplevel
 
@@ -9,7 +30,6 @@ class QSimComp(computeBase):
     simulation attribute which is an instance of :class:`Simulation <quanguru.classes.Simulation.Simulation>`. The goal
     for such an attribute is to increase possible ways of running a
     :class:`Simulation <quanguru.classes.Simulation.Simulation>`.
-    TODO : create a simple demo and a cross-reference
 
     NOTE : This class branches the inheritance started by :class:`paramBoundBase`, and this branch extends to
     :class:`quantum systems <quanguru.classes.QSys.genericQSys>` and

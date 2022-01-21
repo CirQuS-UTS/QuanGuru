@@ -60,7 +60,7 @@ def saveCSV(data, path=None, fileName=None):
         fileName = datetime.timestamp(now)
     path = makeDir(path)
 
-    with open(path + '/' + str(fileName) + '.txt', 'w') as csvFile:
+    with open(path + '/' + str(fileName) + '.txt', 'w') as csvFile: #pylint:disable=W1514
         csvWriter = csv.writer(csvFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         if isinstance(data[0], (list, np.ndarray)):
             for ind in range(len(data)):
@@ -86,7 +86,7 @@ def readCSV(path, datatype=float, realVal=True):
     """
 
     data = []
-    with open(path) as csvFile:
+    with open(path) as csvFile: #pylint:disable=W1514
         csvReader = csv.reader(csvFile, delimiter=',')
         lineCount = 0
         for row in csvReader:

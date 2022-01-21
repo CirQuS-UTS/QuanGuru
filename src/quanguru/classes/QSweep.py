@@ -84,7 +84,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         #: stores the index of the value (from the _sweepList) currently being assigned by the sweep function. Used by
         #: the default methods but also useful for custom methods. It is calculated by the modular arithmetic in
         #: modularSweep and passed to here by :class:`~Sweep` object containing self in its subSys. It starts from -1
-        #: and the correspoding property returns _sweepIndex + 1, while the :meth:`~runSweep` sets it to ind+1 for a given
+        #: and the correspoding property returns _sweepIndex+1, while the :meth:`~runSweep` sets it to ind+1 for a given
         #: ind from modularSweep. This whole ordeal is due to make sure that python list indexing and modular arithmetic
         #: properly agrees for the sweep functionality. I feel it can be improved but will leave as it is for now.
         self._sweepIndex = -1
