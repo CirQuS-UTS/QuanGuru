@@ -368,16 +368,16 @@ class computeBase(paramBoundBase):
         #: This attribute is an instance of :class:`~qResults`, which is used to store simulation results and states.
         self.qRes: qResults = qResults(superSys=self, _internal=True, alias=self.name.name+"Results")
 
-    def __compute(self, states) -> None: # pylint: disable=dangerous-default-value
+    def __compute(self, states, *args, **kwargs) -> None: # pylint: disable=dangerous-default-value
         r"""
         This is the actual compute function that is called in the time-evolution, it calls ``self.compute`` if it is a
         callable and does nothing otherwise.
         """
         if callable(self.compute):
-            self.compute(self, states) # pylint: disable=not-callable
-        attrNotValWarn(self.compute, None, 'compute should be a callable but ' + str(type(self.compute)) + 'is given')
+            return self.compute(self, states, *args, **kwargs) # pylint: disable=not-callable
+        return attrNotValWarn(self.compute, None, 'compute should callable but '+str(type(self.compute))+'is given')
 
-    def __calculate(self, where: str = "start") -> None:
+    def __calculate(self, where: str, *args, **kwargs) -> None:
         r"""
         This is the actual calculate function that is called in the time-evolution, it calls
         (if callable, does nothing otherwise) ``self.calculateStart``
@@ -389,8 +389,8 @@ class computeBase(paramBoundBase):
             meth = self.calculateEnd
 
         if callable(meth):
-            meth(self) # pylint: disable=not-callable
-        attrNotValWarn(meth, None, 'calculate' + where + ' should be a callable but ' + str(type(meth)) + 'is given')
+            return meth(self, *args, **kwargs) # pylint: disable=not-callable
+        return attrNotValWarn(meth, None, 'calculate'+where+' should be a callable but ' + str(type(meth)) + 'is given')
 
     @paramBoundBase.alias.setter
     @raiseAttrType([str, list], attrPrintName="alias")

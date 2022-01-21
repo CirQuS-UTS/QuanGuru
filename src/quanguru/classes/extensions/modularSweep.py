@@ -75,15 +75,15 @@ def _runSweepAndPrep(qSim, ind):
         protocol.currentState = protocol.initialState if not protocol._isOpen else densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
 
     qSim.qRes._resetLast() # pylint: disable=protected-access
-    qSim._computeBase__calculate(where="start")
+    qSim._computeBase__calculate("start")
     for protocol in qSim.subSys.keys():
-        qSim.subSys[protocol]._computeBase__calculate(where="start") # pylint: disable=protected-access
-        protocol._computeBase__calculate(where="start") # pylint: disable=protected-access
+        qSim.subSys[protocol]._computeBase__calculate("start") # pylint: disable=protected-access
+        protocol._computeBase__calculate("start") # pylint: disable=protected-access
     timeDependent(qSim)
-    qSim._computeBase__calculate(where="end")
+    qSim._computeBase__calculate("end")
     for protocol in qSim.subSys.keys():
-        qSim.subSys[protocol]._computeBase__calculate(where="end") # pylint: disable=protected-access
-        protocol._computeBase__calculate(where="end") # pylint: disable=protected-access
+        qSim.subSys[protocol]._computeBase__calculate("end") # pylint: disable=protected-access
+        protocol._computeBase__calculate("end") # pylint: disable=protected-access
 
 def timeDependent(qSim):
     td = False
