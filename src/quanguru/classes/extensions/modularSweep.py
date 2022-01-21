@@ -34,7 +34,7 @@
 """
 
 from functools import partial
-import quanguru.QuantumToolbox as qt
+from ...QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
 
 def runSimulation(qSim, p):
     # NOTE determine if more samples of a protocol step are requested.
@@ -72,7 +72,7 @@ def _runSweepAndPrep(qSim, ind):
         qSim.Sweep.runSweep(qSim.Sweep._indicesForSweep(ind, *qSim.Sweep.inds))
 
     for protocol in qSim.subSys.keys():
-        protocol.currentState = protocol.initialState if not protocol._isOpen else qt.densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
+        protocol.currentState = protocol.initialState if not protocol._isOpen else densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
 
     qSim.qRes._resetLast() # pylint: disable=protected-access
     qSim._computeBase__calculate(where="start")
@@ -126,9 +126,9 @@ def timeEvolDefault(qSim, td):
 def timeEvolBase(qSim):
     for protocol in qSim.subSys.keys(): #pylint:disable=too-many-nested-blocks
         if protocol._isOpen: # pylint: disable=protected-access
-            state = qt.mat2Vec(protocol.currentState)
+            state = mat2Vec(protocol.currentState)
             state = protocol.unitary() @ state
-            protocol.currentState = qt.vec2Mat(state)
+            protocol.currentState = vec2Mat(state)
         else:
             protocol.sampleStates = []
             if protocol.stepSample:

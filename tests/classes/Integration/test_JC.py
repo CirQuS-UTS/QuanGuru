@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.core.fromnumeric import sort
 import pytest
 import random
 import quanguru as qg

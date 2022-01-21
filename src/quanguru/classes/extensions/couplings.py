@@ -25,8 +25,8 @@
 
 """
 
-from quanguru.classes.QSys import compQSystem, Qubit, Cavity, Spin
-from quanguru.QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax, Jx
+from ..QSys import compQSystem, Qubit, Cavity, Spin
+from ...QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax, Jx
 
 
 def checkCavQub(coupler):

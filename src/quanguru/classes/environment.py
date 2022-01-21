@@ -10,8 +10,8 @@
 
 """
 
-from quanguru.QuantumToolbox.thermodynamics import nBarThermal
-from quanguru.QuantumToolbox.operators import compositeOp
+from ..QuantumToolbox.thermodynamics import nBarThermal
+from ..QuantumToolbox.operators import compositeOp
 from .baseClasses import paramBoundBase, setAttr
 
 class _genericOpen(paramBoundBase):

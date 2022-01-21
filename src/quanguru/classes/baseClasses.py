@@ -37,7 +37,7 @@ r"""
 """
 from typing import Any, Callable, Dict, List, Union, cast
 
-from .exceptions import raiseAttrType, checkCorType, checkNotVal
+from .exceptions import attrNotValWarn, raiseAttrType, checkCorType, checkNotVal
 from .base import named, qBase, addDecorator, _recurseIfList, aliasDict
 from .QRes import qResults
 from .tempConfig import classConfig
@@ -289,7 +289,6 @@ class paramBoundBase(qBase):
         Gets ``_paramBoundBase__paramUpdated`` boolean, and sets it for ``self`` and all the other objects in
         ``__paramBound`` dictionary.
         """
-
         return self._paramBoundBase__paramUpdated
 
     @_paramUpdated.setter
@@ -376,6 +375,7 @@ class computeBase(paramBoundBase):
         """
         if callable(self.compute):
             self.compute(self, states) # pylint: disable=not-callable
+        attrNotValWarn(self.compute, None, 'compute should be a callable but ' + str(type(self.compute)) + 'is given')
 
     def __calculate(self, where: str = "start") -> None:
         r"""
@@ -390,6 +390,7 @@ class computeBase(paramBoundBase):
 
         if callable(meth):
             meth(self) # pylint: disable=not-callable
+        attrNotValWarn(meth, None, 'calculate' + where + ' should be a callable but ' + str(type(meth)) + 'is given')
 
     @paramBoundBase.alias.setter
     @raiseAttrType([str, list], attrPrintName="alias")

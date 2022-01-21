@@ -3,7 +3,6 @@ import quanguru.QuantumToolbox.operators as ops
 import scipy.linalg as lin
 import numpy as np
 from numpy.testing import assert_almost_equal
-import scipy.sparse as sp
 
 # TODO randomize these parameters
 wq = 2

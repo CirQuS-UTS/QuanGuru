@@ -10,6 +10,7 @@
         sweepInitError
 
 """
+import warnings
 from functools import wraps
 
 def raiseAttrType(expectedTypes, attrName=0, attrPrintName=None):
@@ -50,6 +51,16 @@ def checkCorType(someObj, someType, msg):
     if not isinstance(someObj, someType):
         raise TypeError(msg + ' requires ' + str(someType) + ' but ' + str(type(someObj)) + ' is given.')
     return someObj
+
+def attrNotTypeWarn(someAttr, someTypes, msg):
+    if not isinstance(someAttr, someTypes):
+        warnings.warn(msg)
+    return someAttr
+
+def attrNotValWarn(someAttr, someValue, msg):
+    if someAttr != someValue:
+        warnings.warn(msg)
+    return someAttr
 
 # TODO turn prints into actual error raise, they are print for testing
 

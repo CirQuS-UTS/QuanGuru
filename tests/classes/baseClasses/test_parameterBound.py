@@ -1,7 +1,4 @@
-from email.mime import base
 import random
-from turtle import right
-
 import pytest
 import quanguru.classes.baseClasses as baseClasses #pylint: disable=import-error
 

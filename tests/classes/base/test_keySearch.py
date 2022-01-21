@@ -1,5 +1,4 @@
 import random
-import string
 import quanguru.classes.base as qbase #pylint: disable=import-error
 
 def test_keySearchWithRegularStrings(helpers):
