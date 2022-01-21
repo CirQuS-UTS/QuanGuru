@@ -22,7 +22,7 @@
 """
 
 from .QPro import Gate
-from .baseClasses import setAttr
+from .QSimBase import setAttr
 from ..QuantumToolbox import evolution
 from ..QuantumToolbox import operators #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox import spinRotations #pylint: disable=relative-beyond-top-level

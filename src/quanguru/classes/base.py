@@ -58,6 +58,8 @@ def _recurseIfList(func: Callable) -> Callable:
     """
     @wraps(func) # needed for the func.__name__
     def recurse(obj, inp, _exclude=[], **kwargs): # pylint: disable=dangerous-default-value
+        r = None # removing this fails test_paramBoundBaseCreateBreakBoundWithList, but only when I run all the tests
+        # could not figure out why.
         if isinstance(inp, (list, tuple)):
             for s in inp:
                 r = recurse(obj, s, _exclude=_exclude, **kwargs)

@@ -34,10 +34,11 @@ from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-t
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
 from .base import qBase, addDecorator
-from .baseClasses import _parameter, qBaseSim, updateBase
+from .baseClasses import _parameter, updateBase
+from .QSimComp import QSimComp
 from .QSweep import Sweep
 
-class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attributes
+class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attributes
     label = 'genericProtocol'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -92,7 +93,7 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     def currentState(self, inp):
         self._genericProtocol__currentState.value = inp
 
-    @qBaseSim.initialState.setter # pylint: disable=no-member
+    @QSimComp.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
         self.simulation._stateBase__initialState.value = self.superSys._createAstate(inp) # pylint:disable=W0212,E1101
@@ -142,9 +143,9 @@ class genericProtocol(qBaseSim): # pylint: disable = too-many-instance-attribute
     def fixed(self, boolean):
         self._genericProtocol__fixed = boolean # pylint: disable=assigning-non-slot
 
-    @qBaseSim.superSys.setter # pylint: disable=no-member
+    @QSimComp.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
-        qBaseSim.superSys.fset(self, supSys) # pylint: disable=no-member
+        QSimComp.superSys.fset(self, supSys) # pylint: disable=no-member
         supSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         if self.simulation._timeBase__bound is None:
             self.simulation._bound(supSys.simulation) # pylint: disable=protected-access

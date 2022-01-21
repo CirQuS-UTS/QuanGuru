@@ -52,7 +52,9 @@ from ..QuantumToolbox import linearAlgebra as linAlg #pylint: disable=relative-b
 from ..QuantumToolbox import states as qSta #pylint: disable=relative-beyond-top-level
 
 from .base import addDecorator, _recurseIfList
-from .baseClasses import qBaseSim, paramBoundBase, setAttr
+from .baseClasses import paramBoundBase
+from .QSimComp import QSimComp
+from .QSimBase import setAttr
 #from quanguru.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
 from .QPro import freeEvolution
 
@@ -88,7 +90,7 @@ def _calculateDef(sys): # pylint: disable=unused-argument
     TODO I am not happy with this solution.
     """
 
-class genericQSys(qBaseSim):
+class genericQSys(QSimComp):
     r"""
     Base class for both single (:class:`~qSystem`) and composite (:class:`~compQSystem`) quantum system classes, and I
     hope to combine those two classes in here. Currently, a proxy :class:`~QuantumSystem` is introduced as a
@@ -110,7 +112,7 @@ class genericQSys(qBaseSim):
         #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
         self._genericQSys__unitary.superSys = self # pylint: disable=no-member
-        self._qBaseSim__simulation.addQSystems(subS=self, Protocol=self._freeEvol) # pylint: disable=no-member
+        self._QSimComp__simulation.addQSystems(subS=self, Protocol=self._freeEvol) # pylint: disable=no-member
         #: dimension of Hilbert space of the quantum system
         self.__dimension = None
         #: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)
@@ -282,7 +284,7 @@ class genericQSys(qBaseSim):
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return unitary
 
-    @qBaseSim.initialState.setter # pylint: disable=no-member
+    @QSimComp.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         r"""
         Sets the initial state from a given input ``inp``,

@@ -34,7 +34,7 @@
 """
 
 from functools import partial
-from ...QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
+from ..QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
 
 def runSimulation(qSim, p):
     # NOTE determine if more samples of a protocol step are requested.

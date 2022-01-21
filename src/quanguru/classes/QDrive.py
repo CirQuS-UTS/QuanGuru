@@ -13,7 +13,8 @@
 
 from numpy import pi
 
-from .baseClasses import paramBoundBase, setAttr
+from .baseClasses import paramBoundBase
+from .QSimBase import setAttr
 
 class genericDrive(paramBoundBase):
     label = 'genericDrive'

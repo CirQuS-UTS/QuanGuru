@@ -12,7 +12,8 @@
 
 from ..QuantumToolbox.thermodynamics import nBarThermal
 from ..QuantumToolbox.operators import compositeOp
-from .baseClasses import paramBoundBase, setAttr
+from .baseClasses import paramBoundBase
+from .QSimBase import setAttr
 
 class _genericOpen(paramBoundBase):
     r"""

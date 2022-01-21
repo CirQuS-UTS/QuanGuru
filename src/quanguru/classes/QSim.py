@@ -21,15 +21,16 @@
 
 
 """
+
 import sys
 import platform
 import multiprocessing
 
-from .base import _recurseIfList
-from .baseClasses import timeBase, qBaseSim
+from .base import _recurseIfList, named
+from .QSimBase import timeBase
 from .QSweep import Sweep
-from .extensions.modularSweep import runSimulation
-from .extensions.modularSweep import timeEvolBase
+from .modularSweep import runSimulation
+from .modularSweep import timeEvolBase
 # pylint: disable = cyclic-import
 
 class Simulation(timeBase):
@@ -92,6 +93,7 @@ class Simulation(timeBase):
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
+        #self._reClass = qBaseSim
         super().__init__(_internal=kwargs.pop('_internal', False))
 
         #: sweep object that contains information about the systems and their parameters to be swept.
@@ -160,7 +162,7 @@ class Simulation(timeBase):
         keys = self.protocols
         for key in keys:
             qSys = self.subSys[key]
-            if not isinstance(key, qBaseSim):
+            if not isinstance(key, named):
                 self.subSys[qSys._freeEvol] = self.subSys.pop(key) # pylint: disable=protected-access
             else: # this may seem redundant, but this is to keep the order in which the systems are added
                 self.subSys[key] = self.subSys.pop(key)
@@ -272,7 +274,7 @@ class Simulation(timeBase):
         Add a ``protocol`` for the (optional) ``system`` and (optional) remove an existing protocol ``protocolRemove``.
         """
         # TODO Decorate this
-        qSysClass = qBaseSim
+        qSysClass = named
         if isinstance(protocol, list):
             # should protocolRemove be a list ?
             for p in protocol:

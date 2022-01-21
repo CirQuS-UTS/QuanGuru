@@ -30,3 +30,4 @@ from .QGates import *
 from .QDrive import *
 from .environment import thermalBath, dissipatorObj
 from .tempConfig import *
+from .extensions.couplings import *
