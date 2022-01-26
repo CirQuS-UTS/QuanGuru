@@ -354,7 +354,7 @@ class freeEvolution(genericProtocol):
         #self._createUnitary = self.matrixExponentiation
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-    _freqCoef = 2 * np.pi
+    _freqCoef = 1 #2 * np.pi
     def matrixExponentiation(self, collapseOps = None, decayRates = None):
         self._increaseExponentiationCount()
         unitary = lio.LiouvillianExp(self._freqCoef * self.superSys.totalHam, # pylint: disable=no-member

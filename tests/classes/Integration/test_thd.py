@@ -22,6 +22,7 @@ sfid3Z = qg.readCSV("tests/classes/Integration/thd/thdData/sfid3Z.txt")
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_thdFromSaved(bo):
+    qg.freeEvolution._freqCoef = 2*np.pi
     import tests.classes.Integration.thd._orDQHS as th
     th.simulation.run(p=bo)
 
@@ -60,3 +61,4 @@ def test_thdFromSaved(bo):
 
     assert np.allclose(sfid3Z[0], th.simulation.results["sfid4"][0])
     assert np.allclose(sfid3Z[1], th.simulation.results["sfid4"][1])
+    qg.freeEvolution._freqCoef = 1

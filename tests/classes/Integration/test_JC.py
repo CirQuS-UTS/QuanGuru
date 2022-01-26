@@ -15,6 +15,7 @@ def comp(sim, st):
                                                         (False, True, False), (True, True, False),
                                                         (False, True, True), (True, True, True)])
 def test_JCEvolution(bo, multiSweep, multiParam, JC):
+    qg.freeEvolution._freqCoef = 2 * np.pi
     cavDimList = sorted([random.randint(5, 15) for i in range(4)])
     initCavList = [{i:(random.random() + 1j*random.random()) for i in range(cdim-2)} for cdim in cavDimList]
     initQubList = [{i:(random.random() + 1j*random.random()) for i in range(2)} for _ in cavDimList]
@@ -73,4 +74,4 @@ def test_JCEvolution(bo, multiSweep, multiParam, JC):
                 imagRes = JC.jc.simulation.results[str(i)+'imag'][cind][ind] if multiParam else JC.jc.simulation.results[str(i)+'imag'][cind]
                 assert np.allclose(resRe, realRes)
                 assert np.allclose(resIm, imagRes)
-
+    qg.freeEvolution._freqCoef = 1

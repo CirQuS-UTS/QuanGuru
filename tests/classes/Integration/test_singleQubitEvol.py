@@ -27,6 +27,7 @@ def test_singleQubitSimpleEvolution(bo, singleQubit):
     assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, p0, freq).imag for i in range(sim.stepCount+1)], [s.A[0][0].imag for s in sim.states])
     assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, p0, freq).real for i in range(sim.stepCount+1)], [s.A[1][0].real for s in sim.states])
     assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, p0, freq).imag for i in range(sim.stepCount+1)], [s.A[1][0].imag for s in sim.states])
+    qg.freeEvolution._freqCoef = 1
 
 def randSingQubStateCoefs():
     c0 = rn.random() + 1j*rn.random()
@@ -69,3 +70,4 @@ def test_singleQubitSweepEvolution(bo, multiSweep, multiParam, singleQubit):
             assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, c00, f).imag for i in range(sim.stepCount+1)], [s.A[0][0].imag for s in states])
             assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, c01, f).real for i in range(sim.stepCount+1)], [s.A[1][0].real for s in states])
             assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, c01, f).imag for i in range(sim.stepCount+1)], [s.A[1][0].imag for s in states])
+    qg.freeEvolution._freqCoef = 1

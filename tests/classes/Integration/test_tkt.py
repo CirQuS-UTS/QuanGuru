@@ -8,9 +8,11 @@ dl = qg.readCSV("tests/classes/Integration/tkt/tktData/dl.txt")
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_tktFromSaved(bo):
+    qg.freeEvolution._freqCoef = 2*np.pi
     import tests.classes.Integration.tkt._orKT as tk
     tk.kt.runSimulation(p=bo)
     for i in range(len(ex)):
         assert np.allclose(tk.kt.simulation.results["ex"][i], ex[i])
         assert np.allclose(tk.kt.simulation.results["fd"][i], fd[i])
         assert np.allclose(tk.kt.simulation.results["dl"][i], dl[i])
+    qg.freeEvolution._freqCoef = 1

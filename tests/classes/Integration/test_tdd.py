@@ -21,6 +21,7 @@ sfid6 = qg.readCSV("tests/classes/Integration/tdd/tddData/sfid6.txt")
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_tddFromSaved(bo):
+    qg.freeEvolution._freqCoef = 2*np.pi
     import tests.classes.Integration.tdd._orDQDS as td
     td.simulation.run(p=bo)
     # NOTE for some reason some of the component amplitudes in the eigenvector statistics are
@@ -56,5 +57,6 @@ def test_tddFromSaved(bo):
     assert np.allclose(sfid05[1], td.simulation.results["sfid"][0][1])
     assert np.allclose(sfid6[0], td.simulation.results["sfid"][1][0])
     assert np.allclose(sfid6[1], td.simulation.results["sfid"][1][1])
+    qg.freeEvolution._freqCoef = 1
 
 # test_tddFromSaved(False)
