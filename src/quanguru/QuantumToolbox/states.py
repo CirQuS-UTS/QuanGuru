@@ -241,7 +241,7 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
 
                 :math:`|ket\rangle = \frac{1}{\sum p_{k}}\sum \sqrt{p_{k}}` ``basis(dimension, k)``
 
-            2. ``populations = True`` : `values =` :math:`[c_{k}]` are the complex probability amplitudes. The output
+            2. ``populations = False`` : `values =` :math:`[c_{k}]` are the complex probability amplitudes. The output
             state gets normalised.
 
             Ouput state
@@ -604,3 +604,19 @@ def BellStates(bs: str = 'Phi+', sparse: bool = True) -> Matrix:
     elif bs in ['Psi-', '11']:
         BellState = (1/np.sqrt(2))*np.array([[0], [1], [-1], [0]])
     return sp.csr_matrix(BellState) if sparse else BellState
+
+def purity(denMat: Matrix) -> float:
+    """
+    Calculates the purity :math:`Tr(\rho^{2})` of a given density matrix :math:`\rho`
+
+    Parameters
+    ----------
+    denMat : Matrix
+        Density matrix
+
+    Returns
+    -------
+    float
+        the purity of given density matrix.
+    """
+    return linAlTrace(denMat@denMat)
