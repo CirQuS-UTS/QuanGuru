@@ -58,7 +58,6 @@ def checkCavQub(coupler):
 @checkCavQub
 def JC(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
-    obj.couplingName = 'JC'
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj = obj.createSysCoupling(qsystems, [destroy, Jp], qsystems,
                                             [create, Jm], superSys=obj, couplingStrength=couplingStrength)
@@ -73,7 +72,6 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
 @checkCavQub
 def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
-    obj.couplingName = 'Rabi'
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], qsystems,
                                             [create, sigmax], superSys=obj, couplingStrength=couplingStrength)
@@ -89,7 +87,6 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
 @checkCavQub
 def Dicke(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
-    obj.couplingName = 'Dicke'
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj = obj.createSysCoupling(qsystems, [destroy, Jx], qsystems,
                                             [create, Jx], superSys=obj, couplingStrength=couplingStrength)

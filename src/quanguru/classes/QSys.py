@@ -372,7 +372,7 @@ class compQSystem(genericQSys):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__qCouplings', '__qSystems', 'couplingName']
+    __slots__ = ['__qCouplings', '__qSystems']
 
     def __init__(self, **kwargs):
         if self.__class__.__name__ == 'compQSystem':
@@ -382,8 +382,6 @@ class compQSystem(genericQSys):
         self.__qCouplings = OrderedDict()
         #: an ordered dictionary for the quantum systems
         self.__qSystems = OrderedDict()
-        #: if the coupling terms are some special kind, you may want to give it a name
-        self.couplingName = None
 
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
