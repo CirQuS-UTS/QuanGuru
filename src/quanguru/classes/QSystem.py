@@ -37,7 +37,7 @@ class QuSystem(QSimComp):
         if len(self.subSys) == 0:
             self._QuSystem__dimension = dim # pylint:disable=assigning-non-slot
         else:
-            warnings.warn(self.name.name + ' is a composite system, so dimension is not set')
+            warnings.warn(self.name + ' is a composite system, so dimension is not set')
 
     @property
     def terms(self):

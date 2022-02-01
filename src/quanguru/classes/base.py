@@ -158,6 +158,14 @@ class aliasClass:
         """
         return self.name
 
+    @raiseAttrType(str)
+    def __radd__(self, other):
+        return other + self.name
+
+    @raiseAttrType(str)
+    def __add__(self, other):
+        return self.name + other
+
     def __eq__(self, other: Union["aliasClass", str]) -> bool:  #pylint:disable=unsubscriptable-object
         r"""
         Equality of any two aliasClass objects (or an aliasClass object to a string) is determined by comparing their

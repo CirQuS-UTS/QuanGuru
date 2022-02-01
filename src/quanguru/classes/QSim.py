@@ -330,9 +330,9 @@ class Simulation(timeBase):
             states.append(protocol.currentState)
             if protocol.simulation.delStates is False:
                 if protocol._internal: #pylint:disable=protected-access
-                    self.qRes.states[protocol.superSys.name.name+'Results'].append(protocol.currentState)
+                    self.qRes.states[protocol.superSys.name+'Results'].append(protocol.currentState)
                 else:
-                    self.qRes.states[protocol.name.name+'Results'].append(protocol.currentState)
+                    self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
     def run(self, p=None, coreCount=None, resetRes=True):

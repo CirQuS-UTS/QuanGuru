@@ -38,7 +38,7 @@ def raiseAttrType(expectedTypes, attrName=0, attrPrintName=None):
                 apn = attrPrintName if attrPrintName is not None else aKey
                 msg = apn + " should be an instance of " + ", ".join(tNames) + f", but {type(val)} is given"
                 raise TypeError(msg) #pylint:disable=multiple-statements
-            f(obj, *args, **kwargs)
+            return f(obj, *args, **kwargs)
         return typeCheck
     return decorate
 

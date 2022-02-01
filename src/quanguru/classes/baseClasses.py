@@ -312,7 +312,7 @@ class computeBase(paramBoundBase):
         super().__init__(_internal=kwargs.pop('_internal', False))
         kwargs.pop('qRes', None)
         #: This attribute is an instance of :class:`~qResults`, which is used to store simulation results and states.
-        self.qRes: qResults = qResults(superSys=self, _internal=True, alias=self.name.name+"Results")
+        self.qRes: qResults = qResults(superSys=self, _internal=True, alias=self.name+"Results")
         self.compute: Callable = None
         r"""
         Function to call at each step of the time evolution, by default ``None``. It needs to be written in the
@@ -382,6 +382,6 @@ class computeBase(paramBoundBase):
         returns ``stateList if len(list(self.qRes.states.values())) > 1 else stateList[0]`` where stateList is
         ``list(self.qRes.states.values())``.
         """
-        #return self.qRes.states
-        stateList = list(self.qRes.states.values())
-        return stateList if len(list(self.qRes.states.values())) > 1 else stateList[0]
+        return self.qRes.states
+        # stateList = list(self.qRes.states.values())
+        # return stateList if len(list(self.qRes.states.values())) > 1 else stateList[0]
