@@ -18,8 +18,10 @@ def test_singleQubitSimpleEvolution(bo, singleQubit):
     # evolve a single qubit
     freq = 10*rn.random()
     p0 = np.sqrt(0.5)
-    sim = qg.Qubit(frequency=freq,initialState=[0,1],simTotalTime=4,simStepSize=0.01,simCompute=comp).runSimulation(p=bo)
-    keyName = sim.superSys.name + 'Results'
+    qub = qg.Qubit(frequency=freq,initialState=[0,1],simTotalTime=4,simStepSize=0.01,simCompute=comp)
+    qub.runSimulation(p=bo)
+    sim = qub.simulation
+    keyName = qub.name + 'Results'
     assert np.allclose([qg.expectation(sx, sim.states[keyName][i]) for i in range(sim.stepCount+1)], sim.qRes.results['x'])
     assert np.allclose([singleQubit.sxExpectation(sim.stepSize*i, p0, p0, freq) for i in range(sim.stepCount+1)], sim.qRes.results['x'])
     assert np.allclose([singleQubit.syExpectation(sim.stepSize*i, p0, p0, freq) for i in range(sim.stepCount+1)], sim.qRes.results['y'])

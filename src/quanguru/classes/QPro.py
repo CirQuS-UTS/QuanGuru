@@ -28,13 +28,12 @@ r"""
     =======================    ==================    ================   ===============
 
 """
-import numpy as np
-
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
 from .base import qBase, addDecorator
-from .baseClasses import _parameter, updateBase
+from .baseClasses import updateBase
+from .QSimBase import _parameter
 from .QSimComp import QSimComp
 from .QSweep import Sweep
 

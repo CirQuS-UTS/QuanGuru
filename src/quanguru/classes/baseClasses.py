@@ -27,7 +27,7 @@ r"""
     =======================    ==================    ================   ===============
 
 """
-from typing import Any, Callable, Dict, List, Union, cast
+from typing import Any, Callable, Dict, List, Union
 
 from .exceptions import attrNotValWarn, raiseAttrType, checkCorType, checkNotVal
 from .base import named, qBase, addDecorator, _recurseIfList, aliasDict
@@ -103,73 +103,6 @@ class updateBase(qBase):
                 setattr(subSys, self._updateBase__key, val)
         elif self._aux is True:
             self.auxDict[self._updateBase__key] = val
-
-class _parameter: # pylint: disable=too-few-public-methods
-    r"""
-    _parameter instances can be bound to each other to implement a (value) dependency between them.
-
-    There are two types of parametric bounds/relations/dependencies in this library,
-
-        1. Value of an attribute in an instance is bound to the value of the same attribute in another instance, meaning
-           it gets its value from its bound.
-        2. Not the value of the attribute itself, but any change in its value is important for another object.
-
-    This class wraps (composition) the value of a parameter (an attribute) to create a hierarchical dependency required
-    for the first case. The second case is covered by :class:`~paramBoundBase`.
-
-    It is intended to be used with `private attributes` and the corresponding properties returns the ``value`` of
-    that attribute (which is a _parameter object).
-
-    If a ``_parameter`` is given another ``_parameter`` as its ``_bound``, it returns the ``value`` of its ``_bound``,
-    while keeping its ``_value`` unchanged (which is mostly left to be ``None``). This is the same for the bound
-    one, which means a chain of dependency is achieved by bounding each object to another.
-
-    bounds can be broken by explicitly setting the ``value``.
-
-    TODO update this list and add cross-references.
-    Used in ``stepSize``, ``totalTime``, ``stepCount``, ``initialState`` etc. The goal of having such
-    dependency is that, for example, when simulating a quantum system simultaneously using more than 1 protocol, we
-    can assign an ``initialState`` for the quantum system, and all the protocols ``initialState`` will by default be
-    ``_bound`` to quantum systems ``initialState`` and get their value from it.
-    If we explicitly assign an ``initialState`` to any protocol, the ``_bound`` will break for that particular protocol,
-    which will have its own ``initialState``, but not the others, unless they are also explicitly given an
-    ``initialState``. These sort of dependencies are implemented in the library and are not meant for external
-    modifications.
-
-    This class can be replaced by a proxy class.
-    However, this is intended to be used completely internally (private attributes + properties),
-    this simple option should suffice.
-    """
-
-    __slots__ = ['_value', '_bound']
-
-    def __init__(self, value: Any = None, _bound: '_parameter' = None) -> None:
-        #: the value to be wrapped
-        self._value: Any = value #pylint:disable=unsubscriptable-object
-        #: bounded _parameter object, self is not bounded to anything when this is None or any other object that does
-        #: not have a ``value`` attribute. Assigned to False when a bound is broken (by updating the value).
-        self._bound: '_parameter' = _bound
-
-    @property
-    def value(self) -> Any:
-        r"""
-        Property to get the ``_value`` of self, if ``bound`` does not have ``value`` as an attribute,
-        else returns the ``value`` of the ``_bound``,
-        which should be an instance of :class:`~_parameter` object but can be any other object with an ``_value``
-        &/ ``_bound`` attribute.
-
-        Setter assigns the ``_value`` to a given input and ``_bound`` to ``False``
-        (meaning the bound to any other object is broken, and value is different than the default, which is None)
-        """
-        if hasattr(self._bound, 'value'):
-            self._bound = cast(_parameter, self._bound)
-            return self._bound.value
-        return self._value
-
-    @value.setter
-    def value(self, value: Any) -> None:
-        self._bound = False
-        self._value = value
 
 class paramBoundBase(qBase):
     r"""

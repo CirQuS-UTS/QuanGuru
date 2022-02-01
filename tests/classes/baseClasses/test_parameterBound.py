@@ -1,6 +1,6 @@
 import random
 import pytest
-import quanguru.classes.baseClasses as baseClasses #pylint: disable=import-error
+import quanguru.classes.QSimBase as QSimBase #pylint: disable=import-error
 
 def _parameterClassTestSub(ob, v1, v2, bo):
     assert ob.value == v1
@@ -13,29 +13,29 @@ def test_parameterClass(helpers):
     # bound 4 of them and test the value, _value, and _bound
     strings = helpers.randStringList(7,8) 
 
-    p0 = baseClasses._parameter()
+    p0 = QSimBase._parameter()
     _parameterClassTestSub(p0, None, None, None)
 
-    p1 = baseClasses._parameter(value=strings[0])
+    p1 = QSimBase._parameter(value=strings[0])
     _parameterClassTestSub(p0, None, None, None)
     _parameterClassTestSub(p1, strings[0], strings[0], None)
     _parameterClassTestSub(p0, None, None, None)
 
-    p2 = baseClasses._parameter(value=strings[1], _bound=p1)
+    p2 = QSimBase._parameter(value=strings[1], _bound=p1)
     _parameterClassTestSub(p0, None, None, None)
     _parameterClassTestSub(p1, strings[0], strings[0], None)
     _parameterClassTestSub(p2, strings[0], strings[1], p1)
     _parameterClassTestSub(p0, None, None, None)
     _parameterClassTestSub(p1, strings[0], strings[0], None)
 
-    p3 = baseClasses._parameter(value=strings[2], _bound=p2)
+    p3 = QSimBase._parameter(value=strings[2], _bound=p2)
     _parameterClassTestSub(p1, strings[0], strings[0], None)
     _parameterClassTestSub(p2, strings[0], strings[1], p1)
     _parameterClassTestSub(p3, strings[0], strings[2], p2)
     _parameterClassTestSub(p1, strings[0], strings[0], None)
     _parameterClassTestSub(p2, strings[0], strings[1], p1)
 
-    p4 = baseClasses._parameter()
+    p4 = QSimBase._parameter()
     p4.value = strings[3]
     p4._bound = p3
     _parameterClassTestSub(p4, strings[0], strings[3], p3)
@@ -62,12 +62,12 @@ def test_parameterClass(helpers):
 
 def test_paramBoundBaseCreateBreakBound():
     # should work only with other paramBoundBase objects
-    pb1 = baseClasses.paramBoundBase()
-    pb2 = baseClasses.paramBoundBase()
+    pb1 = QSimBase.paramBoundBase()
+    pb2 = QSimBase.paramBoundBase()
 
     # _paramBound does not have a getter
     with pytest.raises(AttributeError):
-        pbAR1 = baseClasses.paramBoundBase(_paramBound=pb1)
+        pbAR1 = QSimBase.paramBoundBase(_paramBound=pb1)
     with pytest.raises(AttributeError):
         pb2._paramBound = pb1
 
@@ -91,7 +91,7 @@ def test_paramBoundBaseCreateBreakBound():
 def test_paramBoundBaseCreateBreakBoundWithList(helpers):
     # create some paramBound objects
     # and create and break the bounds by giving list of objects
-    pbObj = [baseClasses.paramBoundBase() for ind in range(6)]
+    pbObj = [QSimBase.paramBoundBase() for ind in range(6)]
     assert all(pbObj[ind]._paramBound == {} for ind in range(6))
 
     riSmaller = random.randint(1, 4)
@@ -108,9 +108,9 @@ def test_paramBoundBaseCreateBreakBoundWithList(helpers):
 
 def test_paramBoundBaseParamUpdated():
     # should work only with other paramBoundBase objects
-    pb1 = baseClasses.paramBoundBase()
+    pb1 = QSimBase.paramBoundBase()
     assert pb1._paramUpdated is True
-    pb2 = baseClasses.paramBoundBase()
+    pb2 = QSimBase.paramBoundBase()
     assert pb2._paramUpdated is True
 
     pb2._paramUpdated = False
@@ -134,7 +134,7 @@ def test_paramBoundDelMatrices(helpers):
     # store something in their _paramBoundBase__matrix
     # _createParamBound or addSubSys, then delMatrices through one
     strings = helpers.randStringList(7,8) 
-    pbObj = [baseClasses.paramBoundBase() for ind in range(6)]
+    pbObj = [QSimBase.paramBoundBase() for ind in range(6)]
     assert all(pbObj[ind]._paramBoundBase__matrix == None for ind in range(6))
     for ind in range(6):
         pbObj[ind]._paramBoundBase__matrix = strings[ind]
