@@ -1,7 +1,7 @@
 """
     Contain an implementation of the sweep that uses modular arithmetic.
 
-    .. currentmodule:: quanguru.classes.extensions.modularSweep
+    .. currentmodule:: quanguru.classes.modularSweep
 
     .. autosummary::
 

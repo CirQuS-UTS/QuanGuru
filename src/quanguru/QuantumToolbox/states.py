@@ -606,7 +606,7 @@ def BellStates(bs: str = 'Phi+', sparse: bool = True) -> Matrix:
     return sp.csr_matrix(BellState) if sparse else BellState
 
 def purity(denMat: Matrix) -> float:
-    """
+    r"""
     Calculates the purity :math:`Tr(\rho^{2})` of a given density matrix :math:`\rho`
 
     Parameters

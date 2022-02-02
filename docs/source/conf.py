@@ -271,6 +271,15 @@ html_theme = "pydata_sphinx_theme"
 # }
 
 sphinx_gallery_line_numbers = True
+latex_elements = {
+    'preamble': r'''
+\usepackage{braket}
+\usepackage{amsmath,amsfonts}
+''' }
+
+sphinx_gallery_conf = {
+    'default_thumb_file': 'Bloch_sphere.png',
+}
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".

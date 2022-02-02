@@ -1,8 +1,8 @@
-===============================================================
-Modular Sweep (:mod:`quanguru.classes.extensions.modularSweep`)
-===============================================================
+====================================================
+Modular Sweep (:mod:`quanguru.classes.modularSweep`)
+====================================================
 
-.. automodule:: quanguru.classes.extensions.modularSweep
+.. automodule:: quanguru.classes.modularSweep
    :ignore-module-all:
    :members:
    :private-members:
