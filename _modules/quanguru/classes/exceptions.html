@@ -82,6 +82,12 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -95,7 +101,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -166,19 +172,35 @@
 <span class="sd">        sweepInitError</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 
-<div class="viewcode-block" id="raiseAttrType"><a class="viewcode-back" href="../../../classes/exceptions.html#quanguru.classes.exceptions.raiseAttrType">[docs]</a><span class="k">def</span> <span class="nf">raiseAttrType</span><span class="p">(</span><span class="n">expectedTypes</span><span class="p">,</span> <span class="n">attrName</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="raiseAttrType"><a class="viewcode-back" href="../../../classes/exceptions.html#quanguru.classes.exceptions.raiseAttrType">[docs]</a><span class="k">def</span> <span class="nf">raiseAttrType</span><span class="p">(</span><span class="n">expectedTypes</span><span class="p">,</span> <span class="n">attrName</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">attrPrintName</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># if attrName is given as str, but that keyword is not passed/provided and type(None) is not in expectedTypes</span>
+    <span class="c1"># this will raise the TypeError. Note that it needs to be passed in kwargs, otherwise will raise the TypeError</span>
+    <span class="c1"># so, in general it is better to use it as int, but still you have to make sure that it is always passes in the</span>
+    <span class="c1"># correct position.</span>
     <span class="k">def</span> <span class="nf">decorate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">typeCheck</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">attrName</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attrName</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attrName</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">aKey</span> <span class="o">=</span> <span class="n">attrName</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attrName</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attrName</span><span class="si">}</span><span class="s2">th argument&quot;</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">expectedTypes</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attrName</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attrName</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">attrName</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">&#39;Index &#39;</span> <span class="o">+</span> <span class="n">attrName</span> <span class="o">+</span> <span class="s1">&#39; is larger than the number of args (&#39;</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) passed to the function &#39;</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span> <span class="c1"># pylint:disable=line-too-long</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">attrName</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;attrName should either be a string (to look up kwargs) or int (to look up in args)&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expectedTypes</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">type</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;expectedTypes should either be a type of list/tuple of types&#39;</span><span class="p">)</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">expectedTypes</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expectedTypes</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="k">else</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">expectedTypes</span><span class="p">)</span> <span class="c1"># pylint:disable=line-too-long</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ct</span><span class="p">:</span>
                 <span class="n">tNames</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">ety</span><span class="p">)</span> <span class="k">for</span> <span class="n">ety</span> <span class="ow">in</span> <span class="n">expectedTypes</span><span class="p">]</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="n">aKey</span> <span class="o">+</span> <span class="s2">&quot; should be an instance of &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tNames</span><span class="p">)</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, but </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2"> is given&quot;</span>
+                <span class="n">aKey</span> <span class="o">=</span> <span class="n">attrName</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attrName</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attrName</span><span class="si">}</span><span class="s2">th argument&quot;</span>
+                <span class="n">apn</span> <span class="o">=</span> <span class="n">attrPrintName</span> <span class="k">if</span> <span class="n">attrPrintName</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">aKey</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">apn</span> <span class="o">+</span> <span class="s2">&quot; should be an instance of &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tNames</span><span class="p">)</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, but </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2"> is given&quot;</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="c1">#pylint:disable=multiple-statements</span>
-            <span class="n">f</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">typeCheck</span>
     <span class="k">return</span> <span class="n">decorate</span></div>
 
@@ -186,6 +208,21 @@
     <span class="k">if</span> <span class="n">someObj</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">someObj</span></div>
+
+<div class="viewcode-block" id="checkCorType"><a class="viewcode-back" href="../../../classes/exceptions.html#quanguru.classes.exceptions.checkCorType">[docs]</a><span class="k">def</span> <span class="nf">checkCorType</span><span class="p">(</span><span class="n">someObj</span><span class="p">,</span> <span class="n">someType</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">someObj</span><span class="p">,</span> <span class="n">someType</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span> <span class="o">+</span> <span class="s1">&#39; requires &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">someType</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; but &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">someObj</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; is given.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">someObj</span></div>
+
+<div class="viewcode-block" id="attrNotTypeWarn"><a class="viewcode-back" href="../../../classes/exceptions.html#quanguru.classes.exceptions.attrNotTypeWarn">[docs]</a><span class="k">def</span> <span class="nf">attrNotTypeWarn</span><span class="p">(</span><span class="n">someAttr</span><span class="p">,</span> <span class="n">someTypes</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">someAttr</span><span class="p">,</span> <span class="n">someTypes</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">someAttr</span></div>
+
+<div class="viewcode-block" id="attrNotValWarn"><a class="viewcode-back" href="../../../classes/exceptions.html#quanguru.classes.exceptions.attrNotValWarn">[docs]</a><span class="k">def</span> <span class="nf">attrNotValWarn</span><span class="p">(</span><span class="n">someAttr</span><span class="p">,</span> <span class="n">someValue</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">someAttr</span> <span class="o">!=</span> <span class="n">someValue</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">someAttr</span></div>
 
 <span class="c1"># TODO turn prints into actual error raise, they are print for testing</span>
 

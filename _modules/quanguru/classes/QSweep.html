@@ -82,6 +82,12 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -95,7 +101,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -171,12 +177,12 @@
 <span class="sd">    .. |x| unicode:: U+274C</span>
 <span class="sd">    .. |w| unicode:: U+2000</span>
 
-<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
-<span class="sd">       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**</span>
-<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
-<span class="sd">      `_sweep`                   |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `Sweep`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">    =======================    ==================    ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================    ================   ===============</span>
+<span class="sd">      `_sweep`                   |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `Sweep`                    |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">    =======================    ==================    ================   ===============</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -218,7 +224,7 @@
 
     <span class="c1">#@sweepInitError</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
         <span class="c1">#: protected attribute pointing to a sweep function, by default :meth:`~_defSweep`. This attribute get&amp;set</span>
         <span class="c1">#: using the sweepFunction property to replace default with a customized sweep method.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_updateBase__function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defSweep</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
@@ -240,7 +246,7 @@
         <span class="c1">#: stores the index of the value (from the _sweepList) currently being assigned by the sweep function. Used by</span>
         <span class="c1">#: the default methods but also useful for custom methods. It is calculated by the modular arithmetic in</span>
         <span class="c1">#: modularSweep and passed to here by :class:`~Sweep` object containing self in its subSys. It starts from -1</span>
-        <span class="c1">#: and the correspoding property returns _sweepIndex + 1, while the :meth:`~runSweep` sets it to ind+1 for a given</span>
+        <span class="c1">#: and the correspoding property returns _sweepIndex+1, while the :meth:`~runSweep` sets it to ind+1 for a given</span>
         <span class="c1">#: ind from modularSweep. This whole ordeal is due to make sure that python list indexing and modular arithmetic</span>
         <span class="c1">#: properly agrees for the sweep functionality. I feel it can be improved but will leave as it is for now.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sweepIndex</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
@@ -249,8 +255,8 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        returns ``self._sweepIndex + 1``. reason for +1 is explained in :py:attr:`~_sweepIndex`. There is no setter, the value</span>
-<span class="sd">        of _sweepIndex is updated by the :meth:`~runSweep` and is an internal process.</span>
+<span class="sd">        returns ``self._sweepIndex + 1``. reason for +1 is explained in :py:attr:`~_sweepIndex`. There is no setter,</span>
+<span class="sd">        the value of _sweepIndex is updated by the :meth:`~runSweep` and is an internal process.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sweepIndex</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -351,7 +357,7 @@
 
     <span class="c1"># TODO init errors</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__inds</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        a list of ``sweepList`` length/s of multi-parameter ``_sweep`` object/s in ``subSys`` dictionary, meaning the</span>

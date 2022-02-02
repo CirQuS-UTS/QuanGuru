@@ -82,6 +82,12 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -95,7 +101,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../../QuantumToolbox/Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -181,8 +187,8 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">quanguru.classes.QSys</span> <span class="kn">import</span> <span class="n">compQSystem</span><span class="p">,</span> <span class="n">Qubit</span><span class="p">,</span> <span class="n">Cavity</span><span class="p">,</span> <span class="n">Spin</span>
-<span class="kn">from</span> <span class="nn">quanguru.QuantumToolbox.operators</span> <span class="kn">import</span> <span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">destroy</span><span class="p">,</span> <span class="n">Jp</span><span class="p">,</span> <span class="n">Jm</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">,</span> <span class="n">Jx</span>
+<span class="kn">from</span> <span class="nn">..QSys</span> <span class="kn">import</span> <span class="n">compQSystem</span><span class="p">,</span> <span class="n">Qubit</span><span class="p">,</span> <span class="n">Cavity</span><span class="p">,</span> <span class="n">Spin</span>
+<span class="kn">from</span> <span class="nn">...QuantumToolbox.operators</span> <span class="kn">import</span> <span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">destroy</span><span class="p">,</span> <span class="n">Jp</span><span class="p">,</span> <span class="n">Jm</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">,</span> <span class="n">Jx</span>
 
 
 <div class="viewcode-block" id="checkCavQub"><a class="viewcode-back" href="../../../../classes/couplings.html#quanguru.classes.extensions.couplings.checkCavQub">[docs]</a><span class="k">def</span> <span class="nf">checkCavQub</span><span class="p">(</span><span class="n">coupler</span><span class="p">):</span>
@@ -214,7 +220,6 @@
 <div class="viewcode-block" id="JC"><a class="viewcode-back" href="../../../../classes/couplings.html#quanguru.classes.extensions.couplings.JC">[docs]</a><span class="nd">@checkCavQub</span>
 <span class="k">def</span> <span class="nf">JC</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="n">subSys1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subSys2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[</span><span class="n">subSys1</span><span class="p">,</span> <span class="n">subSys2</span><span class="p">]</span>
-    <span class="n">obj</span><span class="o">.</span><span class="n">couplingName</span> <span class="o">=</span> <span class="s1">&#39;JC&#39;</span>
     <span class="k">if</span> <span class="n">qsystems</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">operator</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">]:</span> <span class="c1"># pylint: disable=comparison-with-callable</span>
         <span class="n">couplingObj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">(</span><span class="n">qsystems</span><span class="p">,</span> <span class="p">[</span><span class="n">destroy</span><span class="p">,</span> <span class="n">Jp</span><span class="p">],</span> <span class="n">qsystems</span><span class="p">,</span>
                                             <span class="p">[</span><span class="n">create</span><span class="p">,</span> <span class="n">Jm</span><span class="p">],</span> <span class="n">superSys</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="o">=</span><span class="n">couplingStrength</span><span class="p">)</span>
@@ -229,7 +234,6 @@
 <div class="viewcode-block" id="Rabi"><a class="viewcode-back" href="../../../../classes/couplings.html#quanguru.classes.extensions.couplings.Rabi">[docs]</a><span class="nd">@checkCavQub</span>
 <span class="k">def</span> <span class="nf">Rabi</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="n">subSys1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subSys2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[</span><span class="n">subSys1</span><span class="p">,</span> <span class="n">subSys2</span><span class="p">]</span>
-    <span class="n">obj</span><span class="o">.</span><span class="n">couplingName</span> <span class="o">=</span> <span class="s1">&#39;Rabi&#39;</span>
     <span class="k">if</span> <span class="n">qsystems</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">operator</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">]:</span> <span class="c1"># pylint: disable=comparison-with-callable</span>
         <span class="n">couplingObj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">(</span><span class="n">qsystems</span><span class="p">,</span> <span class="p">[</span><span class="n">destroy</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">],</span> <span class="n">qsystems</span><span class="p">,</span>
                                             <span class="p">[</span><span class="n">create</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">],</span> <span class="n">superSys</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="o">=</span><span class="n">couplingStrength</span><span class="p">)</span>
@@ -245,7 +249,6 @@
 <div class="viewcode-block" id="Dicke"><a class="viewcode-back" href="../../../../classes/couplings.html#quanguru.classes.extensions.couplings.Dicke">[docs]</a><span class="nd">@checkCavQub</span>
 <span class="k">def</span> <span class="nf">Dicke</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="n">subSys1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subSys2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[</span><span class="n">subSys1</span><span class="p">,</span> <span class="n">subSys2</span><span class="p">]</span>
-    <span class="n">obj</span><span class="o">.</span><span class="n">couplingName</span> <span class="o">=</span> <span class="s1">&#39;Dicke&#39;</span>
     <span class="k">if</span> <span class="n">qsystems</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">operator</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">]:</span> <span class="c1"># pylint: disable=comparison-with-callable</span>
         <span class="n">couplingObj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">(</span><span class="n">qsystems</span><span class="p">,</span> <span class="p">[</span><span class="n">destroy</span><span class="p">,</span> <span class="n">Jx</span><span class="p">],</span> <span class="n">qsystems</span><span class="p">,</span>
                                             <span class="p">[</span><span class="n">create</span><span class="p">,</span> <span class="n">Jx</span><span class="p">],</span> <span class="n">superSys</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="o">=</span><span class="n">couplingStrength</span><span class="p">)</span>

@@ -46,7 +46,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Quantum system classes (quanguru.classes.QSys)" href="QSys.html" />
+    <link rel="next" title="Simulation classes (quanguru.classes.QSimBase)" href="QSimBase.html" />
     <link rel="prev" title="base classes (quanguru.classes.base)" href="base.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -83,6 +83,12 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -96,7 +102,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../QuantumToolbox/Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -139,6 +145,16 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    BaseClasses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSimBase.html">
+   QSimBase
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSimComp.html">
+   QSimComp
   </a>
  </li>
  <li class="toctree-l1">
@@ -256,17 +272,6 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.baseClasses._parameter" title="quanguru.classes.baseClasses._parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_parameter</span></code></a>([value, bound])</p></td>
-<td><p>_parameter instances can be bound to each other to implement a (value) dependency between them.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.baseClasses.updateBase" title="quanguru.classes.baseClasses.updateBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">updateBase</span></code></a>(**kwargs)</p></td>
 <td><p>Base class for <code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code> classes, which are used in parameter sweeps and step updates in protocols, respectively.</p></td>
 </tr>
@@ -276,29 +281,18 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.baseClasses.computeBase" title="quanguru.classes.baseClasses.computeBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">computeBase</span></code></a>(**kwargs)</p></td>
 <td><p>Implements 3 attributes (and mechanisms) relevant to run-time calculations/computations and result storage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.baseClasses.qBaseSim" title="quanguru.classes.baseClasses.qBaseSim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qBaseSim</span></code></a>(**kwargs)</p></td>
-<td><p>Inhereted by the <a class="reference internal" href="QSys.html#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code></a> and <a class="reference internal" href="QPro.html#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols</span></code></a> and has a simulation attribute which is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.baseClasses.stateBase" title="quanguru.classes.baseClasses.stateBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stateBase</span></code></a>(**kwargs)</p></td>
-<td><p>Contains attributes and methods for <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and a boolean to determine whether to store or discard time-evolved states.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.baseClasses.timeBase" title="quanguru.classes.baseClasses.timeBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeBase</span></code></a>(**kwargs)</p></td>
-<td><p>Implements 3 basic time information, namely total time of simulation (<code class="docutils literal notranslate"><span class="pre">totalTime</span></code>), step size for each unitary (<code class="docutils literal notranslate"><span class="pre">stepSize</span></code>), and number of steps (<code class="docutils literal notranslate"><span class="pre">stepCount</span> <span class="pre">=</span> <span class="pre">totalTime/stepSize</span></code>).</p></td>
-</tr>
 </tbody>
 </table>
 <table class="table">
 <colgroup>
-<col style="width: 27%" />
+<col style="width: 32%" />
+<col style="width: 25%" />
+<col style="width: 22%" />
 <col style="width: 21%" />
-<col style="width: 16%" />
-<col style="width: 19%" />
-<col style="width: 17%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Function Name</strong></p></th>
 <th class="head"><p><strong>Docstrings</strong></p></th>
-<th class="head"><p><strong>Examples</strong></p></th>
 <th class="head"><p><strong>Unit Tests</strong></p></th>
 <th class="head"><p><strong>Tutorials</strong></p></th>
 </tr>
@@ -306,56 +300,17 @@
 <tbody>
 <tr class="row-even"><td><p><cite>updateBase</cite></p></td>
 <td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>paramBoundBase</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>_parameter</cite></p></td>
+<tr class="row-even"><td><p><cite>computeBase</cite></p></td>
 <td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>setAttr</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>setAttrParam</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>paramBoundBase</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>computeBase</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>qBaseSim</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>stateBase</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>timeBase</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
+<td><p>    ✅</p></td>
 <td><p>    ❌</p></td>
 </tr>
 </tbody>
@@ -438,81 +393,6 @@ returns <code class="docutils literal notranslate"><span class="pre">None</span>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses._parameter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#quanguru.classes.baseClasses._parameter" title="quanguru.classes.baseClasses._parameter"><span class="pre">quanguru.classes.baseClasses._parameter</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses._parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>_parameter instances can be bound to each other to implement a (value) dependency between them.</p>
-<p>There are two types of parametric bounds/relations/dependencies in this library,</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Value of an attribute in an instance is bound to the value of the same attribute in another instance, meaning
-it gets its value from its bound.</p></li>
-<li><p>Not the value of the attribute itself, but any change in its value is important for another object.</p></li>
-</ol>
-</div></blockquote>
-<p>This class wraps (composition) the value of a parameter (an attribute) to create a hierarchical dependency required
-for the first case. The second case is covered by <a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase" title="quanguru.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a>.</p>
-<p>It is intended to be used with <cite>private attributes</cite> and the corresponding properties returns the <code class="docutils literal notranslate"><span class="pre">value</span></code> of
-that attribute (which is a _parameter object).</p>
-<p>If a <code class="docutils literal notranslate"><span class="pre">_parameter</span></code> is given another <code class="docutils literal notranslate"><span class="pre">_parameter</span></code> as its <code class="docutils literal notranslate"><span class="pre">_bound</span></code>, it returns the <code class="docutils literal notranslate"><span class="pre">value</span></code> of its <code class="docutils literal notranslate"><span class="pre">_bound</span></code>,
-while keeping its <code class="docutils literal notranslate"><span class="pre">_value</span></code> unchanged (which is mostly left to be <code class="docutils literal notranslate"><span class="pre">None</span></code>). This is the same for the bound
-one, which means a chain of dependency is achieved by bounding each object to another.</p>
-<p>bounds can be broken by explicitly setting the <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
-<p>TODO update this list and add cross-references.
-Used in <code class="docutils literal notranslate"><span class="pre">stepSize</span></code>, <code class="docutils literal notranslate"><span class="pre">totalTime</span></code>, <code class="docutils literal notranslate"><span class="pre">stepCount</span></code>, <code class="docutils literal notranslate"><span class="pre">initialState</span></code> etc. The goal of having such
-dependency is that, for example, when simulating a quantum system simultaneously using more than 1 protocol, we
-can assign an <code class="docutils literal notranslate"><span class="pre">initialState</span></code> for the quantum system, and all the protocols <code class="docutils literal notranslate"><span class="pre">initialState</span></code> will by default be
-<code class="docutils literal notranslate"><span class="pre">_bound</span></code> to quantum systems <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and get their value from it.
-If we explicitly assign an <code class="docutils literal notranslate"><span class="pre">initialState</span></code> to any protocol, the <code class="docutils literal notranslate"><span class="pre">_bound</span></code> will break for that particular protocol,
-which will have its own <code class="docutils literal notranslate"><span class="pre">initialState</span></code>, but not the others, unless they are also explicitly given an
-<code class="docutils literal notranslate"><span class="pre">initialState</span></code>. These sort of dependencies are implemented in the library and are not meant for external
-modifications.</p>
-<p>This class can be replaced by a proxy class.
-However, this is intended to be used completely internally (private attributes + properties),
-this simple option should suffice.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses._parameter._value">
-<span class="sig-name descname"><span class="pre">_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.baseClasses._parameter._value" title="Permalink to this definition">¶</a></dt>
-<dd><p>the value to be wrapped</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses._parameter._bound">
-<span class="sig-name descname"><span class="pre">_bound</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#quanguru.classes.baseClasses._parameter" title="quanguru.classes.baseClasses._parameter"><span class="pre">quanguru.classes.baseClasses._parameter</span></a></em><a class="headerlink" href="#quanguru.classes.baseClasses._parameter._bound" title="Permalink to this definition">¶</a></dt>
-<dd><p>bounded _parameter object, self is not bounded to anything when this is None or any other object that does
-not have a <code class="docutils literal notranslate"><span class="pre">value</span></code> attribute. Assigned to False when a bound is broken (by updating the value).</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses._parameter.value">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.baseClasses._parameter.value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property to get the <code class="docutils literal notranslate"><span class="pre">_value</span></code> of self, if <code class="docutils literal notranslate"><span class="pre">bound</span></code> does not have <code class="docutils literal notranslate"><span class="pre">value</span></code> as an attribute,
-else returns the <code class="docutils literal notranslate"><span class="pre">value</span></code> of the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>,
-which should be an instance of <a class="reference internal" href="#quanguru.classes.baseClasses._parameter" title="quanguru.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a> object but can be any other object with an <code class="docutils literal notranslate"><span class="pre">_value</span></code>
-&amp;/ <code class="docutils literal notranslate"><span class="pre">_bound</span></code> attribute.</p>
-<p>Setter assigns the <code class="docutils literal notranslate"><span class="pre">_value</span></code> to a given input and <code class="docutils literal notranslate"><span class="pre">_bound</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code>
-(meaning the bound to any other object is broken, and value is different than the default, which is None)</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.setAttr">
-<span class="sig-name descname"><span class="pre">setAttr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase" title="quanguru.classes.baseClasses.paramBoundBase"><span class="pre">quanguru.classes.baseClasses.paramBoundBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrStr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#setAttr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.setAttr" title="Permalink to this definition">¶</a></dt>
-<dd><p>a customized setattr that changes the value (and _paramUpdated) if the new value is different than the old/existing.
-Especially useful for multi parameter sweeps (see <code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code>).</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.setAttrParam">
-<span class="sig-name descname"><span class="pre">setAttrParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase" title="quanguru.classes.baseClasses.paramBoundBase"><span class="pre">quanguru.classes.baseClasses.paramBoundBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrStr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#setAttrParam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.setAttrParam" title="Permalink to this definition">¶</a></dt>
-<dd><p>a customized setattr that changes the value stored as the <code class="docutils literal notranslate"><span class="pre">value</span></code> attribute of a _parameter object.
-The value (and _paramUpdated) is changed, if the new value is different than the old/existing. In any case, it
-breaks existing timeBase bounds (bound between <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code> instances).
-Especially useful for multi parameter sweeps (see <code class="xref py py-class docutils literal notranslate"><span class="pre">_sweep</span></code>).</p>
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.paramBoundBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">paramBoundBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#paramBoundBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.paramBoundBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#quanguru.classes.base.qBase" title="quanguru.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.base.qBase</span></code></a></p>
@@ -525,7 +405,7 @@ it gets its value from its bound.</p></li>
 <li><p>Not the value of the attribute itself, but any change in its value is important for another object.</p></li>
 </ol>
 </div></blockquote>
-<p>First case is covered by the <a class="reference internal" href="#quanguru.classes.baseClasses._parameter" title="quanguru.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a> , and the second is by this class.</p>
+<p>First case is covered by the <code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code> , and the second is by this class.</p>
 <p>Such bound, for example, is used to make sure that a <strong>protocol</strong> does not re-create (re-exponentiate)
 its <strong>unitary matrix</strong>, unless a relevant parameter is changed. If the <code class="docutils literal notranslate"><span class="pre">__paramUpdated</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, a protocol
 is not going to re-create its unitary, the <code class="docutils literal notranslate"><span class="pre">__paramUpdated</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> only by an object which contain
@@ -566,15 +446,15 @@ systems use it for their <code class="docutils literal notranslate"><span class=
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.paramBoundBase.__paramUpdated">
 <span class="sig-name descname"><span class="pre">__paramUpdated</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.paramBoundBase.__paramUpdated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Signals that a parameter is updated. This is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> when a parameter is updated by <a class="reference internal" href="#quanguru.classes.baseClasses.setAttr" title="quanguru.classes.baseClasses.setAttr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setAttr()</span></code></a>,
-<a class="reference internal" href="#quanguru.classes.baseClasses.setAttrParam" title="quanguru.classes.baseClasses.setAttrParam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setAttrParam()</span></code></a> methods, or True/False by another object, if this object is in another paramBound.</p>
+<dd><p>Signals that a parameter is updated. This is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> when a parameter is updated by <code class="xref py py-meth docutils literal notranslate"><span class="pre">setAttr()</span></code>,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">setAttrParam()</span></code> methods, or True/False by another object, if this object is in another paramBound.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.paramBoundBase.__paramBound">
 <span class="sig-name descname"><span class="pre">__paramBound</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.paramBoundBase.__paramBound" title="Permalink to this definition">¶</a></dt>
 <dd><p>a dictionary of objects whose <code class="docutils literal notranslate"><span class="pre">_paramUpdated</span></code> boolean value needs to be updated, if <code class="docutils literal notranslate"><span class="pre">_paramUpdated</span></code>
-of <code class="docutils literal notranslate"><span class="pre">self</span></code> is updated (but not the other way around and, unlike <a class="reference internal" href="#quanguru.classes.baseClasses._parameter" title="quanguru.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a> setting ones
+of <code class="docutils literal notranslate"><span class="pre">self</span></code> is updated (but not the other way around and, unlike <code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code> setting ones
 value does not break the relation).</p>
 </dd></dl>
 
@@ -655,6 +535,12 @@ set to <code class="docutils literal notranslate"><span class="pre">None</span><
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.qRes">
+<span class="sig-name descname"><span class="pre">qRes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="QRes.html#quanguru.classes.QRes.qResults" title="quanguru.classes.QRes.qResults"><span class="pre">qResults</span></a></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.qRes" title="Permalink to this definition">¶</a></dt>
+<dd><p>This attribute is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">qResults</span></code>, which is used to store simulation results and states.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to call at each step of the time evolution, by default <code class="docutils literal notranslate"><span class="pre">None</span></code>. It needs to be written in the
@@ -679,22 +565,16 @@ some calculations, which might be needed in the compute, and store them in the <
 This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.qRes">
-<span class="sig-name descname"><span class="pre">qRes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="QRes.html#quanguru.classes.QRes.qResults" title="quanguru.classes.QRes.qResults"><span class="pre">qResults</span></a></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.qRes" title="Permalink to this definition">¶</a></dt>
-<dd><p>This attribute is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">qResults</span></code>, which is used to store simulation results and states.</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.__compute">
-<span class="sig-name descname"><span class="pre">__compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.__compute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.__compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the actual compute function that is called in the time-evolution, it calls <code class="docutils literal notranslate"><span class="pre">self.compute</span></code> if it is a
 callable and does nothing otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.__calculate">
-<span class="sig-name descname"><span class="pre">__calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'start'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.__calculate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.__calculate" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the actual calculate function that is called in the time-evolution, it calls
 (if callable, does nothing otherwise) <code class="docutils literal notranslate"><span class="pre">self.calculateStart</span></code>
 or <code class="docutils literal notranslate"><span class="pre">self.calculateEnd</span></code> depending on the given string <cite>where</cite>.</p>
@@ -722,410 +602,6 @@ or <code class="docutils literal notranslate"><span class="pre">self.calculateEn
 
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qBaseSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#qBaseSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.baseClasses.computeBase" title="quanguru.classes.baseClasses.computeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.computeBase</span></code></a></p>
-<p>Inhereted by the <a class="reference internal" href="QSys.html#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code></a> and
-<a class="reference internal" href="QPro.html#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols</span></code></a> and has a
-simulation attribute which is an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>. The goal
-for such an attribute is to increase possible ways of running a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>.
-TODO : create a simple demo and a cross-reference</p>
-<p>NOTE : This class branches the inheritance started by <a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase" title="quanguru.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a>, and this branch extends to
-<a class="reference internal" href="QSys.html#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code></a> and
-<a class="reference internal" href="QPro.html#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols</span></code></a>.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'qBaseSim'</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.__simulation">
-<span class="sig-name descname"><span class="pre">__simulation</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.__simulation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.simulation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simulation</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.simulation" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_qBaseSim__simulation</span></code> attribute (an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.runSimulation">
-<span class="sig-name descname"><span class="pre">runSimulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coreCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#qBaseSim.runSimulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.runSimulation" title="Permalink to this definition">¶</a></dt>
-<dd><p>an alternative to run the simulation, equivalent to <code class="docutils literal notranslate"><span class="pre">self.simulation.run()</span></code></p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.simParameters">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simParameters</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.simParameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
-simulation object and getting values from there.</p>
-<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
-# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.simTotalTime">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simTotalTime</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.simTotalTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
-simulation object and getting values from there.</p>
-<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
-# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.simStepSize">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simStepSize</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.simStepSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
-simulation object and getting values from there.</p>
-<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
-# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.simStepCount">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simStepCount</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.simStepCount" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
-simulation object and getting values from there.</p>
-<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
-# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.simSamples">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simSamples</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.simSamples" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
-simulation object and getting values from there.</p>
-<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
-# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.simCompute">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simCompute</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.simCompute" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
-simulation object and getting values from there.</p>
-<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
-# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.simDelStates">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simDelStates</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.simDelStates" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
-simulation object and getting values from there.</p>
-<p>There are various setters of this property with different names to set the relevant attribute of the simulation.
-# TODO should we include calculate methods into the tuple ? and have a setter for calculates as well ?</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.initialState">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialState</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.initialState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getter for the simulation initial state, equivalent to <code class="docutils literal notranslate"><span class="pre">self.simulation.initialState</span></code>.
-This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None
-for single systems (if its state is set).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.qBaseSim.delMatrices">
-<span class="sig-name descname"><span class="pre">delMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#qBaseSim.delMatrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.qBaseSim.delMatrices" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method extends <a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase.delMatrices" title="quanguru.classes.baseClasses.paramBoundBase.delMatrices"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delMatrices</span></code></a> of <a class="reference internal" href="#quanguru.classes.baseClasses.computeBase" title="quanguru.classes.baseClasses.computeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">computeBase</span></code></a> to also call
-<a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase.delMatrices" title="quanguru.classes.baseClasses.paramBoundBase.delMatrices"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delMatrices</span></code></a> on <code class="docutils literal notranslate"><span class="pre">self.simulation</span></code>.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stateBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#stateBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.baseClasses.computeBase" title="quanguru.classes.baseClasses.computeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.computeBase</span></code></a></p>
-<p>Contains attributes and methods for <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and a boolean to determine whether to store or
-discard time-evolved states. Since, we can use <a class="reference internal" href="#quanguru.classes.baseClasses.computeBase.compute" title="quanguru.classes.baseClasses.computeBase.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute</span></code></a> to compute quantities of
-interest at the run-time of simulation, we don’t need to keep the states and can discard them to save memory.</p>
-<p>NOTE : This class branches the inheritance started by <a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase" title="quanguru.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">paramBoundBase</span></code></a> and extends to
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>.</p>
-<p>NOTE : All three attributes of this class (and all 4 of timeBase) are instances of <a class="reference internal" href="#quanguru.classes.baseClasses._parameter" title="quanguru.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a>, so they have
-a corresponding property.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stateBase'</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase.__initialState">
-<span class="sig-name descname"><span class="pre">__initialState</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase.__initialState" title="Permalink to this definition">¶</a></dt>
-<dd><p>This attribute is a <a class="reference internal" href="#quanguru.classes.baseClasses._parameter" title="quanguru.classes.baseClasses._parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code></a> and value stores the <code class="docutils literal notranslate"><span class="pre">initialState</span></code> matrix</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase.__initialStateInput">
-<span class="sig-name descname"><span class="pre">__initialStateInput</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase.__initialStateInput" title="Permalink to this definition">¶</a></dt>
-<dd><p>Input used in the creation of the <code class="docutils literal notranslate"><span class="pre">initialState</span></code>, there are various ways to create <code class="docutils literal notranslate"><span class="pre">initialState</span></code>, so its
-value changes depending on the case. This information is kept so that it can be used in cases where a new
-reconstruction of <code class="docutils literal notranslate"><span class="pre">initialState</span></code> is required, e.g. when system dimension is swept or changed.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase.__delStates">
-<span class="sig-name descname"><span class="pre">__delStates</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase.__delStates" title="Permalink to this definition">¶</a></dt>
-<dd><p>This boolean determines if we delete/discard (<code class="docutils literal notranslate"><span class="pre">True</span></code>) time-evolved states (to save memory) and keep only
-the <code class="docutils literal notranslate"><span class="pre">initialState</span></code> and <code class="docutils literal notranslate"><span class="pre">currentState</span></code> of the system. By default, it is <code class="docutils literal notranslate"><span class="pre">False</span></code> and states will be stored
-in the corresponding protocols <code class="docutils literal notranslate"><span class="pre">qRes.states</span></code>.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase.initialState">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialState</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase.initialState" title="Permalink to this definition">¶</a></dt>
-<dd><p>The initialState property <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_stateBase__initialState.value</span></code> if it is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. Otherwise, uses
-first element in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary values to create and assign its value. This assumes that, to be able
-to assign a state to a Simulation, it needs at least one quantum system in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary, and the
-subSys have method to create the state (<code class="docutils literal notranslate"><span class="pre">_createAstate</span></code>). This requirement, by default, is satisfied by the
-internally created Simulation objects that are attributes of quantum systems and protocols.</p>
-<p>Setter sets <code class="docutils literal notranslate"><span class="pre">_stateBase__initialState.value</span></code> matrix for <code class="docutils literal notranslate"><span class="pre">self</span></code> by using the first element of <code class="docutils literal notranslate"><span class="pre">subSys</span></code>
-dictionary values.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase._initialStateInput">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_initialStateInput</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase._initialStateInput" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_stateBase__initialStateInput.value</span></code>.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase.getResultByNameOrAlias">
-<span class="sig-name descname"><span class="pre">getResultByNameOrAlias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#stateBase.getResultByNameOrAlias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase.getResultByNameOrAlias" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method exists to enrich the terminology, it just <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">super().getByNameOrAlias(name)</span></code>, which returns
-the object with the given <cite>name</cite>.
-See <a class="reference internal" href="base.html#quanguru.classes.base.named.getByNameOrAlias" title="quanguru.classes.base.named.getByNameOrAlias"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getByNameOrAlias</span></code></a> for details.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase.delStates">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delStates</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase.delStates" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_stateBase__delStates.value</span></code> boolean</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.stateBase.delMatrices">
-<span class="sig-name descname"><span class="pre">delMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#stateBase.delMatrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.stateBase.delMatrices" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method extends <a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase.delMatrices" title="quanguru.classes.baseClasses.paramBoundBase.delMatrices"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delMatrices</span></code></a> to also set
-the <code class="docutils literal notranslate"><span class="pre">_stateBase__initialState.value</span></code> to <code class="docutils literal notranslate"><span class="pre">None</span></code> and del the old value.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">timeBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#timeBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.baseClasses.stateBase" title="quanguru.classes.baseClasses.stateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.stateBase</span></code></a></p>
-<p>Implements 3 basic time information, namely total time of simulation (<code class="docutils literal notranslate"><span class="pre">totalTime</span></code>), step size for
-each unitary (<code class="docutils literal notranslate"><span class="pre">stepSize</span></code>), and number of steps (<code class="docutils literal notranslate"><span class="pre">stepCount</span> <span class="pre">=</span> <span class="pre">totalTime/stepSize</span></code>). Additionally, one more
-parameter, namely, number of samples
-(<code class="docutils literal notranslate"><span class="pre">samples</span></code>) is introduced to be used with time-dependent Hamiltonian, where a continuous parameter
-is discretely changed at every <code class="docutils literal notranslate"><span class="pre">stepSize</span></code> and more than one <code class="docutils literal notranslate"><span class="pre">samples</span></code> are desired during the <code class="docutils literal notranslate"><span class="pre">stepSize</span></code>.</p>
-<p>These 4 attributes are all <code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code> instances and protected
-attributes, meaning they are modified by the corresponding properties. One other functionality of
-property is to create flexible use of these attributes. For example, not all 3 of <code class="docutils literal notranslate"><span class="pre">stepSize</span></code>, <code class="docutils literal notranslate"><span class="pre">totalTime</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">stepCount</span></code> are need to be explicitly defined, any of these two would be sufficient, since the 3rd can be
-calculated using the two. So, property setters&amp;getters also covers such cases. Another flexibility ensured by the
-properties is when <code class="docutils literal notranslate"><span class="pre">_bound</span></code> are broken.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'timeBase'</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.__totalTime">
-<span class="sig-name descname"><span class="pre">__totalTime</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.__totalTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>_parameter storing the total time of simulation</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.__stepSize">
-<span class="sig-name descname"><span class="pre">__stepSize</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.__stepSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>_parameter storing the step size of simulation</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.__samples">
-<span class="sig-name descname"><span class="pre">__samples</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.__samples" title="Permalink to this definition">¶</a></dt>
-<dd><p>_parameter storing number of samples in each step, by default 1.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.__stepCount">
-<span class="sig-name descname"><span class="pre">__stepCount</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.__stepCount" title="Permalink to this definition">¶</a></dt>
-<dd><p>_parameter storing the number of steps, i.e totalTime/stepSize.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.__bound">
-<span class="sig-name descname"><span class="pre">__bound</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.__bound" title="Permalink to this definition">¶</a></dt>
-<dd><p>if bound to another object, meaning the _parameters of this gets their value from the others _parameters,
-this attribute is a reference to another. Else None.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.totalTime">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">totalTime</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.totalTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime.value</span></code>, and also sets the <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code>
-conditioned on that <code class="docutils literal notranslate"><span class="pre">stepSize</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. It also sets
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Additionally to
-these, it sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize._value</span></code> to <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize._bound._value</span></code>, if
-<code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize._bound</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span> <span class="pre">or</span> <span class="pre">False</span></code>. This is introduced to provide a flexible
-use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.stepCount">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stepCount</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.stepCount" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code>. getter also try seting the <code class="docutils literal notranslate"><span class="pre">totalTime</span></code> if it is <code class="docutils literal notranslate"><span class="pre">None</span></code>.
-Setter also sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize.value</span></code> conditioned on that <code class="docutils literal notranslate"><span class="pre">totalTime</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. It also sets
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Additionally to
-these, it sets <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._value</span></code> to <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._bound._value</span></code>, if
-<code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._bound</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span> <span class="pre">or</span> <span class="pre">False</span></code>. This is introduced to provide a flexible
-use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.stepSize">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stepSize</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.stepSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_timeBase__stepSize.value</span></code>, and also <code class="docutils literal notranslate"><span class="pre">_timeBase__stepCount.value</span></code> conditioned on that
-<code class="docutils literal notranslate"><span class="pre">totalTime</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. It also sets
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Additionally to
-these, it sets <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._value</span></code> to <code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._bound._value</span></code>, if
-<code class="docutils literal notranslate"><span class="pre">_timeBase__totalTime._bound</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span> <span class="pre">or</span> <span class="pre">False</span></code>. This is introduced to provide a flexible
-use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
-has a <code class="docutils literal notranslate"><span class="pre">_bound</span></code> and can obtain the second one from the <code class="docutils literal notranslate"><span class="pre">_bound</span></code>.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.samples">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">samples</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.samples" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets and sets <code class="docutils literal notranslate"><span class="pre">_timeBase__samples.value</span></code> and also sets
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">_paramUpdated</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase._copyVals">
-<span class="sig-name descname"><span class="pre">_copyVals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#timeBase._copyVals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase._copyVals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method to copy the values for given attributes (as keys) from <code class="docutils literal notranslate"><span class="pre">other</span></code> to <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase._boundTree">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_boundTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">osys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#timeBase._boundTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase._boundTree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a tree of bound instances starting from the given <code class="docutils literal notranslate"><span class="pre">osys</span></code>. A primitive method used in debugging and to
-be improved.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase._bound">
-<span class="sig-name descname"><span class="pre">_bound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_stateBase__delStates',</span> <span class="pre">'_stateBase__initialState',</span> <span class="pre">'_stateBase__initialStateInput']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#timeBase._bound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase._bound" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method is used internally at appropriate places to create bound between different simulation instances in
-the intended hierarchical order. For example, when a <a class="reference internal" href="QSys.html#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">system</span></code></a>
-is added to <code class="docutils literal notranslate"><span class="pre">subSys</span></code> of explicitly created <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>,
-The parameters of any <a class="reference internal" href="QPro.html#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocol.simulation</span></code></a> for that system will
-be bound to <code class="docutils literal notranslate"><span class="pre">(quantum</span> <span class="pre">system).simulation</span></code> which will be bound to explicitly created Simulation. This method
-creates such a bound between two <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> objects, and it is used in appropriate places of the library.
-Such a bound is broken or not created at all, if a parameter is explicitly assigned for a protocol or system.</p>
-<ul>
-<li><p>if self _parameter attributes have bound False (meaning set a value before)</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>copies the value from other, if value in other is not None.</p></li>
-<li><p>is any self _parameter bound is None, and the same value in other is not, sets it and breaks the loop</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>tries bounding if bound is None</p></li>
-</ul>
-<p>NOTE : This method is intended purely for internal uses!</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>other</strong> (<a class="reference internal" href="QSim.html#quanguru.classes.QSim.Simulation" title="quanguru.classes.QSim.Simulation"><em>Simulation</em></a>) – The other Simulation (or timeBase) class to bound the parameters of self</p></li>
-<li><p><strong>re</strong> (<em>bool</em><em>, </em><em>optional</em>) – This boolean used (internally) to <strong>re-bound</strong> a simulation object to another one, by default False. So,
-re-calling this method to bound a simulation object to another will not work unless <code class="docutils literal notranslate"><span class="pre">re=True</span></code>.</p></li>
-<li><p><strong>param</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – This is a list of strings for attributes (which are also _parameter objects) other than time parameters, for
-which the same bound will be created. The difference between <code class="docutils literal notranslate"><span class="pre">param</span></code> and <code class="docutils literal notranslate"><span class="pre">timeBase</span></code> parameters is that
-the latter ones has a functional dependency to each other, meaning a break in one of them should
-appropriately be reflected to the others.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.timeBase.delMatrices">
-<span class="sig-name descname"><span class="pre">delMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/baseClasses.html#timeBase.delMatrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.baseClasses.timeBase.delMatrices" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method extends <a class="reference internal" href="#quanguru.classes.baseClasses.paramBoundBase.delMatrices" title="quanguru.classes.baseClasses.paramBoundBase.delMatrices"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delMatrices</span></code></a> to also set
-the <code class="docutils literal notranslate"><span class="pre">_stateBase__initialState.value</span></code> to <code class="docutils literal notranslate"><span class="pre">None</span></code> and del the old value.</p>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 
 
@@ -1141,10 +617,10 @@ the <code class="docutils literal notranslate"><span class="pre">_stateBase__ini
             <p class="prev-next-title">base classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.base</span></code>)</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="QSys.html" title="next page">
+    <a class='right-next' id="next-link" href="QSimBase.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Quantum system classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSys</span></code>)</p>
+        <p class="prev-next-title">Simulation classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSimBase</span></code>)</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -82,6 +82,12 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -95,7 +101,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -177,18 +183,18 @@
 <span class="sd">    .. |x| unicode:: U+274C</span>
 <span class="sd">    .. |w| unicode:: U+2000</span>
 
-<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
-<span class="sd">       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**</span>
-<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
-<span class="sd">      `named`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
-<span class="sd">      `qBase`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
-<span class="sd">      `aliasClass`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
-<span class="sd">      `keySearch`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `aliasDict`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
-<span class="sd">      `_auxiliaryClass`          |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `_recurseIfList`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">      `addDecorator`             |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
-<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">    =======================    ==================    ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================    ================   ===============</span>
+<span class="sd">      `named`                    |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|</span>
+<span class="sd">      `qBase`                    |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">      `aliasClass`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|</span>
+<span class="sd">      `keySearch`                |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|</span>
+<span class="sd">      `aliasDict`                |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|</span>
+<span class="sd">      `_auxiliaryClass`          |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `_recurseIfList`           |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">      `addDecorator`             |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">    =======================    ==================    ================   ===============</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -200,7 +206,7 @@
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Mapping</span>
 
-<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">raiseAttrType</span><span class="p">,</span> <span class="n">checkNotVal</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">raiseAttrType</span><span class="p">,</span> <span class="n">checkNotVal</span><span class="p">,</span> <span class="n">checkCorType</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;qBase&#39;</span><span class="p">,</span> <span class="s1">&#39;named&#39;</span>
@@ -209,17 +215,20 @@
 <div class="viewcode-block" id="_recurseIfList"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base._recurseIfList">[docs]</a><span class="k">def</span> <span class="nf">_recurseIfList</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    a decorator to call the decorated method recursively for every element of a list/tuple input (and possibly exclude</span>
-<span class="sd">    certain objects). It is used in various places of the library (exclude is useful/used in some of them).</span>
+<span class="sd">    certain objects). It is used in various places of the library (exclude is useful/used in some of them to avoid</span>
+<span class="sd">    infinite recursive calls).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="c1"># needed for the func.__name__</span>
     <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># removing this fails test_paramBoundBaseCreateBreakBoundWithList, but only when I run all the tests</span>
+        <span class="c1"># could not figure out why.</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">inp</span><span class="p">:</span>
                 <span class="n">r</span> <span class="o">=</span> <span class="n">recurse</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">_exclude</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getfullargspec</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
                 <span class="n">r</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span> <span class="c1">#pylint:disable=bare-except   # noqa: E722</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="n">r</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">r</span>
     <span class="k">return</span> <span class="n">recurse</span></div>
@@ -235,8 +244,8 @@
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;__name&quot;</span><span class="p">,</span> <span class="s2">&quot;__alias&quot;</span><span class="p">]</span>
 
-    <span class="nd">@raiseAttrType</span><span class="p">([</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)],</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">alias</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="c1">#pylint:disable=unsubscriptable-object</span>
+        <span class="n">checkCorType</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span> <span class="c1">#pylint:disable=unsubscriptable-object</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Protected name attribute of an aliasClass object, set&amp;get through the :py:attr:`~aliasClass.name` property.</span>
@@ -263,7 +272,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__name</span> <span class="c1">#pylint:disable = no-member</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-    <span class="nd">@raiseAttrType</span><span class="p">([</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@raiseAttrType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">attrPrintName</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1">#pylint:disable = no-member</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_aliasClass__name</span> <span class="o">=</span> <span class="n">name</span>  <span class="c1">#pylint:disable = no-member, assigning-non-slot</span>
@@ -310,6 +319,14 @@
 <span class="sd">        string representation of the object is its name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
+
+<div class="viewcode-block" id="aliasClass.__radd__"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.aliasClass.__radd__">[docs]</a>    <span class="nd">@raiseAttrType</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">other</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
+
+<div class="viewcode-block" id="aliasClass.__add__"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.aliasClass.__add__">[docs]</a>    <span class="nd">@raiseAttrType</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="n">other</span></div>
 
 <div class="viewcode-block" id="aliasClass.__eq__"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.aliasClass.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;aliasClass&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1">#pylint:disable=unsubscriptable-object</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -411,7 +428,6 @@
 <span class="sd">        This enables to ``return True`` for an :class:`~aliasClass` object itself, its name, or any of it aliases.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">keySearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">))</span></div>
-        <span class="c1">#any([o == k for k in self.keys()])</span>
 
 <div class="viewcode-block" id="aliasDict.update"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.aliasDict.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1">#pylint:disable=unsubscriptable-object</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -513,11 +529,10 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">named</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_allInstaces</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># pylint: disable=protected-access</span></div>
 
-    <span class="nd">@raiseAttrType</span><span class="p">([</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)],</span> <span class="s2">&quot;_internal&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1">#: boolean to distinguish internally and explicitly created instances.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">checkCorType</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="nb">bool</span><span class="p">,</span> <span class="s1">&#39;_internal&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_incrementInstances</span><span class="p">()</span>
         <span class="c1">#: protected name attribute is an instance of :class:`~named` class</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__name</span><span class="p">:</span> <span class="n">aliasClass</span> <span class="o">=</span> <span class="n">aliasClass</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_named__namer</span><span class="p">())</span>
@@ -590,7 +605,7 @@
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allInstacesDict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">wv</span> <span class="o">=</span> <span class="n">v</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ReferenceType</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="p">()</span>
             <span class="n">checkNotVal</span><span class="p">((</span><span class="n">k</span> <span class="o">==</span> <span class="n">ali</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">wv</span> <span class="o">!=</span> <span class="bp">self</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span>
-                         <span class="sa">f</span><span class="s2">&quot;Given alias (</span><span class="si">{</span><span class="n">ali</span><span class="si">}</span><span class="s2">) already exist and is assigned to: &quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                         <span class="sa">f</span><span class="s2">&quot;Given alias (</span><span class="si">{</span><span class="n">ali</span><span class="si">}</span><span class="s2">) already exist and is assigned to: </span><span class="si">{</span><span class="n">k</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_named__name</span><span class="o">.</span><span class="n">alias</span> <span class="o">=</span> <span class="n">ali</span>
 
 <div class="viewcode-block" id="named.clsLabel"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.named.clsLabel">[docs]</a>    <span class="nd">@classmethod</span>
@@ -657,7 +672,16 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;auxObj&#39;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="_auxiliaryClass._named__setKwargs"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base._auxiliaryClass._named__setKwargs">[docs]</a>    <span class="k">def</span> <span class="nf">_named__setKwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="c1">#pylint:disable=invalid-name</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to set the attributes of the object from the given keywords and values.</span>
+<span class="sd">        It is introduced to be used while instantiation of the object so that the protected attributes are set through</span>
+<span class="sd">        the correspoding properties.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="addDecorator"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.addDecorator">[docs]</a><span class="k">def</span> <span class="nf">addDecorator</span><span class="p">(</span><span class="n">addFunction</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -727,11 +751,11 @@
     <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="c1">#: (**class attribute**) aux dictionary to store auxiliary things as items to reach from any instance</span>
-    <span class="n">_auxiliary</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_auxiliaryDict</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1">#: (**class attribute**) aux object to store auxiliary things as attributes to reach from any instance</span>
     <span class="n">_auxiliaryObj</span><span class="p">:</span> <span class="n">_auxiliaryClass</span> <span class="o">=</span> <span class="n">_auxiliaryClass</span><span class="p">()</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__superSys&#39;</span><span class="p">,</span> <span class="s1">&#39;__subSys&#39;</span><span class="p">,</span> <span class="s1">&#39;__aux&#39;</span><span class="p">,</span> <span class="s1">&#39;__auxObj&#39;</span><span class="p">]</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__superSys&#39;</span><span class="p">,</span> <span class="s1">&#39;__subSys&#39;</span><span class="p">,</span> <span class="s1">&#39;__auxDict&#39;</span><span class="p">,</span> <span class="s1">&#39;__auxObj&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
@@ -740,24 +764,23 @@
         <span class="c1">#: protected attribute for sub-system dictionary</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__subSys</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">aliasDict</span><span class="p">()</span>
         <span class="c1">#: attribute for the class attribute _auxiliary (this is required due to pickling in multi-processing)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__aux</span> <span class="o">=</span> <span class="n">qBase</span><span class="o">.</span><span class="n">_auxiliary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__auxDict</span> <span class="o">=</span> <span class="n">qBase</span><span class="o">.</span><span class="n">_auxiliaryDict</span>
         <span class="c1">#: attribute for the class attribute _auxiliaryObj (this is required due to pickling in multi-processing)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__auxObj</span> <span class="o">=</span> <span class="n">qBase</span><span class="o">.</span><span class="n">_auxiliaryObj</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint:disable=no-member</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">aux</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">auxDict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        property to get and set auxiliary items into auxiliary dictionary. The setter updates the existing dictionary</span>
 <span class="sd">        (instead of an single element into the existing dictionary) with a given one, ie. adds key:value pair for the</span>
 <span class="sd">        non-existing keys and changes the value for existing keys.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qBase__aux</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qBase__auxDict</span>
 
-    <span class="nd">@aux</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">aux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qBase__aux</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
-        <span class="c1">#setattr(self, &#39;_qBase__aux&#39;, dictionary) used to replace the library, now updates.</span>
+    <span class="nd">@auxDict</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">auxDict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qBase__auxDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">auxObj</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_auxiliaryClass</span><span class="p">:</span>
@@ -802,9 +825,7 @@
 
 <span class="sd">        TODO add example &amp;/ link to a tutorial</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="p">(</span><span class="n">named</span><span class="p">,</span> <span class="n">_auxiliaryClass</span><span class="p">)),</span> <span class="s2">&quot;Add method is restricted to named or its child classes!&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">named</span><span class="p">):</span>
-            <span class="n">subSys</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=W0212</span>
+        <span class="n">subSys</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=W0212</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qBase__subSys</span><span class="p">[</span><span class="n">subSys</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">subSys</span>
         <span class="k">return</span> <span class="n">subSys</span></div>
 
@@ -821,9 +842,8 @@
 <span class="sd">        raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of</span>
 <span class="sd">        named class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">named</span><span class="p">):</span>
-            <span class="n">subSys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">subSys</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">named</span><span class="p">),</span> <span class="s2">&quot;Given object is not an instance of named!&quot;</span>
+        <span class="n">subSys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">subSys</span><span class="p">)</span>
+        <span class="n">checkCorType</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="p">(</span><span class="n">named</span><span class="p">,</span> <span class="n">_auxiliaryClass</span><span class="p">),</span> <span class="s1">&#39;removeSubSys&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">subSys</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="qBase.resetSubSys"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.qBase.resetSubSys">[docs]</a>    <span class="k">def</span> <span class="nf">resetSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -834,15 +854,11 @@
 
 <div class="viewcode-block" id="qBase.copy"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.qBase.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;qBase&quot;</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates n `empty` copies of an object. This method is introduced here to be extended in child</span>
-<span class="sd">        class. In here, it ** does not copy ** the object, but creates n new objects of the same class and sets the</span>
-<span class="sd">        given kwargs.</span>
+<span class="sd">        Creates an `empty` copy of `self`. This method is introduced here to be extended in child class.</span>
+<span class="sd">        In here, it ** does not copy ** the object, but creates a new object of the same class and sets the given kwargs</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1">#newSystems = []</span>
-        <span class="c1">#for _ in range(n): # pylint: disable=W0612</span>
         <span class="n">sysClass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span>
         <span class="k">return</span> <span class="n">sysClass</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
-        <span class="c1">#return (*newSystems,)</span>
 </pre></div>
 
               </div>

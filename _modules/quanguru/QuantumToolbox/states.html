@@ -82,6 +82,12 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -95,7 +101,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -397,7 +403,7 @@
 
 <span class="sd">                :math:`|ket\rangle = \frac{1}{\sum p_{k}}\sum \sqrt{p_{k}}` ``basis(dimension, k)``</span>
 
-<span class="sd">            2. ``populations = True`` : `values =` :math:`[c_{k}]` are the complex probability amplitudes. The output</span>
+<span class="sd">            2. ``populations = False`` : `values =` :math:`[c_{k}]` are the complex probability amplitudes. The output</span>
 <span class="sd">            state gets normalised.</span>
 
 <span class="sd">            Ouput state</span>
@@ -760,6 +766,22 @@
     <span class="k">elif</span> <span class="n">bs</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Psi-&#39;</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">]:</span>
         <span class="n">BellState</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
     <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">BellState</span><span class="p">)</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">BellState</span></div>
+
+<div class="viewcode-block" id="purity"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.purity">[docs]</a><span class="k">def</span> <span class="nf">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the purity :math:`Tr(\rho^{2})` of a given density matrix :math:`\rho`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    denMat : Matrix</span>
+<span class="sd">        Density matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        the purity of given density matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">linAlTrace</span><span class="p">(</span><span class="n">denMat</span><span class="nd">@denMat</span><span class="p">)</span></div>
 </pre></div>
 
               </div>

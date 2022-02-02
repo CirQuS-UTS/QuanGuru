@@ -81,6 +81,12 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -94,7 +100,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -587,16 +593,16 @@ the sweeps. Still, there are ways to go around of this restriction, in case it m
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s use the above qubit to store some value in aux dictionary</span>
-<span class="n">qa</span><span class="o">.</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;some key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">qa</span><span class="o">.</span><span class="n">auxDict</span><span class="p">[</span><span class="s1">&#39;some key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="c1"># let&#39;s create a updateBase, but this time we won&#39;t give system, but set _aux to True</span>
 <span class="n">s5</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">baseClasses</span><span class="o">.</span><span class="n">updateBase</span><span class="p">(</span><span class="n">_aux</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;some key&#39;</span><span class="p">)</span>
 <span class="c1"># let&#39;s print the current aux[&#39;some key&#39;]</span>
-<span class="nb">print</span><span class="p">(</span> <span class="n">qa</span><span class="o">.</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;some key&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">qa</span><span class="o">.</span><span class="n">auxDict</span><span class="p">[</span><span class="s1">&#39;some key&#39;</span><span class="p">]</span> <span class="p">)</span>
 <span class="c1"># run the update as follows with the new value for the aux[&#39;some key&#39;]</span>
 <span class="n">s5</span><span class="o">.</span><span class="n">_runUpdate</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1"># print the updated/current aux[&#39;some key&#39;]</span>
-<span class="nb">print</span><span class="p">(</span> <span class="n">qa</span><span class="o">.</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;some key&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">qa</span><span class="o">.</span><span class="n">auxDict</span><span class="p">[</span><span class="s1">&#39;some key&#39;</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>

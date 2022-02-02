@@ -82,7 +82,13 @@
       
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 current active nav-item">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
  <a class="reference internal nav-link" href="../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -96,7 +102,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -584,7 +590,7 @@ They do not need to sum to 1. The state gets normalised, so these are relative p
 <blockquote>
 <div><p><img class="math" src="../_images/math/965db5def2f7a20e66d615170b9ef7b912279cde.png" alt="|ket\rangle = \frac{1}{\sum p_{k}}\sum \sqrt{p_{k}}"/> <code class="docutils literal notranslate"><span class="pre">basis(dimension,</span> <span class="pre">k)</span></code></p>
 </div></blockquote>
-<p>2. <code class="docutils literal notranslate"><span class="pre">populations</span> <span class="pre">=</span> <span class="pre">True</span></code> : <cite>values =</cite> <img class="math" src="../_images/math/f048e02a118d7d9451099e4a0dd58ba82df89ecf.png" alt="[c_{k}]"/> are the complex probability amplitudes. The output
+<p>2. <code class="docutils literal notranslate"><span class="pre">populations</span> <span class="pre">=</span> <span class="pre">False</span></code> : <cite>values =</cite> <img class="math" src="../_images/math/f048e02a118d7d9451099e4a0dd58ba82df89ecf.png" alt="[c_{k}]"/> are the complex probability amplitudes. The output
 state gets normalised.</p>
 <p>Ouput state</p>
 <blockquote>
@@ -917,6 +923,23 @@ See: <cite>superPos</cite> function</p></li>
 <span class="go">       [ 0.        ]]</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.purity">
+<span class="sig-name descname"><span class="pre">purity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">denMat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#purity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.purity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the purity <img class="math" src="../_images/math/df828bcdccfd0b5afd3bd58e30ac9a6d8cbbf73e.png" alt="Tr(\rho^{2})"/> of a given density matrix <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.png" alt="\rho"/></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>denMat</strong> (<em>Matrix</em>) – Density matrix</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the purity of given density matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

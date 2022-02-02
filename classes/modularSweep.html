@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modular Sweep (quanguru.classes.extensions.modularSweep) &#8212; QuanGuru 1 documentation</title>
+    <title>Modular Sweep (quanguru.classes.modularSweep) &#8212; QuanGuru 1 documentation</title>
     
     <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -83,6 +83,12 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../QuantumToolbox.html">
   QuantumToolbox
  </a>
@@ -96,7 +102,7 @@
 
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../QuantumToolbox/Tutorials/Tutorials.html">
-  Tutorials
+  QuantumToolbox Tutorials
  </a>
 </li>
 
@@ -139,6 +145,16 @@
  <li class="toctree-l1">
   <a class="reference internal" href="baseClasses.html">
    BaseClasses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSimBase.html">
+   QSimBase
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QSimComp.html">
+   QSimComp
   </a>
  </li>
  <li class="toctree-l1">
@@ -247,8 +263,8 @@
               
               <div>
                 
-  <div class="section" id="module-quanguru.classes.extensions.modularSweep">
-<span id="modular-sweep-quanguru-classes-extensions-modularsweep"></span><h1>Modular Sweep (<a class="reference internal" href="#module-quanguru.classes.extensions.modularSweep" title="quanguru.classes.extensions.modularSweep"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.extensions.modularSweep</span></code></a>)<a class="headerlink" href="#module-quanguru.classes.extensions.modularSweep" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-quanguru.classes.modularSweep">
+<span id="modular-sweep-quanguru-classes-modularsweep"></span><h1>Modular Sweep (<a class="reference internal" href="#module-quanguru.classes.modularSweep" title="quanguru.classes.modularSweep"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.modularSweep</span></code></a>)<a class="headerlink" href="#module-quanguru.classes.modularSweep" title="Permalink to this headline">¶</a></h1>
 <p>Contain an implementation of the sweep that uses modular arithmetic.</p>
 <table class="longtable table autosummary">
 <colgroup>
@@ -256,28 +272,28 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.extensions.modularSweep.runSimulation" title="quanguru.classes.extensions.modularSweep.runSimulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">runSimulation</span></code></a>(qSim, p)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.modularSweep.runSimulation" title="quanguru.classes.modularSweep.runSimulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">runSimulation</span></code></a>(qSim, p)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.extensions.modularSweep.nonParalEvol" title="quanguru.classes.extensions.modularSweep.nonParalEvol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nonParalEvol</span></code></a>(qSim)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.modularSweep.nonParalEvol" title="quanguru.classes.modularSweep.nonParalEvol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nonParalEvol</span></code></a>(qSim)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.extensions.modularSweep.paralEvol" title="quanguru.classes.extensions.modularSweep.paralEvol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paralEvol</span></code></a>(qSim, p)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.modularSweep.paralEvol" title="quanguru.classes.modularSweep.paralEvol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paralEvol</span></code></a>(qSim, p)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.extensions.modularSweep.parallelTimeEvol" title="quanguru.classes.extensions.modularSweep.parallelTimeEvol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parallelTimeEvol</span></code></a>(qSim, ind)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.modularSweep.parallelTimeEvol" title="quanguru.classes.modularSweep.parallelTimeEvol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parallelTimeEvol</span></code></a>(qSim, ind)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.extensions.modularSweep._runSweepAndPrep" title="quanguru.classes.extensions.modularSweep._runSweepAndPrep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_runSweepAndPrep</span></code></a>(qSim, ind)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.modularSweep._runSweepAndPrep" title="quanguru.classes.modularSweep._runSweepAndPrep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_runSweepAndPrep</span></code></a>(qSim, ind)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.extensions.modularSweep.timeDependent" title="quanguru.classes.extensions.modularSweep.timeDependent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeDependent</span></code></a>(qSim)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.modularSweep.timeDependent" title="quanguru.classes.modularSweep.timeDependent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeDependent</span></code></a>(qSim)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.extensions.modularSweep.timeEvolDefault" title="quanguru.classes.extensions.modularSweep.timeEvolDefault"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeEvolDefault</span></code></a>(qSim, td)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.modularSweep.timeEvolDefault" title="quanguru.classes.modularSweep.timeEvolDefault"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeEvolDefault</span></code></a>(qSim, td)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.extensions.modularSweep.timeEvolBase" title="quanguru.classes.extensions.modularSweep.timeEvolBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeEvolBase</span></code></a>(qSim)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.modularSweep.timeEvolBase" title="quanguru.classes.modularSweep.timeEvolBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeEvolBase</span></code></a>(qSim)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -350,43 +366,43 @@
 </tbody>
 </table>
 <dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.extensions.modularSweep.runSimulation">
-<span class="sig-name descname"><span class="pre">runSimulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/extensions/modularSweep.html#runSimulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.extensions.modularSweep.runSimulation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.modularSweep.runSimulation">
+<span class="sig-name descname"><span class="pre">runSimulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/modularSweep.html#runSimulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.modularSweep.runSimulation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.extensions.modularSweep.nonParalEvol">
-<span class="sig-name descname"><span class="pre">nonParalEvol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/extensions/modularSweep.html#nonParalEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.extensions.modularSweep.nonParalEvol" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.modularSweep.nonParalEvol">
+<span class="sig-name descname"><span class="pre">nonParalEvol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/modularSweep.html#nonParalEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.modularSweep.nonParalEvol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.extensions.modularSweep.paralEvol">
-<span class="sig-name descname"><span class="pre">paralEvol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/extensions/modularSweep.html#paralEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.extensions.modularSweep.paralEvol" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.modularSweep.paralEvol">
+<span class="sig-name descname"><span class="pre">paralEvol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/modularSweep.html#paralEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.modularSweep.paralEvol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.extensions.modularSweep.parallelTimeEvol">
-<span class="sig-name descname"><span class="pre">parallelTimeEvol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/extensions/modularSweep.html#parallelTimeEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.extensions.modularSweep.parallelTimeEvol" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.modularSweep.parallelTimeEvol">
+<span class="sig-name descname"><span class="pre">parallelTimeEvol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/modularSweep.html#parallelTimeEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.modularSweep.parallelTimeEvol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.extensions.modularSweep._runSweepAndPrep">
-<span class="sig-name descname"><span class="pre">_runSweepAndPrep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/extensions/modularSweep.html#_runSweepAndPrep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.extensions.modularSweep._runSweepAndPrep" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.modularSweep._runSweepAndPrep">
+<span class="sig-name descname"><span class="pre">_runSweepAndPrep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/modularSweep.html#_runSweepAndPrep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.modularSweep._runSweepAndPrep" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.extensions.modularSweep.timeDependent">
-<span class="sig-name descname"><span class="pre">timeDependent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/extensions/modularSweep.html#timeDependent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.extensions.modularSweep.timeDependent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.modularSweep.timeDependent">
+<span class="sig-name descname"><span class="pre">timeDependent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/modularSweep.html#timeDependent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.modularSweep.timeDependent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.extensions.modularSweep.timeEvolDefault">
-<span class="sig-name descname"><span class="pre">timeEvolDefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">td</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/extensions/modularSweep.html#timeEvolDefault"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.extensions.modularSweep.timeEvolDefault" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.modularSweep.timeEvolDefault">
+<span class="sig-name descname"><span class="pre">timeEvolDefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">td</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/modularSweep.html#timeEvolDefault"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.modularSweep.timeEvolDefault" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="quanguru.classes.extensions.modularSweep.timeEvolBase">
-<span class="sig-name descname"><span class="pre">timeEvolBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/extensions/modularSweep.html#timeEvolBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.extensions.modularSweep.timeEvolBase" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.modularSweep.timeEvolBase">
+<span class="sig-name descname"><span class="pre">timeEvolBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/modularSweep.html#timeEvolBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.modularSweep.timeEvolBase" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
