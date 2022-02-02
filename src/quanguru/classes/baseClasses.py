@@ -5,10 +5,6 @@ r"""
 
     .. autosummary::
 
-        _parameter
-
-    .. autosummary::
-
         updateBase
         paramBoundBase
         computeBase
@@ -21,7 +17,6 @@ r"""
        **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
     =======================    ==================    ================   ===============
       `updateBase`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
-      `_parameter`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
       `paramBoundBase`           |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
       `computeBase`              |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
     =======================    ==================    ================   ===============

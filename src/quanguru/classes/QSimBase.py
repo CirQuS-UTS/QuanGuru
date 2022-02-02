@@ -1,3 +1,31 @@
+r"""
+    Contains the _parameter class and the parent classes of the Simulation object.
+
+    .. currentmodule:: quanguru.classes.QSimBase
+
+    .. autosummary::
+
+        _parameter
+
+    .. autosummary::
+
+        stateBase
+        timeBase
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `_parameter`               |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+      `stateBase`                |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+      `timeBase`                 |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+    =======================    ==================    ================   ===============
+
+"""
+
 from typing import Any, cast
 from .baseClasses import computeBase, paramBoundBase
 from .tempConfig import classConfig
