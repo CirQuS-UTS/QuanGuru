@@ -14,6 +14,8 @@ Classes (:mod:`quanguru.classes`)
 
    Base class <classes/base>
    BaseClasses <classes/baseClasses>
+   QSimBase <classes/QSimBase>
+   QSimComp <classes/QSimComp>
    Quantum System Classes <classes/QSys>
    Simulation Classes <classes/QSim>
    QProtocol Classes <classes/QPro>

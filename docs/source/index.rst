@@ -6,9 +6,10 @@ QuanGuru documentation
     :titlesonly:
     :maxdepth: 2
 
+    Classes Tutorials <classes/Tutorials/1_Qubit/Tutorials>
     QuantumToolbox <QuantumToolbox>
     Classes (Objects for OOP, module to be renamed later) <classes>
-    Tutorials <QuantumToolbox/Tutorials/Tutorials>
+    QuantumToolbox Tutorials <QuantumToolbox/Tutorials/Tutorials>
 
 .. mdinclude:: ../../README.md
 
