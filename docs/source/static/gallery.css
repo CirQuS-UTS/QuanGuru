@@ -12,8 +12,8 @@ Tested for Read the Docs theme 0.1.7 */
   box-shadow: none;
   float: left;
   margin: 5px;
-  min-height: 300px;
-  min-width: 300px;
+  min-height: 275px;
+  min-width: 350px;
   padding-top: 5px;
   position: relative;
 }
@@ -41,12 +41,12 @@ thumbnail with its default link Background color */
 }
 .sphx-glr-thumbcontainer .figure {
   margin: 10px;
-  width: 250px;
+  width: 340px;
 }
 .sphx-glr-thumbcontainer img {
   display: inline;
   max-height: 200px;
-  max-width: 250px;
+  max-width: 275px;
 }
 .sphx-glr-thumbcontainer[tooltip]:hover:after {
   background: rgba(0, 0, 0, 0.8);
