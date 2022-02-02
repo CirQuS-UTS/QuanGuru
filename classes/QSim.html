@@ -324,54 +324,8 @@ by re-assigning the <code class="docutils literal notranslate"><span class="pre"
 The sweeps just change the value for some system/simulation parameters, which are just object attributes, so they
 are generic and general enough to be independent of <code class="docutils literal notranslate"><span class="pre">evolFunc</span></code>, and, with this, it is aimed to increase scope of
 sweeps.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.Sweep">
-<span class="sig-name descname"><span class="pre">Sweep</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.Sweep" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an
-instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Sweep</span></code>. The use of this attribute in <code class="docutils literal notranslate"><span class="pre">runSimulation</span></code>
-function
-is independent of <code class="docutils literal notranslate"><span class="pre">evolFunc</span></code> or time-dependent part of the simulation. This is simply to sweep multiple
-parameters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Sweep</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.timeDependency">
-<span class="sig-name descname"><span class="pre">timeDependency</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.timeDependency" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is used to define temporal change of some parameters, i.e. used for time-dependent cases. This attribute
-is used when <strong>default</strong> <code class="docutils literal notranslate"><span class="pre">evolFunc</span></code> is used with the <strong>default</strong> <code class="docutils literal notranslate"><span class="pre">createUnitary</span></code> method of protocols, and it
-can be avoided in other cases. This is required in digital simulations, where time dependency is discrete.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Sweep</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.evolFunc">
-<span class="sig-name descname"><span class="pre">evolFunc</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.evolFunc" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the default evolution method, which calls <code class="docutils literal notranslate"><span class="pre">.unitary</span></code> attribute on protocols and matrix multiply the
-resultant unitary with the <code class="docutils literal notranslate"><span class="pre">.initialState</span></code>. It is possible to use this with other solution methods where
-the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
-by matrix exponentiation or the time-dependency is not incorporated by <code class="docutils literal notranslate"><span class="pre">timeDependency</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Callable</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="field-list simple">
-<dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><strong>TypeError</strong> – There are 3 cases in <a class="reference internal" href="#quanguru.classes.QSim.Simulation.addProtocol" title="quanguru.classes.QSim.Simulation.addProtocol"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addProtocol()</span></code></a> that raises a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.
-    TODO : errors are not properly implemented yet.</p>
-</dd>
-</dl>
+<p>There are 3 cases in <a class="reference internal" href="#quanguru.classes.QSim.Simulation.addProtocol" title="quanguru.classes.QSim.Simulation.addProtocol"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addProtocol()</span></code></a> that raises a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.
+TODO : errors are not properly implemented yet.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.label">
 <span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Simulation'</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation.label" title="Permalink to this definition">¶</a></dt>
@@ -404,19 +358,26 @@ class, but by re-assigning this class attribute, you can change the evolution me
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">Sweep</span></span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.Sweep">
+<span class="sig-name descname"><span class="pre">Sweep</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.Sweep" title="Permalink to this definition">¶</a></dt>
 <dd><p>sweep object that contains information about the systems and their parameters to be swept.
-TODO create tutorial</p>
+TODO create tutorial
+This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an
+instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Sweep</span></code>. The use of this attribute in <code class="docutils literal notranslate"><span class="pre">runSimulation</span></code>
+function is independent of <code class="docutils literal notranslate"><span class="pre">evolFunc</span></code> or time-dependent part of the simulation. This is simply to sweep
+multiple parameters.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">timeDependency</span></span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.timeDependency">
+<span class="sig-name descname"><span class="pre">timeDependency</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.timeDependency" title="Permalink to this definition">¶</a></dt>
 <dd><p>sweep object that contains information for parameters that will be changed as a function of time. Note that
 this is not the only way to make time-dependent parameters. Actually, the alternative in timeDependency in
 term objects is much better solution than this.
-TODO create tutorial</p>
+TODO create tutorial
+This is used to define temporal change of some parameters, i.e. used for time-dependent cases. This attribute
+is used when <strong>default</strong> <code class="docutils literal notranslate"><span class="pre">evolFunc</span></code> is used with the <strong>default</strong> <code class="docutils literal notranslate"><span class="pre">createUnitary</span></code> method of protocols, and
+it can be avoided in other cases. This is required in digital simulations, where time dependency is discrete.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -427,9 +388,13 @@ current time in evolution. this is intended purely for internal use.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">evolFunc</span></span><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
-<dd><p>default function that implements the actual time evolution in each step. TODO Create tutorial.</p>
+<dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.evolFunc">
+<span class="sig-name descname"><span class="pre">evolFunc</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.evolFunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>default function that implements the actual time evolution in each step. TODO Create tutorial.
+This is the default evolution method, which calls <code class="docutils literal notranslate"><span class="pre">.unitary</span></code> attribute on protocols and matrix multiply the
+resultant unitary with the <code class="docutils literal notranslate"><span class="pre">.initialState</span></code>. It is possible to use this with other solution methods where
+the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
+by matrix exponentiation or the time-dependency is not incorporated by <code class="docutils literal notranslate"><span class="pre">timeDependency</span></code>.</p>
 </dd></dl>
 
 <dl class="py property">

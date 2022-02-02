@@ -213,31 +213,8 @@
 <span class="sd">    are generic and general enough to be independent of ``evolFunc``, and, with this, it is aimed to increase scope of</span>
 <span class="sd">    sweeps.</span>
 
-
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    Sweep : ``Sweep``</span>
-<span class="sd">        This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an</span>
-<span class="sd">        instance of :class:`Sweep &lt;quanguru.classes.Sweep.Sweep&gt;`. The use of this attribute in ``runSimulation``</span>
-<span class="sd">        function</span>
-<span class="sd">        is independent of ``evolFunc`` or time-dependent part of the simulation. This is simply to sweep multiple</span>
-<span class="sd">        parameters.</span>
-<span class="sd">    timeDependency: ``Sweep``</span>
-<span class="sd">        This is used to define temporal change of some parameters, i.e. used for time-dependent cases. This attribute</span>
-<span class="sd">        is used when **default** ``evolFunc`` is used with the **default** ``createUnitary`` method of protocols, and it</span>
-<span class="sd">        can be avoided in other cases. This is required in digital simulations, where time dependency is discrete.</span>
-<span class="sd">    evolFunc: ``Callable``</span>
-<span class="sd">        This is the default evolution method, which calls ``.unitary`` attribute on protocols and matrix multiply the</span>
-<span class="sd">        resultant unitary with the ``.initialState``. It is possible to use this with other solution methods where</span>
-<span class="sd">        the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained</span>
-<span class="sd">        by matrix exponentiation or the time-dependency is not incorporated by ``timeDependency``.</span>
-
-
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    TypeError</span>
-<span class="sd">        There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.</span>
-<span class="sd">        TODO : errors are not properly implemented yet.</span>
+<span class="sd">    There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.</span>
+<span class="sd">    TODO : errors are not properly implemented yet.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: (**class attribute**) class label used in default naming</span>
     <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Simulation&#39;</span>
@@ -260,11 +237,18 @@
 
         <span class="c1">#: sweep object that contains information about the systems and their parameters to be swept.</span>
         <span class="c1">#: TODO create tutorial</span>
+        <span class="c1">#: This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an</span>
+        <span class="c1">#: instance of :class:`Sweep &lt;quanguru.classes.Sweep.Sweep&gt;`. The use of this attribute in ``runSimulation``</span>
+        <span class="c1">#: function is independent of ``evolFunc`` or time-dependent part of the simulation. This is simply to sweep</span>
+        <span class="c1">#: multiple parameters.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Sweep</span> <span class="o">=</span> <span class="n">Sweep</span><span class="p">(</span><span class="n">superSys</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1">#: sweep object that contains information for parameters that will be changed as a function of time. Note that</span>
         <span class="c1">#: this is not the only way to make time-dependent parameters. Actually, the alternative in timeDependency in</span>
         <span class="c1">#: term objects is much better solution than this.</span>
         <span class="c1">#: TODO create tutorial</span>
+        <span class="c1">#: This is used to define temporal change of some parameters, i.e. used for time-dependent cases. This attribute</span>
+        <span class="c1">#: is used when **default** ``evolFunc`` is used with the **default** ``createUnitary`` method of protocols, and</span>
+        <span class="c1">#: it can be avoided in other cases. This is required in digital simulations, where time dependency is discrete.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeDependency</span> <span class="o">=</span> <span class="n">Sweep</span><span class="p">(</span><span class="n">superSys</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1">#: this is counter for the number of steps in the time evolution, so this counter times the step size gives the</span>
@@ -272,6 +256,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
         <span class="c1">#: default function that implements the actual time evolution in each step. TODO Create tutorial.</span>
+        <span class="c1">#: This is the default evolution method, which calls ``.unitary`` attribute on protocols and matrix multiply the</span>
+        <span class="c1">#: resultant unitary with the ``.initialState``. It is possible to use this with other solution methods where</span>
+        <span class="c1">#: the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained</span>
+        <span class="c1">#: by matrix exponentiation or the time-dependency is not incorporated by ``timeDependency``.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evolFunc</span> <span class="o">=</span> <span class="n">Simulation</span><span class="o">.</span><span class="n">_evolFuncDefault</span>
 
         <span class="k">if</span> <span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
