@@ -13,7 +13,7 @@ Tested for Read the Docs theme 0.1.7 */
   float: left;
   margin: 5px;
   min-height: 275px;
-  min-width: 350px;
+  min-width: 340px;
   padding-top: 5px;
   position: relative;
 }
@@ -41,7 +41,7 @@ thumbnail with its default link Background color */
 }
 .sphx-glr-thumbcontainer .figure {
   margin: 10px;
-  width: 340px;
+  width: 330px;
 }
 .sphx-glr-thumbcontainer img {
   display: inline;
