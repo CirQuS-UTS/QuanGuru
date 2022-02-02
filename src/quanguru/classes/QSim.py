@@ -51,31 +51,8 @@ class Simulation(timeBase):
     are generic and general enough to be independent of ``evolFunc``, and, with this, it is aimed to increase scope of
     sweeps.
 
-
-    Attributes
-    ----------
-    Sweep : ``Sweep``
-        This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an
-        instance of :class:`Sweep <quanguru.classes.Sweep.Sweep>`. The use of this attribute in ``runSimulation``
-        function
-        is independent of ``evolFunc`` or time-dependent part of the simulation. This is simply to sweep multiple
-        parameters.
-    timeDependency: ``Sweep``
-        This is used to define temporal change of some parameters, i.e. used for time-dependent cases. This attribute
-        is used when **default** ``evolFunc`` is used with the **default** ``createUnitary`` method of protocols, and it
-        can be avoided in other cases. This is required in digital simulations, where time dependency is discrete.
-    evolFunc: ``Callable``
-        This is the default evolution method, which calls ``.unitary`` attribute on protocols and matrix multiply the
-        resultant unitary with the ``.initialState``. It is possible to use this with other solution methods where
-        the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
-        by matrix exponentiation or the time-dependency is not incorporated by ``timeDependency``.
-
-
-    Raises
-    ------
-    TypeError
-        There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.
-        TODO : errors are not properly implemented yet.
+    There are 3 cases in :meth:`addProtocol` that raises a ``TypeError``.
+    TODO : errors are not properly implemented yet.
     """
     #: (**class attribute**) class label used in default naming
     label = 'Simulation'
@@ -98,11 +75,18 @@ class Simulation(timeBase):
 
         #: sweep object that contains information about the systems and their parameters to be swept.
         #: TODO create tutorial
+        #: This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an
+        #: instance of :class:`Sweep <quanguru.classes.Sweep.Sweep>`. The use of this attribute in ``runSimulation``
+        #: function is independent of ``evolFunc`` or time-dependent part of the simulation. This is simply to sweep
+        #: multiple parameters.
         self.Sweep = Sweep(superSys=self)
         #: sweep object that contains information for parameters that will be changed as a function of time. Note that
         #: this is not the only way to make time-dependent parameters. Actually, the alternative in timeDependency in
         #: term objects is much better solution than this.
         #: TODO create tutorial
+        #: This is used to define temporal change of some parameters, i.e. used for time-dependent cases. This attribute
+        #: is used when **default** ``evolFunc`` is used with the **default** ``createUnitary`` method of protocols, and
+        #: it can be avoided in other cases. This is required in digital simulations, where time dependency is discrete.
         self.timeDependency = Sweep(superSys=self)
 
         #: this is counter for the number of steps in the time evolution, so this counter times the step size gives the
@@ -110,6 +94,10 @@ class Simulation(timeBase):
         self.__index = -1
 
         #: default function that implements the actual time evolution in each step. TODO Create tutorial.
+        #: This is the default evolution method, which calls ``.unitary`` attribute on protocols and matrix multiply the
+        #: resultant unitary with the ``.initialState``. It is possible to use this with other solution methods where
+        #: the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
+        #: by matrix exponentiation or the time-dependency is not incorporated by ``timeDependency``.
         self.evolFunc = Simulation._evolFuncDefault
 
         if system is not None:

@@ -5,7 +5,6 @@
 
     .. autosummary::
 
-        modularSweep
         couplings
 
 """

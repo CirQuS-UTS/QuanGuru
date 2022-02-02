@@ -5,8 +5,9 @@
 
     .. autosummary::
 
-        environment
-        envCoupling
+        _genericOpen
+        dissipatorObj
+        thermalBath
 
 """
 
