@@ -26,3 +26,4 @@ Classes (:mod:`quanguru.classes`)
    QDrive Classes <classes/QDrive>
    Exceptions <classes/exceptions>
    Extensions <classes/extensions>
+   Dev-Demos <classes/Tutorials/classTutorials/DevTutorials>

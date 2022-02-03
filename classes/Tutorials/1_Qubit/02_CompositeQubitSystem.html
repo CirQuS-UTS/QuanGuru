@@ -242,22 +242,36 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#Create-a-composite-quantum-system-using-the-+-operator">
-   Create a composite quantum system using the + operator
+   Create a composite quantum system using the
+   <img alt="+" class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png"/>
+   operator
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#Create-a-composite-quantum-system-using-the-*-operator">
-   Create a composite quantum system using the * operator
+   Create a composite quantum system using the
+   <img alt="*" class="math" src="../../../_images/math/520a99913b8ff14daccff07aa63cdb8d6583e0fc.png"/>
+   operator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#+-operator-on-composite-system">
+   <img alt="+" class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png"/>
+   operator on composite system
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#Adding-single-system-to-an-existing-composite-system-with-+-operator">
-     Adding single system to an existing composite system with + operator
+     Adding single system to an existing composite system with
+     <img alt="+" class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png"/>
+     operator
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#Combining-composite-system-with-+-operator">
-     Combining composite system with + operator
+     Combining composite system with
+     <img alt="+" class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png"/>
+     operator
     </a>
    </li>
   </ul>
@@ -574,7 +588,7 @@ Hilbert space as further explained below.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;quanguru.classes.QSys.Qubit at 0x10e903030&gt;
+&lt;quanguru.classes.QSys.Qubit at 0x108d17100&gt;
 </pre></div></div>
 </div>
 <p>In above cell, we first created <code class="docutils literal notranslate"><span class="pre">qub1</span></code> then <code class="docutils literal notranslate"><span class="pre">qub2</span></code>. The order of creation as above does not have any special meaning other than the names of the <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> objects, which will be named <code class="docutils literal notranslate"><span class="pre">Qubit1</span></code> and <code class="docutils literal notranslate"><span class="pre">Qubit2</span></code>, respectively. When we add them as sub-systems to the composite quantum system <code class="docutils literal notranslate"><span class="pre">twoQub1</span></code>, we passed them in a list. Their order in this list, however, determines the structures of the Hilbert space. Below, we examine the structure of the Hilbert space from the composite operators
@@ -593,7 +607,7 @@ Hilbert space as further explained below.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit2&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675a260&gt;, &#39;Qubit1&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x10e903030&gt;}
+{&#39;Qubit2&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096be400&gt;, &#39;Qubit1&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x108d17100&gt;}
 </pre></div></div>
 </div>
 <p>As expected, <code class="docutils literal notranslate"><span class="pre">Qubit2</span></code> is the first item of the <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>.</p>
@@ -657,7 +671,7 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 </div>
 <div class="section" id="Create-a-composite-quantum-system-using-the-+-operator">
-<h2>Create a composite quantum system using the + operator<a class="headerlink" href="#Create-a-composite-quantum-system-using-the-+-operator" title="Permalink to this headline">¶</a></h2>
+<h2>Create a composite quantum system using the <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator<a class="headerlink" href="#Create-a-composite-quantum-system-using-the-+-operator" title="Permalink to this headline">¶</a></h2>
 <p>Above examples highlight the basics of composite quantum systems, and we now focus on alternative ways for composite system creation. We will take an incremental approach and simplify the above composite system creation step-by-step. First step is that we actually don’t have to create a composite system first then add the sub-systems, we can do them in a single line as below.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -681,7 +695,7 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit3&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675a5a0&gt;, &#39;Qubit4&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675a670&gt;}
+{&#39;Qubit3&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096be740&gt;, &#39;Qubit4&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096be810&gt;}
 1 2
 2 1
 [[ 0.5  0.   0.   0. ]
@@ -717,7 +731,7 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit6&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675a810&gt;, &#39;Qubit5&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675a740&gt;}
+{&#39;Qubit6&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096be9b0&gt;, &#39;Qubit5&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096be8e0&gt;}
 1 2
 2 1
 [[ 0.5  0.   0.   0. ]
@@ -746,7 +760,7 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit7&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675a9b0&gt;, &#39;Qubit8&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675aa80&gt;}
+{&#39;Qubit7&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096beb50&gt;, &#39;Qubit8&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bec20&gt;}
 </pre></div></div>
 </div>
 <p>This short-hand is quite useful and clean, and notice that, in this case, the order of the sub-systems will match their creation order. But, the problem is that we now don’t have any explicit references to our sub-systems, <code class="docutils literal notranslate"><span class="pre">Qubit7</span></code> and <code class="docutils literal notranslate"><span class="pre">Qubit8</span></code>, if we need them. Here, we want to print the <code class="docutils literal notranslate"><span class="pre">_dimsBefore</span></code> and <code class="docutils literal notranslate"><span class="pre">_dimsAfter</span></code> and <code class="docutils literal notranslate"><span class="pre">freeMat</span></code>, and knowing the name of our quantum systems and the fact that they are stored in the <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary, we can achieve this as below</p>
@@ -784,7 +798,7 @@ default values (i.e. when the system is not in composite or no system before/af
 <p>This obviously is not a cleaner approach, if we need explicit references to our objects. But, we generally don’t need it, and all the functionalities of <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> accepts the object <code class="docutils literal notranslate"><span class="pre">name</span></code>(or any of its <code class="docutils literal notranslate"><span class="pre">alias</span></code>) instead of a reference. We will cover such examples in future, but this basically means that we will need this explicit references in extreme cases.</p>
 </div>
 <div class="section" id="Create-a-composite-quantum-system-using-the-*-operator">
-<h2>Create a composite quantum system using the * operator<a class="headerlink" href="#Create-a-composite-quantum-system-using-the-*-operator" title="Permalink to this headline">¶</a></h2>
+<h2>Create a composite quantum system using the <img class="math" src="../../../_images/math/520a99913b8ff14daccff07aa63cdb8d6583e0fc.png" alt="*"/> operator<a class="headerlink" href="#Create-a-composite-quantum-system-using-the-*-operator" title="Permalink to this headline">¶</a></h2>
 <p>If we want to create a quantum system with <img class="math" src="../../../_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> identical copies of a sub-system, we don’t necessarily want to type all that <img class="math" src="../../../_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> times even if we are simply summing them. In such cases, we can use the <img class="math" src="../../../_images/math/520a99913b8ff14daccff07aa63cdb8d6583e0fc.png" alt="*"/> operator as follows</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -801,17 +815,16 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit9&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675ab50&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675ac20&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675acf0&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675adc0&gt;}
+{&#39;Qubit9&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096becf0&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bedc0&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bee90&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bef60&gt;}
 </pre></div></div>
 </div>
-<ul class="simple">
-<li><p>operator on composite system</p></li>
-</ul>
-<hr class="docutils" />
-<p>We can use + operators with composite quantum systems in two different ways.</p>
+</div>
+<div class="section" id="+-operator-on-composite-system">
+<h2><img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator on composite system<a class="headerlink" href="#+-operator-on-composite-system" title="Permalink to this headline">¶</a></h2>
+<p>We can use <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operators with composite quantum systems in two different ways.</p>
 <div class="section" id="Adding-single-system-to-an-existing-composite-system-with-+-operator">
-<h3>Adding single system to an existing composite system with + operator<a class="headerlink" href="#Adding-single-system-to-an-existing-composite-system-with-+-operator" title="Permalink to this headline">¶</a></h3>
-<p>When we use + operator between a single system and a composite system, it adds the single system into the composite system. Let’s add more qubits to our <code class="docutils literal notranslate"><span class="pre">fourQubit</span></code> system.</p>
+<h3>Adding single system to an existing composite system with <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator<a class="headerlink" href="#Adding-single-system-to-an-existing-composite-system-with-+-operator" title="Permalink to this headline">¶</a></h3>
+<p>When we use <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator between a single system and a composite system, it adds the single system into the composite system. Let’s add more qubits to our <code class="docutils literal notranslate"><span class="pre">fourQubit</span></code> system.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -830,7 +843,7 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit9&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675ab50&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675ac20&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675acf0&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675adc0&gt;, &#39;Qubit13&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675a8e0&gt;}
+{&#39;Qubit9&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096becf0&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bedc0&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bee90&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bef60&gt;, &#39;Qubit13&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bea80&gt;}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -851,7 +864,7 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit9&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675ab50&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675ac20&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675acf0&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675adc0&gt;, &#39;Qubit13&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675a8e0&gt;, &#39;Qubit14&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675ae90&gt;}
+{&#39;Qubit9&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096becf0&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bedc0&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bee90&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bef60&gt;, &#39;Qubit13&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bea80&gt;, &#39;Qubit14&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf030&gt;}
 0.2
 0.2
 0.2
@@ -862,8 +875,8 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 </div>
 <div class="section" id="Combining-composite-system-with-+-operator">
-<h3>Combining composite system with + operator<a class="headerlink" href="#Combining-composite-system-with-+-operator" title="Permalink to this headline">¶</a></h3>
-<p>We can use + operator to combine two composite systems. This means that it creates a third composite system, whose sub-systems are the composite quantum systems which have their own sub-systems that can be single or composite systems, i.e. nested-composite-systems.</p>
+<h3>Combining composite system with <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator<a class="headerlink" href="#Combining-composite-system-with-+-operator" title="Permalink to this headline">¶</a></h3>
+<p>We can use <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator to combine two composite systems. This means that it creates a third composite system, whose sub-systems are the composite quantum systems which have their own sub-systems that can be single or composite systems, i.e. nested-composite-systems.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -883,7 +896,7 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;QuantumSystem6&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x115c83bc0&gt;, &#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x115c83ae0&gt;}
+{&#39;QuantumSystem6&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x1091d5a80&gt;, &#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x1091d5620&gt;}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -900,8 +913,8 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit15&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675af60&gt;, &#39;Qubit16&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675b030&gt;}
-{&#39;Qubit17&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675b100&gt;, &#39;Qubit18&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675b1d0&gt;}
+{&#39;Qubit15&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf100&gt;, &#39;Qubit16&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf1d0&gt;}
+{&#39;Qubit17&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf2a0&gt;, &#39;Qubit18&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf370&gt;}
 </pre></div></div>
 </div>
 <p>Notice that, in this case, our composite quantum system <code class="docutils literal notranslate"><span class="pre">fourQubit2</span></code> has two sub-systems that are themselves composite systems. This because <code class="docutils literal notranslate"><span class="pre">2*qg.Qubit()</span></code> creates a composite system, meaning that we add two composite systems to create <code class="docutils literal notranslate"><span class="pre">fourQubit2</span></code>.</p>
@@ -962,9 +975,9 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;QuantumSystem6&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x115c83bc0&gt;, &#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x115c83ae0&gt;}
-{&#39;Qubit15&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675af60&gt;, &#39;Qubit16&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675b030&gt;}
-{&#39;Qubit18&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675b1d0&gt;}
+{&#39;QuantumSystem6&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x1091d5a80&gt;, &#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x1091d5620&gt;}
+{&#39;Qubit15&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf100&gt;, &#39;Qubit16&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf1d0&gt;}
+{&#39;Qubit18&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf370&gt;}
 8
          4 1 2
                  2 1 4
@@ -999,8 +1012,8 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x115c83ae0&gt;}
-{&#39;Qubit18&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x11675b1d0&gt;}
+{&#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSys.compQSystem object at 0x1091d5620&gt;}
+{&#39;Qubit18&#39;: &lt;quanguru.classes.QSys.Qubit object at 0x1096bf370&gt;}
 2
          2 1 1
                  2 1 1
@@ -1023,7 +1036,7 @@ default values (i.e. when the system is not in composite or no system before/af
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1205066e0&gt;]
+[&lt;matplotlib.lines.Line2D at 0x11ad7c9a0&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
