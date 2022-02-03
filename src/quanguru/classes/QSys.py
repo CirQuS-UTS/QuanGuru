@@ -488,7 +488,6 @@ class compQSystem(genericQSys):
             coupling.removeSubSys(subSys, _exclude=_exclude)
             if len(coupling._qBase__subSys) == 0: # pylint: disable=protected-access
                 self.qCouplings.pop(coupling.name)
-
         if subSys in list(self.subSys.values()):
             for qS in self.subSys.values():
                 qS.simulation._stateBase__initialState._value = None
@@ -989,9 +988,12 @@ class qSystem(genericQSys):
         """
         if self not in _exclude:
             _exclude.append(self)
+            subSys = self.getByNameOrAlias(subSys)
             if self.superSys is not None:
                 self.superSys.removeSubSys(subSys, _exclude=_exclude)
-            super().removeSubSys(subSys, _exclude=_exclude)
+
+            if subSys in self.subSys.values():
+                super().removeSubSys(subSys, _exclude=_exclude)
 
     @terms.setter
     def terms(self, subSys):
