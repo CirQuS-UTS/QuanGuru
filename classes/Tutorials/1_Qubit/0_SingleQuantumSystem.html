@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2 - Hamiltonian of a quantum system &#8212; QuanGuru 1 documentation</title>
+    <title>0 - Hamiltonian of a single quantum system &#8212; QuanGuru 1 documentation</title>
     
     <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -46,8 +46,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="3 - Simulation of a Qubit with single term Hamiltonian" href="Qubit_03_Unitary_Evolution_SingleTermHamiltonian.html" />
-    <link rel="prev" title="1 - Initial state for a Qubit" href="Qubit_01_Initial_State.html" />
+    <link rel="next" title="1 - Initial state for a Qubit" href="Qubit_01_Initial_State.html" />
+    <link rel="prev" title="0 - How to create composite quantum systems" href="0_CompositeQubitSystem.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -142,8 +142,8 @@
    0 - How to create composite quantum systems
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="0_SingleQuantumSystem.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    0 - Hamiltonian of a single quantum system
   </a>
  </li>
@@ -152,8 +152,8 @@
    1 - Initial state for a Qubit
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Qubit_02_Hamiltonian.html">
    2 - Hamiltonian of a quantum system
   </a>
  </li>
@@ -236,23 +236,23 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Single-Term">
-   Single Term
+  <a class="reference internal nav-link" href="#1---Qubit">
+   1 - Qubit
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Qubit-object-as-a-special-case">
-   Qubit object as a special case
+  <a class="reference internal nav-link" href="#2---Larger-spins">
+   2 - Larger spins
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Multiple-terms">
-   Multiple terms
+  <a class="reference internal nav-link" href="#3---Harmonic-oscillator">
+   3 - Harmonic oscillator
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Non-linear-terms">
-   Non-linear terms
+  <a class="reference internal nav-link" href="#Special-classes-for-common-system">
+   Special classes for common system
   </a>
  </li>
 </ul>
@@ -536,139 +536,38 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="2---Hamiltonian-of-a-quantum-system">
-<h1>2 - Hamiltonian of a quantum system<a class="headerlink" href="#2---Hamiltonian-of-a-quantum-system" title="Permalink to this headline">¶</a></h1>
-<p>This tutorial demonstrates how to describe the Hamiltonian of a quantum system in QuanGuru.</p>
-<p>In this example, we use the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object to create a quantum system and describe the desired Hamiltonian.</p>
-<div class="section" id="Single-Term">
-<h2>Single Term<a class="headerlink" href="#Single-Term" title="Permalink to this headline">¶</a></h2>
-<p>Let’s start with a very simple (single qubit) Hamiltonian</p>
-<p><img class="math" src="../../../_images/math/d26f4b9308f0046e9edcbe18d4451afc7e89888c.png" alt="H = \frac{1}{2}f_{z}\sigma_{z}"/></p>
+<div class="section" id="0---Hamiltonian-of-a-single-quantum-system">
+<h1>0 - Hamiltonian of a single quantum system<a class="headerlink" href="#0---Hamiltonian-of-a-single-quantum-system" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial demonstrates how to describe the Hamiltonian of a quantum system in <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>.</p>
+<p>Let’s start with a very simple Hamiltonian</p>
+<p><img class="math" src="../../../_images/math/6fe6e57c5a21a208a8880d00d39128f57f784472.png" alt="H = f\hat{O}"/></p>
 <p>Here, the <em>relevant</em> information are</p>
 <ul class="simple">
-<li><p>frequency : <img class="math" src="../../../_images/math/c806f3e932f3955068a740f85d2adee3c5febc7b.png" alt="\frac{1}{2}f_{z}"/> (say 0.5 where <img class="math" src="../../../_images/math/f3057b9a577146e737f05b986e6138e525240013.png" alt="f_{z} = 1"/>)</p></li>
-<li><p>operator : <img class="math" src="../../../_images/math/63f8e296d0689572d3979c6617ae800f7ba6fa4d.png" alt="\sigma_{z}"/></p></li>
-<li><p>dimension : 2</p></li>
+<li><p>frequency : <img class="math" src="../../../_images/math/5b7752c757e0b691a80ab8227eadb8a8389dc58a.png" alt="f"/>, which is a float</p></li>
+<li><p>operator : <img class="math" src="../../../_images/math/8c080a4c97007565bf12d721801a0c0be1b21771.png" alt="\hat{O}"/> (we will omit the hat from the operator when they are clear from the context)</p></li>
+<li><p>dimension : of the operator, which is an integer</p></li>
 </ul>
-<p>and, we create a quantum system with this Hamiltonian as below</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>, we create a quantum system using the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object, which requires at least one of these information during instantiation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">frequency</span></code> and <code class="docutils literal notranslate"><span class="pre">dimension</span></code> are simply numbers, and for the <code class="docutils literal notranslate"><span class="pre">operator</span></code>, we use the functions in <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> <code class="docutils literal notranslate"><span class="pre">operators</span></code> module. However, any function (from any other library) that creates and returns the matrix representation of the desired operator can be used, because the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object just requires the function reference.</p>
+<p>Let’s give some concrete examples.</p>
+<div class="section" id="1---Qubit">
+<h2>1 - Qubit<a class="headerlink" href="#1---Qubit" title="Permalink to this headline">¶</a></h2>
+<p>For a qubit:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <img class="math" src="../../../_images/math/685798103daac154c876acffb4ba3c454f05e1ae.png" alt="f=2"/>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> can be any (Hermitian) operator we want, but it is usually the <img class="math" src="../../../_images/math/63f8e296d0689572d3979c6617ae800f7ba6fa4d.png" alt="\sigma_{z}"/> operator (Pauli-z operator)</p></li>
+</ul>
+<p>Then, the Hamiltonian would be</p>
+<p><img class="math" src="../../../_images/math/5b4215fee20881dff2514c4076f651414d0eb23d.png" alt="H = f*\sigma_{z} = 2\left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right] = \left[\begin{array}{ll}2 &amp; 0 \\ 0 &amp; -2\end{array}\right]"/></p>
+<p>and we can create this system as below</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># note that you don&#39;t have to specify all these information at instantiation,</span>
-<span class="c1"># but, if you are using QuantumSystem class, it is required that you at least specify one of them.</span>
-<span class="n">qs</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">)</span>
 
-<span class="c1"># print the freeMat of the system, which is just the bare matrix for the operator</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">freeMat</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-<span class="c1"># print the total-Hamiltonian of the system</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[ 1  0]
- [ 0 -1]]
-[[ 0.5  0. ]
- [ 0.  -0.5]]
-</pre></div></div>
-</div>
-<p>Notice that the <code class="docutils literal notranslate"><span class="pre">operator</span></code> of the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> is the function <code class="docutils literal notranslate"><span class="pre">qg.sigmaz</span></code> (from <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code>), and it does not have the parenthesis <code class="docutils literal notranslate"><span class="pre">qg.sigmaz()</span></code>, which would invoke/call the functino to create the matrix form of the operator. Make sure to pass the function without the parenthesis. The <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects call these functions in the background to create the matrices, and the reason for passing the function but not the matrix is that the function may need to be called more
-than once (in the background) in certain cases, such as dimension sweeps (covered in later tutorials).</p>
-</div>
-<div class="section" id="Qubit-object-as-a-special-case">
-<h2>Qubit object as a special case<a class="headerlink" href="#Qubit-object-as-a-special-case" title="Permalink to this headline">¶</a></h2>
-<p>For common quantum systems, such as qubit, higher spins, or cavity, we have special classes, and these classes just set some of the information internally to certain default values. For example, <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class internally defaults <code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">=</span> <span class="pre">qg.Jz</span></code>, which also takes care of the <img class="math" src="../../../_images/math/d8174bc3f76c2396c591e8bb6249927d8eed848d.png" alt="\frac{1}{2}"/> factor, meaning we can simply set the frequency <img class="math" src="../../../_images/math/f3057b9a577146e737f05b986e6138e525240013.png" alt="f_{z} = 1"/>.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># note that Jz differs by a factor of 0.5</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">freeMat</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-<span class="c1"># print the totalHamiltonian of the system</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[ 0.5  0. ]
- [ 0.  -0.5]]
-[[ 0.5  0. ]
- [ 0.  -0.5]]
-</pre></div></div>
-</div>
-</div>
-<div class="section" id="Multiple-terms">
-<h2>Multiple terms<a class="headerlink" href="#Multiple-terms" title="Permalink to this headline">¶</a></h2>
-<p>Now, let’s consider a more general case where we have more terms in the Hamiltonian, for example the below Hamiltonian with two terms</p>
-<p><img class="math" src="../../../_images/math/7e248f33eca4cf8e4aa2a9e1c8e08570e6f898b1.png" alt="H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x}"/></p>
-<p>In this case, we can add a term to our quantum system using the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method, which takes the operator (in this case <img class="math" src="../../../_images/math/0142317d55d030ac1bd53ac8b353f190c17c4b47.png" alt="\sigma_{x}"/>) and the frequency (in this case <img class="math" src="../../../_images/math/d52e39d7f865cccb160248707e8faa4e9f5659b3.png" alt="\omega_{x}"/> say = 1) as inputs. We can, of course, add as many terms as we want.</p>
-<p>Let’s use the first quantum system <code class="docutils literal notranslate"><span class="pre">qs</span></code> that we created for the rest.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add term method returns an object for term</span>
-<span class="c1"># again note that the operator is the function qg.sigmax not the function call qg.sigmax()</span>
-<span class="n">secondTerm</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">addTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1"># actually, the quantum systems create an internal term for their first term</span>
-<span class="c1"># and, we can reach the object itself</span>
-<span class="n">firstTerm</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">firstTerm</span>
-
-<span class="c1"># Now the freeMat is still the operator of the first term that we added</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">freeMat</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-<span class="c1"># but the totalHam is the summation of all the terms</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-<span class="c1"># and individual terms contain/create the matrix corresponding to their operator</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">firstTerm</span><span class="o">.</span><span class="n">freeMat</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">secondTerm</span><span class="o">.</span><span class="n">freeMat</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[ 1  0]
- [ 0 -1]]
-[[ 0.5  1. ]
- [ 1.  -0.5]]
-[[ 1  0]
- [ 0 -1]]
-[[0 1]
- [1 0]]
-</pre></div></div>
-</div>
-<p>As shown above, the terms of the Hamiltonian are also implemented as individual objects. The advantage of this approach is that we can individually address/set/update each terms, operator, frequency, and order (see below), making it them easier to sweep (covered in later tutorials). Also note that, as long as we use a single term, we don’t need to access/modify the first term directly, because the quantum system objects acts like their first term.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># changing the frequency of the first term through the qs</span>
-<span class="n">qs</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">firstTerm</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span> <span class="c1"># this returns the frequency*operator (in this case, 2*sigmax())</span>
-
-<span class="c1"># above is equivalent short hand to</span>
-<span class="n">firstTerm</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">firstTerm</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span> <span class="c1"># this returns the frequency*operator (in this case, 1*sigmax())</span>
-
-<span class="c1"># we can also change operator of a term, and let&#39;s change the second term to sigmay</span>
-<span class="n">secondTerm</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">secondTerm</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span> <span class="c1"># this returns the frequency*operator (in this case, 1*sigmay())</span>
-
-<span class="c1"># lets set it back to sigmax and verify</span>
-<span class="n">secondTerm</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">secondTerm</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span> <span class="c1"># this returns the frequency*operator (in this case, 1*sigmay())</span>
 </pre></div>
 </div>
 </div>
@@ -679,34 +578,121 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
 <div class="highlight"><pre>
 [[ 2  0]
  [ 0 -2]]
-[[ 1  0]
- [ 0 -1]]
-[[0.+0.j 0.-1.j]
- [0.+1.j 0.+0.j]]
-[[0 1]
- [1 0]]
+</pre></div></div>
+</div>
+<p>Notice that the <code class="docutils literal notranslate"><span class="pre">operator</span></code> of the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> is the function <code class="docutils literal notranslate"><span class="pre">qg.sigmaz</span></code> (from <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code>), and it does not have the parenthesis <code class="docutils literal notranslate"><span class="pre">qg.sigmaz()</span></code>, which would invoke/call the functino to create the matrix form of the operator. Make sure to pass the function without the parenthesis. The <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects call these functions in the background to create the matrices.</p>
+</div>
+<div class="section" id="2---Larger-spins">
+<h2>2 - Larger spins<a class="headerlink" href="#2---Larger-spins" title="Permalink to this headline">¶</a></h2>
+<p>Qubit object is equivalent to a spin-1/2 system, and we can create any other spin system using the <code class="docutils literal notranslate"><span class="pre">J_{x/y/z}</span></code> operators from the <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code>.</p>
+<p>Let’s create a spin-1 system, which means</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <img class="math" src="../../../_images/math/685798103daac154c876acffb4ba3c454f05e1ae.png" alt="f=2"/>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> is usually the <img class="math" src="../../../_images/math/76d5288b34dfcf52bb43987f3abbe44d37ba773f.png" alt="J_{z}"/> operator</p></li>
+</ul>
+<p>Then, the Hamiltonian would be</p>
+<p><img class="math" src="../../../_images/math/81b74144b63dcc02e83520df2e2b2354406f3119.png" alt="H = f*J_{z} = 2\left[\begin{array}{lll}1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -1\end{array}\right] = \left[\begin{array}{llll}2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -2\end{array}\right]"/></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spin1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">Jz</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">spin1</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 2.  0.  0.]
+ [ 0.  0.  0.]
+ [ 0.  0. -2.]]
 </pre></div></div>
 </div>
 </div>
-<div class="section" id="Non-linear-terms">
-<h2>Non-linear terms<a class="headerlink" href="#Non-linear-terms" title="Permalink to this headline">¶</a></h2>
-<p>In certain Hamiltonians, we might have a non-linear term where the operator is raised to a certain power. For Pauli matrices, <img class="math" src="../../../_images/math/de315dbcdf9aa8159d705292570a958e07a2cc29.png" alt="\sigma_{i}^{2} = \mathbb{1}"/> (i.e. the identity matrix) for <img class="math" src="../../../_images/math/cba571063e51584d046beca3d8c572e1ef60fadc.png" alt="i \in \{x,y,z\}"/>, but, just for the sake of an example say we have the following Hamiltonian</p>
-<p><img class="math" src="../../../_images/math/9c6eeba4e3bea193cfeb67073f2cb05b0994d100.png" alt="H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x} + \omega_{y}\sigma_{y}^{2}"/></p>
-<p>Now, we can add another term to our quantum system, just as we did for <img class="math" src="../../../_images/math/0142317d55d030ac1bd53ac8b353f190c17c4b47.png" alt="\sigma_{x}"/> term, but this time with an additional input parameter, namely <code class="docutils literal notranslate"><span class="pre">order</span></code>, to the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method.</p>
+<div class="section" id="3---Harmonic-oscillator">
+<h2>3 - Harmonic oscillator<a class="headerlink" href="#3---Harmonic-oscillator" title="Permalink to this headline">¶</a></h2>
+<p>This is an infinite dimensional system, but we can use a truncated space by setting the dimension to a finite value (which should be large enough for your simulations, but its discussion is beyond this tutorial). For an Harmonic oscillator, we have</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">5</span></code> (a small number so that printed matrix is readable)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <img class="math" src="../../../_images/math/685798103daac154c876acffb4ba3c454f05e1ae.png" alt="f=2"/>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> is usually the <img class="math" src="../../../_images/math/267a6d927f8f5c3b4968c6b527557d13b94e8a83.png" alt="a^{\dagger}a = n"/> number operator</p></li>
+</ul>
+<p>Then, the Hamiltonian would be</p>
+<p><img class="math" src="../../../_images/math/6dbc9fd4d1e67cd82d4461b09c15cc4e899fd1ca.png" alt="H = f*J_{z} = 2\left[\begin{array}{lllll}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 3 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 4 \end{array}\right] = \left[\begin{array}{lllll}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 2 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 4 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 6 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 8 \end{array}\right]"/></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ho</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ho</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0 0 0 0 0]
+ [0 2 0 0 0]
+ [0 0 4 0 0]
+ [0 0 0 6 0]
+ [0 0 0 0 8]]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Special-classes-for-common-system">
+<h2>Special classes for common system<a class="headerlink" href="#Special-classes-for-common-system" title="Permalink to this headline">¶</a></h2>
+<p>The above systems are quite common. Therefore, <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> provides special classes for these systems, and these classes comes with default values for some of the above attributes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Spin</span></code> class for spin systems, which also provides an attribute named <code class="docutils literal notranslate"><span class="pre">jValue</span></code> (for spin value) so that we can use spin number instead of dimension. It comes with the default <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">=</span> <span class="pre">qg.Jz</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class for a qubit, and its a special case of <code class="docutils literal notranslate"><span class="pre">Spin</span></code> class with <code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code> by default. This means that its operator is <code class="docutils literal notranslate"><span class="pre">qg.Jz</span></code> by default, not <code class="docutils literal notranslate"><span class="pre">qg.sigmaz</span></code>. This operator choice is discussed in later tutorials.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cavity</span></code> class for harmonic-oscillator/cavity/resonator, and it defaults <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">=</span> <span class="pre">qg.number</span></code></p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spin1_usingDimension</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Spin</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">spin1_usingjValue</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Spin</span><span class="p">(</span><span class="n">jValue</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">spin1_usingDimension</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin1_usingjValue</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">spin1_usingDimension</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">spin1_usingDimension</span><span class="o">.</span><span class="n">jValue</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin1_usingjValue</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">spin1_usingjValue</span><span class="o">.</span><span class="n">jValue</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 2.  0.  0.]
+ [ 0.  0.  0.]
+ [ 0.  0. -2.]]
+[[ 2.  0.  0.]
+ [ 0.  0.  0.]
+ [ 0.  0. -2.]]
+3 1.0
+3 1.0
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thirdTerm</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">addTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="c1"># Now the freeMat is still the operator of the first term that we added</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">freeMat</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-<span class="c1"># but the totalHam is the summation of all the terms</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-<span class="c1"># matrix of the third term is the matrix corresponding to operator (sigmay) raised to the order</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">thirdTerm</span><span class="o">.</span><span class="n">freeMat</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-<span class="c1"># the total-Hamiltonian of the term</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">thirdTerm</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qb</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qb</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">qb</span><span class="o">.</span><span class="n">jValue</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -715,47 +701,56 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[ 1  0]
- [ 0 -1]]
-[[3.+0.j 1.+0.j]
- [1.+0.j 1.+0.j]]
-[[1.+0.j 0.+0.j]
- [0.+0.j 1.+0.j]]
-[[2.+0.j 0.+0.j]
- [0.+0.j 2.+0.j]]
+[[ 1.  0.]
+ [ 0. -1.]]
+2 0.5
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cav</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Cavity</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">cav</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0 0 0 0 0]
+ [0 2 0 0 0]
+ [0 0 4 0 0]
+ [0 0 0 6 0]
+ [0 0 0 0 8]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">i</span><span class="o">/</span><span class="mi">100</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)],</span> <span class="p">[(</span><span class="n">i</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">i</span><span class="o">/</span><span class="mi">100</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)],</span> <span class="p">[(</span><span class="n">i</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">**</span><span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)])</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1195b1150&gt;]
+[&lt;matplotlib.lines.Line2D at 0x11d45af50&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/classes_Tutorials_1_Qubit_Qubit_02_Hamiltonian_12_1.png" src="../../../_images/classes_Tutorials_1_Qubit_Qubit_02_Hamiltonian_12_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+<img alt="../../../_images/classes_Tutorials_1_Qubit_0_SingleQuantumSystem_11_1.png" src="../../../_images/classes_Tutorials_1_Qubit_0_SingleQuantumSystem_11_1.png" />
 </div>
 </div>
 </div>
@@ -767,17 +762,17 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Qubit_01_Initial_State.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="0_CompositeQubitSystem.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">1 - Initial state for a Qubit</p>
+            <p class="prev-next-title">0 - How to create composite quantum systems</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Qubit_03_Unitary_Evolution_SingleTermHamiltonian.html" title="next page">
+    <a class='right-next' id="next-link" href="Qubit_01_Initial_State.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">3 - Simulation of a Qubit with single term Hamiltonian</p>
+        <p class="prev-next-title">1 - Initial state for a Qubit</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

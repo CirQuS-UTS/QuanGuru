@@ -650,7 +650,6 @@
             <span class="n">coupling</span><span class="o">.</span><span class="n">removeSubSys</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coupling</span><span class="o">.</span><span class="n">_qBase__subSys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># pylint: disable=protected-access</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">qCouplings</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">coupling</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
         <span class="k">if</span> <span class="n">subSys</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
             <span class="k">for</span> <span class="n">qS</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="n">qS</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1151,9 +1150,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
             <span class="n">_exclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">subSys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">subSys</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">removeSubSys</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">removeSubSys</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span></div>
+
+            <span class="k">if</span> <span class="n">subSys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">removeSubSys</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span></div>
 
     <span class="nd">@terms</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">terms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">):</span>
