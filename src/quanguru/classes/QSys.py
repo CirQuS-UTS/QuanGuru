@@ -449,6 +449,7 @@ class compQSystem(genericQSys):
         else:
             raise TypeError('?')
         newSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
+        self._paramUpdated = True
         return newSys
 
     def createSubSys(self, subSysClass, **kwargs):
@@ -1218,6 +1219,8 @@ class qCoupling(termTimeDep):
             # TODO write a generalisation for this one
             if isinstance(self.getByNameOrAlias(args[counter][0]), qSystem):
                 qSystems = [self.getByNameOrAlias(obj) for obj in args[counter]]
+                for qsys in qSystems:
+                    qsys._paramBoundBase__paramBound[self.name] = self
                 if callable(args[counter+1][1]):
                     #if tuple(args[counter + 1]) in self._qBase__subSys.keys(): # pylint: disable=no-member
                     #    print(tuple(args[counter + 1]), 'already exists')
