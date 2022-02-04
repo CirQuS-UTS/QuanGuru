@@ -611,6 +611,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)</span>
         <span class="n">newSys</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># pylint: disable=protected-access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">newSys</span></div>
 
 <div class="viewcode-block" id="compQSystem.createSubSys"><a class="viewcode-back" href="../../../classes/QSys.html#quanguru.classes.QSys.compQSystem.createSubSys">[docs]</a>    <span class="k">def</span> <span class="nf">createSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSysClass</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1380,6 +1381,8 @@
             <span class="c1"># TODO write a generalisation for this one</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">counter</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="n">qSystem</span><span class="p">):</span>
                 <span class="n">qSystems</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="n">counter</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="n">qSystems</span><span class="p">:</span>
+                    <span class="n">qsys</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
                 <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]):</span>
                     <span class="c1">#if tuple(args[counter + 1]) in self._qBase__subSys.keys(): # pylint: disable=no-member</span>
                     <span class="c1">#    print(tuple(args[counter + 1]), &#39;already exists&#39;)</span>

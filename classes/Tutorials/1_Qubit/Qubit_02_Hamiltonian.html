@@ -153,6 +153,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="03_CouplingQuantumSystems.html">
+   3 - Coupling quantum systems
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="Qubit_01_Initial_State.html">
    1 - Initial state for a Qubit
   </a>
@@ -690,7 +695,7 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
 </div>
 <div class="section" id="Non-linear-terms">
 <h2>Non-linear terms<a class="headerlink" href="#Non-linear-terms" title="Permalink to this headline">¶</a></h2>
-<p>In certain Hamiltonians, we might have a non-linear term where the operator is raised to a certain power. For Pauli matrices, <img class="math" src="../../../_images/math/de315dbcdf9aa8159d705292570a958e07a2cc29.png" alt="\sigma_{i}^{2} = \mathbb{1}"/> (i.e. the identity matrix) for <img class="math" src="../../../_images/math/cba571063e51584d046beca3d8c572e1ef60fadc.png" alt="i \in \{x,y,z\}"/>, but, just for the sake of an example say we have the following Hamiltonian</p>
+<p>In certain Hamiltonians, we might have a non-linear term where the operator is raised to a certain power. For Pauli matrices, <img class="math" src="../../../_images/math/50ad24d5d71a774de32360cc206c71ac80344a32.png" alt="\sigma_{i}^{2} = 1"/> (i.e. the identity matrix) for <img class="math" src="../../../_images/math/cba571063e51584d046beca3d8c572e1ef60fadc.png" alt="i \in \{x,y,z\}"/>, but, just for the sake of an example say we have the following Hamiltonian</p>
 <p><img class="math" src="../../../_images/math/9c6eeba4e3bea193cfeb67073f2cb05b0994d100.png" alt="H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x} + \omega_{y}\sigma_{y}^{2}"/></p>
 <p>Now, we can add another term to our quantum system, just as we did for <img class="math" src="../../../_images/math/0142317d55d030ac1bd53ac8b353f190c17c4b47.png" alt="\sigma_{x}"/> term, but this time with an additional input parameter, namely <code class="docutils literal notranslate"><span class="pre">order</span></code>, to the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method.</p>
 <div class="nbinput docutils container">
