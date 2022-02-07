@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>0 - name and alias of QuanGuru objects &#8212; QuanGuru 1 documentation</title>
+    <title>8 - qRes attribute: an intro to Results objects &#8212; QuanGuru 1 documentation</title>
     
     <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -46,8 +46,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="1 - Hamiltonian of a single quantum system" href="01_SingleQuantumSystem.html" />
-    <link rel="prev" title="Classes Demos" href="Tutorials.html" />
+    <link rel="next" title="9 - Simulation with a compute function" href="09_Qubit_computeFunction.html" />
+    <link rel="prev" title="7 - Simulation of a Qubit with two terms Hamiltonian" href="07_Qubit_Unitary_Evolution_TwoTermsHamiltonian.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -137,8 +137,8 @@
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00_nameAndAlias.html">
    0 - name and alias of QuanGuru objects
   </a>
  </li>
@@ -177,8 +177,8 @@
    7 - Simulation of a Qubit with two terms Hamiltonian
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08_Qubit_ResultsStatesDictionaries.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    8 - qRes attribute: an intro to Results objects
   </a>
  </li>
@@ -234,24 +234,9 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#name-attribute">
-   name attribute
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#aliases-for-the-objects">
-   aliases for the objects
-  </a>
- </li>
-</ul>
-
+    
 </nav>
               </div>
               
@@ -527,54 +512,24 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="0---name-and-alias-of-QuanGuru-objects">
-<h1>0 - name and alias of QuanGuru objects<a class="headerlink" href="#0---name-and-alias-of-QuanGuru-objects" title="Permalink to this headline">¶</a></h1>
-<p>Instances of <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> classes are created with <em>unique</em> default names. The <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object is assigned by the library and it cannot be changed later. In later tutorials, we will demonstrate various cases where the (<em>unique</em>) <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object enables (or used in the implementation of) various useful functionalities. In this tutorial, we explain the convention for these names.</p>
-<p>In certain cases, we might find it useful/easier if could change the <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object to anything we want but still have the same useful functionalities. <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> objects come with an <code class="docutils literal notranslate"><span class="pre">alias</span></code> attribute introduced for this purpose. <code class="docutils literal notranslate"><span class="pre">alias</span></code> attribute stores (in a list) any number of user defined aliases to an object, which extends all the functionalities available to <code class="docutils literal notranslate"><span class="pre">name</span></code> to aliases. Therefore, like the <code class="docutils literal notranslate"><span class="pre">name</span></code>, aliases need to be unique to an object, meaning the same <code class="docutils literal notranslate"><span class="pre">alias</span></code>
-cannot be assigned to different objects.</p>
-<div class="section" id="name-attribute">
-<h2>name attribute<a class="headerlink" href="#name-attribute" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object is created by using the name of its class and the number of instances. Let’s use the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> and <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> classes to demonstrate this.</p>
-<div class="nbinput docutils container">
+<div class="section" id="8---qRes-attribute:-an-intro-to-Results-objects">
+<h1>8 - qRes attribute: an intro to Results objects<a class="headerlink" href="#8---qRes-attribute:-an-intro-to-Results-objects" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial introduces the <code class="docutils literal notranslate"><span class="pre">qRes</span></code> attribute of <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects. <code class="docutils literal notranslate"><span class="pre">qRes</span></code> itself is also an object, but, for almost all cases, we do not need to create it explicitly. All the relevant objects (like <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code>) already come with a <code class="docutils literal notranslate"><span class="pre">qRes</span></code> attribute, and the purpose of this tutorial is to explain its basics.</p>
+<p>Let’s first create a <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code></p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the very first instance of QuantumSystem</span>
-<span class="n">qs1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">()</span>
-
-<span class="c1"># let&#39;s print its name, which should be QuantumSystem + 1 = QuantumSystem1</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-<span class="c1"># create the first Qubit instance</span>
-<span class="n">qub1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">()</span>
-<span class="c1"># let&#39;s print its name, which should be Qubit + 1 = Qubit1</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qub1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-QuantumSystem1
-Qubit1
-</pre></div></div>
-</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">qRes</span></code> attribute is an instance of <code class="docutils literal notranslate"><span class="pre">qResults</span></code> class.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the second instance of QuantumSystem</span>
-<span class="n">qs2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">()</span>
-
-<span class="c1"># let&#39;s print its name, which should be QuantumSystem + 2 = QuantumSystem2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs2</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-<span class="c1"># create the second Qubit instance</span>
-<span class="n">qub2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">()</span>
-<span class="c1"># let&#39;s print its name, which should be Qubit + 2 = Qubit1</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qub2</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -583,27 +538,17 @@ Qubit1
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-QuantumSystem2
-Qubit2
+&lt;class &#39;quanguru.classes.QRes.qResults&#39;&gt;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="aliases-for-the-objects">
-<h2>aliases for the objects<a class="headerlink" href="#aliases-for-the-objects" title="Permalink to this headline">¶</a></h2>
-<p>Notice that if you run the above cell more than once, you create a new <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> (and <code class="docutils literal notranslate"><span class="pre">Qubit</span></code>) instance each time you run it, increasing the number of instance count. Therefore, in these sorts of situations, if we did not have <code class="docutils literal notranslate"><span class="pre">alias</span></code> alternative, we would be required to keep good track of how many instances we created. Additionally, unlike the <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object that is created <em>uniquely</em> <strong>internally</strong> for each instance, <code class="docutils literal notranslate"><span class="pre">alias</span></code> are defined by the user. This means that if we
-are assigning an <code class="docutils literal notranslate"><span class="pre">alias</span></code> to an object in a cell (as below), we would get an error when we try to run it more than once, because we would be trying to assign the <code class="docutils literal notranslate"><span class="pre">alias</span></code> of an previous instance to a new instance.</p>
+<p><code class="docutils literal notranslate"><span class="pre">qResults</span></code> objects have two main dictionaries (specifically <code class="docutils literal notranslate"><span class="pre">defaultdict</span></code>) to store <code class="docutils literal notranslate"><span class="pre">states</span></code> and <code class="docutils literal notranslate"><span class="pre">results</span></code>. Here, the <code class="docutils literal notranslate"><span class="pre">states</span></code> means the state of the quantum system as a function of time, and the <code class="docutils literal notranslate"><span class="pre">results</span></code> means any other quantity (like expectation values) that we compute as a function of time.</p>
+<p>The library takes care of storing the states, and the users only need to store the results of their computation, which will be covered in later tutorials. In this tutorial, we explain how to reach these attributes and store some quantity in them.</p>
+<p>We can reach <code class="docutils literal notranslate"><span class="pre">states</span></code> and <code class="docutils literal notranslate"><span class="pre">results</span></code> through the <code class="docutils literal notranslate"><span class="pre">qRes</span></code> attribute as below, which are just empty <code class="docutils literal notranslate"><span class="pre">defaultdict</span></code>.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the third instance of QuantumSystem and also assign an alias</span>
-<span class="n">qs3</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">alias</span><span class="o">=</span><span class="s1">&#39;test alias&#39;</span><span class="p">)</span>
-
-<span class="c1"># let&#39;s print its name, which should be QuantumSystem + 3 = QuantumSystem3</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs3</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-<span class="c1"># let&#39;s print its alias, which will be list containing the alias we asssigned</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qs3</span><span class="o">.</span><span class="n">alias</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -612,19 +557,15 @@ are assigning an <code class="docutils literal notranslate"><span class="pre">al
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-QuantumSystem3
-[&#39;test alias&#39;]
+defaultdict(&lt;class &#39;list&#39;&gt;, {}) defaultdict(&lt;class &#39;list&#39;&gt;, {})
 </pre></div></div>
 </div>
+<p>and, for internally created <code class="docutils literal notranslate"><span class="pre">qRes</span></code>, we can do the same thing also through the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> (by omitting the <code class="docutils literal notranslate"><span class="pre">.qRes</span></code>)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the very first instance of QuantumSystem</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">qsErrorForAlias</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">alias</span><span class="o">=</span><span class="s1">&#39;test alias&#39;</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">ve</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span> <span class="ow">is</span> <span class="n">qub</span><span class="o">.</span><span class="n">states</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -633,8 +574,59 @@ QuantumSystem3
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Given alias (test alias) already exist and is assigned to: QuantumSystem3
+True True
 </pre></div></div>
+</div>
+<p>As explained above, the library internally manages the state storage, so we do not need to worry about how to store the states. We will cover more examples for <code class="docutils literal notranslate"><span class="pre">states</span></code> in later tutorials and focus on storing <code class="docutils literal notranslate"><span class="pre">results</span></code> in here.</p>
+<p>Since these attributes are simply <code class="docutils literal notranslate"><span class="pre">defaultdict</span></code> that create an empty <code class="docutils literal notranslate"><span class="pre">list</span></code> as default for a given key, we can use any key to store a list of values as below</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># store some values</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;1to10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># print those values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;1to10&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</pre></div></div>
+</div>
+<p>We will cover when and how to use above, but, for now, the key point here is that you can simply call append with an arbitrary key, because <code class="docutils literal notranslate"><span class="pre">.results</span></code> returns a <code class="docutils literal notranslate"><span class="pre">defaultdict</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">qResults</span></code> objects actually uses <code class="docutils literal notranslate"><span class="pre">setter/getter</span></code> and provide an alternative notation for the same task as below. Notice that, in this case, we use <code class="docutils literal notranslate"><span class="pre">.result</span></code> (not <code class="docutils literal notranslate"><span class="pre">results</span></code>) as it is a different setter. As noted above, we will cover where and how these will be used, and don’t worry if you don’t understand the implementation details.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># store some values</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;11to20&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">11</span><span class="p">]</span>
+<span class="c1"># print those values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;11to20&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -645,17 +637,17 @@ Given alias (test alias) already exist and is assigned to: QuantumSystem3
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Tutorials.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="07_Qubit_Unitary_Evolution_TwoTermsHamiltonian.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Classes Demos</p>
+            <p class="prev-next-title">7 - Simulation of a Qubit with two terms Hamiltonian</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="01_SingleQuantumSystem.html" title="next page">
+    <a class='right-next' id="next-link" href="09_Qubit_computeFunction.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1 - Hamiltonian of a single quantum system</p>
+        <p class="prev-next-title">9 - Simulation with a compute function</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
