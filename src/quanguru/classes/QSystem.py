@@ -1,8 +1,10 @@
 from collections import OrderedDict
+from re import sub
 import warnings
 
 from .base import addDecorator
 from .QSimComp import QSimComp
+from .QSimBase import setAttr
 
 class QuSystem(QSimComp):
     #: (**class attribute**) class label used in default naming
@@ -14,30 +16,135 @@ class QuSystem(QSimComp):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__terms', '__dimension', '__firstTerm']
+    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        self._QuSystem__firstTerm = None # pylint:disable=assigning-non-slot
-        self._QuSystem__terms = OrderedDict() # pylint:disable=assigning-non-slot
-        self._QuSystem__dimension = None # pylint:disable=assigning-non-slot
+        #: First term is also stored in __firstTerm attribute
+        self.__firstTerm = None
+        #: dictionary of the terms
+        self.__terms = OrderedDict()
+        #: dimension of Hilbert space of the quantum system
+        self.__dimension = 1
+        #: boolean flag for composite/single systems
+        self.__compSys = None
+        #: Total dimension of the other quantum systems **before** ``self`` in a composite system.
+        #: It is 1, when ``self``` is the first system in the composite system or ``self`` is not in a composite system.
+        self.__dimsBefore = 1
+        #: Total dimension of the other quantum systems **after** ``self`` in a composite system.
+        #: It is 1, when ``self`` is the last system in the composite system.
+        self.__dimsAfter = 1
+        self._named__setKwargs(**kwargs) # pylint:disable=no-member
+
+    @property
+    def _totalDim(self):
+        r"""
+        :attr:`QuSystem.dimension` returns the dimension of a quantum system itself, meaning it does not contain the
+        dimensions of the other systems if ``self`` is in a composite system, ``_totalDim`` returns the total dimension
+        by also taking the dimensions before and after ``self`` in a composte system.
+        """
+        return self.dimension * self._dimsBefore * self._dimsAfter#pylint:disable=E1101
 
     @property
     def dimension(self):
-        if len(self.subSys) > 0:
-            dim = 1
+        r"""
+            Property to get the dimension of any quantum system and also to set the dimension of single quantum systems.
+            It calculates the dimension of a composite system on every call.
+        """
+        if self._isComposite: # pylint:disable=no-member
+            self._QuSystem__dimension = 1 # pylint:disable=assigning-non-slot
             for su in self.subSys.values():
-                dim *= su.dimension
-            self._QuSystem__dimension = dim # pylint:disable=assigning-non-slot
+                self._QuSystem__dimension *= su.dimension # pylint:disable=assigning-non-slot,no-member
         return self._QuSystem__dimension # pylint:disable=no-member
 
     @dimension.setter
     def dimension(self, dim):
-        if len(self.subSys) == 0:
-            self._QuSystem__dimension = dim # pylint:disable=assigning-non-slot
+        if not self._isComposite: # pylint:disable=no-member
+            oldVal = getattr(self, '_QuSystem__dimension')
+            setAttr(self, '_QuSystem__dimension', dim)
+            if self.superSys is not None:
+                self.superSys._updateDimension(self, dim, oldVal) # pylint:disable=protected-access
         else:
-            warnings.warn(self.name + ' is a composite system, so dimension is not set')
+            warnings.warn(self.name + ' is a composite system, cannot set dimension')
 
+    def _updateDimension(self, subSys, newDim, oldDim, _exclude=[]): # pylint:disable=dangerous-default-value
+        for qsys in self.subSys.values():
+            if qsys.ind < subSys.ind:
+                qsys._dimsAfter = int((qsys._dimsAfter*newDim)/oldDim)
+            if qsys.ind > subSys.ind:
+                qsys._dimsBefore = int((qsys._dimsBefore*newDim)/oldDim)
+        if self.superSys is not None:
+            self.superSys._updateDimension(self, newDim, oldDim) # pylint:disable=protected-access
+
+    @property
+    def ind(self):
+        r"""
+        If ``self`` is in a composite quantum system, this return an index representing the position of ``self`` in the
+        composite system, else it returns 0.
+        Also, the first system in a composite quantum system is at index 0.
+        """
+        ind = 0
+        if self.superSys is not None:
+            ind += list(self.superSys.subSys.values()).index(self)
+            # if self.superSys.superSys is not None:
+            #     ind += self.superSys.ind
+        return ind
+
+    @property
+    def _isComposite(self):
+        r"""Used internally to set _QuSystem__compSys boolean, never query this before _QuSystem__compSys is set by
+            some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
+        """
+        if self._QuSystem__compSys is None: # pylint:disable=no-member
+            self._QuSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
+        return self._QuSystem__compSys # pylint:disable=no-member
+
+    def __dimsABUpdate(self, attrName, val):
+        oldVal = getattr(self, attrName)
+        setAttr(self, '_QuSystem_'+attrName, val)
+        for qsys in self.subSys.values():
+            setattr(qsys, attrName, int((getattr(qsys, attrName)*val)/oldVal))
+
+    @property
+    def _dimsBefore(self):
+        return self._QuSystem__dimsBefore
+
+    @_dimsBefore.setter
+    def _dimsBefore(self, val):
+        self._QuSystem__dimsABUpdate('_dimsBefore', val)
+
+    @property
+    def _dimsAfter(self):
+        return self._QuSystem__dimsAfter
+
+    @_dimsAfter.setter
+    def _dimsAfter(self, val):
+        self._QuSystem__dimsABUpdate('_dimsAfter', val)
+
+    def __addSub(self, subSys):
+        r"""
+        internal method used to update relevant information (such as dimension before/after) for the existing and newly
+        added sub-systems. This is purely for internal use.
+        """
+        for subS in self.subSys.values():
+            subS._dimsAfter *= subSys.dimension
+            subSys._dimsBefore *= subS.dimension
+        return subSys
+
+    @addDecorator
+    def addSubSys(self, subSys, **kwargs):
+        if self._QuSystem__compSys is None: # pylint:disable=no-member
+            self._QuSystem__compSys = True # pylint:disable=assigning-non-slot
+        elif self._QuSystem__compSys is False: # pylint:disable=no-member
+            raise TypeError("Cannot add a sub-system to a single quantum system " + self.name)
+
+        if subSys not in self.subSys.values():
+            self._QuSystem__addSub(subSys)
+        subSys.superSys = self
+        self._paramUpdated = True
+        return super().addSubSys(subSys, **kwargs)
+
+    # these will work after term object is implemented
     @property
     def terms(self):
         return self._QuSystem__terms # pylint:disable=no-member
@@ -54,11 +161,6 @@ class QuSystem(QSimComp):
     def terms(self, trm):
         self.resetTerms()
         self.addTerms(trm)
-
-    @addDecorator
-    def addSubSys(self, subSys, **kwargs):
-        subSys.superSys = self
-        return super().addSubSys(subSys, **kwargs)
 
     @property
     def _firstTerm(self):
