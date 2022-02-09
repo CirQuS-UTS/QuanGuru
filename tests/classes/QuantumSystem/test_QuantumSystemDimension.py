@@ -188,11 +188,9 @@ def test_nestedDimensionBeforeAfterSetsProperly():
     qsystem3 = QSys.QuSystem(subSys=[qsystem1, qsystem2])
 
     dim3 = ranInts[0]*ranInts[1]*ranInts[2]*ranInts[3]
-    assert qsystem3.dimension == dim3
-
     assert qsystem1.dimension == dim1
-
     assert qsystem2.dimension == dim2
+    assert qsystem3.dimension == dim3
 
     assert qsystem1._totalDim == dim3
     assert qsystem2._totalDim == dim3
@@ -213,3 +211,75 @@ def test_nestedDimensionBeforeAfterSetsProperly():
     
     assert asystem4._dimsAfter == 1
     assert asystem4._dimsBefore == ranInts[0]*ranInts[1]*ranInts[2]
+
+def test_nestedDimensionBeforeAfterSetsAndUpdatesProperly():
+    ranInts = [rnd.randint(3, 20) for _ in range(6)]
+    # create two quantum systems
+    qsystem1 = QSys.QuSystem()
+    qsystem2 = QSys.QuSystem()
+    # create 4 more systems to be sub-systems
+    asystem1 = QSys.QuSystem(dimension = ranInts[0])
+    asystem2 = QSys.QuSystem(dimension = ranInts[1])
+    asystem3 = QSys.QuSystem(dimension = ranInts[2])
+    asystem4 = QSys.QuSystem(dimension = ranInts[3])
+    # add two to each qsystem
+    qsystem1.addSubSys([asystem1, asystem2])
+    qsystem2.addSubSys([asystem3, asystem4])
+
+    randInd = rnd.randint(0, 3)
+    randSys = [asystem1, asystem2, asystem3, asystem4][randInd]
+    randSys.dimension = ranInts[4]
+
+    dim1 = asystem1.dimension*asystem2.dimension
+    dim2 = asystem3.dimension*asystem4.dimension
+    assert qsystem1.dimension == dim1
+    assert asystem1._totalDim == dim1
+    assert asystem2._totalDim == dim1
+
+    assert qsystem2.dimension == dim2
+    assert asystem3._totalDim == dim2
+    assert asystem4._totalDim == dim2
+
+    assert asystem1._dimsAfter == asystem2.dimension
+    assert asystem1._dimsBefore == 1
+    assert asystem2._dimsAfter == 1
+    assert asystem2._dimsBefore == asystem1.dimension
+    
+    assert asystem3._dimsAfter == asystem4.dimension
+    assert asystem3._dimsBefore == 1
+    assert asystem4._dimsAfter == 1
+    assert asystem4._dimsBefore == asystem3.dimension
+
+    # combine two qsystem into another qsystem
+    qsystem3 = QSys.QuSystem(subSys=[qsystem1, qsystem2])
+
+    randInd = rnd.randint(0, 3)
+    randSys = [asystem1, asystem2, asystem3, asystem4][randInd]
+    randSys.dimension = ranInts[5]
+
+    dim1 = asystem1.dimension*asystem2.dimension
+    dim2 = asystem3.dimension*asystem4.dimension
+    dim3 = dim1*dim2
+    assert qsystem1.dimension == dim1
+    assert qsystem2.dimension == dim2
+    assert qsystem3.dimension == dim3
+
+    assert qsystem1._totalDim == dim3
+    assert qsystem2._totalDim == dim3
+
+    assert asystem1._totalDim == dim3
+    assert asystem2._totalDim == dim3
+
+    assert asystem3._totalDim == dim3
+    assert asystem4._totalDim == dim3
+    
+    assert asystem1._dimsAfter == asystem2.dimension*asystem3.dimension*asystem4.dimension
+    assert asystem1._dimsBefore == 1
+    assert asystem2._dimsAfter == asystem3.dimension*asystem4.dimension
+    assert asystem2._dimsBefore == asystem1.dimension
+
+    assert asystem3._dimsAfter == asystem4.dimension
+    assert asystem3._dimsBefore == asystem1.dimension*asystem2.dimension
+    
+    assert asystem4._dimsAfter == 1
+    assert asystem4._dimsBefore == asystem1.dimension*asystem2.dimension*asystem3.dimension
