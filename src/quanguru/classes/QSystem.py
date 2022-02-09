@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from re import sub
 import warnings
 
 from .base import addDecorator
@@ -48,8 +47,10 @@ class QuSystem(QSimComp):
     @property
     def dimension(self):
         r"""
-            Property to get the dimension of any quantum system and also to set the dimension of single quantum systems.
-            It calculates the dimension of a composite system on every call.
+        Property to get the dimension of any quantum system and also to set the dimension of single quantum systems.
+        It calculates the dimension of a composite system on every call.
+        For composite systems, setter raises a warning. For single system, setter also calls _updateDimension on its
+        `superSys` (if there is one).
         """
         if self._isComposite: # pylint:disable=no-member
             self._QuSystem__dimension = 1 # pylint:disable=assigning-non-slot
@@ -68,6 +69,10 @@ class QuSystem(QSimComp):
             warnings.warn(self.name + ' is a composite system, cannot set dimension')
 
     def _updateDimension(self, subSys, newDim, oldDim, _exclude=[]): # pylint:disable=dangerous-default-value
+        r"""
+        Internal method to update dimension before/after information of the sub-systems when the dimension of a
+        sub-system is updated. It is called in the dimension setter.
+        """
         for qsys in self.subSys.values():
             if qsys.ind < subSys.ind:
                 qsys._dimsAfter = int((qsys._dimsAfter*newDim)/oldDim)
@@ -92,14 +97,18 @@ class QuSystem(QSimComp):
 
     @property
     def _isComposite(self):
-        r"""Used internally to set _QuSystem__compSys boolean, never query this before _QuSystem__compSys is set by
-            some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
+        r"""
+        Used internally to set _QuSystem__compSys boolean, never query this before _QuSystem__compSys is set by
+        some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
         """
         if self._QuSystem__compSys is None: # pylint:disable=no-member
             self._QuSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
         return self._QuSystem__compSys # pylint:disable=no-member
 
     def __dimsABUpdate(self, attrName, val):
+        r"""
+        Common parts of the dimsBefore/After setters are combined in this method.
+        """
         oldVal = getattr(self, attrName)
         setAttr(self, '_QuSystem_'+attrName, val)
         for qsys in self.subSys.values():
@@ -107,6 +116,10 @@ class QuSystem(QSimComp):
 
     @property
     def _dimsBefore(self):
+        r"""
+        Property to set and get the :attr:`~genericQSys.__dimsBefore`. Getter can be used to get information, but the
+        setter is intended purely for internal use.
+        """
         return self._QuSystem__dimsBefore
 
     @_dimsBefore.setter
@@ -115,6 +128,10 @@ class QuSystem(QSimComp):
 
     @property
     def _dimsAfter(self):
+        r"""
+        Property to set and get the :attr:`~genericQSys.__dimsAfter`. Getter can be used to get information, but the
+        setter is intended purely for internal use.
+        """
         return self._QuSystem__dimsAfter
 
     @_dimsAfter.setter
@@ -133,6 +150,12 @@ class QuSystem(QSimComp):
 
     @addDecorator
     def addSubSys(self, subSys, **kwargs):
+        r"""
+        Extends the addSubSys method for composite quantum systems to set the __compSys boolean (to True, if None),
+        update the dimsBefore/After of the sub-systems, set self as superSys of the sub-system, and set _paramUpdated to
+        True, or it raises a TypeError if __compSys is already set to False.
+        Note that composite systems can contain other composite systems as sub-systems.
+        """
         if self._QuSystem__compSys is None: # pylint:disable=no-member
             self._QuSystem__compSys = True # pylint:disable=assigning-non-slot
         elif self._QuSystem__compSys is False: # pylint:disable=no-member
