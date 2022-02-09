@@ -32,18 +32,15 @@ def test_computeBaseFunctions(helpers):
 
     comp1.compute = strings[0]
     with pytest.warns(Warning):
-        comp1._computeBase__compute(*strings[4:6])
-    assert comp1._computeBase__compute(*strings[4:6]) == strings[0]
+        assert comp1._computeBase__compute(*strings[4:6]) == strings[0]
 
     comp1.calculateStart = strings[1]
     with pytest.warns(Warning):
-        comp1._computeBase__calculate('start', *strings[4:6])
-    assert comp1._computeBase__calculate('start',*strings[4:6]) == strings[1]
+        assert comp1._computeBase__calculate('start',*strings[4:6]) == strings[1]
 
     comp1.calculateEnd = strings[2]
     with pytest.warns(Warning):
-        comp1._computeBase__calculate('end', *strings[4:6])
-    assert comp1._computeBase__calculate('end',*strings[4:6]) == strings[2]
+        assert comp1._computeBase__calculate('end',*strings[4:6]) == strings[2]
 
 def test_computeBaseAlias(helpers):
     # here alias also adds the given string alias or strings in list of aliases to the qRes
