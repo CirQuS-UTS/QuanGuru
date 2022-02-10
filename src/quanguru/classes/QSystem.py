@@ -5,7 +5,7 @@ from typing import Any
 from .base import addDecorator, _recurseIfList
 from .QSimComp import QSimComp
 from .QSimBase import setAttr
-from .exceptions import checkNotVal
+from .exceptions import checkNotVal, checkCorType
 
 class QuSystem(QSimComp):
     #: (**class attribute**) class label used in default naming
@@ -193,6 +193,24 @@ class QuSystem(QSimComp):
         self._paramUpdated = True
         subSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         return super().addSubSys(subSys, **kwargs)
+
+    def __add__(self, other):
+        r"""
+        overload ``+`` operator to create a composite quantum system between ``self`` and the ``other`` quantum system.
+        """
+        other = self.getByNameOrAlias(other)
+        checkCorType(other, QuSystem, "{other} is not an instance of QuSystem")
+        if (self._isComposite and (not other._isComposite)):
+            self.addSubSys(other)
+            newComp = self
+        elif (((not self._isComposite) and (not other._isComposite)) or ((self._isComposite) and (other._isComposite))):
+            other = other.copy() if (other is self) else other
+            newComp = QuSystem(subSys=[self, other])
+            # TODO copy the simulation parameters, and what to do with compute and calculate?
+        elif ((not self._isComposite) and (other._isComposite)):
+            self.addSubSys(other)
+            newComp = other
+        return newComp
 
     @_recurseIfList
     def _removeSubSysExc(self, subSys: Any, _exclude=[]) -> None: # pylint:disable=dangerous-default-value
