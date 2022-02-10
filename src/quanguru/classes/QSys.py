@@ -44,6 +44,7 @@
 """ #pylint: disable=too-many-lines
 
 from collections import OrderedDict
+from tkinter import N
 from numpy import (int64, int32, int16, ndarray)
 from scipy.sparse import issparse
 
@@ -441,16 +442,17 @@ class compQSystem(genericQSys):
         r"""
         Add a quantum system to ``self``. Note that composite systems can contain other composite systems as sub-systems
         """
-        newSys = super().addSubSys(subSys, **kwargs)
-        if isinstance(newSys, qCoupling):
-            self._compQSystem__addCoupling(self._qBase__subSys.pop(newSys.name))  # pylint: disable=no-member
-        elif isinstance(newSys, genericQSys):
-            self._compQSystem__addSub(newSys)# pylint: disable=no-member
-        else:
-            raise TypeError('?')
-        newSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
-        self._paramUpdated = True
-        return newSys
+        if subSys not in self.subSys.values():
+            subSys = super().addSubSys(subSys, **kwargs)
+            if isinstance(subSys, qCoupling):
+                self._compQSystem__addCoupling(self._qBase__subSys.pop(subSys.name))  # pylint: disable=no-member
+            elif isinstance(subSys, genericQSys):
+                self._compQSystem__addSub(subSys)# pylint: disable=no-member
+            else:
+                raise TypeError('?')
+            subSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
+            self._paramUpdated = True
+        return subSys
 
     def createSubSys(self, subSysClass, **kwargs):
         r"""
@@ -474,6 +476,7 @@ class compQSystem(genericQSys):
         subSys.simulation._bound(self.simulation) # pylint: disable=protected-access
         self._compQSystem__qSystems[subSys.name] = subSys
         subSys.superSys = self
+        self._genericQSys__dimension = None # pylint: disable=assigning-non-slot
         return subSys
 
     @_recurseIfList
