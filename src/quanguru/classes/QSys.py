@@ -131,11 +131,10 @@ class genericQSys(QSimComp):
         r"""
         With this method, ``+`` creates a composite quantum system between ``self`` and the ``other`` quantum system.
         """
-        if isinstance(self, compQSystem) and isinstance(other, qSystem):
-            self.addSubSys(other)
+        if isinstance(self, compQSystem):
+            self.addSubSys(other.copy() if (other is self) else other)
             newComp = self
-        elif ((isinstance(self, qSystem) and isinstance(other, qSystem)) or  # noqa: W504
-              (isinstance(self, compQSystem) and isinstance(other, compQSystem))):
+        elif (isinstance(self, qSystem) and isinstance(other, qSystem)):  # noqa: W504
             newComp = compQSystem()
             # FIXME 'stepCount' getter creates problem with None defaults
             newComp.simulation._copyVals(self.simulation, ['totalTime', 'stepSize', 'delStates'])
@@ -143,11 +142,7 @@ class genericQSys(QSimComp):
             newComp.simulation.compute = _computeDef
             #newComp.calculate = _calculateDef
             #newComp.simulation.calculate = _calculateDef
-            newComp.addSubSys(self)
-            if other is self:
-                newComp.addSubSys(other.copy())
-            else:
-                newComp.addSubSys(other)
+            newComp.addSubSys([self, other.copy() if (other is self) else other])
         elif isinstance(self, qSystem) and isinstance(other, compQSystem):
             other.addSubSys(self)
             newComp = other
