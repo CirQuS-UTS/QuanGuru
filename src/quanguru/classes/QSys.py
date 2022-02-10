@@ -482,11 +482,10 @@ class compQSystem(genericQSys):
         Removes a quantum system from the composite system ``self`` and updates the relevant information in the
         remaining sub-systems (such as dimension before/after).
         """
-        if isinstance(subSys, str):
-            subSys = self.getByNameOrAlias(subSys)
+        subSys = self.getByNameOrAlias(subSys)
         couplings = list(self.qCouplings.values())
         for coupling in couplings:
-            coupling._removeSubSysExc(subSys, _exclude=_exclude)
+            coupling._removeSubSysExc(subSys, _exclude=_exclude)# pylint: disable=protected-access
             if len(coupling._qBase__subSys) == 0: # pylint: disable=protected-access
                 self.qCouplings.pop(coupling.name)
         if subSys in list(self.subSys.values()):
@@ -511,11 +510,11 @@ class compQSystem(genericQSys):
                     self._dimsBefore = int(self._dimsBefore/subSys.dimension)
 
             for sys in self.subSys.values():
-                sys._removeSubSysExc(subSys, _exclude=_exclude)
+                sys._removeSubSysExc(subSys, _exclude=_exclude) # pylint: disable=protected-access
                 #_exclude.append(sys)
 
         if self.superSys is not None:
-            self.superSys._removeSubSysExc(subSys, _exclude=_exclude)
+            self.superSys._removeSubSysExc(subSys, _exclude=_exclude) # pylint: disable=protected-access
             _exclude.append(self.superSys)
 
         self.delMatrices(_exclude=[])
@@ -991,7 +990,7 @@ class qSystem(genericQSys):
             _exclude.append(self)
             subSys = self.getByNameOrAlias(subSys)
             if self.superSys is not None:
-                self.superSys._removeSubSysExc(subSys, _exclude=_exclude)
+                self.superSys._removeSubSysExc(subSys, _exclude=_exclude) # pylint: disable=protected-access
 
             if subSys in self.subSys.values():
                 super()._removeSubSysExc(subSys, _exclude=_exclude)

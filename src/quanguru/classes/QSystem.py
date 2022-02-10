@@ -176,9 +176,10 @@ class QuSystem(QSimComp):
         subSys = self.getByNameOrAlias(subSys)
         if subSys in self.subSys.values():
             if subSys._isComposite: # pylint:disable=protected-access
-                for qsys in subSys.subSys.values():
-                    subSys._removeSubSysExc(qsys) #pylint:disable=protected-access
-                    super()._removeSubSysExc(subSys, _exclude=_exclude)
+                qsysList = list(subSys.subSys.values())
+                for qsys in qsysList:
+                    subSys._removeSubSysExc(qsys, _exclude=_exclude)#pylint:disable=protected-access
+                super()._removeSubSysExc(subSys, _exclude=_exclude)
             else:
                 subSys.dimension = 1
                 super()._removeSubSysExc(subSys, _exclude=_exclude)
@@ -187,9 +188,10 @@ class QuSystem(QSimComp):
             if self not in _exclude:
                 _exclude.append(self)
                 for qsys in self.subSys.values():
-                    qsys._removeSubSysExc(subSys, _exclude=_exclude) #pylint:disable=protected-access
-                    if subSys in _exclude:
-                        break
+                    if qsys._isComposite:#pylint:disable=protected-access
+                        qsys._removeSubSysExc(subSys, _exclude=_exclude) #pylint:disable=protected-access
+                        if subSys in _exclude:
+                            break
                 else:
                     if self.superSys is not None:
                         self.superSys._removeSubSysExc(subSys, _exclude=_exclude) #pylint:disable=protected-access
