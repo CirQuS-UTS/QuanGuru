@@ -196,7 +196,7 @@ class QuSystem(QSimComp):
 
     def __add__(self, other):
         r"""
-        overload ``+`` operator to create a composite quantum system between ``self`` and the ``other`` quantum system.
+        overload the ``+`` operator to create a composite quantum system between ``self`` and the ``other`` quantum system.
         """
         other = self.getByNameOrAlias(other)
         checkCorType(other, QuSystem, "{other} is not an instance of QuSystem")
@@ -211,6 +211,14 @@ class QuSystem(QSimComp):
             self.addSubSys(other)
             newComp = other
         return newComp
+
+    def __sub__(self, other):
+        r"""
+        overload the ``-`` operator to remove the ``other`` from ``self``, which should be the composite quantum system
+        containing/connected-to the other.
+        """
+        self._removeSubSysExc(other, _exclude=[])
+        return self
 
     @_recurseIfList
     def _removeSubSysExc(self, subSys: Any, _exclude=[]) -> None: # pylint:disable=dangerous-default-value
