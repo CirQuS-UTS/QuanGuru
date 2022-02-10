@@ -196,19 +196,18 @@ class QuSystem(QSimComp):
 
     def __add__(self, other):
         r"""
-        overload the ``+`` operator to create a composite quantum system between ``self`` and the ``other`` quantum system.
+        overload the + operator to create a composite quantum system between ``self`` and the ``other`` quantum system.
         """
         other = self.getByNameOrAlias(other)
         checkCorType(other, QuSystem, "{other} is not an instance of QuSystem")
-        if (self._isComposite and (not other._isComposite)):
-            self.addSubSys(other)
+        if (self._QuSystem__compSys in (True, None)):
+            self.addSubSys(other.copy() if (other is self) else other)
             newComp = self
-        elif (((not self._isComposite) and (not other._isComposite)) or ((self._isComposite) and (other._isComposite))):
-            other = other.copy() if (other is self) else other
-            newComp = QuSystem(subSys=[self, other])
+        elif ((not self._isComposite) and (not other._isComposite)):
+            newComp = QuSystem(subSys=[self, other.copy() if (other is self) else other])
             # TODO copy the simulation parameters, and what to do with compute and calculate?
         elif ((not self._isComposite) and (other._isComposite)):
-            self.addSubSys(other)
+            other.addSubSys(self)
             newComp = other
         return newComp
 
