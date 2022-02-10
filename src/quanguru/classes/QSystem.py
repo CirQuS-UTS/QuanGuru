@@ -66,22 +66,33 @@ class QuSystem(QSimComp):
         if not self._isComposite: # pylint:disable=no-member
             oldVal = getattr(self, '_QuSystem__dimension')
             setAttr(self, '_QuSystem__dimension', dim)
-            if self.superSys is not None:
+            if self.superSys is not None: # to change dimsBefore/After of other systems if self is a subSys in superSys
                 self.superSys._updateDimension(self, dim, oldVal) # pylint:disable=protected-access
         else:
             warnings.warn(self.name + ' is a composite system, cannot set dimension')
 
-    def _updateDimension(self, subSys, newDim, oldDim, _exclude=[]): # pylint:disable=dangerous-default-value
+    def _updateDimension(self, subSys, newDim, oldDim):
         r"""
         Internal method to update dimension before/after information of the sub-systems when the dimension of a
         sub-system is updated. It is called in the dimension setter.
+
+        Parameters
+        ----------
+
+        subSys :
+            The sub-system whose dimension is being updated.
+        newDim : int
+            The new dimension of the subSys
+        oldDim : int
+            The old dimension of the subSys
+
         """
-        for qsys in self.subSys.values():
+        for qsys in self.subSys.values():#update dimsBefore/After of other sub-system by comparing their ind with subSys
             if qsys.ind < subSys.ind:
                 qsys._dimsAfter = int((qsys._dimsAfter*newDim)/oldDim)
             if qsys.ind > subSys.ind:
                 qsys._dimsBefore = int((qsys._dimsBefore*newDim)/oldDim)
-        if self.superSys is not None:
+        if self.superSys is not None: # for nested structures, we still need to call _updateDimension on self.superSys
             self.superSys._updateDimension(self, newDim, oldDim) # pylint:disable=protected-access
 
     @property
@@ -97,6 +108,15 @@ class QuSystem(QSimComp):
     def __dimsABUpdate(self, attrName, val):
         r"""
         Common parts of the dimsBefore/After setters are combined in this method.
+
+        Parameters
+        ----------
+
+        attrName : str
+            _dimsBefore/After as a string to be used with setAttr&setattr
+        val : int
+            new value of _dimsBefore/After
+
         """
         oldVal = getattr(self, attrName)
         setAttr(self, '_QuSystem_'+attrName, val)
@@ -134,6 +154,8 @@ class QuSystem(QSimComp):
         If ``self`` is in a composite quantum system, this return an index representing the position of ``self`` in the
         composite system, else it returns 0.
         Also, the first system in a composite quantum system is at index 0.
+        This is mainly used for _updateDimension where we compare the position of a sub-system against the others to
+        determine whether _dimsBefore/After needs to be updated.
         """
         ind = 0
         if self.superSys is not None:
@@ -156,6 +178,8 @@ class QuSystem(QSimComp):
         Extends the addSubSys method for composite quantum systems to set the __compSys boolean (to True, if None),
         update the dimsBefore/After of the sub-systems, set self as superSys of the sub-system, and set _paramUpdated to
         True, or it raises a TypeError if __compSys is already set to False.
+        Also, it places self into the _paramBoundBase__paramBound dictionary of the sub-system, so that parameter
+        updates of the sub-system also sets the _paramUpdated of self to True.
         Note that composite systems can contain other composite systems as sub-systems.
         """
         if self._QuSystem__compSys is None: # pylint:disable=no-member
@@ -172,26 +196,53 @@ class QuSystem(QSimComp):
 
     @_recurseIfList
     def _removeSubSysExc(self, subSys: Any, _exclude=[]) -> None: # pylint:disable=dangerous-default-value
+        r"""
+            Method to remove a given subSys (which might be a single or composite system) from a composite system, which
+            might be self or any other composite system in the nested-system structure.
+            This method traverses through the nested-structure to find the subSys (that will be removed) and uses
+            _exclude to avoid infinite loops, that, for example, might be created when a system calls _removeSubSysExc
+            on its superSys which calls _removeSubSysExc on its subSys, by calling _removeSubSysExc on self if self is
+            not in _exclude.
+            Since _exclude needs to be empty in each call, this method should not be called directly, removeSubSys is a
+            wrapper around this and always calls this with an empty _exclude.
+            Raises an error if removeSubSys is called on a single system.
+            This method also updates the dimsBefore/After of the remaining sub-systems (and the removed system), deletes
+            the existing matrices so that they are re-created with the proper dimensions.
+            When removing a single system, it sets the dimension of the single system to 1, so that all the
+            dimsBefore/After information are updated by the dimensionUpdate method.
+            However, we might still need the removed system, so its dimension is stored (in oldDim) and set back again
+            (into _QuSystem__dimension) after its removed.
+            When removing a composite system, it makes _removeSubSysExc to each sub-system of the removed composite
+            system, and these nested calls sets the dimensions of all the single systems below the removed composite to
+            1 so that the dimsBefore/After information are again updated by the dimensionUpdate method.
+            However, the removed composite system might still be needed, and we might not want these dimensions to be 1
+            or these single systems to be removed from the removed composite system.
+            These are avoided by storing&setting the dimensions back to their original values for single systems and 
+            adding the removed sub-systems of removed composite systems back in.
+        """
         checkNotVal(self._isComposite, False,
                     f"{self.name} is not a composite. removeSubSys cannot be called on single systems")
         subSys = self.getByNameOrAlias(subSys)
         if subSys in self.subSys.values():
             _exclude.append(self)
             if subSys._isComposite: # pylint:disable=protected-access
+                # need to create this for two reasons
+                # 1. because subSys.subSys changes its size due to _removeSubSysExc calls
+                # 2. we add these systems back again after removal
                 qsysList = list(subSys.subSys.values())
-                qsysDims = [(qsysL.dimension, qsysL._isComposite) for qsysL in qsysList] #pylint:disable=protected-access
                 for qsys in qsysList:
-                    _exclude.append(qsys)
                     subSys._removeSubSysExc(qsys, _exclude=_exclude)#pylint:disable=protected-access
                 super()._removeSubSysExc(subSys, _exclude=_exclude)
-                (setattr(qsy, "dimension", qsysDims[i][0]) for i, qsy in enumerate(qsysList) if not qsysDims[i][1]) # pylint:disable=expression-not-assigned
-                subSys._dimsAfter = 1
-                subSys._dimsBefore = 1
+                # add the sub-systems of subSys back again
+                subSys.addSubSys(qsysList)
             else:
+                oldDim = subSys.dimension
                 subSys.dimension = 1
-                if subSys not in _exclude:
-                    super()._removeSubSysExc(subSys, _exclude=_exclude)
+                super()._removeSubSysExc(subSys, _exclude=_exclude)
+                setAttr(self, '_QuSystem__dimension', oldDim)
             subSys.superSys = None
+            subSys._dimsAfter = 1
+            subSys._dimsBefore = 1
             _exclude.append(subSys)
         else:
             if self not in _exclude:
