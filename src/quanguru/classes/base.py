@@ -674,7 +674,7 @@ class qBase(named):
         return self.addSubSys(subSysClass, **kwargs)
 
     @_recurseIfList
-    def _removeSubSysExc(self, subSys: Any, _exclude=[]) -> Any: # pylint: disable=dangerous-default-value
+    def _removeSubSysExc(self, subSys: Any, _exclude=[]) -> None: # pylint: disable=dangerous-default-value
         r"""
         Internal method that actually removes the sub-system, the removeSubSys is a wrapper around this function.
         This is introduced to avoid users interaction with _exclude, which needs to be empty for each removeSubSys call.
@@ -682,7 +682,6 @@ class qBase(named):
         subSys = self.getByNameOrAlias(subSys)
         checkCorType(subSys, (named, _auxiliaryClass), 'removeSubSys')
         self.subSys.pop(subSys.name)
-        return subSys
 
     @_recurseIfList
     def removeSubSys(self, subSys: Any) -> None: # pylint: disable=dangerous-default-value

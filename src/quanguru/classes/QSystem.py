@@ -1,9 +1,11 @@
 from collections import OrderedDict
 import warnings
+from typing import Any
 
-from .base import addDecorator
+from .base import addDecorator, _recurseIfList
 from .QSimComp import QSimComp
 from .QSimBase import setAttr
+from .exceptions import checkNotVal
 
 class QuSystem(QSimComp):
     #: (**class attribute**) class label used in default naming
@@ -166,6 +168,33 @@ class QuSystem(QSimComp):
         subSys.superSys = self
         self._paramUpdated = True
         return super().addSubSys(subSys, **kwargs)
+
+    @_recurseIfList
+    def _removeSubSysExc(self, subSys: Any, _exclude=[]) -> None: # pylint:disable=dangerous-default-value
+        checkNotVal(self._isComposite, False,
+                    f"{self.name} is not a composite. removeSubSys cannot be called on single systems")
+        subSys = self.getByNameOrAlias(subSys)
+        if subSys in self.subSys.values():
+            if subSys._isComposite: # pylint:disable=protected-access
+                for qsys in subSys.subSys.values():
+                    subSys._removeSubSysExc(qsys) #pylint:disable=protected-access
+                    super()._removeSubSysExc(subSys, _exclude=_exclude)
+            else:
+                subSys.dimension = 1
+                super()._removeSubSysExc(subSys, _exclude=_exclude)
+            _exclude.append(subSys)
+        else:
+            if self not in _exclude:
+                _exclude.append(self)
+                for qsys in self.subSys.values():
+                    qsys._removeSubSysExc(subSys, _exclude=_exclude) #pylint:disable=protected-access
+                    if subSys in _exclude:
+                        break
+                else:
+                    if self.superSys is not None:
+                        self.superSys._removeSubSysExc(subSys, _exclude=_exclude) #pylint:disable=protected-access
+
+        #self.delMatrices(_exclude=[])
 
     # these will work after term object is implemented
     @property
