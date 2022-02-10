@@ -1,18 +1,24 @@
+import pytest
 import random as rnd
 import quanguru.classes.QSystem as QSys
+from quanguru.classes.QSys import QuantumSystem
 
-def test_dimensionValues():
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_dimensionValues(cls):
     # create a quantum system
-    qsystem = QSys.QuSystem()
+    qsystem = cls()
     # create 3 other systems with dimension info
     someRandInt1 = rnd.randint(2, 20)
-    asystem1 = QSys.QuSystem(dimension=someRandInt1)
+    asystem1 = cls(dimension=someRandInt1)
     assert asystem1.dimension == someRandInt1
     someRandInt2 = rnd.randint(2, 20)
-    asystem2 = QSys.QuSystem()
+    asystem2 = cls() if cls is QSys.QuSystem else cls(dimension=someRandInt2)
     asystem2.dimension = someRandInt2
     assert asystem2.dimension == someRandInt2
-    asystem3 = QSys.QuSystem(dimension=3)
+    asystem3 = cls(dimension=3)
     assert asystem3.dimension == 3
 
     # add the sub-systems
@@ -32,19 +38,23 @@ def test_dimensionValues():
     assert asystem2.dimension == someRandInt2
     assert asystem3.dimension == 3
 
-def test_dimensionABValues():
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_dimensionABValues(cls):
     # create a quantum system
-    qsystem = QSys.QuSystem()
+    qsystem = cls()
 
     # create 4 other systems with dimension info
     someRandInt1 = rnd.randint(2, 20)
-    asystem1 = QSys.QuSystem(dimension=someRandInt1)
+    asystem1 = cls(dimension=someRandInt1)
  
     someRandInt2 = rnd.randint(2, 20)
-    asystem2 = QSys.QuSystem(dimension = someRandInt2)
+    asystem2 = cls(dimension = someRandInt2)
 
-    asystem3 = QSys.QuSystem(dimension=3)
-    asystem4 = QSys.QuSystem(dimension=3)
+    asystem3 = cls(dimension=3)
+    asystem4 = cls(dimension=3)
 
     # add the sub-system1 and check dimesions
     qsystem.addSubSys(asystem1)
@@ -82,15 +92,19 @@ def test_dimensionABValues():
     assert asystem4._dimsAfter == 1
     assert asystem4._dimsBefore == asystem1.dimension*asystem2.dimension*asystem3.dimension
 
-def test_totalDim():
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_totalDim(cls):
     someRandInt1 = rnd.randint(2, 20)
     someRandInt2 = rnd.randint(2, 20)
     # create a quantum system
-    qsystem = QSys.QuSystem()
+    qsystem = cls()
     # create 3 other systems with dimension info
-    asystem1 = QSys.QuSystem(dimension=someRandInt1)
-    asystem2 = QSys.QuSystem(dimension = someRandInt2)
-    asystem3 = QSys.QuSystem(dimension=3)
+    asystem1 = cls(dimension=someRandInt1)
+    asystem2 = cls(dimension = someRandInt2)
+    asystem3 = cls(dimension=3)
     # add the sub-systems
     qsystem.addSubSys([asystem1, asystem2, asystem3])
 
@@ -99,28 +113,36 @@ def test_totalDim():
     assert asystem2._totalDim == someRandInt1*someRandInt2*3
     assert asystem3._totalDim == someRandInt1*someRandInt2*3
 
-def test_addingSameSubSysAgainDoNotChangeDimensions():
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_addingSameSubSysAgainDoNotChangeDimensions(cls):
     someRandInt1 = rnd.randint(2, 20)
     # create a quantum system
-    qsystem = QSys.QuSystem()
+    qsystem = cls()
     # create 3 other systems with dimension info
-    asystem1 = QSys.QuSystem(dimension=someRandInt1)
+    asystem1 = cls(dimension=someRandInt1)
     # add the sub-systems
     qsystem.addSubSys(asystem1)
     qsystem.addSubSys(asystem1)
     assert asystem1._dimsAfter == 1
     assert asystem1._dimsBefore == 1
 
-def test_nestedDimensionBeforeAfterSetsProperly():
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_nestedDimensionBeforeAfterSetsProperly(cls):
     ranInts = [rnd.randint(3, 20) for _ in range(4)]
     # create two quantum systems
-    qsystem1 = QSys.QuSystem()
-    qsystem2 = QSys.QuSystem()
+    qsystem1 = cls()
+    qsystem2 = cls()
     # create 4 more systems to be sub-systems
-    asystem1 = QSys.QuSystem(dimension = ranInts[0])
-    asystem2 = QSys.QuSystem(dimension = ranInts[1])
-    asystem3 = QSys.QuSystem(dimension = ranInts[2])
-    asystem4 = QSys.QuSystem(dimension = ranInts[3])
+    asystem1 = cls(dimension = ranInts[0])
+    asystem2 = cls(dimension = ranInts[1])
+    asystem3 = cls(dimension = ranInts[2])
+    asystem4 = cls(dimension = ranInts[3])
     # add two to each qsystem
     qsystem1.addSubSys([asystem1, asystem2])
     qsystem2.addSubSys([asystem3, asystem4])
@@ -146,7 +168,7 @@ def test_nestedDimensionBeforeAfterSetsProperly():
     assert asystem4._dimsBefore == asystem3.dimension
 
     # combine two qsystem into another qsystem
-    qsystem3 = QSys.QuSystem(subSys=[qsystem1, qsystem2])
+    qsystem3 = cls(subSys=[qsystem1, qsystem2])
 
     dim3 = ranInts[0]*ranInts[1]*ranInts[2]*ranInts[3]
     assert qsystem1.dimension == dim1
@@ -173,16 +195,20 @@ def test_nestedDimensionBeforeAfterSetsProperly():
     assert asystem4._dimsAfter == 1
     assert asystem4._dimsBefore == ranInts[0]*ranInts[1]*ranInts[2]
 
-def test_nestedDimensionBeforeAfterSetsAndUpdatesProperly():
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_nestedDimensionBeforeAfterSetsAndUpdatesProperly(cls):
     ranInts = [rnd.randint(3, 20) for _ in range(6)]
     # create two quantum systems
-    qsystem1 = QSys.QuSystem()
-    qsystem2 = QSys.QuSystem()
+    qsystem1 = cls()
+    qsystem2 = cls()
     # create 4 more systems to be sub-systems
-    asystem1 = QSys.QuSystem(dimension = ranInts[0])
-    asystem2 = QSys.QuSystem(dimension = ranInts[1])
-    asystem3 = QSys.QuSystem(dimension = ranInts[2])
-    asystem4 = QSys.QuSystem(dimension = ranInts[3])
+    asystem1 = cls(dimension = ranInts[0])
+    asystem2 = cls(dimension = ranInts[1])
+    asystem3 = cls(dimension = ranInts[2])
+    asystem4 = cls(dimension = ranInts[3])
     # add two to each qsystem
     qsystem1.addSubSys([asystem1, asystem2])
     qsystem2.addSubSys([asystem3, asystem4])
@@ -212,7 +238,7 @@ def test_nestedDimensionBeforeAfterSetsAndUpdatesProperly():
     assert asystem4._dimsBefore == asystem3.dimension
 
     # combine two qsystem into another qsystem
-    qsystem3 = QSys.QuSystem(subSys=[qsystem1, qsystem2])
+    qsystem3 = cls(subSys=[qsystem1, qsystem2])
 
     randInd = rnd.randint(0, 3)
     randSys = [asystem1, asystem2, asystem3, asystem4][randInd]
