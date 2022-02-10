@@ -135,17 +135,14 @@ def test_addingSameSubSysAgainDoNotChangeDimensions(cls):
                          ])
 def test_nestedDimensionBeforeAfterSetsProperly(cls):
     ranInts = [rnd.randint(3, 20) for _ in range(4)]
-    # create two quantum systems
-    qsystem1 = cls()
-    qsystem2 = cls()
     # create 4 more systems to be sub-systems
     asystem1 = cls(dimension = ranInts[0])
     asystem2 = cls(dimension = ranInts[1])
     asystem3 = cls(dimension = ranInts[2])
     asystem4 = cls(dimension = ranInts[3])
-    # add two to each qsystem
-    qsystem1.addSubSys([asystem1, asystem2])
-    qsystem2.addSubSys([asystem3, asystem4])
+    # create two quantum systems and add two sub-system to each qsystem
+    qsystem1 = cls(subSys=[asystem1, asystem2])
+    qsystem2 = cls(subSys=[asystem3, asystem4])
 
     dim1 = ranInts[0]*ranInts[1]
     dim2 = ranInts[2]*ranInts[3]
