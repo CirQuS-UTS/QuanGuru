@@ -37,6 +37,7 @@ class QuSystem(QSimComp):
         self.__dimsAfter = 1
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
+    # dimension methods and properties
     @property
     def _totalDim(self):
         r"""
@@ -93,8 +94,6 @@ class QuSystem(QSimComp):
         ind = 0
         if self.superSys is not None:
             ind += list(self.superSys.subSys.values()).index(self)
-            # if self.superSys.superSys is not None:
-            #     ind += self.superSys.ind
         return ind
 
     @property
@@ -140,6 +139,8 @@ class QuSystem(QSimComp):
     def _dimsAfter(self, val):
         self._QuSystem__dimsABUpdate('_dimsAfter', val)
 
+    # sub-system methods and properties
+
     def __addSub(self, subSys):
         r"""
         internal method used to update relevant information (such as dimension before/after) for the existing and newly
@@ -167,6 +168,7 @@ class QuSystem(QSimComp):
             self._QuSystem__addSub(subSys)
         subSys.superSys = self
         self._paramUpdated = True
+        subSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         return super().addSubSys(subSys, **kwargs)
 
     @_recurseIfList
@@ -175,14 +177,22 @@ class QuSystem(QSimComp):
                     f"{self.name} is not a composite. removeSubSys cannot be called on single systems")
         subSys = self.getByNameOrAlias(subSys)
         if subSys in self.subSys.values():
+            _exclude.append(self)
             if subSys._isComposite: # pylint:disable=protected-access
                 qsysList = list(subSys.subSys.values())
+                qsysDims = [(qsysL.dimension, qsysL._isComposite) for qsysL in qsysList]#pylint:disable=protected-access
                 for qsys in qsysList:
+                    _exclude.append(qsys)
                     subSys._removeSubSysExc(qsys, _exclude=_exclude)#pylint:disable=protected-access
                 super()._removeSubSysExc(subSys, _exclude=_exclude)
+                (setattr(qsy, "dimension", qsysDims[i][0]) for i, qsy in enumerate(qsysList) if not qsysDims[i][1]) # pylint:disable=expression-not-assigned
+                subSys._dimsAfter = 1
+                subSys._dimsBefore = 1
             else:
                 subSys.dimension = 1
-                super()._removeSubSysExc(subSys, _exclude=_exclude)
+                if subSys not in _exclude:
+                    super()._removeSubSysExc(subSys, _exclude=_exclude)
+            subSys.superSys = None
             _exclude.append(subSys)
         else:
             if self not in _exclude:

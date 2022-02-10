@@ -508,7 +508,7 @@ class compQSystem(genericQSys):
                     self._dimsAfter = int(self._dimsAfter/subSys.dimension)
                 elif self.ind > subSys.superSys.ind:
                     self._dimsBefore = int(self._dimsBefore/subSys.dimension)
-
+            
             for sys in self.subSys.values():
                 sys._removeSubSysExc(subSys, _exclude=_exclude) # pylint: disable=protected-access
                 #_exclude.append(sys)
@@ -517,6 +517,9 @@ class compQSystem(genericQSys):
             self.superSys._removeSubSysExc(subSys, _exclude=_exclude) # pylint: disable=protected-access
             _exclude.append(self.superSys)
 
+        #subSys.superSys = None
+        subSys._dimsAfter = 1
+        subSys._dimsBefore = 1
         self.delMatrices(_exclude=[])
         self.simulation._stateBase__initialState._value = None
         self._genericQSys__dimension = None # pylint: disable=assigning-non-slot
