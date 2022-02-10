@@ -159,7 +159,7 @@ class genericQSys(QSimComp):
         With this method, ``-`` removes the ``other`` from ``self``, which should be the composite quantum system
         containing other.
         """
-        self.removeSubSys(other, _exclude=[])
+        self._removeSubSysExc(other, _exclude=[])
         return self
 
     def __rmul__(self, other):
@@ -477,7 +477,7 @@ class compQSystem(genericQSys):
         return subSys
 
     @_recurseIfList
-    def removeSubSys(self, subSys, _exclude=[]):#pylint:disable=arguments-differ,dangerous-default-value,too-many-branches
+    def _removeSubSysExc(self, subSys, _exclude=[]):#pylint:disable=arguments-differ,dangerous-default-value,too-many-branches
         r"""
         Removes a quantum system from the composite system ``self`` and updates the relevant information in the
         remaining sub-systems (such as dimension before/after).
@@ -486,7 +486,7 @@ class compQSystem(genericQSys):
             subSys = self.getByNameOrAlias(subSys)
         couplings = list(self.qCouplings.values())
         for coupling in couplings:
-            coupling.removeSubSys(subSys, _exclude=_exclude)
+            coupling._removeSubSysExc(subSys, _exclude=_exclude)
             if len(coupling._qBase__subSys) == 0: # pylint: disable=protected-access
                 self.qCouplings.pop(coupling.name)
         if subSys in list(self.subSys.values()):
@@ -498,7 +498,7 @@ class compQSystem(genericQSys):
                     qS._dimsBefore = int(qS._dimsBefore/subSys.dimension)
             self.qSystems.pop(subSys.name)
             _exclude.append(self)
-            super().removeSubSys(subSys, _exclude=_exclude)
+            super()._removeSubSysExc(subSys, _exclude=_exclude)
         elif subSys in self.qCouplings.values():
             self.qCouplings.pop(subSys.name)
 
@@ -511,11 +511,11 @@ class compQSystem(genericQSys):
                     self._dimsBefore = int(self._dimsBefore/subSys.dimension)
 
             for sys in self.subSys.values():
-                sys.removeSubSys(subSys, _exclude=_exclude)
+                sys._removeSubSysExc(subSys, _exclude=_exclude)
                 #_exclude.append(sys)
 
         if self.superSys is not None:
-            self.superSys.removeSubSys(subSys, _exclude=_exclude)
+            self.superSys._removeSubSysExc(subSys, _exclude=_exclude)
             _exclude.append(self.superSys)
 
         self.delMatrices(_exclude=[])
@@ -983,7 +983,7 @@ class qSystem(genericQSys):
         return subSys
 
     @_recurseIfList
-    def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
+    def _removeSubSysExc(self, subSys, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
         r"""
         Method to remove a term from its Hamiltonian.
         """
@@ -991,10 +991,10 @@ class qSystem(genericQSys):
             _exclude.append(self)
             subSys = self.getByNameOrAlias(subSys)
             if self.superSys is not None:
-                self.superSys.removeSubSys(subSys, _exclude=_exclude)
+                self.superSys._removeSubSysExc(subSys, _exclude=_exclude)
 
             if subSys in self.subSys.values():
-                super().removeSubSys(subSys, _exclude=_exclude)
+                super()._removeSubSysExc(subSys, _exclude=_exclude)
 
     @terms.setter
     def terms(self, subSys):
@@ -1018,7 +1018,7 @@ class qSystem(genericQSys):
         Calls the removeSubSys to remove terms, this method is created to provide a more intuitive name than
         removeSubSys
         """
-        self.removeSubSys(termObj, _exclude=[])
+        self._removeSubSysExc(termObj, _exclude=[])
 
     @_initStDec
     def _createAstate(self, inp=None):
@@ -1241,10 +1241,10 @@ class qCoupling(termTimeDep):
         r"""
         method to remove terms from the coupling, simply calls removeSubSys, this method is to create terminology
         """
-        self.removeSubSys(sys, _exclude=[])
+        self._removeSubSysExc(sys, _exclude=[])
 
     @_recurseIfList
-    def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=dangerous-default-value
+    def _removeSubSysExc(self, subSys, _exclude=[]): # pylint: disable=dangerous-default-value
         r"""
         method to remove terms from the coupling
         """

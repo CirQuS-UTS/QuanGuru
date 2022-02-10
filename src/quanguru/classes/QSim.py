@@ -230,7 +230,7 @@ class Simulation(timeBase):
         """
         #for key, subSys in self._qBase__subSys.items(): # pylint: disable=no-member
         #    if ((subSys is subS) or (subSys.name == subS)):
-        super().removeSubSys(subS, _exclude=[]) # pylint: disable=no-member
+        super()._removeSubSysExc(subS, _exclude=[]) # pylint: disable=no-member
         #print(subS.name + ' and its protocol ' + key.name + ' is removed from qSystems of ' + self.name)
         self.removeSweep([subS, subS.simulation, subS._freeEvol, subS._freeEvol.simulation])
 
@@ -303,7 +303,7 @@ class Simulation(timeBase):
         return newSys
 
     @_recurseIfList
-    def removeSubSys(self, subSys, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
+    def _removeSubSysExc(self, subSys, _exclude=[]): # pylint: disable=arguments-differ, dangerous-default-value
         r"""
         Remove a quantum system from the simulation.
         """

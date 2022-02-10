@@ -674,15 +674,24 @@ class qBase(named):
         return self.addSubSys(subSysClass, **kwargs)
 
     @_recurseIfList
-    def removeSubSys(self, subSys: Any, _exclude=[]) -> None: # pylint: disable=dangerous-default-value
+    def _removeSubSysExc(self, subSys: Any, _exclude=[]) -> Any: # pylint: disable=dangerous-default-value
+        r"""
+        Internal method that actually removes the sub-system, the removeSubSys is a wrapper around this function.
+        This is introduced to avoid users interaction with _exclude, which needs to be empty for each removeSubSys call.
+        """
+        subSys = self.getByNameOrAlias(subSys)
+        checkCorType(subSys, (named, _auxiliaryClass), 'removeSubSys')
+        self.subSys.pop(subSys.name)
+        return subSys
+
+    @_recurseIfList
+    def removeSubSys(self, subSys: Any) -> None: # pylint: disable=dangerous-default-value
         r"""
         Removes an object from the subSys dictionary and works with the object itself, its name, or any alias. Will
         raise regular keyError if the object is not in the dictionary, or typeError if the object is not an instance of
         named class.
         """
-        subSys = self.getByNameOrAlias(subSys)
-        checkCorType(subSys, (named, _auxiliaryClass), 'removeSubSys')
-        self.subSys.pop(subSys.name)
+        self._removeSubSysExc(subSys, _exclude=[])
 
     def resetSubSys(self) -> None:
         r"""

@@ -256,13 +256,13 @@ class Sweep(qBase):
         ``subSys`` dictionary (since ``systems`` are stored in ``subSys`` dictionary of ``_sweep`` objects).
         """
         if isinstance(sys, _sweep):
-            super().removeSubSys(sys, _exclude=[])
+            super()._removeSubSysExc(sys, _exclude=[])
         else:
             sweeps = list(self.subSys.values())
             for sweep in sweeps:
-                sweep.removeSubSys(sys, _exclude=[])
+                sweep._removeSubSysExc(sys, _exclude=[]) #pylint:disable=protected-access
                 if len(sweep.subSys) == 0:
-                    super().removeSubSys(sweep, _exclude=[])
+                    super()._removeSubSysExc(sweep, _exclude=[])
 
     def createSweep(self, system=None, sweepKey=None, **kwargs):
         r"""
