@@ -64,7 +64,7 @@ def _recurseIfList(func: Callable) -> Callable:
             for s in inp:
                 r = recurse(obj, s, _exclude=_exclude, **kwargs)
         else:
-            if _exclude in inspect.getfullargspec(func).args:
+            if "_exclude" in inspect.getfullargspec(func).args:
                 r = func(obj, inp, _exclude=_exclude, **kwargs)
             else:
                 r = func(obj, inp, **kwargs)
