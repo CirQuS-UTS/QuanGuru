@@ -508,7 +508,7 @@ class compQSystem(genericQSys):
                     self._dimsAfter = int(self._dimsAfter/subSys.dimension)
                 elif self.ind > subSys.superSys.ind:
                     self._dimsBefore = int(self._dimsBefore/subSys.dimension)
-            
+
             for sys in self.subSys.values():
                 sys._removeSubSysExc(subSys, _exclude=_exclude) # pylint: disable=protected-access
                 #_exclude.append(sys)

@@ -85,18 +85,6 @@ class QuSystem(QSimComp):
             self.superSys._updateDimension(self, newDim, oldDim) # pylint:disable=protected-access
 
     @property
-    def ind(self):
-        r"""
-        If ``self`` is in a composite quantum system, this return an index representing the position of ``self`` in the
-        composite system, else it returns 0.
-        Also, the first system in a composite quantum system is at index 0.
-        """
-        ind = 0
-        if self.superSys is not None:
-            ind += list(self.superSys.subSys.values()).index(self)
-        return ind
-
-    @property
     def _isComposite(self):
         r"""
         Used internally to set _QuSystem__compSys boolean, never query this before _QuSystem__compSys is set by
@@ -140,6 +128,17 @@ class QuSystem(QSimComp):
         self._QuSystem__dimsABUpdate('_dimsAfter', val)
 
     # sub-system methods and properties
+    @property
+    def ind(self):
+        r"""
+        If ``self`` is in a composite quantum system, this return an index representing the position of ``self`` in the
+        composite system, else it returns 0.
+        Also, the first system in a composite quantum system is at index 0.
+        """
+        ind = 0
+        if self.superSys is not None:
+            ind += list(self.superSys.subSys.values()).index(self)
+        return ind
 
     def __addSub(self, subSys):
         r"""
@@ -180,7 +179,7 @@ class QuSystem(QSimComp):
             _exclude.append(self)
             if subSys._isComposite: # pylint:disable=protected-access
                 qsysList = list(subSys.subSys.values())
-                qsysDims = [(qsysL.dimension, qsysL._isComposite) for qsysL in qsysList]#pylint:disable=protected-access
+                qsysDims = [(qsysL.dimension, qsysL._isComposite) for qsysL in qsysList] #pylint:disable=protected-access
                 for qsys in qsysList:
                     _exclude.append(qsys)
                     subSys._removeSubSysExc(qsys, _exclude=_exclude)#pylint:disable=protected-access
@@ -198,7 +197,7 @@ class QuSystem(QSimComp):
             if self not in _exclude:
                 _exclude.append(self)
                 for qsys in self.subSys.values():
-                    if qsys._isComposite:#pylint:disable=protected-access
+                    if qsys._isComposite: #pylint:disable=protected-access
                         qsys._removeSubSysExc(subSys, _exclude=_exclude) #pylint:disable=protected-access
                         if subSys in _exclude:
                             break
@@ -206,7 +205,10 @@ class QuSystem(QSimComp):
                     if self.superSys is not None:
                         self.superSys._removeSubSysExc(subSys, _exclude=_exclude) #pylint:disable=protected-access
 
-        #self.delMatrices(_exclude=[])
+        # TODO
+        # need to remove any coupling/term that relies on the removed system
+        # reset the initial state/s
+        self.delMatrices(_exclude=[])
 
     # these will work after term object is implemented
     @property
