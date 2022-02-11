@@ -7,6 +7,10 @@ from .QSimComp import QSimComp
 from .QSimBase import setAttr
 from .exceptions import checkNotVal, checkCorType
 
+# from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
+# from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
+
+
 class QuSystem(QSimComp):
     #: (**class attribute**) class label used in default naming
     label = 'QuSystem'
@@ -36,6 +40,45 @@ class QuSystem(QSimComp):
         #: It is 1, when ``self`` is the last system in the composite system.
         self.__dimsAfter = 1
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
+
+    # matrices
+    def _constructMatrices(self):
+        r"""
+        The matrices for operators constructed and de-constructed whenever they should be, and this method is used
+        internally in various places when the matrices are needed to be constructed.
+        """
+        for sys in self.subSys.values():
+            sys._constructMatrices() # pylint: disable=protected-access
+        for ter in self.terms.values():
+            ter._constructMatrices() # pylint: disable=protected-access
+
+    def _createAstate(self, inp=None):
+        if self._isComposite:
+            ...
+
+    @property
+    def _subSysHamiltonian(self):
+        r"""
+        returns the sum of sub-system Hamiltonian
+        """
+        return sum([val.totalHamiltonian for val in self.subSys.values()])
+
+    @property
+    def totalHamiltonian(self): # pylint: disable=invalid-overridden-method
+        r"""
+        returns the total Hamiltonian of ``self`` including the coupling terms.
+        """
+        if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
+            self._paramBoundBase__matrix = self._subSysHamiltonian + self._termHamiltonian # pylint: disable=assigning-non-slot
+            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member, assigning-non-slot
+
+    @property
+    def _termHamiltonian(self):
+        r"""
+        returns the sum of term Hamiltonian
+        """
+        return sum([val.totalHamiltonian for val in self.terms.values()])
 
     # dimension methods and properties
     @property
@@ -103,16 +146,6 @@ class QuSystem(QSimComp):
         if self.superSys is not None: # for nested structures, we still need to call _updateDimension on self.superSys
             self.superSys._updateDimension(self, newDim, oldDim) # pylint:disable=protected-access
 
-    @property
-    def _isComposite(self):
-        r"""
-        Used internally to set _QuSystem__compSys boolean, never query this before _QuSystem__compSys is set by
-        some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
-        """
-        if self._QuSystem__compSys is None: # pylint:disable=no-member
-            self._QuSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
-        return self._QuSystem__compSys # pylint:disable=no-member
-
     def __dimsABUpdate(self, attrName, val):
         r"""
         Common parts of the dimsBefore/After setters are combined in this method.
@@ -154,6 +187,22 @@ class QuSystem(QSimComp):
     @_dimsAfter.setter
     def _dimsAfter(self, val):
         self._QuSystem__dimsABUpdate('_dimsAfter', val)
+
+    @property
+    def _isComposite(self):
+        r"""
+        Used internally to set _QuSystem__compSys boolean, never query this before _QuSystem__compSys is set by
+        some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
+        """
+        if self._QuSystem__compSys is None: # pylint:disable=no-member
+            self._QuSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
+        return self._QuSystem__compSys # pylint:disable=no-member
+
+    def _hasInSubs(self, other):
+        r"""
+        Returns True if the given system is in self.subSys or in any other subSys nested inside the self.subSys
+        """
+        return (other in self.subSys.values() or any(qs._hasInSubs(other) for qs in self.subSys.values())) # pylint:disable=protected-access
 
     # sub-system methods and properties
     @property
@@ -210,10 +259,10 @@ class QuSystem(QSimComp):
         """
         other = self.getByNameOrAlias(other)
         checkCorType(other, QuSystem, "{other} is not an instance of QuSystem")
-        if self._QuSystem__compSys in (True, None):
+        if ((self._QuSystem__compSys in (True, None)) and (not other._isComposite)):
             self.addSubSys(other.copy() if (other is self) else other)
             newComp = self
-        elif ((not self._isComposite) and (not other._isComposite)):
+        elif self._isComposite is other._isComposite:
             newComp = QuSystem(subSys=[self, other.copy() if (other is self) else other])
             # TODO copy the simulation parameters, and what to do with compute and calculate?
         elif ((not self._isComposite) and (other._isComposite)):
