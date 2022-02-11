@@ -44,7 +44,6 @@
 """ #pylint: disable=too-many-lines
 
 from collections import OrderedDict
-from tkinter import N
 from numpy import (int64, int32, int16, ndarray)
 from scipy.sparse import issparse
 
@@ -131,9 +130,15 @@ class genericQSys(QSimComp):
         r"""
         With this method, ``+`` creates a composite quantum system between ``self`` and the ``other`` quantum system.
         """
-        if isinstance(self, compQSystem):
-            self.addSubSys(other.copy() if (other is self) else other)
+        if (isinstance(self, compQSystem) and isinstance(other, qSystem)):
+            self.addSubSys(other)
             newComp = self
+        elif (isinstance(self, compQSystem) and isinstance(other, compQSystem)):
+            if len(self.subSys) == 0:
+                newComp = other
+            else:
+                newComp = compQSystem()
+                newComp.addSubSys([self, other.copy() if (other is self) else other])
         elif (isinstance(self, qSystem) and isinstance(other, qSystem)):  # noqa: W504
             newComp = compQSystem()
             # FIXME 'stepCount' getter creates problem with None defaults

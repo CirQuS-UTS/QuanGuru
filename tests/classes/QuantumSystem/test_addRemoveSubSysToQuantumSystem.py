@@ -183,11 +183,12 @@ def test_addAndremoveSubSysMethods(cls):
     assert comp2._dimsBefore == 1
     assert comp1._dimsBefore == 1
 
-@pytest.mark.parametrize("cls", [
-                         QuantumSystem,
-                         QSys.QuSystem
-                         ])
-def test_addAndremoveSubSysOperators(cls):
+# @pytest.mark.parametrize("cls", [
+#                          QuantumSystem,
+#                          QSys.QuSystem
+#                          ])
+def test_addAndremoveSubSysOperators():
+    cls = QSys.QuSystem
     # create 4 objects to be used as composite systems
     comp1 = cls()
     comp2 = cls()
