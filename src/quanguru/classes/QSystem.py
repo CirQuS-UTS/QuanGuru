@@ -200,7 +200,9 @@ class QuSystem(QSimComp):
         subSys.superSys = self
         self._paramUpdated = True
         subSys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
-        return super().addSubSys(subSys, **kwargs)
+        super().addSubSys(subSys, **kwargs)
+        self.delMatrices(_exclude=[])
+        return subSys
 
     def __add__(self, other):
         r"""
@@ -250,7 +252,7 @@ class QuSystem(QSimComp):
             1 so that the dimsBefore/After information are again updated by the dimensionUpdate method.
             However, the removed composite system might still be needed, and we might not want these dimensions to be 1
             or these single systems to be removed from the removed composite system.
-            These are avoided by storing&setting the dimensions back to their original values for single systems and 
+            These are avoided by storing&setting the dimensions back to their original values for single systems and
             adding the removed sub-systems of removed composite systems back in.
         """
         checkNotVal(self._isComposite, False,
@@ -276,6 +278,7 @@ class QuSystem(QSimComp):
             subSys.superSys = None
             subSys._dimsAfter = 1
             subSys._dimsBefore = 1
+            subSys.delMatrices(_exclude=[])
             _exclude.append(subSys)
         else:
             if self not in _exclude:
@@ -293,6 +296,7 @@ class QuSystem(QSimComp):
         # need to remove any coupling/term that relies on the removed system
         # reset the initial state/s
         self.delMatrices(_exclude=[])
+        self._paramUpdated = True
 
     # these will work after term object is implemented
     @property
