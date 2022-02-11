@@ -244,9 +244,9 @@ def test_addAndremoveSubSysOperators(cls):
     comp4 += comp3
 
     # check that the subsystems are there
-    assert comp1 in comp4.subSys.values()
-    assert comp2 in comp4.subSys.values()
-    assert comp3 in comp4.subSys.values()
+    assert comp4._hasInSubs(comp1)
+    assert comp4._hasInSubs(comp2)
+    assert comp4._hasInSubs(comp3)
 
     # check that the dimensions are correct
     assert comp4.dimension == comp1.dimension*comp2.dimension*comp3.dimension
@@ -332,7 +332,7 @@ def test_addAndremoveSubSysOperators(cls):
 
     comp1 -= comp3
     assert comp3 not in comp4.subSys.values()
-    assert comp1 in comp4.subSys.values()
+    assert comp4._hasInSubs(comp1)
     assert sing7 in comp3.subSys.values()
     assert sing8 not in comp3.subSys.values()
     assert sing9 in comp3.subSys.values()
@@ -351,7 +351,7 @@ def test_addAndremoveSubSysOperators(cls):
     assert comp1._dimsBefore == 1
 
     comp1 -= comp1
-    assert comp1 not in comp4.subSys.values()
+    assert not comp4._hasInSubs(comp1)
     assert sing1 in comp1.subSys.values()
     assert sing2 not in comp1.subSys.values()
     assert sing3 in comp1.subSys.values()

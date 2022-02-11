@@ -150,6 +150,12 @@ class genericQSys(QSimComp):
             newComp = self
         return newComp
 
+    def _hasInSubs(self, other):
+        r"""
+        Returns True if the given system is in self.subSys or in any other subSys nested inside the self.subSys.
+        """
+        return (other in self.subSys.values() or any(qs._hasInSubs(other) for qs in self.subSys.values())) # pylint:disable=protected-access
+
     def __sub__(self, other):
         r"""
         With this method, ``-`` removes the ``other`` from ``self``, which should be the composite quantum system
