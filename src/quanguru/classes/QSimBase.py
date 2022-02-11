@@ -27,6 +27,8 @@ r"""
 """
 
 from typing import Any, cast
+
+from quanguru.classes.exceptions import checkNotVal
 from .baseClasses import computeBase, paramBoundBase
 from .tempConfig import classConfig
 
@@ -145,7 +147,7 @@ class stateBase(computeBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__delStates', '__initialState', '__initialStateInput']
+    __slots__ = ['__delStates', '__initialState', '__initialStateInput', '_initialStateSystem']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -163,7 +165,26 @@ class stateBase(computeBase):
         the ``initialState`` and ``currentState`` of the system. By default, it is ``False`` and states will be stored
         in the corresponding protocols ``qRes.states``.
         """
+        self._initialStateSystem = None
+        r"""
+        This system will be used in the initial state creation, i.e. input will be passed to this systems createState
+        function. If this is None, it fallbacks to self.superSys, and raises error if self.superSys is also None.
+        """
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def initialStateSystem(self):
+        if self._initialStateSystem is None:
+            self._initialStateSystem = self.superSys
+        checkNotVal(self._initialStateSystem, None,
+                    'Simulation initialStateSystem/superSys is needed for initial state creation')
+        return self._initialStateSystem
+
+    @initialStateSystem.setter
+    def initialStateSystem(self, qSys):
+        checkNotVal(hasattr(qSys, '_createAstate'), False, 
+                            f"{qSys.name} is not QuantumSystem, Simulation initialStateSystem should be QuantumSystem")
+        setAttr(self, '_initialStateSystem', qSys)
 
     @property
     def initialState(self):
@@ -184,13 +205,13 @@ class stateBase(computeBase):
                 # _createAstate
                 self._stateBase__initialState._value = self._timeBase__bound.initialState # pylint: disable=no-member
             else:
-                self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
+                self._stateBase__initialState.value = self.initialStateSystem._createAstate(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
         return self._stateBase__initialState.value # pylint: disable=no-member
 
     @initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self._stateBase__initialStateInput.value = inp # pylint: disable=no-member
-        self._stateBase__initialState.value = list(self.subSys.values())[0]._createAstate(inp) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
+        self._stateBase__initialState.value = self.initialStateSystem._createAstate(inp) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
 
     @property
     def _initialStateInput(self):
