@@ -267,3 +267,30 @@ def test_nestedDimensionBeforeAfterSetsAndUpdatesProperly(cls):
     
     assert asystem4._dimsAfter == 1
     assert asystem4._dimsBefore == asystem1.dimension*asystem2.dimension*asystem3.dimension
+
+def test_nestedSubSysDimesions():
+    ranInts = [rnd.randint(3, 20) for _ in range(4)]
+    asystem1 = QSys.QuSystem(dimension = ranInts[0])
+    asystem2 = QSys.QuSystem(dimension = ranInts[1])
+    asystem3 = QSys.QuSystem(dimension = ranInts[2])
+    asystem4 = QSys.QuSystem(dimension = ranInts[3])
+
+    qsystem1 = QSys.QuSystem(subSys=[asystem1, asystem2])
+    qsystem2 = QSys.QuSystem(subSys=[asystem3, asystem4])
+
+    assert qsystem1.subSysDimensions == ranInts[:2]
+    assert qsystem2.subSysDimensions == ranInts[2:]
+    assert asystem1.subSysDimensions == ranInts[0]
+    assert asystem2.subSysDimensions == ranInts[1]
+    assert asystem3.subSysDimensions == ranInts[2]
+    assert asystem4.subSysDimensions == ranInts[3]
+
+    qsystem3 = QSys.QuSystem(subSys=[qsystem1, qsystem2])
+
+    assert qsystem3.subSysDimensions == [ranInts[:2], ranInts[2:]]
+    assert qsystem1.subSysDimensions == ranInts[:2]
+    assert qsystem2.subSysDimensions == ranInts[2:]
+    assert asystem1.subSysDimensions == ranInts[0]
+    assert asystem2.subSysDimensions == ranInts[1]
+    assert asystem3.subSysDimensions == ranInts[2]
+    assert asystem4.subSysDimensions == ranInts[3]

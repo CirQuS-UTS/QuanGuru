@@ -71,6 +71,14 @@ class QuSystem(QSimComp):
         else:
             warnings.warn(self.name + ' is a composite system, cannot set dimension')
 
+    @property
+    def subSysDimensions(self):
+        r"""
+        Returns a (nested) list of dimensions of the quantum systems contained in ``self``, if self is composite, else
+        returns self.dimension.
+        """
+        return [sys.subSysDimensions for sys in self.subSys.values()] if self._isComposite else self.dimension
+
     def _updateDimension(self, subSys, newDim, oldDim):
         r"""
         Internal method to update dimension before/after information of the sub-systems when the dimension of a
@@ -200,7 +208,7 @@ class QuSystem(QSimComp):
         """
         other = self.getByNameOrAlias(other)
         checkCorType(other, QuSystem, "{other} is not an instance of QuSystem")
-        if (self._QuSystem__compSys in (True, None)):
+        if self._QuSystem__compSys in (True, None):
             self.addSubSys(other.copy() if (other is self) else other)
             newComp = self
         elif ((not self._isComposite) and (not other._isComposite)):
