@@ -262,7 +262,9 @@ class QuSystem(QSimComp):
         if ((self._QuSystem__compSys in (True, None)) and (not other._isComposite)):
             self.addSubSys(other.copy() if (other is self) else other)
             newComp = self
-        elif self._isComposite is other._isComposite:
+        elif ((self._QuSystem__compSys is None) and other._QuSystem__compSys):
+            newComp = other
+        elif self._QuSystem__compSys is other._QuSystem__compSys:
             newComp = QuSystem(subSys=[self, other.copy() if (other is self) else other])
             # TODO copy the simulation parameters, and what to do with compute and calculate?
         elif ((not self._isComposite) and (other._isComposite)):
