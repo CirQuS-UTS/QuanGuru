@@ -182,7 +182,7 @@ class stateBase(computeBase):
 
     @initialStateSystem.setter
     def initialStateSystem(self, qSys):
-        checkNotVal(hasattr(qSys, '_createAstate'), False, 
+        checkNotVal(hasattr(qSys, '_createAstate'), False,
                             f"{qSys.name} is not QuantumSystem, Simulation initialStateSystem should be QuantumSystem")
         setAttr(self, '_initialStateSystem', qSys)
 

@@ -3,7 +3,6 @@ import pytest
 import quanguru.classes.QSystem as QSys
 from quanguru.classes.QSys import QuantumSystem
 
-# tests for composite vs single system cases of the quantum system object
 
 @pytest.mark.parametrize("cls", [
                          QuantumSystem,
