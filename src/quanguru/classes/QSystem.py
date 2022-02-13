@@ -7,8 +7,8 @@ from .QSimComp import QSimComp
 from .QSimBase import setAttr
 from .exceptions import checkNotVal, checkCorType
 
-# from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
-# from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
 
 
 class QuSystem(QSimComp):
@@ -21,7 +21,7 @@ class QuSystem(QSimComp):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter']
+    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -39,6 +39,9 @@ class QuSystem(QSimComp):
         #: Total dimension of the other quantum systems **after** ``self`` in a composite system.
         #: It is 1, when ``self`` is the last system in the composite system.
         self.__dimsAfter = 1
+        #: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)
+        #: or the populations
+        self._inpCoef = False
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
     # matrices
@@ -52,9 +55,13 @@ class QuSystem(QSimComp):
         for ter in self.terms.values():
             ter._constructMatrices() # pylint: disable=protected-access
 
-    def _createAstate(self, inp=None):
+    def _createInitialState(self, inp=None):
         if self._isComposite:
-            ...
+            subSysStates = [qsys._createAstate(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]
+            initialState = tensorProd(subSysStates)
+        else:
+            initialState = superPos(self.dimension, inp, not self._inpCoef)
+        return initialState
 
     @property
     def _subSysHamiltonian(self):
