@@ -71,10 +71,15 @@ def _initStDec(_createAstate):
             if inp is None:
                 inp = obj.simulation._stateBase__initialStateInput.value
 
-            if isinstance(obj.dimension, int):
-                state = _createAstate(obj, inp)
+            if (issparse(inp) or isinstance(inp, ndarray)):
+                if inp.shape[0] != obj.dimension:
+                    raise ValueError('Dimension mismatch')
+                state = inp
             else:
-                state = None
+                if isinstance(obj.dimension, int):
+                    state = _createAstate(obj, inp)
+                else:
+                    state = None
         return state
     return wrapper
 
