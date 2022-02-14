@@ -6,6 +6,7 @@ from scipy.sparse import issparse
 
 from .base import addDecorator, _recurseIfList
 from .QSimComp import QSimComp
+from .QPro import freeEvolution
 from .QSimBase import setAttr
 from .exceptions import checkVal, checkNotVal, checkCorType
 
@@ -43,7 +44,8 @@ class QuSystem(QSimComp):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef']
+    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
+                 '__unitary']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -64,6 +66,10 @@ class QuSystem(QSimComp):
         #: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)
         #: or the populations
         self._inpCoef = False
+        #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
+        self.__unitary = freeEvolution(_internal=True)
+        self._QuSystem__unitary.superSys = self # pylint: disable=no-member
+        self._QSimComp__simulation.addQSystems(subS=self, Protocol=self._freeEvol) # pylint: disable=no-member
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
     # matrices
@@ -222,7 +228,7 @@ class QuSystem(QSimComp):
     @property
     def _dimsBefore(self):
         r"""
-        Property to set and get the :attr:`~genericQSys.__dimsBefore`. Getter can be used to get information, but the
+        Property to set and get the :attr:`~QuSystem.__dimsBefore`. Getter can be used to get information, but the
         setter is intended purely for internal use.
         """
         return self._QuSystem__dimsBefore
@@ -234,7 +240,7 @@ class QuSystem(QSimComp):
     @property
     def _dimsAfter(self):
         r"""
-        Property to set and get the :attr:`~genericQSys.__dimsAfter`. Getter can be used to get information, but the
+        Property to set and get the :attr:`~QuSystem.__dimsAfter`. Getter can be used to get information, but the
         setter is intended purely for internal use.
         """
         return self._QuSystem__dimsAfter
@@ -400,9 +406,34 @@ class QuSystem(QSimComp):
 
         # TODO
         # need to remove any coupling/term that relies on the removed system
-        # reset the initial state/s
         self.delMatrices(_exclude=[])
         self._paramUpdated = True
+
+    #free evolution composition and protocols
+    # TODO test these with the protocol tests
+    @property
+    def _freeEvol(self):
+        r"""
+        Property to get the ``default`` internal ``freeEvolution`` proptocol.
+        """
+        return self._QuSystem__unitary
+
+    def unitary(self):
+        r"""
+        Returns the unitary evolution operator for ``self``.
+        """
+        unitary = self._QuSystem__unitary.unitary()
+        self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
+        return unitary
+
+    def addProtocol(self, protocol=None, system=None, protocolRemove=None):
+        r"""
+        adds the given ``protocol`` into ``self.simulation`` and uses ``self`` as ``system`` if it is not given.
+        It also can removed a protocol (``protocolRemove``) at the same time.
+        """
+        if system is None:
+            system = self
+        self.simulation.addProtocol(protocol=protocol, system=system, protocolRemove=protocolRemove)
 
     # these will work after term object is implemented
     @property
