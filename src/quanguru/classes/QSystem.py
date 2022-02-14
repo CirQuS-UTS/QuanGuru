@@ -102,13 +102,15 @@ class QuSystem(QSimComp):
                                                    f' relevant parameters to determine the type of {self.name}')
         if self.superSys is not None:
             self.superSys.simulation._stateBase__initialState._value = None # breaks the bound to the other _parameter
-        self.simulation.initialState = inp # pylint: disable=no-member, protected-access
+
         if self._isComposite:
-            checkCorType(inp, (list, tuple), 'Composite state initial state input ')
+            checkCorType(inp, (list, tuple), 'Composite state initial state input')
             checkVal(len(inp), len(self.subSys),f'Number of inputs ({len(inp)}) to initial state should be the same as'+
                                                 f' number of sub-system ({len(self.subSys)}) of {self.name}')
             for ind, qsys in enumerate(self.subSys.values()):
                 qsys.initialState = inp[ind]
+        self.simulation.initialState = inp # pylint: disable=no-member, protected-access
+        
 
     @property
     def _subSysHamiltonian(self):
