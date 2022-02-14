@@ -4,6 +4,22 @@ import quanguru.classes.QSystem as QSys
 import quanguru.QuantumToolbox.states as qSts
 from quanguru.classes.QSys import QuantumSystem
 
+def test_initialStateOfNullSystem():
+    # setting an initial state before the type of quantum system (single or composite) is determined
+    # raises a ValueError
+    qsys =  QSys.QuSystem()
+    with pytest.raises(ValueError):
+        qsys.initialState = 2
+    with pytest.raises(ValueError):
+        qsys.initialState = [1, 3]
+    with pytest.raises(ValueError):
+        qsys.initialState = {0:0.1, 1:0.2, 2:0.3, 3:0.4}
+    with pytest.raises(ValueError):
+        qsys._inpCoef = True
+        qsys.initialState = {0:0.2*(1+1j), 2:0.2}
+    with pytest.raises(ValueError):
+        qsys.initialState = qSts.densityMatrix([qSts.basis(2, 1), qSts.basis(2, 0)], [0.5, 0.5])
+
 @pytest.mark.parametrize("cls", [
                          QuantumSystem,
                          QSys.QuSystem
