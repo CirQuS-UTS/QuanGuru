@@ -578,7 +578,7 @@ class compQSystem(genericQSys):
         if inp is None:
             inp = [qsys._createAstate() for qsys in self.subSys.values()]
         elif isinstance(inp, list):
-            inp = [qsys._createAstate(inp[qsys.ind]) for qsys in self.subSys.values()]
+            inp = [qsys._createAstate(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]
         else:
             raise TypeError('?')
         return linAlg.tensorProd(*inp)

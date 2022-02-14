@@ -278,3 +278,185 @@ def test_createInitialStateForCompositeSystemThroughSubSystems1Layer(cls):
     initStateTarget = st4.A
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_createInitialStateForCompositeSystemThroughCompositeSystem2Layers(cls):
+    # create a quantum system
+    qsystem = cls()
+    qsystem1 = cls()
+    qsystem2 = cls()
+
+    # create 3 other systems with dimension info
+    someRandInt1 = rnd.randint(2, 20)
+    asystem1 = cls(dimension=someRandInt1)
+    someRandInt2 = rnd.randint(2, 20)
+    asystem2 = cls(dimension = someRandInt2)
+    asystem3 = cls(dimension=3)
+    asystem4 = cls(dimension=3)
+
+    # initial state to use in the test
+    st1 = qSts.superPos(someRandInt1, 1)
+    st2 = qSts.superPos(someRandInt2, [0, 1])
+    st3 = qSts.superPos(3, {0:0.25, 1:0.75})
+    st4 = qSts.basis(3, 0)
+    stTensor = tensorProd(st1, st2, st3, st4).A
+
+    # add the subSystems for the composite system
+    qsystem1.addSubSys([asystem1, asystem2])
+    qsystem2.addSubSys([asystem3, asystem4])
+    qsystem.addSubSys([qsystem1, qsystem2])
+
+    # call the create initial state function with a proper input
+    qsystem.initialState = [[1, [0, 1]], [{0:0.25, 1:0.75}, st4]]
+
+    initStateCreated = qsystem.initialState.A
+    initStateTarget = stTensor
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem1.initialState.A
+    initStateTarget = st1.A
+    print(initStateCreated)
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem2.initialState.A
+    initStateTarget = st2.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem3.initialState.A
+    initStateTarget = st3.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem4.initialState.A
+    initStateTarget = st4.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_createInitialStateForCompositeSystemThroughSubSystems2Layers(cls):
+    # create a quantum system
+    qsystem = cls()
+    qsystem1 = cls()
+    qsystem2 = cls()
+
+    # create 3 other systems with dimension info
+    someRandInt1 = rnd.randint(2, 20)
+    asystem1 = cls(dimension=someRandInt1)
+    someRandInt2 = rnd.randint(2, 20)
+    asystem2 = cls(dimension = someRandInt2)
+    asystem3 = cls(dimension=3)
+    asystem4 = cls(dimension=3)
+
+    # initial state to use in the test
+    st1 = qSts.superPos(someRandInt1, 1)
+    st2 = qSts.superPos(someRandInt2, [0, 1])
+    st3 = qSts.superPos(3, {0:0.25, 1:0.75})
+    st4 = qSts.basis(3, 0)
+    stTensor = tensorProd(st1, st2, st3, st4).A
+
+    # add the subSystems for the composite system
+    qsystem1.addSubSys([asystem1, asystem2])
+    qsystem2.addSubSys([asystem3, asystem4])
+    qsystem.addSubSys([qsystem1, qsystem2])
+
+    # call the create initial state function with a proper input
+    asystem1.initialState = 1
+    asystem2.initialState = [0, 1]
+    asystem3.initialState = {0:0.25, 1:0.75}
+    asystem4.initialState = st4
+
+    initStateCreated = qsystem.initialState.A
+    initStateTarget = stTensor
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem1.initialState.A
+    initStateTarget = st1.A
+    print(initStateCreated)
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem2.initialState.A
+    initStateTarget = st2.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem3.initialState.A
+    initStateTarget = st3.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem4.initialState.A
+    initStateTarget = st4.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_createInitialStateForCompositeSystemThroughMixed2Layers(cls):
+    # create a quantum system
+    qsystem = cls()
+    qsystem1 = cls()
+    qsystem2 = cls()
+
+    # create 3 other systems with dimension info
+    someRandInt1 = rnd.randint(2, 20)
+    asystem1 = cls(dimension=someRandInt1)
+    someRandInt2 = rnd.randint(2, 20)
+    asystem2 = cls(dimension = someRandInt2)
+    asystem3 = cls(dimension=3)
+    asystem4 = cls(dimension=3)
+
+    # initial state to use in the test
+    st1 = qSts.superPos(someRandInt1, 1)
+    st2 = qSts.superPos(someRandInt2, [0, 1])
+    st3 = qSts.superPos(3, {0:0.25, 1:0.75})
+    st4 = qSts.basis(3, 0)
+    stTensor = tensorProd(st1, st2, st3, st4).A
+
+    # add the subSystems for the composite system
+    qsystem1.addSubSys([asystem1, asystem2])
+    qsystem2.addSubSys([asystem3, asystem4])
+    qsystem.addSubSys([qsystem1, qsystem2])
+
+    # call the create initial state function with a proper input
+    asystem1.initialState = 1
+    asystem2.initialState = [0, 1]
+    qsystem2.initialState = [{0:0.25, 1:0.75}, st4]
+
+    initStateCreated = qsystem.initialState.A
+    initStateTarget = stTensor
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem1.initialState.A
+    initStateTarget = st1.A
+    print(initStateCreated)
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem2.initialState.A
+    initStateTarget = st2.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem3.initialState.A
+    initStateTarget = st3.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
+
+    initStateCreated = asystem4.initialState.A
+    initStateTarget = st4.A
+    for ind in range(len(initStateTarget)):
+        assert np.allclose(initStateCreated[ind], initStateTarget[ind])
