@@ -47,7 +47,16 @@ def checkNotVal(someObj, val, msg):
         raise ValueError(msg)
     return someObj
 
+def checkVal(someObj, val, msg):
+    if someObj != val:
+        raise ValueError(msg)
+    return someObj
+
 def checkCorType(someObj, someType, msg):
+    if isinstance(someType, list):
+        for ty in someType:
+            checkCorType(someObj, ty, msg)
+
     if not isinstance(someObj, someType):
         raise TypeError(msg + ' requires ' + str(someType) + ' but ' + str(type(someObj)) + ' is given.')
     return someObj
