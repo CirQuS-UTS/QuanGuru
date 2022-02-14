@@ -12,7 +12,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
 
-def _initStDec(_createAstate):
+def _initStDec(_createInitialState):
     r"""
     Decorater to handle different inputs for initial state creation.
     """
@@ -29,7 +29,7 @@ def _initStDec(_createAstate):
             # and it will use the input set through the initial state setter
             if inp is None:
                 inp = obj.simulation._stateBase__initialStateInput.value
-            state = _createAstate(obj, inp)
+            state = _createInitialState(obj, inp)
         return state
     return wrapper
 
@@ -84,9 +84,9 @@ class QuSystem(QSimComp):
         input cases.
         """
         if self._isComposite:
-            inp = [None for _ in self.subSys] if inp is None else inp
-            subSysStates = [qsys._createAstate(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]
-            initialState = tensorProd(subSysStates)
+            inp = [qsys._initialStateInput for qsys in self.subSys.values()] if inp is None else inp
+            subSysStates = [qsys._createInitialState(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]  # pylint: disable=protected-access
+            initialState = tensorProd(*subSysStates)
         else:
             checkNotVal(inp, None, self.name + ' is not given an initial state')
             initialState = superPos(self.dimension, inp, not self._inpCoef)
@@ -110,7 +110,6 @@ class QuSystem(QSimComp):
             for ind, qsys in enumerate(self.subSys.values()):
                 qsys.initialState = inp[ind]
         self.simulation.initialState = inp # pylint: disable=no-member, protected-access
-        
 
     @property
     def _subSysHamiltonian(self):
