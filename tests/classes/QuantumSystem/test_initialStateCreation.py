@@ -57,36 +57,38 @@ def test_createInitialStateForSingleSystem(cls):
             else:
                 initState[ind1][:, ind2] = 0
 
-@pytest.mark.parametrize("cls", [
-                         QuantumSystem,
-                         QSys.QuSystem
+@pytest.mark.parametrize("cls, mth", [
+                         [QuantumSystem, 'initialState'],
+                         [QuantumSystem, '_createAstate'],
+                         [QSys.QuSystem, 'initialState'],
+                         [QSys.QuSystem, '_createAstate']
                          ])
-def test_initialStateSetterForSingleSystem(cls):
+def test_initialStateSetterForSingleSystem(cls, mth):
     qsys = cls(dimension=4)
 
     qsys.initialState = 2
-    initState = qsys._createAstate()
+    initState = getattr(qsys, mth)() if callable(getattr(qsys, mth)) else getattr(qsys, mth)
     assert initState[0] == 0
     assert initState[1] == 0
     assert initState[2] == 1
     assert initState[3] == 0
 
     qsys.initialState = [1, 3]
-    initState = qsys._createAstate()
+    initState = getattr(qsys, mth)() if callable(getattr(qsys, mth)) else getattr(qsys, mth)
     assert initState[0] == 0
     assert initState[1] == 1/np.sqrt(2)
     assert initState[2] == 0
     assert initState[3] == 1/np.sqrt(2)
 
     qsys.initialState = [0, 1, 3]
-    initState = qsys._createAstate()
+    initState = getattr(qsys, mth)() if callable(getattr(qsys, mth)) else getattr(qsys, mth)
     assert initState[0] == 1/np.sqrt(3)
     assert initState[1] == 1/np.sqrt(3)
     assert initState[2] == 0
     assert initState[3] == 1/np.sqrt(3)
 
     qsys.initialState = {0:0.1, 1:0.2, 2:0.3, 3:0.4}
-    initState = qsys._createAstate()
+    initState = getattr(qsys, mth)() if callable(getattr(qsys, mth)) else getattr(qsys, mth)
     assert np.round(initState[0], 14) == np.round(np.sqrt(0.1), 14)
     assert np.round(initState[1], 14) == np.round(np.sqrt(0.2), 14)
     assert np.round(initState[2], 14) == np.round(np.sqrt(0.3), 14)
@@ -94,7 +96,7 @@ def test_initialStateSetterForSingleSystem(cls):
 
     qsys._inpCoef = True
     qsys.initialState = {0:0.2*(1+1j), 2:0.2}
-    initState = qsys._createAstate()
+    initState = getattr(qsys, mth)() if callable(getattr(qsys, mth)) else getattr(qsys, mth)
     assert np.round(initState[0].real, 8) == 0.57735027
     assert np.round(initState[0].imag, 8) == 0.57735027
     assert initState[1] == 0
