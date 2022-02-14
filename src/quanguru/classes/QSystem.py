@@ -20,8 +20,8 @@ def _initStDec(_createAstate):
         # if the given input is a state with consistent shape, simply returns it back
         # if the shape is inconsistent raises an error
         if (issparse(inp) or isinstance(inp, ndarray)):
-            checkVal(inp.shape[0], obj.dimension, 'Dimension mismatch with the initial state input and the dimesion of\
-                                                   the system')
+            checkVal(inp.shape[0], obj.dimension, 'Dimension mismatch with the initial state input and the dimesion of'+
+                                                   ' the system')
             state = inp
         else:
             # if the input is None, tries using the initialStateInput of the simulation object
@@ -97,16 +97,16 @@ class QuSystem(QSimComp):
         r"""
         Sets the initial state from a given input ``inp``.
         """
-        checkNotVal(self._QuSystem__compSys, None, f'Type of {self.name} is ambiguous. Single and composite systems\
-                                                    handle initial state inputs differently, so you need to set other\
-                                                    relevant parameters to determine the type of {self.name}')
+        checkNotVal(self._QuSystem__compSys, None, f'Type of {self.name} is ambiguous. Single and composite systems'+
+                                                   ' handle initial state inputs differently, so you need to set other'+
+                                                   f' relevant parameters to determine the type of {self.name}')
         if self.superSys is not None:
             self.superSys.simulation._stateBase__initialState._value = None # breaks the bound to the other _parameter
         self.simulation.initialState = inp # pylint: disable=no-member, protected-access
         if self._isComposite:
             checkCorType(inp, (list, tuple), 'Composite state initial state input ')
-            checkVal(len(inp), len(self.subSys), f'Number of inputs ({len(inp)}) to initial state should be the same as\
-                                                   number of sub-system ({len(self.subSys)}) of {self.name}')
+            checkVal(len(inp), len(self.subSys),f'Number of inputs ({len(inp)}) to initial state should be the same as'+
+                                                f' number of sub-system ({len(self.subSys)}) of {self.name}')
             for ind, qsys in enumerate(self.subSys.values()):
                 qsys.initialState = inp[ind]
 
