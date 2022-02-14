@@ -1,8 +1,9 @@
 import numpy as np
+import random as rnd
 import pytest
 import quanguru.classes.QSystem as QSys
 import quanguru.QuantumToolbox.states as qSts
-from quanguru.classes.QSys import QuantumSystem
+from quanguru.classes.QSys import QuantumSystem, qSystem
 
 def test_initialStateOfNullSystem():
     # setting an initial state before the type of quantum system (single or composite) is determined
@@ -132,3 +133,55 @@ def test_initialStateSetterForSingleSystem(cls, mth):
                 initState[ind1][:, ind2] = 0.75
             else:
                 initState[ind1][:, ind2] = 0
+
+def test_compositeStateInitialStateSetterInputsAndErrors():
+    # create a quantum system
+    qsystem = QSys.QuSystem()
+    # create 3 other systems with dimension info
+    # create 3 other systems with dimension info
+    someRandInt1 = rnd.randint(2, 20)
+    asystem1 = QSys.QuSystem(dimension=someRandInt1)
+    someRandInt2 = rnd.randint(2, 20)
+    asystem2 = QSys.QuSystem(dimension = someRandInt2)
+    asystem3 = QSys.QuSystem(dimension=3)
+    # compose the qsystem
+    qsystem.addSubSys([asystem1, asystem2, asystem3])
+
+    # try setting initial state with a list
+    qsystem.initialState = [0, 1, 2]
+
+    # try setting initial state with a list
+    qsystem.initialState = (0, 1, 2)
+
+    # try setting initial state with a dictionary
+    with pytest.raises(TypeError):
+        qsystem.initialState = {0:0.1, 1:0.5, 2:0.4}
+
+    # try setting initial state with a shorter list
+    with pytest.raises(ValueError):
+        qsystem.initialState = [0, 1]
+
+    # try setting initial state with a longer list
+    with pytest.raises(ValueError):
+        qsystem.initialState = [0, 1, 2, 0]
+
+@pytest.mark.parametrize("cls", [
+                         QuantumSystem,
+                         QSys.QuSystem
+                         ])
+def test_createInitialStateForCompositeSystemThroughCompositeSystem1Layer(cls):
+    # create a quantum system
+    qsystem = cls()
+
+    # create 3 other systems with dimension info
+    someRandInt1 = rnd.randint(2, 20)
+    asystem1 = cls(dimension=someRandInt1)
+    someRandInt2 = rnd.randint(2, 20)
+    asystem2 = cls(dimension = someRandInt2)
+    asystem3 = cls(dimension=3)
+
+    # add the subSystems for the composite system
+    qsystem.addSubSys([asystem1, asystem2, asystem3])
+
+    # call the create initial state function with a proper input
+    qsystem._createAstate([1, 1, 1, 1])
