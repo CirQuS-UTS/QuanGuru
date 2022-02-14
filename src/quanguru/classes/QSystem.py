@@ -1,15 +1,37 @@
 from collections import OrderedDict
 import warnings
 from typing import Any
+from numpy import ndarray
+from scipy.sparse import issparse
 
 from .base import addDecorator, _recurseIfList
 from .QSimComp import QSimComp
 from .QSimBase import setAttr
-from .exceptions import checkNotVal, checkCorType
+from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
 
+def _initStDec(_createAstate):
+    r"""
+    Decorater to handle different inputs for initial state creation.
+    """
+    def wrapper(obj, inp=None):
+        # if the given input is a state with consistent shape, simply returns it back
+        # if the shape is inconsistent raises an error
+        if (issparse(inp) or isinstance(inp, ndarray)):
+            checkVal(inp.shape[0], obj.dimension, 'Dimension mismatch with the initial state input and the dimesion of\
+                                                   the system')
+            state = inp
+        else:
+            # if the input is None, tries using the initialStateInput of the simulation object
+            # this is introduced as convenience so that we can call the _createInitialState without any argument
+            # and it will use the input set through the initial state setter
+            if inp is None:
+                inp = obj.simulation._stateBase__initialStateInput.value
+            state = _createAstate(obj, inp)
+        return state
+    return wrapper
 
 class QuSystem(QSimComp):
     #: (**class attribute**) class label used in default naming
@@ -55,13 +77,38 @@ class QuSystem(QSimComp):
         for ter in self.terms.values():
             ter._constructMatrices() # pylint: disable=protected-access
 
+    @_initStDec
     def _createInitialState(self, inp=None):
+        r"""
+        Method that creates a state from the given input, which is handeled by the _initStDec decorator for different
+        input cases.
+        """
         if self._isComposite:
+            inp = [None for _ in self.subSys] if inp is None else inp
             subSysStates = [qsys._createAstate(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]
             initialState = tensorProd(subSysStates)
         else:
+            checkNotVal(inp, None, self.name + ' is not given an initial state')
             initialState = superPos(self.dimension, inp, not self._inpCoef)
         return initialState
+
+    @QSimComp.initialState.setter # pylint: disable=no-member
+    def initialState(self, inp):
+        r"""
+        Sets the initial state from a given input ``inp``.
+        """
+        checkNotVal(self._QuSystem__compSys, None, f'Type of {self.name} is ambiguous. Single and composite systems\
+                                                    handle initial state inputs differently, so you need to set other\
+                                                    relevant parameters to determine the type of {self.name}')
+        if self.superSys is not None:
+            self.superSys.simulation._stateBase__initialState._value = None # breaks the bound to the other _parameter
+        self.simulation.initialState = inp # pylint: disable=no-member, protected-access
+        if self._isComposite:
+            checkCorType(inp, (list, tuple), 'Composite state initial state input ')
+            checkVal(len(inp), len(self.subSys), f'Number of inputs ({len(inp)}) to initial state should be the same as\
+                                                   number of sub-system ({len(self.subSys)}) of {self.name}')
+            for ind, qsys in enumerate(self.subSys.values()):
+                qsys.initialState = inp[ind]
 
     @property
     def _subSysHamiltonian(self):
@@ -401,3 +448,5 @@ class QuSystem(QSimComp):
     @order.setter
     def order(self, odr):
         self._firstTerm.order = odr
+
+QuSystem._createAstate = QuSystem._createInitialState # pylint:disable=protected-access
