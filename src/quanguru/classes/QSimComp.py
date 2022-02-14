@@ -69,6 +69,10 @@ class QSimComp(computeBase):
         return self._QSimComp__simulation.run(p=p, coreCount=coreCount).states[self.name+"Results"]
 
     @property
+    def _initialStateInput(self):
+        return self.simulation._stateBase__initialStateInput.value
+
+    @property
     def simParameters(self):
         r"""
         returns a tuple contaning simulation parameters for the self.simulation, which might be bound to some other
