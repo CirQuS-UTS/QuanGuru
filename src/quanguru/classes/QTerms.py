@@ -47,7 +47,7 @@ class QTerm(paramBoundBase):
         if isinstance(supSys, (list, tuple)):
             supSys = [self.getByNameOrAlias(qsys) for qsys in supSys]
             for qsys in supSys:
-                self.addSubSys(QTerm(superSys=qsys, _internal='True'))
+                self.addSubSys(QTerm(superSys=qsys, _internal=True))
         else:
             supSys = self.getByNameOrAlias(supSys)
         setAttr(self, '_qBase__superSys', supSys)
