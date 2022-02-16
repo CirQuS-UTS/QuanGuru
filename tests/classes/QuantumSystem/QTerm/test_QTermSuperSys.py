@@ -75,20 +75,114 @@ def test_multipleSuperSys(helpers):
     named2 = named()
     named3 = named(alias=randname)
     named4 = named()
-    # set 
+    # set superSys with a mixture of name, alias, and object at instantiation
     term1 = QTerm(superSys=(named1, named2.name, randname))
     assert term1.superSys == [named1, named2, named3]
-
+    # set superSys through qSystems with a mixture of name, alias, and object at instantiation
     term2 = QTerm(qSystems=[named2.name, randname, named4])
     assert term2.superSys == [named2, named3, named4]
-
+    # set superSys with a mixture of name, alias, and object after instantiation
     term3 = QTerm()
     term3.superSys = [named1, named2.name, randname]
     assert term3.superSys == [named1, named2, named3]
-
+    # set superSys through qSystems with a mixture of name, alias, and object at instantiation
     term4 = QTerm()
     term4.qSystems = (named2.name, randname, named4)
     assert term4.superSys == [named2, named3, named4]
 
-def test_superSysSetterSideEffects():
-    ...
+def test_superSysSetterSideEffects(helpers):
+    randname = helpers.randString(rnd.randint(4, 10))
+    # create some named objects to use as superSys
+    named1 = named()
+    named2 = named()
+    named3 = named(alias=randname)
+    named4 = named()
+
+    # with a single superSys at instantiation
+    term1 = QTerm(superSys=named1)
+    assert term1.order == 1
+    assert term1.operator is None
+    assert len(term1.subSys) == 0
+    
+    # with a single superSys after instantiation
+    term1 = QTerm()
+    term1._QTerm__order = 10
+    term1._QTerm__operator = 11
+    term1.addSubSys([named1, named2])
+    assert term1.order == 10
+    assert term1.operator == 11
+    assert named1 in term1.subSys.values()
+    assert named2 in term1.subSys.values()
+    term1.superSys = named1
+    assert term1.order == 1
+    assert term1.operator is None
+    assert named1 not in term1.subSys.values()
+    assert named2 not in term1.subSys.values()
+
+    term1 = QTerm(superSys=named1)
+    supSys = term1.superSys
+    subSys = list(term1.subSys.values())
+    for ind, te in enumerate(subSys):
+        assert te.superSys is supSys[ind]
+    supSys = term1.superSys
+    subSys = list(term1.subSys.values())
+    for ind, te in enumerate(supSys):
+        assert te is subSys[ind].superSys
+
+    term1.superSys = named4
+    assert named1 not in term1.superSys
+    assert named2 in term1.superSys
+    assert named3 in term1.superSys
+    assert named4 in term1.superSys
+    supSys = term1.superSys
+    subSys = list(term1.subSys.values())
+    for ind, te in enumerate(subSys):
+        assert te.superSys is supSys[ind]
+    supSys = term1.superSys
+    subSys = list(term1.subSys.values())
+    for ind, te in enumerate(supSys):
+        assert te is subSys[ind].superSys
+
+    term1 = QTerm(superSys=(named1, named2.name, randname))
+    assert term1.order == 1
+    assert term1.operator is None
+    assert named1 not in term1.subSys.values()
+    assert named2 not in term1.subSys.values()
+
+    term1 = QTerm()
+    term1._QTerm__order = 10
+    term1._QTerm__operator = 11
+    term1.addSubSys([named1, named2])
+    assert term1.order == 10
+    assert term1.operator == 11
+    assert named1 in term1.subSys.values()
+    assert named2 in term1.subSys.values()
+    term1.superSys = (named1, named2.name, randname)
+    assert term1.order == 1
+    assert term1.operator is None
+    assert named1 not in term1.subSys.values()
+    assert named2 not in term1.subSys.values()
+
+    term1 = QTerm(superSys=(named1, named2.name, randname))
+    supSys = term1.superSys
+    subSys = list(term1.subSys.values())
+    for ind, te in enumerate(subSys):
+        assert te.superSys is supSys[ind]
+    supSys = term1.superSys
+    subSys = list(term1.subSys.values())
+    for ind, te in enumerate(supSys):
+        assert te is subSys[ind].superSys
+
+    term1.superSys = (named2.name, randname, named4)
+    assert named1 not in term1.superSys
+    assert named2 in term1.superSys
+    assert named3 in term1.superSys
+    assert named4 in term1.superSys
+    supSys = term1.superSys
+    subSys = list(term1.subSys.values())
+    for ind, te in enumerate(subSys):
+        assert te.superSys is supSys[ind]
+    supSys = term1.superSys
+    subSys = list(term1.subSys.values())
+    for ind, te in enumerate(supSys):
+        assert te is subSys[ind].superSys
