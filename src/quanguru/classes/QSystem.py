@@ -1,3 +1,7 @@
+r"""
+    New QuantumSystem implementation.
+"""
+
 from collections import OrderedDict
 import warnings
 from typing import Any
@@ -34,7 +38,7 @@ def _initStDec(_createInitialState):
         return state
     return wrapper
 
-class QuSystem(QSimComp):
+class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     #: (**class attribute**) class label used in default naming
     label = 'QuSystem'
     #: (**class attribute**) number of instances created internally by the library
@@ -78,6 +82,7 @@ class QuSystem(QSimComp):
         The matrices for operators constructed and de-constructed whenever they should be, and this method is used
         internally in various places when the matrices are needed to be constructed.
         """
+        # THIS WILL WORK AFTER TERMS IMPLEMENTATION
         for sys in self.subSys.values():
             sys._constructMatrices() # pylint: disable=protected-access
         for ter in self.terms.values():
@@ -117,6 +122,7 @@ class QuSystem(QSimComp):
                 qsys.initialState = inp[ind]
         self.simulation.initialState = inp # pylint: disable=no-member, protected-access
 
+    # HAMILTONIANS WILL BE TESTED AFTER TERM IMPLEMENTATION
     @property
     def _subSysHamiltonian(self):
         r"""
