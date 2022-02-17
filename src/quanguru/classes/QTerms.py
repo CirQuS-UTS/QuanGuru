@@ -72,9 +72,10 @@ class QTerm(paramBoundBase):
     def _checkAndUpdateParamsWhenMultiple(self, vals, attrName, attrPrintName):
         checkNotVal(self.superSys, None, "qSystems/superSys of a term should be assigned before the operators and/or"+
                                          "order of the term")
-        if isinstance(vals, (list, tuple)):
+        if (isinstance(vals, (list, tuple)) or isinstance(self.superSys, (list, tuple))):
             checkCorType(self.superSys, (list, tuple), f'{attrPrintName} is given a list of values, but the'+
                                                         ' qSystems/superSys is not a list of systems.')
+            checkCorType(vals, (list, tuple), f'{attrPrintName} of a term with multiple system (i.e. a coupling term)')
             checkVal(len(vals), len(self.superSys), f'Number of {attrPrintName} ({len(vals)}) should be the same as'+
                                                     f' number of qSystem ({len(self.subSys)})')
             for ind, qsys in enumerate(self.subSys.values()):
