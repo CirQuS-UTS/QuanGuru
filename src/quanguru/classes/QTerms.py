@@ -54,7 +54,7 @@ class QTerm(paramBoundBase):
     def _createTerm(self, qSystems, operators, orders=None, frequency=None):
         self.superSys = qSystems
         self.operator = operators
-        self.order = orders
+        self.order = [1 for _ in qSystems] if (isinstance(qSystems, (list, tuple)) and (orders is None)) else orders
         self.frequency = frequency
 
     def _checkAndUpdateParamsWhenMultiple(self, vals, attrName, attrPrintName):
