@@ -1,4 +1,3 @@
-from ast import operator
 import random as rnd
 import pytest
 from quanguru.QuantumToolbox.operators import sigmaz, number

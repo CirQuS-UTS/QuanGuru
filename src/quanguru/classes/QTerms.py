@@ -52,19 +52,7 @@ class QTerm(paramBoundBase):
         setAttr(self, '_qBase__superSys', supSys)
 
     def _createTerm(self, qSystems, operators, orders=None, frequency=None):
-        checkCorType(frequency, (int, float, complex), 'frequency of a term')
         self.superSys = qSystems
-        # if isinstance(qSystems, (list, tuple)):
-        #     checkCorType(operators, (list, tuple), 'operator/s of a term with multiple system (i.e. a coupling term)')
-        #     orders = [1 for _ in operators] if orders is None else orders
-        #     checkCorType(orders, (list, tuple), 'operator/s of a term with multiple system (i.e. a coupling term)')
-        #     checkVal(len(operators), len(qSystems), f'Number of operators ({len(operators)}) should be the same as'+
-        #                                             f' number of qSystem ({len(qSystems)})')
-        #     checkVal(len(orders), len(operators), f'Number of orders ({len(orders)}) should be the same as'+
-        #                                           f' number of qSystem ({len(operators)})')
-        #     for ind, qsys in enumerate(qSystems):
-        #         self.addSubSys(QTerm(superSys=self.getByNameOrAlias(qsys), operator=operators[ind], order=[ind],
-        #                              _internal='True'))
         self.operator = operators
         self.order = orders
         self.frequency = frequency
