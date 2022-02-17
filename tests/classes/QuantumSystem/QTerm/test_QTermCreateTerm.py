@@ -3,7 +3,7 @@ from quanguru.classes.QTerms import QTerm
 from quanguru.QuantumToolbox.operators import sigmaz, sigmay, sigmax
 
 def assertTheseVals(t1, *args):
-    assert t1.superSys == args[0]
+    assert t1.qSystems == args[0]
     assert t1.operator == args[1]
     assert t1.order == args[2]
     assert t1.frequency == args[3]

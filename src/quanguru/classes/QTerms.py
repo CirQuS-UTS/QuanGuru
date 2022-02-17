@@ -12,16 +12,15 @@ class QTerm(paramBoundBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['timeDependency', '_timeDepSys', '__frequency', '__order', '__operator', '__HamiltonianTerm']
+    __slots__ = ['timeDependency', '_timeDepSys', '__frequency', '__order', '__operator', '__HamiltonianTerm', '__qSys']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        checkNotVal((("qSystems" in kwargs) and ("superSys" in kwargs)), True,
-                    "qSystems is another name for superSys, and both of them are given. Use only one of them")
-        supSys = kwargs.pop('qSystems', None)
-        supSys = kwargs.pop('superSys', None) if supSys is None else supSys
-        if supSys is not None:
-            self.superSys = supSys
+        #: attribute to store the quantum systems of the term
+        self.__qSys = None
+        qSys = kwargs.pop('qSystems', None)
+        if qSys is not None:
+            self.qSystems = qSys
         #: frequency of the term, it is is the coupling strength in the case of coupling term
         self.__frequency = None
         #: operator for the term
@@ -29,7 +28,7 @@ class QTerm(paramBoundBase):
         #: the order/power for the operator of the term. The operator is raised to the power in this value
         self.__order = 1
         #: used for storing the matrix corresponding to this term
-        self.__HamiltonianTerm = None
+        self.__HamiltonianTerm = None #pylint:disable=invalid-name
         #: function that can be assigned by the user to update the parameters a function of time. The library passes the
         #: current time to this function
         self.timeDependency = None
@@ -50,39 +49,35 @@ class QTerm(paramBoundBase):
 
     @property
     def qSystems(self):
-        return self.superSys
+        return self._QTerm__qSys
 
     @qSystems.setter
-    def qSystems(self, supSys):
-        self.superSys = supSys
-
-    @paramBoundBase.superSys.setter
-    def superSys(self, supSys):
+    def qSystems(self, qSys):
         self._QTerm__order = 1 # pylint: disable=assigning-non-slot
         self._QTerm__operator = None # pylint: disable=assigning-non-slot
         self.resetSubSys()
-        if isinstance(supSys, (list, tuple)):
-            supSys = [self.getByNameOrAlias(qsys) for qsys in supSys]
-            for qsys in supSys:
-                self.addSubSys(QTerm(superSys=qsys, _internal=True))
+        if isinstance(qSys, (list, tuple)):
+            qSys = [self.getByNameOrAlias(qsys) for qsys in qSys]
+            for qsys in qSys:
+                self.addSubSys(QTerm(qSystems=qsys, _internal=True))
         else:
-            supSys = self.getByNameOrAlias(supSys)
-        setAttr(self, '_qBase__superSys', supSys)
+            qSys = self.getByNameOrAlias(qSys)
+        setAttr(self, '_QTerm__qSys', qSys)
 
     def _createTerm(self, qSystems, operators, orders=None, frequency=None):
-        self.superSys = qSystems
+        self.qSystems = qSystems
         self.operator = operators
         self.order = [1 for _ in qSystems] if (isinstance(qSystems, (list, tuple)) and (orders is None)) else orders
         self.frequency = frequency
 
     def _checkAndUpdateParamsWhenMultiple(self, vals, attrName, attrPrintName):
-        checkNotVal(self.superSys, None, "qSystems/superSys of a term should be assigned before the operators and/or"+
+        checkNotVal(self.qSystems, None, "qSystems of a term should be assigned before the operators and/or"+
                                          "order of the term")
-        if (isinstance(vals, (list, tuple)) or isinstance(self.superSys, (list, tuple))):
-            checkCorType(self.superSys, (list, tuple), f'{attrPrintName} is given a list of values, but the'+
-                                                        ' qSystems/superSys is not a list of systems.')
+        if (isinstance(vals, (list, tuple)) or isinstance(self.qSystems, (list, tuple))):
+            checkCorType(self.qSystems, (list, tuple), f'{attrPrintName} is given a list of values, but the'+
+                                                        ' qSystems is not a list of systems.')
             checkCorType(vals, (list, tuple), f'{attrPrintName} of a term with multiple system (i.e. a coupling term)')
-            checkVal(len(vals), len(self.superSys), f'Number of {attrPrintName} ({len(vals)}) should be the same as'+
+            checkVal(len(vals), len(self.qSystems), f'Number of {attrPrintName} ({len(vals)}) should be the same as'+
                                                     f' number of qSystem ({len(self.subSys)})')
             for ind, qsys in enumerate(self.subSys.values()):
                 setAttr(qsys, attrName, vals[ind])

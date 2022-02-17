@@ -5,7 +5,7 @@ from quanguru.classes.QTerms import QTerm
 from quanguru.classes.base import named
 
 @pytest.mark.parametrize("oper", [sigmaz, number])
-def test_cannotSetWithoutSuperSys(oper):
+def test_cannotSetWithoutqSystems(oper):
     with pytest.raises(ValueError):
         QTerm(operator = oper)
     with pytest.raises(ValueError):
@@ -19,39 +19,39 @@ def test_cannotSetWithoutSuperSys(oper):
         qt1.order = rnd.randint(2, 10)
 
 @pytest.mark.parametrize("oper", [sigmaz, number])
-def test_singleSuperSysSingleOper(oper):
+def test_singleqSystemsSingleOper(oper):
     named1 = named()
-    t1 = QTerm(superSys=named1, operator=oper)
+    t1 = QTerm(qSystems=named1, operator=oper)
     assert t1.operator == oper
     assert len(t1.subSys) == 0
 
     with pytest.raises(TypeError):
-        t1 = QTerm(superSys=named1, operator=[oper, oper])
+        t1 = QTerm(qSystems=named1, operator=[oper, oper])
 
     t1 = QTerm()
-    t1.superSys=named1
+    t1.qSystems=named1
     t1.operator=oper
     assert t1.operator == oper
     assert len(t1.subSys) == 0
 
     with pytest.raises(TypeError):
         t1 = QTerm()
-        t1.superSys=named1
+        t1.qSystems=named1
         t1.operator=[oper, oper]
 
 @pytest.mark.parametrize("oper", [sigmaz, number])
-def test_multiSuperSysMultiOper(oper):
+def test_multiqSystemsMultiOper(oper):
     named1 = named()
     named2 = named()
     named3 = named()
     with pytest.raises(TypeError):
-        t1 = QTerm(superSys=[named1, named2], operator=oper)
+        t1 = QTerm(qSystems=[named1, named2], operator=oper)
 
     with pytest.raises(ValueError):
-        t1 = QTerm(superSys=[named1, named2], operator=[oper])
+        t1 = QTerm(qSystems=[named1, named2], operator=[oper])
 
-    t1 = QTerm(superSys=[named1, named2], operator=[oper, oper])
-    assert t1.superSys == [named1, named2]
+    t1 = QTerm(qSystems=[named1, named2], operator=[oper, oper])
+    assert t1.qSystems == [named1, named2]
     assert t1.operator == [oper, oper]
     opers = t1.operator
     subSys = list(t1.subSys.values())
@@ -64,18 +64,18 @@ def test_multiSuperSysMultiOper(oper):
 
     with pytest.raises(TypeError):
         t1 = QTerm()
-        t1.superSys=[named1, named2, named3]
+        t1.qSystems=[named1, named2, named3]
         t1.operator=oper
 
     with pytest.raises(ValueError):
         t1 = QTerm()
-        t1.superSys=[named1, named2, named3]
+        t1.qSystems=[named1, named2, named3]
         t1.operator=[oper, oper]
 
     t1 = QTerm()
-    t1.superSys=[named1, named2, named3]
+    t1.qSystems=[named1, named2, named3]
     t1.operator=[oper, oper, oper]
-    assert t1.superSys == [named1, named2, named3]
+    assert t1.qSystems == [named1, named2, named3]
     assert t1.operator == [oper, oper, oper]
     opers = t1.operator
     subSys = list(t1.subSys.values())
@@ -87,39 +87,39 @@ def test_multiSuperSysMultiOper(oper):
         assert te is subSys[ind].operator
 
 @pytest.mark.parametrize("orde", [sigmaz, number])
-def test_singleSuperSysSingleOrder(orde):
+def test_singleqSystemsSingleOrder(orde):
     named1 = named()
-    t1 = QTerm(superSys=named1, order=orde)
+    t1 = QTerm(qSystems=named1, order=orde)
     assert t1.order == orde
     assert len(t1.subSys) == 0
 
     with pytest.raises(TypeError):
-        t1 = QTerm(superSys=named1, order=[orde, orde])
+        t1 = QTerm(qSystems=named1, order=[orde, orde])
 
     t1 = QTerm()
-    t1.superSys=named1
+    t1.qSystems=named1
     t1.order=orde
     assert t1.order == orde
     assert len(t1.subSys) == 0
 
     with pytest.raises(TypeError):
         t1 = QTerm()
-        t1.superSys=named1
+        t1.qSystems=named1
         t1.order=[orde, orde]
 
 @pytest.mark.parametrize("orde", [2, 10])
-def test_multiSuperSysMultiOrder(orde):
+def test_multiqSystemsMultiOrder(orde):
     named1 = named()
     named2 = named()
     named3 = named()
     with pytest.raises(TypeError):
-        t1 = QTerm(superSys=[named1, named2], order=orde)
+        t1 = QTerm(qSystems=[named1, named2], order=orde)
 
     with pytest.raises(ValueError):
-        t1 = QTerm(superSys=[named1, named2], order=[orde])
+        t1 = QTerm(qSystems=[named1, named2], order=[orde])
 
-    t1 = QTerm(superSys=[named1, named2], order=[orde, orde])
-    assert t1.superSys == [named1, named2]
+    t1 = QTerm(qSystems=[named1, named2], order=[orde, orde])
+    assert t1.qSystems == [named1, named2]
     assert t1.order == [orde, orde]
     opers = t1.order
     subSys = list(t1.subSys.values())
@@ -132,18 +132,18 @@ def test_multiSuperSysMultiOrder(orde):
 
     with pytest.raises(TypeError):
         t1 = QTerm()
-        t1.superSys=[named1, named2, named3]
+        t1.qSystems=[named1, named2, named3]
         t1.order=orde
 
     with pytest.raises(ValueError):
         t1 = QTerm()
-        t1.superSys=[named1, named2, named3]
+        t1.qSystems=[named1, named2, named3]
         t1.order=[orde, orde]
 
     t1 = QTerm()
-    t1.superSys=[named1, named2, named3]
+    t1.qSystems=[named1, named2, named3]
     t1.order=[orde, orde, orde]
-    assert t1.superSys == [named1, named2, named3]
+    assert t1.qSystems == [named1, named2, named3]
     assert t1.order == [orde, orde, orde]
     opers = t1.order
     subSys = list(t1.subSys.values())
