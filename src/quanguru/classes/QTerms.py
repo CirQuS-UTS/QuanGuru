@@ -12,7 +12,7 @@ class QTerm(paramBoundBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['timeDependency', '__frequency', '__order', '__operator', '__HamiltonianTerm']
+    __slots__ = ['timeDependency', '_timeDepSys', '__frequency', '__order', '__operator', '__HamiltonianTerm']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -30,7 +30,23 @@ class QTerm(paramBoundBase):
         self.__order = 1
         #: used for storing the matrix corresponding to this term
         self.__HamiltonianTerm = None
+        #: function that can be assigned by the user to update the parameters a function of time. The library passes the
+        #: current time to this function
+        self.timeDependency = None
+        #: system to get the time information if time is None in _timeDependency
+        self._timeDepSys = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    def _timeDependency(self, time=None):
+        r"""
+        Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
+        to update the relevant parameters (such as frequency of the term) as a function of time.
+        """
+        if ((time is None) and (hasattr(self._timeDepSys, 'simulation'))):
+            time = self._timeDepSys.simulation._currentTime
+
+        if callable(self.timeDependency):
+            self.timeDependency(self, time) # pylint: disable=assigning-non-slot,not-callable
 
     @property
     def qSystems(self):
