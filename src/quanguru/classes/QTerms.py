@@ -12,7 +12,7 @@ class QTerm(paramBoundBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['timeDependency', '__frequency', '__order', '__operator']
+    __slots__ = ['timeDependency', '__frequency', '__order', '__operator', '__HamiltonianTerm']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -28,6 +28,8 @@ class QTerm(paramBoundBase):
         self.__operator = None
         #: the order/power for the operator of the term. The operator is raised to the power in this value
         self.__order = 1
+        #: used for storing the matrix corresponding to this term
+        self.__HamiltonianTerm = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -105,3 +107,36 @@ class QTerm(paramBoundBase):
     def frequency(self, freq):
         checkCorType(freq, (int, float, complex, type(None)), 'frequency of a term')
         setAttr(self, '_QTerm__frequency', 0 if freq == 0.0 else freq)
+
+    def _constructMatrices(self):
+        r"""
+        The matrices for the operators constructed and de-constructed whenever they should be, and this method is used
+        internally in various places when the matrices are needed to be constructed.
+        """
+        return self
+
+    @property
+    def totalHamiltonian(self):
+        r"""
+        Return the total Hamiltonian for this term.
+        """
+        if ((self._QTerm__HamiltonianTerm is None) or (self._paramUpdated)):
+            self._QTerm__HamiltonianTerm = self.frequency*self._freeMatrix #pylint:disable=assigning-non-slot
+            self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
+        return self._QTerm__HamiltonianTerm
+
+    @property
+    def _freeMatrix(self):
+        r"""
+        Gets and sets the free matrix, ie without the frequency (or, equivalently frequency=1) of the term.
+        """
+        if self._paramBoundBase__matrix is None: # pylint: disable=no-member
+            self._freeMatrix = None
+        return self._paramBoundBase__matrix # pylint: disable=no-member
+
+    @_freeMatrix.setter
+    def _freeMatrix(self, qMat):
+        if qMat is not None:
+            self._paramBoundBase__matrix = qMat # pylint: disable=no-member, assigning-non-slot
+        else:
+            self._constructMatrices()
