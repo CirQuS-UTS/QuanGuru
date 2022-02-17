@@ -120,28 +120,16 @@ def test_superSysSetterSideEffects(helpers):
     assert named2 not in term1.subSys.values()
 
     term1 = QTerm(superSys=named1)
-    supSys = term1.superSys
-    subSys = list(term1.subSys.values())
-    for ind, te in enumerate(subSys):
-        assert te.superSys is supSys[ind]
-    supSys = term1.superSys
-    subSys = list(term1.subSys.values())
-    for ind, te in enumerate(supSys):
-        assert te is subSys[ind].superSys
+    assert len(term1.subSys) == 0
+    assert term1.superSys is named1
 
-    term1.superSys = named4
-    assert named1 not in term1.superSys
-    assert named2 in term1.superSys
-    assert named3 in term1.superSys
-    assert named4 in term1.superSys
-    supSys = term1.superSys
-    subSys = list(term1.subSys.values())
-    for ind, te in enumerate(subSys):
-        assert te.superSys is supSys[ind]
-    supSys = term1.superSys
-    subSys = list(term1.subSys.values())
-    for ind, te in enumerate(supSys):
-        assert te is subSys[ind].superSys
+    term1.superSys = named2.name
+    assert len(term1.subSys) == 0
+    assert term1.superSys is named2
+
+    term1.superSys = randname
+    assert len(term1.subSys) == 0
+    assert term1.superSys is named3
 
     term1 = QTerm(superSys=(named1, named2.name, randname))
     assert term1.order == 1

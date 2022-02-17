@@ -40,5 +40,5 @@ At this point, we should have a stable version with enough documentation for the
 ### 3. Future development 
 Further additions have to be with proper tests, tutorials, docstring etc.
 
-1. Implementation of SCQubits and QDrive using Adrien's work.
+1. Implementation of SCQubits and QDrive.
 1. Interfacing to other libraries.
