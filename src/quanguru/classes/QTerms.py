@@ -3,7 +3,7 @@ from .QSimBase import setAttr
 from .exceptions import checkCorType, checkVal, checkNotVal
 
 class QTerm(paramBoundBase):
-     #: (**class attribute**) class label used in default naming
+    #: (**class attribute**) class label used in default naming
     label = 'QTerm'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -16,30 +16,37 @@ class QTerm(paramBoundBase):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        #: attribute to store the quantum systems of the term
+        #: attribute to store the quantum systems of the term. This is either a single quantum system or a list/tuple of
+        #: quantum systems, and these are needed for the dimension information of the matrix creations
         self.__qSys = None
+        # operator and order are also need to be list/tuple of operators and orders values, so it is required to set the
+        # qSystems of the term. Here, we set the qSystems before anything else.
         qSys = kwargs.pop('qSystems', None)
         if qSys is not None:
             self.qSystems = qSys
-        #: frequency of the term, it is is the coupling strength in the case of coupling term
+        #: frequency of the term which needs to be a numerical value (and None by default). A numerical default could
+        #: lead to mistakes, therefore it is None by default.
         self.__frequency = None
-        #: operator for the term
+        #: operator for the term needs to be a function (pointer) and it is used for the creation of the matrix
+        #: representation of the operator. The library passes the dimension information into this function and converts
+        #: the returned matrix into composite operator if needed. Therefore, this function only needs to return the
+        #: simple matrix (not the composite) by using the dimension information.
         self.__operator = None
         #: the order/power for the operator of the term. The operator is raised to the power in this value
         self.__order = 1
         #: used for storing the matrix corresponding to this term
         self.__HamiltonianTerm = None #pylint:disable=invalid-name
         #: function that can be assigned by the user to update the parameters a function of time. The library passes the
-        #: current time to this function
+        #: current time to this function, and any desired parameter can be updated as a function of time.
         self.timeDependency = None
-        #: system to get the time information if time is None in _timeDependency
+        #: system to get the time information if time is None in _timeDependency.
         self._timeDepSys = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _timeDependency(self, time=None):
         r"""
         Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
-        to update the relevant parameters (such as frequency of the term) as a function of time.
+        to update the desired parameters (such as frequency of the term) as a function of time.
         """
         if ((time is None) and (hasattr(self._timeDepSys, 'simulation'))):
             time = self._timeDepSys.simulation._currentTime
@@ -49,6 +56,12 @@ class QTerm(paramBoundBase):
 
     @property
     def qSystems(self):
+        r"""
+        Property to set and get the single quantum system or a list/tuple of quantum systems that are used by the term
+        for the dimension information during the matrix creations.
+        Setter replaces the existing system/s with the given and also resets the order and operator values to their
+        defaults (with the subSys dict which holds other terms if self has more than 1 quantum system, i.e. coupling)
+        """
         return self._QTerm__qSys
 
     @qSystems.setter
@@ -64,11 +77,17 @@ class QTerm(paramBoundBase):
             qSys = self.getByNameOrAlias(qSys)
         setAttr(self, '_QTerm__qSys', qSys)
 
-    def _createTerm(self, qSystems, operators, orders=None, frequency=None):
-        self.qSystems = qSystems
-        self.operator = operators
-        self.order = [1 for _ in qSystems] if (isinstance(qSystems, (list, tuple)) and (orders is None)) else orders
-        self.frequency = frequency
+    @staticmethod
+    def _createTerm(qSystems, operators, orders=None, frequency=None):
+        r"""
+        Factory method to create new QTerm with the given qSystems, operators, and optional orders and frequency.
+        """
+        newSys = QTerm()
+        newSys.qSystems = qSystems
+        newSys.operator = operators
+        newSys.order = [1 for _ in qSystems] if (isinstance(qSystems, (list, tuple)) and (orders is None)) else orders
+        newSys.frequency = frequency
+        return newSys
 
     def _checkAndUpdateParamsWhenMultiple(self, vals, attrName, attrPrintName):
         checkNotVal(self.qSystems, None, "qSystems of a term should be assigned before the operators and/or"+
