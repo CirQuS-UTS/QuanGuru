@@ -92,7 +92,7 @@ class QTerm(paramBoundBase):
 
     @order.setter
     def order(self, ordVal):
-        self._checkAndUpdateParamsWhenMultiple(ordVal, '_QTerm__order', 'order')
+        self._checkAndUpdateParamsWhenMultiple(ordVal if ordVal is not None else 1, '_QTerm__order', 'order')
 
     @property
     def frequency(self):
@@ -103,5 +103,5 @@ class QTerm(paramBoundBase):
 
     @frequency.setter
     def frequency(self, freq):
-        checkCorType(freq, (int, float, complex), 'frequency of a term')
+        checkCorType(freq, (int, float, complex, type(None)), 'frequency of a term')
         setAttr(self, '_QTerm__frequency', 0 if freq == 0.0 else freq)
