@@ -14,6 +14,7 @@ r"""
         tensorProd
         trace
         partialTrace
+        _matMulInputs
 
     .. |c| unicode:: U+2705
     .. |x| unicode:: U+274C
@@ -345,3 +346,11 @@ def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray
     rhoA = rho.reshape(np.tile(dims, 2))
     rhoA = np.einsum(rhoA, idx1+idx2, optimize=False)
     return rhoA.reshape(Nkeep, Nkeep)
+
+def _matMulInputs(*args):
+    r"""
+    Calculates the matrix multiplication of the given arbitrary number of inputs in the given order.
+    It does not check the correctness of the shapes until the matrix multiplication operator (@) itself gives an error.
+    """
+    totalMul = args[0]
+    return (totalMul @ _matMulInputs(*args[1:])) if len(args) > 1 else totalMul
