@@ -252,5 +252,5 @@ class QTerm(paramBoundBase):
             self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator) #pylint:disable=assigning-non-slot
         elif isinstance(self.qSystems, (list, tuple)):
             opers = [self._dimInput(qsys, self.operator[ind]) for ind, qsys in enumerate(self.qSystems)]
-            self._paramBoundBase__matrix = _matMulInputs(opers) #pylint:disable=assigning-non-slot
+            self._paramBoundBase__matrix = _matMulInputs(*opers) #pylint:disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member

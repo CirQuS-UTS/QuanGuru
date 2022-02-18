@@ -1,7 +1,6 @@
-from ast import operator
 import random as rnd
 import numpy as np
-from quanguru.QuantumToolbox.operators import Jz
+from quanguru.QuantumToolbox.operators import Jz, sigmax
 from quanguru.classes.QTerms import QTerm
 from quanguru.classes.QSystem import QuSystem
 import quanguru as qg
@@ -10,26 +9,40 @@ import quanguru as qg
 def test_constructMatricesOfQTermWithSingleQSystem():
     randDims = [rnd.randint(3, 10) for _ in range(6)] 
 
-    qsys1 = QuSystem(dimension=randDims[0], _dimsBefore=1, _dimsAfter=1)
+    qsys1 = QuSystem(dimension=randDims[0])
     t1 = QTerm(qSystems=qsys1, operator=qg.number)
     assert np.allclose(t1._freeMatrix.A, qg.number(randDims[0]).A)
 
-    qsys1 = QuSystem(dimension=randDims[1], _dimsBefore=1, _dimsAfter=1)
+    qsys1 = QuSystem(dimension=randDims[1])
     t1 = QTerm(qSystems=qsys1, operator=qg.destroy)
     assert np.allclose(t1._freeMatrix.A, qg.destroy(randDims[1]).A)
 
-    qsys1 = QuSystem(dimension=randDims[2], _dimsBefore=1, _dimsAfter=1)
+    qsys1 = QuSystem(dimension=randDims[2])
     t1 = QTerm(qSystems=qsys1, operator=qg.Jx)
     assert np.allclose(t1._freeMatrix.A, qg.Jx(0.5*(randDims[2]-1)).A)
 
-    qsys1 = QuSystem(dimension=randDims[3], _dimsBefore=1, _dimsAfter=1)
+    qsys1 = QuSystem(dimension=randDims[3])
     t1 = QTerm(qSystems=qsys1, operator=qg.Jm)
     assert np.allclose(t1._freeMatrix.A, qg.Jm(0.5*(randDims[3]-1)).A)
 
-    qsys1 = QuSystem(dimension=randDims[4], _dimsBefore=1, _dimsAfter=1)
+    qsys1 = QuSystem(dimension=randDims[4])
     t1 = QTerm(qSystems=qsys1, operator=qg.sigmay)
     assert np.allclose(t1._freeMatrix.A, qg.sigmay().A)
 
-    qsys1 = QuSystem(dimension=randDims[5], _dimsBefore=1, _dimsAfter=1)
+    qsys1 = QuSystem(dimension=randDims[5])
     t1 = QTerm(qSystems=qsys1, operator=qg.sigmap)
     assert np.allclose(t1._freeMatrix.A, qg.sigmap().A)
+
+def test_constructMaticesOfQTermWithMultipleQSystem():
+    randDims = [rnd.randint(3, 10) for _ in range(4)]
+
+    qsys1 = QuSystem(dimension=randDims[0])
+    qsys2 = QuSystem(dimension=randDims[1])
+    qsys3 = QuSystem(dimension=2)
+    qsys4 = QuSystem(dimension=2)
+    qsys5 = QuSystem(dimension=randDims[2])
+    qsys6 = QuSystem(dimension=randDims[3])
+
+    compSys1 = QuSystem(subSys=[qsys1, qsys2, qsys3])
+    t1 = QTerm(qSystems=[qsys1, qsys2, qsys3], operator=[qg.create, qg.Jp, qg.sigmax])
+    assert  np.allclose(t1._freeMatrix.A, qg.tensorProd(qg.create(randDims[0]), qg.Jp(0.5*(randDims[1]-1)), qg.sigmax()).A)
