@@ -1,6 +1,28 @@
+"""
+    Contains the QTerm object that is used for the terms of the quantum system Hamiltonians
+
+    .. currentmodule:: quanguru.classes.QTerms
+
+    .. autosummary::
+
+        QTerm
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `QTerm`                    |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+    =======================    ==================    ================   ===============
+
+"""
 from .baseClasses import paramBoundBase
 from .QSimBase import setAttr
 from .exceptions import checkCorType, checkVal, checkNotVal
+from ..QuantumToolbox import compositeOp, _matMulInputs
+from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-top-level
 
 class QTerm(paramBoundBase):
     #: (**class attribute**) class label used in default naming
@@ -207,3 +229,27 @@ class QTerm(paramBoundBase):
             self._paramBoundBase__matrix = qMat # pylint: disable=no-member, assigning-non-slot
         else:
             self._constructMatrices()
+
+    @staticmethod
+    def _dimInput(qsys, oper):
+        dim = qsys.dimension
+        dimB = qsys._dimsBefore
+        dimA = qsys._dimsAfter
+
+        if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
+            dim = 0.5*(dim-1)
+
+        if oper not in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
+            operMat = oper(dim)
+        else:
+            operMat = oper()
+        operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
+        return operCompMat
+
+    def _constructMatrices(self):
+        if all(hasattr(self.qSystems, attr) for attr in ["dimension", "_dimsBefore", "_dimsAfter"]):
+            self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator) #pylint:disable=assigning-non-slot
+        elif isinstance(self.qSystems, (list, tuple)):
+            opers = [self._dimInput(qsys, self.operator[ind]) for ind, qsys in enumerate(self.qSystems)]
+            self._paramBoundBase__matrix = _matMulInputs(opers) #pylint:disable=assigning-non-slot
+        return self._paramBoundBase__matrix # pylint: disable=no-member
