@@ -1,5 +1,22 @@
-r"""
-    New QuantumSystem implementation.
+"""
+    Contains the QuSystem class used for quantum systems
+
+    .. currentmodule:: quanguru.classes.QSystem
+
+    .. autosummary::
+
+        QuSystem
+
+    .. |c| unicode:: U+2705
+    .. |x| unicode:: U+274C
+    .. |w| unicode:: U+2000
+
+    =======================    ==================    ================   ===============
+       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
+    =======================    ==================    ================   ===============
+      `QuSystem`                 |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+    =======================    ==================    ================   ===============
+
 """
 
 from collections import OrderedDict
