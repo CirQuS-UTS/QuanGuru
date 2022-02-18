@@ -197,13 +197,6 @@ class QTerm(paramBoundBase):
         checkCorType(freq, (int, float, complex, type(None)), 'frequency of a term')
         setAttr(self, '_QTerm__frequency', 0 if freq == 0.0 else freq)
 
-    def _constructMatrices(self):
-        r"""
-        The matrices for the operators constructed and de-constructed whenever they should be, and this method is used
-        internally in various places when the matrices are needed to be constructed.
-        """
-        return self
-
     @property
     def totalHamiltonian(self):
         r"""
@@ -232,6 +225,10 @@ class QTerm(paramBoundBase):
 
     @staticmethod
     def _dimInput(qsys, oper):
+        r"""
+        Static method to create the composite operator for a given quantum system and operator.
+        This method is used in _constructMatrices, where the system and operator are passed.
+        """
         dim = qsys.dimension
         dimB = qsys._dimsBefore
         dimA = qsys._dimsAfter
@@ -247,6 +244,10 @@ class QTerm(paramBoundBase):
         return operCompMat
 
     def _constructMatrices(self):
+        r"""
+        The matrices for the operators constructed and de-constructed whenever they should be, and this method is used
+        internally in various places when the matrices are needed to be constructed.
+        """
         if all(hasattr(self.qSystems, attr) for attr in ["dimension", "_dimsBefore", "_dimsAfter"]):
             self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator) #pylint:disable=assigning-non-slot
         elif isinstance(self.qSystems, (list, tuple)):
