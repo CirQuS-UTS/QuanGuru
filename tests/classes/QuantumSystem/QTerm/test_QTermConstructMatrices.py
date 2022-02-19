@@ -44,5 +44,21 @@ def test_constructMaticesOfQTermWithMultipleQSystem():
     qsys6 = QuSystem(dimension=randDims[3])
 
     compSys1 = QuSystem(subSys=[qsys1, qsys2, qsys3])
-    t1 = QTerm(qSystems=[qsys1, qsys2, qsys3], operator=[qg.create, qg.Jp, qg.sigmax])
-    assert  np.allclose(t1._freeMatrix.A, qg.tensorProd(qg.create(randDims[0]), qg.Jp(0.5*(randDims[1]-1)), qg.sigmax()).A)
+    t1 = QTerm(qSystems=[qsys1, qsys2], operator=[qg.create, qg.Jp])
+    assert  np.allclose(t1._freeMatrix.A, qg.tensorProd(qg.create(randDims[0]), qg.Jp(0.5*(randDims[1]-1)), qg.identity(2)).A)
+
+    t1 = QTerm(qSystems=[qsys3, qsys2], operator=[qg.sigmax, qg.Jp])
+    assert  np.allclose(t1._freeMatrix.A, qg.tensorProd(qg.identity(randDims[0]), qg.Jp(0.5*(randDims[1]-1)), qg.sigmax()).A)
+
+    t1 = QTerm(qSystems=[qsys1, qsys3], operator=[qg.create, qg.sigmax])
+    assert  np.allclose(t1._freeMatrix.A, qg.tensorProd(qg.create(randDims[0]), qg.identity(randDims[1]), qg.sigmax()).A)
+
+    compSys1 = QuSystem(subSys=[qsys6, qsys5, qsys4])
+    t1 = QTerm(qSystems=[qsys6, qsys5, qsys4], operator=[qg.create, qg.Jp, qg.sigmax])
+    assert  np.allclose(t1._freeMatrix.A, qg.tensorProd(qg.create(randDims[3]), qg.Jp(0.5*(randDims[2]-1)), qg.sigmax()).A)
+
+    t1 = QTerm(qSystems=[qsys6, qsys4, qsys5], operator=[qg.create, qg.sigmax, qg.Jp])
+    assert  np.allclose(t1._freeMatrix.A, qg.tensorProd(qg.create(randDims[3]), qg.Jp(0.5*(randDims[2]-1)), qg.sigmax()).A)
+
+    t1 = QTerm(qSystems=[qsys5, qsys6, qsys4], operator=[qg.Jp, qg.create, qg.sigmax])
+    assert  np.allclose(t1._freeMatrix.A, qg.tensorProd(qg.create(randDims[3]), qg.Jp(0.5*(randDims[2]-1)), qg.sigmax()).A)
