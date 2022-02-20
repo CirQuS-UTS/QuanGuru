@@ -29,6 +29,7 @@ from .base import addDecorator, _recurseIfList
 from .QSimComp import QSimComp
 from .QPro import freeEvolution
 from .QSimBase import setAttr
+from .QTerms import QTerm
 from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
@@ -71,9 +72,10 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         #: First term is also stored in __firstTerm attribute
-        self.__firstTerm = None
+        self.__firstTerm = QTerm(qSystems=self)
         #: dictionary of the terms
         self.__terms = OrderedDict()
+        self._QuSystem__terms[self._QuSystem__firstTerm.name] = self._QuSystem__firstTerm.name
         #: dimension of Hilbert space of the quantum system
         self.__dimension = 1
         #: boolean flag for composite/single systems
@@ -104,6 +106,19 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             sys._constructMatrices() # pylint: disable=protected-access
         for ter in self.terms.values():
             ter._constructMatrices() # pylint: disable=protected-access
+
+    def _timeDependency(self, time=None):
+        r"""
+        An internal method used to pass down the current time in evolution to all the ``subSys`` and ``terms``. The term
+        objects timeDependency functions are used for updating relevant parameters as a function of time.
+        """
+        if time is None:
+            time = self.simulation._currentTime
+        for sys in self.subSys.values():
+            sys._timeDependency(time)
+        for ter in self.terms.values():
+            ter._timeDependency(time)
+        return time
 
     @_initStDec
     def _createInitialState(self, inp=None):
@@ -459,6 +474,11 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self.simulation.addProtocol(protocol=protocol, system=system, protocolRemove=protocolRemove)
 
     # these will work after term object is implemented
+
+    def createTerm(self, operators, qSystems=None, orders=None, frequency=None):
+        if qSystems is None:
+            qSystems = self
+
     @property
     def terms(self):
         return self._QuSystem__terms # pylint:disable=no-member
