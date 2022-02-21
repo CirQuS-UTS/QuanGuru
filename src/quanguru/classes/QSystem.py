@@ -57,6 +57,9 @@ def _initStDec(_createInitialState):
     return wrapper
 
 class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
+    r"""
+    Class for quantum systems, both for single and composite systems, which can also be nested.
+    """
     #: (**class attribute**) class label used in default naming
     label = 'QuSystem'
     #: (**class attribute**) number of instances created internally by the library
@@ -536,6 +539,43 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         trm.superSys = supSys
         trm._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access, no-member
 
+    def _removeTermExc(self, termObj, _exclude=[]): #pylint:disable=dangerous-default-value
+        r"""
+        The method to find and remove the term from a quantum system.
+        """
+        termObj = self.getByNameOrAlias(termObj)
+        checkCorType(termObj, QTerm, f"Given object {termObj.name} is not a term")
+        if termObj in self.terms.values():
+            checkNotVal(termObj, self._firstTerm, "First terms cannot be removed")
+            _exclude.append(self)
+            self.terms.pop(termObj.name)
+            _exclude.append(termObj)
+        else:
+            if self not in _exclude:
+                _exclude.append(self)
+                for qsys in self.subSys.values():
+                    qsys._removeTermExc(termObj, _exclude) #pylint:disable=protected-access
+                    if termObj in _exclude:
+                        break
+                else:
+                    if self.superSys is not None:
+                        self.superSys._removeTermExc(termObj, _exclude) #pylint:disable=protected-access
+        self.delMatrices(_exclude=[])
+        self._paramUpdated = True
+
+    @_recurseIfList
+    def removeTerm(self, termObj):
+        r"""
+        Method to remove the given term from the quantum system. This can be called on any system in a composite system
+        to remove any term, even if it belongs to another sub-system. This is intended so that the term of a subsystem
+        can be removed through the composite system, especially for nested-composite systems.
+        You can also give a list of terms (or their named/aliases) to be removed.
+        This method is a wrapper around the actual remove method the ``_removeTermExc`` so that it is called with an
+        empty _exclude list, which is used to avoid infinite recursions when finding the term inside a nested system.
+        Note that it will raise an error, if the given term is the first-term if the system.
+        """
+        self._removeTermExc(termObj=termObj, _exclude=[])
+
     def resetTerms(self):
         r"""
         Method to delete all the existing terms by assigning a new empty dictionary.
@@ -586,5 +626,16 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     @order.setter
     def order(self, odr):
         self._firstTerm.order = odr
+
+    @property
+    def _freeMatrix(self):
+        r"""
+        Property to get & set the free (i.e. no frequency or, equivalently frequency=1) matrix for the first term.
+        """
+        return self._firstTerm._freeMatrix # pylint: disable=protected-access
+
+    @_freeMatrix.setter
+    def _freeMatrix(self, qMat):
+        self._firstTerm._freeMatrix = qMat # pylint: disable=protected-access
 
 QuSystem._createAstate = QuSystem._createInitialState # pylint:disable=protected-access

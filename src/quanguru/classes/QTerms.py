@@ -25,6 +25,9 @@ from ..QuantumToolbox import compositeOp, _matMulInputs
 from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-top-level
 
 class QTerm(paramBoundBase):
+    r"""
+    Class for Hamiltonian terms, both for single system terms and couplings.
+    """
     #: (**class attribute**) class label used in default naming
     label = 'QTerm'
     #: (**class attribute**) number of instances created internally by the library
