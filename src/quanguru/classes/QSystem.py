@@ -475,20 +475,71 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     # these will work after term object is implemented
 
-    def createTerm(self, operators, qSystems=None, orders=None, frequency=None):
+    def createTerm(self, operators, frequency=None, qSystems=None, orders=None):
+        r"""
+        Method to create a new term with the given parameters.
+
+        Parameters
+        ----------
+
+        operators : Callable
+            operator/s of the term
+        frequency :
+            frequency of the term, by default None
+        qSystems : QuSystem
+            quantum system/s for the given operator/s, and it is self if no system is given
+        orders :
+            order/s of the operator/s, it is set to 1 by default if no order value is given
+
+        Returns
+        -------
+        QTerm
+            Newly created QTerm object
+
+        """
         if qSystems is None:
             qSystems = self
 
+        if isinstance(qSystems, (list, tuple)):
+            checkVal(self._isComposite, True, "Cannot add a multi-operator term (ie a coupling) to a single system")
+            for qsys in qSystems:
+                checkVal(self._hasInSubs(qsys), True,
+                         f"Cannot add a multi-operator term (ie a coupling) to {self.name}, because {qsys.name} is not"+
+                         f"contained in the {self.name}")
+        newTerm = QTerm._createTerm(qSystems=qSystems, operators=operators, orders=orders, frequency=frequency) #pylint:disable=protected-access
+        self._QuSystem__terms[newTerm.name] = newTerm  # pylint:disable=no-member
+        self._paramUpdated = True
+        newTerm.superSys = self # pylint: disable=protected-access
+        newTerm._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access, no-member
+        return newTerm
+
     @property
     def terms(self):
+        r"""
+        Property to get & set the terms of the quantum system. Note that the setter is not intended for adding a new
+        term, but replace the all the existing terms with the given term/s (which can be a single term or a list of
+        terms, and it also works with names and/or aliases). In order to add an additional term to existing ones, use
+        ``addTerm`` method.
+        """
         return self._QuSystem__terms # pylint:disable=no-member
 
     @addDecorator
-    def addTerms(self, trm):
+    def addTerms(self, trm, **kwargs):
+        r"""
+        Method to add an existing term to self and also optionally set some of the term parameters through the kwargs.
+        """
+        checkCorType(trm, QTerm, f"addTerms argument/s ({trm.name})")
+        supSys = kwargs.pop('superSys', self)
+        trm._named__setKwargs(**kwargs) # pylint: disable=W0212
         self._QuSystem__terms[trm.name] = trm  # pylint:disable=no-member
-        trm.superSys = self
+        self._paramUpdated = True
+        trm.superSys = supSys
+        trm._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access, no-member
 
     def resetTerms(self):
+        r"""
+        Method to delete all the existing terms by assigning a new empty dictionary.
+        """
         self._QuSystem__terms = OrderedDict() # pylint:disable=assigning-non-slot
 
     @terms.setter
@@ -498,10 +549,16 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     @property
     def _firstTerm(self):
+        r"""
+        Property to get the first term of the quantum system.
+        """
         return self._QuSystem__firstTerm # pylint:disable=no-member
 
     @property
     def frequency(self):
+        r"""
+        Property to get & set the frequency of the first term of the quantum system.
+        """
         return self._firstTerm.frequency
 
     @frequency.setter
@@ -510,6 +567,9 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     @property
     def operator(self):
+        r"""
+        Property to get & set the operator of the first term of the quantum system.
+        """
         return self._firstTerm.operator
 
     @operator.setter
@@ -518,6 +578,9 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     @property
     def order(self):
+        r"""
+        Property to get & set the order of the first term of the quantum system.
+        """
         return self._firstTerm.order
 
     @order.setter
