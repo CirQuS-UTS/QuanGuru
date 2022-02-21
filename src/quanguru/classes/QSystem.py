@@ -34,6 +34,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox.operators import number, Jz
 
 def _initStDec(_createInitialState):
     r"""
@@ -674,3 +675,77 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         return newComp
 
 QuSystem._createAstate = QuSystem._createInitialState # pylint:disable=protected-access
+
+class Cavity(QuSystem): # pylint: disable=too-many-ancestors
+    r"""
+    Cavity class, the only difference from a generic quantum object is that, by default, its operator is the number
+    operator.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'Cavity'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = []
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False))
+        self.operator = number
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+class Spin(QuSystem): # pylint: disable=too-many-ancestors
+    r"""
+    Object for a single Spin system with spin j (jValue).
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'Spin'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = ['__jValue']
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False))
+        #: operator for (the first term in) its Hamiltonian
+        self.operator = Jz
+        #: spin quantum number
+        self.__jValue = None
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def jValue(self):
+        r"""
+        Gets and sets the spin quantum number
+        """
+        return (self._genericQSys__dimension-1)/2 # pylint: disable=no-member
+
+    @jValue.setter
+    def jValue(self, value):
+        self._Spin__jValue = value # pylint: disable=assigning-non-slot
+        self.dimension = int((2*value) + 1)
+
+class Qubit(Spin): # pylint: disable=too-many-ancestors
+    r"""
+    Spin 1/2 special case of Spin class, i.e. a Qubit.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'Qubit'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = []
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False))
+        kwargs['dimension'] = 2
+        self.operator = Jz
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
