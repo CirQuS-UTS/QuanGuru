@@ -25,24 +25,24 @@
 
 """
 
-from ..QSys import compQSystem, Qubit, Cavity, Spin
+from ..QSys import compQSystem, QubitOld, CavityOld, SpinOld
 from ...QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax, Jx
 
 
 def checkCavQub(coupler):
     def couplerDecorator(obj, couplingStrength, subSys1=None, subSys2=None):
-        if isinstance(subSys1, (Qubit, Spin)):
-            if not isinstance(subSys2, Cavity):
+        if isinstance(subSys1, (QubitOld, SpinOld)):
+            if not isinstance(subSys2, CavityOld):
                 raise ValueError('Jaynes-Cummings requires a qubit and a cavity')
             qsystems = [subSys2, subSys1]
-        elif isinstance(subSys2, (Qubit, Spin)):
-            if not isinstance(subSys1, Cavity):
+        elif isinstance(subSys2, (QubitOld, SpinOld)):
+            if not isinstance(subSys1, CavityOld):
                 raise ValueError('Jaynes-Cummings requires a qubit and a cavity')
             qsystems = [subSys1, subSys2]
         elif ((subSys1 is None) or (subSys2 is None)):
             qsystems = []
             for sys in obj.subSys.values():
-                if isinstance(sys, (Cavity, Qubit, Spin)):
+                if isinstance(sys, (CavityOld, QubitOld, SpinOld)):
                     if len(qsystems) == 0:
                         qsystems.append(sys)
                     elif not isinstance(sys, qsystems[0].__class__):
