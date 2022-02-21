@@ -339,7 +339,7 @@ class genericQSys(QSimComp):
             sys._timeDependency(time)
         return time
 
-class QuantumSystem(genericQSys):
+class QuantumSystemOld(genericQSys):
     r"""
     This class can be used for creating either a composite or a single quantum system depending on the given ``kwargs``,
     if no ``kwargs`` given, it creates a composite system by default.
@@ -376,7 +376,7 @@ class compQSystem(genericQSys):
     """
 
     #: (**class attribute**) class label used in default naming
-    label = 'QuantumSystem'
+    label = 'QuantumSystemOld'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
@@ -834,7 +834,7 @@ class qSystem(genericQSys):
     Class for single quantum systems, used as the parent for :class:`~Cavity`, :class:`~Spin`, and :class:`~Qubit`.
     """
     #: (**class attribute**) class label used in default naming
-    label = 'QuantumSystem'
+    label = 'QuantumSystemOld'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
@@ -1045,12 +1045,12 @@ class qSystem(genericQSys):
             raise ValueError(self.name + ' is not given an initial state')
         return qSta.superPos(self.dimension, inp, not self._inpCoef)
 
-class Spin(qSystem): # pylint: disable=too-many-ancestors
+class SpinOld(qSystem): # pylint: disable=too-many-ancestors
     r"""
     Object for a single Spin system with spin j (jValue).
     """
     #: (**class attribute**) class label used in default naming
-    label = 'Spin'
+    label = 'SpinOld'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
@@ -1077,15 +1077,15 @@ class Spin(qSystem): # pylint: disable=too-many-ancestors
 
     @jValue.setter
     def jValue(self, value):
-        self._Spin__jValue = value # pylint: disable=assigning-non-slot
+        self._SpinOld__jValue = value # pylint: disable=assigning-non-slot
         self.dimension = int((2*value) + 1)
 
-class Qubit(Spin): # pylint: disable=too-many-ancestors
+class QubitOld(SpinOld): # pylint: disable=too-many-ancestors
     r"""
     Spin 1/2 special case of Spin class, i.e. a Qubit.
     """
     #: (**class attribute**) class label used in default naming
-    label = 'Qubit'
+    label = 'QubitOld'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
@@ -1101,13 +1101,13 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
         self.operator = qOps.Jz
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-class Cavity(qSystem): # pylint: disable=too-many-ancestors
+class CavityOld(qSystem): # pylint: disable=too-many-ancestors
     r"""
     Cavity class, the only difference from a generic quantum object is that, by default, its operator is the number
     operator.
     """
     #: (**class attribute**) class label used in default naming
-    label = 'Cavity'
+    label = 'CavityOld'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
     #: (**class attribute**) number of instances created explicitly by the user
