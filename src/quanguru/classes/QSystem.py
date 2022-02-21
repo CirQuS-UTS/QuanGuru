@@ -445,8 +445,10 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                     if self.superSys is not None:
                         self.superSys._removeSubSysExc(subSys, _exclude=_exclude) #pylint:disable=protected-access
 
-        # TODO
-        # need to remove any coupling/term that relies on the removed system
+        if subSys is not self:
+            termObjs = list(self.terms.values())
+            for ter in termObjs:
+                ter._removeTermIfQSysInList(subSys)#pylint:disable=protected-access
         self.delMatrices(_exclude=[])
         self._paramUpdated = True
 

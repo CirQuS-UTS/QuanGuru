@@ -102,6 +102,11 @@ class QTerm(paramBoundBase):
             qSys = self.getByNameOrAlias(qSys)
         setAttr(self, '_QTerm__qSys', qSys)
 
+    def _removeTermIfQSysInList(self, qSys):
+        if isinstance(self.qSystems, (list, tuple)):
+            if qSys in self.qSystems:
+                qSys.removeTerm(self)
+
     @staticmethod
     def _createTerm(qSystems, operators, orders=None, frequency=None):
         r"""
