@@ -356,7 +356,8 @@ class freeEvolution(genericProtocol):
     _freqCoef = 1 #2 * np.pi
     def matrixExponentiation(self, collapseOps = None, decayRates = None):
         self._increaseExponentiationCount()
-        unitary = lio.LiouvillianExp(self._freqCoef * self.superSys.totalHam, # pylint: disable=no-member
+        hamiltonian = self.superSys.totalHam if hasattr(self.superSys, 'totalHam') else self.superSys.totalHamiltonian #pylint:disable=no-member
+        unitary = lio.LiouvillianExp(self._freqCoef * hamiltonian, # pylint: disable=no-member
                                      timeStep=((self.simulation.stepSize*self.ratio)/self.simulation.samples),
                                      collapseOperators=collapseOps, decayRates=decayRates)
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
