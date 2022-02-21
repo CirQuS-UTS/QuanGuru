@@ -640,4 +640,37 @@ class QuSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     def _freeMatrix(self, qMat):
         self._firstTerm._freeMatrix = qMat # pylint: disable=protected-access
 
+    def copy(self, **kwargs):
+        newSys = QuSystem()
+        for qsys in self.subSys.values():
+            cqsys = qsys.copy()
+            cqsys.alias = qsys.name + "_" + cqsys.name
+            newSys.addSubSys(cqsys)
+        subSysList = list(newSys.subSys.values())
+        for ter in self.terms.values():
+            if isinstance(ter.qSystems, QuSystem):
+                qSystemNames = ter.qSystems.name + "_" + subSysList[ter.qSystems.ind].name
+            else:
+                qSystemNames = []
+                for qsys in ter.qSystems:
+                    qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind].name)
+            newSys.createTerm(operators=ter.operators,
+                              qSystems=qSystemNames,
+                              frequency=ter.frequency,
+                              orders=ter.orders)
+        if self.simulation._stateBase__initialStateInput._value is not None:
+            newSys.initialState = self.simulation._stateBase__initialStateInput.value #pylint:disable=assigning-non-slot
+        newSys._named__setKwargs(**kwargs) #pylint:disable=no-member
+
+    def __rmul__(self, other):
+        r"""
+        With this method, ``*`` creates a composite quantum system that contains ``N=other`` many quantum systems with
+        the same ``type`` as ``self``.
+        """
+        newComp = QuSystem()
+        newComp.addSubSys(self)
+        for _ in range(other - 1):
+            newComp.addSubSys(self.copy())
+        return newComp
+
 QuSystem._createAstate = QuSystem._createInitialState # pylint:disable=protected-access
