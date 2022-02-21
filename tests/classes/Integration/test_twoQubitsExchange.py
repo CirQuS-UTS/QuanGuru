@@ -47,8 +47,8 @@ def test_twoQubitExchange(twoQubitsExchange):
     qbIn = qb1 + qb2
 
     # couple the qubits with the random coupling strength
-    coupling1 = qbIn.createSysCoupling([qb1, qb2], [qg.sigmam, qg.sigmap], couplingStrength=cStg)
-    coupling2 = qbIn.createSysCoupling([qb1, qb2], [qg.sigmap, qg.sigmam], frequency=cStg)
+    coupling1 = qbIn.createTerm(qSystems=[qb1, qb2], operators=[qg.sigmam, qg.sigmap], frequency=cStg)
+    coupling2 = qbIn.createTerm(qSystems=[qb1, qb2], operators=[qg.sigmap, qg.sigmam], frequency=cStg)
 
     # create the initial state with the random coefficients
     qbIn.initialState = c00inp*qg.basis(4, 0) + c10inp*qg.basis(4, 1) + c01inp*qg.basis(4, 2) + c11inp*qg.basis(4, 3)
@@ -62,7 +62,7 @@ def test_twoQubitExchange(twoQubitsExchange):
     qbIn.simCompute = comp
     qbIn.simDelStates = True
     cSweep1 = qbIn.simulation.Sweep.createSweep(system=coupling1, sweepKey="frequency", sweepList=gList)
-    cSweep2 = qbIn.simulation.Sweep.createSweep(system=coupling2, sweepKey="couplingStrength", sweepList=gList)
+    cSweep2 = qbIn.simulation.Sweep.createSweep(system=coupling2, sweepKey="frequency", sweepList=gList)
     qbIn.runSimulation()
 
     for ind, cStg in enumerate(gList):

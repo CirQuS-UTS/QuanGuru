@@ -15,23 +15,26 @@ def _nnExchange(compSys, couplingStrength, op1=qg.sigmax, op2=qg.sigmay):
     for ind in range(numberOfSubSys-1):
         s = [qubs[ind], qubs[ind+1]]
         couplingObjs.append(
-            compSys.createSysCoupling(
-                s, [op1, op1], s, [op2, op2], superSys=compSys, couplingStrength=couplingStrength))
+            compSys.createTerm(operators=[op1, op1], frequency=couplingStrength, qSystems=s))
+        couplingObjs.append(
+            compSys.createTerm(operators=[op2, op2], frequency=couplingStrength, qSystems=s))
     return couplingObjs
 
 def _xy(compSys, couplingStrength, qubits = None, exchangeCouplings = None):
     if qubits is None:
-        qubits = list(compSys.qSystems.values())
+        qubits = list(compSys.subSys.values())
 
-    if exchangeCouplings is None:
-        exchangeCouplings = compSys.qCouplings.values()
+    # if exchangeCouplings is None:
+    #     exchangeCouplings = compSys.qCouplings.values()
 
     interactionSteps = []
-    for c in exchangeCouplings:
+    ind = 0
+    while ind in range(len(exchangeCouplings)):
         u1 = qg.freeEvolution(superSys=compSys)
-        u1.createUpdate(system=c, key='couplingStrength', value=couplingStrength/2)
+        u1.createUpdate(system=[exchangeCouplings[ind], exchangeCouplings[ind+1]], key='frequency', value=couplingStrength/2)
         u1.createUpdate(system=qubits, key='frequency', value=0)
         interactionSteps.append(u1)
+        ind += 2
 
     return interactionSteps
 
@@ -65,7 +68,7 @@ def _digitalHeisenberg(numOfQubits, couplingStrength, freeOperator=qg.Jz, freequ
     protocol = qg.qProtocol(superSys=compSys)
 
     s1 = qg.freeEvolution(superSys=compSys)
-    qubits = list(compSys.qSystems.values())
+    qubits = list(compSys.subSys.values())
     interactionSteps = _xy(compSys, couplingStrength, qubits, exchangeCouplings)
     xRots = _rots(qubits)
     yRots = _rots(qubits, 'y')
@@ -141,3 +144,5 @@ stepSizeSweep = simulation.Sweep.createSweep(system=simulation, sweepKey='stepSi
 
 simulation.compute = compute
 simulation.totalTime = totalSimTimeV
+
+simulation.run(p=False)

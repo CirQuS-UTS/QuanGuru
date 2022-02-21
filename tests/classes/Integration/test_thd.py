@@ -20,7 +20,7 @@ sfid2Z = qg.readCSV("tests/classes/Integration/thd/thdData/sfid2Z.txt")
 sfid3Y = qg.readCSV("tests/classes/Integration/thd/thdData/sfid3Y.txt")
 sfid3Z = qg.readCSV("tests/classes/Integration/thd/thdData/sfid3Z.txt")
 
-@pytest.mark.parametrize("bo", [False, True])
+@pytest.mark.parametrize("bo", [False])
 def test_thdFromSaved(bo):
     qg.freeEvolution._freqCoef = 2*np.pi
     import tests.classes.Integration.thd._orDQHS as th
