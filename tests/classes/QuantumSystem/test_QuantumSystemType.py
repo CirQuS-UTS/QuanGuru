@@ -4,16 +4,16 @@ import quanguru.classes.QSystem as QSys
 # tests for composite vs single system cases of the quantum system object
 
 @pytest.mark.parametrize("attrName, attrVal", [
-                         ["_QuSystem__compSys", False],
+                         ["_QuantumSystem__compSys", False],
                          ["dimension", 3]
                          ])
 def test_cannotAddSubSysToSingleQuantumSystem(attrName, attrVal):
     # create a quantum system
-    singleSys = QSys.QuSystem()
-    # set a relevant attribute that turns _QuSystem__compSys to False
+    singleSys = QSys.QuantumSystem()
+    # set a relevant attribute that turns _QuantumSystem__compSys to False
     setattr(singleSys, attrName, attrVal)
     # create another system
-    anotherSys = QSys.QuSystem()
+    anotherSys = QSys.QuantumSystem()
     # trying to add anotherSys as subSys should raise TypeError
     with pytest.raises(TypeError):
         singleSys.addSubSys(anotherSys)
@@ -26,13 +26,13 @@ def test_cannotAddSubSysToSingleQuantumSystem(attrName, attrVal):
                          ])
 def test_cannotSetSingleSysAttrToCompSystem(attrName, attrVal, defVal):
     # create a quantum system
-    qsystem = QSys.QuSystem()
+    qsystem = QSys.QuantumSystem()
     # create another to add as a subSys
-    asystem = QSys.QuSystem()
+    asystem = QSys.QuantumSystem()
     qsystem.addSubSys(asystem)
 
-    # assert that the _QuSystem__compSys is changed
-    assert qsystem._QuSystem__compSys is True
+    # assert that the _QuantumSystem__compSys is changed
+    assert qsystem._QuantumSystem__compSys is True
 
     # make sure that setting single system parameters warns
     with pytest.warns(Warning):

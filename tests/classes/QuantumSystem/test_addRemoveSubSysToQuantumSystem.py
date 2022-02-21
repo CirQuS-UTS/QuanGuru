@@ -1,12 +1,12 @@
 import random as rnd
 import pytest
 import quanguru.classes.QSystem as QSys
-from quanguru.classes.QSys import QuantumSystem
+from quanguru.classes.QSys import QuantumSystemOld
 
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystem,
-                         QSys.QuSystem
+                         QuantumSystemOld,
+                         QSys.QuantumSystem
                          ])
 def test_addAndremoveSubSysMethods(cls):
     # create 4 objects to be used as composite systems
@@ -182,12 +182,8 @@ def test_addAndremoveSubSysMethods(cls):
     assert comp2._dimsBefore == 1
     assert comp1._dimsBefore == 1
 
-# @pytest.mark.parametrize("cls", [
-#                          QuantumSystem,
-#                          QSys.QuSystem
-#                          ])
 def test_addAndremoveSubSysOperators():
-    cls = QSys.QuSystem
+    cls = QSys.QuantumSystem
     # create 4 objects to be used as composite systems
     comp1 = cls()
     comp2 = cls()
