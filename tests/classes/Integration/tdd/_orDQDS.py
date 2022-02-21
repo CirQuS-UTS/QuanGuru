@@ -10,15 +10,15 @@ spinFrequency = 3.5
 cavityFrequency = 3.5
 
 # objects for digital
-cavityDigital = qg.Cavity(dimension=cavityDimension, frequency=cavityFrequency/2, alias='cavityDigital')
-spinDigital = qg.Spin(frequency=spinFrequency, jValue=spinNumber, alias='spinDigital')
+cavityDigital = qg.CavityOld(dimension=cavityDimension, frequency=cavityFrequency/2, alias='cavityDigital')
+spinDigital = qg.SpinOld(frequency=spinFrequency, jValue=spinNumber, alias='spinDigital')
 digitalSystem = cavityDigital + spinDigital
 digitalCoupling = digitalSystem.JC(couplingStrength/np.sqrt(2*spinNumber))
 digitalSystem.initialState = [0,0]
 
 # objects for Dicke
-cavityDicke = qg.Cavity(dimension=cavityDimension, frequency=cavityFrequency, alias='cavityDicke')
-spinDicke = qg.Spin(frequency=spinFrequency, jValue=spinNumber, alias='spinDicke')
+cavityDicke = qg.CavityOld(dimension=cavityDimension, frequency=cavityFrequency, alias='cavityDicke')
+spinDicke = qg.SpinOld(frequency=spinFrequency, jValue=spinNumber, alias='spinDicke')
 ds = cavityDicke + spinDicke
 # NOTE use of Jx in coupling vs Jp + Jm lead to factor of 2
 DickeCoupling = ds.Dicke((2*couplingStrength)/np.sqrt(2*spinNumber))
