@@ -102,9 +102,13 @@ class QTerm(paramBoundBase):
             qSys = self.getByNameOrAlias(qSys)
         setAttr(self, '_QTerm__qSys', qSys)
 
-    def _removeTermIfQSysInList(self, qSys):
+    def _removeTermIfQSysInList(self, qSys, subSys):
+        r"""
+        removes self (the term) from the terms of given qSys if a particular subSys is in qSystems list of self.
+        This is an internal method used in removeSubSys of quantum systems.
+        """
         if isinstance(self.qSystems, (list, tuple)):
-            if qSys in self.qSystems:
+            if subSys in self.qSystems:
                 qSys.removeTerm(self)
 
     @staticmethod
