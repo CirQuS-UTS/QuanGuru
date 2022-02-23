@@ -16,8 +16,9 @@ Classes (:mod:`quanguru.classes`)
    BaseClasses <classes/baseClasses>
    QSimBase <classes/QSimBase>
    QSimComp <classes/QSimComp>
-   Quantum System Classes <classes/QSys>
-   Simulation Classes <classes/QSim>
+   Quantum System Class <classes/QSystem>
+   Term Class <classes/Term>
+   Simulation Class <classes/QSim>
    QProtocol Classes <classes/QPro>
    Results Classes <classes/QRes>
    Sweep Classes <classes/QSweep>
@@ -26,4 +27,5 @@ Classes (:mod:`quanguru.classes`)
    QDrive Classes <classes/QDrive>
    Exceptions <classes/exceptions>
    Extensions <classes/extensions>
+   Old version of Quantum System Classes <classes/QSys>
    Dev-Demos <classes/Tutorials/classTutorials/DevTutorials>
