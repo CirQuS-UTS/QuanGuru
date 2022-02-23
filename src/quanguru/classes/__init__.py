@@ -8,7 +8,7 @@ r"""
         base
         baseClasses
         QSystem
-        QTerm
+        QTerms
         QSim
         QPro
         QRes
