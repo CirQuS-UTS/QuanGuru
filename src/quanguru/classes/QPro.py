@@ -231,7 +231,6 @@ class qProtocol(genericProtocol):
     __slots__ = []
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        #self._createUnitary = self._defCreateUnitary # pylint: disable=assigning-non-slot
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _paramUpdatedToFalse(self):
@@ -350,7 +349,6 @@ class freeEvolution(genericProtocol):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        #self._createUnitary = self.matrixExponentiation
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     _freqCoef = 1 #2 * np.pi
