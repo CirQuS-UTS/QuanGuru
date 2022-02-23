@@ -667,8 +667,8 @@ It also can removed a protocol (<code class="docutils literal notranslate"><span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem.createTerm">
-<span class="sig-name descname"><span class="pre">createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystems</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#QuantumSystem.createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.createTerm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method to create a new term with the given parameters.</p>
+<span class="sig-name descname"><span class="pre">createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystems</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">superSys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#QuantumSystem.createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.createTerm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to create a new term with the given parameters and also set the given kwargs to the new term.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -769,6 +769,21 @@ In here, it ** does not copy ** the object, but creates a new object of the same
 <dd><p>With this method, <code class="docutils literal notranslate"><span class="pre">*</span></code> creates a composite quantum system that contains <code class="docutils literal notranslate"><span class="pre">N=other</span></code> many quantum systems with
 the same <code class="docutils literal notranslate"><span class="pre">type</span></code> as <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem.Dicke">
+<span class="sig-name descname"><span class="pre">Dicke</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">couplingStrength</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subSys1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subSys2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.Dicke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem.JC">
+<span class="sig-name descname"><span class="pre">JC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">couplingStrength</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subSys1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subSys2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.JC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem.Rabi">
+<span class="sig-name descname"><span class="pre">Rabi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">couplingStrength</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subSys1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subSys2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.Rabi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem._createAstate">

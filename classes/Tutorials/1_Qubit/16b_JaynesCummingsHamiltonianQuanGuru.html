@@ -537,13 +537,11 @@ larges spins. With this approach, we will be able to extend the Jaynes-Cummings 
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a composite system with a qubit and cavity</span>
-<span class="c1"># NOTE THIS DOES NOT WORK WITH THE NEW VERSIONS YET</span>
-<span class="c1"># TODO MAKE IT WORK WITH THE NEW VERSIONS</span>
-<span class="n">JCSystem</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">CavityOld</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;JC_Cavity&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">qg</span><span class="o">.</span><span class="n">QubitOld</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;JC_Qubit&quot;</span><span class="p">)</span>
+<span class="n">JCSystem</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Cavity</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;JC_Cavity&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;JC_Qubit&quot;</span><span class="p">)</span>
 
 <span class="c1"># couple the qubit and the cavity using their alias</span>
-<span class="n">MC</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">([</span><span class="s2">&quot;JC_Qubit&quot;</span><span class="p">,</span> <span class="s2">&quot;JC_Cavity&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmam</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">create</span><span class="p">],</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">PD</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">([</span><span class="s2">&quot;JC_Qubit&quot;</span><span class="p">,</span> <span class="s2">&quot;JC_Cavity&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmap</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">],</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">MC</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">qSystems</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;JC_Qubit&quot;</span><span class="p">,</span> <span class="s2">&quot;JC_Cavity&quot;</span><span class="p">],</span> <span class="n">operators</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmam</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">create</span><span class="p">],</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">PD</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">qSystems</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;JC_Qubit&quot;</span><span class="p">,</span> <span class="s2">&quot;JC_Cavity&quot;</span><span class="p">],</span> <span class="n">operators</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmap</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">],</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -551,7 +549,7 @@ larges spins. With this approach, we will be able to extend the Jaynes-Cummings 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">totalHam</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -576,7 +574,7 @@ larges spins. With this approach, we will be able to extend the Jaynes-Cummings 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">freeHam</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">_subSysHamiltonian</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -601,7 +599,7 @@ larges spins. With this approach, we will be able to extend the Jaynes-Cummings 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">couplingHam</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">_termHamiltonian</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

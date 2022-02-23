@@ -438,6 +438,12 @@ to update the desired parameters (such as frequency of the term) as a function o
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm.superSys">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">superSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.QTerms.QTerm.superSys" title="Permalink to this definition">¶</a></dt>
+<dd><p>superSys property get/sets __superSys protected attribute</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm.qSystems">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qSystems</span></span><a class="headerlink" href="#quanguru.classes.QTerms.QTerm.qSystems" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property to set and get the single quantum system or a list/tuple of quantum systems that are used by the term
@@ -455,7 +461,7 @@ This is an internal method used in removeSubSys of quantum systems.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm._createTerm">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSystems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._createTerm" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">superSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._createTerm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Factory method to create new QTerm with the given qSystems, operators, and optional orders and frequency.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

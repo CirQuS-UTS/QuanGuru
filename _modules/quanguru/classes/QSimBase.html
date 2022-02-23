@@ -337,7 +337,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">initialStateSystem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialStateSystem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initialStateSystem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialStateSystem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="p">,</span><span class="s1">&#39;_createAstate&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">superSys</span>
         <span class="n">checkNotVal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initialStateSystem</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
                     <span class="s1">&#39;Simulation initialStateSystem/superSys is needed for initial state creation&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialStateSystem</span>
@@ -361,7 +361,8 @@
 <span class="sd">        dictionary values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialStateSystem</span><span class="o">.</span><span class="n">dimension</span><span class="p">)):</span> <span class="c1"># pylint: disable=no-member</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">_bound</span><span class="p">,</span> <span class="n">_parameter</span><span class="p">):</span> <span class="c1"># pylint: disable=protected-access</span>
                 <span class="c1"># might seem redundant, but required to make sure that bound creates its initial state by calling the</span>
                 <span class="c1"># _createAstate</span>
