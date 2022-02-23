@@ -18,6 +18,7 @@
     =======================    ==================    ================   ===============
 
 """
+
 from .baseClasses import paramBoundBase
 from .QSimBase import setAttr
 from .exceptions import checkCorType, checkVal, checkNotVal

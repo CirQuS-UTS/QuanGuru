@@ -1,5 +1,5 @@
 r"""
-    Contains some base classes and the _parameter class.
+    Contains some base classes.
 
     .. currentmodule:: quanguru.classes.baseClasses
 

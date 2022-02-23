@@ -14,7 +14,7 @@
     =======================    ==================    ================   ===============
        **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
     =======================    ==================    ================   ===============
-      `QuantumSystem`            |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |x|
+      `QuantumSystem`            |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
     =======================    ==================    ================   ===============
 
 """
@@ -158,7 +158,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                     qsys.initialState = inp[ind]
         self.simulation.initialState = inp # pylint: disable=no-member, protected-access
 
-    # HAMILTONIANS WILL BE TESTED AFTER TERM IMPLEMENTATION
+    # TODO HAMILTONIANS NEED TO BE TESTED
     @property
     def _subSysHamiltonian(self):
         r"""
@@ -489,7 +489,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             system = self
         self.simulation.addProtocol(protocol=protocol, system=system, protocolRemove=protocolRemove)
 
-    # these will work after term object is implemented
+    # TODO THESE NEEDS TESTS
 
     def createTerm(self, operators, frequency=None, qSystems=None, orders=None):
         r"""
