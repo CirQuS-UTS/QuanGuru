@@ -175,7 +175,7 @@ class stateBase(computeBase):
     @property
     def initialStateSystem(self):
         if self._initialStateSystem is None:
-            self._initialStateSystem = self.superSys
+            self._initialStateSystem=self.superSys if hasattr(self.superSys,'_createAstate') else self.superSys.superSys
         checkNotVal(self._initialStateSystem, None,
                     'Simulation initialStateSystem/superSys is needed for initial state creation')
         return self._initialStateSystem

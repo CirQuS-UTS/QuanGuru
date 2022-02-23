@@ -42,6 +42,7 @@ class QTerm(paramBoundBase):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
+        self.superSys = kwargs.pop('superSys', None)
         #: attribute to store the quantum systems of the term. This is either a single quantum system or a list/tuple of
         #: quantum systems, and these are needed for the dimension information of the matrix creations
         self.__qSys = None
@@ -93,7 +94,8 @@ class QTerm(paramBoundBase):
     @paramBoundBase.superSys.setter
     def superSys(self, supSys):
         paramBoundBase.superSys.fset(self, supSys) # pylint: disable=no-member
-        self._paramBoundBase__paramBound[supSys.name] = supSys # pylint: disable=protected-access,no-member
+        if supSys is not None:
+            self._paramBoundBase__paramBound[supSys.name] = supSys # pylint: disable=protected-access,no-member
 
     @qSystems.setter
     def qSystems(self, qSys):

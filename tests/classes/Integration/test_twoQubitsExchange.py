@@ -19,6 +19,7 @@ def comp(sim, states):
     sim.qRes.result = ("c11imag", st.A[3][0].imag)
 
 def test_twoQubitExchange(twoQubitsExchange):
+    qg.freeEvolution._freqCoef = 1
     # define the qubit frequencies and the coupling strength randomly
     freq1 = 2*random.random()
     freq2 = 2*random.random()
