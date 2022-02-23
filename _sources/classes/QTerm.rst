@@ -1,8 +1,8 @@
-======================================================
-Quantum system classes (:mod:`quanguru.classes.QTerm`)
-======================================================
+=======================================================
+Quantum system classes (:mod:`quanguru.classes.QTerms`)
+=======================================================
 
-.. automodule:: quanguru.classes.QTerm
+.. automodule:: quanguru.classes.QTerms
    :ignore-module-all:
    :members:
    :private-members:
