@@ -1,0 +1,1069 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>keySearch &#8212; QuanGuru 1 documentation</title>
+    
+    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    
+    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="named" href="named.html" />
+    <link rel="prev" title="aliasClass" href="aliasClass.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../index.html">
+<p class="title">QuanGuru</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
+  QuantumToolbox
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../../../classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+  QuantumToolbox Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../base.html">
+   Base class
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../baseClasses.html">
+   BaseClasses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QSimBase.html">
+   QSimBase
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QSimComp.html">
+   QSimComp
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QSystem.html">
+   Quantum System Class
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QSim.html">
+   Simulation Class
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QPro.html">
+   QProtocol Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QRes.html">
+   Results Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QSweep.html">
+   Sweep Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QGates.html">
+   QGates Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../environment.html">
+   Environment Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QDrive.html">
+   QDrive Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../exceptions.html">
+   Exceptions
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../extensions.html">
+   Extensions
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../modularSweep.html">
+     Modular arithmetic sweep
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../couplings.html">
+     Common Couplings
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../QSys.html">
+   Old version of Quantum System Classes
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="DevTutorials.html">
+   Dev-Demos
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="aliasClass.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       aliasClass
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       keySearch
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="named.html">
+     named
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="qBase.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       qBase
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="updateBase.html">
+     updateBase
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     keySearch
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aliasDict">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     aliasDict
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quanguru</span> <span class="k">as</span> <span class="nn">qg</span>
+</pre></div>
+</div>
+</div>
+<section id="keySearch">
+<h1><code class="docutils literal notranslate"><span class="pre">keySearch</span></code><a class="headerlink" href="#keySearch" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">keySearch</span></code> method searches for a key in a <code class="docutils literal notranslate"><span class="pre">dictionary.keys()</span></code>. This method is mainly used in <code class="docutils literal notranslate"><span class="pre">aliasDict</span></code> class (extending <code class="docutils literal notranslate"><span class="pre">dict</span></code> class) to find the actual key when using <code class="docutils literal notranslate"><span class="pre">aliasClass</span></code> as the key, which returns equal for a specific string (its <code class="docutils literal notranslate"><span class="pre">name</span></code>) or any other string in its list of aliases.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># an instance of an aliasClass with a name and a list of aliases</span>
+<span class="n">key1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasClass</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;k1&quot;</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;elias&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">])</span>
+
+<span class="c1"># a dictionary with an aliasClass instance used as the first key</span>
+<span class="n">exampleDict</span> <span class="o">=</span> <span class="p">{</span><span class="n">key1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;two&quot;</span><span class="p">}</span>
+
+<span class="c1"># keySearch method returns the key itself regardless of whether the key is in the dictionary or not</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">keySearch</span><span class="p">(</span><span class="n">exampleDict</span><span class="p">,</span> <span class="s2">&quot;someKey&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">keySearch</span><span class="p">(</span><span class="n">exampleDict</span><span class="p">,</span> <span class="s2">&quot;key2&quot;</span><span class="p">))</span>
+
+<span class="c1"># if the key is an object, both the object itself and its name can be passed</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">keySearch</span><span class="p">(</span><span class="n">exampleDict</span><span class="p">,</span> <span class="n">key1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">keySearch</span><span class="p">(</span><span class="n">exampleDict</span><span class="p">,</span> <span class="s2">&quot;k1&quot;</span><span class="p">))</span>
+
+<span class="c1"># also, any of the aliases from the obeject&#39;s alias list can be used</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">keySearch</span><span class="p">(</span><span class="n">exampleDict</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">keySearch</span><span class="p">(</span><span class="n">exampleDict</span><span class="p">,</span> <span class="s2">&quot;elias&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+someKey
+key2
+k1
+k1
+k1
+k1
+</pre></div></div>
+</div>
+<p>Since two <code class="docutils literal notranslate"><span class="pre">aliasClass</span></code> objects are considered equal when their names are the same, or at least one of their aliases are the same, a different instance of <code class="docutils literal notranslate"><span class="pre">aliasClass</span></code> can be passed to the <code class="docutils literal notranslate"><span class="pre">keySearch</span></code> method.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a different instance of an aliasClass with its alias (&quot;elias&quot;) equal to that of key1 object</span>
+<span class="n">exampleKey</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasClass</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;exK&quot;</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;example&quot;</span><span class="p">,</span> <span class="s2">&quot;elias&quot;</span><span class="p">])</span>
+
+<span class="c1"># since exampleKey and key1 objects are equal, keySearch method returns key1.name</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">keySearch</span><span class="p">(</span><span class="n">exampleDict</span><span class="p">,</span> <span class="n">exampleKey</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+k1
+</pre></div></div>
+</div>
+</section>
+<section id="aliasDict">
+<h1><code class="docutils literal notranslate"><span class="pre">aliasDict</span></code><a class="headerlink" href="#aliasDict" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">aliasDict</span></code> class extends regular <code class="docutils literal notranslate"><span class="pre">dict</span></code> class, by treating keys satisfying <code class="docutils literal notranslate"><span class="pre">key1</span> <span class="pre">==</span> <span class="pre">keys2</span></code> as the same key. <code class="docutils literal notranslate"><span class="pre">aliasClass</span></code> objects can be used as keys, and thus the value of the key can be accessed by passing the name or any of the aliases of the <code class="docutils literal notranslate"><span class="pre">aliasClass</span></code> object.</p>
+<p><code class="docutils literal notranslate"><span class="pre">aliasDict</span></code> class can be used in various dictionaries in the library such as <code class="docutils literal notranslate"><span class="pre">_allInstacesDict</span></code>, <code class="docutils literal notranslate"><span class="pre">subSys</span></code>, <code class="docutils literal notranslate"><span class="pre">allResults</span></code>, etc.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># an instance of an aliasDict class with the first key as an aliasClass object</span>
+<span class="n">alDict</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasDict</span><span class="p">([(</span><span class="n">key1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;key2&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">)])</span>
+
+<span class="c1"># aliasDict method works like a regular dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;key2&quot;</span><span class="p">])</span>
+
+<span class="c1"># since key1 is an aliasClass object, its name and any alias can be passed</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="o">.</span><span class="n">alias</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;elias&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+two
+1
+1
+1
+1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if some other aliasClass object has the same name as the name of the key</span>
+<span class="c1"># in a dictionary, this object can also be used to get the value of this key</span>
+<span class="n">someOther</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasClass</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;key2&quot;</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;are&quot;</span><span class="p">,</span> <span class="s2">&quot;you&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">[</span><span class="n">someOther</span><span class="p">])</span>
+
+<span class="c1"># this works for aliases too</span>
+<span class="c1"># an aliasClass object with the same alias as that of key1 object</span>
+<span class="n">withAlias</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasClass</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;withAlias&quot;</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;elias&quot;</span><span class="p">,</span> <span class="s2">&quot;you&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">[</span><span class="n">withAlias</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+two
+1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get() method works as usual</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;key2&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;randomString&quot;</span><span class="p">))</span>
+
+<span class="c1"># the name and any alias can be used if the key is an object</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;k1&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+two
+None
+1
+1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a new key-value pair can be added to a dictionary</span>
+<span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;third&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;string3&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># a value can also be updated</span>
+<span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;third&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;str3&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># the same can be done for a key which is an aliasClass object</span>
+<span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;str1&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># name and any alias can also be used</span>
+<span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;str1name&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;elias&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;str1alias&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># and any other object which is equal to a key can also be passed</span>
+<span class="n">alDict</span><span class="p">[</span><span class="n">exampleKey</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;str1example&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;k1&#39;: 1, &#39;key2&#39;: &#39;two&#39;, &#39;third&#39;: &#39;string3&#39;}
+{&#39;k1&#39;: 1, &#39;key2&#39;: &#39;two&#39;, &#39;third&#39;: &#39;str3&#39;}
+{&#39;k1&#39;: &#39;str1&#39;, &#39;key2&#39;: &#39;two&#39;, &#39;third&#39;: &#39;str3&#39;}
+{&#39;k1&#39;: &#39;str1name&#39;, &#39;key2&#39;: &#39;two&#39;, &#39;third&#39;: &#39;str3&#39;}
+{&#39;k1&#39;: &#39;str1alias&#39;, &#39;key2&#39;: &#39;two&#39;, &#39;third&#39;: &#39;str3&#39;}
+{&#39;k1&#39;: &#39;str1example&#39;, &#39;key2&#39;: &#39;two&#39;, &#39;third&#39;: &#39;str3&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># any item can be deleted as follows</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;third&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># an object itself can also be used for deleting</span>
+<span class="k">del</span> <span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># here we add it again to show more examples</span>
+<span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;str1&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># a name of the object can be used</span>
+<span class="k">del</span> <span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># add again and use an alias instead</span>
+<span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;str1&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">alDict</span><span class="p">[</span><span class="s2">&quot;string&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;k1&#39;: &#39;str1example&#39;, &#39;key2&#39;: &#39;two&#39;, &#39;third&#39;: &#39;str3&#39;}
+{&#39;k1&#39;: &#39;str1example&#39;, &#39;key2&#39;: &#39;two&#39;}
+{&#39;key2&#39;: &#39;two&#39;}
+{&#39;key2&#39;: &#39;two&#39;, &#39;k1&#39;: &#39;str1&#39;}
+{&#39;key2&#39;: &#39;two&#39;}
+{&#39;key2&#39;: &#39;two&#39;, &#39;k1&#39;: &#39;str1&#39;}
+{&#39;key2&#39;: &#39;two&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s add key1 back again</span>
+<span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;str1&quot;</span>
+
+<span class="c1"># we can check whether aliasDict contains a specific key or not</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;key2&quot;</span> <span class="ow">in</span> <span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># aliasClass object, its name and any of its aliases can be used as well</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">key1</span> <span class="ow">in</span> <span class="n">alDict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k1&quot;</span> <span class="ow">in</span> <span class="n">alDict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;elias&quot;</span> <span class="ow">in</span> <span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># when aliasDict object does not contain a specific key if shows False</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;someKey&quot;</span> <span class="ow">in</span> <span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># if some other object of the aliasClass (exampleKey) is equal to a key (key1) in aliasDict object</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">exampleKey</span> <span class="ow">in</span> <span class="n">alDict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+True
+True
+True
+False
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># let us define various aliasDict objects</span>
+<span class="n">otherDict1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasDict</span><span class="p">([(</span><span class="s2">&quot;ok1&quot;</span><span class="p">,</span> <span class="s2">&quot;v1&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;key2&quot;</span><span class="p">,</span> <span class="s2">&quot;v2&quot;</span><span class="p">)])</span>
+<span class="n">otherDict2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasDict</span><span class="p">([(</span><span class="s2">&quot;k1&quot;</span><span class="p">,</span> <span class="s2">&quot;odv2&quot;</span><span class="p">)])</span>
+<span class="n">otherDict3</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasDict</span><span class="p">([(</span><span class="s2">&quot;elias&quot;</span><span class="p">,</span> <span class="s2">&quot;odv3&quot;</span><span class="p">)])</span>
+<span class="n">otherDict4</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">aliasDict</span><span class="p">([(</span><span class="n">exampleKey</span><span class="p">,</span> <span class="s2">&quot;odv4&quot;</span><span class="p">)])</span>
+
+<span class="c1"># we can merge any of these objects to our previous alDict object</span>
+<span class="c1"># new key-value pair will be added if the original dictionary doesn&#39;t contain this pair</span>
+<span class="c1"># otherwise, the value of the key will be updated if this key is present.</span>
+<span class="n">alDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">otherDict1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># update() method works if name, alias, or any aliasClass is equal to a key in the dictionary</span>
+<span class="n">alDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">otherDict2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="n">alDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">otherDict3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="n">alDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">otherDict4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;key2&#39;: &#39;two&#39;, &#39;k1&#39;: &#39;str1&#39;}
+{&#39;key2&#39;: &#39;v2&#39;, &#39;k1&#39;: &#39;str1&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+{&#39;key2&#39;: &#39;v2&#39;, &#39;k1&#39;: &#39;odv2&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+{&#39;key2&#39;: &#39;v2&#39;, &#39;k1&#39;: &#39;odv3&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+{&#39;key2&#39;: &#39;v2&#39;, &#39;k1&#39;: &#39;odv4&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># aliasDict class has a setdefault method similar to that of regular dictionary&#39;s method</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;key2&quot;</span><span class="p">))</span>
+
+<span class="c1"># if the key is an aliasClass object, its name, alias and object itself can be passed</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;k1&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;elias&quot;</span><span class="p">))</span>
+
+<span class="c1"># it returns None if the key is not present in the aliasDict</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;someKey&quot;</span><span class="p">))</span>
+<span class="c1"># and this key is added with None value to the aliasDict</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># however, if the value is passed in addition to a key, which is not</span>
+<span class="c1"># present in the aliasDict, this value is returned. This key-value pair becomes part of aliasDict</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;newKey&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+<br/><br/><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+v2
+odv4
+odv4
+odv4
+None
+{&#39;key2&#39;: &#39;v2&#39;, &#39;k1&#39;: &#39;odv4&#39;, &#39;ok1&#39;: &#39;v1&#39;, &#39;someKey&#39;: None}
+7
+{&#39;key2&#39;: &#39;v2&#39;, &#39;k1&#39;: &#39;odv4&#39;, &#39;ok1&#39;: &#39;v1&#39;, &#39;someKey&#39;: None, &#39;newKey&#39;: 7}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pop() method can be applied as well</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;newKey&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;someKey&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+
+<span class="c1"># it can be used for keys which are aliasClass objects</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># let&#39;s add this key back again to show more examples</span>
+<span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;v1&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># object&#39;s name can be passed</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;k1&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+
+<span class="c1"># add this key back to show one more example</span>
+<span class="n">alDict</span><span class="p">[</span><span class="n">key1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;v1&quot;</span>
+
+<span class="c1"># and any alias too</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;elias&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alDict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+7
+{&#39;key2&#39;: &#39;v2&#39;, &#39;k1&#39;: &#39;odv4&#39;, &#39;ok1&#39;: &#39;v1&#39;, &#39;someKey&#39;: None}
+None
+{&#39;key2&#39;: &#39;v2&#39;, &#39;k1&#39;: &#39;odv4&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+odv4
+{&#39;key2&#39;: &#39;v2&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+{&#39;key2&#39;: &#39;v2&#39;, &#39;ok1&#39;: &#39;v1&#39;, &#39;k1&#39;: &#39;v1&#39;}
+v1
+{&#39;key2&#39;: &#39;v2&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+v1
+{&#39;key2&#39;: &#39;v2&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># copy() method is applicable as well</span>
+<span class="n">aldCopy</span> <span class="o">=</span> <span class="n">alDict</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aldCopy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;key2&#39;: &#39;v2&#39;, &#39;ok1&#39;: &#39;v1&#39;}
+</pre></div></div>
+</div>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="aliasClass.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">aliasClass</span></code></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="named.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">named</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

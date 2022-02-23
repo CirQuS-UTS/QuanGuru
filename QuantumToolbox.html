@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Quantum Toolbox (quanguru.QuantumToolbox) &#8212; QuanGuru 1 documentation</title>
+    
+    <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    
+    <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Basic Linear Algebra (quanguru.QuantumToolbox.linearAlgebra)" href="QuantumToolbox/linearAlgebra.html" />
+    <link rel="prev" title="16 - Jaynes-Cummings Hamiltonian (in QuanGuru)" href="classes/Tutorials/1_Qubit/16b_JaynesCummingsHamiltonianQuanGuru.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="index.html">
+<p class="title">QuanGuru</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="current reference internal nav-link" href="#">
+  QuantumToolbox
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="QuantumToolbox/Tutorials/Tutorials.html">
+  QuantumToolbox Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/linearAlgebra.html">
+   Basic Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/states.html">
+   Quantum State
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/operators.html">
+   Quantum Operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/evolution.html">
+   Quantum Evolution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/functions.html">
+   Basic Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/Hamiltonians.html">
+   Common Hamiltonians
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/spinRotations.html">
+   Qubit Rotations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/basicGates.html">
+   Basic Gates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/quasiProbabilities.html">
+   Quasi-Probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/thermodynamics.html">
+   Thermodynamical functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/rmtDistributions.html">
+   Random Matrix Theory Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/eigenVecVal.html">
+   Eigen-vector/value Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/IPR.html">
+   Inverse Participation Ratio
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="QuantumToolbox/_helpers.html">
+   Helper Functions
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#modules">
+   Modules
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="module-quanguru.QuantumToolbox.__init__">
+<span id="quantum-toolbox-quanguru-quantumtoolbox"></span><h1>Quantum Toolbox (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox</span></code>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.__init__" title="Permalink to this headline">¶</a></h1>
+<p>QuantumToolbox consists <strong>purely of Python functions</strong> (no other objects) that create and/or use <strong>matrices</strong>.
+<strong>Bold</strong> parts of the previous sentence highlight two main ideas of QuantumToolbox.</p>
+<p>It only contains Python functions to make it familiar with a broader audience, so that anyone without any interest
+in object-oriented programming can still contribute to QuantumToolbox, and the second idea is to use scipy sparse
+(csc matrix) as default.
+Matrix creations should be sparse as default and return .A (or .toarray()) of the created sparse if sparse=False.
+Any function manipulating matrices should be designed to be independent of sparse or array, if possible.</p>
+<section id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/linearAlgebra.html#module-quanguru.QuantumToolbox.linearAlgebra" title="quanguru.QuantumToolbox.linearAlgebra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linearAlgebra</span></code></a></p></td>
+<td><p>Contains some basic linear algebra methods for scipy.sparse and np.ndarray types.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/states.html#module-quanguru.QuantumToolbox.states" title="quanguru.QuantumToolbox.states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">states</span></code></a></p></td>
+<td><p>Contains methods to create states, such as ket, bra, densityMatrix, superpositions, etc.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/operators.html#module-quanguru.QuantumToolbox.operators" title="quanguru.QuantumToolbox.operators"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operators</span></code></a></p></td>
+<td><p>Contains methods to functions to create and/or manipulate quantum operators</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/evolution.html#module-quanguru.QuantumToolbox.evolution" title="quanguru.QuantumToolbox.evolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evolution</span></code></a></p></td>
+<td><p>Contains functions to create Unitary and open-system super-operators.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/functions.html#module-quanguru.QuantumToolbox.functions" title="quanguru.QuantumToolbox.functions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">functions</span></code></a></p></td>
+<td><p>Contains functions to calculate some basic quantities, such as expectations, fidelities, entropy etc.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/Hamiltonians.html#module-quanguru.QuantumToolbox.Hamiltonians" title="quanguru.QuantumToolbox.Hamiltonians"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Hamiltonians</span></code></a></p></td>
+<td><p>Contains functions to create some standard Hamiltonians.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/spinRotations.html#module-quanguru.QuantumToolbox.spinRotations" title="quanguru.QuantumToolbox.spinRotations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinRotations</span></code></a></p></td>
+<td><p>Contains functions to create qubit rotation operators.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/basicGates.html#module-quanguru.QuantumToolbox.basicGates" title="quanguru.QuantumToolbox.basicGates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">basicGates</span></code></a></p></td>
+<td><p>Contains some basic single and two qubit gates.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/quasiProbabilities.html#module-quanguru.QuantumToolbox.quasiProbabilities" title="quanguru.QuantumToolbox.quasiProbabilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quasiProbabilities</span></code></a></p></td>
+<td><p>Contains functions to calculate quasi-probability distributions (adapted from qutip).</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/eigenVecVal.html#module-quanguru.QuantumToolbox.eigenVecVal" title="quanguru.QuantumToolbox.eigenVecVal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigenVecVal</span></code></a></p></td>
+<td><p>Contains functions to calculate eigen-vector/value statistics in various cases.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/rmtDistributions.html#module-quanguru.QuantumToolbox.rmtDistributions" title="quanguru.QuantumToolbox.rmtDistributions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rmtDistributions</span></code></a></p></td>
+<td><p>Contains probability density functions (PDF) from Random Matrix Theory (RMT).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/IPR.html#module-quanguru.QuantumToolbox.IPR" title="quanguru.QuantumToolbox.IPR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IPR</span></code></a></p></td>
+<td><p>Contains functions to calculate delocalisation measure (Inverse participation ratio, shortly IPR) in various cases.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/thermodynamics.html#module-quanguru.QuantumToolbox.thermodynamics" title="quanguru.QuantumToolbox.thermodynamics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thermodynamics</span></code></a></p></td>
+<td><p>Contains methods to calculate certain quantities used in thermal states, open systems, and quantum thermodynamics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/_helpers.html#module-quanguru.QuantumToolbox._helpers" title="quanguru.QuantumToolbox._helpers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_helpers</span></code></a></p></td>
+<td><p>Contains some helper functions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">customTypes</span></code></p></td>
+<td><p>Contains custom types (Union etc) used in type hints of QuantumToolbox.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="classes/Tutorials/1_Qubit/16b_JaynesCummingsHamiltonianQuanGuru.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="QuantumToolbox/linearAlgebra.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Basic Linear Algebra (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.linearAlgebra</span></code>)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

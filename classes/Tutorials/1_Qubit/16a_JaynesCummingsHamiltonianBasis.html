@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>16 - Jaynes-Cummings model of light-matter interaction &#8212; QuanGuru 1 documentation</title>
+    
+    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    
+    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="16 - Jaynes-Cummings Hamiltonian (in QuanGuru)" href="16b_JaynesCummingsHamiltonianQuanGuru.html" />
+    <link rel="prev" title="15 - Time dependent Hamiltonian 2" href="15_Qubit_timeDependentTerms.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../index.html">
+<p class="title">QuanGuru</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
+  QuantumToolbox
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+  QuantumToolbox Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00_nameAndAlias.html">
+   0 - name and alias of QuanGuru objects
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_SingleQuantumSystem.html">
+   1 - Hamiltonian of a single quantum system
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_CompositeQubitSystem.html">
+   2 - How to create composite quantum systems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_CouplingQuantumSystems.html">
+   3 - Coupling quantum systems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_Qubit_Initial_State.html">
+   4 - Initial state for a Qubit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_Qubit_Hamiltonian.html">
+   5 - Hamiltonian of a quantum system (cont.)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_Qubit_Unitary_Evolution_SingleTermHamiltonian.html">
+   6 - Simulation of a Qubit with single term Hamiltonian
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_Qubit_Unitary_Evolution_TwoTermsHamiltonian.html">
+   7 - Simulation of a Qubit with two terms Hamiltonian
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08_Qubit_ResultsStatesDictionaries.html">
+   8 - qRes attribute: an intro to Results objects
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09_Qubit_computeFunction.html">
+   9 - Simulation with a compute function
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_Qubit_parameterSweep.html">
+   10 - Single parameter sweep
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_Qubit_multipleTermsInHamiltonian.html">
+   11 - Sweep and two term Qubit Hamiltonian
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_Qubit_multipleTermsInHamiltonian_multipleSweeps.html">
+   12 - Multi-parameter sweep (combinatorially)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_Qubit_multipleTermsInHamiltonian_multipleSweepsSimultaneous.html">
+   13 - Multi-parameter sweep (simultaneously)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_Qubit_timeDependentTerm.html">
+   14 - Time dependent Hamiltonian
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_Qubit_timeDependentTerms.html">
+   15 - Time dependent Hamiltonian 2
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   16 - Jaynes-Cummings model of light-matter interaction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">
+   16 - Jaynes-Cummings Hamiltonian (in QuanGuru)
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quanguru</span> <span class="k">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<section id="16---Jaynes-Cummings-model-of-light-matter-interaction">
+<h1>16 - Jaynes-Cummings model of light-matter interaction<a class="headerlink" href="#16---Jaynes-Cummings-model-of-light-matter-interaction" title="Permalink to this headline">¶</a></h1>
+<p>Before demonstrating the Jaynes-Cummings (JC) Hamiltonian in <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>, we provide some background for the JC Hamiltonian in this tutorial.</p>
+<p>The JC Hamiltonian is commonly written as</p>
+<p><span class="math">H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}\sigma_{-} + a\sigma_{+})</span></p>
+<p>where <span class="math">\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2</span> are raising/lowering operators for a two-level system, <span class="math">\sigma_{\mu}</span> are the Pauli spin operators with <span class="math">\mu\in\{x,y,z\}</span>, <span class="math">a^{\dagger}</span> and <span class="math">a</span> are the creation and annihilation operators for the field mode, and <span class="math">\omega_{c}</span>, <span class="math">\omega_{q}</span>, and <span class="math">g</span> are the cavity-field, qubit, and coupling (angular-) frequencies, respectively. Note that the above Hamiltonian is written in a common notation where
+the order of the sub-system Hilbert spaces is implicitly defined by the ordering in the coupling. This means, for example, that the composite form of the number operator is written explicitly as <span class="math">(a^{\dagger}a)\otimes 1_{2,2}</span> (similarly, <span class="math">a^{\dagger}\otimes\sigma_{-}</span> and <span class="math">1_{d,d}\otimes\sigma_{z}</span>, where <span class="math">d</span> is the truncation dimension for the cavity operators and <span class="math">\otimes</span> is the tensor product).</p>
+<p>Here, the eigenstates of the qubit are</p>
+<ul class="simple">
+<li><p>Excited state : <span class="math">|e\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue }\frac{1}{2}\omega_{q})</span></p></li>
+<li><p>Ground state: <span class="math">|g\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue }-\frac{1}{2}\omega_{q})</span></p></li>
+</ul>
+<p>Together with the <span class="math">\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2</span> definition, we have</p>
+<ul class="simple">
+<li><p><span class="math">\sigma_{+} = \left[\begin{array}{ll} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]</span> so that <span class="math">\sigma_{+}|e\rangle = 0</span> and <span class="math">\sigma_{+}|g\rangle = |e\rangle</span></p></li>
+<li><p><span class="math">\sigma_{-} = \left[\begin{array}{ll} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]</span> so that <span class="math">\sigma_{-}|e\rangle = |g\rangle</span> and <span class="math">\sigma_{-}|g\rangle = 0</span></p></li>
+</ul>
+<p>Finally, the matrix representations of JC Hamiltonian (with <span class="math">d=10</span>) for two different cases of sub-system Hilbert space orders are</p>
+<ul>
+<li><p><span class="math">H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} + \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes\sigma_{-} + a\otimes\sigma_{+})</span></p>
+<p><a class="reference internal" href="../../../_images/CavityQubitWithSandPlus.png"><img alt="Cavity first and qubit with sigma-plus/minus operators and plus" src="../../../_images/CavityQubitWithSandPlus.png" style="width: 70.0%;" /></a></p>
+</li>
+<li><p><span class="math">H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(\sigma_{-}\otimes a^{\dagger} + \sigma_{+}\otimes a)</span></p>
+<p><a class="reference internal" href="../../../_images/QubitCavityWithSandPlus.png"><img alt="Qubit first and qubit with sigma-plus/minus operators and plus" src="../../../_images/QubitCavityWithSandPlus.png" style="width: 70.0%;" /></a></p>
+</li>
+</ul>
+<p>In above convention, we see that the zero-excitation state <span class="math">|0, g\rangle</span> (or, <span class="math">|g, 0\rangle</span> in the qubit first order of sub-spaces) appears at <span class="math">(2, 2)</span> (or, at <span class="math">(d+1, d+1)</span> in the qubit first order of sub-spaces) index of the matrix representation. There are some other <em>counter-intuitive</em> details in above convention, and an alternative convention for JC Hamiltonian is to write the qubit term with a minus (<span class="math">- \frac{1}{2}\hbar\omega_{q}\sigma_{z}</span>) so that the
+excited/ground state definition is switched</p>
+<ul class="simple">
+<li><p>Excited state : <span class="math">|g\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue }-\frac{1}{2}\omega_{q})</span></p></li>
+<li><p>Ground state: <span class="math">|e\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue }\frac{1}{2}\omega_{q})</span></p></li>
+</ul>
+<p>However, in this alternative case, we also need to make some changes for the <span class="math">\sigma_{\pm}</span> operators, otherwise, together with the <span class="math">\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2</span> definition, we have</p>
+<ul class="simple">
+<li><p><span class="math">\sigma_{+} = \left[\begin{array}{ll} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]</span> so that <span class="math">\sigma_{+}|g\rangle = 0</span> and <span class="math">\sigma_{+}|e\rangle = |g\rangle</span></p></li>
+<li><p><span class="math">\sigma_{-} = \left[\begin{array}{ll} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]</span> so that <span class="math">\sigma_{-}|g\rangle = |e\rangle</span> and <span class="math">\sigma_{-}|e\rangle = 0</span></p></li>
+</ul>
+<p>Here, we could introduce some unconventional definitions for <span class="math">\sigma_{\pm}</span> by switching the <span class="math">\pm</span> in their definition to <span class="math">\mp</span>, but we have a better alternative that is to replace <span class="math">\sigma_{-}</span> and <span class="math">\sigma_{+}</span> with 2-dimensional truncations of <span class="math">a</span> and <span class="math">a^{\dagger}</span>, respectively. Then, the matrix representations of JC Hamiltonian (with <span class="math">d=10</span>) for two different cases of sub-system Hilbert space orders are</p>
+<ul>
+<li><p><span class="math">H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} - \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes a_{2,2} + a\otimes a_{2,2}^{\dagger})</span></p>
+<p><a class="reference internal" href="../../../_images/CavityQubitWithAandMinus.png"><img alt="Cavity first and qubit with creation/annihilation operators and minus" src="../../../_images/CavityQubitWithAandMinus.png" style="width: 70.0%;" /></a></p>
+</li>
+<li><p><span class="math">H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(a_{2,2}\otimes a^{\dagger} + a_{2,2}^{\dagger}\otimes a)</span></p>
+<p><a class="reference internal" href="../../../_images/QubitCavityWithAandMinus.png"><img alt="Qubit first and qubit with creation/annihilation operators and minus" src="../../../_images/QubitCavityWithAandMinus.png" style="width: 70.0%;" /></a></p>
+</li>
+</ul>
+<p>and, in the first case, we have <span class="math">|0, g\rangle</span> at <span class="math">(0, 0)</span>.</p>
+<p>TODO: FURTHER EXPLANATIONS OF THE FIRST CASE (e.g. the 4-squares being the constant excitation sub-space)</p>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="15_Qubit_timeDependentTerms.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">15 - Time dependent Hamiltonian 2</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="16b_JaynesCummingsHamiltonianQuanGuru.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

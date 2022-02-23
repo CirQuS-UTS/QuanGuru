@@ -1,0 +1,1445 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Quantum Operators (quanguru.QuantumToolbox.operators) &#8212; QuanGuru 1 documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quantum Evolution (quanguru.QuantumToolbox.evolution)" href="evolution.html" />
+    <link rel="prev" title="Quantum States (quanguru.QuantumToolbox.states)" href="states.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">QuanGuru</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../QuantumToolbox.html">
+  QuantumToolbox
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="Tutorials/Tutorials.html">
+  QuantumToolbox Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="linearAlgebra.html">
+   Basic Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="states.html">
+   Quantum State
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Quantum Operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="evolution.html">
+   Quantum Evolution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="functions.html">
+   Basic Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Hamiltonians.html">
+   Common Hamiltonians
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="spinRotations.html">
+   Qubit Rotations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="basicGates.html">
+   Basic Gates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="quasiProbabilities.html">
+   Quasi-Probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="thermodynamics.html">
+   Thermodynamical functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="rmtDistributions.html">
+   Random Matrix Theory Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eigenVecVal.html">
+   Eigen-vector/value Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="IPR.html">
+   Inverse Participation Ratio
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="_helpers.html">
+   Helper Functions
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functions">
+   Functions
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="module-quanguru.QuantumToolbox.operators">
+<span id="quantum-operators-quanguru-quantumtoolbox-operators"></span><h1>Quantum Operators (<a class="reference internal" href="#module-quanguru.QuantumToolbox.operators" title="quanguru.QuantumToolbox.operators"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.operators</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.operators" title="Permalink to this headline">¶</a></h1>
+<p>Contains methods to functions to create and/or manipulate quantum operators</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.identity" title="quanguru.QuantumToolbox.operators.identity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">identity</span></code></a>(dimension[, sparse])</p></td>
+<td><p>Creates the identity operator <span class="math">\mathbb{I}</span>.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.number" title="quanguru.QuantumToolbox.operators.number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number</span></code></a>(dimension[, sparse])</p></td>
+<td><p>Creates the (bosonic) number <span class="math">\hat{n} := a^{\dagger}a</span> operator (in Fock basis).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.destroy" title="quanguru.QuantumToolbox.operators.destroy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">destroy</span></code></a>(dimension[, sparse])</p></td>
+<td><p>Creates the bosonic <cite>annihilation</cite> <span class="math">\hat{a}</span> operator (in Fock basis).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.create" title="quanguru.QuantumToolbox.operators.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>(dimension[, sparse])</p></td>
+<td><p>Creates the bosonic <cite>creation</cite> <span class="math">\hat{a}^{\dagger}</span> operator (in Fock basis).</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmaz" title="quanguru.QuantumToolbox.operators.sigmaz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmaz</span></code></a>([sparse])</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma z) <span class="math">\hat{\sigma}_{z} := \begin{bmatrix} 1, \ \ 0 \\ 0, -1 \end{bmatrix}</span> operator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmay" title="quanguru.QuantumToolbox.operators.sigmay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmay</span></code></a>([sparse])</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma y) <span class="math">\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}</span> operator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmax" title="quanguru.QuantumToolbox.operators.sigmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmax</span></code></a>([sparse])</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma x) <span class="math">\hat{\sigma}_{x} := \begin{bmatrix} 0, 1 \\ 1, 0 \end{bmatrix}</span> operator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmap" title="quanguru.QuantumToolbox.operators.sigmap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmap</span></code></a>([sparse])</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma +) <span class="math">\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) = \begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}</span> operator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmam" title="quanguru.QuantumToolbox.operators.sigmam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmam</span></code></a>([sparse])</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma -) <span class="math">\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) = \begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}</span> operator.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jp" title="quanguru.QuantumToolbox.operators.Jp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jp</span></code></a>(j[, sparse, isDim])</p></td>
+<td><p>Creates the angular momentum (spin) <cite>raising</cite> operator <span class="math">\hat{J}_{+} := \frac{1}{2}(\hat{J}_{x}+i\hat{J}_{y})</span> for a given spin quantum number j.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jm" title="quanguru.QuantumToolbox.operators.Jm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jm</span></code></a>(j[, sparse, isDim])</p></td>
+<td><p>Creates the angular momentum (spin) <cite>lowering</cite> operator <span class="math">\hat{J}_{-} := \frac{1}{2}(\hat{J}_{x}-i\hat{J}_{y})</span> for a given spin quantum number j.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jx" title="quanguru.QuantumToolbox.operators.Jx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jx</span></code></a>(j[, sparse, isDim])</p></td>
+<td><p>Creates the angular momentum (spin) <cite>X</cite> operator <span class="math">\hat{J}_{x}</span> for a given spin quantum number j.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jy" title="quanguru.QuantumToolbox.operators.Jy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jy</span></code></a>(j[, sparse, isDim])</p></td>
+<td><p>Creates the angular momentum (spin) <cite>Y</cite> operator <span class="math">\hat{J}_{y}</span> for a given spin quantum number j.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jz" title="quanguru.QuantumToolbox.operators.Jz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jz</span></code></a>(j[, sparse, isDim])</p></td>
+<td><p>Creates the angular momentum (spin) <cite>Z</cite> operator <span class="math">\hat{J}_{z}</span> for a given spin quantum number j.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Js" title="quanguru.QuantumToolbox.operators.Js"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Js</span></code></a>(j[, sparse, isDim])</p></td>
+<td><p>Creates the total angular momentum (spin) operator <span class="math">\hat{J}_{s} := \hat{J}_{x}^{2} + \hat{J}_{y}^{2}+ \hat{J}_{z}^{2}</span> for a given spin quantum number j.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.displacement" title="quanguru.QuantumToolbox.operators.displacement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">displacement</span></code></a>(alpha, dim[, sparse])</p></td>
+<td><p>Creates the displacement operator <span class="math">\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}</span> for a given displacement parameter <span class="math">\alpha</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.squeeze" title="quanguru.QuantumToolbox.operators.squeeze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">squeeze</span></code></a>(alpha, dim[, sparse])</p></td>
+<td><p>Creates the squeezing operator <span class="math">\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}</span> for a given squeezing parameter <span class="math">\alpha</span>.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.parityEXP" title="quanguru.QuantumToolbox.operators.parityEXP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parityEXP</span></code></a>(HamiltonianCavity)</p></td>
+<td><p>Creates a parity operator <span class="math">\hat{P}(\hat{H}) := e^{i\pi\hat{H}}</span> by exponenting a given Hamiltonian <span class="math">\hat{H}</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.paritySUM" title="quanguru.QuantumToolbox.operators.paritySUM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paritySUM</span></code></a>(dimension[, sparse])</p></td>
+<td><p>Creates a parity operator by explicitly placing alternating +/- into a matrix.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.compositeOp" title="quanguru.QuantumToolbox.operators.compositeOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compositeOp</span></code></a>(operator[, dimB, dimA])</p></td>
+<td><p>Creates a composite operator <span class="math">\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}</span> ,ie tensor product with identities of dimensions before dimB and after dimA</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.operatorPow" title="quanguru.QuantumToolbox.operators.operatorPow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operatorPow</span></code></a>(op, dim, power[, sparse])</p></td>
+<td><p>Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 21%" />
+<col style="width: 16%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Function Name</strong></p></th>
+<th class="head"><p><strong>Docstrings</strong></p></th>
+<th class="head"><p><strong>Examples</strong></p></th>
+<th class="head"><p><strong>Unit Tests</strong></p></th>
+<th class="head"><p><strong>Tutorials</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>identity</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>number</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>destroy</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>create</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>sigmaz</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>sigmay</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>sigmax</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>sigmap</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>sigmam</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>Jp</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>Jm</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>Jx</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>Jy</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>Jz</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>Js</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>displacement</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>squeeze</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>parityEXP</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>paritySUM</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>compositeOp</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>operatorPow</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.number">
+<span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the (bosonic) number <span class="math">\hat{n} := a^{\dagger}a</span> operator (in Fock basis).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>number operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">number</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0 0 0]</span>
+<span class="go"> [0 1 0]</span>
+<span class="go"> [0 0 2]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">number</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="go">(0, 0)      0</span>
+<span class="go">(1, 1)      1</span>
+<span class="go">(2, 2)      2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.destroy">
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#destroy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the bosonic <cite>annihilation</cite> <span class="math">\hat{a}</span> operator (in Fock basis).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bosonic <cite>annihilation</cite> operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="go">(0, 1)      1.0</span>
+<span class="go">(1, 2)      1.4142135623730951</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">destroy</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.         1.         0.        ]</span>
+<span class="go"> [0.         0.         1.41421356]</span>
+<span class="go"> [0.         0.         0.        ]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the bosonic <cite>creation</cite> <span class="math">\hat{a}^{\dagger}</span> operator (in Fock basis).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bosonic <cite>creation</cite> operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">create</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="go">(1, 0)      1.0</span>
+<span class="go">(2, 1)      1.4142135623730951</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">create</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.         0.         0.        ]</span>
+<span class="go"> [1.         0.         0.        ]</span>
+<span class="go"> [0.         1.41421356 0.        ]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.identity">
+<span class="sig-name descname"><span class="pre">identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the identity operator <span class="math">\mathbb{I}</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>identity operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="go">(0, 0)      1.0</span>
+<span class="go">(1, 1)      1.0</span>
+<span class="go">(2, 2)      1.0</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[1. 0. 0.]</span>
+<span class="go"> [0. 1. 0.]</span>
+<span class="go"> [0. 0. 1.]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmaz">
+<span class="sig-name descname"><span class="pre">sigmaz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmaz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmaz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the <cite>Pauli</cite> (sigma z) <span class="math">\hat{\sigma}_{z} := \begin{bmatrix} 1, \ \ 0 \\ 0, -1 \end{bmatrix}</span> operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma z operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[ 1  0]</span>
+<span class="go"> [ 0 -1]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sigmaz</span><span class="p">())</span>
+<span class="go">(0, 0)      1</span>
+<span class="go">(1, 1)      -1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmay">
+<span class="sig-name descname"><span class="pre">sigmay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the <cite>Pauli</cite> (sigma y) <span class="math">\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}</span> operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma y operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.+0.j 0.-1.j]</span>
+<span class="go"> [0.+1.j 0.+0.j]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sigmay</span><span class="p">())</span>
+<span class="go">(1, 0)      1j</span>
+<span class="go">(0, 1)      (-0-1j)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmax">
+<span class="sig-name descname"><span class="pre">sigmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the <cite>Pauli</cite> (sigma x) <span class="math">\hat{\sigma}_{x} := \begin{bmatrix} 0, 1 \\ 1, 0 \end{bmatrix}</span> operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma x operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0 1]</span>
+<span class="go"> [1 0]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sigmax</span><span class="p">())</span>
+<span class="go">(1, 0)      1</span>
+<span class="go">(0, 1)      1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmap">
+<span class="sig-name descname"><span class="pre">sigmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the <cite>Pauli</cite> (sigma +) <span class="math">\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =
+\begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}</span> operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma + operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0 1]</span>
+<span class="go"> [0 0]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sigmap</span><span class="p">())</span>
+<span class="go">(0, 1)      1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.sigmam">
+<span class="sig-name descname"><span class="pre">sigmam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#sigmam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.sigmam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the <cite>Pauli</cite> (sigma -) <span class="math">\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =
+\begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}</span> operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Pauli</cite> sigma - operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0 0]</span>
+<span class="go"> [1 0]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sigmam</span><span class="p">())</span>
+<span class="go">(1, 0)      1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jp">
+<span class="sig-name descname"><span class="pre">Jp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the angular momentum (spin) <cite>raising</cite> operator
+<span class="math">\hat{J}_{+} := \frac{1}{2}(\hat{J}_{x}+i\hat{J}_{y})</span> for a given spin quantum number j.</p>
+<p>NOTE This is a direct matrix construction, i.e. it does not use the Jx and Jy functions, and this function is used
+in Jx and Jy implementations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) raising operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.         2.         0.         0.         0.        ]</span>
+<span class="go"> [0.         0.         2.44948974 0.         0.        ]</span>
+<span class="go"> [0.         0.         0.         2.44948974 0.        ]</span>
+<span class="go"> [0.         0.         0.         0.         2.        ]</span>
+<span class="go"> [0.         0.         0.         0.         0.        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="go">(0, 1)      2.0</span>
+<span class="go">(1, 2)      2.449489742783178</span>
+<span class="go">(2, 3)      2.449489742783178</span>
+<span class="go">(3, 4)      2.0</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[0.         2.         0.         0.         0.        ]</span>
+<span class="go"> [0.         0.         2.44948974 0.         0.        ]</span>
+<span class="go"> [0.         0.         0.         2.44948974 0.        ]</span>
+<span class="go"> [0.         0.         0.         0.         2.        ]</span>
+<span class="go"> [0.         0.         0.         0.         0.        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">(0, 1)      2.0</span>
+<span class="go">(1, 2)      2.449489742783178</span>
+<span class="go">(2, 3)      2.449489742783178</span>
+<span class="go">(3, 4)      2.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jm">
+<span class="sig-name descname"><span class="pre">Jm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the angular momentum (spin) <cite>lowering</cite> operator
+<span class="math">\hat{J}_{-} := \frac{1}{2}(\hat{J}_{x}-i\hat{J}_{y})</span> for a given spin quantum number j.</p>
+<p>NOTE This is a direct matrix construction, i.e. it does not use the Jx and Jy functions, and this function is used
+in Jx and Jy implementations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) lowering operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.         0.         0.         0.         0.        ]</span>
+<span class="go"> [2.         0.         0.         0.         0.        ]</span>
+<span class="go"> [0.         2.44948974 0.         0.         0.        ]</span>
+<span class="go"> [0.         0.         2.44948974 0.         0.        ]</span>
+<span class="go"> [0.         0.         0.         2.         0.        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">(1, 0)      2.0</span>
+<span class="go">(2, 1)      2.449489742783178</span>
+<span class="go">(3, 2)      2.449489742783178</span>
+<span class="go">(4, 3)      2.0</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[0.         0.         0.         0.         0.        ]</span>
+<span class="go"> [2.         0.         0.         0.         0.        ]</span>
+<span class="go"> [0.         2.44948974 0.         0.         0.        ]</span>
+<span class="go"> [0.         0.         2.44948974 0.         0.        ]</span>
+<span class="go"> [0.         0.         0.         2.         0.        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">(1, 0)      2.0</span>
+<span class="go">(2, 1)      2.449489742783178</span>
+<span class="go">(3, 2)      2.449489742783178</span>
+<span class="go">(4, 3)      2.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jx">
+<span class="sig-name descname"><span class="pre">Jx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the angular momentum (spin) <cite>X</cite> operator <span class="math">\hat{J}_{x}</span> for a given spin quantum number j.</p>
+<p>NOTE This function uses the definition <span class="math">\hat{J}_{x} =\frac{1}{2}(\hat{J}_{p}+\hat{J}_{m})</span> and calls Jp and Jm
+There are no test for this method, it rely on Jp and Jm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) X operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.         1.         0.         0.         0.        ]</span>
+<span class="go"> [1.         0.         1.22474487 0.         0.        ]</span>
+<span class="go"> [0.         1.22474487 0.         1.22474487 0.        ]</span>
+<span class="go"> [0.         0.         1.22474487 0.         1.        ]</span>
+<span class="go"> [0.         0.         0.         1.         0.        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">(1, 0)      1.0</span>
+<span class="go">(0, 1)      1.0</span>
+<span class="go">(2, 1)      1.224744871391589</span>
+<span class="go">(1, 2)      1.224744871391589</span>
+<span class="go">(3, 2)      1.224744871391589</span>
+<span class="go">(2, 3)      1.224744871391589</span>
+<span class="go">(4, 3)      1.0</span>
+<span class="go">(3, 4)      1.0</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[0.         1.         0.         0.         0.        ]</span>
+<span class="go"> [1.         0.         1.22474487 0.         0.        ]</span>
+<span class="go"> [0.         1.22474487 0.         1.22474487 0.        ]</span>
+<span class="go"> [0.         0.         1.22474487 0.         1.        ]</span>
+<span class="go"> [0.         0.         0.         1.         0.        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">(1, 0)      1.0</span>
+<span class="go">(0, 1)      1.0</span>
+<span class="go">(2, 1)      1.224744871391589</span>
+<span class="go">(1, 2)      1.224744871391589</span>
+<span class="go">(3, 2)      1.224744871391589</span>
+<span class="go">(2, 3)      1.224744871391589</span>
+<span class="go">(4, 3)      1.0</span>
+<span class="go">(3, 4)      1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jy">
+<span class="sig-name descname"><span class="pre">Jy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the angular momentum (spin) <cite>Y</cite> operator <span class="math">\hat{J}_{y}</span> for a given spin quantum number j.</p>
+<p>NOTE This function uses the definition <span class="math">\hat{J}_{y}=\frac{1}{2j}(\hat{J}_{p}-\hat{J}_{m})</span> and calls Jp and Jm
+There are no test for this method, it rely on Jp and Jm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) Y operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]</span>
+<span class="go"> [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]</span>
+<span class="go"> [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]</span>
+<span class="go"> [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]</span>
+<span class="go"> [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">(1, 0)      1j</span>
+<span class="go">(0, 1)      -1j</span>
+<span class="go">(2, 1)      1.224744871391589j</span>
+<span class="go">(1, 2)      -1.224744871391589j</span>
+<span class="go">(3, 2)      1.224744871391589j</span>
+<span class="go">(2, 3)      -1.224744871391589j</span>
+<span class="go">(4, 3)      1j</span>
+<span class="go">(3, 4)      -1j</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[0.+0.j         0.-1.j         0.+0.j         0.+0.j                0.+0.j        ]</span>
+<span class="go"> [0.+1.j         0.+0.j         0.-1.22474487j 0.+0.j                0.+0.j        ]</span>
+<span class="go"> [0.+0.j         0.+1.22474487j 0.+0.j         0.-1.22474487j        0.+0.j        ]</span>
+<span class="go"> [0.+0.j         0.+0.j         0.+1.22474487j 0.+0.j                0.-1.j        ]</span>
+<span class="go"> [0.+0.j         0.+0.j         0.+0.j         0.+1.j                0.+0.j        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">(1, 0)      1j</span>
+<span class="go">(0, 1)      -1j</span>
+<span class="go">(2, 1)      1.224744871391589j</span>
+<span class="go">(1, 2)      -1.224744871391589j</span>
+<span class="go">(3, 2)      1.224744871391589j</span>
+<span class="go">(2, 3)      -1.224744871391589j</span>
+<span class="go">(4, 3)      1j</span>
+<span class="go">(3, 4)      -1j</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Jz">
+<span class="sig-name descname"><span class="pre">Jz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Jz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Jz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the angular momentum (spin) <cite>Z</cite> operator <span class="math">\hat{J}_{z}</span> for a given spin quantum number j.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Angular momentum (spin) Z operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[ 2  0  0  0  0]</span>
+<span class="go"> [ 0  1  0  0  0]</span>
+<span class="go"> [ 0  0  0  0  0]</span>
+<span class="go"> [ 0  0  0 -1  0]</span>
+<span class="go"> [ 0  0  0  0 -2]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">(0, 0)      2</span>
+<span class="go">(1, 1)      1</span>
+<span class="go">(2, 2)      0</span>
+<span class="go">(3, 3)      -1</span>
+<span class="go">(4, 4)      -2</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[ 2.  0.  0.  0.  0.]</span>
+<span class="go"> [ 0.  1.  0.  0.  0.]</span>
+<span class="go"> [ 0.  0.  0.  0.  0.]</span>
+<span class="go"> [ 0.  0.  0. -1.  0.]</span>
+<span class="go"> [ 0.  0.  0.  0. -2.]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">(0, 0)      2.0</span>
+<span class="go">(1, 1)      1.0</span>
+<span class="go">(2, 2)      0.0</span>
+<span class="go">(3, 3)      -1.0</span>
+<span class="go">(4, 4)      -2.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.Js">
+<span class="sig-name descname"><span class="pre">Js</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#Js"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.Js" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the total angular momentum (spin) operator
+<span class="math">\hat{J}_{s} := \hat{J}_{x}^{2} + \hat{J}_{y}^{2}+ \hat{J}_{z}^{2}</span> for a given spin quantum number j.</p>
+<blockquote>
+<div><p>NOTE This function is direct implementation of the defition, meaning it uses Jx, Jy, and Jz functions</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int</em><em> or </em><em>float</em>) – integer or half-integer spin quantum number, or the dimension (then spin quantum number = (d-1)/2)</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+<li><p><strong>isDim</strong> (<em>bool</em>) – boolean for whether j is spin quantum number of dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Total angular momentum (spin) operator</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
+<span class="go"> [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
+<span class="go"> [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]</span>
+<span class="go"> [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]</span>
+<span class="go"> [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">(0, 0)      (6+0j)</span>
+<span class="go">(1, 1)      (6+0j)</span>
+<span class="go">(2, 2)      (5.999999999999999+0j)</span>
+<span class="go">(3, 3)      (6+0j)</span>
+<span class="go">(4, 4)      (6+0j)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[6.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
+<span class="go"> [0.+0.j 6.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
+<span class="go"> [0.+0.j 0.+0.j 6.+0.j 0.+0.j 0.+0.j]</span>
+<span class="go"> [0.+0.j 0.+0.j 0.+0.j 6.+0.j 0.+0.j]</span>
+<span class="go"> [0.+0.j 0.+0.j 0.+0.j 0.+0.j 6.+0.j]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Js</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">(0, 0)      (6+0j)</span>
+<span class="go">(1, 1)      (6+0j)</span>
+<span class="go">(2, 2)      (5.999999999999999+0j)</span>
+<span class="go">(3, 3)      (6+0j)</span>
+<span class="go">(4, 4)      (6+0j)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.displacement">
+<span class="sig-name descname"><span class="pre">displacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#displacement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.displacement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the displacement operator <span class="math">\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}</span>
+for a given displacement parameter <span class="math">\alpha</span>.</p>
+<p>NOTE can be implemented without matrix exponentiation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>complex</em>) – complex number, the displacement parameter</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Displacement operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[ 0.60605894+0.j          0.        +0.6100857j  -0.41242505+0.j       0.        -0.30065525j]</span>
+<span class="go"> [ 0.        +0.6100857j   0.02280184+0.j          0.        +0.34204129j        -0.71434114+0.j]</span>
+<span class="go"> [-0.41242505+0.j          0.        +0.34204129j -0.56045527+0.j        0.        +0.63150869j]</span>
+<span class="go"> [ 0.        -0.30065525j -0.71434114+0.j          0.        +0.63150869j        0.02280184+0.j]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">(0, 0)      (0.6060589372864117+0j)</span>
+<span class="go">(1, 0)      0.610085698426889j</span>
+<span class="go">(2, 0)      (-0.41242505189886125+0j)</span>
+<span class="go">(3, 0)      (-0-0.3006552538647247j)</span>
+<span class="go">(0, 1)      0.610085698426889j</span>
+<span class="go">(1, 1)      (0.02280183542861441+0j)</span>
+<span class="go">(2, 1)      0.3420412936689465j</span>
+<span class="go">(3, 1)      (-0.7143411442030587+0j)</span>
+<span class="go">(0, 2)      (-0.4124250518988613+0j)</span>
+<span class="go">(1, 2)      0.34204129366894637j</span>
+<span class="go">(2, 2)      (-0.5604552664291825+0j)</span>
+<span class="go">(3, 2)      0.6315086890322961j</span>
+<span class="go">(0, 3)      -0.3006552538647247j</span>
+<span class="go">(1, 3)      (-0.7143411442030586+0j)</span>
+<span class="go">(2, 3)      0.6315086890322962j</span>
+<span class="go">(3, 3)      (0.02280183542861464+0j)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.squeeze">
+<span class="sig-name descname"><span class="pre">squeeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#squeeze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.squeeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the squeezing operator <span class="math">\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}</span>
+for a given squeezing parameter <span class="math">\alpha</span>.</p>
+<p>NOTE can be implemented without matrix exponentiation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>complex</em>) – complex number, the squeezing parameter</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Squeezing operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0.7602446 +0.j         0.        +0.j         0.        -0.64963694j      0.        +0.j        ]</span>
+<span class="go"> [0.        +0.j         0.33918599+0.j         0.        +0.j               0.        -0.94071933j]</span>
+<span class="go"> [0.        -0.64963694j 0.        +0.j         0.7602446 +0.j               0.        +0.j        ]</span>
+<span class="go"> [0.        +0.j         0.        -0.94071933j 0.        +0.j               0.33918599+0.j        ]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">(0, 0)      (0.7602445970756301+0j)</span>
+<span class="go">(2, 0)      -0.6496369390800625j</span>
+<span class="go">(1, 1)      (0.3391859889869473+0j)</span>
+<span class="go">(3, 1)      -0.940719333741444j</span>
+<span class="go">(0, 2)      -0.6496369390800625j</span>
+<span class="go">(2, 2)      (0.7602445970756302+0j)</span>
+<span class="go">(1, 3)      -0.9407193337414442j</span>
+<span class="go">(3, 3)      (0.33918598898694713+0j)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.parityEXP">
+<span class="sig-name descname"><span class="pre">parityEXP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HamiltonianCavity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#parityEXP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.parityEXP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a parity operator <span class="math">\hat{P}(\hat{H}) := e^{i\pi\hat{H}}</span> by exponenting a given Hamiltonian
+<span class="math">\hat{H}</span>.</p>
+<p>Keeps sparse/array as sparse/array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>HamiltonianCavity</strong> (<em>Matrix</em>) – dimension of the Hilbert space</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parity operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">number</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parityEXP</span><span class="p">(</span><span class="n">HamiltonianCavity</span><span class="o">=</span><span class="n">ham</span><span class="p">)</span> <span class="c1"># returns an array since ham is an array</span>
+<span class="go">[[ 1.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]</span>
+<span class="go"> [ 0.+0.0000000e+00j -1.+1.2246468e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j]</span>
+<span class="go"> [ 0.+0.0000000e+00j  0.+0.0000000e+00j  1.-2.4492936e-16j  0.+0.0000000e+00j  0.+0.0000000e+00j]</span>
+<span class="go"> [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  -1.+3.6739404e-16j  0.+0.0000000e+00j]</span>
+<span class="go"> [ 0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  0.+0.0000000e+00j  1.-4.8985872e-16j]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">number</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">parityEXP</span><span class="p">(</span><span class="n">HamiltonianCavity</span><span class="o">=</span><span class="n">ham</span><span class="p">))</span> <span class="c1"># returns a sparse since ham is a sparse</span>
+<span class="go">(0, 0)      (1+0j)</span>
+<span class="go">(0, 1)      0j</span>
+<span class="go">(1, 1)      (-1+1.2246467991473532e-16j)</span>
+<span class="go">(1, 2)      -0j</span>
+<span class="go">(2, 2)      (1-2.4492935982947064e-16j)</span>
+<span class="go">(2, 3)      0j</span>
+<span class="go">(3, 3)      (-1+3.6739403974420594e-16j)</span>
+<span class="go">(3, 4)      -0j</span>
+<span class="go">(4, 4)      (1-4.898587196589413e-16j)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.paritySUM">
+<span class="sig-name descname"><span class="pre">paritySUM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#paritySUM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.paritySUM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a parity operator by explicitly placing alternating +/- into a matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parity operator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[ 1.  0.  0.  0.  0.]</span>
+<span class="go"> [ 0. -1.  0.  0.  0.]</span>
+<span class="go"> [ 0.  0.  1.  0.  0.]</span>
+<span class="go"> [ 0.  0.  0. -1.  0.]</span>
+<span class="go"> [ 0.  0.  0.  0.  1.]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="go">(0, 0)      1.0</span>
+<span class="go">(1, 1)      -1.0</span>
+<span class="go">(2, 2)      1.0</span>
+<span class="go">(3, 3)      -1.0</span>
+<span class="go">(4, 4)      1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.compositeOp">
+<span class="sig-name descname"><span class="pre">compositeOp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimB</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimA</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#compositeOp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.compositeOp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a composite operator
+<span class="math">\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}</span>
+,ie tensor product with identities of dimensions before dimB and after dimA</p>
+<p>NOTE simply calls and returns <a class="reference internal" href="linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.tensorProd" title="quanguru.QuantumToolbox.linearAlgebra.tensorProd"><code class="xref py py-func docutils literal notranslate"><span class="pre">tensorProd</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Matrix</em>) – operator of a sub-system</p></li>
+<li><p><strong>dimB</strong> (<em>int</em>) – (total) dimension of the systems that appear <cite>before</cite> in the tensor product order</p></li>
+<li><p><strong>dimA</strong> (<em>int</em>) – (total) dimension of the systems that appear <cite>after</cite> in the tensor product order</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sub-system operator in the extended Hilbert space</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">dimB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dimA</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">A</span>
+<span class="go">[[ 1.  0.  0.  0.]</span>
+<span class="go"> [ 0.  1.  0.  0.]</span>
+<span class="go"> [ 0.  0. -1.  0.]</span>
+<span class="go"> [ 0.  0.  0. -1.]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">dimB</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dimA</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">A</span>
+<span class="go">[[ 1.  0.  0.  0.]</span>
+<span class="go"> [ 0. -1.  0.  0.]</span>
+<span class="go"> [ 0.  0.  1.  0.]</span>
+<span class="go"> [ 0.  0.  0. -1.]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.operatorPow">
+<span class="sig-name descname"><span class="pre">operatorPow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#operatorPow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.operatorPow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op</strong> (<em>Callable</em>) – reference to the function (in here) for the operator</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – dimension of the Hilbert space</p></li>
+<li><p><strong>power</strong> (<em>int</em>) – power that the operator to be raised</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an operator raised to a power</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[1 0]</span>
+<span class="go"> [0 1]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="go">(0, 0)      1</span>
+<span class="go">(1, 1)      1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0 1]</span>
+<span class="go"> [1 0]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="go">(1, 0)      1</span>
+<span class="go">(0, 1)      1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="states.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Quantum States (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.states</span></code>)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="evolution.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Quantum Evolution (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.evolution</span></code>)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
