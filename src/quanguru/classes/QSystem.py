@@ -241,13 +241,12 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             The old dimension of the subSys
 
         """
-        self.simulation._stateBase__initialState._value = None
+        self.delMatrices(_exclude=[])
         for qsys in self.subSys.values():#update dimsBefore/After of other sub-system by comparing their ind with subSys
             if qsys.ind < subSys.ind:
                 qsys._dimsAfter = int((qsys._dimsAfter*newDim)/oldDim)
             if qsys.ind > subSys.ind:
                 qsys._dimsBefore = int((qsys._dimsBefore*newDim)/oldDim)
-            qsys.simulation._stateBase__initialState._value = None
         if self.superSys is not None: # for nested structures, we still need to call _updateDimension on self.superSys
             self.superSys._updateDimension(self, newDim, oldDim) # pylint:disable=protected-access
 

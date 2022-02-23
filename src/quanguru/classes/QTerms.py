@@ -99,7 +99,7 @@ class QTerm(paramBoundBase):
             qSys = [self.getByNameOrAlias(qsys) for qsys in qSys]
             for qsys in qSys:
                 self.addSubSys(QTerm(qSystems=qsys, _internal=True))
-                qsys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
+                self._paramBoundBase__paramBound[qsys.name] = qsys # pylint: disable=protected-access,no-member
         else:
             qSys = self.getByNameOrAlias(qSys)
         setAttr(self, '_QTerm__qSys', qSys)
@@ -171,8 +171,8 @@ class QTerm(paramBoundBase):
             checkCorType(vals, (list, tuple), f'{attrPrintName} of a term with multiple system (i.e. a coupling term)')
             checkVal(len(vals), len(self.qSystems), f'Number of {attrPrintName} ({len(vals)}) should be the same as'+
                                                     f' number of qSystem ({len(self.subSys)})')
-            for ind, qsys in enumerate(self.subSys.values()):
-                setAttr(qsys, attrName, vals[ind])
+            for ind, ter in enumerate(self.subSys.values()):
+                setAttr(ter, attrName, vals[ind])
         setAttr(self, attrName, vals)
         if self._paramUpdated:
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
@@ -214,6 +214,8 @@ class QTerm(paramBoundBase):
     def frequency(self, freq):
         checkCorType(freq, (int, float, complex, type(None)), 'frequency of a term')
         setAttr(self, '_QTerm__frequency', 0 if freq == 0.0 else freq)
+        for ter in self.subSys.values():
+            ter.frequency = freq
 
     @property
     def totalHamiltonian(self):
@@ -270,7 +272,7 @@ class QTerm(paramBoundBase):
             if len(self.subSys) == 0:
                 self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator, self.order) #pylint:disable=assigning-non-slot
             else:
-                self._paramBoundBase__matrix=sum(ter.frequency*ter._constructMatrices() for ter in self.subSys.values()) #pylint:disable=protected-access,assigning-non-slot
+                self._paramBoundBase__matrix=sum(ter._constructMatrices() for ter in self.subSys.values()) #pylint:disable=protected-access,assigning-non-slot
         elif isinstance(self.qSystems, (list, tuple)):
             opers = [ter._constructMatrices() for ter in self.subSys.values()] #pylint:disable=protected-access
             self._paramBoundBase__matrix = _matMulInputs(*opers) #pylint:disable=assigning-non-slot
