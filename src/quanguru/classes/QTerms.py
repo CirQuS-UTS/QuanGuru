@@ -186,6 +186,10 @@ class QTerm(paramBoundBase):
     @operator.setter
     def operator(self, op):
         self._checkAndUpdateParamsWhenMultiple(op, '_QTerm__operator', 'operator')
+        if ((not isinstance(self.order, (list, tuple))) and isinstance(op, (list, tuple))):
+            checkVal(self.order, 1, f'order value ({self.order}) for a multi term ({len(op)}) system is ambiguous, '+
+                                     'set a list/tuple of order values for each term in {op}')
+            self.order = [1 for _ in op]
 
     @property
     def order(self):
