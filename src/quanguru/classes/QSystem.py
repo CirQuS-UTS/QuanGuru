@@ -492,9 +492,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     # TODO THESE NEEDS TESTS
 
-    def createTerm(self, operators, frequency=None, qSystems=None, orders=None):
+    def createTerm(self, operators, frequency=None, qSystems=None, orders=None, **kwargs):
         r"""
-        Method to create a new term with the given parameters.
+        Method to create a new term with the given parameters and also set the given kwargs to the new term.
 
         Parameters
         ----------
@@ -526,7 +526,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                          f"contained in the {self.name}")
         else:
             qSystems = self.getByNameOrAlias(qSystems)
-        newTerm = QTerm._createTerm(qSystems=qSystems, operators=operators, orders=orders, frequency=frequency) #pylint:disable=protected-access
+        newTerm = QTerm._createTerm(qSystems=qSystems, operators=operators, orders=orders,#pylint:disable=protected-access
+                                    frequency=frequency, **kwargs)
         qObj = self if isinstance(qSystems, (list, tuple)) else qSystems
         qObj.addTerms(newTerm)
         return newTerm

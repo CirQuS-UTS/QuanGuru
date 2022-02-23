@@ -121,12 +121,12 @@ def checkCavQub(coupler):
 def JC(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, Jp], frequency=1)
-        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, Jm], frequency=1)
+        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, Jp], superSys=obj)
+        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, Jm], superSys=obj)
         couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qsystems=obj, frequency=couplingStrength)
     else:
-        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, create], frequency=1)
-        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, destroy], frequency=1)
+        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, create], superSys=obj)
+        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, destroy], superSys=obj)
         couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qsystems=obj, frequency=couplingStrength)
     return couplingObj
 
@@ -135,8 +135,8 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
 def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, sigmax], frequency=1)
-        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, sigmax], frequency=1)
+        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, sigmax], superSys=obj)
+        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, sigmax], superSys=obj)
         couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, frequency=couplingStrength)
     return couplingObj
 
@@ -145,8 +145,8 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
 def Dicke(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, Jx], frequency=1)
-        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, Jx], frequency=1)
+        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, Jx], superSys=obj)
+        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, Jx], superSys=obj)
         couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, frequency=couplingStrength)
     return couplingObj
 

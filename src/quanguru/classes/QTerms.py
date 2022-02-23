@@ -75,7 +75,7 @@ class QTerm(paramBoundBase):
         to update the desired parameters (such as frequency of the term) as a function of time.
         """
         if ((time is None) and (hasattr(self.superSys, 'simulation'))):
-            time = self.superSys.simulation._currentTime
+            time = self.superSys.simulation._currentTime # pylint: disable=no-member
 
         if callable(self.timeDependency):
             self.timeDependency(self, time) # pylint: disable=assigning-non-slot,not-callable
@@ -90,8 +90,16 @@ class QTerm(paramBoundBase):
         """
         return self._QTerm__qSys
 
+    @paramBoundBase.superSys.setter
+    def superSys(self, supSys):
+        paramBoundBase.superSys.fset(self, supSys) # pylint: disable=no-member
+        self._paramBoundBase__paramBound[supSys.name] = supSys # pylint: disable=protected-access,no-member
+
     @qSystems.setter
     def qSystems(self, qSys):
+        if isinstance(qSys, (list, tuple)):
+            checkNotVal(self.superSys,None,'Multi-system terms (i.e. couplings) require the composite system that '+
+            'contains the given systems to be its superSys')
         self._QTerm__order = 1 # pylint: disable=assigning-non-slot
         self._QTerm__operator = None # pylint: disable=assigning-non-slot
         self.resetSubSys()
@@ -99,9 +107,9 @@ class QTerm(paramBoundBase):
             qSys = [self.getByNameOrAlias(qsys) for qsys in qSys]
             for qsys in qSys:
                 self.addSubSys(QTerm(qSystems=qsys, _internal=True))
-                self._paramBoundBase__paramBound[qsys.name] = qsys # pylint: disable=protected-access,no-member
         else:
             qSys = self.getByNameOrAlias(qSys)
+            self._paramBoundBase__paramBound[qSys.name] = qSys # pylint: disable=protected-access,no-member
         setAttr(self, '_QTerm__qSys', qSys)
 
     def _removeTermIfQSysInList(self, qSys, subSys):
@@ -114,7 +122,7 @@ class QTerm(paramBoundBase):
                 qSys.removeTerm(self)
 
     @staticmethod
-    def _createTerm(qSystems, operators, orders=None, frequency=None):
+    def _createTerm(qSystems, operators, orders=None, frequency=None, **kwargs):
         r"""
         Factory method to create new QTerm with the given qSystems, operators, and optional orders and frequency.
 
@@ -137,7 +145,7 @@ class QTerm(paramBoundBase):
             Newly created QTerm object
 
         """
-        newSys = QTerm()
+        newSys = QTerm(**kwargs)
         newSys.qSystems = qSystems
         newSys.operator = operators
         newSys.order = [1 for _ in qSystems] if (isinstance(qSystems, (list, tuple)) and (orders is None)) else orders
