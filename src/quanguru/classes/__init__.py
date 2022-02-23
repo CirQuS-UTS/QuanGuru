@@ -7,7 +7,8 @@ r"""
 
         base
         baseClasses
-        QSys
+        QSystem
+        QTerm
         QSim
         QPro
         QRes
@@ -15,6 +16,7 @@ r"""
         QGates
         QDrive
         environment
+        QSys
         exceptions
         extensions
 
