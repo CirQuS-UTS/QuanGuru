@@ -99,6 +99,7 @@ class QTerm(paramBoundBase):
             qSys = [self.getByNameOrAlias(qsys) for qsys in qSys]
             for qsys in qSys:
                 self.addSubSys(QTerm(qSystems=qsys, _internal=True))
+                qsys._paramBoundBase__paramBound[self.name] = self # pylint: disable=protected-access
         else:
             qSys = self.getByNameOrAlias(qSys)
         setAttr(self, '_QTerm__qSys', qSys)
@@ -266,8 +267,11 @@ class QTerm(paramBoundBase):
         internally in various places when the matrices are needed to be constructed.
         """
         if all(hasattr(self.qSystems, attr) for attr in ["dimension", "_dimsBefore", "_dimsAfter"]):
-            self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator, self.order) #pylint:disable=assigning-non-slot
+            if len(self.subSys) == 0:
+                self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator, self.order) #pylint:disable=assigning-non-slot
+            else:
+                self._paramBoundBase__matrix=sum(ter.frequency*ter._constructMatrices() for ter in self.subSys.values()) #pylint:disable=protected-access,assigning-non-slot
         elif isinstance(self.qSystems, (list, tuple)):
-            opers=[self._dimInput(qsys, self.operator[ind],self.order[ind]) for ind, qsys in enumerate(self.qSystems)]
+            opers = [ter._constructMatrices() for ter in self.subSys.values()] #pylint:disable=protected-access
             self._paramBoundBase__matrix = _matMulInputs(*opers) #pylint:disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
