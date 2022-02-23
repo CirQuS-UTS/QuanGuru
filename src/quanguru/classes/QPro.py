@@ -72,6 +72,10 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
+    def dimension(self):
+        return 1
+
+    @property
     def _dissipator(self):
         return self._genericProtocol__dissipator
 

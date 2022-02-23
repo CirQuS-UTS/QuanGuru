@@ -26,10 +26,12 @@
 """
 
 from ..QSys import compQSystem, QubitOld, CavityOld, SpinOld
+from ..QSystem import QuantumSystem, Qubit, Cavity, Spin
+from ..QTerms import QTerm
 from ...QuantumToolbox.operators import sigmaz, Jz, create, destroy, Jp, Jm, sigmax, Jx
 
 
-def checkCavQub(coupler):
+def checkCavQubOld(coupler):
     def couplerDecorator(obj, couplingStrength, subSys1=None, subSys2=None):
         if isinstance(subSys1, (QubitOld, SpinOld)):
             if not isinstance(subSys2, CavityOld):
@@ -55,8 +57,8 @@ def checkCavQub(coupler):
     return couplerDecorator
 
 
-@checkCavQub
-def JC(obj, couplingStrength, subSys1=None, subSys2=None):
+@checkCavQubOld
+def JCold(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj = obj.createSysCoupling(qsystems, [destroy, Jp], qsystems,
@@ -65,7 +67,67 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
         couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj,
                                             couplingStrength=couplingStrength)
         couplingObj.addTerm(qsystems, [create, destroy])
-    #couplingObj.alias = 'JCcoupling'
+    return couplingObj
+
+
+@checkCavQubOld
+def RabiOld(obj, couplingStrength, subSys1=None, subSys2=None):
+    qsystems = [subSys1, subSys2]
+    if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], qsystems,
+                                            [create, sigmax], superSys=obj, couplingStrength=couplingStrength)
+    return couplingObj
+
+
+@checkCavQubOld
+def DickeOld(obj, couplingStrength, subSys1=None, subSys2=None):
+    qsystems = [subSys1, subSys2]
+    if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
+        couplingObj = obj.createSysCoupling(qsystems, [destroy, Jx], qsystems,
+                                            [create, Jx], superSys=obj, couplingStrength=couplingStrength)
+    return couplingObj
+
+compQSystem.JC = JCold
+compQSystem.Rabi = RabiOld
+compQSystem.Dicke = DickeOld
+
+
+def checkCavQub(coupler):
+    def couplerDecorator(obj, couplingStrength, subSys1=None, subSys2=None):
+        if isinstance(subSys1, (Qubit, Spin)):
+            if not isinstance(subSys2, Cavity):
+                raise ValueError('Jaynes-Cummings requires a qubit and a cavity')
+            qsystems = [subSys2, subSys1]
+        elif isinstance(subSys2, (Qubit, Spin)):
+            if not isinstance(subSys1, Cavity):
+                raise ValueError('Jaynes-Cummings requires a qubit and a cavity')
+            qsystems = [subSys1, subSys2]
+        elif ((subSys1 is None) or (subSys2 is None)):
+            qsystems = []
+            for sys in obj.subSys.values():
+                if isinstance(sys, (Cavity, Qubit, Spin)):
+                    if len(qsystems) == 0:
+                        qsystems.append(sys)
+                    elif not isinstance(sys, qsystems[0].__class__):
+                        qsystems.append(sys)
+
+                    if len(qsystems) == 2:
+                        break
+            return couplerDecorator(obj, couplingStrength, *qsystems)
+        return coupler(obj, couplingStrength, *qsystems)
+    return couplerDecorator
+
+@checkCavQub
+def JC(obj, couplingStrength, subSys1=None, subSys2=None):
+    qsystems = [subSys1, subSys2]
+    if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
+        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, Jp], frequency=1)
+        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, Jm], frequency=1)
+        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qsystems=obj, frequency=couplingStrength)
+    else:
+        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, create], frequency=1)
+        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, destroy], frequency=1)
+        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qsystems=obj, frequency=couplingStrength)
     return couplingObj
 
 
@@ -73,14 +135,9 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
 def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj = obj.createSysCoupling(qsystems, [destroy, sigmax], qsystems,
-                                            [create, sigmax], superSys=obj, couplingStrength=couplingStrength)
-        #couplingObj.addTerm()
-    # else:
-    #     print('number')
-    #  couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj, couplingStrength=couplingStrength)
-    #     couplingObj.addTerm(qsystems,[create, destroy])
-    # couplingObj.name = 'JCcoupling'
+        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, sigmax], frequency=1)
+        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, sigmax], frequency=1)
+        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, frequency=couplingStrength)
     return couplingObj
 
 
@@ -88,16 +145,11 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
 def Dicke(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj = obj.createSysCoupling(qsystems, [destroy, Jx], qsystems,
-                                            [create, Jx], superSys=obj, couplingStrength=couplingStrength)
-        #couplingObj.addTerm()
-    # else:
-    #     print('number')
-    #  couplingObj = obj.createSysCoupling(qsystems, [destroy, create], superSys=obj, couplingStrength=couplingStrength)
-    #     couplingObj.addTerm(qsystems,[create, destroy])
-    # couplingObj.name = 'JCcoupling'
+        couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, Jx], frequency=1)
+        couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, Jx], frequency=1)
+        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, frequency=couplingStrength)
     return couplingObj
 
-compQSystem.JC = JC
-compQSystem.Rabi = Rabi
-compQSystem.Dicke = Dicke
+QuantumSystem.JC = JC
+QuantumSystem.Rabi = Rabi
+QuantumSystem.Dicke = Dicke
