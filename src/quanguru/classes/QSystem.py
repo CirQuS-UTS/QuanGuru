@@ -147,7 +147,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                                                    ' handle initial state inputs differently, so you need to set other'+
                                                    f' relevant parameters to determine the type of {self.name}')
         if self.superSys is not None:
-            self.superSys.simulation._stateBase__initialState._value = None # breaks the bound to the other _parameter
+            self.superSys.simulation._stateBase__initialState.value = None # breaks the bound to the other _parameter
 
         if self._isComposite:
             if not isinstance(inp, (ndarray, spmatrix)):
@@ -241,11 +241,13 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             The old dimension of the subSys
 
         """
+        self.simulation._stateBase__initialState._value = None
         for qsys in self.subSys.values():#update dimsBefore/After of other sub-system by comparing their ind with subSys
             if qsys.ind < subSys.ind:
                 qsys._dimsAfter = int((qsys._dimsAfter*newDim)/oldDim)
             if qsys.ind > subSys.ind:
                 qsys._dimsBefore = int((qsys._dimsBefore*newDim)/oldDim)
+            qsys.simulation._stateBase__initialState._value = None
         if self.superSys is not None: # for nested structures, we still need to call _updateDimension on self.superSys
             self.superSys._updateDimension(self, newDim, oldDim) # pylint:disable=protected-access
 
@@ -518,6 +520,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
         if isinstance(qSystems, (list, tuple)):
             checkVal(self._isComposite, True, "Cannot add a multi-operator term (ie a coupling) to a single system")
+            qSystems = [self.getByNameOrAlias(qsys) for qsys in qSystems]
             for qsys in qSystems:
                 checkVal(self._hasInSubs(qsys), True,
                          f"Cannot add a multi-operator term (ie a coupling) to {self.name}, because {qsys.name} is not"+
@@ -655,29 +658,35 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self._firstTerm._freeMatrix = qMat # pylint: disable=protected-access
 
     def copy(self, **kwargs):
-        newSys = QuantumSystem()
+        newSys = super().copy()
         for qsys in self.subSys.values():
             cqsys = qsys.copy()
             cqsys.alias = qsys.name + "_" + cqsys.name
             newSys.addSubSys(cqsys)
         subSysList = list(newSys.subSys.values())
-        for ter in self.terms.values():
+        termsList = list(newSys.terms.values())#pylint:disable=no-member
+        for ind, ter in enumerate(self.terms.values()):
             if isinstance(ter.qSystems, QuantumSystem):
                 qSystemNames = newSys
             else:
                 qSystemNames = []
                 for qsys in ter.qSystems:
                     qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind-1].name)
-            newSys.createTerm(operators=ter.operator,
-                              qSystems=qSystemNames,
-                              frequency=ter.frequency,
-                              orders=ter.order)
+            if ind > len(termsList):
+                newSys.createTerm(qSystems=qSystemNames, #pylint:disable=no-member
+                                 operators=ter.operator,
+                                 frequency=ter.frequency,
+                                 orders=ter.order)
+            else:
+                termsList[ind]._named__setKwargs(qSystems=qSystemNames, #pylint:disable=no-member
+                                                 operator=ter.operator,
+                                                 frequency=ter.frequency,
+                                                 order=ter.order)
         if self.simulation._stateBase__initialStateInput._value is not None:
             newSys.initialState = self.simulation._stateBase__initialStateInput.value #pylint:disable=assigning-non-slot
-        newSys._QuantumSystem__firstTerm = list(newSys.terms.values())[0]#pylint:disable=assigning-non-slot,protected-access
         if not self._isComposite:
-            newSys.dimension = self.dimension
-            newSys._inpCoef = self._inpCoef # pylint: disable=protected-access
+            newSys.dimension = self.dimension#pylint:disable=assigning-non-slot
+            newSys._inpCoef = self._inpCoef # pylint: disable=protected-access,assigning-non-slot
         newSys._named__setKwargs(**kwargs) #pylint:disable=no-member
         return newSys
 
