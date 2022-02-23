@@ -43,7 +43,7 @@ def test_addAndremoveSubSysMethods(cls):
     assert comp1._dimsBefore == 1
     assert comp1._dimsAfter == 1
     assert comp1.dimension == sing1.dimension*sing3.dimension
-    assert sing1._dimsAfter ==sing3.dimension
+    assert sing1._dimsAfter == sing3.dimension
     #assert sing2._dimsAfter == sing3.dimension
     assert sing3._dimsAfter == 1
     assert sing3._dimsBefore == sing1.dimension

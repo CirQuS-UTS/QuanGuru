@@ -214,7 +214,7 @@ class QTerm(paramBoundBase):
         r"""
         Return the total Hamiltonian (ie frequency*operator) for this term.
         """
-        if ((self._QTerm__HamiltonianTerm is None) or (self._paramUpdated)):
+        if ((self._QTerm__HamiltonianTerm is None) or (self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             self._QTerm__HamiltonianTerm = self.frequency*self._freeMatrix #pylint:disable=assigning-non-slot
             self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._QTerm__HamiltonianTerm
@@ -236,7 +236,7 @@ class QTerm(paramBoundBase):
             self._constructMatrices()
 
     @staticmethod
-    def _dimInput(qsys, oper):
+    def _dimInput(qsys, oper, order):
         r"""
         Static method to create the composite operator for a given quantum system and operator.
         This method is used in _constructMatrices, where the system and operator are passed.
@@ -249,9 +249,9 @@ class QTerm(paramBoundBase):
             dim = 0.5*(dim-1)
 
         if oper not in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
-            operMat = oper(dim)
+            operMat = oper(dim)**order
         else:
-            operMat = oper()
+            operMat = oper()**order
         operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
         return operCompMat
 
@@ -261,8 +261,8 @@ class QTerm(paramBoundBase):
         internally in various places when the matrices are needed to be constructed.
         """
         if all(hasattr(self.qSystems, attr) for attr in ["dimension", "_dimsBefore", "_dimsAfter"]):
-            self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator) #pylint:disable=assigning-non-slot
+            self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator, self.order) #pylint:disable=assigning-non-slot
         elif isinstance(self.qSystems, (list, tuple)):
-            opers = [self._dimInput(qsys, self.operator[ind]) for ind, qsys in enumerate(self.qSystems)]
+            opers=[self._dimInput(qsys, self.operator[ind],self.order[ind]) for ind, qsys in enumerate(self.qSystems)]
             self._paramBoundBase__matrix = _matMulInputs(*opers) #pylint:disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
