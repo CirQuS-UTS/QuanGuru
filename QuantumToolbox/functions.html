@@ -269,7 +269,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.expectation" title="quanguru.QuantumToolbox.functions.expectation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expectation</span></code></a>(operator, state)</p></td>
-<td><p>Calculates the expectation value <span class="math">\langle \hat{O}\rangle := \langle \psi | \hat{O} |\psi \rangle \equiv \textrm{Tr}(\hat{O}|\psi \rangle\langle \psi |)</span> of an <cite>operator</cite> <span class="math">\hat{O}</span> for a given <cite>state</cite> <span class="math">|\psi \rangle</span>.</p></td>
+<td><p>Calculates the expectation value <img class="math" src="../_images/math/5bd002c29ccb4739edff666d9d661fa3b5bc3abd.png" alt="\langle \hat{O}\rangle := \langle \psi | \hat{O} |\psi \rangle \equiv \textrm{Tr}(\hat{O}|\psi \rangle\langle \psi |)"/> of an <cite>operator</cite> <img class="math" src="../_images/math/8c080a4c97007565bf12d721801a0c0be1b21771.png" alt="\hat{O}"/> for a given <cite>state</cite> <img class="math" src="../_images/math/af45dcc938308431dfcd03eb148975e1fe4012d3.png" alt="|\psi \rangle"/>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -280,10 +280,10 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.fidelityPure" title="quanguru.QuantumToolbox.functions.fidelityPure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fidelityPure</span></code></a>(state1, state2)</p></td>
-<td><p>Calculates <cite>fidelity</cite> <span class="math">\mathcal{F}(\psi_{1}, \psi_{2}) := |\langle \psi_{2}|\psi_{1}\rangle|^{2} = Tr(|\psi_{1}\rangle\langle \psi_{1}|\psi_{2}\rangle|\psi_{2}\rangle)</span> between <cite>two pure states</cite>.</p></td>
+<td><p>Calculates <cite>fidelity</cite> <img class="math" src="../_images/math/b77ed2280ccb1f2956454a4c04fc4ec61e1965ce.png" alt="\mathcal{F}(\psi_{1}, \psi_{2}) := |\langle \psi_{2}|\psi_{1}\rangle|^{2} = Tr(|\psi_{1}\rangle\langle \psi_{1}|\psi_{2}\rangle|\psi_{2}\rangle)"/> between <cite>two pure states</cite>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.traceDistance" title="quanguru.QuantumToolbox.functions.traceDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">traceDistance</span></code></a>(A, B)</p></td>
-<td><p>Calculates the trace distance <span class="math">\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} = \frac{1}{2}Tr\left[\sqrt{(A-B)^{\dagger}(A-B)} \right]</span> between two matrices.</p></td>
+<td><p>Calculates the trace distance <img class="math" src="../_images/math/406ffc71d1b4600acb7ed793903344ddb79ff0ec.png" alt="\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} = \frac{1}{2}Tr\left[\sqrt{(A-B)^{\dagger}(A-B)} \right]"/> between two matrices.</p></td>
 </tr>
 </tbody>
 </table>
@@ -294,10 +294,10 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.entropy" title="quanguru.QuantumToolbox.functions.entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entropy</span></code></a>(densMat[, base2])</p></td>
-<td><p>Calculates the <cite>entropy</cite> <span class="math">\mathcal{S}(\rho) := -Tr(\rho\ln\rho)</span>  of a given <cite>density matrix</cite> :math`rho`.</p></td>
+<td><p>Calculates the <cite>entropy</cite> <img class="math" src="../_images/math/3d35e66289aeaf6c208e9174ab9d3bab1c3272b0.png" alt="\mathcal{S}(\rho) := -Tr(\rho\ln\rho)"/>  of a given <cite>density matrix</cite> :math`rho`.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.functions.concurrence" title="quanguru.QuantumToolbox.functions.concurrence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concurrence</span></code></a>(state)</p></td>
-<td><p>Calculates the <cite>concurrence</cite> <span class="math">\mathcal{C}(\rho) := \max(0, \lambda_{1}-\lambda_{2}-\lambda_{3}-\lambda_{4})</span> of two qubit state <span class="math">\rho</span>, where <span class="math">\lambda_{i}</span> are sorted eigenvalues <span class="math">R = \sqrt{\sqrt{\rho}\tilde{\rho}\sqrt{\rho}}</span> with <span class="math">\tilde{\rho} = (\sigma_{y}\otimes\sigma_{y})\rho^{*}(\sigma_{y}\otimes\sigma_{y})</span>.</p></td>
+<td><p>Calculates the <cite>concurrence</cite> <img class="math" src="../_images/math/ec2f31e5f0044627a4d4a7a91ab4e70e62acbf6a.png" alt="\mathcal{C}(\rho) := \max(0, \lambda_{1}-\lambda_{2}-\lambda_{3}-\lambda_{4})"/> of two qubit state <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.png" alt="\rho"/>, where <img class="math" src="../_images/math/e0e01b66436c1a8da66594d22a8c96e80cf4e0d9.png" alt="\lambda_{i}"/> are sorted eigenvalues <img class="math" src="../_images/math/c7d150c2bb7113026b91107b303208dce9b80f78.png" alt="R = \sqrt{\sqrt{\rho}\tilde{\rho}\sqrt{\rho}}"/> with <img class="math" src="../_images/math/5eb6e660f36bdffa0b0b65634289c015cfdf608e.png" alt="\tilde{\rho} = (\sigma_{y}\otimes\sigma_{y})\rho^{*}(\sigma_{y}\otimes\sigma_{y})"/>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -406,10 +406,10 @@
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.functions.expectation">
 <span class="sig-name descname"><span class="pre">expectation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#expectation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.expectation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the expectation value
-<span class="math">\langle \hat{O}\rangle := \langle \psi | \hat{O} |\psi \rangle \equiv
-\textrm{Tr}(\hat{O}|\psi \rangle\langle \psi |)</span>
-of an <cite>operator</cite> <span class="math">\hat{O}</span>
-for a given <cite>state</cite> <span class="math">|\psi \rangle</span>.</p>
+<img class="math" src="../_images/math/82331931b95501d7b29298437514581169a1d5c7.png" alt="\langle \hat{O}\rangle := \langle \psi | \hat{O} |\psi \rangle \equiv
+\textrm{Tr}(\hat{O}|\psi \rangle\langle \psi |)"/>
+of an <cite>operator</cite> <img class="math" src="../_images/math/8c080a4c97007565bf12d721801a0c0be1b21771.png" alt="\hat{O}"/>
+for a given <cite>state</cite> <img class="math" src="../_images/math/af45dcc938308431dfcd03eb148975e1fe4012d3.png" alt="|\psi \rangle"/>.</p>
 <p>State can either be a <cite>ket</cite> or <cite>density matrix</cite>.
 State and operator can both be sparse or array or any combination of the two.</p>
 <p>Calculates the <a class="reference internal" href="states.html#quanguru.QuantumToolbox.states.densityMatrix" title="quanguru.QuantumToolbox.states.densityMatrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">densityMatrix</span></code></a>, then uses
@@ -460,8 +460,8 @@ State and operator can both be sparse or array or any combination of the two.</p
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.functions.fidelityPure">
 <span class="sig-name descname"><span class="pre">fidelityPure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#fidelityPure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.fidelityPure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates <cite>fidelity</cite>
-<span class="math">\mathcal{F}(\psi_{1}, \psi_{2}) := |\langle \psi_{2}|\psi_{1}\rangle|^{2} =
-Tr(|\psi_{1}\rangle\langle \psi_{1}|\psi_{2}\rangle|\psi_{2}\rangle)</span>
+<img class="math" src="../_images/math/b91d5ed162438b9a8ad53a2ce921327b6668aba3.png" alt="\mathcal{F}(\psi_{1}, \psi_{2}) := |\langle \psi_{2}|\psi_{1}\rangle|^{2} =
+Tr(|\psi_{1}\rangle\langle \psi_{1}|\psi_{2}\rangle|\psi_{2}\rangle)"/>
 between <cite>two pure states</cite>.</p>
 <p>States can either be a <cite>ket</cite> or <cite>density matrix</cite>,
 and they can both be sparse or array or any combination of the two.</p>
@@ -512,7 +512,7 @@ and they can both be sparse or array or any combination of the two.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.functions.entropy">
 <span class="sig-name descname"><span class="pre">entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">densMat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.entropy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the <cite>entropy</cite> <span class="math">\mathcal{S}(\rho) := -Tr(\rho\ln\rho)</span>  of a given <cite>density matrix</cite> :math`rho`.</p>
+<dd><p>Calculates the <cite>entropy</cite> <img class="math" src="../_images/math/3d35e66289aeaf6c208e9174ab9d3bab1c3272b0.png" alt="\mathcal{S}(\rho) := -Tr(\rho\ln\rho)"/>  of a given <cite>density matrix</cite> :math`rho`.</p>
 <p>Input has to be a density matrix by definition, but works with a given ket state as well.
 Uses exponential basis as default.</p>
 <dl class="field-list simple">
@@ -564,8 +564,8 @@ Uses exponential basis as default.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.functions.traceDistance">
 <span class="sig-name descname"><span class="pre">traceDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#traceDistance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.traceDistance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the trace distance <span class="math">\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} =
-\frac{1}{2}Tr\left[\sqrt{(A-B)^{\dagger}(A-B)} \right]</span> between two matrices.</p>
+<dd><p>Calculates the trace distance <img class="math" src="../_images/math/07f8412e0651a807ef37a81f3820c64a0744754a.png" alt="\mathcal{T}(A, B) := \frac{1}{2}||A-B||_{1} =
+\frac{1}{2}Tr\left[\sqrt{(A-B)^{\dagger}(A-B)} \right]"/> between two matrices.</p>
 <p># TODO implement a method for trace norm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -630,10 +630,10 @@ Uses exponential basis as default.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.functions.concurrence">
 <span class="sig-name descname"><span class="pre">concurrence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/functions.html#concurrence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.functions.concurrence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the <cite>concurrence</cite> <span class="math">\mathcal{C}(\rho) := \max(0, \lambda_{1}-\lambda_{2}-\lambda_{3}-\lambda_{4})</span>
-of two qubit state <span class="math">\rho</span>, where <span class="math">\lambda_{i}</span> are sorted eigenvalues
-<span class="math">R = \sqrt{\sqrt{\rho}\tilde{\rho}\sqrt{\rho}}</span> with
-<span class="math">\tilde{\rho} = (\sigma_{y}\otimes\sigma_{y})\rho^{*}(\sigma_{y}\otimes\sigma_{y})</span>.</p>
+<dd><p>Calculates the <cite>concurrence</cite> <img class="math" src="../_images/math/ec2f31e5f0044627a4d4a7a91ab4e70e62acbf6a.png" alt="\mathcal{C}(\rho) := \max(0, \lambda_{1}-\lambda_{2}-\lambda_{3}-\lambda_{4})"/>
+of two qubit state <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.png" alt="\rho"/>, where <img class="math" src="../_images/math/e0e01b66436c1a8da66594d22a8c96e80cf4e0d9.png" alt="\lambda_{i}"/> are sorted eigenvalues
+<img class="math" src="../_images/math/c7d150c2bb7113026b91107b303208dce9b80f78.png" alt="R = \sqrt{\sqrt{\rho}\tilde{\rho}\sqrt{\rho}}"/> with
+<img class="math" src="../_images/math/5eb6e660f36bdffa0b0b65634289c015cfdf608e.png" alt="\tilde{\rho} = (\sigma_{y}\otimes\sigma_{y})\rho^{*}(\sigma_{y}\otimes\sigma_{y})"/>.</p>
 <p>Works both with ket states and density matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

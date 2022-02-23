@@ -335,20 +335,32 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genericQSys</span></code></a>(**kwargs)</p></td>
 <td><p>Base class for both single (<a class="reference internal" href="#quanguru.classes.QSys.qSystem" title="quanguru.classes.QSys.qSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">qSystem</span></code></a>) and composite (<a class="reference internal" href="#quanguru.classes.QSys.compQSystem" title="quanguru.classes.QSys.compQSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">compQSystem</span></code></a>) quantum system classes, and I hope to combine those two classes in here.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QSys.compQSystem" title="quanguru.classes.QSys.compQSystem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compQSystem</span></code></a>(**kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QSys.QuantumSystemOld" title="quanguru.classes.QSys.QuantumSystemOld"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QuantumSystemOld</span></code></a>([sysType])</p></td>
+<td><p>This class can be used for creating either a composite or a single quantum system depending on the given <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>, if no <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> given, it creates a composite system by default.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSys.compQSystem" title="quanguru.classes.QSys.compQSystem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compQSystem</span></code></a>(**kwargs)</p></td>
 <td><p>Class for composite quantum systems.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSys.termTimeDep" title="quanguru.classes.QSys.termTimeDep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">termTimeDep</span></code></a>(**kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QSys.termTimeDep" title="quanguru.classes.QSys.termTimeDep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">termTimeDep</span></code></a>(**kwargs)</p></td>
 <td><p>Parent class for <a class="reference internal" href="#quanguru.classes.QSys.term" title="quanguru.classes.QSys.term"><code class="xref py py-class docutils literal notranslate"><span class="pre">term</span></code></a> and <a class="reference internal" href="#quanguru.classes.QSys.qCoupling" title="quanguru.classes.QSys.qCoupling"><code class="xref py py-class docutils literal notranslate"><span class="pre">qCoupling</span></code></a> and I hope to combine those two in here.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QSys.term" title="quanguru.classes.QSys.term"><code class="xref py py-obj docutils literal notranslate"><span class="pre">term</span></code></a>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSys.term" title="quanguru.classes.QSys.term"><code class="xref py py-obj docutils literal notranslate"><span class="pre">term</span></code></a>(**kwargs)</p></td>
 <td><p>Term object for simple (i.e.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSys.qSystem" title="quanguru.classes.QSys.qSystem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qSystem</span></code></a>(**kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QSys.qSystem" title="quanguru.classes.QSys.qSystem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qSystem</span></code></a>(**kwargs)</p></td>
 <td><p>Class for single quantum systems, used as the parent for <code class="xref py py-class docutils literal notranslate"><span class="pre">Cavity</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Spin</span></code>, and <code class="xref py py-class docutils literal notranslate"><span class="pre">Qubit</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QSys.qCoupling" title="quanguru.classes.QSys.qCoupling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qCoupling</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSys.qCoupling" title="quanguru.classes.QSys.qCoupling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qCoupling</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Class to create coupling terms between quantum systems.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QSys.SpinOld" title="quanguru.classes.QSys.SpinOld"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpinOld</span></code></a>(**kwargs)</p></td>
+<td><p>Object for a single Spin system with spin j (jValue).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSys.QubitOld" title="quanguru.classes.QSys.QubitOld"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QubitOld</span></code></a>(**kwargs)</p></td>
+<td><p>Spin 1/2 special case of Spin class, i.e. a Qubit.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QSys.CavityOld" title="quanguru.classes.QSys.CavityOld"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CavityOld</span></code></a>(**kwargs)</p></td>
+<td><p>Cavity class, the only difference from a generic quantum object is that, by default, its operator is the number operator.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSys._initStDec" title="quanguru.classes.QSys._initStDec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_initStDec</span></code></a>(_createAstate)</p></td>
 <td><p>Decorater to handle different inputs for initial state creation.</p></td>
@@ -381,7 +393,7 @@
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>QuantumSystem</cite></p></td>
+<tr class="row-odd"><td><p><cite>QuantumSystemOld</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
@@ -411,17 +423,17 @@
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>Spin</cite></p></td>
+<tr class="row-odd"><td><p><cite>SpinOld</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-even"><td><p><cite>Qubit</cite></p></td>
+<tr class="row-even"><td><p><cite>QubitOld</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>Cavity</cite></p></td>
+<tr class="row-odd"><td><p><cite>CavityOld</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>

@@ -269,7 +269,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.quasiProbabilities.Wigner" title="quanguru.QuantumToolbox.quasiProbabilities.Wigner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Wigner</span></code></a>(rho, vec[, g])</p></td>
-<td><p>An iterative method to evaluate the Wigner functions for the states <span class="math">|m \rangle \langle n|</span> and use them in a weighted sum to calculate Wigner function of any arbitrary state.</p></td>
+<td><p>An iterative method to evaluate the Wigner functions for the states <img class="math" src="../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/> and use them in a weighted sum to calculate Wigner function of any arbitrary state.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.quasiProbabilities.HusimiQ" title="quanguru.QuantumToolbox.quasiProbabilities.HusimiQ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HusimiQ</span></code></a>(state, vec[, g])</p></td>
 <td><p>Q-function of a given state vector or density matrix at points <cite>vec + i * vec</cite></p></td>
@@ -319,16 +319,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.quasiProbabilities.Wigner">
 <span class="sig-name descname"><span class="pre">Wigner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.4142135623730951</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/quasiProbabilities.html#Wigner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.quasiProbabilities.Wigner" title="Permalink to this definition">¶</a></dt>
-<dd><p>An iterative method to evaluate the Wigner functions for the states <span class="math">|m \rangle \langle n|</span> and use them in
+<dd><p>An iterative method to evaluate the Wigner functions for the states <img class="math" src="../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/> and use them in
 a weighted sum to calculate Wigner function of any arbitrary state.</p>
 <p>The Wigner function is calculated as
-<span class="math">W = \sum_{mn} \rho_{mn} W_{mn}</span> where <span class="math">W_{mn}</span> is the Wigner
-function for the density matrix <span class="math">|m \rangle \langle n|</span>.</p>
+<img class="math" src="../_images/math/185fa2432aff3024a222e5cd491c6de39d1e1bb1.png" alt="W = \sum_{mn} \rho_{mn} W_{mn}"/> where <img class="math" src="../_images/math/66ee3fc9a8ab287c0b4b4623e05195c7557c2f2a.png" alt="W_{mn}"/> is the Wigner
+function for the density matrix <img class="math" src="../_images/math/0209b1f32f86a0cbbae7c1cd2a6bfe624bb08038.png" alt="|m \rangle \langle n|"/>.</p>
 <p>In this implementation, for each row m, Wlist contains the Wigner functions
-Wlist = <span class="math">[0, ..., W_{mm} , ..., W_{mN} ]</span>. As soon as one <span class="math">W_{mn}</span> Wigner function is
+Wlist = <img class="math" src="../_images/math/3aed6f14664ed56a4ea56f1f5354b3d55204ebc3.png" alt="[0, ..., W_{mm} , ..., W_{mN} ]"/>. As soon as one <img class="math" src="../_images/math/66ee3fc9a8ab287c0b4b4623e05195c7557c2f2a.png" alt="W_{mn}"/> Wigner function is
 calculated, the corresponding contribution is added to the total Wigner
 function, weighted by the corresponding element in the density matrix
-<span class="math">\\rho_{mn}</span>.</p>
+<img class="math" src="../_images/math/ff5ec037f53005468c983513b0070f22ecf3d220.png" alt="\\rho_{mn}"/>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

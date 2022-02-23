@@ -553,8 +553,8 @@ div.rendered_html tbody tr:hover {
 <section id="Two-qubits-exchange-interaction">
 <h2>Two qubits exchange interaction<a class="headerlink" href="#Two-qubits-exchange-interaction" title="Permalink to this headline">¶</a></h2>
 <p>A simple example is the exchange interaction between two qubits</p>
-<p><span class="math">H = \frac{1}{2}f_{z,1}\sigma_{z,1} + \frac{1}{2}f_{z,2}\sigma_{z,2} + f_{pm}\sigma_{+,1}\sigma_{-,2} + f_{mp}\sigma_{-,1}\sigma_{+,2}</span></p>
-<p>where the first two terms (<span class="math">\frac{1}{2}f_{z,1}\sigma_{z,1} + \frac{1}{2}f_{z,2}\sigma_{z,2}</span>) are the <em>free evolution</em> terms of each qubit, and the other two terms (<span class="math">f_{pm}\sigma_{+,1}\sigma_{-,2} + f_{mp}\sigma_{-,1}\sigma_{+,2}</span>) are the exchange coupling between them.</p>
+<p><img class="math" src="../../../_images/math/3f7c0fd7435f6652703b730eafe7e1d5afeac746.png" alt="H = \frac{1}{2}f_{z,1}\sigma_{z,1} + \frac{1}{2}f_{z,2}\sigma_{z,2} + f_{pm}\sigma_{+,1}\sigma_{-,2} + f_{mp}\sigma_{-,1}\sigma_{+,2}"/></p>
+<p>where the first two terms (<img class="math" src="../../../_images/math/e8aa4535d90557c152134c6f17ab9c63b1646f62.png" alt="\frac{1}{2}f_{z,1}\sigma_{z,1} + \frac{1}{2}f_{z,2}\sigma_{z,2}"/>) are the <em>free evolution</em> terms of each qubit, and the other two terms (<img class="math" src="../../../_images/math/69c0859aaec0426d6f712eec5af54e4eb7bd854a.png" alt="f_{pm}\sigma_{+,1}\sigma_{-,2} + f_{mp}\sigma_{-,1}\sigma_{+,2}"/>) are the exchange coupling between them.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> objects already implement their <em>free evolution</em> terms, and we will create each coupling term below.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -574,7 +574,7 @@ div.rendered_html tbody tr:hover {
 <li><p>coupling frequency</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">createSysCoupling</span></code> method returns a coupling object that can later be used to modify coupling parameters, such as <code class="docutils literal notranslate"><span class="pre">frequency</span></code>.</p>
-<p>Note that the order of systems in the given list does not need to match the Hilbert space structure, but you need to make sure that the list of coupling operators are consistent with the systems. For example, below two couplings create <span class="math">f_{pm}\sigma_{+,1}\sigma_{-,2}</span> and <span class="math">f_{mp}\sigma_{-,1}\sigma_{+,2}</span>, respectively, and we can understand this from the order of operators.</p>
+<p>Note that the order of systems in the given list does not need to match the Hilbert space structure, but you need to make sure that the list of coupling operators are consistent with the systems. For example, below two couplings create <img class="math" src="../../../_images/math/68b90b7203728d7780ac06de40355bc0d8b39fe5.png" alt="f_{pm}\sigma_{+,1}\sigma_{-,2}"/> and <img class="math" src="../../../_images/math/56927026d62966d5fbbf7853bca5cac14403a6a1.png" alt="f_{mp}\sigma_{-,1}\sigma_{+,2}"/>, respectively, and we can understand this from the order of operators.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -613,9 +613,9 @@ array([[ 1.,  0.,  0.,  0.],
 <section id="Three-qubits-nearest-neighbor-exchange-interaction">
 <h2>Three qubits nearest-neighbor exchange interaction<a class="headerlink" href="#Three-qubits-nearest-neighbor-exchange-interaction" title="Permalink to this headline">¶</a></h2>
 <p>We can extend the above Hamiltonian to 3 qubits as</p>
-<p><span class="math">H = \frac{1}{2}f_{z,1}\sigma_{z,1} + \frac{1}{2}f_{z,2}\sigma_{z,2} + \frac{1}{2}f_{z,3}\sigma_{z,3} + f_{pm,1,2}\sigma_{+,1}\sigma_{-,2} + f_{mp,1,2}\sigma_{-,1}\sigma_{+,2} + f_{pm,2,3}\sigma_{+,2}\sigma_{-,3} + f_{mp,2,3}\sigma_{-,2}\sigma_{+,3}</span></p>
+<p><img class="math" src="../../../_images/math/f0aa7c08c44dab29a2a0d467fb3dce2d8cc7b5f6.png" alt="H = \frac{1}{2}f_{z,1}\sigma_{z,1} + \frac{1}{2}f_{z,2}\sigma_{z,2} + \frac{1}{2}f_{z,3}\sigma_{z,3} + f_{pm,1,2}\sigma_{+,1}\sigma_{-,2} + f_{mp,1,2}\sigma_{-,1}\sigma_{+,2} + f_{pm,2,3}\sigma_{+,2}\sigma_{-,3} + f_{mp,2,3}\sigma_{-,2}\sigma_{+,3}"/></p>
 <p>which in a more compact form and for n sub-systems written as</p>
-<p><span class="math">H = \frac{1}{2}\sum_{i=1}^{N}f_{z,i}\sigma_{z,i} + \sum_{i=1}^{N-1}f_{pm,i,i+1}\sigma_{+,i}\sigma_{-,i+1} + \sum_{i=1}^{N-1}f_{mp,i,i+1}\sigma_{-,i}\sigma_{+,i+1}</span></p>
+<p><img class="math" src="../../../_images/math/9d617144f9bfa5ec26448888a8eef09d3e120aba.png" alt="H = \frac{1}{2}\sum_{i=1}^{N}f_{z,i}\sigma_{z,i} + \sum_{i=1}^{N-1}f_{pm,i,i+1}\sigma_{+,i}\sigma_{-,i+1} + \sum_{i=1}^{N-1}f_{mp,i,i+1}\sigma_{-,i}\sigma_{+,i+1}"/></p>
 <p>In order to extend our system, we first need to add a new qubits to <code class="docutils literal notranslate"><span class="pre">twoQub</span></code> system then create a coupling between this new qubit and <code class="docutils literal notranslate"><span class="pre">qub2</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -663,7 +663,7 @@ array([[ 1.5,  0. ,  0. ,  0. ,  0. ,  0. ,  0. ,  0. ],
 <section id="Many-body-coupling">
 <h2>Many-body coupling<a class="headerlink" href="#Many-body-coupling" title="Permalink to this headline">¶</a></h2>
 <p>In above cases, the coupling terms are contain operators only for two of the systems. In more general cases, we might need terms with more systems. As an example consider the below arbitrary/artificial coupling term</p>
-<p><span class="math">f_{fb}\sigma_{x,1}\sigma_{y,2}\sigma_{z,3}</span></p>
+<p><img class="math" src="../../../_images/math/8a434cd017a84584bf1c19ddcc3d12842f071d1a.png" alt="f_{fb}\sigma_{x,1}\sigma_{y,2}\sigma_{z,3}"/></p>
 <p><code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> supports such many body terms, and we can create the above term as</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
