@@ -62,8 +62,8 @@ class _JC:
         # make sure it is normalised
         np.sqrt(sum([a.real**2 + a.imag**2 for a in self.stateCoefs]))
 
-        self.cav = qg.CavityOld(dimension=self.cavDim, frequency=self.resFreq)
-        self.qub = qg.QubitOld(frequency=self.qubFreq)
+        self.cav = qg.Cavity(dimension=self.cavDim, frequency=self.resFreq)
+        self.qub = qg.Qubit(frequency=self.qubFreq)
 
         self.jc = self.cav + self.qub
         self.couplingObj = self.jc.JC(self.gStg)

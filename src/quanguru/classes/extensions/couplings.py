@@ -123,11 +123,11 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, Jp])
         couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, Jm])
-        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qsystems=obj, frequency=couplingStrength)
+        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, superSys=obj, frequency=couplingStrength)
     else:
         couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, create])
         couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, destroy])
-        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qsystems=obj, frequency=couplingStrength)
+        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, superSys=obj, frequency=couplingStrength)
     return couplingObj
 
 
@@ -137,7 +137,7 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, sigmax])
         couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, sigmax])
-        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, frequency=couplingStrength)
+        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, superSys=obj, frequency=couplingStrength)
     return couplingObj
 
 
@@ -147,7 +147,7 @@ def Dicke(obj, couplingStrength, subSys1=None, subSys2=None):
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
         couplingObj1 = obj.createTerm(qSystems=qsystems, operators=[destroy, Jx])
         couplingObj2 = obj.createTerm(qSystems=qsystems, operators=[create, Jx])
-        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, frequency=couplingStrength)
+        couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystems=obj, superSys=obj, frequency=couplingStrength)
     return couplingObj
 
 QuantumSystem.JC = JC

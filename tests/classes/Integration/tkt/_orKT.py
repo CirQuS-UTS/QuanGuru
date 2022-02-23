@@ -7,8 +7,8 @@ j_orthogonal = jValeu
 p_orthogonal = 1
 p_pert  = 0.001
 
-u1COE = qg.SpinOld(operator=qg.Jy, frequency=p_orthogonal, jValue=j_orthogonal)
-u2COE = qg.SpinOld(operator=qg.Jz, frequency=1, order=2, jValue=j_orthogonal)
+u1COE = qg.Spin(operator=qg.Jy, frequency=p_orthogonal, jValue=j_orthogonal)
+u2COE = qg.Spin(operator=qg.Jz, frequency=1, order=2, jValue=j_orthogonal)
 
 kt = qg.qProtocol(superSys=u1COE, steps=[qg.freeEvolution(superSys=u1COE, ratio=1/(2*np.pi)), qg.freeEvolution(superSys=u2COE, ratio=1/(2*np.pi*2*j_orthogonal))])
 kt.simStepSize = 1
