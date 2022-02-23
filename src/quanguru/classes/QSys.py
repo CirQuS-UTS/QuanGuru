@@ -6,15 +6,15 @@
     .. autosummary::
 
         genericQSys
-        QuantumSystem
+        QuantumSystemOld
         compQSystem
         termTimeDep
         term
         qSystem
         qCoupling
-        Spin
-        Qubit
-        Cavity
+        SpinOld
+        QubitOld
+        CavityOld
         _initStDec
         _computeDef
         _calculateDef
@@ -27,15 +27,15 @@
        **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**
     =======================    ==================    ================   ===============
       `genericQSys`              |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
-      `QuantumSystem`            |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `QuantumSystemOld`         |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
       `compQSystem`              |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
       `termTimeDep`              |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
       `term`                     |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
       `qSystem`                  |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
       `qCoupling`                |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
-      `Spin`                     |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
-      `Qubit`                    |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
-      `Cavity`                   |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `SpinOld`                  |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `QubitOld`                 |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
+      `CavityOld`                |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
       `_initStDec`               |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
       `_computeDef`              |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
       `_calculateDef`            |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
