@@ -356,6 +356,16 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self.delMatrices(_exclude=[])
         return subSys
 
+    def delMatrices(self, _exclude=[]): # pylint: disable=dangerous-default-value
+        r"""
+        This method extends :meth:`delMatrices <QSimComp.delMatrices>` of :class:`QSimComp` to also call
+        :meth:`delMatrices <paramBoundBase.delMatrices>` on terms.
+        """
+        super().delMatrices(_exclude=_exclude)
+        for ter in self.terms.values():
+            _exclude = ter.delMatrices(_exclude=_exclude)
+        return _exclude
+
     def __add__(self, other):
         r"""
         overload the + operator to create a composite quantum system between ``self`` and the ``other`` quantum system.
@@ -733,7 +743,7 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
         r"""
         Gets and sets the spin quantum number
         """
-        return (self._genericQSys__dimension-1)/2 # pylint: disable=no-member
+        return (self._QuantumSystem__dimension-1)/2 # pylint: disable=no-member
 
     @jValue.setter
     def jValue(self, value):
