@@ -299,6 +299,8 @@ class Sweep(qBase):
                     if not hasattr(sys, sweepKey):
                         raise AttributeError("?")
             else:
+                # FIXME if the system does not have the given attribute and that is an error
+                # (eg wrong attr name/typo given), this still works without an error. this should be an explicit setting
                 newSweep._aux = True #pylint: disable=protected-access
             # ignores when object is given with a key it does not have
             #elif not hasattr(list(newSweep.subSys.values())[0], sweepKey):

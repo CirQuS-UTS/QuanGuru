@@ -286,4 +286,5 @@ class QTerm(paramBoundBase):
         elif isinstance(self.qSystems, (list, tuple)):
             opers = [ter._constructMatrices() for ter in self.subSys.values()] #pylint:disable=protected-access
             self._paramBoundBase__matrix = _matMulInputs(*opers) #pylint:disable=assigning-non-slot
+        self._QTerm__HamiltonianTerm = None #pylint:disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member

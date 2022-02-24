@@ -10,15 +10,15 @@ spinFrequency = 3.5
 cavityFrequency = 3.5
 
 # objects for digital
-cavityDigital = qg.CavityOld(dimension=cavityDimension, frequency=cavityFrequency/2, alias='cavityDigital')
-spinDigital = qg.SpinOld(frequency=spinFrequency, jValue=spinNumber, alias='spinDigital')
+cavityDigital = qg.Cavity(dimension=cavityDimension, frequency=cavityFrequency/2, alias='cavityDigital')
+spinDigital = qg.Spin(frequency=spinFrequency, jValue=spinNumber, alias='spinDigital')
 digitalSystem = cavityDigital + spinDigital
 digitalCoupling = digitalSystem.JC(couplingStrength/np.sqrt(2*spinNumber))
 digitalSystem.initialState = [0,0]
 
 # objects for Dicke
-cavityDicke = qg.CavityOld(dimension=cavityDimension, frequency=cavityFrequency, alias='cavityDicke')
-spinDicke = qg.SpinOld(frequency=spinFrequency, jValue=spinNumber, alias='spinDicke')
+cavityDicke = qg.Cavity(dimension=cavityDimension, frequency=cavityFrequency, alias='cavityDicke')
+spinDicke = qg.Spin(frequency=spinFrequency, jValue=spinNumber, alias='spinDicke')
 ds = cavityDicke + spinDicke
 # NOTE use of Jx in coupling vs Jp + Jm lead to factor of 2
 DickeCoupling = ds.Dicke((2*couplingStrength)/np.sqrt(2*spinNumber))
@@ -52,8 +52,8 @@ stepSizesDicke = [0.01, 0.125]
 jvaluesDigit = simulation.Sweep.createSweep(system=spinDigital, sweepKey='jValue', sweepList=spinValues)
 jvaluesDicke = simulation.Sweep.createSweep(system=spinDicke, sweepKey='jValue', sweepList=spinValues)
 
-gvaluesDigit = simulation.Sweep.createSweep(system=digitalCoupling, sweepKey='couplingStrength', sweepList=couplingValues1)
-gvaluesDicke = simulation.Sweep.createSweep(system=DickeCoupling, sweepKey='couplingStrength', sweepList=couplingValues2)
+gvaluesDigit = simulation.Sweep.createSweep(system=digitalCoupling, sweepKey='frequency', sweepList=couplingValues1)
+gvaluesDicke = simulation.Sweep.createSweep(system=DickeCoupling, sweepKey='frequency', sweepList=couplingValues2)
 
 cavDimSizeSweepDigit = simulation.Sweep.createSweep(system=cavityDigital, sweepKey='dimension', sweepList=cavityDimensions)
 cavDimSizeSweepDicke = simulation.Sweep.createSweep(system=cavityDicke, sweepKey='dimension', sweepList=cavityDimensions)
@@ -71,7 +71,8 @@ def calculateDig(protoc):
 dd.calculateStart = calculateDig
 
 def calculateIde(sys):
-    calcEigStat(sys.totalHam, sys)
+    #calcEigStat(sys.totalHam, sys)
+    calcEigStat(sys.totalHamiltonian, sys)
 ds.calculateStart = calculateIde
 
 simulation.auxDict['totalDim'] = -1
@@ -81,7 +82,8 @@ def calculateOps(sim):
     totalDim = sim.qSystems[0].dimension
     if sim.auxDict['totalDim'] != totalDim:
         sim.auxDict['totalDim'] = totalDim
-        sim.auxDict['cavPhoton'] = cav.freeMat
+        #sim.auxDict['cavPhoton'] = cav.freeMat
+        sim.auxDict['cavPhoton'] = cav._freeMatrix
 simulation.calculateStart = calculateOps
 
 def compute(qsim, args):
@@ -95,3 +97,4 @@ simulation.compute = compute
 
 simulation.totalTime = 0.8
 simulation.delStates = True
+simulation.run()
