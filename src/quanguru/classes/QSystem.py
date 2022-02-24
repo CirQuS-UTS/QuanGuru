@@ -491,7 +491,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     # TODO THESE NEEDS TESTS
 
-    def createTerm(self, operators, frequency=None, qSystems=None, orders=None, superSys=None): #pylint:disable=too-many-arguments
+    def createTerm(self, operators, frequency=None, qSystem=None, orders=None, superSys=None): #pylint:disable=too-many-arguments
         r"""
         Method to create a new term with the given parameters and also set the given kwargs to the new term.
 
@@ -502,7 +502,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             operator/s of the term
         frequency :
             frequency of the term, by default None
-        qSystems : QuantumSystem
+        qSystem : QuantumSystem
             quantum system/s for the given operator/s, and it is self if no system is given
         orders :
             order/s of the operator/s, it is set to 1 by default if no order value is given
@@ -513,22 +513,22 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             Newly created QTerm object
 
         """
-        if qSystems is None:
-            qSystems = self
+        if qSystem is None:
+            qSystem = self
 
-        if isinstance(qSystems, (list, tuple)):
+        if isinstance(qSystem, (list, tuple)):
             checkVal(self._isComposite, True, "Cannot add a multi-operator term (ie a coupling) to a single system")
-            qSystems = [self.getByNameOrAlias(qsys) for qsys in qSystems]
-            for qsys in qSystems:
+            qSystem = [self.getByNameOrAlias(qsys) for qsys in qSystem]
+            for qsys in qSystem:
                 checkVal(self._hasInSubs(qsys), True,
                          f"Cannot add a multi-operator term (ie a coupling) to {self.name}, because {qsys.name} is not"+
                          f"contained in the {self.name}")
         else:
-            qSystems = self.getByNameOrAlias(qSystems)
+            qSystem = self.getByNameOrAlias(qSystem)
         superSys = self if superSys is None else superSys
-        newTerm = QTerm._createTerm(superSys=superSys, qSystems=qSystems, operators=operators, orders=orders,#pylint:disable=protected-access
+        newTerm = QTerm._createTerm(superSys=superSys, qSystem=qSystem, operators=operators, orders=orders,#pylint:disable=protected-access
                                     frequency=frequency)
-        qObj = self if isinstance(qSystems, (list, tuple)) else qSystems
+        qObj = self if isinstance(qSystem, (list, tuple)) else qSystem
         qObj.addTerms(newTerm)
         return newTerm
 
@@ -610,7 +610,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         Property to get the first term of the quantum system.
         """
         if self._QuantumSystem__firstTerm is None:
-            self.addTerms(QTerm(qSystems=self))
+            self.addTerms(QTerm(qSystem=self))
         return self._QuantumSystem__firstTerm # pylint:disable=no-member
 
     @property
@@ -666,19 +666,19 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         subSysList = list(newSys.subSys.values())
         termsList = list(newSys.terms.values())#pylint:disable=no-member
         for ind, ter in enumerate(self.terms.values()):
-            if isinstance(ter.qSystems, QuantumSystem):
+            if isinstance(ter.qSystem, QuantumSystem):
                 qSystemNames = newSys
             else:
                 qSystemNames = []
-                for qsys in ter.qSystems:
+                for qsys in ter.qSystem:
                     qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind-1].name)
             if ind > len(termsList):
-                newSys.createTerm(qSystems=qSystemNames, #pylint:disable=no-member
+                newSys.createTerm(qSystem=qSystemNames, #pylint:disable=no-member
                                  operators=ter.operator,
                                  frequency=ter.frequency,
                                  orders=ter.order)
             else:
-                termsList[ind]._named__setKwargs(qSystems=qSystemNames, #pylint:disable=no-member
+                termsList[ind]._named__setKwargs(qSystem=qSystemNames, #pylint:disable=no-member
                                                  operator=ter.operator,
                                                  frequency=ter.frequency,
                                                  order=ter.order)

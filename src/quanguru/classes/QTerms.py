@@ -47,10 +47,10 @@ class QTerm(paramBoundBase):
         #: quantum systems, and these are needed for the dimension information of the matrix creations
         self.__qSys = None
         # operator and order are also need to be list/tuple of operators and orders values, so it is required to set the
-        # qSystems of the term. Here, we set the qSystems before anything else.
-        qSys = kwargs.pop('qSystems', None)
+        # qSystem of the term. Here, we set the qSystem before anything else.
+        qSys = kwargs.pop('qSystem', None)
         if qSys is not None:
-            self.qSystems = qSys
+            self.qSystem = qSys
         #: frequency of the term which needs to be a numerical value (and None by default). A numerical default could
         #: lead to mistakes, therefore it is None by default.
         self.__frequency = None
@@ -82,7 +82,7 @@ class QTerm(paramBoundBase):
             self.timeDependency(self, time) # pylint: disable=assigning-non-slot,not-callable
 
     @property
-    def qSystems(self):
+    def qSystem(self):
         r"""
         Property to set and get the single quantum system or a list/tuple of quantum systems that are used by the term
         for the dimension information during the matrix creations.
@@ -97,8 +97,8 @@ class QTerm(paramBoundBase):
         if supSys is not None:
             self._paramBoundBase__paramBound[supSys.name] = supSys # pylint: disable=protected-access,no-member
 
-    @qSystems.setter
-    def qSystems(self, qSys):
+    @qSystem.setter
+    def qSystem(self, qSys):
         if isinstance(qSys, (list, tuple)):
             checkNotVal(self.superSys,None,'Multi-system terms (i.e. couplings) require the composite system that '+
             'contains the given systems to be its superSys')
@@ -108,7 +108,7 @@ class QTerm(paramBoundBase):
         if isinstance(qSys, (list, tuple)):
             qSys = [self.getByNameOrAlias(qsys) for qsys in qSys]
             for qsys in qSys:
-                self.addSubSys(QTerm(qSystems=qsys, _internal=True))
+                self.addSubSys(QTerm(qSystem=qsys, _internal=True))
         else:
             qSys = self.getByNameOrAlias(qSys)
             self._paramBoundBase__paramBound[qSys.name] = qSys # pylint: disable=protected-access,no-member
@@ -116,25 +116,25 @@ class QTerm(paramBoundBase):
 
     def _removeTermIfQSysInList(self, qSys, subSys):
         r"""
-        removes self (the term) from the terms of given qSys if a particular subSys is in qSystems list of self.
+        removes self (the term) from the terms of given qSys if a particular subSys is in qSystem list of self.
         This is an internal method used in removeSubSys of quantum systems.
         """
-        if isinstance(self.qSystems, (list, tuple)):
-            if subSys in self.qSystems:
+        if isinstance(self.qSystem, (list, tuple)):
+            if subSys in self.qSystem:
                 qSys.removeTerm(self)
 
     @staticmethod
-    def _createTerm(superSys, qSystems, operators, orders=None, frequency=None):
+    def _createTerm(superSys, qSystem, operators, orders=None, frequency=None):
         r"""
-        Factory method to create new QTerm with the given qSystems, operators, and optional orders and frequency.
+        Factory method to create new QTerm with the given qSystem, operators, and optional orders and frequency.
 
         Parameters
         ----------
 
-        qSystems :
-            Single or a list/tuple of quantum systems for qSystems of the newly created QTerm
+        qSystem :
+            Single or a list/tuple of quantum systems for qSystem of the newly created QTerm
         operators :
-            Single or a list/tuple of operators (same number as qSystems) for the newly created QTerm
+            Single or a list/tuple of operators (same number as qSystem) for the newly created QTerm
         orders :
             Single or a list/tuple of order values for each operator (same number as operators) for the newly created
             QTerm, default is 1 for each operator.
@@ -148,18 +148,18 @@ class QTerm(paramBoundBase):
 
         """
         newSys = QTerm(superSys=superSys)
-        newSys.qSystems = qSystems
+        newSys.qSystem = qSystem
         newSys.operator = operators
-        newSys.order = [1 for _ in qSystems] if (isinstance(qSystems, (list, tuple)) and (orders is None)) else orders
+        newSys.order = [1 for _ in qSystem] if (isinstance(qSystem, (list, tuple)) and (orders is None)) else orders
         newSys.frequency = frequency
         return newSys
 
     def _checkAndUpdateParamsWhenMultiple(self, vals, attrName, attrPrintName):
         r"""
         This is used internally when setting the operator and/or order of the term to ensure that the number of the
-        operator and order are the same as qSystems.
+        operator and order are the same as qSystem.
         Before updating the value of operator and/or order, it makes couple of checks that raise errors,
-        if there is no qSystem and/or the number of the qSystems and the vals does not match.
+        if there is no qSystem and/or the number of the qSystem and the vals does not match.
 
         Parameters
         ----------
@@ -173,13 +173,13 @@ class QTerm(paramBoundBase):
             name-mangled attribute names
 
         """
-        checkNotVal(self.qSystems, None, "qSystems of a term should be assigned before the operators and/or"+
+        checkNotVal(self.qSystem, None, "qSystem of a term should be assigned before the operators and/or"+
                                          "order of the term")
-        if (isinstance(vals, (list, tuple)) or isinstance(self.qSystems, (list, tuple))):
-            checkCorType(self.qSystems, (list, tuple), f'{attrPrintName} is given a list of values, but the'+
-                                                        ' qSystems is not a list of systems.')
+        if (isinstance(vals, (list, tuple)) or isinstance(self.qSystem, (list, tuple))):
+            checkCorType(self.qSystem, (list, tuple), f'{attrPrintName} is given a list of values, but the'+
+                                                        ' qSystem is not a list of systems.')
             checkCorType(vals, (list, tuple), f'{attrPrintName} of a term with multiple system (i.e. a coupling term)')
-            checkVal(len(vals), len(self.qSystems), f'Number of {attrPrintName} ({len(vals)}) should be the same as'+
+            checkVal(len(vals), len(self.qSystem), f'Number of {attrPrintName} ({len(vals)}) should be the same as'+
                                                     f' number of qSystem ({len(self.subSys)})')
             for ind, ter in enumerate(self.subSys.values()):
                 setAttr(ter, attrName, vals[ind])
@@ -278,12 +278,12 @@ class QTerm(paramBoundBase):
         The matrices for the operators constructed and de-constructed whenever they should be, and this method is used
         internally in various places when the matrices are needed to be constructed.
         """
-        if all(hasattr(self.qSystems, attr) for attr in ["dimension", "_dimsBefore", "_dimsAfter"]):
+        if all(hasattr(self.qSystem, attr) for attr in ["dimension", "_dimsBefore", "_dimsAfter"]):
             if len(self.subSys) == 0:
-                self._paramBoundBase__matrix = self._dimInput(self.qSystems, self.operator, self.order) #pylint:disable=assigning-non-slot
+                self._paramBoundBase__matrix = self._dimInput(self.qSystem, self.operator, self.order) #pylint:disable=assigning-non-slot
             else:
                 self._paramBoundBase__matrix=sum(ter._constructMatrices() for ter in self.subSys.values()) #pylint:disable=protected-access,assigning-non-slot
-        elif isinstance(self.qSystems, (list, tuple)):
+        elif isinstance(self.qSystem, (list, tuple)):
             opers = [ter._constructMatrices() for ter in self.subSys.values()] #pylint:disable=protected-access
             self._paramBoundBase__matrix = _matMulInputs(*opers) #pylint:disable=assigning-non-slot
         self._QTerm__HamiltonianTerm = None #pylint:disable=assigning-non-slot

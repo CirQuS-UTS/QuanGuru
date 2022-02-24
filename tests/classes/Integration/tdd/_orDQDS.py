@@ -97,4 +97,3 @@ simulation.compute = compute
 
 simulation.totalTime = 0.8
 simulation.delStates = True
-simulation.run()
