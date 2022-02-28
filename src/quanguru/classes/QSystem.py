@@ -491,14 +491,14 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     # TODO THESE NEEDS TESTS
 
-    def createTerm(self, operators, frequency=None, qSystem=None, orders=None, superSys=None): #pylint:disable=too-many-arguments
+    def createTerm(self, operator, frequency=None, qSystem=None, orders=None, superSys=None): #pylint:disable=too-many-arguments
         r"""
         Method to create a new term with the given parameters and also set the given kwargs to the new term.
 
         Parameters
         ----------
 
-        operators : Callable
+        operator : Callable or List[Callable]
             operator/s of the term
         frequency :
             frequency of the term, by default None
@@ -526,7 +526,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         else:
             qSystem = self.getByNameOrAlias(qSystem)
         superSys = self if superSys is None else superSys
-        newTerm = QTerm._createTerm(superSys=superSys, qSystem=qSystem, operators=operators, orders=orders,#pylint:disable=protected-access
+        newTerm = QTerm._createTerm(superSys=superSys, qSystem=qSystem, operator=operator, orders=orders,#pylint:disable=protected-access
                                     frequency=frequency)
         qObj = self if isinstance(qSystem, (list, tuple)) else qSystem
         qObj.addTerms(newTerm)
@@ -674,7 +674,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                     qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind-1].name)
             if ind > len(termsList):
                 newSys.createTerm(qSystem=qSystemNames, #pylint:disable=no-member
-                                 operators=ter.operator,
+                                 operator=ter.operator,
                                  frequency=ter.frequency,
                                  orders=ter.order)
             else:

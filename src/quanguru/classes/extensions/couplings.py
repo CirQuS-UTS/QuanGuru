@@ -121,12 +121,12 @@ def checkCavQub(coupler):
 def JC(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj1 = obj.createTerm(qSystem=qsystems, operators=[destroy, Jp])
-        couplingObj2 = obj.createTerm(qSystem=qsystems, operators=[create, Jm])
+        couplingObj1 = obj.createTerm(qSystem=qsystems, operator=[destroy, Jp])
+        couplingObj2 = obj.createTerm(qSystem=qsystems, operator=[create, Jm])
         couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystem=obj, superSys=obj, frequency=couplingStrength)
     else:
-        couplingObj1 = obj.createTerm(qSystem=qsystems, operators=[destroy, create])
-        couplingObj2 = obj.createTerm(qSystem=qsystems, operators=[create, destroy])
+        couplingObj1 = obj.createTerm(qSystem=qsystems, operator=[destroy, create])
+        couplingObj2 = obj.createTerm(qSystem=qsystems, operator=[create, destroy])
         couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystem=obj, superSys=obj, frequency=couplingStrength)
     return couplingObj
 
@@ -135,8 +135,8 @@ def JC(obj, couplingStrength, subSys1=None, subSys2=None):
 def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj1 = obj.createTerm(qSystem=qsystems, operators=[destroy, sigmax])
-        couplingObj2 = obj.createTerm(qSystem=qsystems, operators=[create, sigmax])
+        couplingObj1 = obj.createTerm(qSystem=qsystems, operator=[destroy, sigmax])
+        couplingObj2 = obj.createTerm(qSystem=qsystems, operator=[create, sigmax])
         couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystem=obj, superSys=obj, frequency=couplingStrength)
     return couplingObj
 
@@ -145,8 +145,8 @@ def Rabi(obj, couplingStrength, subSys1=None, subSys2=None):
 def Dicke(obj, couplingStrength, subSys1=None, subSys2=None):
     qsystems = [subSys1, subSys2]
     if qsystems[1].operator in [sigmaz, Jz]: # pylint: disable=comparison-with-callable
-        couplingObj1 = obj.createTerm(qSystem=qsystems, operators=[destroy, Jx])
-        couplingObj2 = obj.createTerm(qSystem=qsystems, operators=[create, Jx])
+        couplingObj1 = obj.createTerm(qSystem=qsystems, operator=[destroy, Jx])
+        couplingObj2 = obj.createTerm(qSystem=qsystems, operator=[create, Jx])
         couplingObj = QTerm(subSys=[couplingObj1, couplingObj2], qSystem=obj, superSys=obj, frequency=couplingStrength)
     return couplingObj
 

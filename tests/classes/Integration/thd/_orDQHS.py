@@ -15,9 +15,9 @@ def _nnExchange(compSys, couplingStrength, op1=qg.sigmax, op2=qg.sigmay):
     for ind in range(numberOfSubSys-1):
         s = [qubs[ind], qubs[ind+1]]
         couplingObjs.append(
-            compSys.createTerm(operators=[op1, op1], frequency=couplingStrength, qSystem=s))
+            compSys.createTerm(operator=[op1, op1], frequency=couplingStrength, qSystem=s))
         couplingObjs.append(
-            compSys.createTerm(operators=[op2, op2], frequency=couplingStrength, qSystem=s))
+            compSys.createTerm(operator=[op2, op2], frequency=couplingStrength, qSystem=s))
     return couplingObjs
 
 def _xy(compSys, couplingStrength, qubits = None, exchangeCouplings = None):

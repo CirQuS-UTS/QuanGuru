@@ -124,19 +124,19 @@ class QTerm(paramBoundBase):
                 qSys.removeTerm(self)
 
     @staticmethod
-    def _createTerm(superSys, qSystem, operators, orders=None, frequency=None):
+    def _createTerm(superSys, qSystem, operator, orders=None, frequency=None):
         r"""
-        Factory method to create new QTerm with the given qSystem, operators, and optional orders and frequency.
+        Factory method to create new QTerm with the given qSystem, operator, and optional orders and frequency.
 
         Parameters
         ----------
 
         qSystem :
             Single or a list/tuple of quantum systems for qSystem of the newly created QTerm
-        operators :
-            Single or a list/tuple of operators (same number as qSystem) for the newly created QTerm
+        operator :
+            Single or a list/tuple of operator/s (same number as qSystem) for the newly created QTerm
         orders :
-            Single or a list/tuple of order values for each operator (same number as operators) for the newly created
+            Single or a list/tuple of order values for each operator (same number as operator/s) for the newly created
             QTerm, default is 1 for each operator.
         frequency :
             Frequency of the newly created QTerm
@@ -149,7 +149,7 @@ class QTerm(paramBoundBase):
         """
         newSys = QTerm(superSys=superSys)
         newSys.qSystem = qSystem
-        newSys.operator = operators
+        newSys.operator = operator
         newSys.order = [1 for _ in qSystem] if (isinstance(qSystem, (list, tuple)) and (orders is None)) else orders
         newSys.frequency = frequency
         return newSys
@@ -173,8 +173,8 @@ class QTerm(paramBoundBase):
             name-mangled attribute names
 
         """
-        checkNotVal(self.qSystem, None, "qSystem of a term should be assigned before the operators and/or"+
-                                         "order of the term")
+        checkNotVal(self.qSystem, None, "qSystem of a term should be assigned before the operator/s and/or"+
+                                         "order/s of the term")
         if (isinstance(vals, (list, tuple)) or isinstance(self.qSystem, (list, tuple))):
             checkCorType(self.qSystem, (list, tuple), f'{attrPrintName} is given a list of values, but the'+
                                                         ' qSystem is not a list of systems.')

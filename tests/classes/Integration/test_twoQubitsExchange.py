@@ -48,8 +48,8 @@ def test_twoQubitExchange(twoQubitsExchange):
     qbIn = qb1 + qb2
 
     # couple the qubits with the random coupling strength
-    coupling1 = qbIn.createTerm(qSystem=[qb1, qb2], operators=[qg.sigmam, qg.sigmap], frequency=cStg)
-    coupling2 = qbIn.createTerm(qSystem=[qb1, qb2], operators=[qg.sigmap, qg.sigmam], frequency=cStg)
+    coupling1 = qbIn.createTerm(qSystem=[qb1, qb2], operator=[qg.sigmam, qg.sigmap], frequency=cStg)
+    coupling2 = qbIn.createTerm(qSystem=[qb1, qb2], operator=[qg.sigmap, qg.sigmam], frequency=cStg)
 
     # create the initial state with the random coefficients
     qbIn.initialState = c00inp*qg.basis(4, 0) + c10inp*qg.basis(4, 1) + c01inp*qg.basis(4, 2) + c11inp*qg.basis(4, 3)
