@@ -283,7 +283,7 @@ class Simulation(timeBase):
                 raise TypeError('?')
         return protocol
 
-    # overwriting methods from qUniversal
+    # overwriting methods from qBase
     def addSubSys(self, subS, Protocol=None, **kwargs): # pylint: disable=arguments-differ
         r"""
         Add a quantum system ``subS`` to the simulation and a (optional) ``protocol`` for it. ``kwargs`` can be used for
