@@ -599,10 +599,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># simulation contains the systems, protocol, and sweeps</span>
-<span class="c1">#simulation = qg.Simulation(subSys=[JCSystem, RabiSystem])</span>
-<span class="n">simulation</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Simulation</span><span class="p">()</span>
-<span class="n">simulation</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">JCSystem</span><span class="p">)</span>
-<span class="n">simulation</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">RabiSystem</span><span class="p">)</span>
+<span class="n">simulation</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">subSys</span><span class="o">=</span><span class="p">[</span><span class="n">JCSystem</span><span class="p">,</span> <span class="n">RabiSystem</span><span class="p">])</span>
 
 <span class="c1"># simulation stores the evolution parameters</span>
 <span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="o">=</span> <span class="n">timeStep</span>
@@ -660,7 +657,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;quanguru.classes.QSim.Simulation at 0x7f24d8400e40&gt;
+&lt;quanguru.classes.QSim.Simulation at 0x7fafba43fe40&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -748,14 +745,6 @@ Text(0, 0.5, &#39;Time&#39;)
 </div>
 <div class="output_area docutils container">
 <img alt="../../../_images/classes_Tutorials_1_Qubit_19_SimultaneousSimulation_11_1.png" src="../../../_images/classes_Tutorials_1_Qubit_19_SimultaneousSimulation_11_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
 </div>
 </div>
 </section>
