@@ -201,6 +201,8 @@ class stateBase(computeBase):
 
         if ((self._stateBase__initialState.value is None) or
             (self._stateBase__initialState.value.shape != self.initialStateSystem.dimension)): # pylint: disable=no-member
+            #FIXME after re-structuring the protocol, this should no longer rely of .dimension of protocol,
+            #which returns 1 and causes this to evaluate everytime anyway.
             if isinstance(self._stateBase__initialState._bound, _parameter): # pylint: disable=protected-access
                 # might seem redundant, but required to make sure that bound creates its initial state by calling the
                 # _createAstate

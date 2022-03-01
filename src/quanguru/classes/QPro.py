@@ -58,7 +58,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         return cls.numberOfExponentiations
 
     __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '__dissipator', '_openSys',
-                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', '__compProtocol']
+                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -104,6 +104,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         #: boolean to determine if it is an open-system simulation.
         self._openSys = False
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
     @property
     def dimension(self):
         return 1
