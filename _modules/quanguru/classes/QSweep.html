@@ -461,6 +461,8 @@
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">sweepKey</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># FIXME if the system does not have the given attribute and that is an error</span>
+                <span class="c1"># (eg wrong attr name/typo given), this still works without an error. this should be an explicit setting</span>
                 <span class="n">newSweep</span><span class="o">.</span><span class="n">_aux</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1">#pylint: disable=protected-access</span>
             <span class="c1"># ignores when object is given with a key it does not have</span>
             <span class="c1">#elif not hasattr(list(newSweep.subSys.values())[0], sweepKey):</span>

@@ -444,8 +444,8 @@ to update the desired parameters (such as frequency of the term) as a function o
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm.qSystems">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qSystems</span></span><a class="headerlink" href="#quanguru.classes.QTerms.QTerm.qSystems" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm.qSystem">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qSystem</span></span><a class="headerlink" href="#quanguru.classes.QTerms.QTerm.qSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property to set and get the single quantum system or a list/tuple of quantum systems that are used by the term
 for the dimension information during the matrix creations.
 Setter replaces the existing system/s with the given and also resets the order and operator values to their
@@ -455,20 +455,20 @@ defaults (with the subSys dict which holds other terms if self has more than 1 q
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm._removeTermIfQSysInList">
 <span class="sig-name descname"><span class="pre">_removeTermIfQSysInList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subSys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._removeTermIfQSysInList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._removeTermIfQSysInList" title="Permalink to this definition">¶</a></dt>
-<dd><p>removes self (the term) from the terms of given qSys if a particular subSys is in qSystems list of self.
+<dd><p>removes self (the term) from the terms of given qSys if a particular subSys is in qSystem list of self.
 This is an internal method used in removeSubSys of quantum systems.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm._createTerm">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">superSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._createTerm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Factory method to create new QTerm with the given qSystems, operators, and optional orders and frequency.</p>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">superSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._createTerm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory method to create new QTerm with the given qSystem, operator, and optional orders and frequency.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>qSystems</strong> – Single or a list/tuple of quantum systems for qSystems of the newly created QTerm</p></li>
-<li><p><strong>operators</strong> – Single or a list/tuple of operators (same number as qSystems) for the newly created QTerm</p></li>
-<li><p><strong>orders</strong> – Single or a list/tuple of order values for each operator (same number as operators) for the newly created
+<li><p><strong>qSystem</strong> – Single or a list/tuple of quantum systems for qSystem of the newly created QTerm</p></li>
+<li><p><strong>operator</strong> – Single or a list/tuple of operator/s (same number as qSystem) for the newly created QTerm</p></li>
+<li><p><strong>orders</strong> – Single or a list/tuple of order values for each operator (same number as operator/s) for the newly created
 QTerm, default is 1 for each operator.</p></li>
 <li><p><strong>frequency</strong> – Frequency of the newly created QTerm</p></li>
 </ul>
@@ -486,9 +486,9 @@ QTerm, default is 1 for each operator.</p></li>
 <dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm._checkAndUpdateParamsWhenMultiple">
 <span class="sig-name descname"><span class="pre">_checkAndUpdateParamsWhenMultiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrPrintName</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._checkAndUpdateParamsWhenMultiple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._checkAndUpdateParamsWhenMultiple" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is used internally when setting the operator and/or order of the term to ensure that the number of the
-operator and order are the same as qSystems.
+operator and order are the same as qSystem.
 Before updating the value of operator and/or order, it makes couple of checks that raise errors,
-if there is no qSystem and/or the number of the qSystems and the vals does not match.</p>
+if there is no qSystem and/or the number of the qSystem and the vals does not match.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

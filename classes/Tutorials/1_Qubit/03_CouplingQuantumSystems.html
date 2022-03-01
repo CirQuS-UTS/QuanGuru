@@ -228,6 +228,11 @@
    16 - Jaynes-Cummings Hamiltonian (in QuanGuru)
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_JaynesCummingsModelDynamics.html">
+   17 - Jaynes-Cummings Dynamics
+  </a>
+ </li>
 </ul>
 
   </div>
@@ -581,10 +586,10 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">couplingPM12</span> <span class="o">=</span> <span class="n">twoQub</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operators</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmap</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmam</span><span class="p">],</span>
                                  <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                 <span class="n">qSystems</span><span class="o">=</span><span class="p">[</span><span class="n">qub1</span><span class="p">,</span> <span class="n">qub2</span><span class="p">])</span>
+                                 <span class="n">qSystem</span><span class="o">=</span><span class="p">[</span><span class="n">qub1</span><span class="p">,</span> <span class="n">qub2</span><span class="p">])</span>
 <span class="n">couplingMP12</span> <span class="o">=</span> <span class="n">twoQub</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operators</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmam</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmap</span><span class="p">],</span>
                                  <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                 <span class="n">qSystems</span><span class="o">=</span><span class="p">[</span><span class="n">qub1</span><span class="p">,</span> <span class="n">qub2</span><span class="p">])</span>
+                                 <span class="n">qSystem</span><span class="o">=</span><span class="p">[</span><span class="n">qub1</span><span class="p">,</span> <span class="n">qub2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -627,10 +632,10 @@ array([[ 1.,  0.,  0.,  0.],
 
 <span class="n">couplingPM23</span> <span class="o">=</span> <span class="n">threeQub</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operators</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmap</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmam</span><span class="p">],</span>
                                    <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                   <span class="n">qSystems</span><span class="o">=</span><span class="p">[</span><span class="n">qub2</span><span class="p">,</span> <span class="n">qub3</span><span class="p">])</span>
+                                   <span class="n">qSystem</span><span class="o">=</span><span class="p">[</span><span class="n">qub2</span><span class="p">,</span> <span class="n">qub3</span><span class="p">])</span>
 <span class="n">couplingMP23</span> <span class="o">=</span> <span class="n">threeQub</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operators</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmam</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmap</span><span class="p">],</span>
                                    <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                   <span class="n">qSystems</span><span class="o">=</span><span class="p">[</span><span class="n">qub2</span><span class="p">,</span> <span class="n">qub3</span><span class="p">])</span>
+                                   <span class="n">qSystem</span><span class="o">=</span><span class="p">[</span><span class="n">qub2</span><span class="p">,</span> <span class="n">qub3</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -671,7 +676,7 @@ array([[ 1.5,  0. ,  0. ,  0. ,  0. ,  0. ,  0. ,  0. ],
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">couplingXYZ</span> <span class="o">=</span> <span class="n">threeQub</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operators</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">],</span>
                                   <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                  <span class="n">qSystems</span><span class="o">=</span><span class="p">[</span><span class="n">qub1</span><span class="p">,</span> <span class="n">qub2</span><span class="p">,</span> <span class="n">qub3</span><span class="p">])</span>
+                                  <span class="n">qSystem</span><span class="o">=</span><span class="p">[</span><span class="n">qub1</span><span class="p">,</span> <span class="n">qub2</span><span class="p">,</span> <span class="n">qub3</span><span class="p">])</span>
 
 <span class="c1"># we can also print the Hamiltonian term corresponding to a coupling as</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">couplingXYZ</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>

@@ -430,42 +430,58 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.numberOfExponentiations">
 <span class="sig-name descname"><span class="pre">numberOfExponentiations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.numberOfExponentiations" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>(<strong>class attribute</strong>) to store number of exponentiations, incremented by _increaseExponentiationCount method</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._increaseExponentiationCount">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_increaseExponentiationCount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol._increaseExponentiationCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._increaseExponentiationCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This is a classmethod (used internally) to increment the <cite>numberOfExponentiations</cite> count.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__currentState">
 <span class="sig-name descname"><span class="pre">__currentState</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__currentState" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>during time evolution, the current state of the protocol at the current time is stored in this attribute
+it is an instance of <cite>_parameter</cite> so that the nested-protocols can refer to the same state that is store
+by the outer-most protocol.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__identity">
 <span class="sig-name descname"><span class="pre">__identity</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__identity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>stores an identity matrix with the total dimension of the system of the protocol.
+this is used internally and introduces slight performance enhancement.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__inProtocol">
 <span class="sig-name descname"><span class="pre">__inProtocol</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__inProtocol" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>some steps might be used more than once in the same protocol or in different protocol/s. with this boolean,
+it is determined if self is already a step in a protocol, so that a <cite>copyStep</cite> (of self) is used when self is
+used again as a step in the same protocol or in different protocol/s.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__fixed">
 <span class="sig-name descname"><span class="pre">__fixed</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__fixed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>when parameters of a step are going to be fixed during the whole simulation (including parameter sweeps),
+we can label it as fixed to optimize number of exponentiations.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__ratio">
 <span class="sig-name descname"><span class="pre">__ratio</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__ratio" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>ratio of the stepSize of self to the stepSize of simulation. Used for higher order Trotterisations, so that
+there is only one step size to be swept and the relative step sizes are determined by this ratio, which
+might also be negative as required by higher (than 2) Trotterisation orders.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__updates">
 <span class="sig-name descname"><span class="pre">__updates</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__updates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>stores a list of updates for this protocol/step.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._getUnitary">
@@ -480,7 +496,8 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.stepSample">
 <span class="sig-name descname"><span class="pre">stepSample</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.stepSample" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>boolean to determine if a single state or a list of states is samples (related to sampleStates)</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.timeDependency">
@@ -490,12 +507,14 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__dissipator">
 <span class="sig-name descname"><span class="pre">__dissipator</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__dissipator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>a dictionary to store the dissipator objects used in open-system simulations</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._openSys">
 <span class="sig-name descname"><span class="pre">_openSys</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._openSys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>boolean to determine if it is an open-system simulation.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.dimension">

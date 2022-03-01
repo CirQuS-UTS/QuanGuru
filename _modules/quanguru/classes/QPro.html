@@ -208,28 +208,62 @@
     <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
     <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
+    <span class="c1">#: (**class attribute**) to store number of exponentiations, incremented by _increaseExponentiationCount method</span>
     <span class="n">numberOfExponentiations</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="genericProtocol._increaseExponentiationCount"><a class="viewcode-back" href="../../../classes/QPro.html#quanguru.classes.QPro.genericProtocol._increaseExponentiationCount">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_increaseExponentiationCount</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">numberOfExponentiations</span> <span class="o">+=</span> <span class="mi">1</span></div>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is a classmethod (used internally) to increment the `numberOfExponentiations` count.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">numberOfExponentiations</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">numberOfExponentiations</span></div>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__currentState&#39;</span><span class="p">,</span> <span class="s1">&#39;__inProtocol&#39;</span><span class="p">,</span> <span class="s1">&#39;__fixed&#39;</span><span class="p">,</span> <span class="s1">&#39;__ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;__updates&#39;</span><span class="p">,</span> <span class="s1">&#39;__dissipator&#39;</span><span class="p">,</span> <span class="s1">&#39;_openSys&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;_getUnitary&#39;</span><span class="p">,</span> <span class="s1">&#39;timeDependency&#39;</span><span class="p">,</span> <span class="s1">&#39;__identity&#39;</span><span class="p">,</span> <span class="s1">&#39;sampleStates&#39;</span><span class="p">,</span> <span class="s1">&#39;stepSample&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="c1">#: during time evolution, the current state of the protocol at the current time is stored in this attribute</span>
+        <span class="c1">#: it is an instance of `_parameter` so that the nested-protocols can refer to the same state that is store</span>
+        <span class="c1">#: by the outer-most protocol.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__currentState</span> <span class="o">=</span> <span class="n">_parameter</span><span class="p">()</span>
+        <span class="c1">#: stores an identity matrix with the total dimension of the system of the protocol.</span>
+        <span class="c1">#: this is used internally and introduces slight performance enhancement.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__identity</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1">#: some steps might be used more than once in the same protocol or in different protocol/s. with this boolean,</span>
+        <span class="c1">#: it is determined if self is already a step in a protocol, so that a `copyStep` (of self) is used when self is</span>
+        <span class="c1">#: used again as a step in the same protocol or in different protocol/s.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__inProtocol</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1">#: when parameters of a step are going to be fixed during the whole simulation (including parameter sweeps),</span>
+        <span class="c1">#: we can label it as fixed to optimize number of exponentiations.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__fixed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1">#: ratio of the stepSize of self to the stepSize of simulation. Used for higher order Trotterisations, so that</span>
+        <span class="c1">#: there is only one step size to be swept and the relative step sizes are determined by this ratio, which</span>
+        <span class="c1">#: might also be negative as required by higher (than 2) Trotterisation orders.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__ratio</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1">#: stores a list of updates for this protocol/step.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__updates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">#: when constructing the unitary evolution of a protocol, certain parts of this creation might be replaced by</span>
+        <span class="c1">#: other methods depending on the solution method we used. this attribute stores the `_getUnitary`, which is</span>
+        <span class="c1">#: part of getUnitary method that (uses createUnitary and) returns the unitary matrix.</span>
+        <span class="c1"># TODO I will create a tutorial explaning this.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_getUnitary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defGetUnitary</span>
+        <span class="c1">#: when we use compute function with delStates, we might want to sample several number of time-steps first, then</span>
+        <span class="c1">#: call the compute, which might provide performance benefits when using other solution methods than matrix</span>
+        <span class="c1">#: exponentiation. This list is used for this purpose (and also relies on samples number of self.simulation).</span>
+        <span class="c1"># TODO requires a tutorial and NOTE not completely decided on every detail of how to use this.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sampleStates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">#: boolean to determine if a single state or a list of states is samples (related to sampleStates)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stepSample</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1">#: This is an instance of sweep class, but it is called at every time-step, so that we can change a parameter</span>
+        <span class="c1">#: as a function of time.</span>
+        <span class="c1"># TODO new approach of _timeDependency method in QSystem is much more flexible and</span>
+        <span class="c1"># intuitive than this, and I will more that approach to QSimComp class to make it also available here.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeDependency</span> <span class="o">=</span> <span class="n">Sweep</span><span class="p">(</span><span class="n">superSys</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1">#: a dictionary to store the dissipator objects used in open-system simulations</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__dissipator</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1">#: boolean to determine if it is an open-system simulation.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_openSys</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
