@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>16 - Jaynes-Cummings model of light-matter interaction &#8212; QuanGuru 1 documentation</title>
+    <title>17 - Jaynes-Cummings Open System Dynamics &#8212; QuanGuru 1 documentation</title>
     
     <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -47,8 +47,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="16 - Jaynes-Cummings Hamiltonian (in QuanGuru)" href="16b_JaynesCummingsHamiltonianQuanGuru.html" />
-    <link rel="prev" title="15 - Time dependent Hamiltonian 2" href="15_Qubit_timeDependentTerms.html" />
+    <link rel="next" title="Quantum Toolbox (quanguru.QuantumToolbox)" href="../../../QuantumToolbox.html" />
+    <link rel="prev" title="17 - Jaynes-Cummings Dynamics" href="17_JaynesCummingsModelDynamics.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -218,8 +218,8 @@
    15 - Time dependent Hamiltonian 2
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="16a_JaynesCummingsHamiltonianBasis.html">
    16 - Jaynes-Cummings model of light-matter interaction
   </a>
  </li>
@@ -233,8 +233,8 @@
    17 - Jaynes-Cummings Dynamics
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    17 - Jaynes-Cummings Open System Dynamics
   </a>
  </li>
@@ -531,57 +531,174 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quanguru</span> <span class="k">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
-<section id="16---Jaynes-Cummings-model-of-light-matter-interaction">
-<h1>16 - Jaynes-Cummings model of light-matter interaction<a class="headerlink" href="#16---Jaynes-Cummings-model-of-light-matter-interaction" title="Permalink to this headline">¶</a></h1>
-<p>Before demonstrating the Jaynes-Cummings (JC) Hamiltonian in <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>, we provide some background for the JC Hamiltonian in this tutorial.</p>
-<p>The JC Hamiltonian is commonly written as</p>
+<section id="17---Jaynes-Cummings-Open-System-Dynamics">
+<h1>17 - Jaynes-Cummings Open System Dynamics<a class="headerlink" href="#17---Jaynes-Cummings-Open-System-Dynamics" title="Permalink to this headline">¶</a></h1>
+<p>The Jaynes-Cummings Hamiltonian is written as</p>
 <p><img class="math" src="../../../_images/math/005a1633bce77474d413ea50ba728c4f8af6d802.png" alt="H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}\sigma_{-} + a\sigma_{+})"/></p>
-<p>where <img class="math" src="../../../_images/math/f95d0e224b466853fbd97e9b161f0b5d1413cebf.png" alt="\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2"/> are raising/lowering operators for a two-level system, <img class="math" src="../../../_images/math/9382c37ae163134c7856999b0ec42e132d7c6104.png" alt="\sigma_{\mu}"/> are the Pauli spin operators with <img class="math" src="../../../_images/math/a32c3137b2624e3282733e70b0155b000fa661f6.png" alt="\mu\in\{x,y,z\}"/>, <img class="math" src="../../../_images/math/95fe3337916b736467a57d7ca5cc1a41daadf1be.png" alt="a^{\dagger}"/> and <img class="math" src="../../../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> are the creation and annihilation operators for the field mode, and <img class="math" src="../../../_images/math/64007df6a99f1f686f436a5cb26c29fc3cd2bed7.png" alt="\omega_{c}"/>, <img class="math" src="../../../_images/math/43f54af677fba7c406cbe9d9b11dd2be91a8696b.png" alt="\omega_{q}"/>, and <img class="math" src="../../../_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.png" alt="g"/> are the cavity-field, qubit, and coupling (angular-) frequencies, respectively. Note that the above Hamiltonian is written in a common notation where
-the order of the sub-system Hilbert spaces is implicitly defined by the ordering in the coupling. This means, for example, that the composite form of the number operator is written explicitly as <img class="math" src="../../../_images/math/f99a07d29f30a1fe1a5a7278029195bfa60e5ede.png" alt="(a^{\dagger}a)\otimes 1_{2,2}"/> (similarly, <img class="math" src="../../../_images/math/aac23d3e98d831e60fc0d1fe889b4c199f6cd982.png" alt="a^{\dagger}\otimes\sigma_{-}"/> and <img class="math" src="../../../_images/math/27f080fdeb1ba63787147c28372a3713f83d7caa.png" alt="1_{d,d}\otimes\sigma_{z}"/>, where <img class="math" src="../../../_images/math/badad346f6fbe2e237af99bfbd9a93a4da53a3da.png" alt="d"/> is the truncation dimension for the cavity operators and <img class="math" src="../../../_images/math/d8313fbdd7297ad6fb4978808ee6ee23af70bf20.png" alt="\otimes"/> is the tensor product).</p>
-<p>Here, the eigenstates of the qubit are</p>
-<ul class="simple">
-<li><p>Excited state : <img class="math" src="../../../_images/math/b930b8d1f88d1bb29a415445d62355f72e8638d9.png" alt="|e\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue }\frac{1}{2}\omega_{q})"/></p></li>
-<li><p>Ground state: <img class="math" src="../../../_images/math/9a3683fd50dc0ba00c9875a244ea173811f84b8e.png" alt="|g\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue }-\frac{1}{2}\omega_{q})"/></p></li>
-</ul>
-<p>Together with the <img class="math" src="../../../_images/math/f95d0e224b466853fbd97e9b161f0b5d1413cebf.png" alt="\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2"/> definition, we have</p>
-<ul class="simple">
-<li><p><img class="math" src="../../../_images/math/2c34d09dc386c96d80cc4825ff221cf0bf5a7d2c.png" alt="\sigma_{+} = \left[\begin{array}{ll} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]"/> so that <img class="math" src="../../../_images/math/2dd0d8ff8d860750024c23629d1abd62bb3314c1.png" alt="\sigma_{+}|e\rangle = 0"/> and <img class="math" src="../../../_images/math/8b88920abd507024489da5896f4cdd82927ead11.png" alt="\sigma_{+}|g\rangle = |e\rangle"/></p></li>
-<li><p><img class="math" src="../../../_images/math/48fc3423000e305a9ed2878ae8a7e64b5a104274.png" alt="\sigma_{-} = \left[\begin{array}{ll} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]"/> so that <img class="math" src="../../../_images/math/c1728dbc7d766c00b2e514c0df4886868a082036.png" alt="\sigma_{-}|e\rangle = |g\rangle"/> and <img class="math" src="../../../_images/math/954437dd883f2f9a46019f48f9891570f4b79574.png" alt="\sigma_{-}|g\rangle = 0"/></p></li>
-</ul>
-<p>Finally, the matrix representations of JC Hamiltonian (with <img class="math" src="../../../_images/math/7a9611c86a79343d1c0bda4694c9a3b3899852b9.png" alt="d=10"/>) for two different cases of sub-system Hilbert space orders are</p>
-<ul>
-<li><p><img class="math" src="../../../_images/math/79faece871760dd6b8a018fc71d6b944bce49280.png" alt="H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} + \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes\sigma_{-} + a\otimes\sigma_{+})"/></p>
-<p><a class="reference internal" href="../../../_images/CavityQubitWithSandPlus.png"><img alt="Cavity first and qubit with sigma-plus/minus operators and plus" src="../../../_images/CavityQubitWithSandPlus.png" style="width: 70.0%;" /></a></p>
-</li>
-<li><p><img class="math" src="../../../_images/math/0323266f097f445d7e082767a0d8211229de195a.png" alt="H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(\sigma_{-}\otimes a^{\dagger} + \sigma_{+}\otimes a)"/></p>
-<p><a class="reference internal" href="../../../_images/QubitCavityWithSandPlus.png"><img alt="Qubit first and qubit with sigma-plus/minus operators and plus" src="../../../_images/QubitCavityWithSandPlus.png" style="width: 70.0%;" /></a></p>
-</li>
-</ul>
-<p>In above convention, we see that the zero-excitation state <img class="math" src="../../../_images/math/d4bbb8b915f20422771c0cdd41d9cef3801f9ce6.png" alt="|0, g\rangle"/> (or, <img class="math" src="../../../_images/math/bbf095dfe4f6864858ce0429bdbd98ab1916615d.png" alt="|g, 0\rangle"/> in the qubit first order of sub-spaces) appears at <img class="math" src="../../../_images/math/02e4258a90ccb9c397eb0d818be5d49945779b12.png" alt="(2, 2)"/> (or, at <img class="math" src="../../../_images/math/33fd42720b7c49f3b197e9aee386e980de5478ba.png" alt="(d+1, d+1)"/> in the qubit first order of sub-spaces) index of the matrix representation. There are some other <em>counter-intuitive</em> details in above convention, and an alternative convention for JC Hamiltonian is to write the qubit term with a minus (<img class="math" src="../../../_images/math/f40df98d4b07d85e9c0e6b2a140df1034fd5095d.png" alt="- \frac{1}{2}\hbar\omega_{q}\sigma_{z}"/>) so that the
-excited/ground state definition is switched</p>
-<ul class="simple">
-<li><p>Excited state : <img class="math" src="../../../_images/math/e111b6f32bfc8f1c6619f6ba25be1ac340b560ee.png" alt="|g\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue }-\frac{1}{2}\omega_{q})"/></p></li>
-<li><p>Ground state: <img class="math" src="../../../_images/math/35a717a3107e5c34cfba77559dc610daab48b71d.png" alt="|e\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue }\frac{1}{2}\omega_{q})"/></p></li>
-</ul>
-<p>However, in this alternative case, we also need to make some changes for the <img class="math" src="../../../_images/math/4c15ba8f512b02c3c625a6183e93687851033d5f.png" alt="\sigma_{\pm}"/> operators, otherwise, together with the <img class="math" src="../../../_images/math/f95d0e224b466853fbd97e9b161f0b5d1413cebf.png" alt="\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2"/> definition, we have</p>
-<ul class="simple">
-<li><p><img class="math" src="../../../_images/math/2c34d09dc386c96d80cc4825ff221cf0bf5a7d2c.png" alt="\sigma_{+} = \left[\begin{array}{ll} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]"/> so that <img class="math" src="../../../_images/math/61fb77117b0563dfb424d7229ed58b6cca5f796b.png" alt="\sigma_{+}|g\rangle = 0"/> and <img class="math" src="../../../_images/math/1fd8913336ad4fe92eb6819ae37753144d780beb.png" alt="\sigma_{+}|e\rangle = |g\rangle"/></p></li>
-<li><p><img class="math" src="../../../_images/math/48fc3423000e305a9ed2878ae8a7e64b5a104274.png" alt="\sigma_{-} = \left[\begin{array}{ll} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]"/> so that <img class="math" src="../../../_images/math/9d783811b3d502d78fcdf3b2fe964f5896b5136f.png" alt="\sigma_{-}|g\rangle = |e\rangle"/> and <img class="math" src="../../../_images/math/0682622d5f4b484d0e1760913bfa63d902c3bcce.png" alt="\sigma_{-}|e\rangle = 0"/></p></li>
-</ul>
-<p>Here, we could introduce some unconventional definitions for <img class="math" src="../../../_images/math/4c15ba8f512b02c3c625a6183e93687851033d5f.png" alt="\sigma_{\pm}"/> by switching the <img class="math" src="../../../_images/math/c1b04b17db55f1b4279eba10c6244b33b4673748.png" alt="\pm"/> in their definition to <img class="math" src="../../../_images/math/a3dcbc5b4eab23efb33863a71aa27c0f86cd595d.png" alt="\mp"/>, but we have a better alternative that is to replace <img class="math" src="../../../_images/math/5a274cf473afa24ea7978900bae254c9f16142d3.png" alt="\sigma_{-}"/> and <img class="math" src="../../../_images/math/6abf1dbe6edeff7185bb5870fb9c96c49b9b0b81.png" alt="\sigma_{+}"/> with 2-dimensional truncations of <img class="math" src="../../../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> and <img class="math" src="../../../_images/math/95fe3337916b736467a57d7ca5cc1a41daadf1be.png" alt="a^{\dagger}"/>, respectively. Then, the matrix representations of JC Hamiltonian (with <img class="math" src="../../../_images/math/7a9611c86a79343d1c0bda4694c9a3b3899852b9.png" alt="d=10"/>) for two different cases of sub-system Hilbert space orders are</p>
-<ul>
-<li><p><img class="math" src="../../../_images/math/ec033d597fe5a13f4f2420973355cd185051c8be.png" alt="H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} - \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes a_{2,2} + a\otimes a_{2,2}^{\dagger})"/></p>
-<p><a class="reference internal" href="../../../_images/CavityQubitWithAandMinus.png"><img alt="Cavity first and qubit with creation/annihilation operators and minus" src="../../../_images/CavityQubitWithAandMinus.png" style="width: 70.0%;" /></a></p>
-</li>
-<li><p><img class="math" src="../../../_images/math/583f937d836a93a24e7043c63df3577f781046a3.png" alt="H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(a_{2,2}\otimes a^{\dagger} + a_{2,2}^{\dagger}\otimes a)"/></p>
-<p><a class="reference internal" href="../../../_images/QubitCavityWithAandMinus.png"><img alt="Qubit first and qubit with creation/annihilation operators and minus" src="../../../_images/QubitCavityWithAandMinus.png" style="width: 70.0%;" /></a></p>
-</li>
-</ul>
-<p>and, in the first case, we have <img class="math" src="../../../_images/math/d4bbb8b915f20422771c0cdd41d9cef3801f9ce6.png" alt="|0, g\rangle"/> at <img class="math" src="../../../_images/math/85428231b6a79d11175c72cad34f1d2b684d51be.png" alt="(0, 0)"/>.</p>
-<p>TODO: FURTHER EXPLANATIONS OF THE FIRST CASE (e.g. the 4-squares being the constant excitation sub-space)</p>
+<p>where <img class="math" src="../../../_images/math/f95d0e224b466853fbd97e9b161f0b5d1413cebf.png" alt="\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2"/> are raising/lowering operators for a two-level system, <img class="math" src="../../../_images/math/9382c37ae163134c7856999b0ec42e132d7c6104.png" alt="\sigma_{\mu}"/> are the Pauli spin operators with <img class="math" src="../../../_images/math/a32c3137b2624e3282733e70b0155b000fa661f6.png" alt="\mu\in\{x,y,z\}"/>, <img class="math" src="../../../_images/math/95fe3337916b736467a57d7ca5cc1a41daadf1be.png" alt="a^{\dagger}"/> and <img class="math" src="../../../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> are the creation and annihilation operators for the field mode, and <img class="math" src="../../../_images/math/64007df6a99f1f686f436a5cb26c29fc3cd2bed7.png" alt="\omega_{c}"/>, <img class="math" src="../../../_images/math/43f54af677fba7c406cbe9d9b11dd2be91a8696b.png" alt="\omega_{q}"/>, and <img class="math" src="../../../_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.png" alt="g"/> are the cavity-field, qubit, and coupling (angular-) frequencies, respectively.</p>
+<p>We will use the below parameters in our simulation</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># parameters for the Hamiltonian</span>
+<span class="n">qubitFreq</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">cavityFreq</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">couplingFreq</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">cavityDim</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># parameters for the evolution</span>
+<span class="n">totalTime</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">couplingFreq</span><span class="p">)</span>
+<span class="n">timeStep</span> <span class="o">=</span> <span class="mf">0.1</span>
+</pre></div>
+</div>
+</div>
+<p>and we can describe the JC-Hamiltonian/system in QuanGuru as</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Qubit for the JC model</span>
+<span class="n">QubitJC</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">qubitFreq</span><span class="p">)</span>
+
+<span class="c1"># Cavity for the JC model</span>
+<span class="n">CavityJC</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Cavity</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="n">cavityDim</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">cavityFreq</span><span class="p">)</span>
+
+<span class="c1"># JC model consists of a qubit and cavity</span>
+<span class="c1"># and this is the &#39;free evolution&#39; part of the JC-Hamiltonian</span>
+<span class="n">JCSystem</span> <span class="o">=</span> <span class="n">QubitJC</span> <span class="o">+</span> <span class="n">CavityJC</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># coupling part of the JC-Hamiltonian</span>
+<span class="c1"># first term of the coupling</span>
+<span class="n">JCCouplingT1</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span>
+    <span class="n">qSystem</span><span class="o">=</span><span class="p">[</span><span class="n">CavityJC</span><span class="p">,</span> <span class="n">QubitJC</span><span class="p">],</span>
+    <span class="n">operator</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmap</span><span class="p">])</span>
+
+<span class="c1"># second term of the couplings</span>
+<span class="c1"># first term of the coupling</span>
+<span class="n">JCCouplingT2</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span>
+    <span class="n">qSystem</span><span class="o">=</span><span class="p">[</span><span class="n">QubitJC</span><span class="p">,</span> <span class="n">CavityJC</span><span class="p">],</span>
+    <span class="n">operator</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmam</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">create</span><span class="p">])</span>
+
+<span class="c1"># combine the terms into a single term</span>
+<span class="n">JCCoupling</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QTerm</span><span class="p">(</span><span class="n">qSystem</span><span class="o">=</span><span class="n">JCSystem</span><span class="p">,</span>
+                      <span class="n">subSys</span><span class="o">=</span><span class="p">[</span><span class="n">JCCouplingT1</span><span class="p">,</span> <span class="n">JCCouplingT2</span><span class="p">],</span>
+                      <span class="n">frequency</span><span class="o">=</span><span class="n">couplingFreq</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add a dissipator term for the cavity decay</span>
+<span class="n">dc1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">dissipatorObj</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">CavityJC</span><span class="p">,</span> <span class="n">jOper</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">cavityDim</span><span class="p">),</span> <span class="n">jRate</span><span class="o">=</span><span class="mf">.075</span><span class="p">)</span>
+<span class="n">dc1</span><span class="o">.</span><span class="n">addToProtocol</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">_freeEvol</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">JCSystem</span><span class="o">.</span><span class="n">simStepSize</span> <span class="o">=</span> <span class="n">timeStep</span>
+<span class="n">JCSystem</span><span class="o">.</span><span class="n">simTotalTime</span> <span class="o">=</span> <span class="n">totalTime</span>
+
+<span class="n">JCSystem</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">freqSweep</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">createSweep</span><span class="p">(</span>
+    <span class="n">system</span><span class="o">=</span><span class="n">CavityJC</span><span class="p">,</span>
+    <span class="n">sweepKey</span><span class="o">=</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span>
+    <span class="n">sweepMax</span><span class="o">=</span><span class="n">qubitFreq</span><span class="o">+</span><span class="n">cavityFreq</span><span class="p">,</span>
+    <span class="n">sweepMin</span><span class="o">=</span><span class="n">qubitFreq</span><span class="o">-</span><span class="n">cavityFreq</span><span class="p">,</span>
+    <span class="n">sweepStep</span><span class="o">=</span><span class="mf">.025</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">compositeSZ</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">compositeOp</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">(),</span>   <span class="n">dimA</span><span class="o">=</span><span class="n">cavityDim</span><span class="p">)</span>
+
+<span class="c1"># calculate the desired results and store</span>
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="n">stateJC</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;zJC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">compositeSZ</span><span class="p">,</span> <span class="n">stateJC</span><span class="p">))</span>
+
+<span class="n">JCSystem</span><span class="o">.</span><span class="n">simCompute</span> <span class="o">=</span> <span class="n">compute</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># do not store the states</span>
+<span class="n">JCSystem</span><span class="o">.</span><span class="n">simDelStates</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># run the simulation</span>
+<span class="c1"># p=True uses multi-processing for the sweep</span>
+<span class="n">JCSystem</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;zJC&#39;</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Frequency $\omega_</span><span class="si">{c}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0, 0.5, &#39;Time&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/classes_Tutorials_1_Qubit_18_JaynesCummingsModelOpenSystemDynamics_10_1.png" src="../../../_images/classes_Tutorials_1_Qubit_18_JaynesCummingsModelOpenSystemDynamics_10_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
 </section>
 
 
@@ -590,17 +707,17 @@ excited/ground state definition is switched</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="15_Qubit_timeDependentTerms.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="17_JaynesCummingsModelDynamics.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">15 - Time dependent Hamiltonian 2</p>
+            <p class="prev-next-title">17 - Jaynes-Cummings Dynamics</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="16b_JaynesCummingsHamiltonianQuanGuru.html" title="next page">
+    <a class='right-next' id="next-link" href="../../../QuantumToolbox.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</p>
+        <p class="prev-next-title">Quantum Toolbox (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox</span></code>)</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
