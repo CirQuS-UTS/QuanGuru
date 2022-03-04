@@ -553,7 +553,7 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># parameters for the Hamiltonian</span>
 <span class="n">qubitFreq</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">cavityFreq</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">couplingFreq</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">couplingFreq</span> <span class="o">=</span> <span class="mf">0.25</span>
 <span class="n">cavityDim</span> <span class="o">=</span> <span class="mi">5</span>
 
 <span class="c1"># parameters for the evolution</span>
@@ -607,7 +607,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add a dissipator term for the cavity decay</span>
-<span class="n">dc1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">dissipatorObj</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">CavityJC</span><span class="p">,</span> <span class="n">jOper</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">cavityDim</span><span class="p">),</span> <span class="n">jRate</span><span class="o">=</span><span class="mf">.075</span><span class="p">)</span>
+<span class="n">dc1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">dissipatorObj</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">CavityJC</span><span class="p">,</span> <span class="n">jOper</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">cavityDim</span><span class="p">),</span> <span class="n">jRate</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
 <span class="n">dc1</span><span class="o">.</span><span class="n">addToProtocol</span><span class="p">(</span><span class="n">JCSystem</span><span class="o">.</span><span class="n">_freeEvol</span><span class="p">)</span>
 </pre></div>
 </div>
