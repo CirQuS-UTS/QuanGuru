@@ -54,6 +54,7 @@ r"""
 from typing import Optional, List, Iterable, Any
 
 import scipy.sparse as sp # type: ignore
+from scipy.sparse import spmatrix # type: ignore
 import numpy as np # type: ignore
 
 from .linearAlgebra import (norm as linAlNorm, outerProd as linAlOuterProd,
@@ -171,7 +172,7 @@ def basisBra(dimension: int, state: int, sparse: bool = True) -> Matrix:
 
     return basis(dimension, state, sparse).T
 
-def zeros(dimension: int, sparse: bool = True) -> Matrix:
+def zerosKet(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates a column matrix (ket) with all elements zero.
 
@@ -201,6 +202,33 @@ def zeros(dimension: int, sparse: bool = True) -> Matrix:
     rows = [0]
     columns = [0]
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
+    return Zeros if sparse else Zeros.A
+
+def zerosMat(dimension: int, sparse: bool = True) -> Matrix:
+    r"""
+    Creates a square matrix with all elements zero.
+
+    Parameters
+    ----------
+    dimension : int
+        dimension of Hilbert space
+    sparse : bool
+        boolean for sparse or not (array)
+
+    Returns
+    -------
+    Matrix
+        Square matrix of zeros
+
+    Examples
+    --------
+    TODO
+    """
+
+    data = [0]
+    rows = [0]
+    columns = [0]
+    Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return Zeros if sparse else Zeros.A
 
 def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
@@ -484,7 +512,7 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
     """
 
     st = linAlTensorProd(*[superPos(dim, exs) for (dim, exs) in zip(dimensions, excitations)])
-    return st if sparse else st.A
+    return st.A if ( (not sparse) and (isinstance(st, spmatrix))) else st
 
 def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     r"""
