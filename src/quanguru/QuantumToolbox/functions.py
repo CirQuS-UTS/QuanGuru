@@ -49,7 +49,7 @@ from numpy import ndarray # type: ignore
 
 import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
-from scipy.sparse import issparse
+from scipy.sparse import spmatrix # type: ignore
 
 from .linearAlgebra import hc, tensorProd, trace, innerProd
 from .states import densityMatrix, mat2Vec
@@ -189,10 +189,10 @@ def _fidelityTest(state1: Matrix, state2: Matrix) -> float:
     r"""
     Calculates `fidelity`
     """
-    if issparse(state1):
+    if isinstance(state1, spmatrix):
         state1 = state1.A
 
-    if issparse(state2):
+    if isinstance(state2, spmatrix):
         state2 = state2.A
     matsqrt = lina.sqrtm(state1)
     fid = trace(lina.sqrtm(matsqrt @ state2  @ matsqrt))
@@ -404,8 +404,8 @@ def concurrence(state: Matrix) -> float:
     SySy = tensorProd(sigmay(), sigmay())
     magicConj = SySy @ state.conj() @ SySy
     R = state @ magicConj
-    eigVals, _ = sortedEigens(R)
-    eigVals = np.real(np.sqrt(eigVals))
+    eigValList, _ = sortedEigens(R)
+    eigVals = np.real(np.sqrt(eigValList))
     return max([0, np.round(eigVals[3] - eigVals[2] - eigVals[1] - eigVals[0], 15)])
 
 def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:

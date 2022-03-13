@@ -42,7 +42,7 @@ def test_ladderOperatorsOnEdges(op, bo):
         dim = rn.randint(1, 20)
         rOp = op(dim)
         state = states.basis(rOp.shape[0], (rOp.shape[0] - 1)*bo)
-        assert np.allclose((rOp@state).A, states.zeros(rOp.shape[0], sparse=False))
+        assert np.allclose((rOp@state).A, states.zerosKet(rOp.shape[0], sparse=False))
 
 @pytest.mark.parametrize("op, bo", [[ops.destroy, -1], [ops.create, 1], [ops.Jp, -1], [ops.Jm, 1]])
 def test_ladderOperatorsOnRndPlaces(op, bo):

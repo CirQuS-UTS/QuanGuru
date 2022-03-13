@@ -187,6 +187,6 @@ def spinRotation(xyz: str, angle: float, j: float, sparse: bool = True, isDim: b
         rotOp = Jz
     else:
         raise ValueError(xyz + ' is not supported')
-    rotOp = rotOp(j, isDim=isDim, sparse=sparse)
-    rotUnitary = Unitary(angle*rotOp)
+    rotOpMat = rotOp(j, isDim=isDim, sparse=sparse)
+    rotUnitary = Unitary(angle*rotOpMat)
     return rotUnitary

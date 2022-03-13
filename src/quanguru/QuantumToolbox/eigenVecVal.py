@@ -142,7 +142,7 @@ def _eigStatEig(EigVecs: Matrix, symp=False) -> floatList:
     --------
     # TODO
     """
-    return (np.abs(EigVecs.flatten()))**2 if not symp else _eigsStatEigSymp(EigVecs)
+    return list((np.abs(EigVecs.flatten()))**2) if not symp else _eigsStatEigSymp(EigVecs)
 
 def _eigsStatEigSymp(EigVecs: Matrix) -> floatList:
     r"""

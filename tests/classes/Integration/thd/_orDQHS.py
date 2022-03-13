@@ -144,5 +144,3 @@ stepSizeSweep = simulation.Sweep.createSweep(system=simulation, sweepKey='stepSi
 
 simulation.compute = compute
 simulation.totalTime = totalSimTimeV
-
-simulation.run(p=False)

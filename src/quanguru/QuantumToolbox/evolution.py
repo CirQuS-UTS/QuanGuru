@@ -42,7 +42,7 @@ import scipy.sparse.linalg as slinA # type: ignore
 
 from .linearAlgebra import hc
 from .functions import sortedEigens
-from .states import densityMatrix, mat2Vec, vec2Mat
+from .states import densityMatrix, mat2Vec, vec2Mat, zerosMat
 
 from .customTypes import Matrix
 
@@ -133,18 +133,22 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
     if Hamiltonian is not None:
         dimensionOfHilbertSpace = Hamiltonian.shape[0]
     else:
-        dimensionOfHilbertSpace = collapseOperators[0].shape[0]
+        if collapseOperators is not None:
+            dimensionOfHilbertSpace = collapseOperators[0].shape[0]
 
     identity = sp.identity(dimensionOfHilbertSpace, format="csc")
-    hamPart1 = _preSO(Hamiltonian, identity)
-    hamPart2 = _postSO(Hamiltonian, identity)
-    hamPart = -1j * (hamPart1 - hamPart2)
-    liouvillian = hamPart
+    liouvillian = zerosMat(dimensionOfHilbertSpace**2)
+    if Hamiltonian is not None:
+        hamPart1 = _preSO(Hamiltonian, identity)
+        hamPart2 = _postSO(Hamiltonian, identity)
+        hamPart = -1j * (hamPart1 - hamPart2)
+        liouvillian += hamPart
+
     if isinstance(collapseOperators, list):
         for idx, collapseOperator in enumerate(collapseOperators):
-            if collapseOperator.shape[0] == Hamiltonian.shape[0]:
+            if collapseOperator.shape[0] == dimensionOfHilbertSpace:
                 collapsePart = dissipator(collapseOperator, identity=identity, _double=_double)
-            elif collapseOperator.shape[0] == (Hamiltonian.shape[0]**2):
+            elif collapseOperator.shape[0] == (dimensionOfHilbertSpace**2):
                 collapsePart = collapseOperator
             elif isinstance(collapseOperator, tuple):
                 collapsePart = dissipator(collapseOperator[0], collapseOperator[1], _double=_double)
@@ -204,7 +208,8 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
     if Hamiltonian is not None:
         sparse = sp.issparse(Hamiltonian)
     else:
-        sparse = sp.issparse(collapseOperators[0])
+        if collapseOperators is not None:
+            sparse = sp.issparse(collapseOperators[0])
 
     if isinstance(collapseOperators, list):
         liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates, _double=_double)
