@@ -349,8 +349,8 @@
         <span class="n">rotOp</span> <span class="o">=</span> <span class="n">Jz</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">xyz</span> <span class="o">+</span> <span class="s1">&#39; is not supported&#39;</span><span class="p">)</span>
-    <span class="n">rotOp</span> <span class="o">=</span> <span class="n">rotOp</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="n">sparse</span><span class="p">)</span>
-    <span class="n">rotUnitary</span> <span class="o">=</span> <span class="n">Unitary</span><span class="p">(</span><span class="n">angle</span><span class="o">*</span><span class="n">rotOp</span><span class="p">)</span>
+    <span class="n">rotOpMat</span> <span class="o">=</span> <span class="n">rotOp</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="n">sparse</span><span class="p">)</span>
+    <span class="n">rotUnitary</span> <span class="o">=</span> <span class="n">Unitary</span><span class="p">(</span><span class="n">angle</span><span class="o">*</span><span class="n">rotOpMat</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rotUnitary</span></div>
 </pre></div>
 

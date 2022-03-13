@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2 - How to create composite quantum systems &#8212; QuanGuru 1 documentation</title>
     
     <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -589,10 +588,10 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<section id="2---How-to-create-composite-quantum-systems">
+<div class="section" id="2---How-to-create-composite-quantum-systems">
 <h1>2 - How to create composite quantum systems<a class="headerlink" href="#2---How-to-create-composite-quantum-systems" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial, we show various different ways you can create/define composite quantum systems in <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>.</p>
-<section id="Create-each-system-then-compose">
+<div class="section" id="Create-each-system-then-compose">
 <h2>Create each system then compose<a class="headerlink" href="#Create-each-system-then-compose" title="Permalink to this headline">¶</a></h2>
 <p>This approach is probably the most natural and easy way. We discuss the alternatives below, and they are all just compact forms of this.</p>
 <p>Let’s start by creating a composite system with two qubits. We first create two <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> instances and a <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> (for composite quantum system). Without any sub-systems (stored in the <code class="docutils literal notranslate"><span class="pre">.subSys</span></code>) or operators assigned to it, the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> instance is just an empty container. Therefore, we next add the sub-systems by calling <code class="docutils literal notranslate"><span class="pre">addSubSys</span></code> with a <code class="docutils literal notranslate"><span class="pre">list</span></code> containing the sub-systems we want to add. The order of sub-systems in the given <code class="docutils literal notranslate"><span class="pre">list</span></code> will determine the structure of
@@ -700,8 +699,8 @@ default values (i.e. when the system is not in composite or no system before/af
  [ 0.   0.   0.  -0.5]]
 </pre></div></div>
 </div>
-</section>
-<section id="Create-a-composite-quantum-system-using-the-+-operator">
+</div>
+<div class="section" id="Create-a-composite-quantum-system-using-the-+-operator">
 <h2>Create a composite quantum system using the <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator<a class="headerlink" href="#Create-a-composite-quantum-system-using-the-+-operator" title="Permalink to this headline">¶</a></h2>
 <p>Above examples highlight the basics of composite quantum systems, and we now focus on alternative ways for composite system creation. We will take an incremental approach and simplify the above composite system creation step-by-step. First step is that we actually don’t have to create a composite system first then add the sub-systems, we can do them in a single line as below.</p>
 <div class="nbinput docutils container">
@@ -827,8 +826,8 @@ default values (i.e. when the system is not in composite or no system before/af
 </pre></div></div>
 </div>
 <p>This obviously is not a cleaner approach, if we need explicit references to our objects. But, we generally don’t need it, and all the functionalities of <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> accepts the object <code class="docutils literal notranslate"><span class="pre">name</span></code>(or any of its <code class="docutils literal notranslate"><span class="pre">alias</span></code>) instead of a reference. We will cover such examples in future, but this basically means that we will need this explicit references in extreme cases.</p>
-</section>
-<section id="Create-a-composite-quantum-system-using-the-*-operator">
+</div>
+<div class="section" id="Create-a-composite-quantum-system-using-the-*-operator">
 <h2>Create a composite quantum system using the <img class="math" src="../../../_images/math/520a99913b8ff14daccff07aa63cdb8d6583e0fc.png" alt="*"/> operator<a class="headerlink" href="#Create-a-composite-quantum-system-using-the-*-operator" title="Permalink to this headline">¶</a></h2>
 <p>If we want to create a quantum system with <img class="math" src="../../../_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> identical copies of a sub-system, we don’t necessarily want to type all that <img class="math" src="../../../_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> times even if we are simply summing them. In such cases, we can use the <img class="math" src="../../../_images/math/520a99913b8ff14daccff07aa63cdb8d6583e0fc.png" alt="*"/> operator as follows</p>
 <div class="nbinput docutils container">
@@ -849,11 +848,11 @@ default values (i.e. when the system is not in composite or no system before/af
 {&#39;Qubit9&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ac70&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ad60&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ab80&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ae50&gt;}
 </pre></div></div>
 </div>
-</section>
-<section id="+-operator-on-composite-system">
+</div>
+<div class="section" id="+-operator-on-composite-system">
 <h2><img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator on composite system<a class="headerlink" href="#+-operator-on-composite-system" title="Permalink to this headline">¶</a></h2>
 <p>We can use <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operators with composite quantum systems in two different ways.</p>
-<section id="Adding-single-system-to-an-existing-composite-system-with-+-operator">
+<div class="section" id="Adding-single-system-to-an-existing-composite-system-with-+-operator">
 <h3>Adding single system to an existing composite system with <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator<a class="headerlink" href="#Adding-single-system-to-an-existing-composite-system-with-+-operator" title="Permalink to this headline">¶</a></h3>
 <p>When we use <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator between a single system and a composite system, it adds the single system into the composite system. Let’s add more qubits to our <code class="docutils literal notranslate"><span class="pre">fourQubit</span></code> system.</p>
 <div class="nbinput docutils container">
@@ -904,8 +903,8 @@ default values (i.e. when the system is not in composite or no system before/af
 2
 </pre></div></div>
 </div>
-</section>
-<section id="Combining-composite-system-with-+-operator">
+</div>
+<div class="section" id="Combining-composite-system-with-+-operator">
 <h3>Combining composite system with <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator<a class="headerlink" href="#Combining-composite-system-with-+-operator" title="Permalink to this headline">¶</a></h3>
 <p>We can use <img class="math" src="../../../_images/math/26d77804f7b0232a53e8432702479a275a171831.png" alt="+"/> operator to combine two composite systems. This means that it creates a third composite system, whose sub-systems are the composite quantum systems which have their own sub-systems that can be single or composite systems, i.e. nested-composite-systems.</p>
 <div class="nbinput docutils container">
@@ -976,9 +975,9 @@ default values (i.e. when the system is not in composite or no system before/af
                  2 8 1
 </pre></div></div>
 </div>
-</section>
-</section>
-<section id="How-to-remove-a-sub-system-?">
+</div>
+</div>
+<div class="section" id="How-to-remove-a-sub-system-?">
 <h2>How to remove a sub-system ?<a class="headerlink" href="#How-to-remove-a-sub-system-?" title="Permalink to this headline">¶</a></h2>
 <p>Now, what if we want to remove a sub-system ? This is where the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute comes extremely handy, because, in order to remove <code class="docutils literal notranslate"><span class="pre">Qubit15</span></code> from <code class="docutils literal notranslate"><span class="pre">fourQubit2</span></code>, all we need to do is</p>
 <div class="nbinput docutils container">
@@ -1051,8 +1050,8 @@ default values (i.e. when the system is not in composite or no system before/af
                  2 2 1
 </pre></div></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
               </div>

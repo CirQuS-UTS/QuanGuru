@@ -216,6 +216,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span> <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">spmatrix</span> <span class="c1"># type: ignore</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># type: ignore</span>
 
 <span class="kn">from</span> <span class="nn">.linearAlgebra</span> <span class="kn">import</span> <span class="p">(</span><span class="n">norm</span> <span class="k">as</span> <span class="n">linAlNorm</span><span class="p">,</span> <span class="n">outerProd</span> <span class="k">as</span> <span class="n">linAlOuterProd</span><span class="p">,</span>
@@ -333,7 +334,7 @@
 
     <span class="k">return</span> <span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">sparse</span><span class="p">)</span><span class="o">.</span><span class="n">T</span></div>
 
-<div class="viewcode-block" id="zeros"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.zeros">[docs]</a><span class="k">def</span> <span class="nf">zeros</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<div class="viewcode-block" id="zerosKet"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.zerosKet">[docs]</a><span class="k">def</span> <span class="nf">zerosKet</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a column matrix (ket) with all elements zero.</span>
 
@@ -363,6 +364,33 @@
     <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">Zeros</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Zeros</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">Zeros</span><span class="o">.</span><span class="n">A</span></div>
+
+<div class="viewcode-block" id="zerosMat"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.zerosMat">[docs]</a><span class="k">def</span> <span class="nf">zerosMat</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a square matrix with all elements zero.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dimension : int</span>
+<span class="sd">        dimension of Hilbert space</span>
+<span class="sd">    sparse : bool</span>
+<span class="sd">        boolean for sparse or not (array)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        Square matrix of zeros</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Zeros</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">Zeros</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">Zeros</span><span class="o">.</span><span class="n">A</span></div>
 
 <div class="viewcode-block" id="weightedSum"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.weightedSum">[docs]</a><span class="k">def</span> <span class="nf">weightedSum</span><span class="p">(</span><span class="n">summands</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">weights</span><span class="p">:</span> <span class="n">Iterable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -646,7 +674,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">st</span> <span class="o">=</span> <span class="n">linAlTensorProd</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">superPos</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">exs</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">exs</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">excitations</span><span class="p">)])</span>
-    <span class="k">return</span> <span class="n">st</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">st</span><span class="o">.</span><span class="n">A</span></div>
+    <span class="k">return</span> <span class="n">st</span><span class="o">.</span><span class="n">A</span> <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="ow">not</span> <span class="n">sparse</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="n">spmatrix</span><span class="p">)))</span> <span class="k">else</span> <span class="n">st</span></div>
 
 <div class="viewcode-block" id="mat2Vec"><a class="viewcode-back" href="../../../QuantumToolbox/states.html#quanguru.QuantumToolbox.states.mat2Vec">[docs]</a><span class="k">def</span> <span class="nf">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1"># pylint: disable=invalid-name</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>

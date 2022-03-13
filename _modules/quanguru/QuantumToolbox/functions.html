@@ -211,7 +211,7 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># type: ignore</span>
 <span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">lina</span> <span class="c1"># type: ignore</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">issparse</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">spmatrix</span> <span class="c1"># type: ignore</span>
 
 <span class="kn">from</span> <span class="nn">.linearAlgebra</span> <span class="kn">import</span> <span class="n">hc</span><span class="p">,</span> <span class="n">tensorProd</span><span class="p">,</span> <span class="n">trace</span><span class="p">,</span> <span class="n">innerProd</span>
 <span class="kn">from</span> <span class="nn">.states</span> <span class="kn">import</span> <span class="n">densityMatrix</span><span class="p">,</span> <span class="n">mat2Vec</span>
@@ -351,10 +351,10 @@
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates `fidelity`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">state1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state1</span><span class="p">,</span> <span class="n">spmatrix</span><span class="p">):</span>
         <span class="n">state1</span> <span class="o">=</span> <span class="n">state1</span><span class="o">.</span><span class="n">A</span>
 
-    <span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">state2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state2</span><span class="p">,</span> <span class="n">spmatrix</span><span class="p">):</span>
         <span class="n">state2</span> <span class="o">=</span> <span class="n">state2</span><span class="o">.</span><span class="n">A</span>
     <span class="n">matsqrt</span> <span class="o">=</span> <span class="n">lina</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">state1</span><span class="p">)</span>
     <span class="n">fid</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">lina</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">matsqrt</span> <span class="o">@</span> <span class="n">state2</span>  <span class="o">@</span> <span class="n">matsqrt</span><span class="p">))</span>
@@ -566,8 +566,8 @@
     <span class="n">SySy</span> <span class="o">=</span> <span class="n">tensorProd</span><span class="p">(</span><span class="n">sigmay</span><span class="p">(),</span> <span class="n">sigmay</span><span class="p">())</span>
     <span class="n">magicConj</span> <span class="o">=</span> <span class="n">SySy</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span> <span class="o">@</span> <span class="n">SySy</span>
     <span class="n">R</span> <span class="o">=</span> <span class="n">state</span> <span class="o">@</span> <span class="n">magicConj</span>
-    <span class="n">eigVals</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sortedEigens</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
-    <span class="n">eigVals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigVals</span><span class="p">))</span>
+    <span class="n">eigValList</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sortedEigens</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">eigVals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigValList</span><span class="p">))</span>
     <span class="k">return</span> <span class="nb">max</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">eigVals</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">eigVals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">15</span><span class="p">)])</span></div>
 
 <div class="viewcode-block" id="_expectationColArr"><a class="viewcode-back" href="../../../QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions._expectationColArr">[docs]</a><span class="k">def</span> <span class="nf">_expectationColArr</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">floatList</span><span class="p">:</span>

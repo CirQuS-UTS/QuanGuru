@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thermodynamical functions (quanguru.QuantumToolbox.thermodynamics) &#8212; QuanGuru 1 documentation</title>
     
     <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -257,11 +256,11 @@
               
               <div>
                 
-  <section id="module-quanguru.QuantumToolbox.thermodynamics">
+  <div class="section" id="module-quanguru.QuantumToolbox.thermodynamics">
 <span id="thermodynamical-functions-quanguru-quantumtoolbox-thermodynamics"></span><h1>Thermodynamical functions (<a class="reference internal" href="#module-quanguru.QuantumToolbox.thermodynamics" title="quanguru.QuantumToolbox.thermodynamics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.thermodynamics</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.thermodynamics" title="Permalink to this headline">¶</a></h1>
 <p>Contains methods to calculate certain quantities used in thermal states, open systems, and quantum thermodynamics.
 TODO update docstring examples and write some tests after writing some tutorials</p>
-<section id="functions">
+<div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <table class="longtable table autosummary">
 <colgroup>
@@ -375,7 +374,7 @@ satisfying <img class="math" src="../_images/math/c5f88abe8da60c99645a4444964924
 
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.thermodynamics.HeatCurrent">
-<span class="sig-name descname"><span class="pre">HeatCurrent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Lindbladian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hamiltonian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denMat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/thermodynamics.html#HeatCurrent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.thermodynamics.HeatCurrent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">HeatCurrent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Lindbladian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hamiltonian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denMat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/thermodynamics.html#HeatCurrent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.thermodynamics.HeatCurrent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the heat current <img class="math" src="../_images/math/2212e25efba70578595089358ee48e0d9f195ff9.png" alt="\mathcal{J}:=Tr(\dot{\rho}\hat{H})"/>, where
 <img class="math" src="../_images/math/bd5eaf37eeb9ee76ca3c4605fa38fbc321887bd3.png" alt="\dot{\rho} := \hat{\mathcal{L}}\rho"/> is obtained using the given Lindbladian
 <img class="math" src="../_images/math/3785b9861381690ac6b21bf5c3888e704d1ba9eb.png" alt="\hat{\mathcal{L}}"/>.
@@ -403,8 +402,8 @@ TODO Write a bit of the theory here to better explain this function.</p>
 <p># TODO</p>
 </dd></dl>
 
-</section>
-</section>
+</div>
+</div>
 
 
               </div>
