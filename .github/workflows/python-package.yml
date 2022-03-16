@@ -72,7 +72,7 @@ jobs:
           python3 -m pytest tests/QuantumToolboxCore/test_operators.py
 
   all_other_unit_tests:
-    needs: QuantumToolbox_unit_tests
+    needs: QuantumToolbox_core
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -92,7 +92,7 @@ jobs:
           python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration'
 
   Integration_tests:
-    needs: QuantumToolbox_unit_tests
+    needs: all_other_unit_tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
