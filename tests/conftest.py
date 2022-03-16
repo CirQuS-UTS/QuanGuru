@@ -18,6 +18,7 @@ if platform.system() != 'Windows':
 
 path = str(Path(os.getcwd()))
 sys.path.insert(0, path)
+sys.path.insert(0, path+'/src/')
 from quanguru.QuantumToolbox import states#pylint: disable=import-error,wrong-import-position
 from quanguru.QuantumToolbox import operators as ops #pylint: disable=import-error,wrong-import-position
 
