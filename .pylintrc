@@ -36,4 +36,4 @@ exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _allBoo
     ,_paramBoundBase__runParamUpdated, _genericProtocol__creating, _paramUpdatedToFalse, _paramBound, _boundTree, try, _alias, _alias__name
 
 [SIMILARITIES]
-min-similarity-lines = 5
+min-similarity-lines = 7

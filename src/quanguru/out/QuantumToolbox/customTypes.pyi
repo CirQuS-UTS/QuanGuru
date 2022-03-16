@@ -1,5 +1,5 @@
 from numpy import ndarray
-from scipy.sparse import spmatrix
+from scipy.sparse import spmatrix # type: ignore
 from typing import Dict, List, Union
 
 Matrix = Union[spmatrix, ndarray]
