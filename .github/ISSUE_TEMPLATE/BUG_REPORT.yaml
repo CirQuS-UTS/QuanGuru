@@ -27,15 +27,6 @@ body:
 
   - type: textarea
     attributes:
-      label: Please put error messages in this block
-      value: |
-        <details>
-          here goes the error messages 
-        </details>
-      render: Markdown
-
-  - type: textarea
-    attributes:
       label: How can we reproduce the issue?
       description: Give some steps that show the bug.  A [minimal working example](https://stackoverflow.com/help/minimal-reproducible-example) of code with output is best. If you are copying in code, please remember to enclose it in triple back-ticks (` ``` [multiline code goes here] ``` `) so that it [displays correctly](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
     validations:
@@ -47,6 +38,13 @@ body:
       description: A short description, including about the expected output of any code in the previous section.
     validations:
       required: true
+
+  - type: textarea
+    attributes:
+      label: Please put error messages in this block
+      description: Place any long error/log messages in here.
+    validations:
+      required: false
 
   - type: textarea
     attributes:
