@@ -136,7 +136,9 @@ jobs:
           python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration and not QuantumToolbox'
 
   Integration_tests:
-    needs: all_other_unit_tests
+    needs: 
+      - classes_unit_tests
+      - QuantumToolbox_unit_tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
