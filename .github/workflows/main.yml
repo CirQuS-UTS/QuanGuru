@@ -85,7 +85,9 @@ jobs:
           python3 -m mypy
 
   QuantumToolbox_unit_tests:
-    needs: type_hints
+    needs: 
+      - type_hints
+      - linter
     if: needs.check.outputs.run_QuantumToolboxTests == 'true'
     runs-on: ubuntu-latest
     strategy:
