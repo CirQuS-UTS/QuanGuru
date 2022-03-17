@@ -1,0 +1,14 @@
+name: Enhancement request
+description: Suggest an improvement for this project!
+labels: ["type: enhancement"]
+
+body:
+  - type: markdown
+    attributes:
+      value: Please browse the open and closed issues to make sure that this has not already been discussed.
+
+  - type: textarea
+    attributes:
+      label: Please describe the expected enhancement
+    validations:
+      required: true
