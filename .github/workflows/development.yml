@@ -10,7 +10,7 @@ on:
 
 jobs:
   check:
-    name: Check files
+    name: Check modified files
     outputs:
       run_type_hints: ${{ steps.check_files.outputs.run_type_hints }}
       run_QuantumToolboxTests: ${{ steps.check_files.outputs.run_QuantumToolboxTests }}
@@ -44,6 +44,7 @@ jobs:
           done < files.txt
 
   type_hints:
+    name: type hints (w mypy)
     runs-on: ubuntu-latest
     needs: check
     strategy:
@@ -65,6 +66,7 @@ jobs:
           python3 -m mypy
 
   QuantumToolbox_unit_tests:
+    name: QuantumToolbox unit tests
     needs: type_hints
     if: needs.check.outputs.run_QuantumToolboxTests == 'true'
     runs-on: ubuntu-latest
@@ -92,6 +94,7 @@ jobs:
           python3 -m pytest -k 'not Core and not Integration and QuantumToolbox'
 
   classes_unit_tests:
+    name: classes unit tests
     runs-on: ubuntu-latest
     needs: check
     if: needs.check.outputs.run_classesTests == 'true'
