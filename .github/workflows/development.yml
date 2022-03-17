@@ -8,9 +8,42 @@ on:
   pull_request:
     branches: [ development ]
 
-jobs:  
+jobs:
+  check:
+    name: Check files
+    outputs:
+      run_type_hints: ${{ steps.check_files.outputs.run_type_hints }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: check modified files
+        id: check_files
+        run: |
+          echo "=============== list modified files ==============="
+          git diff --name-only HEAD^ HEAD
+          
+          echo "========== check paths of modified files =========="
+          git diff --name-only HEAD^ HEAD > files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file != QuantumToolbox/* ]]; then
+              echo "This modified file is not under the 'db' folder."
+              echo "::set-output name=run_type_hints::false"
+              break
+            else
+              echo "::set-output name=run_type_hints::true"
+            fi
+          done < files.txt
+
   type_hints:
     runs-on: ubuntu-latest
+    needs: checks
+    if: needs.check.outputs.run_type_hints == 'true'
     strategy:
       fail-fast: false
     steps:
