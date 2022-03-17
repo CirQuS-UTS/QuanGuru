@@ -34,11 +34,11 @@ jobs:
           do
             echo $file
             if [[ $file == src/quanguru/QuantumToolbox/* ]]; then
-              echo "This modified file is under the 'QuantumToolbox'."
+              echo "There is a modified file under the 'QuantumToolbox'."
               echo "::set-output name=run_type_hints::true"
               echo "::set-output name=run_QuantumToolboxTests::true"
             elif [[ $file == src/quanguru/classes/* ]]; then
-              echo "This modified file is under the 'classes'."
+              echo "There is a modified file under the 'classes'."
               echo "::set-output name=run_classesTests::true"
             fi
           done < files.txt
