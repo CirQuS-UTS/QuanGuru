@@ -30,7 +30,7 @@ body:
       value: |
         Please put error messages in this block
         <details>
-        
+          here goes the error messages
         </details>
 
   - type: textarea
