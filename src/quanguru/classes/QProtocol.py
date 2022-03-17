@@ -28,6 +28,7 @@
 # from .QSimComp import QSimComp
 # from .QSweep import Sweep
 
+
 # class QProtocol(QSimComp): # pylint: disable = too-many-instance-attributes
 #     label = 'QProtocol'
 #     #: (**class attribute**) number of instances created internally by the library
