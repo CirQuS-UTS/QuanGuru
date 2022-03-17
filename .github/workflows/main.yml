@@ -47,8 +47,6 @@ jobs:
     name: linter (w pylint)
     runs-on: ubuntu-latest
     needs: check
-    strategy:
-      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
@@ -68,8 +66,6 @@ jobs:
     name: type hints (w mypy)
     runs-on: ubuntu-latest
     needs: check
-    strategy:
-      fail-fast: false
     if: needs.check.outputs.run_type_hints == 'true'
     steps:
       - uses: actions/checkout@v2
@@ -93,8 +89,6 @@ jobs:
       - linter
     if: needs.check.outputs.run_QuantumToolboxTests == 'true'
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
       - name: fail if type hints failed
         if: needs.type_hints.result == 'failure'
@@ -121,8 +115,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: linter
     if: needs.check.outputs.run_classesTests == 'true'
-    strategy:
-      fail-fast: false
     steps:
       - name: fail if type hints failed
         if: needs.QuantumToolbox_unit_tests.result == 'failure'
@@ -147,8 +139,6 @@ jobs:
       - classes_unit_tests
       - QuantumToolbox_unit_tests
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
