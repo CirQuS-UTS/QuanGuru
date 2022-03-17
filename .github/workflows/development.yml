@@ -93,8 +93,6 @@ jobs:
 
   classes_unit_tests:
     if: needs.check.outputs.run_classesTests == 'true'
-    needs: QuantumToolbox_unit_tests
-    if: always()
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
