@@ -1,0 +1,116 @@
+# This workflow will install Python dependencies, lint, run mypy and tests
+
+name: QuanGuru-development
+
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+
+jobs:
+  check:
+    name: Check files
+    outputs:
+      run_type_hints: ${{ steps.check_files.outputs.run_type_hints }}
+      run_QuantumToolboxTests: ${{ steps.check_files.outputs.run_QuantumToolboxTests }}
+      run_classesTests: ${{ steps.check_files.outputs.run_classesTests }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: check modified files
+        id: check_files
+        run: |
+          echo "=============== list modified files ==============="
+          git diff --name-only HEAD^ HEAD
+          
+          echo "========== check paths of modified files =========="
+          git diff --name-only HEAD^ HEAD > files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file == src/quanguru/QuantumToolbox/* ]]; then
+              echo "There is a modified file under the 'QuantumToolbox'."
+              echo "::set-output name=run_type_hints::true"
+              echo "::set-output name=run_QuantumToolboxTests::true"
+            elif [[ $file == src/quanguru/classes/* ]]; then
+              echo "There is a modified file under the 'classes'."
+              echo "::set-output name=run_classesTests::true"
+            fi
+          done < files.txt
+
+  type_hints:
+    runs-on: ubuntu-latest
+    needs: check
+    strategy:
+      fail-fast: false
+    if: needs.check.outputs.run_type_hints == 'true'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install mypy
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Type-hints with mypy
+        run: |
+          python3 -m mypy
+
+  QuantumToolbox_unit_tests:
+    needs: type_hints
+    if: needs.check.outputs.run_QuantumToolboxTests == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: fail if type hints failed
+        if: needs.type_hints.result == 'failure'
+        run: exit 1
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: core tests
+        run: |
+          python3 -m pytest -k 'Core'
+      - name: rest of QuantumToolbox
+        run: |
+          python3 -m pytest -k 'not Core and not Integration and QuantumToolbox'
+
+  classes_unit_tests:
+    runs-on: ubuntu-latest
+    needs: check
+    if: needs.check.outputs.run_classesTests == 'true'
+    strategy:
+      fail-fast: false
+    steps:
+      - name: fail if type hints failed
+        if: needs.QuantumToolbox_unit_tests.result == 'failure'
+        run: exit 1
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: classes unit tests
+        run: |
+          python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration and not QuantumToolbox'
