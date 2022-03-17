@@ -32,7 +32,7 @@ jobs:
           do
             echo $file
             if [[ $file != QuantumToolbox/* ]]; then
-              echo "This modified file is not under the 'db' folder."
+              echo "This modified file is not under the 'QuantumToolbox'."
               echo "::set-output name=run_type_hints::false"
               break
             else
@@ -43,10 +43,10 @@ jobs:
   type_hints:
     runs-on: ubuntu-latest
     needs: check
-    if: needs.check.outputs.run_type_hints == 'true'
     strategy:
       fail-fast: false
     steps:
+      if: needs.check.outputs.run_type_hints == 'true'
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
