@@ -33,7 +33,7 @@ jobs:
           while IFS= read -r file
           do
             echo $file
-            if [[ $file == src/quanguru/QuantumToolbox//* ]]; then
+            if [[ $file == src/quanguru/QuantumToolbox/* ]]; then
               echo "This modified file is under the 'QuantumToolbox'."
               echo "::set-output name=run_type_hints::true"
               echo "::set-output name=run_QuantumToolboxTests::true"
