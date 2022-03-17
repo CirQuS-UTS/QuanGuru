@@ -1,8 +1,7 @@
 # QuanGuru
 
-<!-- ![Pipeline](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/badges/master/pipeline.svg)
-![Coverage](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/badges/master/coverage.svg?job=integration_test)
-![Pylint](https://code.research.uts.edu.au/mKQuantum/Libraries/QuanGuru/-/jobs/artifacts/master/raw/pylint/pylint.svg?job=pylint) -->
+[![main](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml/badge.svg)](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml)
+[![development](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml/badge.svg)](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml)
 
 
 QuanGuru is a Python library for Quantum Sciences.
