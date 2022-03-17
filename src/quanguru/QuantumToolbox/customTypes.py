@@ -19,7 +19,6 @@ from typing import Union, Dict, List
 from numpy import ndarray # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
-
 # These type aliases are used in type hinting of below methods
 #: Type which is either spmatrix or nparray (created using TypeVar)
 Matrix = Union[spmatrix, ndarray]                   # Type which is either spmatrix or nparray (created using TypeVar) #pylint:disable=unsubscriptable-object, C0301  # noqa: E501

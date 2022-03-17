@@ -104,7 +104,6 @@
 #         """
 #         return self._QProtocol__fixed
 
-
 #     @fixed.setter
 #     def fixed(self, boolean):
 #         self._QProtocol__fixed = boolean # pylint: disable=assigning-non-slot
