@@ -31,7 +31,6 @@ jobs:
   QuantumToolbox_core:
     needs: 
       - type_hints
-      - linter
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
