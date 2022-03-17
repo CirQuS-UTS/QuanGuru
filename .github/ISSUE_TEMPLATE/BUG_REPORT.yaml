@@ -25,13 +25,14 @@ body:
     validations:
       required: true
 
-  - type: markdown
+  - type: textarea
     attributes:
+      label: Please put error messages in this block
       value: |
-        Please put error messages in this block
         <details>
           here goes the error messages 
         </details>
+      render: Markdown
 
   - type: textarea
     attributes:
