@@ -45,8 +45,8 @@ jobs:
     needs: check
     strategy:
       fail-fast: false
+    if: needs.check.outputs.run_type_hints == 'true'
     steps:
-      if: needs.check.outputs.run_type_hints == 'true'
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
