@@ -92,8 +92,9 @@ jobs:
           python3 -m pytest -k 'not Core and not Integration and QuantumToolbox'
 
   classes_unit_tests:
-    if: needs.check.outputs.run_classesTests == 'true'
     runs-on: ubuntu-latest
+    needs: check
+    if: needs.check.outputs.run_classesTests == 'true'
     strategy:
       fail-fast: false
     steps:
