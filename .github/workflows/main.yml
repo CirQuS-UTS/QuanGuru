@@ -10,7 +10,7 @@ on:
 
 jobs:
   check:
-    name: Check files
+    name: Check modified files
     outputs:
       run_type_hints: ${{ steps.check_files.outputs.run_type_hints }}
       run_QuantumToolboxTests: ${{ steps.check_files.outputs.run_QuantumToolboxTests }}
@@ -44,6 +44,7 @@ jobs:
           done < files.txt
 
   linter:
+    name: linter (w pylint)
     runs-on: ubuntu-latest
     needs: check
     strategy:
@@ -64,6 +65,7 @@ jobs:
           python3 -m pylint --rcfile=.pylintrc src/quanguru
 
   type_hints:
+    name: type hints (w mypy)
     runs-on: ubuntu-latest
     needs: check
     strategy:
@@ -85,6 +87,7 @@ jobs:
           python3 -m mypy
 
   QuantumToolbox_unit_tests:
+    name: QuantumToolbox unit tests
     needs: 
       - type_hints
       - linter
@@ -114,6 +117,7 @@ jobs:
           python3 -m pytest -k 'not Core and not Integration and QuantumToolbox'
 
   classes_unit_tests:
+    name: classes unit tests
     runs-on: ubuntu-latest
     needs: linter
     if: needs.check.outputs.run_classesTests == 'true'
@@ -138,6 +142,7 @@ jobs:
           python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration and not QuantumToolbox'
 
   Integration_tests:
+    name: all integration tests
     needs: 
       - classes_unit_tests
       - QuantumToolbox_unit_tests
