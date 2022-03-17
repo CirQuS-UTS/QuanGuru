@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies, lint, run mypy and tests
 
-name: QuanGuru-development
+name: development
 
 on:
   push:
