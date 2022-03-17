@@ -1,7 +1,7 @@
 # QuanGuru
 
-[![QuanGuru-main](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml/badge.svg)](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml)
-[![QuanGuru-development](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml/badge.svg)](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml)
+[![main](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml/badge.svg)](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml)
+[![development](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml/badge.svg)](https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml)
 
 
 QuanGuru is a Python library for Quantum Sciences.
