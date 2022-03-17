@@ -113,4 +113,4 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: classes unit tests
         run: |
-          python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration and not QuantumToolbox
+          python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration and not QuantumToolbox'
