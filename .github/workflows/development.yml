@@ -62,12 +62,15 @@ jobs:
           python3 -m mypy
 
   QuantumToolbox_core:
-    needs: 
-      - type_hints
+    needs: type_hints
+    if: always()
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
+      - name: fail if type hints failed
+        if: needs.type_hints.result == 'failure'
+        run: exit 1
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
