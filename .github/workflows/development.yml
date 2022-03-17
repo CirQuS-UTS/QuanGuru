@@ -13,6 +13,8 @@ jobs:
     name: Check files
     outputs:
       run_type_hints: ${{ steps.check_files.outputs.run_type_hints }}
+      run_QuantumToolboxTests: ${{ steps.check_files.outputs.run_QuantumToolboxTests }}
+      run_classesTests: ${{ steps.check_files.outputs.run_classesTests }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -31,12 +33,13 @@ jobs:
           while IFS= read -r file
           do
             echo $file
-            if [[ $file != QuantumToolbox/* ]]; then
-              echo "This modified file is not under the 'QuantumToolbox'."
-              echo "::set-output name=run_type_hints::false"
-              break
-            else
+            if [[ $file == QuantumToolbox/* ]]; then
+              echo "This modified file is under the 'QuantumToolbox'."
               echo "::set-output name=run_type_hints::true"
+              echo "::set-output name=run_QuantumToolboxTests::true"
+            elif [[ $file == classes/* ]]; then
+              echo "This modified file is under the 'classes'."
+              echo "::set-output name=run_classesTests::true"
             fi
           done < files.txt
 
@@ -61,9 +64,9 @@ jobs:
         run: |
           python3 -m mypy
 
-  QuantumToolbox_core:
+  QuantumToolbox_unit_tests:
     needs: type_hints
-    if: always()
+    if: needs.check.outputs.run_QuantumToolboxTests == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -84,13 +87,21 @@ jobs:
       - name: core tests
         run: |
           python3 -m pytest -k 'Core'
+      - name: rest of QuantumToolbox
+        run: |
+          python3 -m pytest -k 'not Core and not Integration and QuantumToolbox'
 
-  all_other_unit_tests:
-    needs: QuantumToolbox_core
+  classes_unit_tests:
+    needs: QuantumToolbox_unit_tests
+    if: always()
+    if: needs.check.outputs.run_classesTests == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
+      - name: fail if type hints failed
+        if: needs.QuantumToolbox_unit_tests.result == 'failure'
+        run: exit 1
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -101,6 +112,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: rest
+      - name: classes unit tests
         run: |
-          python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration'
+          python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration and not QuantumToolbox
