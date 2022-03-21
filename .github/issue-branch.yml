@@ -1,0 +1,10 @@
+defaultBranch: 'development'
+branches:
+  - label: bug
+    name: development
+    prefix: development/
+  - label: documentation
+    name: documentation
+    prefix: documentation/
+branchName: '${issue.number}-${issue.title}'
+autoCloseIssue: true
