@@ -9,4 +9,5 @@ branches:
     prefix: doc-
     prTarget: documentation
 branchName: 'issue-${issue.number}-${issue.title}'
+openPR: true
 autoCloseIssue: true
