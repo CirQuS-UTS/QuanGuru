@@ -8,5 +8,5 @@ branches:
     name: documentation
     prefix: doc_
     prTarget: documentation
-branchName: '${issue.number}-${issue.title}'
+branchName: 'issue-${issue.number}-${issue.title}'
 autoCloseIssue: true
