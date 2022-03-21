@@ -2,11 +2,11 @@ defaultBranch: 'development'
 branches:
   - label: bug
     name: development
-    prefix: dev_
+    prefix: dev-
     prTarget: development
   - label: documentation
     name: documentation
-    prefix: doc_
+    prefix: doc-
     prTarget: documentation
 branchName: 'issue-${issue.number}-${issue.title}'
 autoCloseIssue: true
