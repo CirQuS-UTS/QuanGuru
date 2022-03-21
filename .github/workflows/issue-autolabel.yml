@@ -2,7 +2,7 @@ name: Set Issue Label
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
   pull_request:
     types: [opened]
 
