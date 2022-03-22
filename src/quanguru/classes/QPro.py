@@ -85,7 +85,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         #: when constructing the unitary evolution of a protocol, certain parts of this creation might be replaced by
         #: other methods depending on the solution method we used. this attribute stores the `_getUnitary`, which is
         #: part of getUnitary method that (uses createUnitary and) returns the unitary matrix.
-        # TODO I will create a tutorial explaning this.
+        # I will create a tutorial explaning this.
         self._getUnitary = self._defGetUnitary
         #: when we use compute function with delStates, we might want to sample several number of time-steps first, then
         #: call the compute, which might provide performance benefits when using other solution methods than matrix
