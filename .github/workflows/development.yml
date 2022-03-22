@@ -21,7 +21,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
-
+      - name: "TODO to Issue"
+        uses: "alstr/todo-to-issue-action@v4.6.3"
+        id: "todo"
       - name: check modified files
         id: check_files
         run: |
