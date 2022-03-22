@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Inverse Participation Ratio (quanguru.QuantumToolbox.IPR) &#8212; QuanGuru 1 documentation</title>
     
     <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -256,10 +257,10 @@
               
               <div>
                 
-  <div class="section" id="module-quanguru.QuantumToolbox.IPR">
+  <section id="module-quanguru.QuantumToolbox.IPR">
 <span id="inverse-participation-ratio-quanguru-quantumtoolbox-ipr"></span><h1>Inverse Participation Ratio (<a class="reference internal" href="#module-quanguru.QuantumToolbox.IPR" title="quanguru.QuantumToolbox.IPR"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.IPR</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.IPR" title="Permalink to this headline">¶</a></h1>
 <p>Contains functions to calculate delocalisation measure (Inverse participation ratio, shortly IPR) in various cases.</p>
-<div class="section" id="functions">
+<section id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <table class="longtable table autosummary">
 <colgroup>
@@ -308,7 +309,7 @@
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.IPR.iprKet">
-<span class="sig-name descname"><span class="pre">iprKet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/IPR.html#iprKet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.IPR.iprKet" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iprKet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/IPR.html#iprKet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.IPR.iprKet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates inverse participation ratio <img class="math" src="../_images/math/765278c6b81403bd3dae53ae4c0cd9e5eedbe61e.png" alt="1/(\sum_{i}|c_{i,k}|^{4})"/> of a <cite>ket</cite>
 <img class="math" src="../_images/math/1434ec48fa18b5ab36dd9284ff86b22a553c6276.png" alt="|k\rangle = \sum_{i}c_{i,k}|i\rangle"/> in a given basis <img class="math" src="../_images/math/543390f1d840d0fff7a8d9eb3ce0e37f93bf9406.png" alt="\{|i\rangle\}"/>. The complex probability
 amplitudes satisfy <img class="math" src="../_images/math/b7a4933cfb7bbd88ad9c91cc71917117e87d8677.png" alt="\sum_{i}|c_{i,k}|^{2} = 1"/>, therefore IPR = 1 is perfectly localised, and
@@ -344,7 +345,7 @@ IPR = <img class="math" src="../_images/math/b7cb3597f70c92c0f79cc5f398bf1b3044d
 
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.IPR.iprKetNB">
-<span class="sig-name descname"><span class="pre">iprKetNB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse.base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/IPR.html#iprKetNB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.IPR.iprKetNB" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iprKetNB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/IPR.html#iprKetNB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.IPR.iprKetNB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the IPR <img class="math" src="../_images/math/96e52dbc6bbd437661923e35c58f8cef17242525.png" alt="1/\sum_{i}|c_{i,k}|^{4}"/> of a ket <img class="math" src="../_images/math/e8fea4984a43dc12ed807b0df080af864e6a1788.png" alt="|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\
 c_{i,k}
 \\ \vdots \\c_{\mathcal{D},k}
@@ -377,8 +378,8 @@ c_{i,k}
 </div>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
               </div>

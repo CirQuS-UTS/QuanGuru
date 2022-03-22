@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>12 - Multi-parameter sweep (combinatorially) &#8212; QuanGuru 1 documentation</title>
     
     <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -539,7 +540,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="12---Multi-parameter-sweep-(combinatorially)">
+<section id="12---Multi-parameter-sweep-(combinatorially)">
 <h1>12 - Multi-parameter sweep (combinatorially)<a class="headerlink" href="#12---Multi-parameter-sweep-(combinatorially)" title="Permalink to this headline">¶</a></h1>
 <p>In the previous tutorial, we covered the simulation of a single qubit with two terms in its Hamiltonian and used a parameter sweep to sweep the frequency of the first term. In this tutorial, we use the same system but now run a multi-parameter sweep, i.e. we sweep the frequencies of both terms. As you will see below, the only changes to the previous example is to creation of an additional sweep and the order in which we create sweeps (the reason is discussed below).</p>
 <p>Again, we will evolve a qubit under the unitary dynamics of the Hamiltonian <img class="math" src="../../../_images/math/f5a1f5070d21593eaa93a9128ecfb461364e748a.png" alt="H=\frac{1}{2}f_{z}\sigma_{z} + f_{x}\sigma_{x} = f_{z}J_{z} + f_{x}\sigma_{x}"/> with the initial state set to the equal superposition of <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> and <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <img class="math" src="../../../_images/math/0142317d55d030ac1bd53ac8b353f190c17c4b47.png" alt="\sigma_{x}"/>.</p>
@@ -663,7 +664,7 @@ Text(0, 0.5, &#39;Time&#39;)
 </pre></div>
 </div>
 </div>
-</div>
+</section>
 
 
               </div>
