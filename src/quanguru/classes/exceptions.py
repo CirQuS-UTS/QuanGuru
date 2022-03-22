@@ -71,8 +71,7 @@ def attrNotValWarn(someAttr, someValue, msg):
         warnings.warn(msg)
     return someAttr
 
-# TODO turn prints into actual error raise, they are print for testing
-
+# turn prints into actual error raise, they are print for testing
 def qSystemInitErrors(init):
     def newFunction(obj, **kwargs):
         init(obj, **kwargs)
