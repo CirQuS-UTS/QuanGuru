@@ -661,7 +661,8 @@ class qBase(named):
         Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
         an instance and adds), and list/tuple containing any combination of these.
 
-        add example &/ link to a tutorial
+        TODO add examples for addSubSys 
+        and link this to a tutorial
         """
         subSys._named__setKwargs(**kwargs) # pylint: disable=W0212
         self._qBase__subSys[subSys.name] = subSys
