@@ -9,7 +9,8 @@ r"""
     .. autosummary::
         basis
         basisBra
-        zeros
+        zerosKet
+        zerosMat
         completeBasis
 
     .. autosummary::
@@ -36,7 +37,8 @@ r"""
     =======================    ==================   ==============   ================   ===============
        `basis`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `basisBra`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `zeros`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `zerosKet`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
+       `zerosMat`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
        `completeBasis`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `superPos`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `densityMatrix`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
@@ -190,10 +192,10 @@ def zerosKet(dimension: int, sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> print(zeros(2))
+    >>> print(zerosKet(2))
     (0, 0)	0
 
-    >>> zeros(2, sparse=False)
+    >>> zerosKet(2, sparse=False)
     [[0]
      [0]]
     """
