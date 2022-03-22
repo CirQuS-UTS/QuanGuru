@@ -5,6 +5,10 @@ on:
     types: [opened, edited]
   pull_request:
     types: [opened]
+  workflow_run:
+    workflows: ["development", "main"]
+    types:
+      - completed
 
 jobs:
   set-label:

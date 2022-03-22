@@ -72,7 +72,7 @@ def _runSweepAndPrep(qSim, ind):
         qSim.Sweep.runSweep(qSim.Sweep._indicesForSweep(ind, *qSim.Sweep.inds))
 
     for protocol in qSim.subSys.keys():
-        # FIXME anything initial state related should be relevant when _evolFunc is Callable
+        # TODO FIXME anything initial state related should be relevant when _evolFunc is Callable
         protocol.currentState = protocol.initialState if not protocol._isOpen else densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
 
     qSim.qRes._resetLast() # pylint: disable=protected-access
