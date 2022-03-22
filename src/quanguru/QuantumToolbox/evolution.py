@@ -129,7 +129,8 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
               0.         +0.j        ,   0.         +0.j        ]])
 
     """
-
+    # TODO : Liouvillian docs need to be updated.
+    #  functions are generalized.
     if Hamiltonian is not None:
         dimensionOfHilbertSpace = Hamiltonian.shape[0]
     else:
