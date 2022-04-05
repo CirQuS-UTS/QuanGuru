@@ -15,6 +15,17 @@ def test_dimensionHasToBeInt():
         qsys4 = QSys.QuantumSystem()
         qsys4.dimension="10"
 
+def test_dimensionHasToBeLargerThan0():
+    qsys1 = QSys.QuantumSystem(dimension=rnd.randint(2, 20))
+    with pytest.raises(ValueError):
+        qsys2 = QSys.QuantumSystem(dimension=-rnd.randint(0, 20))
+
+    qsys3 = QSys.QuantumSystem()
+    qsys3.dimension=rnd.randint(2, 20)
+    with pytest.raises(ValueError):
+        qsys4 = QSys.QuantumSystem()
+        qsys4.dimension=-rnd.randint(0, 20)
+
 
 @pytest.mark.parametrize("cls", [
                          QuantumSystemOld,
