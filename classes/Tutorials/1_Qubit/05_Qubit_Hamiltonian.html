@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>5 - Hamiltonian of a quantum system (cont.) &#8212; QuanGuru 1 documentation</title>
     
     <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -567,11 +566,11 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<section id="5---Hamiltonian-of-a-quantum-system-(cont.)">
+<div class="section" id="5---Hamiltonian-of-a-quantum-system-(cont.)">
 <h1>5 - Hamiltonian of a quantum system (cont.)<a class="headerlink" href="#5---Hamiltonian-of-a-quantum-system-(cont.)" title="Permalink to this headline">¶</a></h1>
 <p>This tutorial demonstrates how to describe the Hamiltonian of a quantum system in QuanGuru.</p>
 <p>In this example, we use the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object to create a quantum system and describe the desired Hamiltonian.</p>
-<section id="Single-Term">
+<div class="section" id="Single-Term">
 <h2>Single Term<a class="headerlink" href="#Single-Term" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start with a very simple (single qubit) Hamiltonian</p>
 <p><img class="math" src="../../../_images/math/d26f4b9308f0046e9edcbe18d4451afc7e89888c.png" alt="H = \frac{1}{2}f_{z}\sigma_{z}"/></p>
@@ -610,8 +609,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>Notice that the <code class="docutils literal notranslate"><span class="pre">operator</span></code> of the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> is the function <code class="docutils literal notranslate"><span class="pre">qg.sigmaz</span></code> (from <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code>), and it does not have the parenthesis <code class="docutils literal notranslate"><span class="pre">qg.sigmaz()</span></code>, which would invoke/call the functino to create the matrix form of the operator. Make sure to pass the function without the parenthesis. The <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects call these functions in the background to create the matrices, and the reason for passing the function but not the matrix is that the function may need to be called more
 than once (in the background) in certain cases, such as dimension sweeps (covered in later tutorials).</p>
-</section>
-<section id="Qubit-object-as-a-special-case">
+</div>
+<div class="section" id="Qubit-object-as-a-special-case">
 <h2>Qubit object as a special case<a class="headerlink" href="#Qubit-object-as-a-special-case" title="Permalink to this headline">¶</a></h2>
 <p>For common quantum systems, such as qubit, higher spins, or cavity, we have special classes, and these classes just set some of the information internally to certain default values. For example, <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class internally defaults <code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">=</span> <span class="pre">qg.Jz</span></code>, which also takes care of the <img class="math" src="../../../_images/math/d8174bc3f76c2396c591e8bb6249927d8eed848d.png" alt="\frac{1}{2}"/> factor, meaning we can simply set the frequency <img class="math" src="../../../_images/math/f3057b9a577146e737f05b986e6138e525240013.png" alt="f_{z} = 1"/>.</p>
 <div class="nbinput docutils container">
@@ -638,8 +637,8 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
  [ 0.  -0.5]]
 </pre></div></div>
 </div>
-</section>
-<section id="Multiple-terms">
+</div>
+<div class="section" id="Multiple-terms">
 <h2>Multiple terms<a class="headerlink" href="#Multiple-terms" title="Permalink to this headline">¶</a></h2>
 <p>Now, let’s consider a more general case where we have more terms in the Hamiltonian, for example the below Hamiltonian with two terms</p>
 <p><img class="math" src="../../../_images/math/7e248f33eca4cf8e4aa2a9e1c8e08570e6f898b1.png" alt="H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x}"/></p>
@@ -718,8 +717,8 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
  [1 0]]
 </pre></div></div>
 </div>
-</section>
-<section id="Non-linear-terms">
+</div>
+<div class="section" id="Non-linear-terms">
 <h2>Non-linear terms<a class="headerlink" href="#Non-linear-terms" title="Permalink to this headline">¶</a></h2>
 <p>In certain Hamiltonians, we might have a non-linear term where the operator is raised to a certain power. For Pauli matrices, <img class="math" src="../../../_images/math/50ad24d5d71a774de32360cc206c71ac80344a32.png" alt="\sigma_{i}^{2} = 1"/> (i.e. the identity matrix) for <img class="math" src="../../../_images/math/cba571063e51584d046beca3d8c572e1ef60fadc.png" alt="i \in \{x,y,z\}"/>, but, just for the sake of an example say we have the following Hamiltonian</p>
 <p><img class="math" src="../../../_images/math/9c6eeba4e3bea193cfeb67073f2cb05b0994d100.png" alt="H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x} + \omega_{y}\sigma_{y}^{2}"/></p>
@@ -764,8 +763,8 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
 </pre></div>
 </div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
               </div>

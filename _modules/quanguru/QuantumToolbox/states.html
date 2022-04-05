@@ -171,7 +171,8 @@
 <span class="sd">    .. autosummary::</span>
 <span class="sd">        basis</span>
 <span class="sd">        basisBra</span>
-<span class="sd">        zeros</span>
+<span class="sd">        zerosKet</span>
+<span class="sd">        zerosMat</span>
 <span class="sd">        completeBasis</span>
 
 <span class="sd">    .. autosummary::</span>
@@ -198,7 +199,8 @@
 <span class="sd">    =======================    ==================   ==============   ================   ===============</span>
 <span class="sd">       `basis`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
 <span class="sd">       `basisBra`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
-<span class="sd">       `zeros`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `zerosKet`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `zerosMat`                |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
 <span class="sd">       `completeBasis`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
 <span class="sd">       `superPos`                |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
 <span class="sd">       `densityMatrix`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|</span>
@@ -352,10 +354,10 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; print(zeros(2))</span>
+<span class="sd">    &gt;&gt;&gt; print(zerosKet(2))</span>
 <span class="sd">    (0, 0)	0</span>
 
-<span class="sd">    &gt;&gt;&gt; zeros(2, sparse=False)</span>
+<span class="sd">    &gt;&gt;&gt; zerosKet(2, sparse=False)</span>
 <span class="sd">    [[0]</span>
 <span class="sd">     [0]]</span>
 <span class="sd">    &quot;&quot;&quot;</span>

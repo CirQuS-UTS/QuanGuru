@@ -363,8 +363,10 @@
 
         <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span>
             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialStateSystem</span><span class="o">.</span><span class="n">dimension</span><span class="p">)):</span> <span class="c1"># pylint: disable=no-member</span>
-            <span class="c1">#FIXME after re-structuring the protocol, this should no longer rely of .dimension of protocol,</span>
-            <span class="c1">#which returns 1 and causes this to evaluate everytime anyway.</span>
+            <span class="c1"># TODO initial state creation has a bug when it relies on .dimension of a protocol</span>
+            <span class="c1">#  after re-structuring the protocol, this should no longer rely of .dimension of protocol,</span>
+            <span class="c1">#  which returns 1 and causes this to evaluate everytime anyway.</span>
+            <span class="c1">#  labels: bug, enhancement</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">_bound</span><span class="p">,</span> <span class="n">_parameter</span><span class="p">):</span> <span class="c1"># pylint: disable=protected-access</span>
                 <span class="c1"># might seem redundant, but required to make sure that bound creates its initial state by calling the</span>
                 <span class="c1"># _createAstate</span>

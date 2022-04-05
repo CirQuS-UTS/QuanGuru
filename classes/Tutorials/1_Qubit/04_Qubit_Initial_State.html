@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>4 - Initial state for a Qubit &#8212; QuanGuru 1 documentation</title>
     
     <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -593,7 +592,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<section id="4---Initial-state-for-a-Qubit">
+<div class="section" id="4---Initial-state-for-a-Qubit">
 <h1>4 - Initial state for a Qubit<a class="headerlink" href="#4---Initial-state-for-a-Qubit" title="Permalink to this headline">¶</a></h1>
 <p>This tutorial shows various ways to set the initial state of a qubit.</p>
 <p>We start by creating a qubit</p>
@@ -613,9 +612,9 @@ div.rendered_html tbody tr:hover {
 <p><img class="math" src="../../../_images/math/e60c663f098baf7460af108ed5deb3c68db42204.png" alt="|1\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue -1)}"/></p>
 <p>The labels, 0 and 1, of the ket states here represent the position of the 1 in the column matrices. In other words, the <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> has 1 at row 0, and the <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> has 1 at row 1. This convention extends naturally and is used for higher dimensional systems such as larger spins or harmonic oscillators. We will refer these as <code class="docutils literal notranslate"><span class="pre">basis</span></code> states, and the <code class="docutils literal notranslate"><span class="pre">basis</span></code> method of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> can be used for the creation of such states, but, we here focus on creating the initial
 states through the <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> object.</p>
-<section id="1.-Pure-States">
+<div class="section" id="1.-Pure-States">
 <h2>1. Pure States<a class="headerlink" href="#1.-Pure-States" title="Permalink to this headline">¶</a></h2>
-<section id="1.1-If-Initial-state-is-a-basis-state">
+<div class="section" id="1.1-If-Initial-state-is-a-basis-state">
 <h3>1.1 If Initial state is a basis state<a class="headerlink" href="#1.1-If-Initial-state-is-a-basis-state" title="Permalink to this headline">¶</a></h3>
 <p>In order to set <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> or <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/>, we simply give the respective number as input for the <code class="docutils literal notranslate"><span class="pre">initialState</span></code></p>
 <div class="nbinput docutils container">
@@ -641,11 +640,11 @@ states through the <code class="docutils literal notranslate"><span class="pre">
  [1.]]
 </pre></div></div>
 </div>
-</section>
-<section id="1.2-If-Initial-state-is-a-superposition-state">
+</div>
+<div class="section" id="1.2-If-Initial-state-is-a-superposition-state">
 <h3>1.2 If Initial state is a superposition state<a class="headerlink" href="#1.2-If-Initial-state-is-a-superposition-state" title="Permalink to this headline">¶</a></h3>
 <p>If we want to set some super-position of <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> and <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> as the initial state, we can do this in various different ways depending on the superposition state we want to set.</p>
-<section id="1.2.1-If-Initial-state-is-an-equal-superposition-state">
+<div class="section" id="1.2.1-If-Initial-state-is-an-equal-superposition-state">
 <h4>1.2.1 If Initial state is an equal superposition state<a class="headerlink" href="#1.2.1-If-Initial-state-is-an-equal-superposition-state" title="Permalink to this headline">¶</a></h4>
 <p>The first method is for the equal superposition state</p>
 <p><img class="math" src="../../../_images/math/dee5bde13c8c37addf10d62df78853533f7d9207.png" alt="\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle )"/></p>
@@ -669,8 +668,8 @@ states through the <code class="docutils literal notranslate"><span class="pre">
  [0.70710678]]
 </pre></div></div>
 </div>
-</section>
-<section id="1.2.2-If-Initial-state-is-an-arbitrary-superposition-state">
+</div>
+<div class="section" id="1.2.2-If-Initial-state-is-an-arbitrary-superposition-state">
 <h4>1.2.2 If Initial state is an arbitrary superposition state<a class="headerlink" href="#1.2.2-If-Initial-state-is-an-arbitrary-superposition-state" title="Permalink to this headline">¶</a></h4>
 <p>The second method for creating a superposition state is by using a dictionary, where <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs represent the <code class="docutils literal notranslate"><span class="pre">basis-state:population/coefficient</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">population/coefficient</span></code> here means that there are also two different ways for this approach.</p>
@@ -678,7 +677,7 @@ states through the <code class="docutils literal notranslate"><span class="pre">
 <p><img class="math" src="../../../_images/math/6b224cfa908f13d154be9f95193f611193a38be7.png" alt="c_{0}|0\rangle + c_{1}|1\rangle"/></p>
 <p>where <img class="math" src="../../../_images/math/cb5448c62c69431617901ff76ecf95172e07d606.png" alt="c_{i}"/> are the complex probability amplitudes, and <img class="math" src="../../../_images/math/8fd3e0ba3666235fb9c97a52b1999467dcd255f3.png" alt="p_{i} = |c_{i}|^{2}"/> are the population, satisfying the normalization condition <img class="math" src="../../../_images/math/55a7dbcaa479741dcf26d2a73a55a28582bfbbec.png" alt="\sum_{i}p_{i} = 1"/>.</p>
 <p>Now, we can create our superposition state either by using the <code class="docutils literal notranslate"><span class="pre">population</span></code> or <code class="docutils literal notranslate"><span class="pre">coefficient</span></code>.</p>
-<section id="1.2.2.1-Initial-state-using-the-populations">
+<div class="section" id="1.2.2.1-Initial-state-using-the-populations">
 <h5>1.2.2.1 Initial state using the populations<a class="headerlink" href="#1.2.2.1-Initial-state-using-the-populations" title="Permalink to this headline">¶</a></h5>
 <p>Let’s cover the <code class="docutils literal notranslate"><span class="pre">population</span></code> first, which is the default method. Below is an example where we want <img class="math" src="../../../_images/math/8370c9f99383e68c0a23a5dc177ecd4a264e5891.png" alt="p_{0} = 0.2"/> and <img class="math" src="../../../_images/math/92312604333ebeb923032974d0e4b0440c030783.png" alt="p_{1} = 0.8"/>. Note that the order of the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs does not matter, meaning <code class="docutils literal notranslate"><span class="pre">{0:0.2,</span> <span class="pre">1:0.8}</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">{1:0.8,</span> <span class="pre">0:0.2}</span></code>.</p>
 <div class="nbinput docutils container">
@@ -734,8 +733,8 @@ states through the <code class="docutils literal notranslate"><span class="pre">
 0.18181818181818182
 </pre></div></div>
 </div>
-</section>
-<section id="1.2.2.2-If-the-relative-phases-are-important">
+</div>
+<div class="section" id="1.2.2.2-If-the-relative-phases-are-important">
 <h5>1.2.2.2 If the relative phases are important<a class="headerlink" href="#1.2.2.2-If-the-relative-phases-are-important" title="Permalink to this headline">¶</a></h5>
 <p>Obviously, the <code class="docutils literal notranslate"><span class="pre">population</span></code> approach ignores the relative phase between the <code class="docutils literal notranslate"><span class="pre">coefficients</span></code>, which might be important for us. In such a case, we can give the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> value pairs as <code class="docutils literal notranslate"><span class="pre">state:coefficient</span></code>, but we also need to set <code class="docutils literal notranslate"><span class="pre">_inpCoef</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> as below, where we compare the <code class="docutils literal notranslate"><span class="pre">population</span></code> and <code class="docutils literal notranslate"><span class="pre">coefficient</span></code> approach. Notice that both cases below creates <img class="math" src="../../../_images/math/8407a7b5c5d37f486d4d8402eb674e1913782dcf.png" alt="p_{0} = 0.66"/> and <img class="math" src="../../../_images/math/c8501678199c40eacaaa082d5729dcac393db537.png" alt="p_{1} = 0.33"/>, but the first one uses the complex probability amplitudes introducing a
 relative phase, which is observed as the complex parts of the off-diagonal elements of the density matrix.</p>
@@ -774,11 +773,11 @@ relative phase, which is observed as the complex parts of the off-diagonal eleme
 1.0
 </pre></div></div>
 </div>
-</section>
-</section>
-</section>
-</section>
-<section id="Mixed-states-or-any-other-arbitrary-state">
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Mixed-states-or-any-other-arbitrary-state">
 <h2>Mixed states or any other arbitrary state<a class="headerlink" href="#Mixed-states-or-any-other-arbitrary-state" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">initialState</span></code> also accepts a (ket or density) matrix as input, which makes it possible to set any state we want as the initial state. For example, if we want the initial state to be a mixed state, we can create it using the <code class="docutils literal notranslate"><span class="pre">densityMatrix</span></code> function of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> then set it through again the <code class="docutils literal notranslate"><span class="pre">initialState</span></code> as below, where we also calculate the purity of each mixed state.</p>
 <div class="nbinput docutils container">
@@ -878,8 +877,8 @@ relative phase, which is observed as the complex parts of the off-diagonal eleme
 </pre></div>
 </div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
               </div>

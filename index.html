@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QuanGuru documentation &#8212; QuanGuru 1 documentation</title>
     
     <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -159,8 +158,8 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quanguru">
-   QuanGuru
+  <a class="reference internal nav-link" href="#quanguru-a-python-package-for-numerical-analyses-of-quantum-systems">
+   QuanGuru - A Python package for numerical analyses of quantum systems
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -208,7 +207,7 @@
               
               <div>
                 
-  <section id="quanguru-documentation">
+  <div class="section" id="quanguru-documentation">
 <h1>QuanGuru documentation<a class="headerlink" href="#quanguru-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
@@ -218,11 +217,11 @@
 <li class="toctree-l1"><a class="reference internal" href="QuantumToolbox/Tutorials/Tutorials.html">QuantumToolbox Tutorials</a></li>
 </ul>
 </div>
-<section id="quanguru">
-<h2>QuanGuru<a class="headerlink" href="#quanguru" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quanguru-a-python-package-for-numerical-analyses-of-quantum-systems">
+<h2>QuanGuru - A Python package for numerical analyses of quantum systems<a class="headerlink" href="#quanguru-a-python-package-for-numerical-analyses-of-quantum-systems" title="Permalink to this headline">¶</a></h2>
 <a class="reference external image-reference" href="https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml"><img alt="main" src="https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml"><img alt="development" src="https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml/badge.svg" /></a>
-<p>QuanGuru is a Python library for Quantum Sciences.
+<p>QuanGuru is a Python library for numerical analyses of Quantum systems.
 It is still under-development, and the rough development plan is provided below.
 The <a class="reference external" href="https://github.com/CirQuS-UTS/QuanGuru">github repo is in here</a> and the <a class="reference external" href="https://cirqus-uts.github.io/QuanGuru/">documentation are in here</a>.
 It can already be installed via pip</p>
@@ -231,38 +230,36 @@ It can already be installed via pip</p>
 </div>
 <p>QuanGuru contains tools for numerical simulations of Quantum systems, and it is composed of two main sub-modules: (i) QuantumToolbox, and (ii) classes (for OOP, module to be renamed later).
 QuantumToolbox consists <strong>purely of Python functions</strong> (no other objects) that create and/or use <strong>matrices</strong>.
-The module classes (to be renamed later) contains classes to create flexible, simple, and object-oriented simulation scripts.
+The classes module (to be renamed later) contains classes to create flexible, simple, and object-oriented simulation scripts.
 Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be used as a standalone library to carry the same simulations.</p>
-<p>We use <a class="reference external" href="https://code.research.uts.edu.au/mKQuantum/QuantumSimulations/-/wikis/Variable%20Naming%20Conventions">camelCase</a></p>
-<section id="rough-development-plan">
+<div class="section" id="rough-development-plan">
 <h3>(Rough) Development Plan<a class="headerlink" href="#rough-development-plan" title="Permalink to this headline">¶</a></h3>
 <p>QuantumToolbox is already simple enough and stable.
 In parallel to the developments of classes, further additions and improvements are going to be implemented in QuantumToolbox.
 There are already other functions (for special state creations, eigen-value statistics etc.) in another private repo.</p>
-<section id="short-term-plan-for-the-improvements-on-current-code">
+<div class="section" id="short-term-plan-for-the-improvements-on-current-code">
 <h4>1. Short term plan for the improvements on current code<a class="headerlink" href="#short-term-plan-for-the-improvements-on-current-code" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li><p>Complete the migration from gitlab (private server) to github, meaning re-establish CI/CD, pages, wiki, issues, etc.</p></li>
-<li><p>Restructuring and writing docstring for QSys, QPro, QGate, and QSim</p></li>
-<li><p>Docstring for the extensions</p></li>
-<li><p>Writing tutorials, further improvements in docstring and more tests</p></li>
+<li><p>Restructuring and writing docstring for QPro, QGate, QSim, and extensions</p></li>
+<li><p>Improve the tutorials, further improvements in docstring, and more tests</p></li>
 </ol>
-</section>
-<section id="version-1">
+</div>
+<div class="section" id="version-1">
 <h4>2. Version 1<a class="headerlink" href="#version-1" title="Permalink to this headline">¶</a></h4>
-<p>At this point, we should have a stable version with enough documentation for the version 1.</p>
-</section>
-<section id="future-development">
+<p>At this point, we should have a stable version with enough documentation and tests for the version 1.</p>
+</div>
+<div class="section" id="future-development">
 <h4>3. Future development<a class="headerlink" href="#future-development" title="Permalink to this headline">¶</a></h4>
 <p>Further additions have to be with proper tests, tutorials, docstring etc.</p>
 <ol class="arabic simple">
 <li><p>Implementation of SCQubits and QDrive.</p></li>
 <li><p>Interfacing to other libraries.</p></li>
 </ol>
-</section>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
+</div>
 
 
               </div>

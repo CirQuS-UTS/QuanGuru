@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quantum States (quanguru.QuantumToolbox.states) &#8212; QuanGuru 1 documentation</title>
     
     <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -257,10 +256,10 @@
               
               <div>
                 
-  <section id="module-quanguru.QuantumToolbox.states">
+  <div class="section" id="module-quanguru.QuantumToolbox.states">
 <span id="quantum-states-quanguru-quantumtoolbox-states"></span><h1>Quantum States (<a class="reference internal" href="#module-quanguru.QuantumToolbox.states" title="quanguru.QuantumToolbox.states"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.states</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.states" title="Permalink to this headline">¶</a></h1>
 <p>Contains methods to create states, such as ket, bra, densityMatrix, superpositions, etc.</p>
-<section id="functions">
+<div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <table class="longtable table autosummary">
 <colgroup>
@@ -273,6 +272,12 @@
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.basisBra" title="quanguru.QuantumToolbox.states.basisBra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">basisBra</span></code></a>(dimension, state[, sparse])</p></td>
 <td><p>Creates a <cite>bra</cite> state <img class="math" src="../_images/math/f7e89793467832739686a1e29377bb02a659d6a4.png" alt="\langle n| := |n\rangle^{T}"/> for a given dimension with 1 (unit population) at a given column.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.zerosKet" title="quanguru.QuantumToolbox.states.zerosKet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zerosKet</span></code></a>(dimension[, sparse])</p></td>
+<td><p>Creates a column matrix (ket) with all elements zero.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.zerosMat" title="quanguru.QuantumToolbox.states.zerosMat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zerosMat</span></code></a>(dimension[, sparse])</p></td>
+<td><p>Creates a square matrix with all elements zero.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.completeBasis" title="quanguru.QuantumToolbox.states.completeBasis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">completeBasis</span></code></a>(dimension[, sparse])</p></td>
 <td><p>Creates a complete basis of ket states <img class="math" src="../_images/math/969f305fd71f64f7c26f239a2c3597a72b5d4d4f.png" alt="\{|n\rangle\}"/>, st <img class="math" src="../_images/math/1670518c775d205eb79e3ae3550542f4ac8e8759.png" alt="\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}"/>.</p></td>
@@ -359,67 +364,73 @@
 <td><p>    ✅</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-even"><td><p><cite>zeros</cite></p></td>
+<tr class="row-even"><td><p><cite>zerosKet</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>completeBasis</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>superPos</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>densityMatrix</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>normalise</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>compositeState</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>completeBasisMat</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>weightedSum</cite></p></td>
+<tr class="row-odd"><td><p><cite>zerosMat</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-even"><td><p><cite>mat2Vec</cite></p></td>
+<tr class="row-even"><td><p><cite>completeBasis</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>superPos</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>densityMatrix</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>normalise</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>compositeState</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>vec2Mat</cite></p></td>
+<tr class="row-odd"><td><p><cite>completeBasisMat</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ✅</p></td>
 <td><p>    ❌</p></td>
 <td><p>    ❌</p></td>
 </tr>
-<tr class="row-even"><td><p><cite>BellStates</cite></p></td>
+<tr class="row-even"><td><p><cite>weightedSum</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>mat2Vec</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>vec2Mat</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>BellStates</cite></p></td>
 <td><p>      ✅</p></td>
 <td><p>    ✅</p></td>
 <td><p>    ✅</p></td>
@@ -540,11 +551,11 @@ given column. This function simply returns transpose of <code class="xref py py-
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">zerosKet</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="go">(0, 0)      0</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zerosKet</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">[[0]</span>
 <span class="go"> [0]]</span>
 </pre></div>
@@ -909,7 +920,7 @@ See: <cite>superPos</cite> function</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>bs</strong> (<em>str</em><em>, </em><em>optional</em>) – String for different Bell states, by default ‘Phi+’. Options are
-[‘Phi+’ or ‘00’, ‘Phi-’ or ‘01’, ‘Psi+’ or ‘10’, ‘Psi-’ or ‘11’]</p></li>
+[‘Phi+’ or ‘00’, ‘Phi-‘ or ‘01’, ‘Psi+’ or ‘10’, ‘Psi-‘ or ‘11’]</p></li>
 <li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
 </ul>
 </dd>
@@ -962,8 +973,8 @@ See: <cite>superPos</cite> function</p></li>
 </dl>
 </dd></dl>
 
-</section>
-</section>
+</div>
+</div>
 
 
               </div>
