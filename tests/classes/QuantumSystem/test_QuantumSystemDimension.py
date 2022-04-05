@@ -26,6 +26,24 @@ def test_dimensionHasToBeLargerThan0():
         qsys4 = QSys.QuantumSystem()
         qsys4.dimension=-rnd.randint(0, 20)
 
+def _dimensionParamUpdated(qsys1, randDim):
+    assert qsys1._paramUpdated is True
+    qsys1._paramUpdated = False
+    qsys1.dimension = randDim
+    assert qsys1._paramUpdated is False
+    qsys1.dimension = randDim+1
+    assert qsys1._paramUpdated is True
+
+def test_dimensionChangeSetsParamUpdated():
+    randDim1 = rnd.randint(2, 20)
+    qsys1 =  QSys.QuantumSystem(dimension=randDim1)
+    _dimensionParamUpdated(qsys1, randDim1)
+
+    randDim2 = rnd.randint(2, 20)
+    qsys2 =  QSys.QuantumSystem()
+    qsys2.dimension=randDim2
+    _dimensionParamUpdated(qsys2, randDim2)
+
 
 @pytest.mark.parametrize("cls", [
                          QuantumSystemOld,
