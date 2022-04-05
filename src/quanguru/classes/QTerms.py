@@ -269,6 +269,8 @@ class QTerm(paramBoundBase):
         if oper not in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
             operMat = oper(dim)**order
         else:
+            checkVal(dim, 2, 
+                     f'dimension of the quantum system ({qsys.name}) is {dim} but it has {oper} as term')            
             operMat = oper()**order
         operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
         return operCompMat
