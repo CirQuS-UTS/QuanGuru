@@ -354,3 +354,11 @@ def _matMulInputs(*args):
     """
     totalMul = args[0]
     return (totalMul @ _matMulInputs(*args[1:])) if len(args) > 1 else totalMul
+
+def _matPower(matrix, power):
+    r"""
+    Raise the given matrix to a power.
+    """
+    assert power > 0, "power has to be larger than 0"
+    matPow = matrix
+    return (matPow @ _matPower(matrix, power-1)) if power > 1 else matPow
