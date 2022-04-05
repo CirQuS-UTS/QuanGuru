@@ -819,11 +819,11 @@ class term(termTimeDep):
             dimension = 0.5*(dimension-1)
 
         if self.operator not in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
-            mat = qOps.compositeOp(self.operator(dimension), #pylint:disable=assigning-non-slot
-                                   dimsBefore, dimsAfter)**self.order
+            mat = linAlg._matPower(qOps.compositeOp(self.operator(dimension), #pylint:disable=assigning-non-slot
+                                   dimsBefore, dimsAfter), self.order)
         else: # pylint: disable=bare-except
-            mat = qOps.compositeOp( # pylint: disable=no-member, assigning-non-slot
-                self.operator(), dimsBefore, dimsAfter)**self.order
+            mat = linAlg._matPower(qOps.compositeOp( # pylint: disable=no-member, assigning-non-slot
+                                   self.operator(), dimsBefore, dimsAfter), self.order)
 
         if setMat:
             self._paramBoundBase__matrix = mat #pylint:disable=assigning-non-slot

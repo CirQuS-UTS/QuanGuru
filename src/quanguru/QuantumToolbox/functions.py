@@ -51,7 +51,7 @@ import numpy as np # type: ignore
 import scipy.linalg as lina # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
-from .linearAlgebra import hc, tensorProd, trace, innerProd
+from .linearAlgebra import hc, tensorProd, trace, innerProd, _matPower
 from .states import densityMatrix, mat2Vec
 from .operators import sigmay
 
@@ -449,7 +449,7 @@ def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:
 
 def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float:
     expSq = (expectation(operator, state))
-    SqExp = expectation(operator**2, state)
+    SqExp = expectation(_matPower(operator, 2), state)
     return np.sqrt(SqExp - (expSq**2)) if not expect else (np.sqrt(SqExp - (expSq**2)), expSq)
 
 def spectralNorm(operator: Matrix) -> Tuple:
