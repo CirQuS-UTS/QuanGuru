@@ -34,7 +34,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz
+from ..QuantumToolbox.operators import number, Jz, sigmam, sigmap, sigmax, sigmay, sigmaz
 
 def _initStDec(_createInitialState):
     r"""
@@ -211,6 +211,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         if not self._isComposite: # pylint:disable=no-member
             checkCorType(dim, int, "dimension of a QuantumSystem has to be an integer")
             checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
+            isPauli = any(term.operator in [sigmam, sigmap, sigmax, sigmay, sigmaz] for term in self.terms)
+            checkVal(isPauli and (dim!=2), True,
+                     f'given dimension for quantum system ({self.name}) is {dim} but it has Pauli as term')
             oldVal = getattr(self, '_QuantumSystem__dimension')
             setAttr(self, '_QuantumSystem__dimension', dim)
             if self._paramUpdated:
