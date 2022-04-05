@@ -44,6 +44,14 @@ def test_dimensionChangeSetsParamUpdated():
     qsys2.dimension=randDim2
     _dimensionParamUpdated(qsys2, randDim2)
 
+def test_dimensionChangeReCreatesTheOperator():
+    randDim1 = rnd.randint(2, 20)
+    randDim2 = rnd.randint(2, 20)
+    qsys1 =  QSys.QuantumSystem(dimension=randDim1, operator=QOps.number)
+    assert qsys1._freeMatrix.shape[0] == randDim1
+    qsys1.dimension = randDim2
+    assert qsys1._freeMatrix.shape[0] == randDim2
+
 
 @pytest.mark.parametrize("cls", [
                          QuantumSystemOld,
