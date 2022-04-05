@@ -2,6 +2,19 @@ import pytest
 import random as rnd
 import quanguru.classes.QSystem as QSys
 from quanguru.classes.QSys import QuantumSystemOld
+import quanguru.QuantumToolbox.operators as QOps
+
+def test_dimensionHasToBeInt():
+    qsys1 = QSys.QuantumSystem(dimension=rnd.randint(2, 20))
+    with pytest.raises(TypeError):
+        qsys2 = QSys.QuantumSystem(dimension="10")
+
+    qsys3 = QSys.QuantumSystem()
+    qsys3.dimension=rnd.randint(2, 20)
+    with pytest.raises(TypeError):
+        qsys4 = QSys.QuantumSystem()
+        qsys4.dimension="10"
+
 
 @pytest.mark.parametrize("cls", [
                          QuantumSystemOld,
