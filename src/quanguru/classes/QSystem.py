@@ -210,7 +210,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     def dimension(self, dim):
         if not self._isComposite: # pylint:disable=no-member
             checkCorType(dim, int, "dimension of a QuantumSystem has to be an integer")
-            checkVal(dim>1, True, "dimension of a QuantumSystem has to be larger than 1")
+            checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
             oldVal = getattr(self, '_QuantumSystem__dimension')
             setAttr(self, '_QuantumSystem__dimension', dim)
             if self._paramUpdated:
