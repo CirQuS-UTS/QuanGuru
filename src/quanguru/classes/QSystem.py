@@ -211,8 +211,10 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         if not self._isComposite: # pylint:disable=no-member
             oldVal = getattr(self, '_QuantumSystem__dimension')
             setAttr(self, '_QuantumSystem__dimension', dim)
-            if self.superSys is not None: # to change dimsBefore/After of other systems if self is a subSys in superSys
-                self.superSys._updateDimension(self, dim, oldVal) # pylint:disable=protected-access
+            if self._paramUpdated:
+                self.delMatrices(_exclude=[])
+                if self.superSys is not None:# to change dimsBefore/After of other systems if self in subSys of superSys
+                    self.superSys._updateDimension(self, dim, oldVal) # pylint:disable=protected-access
         else:
             warnings.warn(self.name + ' is a composite system, cannot set dimension')
 
