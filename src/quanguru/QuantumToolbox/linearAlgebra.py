@@ -15,6 +15,7 @@ r"""
         trace
         partialTrace
         _matMulInputs
+        _matPower
 
     .. |c| unicode:: U+2705
     .. |x| unicode:: U+274C
@@ -30,6 +31,8 @@ r"""
        `tensorProd`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `trace`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `partialTrace`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_matMulInputs`           |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `_matPower`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
 """
@@ -38,7 +41,7 @@ from numpy import ndarray # type: ignore
 import numpy as np # type: ignore
 import scipy.sparse as sp # type: ignore
 
-from .customTypes import Matrix, ndOrListInt # pylint: disable=relative-beyond-top-level
+from .customTypes import Matrix, ndOrListInt, matrixOrMatrixList # pylint: disable=relative-beyond-top-level
 
 
 def hc(matrix: Matrix) -> Matrix:
@@ -347,10 +350,36 @@ def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray
     rhoA = np.einsum(rhoA, idx1+idx2, optimize=False)
     return rhoA.reshape(Nkeep, Nkeep)
 
-def _matMulInputs(*args):
+def _matMulInputs(*args: matrixOrMatrixList) -> Matrix:
     r"""
     Calculates the matrix multiplication of the given arbitrary number of inputs in the given order.
     It does not check the correctness of the shapes until the matrix multiplication operator (@) itself gives an error.
     """
     totalMul = args[0]
     return (totalMul @ _matMulInputs(*args[1:])) if len(args) > 1 else totalMul
+
+def _matPower(matrix: Matrix, power: int) -> Matrix:
+    r"""
+    A recursive function to raise the given matrix to a power,
+    ie for given matrix :math:`M` and power :math:`n`,
+    this returns :math:`\overbrace{M @ M @ \cdots @ M}^{n times}`,
+    where :math:`@` is the matrix multiplication.
+
+    Parameters
+    ----------
+    matrix : Matrix
+        The matrix to raise to a power
+    power : int
+        Power to raise
+
+    Returns
+    -------
+    Matrix
+        Given matrix raised to given power
+
+    Examples
+    --------
+    """
+    assert power > 0, "power has to be larger than 0"
+    matPow = matrix
+    return (matPow @ _matPower(matrix, power-1)) if power > 1 else matPow
