@@ -7,7 +7,7 @@ import quanguru as qg
 
 
 def test_constructMatricesOfQTermWithSingleQSystem():
-    randDims = [rnd.randint(3, 10) for _ in range(6)] 
+    randDims = [rnd.randint(3, 10) for _ in range(4)] 
 
     qsys1 = QuantumSystem(dimension=randDims[0])
     t1 = QTerm(qSystem=qsys1, operator=qg.number)
@@ -25,11 +25,11 @@ def test_constructMatricesOfQTermWithSingleQSystem():
     t1 = QTerm(qSystem=qsys1, operator=qg.Jm)
     assert np.allclose(t1._freeMatrix.A, qg.Jm(0.5*(randDims[3]-1)).A)
 
-    qsys1 = QuantumSystem(dimension=randDims[4])
+    qsys1 = QuantumSystem(dimension=2)
     t1 = QTerm(qSystem=qsys1, operator=qg.sigmay)
     assert np.allclose(t1._freeMatrix.A, qg.sigmay().A)
 
-    qsys1 = QuantumSystem(dimension=randDims[5])
+    qsys1 = QuantumSystem(dimension=2)
     t1 = QTerm(qSystem=qsys1, operator=qg.sigmap)
     assert np.allclose(t1._freeMatrix.A, qg.sigmap().A)
 
