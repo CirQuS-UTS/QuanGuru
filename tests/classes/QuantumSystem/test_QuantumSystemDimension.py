@@ -3,6 +3,7 @@ import random as rnd
 import quanguru.classes.QSystem as QSys
 from quanguru.classes.QSys import QuantumSystemOld
 import quanguru.QuantumToolbox.operators as QOps
+from quanguru.classes.QTerms import QTerm
 
 def test_dimensionHasToBeInt():
     qsys1 = QSys.QuantumSystem(dimension=rnd.randint(2, 20))
@@ -25,6 +26,26 @@ def test_dimensionHasToBeLargerThan0():
     with pytest.raises(ValueError):
         qsys4 = QSys.QuantumSystem()
         qsys4.dimension=-rnd.randint(0, 20)
+
+def test_dimensionHasToBeTwoIfTheOperatorIsPauli():    
+    paul = [QOps.sigmam, QOps.sigmap, QOps.sigmax, QOps.sigmay, QOps.sigmaz]    
+    qsys1 = QSys.QuantumSystem(dimension=2)
+    QTerm._dimInput(qsys1, paul[rnd.randint(0,4)],rnd.randint(1,30))
+    dimList = list(range(1,100))
+    dimList.remove(2)
+    qsys2 = QSys.QuantumSystem(dimension=rnd.choice(dimList))    
+    with pytest.raises(ValueError):
+        QTerm._dimInput(qsys2, paul[rnd.randint(0,4)],rnd.randint(1,30))
+    
+def test_IfTheOperatorIsPaulidimensionHasToBeTwo():    
+    paul = [QOps.sigmam, QOps.sigmap, QOps.sigmax, QOps.sigmay, QOps.sigmaz]    
+    qsys1 = QSys.QuantumSystem(operator=paul[rnd.randint(0,4)])
+    qsys1.dimension = 2
+    dimList = list(range(1,100))
+    dimList.remove(2)
+    qsys2 = QSys.QuantumSystem(operator=paul[rnd.randint(0,4)])
+    with pytest.raises(ValueError):
+        qsys2.dimension = rnd.choice(dimList)
 
 def _dimensionParamUpdated(qsys1, randDim):
     assert qsys1._paramUpdated is True
