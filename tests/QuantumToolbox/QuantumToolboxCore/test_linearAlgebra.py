@@ -3,6 +3,7 @@ import numpy as np
 import scipy.sparse as sp
 import pytest
 from quanguru.QuantumToolbox import linearAlgebra as la #pylint: disable=import-error
+import quanguru.QuantumToolbox.operators as qOps
 
 # a random 4 x 4 (complex-valued) matrix to be used is testing linearAlgebra functions
 oper = np.array(
@@ -177,3 +178,36 @@ def test_norm(mat, n):
 def test_trace(mat, t):
     # calculate the trace and compare it with the expected results
     assert la.trace(mat) == t
+
+@pytest.mark.parametrize("sp", [False, True])
+def test_matrixPowerRaising(sp):
+    oper1 = qOps.sigmax(sparse=sp)
+    oper2 = qOps.number(5, sparse=sp)
+    oper3 = qOps.destroy(8, sparse=sp)
+
+    if sp:
+        assert np.allclose(la._matPower(oper1, 1).A, oper1.A)
+        assert np.allclose(la._matPower(oper2, 1).A, oper2.A)
+        assert np.allclose(la._matPower(oper3, 1).A, oper3.A)
+    else:
+        assert np.allclose(la._matPower(oper1, 1), oper1)
+        assert np.allclose(la._matPower(oper2, 1), oper2)
+        assert np.allclose(la._matPower(oper3, 1), oper3)
+
+    if sp:
+        assert np.allclose(la._matPower(oper1, 2).A, (oper1@oper1).A)
+        assert np.allclose(la._matPower(oper2, 2).A, (oper2@oper2).A)
+        assert np.allclose(la._matPower(oper3, 2).A, (oper3@oper3).A)
+    else:
+        assert np.allclose(la._matPower(oper1, 2), (oper1@oper1))
+        assert np.allclose(la._matPower(oper2, 2), (oper2@oper2))
+        assert np.allclose(la._matPower(oper3, 2), (oper3@oper3))
+
+    if sp:
+        assert np.allclose(la._matPower(oper1, 3).A, (oper1@oper1@oper1).A)
+        assert np.allclose(la._matPower(oper2, 3).A, (oper2@oper2@oper2).A)
+        assert np.allclose(la._matPower(oper3, 3).A, (oper3@oper3@oper3).A)
+    else:
+        assert np.allclose(la._matPower(oper1, 3), (oper1@oper1@oper1))
+        assert np.allclose(la._matPower(oper2, 3), (oper2@oper2@oper2))
+        assert np.allclose(la._matPower(oper3, 3), (oper3@oper3@oper3))

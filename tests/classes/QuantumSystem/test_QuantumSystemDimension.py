@@ -2,6 +2,77 @@ import pytest
 import random as rnd
 import quanguru.classes.QSystem as QSys
 from quanguru.classes.QSys import QuantumSystemOld
+import quanguru.QuantumToolbox.operators as QOps
+from quanguru.classes.QTerms import QTerm
+
+def test_dimensionHasToBeInt():
+    qsys1 = QSys.QuantumSystem(dimension=rnd.randint(2, 20))
+    with pytest.raises(TypeError):
+        qsys2 = QSys.QuantumSystem(dimension="10")
+
+    qsys3 = QSys.QuantumSystem()
+    qsys3.dimension=rnd.randint(2, 20)
+    with pytest.raises(TypeError):
+        qsys4 = QSys.QuantumSystem()
+        qsys4.dimension="10"
+
+def test_dimensionHasToBeLargerThan0():
+    qsys1 = QSys.QuantumSystem(dimension=rnd.randint(2, 20))
+    with pytest.raises(ValueError):
+        qsys2 = QSys.QuantumSystem(dimension=-rnd.randint(0, 20))
+
+    qsys3 = QSys.QuantumSystem()
+    qsys3.dimension=rnd.randint(2, 20)
+    with pytest.raises(ValueError):
+        qsys4 = QSys.QuantumSystem()
+        qsys4.dimension=-rnd.randint(0, 20)
+
+def test_dimensionHasToBeTwoIfTheOperatorIsPauli():    
+    paul = [QOps.sigmam, QOps.sigmap, QOps.sigmax, QOps.sigmay, QOps.sigmaz]    
+    qsys1 = QSys.QuantumSystem(dimension=2)
+    QTerm._dimInput(qsys1, paul[rnd.randint(0,4)],rnd.randint(1,30))
+    dimList = list(range(1,100))
+    dimList.remove(2)
+    qsys2 = QSys.QuantumSystem(dimension=rnd.choice(dimList))    
+    with pytest.raises(ValueError):
+        QTerm._dimInput(qsys2, paul[rnd.randint(0,4)],rnd.randint(1,30))
+    
+def test_IfTheOperatorIsPaulidimensionHasToBeTwo():    
+    paul = [QOps.sigmam, QOps.sigmap, QOps.sigmax, QOps.sigmay, QOps.sigmaz]    
+    qsys1 = QSys.QuantumSystem(operator=paul[rnd.randint(0,4)])
+    qsys1.dimension = 2
+    dimList = list(range(1,100))
+    dimList.remove(2)
+    qsys2 = QSys.QuantumSystem(operator=paul[rnd.randint(0,4)])
+    with pytest.raises(ValueError):
+        qsys2.dimension = rnd.choice(dimList)
+
+def _dimensionParamUpdated(qsys1, randDim):
+    assert qsys1._paramUpdated is True
+    qsys1._paramUpdated = False
+    qsys1.dimension = randDim
+    assert qsys1._paramUpdated is False
+    qsys1.dimension = randDim+1
+    assert qsys1._paramUpdated is True
+
+def test_dimensionChangeSetsParamUpdated():
+    randDim1 = rnd.randint(2, 20)
+    qsys1 =  QSys.QuantumSystem(dimension=randDim1)
+    _dimensionParamUpdated(qsys1, randDim1)
+
+    randDim2 = rnd.randint(2, 20)
+    qsys2 =  QSys.QuantumSystem()
+    qsys2.dimension=randDim2
+    _dimensionParamUpdated(qsys2, randDim2)
+
+def test_dimensionChangeReCreatesTheOperator():
+    randDim1 = rnd.randint(2, 20)
+    randDim2 = rnd.randint(2, 20)
+    qsys1 =  QSys.QuantumSystem(dimension=randDim1, operator=QOps.number)
+    assert qsys1._freeMatrix.shape[0] == randDim1
+    qsys1.dimension = randDim2
+    assert qsys1._freeMatrix.shape[0] == randDim2
+
 
 @pytest.mark.parametrize("cls", [
                          QuantumSystemOld,

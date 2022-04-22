@@ -22,7 +22,7 @@
 from .baseClasses import paramBoundBase
 from .QSimBase import setAttr
 from .exceptions import checkCorType, checkVal, checkNotVal
-from ..QuantumToolbox import compositeOp, _matMulInputs
+from ..QuantumToolbox import compositeOp, _matMulInputs, _matPower
 from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-top-level
 
 class QTerm(paramBoundBase):
@@ -267,9 +267,12 @@ class QTerm(paramBoundBase):
             dim = 0.5*(dim-1)
 
         if oper not in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
-            operMat = oper(dim)**order
+            operMat = _matPower(oper(dim), order)
         else:
-            operMat = oper()**order
+            if oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
+                checkVal(dim, 2,
+                         f'dimension of the quantum system ({qsys.name}) is {dim} but it has {oper} as term')
+            operMat = _matPower(oper(), order)
         operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
         return operCompMat
 

@@ -80,7 +80,7 @@ import scipy.linalg as linA # type: ignore
 from scipy.sparse.linalg import expm # type: ignore
 import numpy as np # type: ignore
 
-from .linearAlgebra import tensorProd
+from .linearAlgebra import tensorProd, _matPower
 
 from .customTypes import Matrix #pylint: disable=relative-beyond-top-level
 
@@ -1005,7 +1005,7 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
     """
 
     try:
-        opPow = op(dim, sparse)**power
+        opPow = _matPower(op(dim, sparse), power)
     except: # pylint: disable=bare-except # noqa: E722
-        opPow = op(sparse)**power
+        opPow = _matPower(op(sparse), power)
     return opPow

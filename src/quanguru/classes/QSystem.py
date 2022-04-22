@@ -25,7 +25,7 @@ from typing import Any
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
-from .base import addDecorator, _recurseIfList
+from .base import addDecorator, _recurseIfList, aliasDict
 from .QSimComp import QSimComp
 from .QPro import freeEvolution
 from .QSimBase import setAttr
@@ -34,7 +34,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz
+from ..QuantumToolbox.operators import number, Jz, sigmam, sigmap, sigmax, sigmay, sigmaz
 
 def _initStDec(_createInitialState):
     r"""
@@ -78,7 +78,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         #: First term is also stored in __firstTerm attribute
         self.__firstTerm = None
         #: dictionary of the terms
-        self.__terms = OrderedDict()
+        self.__terms = aliasDict()
         #: dimension of Hilbert space of the quantum system
         self.__dimension = 1
         #: boolean flag for composite/single systems
@@ -209,10 +209,17 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     @dimension.setter
     def dimension(self, dim):
         if not self._isComposite: # pylint:disable=no-member
+            checkCorType(dim, int, "dimension of a QuantumSystem has to be an integer")
+            checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
+            isPauli = any(term.operator in [sigmam, sigmap, sigmax, sigmay, sigmaz] for term in self.terms.values())
+            checkVal(not (isPauli and (dim!=2)), True,
+                     f'given dimension for quantum system ({self.name}) is {dim} but it has Pauli as term')
             oldVal = getattr(self, '_QuantumSystem__dimension')
             setAttr(self, '_QuantumSystem__dimension', dim)
-            if self.superSys is not None: # to change dimsBefore/After of other systems if self is a subSys in superSys
-                self.superSys._updateDimension(self, dim, oldVal) # pylint:disable=protected-access
+            if self._paramUpdated:
+                self.delMatrices(_exclude=[])
+                if self.superSys is not None:# to change dimsBefore/After of other systems if self in subSys of superSys
+                    self.superSys._updateDimension(self, dim, oldVal) # pylint:disable=protected-access
         else:
             warnings.warn(self.name + ' is a composite system, cannot set dimension')
 
