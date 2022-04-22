@@ -25,7 +25,7 @@ from typing import Any
 from numpy import ndarray
 from scipy.sparse import spmatrix
 
-from .base import addDecorator, _recurseIfList
+from .base import addDecorator, _recurseIfList, aliasDict
 from .QSimComp import QSimComp
 from .QPro import freeEvolution
 from .QSimBase import setAttr
@@ -78,7 +78,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         #: First term is also stored in __firstTerm attribute
         self.__firstTerm = None
         #: dictionary of the terms
-        self.__terms = OrderedDict()
+        self.__terms = aliasDict()
         #: dimension of Hilbert space of the quantum system
         self.__dimension = 1
         #: boolean flag for composite/single systems
