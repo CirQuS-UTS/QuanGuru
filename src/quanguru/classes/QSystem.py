@@ -307,6 +307,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         Used internally to set _QuantumSystem__compSys boolean, never query this before _QuantumSystem__compSys is set
         by some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
         """
+        if self._QuantumSystem__compSys is None:
+            warnings.warn(f'{self.name} type (whether it is a single or composite system) is ambiguous')
         return self._QuantumSystem__compSys # pylint:disable=no-member
 
     def _hasInSubs(self, other):
