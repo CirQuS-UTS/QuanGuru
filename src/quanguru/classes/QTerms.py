@@ -263,6 +263,8 @@ class QTerm(paramBoundBase):
         checkNotVal(dim, 1, f'{qsys.name} is not given a dimension')
         dimB = qsys._dimsBefore
         dimA = qsys._dimsAfter
+        if not callable(oper):
+            raise TypeError(f'{qsys.name} term/s is not given a (callable) operator')
 
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)
@@ -272,7 +274,7 @@ class QTerm(paramBoundBase):
         else:
             if oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
                 checkVal(dim, 2,
-                         f'dimension of the quantum system ({qsys.name}) is {dim} but it has {oper} as term')
+                        f'dimension of the quantum system ({qsys.name}) is {dim} but it has {oper} as term')
             operMat = _matPower(oper(), order)
         operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
         return operCompMat
