@@ -108,7 +108,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         noTerms = (len(self.terms) == 0)
         selfComp = self._isComposite
         if (noSubSys and noTerms):
-            if not selfComp:
+            if selfComp is False:
                 warnings.warn(f'{self.name} is given a dimension ({self.dimension}), but it is not given any term/s.'+\
                                'If it is intentional, please ignore this')
             else:
@@ -168,7 +168,6 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                     qsys.initialState = inp[ind]
         self.simulation.initialState = inp # pylint: disable=no-member, protected-access
 
-    # TODO HAMILTONIANS NEED TO BE TESTED
     @property
     def _subSysHamiltonian(self):
         r"""
@@ -319,7 +318,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         by some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
         """
         if self._QuantumSystem__compSys is None:
-            warnings.warn(f'{self.name} type (whether it is a single or composite system) is ambiguous')
+            warnings.warn(f'{self.name} type (whether it is a single or composite system) is ambiguous'+\
+                           'If it is intentional, please ignore this')
         return self._QuantumSystem__compSys # pylint:disable=no-member
 
     def _hasInSubs(self, other):
