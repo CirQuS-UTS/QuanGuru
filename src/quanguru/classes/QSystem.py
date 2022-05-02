@@ -108,8 +108,12 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         noTerms = (len(self.terms) == 0)
         selfComp = self._isComposite
         if (noSubSys and noTerms):
-            warnings.warn(f'{self.name} is not given any sub-system/s or any term/s. \
-                          If it is intentional, please ignore this')
+            if not selfComp:
+                warnings.warn(f'{self.name} is given a dimension ({self.dimension}), but it is not given any term/s.'+\
+                               'If it is intentional, please ignore this')
+            else:
+                warnings.warn(f'{self.name} is not given any sub-system/s or any term/s.' + \
+                               'If it is intentional, please ignore this')
 
         for sys in self.subSys.values():
             sys._constructMatrices() # pylint: disable=protected-access
