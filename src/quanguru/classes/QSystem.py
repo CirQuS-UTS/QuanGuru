@@ -605,7 +605,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         Method to delete all the existing terms by assigning a new empty dictionary.
         """
-        self._QuantumSystem__terms = OrderedDict() # pylint:disable=assigning-non-slot
+        self._QuantumSystem__terms = aliasDict() # pylint:disable=assigning-non-slot
 
     @terms.setter
     def terms(self, trm):
