@@ -66,7 +66,7 @@ class QSimComp(computeBase):
         r"""
         an alternative to run the simulation, equivalent to ``self.simulation.run()``
         """
-        return self._QSimComp__simulation.run(p=p, coreCount=coreCount).states[self.name+"Results"]
+        return self._QSimComp__simulation.run(p=p, coreCount=coreCount)
 
     @property
     def _initialStateInput(self):
