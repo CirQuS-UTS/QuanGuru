@@ -16,18 +16,18 @@ def test_termDictionaryWithTermAlias(resetTerms):
     qsys = QSys.QuantumSystem()
     if resetTerms:
         qsys.resetTerms()
-    qsys._firstTerm.alias = 'firstTerm'
+    qsys._firstTerm.alias = 'firstTerm' + str(resetTerms)
     assert qsys.terms[qsys._firstTerm.name] is qsys._firstTerm
     assert qsys.terms[qsys._firstTerm.alias[0]] is qsys._firstTerm
 
-    qsys._firstTerm.alias = ['listAlias1', 'listAlias2']
+    qsys._firstTerm.alias = ['listAlias1' + str(resetTerms), 'listAlias2' + str(resetTerms)]
     assert qsys.terms[qsys._firstTerm.name] is qsys._firstTerm
     assert qsys.terms[qsys._firstTerm.alias[0]] is qsys._firstTerm
     assert qsys.terms[qsys._firstTerm.alias[1]] is qsys._firstTerm
     assert qsys.terms[qsys._firstTerm.alias[2]] is qsys._firstTerm
 
     secondTerm = qsys.createTerm(operator=None)
-    secondTerm.alias = ['secondTerm', 'anotherAlias']
+    secondTerm.alias = ['secondTerm' + str(resetTerms), 'anotherAlias' + str(resetTerms)]
 
     assert qsys.terms[qsys._firstTerm.name] is qsys._firstTerm
     assert qsys.terms[qsys._firstTerm.alias[0]] is qsys._firstTerm
