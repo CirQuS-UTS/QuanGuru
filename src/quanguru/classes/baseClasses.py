@@ -269,7 +269,7 @@ class computeBase(paramBoundBase):
         """
         if callable(self.compute):
             return self.compute(self, states, *args, **kwargs) # pylint: disable=not-callable
-        return attrNotValWarn(self.compute, None, 'compute should callable but '+str(type(self.compute))+'is given')
+        return attrNotValWarn(self.compute, None, 'compute should be callable but '+str(type(self.compute))+'is given')
 
     def __calculate(self, where: str, *args, **kwargs) -> None:
         r"""
