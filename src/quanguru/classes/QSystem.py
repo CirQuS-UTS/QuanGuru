@@ -104,6 +104,13 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         The matrices for operators constructed and de-constructed whenever they should be, and this method is used
         internally in various places when the matrices are needed to be constructed.
         """
+        noSubSys = (len(self.subSys) == 0)
+        noTerms = (len(self.terms) == 0)
+        selfComp = self._isComposite
+        if (noSubSys and noTerms):
+            warnings.warn(f'{self.name} is not given any sub-system/s or any term/s. \
+                          If it is intentional, please ignore this')
+
         for sys in self.subSys.values():
             sys._constructMatrices() # pylint: disable=protected-access
         for ter in self.terms.values():
