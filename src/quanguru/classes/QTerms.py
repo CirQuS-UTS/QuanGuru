@@ -232,6 +232,8 @@ class QTerm(paramBoundBase):
         r"""
         Return the total Hamiltonian (ie frequency*operator) for this term.
         """
+        checkCorType(self.frequency, (int, float, complex),
+                     f'frequency of {self.qSystem} term/s have to be a numerical value ({(int, float, complex)})')
         if ((self._QTerm__HamiltonianTerm is None) or (self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             self._QTerm__HamiltonianTerm = self.frequency*self._freeMatrix #pylint:disable=assigning-non-slot
             self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
