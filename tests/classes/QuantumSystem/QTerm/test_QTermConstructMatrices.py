@@ -1,9 +1,22 @@
 import random as rnd
 import numpy as np
+import pytest
 from quanguru.QuantumToolbox.operators import Jz, sigmax
 from quanguru.classes.QTerms import QTerm
 from quanguru.classes.QSystem import QuantumSystem
 import quanguru as qg
+
+def test_raiseErrorForMissingDimensionWhenThereIsOperator():
+    # create a quantum system
+    qsys = QuantumSystem(operator=sigmax)
+    with pytest.raises(ValueError):
+        qsys._constructMatrices()
+
+def test_raiseErrorForMissingOperatorWhenFrequencyAndDimension():
+    # create a quantum system
+    qsys = QuantumSystem(dimension=2,frequency=2)
+    with pytest.raises(TypeError):
+        qsys._constructMatrices()
 
 
 def test_constructMatricesOfQTermWithSingleQSystem():

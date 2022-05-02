@@ -72,8 +72,8 @@ def _runSweepAndPrep(qSim, ind):
         qSim.Sweep.runSweep(qSim.Sweep._indicesForSweep(ind, *qSim.Sweep.inds))
 
     for protocol in qSim.subSys.keys():
-        # TODO FIXME anything initial state related should be relevant when _evolFunc is Callable
-        protocol.currentState = protocol.initialState if not protocol._isOpen else densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
+        if callable(qSim.evolFunc):
+            protocol.currentState = protocol.initialState if not protocol._isOpen else densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
 
     qSim.qRes._resetLast() # pylint: disable=protected-access
     qSim._computeBase__calculate("start")
@@ -110,7 +110,8 @@ def timeDependent(qSim):
 def timeEvolDefault(qSim, td):
     for protocol in qSim.subSys.keys():
         protocol.sampleStates = []
-    qSim._Simulation__compute() # pylint: disable=protected-access
+    if callable(qSim.evolFunc):
+        qSim._Simulation__compute() # pylint: disable=protected-access
     for protocol in qSim.subSys.keys():
         qSim.subSys[protocol]._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
         protocol._computeBase__compute(protocol.currentState) # pylint: disable=protected-access

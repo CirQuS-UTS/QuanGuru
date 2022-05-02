@@ -19,7 +19,6 @@
 
 """
 
-from collections import OrderedDict
 import warnings
 from typing import Any
 from numpy import ndarray
@@ -104,6 +103,17 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         The matrices for operators constructed and de-constructed whenever they should be, and this method is used
         internally in various places when the matrices are needed to be constructed.
         """
+        noSubSys = (len(self.subSys) == 0)
+        noTerms = (len(self.terms) == 0)
+        selfComp = self._isComposite
+        if (noSubSys and noTerms):
+            if selfComp is False:
+                warnings.warn(f'{self.name} is given a dimension ({self.dimension}), but it is not given any term/s.'+\
+                               'If it is intentional, please ignore this')
+            else:
+                warnings.warn(f'{self.name} is not given any sub-system/s or any term/s.' + \
+                               'If it is intentional, please ignore this')
+
         for sys in self.subSys.values():
             sys._constructMatrices() # pylint: disable=protected-access
         for ter in self.terms.values():
@@ -157,7 +167,6 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                     qsys.initialState = inp[ind]
         self.simulation.initialState = inp # pylint: disable=no-member, protected-access
 
-    # TODO HAMILTONIANS NEED TO BE TESTED
     @property
     def _subSysHamiltonian(self):
         r"""
@@ -208,6 +217,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     @dimension.setter
     def dimension(self, dim):
+        if self._QuantumSystem__compSys is None: # pylint:disable=no-member
+            self._QuantumSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
+
         if not self._isComposite: # pylint:disable=no-member
             checkCorType(dim, int, "dimension of a QuantumSystem has to be an integer")
             checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
@@ -304,8 +316,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         Used internally to set _QuantumSystem__compSys boolean, never query this before _QuantumSystem__compSys is set
         by some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
         """
-        if self._QuantumSystem__compSys is None: # pylint:disable=no-member
-            self._QuantumSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
+        if self._QuantumSystem__compSys is None:
+            warnings.warn(f'{self.name} type (whether it is a single or composite system) is ambiguous'+\
+                           'If it is intentional, please ignore this')
         return self._QuantumSystem__compSys # pylint:disable=no-member
 
     def _hasInSubs(self, other):
@@ -604,7 +617,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         Method to delete all the existing terms by assigning a new empty dictionary.
         """
-        self._QuantumSystem__terms = OrderedDict() # pylint:disable=assigning-non-slot
+        self._QuantumSystem__terms = aliasDict() # pylint:disable=assigning-non-slot
 
     @terms.setter
     def terms(self, trm):

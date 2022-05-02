@@ -232,6 +232,8 @@ class QTerm(paramBoundBase):
         r"""
         Return the total Hamiltonian (ie frequency*operator) for this term.
         """
+        checkCorType(self.frequency, (int, float, complex),
+                     f'frequency of {self.qSystem} term/s have to be a numerical value ({(int, float, complex)})')
         if ((self._QTerm__HamiltonianTerm is None) or (self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             self._QTerm__HamiltonianTerm = self.frequency*self._freeMatrix #pylint:disable=assigning-non-slot
             self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
@@ -260,8 +262,11 @@ class QTerm(paramBoundBase):
         This method is used in _constructMatrices, where the system and operator are passed.
         """
         dim = qsys.dimension
+        checkNotVal(dim, 1, f'{qsys.name} is not given a dimension')
         dimB = qsys._dimsBefore
         dimA = qsys._dimsAfter
+        if not callable(oper):
+            raise TypeError(f'{qsys.name} term/s is not given a (callable) operator')
 
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)
@@ -271,7 +276,7 @@ class QTerm(paramBoundBase):
         else:
             if oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
                 checkVal(dim, 2,
-                         f'dimension of the quantum system ({qsys.name}) is {dim} but it has {oper} as term')
+                        f'dimension of the quantum system ({qsys.name}) is {dim} but it has {oper} as term')
             operMat = _matPower(oper(), order)
         operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
         return operCompMat
