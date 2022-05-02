@@ -208,6 +208,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     @dimension.setter
     def dimension(self, dim):
+        if self._QuantumSystem__compSys is None: # pylint:disable=no-member
+            self._QuantumSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
+
         if not self._isComposite: # pylint:disable=no-member
             checkCorType(dim, int, "dimension of a QuantumSystem has to be an integer")
             checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
@@ -304,8 +307,6 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         Used internally to set _QuantumSystem__compSys boolean, never query this before _QuantumSystem__compSys is set
         by some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)
         """
-        if self._QuantumSystem__compSys is None: # pylint:disable=no-member
-            self._QuantumSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
         return self._QuantumSystem__compSys # pylint:disable=no-member
 
     def _hasInSubs(self, other):
