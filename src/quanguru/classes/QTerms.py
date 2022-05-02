@@ -260,6 +260,7 @@ class QTerm(paramBoundBase):
         This method is used in _constructMatrices, where the system and operator are passed.
         """
         dim = qsys.dimension
+        checkNotVal(dim, 1, f'{qsys.name} is not given a dimension')
         dimB = qsys._dimsBefore
         dimA = qsys._dimsAfter
 
