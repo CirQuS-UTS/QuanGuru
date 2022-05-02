@@ -204,6 +204,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             self._QuantumSystem__dimension = 1 # pylint:disable=assigning-non-slot
             for su in self.subSys.values():
                 self._QuantumSystem__dimension *= su.dimension # pylint:disable=assigning-non-slot,no-member
+        checkNotVal(self._QuantumSystem__dimension, 1, f'{self.name} is not given a dimension')
         return self._QuantumSystem__dimension # pylint:disable=no-member
 
     @dimension.setter
