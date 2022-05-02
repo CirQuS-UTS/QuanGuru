@@ -19,7 +19,6 @@
 
 """
 
-from collections import OrderedDict
 import warnings
 from typing import Any
 from numpy import ndarray
