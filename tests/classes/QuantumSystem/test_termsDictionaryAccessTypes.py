@@ -1,14 +1,21 @@
+import pytest
 import quanguru.classes.QSystem as QSys
 
-def test_termDictionaryWithTermName():
+@pytest.mark.parametrize('resetTerms', [False, True])
+def test_termDictionaryWithTermName(resetTerms):
     qsys = QSys.QuantumSystem()
+    if resetTerms:
+        qsys.resetTerms()
     secondTerm = qsys.createTerm(operator=None)
 
     assert qsys.terms[qsys._firstTerm.name] is qsys._firstTerm
     assert qsys.terms[secondTerm.name] is secondTerm
 
-def test_termDictionaryWithTermAlias():
+@pytest.mark.parametrize('resetTerms', [False, True])
+def test_termDictionaryWithTermAlias(resetTerms):
     qsys = QSys.QuantumSystem()
+    if resetTerms:
+        qsys.resetTerms()
     qsys._firstTerm.alias = 'firstTerm'
     assert qsys.terms[qsys._firstTerm.name] is qsys._firstTerm
     assert qsys.terms[qsys._firstTerm.alias[0]] is qsys._firstTerm
