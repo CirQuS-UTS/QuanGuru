@@ -320,8 +320,196 @@
               
               <div>
                 
-  <section id="qdrive-classes-quanguru-classes-qdrive">
-<h1>QDrive classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QDrive</span></code>)<a class="headerlink" href="#qdrive-classes-quanguru-classes-qdrive" title="Permalink to this headline">#</a></h1>
+  <section id="module-quanguru.classes.QDrive">
+<span id="qdrive-classes-quanguru-classes-qdrive"></span><h1>QDrive classes (<a class="reference internal" href="#module-quanguru.classes.QDrive" title="quanguru.classes.QDrive"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QDrive</span></code></a>)<a class="headerlink" href="#module-quanguru.classes.QDrive" title="Permalink to this headline">#</a></h1>
+<p>THESE ARE JUST SOME INITIAL IDEAS. NOT COMPLETED OR USED YET.</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QDrive.genericDrive" title="quanguru.classes.QDrive.genericDrive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genericDrive</span></code></a>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QDrive.qDrive" title="quanguru.classes.QDrive.qDrive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qDrive</span></code></a>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QDrive.pulse" title="quanguru.classes.QDrive.pulse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pulse</span></code></a>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.genericDrive">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">genericDrive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#genericDrive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.genericDrive" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="baseClasses.html#quanguru.classes.baseClasses.paramBoundBase" title="quanguru.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.paramBoundBase</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.genericDrive.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genericDrive'</span></em><a class="headerlink" href="#quanguru.classes.QDrive.genericDrive.label" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.genericDrive._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.genericDrive._internalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.genericDrive._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.genericDrive._externalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.genericDrive._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.genericDrive._instances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.genericDrive.totalShape">
+<span class="sig-name descname"><span class="pre">totalShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#genericDrive.totalShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.genericDrive.totalShape" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.genericDrive.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#genericDrive.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.genericDrive.apply" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.qDrive">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qDrive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#qDrive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.qDrive" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QDrive.genericDrive" title="quanguru.classes.QDrive.genericDrive"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QDrive.genericDrive</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.qDrive.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'qDrive'</span></em><a class="headerlink" href="#quanguru.classes.QDrive.qDrive.label" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.qDrive._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.qDrive._internalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.qDrive._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.qDrive._externalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.qDrive._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.qDrive._instances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.qDrive.pulses">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pulses</span></span><a class="headerlink" href="#quanguru.classes.QDrive.qDrive.pulses" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.qDrive.addPulse">
+<span class="sig-name descname"><span class="pre">addPulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">pulseParams</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#qDrive.addPulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.qDrive.addPulse" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.qDrive.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#qDrive.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.qDrive.apply" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.pulse" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QDrive.genericDrive" title="quanguru.classes.QDrive.genericDrive"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QDrive.genericDrive</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pulse'</span></em><a class="headerlink" href="#quanguru.classes.QDrive.pulse.label" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.pulse._internalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.pulse._externalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QDrive.pulse._instances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.__t0">
+<span class="sig-name descname"><span class="pre">__t0</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse.__t0" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.__t1">
+<span class="sig-name descname"><span class="pre">__t1</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse.__t1" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.__func">
+<span class="sig-name descname"><span class="pre">__func</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse.__func" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.funcKwargs">
+<span class="sig-name descname"><span class="pre">funcKwargs</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse.funcKwargs" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.funcArgs">
+<span class="sig-name descname"><span class="pre">funcArgs</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse.funcArgs" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse._scale">
+<span class="sig-name descname"><span class="pre">_scale</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse._scale" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.t0">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">t0</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse.t0" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.t1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">t1</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse.t1" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.func">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">func</span></span><a class="headerlink" href="#quanguru.classes.QDrive.pulse.func" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#pulse.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.pulse.apply" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QDrive.pulse.integrateShape">
+<span class="sig-name descname"><span class="pre">integrateShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timePoints</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QDrive.html#pulse.integrateShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QDrive.pulse.integrateShape" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 

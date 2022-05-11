@@ -222,9 +222,19 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functions">
+   Functions
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -244,8 +254,220 @@
               
               <div>
                 
-  <section id="common-hamiltonians-quanguru-quantumtoolbox-hamiltonians">
-<h1>Common Hamiltonians (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.Hamiltonians</span></code>)<a class="headerlink" href="#common-hamiltonians-quanguru-quantumtoolbox-hamiltonians" title="Permalink to this headline">#</a></h1>
+  <section id="module-quanguru.QuantumToolbox.Hamiltonians">
+<span id="common-hamiltonians-quanguru-quantumtoolbox-hamiltonians"></span><h1>Common Hamiltonians (<a class="reference internal" href="#module-quanguru.QuantumToolbox.Hamiltonians" title="quanguru.QuantumToolbox.Hamiltonians"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.Hamiltonians</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.Hamiltonians" title="Permalink to this headline">#</a></h1>
+<p>Contains functions to create some standard Hamiltonians.</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">#</a></h2>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam" title="quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qubCavFreeHam</span></code></a>(qubFreq, cavFreq, cavDim)</p></td>
+<td><p>Creates Qubit + Cavity Hamiltonian <img class="math" src="../_images/math/6863289047aa628b4824782a90d58d4ed031dffc.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}"/> for given frequencies and truncated cavity dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.RabiHam" title="quanguru.QuantumToolbox.Hamiltonians.RabiHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RabiHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
+<td><p>Creates Rabi Hamiltonian <img class="math" src="../_images/math/c0439a2d53ccd620e47c98e25ee5461d621b84ce.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})"/> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.JCHam" title="quanguru.QuantumToolbox.Hamiltonians.JCHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JCHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
+<td><p>Creates Jaynes-Cummings Hamiltonian <img class="math" src="../_images/math/ebe33a41c9130623be364e4ddb1e957c7c643498.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})"/> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.aJCHam" title="quanguru.QuantumToolbox.Hamiltonians.aJCHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aJCHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
+<td><p>Creates anti-Jaynes-Cummings Hamiltonian <img class="math" src="../_images/math/d4a7f91f77f487154269ac2a613eb2f7f5640082.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})"/> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.UJC" title="quanguru.QuantumToolbox.Hamiltonians.UJC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UJC</span></code></a>(wq, wc, g, t, dimC[, sparse])</p></td>
+<td><p>Analytical implementation of the time independante Jaynes-Cummings Unitary evolution</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 21%" />
+<col style="width: 16%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Function Name</strong></p></th>
+<th class="head"><p><strong>Docstrings</strong></p></th>
+<th class="head"><p><strong>Examples</strong></p></th>
+<th class="head"><p><strong>Unit Tests</strong></p></th>
+<th class="head"><p><strong>Tutorials</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>qubCavFreeHam</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>RabiHam</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>JCHam</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>aJCHam</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ❌</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>UJC</cite></p></td>
+<td><p>      ✅</p></td>
+<td><p>    ❌</p></td>
+<td><p>    ✅</p></td>
+<td><p>    ❌</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam">
+<span class="sig-name descname"><span class="pre">qubCavFreeHam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qubFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#qubCavFreeHam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam" title="Permalink to this definition">#</a></dt>
+<dd><p>Creates Qubit + Cavity Hamiltonian <img class="math" src="../_images/math/6863289047aa628b4824782a90d58d4ed031dffc.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}"/>
+for
+given frequencies and truncated cavity dimension.</p>
+<p>Hilbert space ordering is <img class="math" src="../_images/math/ff721afbe82590179d8a478941f6b0c8b8a56c9f.png" alt="Qubit\otimes Cavity"/>, i.e. qubit first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Qubit + Cavity Hamiltonian for given frequencies and truncated cavity dimension.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.RabiHam">
+<span class="sig-name descname"><span class="pre">RabiHam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qubFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#RabiHam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.RabiHam" title="Permalink to this definition">#</a></dt>
+<dd><p>Creates Rabi Hamiltonian <img class="math" src="../_images/math/b7fce1987c76df5f4007e4913939b20b7b5ea1ba.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
++ g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})"/> for given frequencies, coupling strength, and truncated cavity
+dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rabi Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.JCHam">
+<span class="sig-name descname"><span class="pre">JCHam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qubFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#JCHam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.JCHam" title="Permalink to this definition">#</a></dt>
+<dd><p>Creates Jaynes-Cummings Hamiltonian <img class="math" src="../_images/math/060ec7ca13e649049fe312d7461d344a7badc248.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
++ g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})"/> for given frequencies, coupling strength, and
+truncated
+cavity dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Jaynes-Cummings Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.aJCHam">
+<span class="sig-name descname"><span class="pre">aJCHam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qubFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#aJCHam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.aJCHam" title="Permalink to this definition">#</a></dt>
+<dd><p>Creates anti-Jaynes-Cummings Hamiltonian <img class="math" src="../_images/math/025e1c3ddf37e27e5e870df39886a4fdf75645d8.png" alt="\frac{\omega_{q}}{2}\hat{\sigma}_{z} +
+\omega_{c}\hat{a}^{\dagger}\hat{a}
++ g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})"/> for given frequencies, coupling strength, and
+truncated
+cavity dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cavFreq</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>qubFreq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>cavDim</strong> (<em>int</em>) – (truncated) dimension for cavity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>anti-Jaynes-Cummings Hamiltonian for given frequencies</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.UJC">
+<span class="sig-name descname"><span class="pre">UJC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimC</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#UJC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.UJC" title="Permalink to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Analytical implementation of the time independante Jaynes-Cummings Unitary evolution</dt><dd><p>see Stenholm 1973 (<a class="reference external" href="https://doi.org/10.1016/0370-1573(73)90011-2">https://doi.org/10.1016/0370-1573(73)90011-2</a>)
+#TODO: explain the basis</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wq</strong> (<em>float</em>) – qubit frequency</p></li>
+<li><p><strong>wc</strong> (<em>float</em>) – cavity frequency</p></li>
+<li><p><strong>g</strong> (<em>float</em>) – coupling strength</p></li>
+<li><p><strong>t</strong> (<em>float</em>) – evolution time</p></li>
+<li><p><strong>dimC</strong> (<em>int</em>) – cavity dimention</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unitary matrix describing free evolution of the Jaynes-Cummings model</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># TODO Create some examples both in here and the demo script</p>
+</dd></dl>
+
+</section>
 </section>
 
 

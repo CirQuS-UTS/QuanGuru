@@ -1,0 +1,998 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quanguru.classes.QSystem &#8212; QuanGuru 1 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../index.html">
+<p class="title">QuanGuru</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
+  QuantumToolbox
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+  QuantumToolbox Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for quanguru.classes.QSystem</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contains the QuantumSystem class used for quantum systems</span>
+
+<span class="sd">    .. currentmodule:: quanguru.classes.QSystem</span>
+
+<span class="sd">    .. autosummary::</span>
+
+<span class="sd">        QuantumSystem</span>
+
+<span class="sd">    .. |c| unicode:: U+2705</span>
+<span class="sd">    .. |x| unicode:: U+274C</span>
+<span class="sd">    .. |w| unicode:: U+2000</span>
+
+<span class="sd">    =======================    ==================    ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**        **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================    ================   ===============</span>
+<span class="sd">      `QuantumSystem`            |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|</span>
+<span class="sd">    =======================    ==================    ================   ===============</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">spmatrix</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">addDecorator</span><span class="p">,</span> <span class="n">_recurseIfList</span><span class="p">,</span> <span class="n">aliasDict</span>
+<span class="kn">from</span> <span class="nn">.QSimComp</span> <span class="kn">import</span> <span class="n">QSimComp</span>
+<span class="kn">from</span> <span class="nn">.QPro</span> <span class="kn">import</span> <span class="n">freeEvolution</span>
+<span class="kn">from</span> <span class="nn">.QSimBase</span> <span class="kn">import</span> <span class="n">setAttr</span>
+<span class="kn">from</span> <span class="nn">.QTerms</span> <span class="kn">import</span> <span class="n">QTerm</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">checkVal</span><span class="p">,</span> <span class="n">checkNotVal</span><span class="p">,</span> <span class="n">checkCorType</span>
+
+<span class="kn">from</span> <span class="nn">..QuantumToolbox.linearAlgebra</span> <span class="kn">import</span> <span class="n">tensorProd</span> <span class="c1">#pylint: disable=relative-beyond-top-level</span>
+<span class="kn">from</span> <span class="nn">..QuantumToolbox.states</span> <span class="kn">import</span> <span class="n">superPos</span> <span class="c1">#pylint: disable=relative-beyond-top-level</span>
+<span class="kn">from</span> <span class="nn">..QuantumToolbox.operators</span> <span class="kn">import</span> <span class="n">number</span><span class="p">,</span> <span class="n">Jz</span><span class="p">,</span> <span class="n">sigmam</span><span class="p">,</span> <span class="n">sigmap</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">,</span> <span class="n">sigmay</span><span class="p">,</span> <span class="n">sigmaz</span>
+
+<div class="viewcode-block" id="_initStDec"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem._initStDec">[docs]</a><span class="k">def</span> <span class="nf">_initStDec</span><span class="p">(</span><span class="n">_createInitialState</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorater to handle different inputs for initial state creation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># if the given input is a state with consistent shape, simply returns it back</span>
+        <span class="c1"># if the shape is inconsistent raises an error</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="p">(</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">spmatrix</span><span class="p">)):</span>
+            <span class="n">checkVal</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">obj</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="s1">&#39;Dimension mismatch with the initial state input and the dimesion of&#39;</span><span class="o">+</span>
+                                                   <span class="s1">&#39; the system&#39;</span><span class="p">)</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">inp</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># if the input is None, tries using the initialStateInput of the simulation object</span>
+            <span class="c1"># this is introduced as convenience so that we can call the _createInitialState without any argument</span>
+            <span class="c1"># and it will use the input set through the initial state setter</span>
+            <span class="k">if</span> <span class="n">inp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">inp</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">_stateBase__initialStateInput</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">_createInitialState</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">state</span>
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+<div class="viewcode-block" id="QuantumSystem"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem">[docs]</a><span class="k">class</span> <span class="nc">QuantumSystem</span><span class="p">(</span><span class="n">QSimComp</span><span class="p">):</span> <span class="c1"># pylint:disable=too-many-instance-attributes</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for quantum systems, both for single and composite systems, which can also be nested.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#: (**class attribute**) class label used in default naming</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;QuantumSystem&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__terms&#39;</span><span class="p">,</span> <span class="s1">&#39;__dimension&#39;</span><span class="p">,</span> <span class="s1">&#39;__firstTerm&#39;</span><span class="p">,</span> <span class="s1">&#39;__compSys&#39;</span><span class="p">,</span> <span class="s1">&#39;__dimsBefore&#39;</span><span class="p">,</span> <span class="s1">&#39;__dimsAfter&#39;</span><span class="p">,</span> <span class="s1">&#39;_inpCoef&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;__unitary&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="c1">#: First term is also stored in __firstTerm attribute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__firstTerm</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1">#: dictionary of the terms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__terms</span> <span class="o">=</span> <span class="n">aliasDict</span><span class="p">()</span>
+        <span class="c1">#: dimension of Hilbert space of the quantum system</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dimension</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1">#: boolean flag for composite/single systems</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__compSys</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1">#: Total dimension of the other quantum systems **before** ``self`` in a composite system.</span>
+        <span class="c1">#: It is 1, when ``self``` is the first system in the composite system or ``self`` is not in a composite system.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dimsBefore</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1">#: Total dimension of the other quantum systems **after** ``self`` in a composite system.</span>
+        <span class="c1">#: It is 1, when ``self`` is the last system in the composite system.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dimsAfter</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1">#: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)</span>
+        <span class="c1">#: or the populations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inpCoef</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_inpCoef&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="c1">#: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__unitary</span> <span class="o">=</span> <span class="n">freeEvolution</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__unitary</span><span class="o">.</span><span class="n">superSys</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QSimComp__simulation</span><span class="o">.</span><span class="n">addQSystems</span><span class="p">(</span><span class="n">subS</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_freeEvol</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint:disable=no-member</span>
+
+    <span class="c1"># matrices</span>
+<div class="viewcode-block" id="QuantumSystem._constructMatrices"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._constructMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">_constructMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The matrices for operators constructed and de-constructed whenever they should be, and this method is used</span>
+<span class="sd">        internally in various places when the matrices are needed to be constructed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">noSubSys</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">noTerms</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">selfComp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">noSubSys</span> <span class="ow">and</span> <span class="n">noTerms</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">selfComp</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> is given a dimension (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="si">}</span><span class="s1">), but it is not given any term/s.&#39;</span><span class="o">+</span>\
+                               <span class="s1">&#39;If it is intentional, please ignore this&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> is not given any sub-system/s or any term/s.&#39;</span> <span class="o">+</span> \
+                               <span class="s1">&#39;If it is intentional, please ignore this&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">_constructMatrices</span><span class="p">()</span> <span class="c1"># pylint: disable=protected-access</span>
+        <span class="k">for</span> <span class="n">ter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">ter</span><span class="o">.</span><span class="n">_constructMatrices</span><span class="p">()</span> <span class="c1"># pylint: disable=protected-access</span></div>
+
+<div class="viewcode-block" id="QuantumSystem._timeDependency"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._timeDependency">[docs]</a>    <span class="k">def</span> <span class="nf">_timeDependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An internal method used to pass down the current time in evolution to all the ``subSys`` and ``terms``. The term</span>
+<span class="sd">        objects timeDependency functions are used for updating relevant parameters as a function of time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">_currentTime</span>
+        <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">_timeDependency</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">ter</span><span class="o">.</span><span class="n">_timeDependency</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">time</span></div>
+
+<div class="viewcode-block" id="QuantumSystem._createInitialState"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._createInitialState">[docs]</a>    <span class="nd">@_initStDec</span>
+    <span class="k">def</span> <span class="nf">_createInitialState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method that creates a state from the given input, which is handeled by the _initStDec decorator for different</span>
+<span class="sd">        input cases.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">:</span>
+            <span class="n">inp</span> <span class="o">=</span> <span class="p">[</span><span class="n">qsys</span><span class="o">.</span><span class="n">_initialStateInput</span> <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span> <span class="k">if</span> <span class="n">inp</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">inp</span>
+            <span class="n">subSysStates</span> <span class="o">=</span> <span class="p">[</span><span class="n">qsys</span><span class="o">.</span><span class="n">_createInitialState</span><span class="p">(</span><span class="n">inp</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span> <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())]</span>  <span class="c1"># pylint: disable=protected-access</span>
+            <span class="n">initialState</span> <span class="o">=</span> <span class="n">tensorProd</span><span class="p">(</span><span class="o">*</span><span class="n">subSysStates</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">checkNotVal</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; is not given an initial state&#39;</span><span class="p">)</span>
+            <span class="n">initialState</span> <span class="o">=</span> <span class="n">superPos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inpCoef</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">initialState</span></div>
+
+    <span class="nd">@QSimComp</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">setter</span> <span class="c1"># pylint: disable=no-member</span>
+    <span class="k">def</span> <span class="nf">initialState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inp</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the initial state from a given input ``inp``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">checkNotVal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;Type of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> is ambiguous. Single and composite systems&#39;</span><span class="o">+</span>
+                                                   <span class="s1">&#39; handle initial state inputs differently, so you need to set other&#39;</span><span class="o">+</span>
+                                                   <span class="sa">f</span><span class="s1">&#39; relevant parameters to determine the type of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">_stateBase__initialState</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># breaks the bound to the other _parameter</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="p">(</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">spmatrix</span><span class="p">)):</span>
+                <span class="n">checkCorType</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">),</span> <span class="s1">&#39;Composite state initial state input&#39;</span><span class="p">)</span>
+                <span class="n">checkVal</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inp</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="p">),</span><span class="sa">f</span><span class="s1">&#39;Number of inputs (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span><span class="si">}</span><span class="s1">) to initial state should be the&#39;</span><span class="o">+</span>
+                                                   <span class="sa">f</span><span class="s1">&#39; same as number of sub-system (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="p">)</span><span class="si">}</span><span class="s1">) of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                    <span class="n">qsys</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">inp</span> <span class="c1"># pylint: disable=no-member, protected-access</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_subSysHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the sum of sub-system Hamiltonian</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">val</span><span class="o">.</span><span class="n">totalHamiltonian</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">totalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pylint: disable=invalid-overridden-method</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the total Hamiltonian of ``self`` including the coupling terms.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)):</span> <span class="c1"># pylint: disable=no-member</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subSysHamiltonian</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_termHamiltonian</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramUpdated</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="c1"># pylint: disable=no-member, assigning-non-slot</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_termHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the sum of term Hamiltonian</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">val</span><span class="o">.</span><span class="n">totalHamiltonian</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">val</span><span class="o">.</span><span class="n">operator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
+
+    <span class="c1"># dimension methods and properties</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_totalDim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :attr:`QuantumSystem.dimension` returns the dimension of a quantum system itself, meaning it does not contain</span>
+<span class="sd">        dimensions of the other systems if ``self`` is in a composite system, ``_totalDim`` returns the total dimension</span>
+<span class="sd">        by also taking the dimensions before and after ``self`` in a composte system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dimsBefore</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dimsAfter</span><span class="c1">#pylint:disable=E1101</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to get the dimension of any quantum system and also to set the dimension of single quantum systems.</span>
+<span class="sd">        It calculates the dimension of a composite system on every call.</span>
+<span class="sd">        For composite systems, setter raises a warning. For single system, setter also calls _updateDimension on its</span>
+<span class="sd">        `superSys` (if there is one).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">:</span> <span class="c1"># pylint:disable=no-member</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__dimension</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># pylint:disable=assigning-non-slot</span>
+            <span class="k">for</span> <span class="n">su</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__dimension</span> <span class="o">*=</span> <span class="n">su</span><span class="o">.</span><span class="n">dimension</span> <span class="c1"># pylint:disable=assigning-non-slot,no-member</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__dimension</span> <span class="c1"># pylint:disable=no-member</span>
+
+    <span class="nd">@dimension</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint:disable=no-member</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="p">))</span> <span class="c1"># pylint:disable=assigning-non-slot</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">:</span> <span class="c1"># pylint:disable=no-member</span>
+            <span class="n">checkCorType</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;dimension of a QuantumSystem has to be an integer&quot;</span><span class="p">)</span>
+            <span class="n">checkVal</span><span class="p">(</span><span class="n">dim</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;dimension of a QuantumSystem has to be larger than 0&quot;</span><span class="p">)</span>
+            <span class="n">isPauli</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">operator</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sigmam</span><span class="p">,</span> <span class="n">sigmap</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">,</span> <span class="n">sigmay</span><span class="p">,</span> <span class="n">sigmaz</span><span class="p">]</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="n">checkVal</span><span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">isPauli</span> <span class="ow">and</span> <span class="p">(</span><span class="n">dim</span><span class="o">!=</span><span class="mi">2</span><span class="p">)),</span> <span class="kc">True</span><span class="p">,</span>
+                     <span class="sa">f</span><span class="s1">&#39;given dimension for quantum system (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">) is </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s1"> but it has Pauli as term&#39;</span><span class="p">)</span>
+            <span class="n">oldVal</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_QuantumSystem__dimension&#39;</span><span class="p">)</span>
+            <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_QuantumSystem__dimension&#39;</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span><span class="c1"># to change dimsBefore/After of other systems if self in subSys of superSys</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">_updateDimension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">oldVal</span><span class="p">)</span> <span class="c1"># pylint:disable=protected-access</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; is a composite system, cannot set dimension&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">subSysDimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a (nested) list of dimensions of the quantum systems contained in ``self``, if self is composite, else</span>
+<span class="sd">        returns self.dimension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">subSysDimensions</span> <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span>
+
+<div class="viewcode-block" id="QuantumSystem._updateDimension"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._updateDimension">[docs]</a>    <span class="k">def</span> <span class="nf">_updateDimension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">,</span> <span class="n">newDim</span><span class="p">,</span> <span class="n">oldDim</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal method to update dimension before/after information of the sub-systems when the dimension of a</span>
+<span class="sd">        sub-system is updated. It is called in the dimension setter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        subSys :</span>
+<span class="sd">            The sub-system whose dimension is being updated.</span>
+<span class="sd">        newDim : int</span>
+<span class="sd">            The new dimension of the subSys</span>
+<span class="sd">        oldDim : int</span>
+<span class="sd">            The old dimension of the subSys</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span>
+        <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span><span class="c1">#update dimsBefore/After of other sub-system by comparing their ind with subSys</span>
+            <span class="k">if</span> <span class="n">qsys</span><span class="o">.</span><span class="n">ind</span> <span class="o">&lt;</span> <span class="n">subSys</span><span class="o">.</span><span class="n">ind</span><span class="p">:</span>
+                <span class="n">qsys</span><span class="o">.</span><span class="n">_dimsAfter</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">qsys</span><span class="o">.</span><span class="n">_dimsAfter</span><span class="o">*</span><span class="n">newDim</span><span class="p">)</span><span class="o">/</span><span class="n">oldDim</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">qsys</span><span class="o">.</span><span class="n">ind</span> <span class="o">&gt;</span> <span class="n">subSys</span><span class="o">.</span><span class="n">ind</span><span class="p">:</span>
+                <span class="n">qsys</span><span class="o">.</span><span class="n">_dimsBefore</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">qsys</span><span class="o">.</span><span class="n">_dimsBefore</span><span class="o">*</span><span class="n">newDim</span><span class="p">)</span><span class="o">/</span><span class="n">oldDim</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># for nested structures, we still need to call _updateDimension on self.superSys</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">_updateDimension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">,</span> <span class="n">oldDim</span><span class="p">)</span> <span class="c1"># pylint:disable=protected-access</span></div>
+
+    <span class="k">def</span> <span class="nf">__dimsABUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrName</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Common parts of the dimsBefore/After setters are combined in this method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        attrName : str</span>
+<span class="sd">            _dimsBefore/After as a string to be used with setAttr&amp;setattr</span>
+<span class="sd">        val : int</span>
+<span class="sd">            new value of _dimsBefore/After</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">oldVal</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrName</span><span class="p">)</span>
+        <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_QuantumSystem_&#39;</span><span class="o">+</span><span class="n">attrName</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">attrName</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">attrName</span><span class="p">)</span><span class="o">*</span><span class="n">val</span><span class="p">)</span><span class="o">/</span><span class="n">oldVal</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_dimsBefore</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to set and get the :attr:`~QuantumSystem.__dimsBefore`. Getter can be used to get information, but the</span>
+<span class="sd">        setter is intended purely for internal use.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__dimsBefore</span>
+
+    <span class="nd">@_dimsBefore</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">_dimsBefore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__dimsABUpdate</span><span class="p">(</span><span class="s1">&#39;_dimsBefore&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_dimsAfter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to set and get the :attr:`~QuantumSystem.__dimsAfter`. Getter can be used to get information, but the</span>
+<span class="sd">        setter is intended purely for internal use.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__dimsAfter</span>
+
+    <span class="nd">@_dimsAfter</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">_dimsAfter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__dimsABUpdate</span><span class="p">(</span><span class="s1">&#39;_dimsAfter&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_isComposite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Used internally to set _QuantumSystem__compSys boolean, never query this before _QuantumSystem__compSys is set</span>
+<span class="sd">        by some internal call. Otherwise, this will always return False (because subSys dict is always empty initially)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> type (whether it is a single or composite system) is ambiguous&#39;</span><span class="o">+</span>\
+                           <span class="s1">&#39;If it is intentional, please ignore this&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="c1"># pylint:disable=no-member</span>
+
+<div class="viewcode-block" id="QuantumSystem._hasInSubs"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._hasInSubs">[docs]</a>    <span class="k">def</span> <span class="nf">_hasInSubs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns True if the given system is in self.subSys or in any other subSys nested inside the self.subSys</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">other</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">_hasInSubs</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="k">for</span> <span class="n">qs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="c1"># pylint:disable=protected-access</span></div>
+
+    <span class="c1"># sub-system methods and properties</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ind</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If ``self`` is in a composite quantum system, this return an index representing the position of ``self`` in the</span>
+<span class="sd">        composite system, else it returns 0.</span>
+<span class="sd">        Also, the first system in a composite quantum system is at index 0.</span>
+<span class="sd">        This is mainly used for _updateDimension where we compare the position of a sub-system against the others to</span>
+<span class="sd">        determine whether _dimsBefore/After needs to be updated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ind</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ind</span>
+
+    <span class="k">def</span> <span class="nf">__addSub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        internal method used to update relevant information (such as dimension before/after) for the existing and newly</span>
+<span class="sd">        added sub-systems. This is purely for internal use.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">subS</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">subS</span><span class="o">.</span><span class="n">_dimsAfter</span> <span class="o">*=</span> <span class="n">subSys</span><span class="o">.</span><span class="n">dimension</span>
+            <span class="n">subSys</span><span class="o">.</span><span class="n">_dimsBefore</span> <span class="o">*=</span> <span class="n">subS</span><span class="o">.</span><span class="n">dimension</span>
+        <span class="k">return</span> <span class="n">subSys</span>
+
+<div class="viewcode-block" id="QuantumSystem.addSubSys"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.addSubSys">[docs]</a>    <span class="nd">@addDecorator</span>
+    <span class="k">def</span> <span class="nf">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extends the addSubSys method for composite quantum systems to set the __compSys boolean (to True, if None),</span>
+<span class="sd">        update the dimsBefore/After of the sub-systems, set self as superSys of the sub-system, and set _paramUpdated to</span>
+<span class="sd">        True, or it raises a TypeError if __compSys is already set to False.</span>
+<span class="sd">        Also, it places self into the _paramBoundBase__paramBound dictionary of the sub-system, so that parameter</span>
+<span class="sd">        updates of the sub-system also sets the _paramUpdated of self to True.</span>
+<span class="sd">        Note that composite systems can contain other composite systems as sub-systems.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint:disable=no-member</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># pylint:disable=assigning-non-slot</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span> <span class="c1"># pylint:disable=no-member</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot add a sub-system to a single quantum system &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">subSys</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__addSub</span><span class="p">(</span><span class="n">subSys</span><span class="p">)</span>
+        <span class="n">subSys</span><span class="o">.</span><span class="n">superSys</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">subSys</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># pylint: disable=protected-access</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span>
+        <span class="k">return</span> <span class="n">subSys</span></div>
+
+<div class="viewcode-block" id="QuantumSystem.delMatrices"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.delMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">delMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method extends :meth:`delMatrices &lt;QSimComp.delMatrices&gt;` of :class:`QSimComp` to also call</span>
+<span class="sd">        :meth:`delMatrices &lt;paramBoundBase.delMatrices&gt;` on terms.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">_exclude</span> <span class="o">=</span> <span class="n">ter</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_exclude</span></div>
+
+<div class="viewcode-block" id="QuantumSystem.__add__"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.__add__">[docs]</a>    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        overload the + operator to create a composite quantum system between ``self`` and the ``other`` quantum system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">checkCorType</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">QuantumSystem</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{other}</span><span class="s2"> is not an instance of QuantumSystem&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">other</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">other</span> <span class="ow">is</span> <span class="bp">self</span><span class="p">)</span> <span class="k">else</span> <span class="n">other</span><span class="p">)</span>
+            <span class="n">newComp</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">elif</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span><span class="p">):</span>
+            <span class="n">newComp</span> <span class="o">=</span> <span class="n">other</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span><span class="p">:</span>
+            <span class="n">newComp</span> <span class="o">=</span> <span class="n">QuantumSystem</span><span class="p">(</span><span class="n">subSys</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">other</span> <span class="ow">is</span> <span class="bp">self</span><span class="p">)</span> <span class="k">else</span> <span class="n">other</span><span class="p">])</span>
+            <span class="c1"># TODO copy the simulation parameters, and what to do with compute and calculate?</span>
+        <span class="k">elif</span> <span class="p">((</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">)):</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">newComp</span> <span class="o">=</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="n">newComp</span></div>
+
+<div class="viewcode-block" id="QuantumSystem.__sub__"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.__sub__">[docs]</a>    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        overload the ``-`` operator to remove the ``other`` from ``self``, which should be the composite quantum system</span>
+<span class="sd">        containing/connected-to the other.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_removeSubSysExc</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="QuantumSystem._removeSubSysExc"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._removeSubSysExc">[docs]</a>    <span class="nd">@_recurseIfList</span>
+    <span class="k">def</span> <span class="nf">_removeSubSysExc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pylint:disable=dangerous-default-value</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Method to remove a given subSys (which might be a single or composite system) from a composite system, which</span>
+<span class="sd">            might be self or any other composite system in the nested-system structure.</span>
+<span class="sd">            This method traverses through the nested-structure to find the subSys (that will be removed) and uses</span>
+<span class="sd">            _exclude to avoid infinite loops, that, for example, might be created when a system calls _removeSubSysExc</span>
+<span class="sd">            on its superSys which calls _removeSubSysExc on its subSys, by calling _removeSubSysExc on self if self is</span>
+<span class="sd">            not in _exclude.</span>
+<span class="sd">            Since _exclude needs to be empty in each call, this method should not be called directly, removeSubSys is a</span>
+<span class="sd">            wrapper around this and always calls this with an empty _exclude.</span>
+<span class="sd">            Raises an error if removeSubSys is called on a single system.</span>
+<span class="sd">            This method also updates the dimsBefore/After of the remaining sub-systems (and the removed system), deletes</span>
+<span class="sd">            the existing matrices so that they are re-created with the proper dimensions.</span>
+<span class="sd">            When removing a single system, it sets the dimension of the single system to 1, so that all the</span>
+<span class="sd">            dimsBefore/After information are updated by the dimensionUpdate method.</span>
+<span class="sd">            However, we might still need the removed system, so its dimension is stored (in oldDim) and set back again</span>
+<span class="sd">            (into _QuantumSystem__dimension) after its removed.</span>
+<span class="sd">            When removing a composite system, it makes _removeSubSysExc to each sub-system of the removed composite</span>
+<span class="sd">            system, and these nested calls sets the dimensions of all the single systems below the removed composite to</span>
+<span class="sd">            1 so that the dimsBefore/After information are again updated by the dimensionUpdate method.</span>
+<span class="sd">            However, the removed composite system might still be needed, and we might not want these dimensions to be 1</span>
+<span class="sd">            or these single systems to be removed from the removed composite system.</span>
+<span class="sd">            These are avoided by storing&amp;setting the dimensions back to their original values for single systems and</span>
+<span class="sd">            adding the removed sub-systems of removed composite systems back in.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">checkNotVal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is not a composite. removeSubSys cannot be called on single systems&quot;</span><span class="p">)</span>
+        <span class="n">subSys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">subSys</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">subSys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">_exclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">subSys</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">:</span> <span class="c1"># pylint:disable=protected-access</span>
+                <span class="c1"># need to create this for two reasons</span>
+                <span class="c1"># 1. because subSys.subSys changes its size due to _removeSubSysExc calls</span>
+                <span class="c1"># 2. we add these systems back again after removal</span>
+                <span class="n">qsysList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">subSys</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="n">qsysList</span><span class="p">:</span>
+                    <span class="n">subSys</span><span class="o">.</span><span class="n">_removeSubSysExc</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span><span class="c1">#pylint:disable=protected-access</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_removeSubSysExc</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
+                <span class="c1"># add the sub-systems of subSys back again</span>
+                <span class="n">subSys</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">qsysList</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">oldDim</span> <span class="o">=</span> <span class="n">subSys</span><span class="o">.</span><span class="n">dimension</span>
+                <span class="n">subSys</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_removeSubSysExc</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span>
+                <span class="n">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_QuantumSystem__dimension&#39;</span><span class="p">,</span> <span class="n">oldDim</span><span class="p">)</span>
+            <span class="n">subSys</span><span class="o">.</span><span class="n">superSys</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">subSys</span><span class="o">.</span><span class="n">_dimsAfter</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">subSys</span><span class="o">.</span><span class="n">_dimsBefore</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">subSys</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span>
+            <span class="n">_exclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subSys</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
+                <span class="n">_exclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">qsys</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">:</span> <span class="c1">#pylint:disable=protected-access</span>
+                        <span class="n">qsys</span><span class="o">.</span><span class="n">_removeSubSysExc</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span> <span class="c1">#pylint:disable=protected-access</span>
+                        <span class="k">if</span> <span class="n">subSys</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
+                            <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">_removeSubSysExc</span><span class="p">(</span><span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="n">_exclude</span><span class="p">)</span> <span class="c1">#pylint:disable=protected-access</span>
+
+        <span class="k">if</span> <span class="n">subSys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">termObjs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">ter</span> <span class="ow">in</span> <span class="n">termObjs</span><span class="p">:</span>
+                <span class="n">ter</span><span class="o">.</span><span class="n">_removeTermIfQSysInList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">)</span><span class="c1">#pylint:disable=protected-access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+    <span class="c1">#free evolution composition and protocols</span>
+    <span class="c1"># TODO test these with the protocol tests</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_freeEvol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to get the ``default`` internal ``freeEvolution`` proptocol.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__unitary</span>
+
+<div class="viewcode-block" id="QuantumSystem.unitary"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.unitary">[docs]</a>    <span class="k">def</span> <span class="nf">unitary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the unitary evolution operator for ``self``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">unitary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__unitary</span><span class="o">.</span><span class="n">unitary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramUpdated</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
+        <span class="k">return</span> <span class="n">unitary</span></div>
+
+<div class="viewcode-block" id="QuantumSystem.addProtocol"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.addProtocol">[docs]</a>    <span class="k">def</span> <span class="nf">addProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">protocolRemove</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        adds the given ``protocol`` into ``self.simulation`` and uses ``self`` as ``system`` if it is not given.</span>
+<span class="sd">        It also can removed a protocol (``protocolRemove``) at the same time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">system</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">system</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">addProtocol</span><span class="p">(</span><span class="n">protocol</span><span class="o">=</span><span class="n">protocol</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="n">system</span><span class="p">,</span> <span class="n">protocolRemove</span><span class="o">=</span><span class="n">protocolRemove</span><span class="p">)</span></div>
+
+    <span class="c1"># TODO THESE NEEDS TESTS</span>
+
+<div class="viewcode-block" id="QuantumSystem.createTerm"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.createTerm">[docs]</a>    <span class="k">def</span> <span class="nf">createTerm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qSystem</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">superSys</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1">#pylint:disable=too-many-arguments</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to create a new term with the given parameters and also set the given kwargs to the new term.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        operator : Callable or List[Callable]</span>
+<span class="sd">            operator/s of the term</span>
+<span class="sd">        frequency :</span>
+<span class="sd">            frequency of the term, by default None</span>
+<span class="sd">        qSystem : QuantumSystem</span>
+<span class="sd">            quantum system/s for the given operator/s, and it is self if no system is given</span>
+<span class="sd">        order :</span>
+<span class="sd">            order/s of the operator/s, it is set to 1 by default if no order value is given</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        QTerm</span>
+<span class="sd">            Newly created QTerm object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">qSystem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">qSystem</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">qSystem</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="n">checkVal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Cannot add a multi-operator term (ie a coupling) to a single system&quot;</span><span class="p">)</span>
+            <span class="n">qSystem</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">qsys</span><span class="p">)</span> <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="n">qSystem</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="n">qSystem</span><span class="p">:</span>
+                <span class="n">checkVal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hasInSubs</span><span class="p">(</span><span class="n">qsys</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span>
+                         <span class="sa">f</span><span class="s2">&quot;Cannot add a multi-operator term (ie a coupling) to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, because </span><span class="si">{</span><span class="n">qsys</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is not&quot;</span><span class="o">+</span>
+                         <span class="sa">f</span><span class="s2">&quot;contained in the </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">qSystem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">qSystem</span><span class="p">)</span>
+        <span class="n">superSys</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">superSys</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">superSys</span>
+        <span class="n">newTerm</span> <span class="o">=</span> <span class="n">QTerm</span><span class="o">.</span><span class="n">_createTerm</span><span class="p">(</span><span class="n">superSys</span><span class="o">=</span><span class="n">superSys</span><span class="p">,</span> <span class="n">qSystem</span><span class="o">=</span><span class="n">qSystem</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">operator</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span><span class="c1">#pylint:disable=protected-access</span>
+                                    <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">)</span>
+        <span class="n">qObj</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">qSystem</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="k">else</span> <span class="n">qSystem</span>
+        <span class="n">qObj</span><span class="o">.</span><span class="n">addTerms</span><span class="p">(</span><span class="n">newTerm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">newTerm</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">terms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to get &amp; set the terms of the quantum system. Note that the setter is not intended for adding a new</span>
+<span class="sd">        term, but replace the all the existing terms with the given term/s (which can be a single term or a list of</span>
+<span class="sd">        terms, and it also works with names and/or aliases). In order to add an additional term to existing ones, use</span>
+<span class="sd">        ``addTerm`` method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__terms</span> <span class="c1"># pylint:disable=no-member</span>
+
+<div class="viewcode-block" id="QuantumSystem.addTerms"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.addTerms">[docs]</a>    <span class="nd">@addDecorator</span>
+    <span class="k">def</span> <span class="nf">addTerms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trm</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add an existing term to self and also optionally set some of the term parameters through the kwargs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">checkCorType</span><span class="p">(</span><span class="n">trm</span><span class="p">,</span> <span class="n">QTerm</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;addTerms argument/s (</span><span class="si">{</span><span class="n">trm</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">supSys</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;superSys&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">trm</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=W0212</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__firstTerm</span> <span class="o">=</span> <span class="n">trm</span> <span class="c1">#pylint:disable=assigning-non-slot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__terms</span><span class="p">[</span><span class="n">trm</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">trm</span>  <span class="c1"># pylint:disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">trm</span><span class="o">.</span><span class="n">superSys</span> <span class="o">=</span> <span class="n">supSys</span>
+        <span class="n">trm</span><span class="o">.</span><span class="n">_paramBoundBase__paramBound</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># pylint: disable=protected-access, no-member</span></div>
+
+<div class="viewcode-block" id="QuantumSystem._removeTermExc"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._removeTermExc">[docs]</a>    <span class="k">def</span> <span class="nf">_removeTermExc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">termObj</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1">#pylint:disable=dangerous-default-value</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The method to find and remove the term from a quantum system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">termObj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">termObj</span><span class="p">)</span>
+        <span class="n">checkCorType</span><span class="p">(</span><span class="n">termObj</span><span class="p">,</span> <span class="n">QTerm</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Given object </span><span class="si">{</span><span class="n">termObj</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is not a term&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">termObj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">_exclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">termObj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">_exclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">termObj</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
+                <span class="n">_exclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="n">qsys</span><span class="o">.</span><span class="n">_removeTermExc</span><span class="p">(</span><span class="n">termObj</span><span class="p">,</span> <span class="n">_exclude</span><span class="p">)</span> <span class="c1">#pylint:disable=protected-access</span>
+                    <span class="k">if</span> <span class="n">termObj</span> <span class="ow">in</span> <span class="n">_exclude</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">_removeTermExc</span><span class="p">(</span><span class="n">termObj</span><span class="p">,</span> <span class="n">_exclude</span><span class="p">)</span> <span class="c1">#pylint:disable=protected-access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">(</span><span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="QuantumSystem.removeTerm"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.removeTerm">[docs]</a>    <span class="nd">@_recurseIfList</span>
+    <span class="k">def</span> <span class="nf">removeTerm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">termObj</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to remove the given term from the quantum system. This can be called on any system in a composite system</span>
+<span class="sd">        to remove any term, even if it belongs to another sub-system. This is intended so that the term of a subsystem</span>
+<span class="sd">        can be removed through the composite system, especially for nested-composite systems.</span>
+<span class="sd">        You can also give a list of terms (or their named/aliases) to be removed.</span>
+<span class="sd">        This method is a wrapper around the actual remove method the ``_removeTermExc`` so that it is called with an</span>
+<span class="sd">        empty _exclude list, which is used to avoid infinite recursions when finding the term inside a nested system.</span>
+<span class="sd">        Note that it will raise an error, if the given term is the first-term if the system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">termObj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getByNameOrAlias</span><span class="p">(</span><span class="n">termObj</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_removeTermExc</span><span class="p">(</span><span class="n">termObj</span><span class="o">=</span><span class="n">termObj</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[])</span></div>
+
+<div class="viewcode-block" id="QuantumSystem.resetTerms"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.resetTerms">[docs]</a>    <span class="k">def</span> <span class="nf">resetTerms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to delete all the existing terms by assigning a new empty dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__terms</span> <span class="o">=</span> <span class="n">aliasDict</span><span class="p">()</span> <span class="c1"># pylint:disable=assigning-non-slot</span></div>
+
+    <span class="nd">@terms</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">terms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trm</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resetTerms</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addTerms</span><span class="p">(</span><span class="n">trm</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_firstTerm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to get the first term of the quantum system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__firstTerm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addTerms</span><span class="p">(</span><span class="n">QTerm</span><span class="p">(</span><span class="n">qSystem</span><span class="o">=</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__firstTerm</span> <span class="c1"># pylint:disable=no-member</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to get &amp; set the frequency of the first term of the quantum system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">frequency</span>
+
+    <span class="nd">@frequency</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">freq</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">operator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to get &amp; set the operator of the first term of the quantum system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">operator</span>
+
+    <span class="nd">@operator</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">operator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">op</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to get &amp; set the order of the first term of the quantum system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">order</span>
+
+    <span class="nd">@order</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">odr</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">odr</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_freeMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property to get &amp; set the free (i.e. no frequency or, equivalently frequency=1) matrix for the first term.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_freeMatrix</span> <span class="c1"># pylint: disable=protected-access</span>
+
+    <span class="nd">@_freeMatrix</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">_freeMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qMat</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_freeMatrix</span> <span class="o">=</span> <span class="n">qMat</span> <span class="c1"># pylint: disable=protected-access</span>
+
+<div class="viewcode-block" id="QuantumSystem.copy"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">newSys</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">cqsys</span> <span class="o">=</span> <span class="n">qsys</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">cqsys</span><span class="o">.</span><span class="n">alias</span> <span class="o">=</span> <span class="n">qsys</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">cqsys</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">newSys</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">cqsys</span><span class="p">)</span>
+        <span class="n">subSysList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">termsList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="c1">#pylint:disable=no-member</span>
+        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">ter</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ter</span><span class="o">.</span><span class="n">qSystem</span><span class="p">,</span> <span class="n">QuantumSystem</span><span class="p">):</span>
+                <span class="n">qSystemNames</span> <span class="o">=</span> <span class="n">newSys</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">qSystemNames</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">qsys</span> <span class="ow">in</span> <span class="n">ter</span><span class="o">.</span><span class="n">qSystem</span><span class="p">:</span>
+                    <span class="n">qSystemNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qsys</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">subSysList</span><span class="p">[</span><span class="n">qsys</span><span class="o">.</span><span class="n">ind</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">termsList</span><span class="p">):</span>
+                <span class="n">newSys</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">qSystem</span><span class="o">=</span><span class="n">qSystemNames</span><span class="p">,</span> <span class="c1">#pylint:disable=no-member</span>
+                                 <span class="n">operator</span><span class="o">=</span><span class="n">ter</span><span class="o">.</span><span class="n">operator</span><span class="p">,</span>
+                                 <span class="n">frequency</span><span class="o">=</span><span class="n">ter</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span>
+                                 <span class="n">order</span><span class="o">=</span><span class="n">ter</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">termsList</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="n">qSystem</span><span class="o">=</span><span class="n">qSystemNames</span><span class="p">,</span> <span class="c1">#pylint:disable=no-member</span>
+                                                 <span class="n">operator</span><span class="o">=</span><span class="n">ter</span><span class="o">.</span><span class="n">operator</span><span class="p">,</span>
+                                                 <span class="n">frequency</span><span class="o">=</span><span class="n">ter</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span>
+                                                 <span class="n">order</span><span class="o">=</span><span class="n">ter</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">_stateBase__initialStateInput</span><span class="o">.</span><span class="n">_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">newSys</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">_stateBase__initialStateInput</span><span class="o">.</span><span class="n">value</span> <span class="c1">#pylint:disable=assigning-non-slot</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">:</span>
+            <span class="n">newSys</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="c1">#pylint:disable=assigning-non-slot</span>
+            <span class="n">newSys</span><span class="o">.</span><span class="n">_inpCoef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inpCoef</span> <span class="c1"># pylint: disable=protected-access,assigning-non-slot</span>
+        <span class="n">newSys</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1">#pylint:disable=no-member</span>
+        <span class="k">return</span> <span class="n">newSys</span></div>
+
+<div class="viewcode-block" id="QuantumSystem.__rmul__"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.__rmul__">[docs]</a>    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        With this method, ``*`` creates a composite quantum system that contains ``N=other`` many quantum systems with</span>
+<span class="sd">        the same ``type`` as ``self``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">newComp</span> <span class="o">=</span> <span class="n">QuantumSystem</span><span class="p">()</span>
+        <span class="n">newComp</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">other</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">newComp</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">newComp</span></div></div>
+
+<span class="n">QuantumSystem</span><span class="o">.</span><span class="n">_createAstate</span> <span class="o">=</span> <span class="n">QuantumSystem</span><span class="o">.</span><span class="n">_createInitialState</span> <span class="c1"># pylint:disable=protected-access</span>
+
+<div class="viewcode-block" id="Cavity"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.Cavity">[docs]</a><span class="k">class</span> <span class="nc">Cavity</span><span class="p">(</span><span class="n">QuantumSystem</span><span class="p">):</span> <span class="c1"># pylint: disable=too-many-ancestors</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cavity class, the only difference from a generic quantum object is that, by default, its operator is the number</span>
+<span class="sd">    operator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#: (**class attribute**) class label used in default naming</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Cavity&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">_inpCoef</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_inpCoef&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1">#pylint:disable=assigning-non-slot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span></div>
+
+<div class="viewcode-block" id="Spin"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.Spin">[docs]</a><span class="k">class</span> <span class="nc">Spin</span><span class="p">(</span><span class="n">QuantumSystem</span><span class="p">):</span> <span class="c1"># pylint: disable=too-many-ancestors</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Object for a single Spin system with spin j (jValue).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#: (**class attribute**) class label used in default naming</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Spin&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__jValue&#39;</span><span class="p">]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">_inpCoef</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_inpCoef&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1">#pylint:disable=assigning-non-slot</span>
+        <span class="c1">#: operator for (the first term in) its Hamiltonian</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">Jz</span>
+        <span class="c1">#: spin quantum number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__jValue</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">jValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets and sets the spin quantum number</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__dimension</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># pylint: disable=no-member</span>
+
+    <span class="nd">@jValue</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">jValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Spin__jValue</span> <span class="o">=</span> <span class="n">value</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Qubit"><a class="viewcode-back" href="../../../classes/QSystem.html#quanguru.classes.QSystem.Qubit">[docs]</a><span class="k">class</span> <span class="nc">Qubit</span><span class="p">(</span><span class="n">Spin</span><span class="p">):</span> <span class="c1"># pylint: disable=too-many-ancestors</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Spin 1/2 special case of Spin class, i.e. a Qubit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#: (**class attribute**) class label used in default naming</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Qubit&#39;</span>
+    <span class="c1">#: (**class attribute**) number of instances created internally by the library</span>
+    <span class="n">_internalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of instances created explicitly by the user</span>
+    <span class="n">_externalInstances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">_inpCoef</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_inpCoef&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_QuantumSystem__compSys</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1">#pylint:disable=assigning-non-slot</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;dimension&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span>  <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">Jz</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

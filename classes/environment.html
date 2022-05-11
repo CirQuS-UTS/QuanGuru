@@ -320,8 +320,241 @@
               
               <div>
                 
-  <section id="environment-classes-quanguru-classes-environment">
-<h1>environment classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.environment</span></code>)<a class="headerlink" href="#environment-classes-quanguru-classes-environment" title="Permalink to this headline">#</a></h1>
+  <section id="module-quanguru.classes.environment">
+<span id="environment-classes-quanguru-classes-environment"></span><h1>environment classes (<a class="reference internal" href="#module-quanguru.classes.environment" title="quanguru.classes.environment"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.environment</span></code></a>)<a class="headerlink" href="#module-quanguru.classes.environment" title="Permalink to this headline">#</a></h1>
+<p>THESE ARE JUST SOME INITIAL IDEAS. NOT COMPLETED OR USED YET.</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.environment._genericOpen" title="quanguru.classes.environment._genericOpen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_genericOpen</span></code></a>(**kwargs)</p></td>
+<td><p>Parent class for <code class="docutils literal notranslate"><span class="pre">thermalBath</span></code> and <code class="docutils literal notranslate"><span class="pre">dissipator</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.environment.dissipatorObj" title="quanguru.classes.environment.dissipatorObj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dissipatorObj</span></code></a>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.environment.thermalBath" title="quanguru.classes.environment.thermalBath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thermalBath</span></code></a>(**kwargs)</p></td>
+<td><p>Object for a thermal bath that contains several <code class="docutils literal notranslate"><span class="pre">dissipator</span></code>, which is a child class of this.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.environment._genericOpen">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_genericOpen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/environment.html#_genericOpen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.environment._genericOpen" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="baseClasses.html#quanguru.classes.baseClasses.paramBoundBase" title="quanguru.classes.baseClasses.paramBoundBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.paramBoundBase</span></code></a></p>
+<p>Parent class for <code class="docutils literal notranslate"><span class="pre">thermalBath</span></code> and <code class="docutils literal notranslate"><span class="pre">dissipator</span></code>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment._genericOpen.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'_genericOpen'</span></em><a class="headerlink" href="#quanguru.classes.environment._genericOpen.label" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment._genericOpen._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment._genericOpen._internalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment._genericOpen._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment._genericOpen._externalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment._genericOpen._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment._genericOpen._instances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment._genericOpen.system">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">system</span></span><a class="headerlink" href="#quanguru.classes.environment._genericOpen.system" title="Permalink to this definition">#</a></dt>
+<dd><p>Get and set the system to which the bath is attached.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment._genericOpen.superSys">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">superSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.environment._genericOpen.superSys" title="Permalink to this definition">#</a></dt>
+<dd><p>superSys property get/sets __superSys protected attribute</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dissipatorObj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/environment.html#dissipatorObj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.environment._genericOpen" title="quanguru.classes.environment._genericOpen"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.environment._genericOpen</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dissipator'</span></em><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.label" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj._internalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj._externalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj._instances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.type" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.__operator">
+<span class="sig-name descname"><span class="pre">__operator</span></span><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.__operator" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.__rate">
+<span class="sig-name descname"><span class="pre">__rate</span></span><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.__rate" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.__bath">
+<span class="sig-name descname"><span class="pre">__bath</span></span><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.__bath" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.temperature">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">temperature</span></span><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.temperature" title="Permalink to this definition">#</a></dt>
+<dd><p>Gets and sets the temperature of the bath.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.superSys">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">superSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.superSys" title="Permalink to this definition">#</a></dt>
+<dd><p>superSys property get/sets __superSys protected attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.addToProtocol">
+<span class="sig-name descname"><span class="pre">addToProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/environment.html#dissipatorObj.addToProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.addToProtocol" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.jRate">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jRate</span></span><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.jRate" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.jOperMatrix">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jOperMatrix</span></span><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.jOperMatrix" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.dissipatorObj.jOper">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jOper</span></span><a class="headerlink" href="#quanguru.classes.environment.dissipatorObj.jOper" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">thermalBath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/environment.html#thermalBath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.environment.thermalBath" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.environment._genericOpen" title="quanguru.classes.environment._genericOpen"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.environment._genericOpen</span></code></a></p>
+<p>Object for a thermal bath that contains several <code class="docutils literal notranslate"><span class="pre">dissipator</span></code>, which is a child class of this.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'environment'</span></em><a class="headerlink" href="#quanguru.classes.environment.thermalBath.label" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.thermalBath._internalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.thermalBath._externalInstances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.environment.thermalBath._instances" title="Permalink to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.__temperature">
+<span class="sig-name descname"><span class="pre">__temperature</span></span><a class="headerlink" href="#quanguru.classes.environment.thermalBath.__temperature" title="Permalink to this definition">#</a></dt>
+<dd><p>temperature of the bath</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.__charFreq">
+<span class="sig-name descname"><span class="pre">__charFreq</span></span><a class="headerlink" href="#quanguru.classes.environment.thermalBath.__charFreq" title="Permalink to this definition">#</a></dt>
+<dd><p>characteristics frequency of the bath</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.__nbar">
+<span class="sig-name descname"><span class="pre">__nbar</span></span><a class="headerlink" href="#quanguru.classes.environment.thermalBath.__nbar" title="Permalink to this definition">#</a></dt>
+<dd><p>nbar corresponding to the above temperature and frequency</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.jOpers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jOpers</span></span><a class="headerlink" href="#quanguru.classes.environment.thermalBath.jOpers" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.subSys">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><a class="headerlink" href="#quanguru.classes.environment.thermalBath.subSys" title="Permalink to this definition">#</a></dt>
+<dd><p>subSys property gets the subSystem dictionary.</p>
+<p>Setter resets the existing dictionary and adds the given object/s to <code class="docutils literal notranslate"><span class="pre">__subSys</span></code> dictionary.
+It calls the <code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code>,
+so it can used to add a single object, <cite>list/tuple</cite> of objects, by giving the name of the
+system, or giving class name to add a new instance of that class. Be aware that the setter resets the existing.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.dissipator">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dissipator</span></span><a class="headerlink" href="#quanguru.classes.environment.thermalBath.dissipator" title="Permalink to this definition">#</a></dt>
+<dd><p>Get and set the dissipator objects that contain the jump operator from which the dissipator term is going to be
+created.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.temperature">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">temperature</span></span><a class="headerlink" href="#quanguru.classes.environment.thermalBath.temperature" title="Permalink to this definition">#</a></dt>
+<dd><p>Gets and sets the temperature of the bath.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.charFreq">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">charFreq</span></span><a class="headerlink" href="#quanguru.classes.environment.thermalBath.charFreq" title="Permalink to this definition">#</a></dt>
+<dd><p>Gets and sets the characteristics frequency of the bath.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.environment.thermalBath.nBar">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nBar</span></span><a class="headerlink" href="#quanguru.classes.environment.thermalBath.nBar" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns the nBar of the thermal bath, and re-calculates the <code class="docutils literal notranslate"><span class="pre">nBar</span></code> if the <code class="docutils literal notranslate"><span class="pre">temperature</span></code> or <code class="docutils literal notranslate"><span class="pre">charFreq</span></code> are
+changed.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

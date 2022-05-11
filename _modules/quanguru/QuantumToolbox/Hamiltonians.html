@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quanguru.QuantumToolbox.Hamiltonians &#8212; QuanGuru 1 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../index.html">
+<p class="title">QuanGuru</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+  Classes Tutorials
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
+  QuantumToolbox
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../classes.html">
+  Classes (Objects for OOP, module to be renamed later)
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+  QuantumToolbox Tutorials
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for quanguru.QuantumToolbox.Hamiltonians</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contains functions to create some standard Hamiltonians.</span>
+
+<span class="sd">    .. currentmodule:: quanguru.QuantumToolbox.Hamiltonians</span>
+
+<span class="sd">    Functions</span>
+<span class="sd">    ---------</span>
+
+<span class="sd">    .. autosummary::</span>
+
+<span class="sd">        qubCavFreeHam</span>
+<span class="sd">        RabiHam</span>
+<span class="sd">        JCHam</span>
+<span class="sd">        aJCHam</span>
+<span class="sd">        UJC</span>
+
+<span class="sd">    .. |c| unicode:: U+2705</span>
+<span class="sd">    .. |x| unicode:: U+274C</span>
+<span class="sd">    .. |w| unicode:: U+2000</span>
+
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+<span class="sd">       `qubCavFreeHam`           |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `RabiHam`                 |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `JCHam`                   |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `aJCHam`                  |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|</span>
+<span class="sd">       `UJC`                     |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|</span>
+<span class="sd">    =======================    ==================   ==============   ================   ===============</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">#from quanguru.QuantumToolbox.operators import number, identity, sigmaz, create, destroy, sigmax, sigmam, sigmap</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span> <span class="c1"># type: ignore</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># type: ignore</span>
+
+<span class="kn">from</span> <span class="nn">.operators</span> <span class="kn">import</span> <span class="n">number</span><span class="p">,</span> <span class="n">identity</span><span class="p">,</span> <span class="n">sigmaz</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">destroy</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">,</span> <span class="n">sigmam</span><span class="p">,</span> <span class="n">sigmap</span>
+<span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span>
+
+
+<span class="c1"># do not delete these</span>
+<span class="c1"># from typing import Tuple, TypeVar</span>
+<span class="c1"># from numpy import ndarray</span>
+<span class="c1"># from scipy.sparse import spmatrix</span>
+
+<span class="c1"># These type aliases are used in type hinting of below methods</span>
+<span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
+
+
+<span class="c1"># TODO currently, there is no option for sparse or not</span>
+<div class="viewcode-block" id="qubCavFreeHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam">[docs]</a><span class="k">def</span> <span class="nf">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Matrix</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">]:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates Qubit + Cavity Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}`</span>
+<span class="sd">    for</span>
+<span class="sd">    given frequencies and truncated cavity dimension.</span>
+
+<span class="sd">    Hilbert space ordering is :math:`Qubit\otimes Cavity`, i.e. qubit first.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    qubFreq : float</span>
+<span class="sd">        qubit frequency</span>
+<span class="sd">    cavFreq : float</span>
+<span class="sd">        cavity frequency</span>
+<span class="sd">    cavDim : int</span>
+<span class="sd">        (truncated) dimension for cavity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        Qubit + Cavity Hamiltonian for given frequencies and truncated cavity dimension.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cavHam</span> <span class="o">=</span> <span class="n">cavFreq</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">number</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span>
+    <span class="n">qubHam</span> <span class="o">=</span> <span class="n">qubFreq</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="n">identity</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span></div>
+
+<div class="viewcode-block" id="RabiHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.RabiHam">[docs]</a><span class="k">def</span> <span class="nf">RabiHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates Rabi Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
+<span class="sd">    + g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})` for given frequencies, coupling strength, and truncated cavity</span>
+<span class="sd">    dimension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cavFreq : float</span>
+<span class="sd">        cavity frequency</span>
+<span class="sd">    qubFreq : float</span>
+<span class="sd">        qubit frequency</span>
+<span class="sd">    g : float</span>
+<span class="sd">        coupling strength</span>
+<span class="sd">    cavDim : int</span>
+<span class="sd">        (truncated) dimension for cavity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        Rabi Hamiltonian for given frequencies</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO Create some examples both in here and the demo script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span> <span class="o">=</span> <span class="n">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">)</span>
+    <span class="n">couplingRabi</span> <span class="o">=</span> <span class="n">g</span><span class="o">*</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmax</span><span class="p">(),</span> <span class="n">create</span><span class="p">(</span><span class="n">cavDim</span><span class="p">)</span> <span class="o">+</span> <span class="n">destroy</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">))</span>
+
+    <span class="n">rabiHam</span> <span class="o">=</span> <span class="n">cavHam</span> <span class="o">+</span> <span class="n">qubHam</span> <span class="o">+</span> <span class="n">couplingRabi</span>
+    <span class="k">return</span> <span class="n">rabiHam</span></div>
+
+<div class="viewcode-block" id="JCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.JCHam">[docs]</a><span class="k">def</span> <span class="nf">JCHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates Jaynes-Cummings Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
+<span class="sd">    + g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})` for given frequencies, coupling strength, and</span>
+<span class="sd">    truncated</span>
+<span class="sd">    cavity dimension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cavFreq : float</span>
+<span class="sd">        cavity frequency</span>
+<span class="sd">    qubFreq : float</span>
+<span class="sd">        qubit frequency</span>
+<span class="sd">    g : float</span>
+<span class="sd">        coupling strength</span>
+<span class="sd">    cavDim : int</span>
+<span class="sd">        (truncated) dimension for cavity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        Jaynes-Cummings Hamiltonian for given frequencies</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO Create some examples both in here and the demo script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span> <span class="o">=</span> <span class="n">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">)</span>
+    <span class="n">couplingJC</span> <span class="o">=</span> <span class="n">g</span><span class="o">*</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmam</span><span class="p">(),</span> <span class="n">create</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmap</span><span class="p">(),</span> <span class="n">destroy</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">))</span>
+    <span class="n">JCHamil</span> <span class="o">=</span> <span class="n">cavHam</span> <span class="o">+</span> <span class="n">qubHam</span> <span class="o">+</span> <span class="n">couplingJC</span>
+    <span class="k">return</span> <span class="n">JCHamil</span></div>
+
+<div class="viewcode-block" id="aJCHam"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.aJCHam">[docs]</a><span class="k">def</span> <span class="nf">aJCHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates anti-Jaynes-Cummings Hamiltonian :math:`\frac{\omega_{q}}{2}\hat{\sigma}_{z} +</span>
+<span class="sd">    \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
+<span class="sd">    + g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})` for given frequencies, coupling strength, and</span>
+<span class="sd">    truncated</span>
+<span class="sd">    cavity dimension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cavFreq : float</span>
+<span class="sd">        cavity frequency</span>
+<span class="sd">    qubFreq : float</span>
+<span class="sd">        qubit frequency</span>
+<span class="sd">    g : float</span>
+<span class="sd">        coupling strength</span>
+<span class="sd">    cavDim : int</span>
+<span class="sd">        (truncated) dimension for cavity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Matrix</span>
+<span class="sd">        anti-Jaynes-Cummings Hamiltonian for given frequencies</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO Create some examples both in here and the demo script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cavHam</span><span class="p">,</span> <span class="n">qubHam</span> <span class="o">=</span> <span class="n">qubCavFreeHam</span><span class="p">(</span><span class="n">qubFreq</span><span class="p">,</span> <span class="n">cavFreq</span><span class="p">,</span> <span class="n">cavDim</span><span class="p">)</span>
+    <span class="n">couplingAJC</span> <span class="o">=</span> <span class="n">g</span><span class="o">*</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmap</span><span class="p">(),</span> <span class="n">create</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">sigmam</span><span class="p">(),</span> <span class="n">destroy</span><span class="p">(</span><span class="n">cavDim</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">))</span>
+    <span class="n">AJCHamil</span> <span class="o">=</span> <span class="n">cavHam</span> <span class="o">+</span> <span class="n">qubHam</span> <span class="o">+</span> <span class="n">couplingAJC</span>
+    <span class="k">return</span> <span class="n">AJCHamil</span></div>
+
+<div class="viewcode-block" id="UJC"><a class="viewcode-back" href="../../../QuantumToolbox/Hamiltonians.html#quanguru.QuantumToolbox.Hamiltonians.UJC">[docs]</a><span class="k">def</span> <span class="nf">UJC</span><span class="p">(</span><span class="n">wq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">wc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dimC</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="c1">#pylint:disable=too-many-arguments</span>
+    <span class="sd">&quot;&quot;&quot; Analytical implementation of the time independante Jaynes-Cummings Unitary evolution</span>
+<span class="sd">        see Stenholm 1973 (https://doi.org/10.1016/0370-1573(73)90011-2)</span>
+<span class="sd">        #TODO: explain the basis</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        wq (float):</span>
+<span class="sd">            qubit frequency</span>
+<span class="sd">        wc (float):</span>
+<span class="sd">            cavity frequency</span>
+<span class="sd">        g (float):</span>
+<span class="sd">            coupling strength</span>
+<span class="sd">        t (float):</span>
+<span class="sd">            evolution time</span>
+<span class="sd">        dimC (int):</span>
+<span class="sd">            cavity dimention</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Matrix:</span>
+<span class="sd">            Unitary matrix describing free evolution of the Jaynes-Cummings model</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # TODO Create some examples both in here and the demo script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">D</span> <span class="o">=</span> <span class="n">wq</span><span class="o">-</span><span class="n">wc</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dimC</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">dimC</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">dimC</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+
+    <span class="n">U</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+    <span class="n">U</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">]</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">wc</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+    <span class="n">U</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">wc</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">g</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">wc</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">g</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">g</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">D</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">wc</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">wc</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">wc</span><span class="o">*</span><span class="p">(</span><span class="n">dimC</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">(</span><span class="n">U</span><span class="p">)</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">U</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2020, Cahit Kargi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
