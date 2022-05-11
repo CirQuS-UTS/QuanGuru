@@ -3,16 +3,13 @@ branches:
   - label:
       - bug
       - enhancement
-      - good first issue
       - maintenance
       - todo
-      - undefined behaviour
     name: development
     prefix: dev-
     prTarget: development
   - label:
       - documentation
-      - help wanted
     name: documentation
     prefix: doc-
     prTarget: documentation
