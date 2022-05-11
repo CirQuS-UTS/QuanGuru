@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Basic Single and Two Qubit Gates (quanguru.QuantumToolbox.basicGates) &#8212; QuanGuru 1 documentation</title>
     
-    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -246,62 +244,9 @@
               
               <div>
                 
-  <div class="section" id="module-quanguru.QuantumToolbox.basicGates">
-<span id="basic-single-and-two-qubit-gates-quanguru-quantumtoolbox-basicgates"></span><h1>Basic Single and Two Qubit Gates (<a class="reference internal" href="#module-quanguru.QuantumToolbox.basicGates" title="quanguru.QuantumToolbox.basicGates"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.basicGates</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.basicGates" title="Permalink to this headline">¶</a></h1>
-<p>Contains some basic single and two qubit gates.</p>
-<table class="table">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 21%" />
-<col style="width: 16%" />
-<col style="width: 19%" />
-<col style="width: 17%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Function Name</strong></p></th>
-<th class="head"><p><strong>Docstrings</strong></p></th>
-<th class="head"><p><strong>Examples</strong></p></th>
-<th class="head"><p><strong>Unit Tests</strong></p></th>
-<th class="head"><p><strong>Tutorials</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><cite>CNOT</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>CPHASE</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>Hadamard</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.basicGates.CNOT">
-<span class="sig-name descname"><span class="pre">CNOT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/basicGates.html#CNOT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.basicGates.CNOT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.basicGates.CPHASE">
-<span class="sig-name descname"><span class="pre">CPHASE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/basicGates.html#CPHASE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.basicGates.CPHASE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.basicGates.Hadamard">
-<span class="sig-name descname"><span class="pre">Hadamard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/basicGates.html#Hadamard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.basicGates.Hadamard" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
+  <section id="basic-single-and-two-qubit-gates-quanguru-quantumtoolbox-basicgates">
+<h1>Basic Single and Two Qubit Gates (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.basicGates</span></code>)<a class="headerlink" href="#basic-single-and-two-qubit-gates-quanguru-quantumtoolbox-basicgates" title="Permalink to this headline">#</a></h1>
+</section>
 
 
               </div>
@@ -331,8 +276,9 @@
       </div>
     </div>
   
-    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -343,7 +289,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     

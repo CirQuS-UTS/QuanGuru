@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>9 - Simulation with a compute function &#8212; QuanGuru 1 documentation</title>
     
-    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
     
-    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -539,8 +537,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="9---Simulation-with-a-compute-function">
-<h1>9 - Simulation with a compute function<a class="headerlink" href="#9---Simulation-with-a-compute-function" title="Permalink to this headline">¶</a></h1>
+<section id="9---Simulation-with-a-compute-function">
+<h1>9 - Simulation with a compute function<a class="headerlink" href="#9---Simulation-with-a-compute-function" title="Permalink to this headline">#</a></h1>
 <p>In previous tutorials, we covered the simulation of a single qubit, where we received a list of states from the <code class="docutils literal notranslate"><span class="pre">runSimulation</span></code> method, and used those states to compute some expectation values. In this tutorial, we will show an alternative that computes whatever we want during the evolution. The advantage in this approach is that we don’t have to keep a list of state vectors, which in general takes a lot memory. We, instead, only store some scaler quantities we are interested in.</p>
 <p>Again, here, we will evolve a qubit under the unitary dynamics of its Hamiltonian <img class="math" src="../../../_images/math/abecf9f963036c684e234624fc43ec92ba27d44f.png" alt="H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}"/> with the initial state set to the equal superposition of <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> and <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>).</p>
 <div class="nbinput nblast docutils container">
@@ -630,7 +628,7 @@ Text(0.5, 0, &#39;Time&#39;)
 </pre></div>
 </div>
 </div>
-</div>
+</section>
 
 
               </div>
@@ -660,8 +658,9 @@ Text(0.5, 0, &#39;Time&#39;)
       </div>
     </div>
   
-    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -672,7 +671,7 @@ Text(0.5, 0, &#39;Time&#39;)
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     

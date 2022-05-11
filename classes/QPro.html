@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>QProtocol classes (quanguru.classes.QPro) &#8212; QuanGuru 1 documentation</title>
     
-    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -322,609 +320,9 @@
               
               <div>
                 
-  <div class="section" id="module-quanguru.classes.QPro">
-<span id="qprotocol-classes-quanguru-classes-qpro"></span><h1>QProtocol classes (<a class="reference internal" href="#module-quanguru.classes.QPro" title="quanguru.classes.QPro"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QPro</span></code></a>)<a class="headerlink" href="#module-quanguru.classes.QPro" title="Permalink to this headline">¶</a></h1>
-<p>Contains the classes for protocols.</p>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genericProtocol</span></code></a>(**kwargs)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QPro.qProtocol" title="quanguru.classes.QPro.qProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qProtocol</span></code></a>(**kwargs)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QPro.copyStep" title="quanguru.classes.QPro.copyStep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copyStep</span></code></a>(superSys, **kwargs)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QPro.freeEvolution" title="quanguru.classes.QPro.freeEvolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">freeEvolution</span></code></a>(**kwargs)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QPro.Gate" title="quanguru.classes.QPro.Gate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Gate</span></code></a>(**kwargs)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.classes.QPro.Update" title="quanguru.classes.QPro.Update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Update</span></code></a>(**kwargs)</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 25%" />
-<col style="width: 22%" />
-<col style="width: 21%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Function Name</strong></p></th>
-<th class="head"><p><strong>Docstrings</strong></p></th>
-<th class="head"><p><strong>Unit Tests</strong></p></th>
-<th class="head"><p><strong>Tutorials</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><cite>genericProtocol</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>qProtocol</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>copyStep</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>freeEvolution</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>Gate</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>Update</cite></p></td>
-<td><p>      ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">genericProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="QSimComp.html#quanguru.classes.QSimComp.QSimComp" title="quanguru.classes.QSimComp.QSimComp"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSimComp.QSimComp</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genericProtocol'</span></em><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.numberOfExponentiations">
-<span class="sig-name descname"><span class="pre">numberOfExponentiations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.numberOfExponentiations" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) to store number of exponentiations, incremented by _increaseExponentiationCount method</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._increaseExponentiationCount">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_increaseExponentiationCount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol._increaseExponentiationCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._increaseExponentiationCount" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a classmethod (used internally) to increment the <cite>numberOfExponentiations</cite> count.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__currentState">
-<span class="sig-name descname"><span class="pre">__currentState</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__currentState" title="Permalink to this definition">¶</a></dt>
-<dd><p>during time evolution, the current state of the protocol at the current time is stored in this attribute
-it is an instance of <cite>_parameter</cite> so that the nested-protocols can refer to the same state that is store
-by the outer-most protocol.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__identity">
-<span class="sig-name descname"><span class="pre">__identity</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__identity" title="Permalink to this definition">¶</a></dt>
-<dd><p>stores an identity matrix with the total dimension of the system of the protocol.
-this is used internally and introduces slight performance enhancement.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__inProtocol">
-<span class="sig-name descname"><span class="pre">__inProtocol</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__inProtocol" title="Permalink to this definition">¶</a></dt>
-<dd><p>some steps might be used more than once in the same protocol or in different protocol/s. with this boolean,
-it is determined if self is already a step in a protocol, so that a <cite>copyStep</cite> (of self) is used when self is
-used again as a step in the same protocol or in different protocol/s.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__fixed">
-<span class="sig-name descname"><span class="pre">__fixed</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__fixed" title="Permalink to this definition">¶</a></dt>
-<dd><p>when parameters of a step are going to be fixed during the whole simulation (including parameter sweeps),
-we can label it as fixed to optimize number of exponentiations.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__ratio">
-<span class="sig-name descname"><span class="pre">__ratio</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__ratio" title="Permalink to this definition">¶</a></dt>
-<dd><p>ratio of the stepSize of self to the stepSize of simulation. Used for higher order Trotterisations, so that
-there is only one step size to be swept and the relative step sizes are determined by this ratio, which
-might also be negative as required by higher (than 2) Trotterisation orders.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__updates">
-<span class="sig-name descname"><span class="pre">__updates</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__updates" title="Permalink to this definition">¶</a></dt>
-<dd><p>stores a list of updates for this protocol/step.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._getUnitary">
-<span class="sig-name descname"><span class="pre">_getUnitary</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._getUnitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.sampleStates">
-<span class="sig-name descname"><span class="pre">sampleStates</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.sampleStates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.stepSample">
-<span class="sig-name descname"><span class="pre">stepSample</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.stepSample" title="Permalink to this definition">¶</a></dt>
-<dd><p>boolean to determine if a single state or a list of states is samples (related to sampleStates)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.timeDependency">
-<span class="sig-name descname"><span class="pre">timeDependency</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.timeDependency" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.__dissipator">
-<span class="sig-name descname"><span class="pre">__dissipator</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.__dissipator" title="Permalink to this definition">¶</a></dt>
-<dd><p>a dictionary to store the dissipator objects used in open-system simulations</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._openSys">
-<span class="sig-name descname"><span class="pre">_openSys</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._openSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>boolean to determine if it is an open-system simulation.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.dimension">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dimension</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.dimension" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._dissipator">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_dissipator</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._dissipator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._isOpen">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_isOpen</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._isOpen" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.currentState">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">currentState</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.currentState" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.initialState">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialState</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.initialState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getter for the simulation initial state, equivalent to <code class="docutils literal notranslate"><span class="pre">self.simulation.initialState</span></code>.
-This works by assuming that its setter/s makes sure that _stateBase__initialState.value is not None
-for single systems (if its state is set).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.createUpdate">
-<span class="sig-name descname"><span class="pre">createUpdate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol.createUpdate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.createUpdate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.addUpdate">
-<span class="sig-name descname"><span class="pre">addUpdate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol.addUpdate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.addUpdate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.updates">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">updates</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.updates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.ratio">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ratio</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.ratio" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.system">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">system</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.system" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.prepare">
-<span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collapseOps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decayRates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol.prepare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.prepare" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.fixed">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed</span></span><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.fixed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.superSys">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">superSys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.superSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>superSys property get/sets __superSys protected attribute</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.unitary">
-<span class="sig-name descname"><span class="pre">unitary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol.unitary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.unitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol.getUnitary">
-<span class="sig-name descname"><span class="pre">getUnitary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collapseOps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decayRates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol.getUnitary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol.getUnitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._paramUpdatedToFalse">
-<span class="sig-name descname"><span class="pre">_paramUpdatedToFalse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol._paramUpdatedToFalse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._paramUpdatedToFalse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._defGetUnitary">
-<span class="sig-name descname"><span class="pre">_defGetUnitary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collapseOps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decayRates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol._defGetUnitary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._defGetUnitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.genericProtocol._identity">
-<span class="sig-name descname"><span class="pre">_identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">openSys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#genericProtocol._identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.genericProtocol._identity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#qProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.qProtocol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QPro.genericProtocol</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'qProtocol'</span></em><a class="headerlink" href="#quanguru.classes.QPro.qProtocol.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.qProtocol._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.qProtocol._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.qProtocol._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol._paramUpdatedToFalse">
-<span class="sig-name descname"><span class="pre">_paramUpdatedToFalse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#qProtocol._paramUpdatedToFalse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.qProtocol._paramUpdatedToFalse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol._paramUpdated">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_paramUpdated</span></span><a class="headerlink" href="#quanguru.classes.QPro.qProtocol._paramUpdated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets <code class="docutils literal notranslate"><span class="pre">_paramBoundBase__paramUpdated</span></code> boolean, and sets it for <code class="docutils literal notranslate"><span class="pre">self</span></code> and all the other objects in
-<code class="docutils literal notranslate"><span class="pre">__paramBound</span></code> dictionary.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol.steps">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">steps</span></span><a class="headerlink" href="#quanguru.classes.QPro.qProtocol.steps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol.addSubSys">
-<span class="sig-name descname"><span class="pre">addSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#qProtocol.addSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.qProtocol.addSubSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
-an instance and adds), and list/tuple containing any combination of these.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol.addStep">
-<span class="sig-name descname"><span class="pre">addStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#qProtocol.addStep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.qProtocol.addStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy step ensures the exponentiation</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol._puValues">
-<span class="sig-name descname"><span class="pre">_puValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#qProtocol._puValues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.qProtocol._puValues" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol._defCreateUnitary">
-<span class="sig-name descname"><span class="pre">_defCreateUnitary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collapseOps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decayRates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#qProtocol._defCreateUnitary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.qProtocol._defCreateUnitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.qProtocol._createUnitary">
-<span class="sig-name descname"><span class="pre">_createUnitary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collapseOps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decayRates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QPro.qProtocol._createUnitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">copyStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">superSys</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#copyStep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.copyStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#quanguru.classes.base.qBase" title="quanguru.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.base.qBase</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'copyStep'</span></em><a class="headerlink" href="#quanguru.classes.QPro.copyStep.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.copyStep._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.copyStep._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.copyStep._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep._paramUpdatedToFalse">
-<span class="sig-name descname"><span class="pre">_paramUpdatedToFalse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#copyStep._paramUpdatedToFalse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.copyStep._paramUpdatedToFalse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep.simulation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simulation</span></span><a class="headerlink" href="#quanguru.classes.QPro.copyStep.simulation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep._paramUpdated">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_paramUpdated</span></span><a class="headerlink" href="#quanguru.classes.QPro.copyStep._paramUpdated" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep.getUnitary">
-<span class="sig-name descname"><span class="pre">getUnitary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collapseOps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decayRates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#copyStep.getUnitary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.copyStep.getUnitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep.unitary">
-<span class="sig-name descname"><span class="pre">unitary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#copyStep.unitary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.copyStep.unitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.copyStep._isOpen">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_isOpen</span></span><a class="headerlink" href="#quanguru.classes.QPro.copyStep._isOpen" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.freeEvolution">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">freeEvolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#freeEvolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.freeEvolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QPro.genericProtocol</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.freeEvolution.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'freeEvolution'</span></em><a class="headerlink" href="#quanguru.classes.QPro.freeEvolution.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.freeEvolution._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.freeEvolution._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.freeEvolution._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.freeEvolution._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.freeEvolution._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.freeEvolution._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.freeEvolution._freqCoef">
-<span class="sig-name descname"><span class="pre">_freqCoef</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#quanguru.classes.QPro.freeEvolution._freqCoef" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.freeEvolution.matrixExponentiation">
-<span class="sig-name descname"><span class="pre">matrixExponentiation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collapseOps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decayRates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#freeEvolution.matrixExponentiation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.freeEvolution.matrixExponentiation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.freeEvolution._createUnitary">
-<span class="sig-name descname"><span class="pre">_createUnitary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collapseOps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decayRates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QPro.freeEvolution._createUnitary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#Gate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.Gate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QPro.genericProtocol</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Gate'</span></em><a class="headerlink" href="#quanguru.classes.QPro.Gate.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.Gate._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.Gate._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.Gate._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate.__implementation">
-<span class="sig-name descname"><span class="pre">__implementation</span></span><a class="headerlink" href="#quanguru.classes.QPro.Gate.__implementation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate.addSubSys">
-<span class="sig-name descname"><span class="pre">addSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#Gate.addSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.Gate.addSubSys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds sub-system/s into subSys dictionary and works with instances, their name/alias, class themselves (creates
-an instance and adds), and list/tuple containing any combination of these.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate.system">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">system</span></span><a class="headerlink" href="#quanguru.classes.QPro.Gate.system" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate.addSys">
-<span class="sig-name descname"><span class="pre">addSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#Gate.addSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.Gate.addSys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Gate.implementation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">implementation</span></span><a class="headerlink" href="#quanguru.classes.QPro.Gate.implementation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#Update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.Update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="baseClasses.html#quanguru.classes.baseClasses.updateBase" title="quanguru.classes.baseClasses.updateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.baseClasses.updateBase</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Update'</span></em><a class="headerlink" href="#quanguru.classes.QPro.Update.label" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.Update._internalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.Update._externalInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QPro.Update._instances" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update.value">
-<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#quanguru.classes.QPro.Update.value" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update.setup">
-<span class="sig-name descname"><span class="pre">setup</span></span><a class="headerlink" href="#quanguru.classes.QPro.Update.setup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update.setback">
-<span class="sig-name descname"><span class="pre">setback</span></span><a class="headerlink" href="#quanguru.classes.QPro.Update.setback" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update.__memoryValue">
-<span class="sig-name descname"><span class="pre">__memoryValue</span></span><a class="headerlink" href="#quanguru.classes.QPro.Update.__memoryValue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update.memoryValue">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">memoryValue</span></span><a class="headerlink" href="#quanguru.classes.QPro.Update.memoryValue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update.updateFunction">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">updateFunction</span></span><a class="headerlink" href="#quanguru.classes.QPro.Update.updateFunction" title="Permalink to this definition">¶</a></dt>
-<dd><p>The updateFunction property:</p>
-<ul class="simple">
-<li><p><strong>getter</strong> : <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_updateBase__function</span></code> which is used in custom sweeps</p></li>
-<li><p><strong>setter</strong> : sets <code class="docutils literal notranslate"><span class="pre">_updateBase__function</span></code> callable</p></li>
-<li><p><strong>type</strong> : <code class="docutils literal notranslate"><span class="pre">callable</span></code></p></li>
-</ul>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update._setup">
-<span class="sig-name descname"><span class="pre">_setup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#Update._setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.Update._setup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="quanguru.classes.QPro.Update._setback">
-<span class="sig-name descname"><span class="pre">_setback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QPro.html#Update._setback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QPro.Update._setback" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
+  <section id="qprotocol-classes-quanguru-classes-qpro">
+<h1>QProtocol classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QPro</span></code>)<a class="headerlink" href="#qprotocol-classes-quanguru-classes-qpro" title="Permalink to this headline">#</a></h1>
+</section>
 
 
               </div>
@@ -954,8 +352,9 @@ an instance and adds), and list/tuple containing any combination of these.</p>
       </div>
     </div>
   
-    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -966,7 +365,7 @@ an instance and adds), and list/tuple containing any combination of these.</p>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     

@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>17 - Jaynes-Cummings Dynamics &#8212; QuanGuru 1 documentation</title>
     
-    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
     
-    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -536,11 +534,12 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quanguru</span> <span class="k">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">platform</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="17---Jaynes-Cummings-Dynamics">
-<h1>17 - Jaynes-Cummings Dynamics<a class="headerlink" href="#17---Jaynes-Cummings-Dynamics" title="Permalink to this headline">¶</a></h1>
+<section id="17---Jaynes-Cummings-Dynamics">
+<h1>17 - Jaynes-Cummings Dynamics<a class="headerlink" href="#17---Jaynes-Cummings-Dynamics" title="Permalink to this headline">#</a></h1>
 <p>The Jaynes-Cummings Hamiltonian is written as</p>
 <p><img class="math" src="../../../_images/math/005a1633bce77474d413ea50ba728c4f8af6d802.png" alt="H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}\sigma_{-} + a\sigma_{+})"/></p>
 <p>where <img class="math" src="../../../_images/math/f95d0e224b466853fbd97e9b161f0b5d1413cebf.png" alt="\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2"/> are raising/lowering operators for a two-level system, <img class="math" src="../../../_images/math/9382c37ae163134c7856999b0ec42e132d7c6104.png" alt="\sigma_{\mu}"/> are the Pauli spin operators with <img class="math" src="../../../_images/math/a32c3137b2624e3282733e70b0155b000fa661f6.png" alt="\mu\in\{x,y,z\}"/>, <img class="math" src="../../../_images/math/95fe3337916b736467a57d7ca5cc1a41daadf1be.png" alt="a^{\dagger}"/> and <img class="math" src="../../../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> are the creation and annihilation operators for the field mode, and <img class="math" src="../../../_images/math/64007df6a99f1f686f436a5cb26c29fc3cd2bed7.png" alt="\omega_{c}"/>, <img class="math" src="../../../_images/math/43f54af677fba7c406cbe9d9b11dd2be91a8696b.png" alt="\omega_{q}"/>, and <img class="math" src="../../../_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.png" alt="g"/> are the cavity-field, qubit, and coupling (angular-) frequencies, respectively.</p>
@@ -634,6 +633,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<p>IMPORTANT NOT FOR WINDOWS USERS : MULTI-PROCESSING (p=True) DOES NOT WORK WITH NOTEBOOK</p>
+<p>You can use a python script, but you will need to make sure that the critical parts of the code are under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> We are going to add further tutorials for this later.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -643,7 +644,7 @@ div.rendered_html tbody tr:hover {
 
 <span class="c1"># run the simulation</span>
 <span class="c1"># p=True uses multi-processing for the sweep</span>
-<span class="n">JCSystem</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">JCSystem</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;Windows&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -682,7 +683,7 @@ Text(0, 0.5, &#39;Time&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/classes_Tutorials_1_Qubit_17_JaynesCummingsModelDynamics_9_1.png" src="../../../_images/classes_Tutorials_1_Qubit_17_JaynesCummingsModelDynamics_9_1.png" />
+<img alt="../../../_images/classes_Tutorials_1_Qubit_17_JaynesCummingsModelDynamics_10_1.png" src="../../../_images/classes_Tutorials_1_Qubit_17_JaynesCummingsModelDynamics_10_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -693,7 +694,7 @@ Text(0, 0.5, &#39;Time&#39;)
 </pre></div>
 </div>
 </div>
-</div>
+</section>
 
 
               </div>
@@ -723,8 +724,9 @@ Text(0, 0.5, &#39;Time&#39;)
       </div>
     </div>
   
-    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -735,7 +737,7 @@ Text(0, 0.5, &#39;Time&#39;)
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     

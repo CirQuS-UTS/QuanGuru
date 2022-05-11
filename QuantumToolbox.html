@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Quantum Toolbox (quanguru.QuantumToolbox) &#8212; QuanGuru 1 documentation</title>
     
-    <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
     
-    <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -224,19 +222,9 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modules">
-   Modules
-  </a>
- </li>
-</ul>
-
+    
 </nav>
               </div>
               
@@ -256,98 +244,11 @@
               
               <div>
                 
-  <div class="section" id="module-quanguru.QuantumToolbox.__init__">
-<span id="quantum-toolbox-quanguru-quantumtoolbox"></span><h1>Quantum Toolbox (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox</span></code>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.__init__" title="Permalink to this headline">¶</a></h1>
-<p>QuantumToolbox consists <strong>purely of Python functions</strong> (no other objects) that create and/or use <strong>matrices</strong>.
-<strong>Bold</strong> parts of the previous sentence highlight two main ideas of QuantumToolbox.</p>
-<p>It only contains Python functions to make it familiar with a broader audience, so that anyone without any interest
-in object-oriented programming can still contribute to QuantumToolbox, and the second idea is to use scipy sparse
-(csc matrix) as default.
-Matrix creations should be sparse as default and return .A (or .toarray()) of the created sparse if sparse=False.
-Any function manipulating matrices should be designed to be independent of sparse or array, if possible.</p>
-<div class="section" id="modules">
-<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/linearAlgebra.html#module-quanguru.QuantumToolbox.linearAlgebra" title="quanguru.QuantumToolbox.linearAlgebra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linearAlgebra</span></code></a></p></td>
-<td><p>Contains some basic linear algebra methods for scipy.sparse and np.ndarray types.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/states.html#module-quanguru.QuantumToolbox.states" title="quanguru.QuantumToolbox.states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">states</span></code></a></p></td>
-<td><p>Contains methods to create states, such as ket, bra, densityMatrix, superpositions, etc.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/operators.html#module-quanguru.QuantumToolbox.operators" title="quanguru.QuantumToolbox.operators"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operators</span></code></a></p></td>
-<td><p>Contains methods to functions to create and/or manipulate quantum operators</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/evolution.html#module-quanguru.QuantumToolbox.evolution" title="quanguru.QuantumToolbox.evolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evolution</span></code></a></p></td>
-<td><p>Contains functions to create Unitary and open-system super-operators.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/functions.html#module-quanguru.QuantumToolbox.functions" title="quanguru.QuantumToolbox.functions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">functions</span></code></a></p></td>
-<td><p>Contains functions to calculate some basic quantities, such as expectations, fidelities, entropy etc.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/Hamiltonians.html#module-quanguru.QuantumToolbox.Hamiltonians" title="quanguru.QuantumToolbox.Hamiltonians"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Hamiltonians</span></code></a></p></td>
-<td><p>Contains functions to create some standard Hamiltonians.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/spinRotations.html#module-quanguru.QuantumToolbox.spinRotations" title="quanguru.QuantumToolbox.spinRotations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinRotations</span></code></a></p></td>
-<td><p>Contains functions to create qubit rotation operators.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/basicGates.html#module-quanguru.QuantumToolbox.basicGates" title="quanguru.QuantumToolbox.basicGates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">basicGates</span></code></a></p></td>
-<td><p>Contains some basic single and two qubit gates.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/quasiProbabilities.html#module-quanguru.QuantumToolbox.quasiProbabilities" title="quanguru.QuantumToolbox.quasiProbabilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quasiProbabilities</span></code></a></p></td>
-<td><p>Contains functions to calculate quasi-probability distributions (adapted from qutip).</p></td>
-</tr>
-</tbody>
-</table>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/eigenVecVal.html#module-quanguru.QuantumToolbox.eigenVecVal" title="quanguru.QuantumToolbox.eigenVecVal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigenVecVal</span></code></a></p></td>
-<td><p>Contains functions to calculate eigen-vector/value statistics in various cases.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/rmtDistributions.html#module-quanguru.QuantumToolbox.rmtDistributions" title="quanguru.QuantumToolbox.rmtDistributions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rmtDistributions</span></code></a></p></td>
-<td><p>Contains probability density functions (PDF) from Random Matrix Theory (RMT).</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/IPR.html#module-quanguru.QuantumToolbox.IPR" title="quanguru.QuantumToolbox.IPR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IPR</span></code></a></p></td>
-<td><p>Contains functions to calculate delocalisation measure (Inverse participation ratio, shortly IPR) in various cases.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="QuantumToolbox/thermodynamics.html#module-quanguru.QuantumToolbox.thermodynamics" title="quanguru.QuantumToolbox.thermodynamics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thermodynamics</span></code></a></p></td>
-<td><p>Contains methods to calculate certain quantities used in thermal states, open systems, and quantum thermodynamics.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuantumToolbox/_helpers.html#module-quanguru.QuantumToolbox._helpers" title="quanguru.QuantumToolbox._helpers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_helpers</span></code></a></p></td>
-<td><p>Contains some helper functions.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">customTypes</span></code></p></td>
-<td><p>Contains custom types (Union etc) used in type hints of QuantumToolbox.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+  <section id="quantum-toolbox-quanguru-quantumtoolbox">
+<h1>Quantum Toolbox (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox</span></code>)<a class="headerlink" href="#quantum-toolbox-quanguru-quantumtoolbox" title="Permalink to this headline">#</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-</div>
+</section>
 
 
               </div>
@@ -377,8 +278,9 @@ Any function manipulating matrices should be designed to be independent of spars
       </div>
     </div>
   
-    <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -389,7 +291,7 @@ Any function manipulating matrices should be designed to be independent of spars
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     

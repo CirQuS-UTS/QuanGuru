@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>1 - Hamiltonian of a single quantum system &#8212; QuanGuru 1 documentation</title>
     
-    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
     
-    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -259,7 +257,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -566,8 +564,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="1---Hamiltonian-of-a-single-quantum-system">
-<h1>1 - Hamiltonian of a single quantum system<a class="headerlink" href="#1---Hamiltonian-of-a-single-quantum-system" title="Permalink to this headline">¶</a></h1>
+<section id="1---Hamiltonian-of-a-single-quantum-system">
+<h1>1 - Hamiltonian of a single quantum system<a class="headerlink" href="#1---Hamiltonian-of-a-single-quantum-system" title="Permalink to this headline">#</a></h1>
 <p>This tutorial demonstrates how to describe the Hamiltonian of a quantum system in <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>. Note that the Hamiltonians created by <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> take <img class="math" src="../../../_images/math/c1df2cbe178de44dd8d2e505bccd56ee0a220c83.png" alt="h = 1"/> and uses frequencies (instead of angular-frequencies) by default. We show how to change these default settings in a later tutorial.</p>
 <p>Let’s start with a very simple Hamiltonian (with <img class="math" src="../../../_images/math/c1df2cbe178de44dd8d2e505bccd56ee0a220c83.png" alt="h = 1"/>)</p>
 <p><img class="math" src="../../../_images/math/6fe6e57c5a21a208a8880d00d39128f57f784472.png" alt="H = f\hat{O}"/></p>
@@ -580,8 +578,8 @@ div.rendered_html tbody tr:hover {
 <p>In <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>, we create a quantum system using the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object, which requires at least one of these information during instantiation.</p>
 <p><code class="docutils literal notranslate"><span class="pre">frequency</span></code> and <code class="docutils literal notranslate"><span class="pre">dimension</span></code> are simply numbers, and for the <code class="docutils literal notranslate"><span class="pre">operator</span></code>, we use the functions in <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> <code class="docutils literal notranslate"><span class="pre">operators</span></code> module. However, any function (from any other library) that creates and returns the matrix representation of the desired operator can be used, because the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object just requires the function reference.</p>
 <p>Let’s give some concrete examples.</p>
-<div class="section" id="1---Qubit">
-<h2>1 - Qubit<a class="headerlink" href="#1---Qubit" title="Permalink to this headline">¶</a></h2>
+<section id="1---Qubit">
+<h2>1 - Qubit<a class="headerlink" href="#1---Qubit" title="Permalink to this headline">#</a></h2>
 <p>For a qubit:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code></p></li>
@@ -610,10 +608,10 @@ div.rendered_html tbody tr:hover {
  [ 0 -2]]
 </pre></div></div>
 </div>
-<p>Notice that the <code class="docutils literal notranslate"><span class="pre">operator</span></code> of the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> is the function <code class="docutils literal notranslate"><span class="pre">qg.sigmaz</span></code> (from <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code>), and it does not have the parenthesis <code class="docutils literal notranslate"><span class="pre">qg.sigmaz()</span></code>, which would invoke/call the functino to create the matrix form of the operator. Make sure to pass the function without the parenthesis. The <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects call these functions in the background to create the matrices.</p>
-</div>
-<div class="section" id="2---Larger-spins">
-<h2>2 - Larger spins<a class="headerlink" href="#2---Larger-spins" title="Permalink to this headline">¶</a></h2>
+<p>Notice that the <code class="docutils literal notranslate"><span class="pre">operator</span></code> of the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> is the function <code class="docutils literal notranslate"><span class="pre">qg.sigmaz</span></code> (from <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code>), and it does not have the parenthesis <code class="docutils literal notranslate"><span class="pre">qg.sigmaz()</span></code>, which would invoke/call the function to create the matrix form of the operator. Make sure to pass the function without the parenthesis. The <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects call these functions in the background to create the matrices.</p>
+</section>
+<section id="2---Larger-spins">
+<h2>2 - Larger spins<a class="headerlink" href="#2---Larger-spins" title="Permalink to this headline">#</a></h2>
 <p>Qubit object is equivalent to a spin-1/2 system, and we can create any other spin system using the <code class="docutils literal notranslate"><span class="pre">J_{x/y/z}</span></code> operators from the <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code>.</p>
 <p>Let’s create a spin-1 system, which means</p>
 <ul class="simple">
@@ -643,9 +641,9 @@ div.rendered_html tbody tr:hover {
  [ 0.  0. -2.]]
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="3---Harmonic-oscillator">
-<h2>3 - Harmonic oscillator<a class="headerlink" href="#3---Harmonic-oscillator" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="3---Harmonic-oscillator">
+<h2>3 - Harmonic oscillator<a class="headerlink" href="#3---Harmonic-oscillator" title="Permalink to this headline">#</a></h2>
 <p>This is an infinite dimensional system, but we can use a truncated space by setting the dimension to a finite value (which should be large enough for your simulations, but its discussion is beyond this tutorial). For an Harmonic oscillator, we have</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">5</span></code> (a small number so that printed matrix is readable)</p></li>
@@ -676,9 +674,9 @@ div.rendered_html tbody tr:hover {
  [0 0 0 0 8]]
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Special-classes-for-common-system">
-<h2>Special classes for common system<a class="headerlink" href="#Special-classes-for-common-system" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Special-classes-for-common-system">
+<h2>Special classes for common system<a class="headerlink" href="#Special-classes-for-common-system" title="Permalink to this headline">#</a></h2>
 <p>The above systems are quite common. Therefore, <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> provides special classes for these systems, and these classes comes with default values for some of the above attributes:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Spin</span></code> class for spin systems, which also provides an attribute named <code class="docutils literal notranslate"><span class="pre">jValue</span></code> (for spin value) so that we can use spin number instead of dimension. It comes with the default <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">=</span> <span class="pre">qg.Jz</span></code></p></li>
@@ -758,8 +756,8 @@ div.rendered_html tbody tr:hover {
  [0 0 0 0 8]]
 </pre></div></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
@@ -789,8 +787,9 @@ div.rendered_html tbody tr:hover {
       </div>
     </div>
   
-    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -801,7 +800,7 @@ div.rendered_html tbody tr:hover {
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     

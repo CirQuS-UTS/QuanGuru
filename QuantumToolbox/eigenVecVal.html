@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Eigen-vector/value Statistics (quanguru.QuantumToolbox.eigenVecVal) &#8212; QuanGuru 1 documentation</title>
     
-    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -224,19 +222,9 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#functions">
-   Functions
-  </a>
- </li>
-</ul>
-
+    
 </nav>
               </div>
               
@@ -256,236 +244,9 @@
               
               <div>
                 
-  <div class="section" id="module-quanguru.QuantumToolbox.eigenVecVal">
-<span id="eigen-vector-value-statistics-quanguru-quantumtoolbox-eigenvecval"></span><h1>Eigen-vector/value Statistics (<a class="reference internal" href="#module-quanguru.QuantumToolbox.eigenVecVal" title="quanguru.QuantumToolbox.eigenVecVal"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.eigenVecVal</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.eigenVecVal" title="Permalink to this headline">¶</a></h1>
-<p>Contains functions to calculate eigen-vector/value statistics in various cases.</p>
-<div class="section" id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal._eigs" title="quanguru.QuantumToolbox.eigenVecVal._eigs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_eigs</span></code></a>(Mat)</p></td>
-<td><p>Calculates eigenvalues and eigenvectors of a given matrix (intended for internal use).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal._eigStat" title="quanguru.QuantumToolbox.eigenVecVal._eigStat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_eigStat</span></code></a>(Mat[, symp])</p></td>
-<td><p>Calculates all the amplitudes <img class="math" src="../_images/math/ae5e80c4462eaa6435771b8131e9227265575717.png" alt="|c_{i,k}|^{2}"/> of entries <img class="math" src="../_images/math/986724671689e4dc55f4f2cefdc3593b990771c2.png" alt="|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\ c_{i,k} \\ \vdots \\c_{\mathcal{D},k} \end{bmatrix}_{\mathcal{D}\times 1}"/> for all the eigenvectors <img class="math" src="../_images/math/f59d817a15332796cacf8209370078017620c319.png" alt="\{|k\rangle\}"/> of a given matrix.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal._eigStatEig" title="quanguru.QuantumToolbox.eigenVecVal._eigStatEig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_eigStatEig</span></code></a>(EigVecs[, symp])</p></td>
-<td><p>Calculates all the amplitudes <img class="math" src="../_images/math/ae5e80c4462eaa6435771b8131e9227265575717.png" alt="|c_{i,k}|^{2}"/> of entries <img class="math" src="../_images/math/986724671689e4dc55f4f2cefdc3593b990771c2.png" alt="|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\ c_{i,k} \\ \vdots \\c_{\mathcal{D},k} \end{bmatrix}_{\mathcal{D}\times 1}"/> for a given list of eigenvectors <img class="math" src="../_images/math/f59d817a15332796cacf8209370078017620c319.png" alt="\{|k\rangle\}"/>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal._eigStatSymp" title="quanguru.QuantumToolbox.eigenVecVal._eigStatSymp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_eigStatSymp</span></code></a>(Mat)</p></td>
-<td><p>Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal._eigsStatEigSymp" title="quanguru.QuantumToolbox.eigenVecVal._eigsStatEigSymp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_eigsStatEigSymp</span></code></a>(EigVecs)</p></td>
-<td><p>Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal.eigVecStatKet" title="quanguru.QuantumToolbox.eigenVecVal.eigVecStatKet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigVecStatKet</span></code></a>(basis, ket[, symp])</p></td>
-<td><p>Calculates component amplitudes <img class="math" src="../_images/math/ae5e80c4462eaa6435771b8131e9227265575717.png" alt="|c_{i,k}|^{2}"/> of a <cite>ket</cite> <img class="math" src="../_images/math/686f9aec4d121547337a008c2c0f92b8b1549628.png" alt="|k\rangle := \sum_{i}c_{i,k}|i\rangle"/> in a basis <img class="math" src="../_images/math/543390f1d840d0fff7a8d9eb3ce0e37f93bf9406.png" alt="\{|i\rangle\}"/>.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 21%" />
-<col style="width: 16%" />
-<col style="width: 19%" />
-<col style="width: 17%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Function Name</strong></p></th>
-<th class="head"><p><strong>Docstrings</strong></p></th>
-<th class="head"><p><strong>Examples</strong></p></th>
-<th class="head"><p><strong>Unit Tests</strong></p></th>
-<th class="head"><p><strong>Tutorials</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><cite>_eigs</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>_eigStat</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>_eigStatSymp</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>_eigStatEig</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>_eigsStatEigSymp</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>eigVecStatKet</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal._eigs">
-<span class="sig-name descname"><span class="pre">_eigs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#_eigs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal._eigs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates eigenvalues and eigenvectors of a given matrix (intended for internal use).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Mat</strong> (<em>Matrix</em>) – a matrix</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>tuple containing (eigenvalues, eigenvectors)</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal._eigStat">
-<span class="sig-name descname"><span class="pre">_eigStat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#_eigStat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal._eigStat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates all the amplitudes <img class="math" src="../_images/math/ae5e80c4462eaa6435771b8131e9227265575717.png" alt="|c_{i,k}|^{2}"/> of entries <img class="math" src="../_images/math/7a60367620bc8ba8c2483155f4010ce2e1f909ee.png" alt="|k\rangle := \begin{bmatrix} c_{1,k}
-\\ \vdots \\
-c_{i,k}
-\\ \vdots \\c_{\mathcal{D},k}
-\end{bmatrix}_{\mathcal{D}\times 1}"/> for all the eigenvectors <img class="math" src="../_images/math/f59d817a15332796cacf8209370078017620c319.png" alt="\{|k\rangle\}"/> of a given matrix.</p>
-<p>symp is used to calculate eigenvector statistics of systems with degeneracies, corresponding to symplectic class by
-summing every odd entry amplitude with the following even entry amplitude.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>Mat</strong> (<em>Matrix</em>) – a matrix</p></li>
-<li><p><strong>symp</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True (False) sum every odd entry amplitude with the following even entry amplitude.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of entry amplitudes</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>floatList</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal._eigStatSymp">
-<span class="sig-name descname"><span class="pre">_eigStatSymp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#_eigStatSymp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal._eigStatSymp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Mat</strong> (<em>Matrix</em>) – a matrix</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of entry amplitudes</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>floatList</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal._eigStatEig">
-<span class="sig-name descname"><span class="pre">_eigStatEig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EigVecs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#_eigStatEig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal._eigStatEig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates all the amplitudes <img class="math" src="../_images/math/ae5e80c4462eaa6435771b8131e9227265575717.png" alt="|c_{i,k}|^{2}"/> of entries <img class="math" src="../_images/math/7a60367620bc8ba8c2483155f4010ce2e1f909ee.png" alt="|k\rangle := \begin{bmatrix} c_{1,k}
-\\ \vdots \\
-c_{i,k}
-\\ \vdots \\c_{\mathcal{D},k}
-\end{bmatrix}_{\mathcal{D}\times 1}"/> for a given list of eigenvectors <img class="math" src="../_images/math/f59d817a15332796cacf8209370078017620c319.png" alt="\{|k\rangle\}"/>.</p>
-<p>symp is used to calculate eigenvectors statistics of systems with degeneracies, corresponding to symplectic class by
-summing every odd entry amplitude with the following even entry amplitude.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>EigVecs</strong> (<em>Matrix</em>) – a list of ket vectors</p></li>
-<li><p><strong>symp</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True (False) sum every odd entry amplitude with the following even entry amplitude.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of entry amplitudes</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>floatList</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal._eigsStatEigSymp">
-<span class="sig-name descname"><span class="pre">_eigsStatEigSymp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EigVecs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#_eigsStatEigSymp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal._eigsStatEigSymp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>EigVecs</strong> (<em>Matrix</em>) – a list of ket vectors</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of entry amplitudes</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>floatList</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal.eigVecStatKet">
-<span class="sig-name descname"><span class="pre">eigVecStatKet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#eigVecStatKet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal.eigVecStatKet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates component amplitudes <img class="math" src="../_images/math/ae5e80c4462eaa6435771b8131e9227265575717.png" alt="|c_{i,k}|^{2}"/> of a <cite>ket</cite> <img class="math" src="../_images/math/686f9aec4d121547337a008c2c0f92b8b1549628.png" alt="|k\rangle := \sum_{i}c_{i,k}|i\rangle"/> in a
-basis <img class="math" src="../_images/math/543390f1d840d0fff7a8d9eb3ce0e37f93bf9406.png" alt="\{|i\rangle\}"/>.</p>
-<p>Main use is in eigenvector statistics.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>basis</strong> (<em>matrixList</em>) – a complete basis</p></li>
-<li><p><strong>ket</strong> (<em>Matrix</em>) – the ket state</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>list</cite> of component values in the basis</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>floatList</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasis</span> <span class="o">=</span> <span class="n">completeBasis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">eigVecStatKet</span><span class="p">(</span><span class="n">basis</span><span class="o">=</span><span class="n">completeBasis</span><span class="p">,</span> <span class="n">ket</span><span class="o">=</span><span class="n">ket</span><span class="p">)</span>
-<span class="go">[0, 1]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-</div>
-</div>
+  <section id="eigen-vector-value-statistics-quanguru-quantumtoolbox-eigenvecval">
+<h1>Eigen-vector/value Statistics (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.eigenVecVal</span></code>)<a class="headerlink" href="#eigen-vector-value-statistics-quanguru-quantumtoolbox-eigenvecval" title="Permalink to this headline">#</a></h1>
+</section>
 
 
               </div>
@@ -515,8 +276,9 @@ basis <img class="math" src="../_images/math/543390f1d840d0fff7a8d9eb3ce0e37f93b
       </div>
     </div>
   
-    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -527,7 +289,7 @@ basis <img class="math" src="../_images/math/543390f1d840d0fff7a8d9eb3ce0e37f93b
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     

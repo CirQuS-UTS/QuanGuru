@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>0 - name and alias of QuanGuru objects &#8212; QuanGuru 1 documentation</title>
     
-    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
     
-    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -259,7 +257,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -552,13 +550,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="0---name-and-alias-of-QuanGuru-objects">
-<h1>0 - name and alias of QuanGuru objects<a class="headerlink" href="#0---name-and-alias-of-QuanGuru-objects" title="Permalink to this headline">¶</a></h1>
+<section id="0---name-and-alias-of-QuanGuru-objects">
+<h1>0 - name and alias of QuanGuru objects<a class="headerlink" href="#0---name-and-alias-of-QuanGuru-objects" title="Permalink to this headline">#</a></h1>
 <p>Instances of <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> classes are created with <em>unique</em> default names. The <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object is assigned by the library and it cannot be changed later. In later tutorials, we will demonstrate various cases where the (<em>unique</em>) <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object enables (or used in the implementation of) various useful functionalities. In this tutorial, we explain the convention for these names.</p>
 <p>In certain cases, we might find it useful/easier if could change the <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object to anything we want but still have the same useful functionalities. <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> objects come with an <code class="docutils literal notranslate"><span class="pre">alias</span></code> attribute introduced for this purpose. <code class="docutils literal notranslate"><span class="pre">alias</span></code> attribute stores (in a list) any number of user defined aliases to an object, which extends all the functionalities available to <code class="docutils literal notranslate"><span class="pre">name</span></code> to aliases. Therefore, like the <code class="docutils literal notranslate"><span class="pre">name</span></code>, aliases need to be unique to an object, meaning the same <code class="docutils literal notranslate"><span class="pre">alias</span></code>
 cannot be assigned to different objects.</p>
-<div class="section" id="name-attribute">
-<h2>name attribute<a class="headerlink" href="#name-attribute" title="Permalink to this headline">¶</a></h2>
+<section id="name-attribute">
+<h2>name attribute<a class="headerlink" href="#name-attribute" title="Permalink to this headline">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object is created by using the name of its class and the number of instances. Let’s use the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> and <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> classes to demonstrate this.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -612,9 +610,9 @@ QuantumSystem2
 Qubit2
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="aliases-for-the-objects">
-<h2>aliases for the objects<a class="headerlink" href="#aliases-for-the-objects" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="aliases-for-the-objects">
+<h2>aliases for the objects<a class="headerlink" href="#aliases-for-the-objects" title="Permalink to this headline">#</a></h2>
 <p>Notice that if you run the above cell more than once, you create a new <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> (and <code class="docutils literal notranslate"><span class="pre">Qubit</span></code>) instance each time you run it, increasing the number of instance count. Therefore, in these sorts of situations, if we did not have <code class="docutils literal notranslate"><span class="pre">alias</span></code> alternative, we would be required to keep good track of how many instances we created. Additionally, unlike the <code class="docutils literal notranslate"><span class="pre">name</span></code> of an object that is created <em>uniquely</em> <strong>internally</strong> for each instance, <code class="docutils literal notranslate"><span class="pre">alias</span></code> are defined by the user. This means that if we
 are assigning an <code class="docutils literal notranslate"><span class="pre">alias</span></code> to an object in a cell (as below), we would get an error when we try to run it more than once, because we would be trying to assign the <code class="docutils literal notranslate"><span class="pre">alias</span></code> of an previous instance to a new instance.</p>
 <div class="nbinput docutils container">
@@ -661,8 +659,8 @@ QuantumSystem3
 Given alias (test alias) already exist and is assigned to: QuantumSystem3
 </pre></div></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
@@ -692,8 +690,9 @@ Given alias (test alias) already exist and is assigned to: QuantumSystem3
       </div>
     </div>
   
-    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -704,7 +703,7 @@ Given alias (test alias) already exist and is assigned to: QuantumSystem3
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     

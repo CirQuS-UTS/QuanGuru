@@ -4,26 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Quantum States (quanguru.QuantumToolbox.states) &#8212; QuanGuru 1 documentation</title>
     
-    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -32,8 +29,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     
-    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -42,7 +40,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -55,7 +53,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -224,19 +222,9 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#functions">
-   Functions
-  </a>
- </li>
-</ul>
-
+    
 </nav>
               </div>
               
@@ -256,725 +244,9 @@
               
               <div>
                 
-  <div class="section" id="module-quanguru.QuantumToolbox.states">
-<span id="quantum-states-quanguru-quantumtoolbox-states"></span><h1>Quantum States (<a class="reference internal" href="#module-quanguru.QuantumToolbox.states" title="quanguru.QuantumToolbox.states"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.states</span></code></a>)<a class="headerlink" href="#module-quanguru.QuantumToolbox.states" title="Permalink to this headline">¶</a></h1>
-<p>Contains methods to create states, such as ket, bra, densityMatrix, superpositions, etc.</p>
-<div class="section" id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.basis" title="quanguru.QuantumToolbox.states.basis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">basis</span></code></a>(dimension, state[, sparse])</p></td>
-<td><p>Creates a <cite>ket</cite> state <img class="math" src="../_images/math/c4178c70e4b8ae66cbc8a0511aca189af57b8465.png" alt="|n=\textrm{state}\rangle := \begin{bmatrix} 0 \\ \vdots \\ 1 \textrm{(nth element)} \\ \vdots \\ 0 \end{bmatrix}_{\textrm{dimension}\times 1}"/> for a given dimension with 1 (unit population) at a given row.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.basisBra" title="quanguru.QuantumToolbox.states.basisBra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">basisBra</span></code></a>(dimension, state[, sparse])</p></td>
-<td><p>Creates a <cite>bra</cite> state <img class="math" src="../_images/math/f7e89793467832739686a1e29377bb02a659d6a4.png" alt="\langle n| := |n\rangle^{T}"/> for a given dimension with 1 (unit population) at a given column.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.zerosKet" title="quanguru.QuantumToolbox.states.zerosKet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zerosKet</span></code></a>(dimension[, sparse])</p></td>
-<td><p>Creates a column matrix (ket) with all elements zero.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.zerosMat" title="quanguru.QuantumToolbox.states.zerosMat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zerosMat</span></code></a>(dimension[, sparse])</p></td>
-<td><p>Creates a square matrix with all elements zero.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.completeBasis" title="quanguru.QuantumToolbox.states.completeBasis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">completeBasis</span></code></a>(dimension[, sparse])</p></td>
-<td><p>Creates a complete basis of ket states <img class="math" src="../_images/math/969f305fd71f64f7c26f239a2c3597a72b5d4d4f.png" alt="\{|n\rangle\}"/>, st <img class="math" src="../_images/math/1670518c775d205eb79e3ae3550542f4ac8e8759.png" alt="\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}"/>.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.superPos" title="quanguru.QuantumToolbox.states.superPos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">superPos</span></code></a>(dimension, excitations[, ...])</p></td>
-<td><p>Creates a superposition ket state in various ways.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.densityMatrix" title="quanguru.QuantumToolbox.states.densityMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">densityMatrix</span></code></a>(ket[, probability])</p></td>
-<td><p>Computes the <cite>density matrix</cite> for both pure and mixed states.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.normalise" title="quanguru.QuantumToolbox.states.normalise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalise</span></code></a>(state)</p></td>
-<td><p>Function to normalise <cite>any</cite> state (ket or density matrix).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.compositeState" title="quanguru.QuantumToolbox.states.compositeState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compositeState</span></code></a>(dimensions, excitations[, sparse])</p></td>
-<td><p>Function to create <cite>composite ket</cite> states.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.completeBasisMat" title="quanguru.QuantumToolbox.states.completeBasisMat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">completeBasisMat</span></code></a>([dimension, compKetBase, ...])</p></td>
-<td><p>Creates a set of <cite>density matrices</cite> <img class="math" src="../_images/math/c0ce29b58f57917c299b3ad51b4febbf71aa47e5.png" alt="\{|n\rangle\langle n|\}"/> st <img class="math" src="../_images/math/1670518c775d205eb79e3ae3550542f4ac8e8759.png" alt="\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}"/> for a given dimension or convert a <cite>ket basis</cite> <img class="math" src="../_images/math/969f305fd71f64f7c26f239a2c3597a72b5d4d4f.png" alt="\{|n\rangle\}"/> to <cite>density matrix</cite>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.weightedSum" title="quanguru.QuantumToolbox.states.weightedSum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weightedSum</span></code></a>(summands[, weights])</p></td>
-<td><p>Weighted sum <img class="math" src="../_images/math/ac7921f0d6889bcc521c42a8587487f175b98a31.png" alt="\sum_{x}w_{x}x"/> of given list of summands <img class="math" src="../_images/math/a352c5bdeb53feade0f70fa8dfc2b14a1c7fa2b3.png" alt="\{x\}"/> and weights <img class="math" src="../_images/math/63774ec666a93bd05e73c18566d7a3e6c517324c.png" alt="\{w_{x}\}"/>.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.mat2Vec" title="quanguru.QuantumToolbox.states.mat2Vec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mat2Vec</span></code></a>(denMat)</p></td>
-<td><p>Converts <cite>density matrix</cite> into <cite>density vector</cite> (used in super-operator representation).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.vec2Mat" title="quanguru.QuantumToolbox.states.vec2Mat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vec2Mat</span></code></a>(vec)</p></td>
-<td><p>Converts <cite>density vector</cite> into <cite>density matrix</cite>.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.states.BellStates" title="quanguru.QuantumToolbox.states.BellStates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BellStates</span></code></a>([bs, sparse])</p></td>
-<td><p>Creates a Bell state <img class="math" src="../_images/math/fb4de5a281c707c8af9efff784dd0880fec2e992.png" alt="\begin{cases} |\Phi^{+}\rangle := \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle) \\ |\Phi^{+}\rangle := \frac{1}{\sqrt{2}}(|00\rangle - |11\rangle) \\ |\Psi^{-}\rangle := \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle) \\ |\Psi^{+}\rangle := \frac{1}{\sqrt{2}}(|01\rangle - |10\rangle) \\ \end{cases}"/>, where <img class="math" src="../_images/math/226b55a1adbdd44f32c1c523e3ed0e0a0c806f3c.png" alt="|ab\rangle := |a\rangle\otimes|b\rangle"/>.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 21%" />
-<col style="width: 16%" />
-<col style="width: 19%" />
-<col style="width: 17%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Function Name</strong></p></th>
-<th class="head"><p><strong>Docstrings</strong></p></th>
-<th class="head"><p><strong>Examples</strong></p></th>
-<th class="head"><p><strong>Unit Tests</strong></p></th>
-<th class="head"><p><strong>Tutorials</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><cite>basis</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>basisBra</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>zerosKet</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>zerosMat</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>completeBasis</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>superPos</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>densityMatrix</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>normalise</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>compositeState</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>completeBasisMat</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>weightedSum</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>mat2Vec</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-even"><td><p><cite>vec2Mat</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-<td><p>    ❌</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>BellStates</cite></p></td>
-<td><p>      ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ✅</p></td>
-<td><p>    ❌</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.basis">
-<span class="sig-name descname"><span class="pre">basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.basis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a <cite>ket</cite> state
-<img class="math" src="../_images/math/af9e0bd91ea51d12a7700903d510040cfe3c6f71.png" alt="|n=\textrm{state}\rangle := \begin{bmatrix} 0 \\ \vdots \\ 1 \textrm{(nth element)} \\ \vdots \\ 0
-\end{bmatrix}_{\textrm{dimension}\times 1}"/>
-for a given dimension with 1 (unit population) at a given row.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
-<li><p><strong>state</strong> (<em>int</em>) – row to place 1, i.e. index for the populated state</p></li>
-<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>requested <cite>ket</cite> state</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="go">(0, 0)      1</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[1]</span>
-<span class="go"> [0]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.completeBasis">
-<span class="sig-name descname"><span class="pre">completeBasis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#completeBasis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.completeBasis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a complete basis of ket states <img class="math" src="../_images/math/969f305fd71f64f7c26f239a2c3597a72b5d4d4f.png" alt="\{|n\rangle\}"/>,
-st <img class="math" src="../_images/math/1670518c775d205eb79e3ae3550542f4ac8e8759.png" alt="\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}"/>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
-<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix types will be sparse(array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a list (complete basis) of <cite>ket</cite> states</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>matrixList</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[array([[1],</span>
-<span class="go">        [0]], dtype=int64),</span>
-<span class="go"> array([[0],</span>
-<span class="go">        [1]], dtype=int64)]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.basisBra">
-<span class="sig-name descname"><span class="pre">basisBra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#basisBra"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.basisBra" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a <cite>bra</cite> state <img class="math" src="../_images/math/f7e89793467832739686a1e29377bb02a659d6a4.png" alt="\langle n| := |n\rangle^{T}"/> for a given dimension with 1 (unit population) at a
-given column. This function simply returns transpose of <code class="xref py py-func docutils literal notranslate"><span class="pre">basis</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
-<li><p><strong>state</strong> (<em>int</em>) – column to place 1, i.e. index number for the populated state</p></li>
-<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>requested <cite>bra</cite> state</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">basisBra</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="go">(0, 0)      1</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">basisBra</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[1 0]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.zerosKet">
-<span class="sig-name descname"><span class="pre">zerosKet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#zerosKet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.zerosKet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a column matrix (ket) with all elements zero.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
-<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>ket of zeros</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">zerosKet</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-<span class="go">(0, 0)      0</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zerosKet</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[0]</span>
-<span class="go"> [0]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.zerosMat">
-<span class="sig-name descname"><span class="pre">zerosMat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#zerosMat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.zerosMat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a square matrix with all elements zero.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
-<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Square matrix of zeros</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>TODO</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.weightedSum">
-<span class="sig-name descname"><span class="pre">weightedSum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">summands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#weightedSum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.weightedSum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Weighted sum <img class="math" src="../_images/math/ac7921f0d6889bcc521c42a8587487f175b98a31.png" alt="\sum_{x}w_{x}x"/> of given list of summands <img class="math" src="../_images/math/a352c5bdeb53feade0f70fa8dfc2b14a1c7fa2b3.png" alt="\{x\}"/> and weights <img class="math" src="../_images/math/63774ec666a93bd05e73c18566d7a3e6c517324c.png" alt="\{w_{x}\}"/>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>summands</strong> (<em>Iterable</em>) – List of matrices</p></li>
-<li><p><strong>weights</strong> (<em>Iterable</em>) – List of weights</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>weighted sum</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p># TODO</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.superPos">
-<span class="sig-name descname"><span class="pre">superPos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excitations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#superPos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.superPos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a superposition ket state in various ways.</p>
-<p>Given <cite>excitations</cite> is</p>
-<blockquote>
-<div><p>1. a <cite>dictionary</cite> : <cite>keys = [k]</cite> of the dictionary are the states <code class="docutils literal notranslate"><span class="pre">basis(dimension,</span> <span class="pre">k)</span></code> <img class="math" src="../_images/math/3792a091f47abf74f6e9a270cc7f59a29ef67529.png" alt="\forall k"/>,
-and the values are</p>
-<blockquote>
-<div><p>1. <code class="docutils literal notranslate"><span class="pre">populations</span> <span class="pre">=</span> <span class="pre">True</span></code> : <cite>values =</cite> <img class="math" src="../_images/math/725ba483b31b11971d33c8a118490be721751513.png" alt="[p_{k}]"/> are populations of the corresponding keys.
-They do not need to sum to 1. The state gets normalised, so these are relative populations.</p>
-<p>Output state</p>
-<blockquote>
-<div><p><img class="math" src="../_images/math/965db5def2f7a20e66d615170b9ef7b912279cde.png" alt="|ket\rangle = \frac{1}{\sum p_{k}}\sum \sqrt{p_{k}}"/> <code class="docutils literal notranslate"><span class="pre">basis(dimension,</span> <span class="pre">k)</span></code></p>
-</div></blockquote>
-<p>2. <code class="docutils literal notranslate"><span class="pre">populations</span> <span class="pre">=</span> <span class="pre">False</span></code> : <cite>values =</cite> <img class="math" src="../_images/math/f048e02a118d7d9451099e4a0dd58ba82df89ecf.png" alt="[c_{k}]"/> are the complex probability amplitudes. The output
-state gets normalised.</p>
-<p>Ouput state</p>
-<blockquote>
-<div><p><img class="math" src="../_images/math/ce50fa6f3043eda4df65c4364bb71ca606d84c85.png" alt="|ket\rangle = \frac{1}{\sum c_{k}^{2}}\sum c_{k}"/> <code class="docutils literal notranslate"><span class="pre">basis(dimension,</span> <span class="pre">k)</span></code></p>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-<ol class="arabic" start="2">
-<li><p>a <cite>list</cite> [k] of N integers corresponding to states <code class="docutils literal notranslate"><span class="pre">basis(dimension,</span> <span class="pre">k)</span></code> <img class="math" src="../_images/math/3792a091f47abf74f6e9a270cc7f59a29ef67529.png" alt="\forall k"/> with equal weights</p>
-<blockquote>
-<div><p>Output state</p>
-<blockquote>
-<div><p><img class="math" src="../_images/math/2dbf88f4b2524aa0acd75214b451be864e42c717.png" alt="|ket\rangle = \frac{1}{\sqrt{N}}\sum"/> <code class="docutils literal notranslate"><span class="pre">basis(dimension,</span> <span class="pre">k)</span></code></p>
-</div></blockquote>
-</div></blockquote>
-</li>
-<li><p>an <cite>integer</cite>, to create a basis state (equivalent to <code class="docutils literal notranslate"><span class="pre">basis</span></code> function)</p></li>
-</ol>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dimension</strong> (<em>int</em>) – dimension of Hilbert space</p></li>
-<li><p><strong>excitations</strong> (<em>supInt</em><em> (</em><em>Union of int</em><em>, </em><em>list</em><em>(</em><em>int</em><em>)</em><em>, </em><em>dict</em><em>(</em><em>int:float</em><em>)</em><em>)</em>) – see above</p></li>
-<li><p><strong>populations</strong> (<em>bool</em>) – If True (False) dictionary keys are the populations (complex probability amplitudes)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>requested normalised <cite>ket</cite> state</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">},</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[0.4472136 ]</span>
-<span class="go"> [0.89442719]]</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[0.70710678]</span>
-<span class="go"> [0.70710678]]</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[0.]</span>
-<span class="go"> [1.]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.densityMatrix">
-<span class="sig-name descname"><span class="pre">densityMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#densityMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.densityMatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the <cite>density matrix</cite> for both pure and mixed states.</p>
-<ol class="arabic">
-<li><p>Given a pure <cite>ket</cite> <img class="math" src="../_images/math/07f23ef79cc65bafc4a06fc6b1cc989b566ee1ff.png" alt="|\psi\rangle"/> state</p>
-<blockquote>
-<div><p>Output state</p>
-<blockquote>
-<div><p><img class="math" src="../_images/math/1ca9f3fe456fdc07630cf5bab5ebfe68b332301d.png" alt="\rho = |\psi\rangle\langle\psi|"/></p>
-</div></blockquote>
-</div></blockquote>
-</li>
-<li><p>Given a list of kets states <img class="math" src="../_images/math/c91bc1089e0dd56ade36097b0815e9cd53edc9b0.png" alt="[|\psi_{i}\rangle]"/> and their associated probabilities <img class="math" src="../_images/math/608e94db6e51f80e3353590dc34c48ff67a65c56.png" alt="[w_{i}]"/></p>
-<blockquote>
-<div><p>Output mixed state</p>
-<blockquote>
-<div><p><img class="math" src="../_images/math/eaa3e12d96ebd6b2084033f8ab3e3dceac3d146d.png" alt="\rho = \sum w_{i}|\psi_{i}\rangle\langle\psi_{i}|"/> from a list of kets</p>
-</div></blockquote>
-</div></blockquote>
-</li>
-</ol>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ket</strong> (<em>matrixOrMatrixList</em>) – single ket state or list of kets</p></li>
-<li><p><strong>probability</strong> (<em>floatList</em>) – list of probabilities (0 to 1) associated with the corresponding list of kets</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>requested density matrix operator</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="p">))</span>
-<span class="go">(0, 0)      1</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket</span> <span class="o">=</span> <span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span>
-<span class="go">[[0.5 0.5]</span>
-<span class="go"> [0.5 0.5]]</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ket1</span> <span class="o">=</span> <span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ket2</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">densityMatrix</span><span class="p">([</span><span class="n">ket1</span><span class="p">,</span><span class="n">ket2</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
-<span class="go">[[0.75 0.5]</span>
-<span class="go"> [0.5 0.25]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.completeBasisMat">
-<span class="sig-name descname"><span class="pre">completeBasisMat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compKetBase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#completeBasisMat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.completeBasisMat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a set of <cite>density matrices</cite> <img class="math" src="../_images/math/c0ce29b58f57917c299b3ad51b4febbf71aa47e5.png" alt="\{|n\rangle\langle n|\}"/> st
-<img class="math" src="../_images/math/1670518c775d205eb79e3ae3550542f4ac8e8759.png" alt="\sum_n|n\rangle\langle n| = \hat{\mathbb{I}}"/> for a given dimension or
-convert a <cite>ket basis</cite> <img class="math" src="../_images/math/969f305fd71f64f7c26f239a2c3597a72b5d4d4f.png" alt="\{|n\rangle\}"/> to <cite>density matrix</cite>.</p>
-<p>NOTE: This is not a complete basis for n-by-n matrices but for populations, i.e. diagonals.</p>
-<p>For a given basis, this keeps the sparse/array as sparse/array.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dimension</strong> (<em>int</em><em> or </em><em>None</em>) – dimension of Hilbert space (or default None if a ket basis is given)</p></li>
-<li><p><strong>compKetBase</strong> (<em>matrixList</em><em> or </em><em>None</em>) – a complete ket basis (or default None if dimension is given)</p></li>
-<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>matrixList</em> – a list (complete basis) of <cite>density matrices</cite></p></li>
-<li><p><em>raises ValueError : raised if both complete ket basis and dimension are None (default). Dimension is used to create</em></p></li>
-</ul>
-</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">completeBasisMat</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[array([[1, 0],</span>
-<span class="go">        [0, 0]], dtype=int64),</span>
-<span class="go"> array([[0, 0],</span>
-<span class="go">        [0, 1]], dtype=int64)]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.normalise">
-<span class="sig-name descname"><span class="pre">normalise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#normalise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.normalise" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to normalise <cite>any</cite> state (ket or density matrix).</p>
-<p>For ket states <img class="math" src="../_images/math/07f23ef79cc65bafc4a06fc6b1cc989b566ee1ff.png" alt="|\psi\rangle"/></p>
-<blockquote>
-<div><p><img class="math" src="../_images/math/faef0a7ea0ec5d4d5a5e9c52af66ac9442dff95c.png" alt="\frac{1}{norm(|\psi\rangle)}|\psi\rangle"/></p>
-</div></blockquote>
-<p>For density matrices <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.png" alt="\rho"/></p>
-<blockquote>
-<div><p><img class="math" src="../_images/math/cafea8060549bed1218c3bef4bcff8cbd92fd3a8.png" alt="\frac{1}{trace(\rho)}\rho"/></p>
-</div></blockquote>
-<p>Keeps the sparse/array as sparse/array</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>state</strong> (<em>Matrix</em>) – state to be normalised</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>normalised state</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nonNormalisedKet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span><span class="o">*</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">normalise</span><span class="p">(</span><span class="n">nonNormalisedKet</span><span class="p">)</span>
-<span class="go">[[0.89442719]</span>
-<span class="go">[0.4472136 ]]</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nonNormalisedMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">nonNormalisedKet</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">normalise</span><span class="p">(</span><span class="n">nonNormalisedMat</span><span class="p">)</span>
-<span class="go">[[0.8 0.4]</span>
-<span class="go">[0.4 0.2]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.compositeState">
-<span class="sig-name descname"><span class="pre">compositeState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excitations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#compositeState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.compositeState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create <cite>composite ket</cite> states. Uses <a class="reference internal" href="#quanguru.QuantumToolbox.states.superPos" title="quanguru.QuantumToolbox.states.superPos"><code class="xref py py-func docutils literal notranslate"><span class="pre">superPos</span></code></a> to create
-individual states and <a class="reference internal" href="linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.tensorProd" title="quanguru.QuantumToolbox.linearAlgebra.tensorProd"><code class="xref py py-func docutils literal notranslate"><span class="pre">tensorProd</span></code></a> to calculate their
-tensor product.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dimensions</strong> (<em>intList</em>) – list of dimensions for each sub-system of the composite quantum system</p></li>
-<li><p><strong>excitations</strong> (<em>List</em><em>[</em><em>supInp</em><em>]</em>) – list of state information for sub-systems.
-This list can have mixture of dict, list, and int values,
-which are used to create a superposition state for the corresponding sub-system
-See: <cite>superPos</cite> function</p></li>
-<li><p><strong>sparse</strong> (<em>bool</em>) – boolean for sparse or not (array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>composite ket state</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[0]</span>
-<span class="go"> [1]</span>
-<span class="go"> [0]</span>
-<span class="go"> [0]]</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="mi">1</span><span class="p">],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[0.        ]</span>
-<span class="go"> [0.70710678]</span>
-<span class="go"> [0.        ]</span>
-<span class="go"> s[0.70710678]]</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compositeState</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">excitations</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}],</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[[0.4472136 ]</span>
-<span class="go"> [0.89442719]</span>
-<span class="go"> [0.        ]</span>
-<span class="go"> [0.        ]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.mat2Vec">
-<span class="sig-name descname"><span class="pre">mat2Vec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">denMat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#mat2Vec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.mat2Vec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts <cite>density matrix</cite> into <cite>density vector</cite> (used in super-operator representation).</p>
-<p>Keeps the sparse/array as sparse/array</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>denMat</strong> (<em>Matrix</em>) – density matrix to be converted</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>density vector</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="o">=</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="o">=</span><span class="n">denMat</span><span class="p">)</span><span class="o">.</span><span class="n">A</span>
-<span class="go">[[0]</span>
-<span class="go"> [0]</span>
-<span class="go"> [0]</span>
-<span class="go"> [1]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.vec2Mat">
-<span class="sig-name descname"><span class="pre">vec2Mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#vec2Mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.vec2Mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts <cite>density vector</cite> into <cite>density matrix</cite>.</p>
-<p>Keeps the sparse/array as sparse/array</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>vec</strong> (<em>Matrix</em>) – density vector to be converted</p></li>
-<li><p><strong>Matrix</strong> – density matrix</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denMat</span> <span class="o">=</span> <span class="n">densityMatrix</span><span class="p">(</span><span class="n">ket</span><span class="o">=</span><span class="n">basis</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-<span class="go">[[0 0]</span>
-<span class="go"> [0 1]]</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">denVec</span> <span class="o">=</span> <span class="n">mat2Vec</span><span class="p">(</span><span class="n">denMat</span><span class="o">=</span><span class="n">denMat</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">vec2mat</span><span class="p">(</span><span class="n">vec</span><span class="o">=</span><span class="n">denVec</span><span class="p">)</span><span class="o">.</span><span class="n">A</span>
-<span class="go">[[0 0]</span>
-<span class="go"> [0 1]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.BellStates">
-<span class="sig-name descname"><span class="pre">BellStates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Phi+'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#BellStates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.BellStates" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a Bell state
-<img class="math" src="../_images/math/c8dc5c7ac55dfaef46f0680411cbd35c913ffff6.png" alt="\begin{cases} |\Phi^{+}\rangle := \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
-\\ |\Phi^{+}\rangle := \frac{1}{\sqrt{2}}(|00\rangle - |11\rangle)
-\\ |\Psi^{-}\rangle := \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)
-\\ |\Psi^{+}\rangle := \frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)
-\\ \end{cases}"/>, where <img class="math" src="../_images/math/226b55a1adbdd44f32c1c523e3ed0e0a0c806f3c.png" alt="|ab\rangle := |a\rangle\otimes|b\rangle"/>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>bs</strong> (<em>str</em><em>, </em><em>optional</em>) – String for different Bell states, by default ‘Phi+’. Options are
-[‘Phi+’ or ‘00’, ‘Phi-‘ or ‘01’, ‘Psi+’ or ‘10’, ‘Psi-‘ or ‘11’]</p></li>
-<li><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Bell state</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Matrix</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BellStates</span><span class="p">(</span><span class="s1">&#39;Phi+&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">A</span>
-<span class="go">array([[0.70710678],</span>
-<span class="go">       [0.        ],</span>
-<span class="go">       [0.        ],</span>
-<span class="go">       [0.70710678]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BellStates</span><span class="p">(</span><span class="s1">&#39;Phi-&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">A</span>
-<span class="go">array([[ 0.70710678],</span>
-<span class="go">       [ 0.        ],</span>
-<span class="go">       [ 0.        ],</span>
-<span class="go">       [-0.70710678]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BellStates</span><span class="p">(</span><span class="s1">&#39;Psi+&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">A</span>
-<span class="go">array([[0.        ],</span>
-<span class="go">       [0.70710678],</span>
-<span class="go">       [0.70710678],</span>
-<span class="go">       [0.        ]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BellStates</span><span class="p">(</span><span class="s1">&#39;Psi-&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">A</span>
-<span class="go">array([[ 0.        ],</span>
-<span class="go">       [ 0.70710678],</span>
-<span class="go">       [-0.70710678],</span>
-<span class="go">       [ 0.        ]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="quanguru.QuantumToolbox.states.purity">
-<span class="sig-name descname"><span class="pre">purity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">denMat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/states.html#purity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.states.purity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the purity <img class="math" src="../_images/math/df828bcdccfd0b5afd3bd58e30ac9a6d8cbbf73e.png" alt="Tr(\rho^{2})"/> of a given density matrix <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.png" alt="\rho"/></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>denMat</strong> (<em>Matrix</em>) – Density matrix</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the purity of given density matrix.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-</div>
+  <section id="quantum-states-quanguru-quantumtoolbox-states">
+<h1>Quantum States (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox.states</span></code>)<a class="headerlink" href="#quantum-states-quanguru-quantumtoolbox-states" title="Permalink to this headline">#</a></h1>
+</section>
 
 
               </div>
@@ -1004,8 +276,9 @@ See: <cite>superPos</cite> function</p></li>
       </div>
     </div>
   
-    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -1016,7 +289,7 @@ See: <cite>superPos</cite> function</p></li>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     
