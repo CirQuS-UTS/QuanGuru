@@ -355,7 +355,7 @@ class Simulation(timeBase):
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         # TODO Test this
-        return self.states[self.name+"Results"]
+        return self.states[self.superSys.name+"Results"]
 
 class _poolMemory: # pylint: disable=too-few-public-methods
     r"""
