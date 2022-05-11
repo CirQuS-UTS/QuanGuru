@@ -124,7 +124,7 @@ class QTerm(paramBoundBase):
                 qSys.removeTerm(self)
 
     @staticmethod
-    def _createTerm(superSys, qSystem, operator, orders=None, frequency=None):
+    def _createTerm(superSys, qSystem, operator, order=None, frequency=None):
         r"""
         Factory method to create new QTerm with the given qSystem, operator, and optional orders and frequency.
 
@@ -135,7 +135,7 @@ class QTerm(paramBoundBase):
             Single or a list/tuple of quantum systems for qSystem of the newly created QTerm
         operator :
             Single or a list/tuple of operator/s (same number as qSystem) for the newly created QTerm
-        orders :
+        order :
             Single or a list/tuple of order values for each operator (same number as operator/s) for the newly created
             QTerm, default is 1 for each operator.
         frequency :
@@ -150,7 +150,7 @@ class QTerm(paramBoundBase):
         newSys = QTerm(superSys=superSys)
         newSys.qSystem = qSystem
         newSys.operator = operator
-        newSys.order = [1 for _ in qSystem] if (isinstance(qSystem, (list, tuple)) and (orders is None)) else orders
+        newSys.order = [1 for _ in qSystem] if (isinstance(qSystem, (list, tuple)) and (order is None)) else order
         newSys.frequency = frequency
         return newSys
 
