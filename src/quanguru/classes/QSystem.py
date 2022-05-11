@@ -611,6 +611,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         empty _exclude list, which is used to avoid infinite recursions when finding the term inside a nested system.
         Note that it will raise an error, if the given term is the first-term if the system.
         """
+        termObj = self.getByNameOrAlias(termObj)
         self._removeTermExc(termObj=termObj, _exclude=[])
 
     def resetTerms(self):
