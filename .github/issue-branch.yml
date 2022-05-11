@@ -1,13 +1,12 @@
 defaultBranch: 'development'
 branches:
-  - label: documentation
-    name: documentation
-    prefix: doc-
-    prTarget: documentation
   - label: bug
     name: development
-    prefix: dev-
+    prefix: dev_
     prTarget: development
-branchName: 'issue-${issue.number}-${issue.title}'
-openDraftPR: true
+  - label: documentation
+    name: documentation
+    prefix: doc_
+    prTarget: documentation
+branchName: '${issue.number}-${issue.title}'
 autoCloseIssue: true
