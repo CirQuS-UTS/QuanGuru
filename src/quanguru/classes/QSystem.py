@@ -511,7 +511,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     # TODO THESE NEEDS TESTS
 
-    def createTerm(self, operator, frequency=None, qSystem=None, orders=None, superSys=None): #pylint:disable=too-many-arguments
+    def createTerm(self, operator, frequency=None, qSystem=None, order=None, superSys=None): #pylint:disable=too-many-arguments
         r"""
         Method to create a new term with the given parameters and also set the given kwargs to the new term.
 
@@ -524,7 +524,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             frequency of the term, by default None
         qSystem : QuantumSystem
             quantum system/s for the given operator/s, and it is self if no system is given
-        orders :
+        order :
             order/s of the operator/s, it is set to 1 by default if no order value is given
 
         Returns
@@ -546,7 +546,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         else:
             qSystem = self.getByNameOrAlias(qSystem)
         superSys = self if superSys is None else superSys
-        newTerm = QTerm._createTerm(superSys=superSys, qSystem=qSystem, operator=operator, orders=orders,#pylint:disable=protected-access
+        newTerm = QTerm._createTerm(superSys=superSys, qSystem=qSystem, operator=operator, order=order,#pylint:disable=protected-access
                                     frequency=frequency)
         qObj = self if isinstance(qSystem, (list, tuple)) else qSystem
         qObj.addTerms(newTerm)
@@ -697,7 +697,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                 newSys.createTerm(qSystem=qSystemNames, #pylint:disable=no-member
                                  operator=ter.operator,
                                  frequency=ter.frequency,
-                                 orders=ter.order)
+                                 order=ter.order)
             else:
                 termsList[ind]._named__setKwargs(qSystem=qSystemNames, #pylint:disable=no-member
                                                  operator=ter.operator,
