@@ -355,7 +355,8 @@ class Simulation(timeBase):
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         # TODO Test this
-        return self.states[self.name+"Results"]
+        sdict = self.states
+        return sdict[self.superSys.name+"Results"] if hasattr(self.superSys, 'name') else sdict[self.name+"Results"]
 
 class _poolMemory: # pylint: disable=too-few-public-methods
     r"""
