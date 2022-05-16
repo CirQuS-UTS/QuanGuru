@@ -31,7 +31,6 @@ def test_dimensionHasToBeLargerThan0(intType):
         qsys4.dimension=-rnd.randint(0, 20)
 
 @pytest.mark.parametrize('intType', [int, int64, int32])
-@pytest.mark.parametrize('intType', [int, int64])
 def test_dimensionHasToBeTwoIfTheOperatorIsPauli(intType):    
     paul = [QOps.sigmam, QOps.sigmap, QOps.sigmax, QOps.sigmay, QOps.sigmaz]    
     qsys1 = QSys.QuantumSystem(dimension=intType(2))
@@ -43,7 +42,6 @@ def test_dimensionHasToBeTwoIfTheOperatorIsPauli(intType):
         QTerm._dimInput(qsys2, paul[rnd.randint(0,4)],rnd.randint(1,30))
     
 @pytest.mark.parametrize('intType', [int, int64, int32])
-@pytest.mark.parametrize('intType', [int, int64])
 def test_IfTheOperatorIsPaulidimensionHasToBeTwo(intType):    
     paul = [QOps.sigmam, QOps.sigmap, QOps.sigmax, QOps.sigmay, QOps.sigmaz]    
     qsys1 = QSys.QuantumSystem(operator=paul[rnd.randint(0,4)])
