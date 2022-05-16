@@ -21,7 +21,7 @@
 
 import warnings
 from typing import Any
-from numpy import ndarray
+from numpy import ndarray, integer
 from scipy.sparse import spmatrix
 
 from .base import addDecorator, _recurseIfList, aliasDict
@@ -221,7 +221,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             self._QuantumSystem__compSys = bool(len(self.subSys)) # pylint:disable=assigning-non-slot
 
         if not self._isComposite: # pylint:disable=no-member
-            checkCorType(dim, int, "dimension of a QuantumSystem has to be an integer")
+            checkCorType(dim, (int, integer), "dimension of a QuantumSystem has to be an integer")
             checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
             isPauli = any(term.operator in [sigmam, sigmap, sigmax, sigmay, sigmaz] for term in self.terms.values())
             checkVal(not (isPauli and (dim!=2)), True,
