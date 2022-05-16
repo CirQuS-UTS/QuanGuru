@@ -32,7 +32,7 @@ r"""
        `trace`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `partialTrace`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `_matMulInputs`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
-       `_matPower`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+       `_matPower`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
 """
