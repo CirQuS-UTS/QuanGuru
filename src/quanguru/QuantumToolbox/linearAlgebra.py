@@ -31,7 +31,7 @@ r"""
        `tensorProd`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `trace`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `partialTrace`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `_matMulInputs`           |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
+       `_matMulInputs`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |x|        |w| |w| |x|
        `_matPower`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
@@ -368,6 +368,36 @@ def _matMulInputs(*args: matrixOrMatrixList) -> Matrix:
     r"""
     Calculates the matrix multiplication of the given arbitrary number of inputs in the given order.
     It does not check the correctness of the shapes until the matrix multiplication operator (@) itself gives an error.
+
+    Parameters
+    ----------
+    *args : matrixOrMatrixList
+
+    Returns
+    -------
+    Matrix
+        Given Matrices multiplied
+
+    Examples
+    --------
+
+    >>> cMatEx1 = np.array([[1, 1],
+    >>>                     [1, 1]])
+    >>> cMatEx2 = np.array([[1, 0],
+    >>>                     [0, 0]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1,cMatEx2)
+    array([[1, 0],
+           [1, 0]])
+
+    >>> cMatEx1 = np.array([[1, 1],
+    >>>                     [1, 1]])
+    >>> cMatEx2 = np.array([[1, 0],
+    >>>                     [0, 0]])
+    >>> cMatEx3 = np.array([[1, 1],
+    >>>                     [0, 0]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1,cMatEx2,cMatEx3)
+    array([[1, 1],
+           [1, 1]])
     """
     totalMul = args[0]
     return (totalMul @ _matMulInputs(*args[1:])) if len(args) > 1 else totalMul
