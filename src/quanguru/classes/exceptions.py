@@ -53,10 +53,6 @@ def checkVal(someObj, val, msg):
     return someObj
 
 def checkCorType(someObj, someType, msg):
-    if isinstance(someType, list):
-        for ty in someType:
-            checkCorType(someObj, ty, msg)
-
     if not isinstance(someObj, someType):
         raise TypeError(msg + ' requires ' + str(someType) + ' but ' + str(type(someObj)) + ' is given.')
     return someObj
