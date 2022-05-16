@@ -26,7 +26,7 @@ r"""
     =======================    ==================   ==============   ================   ===============
        `hc`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `innerProd`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `norm`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+       `norm`                    |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `outerProd`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `tensorProd`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `trace`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
@@ -149,7 +149,21 @@ def norm(ket: Matrix) -> float:
 
     Examples
     --------
-    # TODO
+    >>> cMatEx1 = np.array([[1],
+    >>>                     [0]])
+    >>> norm(cMatEx1)
+    1
+
+    >>> cMatEx2 = np.array([[3],
+    >>>                     [4j]])
+    >>> norm(cMatEx2)
+    5+0j
+
+    >>> cMatEx3 = np.array([[1],
+    >>>                     [1j]])
+    >>> norm(cMatEx3)
+    1.4142135623730951+0j
+
     """
 
     return np.sqrt(innerProd(ket))
