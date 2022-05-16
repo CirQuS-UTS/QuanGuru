@@ -26,13 +26,13 @@ r"""
     =======================    ==================   ==============   ================   ===============
        `hc`                      |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `innerProd`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `norm`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+       `norm`                    |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `outerProd`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `tensorProd`              |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `trace`                   |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
        `partialTrace`            |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
-       `_matMulInputs`           |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-       `_matPower`               |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+       `_matMulInputs`           |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
+       `_matPower`               |w| |w| |w| |c|      |w| |w| |c|      |w| |w| |c|        |w| |w| |x|
     =======================    ==================   ==============   ================   ===============
 
 """
@@ -149,7 +149,21 @@ def norm(ket: Matrix) -> float:
 
     Examples
     --------
-    # TODO
+    >>> cMatEx1 = np.array([[1],
+    >>>                     [0]])
+    >>> norm(cMatEx1)
+    1
+
+    >>> cMatEx2 = np.array([[3],
+    >>>                     [4j]])
+    >>> norm(cMatEx2)
+    5+0j
+
+    >>> cMatEx3 = np.array([[1],
+    >>>                     [1j]])
+    >>> norm(cMatEx3)
+    1.4142135623730951+0j
+
     """
 
     return np.sqrt(innerProd(ket))
@@ -354,6 +368,36 @@ def _matMulInputs(*args: matrixOrMatrixList) -> Matrix:
     r"""
     Calculates the matrix multiplication of the given arbitrary number of inputs in the given order.
     It does not check the correctness of the shapes until the matrix multiplication operator (@) itself gives an error.
+
+    Parameters
+    ----------
+    *args : matrixOrMatrixList
+
+    Returns
+    -------
+    Matrix
+        Given Matrices multiplied
+
+    Examples
+    --------
+
+    >>> cMatEx1 = np.array([[1, 1],
+    >>>                     [1, 1]])
+    >>> cMatEx2 = np.array([[1, 0],
+    >>>                     [0, 0]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1,cMatEx2)
+    array([[1, 0],
+           [1, 0]])
+
+    >>> cMatEx1 = np.array([[1, 1],
+    >>>                     [1, 1]])
+    >>> cMatEx2 = np.array([[1, 0],
+    >>>                     [0, 0]])
+    >>> cMatEx3 = np.array([[1, 1],
+    >>>                     [0, 0]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1,cMatEx2,cMatEx3)
+    array([[1, 1],
+           [1, 1]])
     """
     totalMul = args[0]
     return (totalMul @ _matMulInputs(*args[1:])) if len(args) > 1 else totalMul
@@ -379,6 +423,23 @@ def _matPower(matrix: Matrix, power: int) -> Matrix:
 
     Examples
     --------
+    >>> cMatEx1 = np.array([[1, 1],
+    >>>                     [1, 1]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1, 2)
+    array([[2, 2],
+           [2, 2]])
+
+    >>> cMatEx1 = np.array([[1, 1],
+    >>>                     [1, 1]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1, 5)
+    array([[16, 16],
+           [16, 16]])
+
+    >>> cMatEx2 = np.array([[1, 1],
+    >>>                     [0, 0]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1, 3)
+    array([[1, 1],
+           [0, 0]])
     """
     assert power > 0, "power has to be larger than 0"
     matPow = matrix
