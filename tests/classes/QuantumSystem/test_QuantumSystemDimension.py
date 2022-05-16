@@ -1,12 +1,14 @@
 import pytest
+from numpy import int64, int32
 import random as rnd
 import quanguru.classes.QSystem as QSys
 from quanguru.classes.QSys import QuantumSystemOld
 import quanguru.QuantumToolbox.operators as QOps
 from quanguru.classes.QTerms import QTerm
 
-def test_dimensionHasToBeInt():
-    qsys1 = QSys.QuantumSystem(dimension=rnd.randint(2, 20))
+@pytest.mark.parametrize('intType', [int, int64, int32])
+def test_dimensionHasToBeInt(intType):
+    qsys1 = QSys.QuantumSystem(dimension=intType(rnd.randint(2, 20)))
     with pytest.raises(TypeError):
         qsys2 = QSys.QuantumSystem(dimension="10")
 
@@ -16,8 +18,9 @@ def test_dimensionHasToBeInt():
         qsys4 = QSys.QuantumSystem()
         qsys4.dimension="10"
 
-def test_dimensionHasToBeLargerThan0():
-    qsys1 = QSys.QuantumSystem(dimension=rnd.randint(2, 20))
+@pytest.mark.parametrize('intType', [int, int64, int32])
+def test_dimensionHasToBeLargerThan0(intType):
+    qsys1 = QSys.QuantumSystem(dimension=intType(rnd.randint(2, 20)))
     with pytest.raises(ValueError):
         qsys2 = QSys.QuantumSystem(dimension=-rnd.randint(0, 20))
 
@@ -27,9 +30,11 @@ def test_dimensionHasToBeLargerThan0():
         qsys4 = QSys.QuantumSystem()
         qsys4.dimension=-rnd.randint(0, 20)
 
-def test_dimensionHasToBeTwoIfTheOperatorIsPauli():    
+@pytest.mark.parametrize('intType', [int, int64, int32])
+@pytest.mark.parametrize('intType', [int, int64])
+def test_dimensionHasToBeTwoIfTheOperatorIsPauli(intType):    
     paul = [QOps.sigmam, QOps.sigmap, QOps.sigmax, QOps.sigmay, QOps.sigmaz]    
-    qsys1 = QSys.QuantumSystem(dimension=2)
+    qsys1 = QSys.QuantumSystem(dimension=intType(2))
     QTerm._dimInput(qsys1, paul[rnd.randint(0,4)],rnd.randint(1,30))
     dimList = list(range(1,100))
     dimList.remove(2)
@@ -37,10 +42,12 @@ def test_dimensionHasToBeTwoIfTheOperatorIsPauli():
     with pytest.raises(ValueError):
         QTerm._dimInput(qsys2, paul[rnd.randint(0,4)],rnd.randint(1,30))
     
-def test_IfTheOperatorIsPaulidimensionHasToBeTwo():    
+@pytest.mark.parametrize('intType', [int, int64, int32])
+@pytest.mark.parametrize('intType', [int, int64])
+def test_IfTheOperatorIsPaulidimensionHasToBeTwo(intType):    
     paul = [QOps.sigmam, QOps.sigmap, QOps.sigmax, QOps.sigmay, QOps.sigmaz]    
     qsys1 = QSys.QuantumSystem(operator=paul[rnd.randint(0,4)])
-    qsys1.dimension = 2
+    qsys1.dimension = intType(2)
     dimList = list(range(1,100))
     dimList.remove(2)
     qsys2 = QSys.QuantumSystem(operator=paul[rnd.randint(0,4)])
