@@ -179,6 +179,16 @@ def test_trace(mat, t):
     # calculate the trace and compare it with the expected results
     assert la.trace(mat) == t
 
+def test_matMulInputs2and3Inputs():
+    cMatEx1 = np.array([[1, 1],
+                        [1, 1]])
+    cMatEx2 = np.array([[1, 0],
+                        [0, 0]])
+    cMatEx3 = np.array([[1, 1],
+                        [0, 0]])  
+    assert np.allclose(la._matMulInputs(cMatEx1, cMatEx2), np.array([[1, 0],[1, 0]]))
+    assert np.allclose(la._matMulInputs(cMatEx1, cMatEx2, cMatEx3), np.array([[1, 1], [1, 1]]))
+
 @pytest.mark.parametrize("sp", [False, True])
 def test_matrixPowerRaising(sp):
     oper1 = qOps.sigmax(sparse=sp)
