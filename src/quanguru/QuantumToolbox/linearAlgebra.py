@@ -423,6 +423,23 @@ def _matPower(matrix: Matrix, power: int) -> Matrix:
 
     Examples
     --------
+    >>> cMatEx1 = np.array([[1, 1],
+    >>>                     [1, 1]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1, 2)
+    array([[2, 2],
+           [2, 2]])
+    
+    >>> cMatEx1 = np.array([[1, 1],
+    >>>                     [1, 1]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1, 5)
+    array([[16, 16],
+           [16, 16]])
+    
+    >>> cMatEx2 = np.array([[1, 1],
+    >>>                     [0, 0]])
+    >>> qg.linearAlgebra._matMulInputs(cMatEx1, 3)
+    array([[1, 1],
+           [0, 0]])
     """
     assert power > 0, "power has to be larger than 0"
     matPow = matrix
