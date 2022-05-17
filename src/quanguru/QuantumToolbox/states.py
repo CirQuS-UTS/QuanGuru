@@ -319,7 +319,7 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
         sts = excitations
         if populations:
             sts = {k:np.sqrt(v) for (k, v) in sts.items()}  # noqa: E231
-    elif isinstance(excitations, int):
+    elif isinstance(excitations, (int, np.integer)):
         sts = {excitations:1}  # noqa: E231
     elif all(isinstance(item, int) for item in excitations):
         sts = {k: 1 for k in excitations}

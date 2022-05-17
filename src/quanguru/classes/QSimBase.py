@@ -28,6 +28,9 @@ r"""
 
 from typing import Any, cast
 
+from warnings import warn
+from numpy import integer
+
 from quanguru.classes.exceptions import checkNotVal
 from .baseClasses import computeBase, paramBoundBase
 from .tempConfig import classConfig
@@ -199,24 +202,38 @@ class stateBase(computeBase):
         dictionary values.
         """
 
-        if ((self._stateBase__initialState.value is None) or
-            (self._stateBase__initialState.value.shape != self.initialStateSystem.dimension)): # pylint: disable=no-member
-            # TODO initial state creation has a bug when it relies on .dimension of a protocol
-            #  after re-structuring the protocol, this should no longer rely of .dimension of protocol,
-            #  which returns 1 and causes this to evaluate everytime anyway.
-            #  labels: bug, enhancement
-            if isinstance(self._stateBase__initialState._bound, _parameter): # pylint: disable=protected-access
-                # might seem redundant, but required to make sure that bound creates its initial state by calling the
-                # _createAstate
-                self._stateBase__initialState._value = self._timeBase__bound.initialState # pylint: disable=no-member
-            else:
-                self._stateBase__initialState.value = self.initialStateSystem._createAstate(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
+        if isinstance(self._initialStateInput, (int, integer)):
+            if self._initialStateInput >= self.initialStateSystem.dimension:
+                warn(f'Initial state input ({self._initialStateInput}) is larger than or equal to system dimension \
+                      ({self.initialStateSystem.dimension}), initial state is set to False')
+                self._stateBase__initialState.value = False
+
+        if self._stateBase__initialState.value is not False:
+            if ((self._stateBase__initialState.value is None) or
+                (self._stateBase__initialState.value.shape[0] != self.initialStateSystem.dimension)): # pylint: disable=no-member
+                # TODO initial state creation has a bug when it relies on .dimension of a protocol
+                #  after re-structuring the protocol, this should no longer rely of .dimension of protocol,
+                #  which returns 1 and causes this to evaluate everytime anyway.
+                #  labels: bug, enhancement
+                if isinstance(self._stateBase__initialState._bound, _parameter): # pylint: disable=protected-access
+                    # might seem redundant, but required to make sure that bound creates its initial state by calling
+                    # _createAstate
+                    self._stateBase__initialState._value = self._timeBase__bound.initialState # pylint: disable=no-member
+                else:
+                    self._stateBase__initialState.value = self.initialStateSystem._createAstate(self._initialStateInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
         return self._stateBase__initialState.value # pylint: disable=no-member
 
     @initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self._stateBase__initialStateInput.value = inp # pylint: disable=no-member
-        self._stateBase__initialState.value = self.initialStateSystem._createAstate(inp) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
+        if isinstance(self._initialStateInput, (int, integer)):
+            if self._initialStateInput >= self.initialStateSystem.dimension:
+                warn(f'Initial state input ({self._initialStateInput}) is larger than or equal to system dimension \
+                      ({self.initialStateSystem.dimension}), initial state is set to False')
+                self._stateBase__initialState.value = False
+
+        if self._stateBase__initialState.value is not False:
+            self._stateBase__initialState.value = self.initialStateSystem._createAstate(inp) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
 
     @property
     def _initialStateInput(self):
