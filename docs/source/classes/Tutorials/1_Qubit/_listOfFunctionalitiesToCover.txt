@@ -1,0 +1,29 @@
+- getByNameOrAlias (unique name and aliases)
+- auxiliary information with auxDict and auxObj
+- copy, add, create, remove things into subSys
+- _parameter parameters and their bound mechanism
+- simulation bound mechanism (with bound tree)
+- protocol updates and optimizations (eg exponentiation count for sweep list [1, 1, 1])
+- replace create unitary of protocols (free evolution, gates, etc.)
+- current (and initial) state of a protocol
+- fixed protocols and/or protocol steps
+- copy steps
+- protocol ratio attribute
+- protocol time dependency
+- protocol samples attribute
+- sweeping auxiliary information
+- custom sweep functions, sweep index, and log sweep
+- index in simulation as counter of current number of step instead of time (_currentTime)
+- paramUpdated/paramBound relations setAttr and setAttrParam
+- calculate functions
+- open system with thermal bath
+- replace or turn-off time evolution
+- average results, last results and states, calculated results, and resultsMethod
+- all results (with alias from the containing object), reset all and/or last results
+- simulation time list
+- remove system, protocol, and/or sweep (which is also called when a sub system is removed)
+- remove, reset, and more operations with terms in quantum systems
+- spin j value example/s
+- quantum system internal _freeEvol and unitary
+- quantum system useful attributes: ind, hasInSubs, _isComposite, _dimsAfter, _dimsBefore, subSysDimensions, etc.
+- term with product of operators from the same Hilbert space
