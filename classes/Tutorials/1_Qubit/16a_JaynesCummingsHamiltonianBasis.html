@@ -240,11 +240,6 @@
    19 - Simultaneous Simulation JC and Rabi models
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="20_SimultaneousSimulationRabiJCandDigitalProtocols.html">
-   20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi
-  </a>
- </li>
 </ul>
 
   </div>
@@ -561,10 +556,10 @@ the order of the sub-system Hilbert spaces is implicitly defined by the ordering
 <p>Finally, the matrix representations of JC Hamiltonian (with <img class="math" src="../../../_images/math/7a9611c86a79343d1c0bda4694c9a3b3899852b9.png" alt="d=10"/>) for two different cases of sub-system Hilbert space orders are</p>
 <ul>
 <li><p><img class="math" src="../../../_images/math/79faece871760dd6b8a018fc71d6b944bce49280.png" alt="H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} + \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes\sigma_{-} + a\otimes\sigma_{+})"/></p>
-<a class="reference internal image-reference" href="../../../_images/CavityQubitWithSandPlus.png"><img alt="Cavity first and qubit with sigma-plus/minus operators and plus" src="../../../_images/CavityQubitWithSandPlus.png" style="width: 70.0%;" /></a>
+<img alt="Cavity first and qubit with sigma-plus/minus operators and plus" src="../../../_images/CavityQubitWithSandPlus.png" />
 </li>
 <li><p><img class="math" src="../../../_images/math/0323266f097f445d7e082767a0d8211229de195a.png" alt="H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(\sigma_{-}\otimes a^{\dagger} + \sigma_{+}\otimes a)"/></p>
-<a class="reference internal image-reference" href="../../../_images/QubitCavityWithSandPlus.png"><img alt="Qubit first and qubit with sigma-plus/minus operators and plus" src="../../../_images/QubitCavityWithSandPlus.png" style="width: 70.0%;" /></a>
+<img alt="Qubit first and qubit with sigma-plus/minus operators and plus" src="../../../_images/QubitCavityWithSandPlus.png" />
 </li>
 </ul>
 <p>In above convention, we see that the zero-excitation state <img class="math" src="../../../_images/math/d4bbb8b915f20422771c0cdd41d9cef3801f9ce6.png" alt="|0, g\rangle"/> (or, <img class="math" src="../../../_images/math/bbf095dfe4f6864858ce0429bdbd98ab1916615d.png" alt="|g, 0\rangle"/> in the qubit first order of sub-spaces) appears at <img class="math" src="../../../_images/math/02e4258a90ccb9c397eb0d818be5d49945779b12.png" alt="(2, 2)"/> (or, at <img class="math" src="../../../_images/math/33fd42720b7c49f3b197e9aee386e980de5478ba.png" alt="(d+1, d+1)"/> in the qubit first order of sub-spaces) index of the matrix representation. There are some other <em>counter-intuitive</em> details in above convention, and an alternative convention for JC Hamiltonian is to write the qubit term with a minus (<img class="math" src="../../../_images/math/f40df98d4b07d85e9c0e6b2a140df1034fd5095d.png" alt="- \frac{1}{2}\hbar\omega_{q}\sigma_{z}"/>) so that the
@@ -581,10 +576,10 @@ excited/ground state definition is switched</p>
 <p>Here, we could introduce some unconventional definitions for <img class="math" src="../../../_images/math/4c15ba8f512b02c3c625a6183e93687851033d5f.png" alt="\sigma_{\pm}"/> by switching the <img class="math" src="../../../_images/math/c1b04b17db55f1b4279eba10c6244b33b4673748.png" alt="\pm"/> in their definition to <img class="math" src="../../../_images/math/a3dcbc5b4eab23efb33863a71aa27c0f86cd595d.png" alt="\mp"/>, but we have a better alternative that is to replace <img class="math" src="../../../_images/math/5a274cf473afa24ea7978900bae254c9f16142d3.png" alt="\sigma_{-}"/> and <img class="math" src="../../../_images/math/6abf1dbe6edeff7185bb5870fb9c96c49b9b0b81.png" alt="\sigma_{+}"/> with 2-dimensional truncations of <img class="math" src="../../../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> and <img class="math" src="../../../_images/math/95fe3337916b736467a57d7ca5cc1a41daadf1be.png" alt="a^{\dagger}"/>, respectively. Then, the matrix representations of JC Hamiltonian (with <img class="math" src="../../../_images/math/7a9611c86a79343d1c0bda4694c9a3b3899852b9.png" alt="d=10"/>) for two different cases of sub-system Hilbert space orders are</p>
 <ul>
 <li><p><img class="math" src="../../../_images/math/ec033d597fe5a13f4f2420973355cd185051c8be.png" alt="H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} - \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes a_{2,2} + a\otimes a_{2,2}^{\dagger})"/></p>
-<a class="reference internal image-reference" href="../../../_images/CavityQubitWithAandMinus.png"><img alt="Cavity first and qubit with creation/annihilation operators and minus" src="../../../_images/CavityQubitWithAandMinus.png" style="width: 70.0%;" /></a>
+<img alt="Cavity first and qubit with creation/annihilation operators and minus" src="../../../_images/CavityQubitWithAandMinus.png" />
 </li>
 <li><p><img class="math" src="../../../_images/math/583f937d836a93a24e7043c63df3577f781046a3.png" alt="H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(a_{2,2}\otimes a^{\dagger} + a_{2,2}^{\dagger}\otimes a)"/></p>
-<a class="reference internal image-reference" href="../../../_images/QubitCavityWithAandMinus.png"><img alt="Qubit first and qubit with creation/annihilation operators and minus" src="../../../_images/QubitCavityWithAandMinus.png" style="width: 70.0%;" /></a>
+<img alt="Qubit first and qubit with creation/annihilation operators and minus" src="../../../_images/QubitCavityWithAandMinus.png" />
 </li>
 </ul>
 <p>and, in the first case, we have <img class="math" src="../../../_images/math/d4bbb8b915f20422771c0cdd41d9cef3801f9ce6.png" alt="|0, g\rangle"/> at <img class="math" src="../../../_images/math/85428231b6a79d11175c72cad34f1d2b684d51be.png" alt="(0, 0)"/>.</p>
