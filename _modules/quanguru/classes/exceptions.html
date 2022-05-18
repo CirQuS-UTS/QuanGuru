@@ -212,10 +212,6 @@
     <span class="k">return</span> <span class="n">someObj</span></div>
 
 <div class="viewcode-block" id="checkCorType"><a class="viewcode-back" href="../../../classes/exceptions.html#quanguru.classes.exceptions.checkCorType">[docs]</a><span class="k">def</span> <span class="nf">checkCorType</span><span class="p">(</span><span class="n">someObj</span><span class="p">,</span> <span class="n">someType</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">someType</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">ty</span> <span class="ow">in</span> <span class="n">someType</span><span class="p">:</span>
-            <span class="n">checkCorType</span><span class="p">(</span><span class="n">someObj</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">someObj</span><span class="p">,</span> <span class="n">someType</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span> <span class="o">+</span> <span class="s1">&#39; requires &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">someType</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; but &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">someObj</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; is given.&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">someObj</span></div>

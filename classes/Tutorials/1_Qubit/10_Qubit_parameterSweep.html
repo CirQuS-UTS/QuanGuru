@@ -240,6 +240,11 @@
    19 - Simultaneous Simulation JC and Rabi models
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20_SimultaneousSimulationRabiJCandDigitalProtocols.html">
+   20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi
+  </a>
+ </li>
 </ul>
 
   </div>
@@ -542,7 +547,7 @@ div.rendered_html tbody tr:hover {
 <h1>10 - Single parameter sweep<a class="headerlink" href="#10---Single-parameter-sweep" title="Permalink to this headline">#</a></h1>
 <p>In the previous tutorial, we covered the simulation of a single qubit with the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function. But, we run the simulation only for a single set of parameters, and, in most cases, we actually want to run the simulation for various different value of a parameter, say the qubit frequency. QuanGuru already provides this functionality, and it is the purpose of this tutorial to show how do we create/define a sweep. As you will see below, we don’t need to change any part of the existing single
 parameter simulation, but we simply add a sweep.</p>
-<p>Again, here, we will evolve the qubit under the unitary dynamics of its Hamiltonian <img class="math" src="../../../_images/math/abecf9f963036c684e234624fc43ec92ba27d44f.png" alt="H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}"/> with the initial state set to the equal superposition of <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> and <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <img class="math" src="../../../_images/math/0142317d55d030ac1bd53ac8b353f190c17c4b47.png" alt="\sigma_{x}"/>.</p>
+<p>Again, here, we will evolve the qubit under the unitary dynamics of its Hamiltonian <span class="math">H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}</span> with the initial state set to the equal superposition of <span class="math">|1\rangle</span> and <span class="math">|0\rangle</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <span class="math">\sigma_{x}</span>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -594,7 +599,7 @@ of the other terms in the Hamiltonian (covered in later tutorials).</p>
 </div>
 </div>
 <p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.results['sigmax</span> <span class="pre">expectation']</span></code>, but this time it returns a list of list, each of which is a time trace corresponding to the frequencies swept.</p>
-<p>As expected, the expectation value of <img class="math" src="../../../_images/math/0142317d55d030ac1bd53ac8b353f190c17c4b47.png" alt="\sigma_{x}"/> oscillates with different frequencies.</p>
+<p>As expected, the expectation value of <span class="math">\sigma_{x}</span> oscillates with different frequencies.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>

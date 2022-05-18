@@ -650,7 +650,7 @@ objects, and it switches to a new index, if the <code class="docutils literal no
 <dd><p>method used in modularSweep to calculate indices for each sweepList from the loop counter <code class="docutils literal notranslate"><span class="pre">ìnd</span></code> using the
 total lengths <code class="docutils literal notranslate"><span class="pre">*args</span></code>. It is hard to describe the exact calculation in words, but it is trivial to see from
 the math (TODO) which i will do later.</p>
-<p>the loop counter can at max be <img class="math" src="../_images/math/35cd65ee33fb1a4b0dc771d34d49c8c6a4e9d59f.png" alt="(\prod_{i = 1}^{len(args)} args[i]) - 1"/>, and multi-parameter
+<p>the loop counter can at max be <span class="math">(\prod_{i = 1}^{len(args)} args[i]) - 1</span>, and multi-parameter
 sweeps loops the first sweepList while fixing the others. So, at each inp = args[0] the first list should
 start from zero, and the second list moves to next item, and this relation goes up in the chain, e.g. at each
 inp = args[0]*args[1], the index of the third need to be increased, and so on. Therefore, the current index for
