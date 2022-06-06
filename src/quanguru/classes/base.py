@@ -238,7 +238,7 @@ class aliasDict(dict):
         Modified get method to be compatible with extended :meth:`~__getitem__` method.
         """
         try:
-            return self.__getitem__(key)
+            return self.__getitem__(key) #pylint:disable=unnecessary-dunder-call
         except: #pylint:disable=bare-except  # noqa: E722
             return default
 
@@ -284,9 +284,9 @@ class aliasDict(dict):
         r"""
         Modified setdefault method to be compatible with extended :meth:`~__setitem__` & :meth:`~__getitem__` methods.
         """
-        if not self.__contains__(__key):
-            self.__setitem__(__key, __default)
-        return self.__getitem__(__key)
+        if not self.__contains__(__key): #pylint:disable=unnecessary-dunder-call
+            self.__setitem__(__key, __default) #pylint:disable=unnecessary-dunder-call
+        return self.__getitem__(__key)#pylint:disable=unnecessary-dunder-call
 
     def pop(self, k: Hashable, *args) -> Any:
         r"""
