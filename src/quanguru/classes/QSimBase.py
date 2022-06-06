@@ -241,7 +241,7 @@ class stateBase(computeBase):
         if isinstance(inps, (int, integer)) or (inps is None):
             inps = [inps]
         elif isinstance(inps, (list, tuple)):
-            inps = inps
+            pass
         elif isinstance(inps, dict):
             inps = inps.keys()
         elif isinstance(inps, (ndarray, spmatrix)):

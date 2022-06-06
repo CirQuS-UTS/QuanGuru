@@ -176,7 +176,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         returns the sum of sub-system Hamiltonian
         """
-        return sum([val.totalHamiltonian for val in self.subSys.values()])
+        return sum(val.totalHamiltonian for val in self.subSys.values())
 
     @property
     def totalHamiltonian(self): # pylint: disable=invalid-overridden-method
@@ -193,7 +193,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         returns the sum of term Hamiltonian
         """
-        return sum([val.totalHamiltonian for val in self.terms.values() if val.operator is not None])
+        return sum(val.totalHamiltonian for val in self.terms.values() if val.operator is not None)
 
     # dimension methods and properties
     @property
@@ -369,7 +369,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         if self in subSys.subSys.values():
             raise ValueError(f"{self.name} is a subsystem of {subSys.name}. " +
                              f"Cannot add {subSys.name} as subsystem to {self.name}. " +
-                             f"Circular subsystem addition is not allowed.")
+                             "Circular subsystem addition is not allowed.")
 
         if self._QuantumSystem__compSys is None: # pylint:disable=no-member
             self._QuantumSystem__compSys = True # pylint:disable=assigning-non-slot

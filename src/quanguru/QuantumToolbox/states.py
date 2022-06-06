@@ -253,7 +253,7 @@ def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
     # TODO
     """
 
-    return sum([weight*val for weight, val in zip(weights, summands)]) if weights is not None else sum(summands)
+    return sum(weight*val for weight, val in zip(weights, summands)) if weights is not None else sum(summands)
 
 def superPos(dimension: int, excitations: supInp, populations: bool = True, sparse: bool = True) -> Matrix:
     r"""
