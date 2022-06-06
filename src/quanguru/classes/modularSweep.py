@@ -78,13 +78,21 @@ def _runSweepAndPrep(qSim, ind):
     qSim.qRes._resetLast() # pylint: disable=protected-access
     qSim._computeBase__calculate("pre")
     for protocol in qSim.subSys.keys():
-        qSim.subSys[protocol]._computeBase__calculate("pre") # pylint: disable=protected-access
         protocol._computeBase__calculate("pre") # pylint: disable=protected-access
+    calledFor = []
+    for protocol, qsystem in qSim.subSys.items():
+        if qsystem not in calledFor:
+            qsystem._computeBase__calculate("pre") # pylint: disable=protected-access
+            calledFor.append(qsystem)
     timeDependent(qSim)
     qSim._computeBase__calculate("post")
     for protocol in qSim.subSys.keys():
-        qSim.subSys[protocol]._computeBase__calculate("post") # pylint: disable=protected-access
         protocol._computeBase__calculate("post") # pylint: disable=protected-access
+    calledFor = []
+    for protocol, qsystem in qSim.subSys.items():
+        if qsystem not in calledFor:
+            qsystem._computeBase__calculate("post") # pylint: disable=protected-access
+            calledFor.append(qsystem)
 
 def timeDependent(qSim):
     td = False
