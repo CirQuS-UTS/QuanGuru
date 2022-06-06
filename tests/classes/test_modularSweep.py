@@ -1,6 +1,30 @@
-from ast import operator
+import numpy as np
 import pytest
-from quanguru import QuantumSystem, sigmam
+from quanguru import QuantumSystem, sigmam, Qubit, freeEvolution
+
+def test_computeFunctionCallCount():
+    # create a qubit
+    qubit = Qubit(frequency=1)
+
+    # create a second protocol for the system
+    secondPro = freeEvolution(system=qubit)
+
+    # add the second protocol to the simulation
+    qubit.simulation.addSubSys(qubit, secondPro)
+    qubit.simTotalTime = 2*np.pi
+    qubit.simStepCount = 100
+    qubit.simulation.initialState = [0, 1]
+
+    # write a compute function for the qubit
+    def compute(qub, st):
+        qub.qRes.result = 'storedOnce', 1
+    qubit.compute = compute
+
+    # run the simulation
+    qubit.runSimulation()
+
+    # length of results is not 101 but 202
+    assert len(qubit.qRes.results['storedOnce']) == (qubit.simulation.stepCount+1)
 
 def test_noInitialStateRequiredWhenNoTimeEvolution():
     # create a quantum system
