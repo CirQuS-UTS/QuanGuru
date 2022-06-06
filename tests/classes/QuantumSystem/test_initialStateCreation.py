@@ -6,6 +6,62 @@ import quanguru.QuantumToolbox.states as qSts
 from quanguru.classes.QSys import QuantumSystemOld
 from quanguru.QuantumToolbox.linearAlgebra import tensorProd
 
+def test_initialStateInputLargerThanDimesion():
+    dimVal = rnd.randint(2, 10)
+
+    qsys = QSys.QuantumSystem(dimension=dimVal)
+
+    with pytest.warns(UserWarning):
+        qsys.initialState = dimVal+1
+    assert qsys.initialState is None
+
+    qsys.initialState = dimVal-1
+    assert qsys.initialState is not None
+
+    with pytest.warns(UserWarning):
+        qsys.initialState = dimVal+1
+    assert qsys.initialState is None
+
+    qsys.initialState = [dimVal-2, dimVal-1]
+    assert qsys.initialState is not None
+
+    with pytest.warns(UserWarning):
+        qsys.initialState = [dimVal-2, dimVal+1]
+    assert qsys.initialState is None
+
+    qsys.initialState = {0: 0.2, 1:0.8}
+    assert qsys.initialState is not None
+
+    with pytest.warns(UserWarning):
+        qsys.initialState = {0: 0.2, dimVal+1:0.8}
+    assert qsys.initialState is None
+
+    qsys1 = QSys.QuantumSystem(dimension=dimVal)
+    qsys2 = QSys.QuantumSystem(dimension=dimVal)
+
+    compSys = qsys1 + qsys2
+
+    with pytest.warns(UserWarning):
+        compSys.initialState = [dimVal, dimVal-1]
+    assert compSys.initialState is None
+
+    compSys.initialState = [dimVal-1, dimVal-1]
+    assert compSys.initialState is not None
+
+    with pytest.warns(UserWarning):
+        compSys.initialState = [[dimVal-2, dimVal+1], dimVal-1]
+    assert compSys.initialState is None
+
+    compSys.initialState = [[dimVal-2, dimVal-1], dimVal-1]
+    assert compSys.initialState is not None
+
+    with pytest.warns(UserWarning):
+        compSys.initialState = [{0: 0.2, dimVal+1:0.8}, dimVal-1]
+    assert compSys.initialState is None
+
+    compSys.initialState = [{0: 0.2, 1:0.8}, dimVal-1]
+    assert compSys.initialState is not None
+
 def test_initialStateOfNullSystem():
     # setting an initial state before the type of quantum system (single or composite) is determined
     # raises a ValueError
@@ -76,8 +132,8 @@ def test_createInitialStateForSingleSystem(cls):
                 initState[ind1][:, ind2] = 0
 
 @pytest.mark.parametrize("cls, mth", [
-                         [QuantumSystemOld, 'initialState'],
-                         [QuantumSystemOld, '_createAstate'],
+                         #[QuantumSystemOld, 'initialState'],
+                         #[QuantumSystemOld, '_createAstate'],
                          [QSys.QuantumSystem, 'initialState'],
                          [QSys.QuantumSystem, '_createAstate']
                          ])
@@ -167,7 +223,7 @@ def test_compositeStateInitialStateSetterInputsAndErrors():
         qsystem.initialState = [0, 1, 2, 0]
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
+                         #QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_createInitialStateForCompositeSystemThroughCompositeSystem1Layer(cls):
@@ -222,7 +278,7 @@ def test_createInitialStateForCompositeSystemThroughCompositeSystem1Layer(cls):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
+                         #QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_createInitialStateForCompositeSystemThroughSubSystems1Layer(cls):
@@ -280,7 +336,7 @@ def test_createInitialStateForCompositeSystemThroughSubSystems1Layer(cls):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
+                         #QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_createInitialStateForCompositeSystemThroughCompositeSystem2Layers(cls):
@@ -339,7 +395,7 @@ def test_createInitialStateForCompositeSystemThroughCompositeSystem2Layers(cls):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
+                         #QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_createInitialStateForCompositeSystemThroughSubSystems2Layers(cls):
@@ -401,7 +457,7 @@ def test_createInitialStateForCompositeSystemThroughSubSystems2Layers(cls):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
+                         #QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_createInitialStateForCompositeSystemThroughMixed2Layers(cls):

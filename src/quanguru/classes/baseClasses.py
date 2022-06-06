@@ -234,7 +234,7 @@ class computeBase(paramBoundBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['qRes', 'compute', 'calculateStart', 'calculateEnd']
+    __slots__ = ['qRes', 'compute', 'preCompute', 'postCompute']
 
     def __init__(self, **kwargs) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -248,13 +248,13 @@ class computeBase(paramBoundBase):
         It is intended to perform computations on the current state of the system and store the results
         in the ``self.qRes.results``.
         """
-        self.calculateStart: Callable = None
+        self.preCompute: Callable = None
         r"""
         Function to call at the beginning of time-evolution (or simulation) to perform
         some calculations, which might be needed in the compute, and store them in the ``self.qRes.calculated``.
         This is by default ``None``.
         """
-        self.calculateEnd: Callable = None
+        self.postCompute: Callable = None
         r"""
         Function to call at the end of time-evolution (or simulation) to perform
         some calculations, which might be needed in the compute, and store them in the ``self.qRes.calculated``.
@@ -274,13 +274,13 @@ class computeBase(paramBoundBase):
     def __calculate(self, where: str, *args, **kwargs) -> None:
         r"""
         This is the actual calculate function that is called in the time-evolution, it calls
-        (if callable, does nothing otherwise) ``self.calculateStart``
-        or ``self.calculateEnd`` depending on the given string `where`.
+        (if callable, does nothing otherwise) ``self.preCompute``
+        or ``self.postCompute`` depending on the given string `where`.
         """
-        if where == "start":
-            meth = self.calculateStart
-        elif where == "end":
-            meth = self.calculateEnd
+        if where == "pre":
+            meth = self.preCompute
+        elif where == "post":
+            meth = self.postCompute
 
         if callable(meth):
             return meth(self, *args, **kwargs) # pylint: disable=not-callable

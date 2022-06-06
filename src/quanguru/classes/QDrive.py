@@ -37,7 +37,7 @@ class genericDrive(paramBoundBase):
             self._paramBoundBase__matrix = shapeList #pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def apply(self, time): #pylint:disable=no-self-use,unused-argument
+    def apply(self, time): #pylint:disable=unused-argument
         return 0
 
 class qDrive(genericDrive):

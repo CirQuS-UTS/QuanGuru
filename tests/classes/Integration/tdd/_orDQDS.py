@@ -68,12 +68,12 @@ def calcEigStat(op, ob):
 
 def calculateDig(protoc):
     calcEigStat(protoc.unitary(), protoc)
-dd.calculateStart = calculateDig
+dd.preCompute = calculateDig
 
 def calculateIde(sys):
     #calcEigStat(sys.totalHam, sys)
     calcEigStat(sys.totalHamiltonian, sys)
-ds.calculateStart = calculateIde
+ds.preCompute = calculateIde
 
 simulation.auxDict['totalDim'] = -1
 def calculateOps(sim):
@@ -84,7 +84,7 @@ def calculateOps(sim):
         sim.auxDict['totalDim'] = totalDim
         #sim.auxDict['cavPhoton'] = cav.freeMat
         sim.auxDict['cavPhoton'] = cav._freeMatrix
-simulation.calculateStart = calculateOps
+simulation.preCompute = calculateOps
 
 def compute(qsim, args):
     cavPhoton = qsim.auxDict['cavPhoton']

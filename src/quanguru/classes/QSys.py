@@ -420,7 +420,7 @@ class compQSystem(genericQSys):
         r"""
         returns the Hamiltonian without the coupling terms.
         """
-        ham = sum([val.totalHam for val in self.qSystems.values()])
+        ham = sum(val.totalHam for val in self.qSystems.values())
         return ham
 
     @property
@@ -438,7 +438,7 @@ class compQSystem(genericQSys):
         r"""
         returns only the coupling terms of the Hamiltonian.
         """
-        cham = sum([val.totalHam for val in self.qCouplings.values()])
+        cham = sum(val.totalHam for val in self.qCouplings.values())
         return cham
 
     @property
@@ -896,7 +896,7 @@ class qSystem(genericQSys):
         Returns the total Hamiltonian of the single quantum system.
         """
         if ((self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
-            h = sum([(obj.frequency * obj.freeMat) for obj in self.subSys.values()])
+            h = sum((obj.frequency * obj.freeMat) for obj in self.subSys.values())
             self._paramBoundBase__matrix = h # pylint: disable=assigning-non-slot
             self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
@@ -907,7 +907,7 @@ class qSystem(genericQSys):
         returns the total Hamiltonian of the single quantum system, but this method does not take the dimension
         before/after into account even if ``self`` is a sub-system of a composite system.
         """
-        return sum([(obj.frequency * obj._freeMatSimple) for obj in self.subSys.values()])#pylint:disable=protected-access
+        return sum((obj.frequency * obj._freeMatSimple) for obj in self.subSys.values())#pylint:disable=protected-access
 
     @property
     def freeMat(self):
@@ -1175,7 +1175,7 @@ class qCoupling(termTimeDep):
     def couplingStrength(self, strength):
         self.frequency = strength
 
-    def __coupOrdering(self, qts): # pylint: disable=no-self-use
+    def __coupOrdering(self, qts):
         r"""
         method used internally to make some sorting of the operators. This is implemented so that there are some
         flexibilities for user when creating coupling.
