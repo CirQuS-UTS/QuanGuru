@@ -113,8 +113,12 @@ def timeEvolDefault(qSim, td):
     if callable(qSim.evolFunc):
         qSim._Simulation__compute() # pylint: disable=protected-access
     for protocol in qSim.subSys.keys():
-        qSim.subSys[protocol]._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
         protocol._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
+    calledFor = []
+    for protocol, qsystem in qSim.subSys.items():
+        if qsystem not in calledFor:
+            qsystem._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
+            calledFor.append(qsystem)
 
     if callable(qSim.evolFunc):
         for ind in range(qSim.stepCount):
@@ -125,8 +129,12 @@ def timeEvolDefault(qSim, td):
             qSim.evolFunc(qSim)
             qSim._Simulation__compute() # pylint: disable=protected-access
             for protocol in qSim.subSys.keys():
-                qSim.subSys[protocol]._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
                 protocol._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
+            calledFor = []
+            for protocol, qsystem in qSim.subSys.items():
+                if qsystem not in calledFor:
+                    qsystem._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
+                    calledFor.append(qsystem)
 
 def timeEvolBase(qSim):
     for protocol in qSim.subSys.keys(): #pylint:disable=too-many-nested-blocks
