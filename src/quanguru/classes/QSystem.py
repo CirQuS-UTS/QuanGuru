@@ -39,7 +39,7 @@ def _initStDec(_createInitialState):
     r"""
     Decorater to handle different inputs for initial state creation.
     """
-    def wrapper(obj, inp=None):
+    def wrapper(obj, inp=None, _maxInput=1):
         # if the given input is a state with consistent shape, simply returns it back
         # if the shape is inconsistent raises an error
         if isinstance(inp, (ndarray, spmatrix)):
@@ -51,8 +51,8 @@ def _initStDec(_createInitialState):
             # this is introduced as convenience so that we can call the _createInitialState without any argument
             # and it will use the input set through the initial state setter
             if inp is None:
-                inp = obj.simulation._stateBase__initialStateInput.value
-            state = _createInitialState(obj, inp)
+                inp = obj.simulation._initialStateInput
+            state = _createInitialState(obj, inp, _maxInput=_maxInput)
         return state
     return wrapper
 
@@ -133,18 +133,22 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         return time
 
     @_initStDec
-    def _createInitialState(self, inp=None):
+    def _createInitialState(self, inp=None, _maxInput=1):
         r"""
         Method that creates a state from the given input, which is handeled by the _initStDec decorator for different
         input cases.
         """
         if self._isComposite:
             inp = [qsys._initialStateInput for qsys in self.subSys.values()] if inp is None else inp
-            subSysStates = [qsys._createInitialState(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]  # pylint: disable=protected-access
-            initialState = tensorProd(*subSysStates)
+            subSysStates = [qsys._createInitialState(inp[ind], qsys.simulation._setGetMaxInput(inp[ind])) for ind, qsys in enumerate(self.subSys.values())]  # pylint: disable=protected-access,line-too-long
+            initialState = tensorProd(*subSysStates) if not any(inst is None for inst in subSysStates) else None
         else:
             checkNotVal(inp, None, self.name + ' is not given an initial state')
-            initialState = superPos(self.dimension, inp, not self._inpCoef)
+            initialState = superPos(self.dimension, inp, not self._inpCoef) if _maxInput < self.dimension else None
+
+        if initialState is None:
+            warnings.warn(f'Initial state input ({inp}) is larger than or equal to system dimension ({self.dimension})'+
+                 f', initial state is set to {initialState}')
         return initialState
 
     @QSimComp.initialState.setter # pylint: disable=no-member
