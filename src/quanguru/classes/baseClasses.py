@@ -277,9 +277,9 @@ class computeBase(paramBoundBase):
         (if callable, does nothing otherwise) ``self.preCompute``
         or ``self.postCompute`` depending on the given string `where`.
         """
-        if where == "start":
+        if where == "pre":
             meth = self.preCompute
-        elif where == "end":
+        elif where == "post":
             meth = self.postCompute
 
         if callable(meth):

@@ -26,7 +26,7 @@ def test_computeBaseFunctions(helpers):
 
     assert comp1._computeBase__calculate('end', *strings[4:6]) is None
     assert comp2._computeBase__calculate('end', *strings[4:6]) is None
-    comp1.calculateEnd = _useTestComputeBaseFunctions
+    comp1.postCompute = _useTestComputeBaseFunctions
     assert comp1._computeBase__calculate('end', *strings[4:6]) == strings[4:6]
     assert comp2._computeBase__calculate('end', *strings[4:6]) is None
 
@@ -38,7 +38,7 @@ def test_computeBaseFunctions(helpers):
     with pytest.warns(Warning):
         assert comp1._computeBase__calculate('start',*strings[4:6]) == strings[1]
 
-    comp1.calculateEnd = strings[2]
+    comp1.postCompute = strings[2]
     with pytest.warns(Warning):
         assert comp1._computeBase__calculate('end',*strings[4:6]) == strings[2]
 
