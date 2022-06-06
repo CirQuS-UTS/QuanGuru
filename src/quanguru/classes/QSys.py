@@ -1175,7 +1175,7 @@ class qCoupling(termTimeDep):
     def couplingStrength(self, strength):
         self.frequency = strength
 
-    def __coupOrdering(self, qts): # pylint: disable=no-self-use
+    def __coupOrdering(self, qts):
         r"""
         method used internally to make some sorting of the operators. This is implemented so that there are some
         flexibilities for user when creating coupling.
