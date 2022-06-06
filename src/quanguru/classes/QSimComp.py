@@ -70,7 +70,7 @@ class QSimComp(computeBase):
 
     @property
     def _initialStateInput(self):
-        return self.simulation._stateBase__initialStateInput.value
+        return self.simulation._initialStateInput
 
     @property
     def simParameters(self):
