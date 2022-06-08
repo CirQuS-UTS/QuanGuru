@@ -153,7 +153,8 @@ class paramBoundBase(qBase):
 
     @property
     def _hc(self):
-        if self._paramBoundBase__matrixHc is None: # pylint: disable=assigning-non-slot
+        if ((self._paramBoundBase__matrixHc is None)
+            or (self._paramBoundBase__matrixHc.shape != self._paramBoundBase__matrix.shape)): # pylint: disable=assigning-non-slot
             self._paramBoundBase__matrixHc = hc(self._paramBoundBase__matrix) # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrixHc # pylint: disable=assigning-non-slot
 
