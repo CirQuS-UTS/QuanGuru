@@ -551,7 +551,7 @@ div.rendered_html tbody tr:hover {
 <h1>15 - Time dependent Hamiltonian 2<a class="headerlink" href="#15---Time-dependent-Hamiltonian-2" title="Permalink to this headline">#</a></h1>
 <p>In previous tutorials, we covered how to set an initial state to a quantum system and how to describe its Hamiltonian.</p>
 <p>Here, we will evolve the quantum system under the unitary dynamics of its Hamiltonian. First, we create a quantum system and describe its Hamiltonian</p>
-<p><span class="math">H=f_{z}J_{z} + f_{d}(t)\sigma_{+} + f_{d}^{*}(t)\sigma_{-}</span></p>
+<p><img class="math" src="../../../_images/math/6377f6c8ffb6034465e2415255c5420a900fb22f.png" alt="H=f_{z}J_{z} + f_{d}(t)\sigma_{+} + f_{d}^{*}(t)\sigma_{-}"/></p>
 <p>and, for the sake of the example, we won’t use the special <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -594,9 +594,9 @@ div.rendered_html tbody tr:hover {
 <span class="n">sigmaX</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
 
 <span class="c1"># write a compute function that takes two arguments: (i) a quantum-system (qsys) and (ii) a state</span>
-<span class="c1"># compute whatever we want and store in .results</span>
+<span class="c1"># compute whatever we want and store in .resultsDict</span>
 <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-    <span class="n">qsys</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaX</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
+    <span class="n">qsys</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaX</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
 
 <span class="c1"># set the compute attribute of our qubit to compute function</span>
 <span class="n">qub</span><span class="o">.</span><span class="n">compute</span> <span class="o">=</span> <span class="n">compute</span>
@@ -650,7 +650,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

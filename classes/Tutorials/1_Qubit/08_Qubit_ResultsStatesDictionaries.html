@@ -581,7 +581,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -598,7 +598,7 @@ defaultdict(&lt;class &#39;list&#39;&gt;, {}) defaultdict(&lt;class &#39;list&#3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span> <span class="ow">is</span> <span class="n">qub</span><span class="o">.</span><span class="n">states</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span> <span class="ow">is</span> <span class="n">qub</span><span class="o">.</span><span class="n">states</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span> <span class="ow">is</span> <span class="n">qub</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -618,9 +618,9 @@ True True
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># store some values</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;1to10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">qub</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s2">&quot;1to10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1"># print those values</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;1to10&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s2">&quot;1to10&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -632,7 +632,7 @@ True True
 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 </pre></div></div>
 </div>
-<p>We will cover when and how to use above, but, for now, the key point here is that you can simply call append with an arbitrary key, because <code class="docutils literal notranslate"><span class="pre">.results</span></code> returns a <code class="docutils literal notranslate"><span class="pre">defaultdict</span></code>.</p>
+<p>We will cover when and how to use above, but, for now, the key point here is that you can simply call append with an arbitrary key, because <code class="docutils literal notranslate"><span class="pre">.resultsDict</span></code> returns a <code class="docutils literal notranslate"><span class="pre">defaultdict</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">qResults</span></code> objects actually uses <code class="docutils literal notranslate"><span class="pre">setter/getter</span></code> and provide an alternative notation for the same task as below. Notice that, in this case, we use <code class="docutils literal notranslate"><span class="pre">.result</span></code> (not <code class="docutils literal notranslate"><span class="pre">results</span></code>) as it is a different setter. As noted above, we will cover where and how these will be used, and don’t worry if you don’t understand the implementation details.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -640,9 +640,9 @@ True True
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># store some values</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;11to20&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">11</span><span class="p">]</span>
+    <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;11to20&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">11</span><span class="p">]</span>
 <span class="c1"># print those values</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;11to20&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s2">&quot;11to20&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

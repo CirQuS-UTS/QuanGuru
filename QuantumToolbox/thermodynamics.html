@@ -267,13 +267,13 @@ TODO update docstring examples and write some tests after writing some tutorials
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.thermodynamics.nBarThermal" title="quanguru.QuantumToolbox.thermodynamics.nBarThermal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nBarThermal</span></code></a>(angFreq, temp[, hbar, kb])</p></td>
-<td><p>Calculates average excitation number <span class="math">\bar{n}(T) := 1/(e^{\hbar \omega / k_{b}T} - 1)</span> of a bosonic field with frequeny <span class="math">\omega</span> at a temperature T.</p></td>
+<td><p>Calculates average excitation number <img class="math" src="../_images/math/2104b7f5bf018026631a8756fb0619f0398ca45d.png" alt="\bar{n}(T) := 1/(e^{\hbar \omega / k_{b}T} - 1)"/> of a bosonic field with frequeny <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> at a temperature T.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.thermodynamics.qubitPolarisation" title="quanguru.QuantumToolbox.thermodynamics.qubitPolarisation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qubitPolarisation</span></code></a>(freq, temp)</p></td>
-<td><p>Returns the polarisation <span class="math">\langle\hat{\sigma}_{z}\rangle := P_{1} - P_{0}</span> of a qubit with frequency <span class="math">\omega</span> in a thermal state of temperature T.</p></td>
+<td><p>Returns the polarisation <img class="math" src="../_images/math/b04d9d230735de770d303d022afd3384775b05f0.png" alt="\langle\hat{\sigma}_{z}\rangle := P_{1} - P_{0}"/> of a qubit with frequency <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> in a thermal state of temperature T.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.thermodynamics.HeatCurrent" title="quanguru.QuantumToolbox.thermodynamics.HeatCurrent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HeatCurrent</span></code></a>(Lindbladian, Hamiltonian, denMat)</p></td>
-<td><p>Calculates the heat current <span class="math">\mathcal{J}:=Tr(\dot{\rho}\hat{H})</span>, where <span class="math">\dot{\rho} := \hat{\mathcal{L}}\rho</span> is obtained using the given Lindbladian <span class="math">\hat{\mathcal{L}}</span>.</p></td>
+<td><p>Calculates the heat current <img class="math" src="../_images/math/2212e25efba70578595089358ee48e0d9f195ff9.png" alt="\mathcal{J}:=Tr(\dot{\rho}\hat{H})"/>, where <img class="math" src="../_images/math/bd5eaf37eeb9ee76ca3c4605fa38fbc321887bd3.png" alt="\dot{\rho} := \hat{\mathcal{L}}\rho"/> is obtained using the given Lindbladian <img class="math" src="../_images/math/3785b9861381690ac6b21bf5c3888e704d1ba9eb.png" alt="\hat{\mathcal{L}}"/>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -317,9 +317,9 @@ TODO update docstring examples and write some tests after writing some tutorials
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.thermodynamics.nBarThermal">
 <span class="sig-name descname"><span class="pre">nBarThermal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hbar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/thermodynamics.html#nBarThermal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.thermodynamics.nBarThermal" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculates average excitation number <span class="math">\bar{n}(T) := 1/(e^{\hbar \omega / k_{b}T} - 1)</span> of a bosonic field with
-frequeny <span class="math">\omega</span> at a temperature T.
-Boltzmann and reduced Planck constants are by default <span class="math">\hbar = k_{B} = 1</span>.
+<dd><p>Calculates average excitation number <img class="math" src="../_images/math/2104b7f5bf018026631a8756fb0619f0398ca45d.png" alt="\bar{n}(T) := 1/(e^{\hbar \omega / k_{b}T} - 1)"/> of a bosonic field with
+frequeny <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> at a temperature T.
+Boltzmann and reduced Planck constants are by default <img class="math" src="../_images/math/ac376f5d0de4955a65ca6d5b68f89e08d2b78357.png" alt="\hbar = k_{B} = 1"/>.
 TODO Physical constants’ default values should be connected to simUnits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -347,11 +347,11 @@ TODO Physical constants’ default values should be connected to simUnits.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.thermodynamics.qubitPolarisation">
 <span class="sig-name descname"><span class="pre">qubitPolarisation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/thermodynamics.html#qubitPolarisation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.thermodynamics.qubitPolarisation" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns the polarisation <span class="math">\langle\hat{\sigma}_{z}\rangle := P_{1} - P_{0}</span> of a qubit with frequency
-<span class="math">\omega</span>
-in a thermal state of temperature T. <span class="math">P_{1}</span> and <span class="math">P_{0}</span> are excited and ground state populations
-satisfying <span class="math">P_{1} + P_{0} = 1</span>, and thermal state populations also satisfy
-<span class="math">\frac{P_{1}}{P_{0}} := e^{\omega/T}</span>.</p>
+<dd><p>Returns the polarisation <img class="math" src="../_images/math/b04d9d230735de770d303d022afd3384775b05f0.png" alt="\langle\hat{\sigma}_{z}\rangle := P_{1} - P_{0}"/> of a qubit with frequency
+<img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/>
+in a thermal state of temperature T. <img class="math" src="../_images/math/8242a17e70e75201da194a15608b7fad526267d7.png" alt="P_{1}"/> and <img class="math" src="../_images/math/cef180ac30eda1bd3252896e81fbe1539ca789e7.png" alt="P_{0}"/> are excited and ground state populations
+satisfying <img class="math" src="../_images/math/c5f88abe8da60c99645a44449649246a4c59f42c.png" alt="P_{1} + P_{0} = 1"/>, and thermal state populations also satisfy
+<img class="math" src="../_images/math/8a333f4f624a80523ef2dc6f7238e5cb616f8c35.png" alt="\frac{P_{1}}{P_{0}} := e^{\omega/T}"/>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -373,11 +373,11 @@ satisfying <span class="math">P_{1} + P_{0} = 1</span>, and thermal state popula
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.thermodynamics.HeatCurrent">
 <span class="sig-name descname"><span class="pre">HeatCurrent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Lindbladian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hamiltonian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denMat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">scipy.sparse._base.spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/thermodynamics.html#HeatCurrent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.thermodynamics.HeatCurrent" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculates the heat current <span class="math">\mathcal{J}:=Tr(\dot{\rho}\hat{H})</span>, where
-<span class="math">\dot{\rho} := \hat{\mathcal{L}}\rho</span> is obtained using the given Lindbladian
-<span class="math">\hat{\mathcal{L}}</span>.
-Here, <span class="math">\hat{H}</span> is the system Hamiltonian, and the time derivative of density matrix is
-<span class="math">\dot{\rho}mathcal{L}</span>. It does not strictly speaking have to be
+<dd><p>Calculates the heat current <img class="math" src="../_images/math/2212e25efba70578595089358ee48e0d9f195ff9.png" alt="\mathcal{J}:=Tr(\dot{\rho}\hat{H})"/>, where
+<img class="math" src="../_images/math/bd5eaf37eeb9ee76ca3c4605fa38fbc321887bd3.png" alt="\dot{\rho} := \hat{\mathcal{L}}\rho"/> is obtained using the given Lindbladian
+<img class="math" src="../_images/math/3785b9861381690ac6b21bf5c3888e704d1ba9eb.png" alt="\hat{\mathcal{L}}"/>.
+Here, <img class="math" src="../_images/math/b5d453cd164a1584c9b627c35add844357eeb425.png" alt="\hat{H}"/> is the system Hamiltonian, and the time derivative of density matrix is
+<img class="math" src="../_images/math/f4f8494504924153d7edd11bd841ac649e1f0e96.png" alt="\dot{\rho}mathcal{L}"/>. It does not strictly speaking have to be
 a Lindbladian but any combination of terms from a Liouvillian. Disclaimer: physical meaning of those terms is not
 and cannot be interpreted by this function.
 TODO Write a bit of the theory here to better explain this function.</p>

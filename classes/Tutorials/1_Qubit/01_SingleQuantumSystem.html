@@ -576,13 +576,13 @@ div.rendered_html tbody tr:hover {
 </div>
 <section id="1---Hamiltonian-of-a-single-quantum-system">
 <h1>1 - Hamiltonian of a single quantum system<a class="headerlink" href="#1---Hamiltonian-of-a-single-quantum-system" title="Permalink to this headline">#</a></h1>
-<p>This tutorial demonstrates how to describe the Hamiltonian of a quantum system in <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>. Note that the Hamiltonians created by <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> take <span class="math">h = 1</span> and uses frequencies (instead of angular-frequencies) by default. We show how to change these default settings in a later tutorial.</p>
-<p>Let’s start with a very simple Hamiltonian (with <span class="math">h = 1</span>)</p>
-<p><span class="math">H = f\hat{O}</span></p>
+<p>This tutorial demonstrates how to describe the Hamiltonian of a quantum system in <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>. Note that the Hamiltonians created by <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> take <img class="math" src="../../../_images/math/c1df2cbe178de44dd8d2e505bccd56ee0a220c83.png" alt="h = 1"/> and uses frequencies (instead of angular-frequencies) by default. We show how to change these default settings in a later tutorial.</p>
+<p>Let’s start with a very simple Hamiltonian (with <img class="math" src="../../../_images/math/c1df2cbe178de44dd8d2e505bccd56ee0a220c83.png" alt="h = 1"/>)</p>
+<p><img class="math" src="../../../_images/math/6fe6e57c5a21a208a8880d00d39128f57f784472.png" alt="H = f\hat{O}"/></p>
 <p>Here, the <em>relevant</em> information are</p>
 <ul class="simple">
-<li><p>frequency : <span class="math">f</span>, which is a float</p></li>
-<li><p>operator : <span class="math">\hat{O}</span> (we will omit the hat from the operator when they are clear from the context)</p></li>
+<li><p>frequency : <img class="math" src="../../../_images/math/5b7752c757e0b691a80ab8227eadb8a8389dc58a.png" alt="f"/>, which is a float</p></li>
+<li><p>operator : <img class="math" src="../../../_images/math/8c080a4c97007565bf12d721801a0c0be1b21771.png" alt="\hat{O}"/> (we will omit the hat from the operator when they are clear from the context)</p></li>
 <li><p>dimension : of the operator, which is an integer</p></li>
 </ul>
 <p>In <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>, we create a quantum system using the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object, which requires at least one of these information during instantiation.</p>
@@ -593,11 +593,11 @@ div.rendered_html tbody tr:hover {
 <p>For a qubit:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <span class="math">f=2</span>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> can be any (Hermitian) operator we want, but it is usually the <span class="math">\sigma_{z}</span> operator (Pauli-z operator)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <img class="math" src="../../../_images/math/685798103daac154c876acffb4ba3c454f05e1ae.png" alt="f=2"/>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> can be any (Hermitian) operator we want, but it is usually the <img class="math" src="../../../_images/math/63f8e296d0689572d3979c6617ae800f7ba6fa4d.png" alt="\sigma_{z}"/> operator (Pauli-z operator)</p></li>
 </ul>
 <p>Then, the Hamiltonian would be</p>
-<p><span class="math">H = f*\sigma_{z} = 2\left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right] = \left[\begin{array}{ll}2 &amp; 0 \\ 0 &amp; -2\end{array}\right]</span></p>
+<p><img class="math" src="../../../_images/math/5b4215fee20881dff2514c4076f651414d0eb23d.png" alt="H = f*\sigma_{z} = 2\left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right] = \left[\begin{array}{ll}2 &amp; 0 \\ 0 &amp; -2\end{array}\right]"/></p>
 <p>and we can create this system as below</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -626,11 +626,11 @@ div.rendered_html tbody tr:hover {
 <p>Let’s create a spin-1 system, which means</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">3</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <span class="math">f=2</span>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> is usually the <span class="math">J_{z}</span> operator</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <img class="math" src="../../../_images/math/685798103daac154c876acffb4ba3c454f05e1ae.png" alt="f=2"/>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> is usually the <img class="math" src="../../../_images/math/76d5288b34dfcf52bb43987f3abbe44d37ba773f.png" alt="J_{z}"/> operator</p></li>
 </ul>
 <p>Then, the Hamiltonian would be</p>
-<p><span class="math">H = f*J_{z} = 2\left[\begin{array}{lll}1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -1\end{array}\right] = \left[\begin{array}{llll}2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -2\end{array}\right]</span></p>
+<p><img class="math" src="../../../_images/math/81b74144b63dcc02e83520df2e2b2354406f3119.png" alt="H = f*J_{z} = 2\left[\begin{array}{lll}1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -1\end{array}\right] = \left[\begin{array}{llll}2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -2\end{array}\right]"/></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -657,11 +657,11 @@ div.rendered_html tbody tr:hover {
 <p>This is an infinite dimensional system, but we can use a truncated space by setting the dimension to a finite value (which should be large enough for your simulations, but its discussion is beyond this tutorial). For an Harmonic oscillator, we have</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">5</span></code> (a small number so that printed matrix is readable)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <span class="math">f=2</span>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> is usually the <span class="math">a^{\dagger}a = n</span> number operator</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">#</span></code> any number we want (say, <img class="math" src="../../../_images/math/685798103daac154c876acffb4ba3c454f05e1ae.png" alt="f=2"/>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span></code> is usually the <img class="math" src="../../../_images/math/267a6d927f8f5c3b4968c6b527557d13b94e8a83.png" alt="a^{\dagger}a = n"/> number operator</p></li>
 </ul>
 <p>Then, the Hamiltonian would be</p>
-<p><span class="math">H = f*n = 2\left[\begin{array}{lllll}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 3 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 4 \end{array}\right] = \left[\begin{array}{lllll}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 2 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 4 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 6 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 8 \end{array}\right]</span></p>
+<p><img class="math" src="../../../_images/math/36ee621ac63371f0342798eec1c4be446927e11b.png" alt="H = f*n = 2\left[\begin{array}{lllll}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 3 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 4 \end{array}\right] = \left[\begin{array}{lllll}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 2 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 4 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 6 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 8 \end{array}\right]"/></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>

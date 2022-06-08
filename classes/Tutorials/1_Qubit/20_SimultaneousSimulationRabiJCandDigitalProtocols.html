@@ -646,13 +646,13 @@ div.rendered_html tbody tr:hover {
     <span class="n">system</span><span class="o">=</span><span class="p">[</span><span class="n">JCCoupling</span><span class="p">,</span> <span class="n">RabiCoupling</span><span class="p">],</span>
     <span class="n">sweepKey</span><span class="o">=</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span>
     <span class="n">sweepList</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
-    <span class="n">multiParam</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">combinatorial</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># time step sweep</span>
 <span class="n">timeStepSweep</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">createSweep</span><span class="p">(</span>
     <span class="n">system</span><span class="o">=</span><span class="n">simulation</span><span class="p">,</span>
     <span class="n">sweepKey</span> <span class="o">=</span> <span class="s2">&quot;stepSize&quot;</span><span class="p">,</span>
-    <span class="n">multiParam</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">combinatorial</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">timeStepSweep</span><span class="o">.</span><span class="n">sweepList</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -671,14 +671,14 @@ div.rendered_html tbody tr:hover {
     <span class="n">stateDig2</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 
     <span class="n">res</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;nRabi&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stateRabi</span><span class="p">)</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;nJC&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stateJC</span><span class="p">)</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;nDig1&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stateDig1</span><span class="p">)</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;nDig2&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stateDig2</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;nRabi&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stateRabi</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;nJC&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stateJC</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;nDig1&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stateDig1</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;nDig2&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stateDig2</span><span class="p">)</span>
 
-    <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;fidJC&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">stateRabi</span><span class="p">,</span> <span class="n">stateJC</span><span class="p">)</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;fidDig1&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">stateRabi</span><span class="p">,</span> <span class="n">stateDig1</span><span class="p">)</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;fidDig2&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">stateRabi</span><span class="p">,</span> <span class="n">stateDig2</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;fidJC&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">stateRabi</span><span class="p">,</span> <span class="n">stateJC</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;fidDig1&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">stateRabi</span><span class="p">,</span> <span class="n">stateDig1</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;fidDig2&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">stateRabi</span><span class="p">,</span> <span class="n">stateDig2</span><span class="p">)</span>
 
 <span class="n">simulation</span><span class="o">.</span><span class="n">compute</span> <span class="o">=</span> <span class="n">compute</span>
 
@@ -707,13 +707,13 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nJC&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;JC Model&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nRabi&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Rabi Model&#39;</span><span class="p">)</span>
@@ -725,7 +725,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -741,13 +741,13 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig1&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st Order Digital&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig2&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd Order Digital&#39;</span><span class="p">)</span>
@@ -761,7 +761,7 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -777,13 +777,13 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig1&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st Order Digital&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig2&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd Order Digital&#39;</span><span class="p">)</span>
@@ -797,7 +797,7 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -813,14 +813,14 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">markEvery</span> <span class="o">=</span> <span class="mi">50</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;fidDig1&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st Order Digital&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;fidDig2&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd Order Digital&#39;</span><span class="p">)</span>
@@ -833,7 +833,7 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -849,13 +849,13 @@ Text(0, 0.5, &#39;$\\mathcal{F}(\\psi_{dig}(t), \\psi_{Rabi}(t))$&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig1&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st Order Digital&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig2&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd Order Digital&#39;</span><span class="p">)</span>
@@ -869,7 +869,7 @@ Text(0, 0.5, &#39;$\\mathcal{F}(\\psi_{dig}(t), \\psi_{Rabi}(t))$&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -885,13 +885,13 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nJC&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;JC Model&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nRabi&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Rabi Model&#39;</span><span class="p">)</span>
@@ -904,7 +904,7 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -920,13 +920,13 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig1&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st Order Digital&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig2&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd Order Digital&#39;</span><span class="p">)</span>
@@ -940,7 +940,7 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -956,13 +956,13 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig1&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st Order Digital&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;nDig2&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd Order Digital&#39;</span><span class="p">)</span>
@@ -970,25 +970,18 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Time ($\omega_</span><span class="si">{q}</span><span class="s2">^{-1}$)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\langle a^{\dagger}a \rangle$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Time ($\omega_</span><span class="si">{q}</span><span class="s2">^{-1}$)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\langle a^{\dagger}a \rangle$&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">/Volumes/T7/Dropbox/Codes/QuanGuru/docs/source/classes/Tutorials/1_Qubit/20_SimultaneousSimulationRabiJCandDigitalProtocols.ipynb Cell 17&#39;</span> in <span class="ansi-cyan-fg">&lt;cell line: 12&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      &lt;a href=&#39;vscode-notebook-cell:/Volumes/T7/Dropbox/Codes/QuanGuru/docs/source/classes/Tutorials/1_Qubit/20_SimultaneousSimulationRabiJCandDigitalProtocols.ipynb#ch0000015?line=7&#39;&gt;8&lt;/a&gt;</span> plt.plot(timePoints[stepSizeInd+1], ResFid[&#39;nRabi&#39;][cavDimInd+1][stepSizeInd+1], linestyle=&#39;-&#39;, color=&#39;b&#39;, label=&#39;Rabi Model&#39;)
-<span class="ansi-green-intense-fg ansi-bold">     &lt;a href=&#39;vscode-notebook-cell:/Volumes/T7/Dropbox/Codes/QuanGuru/docs/source/classes/Tutorials/1_Qubit/20_SimultaneousSimulationRabiJCandDigitalProtocols.ipynb#ch0000015?line=9&#39;&gt;10&lt;/a&gt;</span> plt.legend()
-<span class="ansi-green-fg">---&gt; &lt;a href=&#39;vscode-notebook-cell:/Volumes/T7/Dropbox/Codes/QuanGuru/docs/source/classes/Tutorials/1_Qubit/20_SimultaneousSimulationRabiJCandDigitalProtocols.ipynb#ch0000015?line=11&#39;&gt;12&lt;/a&gt;</span> plt.set_xlabel(r&#34;Time ($\omega_{q}^{-1}$)&#34;)
-<span class="ansi-green-intense-fg ansi-bold">     &lt;a href=&#39;vscode-notebook-cell:/Volumes/T7/Dropbox/Codes/QuanGuru/docs/source/classes/Tutorials/1_Qubit/20_SimultaneousSimulationRabiJCandDigitalProtocols.ipynb#ch0000015?line=12&#39;&gt;13&lt;/a&gt;</span> plt.set_ylabel(r&#34;$\langle a^{\dagger}a \rangle$&#34;)
-
-<span class="ansi-red-fg">AttributeError</span>: module &#39;matplotlib.pyplot&#39; has no attribute &#39;set_xlabel&#39;
+Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -999,14 +992,14 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cavDimInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">stepSizeInd</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">markEvery</span> <span class="o">=</span> <span class="mi">50</span>
 
-<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">results</span>
+<span class="n">ResFid</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">resultsDict</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;fidDig1&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st Order Digital&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timePoints</span><span class="p">[</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">ResFid</span><span class="p">[</span><span class="s1">&#39;fidDig2&#39;</span><span class="p">][</span><span class="n">cavDimInd</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">stepSizeInd</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd Order Digital&#39;</span><span class="p">)</span>
@@ -1019,7 +1012,7 @@ Text(0, 0.5, &#39;$\\langle a^{\\dagger}a \\rangle$&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1032,6 +1025,14 @@ Text(0, 0.5, &#39;$\\mathcal{F}(\\psi_{dig}(t), \\psi_{Rabi}(t))$&#39;)
 </div>
 <div class="output_area docutils container">
 <img alt="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulationRabiJCandDigitalProtocols_17_1.png" src="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulationRabiJCandDigitalProtocols_17_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>

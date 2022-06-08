@@ -217,7 +217,7 @@
     <span class="c1">#: (**class attribute**) number of total instances = _internalInstances + _externalInstances</span>
     <span class="n">_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sweepMax&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepMin&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepStep&#39;</span><span class="p">,</span> <span class="s1">&#39;_sweepList&#39;</span><span class="p">,</span> <span class="s1">&#39;logSweep&#39;</span><span class="p">,</span> <span class="s1">&#39;multiParam&#39;</span><span class="p">,</span> <span class="s1">&#39;_sweepIndex&#39;</span><span class="p">]</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sweepMax&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepMin&#39;</span><span class="p">,</span> <span class="s1">&#39;sweepStep&#39;</span><span class="p">,</span> <span class="s1">&#39;_sweepList&#39;</span><span class="p">,</span> <span class="s1">&#39;logSweep&#39;</span><span class="p">,</span> <span class="s1">&#39;combinatorial&#39;</span><span class="p">,</span> <span class="s1">&#39;_sweepIndex&#39;</span><span class="p">]</span>
 
     <span class="c1">#@sweepInitError</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -238,8 +238,9 @@
         <span class="c1">#: boolean to create either linearly or logarithmically spaced list values (from sweepMin-sweepMax-sweepStep).</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logSweep</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1">#: boolean to determine, if two different sweeps are swept simultaneously (same length of list and pair of</span>
-        <span class="c1">#: values at the same index are swept) or a multi-parameter sweep (fix one sweep the other and repeat).</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">multiParam</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1">#: values at the same index are swept) or a multi-parameter (combinatorial) sweep,</span>
+        <span class="c1">#: ie fix one sweep the other &amp; repeat.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">combinatorial</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1">#: stores the index of the value (from the _sweepList) currently being assigned by the sweep function. Used by</span>
         <span class="c1">#: the default methods but also useful for custom methods. It is calculated by the modular arithmetic in</span>
         <span class="c1">#: modularSweep and passed to here by :class:`~Sweep` object containing self in its subSys. It starts from -1</span>
@@ -359,7 +360,7 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        a list of ``sweepList`` length/s of multi-parameter ``_sweep`` object/s in ``subSys`` dictionary, meaning the</span>
 <span class="sd">        length for simultaneously swept ``_sweep`` objects are not repeated. the values are</span>
-<span class="sd">        appended to the list, if it is the first ``sweep`` to be included into ``subSys`` or ``multiParam is True``.</span>
+<span class="sd">        appended to the list, if it is the first ``sweep`` to be included into ``subSys`` or ``combinatorial is True``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__indMultip</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -471,12 +472,12 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is called inside ``run`` method of ``Simulation`` object/s to update ``inds`` and ``indMultip``</span>
 <span class="sd">        attributes/properties. The reason for this a bit argued in :meth:`indMultip`, but it is basically to ensure that</span>
-<span class="sd">        any changes to ``sweepList/s`` or ``multiParam/s`` are accurately used/reflected (especially on re-runs).</span>
+<span class="sd">        any changes to ``sweepList/s`` or ``combinatorial/s`` are accurately used/reflected (especially on re-runs).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_Sweep__inds</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
             <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">sweep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-                <span class="k">if</span> <span class="p">((</span><span class="n">sweep</span><span class="o">.</span><span class="n">multiParam</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">indx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">sweep</span><span class="o">.</span><span class="n">combinatorial</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">indx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_Sweep__inds</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_Sweep__indMultip</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Sweep__inds</span><span class="p">)</span> <span class="c1"># pylint: disable=assigning-non-slot</span></div>
 
@@ -484,13 +485,13 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        called in modularSweep to run all the ``_sweep``</span>
 <span class="sd">        objects in a ``Sweep``. indices from a given list ``indList`` are used by the ``runSweep`` method of ``_sweep``</span>
-<span class="sd">        objects, and it switches to a new index, if the ``multiParam is True``. This means that the ``_sweeps``</span>
+<span class="sd">        objects, and it switches to a new index, if the ``combinatorial is True``. This means that the ``_sweeps``</span>
 <span class="sd">        **should be created in an order** such that ``_sweep`` objects that run simultaneously **have to be** added to</span>
 <span class="sd">        ``subSys`` one after the other. Also, for nested Sweeps, the indList should be a properly nested list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">indx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">sweep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sweeps</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">sweep</span><span class="o">.</span><span class="n">multiParam</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sweep</span><span class="o">.</span><span class="n">combinatorial</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">indx</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">sweep</span><span class="o">.</span><span class="n">runSweep</span><span class="p">(</span><span class="n">indList</span><span class="p">[</span><span class="n">indx</span><span class="p">])</span></div>
 

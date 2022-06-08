@@ -501,6 +501,12 @@ systems use it for their <code class="docutils literal notranslate"><span class=
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.baseClasses.paramBoundBase.__matrixHc">
+<span class="sig-name descname"><span class="pre">__matrixHc</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.paramBoundBase.__matrixHc" title="Permalink to this definition">#</a></dt>
+<dd><p>This attribute stores the Hermitian conjugate of the <code class="docutils literal notranslate"><span class="pre">__matrix</span></code> attribute</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.paramBoundBase.__paramUpdated">
 <span class="sig-name descname"><span class="pre">__paramUpdated</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.paramBoundBase.__paramUpdated" title="Permalink to this definition">#</a></dt>
 <dd><p>Signals that a parameter is updated. This is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> when a parameter is updated by <code class="xref py py-meth docutils literal notranslate"><span class="pre">setAttr()</span></code>,
@@ -514,6 +520,11 @@ systems use it for their <code class="docutils literal notranslate"><span class=
 of <code class="docutils literal notranslate"><span class="pre">self</span></code> is updated (but not the other way around and, unlike <code class="xref py py-class docutils literal notranslate"><span class="pre">_parameter</span></code> setting ones
 value does not break the relation).</p>
 </dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.baseClasses.paramBoundBase._hc">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_hc</span></span><a class="headerlink" href="#quanguru.classes.baseClasses.paramBoundBase._hc" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.paramBoundBase._paramBound">
@@ -603,20 +614,20 @@ set to <code class="docutils literal notranslate"><span class="pre">None</span><
 <dd><p>Function to call at each step of the time evolution, by default <code class="docutils literal notranslate"><span class="pre">None</span></code>. It needs to be written in the
 appropriate form  TODO create examples/tutorial and link here.
 It is intended to perform computations on the current state of the system and store the results
-in the <code class="docutils literal notranslate"><span class="pre">self.qRes.results</span></code>.</p>
+in the <code class="docutils literal notranslate"><span class="pre">self.qRes.resultsDict</span></code>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.calculateStart">
-<span class="sig-name descname"><span class="pre">calculateStart</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.calculateStart" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.preCompute">
+<span class="sig-name descname"><span class="pre">preCompute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.preCompute" title="Permalink to this definition">#</a></dt>
 <dd><p>Function to call at the beginning of time-evolution (or simulation) to perform
 some calculations, which might be needed in the compute, and store them in the <code class="docutils literal notranslate"><span class="pre">self.qRes.calculated</span></code>.
 This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.calculateEnd">
-<span class="sig-name descname"><span class="pre">calculateEnd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.calculateEnd" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.postCompute">
+<span class="sig-name descname"><span class="pre">postCompute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.postCompute" title="Permalink to this definition">#</a></dt>
 <dd><p>Function to call at the end of time-evolution (or simulation) to perform
 some calculations, which might be needed in the compute, and store them in the <code class="docutils literal notranslate"><span class="pre">self.qRes.calculated</span></code>.
 This is by default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
@@ -633,8 +644,8 @@ callable and does nothing otherwise.</p>
 <dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.__calculate">
 <span class="sig-name descname"><span class="pre">__calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.__calculate" title="Permalink to this definition">#</a></dt>
 <dd><p>This is the actual calculate function that is called in the time-evolution, it calls
-(if callable, does nothing otherwise) <code class="docutils literal notranslate"><span class="pre">self.calculateStart</span></code>
-or <code class="docutils literal notranslate"><span class="pre">self.calculateEnd</span></code> depending on the given string <cite>where</cite>.</p>
+(if callable, does nothing otherwise) <code class="docutils literal notranslate"><span class="pre">self.preCompute</span></code>
+or <code class="docutils literal notranslate"><span class="pre">self.postCompute</span></code> depending on the given string <cite>where</cite>.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -645,9 +656,9 @@ or <code class="docutils literal notranslate"><span class="pre">self.calculateEn
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.results">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">results</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.results" title="Permalink to this definition">#</a></dt>
-<dd><p>returns <code class="docutils literal notranslate"><span class="pre">self.qRes.results</span></code>.</p>
+<dt class="sig sig-object py" id="quanguru.classes.baseClasses.computeBase.resultsDict">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resultsDict</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><a class="headerlink" href="#quanguru.classes.baseClasses.computeBase.resultsDict" title="Permalink to this definition">#</a></dt>
+<dd><p>returns <code class="docutils literal notranslate"><span class="pre">self.qRes.resultsDict</span></code>.</p>
 </dd></dl>
 
 <dl class="py property">

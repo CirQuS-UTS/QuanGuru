@@ -551,7 +551,7 @@ div.rendered_html tbody tr:hover {
 <h1>14 - Time dependent Hamiltonian<a class="headerlink" href="#14---Time-dependent-Hamiltonian" title="Permalink to this headline">#</a></h1>
 <p>In previous tutorials, the system Hamiltonians were time independent, and QuanGuru provides couple different methods to describe and simulate time-dependent Hamiltonians. In this tutorial, we demonstrate one (probably the most convenient and flexible) of these time-dependent Hamiltonian methods.</p>
 <p>Here, we use the below single qubit Hamiltonian,</p>
-<p><span class="math">H=f_{z}J_{z} + f_{x}(t)\sigma_{x}</span></p>
+<p><img class="math" src="../../../_images/math/6d8192a16179ea6f5d0b3a32f120ef5939ced270.png" alt="H=f_{z}J_{z} + f_{x}(t)\sigma_{x}"/></p>
 <p>where the second term will be time dependent.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -590,9 +590,9 @@ div.rendered_html tbody tr:hover {
 <span class="n">sigmaX</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
 
 <span class="c1"># write a compute function that takes two arguments: (i) a quantum-system (qsys) and (ii) a state</span>
-<span class="c1"># compute whatever we want and store in .results</span>
+<span class="c1"># compute whatever we want and store in .resultsDict</span>
 <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-    <span class="n">qsys</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaX</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
+    <span class="n">qsys</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaX</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
 
 <span class="c1"># set the compute attribute of our qubit to compute function</span>
 <span class="n">qub</span><span class="o">.</span><span class="n">compute</span> <span class="o">=</span> <span class="n">compute</span>
@@ -639,7 +639,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

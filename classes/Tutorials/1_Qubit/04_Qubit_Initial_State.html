@@ -612,19 +612,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>Before diving into the examples, let’s first define certain conventions and notations representing the eigenvectors of <span class="math">\sigma_{z}</span> operator.</p>
-<p>Matrix form of <span class="math">\sigma_{z}</span> operator is:</p>
-<p><span class="math">\sigma_{z} = \left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]</span></p>
+<p>Before diving into the examples, let’s first define certain conventions and notations representing the eigenvectors of <img class="math" src="../../../_images/math/63f8e296d0689572d3979c6617ae800f7ba6fa4d.png" alt="\sigma_{z}"/> operator.</p>
+<p>Matrix form of <img class="math" src="../../../_images/math/63f8e296d0689572d3979c6617ae800f7ba6fa4d.png" alt="\sigma_{z}"/> operator is:</p>
+<p><img class="math" src="../../../_images/math/d1d554061bec457a5bf725d4b03ec7ad72901f57.png" alt="\sigma_{z} = \left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]"/></p>
 <p>and its eigenvectors (with the corresponding eigenvalues) are</p>
-<p><span class="math">|0\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue 1)}</span></p>
-<p><span class="math">|1\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue -1)}</span></p>
-<p>The labels, 0 and 1, of the ket states here represent the position of the 1 in the column matrices. In other words, the <span class="math">|0\rangle</span> has 1 at row 0, and the <span class="math">|1\rangle</span> has 1 at row 1. This convention extends naturally and is used for higher dimensional systems such as larger spins or harmonic oscillators. We will refer these as <code class="docutils literal notranslate"><span class="pre">basis</span></code> states, and the <code class="docutils literal notranslate"><span class="pre">basis</span></code> method of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> can be used for the creation of such states, but, here we focus on creating the initial
+<p><img class="math" src="../../../_images/math/f7aad010b6bff5921eb00bff4eb32682a1000680.png" alt="|0\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue 1)}"/></p>
+<p><img class="math" src="../../../_images/math/e60c663f098baf7460af108ed5deb3c68db42204.png" alt="|1\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue -1)}"/></p>
+<p>The labels, 0 and 1, of the ket states here represent the position of the 1 in the column matrices. In other words, the <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> has 1 at row 0, and the <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> has 1 at row 1. This convention extends naturally and is used for higher dimensional systems such as larger spins or harmonic oscillators. We will refer these as <code class="docutils literal notranslate"><span class="pre">basis</span></code> states, and the <code class="docutils literal notranslate"><span class="pre">basis</span></code> method of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> can be used for the creation of such states, but, here we focus on creating the initial
 states through the <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> object.</p>
 <section id="1.-Pure-States">
 <h2>1. Pure States<a class="headerlink" href="#1.-Pure-States" title="Permalink to this headline">#</a></h2>
 <section id="1.1-If-Initial-state-is-a-basis-state">
 <h3>1.1 If Initial state is a basis state<a class="headerlink" href="#1.1-If-Initial-state-is-a-basis-state" title="Permalink to this headline">#</a></h3>
-<p>In order to set <span class="math">|0\rangle</span> or <span class="math">|1\rangle</span>, we simply give the respective number as input for the <code class="docutils literal notranslate"><span class="pre">initialState</span></code></p>
+<p>In order to set <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> or <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/>, we simply give the respective number as input for the <code class="docutils literal notranslate"><span class="pre">initialState</span></code></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -651,13 +651,13 @@ states through the <code class="docutils literal notranslate"><span class="pre">
 </section>
 <section id="1.2-If-Initial-state-is-a-superposition-state">
 <h3>1.2 If Initial state is a superposition state<a class="headerlink" href="#1.2-If-Initial-state-is-a-superposition-state" title="Permalink to this headline">#</a></h3>
-<p>If we want to set some super-position of <span class="math">|0\rangle</span> and <span class="math">|1\rangle</span> as the initial state, we can do this in various different ways depending on the superposition state we want to set.</p>
+<p>If we want to set some super-position of <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> and <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> as the initial state, we can do this in various different ways depending on the superposition state we want to set.</p>
 <section id="1.2.1-If-Initial-state-is-an-equal-superposition-state">
 <h4>1.2.1 If Initial state is an equal superposition state<a class="headerlink" href="#1.2.1-If-Initial-state-is-an-equal-superposition-state" title="Permalink to this headline">#</a></h4>
 <p>The first method is for the equal superposition state</p>
-<p><span class="math">\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle )</span></p>
-<p>In this special case, we simply give a list <span class="math">[1, 0]</span> (or <span class="math">[0, 1]</span> the order is not important) of the states, and it is used to create the equal superposition. Note that “equal superposition” here does not mean equal superposition of every basis states, it just means equal superposition of the given input basis states. In other words, for higher dimensional systems, you can create an equal superposition of any number of basis states. For example for a 5 dimensional system,
-<span class="math">[1, 0, 3]</span> will create equal superposition of these three basis states.</p>
+<p><img class="math" src="../../../_images/math/dee5bde13c8c37addf10d62df78853533f7d9207.png" alt="\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle )"/></p>
+<p>In this special case, we simply give a list <img class="math" src="../../../_images/math/e51cc6f731b282d5ed7534a42e7553eea460f586.png" alt="[1, 0]"/> (or <img class="math" src="../../../_images/math/8027137b3073a7f5ca4e45ba2d030dcff154eca4.png" alt="[0, 1]"/> the order is not important) of the states, and it is used to create the equal superposition. Note that “equal superposition” here does not mean equal superposition of every basis states, it just means equal superposition of the given input basis states. In other words, for higher dimensional systems, you can create an equal superposition of any number of basis states. For example for a 5 dimensional system,
+<img class="math" src="../../../_images/math/d3fbdb978496e451e2867a6c88d91fee4d1c85a4.png" alt="[1, 0, 3]"/> will create equal superposition of these three basis states.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -682,12 +682,12 @@ states through the <code class="docutils literal notranslate"><span class="pre">
 <p>The second method for creating a superposition state is by using a dictionary, where <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs represent the <code class="docutils literal notranslate"><span class="pre">basis-state:population/coefficient</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">population/coefficient</span></code> here means that there are also two different ways for this approach.</p>
 <p>Consider the following superposition state</p>
-<p><span class="math">c_{0}|0\rangle + c_{1}|1\rangle</span></p>
-<p>where <span class="math">c_{i}</span> are the complex probability amplitudes, and <span class="math">p_{i} = |c_{i}|^{2}</span> are the population, satisfying the normalization condition <span class="math">\sum_{i}p_{i} = 1</span>.</p>
+<p><img class="math" src="../../../_images/math/6b224cfa908f13d154be9f95193f611193a38be7.png" alt="c_{0}|0\rangle + c_{1}|1\rangle"/></p>
+<p>where <img class="math" src="../../../_images/math/cb5448c62c69431617901ff76ecf95172e07d606.png" alt="c_{i}"/> are the complex probability amplitudes, and <img class="math" src="../../../_images/math/8fd3e0ba3666235fb9c97a52b1999467dcd255f3.png" alt="p_{i} = |c_{i}|^{2}"/> are the population, satisfying the normalization condition <img class="math" src="../../../_images/math/55a7dbcaa479741dcf26d2a73a55a28582bfbbec.png" alt="\sum_{i}p_{i} = 1"/>.</p>
 <p>Now, we can create our superposition state either by using the <code class="docutils literal notranslate"><span class="pre">population</span></code> or <code class="docutils literal notranslate"><span class="pre">coefficient</span></code>.</p>
 <section id="1.2.2.1-Initial-state-using-the-populations">
 <h5>1.2.2.1 Initial state using the populations<a class="headerlink" href="#1.2.2.1-Initial-state-using-the-populations" title="Permalink to this headline">#</a></h5>
-<p>Let’s cover the <code class="docutils literal notranslate"><span class="pre">population</span></code> first, which is the default method. Below is an example where we want <span class="math">p_{0} = 0.2</span> and <span class="math">p_{1} = 0.8</span>. Note that the order of the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs does not matter, meaning <code class="docutils literal notranslate"><span class="pre">{0:0.2,</span> <span class="pre">1:0.8}</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">{1:0.8,</span> <span class="pre">0:0.2}</span></code>.</p>
+<p>Let’s cover the <code class="docutils literal notranslate"><span class="pre">population</span></code> first, which is the default method. Below is an example where we want <img class="math" src="../../../_images/math/8370c9f99383e68c0a23a5dc177ecd4a264e5891.png" alt="p_{0} = 0.2"/> and <img class="math" src="../../../_images/math/92312604333ebeb923032974d0e4b0440c030783.png" alt="p_{1} = 0.8"/>. Note that the order of the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs does not matter, meaning <code class="docutils literal notranslate"><span class="pre">{0:0.2,</span> <span class="pre">1:0.8}</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">{1:0.8,</span> <span class="pre">0:0.2}</span></code>.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -714,7 +714,7 @@ states through the <code class="docutils literal notranslate"><span class="pre">
 1.0000000000000009
 </pre></div></div>
 </div>
-<p>Also note that the populations can be <em>relative</em>, meaning the input does not have to sum to 1, and they will be normalized to sum to one. For example, if we input <span class="math">{0:0.2, 1:0.9}</span>, the total population is <span class="math">1.1</span>. Therefore, it will be normalized to <span class="math">{0:(0.2/1.1), 1:(0.9/1.1)}</span>.</p>
+<p>Also note that the populations can be <em>relative</em>, meaning the input does not have to sum to 1, and they will be normalized to sum to one. For example, if we input <img class="math" src="../../../_images/math/2095319c0692b848f0329bdbd6fd9e2e14bbc1e5.png" alt="{0:0.2, 1:0.9}"/>, the total population is <img class="math" src="../../../_images/math/6f5341db72c1316ff8f21b229087685868807332.png" alt="1.1"/>. Therefore, it will be normalized to <img class="math" src="../../../_images/math/b2b2607d020aaa7808e4071b2bd218c58a0dbf26.png" alt="{0:(0.2/1.1), 1:(0.9/1.1)}"/>.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -744,7 +744,7 @@ states through the <code class="docutils literal notranslate"><span class="pre">
 </section>
 <section id="1.2.2.2-If-the-relative-phases-are-important">
 <h5>1.2.2.2 If the relative phases are important<a class="headerlink" href="#1.2.2.2-If-the-relative-phases-are-important" title="Permalink to this headline">#</a></h5>
-<p>Obviously, the <code class="docutils literal notranslate"><span class="pre">population</span></code> approach ignores the relative phase between the <code class="docutils literal notranslate"><span class="pre">coefficients</span></code>, which might be important for us. In such a case, we can give the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> value pairs as <code class="docutils literal notranslate"><span class="pre">state:coefficient</span></code>, but we also need to set <code class="docutils literal notranslate"><span class="pre">_inpCoef</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> as below, where we compare the <code class="docutils literal notranslate"><span class="pre">population</span></code> and <code class="docutils literal notranslate"><span class="pre">coefficient</span></code> approach. Notice that both cases below creates <span class="math">p_{0} = 0.66</span> and <span class="math">p_{1} = 0.33</span>, but the first one uses the complex probability amplitudes introducing a
+<p>Obviously, the <code class="docutils literal notranslate"><span class="pre">population</span></code> approach ignores the relative phase between the <code class="docutils literal notranslate"><span class="pre">coefficients</span></code>, which might be important for us. In such a case, we can give the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> value pairs as <code class="docutils literal notranslate"><span class="pre">state:coefficient</span></code>, but we also need to set <code class="docutils literal notranslate"><span class="pre">_inpCoef</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> as below, where we compare the <code class="docutils literal notranslate"><span class="pre">population</span></code> and <code class="docutils literal notranslate"><span class="pre">coefficient</span></code> approach. Notice that both cases below creates <img class="math" src="../../../_images/math/8407a7b5c5d37f486d4d8402eb674e1913782dcf.png" alt="p_{0} = 0.66"/> and <img class="math" src="../../../_images/math/c8501678199c40eacaaa082d5729dcac393db537.png" alt="p_{1} = 0.33"/>, but the first one uses the complex probability amplitudes introducing a
 relative phase, which is observed as the complex parts of the off-diagonal elements of the density matrix.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:

@@ -579,7 +579,7 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the Hamiltonian without the coupling terms.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ham</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">val</span><span class="o">.</span><span class="n">totalHam</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qSystems</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">ham</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">totalHam</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qSystems</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">ham</span>
 
     <span class="nd">@property</span>
@@ -597,7 +597,7 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns only the coupling terms of the Hamiltonian.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cham</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">val</span><span class="o">.</span><span class="n">totalHam</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qCouplings</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">cham</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">totalHam</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qCouplings</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">cham</span>
 
     <span class="nd">@property</span>
@@ -1055,7 +1055,7 @@
 <span class="sd">        Returns the total Hamiltonian of the single quantum system.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)):</span> <span class="c1"># pylint: disable=no-member</span>
-            <span class="n">h</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">obj</span><span class="o">.</span><span class="n">frequency</span> <span class="o">*</span> <span class="n">obj</span><span class="o">.</span><span class="n">freeMat</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">obj</span><span class="o">.</span><span class="n">frequency</span> <span class="o">*</span> <span class="n">obj</span><span class="o">.</span><span class="n">freeMat</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="o">=</span> <span class="n">h</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__paramUpdated</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># pylint: disable=assigning-non-slot</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span> <span class="c1"># pylint: disable=no-member</span>
@@ -1066,7 +1066,7 @@
 <span class="sd">        returns the total Hamiltonian of the single quantum system, but this method does not take the dimension</span>
 <span class="sd">        before/after into account even if ``self`` is a sub-system of a composite system.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">obj</span><span class="o">.</span><span class="n">frequency</span> <span class="o">*</span> <span class="n">obj</span><span class="o">.</span><span class="n">_freeMatSimple</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span><span class="c1">#pylint:disable=protected-access</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">((</span><span class="n">obj</span><span class="o">.</span><span class="n">frequency</span> <span class="o">*</span> <span class="n">obj</span><span class="o">.</span><span class="n">_freeMatSimple</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="c1">#pylint:disable=protected-access</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">freeMat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1334,7 +1334,7 @@
     <span class="k">def</span> <span class="nf">couplingStrength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strength</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">strength</span>
 
-    <span class="k">def</span> <span class="nf">__coupOrdering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qts</span><span class="p">):</span> <span class="c1"># pylint: disable=no-self-use</span>
+    <span class="k">def</span> <span class="nf">__coupOrdering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qts</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        method used internally to make some sorting of the operators. This is implemented so that there are some</span>
 <span class="sd">        flexibilities for user when creating coupling.</span>

@@ -427,8 +427,8 @@ duplicate of instances).</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QRes.qResBlank.results">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">results</span></span><a class="headerlink" href="#quanguru.classes.QRes.qResBlank.results" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.QRes.qResBlank.resultsDict">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resultsDict</span></span><a class="headerlink" href="#quanguru.classes.QRes.qResBlank.resultsDict" title="Permalink to this definition">#</a></dt>
 <dd><p>returns the protected attribute <code class="docutils literal notranslate"><span class="pre">self._qResBlank__resultsLast</span></code></p>
 </dd></dl>
 
@@ -517,8 +517,8 @@ the defaultdict from the given (key, val) list/tuple.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QRes.qResBase.results">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">results</span></span><a class="headerlink" href="#quanguru.classes.QRes.qResBase.results" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.QRes.qResBase.resultsDict">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resultsDict</span></span><a class="headerlink" href="#quanguru.classes.QRes.qResBase.resultsDict" title="Permalink to this definition">#</a></dt>
 <dd><p>returns the protected attribute <code class="docutils literal notranslate"><span class="pre">self._qResBase__resultsLast</span></code> and the setter appends the given value into
 the defaultdict from the given (key, val) list/tuple. Uses the Last, so that it stores the results into proper
 dictionary during time evolution, and other methods in the <a class="reference internal" href="#quanguru.classes.QRes.qResults" title="quanguru.classes.QRes.qResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">qResults</span></code></a> are called at the end of time
@@ -526,8 +526,8 @@ evolutions to make sure that (by equating this to the regular results dictionary
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="quanguru.classes.QRes.qResBase.result">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">result</span></span><a class="headerlink" href="#quanguru.classes.QRes.qResBase.result" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.QRes.qResBase.singleResult">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">singleResult</span></span><a class="headerlink" href="#quanguru.classes.QRes.qResBase.singleResult" title="Permalink to this definition">#</a></dt>
 <dd><p>returns the protected attribute <code class="docutils literal notranslate"><span class="pre">self._qResBase__resultsLast</span></code> and the setter appends the given value into
 the defaultdict from the given (key, val) list/tuple. Uses the Last, so that it stores the results into proper
 dictionary during time evolution, and other methods in the <a class="reference internal" href="#quanguru.classes.QRes.qResults" title="quanguru.classes.QRes.qResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">qResults</span></code></a> are called at the end of time
@@ -546,7 +546,7 @@ evolutions to make sure that (by equating this to the regular results dictionary
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QRes.qResBase.resultsMethod">
 <span class="sig-name descname"><span class="pre">resultsMethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QRes.html#qResBase.resultsMethod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QRes.qResBase.resultsMethod" title="Permalink to this definition">#</a></dt>
-<dd><p>This method also stores results and is an alternative to <a class="reference internal" href="#quanguru.classes.QRes.qResBase.results" title="quanguru.classes.QRes.qResBase.results"><code class="xref py py-attr docutils literal notranslate"><span class="pre">results</span></code></a> property. It is aimed to provide
+<dd><p>This method also stores results and is an alternative to <code class="xref py py-attr docutils literal notranslate"><span class="pre">results</span></code> property. It is aimed to provide
 enriched syntax. Might also implement average.</p>
 </dd></dl>
 

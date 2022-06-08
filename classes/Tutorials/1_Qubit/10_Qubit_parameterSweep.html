@@ -552,7 +552,7 @@ div.rendered_html tbody tr:hover {
 <h1>10 - Single parameter sweep<a class="headerlink" href="#10---Single-parameter-sweep" title="Permalink to this headline">#</a></h1>
 <p>In the previous tutorial, we covered the simulation of a single qubit with the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function. But, we run the simulation only for a single set of parameters, and, in most cases, we actually want to run the simulation for various different value of a parameter, say the qubit frequency. QuanGuru already provides this functionality, and it is the purpose of this tutorial to show how do we create/define a sweep. As you will see below, we don’t need to change any part of the existing single
 parameter simulation, but we simply add a sweep.</p>
-<p>Again, here, we will evolve the qubit under the unitary dynamics of its Hamiltonian <span class="math">H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}</span> with the initial state set to the equal superposition of <span class="math">|1\rangle</span> and <span class="math">|0\rangle</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <span class="math">\sigma_{x}</span>.</p>
+<p>Again, here, we will evolve the qubit under the unitary dynamics of its Hamiltonian <img class="math" src="../../../_images/math/abecf9f963036c684e234624fc43ec92ba27d44f.png" alt="H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}"/> with the initial state set to the equal superposition of <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> and <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <img class="math" src="../../../_images/math/0142317d55d030ac1bd53ac8b353f190c17c4b47.png" alt="\sigma_{x}"/>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -569,9 +569,9 @@ parameter simulation, but we simply add a sweep.</p>
 <span class="n">sigmaX</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
 
 <span class="c1"># write a compute function that takes two arguments: (i) a quantum-system (qsys) and (ii) a state</span>
-<span class="c1"># compute whatever we want and store in .results</span>
+<span class="c1"># compute whatever we want and store in .resultsDict</span>
 <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-    <span class="n">qsys</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaX</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
+    <span class="n">qsys</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaX</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
 
 <span class="c1"># set the compute attribute of our qubit to compute function</span>
 <span class="n">qub</span><span class="o">.</span><span class="n">compute</span> <span class="o">=</span> <span class="n">compute</span>
@@ -592,7 +592,7 @@ of the other terms in the Hamiltonian (covered in later tutorials).</p>
 </div>
 <p>At this point, all the essential information are set, and we can run the simulation by <code class="docutils literal notranslate"><span class="pre">qub.runSimulation()</span></code>. Since, the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function will compute all the quantities we are interested, we again set <code class="docutils literal notranslate"><span class="pre">simDelState</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>Also, for parameter sweeps, QuanGuru can carry out parallel-processing, which means that each simulation for a set of parameters will run on the different cores of your cpu. For this, we simply set <code class="docutils literal notranslate"><span class="pre">p=True</span></code> when we call the <code class="docutils literal notranslate"><span class="pre">runSimulation</span></code>.</p>
-<p>IMPORTANT NOT FOR WINDOWS USERS : MULTI-PROCESSING (p=True) DOES NOT WORK WITH NOTEBOOK</p>
+<p>IMPORTANT NOTE FOR WINDOWS USERS : MULTI-PROCESSING (p=True) DOES NOT WORK WITH NOTEBOOK</p>
 <p>You can use a python script, but you will need to make sure that the critical parts of the code are under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> We are going to add further tutorials for this later.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -603,14 +603,14 @@ of the other terms in the Hamiltonian (covered in later tutorials).</p>
 </pre></div>
 </div>
 </div>
-<p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.results['sigmax</span> <span class="pre">expectation']</span></code>, but this time it returns a list of list, each of which is a time trace corresponding to the frequencies swept.</p>
-<p>As expected, the expectation value of <span class="math">\sigma_{x}</span> oscillates with different frequencies.</p>
+<p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation']</span></code>, but this time it returns a list of list, each of which is a time trace corresponding to the frequencies swept.</p>
+<p>As expected, the expectation value of <img class="math" src="../../../_images/math/0142317d55d030ac1bd53ac8b353f190c17c4b47.png" alt="\sigma_{x}"/> oscillates with different frequencies.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">])</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Frequency $f_</span><span class="si">{z}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>

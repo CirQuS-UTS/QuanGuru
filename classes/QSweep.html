@@ -447,10 +447,11 @@ be created using sweepMin-sweepMax-sweepStep values.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep.multiParam">
-<span class="sig-name descname"><span class="pre">multiParam</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.multiParam" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="quanguru.classes.QSweep._sweep.combinatorial">
+<span class="sig-name descname"><span class="pre">combinatorial</span></span><a class="headerlink" href="#quanguru.classes.QSweep._sweep.combinatorial" title="Permalink to this definition">#</a></dt>
 <dd><p>boolean to determine, if two different sweeps are swept simultaneously (same length of list and pair of
-values at the same index are swept) or a multi-parameter sweep (fix one sweep the other and repeat).</p>
+values at the same index are swept) or a multi-parameter (combinatorial) sweep,
+ie fix one sweep the other &amp; repeat.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -557,7 +558,7 @@ intended to be used for <code class="docutils literal notranslate"><span class="
 <span class="sig-name descname"><span class="pre">__inds</span></span><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.__inds" title="Permalink to this definition">#</a></dt>
 <dd><p>a list of <code class="docutils literal notranslate"><span class="pre">sweepList</span></code> length/s of multi-parameter <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> object/s in <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary, meaning the
 length for simultaneously swept <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> objects are not repeated. the values are
-appended to the list, if it is the first <code class="docutils literal notranslate"><span class="pre">sweep</span></code> to be included into <code class="docutils literal notranslate"><span class="pre">subSys</span></code> or <code class="docutils literal notranslate"><span class="pre">multiParam</span> <span class="pre">is</span> <span class="pre">True</span></code>.</p>
+appended to the list, if it is the first <code class="docutils literal notranslate"><span class="pre">sweep</span></code> to be included into <code class="docutils literal notranslate"><span class="pre">subSys</span></code> or <code class="docutils literal notranslate"><span class="pre">combinatorial</span> <span class="pre">is</span> <span class="pre">True</span></code>.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -631,7 +632,7 @@ of these.</p></li>
 <span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#Sweep.prepare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.prepare" title="Permalink to this definition">#</a></dt>
 <dd><p>This method is called inside <code class="docutils literal notranslate"><span class="pre">run</span></code> method of <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> object/s to update <code class="docutils literal notranslate"><span class="pre">inds</span></code> and <code class="docutils literal notranslate"><span class="pre">indMultip</span></code>
 attributes/properties. The reason for this a bit argued in <a class="reference internal" href="#quanguru.classes.QSweep.Sweep.indMultip" title="quanguru.classes.QSweep.Sweep.indMultip"><code class="xref py py-meth docutils literal notranslate"><span class="pre">indMultip()</span></code></a>, but it is basically to ensure that
-any changes to <code class="docutils literal notranslate"><span class="pre">sweepList/s</span></code> or <code class="docutils literal notranslate"><span class="pre">multiParam/s</span></code> are accurately used/reflected (especially on re-runs).</p>
+any changes to <code class="docutils literal notranslate"><span class="pre">sweepList/s</span></code> or <code class="docutils literal notranslate"><span class="pre">combinatorial/s</span></code> are accurately used/reflected (especially on re-runs).</p>
 </dd></dl>
 
 <dl class="py method">
@@ -639,7 +640,7 @@ any changes to <code class="docutils literal notranslate"><span class="pre">swee
 <span class="sig-name descname"><span class="pre">runSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSweep.html#Sweep.runSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSweep.Sweep.runSweep" title="Permalink to this definition">#</a></dt>
 <dd><p>called in modularSweep to run all the <code class="docutils literal notranslate"><span class="pre">_sweep</span></code>
 objects in a <code class="docutils literal notranslate"><span class="pre">Sweep</span></code>. indices from a given list <code class="docutils literal notranslate"><span class="pre">indList</span></code> are used by the <code class="docutils literal notranslate"><span class="pre">runSweep</span></code> method of <code class="docutils literal notranslate"><span class="pre">_sweep</span></code>
-objects, and it switches to a new index, if the <code class="docutils literal notranslate"><span class="pre">multiParam</span> <span class="pre">is</span> <span class="pre">True</span></code>. This means that the <code class="docutils literal notranslate"><span class="pre">_sweeps</span></code>
+objects, and it switches to a new index, if the <code class="docutils literal notranslate"><span class="pre">combinatorial</span> <span class="pre">is</span> <span class="pre">True</span></code>. This means that the <code class="docutils literal notranslate"><span class="pre">_sweeps</span></code>
 <strong>should be created in an order</strong> such that <code class="docutils literal notranslate"><span class="pre">_sweep</span></code> objects that run simultaneously <strong>have to be</strong> added to
 <code class="docutils literal notranslate"><span class="pre">subSys</span></code> one after the other. Also, for nested Sweeps, the indList should be a properly nested list.</p>
 </dd></dl>
@@ -650,7 +651,7 @@ objects, and it switches to a new index, if the <code class="docutils literal no
 <dd><p>method used in modularSweep to calculate indices for each sweepList from the loop counter <code class="docutils literal notranslate"><span class="pre">ìnd</span></code> using the
 total lengths <code class="docutils literal notranslate"><span class="pre">*args</span></code>. It is hard to describe the exact calculation in words, but it is trivial to see from
 the math (TODO) which i will do later.</p>
-<p>the loop counter can at max be <span class="math">(\prod_{i = 1}^{len(args)} args[i]) - 1</span>, and multi-parameter
+<p>the loop counter can at max be <img class="math" src="../_images/math/35cd65ee33fb1a4b0dc771d34d49c8c6a4e9d59f.png" alt="(\prod_{i = 1}^{len(args)} args[i]) - 1"/>, and multi-parameter
 sweeps loops the first sweepList while fixing the others. So, at each inp = args[0] the first list should
 start from zero, and the second list moves to next item, and this relation goes up in the chain, e.g. at each
 inp = args[0]*args[1], the index of the third need to be increased, and so on. Therefore, the current index for

@@ -437,9 +437,22 @@ or the populations</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem.__compOpers">
+<span class="sig-name descname"><span class="pre">__compOpers</span></span><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.__compOpers" title="Permalink to this definition">#</a></dt>
+<dd><p>a dictionary to store arbitrary composite operators that are shaped and updated internally</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem.__unitary">
 <span class="sig-name descname"><span class="pre">__unitary</span></span><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.__unitary" title="Permalink to this definition">#</a></dt>
 <dd><p>an internal <code class="xref py py-class docutils literal notranslate"><span class="pre">freeEvolution</span></code> protocol, this is the default evolution when a simulation is run.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem._compositeOperator">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_compositeOperator</span></span><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem._compositeOperator" title="Permalink to this definition">#</a></dt>
+<dd><p>A property to store a function pointer (for operator) as key of a dictionary where the value is the internally
+created composite operator.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -458,7 +471,7 @@ objects timeDependency functions are used for updating relevant parameters as a 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem._createInitialState">
-<span class="sig-name descname"><span class="pre">_createInitialState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#QuantumSystem._createInitialState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem._createInitialState" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_createInitialState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_maxInput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#QuantumSystem._createInitialState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem._createInitialState" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -494,6 +507,11 @@ for single systems (if its state is set).</p>
 dimensions of the other systems if <code class="docutils literal notranslate"><span class="pre">self</span></code> is in a composite system, <code class="docutils literal notranslate"><span class="pre">_totalDim</span></code> returns the total dimension
 by also taking the dimensions before and after <code class="docutils literal notranslate"><span class="pre">self</span></code> in a composte system.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem._hasConsistentDimensionTerm">
+<span class="sig-name descname"><span class="pre">_hasConsistentDimensionTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#QuantumSystem._hasConsistentDimensionTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem._hasConsistentDimensionTerm" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem.dimension">
@@ -664,7 +682,7 @@ It also can removed a protocol (<code class="docutils literal notranslate"><span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem.createTerm">
-<span class="sig-name descname"><span class="pre">createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystem</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">superSys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#QuantumSystem.createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.createTerm" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystem</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">superSys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#QuantumSystem.createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem.createTerm" title="Permalink to this definition">#</a></dt>
 <dd><p>Method to create a new term with the given parameters and also set the given kwargs to the new term.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -784,7 +802,7 @@ the same <code class="docutils literal notranslate"><span class="pre">type</span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.QuantumSystem._createAstate">
-<span class="sig-name descname"><span class="pre">_createAstate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem._createAstate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_createAstate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_maxInput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSystem.QuantumSystem._createAstate" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

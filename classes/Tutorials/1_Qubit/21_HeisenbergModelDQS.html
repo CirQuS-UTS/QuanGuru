@@ -544,6 +544,7 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quanguru</span> <span class="k">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">platform</span>
 </pre></div>
 </div>
 </div>
@@ -627,25 +628,25 @@ div.rendered_html tbody tr:hover {
 <span class="n">freqValues</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
 <span class="n">totalSimTimeV</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 
-<span class="k">def</span> <span class="nf">calculateStart</span><span class="p">(</span><span class="n">qsim</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">preCompute</span><span class="p">(</span><span class="n">qsim</span><span class="p">):</span>
     <span class="n">proList</span> <span class="o">=</span> <span class="n">qsim</span><span class="o">.</span><span class="n">qEvolutions</span>
     <span class="n">pro1</span> <span class="o">=</span> <span class="p">(</span><span class="n">proList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unitary</span><span class="p">()</span><span class="o">**</span><span class="n">qsim</span><span class="o">.</span><span class="n">stepCount</span><span class="p">)</span>
     <span class="n">pro2</span> <span class="o">=</span> <span class="p">(</span><span class="n">proList</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">unitary</span><span class="p">()</span><span class="o">**</span><span class="n">qsim</span><span class="o">.</span><span class="n">stepCount</span><span class="p">)</span>
     <span class="n">uDiff</span> <span class="o">=</span> <span class="n">pro1</span> <span class="o">-</span> <span class="n">pro2</span>
-    <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;uDiff&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">spectralNorm</span><span class="p">(</span><span class="n">uDiff</span><span class="p">)</span>
-    <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;sErr&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">uDiff</span> <span class="o">@</span> <span class="n">proList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
-    <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;sFidStart&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">pro1</span><span class="nd">@proList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">pro2</span><span class="nd">@proList</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+    <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;uDiff&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">spectralNorm</span><span class="p">(</span><span class="n">uDiff</span><span class="p">)</span>
+    <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;sErr&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">uDiff</span> <span class="o">@</span> <span class="n">proList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+    <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;sFidStart&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">pro1</span><span class="nd">@proList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">pro2</span><span class="nd">@proList</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">calculateEnd</span><span class="p">(</span><span class="n">qsim</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">postCompute</span><span class="p">(</span><span class="n">qsim</span><span class="p">):</span>
     <span class="n">proList</span> <span class="o">=</span> <span class="n">qsim</span><span class="o">.</span><span class="n">qEvolutions</span>
-    <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;sFidEnd&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">proList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">currentState</span><span class="p">,</span> <span class="n">proList</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">currentState</span><span class="p">)</span>
+    <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;sFidEnd&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">proList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">currentState</span><span class="p">,</span> <span class="n">proList</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">currentState</span><span class="p">)</span>
 
 <span class="n">sigmaZ</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">compositeOp</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">(),</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="n">numOfQubits</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">qsim</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">qsim</span><span class="o">.</span><span class="n">qRes</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;state fidelity&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;state fidelity&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">qsim</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">res</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;Exp&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaZ</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">currentState</span><span class="p">)]</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;Exp&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaZ</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">currentState</span><span class="p">)]</span>
 
 <span class="n">simulation</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Simulation</span><span class="p">()</span>
 <span class="n">simulation</span><span class="o">.</span><span class="n">initialStateSystem</span> <span class="o">=</span> <span class="n">nQubHeisenberg</span>
@@ -656,8 +657,8 @@ div.rendered_html tbody tr:hover {
 <span class="n">simulation</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">nQubHeisenberg</span><span class="p">)</span>
 
 <span class="n">simulation</span><span class="o">.</span><span class="n">compute</span> <span class="o">=</span> <span class="n">compute</span>
-<span class="n">simulation</span><span class="o">.</span><span class="n">calculateEnd</span> <span class="o">=</span> <span class="n">calculateEnd</span>
-<span class="n">simulation</span><span class="o">.</span><span class="n">calculateStart</span> <span class="o">=</span> <span class="n">calculateStart</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">postCompute</span> <span class="o">=</span> <span class="n">postCompute</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">preCompute</span> <span class="o">=</span> <span class="n">preCompute</span>
 <span class="n">simulation</span><span class="o">.</span><span class="n">totalTime</span> <span class="o">=</span> <span class="n">totalSimTimeV</span>
 <span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="o">=</span> <span class="p">(</span><span class="n">stepSizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.05</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 
@@ -666,11 +667,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<p>IMPORTANT NOTE FOR WINDOWS USERS : MULTI-PROCESSING (p=True) DOES NOT WORK WITH NOTEBOOK</p>
+<p>You can use a python script, but you will need to make sure that the critical parts of the code are under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> We are going to add further tutorials for this later.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;Windows&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -687,7 +690,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">results</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">resultsDict</span>
 </pre></div>
 </div>
 </div>
@@ -718,7 +721,7 @@ Text(0, 0.5, &#39;Time&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/classes_Tutorials_1_Qubit_21_HeisenbergModelDQS_10_1.png" src="../../../_images/classes_Tutorials_1_Qubit_21_HeisenbergModelDQS_10_1.png" />
+<img alt="../../../_images/classes_Tutorials_1_Qubit_21_HeisenbergModelDQS_11_1.png" src="../../../_images/classes_Tutorials_1_Qubit_21_HeisenbergModelDQS_11_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">

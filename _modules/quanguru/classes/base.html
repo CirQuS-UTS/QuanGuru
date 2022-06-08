@@ -397,7 +397,7 @@
 <span class="sd">        Modified get method to be compatible with extended :meth:`~__getitem__` method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="c1">#pylint:disable=unnecessary-dunder-call</span>
         <span class="k">except</span><span class="p">:</span> <span class="c1">#pylint:disable=bare-except  # noqa: E722</span>
             <span class="k">return</span> <span class="n">default</span></div>
 
@@ -443,9 +443,9 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Modified setdefault method to be compatible with extended :meth:`~__setitem__` &amp; :meth:`~__getitem__` methods.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">__key</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">__key</span><span class="p">,</span> <span class="n">__default</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">__key</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">__key</span><span class="p">):</span> <span class="c1">#pylint:disable=unnecessary-dunder-call</span>
+            <span class="bp">self</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">__key</span><span class="p">,</span> <span class="n">__default</span><span class="p">)</span> <span class="c1">#pylint:disable=unnecessary-dunder-call</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">__key</span><span class="p">)</span><span class="c1">#pylint:disable=unnecessary-dunder-call</span></div>
 
 <div class="viewcode-block" id="aliasDict.pop"><a class="viewcode-back" href="../../../classes/base.html#quanguru.classes.base.aliasDict.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Hashable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>

@@ -458,7 +458,7 @@ This is an internal method used in removeSubSys of quantum systems.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm._createTerm">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">superSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._createTerm" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_createTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">superSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSystem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._createTerm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._createTerm" title="Permalink to this definition">#</a></dt>
 <dd><p>Factory method to create new QTerm with the given qSystem, operator, and optional orders and frequency.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -526,6 +526,18 @@ name-mangled attribute names</p></li>
 <dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm._freeMatrix">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_freeMatrix</span></span><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._freeMatrix" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets and sets the free matrix, ie without the frequency (or, equivalently frequency=1) of the term.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm._isOperPauli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_isOperPauli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._isOperPauli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._isOperPauli" title="Permalink to this definition">#</a></dt>
+<dd><p>Static method to determine if the given operator/s is a Pauli operator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quanguru.classes.QTerms.QTerm._isCorrectPauliDim">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_isCorrectPauliDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qsys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QTerms.html#QTerm._isCorrectPauliDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QTerms.QTerm._isCorrectPauliDim" title="Permalink to this definition">#</a></dt>
+<dd><p>Static method to determine if the dimension of a system is consistent with given operator</p>
 </dd></dl>
 
 <dl class="py method">

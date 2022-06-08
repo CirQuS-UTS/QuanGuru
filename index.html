@@ -161,6 +161,50 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#minimal-example">
+     Minimal example
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#steps-recipe-with-classes">
+       5 steps recipe with classes
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#define-the-system-hamiltonian-and-initial-state">
+         1. Define the system/Hamiltonian (and initial state)
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#define-the-protocol-s-optional">
+         2. Define the protocol/s (optional)
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#define-simulation">
+         3. Define “Simulation”
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#define-parameter-sweeps-optional">
+         4. Define parameter sweeps (optional)
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#define-compute-function-s-optional">
+         5. Define “compute function/s” (optional)
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#finally-run-the-simulation-and-retrieve-the-results">
+         finally run the simulation and retrieve the results
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#rough-development-plan">
      (Rough) Development Plan
     </a>
@@ -230,6 +274,65 @@ It can already be installed via pip</p>
 QuantumToolbox consists <strong>purely of Python functions</strong> (no other objects) that create and/or use <strong>matrices</strong>.
 The classes module (to be renamed later) contains classes to create flexible, simple, and object-oriented simulation scripts.
 Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be used as a standalone library to carry the same simulations.</p>
+<section id="minimal-example">
+<h3>Minimal example<a class="headerlink" href="#minimal-example" title="Permalink to this headline">#</a></h3>
+<section id="steps-recipe-with-classes">
+<h4>5 steps recipe with classes<a class="headerlink" href="#steps-recipe-with-classes" title="Permalink to this headline">#</a></h4>
+<section id="define-the-system-hamiltonian-and-initial-state">
+<h5>1. Define the system/Hamiltonian (and initial state)<a class="headerlink" href="#define-the-system-hamiltonian-and-initial-state" title="Permalink to this headline">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quanguru</span> <span class="k">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">spinSys</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">spinSys</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="define-the-protocol-s-optional">
+<h5>2. Define the protocol/s (optional)<a class="headerlink" href="#define-the-protocol-s-optional" title="Permalink to this headline">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">freeEvolution</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">freeEvolution</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spinSys</span><span class="p">)</span>
+<span class="n">ry</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">SpinRotation</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">rotationAxis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ProtocolY</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">qProtocol</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spinSys</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">ry</span><span class="o">.</span><span class="n">hc</span><span class="p">,</span> <span class="n">freeEvolution</span><span class="p">,</span> <span class="n">ry</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="define-simulation">
+<h5>3. Define “Simulation”<a class="headerlink" href="#define-simulation" title="Permalink to this headline">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spinSys</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">spinSys</span><span class="p">,</span> <span class="n">ProtocolY</span><span class="p">)</span>
+
+<span class="n">spinSys</span><span class="o">.</span><span class="n">totalTime</span> <span class="o">=</span> <span class="mi">8</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">spinSys</span><span class="o">.</span><span class="n">stepCount</span> <span class="o">=</span> <span class="mi">200</span>
+</pre></div>
+</div>
+</section>
+<section id="define-parameter-sweeps-optional">
+<h5>4. Define parameter sweeps (optional)<a class="headerlink" href="#define-parameter-sweeps-optional" title="Permalink to this headline">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spinSys</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">createSweep</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">sweepKey</span><span class="o">=</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span>
+                                     <span class="n">sweepList</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="define-compute-function-s-optional">
+<h5>5. Define “compute function/s” (optional)<a class="headerlink" href="#define-compute-function-s-optional" title="Permalink to this headline">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sy</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;freeEvo&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;yRotPro&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">spinSys</span><span class="o">.</span><span class="n">simCompute</span> <span class="o">=</span> <span class="n">compute</span>
+</pre></div>
+</div>
+</section>
+<section id="finally-run-the-simulation-and-retrieve-the-results">
+<h5>finally run the simulation and retrieve the results<a class="headerlink" href="#finally-run-the-simulation-and-retrieve-the-results" title="Permalink to this headline">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spinSys</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">()</span>
+<span class="n">spinSys</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;freeEvo&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://cirqus-uts.github.io/QuanGuru/classes/Tutorials/1_Qubit/Tutorials.html">tutorials for more.</a></p>
+</section>
+</section>
+</section>
 <section id="rough-development-plan">
 <h3>(Rough) Development Plan<a class="headerlink" href="#rough-development-plan" title="Permalink to this headline">#</a></h3>
 <p>QuantumToolbox is already simple enough and stable.
