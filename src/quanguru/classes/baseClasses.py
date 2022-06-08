@@ -29,6 +29,8 @@ from .base import named, qBase, addDecorator, _recurseIfList, aliasDict
 from .QRes import qResults
 # pylint: disable = cyclic-import
 
+from ..QuantumToolbox.linearAlgebra import hc
+
 class updateBase(qBase):
     r"""
     Base class for :class:`~_sweep` and :class:`~Update` classes, which are used in parameter sweeps and step updates in
@@ -127,13 +129,15 @@ class paramBoundBase(qBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__paramUpdated', '__paramBound', '__matrix']
+    __slots__ = ['__paramUpdated', '__paramBound', '__matrix', '__matrixHc']
 
     def __init__(self, **kwargs) -> None:
         super().__init__(_internal=kwargs.pop('_internal', False))
         #: This stores a matrix in some sub-classes, e.g. protocols ``__matrix`` store their unitary, single quantum
         #: systems use it for their ``freeMat``
         self.__matrix = None
+        #: This attribute stores the Hermitian conjugate of the ``__matrix`` attribute
+        self.__matrixHc = None
         #: Signals that a parameter is updated. This is set to ``True`` when a parameter is updated by :meth:`~setAttr`,
         #: :meth:`~setAttrParam` methods, or True/False by another object, if this object is in another paramBound.
         self.__paramUpdated = True
@@ -146,6 +150,13 @@ class paramBoundBase(qBase):
         #: value does not break the relation).
         self.__paramBound = aliasDict()
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def _hc(self):
+        if ((self._paramBoundBase__matrixHc is None)
+            or (self._paramBoundBase__matrixHc.shape != self._paramBoundBase__matrix.shape)): # pylint: disable=assigning-non-slot
+            self._paramBoundBase__matrixHc = hc(self._paramBoundBase__matrix) # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrixHc # pylint: disable=assigning-non-slot
 
     @property
     def _paramBound(self) -> Dict:
@@ -212,6 +223,9 @@ class paramBoundBase(qBase):
             oldMat = self._paramBoundBase__matrix # noqa: F841
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
             del oldMat
+            oldMatHc = self._paramBoundBase__matrixHc # noqa: F841
+            self._paramBoundBase__matrixHc = None # pylint: disable=assigning-non-slot
+            del oldMatHc
             _exclude.append(self)
             for sys in self._paramBoundBase__paramBound.values(): # pylint: disable=no-member
                 if hasattr(sys, 'delMatrices'):
