@@ -1,4 +1,4 @@
-from quanguru.classes.baseClasses import paramBoundBase
+from quanguru.classes.QSystem import QuantumSystem
 from quanguru.classes.QTerms import QTerm
 from quanguru.QuantumToolbox.operators import sigmaz, sigmay, sigmax
 
@@ -10,10 +10,10 @@ def assertTheseVals(t1, *args):
     assert len(t1.subSys) == args[4]
 
 def test_QTermCreateTerm():
-    named1 = paramBoundBase()
-    named2 = paramBoundBase()
-    named3 = paramBoundBase()
-    named4 = paramBoundBase()
+    named1 = QuantumSystem()
+    named2 = QuantumSystem()
+    named3 = QuantumSystem()
+    named4 = QuantumSystem()
 
     t1 = QTerm._createTerm(named1, named1, sigmaz)
     assertTheseVals(t1, named1, sigmaz, 1, None, 0)

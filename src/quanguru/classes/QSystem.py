@@ -33,13 +33,13 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz, sigmam, sigmap, sigmax, sigmay, sigmaz
+from ..QuantumToolbox.operators import number, Jz
 
 def _initStDec(_createInitialState):
     r"""
     Decorater to handle different inputs for initial state creation.
     """
-    def wrapper(obj, inp=None):
+    def wrapper(obj, inp=None, _maxInput=1):
         # if the given input is a state with consistent shape, simply returns it back
         # if the shape is inconsistent raises an error
         if isinstance(inp, (ndarray, spmatrix)):
@@ -51,8 +51,8 @@ def _initStDec(_createInitialState):
             # this is introduced as convenience so that we can call the _createInitialState without any argument
             # and it will use the input set through the initial state setter
             if inp is None:
-                inp = obj.simulation._stateBase__initialStateInput.value
-            state = _createInitialState(obj, inp)
+                inp = obj.simulation._initialStateInput
+            state = _createInitialState(obj, inp, _maxInput=_maxInput)
         return state
     return wrapper
 
@@ -70,7 +70,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     _instances: int = 0
 
     __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
-                 '__unitary']
+                 '__unitary', '__compOpers']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -91,6 +91,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         #: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)
         #: or the populations
         self._inpCoef = kwargs.pop("_inpCoef", False)
+        #: a dictionary to store arbitrary composite operators that are shaped and updated internally
+        self.__compOpers = {}
         #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
         self._QuantumSystem__unitary.superSys = self # pylint: disable=no-member
@@ -98,6 +100,21 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
     # matrices
+    @property
+    def _compositeOperator(self):
+        r"""
+        A property to store a function pointer (for operator) as key of a dictionary where the value is the internally
+        created composite operator.
+        """
+        for oper, operMat in self._QuantumSystem__compOpers.items():
+            if operMat is None:
+                self._QuantumSystem__compOpers[oper] = QTerm._dimInput(self, oper, 1) # pylint: disable=protected-access
+        return self._QuantumSystem__compOpers
+
+    @_compositeOperator.setter
+    def _compositeOperator(self, oper):
+        self._QuantumSystem__compOpers[oper] = None
+
     def _constructMatrices(self):
         r"""
         The matrices for operators constructed and de-constructed whenever they should be, and this method is used
@@ -133,18 +150,22 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         return time
 
     @_initStDec
-    def _createInitialState(self, inp=None):
+    def _createInitialState(self, inp=None, _maxInput=1):
         r"""
         Method that creates a state from the given input, which is handeled by the _initStDec decorator for different
         input cases.
         """
         if self._isComposite:
             inp = [qsys._initialStateInput for qsys in self.subSys.values()] if inp is None else inp
-            subSysStates = [qsys._createInitialState(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]  # pylint: disable=protected-access
-            initialState = tensorProd(*subSysStates)
+            subSysStates = [qsys._createInitialState(inp[ind], qsys.simulation._setGetMaxInput(inp[ind])) for ind, qsys in enumerate(self.subSys.values())]  # pylint: disable=protected-access,line-too-long
+            initialState = tensorProd(*subSysStates) if not any(inst is None for inst in subSysStates) else None
         else:
             checkNotVal(inp, None, self.name + ' is not given an initial state')
-            initialState = superPos(self.dimension, inp, not self._inpCoef)
+            initialState = superPos(self.dimension, inp, not self._inpCoef) if _maxInput < self.dimension else None
+
+        if initialState is None:
+            warnings.warn(f'Initial state input ({inp}) is larger than or equal to system dimension ({self.dimension})'+
+                 f', initial state is set to {initialState}')
         return initialState
 
     @QSimComp.initialState.setter # pylint: disable=no-member
@@ -172,7 +193,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         returns the sum of sub-system Hamiltonian
         """
-        return sum([val.totalHamiltonian for val in self.subSys.values()])
+        return sum(val.totalHamiltonian for val in self.subSys.values())
 
     @property
     def totalHamiltonian(self): # pylint: disable=invalid-overridden-method
@@ -189,7 +210,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         returns the sum of term Hamiltonian
         """
-        return sum([val.totalHamiltonian for val in self.terms.values() if val.operator is not None])
+        return sum(val.totalHamiltonian for val in self.terms.values() if val.operator is not None)
 
     # dimension methods and properties
     @property
@@ -215,6 +236,12 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                 self._QuantumSystem__dimension *= su.dimension # pylint:disable=assigning-non-slot,no-member
         return self._QuantumSystem__dimension # pylint:disable=no-member
 
+    def _hasConsistentDimensionTerm(self, dim):
+        isConsistent = all(QTerm._isCorrectPauliDim(term.qSystem, term.operator, dim) for term in self.terms.values()) #pylint:disable=protected-access
+        if self.superSys is not None:
+            isConsistent = isConsistent and self.superSys._hasConsistentDimensionTerm(dim) #pylint:disable=protected-access
+        return isConsistent
+
     @dimension.setter
     def dimension(self, dim):
         if self._QuantumSystem__compSys is None: # pylint:disable=no-member
@@ -223,9 +250,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         if not self._isComposite: # pylint:disable=no-member
             checkCorType(dim, (int, integer), "dimension of a QuantumSystem has to be an integer")
             checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
-            isPauli = any(term.operator in [sigmam, sigmap, sigmax, sigmay, sigmaz] for term in self.terms.values())
-            checkVal(not (isPauli and (dim!=2)), True,
-                     f'given dimension for quantum system ({self.name}) is {dim} but it has Pauli as term')
+            self._hasConsistentDimensionTerm(dim)
             oldVal = getattr(self, '_QuantumSystem__dimension')
             setAttr(self, '_QuantumSystem__dimension', dim)
             if self._paramUpdated:
@@ -362,6 +387,11 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         updates of the sub-system also sets the _paramUpdated of self to True.
         Note that composite systems can contain other composite systems as sub-systems.
         """
+        if self in subSys.subSys.values():
+            raise ValueError(f"{self.name} is a subsystem of {subSys.name}. " +
+                             f"Cannot add {subSys.name} as subsystem to {self.name}. " +
+                             "Circular subsystem addition is not allowed.")
+
         if self._QuantumSystem__compSys is None: # pylint:disable=no-member
             self._QuantumSystem__compSys = True # pylint:disable=assigning-non-slot
         elif self._QuantumSystem__compSys is False: # pylint:disable=no-member
@@ -384,6 +414,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         super().delMatrices(_exclude=_exclude)
         for ter in self.terms.values():
             _exclude = ter.delMatrices(_exclude=_exclude)
+        for oper in self._QuantumSystem__compOpers.keys():
+            self._QuantumSystem__compOpers[oper] = None
         return _exclude
 
     def __add__(self, other):
@@ -511,7 +543,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     # TODO THESE NEEDS TESTS
 
-    def createTerm(self, operator, frequency=None, qSystem=None, order=None, superSys=None): #pylint:disable=too-many-arguments
+    def createTerm(self, operator, frequency=None, qSystem=None, order=None, superSys=None, **kwargs): #pylint:disable=too-many-arguments
         r"""
         Method to create a new term with the given parameters and also set the given kwargs to the new term.
 
@@ -547,7 +579,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             qSystem = self.getByNameOrAlias(qSystem)
         superSys = self if superSys is None else superSys
         newTerm = QTerm._createTerm(superSys=superSys, qSystem=qSystem, operator=operator, order=order,#pylint:disable=protected-access
-                                    frequency=frequency)
+                                    frequency=frequency, **kwargs)
         qObj = self if isinstance(qSystem, (list, tuple)) else qSystem
         qObj.addTerms(newTerm)
         return newTerm

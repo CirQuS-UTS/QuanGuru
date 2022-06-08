@@ -55,6 +55,32 @@ class QSimComp(computeBase):
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
         # self.__openSystem = False
 
+    def __getattribute__(self, __name: str):
+        r"""
+        Custom ``__getattribute__`` method to get the parameters of the internal simulation object through self
+        """
+        try:
+            obj = super().__getattribute__(__name)
+        except AttributeError as attErr1:
+            try:
+                obj = getattr(self.simulation, __name)
+            except AttributeError as exc:
+                raise attErr1 from exc
+        return obj
+
+    def __setattr__(self, __name: str, __value) -> None:
+        r"""
+        Custom ``__setattr__`` method to set the parameters of the internal simulation object through self
+        """
+        try:
+            obj = super().__setattr__(__name, __value)
+        except AttributeError as attErr1:
+            try:
+                obj = setattr(self.simulation, __name, __value)
+            except AttributeError as exc:
+                raise attErr1 from exc
+        return obj
+
     @property
     def simulation(self):
         r"""
@@ -70,7 +96,7 @@ class QSimComp(computeBase):
 
     @property
     def _initialStateInput(self):
-        return self.simulation._stateBase__initialStateInput.value
+        return self.simulation._initialStateInput
 
     @property
     def simParameters(self):

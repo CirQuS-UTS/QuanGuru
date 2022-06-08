@@ -3,6 +3,11 @@ import pytest
 import quanguru.classes.QSystem as QSys
 from quanguru.classes.QSys import QuantumSystemOld
 
+def test_addSubSysDoesNotAllowCircularAddition():
+    qs1 = QSys.QuantumSystem()
+    qs2 = QSys.QuantumSystem(subSys=qs1)
+    with pytest.raises(ValueError):
+        qs1.addSubSys(qs2)
 
 @pytest.mark.parametrize("cls", [
                          QuantumSystemOld,

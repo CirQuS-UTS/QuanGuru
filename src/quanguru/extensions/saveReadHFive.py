@@ -124,7 +124,7 @@
 
 #     for value1 in qRes.allResults.values():
 #         k = file.create_group(value1.name)
-#         dictionary = value1.results
+#         dictionary = value1.resultsDict
 #         if irregular is True:
 #             for key, value in dictionary.items():
 #                 k2 = k.create_group(key)
@@ -139,7 +139,7 @@
 
 
 # def _qResSaveH5(qRes, fileName=None, attributes=dict, path=None, irregular=False): # pylint: disable=invalid-name
-#     p, f = saveH5(qRes.results, fileName, attributes, path, irregular)
+#     p, f = saveH5(qRes.resultsDict, fileName, attributes, path, irregular)
 #     return p, f
 
 # qResults.saveAll = saveAll

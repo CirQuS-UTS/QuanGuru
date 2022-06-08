@@ -106,6 +106,10 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
+    def hc(self):
+        return copyStep(self, hc=True)
+
+    @property
     def dimension(self):
         return 1
 
@@ -132,7 +136,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
 
     @QSimComp.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
-        self.simulation._stateBase__initialStateInput.value = inp # pylint: disable=protected-access
+        self.simulation._initialStateInput = inp # pylint: disable=protected-access
         self.simulation._stateBase__initialState.value = self.superSys._createAstate(inp) # pylint:disable=W0212,E1101
 
     def createUpdate(self, **kwargs):
@@ -342,11 +346,12 @@ class copyStep(qBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = []
+    __slots__ = ['hc']
 
     def __init__(self, superSys, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.superSys = superSys
+        self.hc = False
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _paramUpdatedToFalse(self):
@@ -365,10 +370,12 @@ class copyStep(qBase):
         pass
 
     def getUnitary(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
-        return self.superSys.unitary()
+        self.superSys.unitary()
+        return self.superSys._hc if self.hc else self.superSys._paramBoundBase__matrix #pylint:disable=protected-access
 
     def unitary(self): #pylint:disable=unused-argument
-        return self.superSys.unitary()
+        self.superSys.unitary()
+        return self.superSys._hc if self.hc else self.superSys._paramBoundBase__matrix #pylint:disable=protected-access
 
     @property
     def _isOpen(self):

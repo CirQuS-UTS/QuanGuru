@@ -6,6 +6,15 @@ from quanguru.classes.QSys import QuantumSystemOld
 import quanguru.QuantumToolbox.operators as QOps
 from quanguru.classes.QTerms import QTerm
 
+def test_subSystemDimesionsAreRequiredForMatrixCreations():
+    qub = QSys.Qubit(frequency=1)
+    cav = QSys.Cavity(frequency=1)
+
+    comp = qub + cav
+
+    with pytest.raises(ValueError):
+        comp.totalHamiltonian.A
+
 @pytest.mark.parametrize('intType', [int, int64, int32])
 def test_dimensionHasToBeInt(intType):
     qsys1 = QSys.QuantumSystem(dimension=intType(rnd.randint(2, 20)))

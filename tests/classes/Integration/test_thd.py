@@ -28,39 +28,39 @@ def test_thdFromSaved(bo):
         import tests.classes.Integration.thd._orDQHS as th
         th.simulation.run(p=bo)
 
-        assert np.allclose(fp2ZExp[0], th.simulation.results["fp2ZExp"][0])
-        assert np.allclose(fp2ZExp[1], th.simulation.results["fp2ZExp"][1])
+        assert np.allclose(fp2ZExp[0], th.simulation.resultsDict["fp2ZExp"][0])
+        assert np.allclose(fp2ZExp[1], th.simulation.resultsDict["fp2ZExp"][1])
 
-        assert np.allclose(fp2YExp[0], th.simulation.results["fp2YExp"][0])
-        assert np.allclose(fp2YExp[1], th.simulation.results["fp2YExp"][1])
+        assert np.allclose(fp2YExp[0], th.simulation.resultsDict["fp2YExp"][0])
+        assert np.allclose(fp2YExp[1], th.simulation.resultsDict["fp2YExp"][1])
 
-        assert np.allclose(fp3ZExp[0], th.simulation.results["fp3ZExp"][0])
-        assert np.allclose(fp3ZExp[1], th.simulation.results["fp3ZExp"][1])
+        assert np.allclose(fp3ZExp[0], th.simulation.resultsDict["fp3ZExp"][0])
+        assert np.allclose(fp3ZExp[1], th.simulation.resultsDict["fp3ZExp"][1])
 
-        assert np.allclose(fp3YExp[0], th.simulation.results["fp3YExp"][0])
-        assert np.allclose(fp3YExp[1], th.simulation.results["fp3YExp"][1])
+        assert np.allclose(fp3YExp[0], th.simulation.resultsDict["fp3YExp"][0])
+        assert np.allclose(fp3YExp[1], th.simulation.resultsDict["fp3YExp"][1])
 
-        assert np.allclose(qp2ZExp[0], th.simulation.results["qp2ZExp"][0])
-        assert np.allclose(qp2ZExp[1], th.simulation.results["qp2ZExp"][1])
+        assert np.allclose(qp2ZExp[0], th.simulation.resultsDict["qp2ZExp"][0])
+        assert np.allclose(qp2ZExp[1], th.simulation.resultsDict["qp2ZExp"][1])
 
-        assert np.allclose(qp2YExp[0], th.simulation.results["qp2YExp"][0])
-        assert np.allclose(qp2YExp[1], th.simulation.results["qp2YExp"][1])
+        assert np.allclose(qp2YExp[0], th.simulation.resultsDict["qp2YExp"][0])
+        assert np.allclose(qp2YExp[1], th.simulation.resultsDict["qp2YExp"][1])
 
-        assert np.allclose(qp3ZExp[0], th.simulation.results["qp3ZExp"][0])
-        assert np.allclose(qp3ZExp[1], th.simulation.results["qp3ZExp"][1])
+        assert np.allclose(qp3ZExp[0], th.simulation.resultsDict["qp3ZExp"][0])
+        assert np.allclose(qp3ZExp[1], th.simulation.resultsDict["qp3ZExp"][1])
 
-        assert np.allclose(qp3YExp[0], th.simulation.results["qp3YExp"][0])
-        assert np.allclose(qp3YExp[1], th.simulation.results["qp3YExp"][1])
+        assert np.allclose(qp3YExp[0], th.simulation.resultsDict["qp3YExp"][0])
+        assert np.allclose(qp3YExp[1], th.simulation.resultsDict["qp3YExp"][1])
 
-        assert np.allclose(sfid2Y[0], th.simulation.results["sfid2"][0])
-        assert np.allclose(sfid2Y[1], th.simulation.results["sfid2"][1])
+        assert np.allclose(sfid2Y[0], th.simulation.resultsDict["sfid2"][0])
+        assert np.allclose(sfid2Y[1], th.simulation.resultsDict["sfid2"][1])
 
-        assert np.allclose(sfid2Z[0], th.simulation.results["sfid0"][0])
-        assert np.allclose(sfid2Z[1], th.simulation.results["sfid0"][1])
+        assert np.allclose(sfid2Z[0], th.simulation.resultsDict["sfid0"][0])
+        assert np.allclose(sfid2Z[1], th.simulation.resultsDict["sfid0"][1])
 
-        assert np.allclose(sfid3Y[0], th.simulation.results["sfid6"][0])
-        assert np.allclose(sfid3Y[1], th.simulation.results["sfid6"][1])
+        assert np.allclose(sfid3Y[0], th.simulation.resultsDict["sfid6"][0])
+        assert np.allclose(sfid3Y[1], th.simulation.resultsDict["sfid6"][1])
 
-        assert np.allclose(sfid3Z[0], th.simulation.results["sfid4"][0])
-        assert np.allclose(sfid3Z[1], th.simulation.results["sfid4"][1])
+        assert np.allclose(sfid3Z[0], th.simulation.resultsDict["sfid4"][0])
+        assert np.allclose(sfid3Z[1], th.simulation.resultsDict["sfid4"][1])
         qg.freeEvolution._freqCoef = 1
