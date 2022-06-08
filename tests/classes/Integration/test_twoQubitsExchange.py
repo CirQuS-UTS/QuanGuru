@@ -7,16 +7,16 @@ qub2Sz = qg.tensorProd(qg.identity(2), qg.sigmaz())
 # store the real and imaginary parts for each coeffiecient at each step
 def comp(sim, states):
     st = states[0]
-    sim.qRes.result = ("sz1", qg.expectation(qub1Sz, st))
-    sim.qRes.result = ("sz2", qg.expectation(qub2Sz, st))
-    sim.qRes.result = ("c00real", st.A[0][0].real)
-    sim.qRes.result = ("c00imag", st.A[0][0].imag)
-    sim.qRes.result = ("c10real", st.A[1][0].real)
-    sim.qRes.result = ("c10imag", st.A[1][0].imag)
-    sim.qRes.result = ("c01real", st.A[2][0].real)
-    sim.qRes.result = ("c01imag", st.A[2][0].imag)
-    sim.qRes.result = ("c11real", st.A[3][0].real)
-    sim.qRes.result = ("c11imag", st.A[3][0].imag)
+    sim.qRes.singleResult = ("sz1", qg.expectation(qub1Sz, st))
+    sim.qRes.singleResult = ("sz2", qg.expectation(qub2Sz, st))
+    sim.qRes.singleResult = ("c00real", st.A[0][0].real)
+    sim.qRes.singleResult = ("c00imag", st.A[0][0].imag)
+    sim.qRes.singleResult = ("c10real", st.A[1][0].real)
+    sim.qRes.singleResult = ("c10imag", st.A[1][0].imag)
+    sim.qRes.singleResult = ("c01real", st.A[2][0].real)
+    sim.qRes.singleResult = ("c01imag", st.A[2][0].imag)
+    sim.qRes.singleResult = ("c11real", st.A[3][0].real)
+    sim.qRes.singleResult = ("c11imag", st.A[3][0].imag)
 
 def test_twoQubitExchange(twoQubitsExchange):
     qg.freeEvolution._freqCoef = 1
@@ -72,16 +72,16 @@ def test_twoQubitExchange(twoQubitsExchange):
         c1 = twoQubitsExchange.c_1(rabifreq, c10inp, c01inp, detun, cStg)
         c2 = twoQubitsExchange.c_2(rabifreq, c10inp, c01inp, detun, cStg)
 
-        assert np.allclose([twoQubitsExchange.sz1Exp(c00inp, c11inp, c1, c2, rabifreq, detun, cStg, t) for t in qbIn.simulation.timeList], qbIn.simulation.results["sz1"][ind])
+        assert np.allclose([twoQubitsExchange.sz1Exp(c00inp, c11inp, c1, c2, rabifreq, detun, cStg, t) for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["sz1"][ind])
 
-        assert np.allclose([twoQubitsExchange.c01(rabifreq, c10inp, c01inp, detun, cStg, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c01real"][ind])
-        assert np.allclose([twoQubitsExchange.c01(rabifreq, c10inp, c01inp, detun, cStg, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c01imag"][ind])
+        assert np.allclose([twoQubitsExchange.c01(rabifreq, c10inp, c01inp, detun, cStg, t).real for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["c01real"][ind])
+        assert np.allclose([twoQubitsExchange.c01(rabifreq, c10inp, c01inp, detun, cStg, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["c01imag"][ind])
 
-        assert np.allclose([twoQubitsExchange.c10(rabifreq, c10inp, c01inp, detun, cStg, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c10real"][ind])
-        assert np.allclose([twoQubitsExchange.c10(rabifreq, c10inp, c01inp, detun, cStg, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c10imag"][ind])
+        assert np.allclose([twoQubitsExchange.c10(rabifreq, c10inp, c01inp, detun, cStg, t).real for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["c10real"][ind])
+        assert np.allclose([twoQubitsExchange.c10(rabifreq, c10inp, c01inp, detun, cStg, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["c10imag"][ind])
 
-        assert np.allclose([twoQubitsExchange.c00(freq1, freq2, c00inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c00real"][ind])
-        assert np.allclose([twoQubitsExchange.c00(freq1, freq2, c00inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c00imag"][ind])
+        assert np.allclose([twoQubitsExchange.c00(freq1, freq2, c00inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["c00real"][ind])
+        assert np.allclose([twoQubitsExchange.c00(freq1, freq2, c00inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["c00imag"][ind])
 
-        assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.results["c11real"][ind])
-        assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.results["c11imag"][ind])
+        assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).real for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["c11real"][ind])
+        assert np.allclose([twoQubitsExchange.c11(freq1, freq2, c11inp, t).imag for t in qbIn.simulation.timeList], qbIn.simulation.resultsDict["c11imag"][ind])
