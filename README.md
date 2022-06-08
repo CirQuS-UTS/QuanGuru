@@ -46,7 +46,8 @@ spinSys.stepCount = 200
 
 #### 4. Define parameter sweeps (optional)
 ```python
-spinSys.simulation.Sweep.createSweep(system='first', sweepKey='frequency', sweepList=np.arange(-1, 1, 0.25))
+spinSys.simulation.Sweep.createSweep(system='first', sweepKey='frequency',
+                                     sweepList=np.arange(-1, 1, 0.25))
 ```
 
 #### 5. Define “compute function/s” (optional)
