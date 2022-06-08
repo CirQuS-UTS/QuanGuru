@@ -33,7 +33,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz, sigmam, sigmap, sigmax, sigmay, sigmaz
+from ..QuantumToolbox.operators import number, Jz
 
 def _initStDec(_createInitialState):
     r"""
@@ -236,6 +236,12 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                 self._QuantumSystem__dimension *= su.dimension # pylint:disable=assigning-non-slot,no-member
         return self._QuantumSystem__dimension # pylint:disable=no-member
 
+    def _hasConsistentDimensionTerm(self, dim):
+        isConsistent = all(QTerm._isCorrectPauliDim(term.qSystem, term.operator, dim) for term in self.terms.values()) #pylint:disable=protected-access
+        if self.superSys is not None:
+            isConsistent = isConsistent and self.superSys._hasConsistentDimensionTerm(dim) #pylint:disable=protected-access
+        return isConsistent
+
     @dimension.setter
     def dimension(self, dim):
         if self._QuantumSystem__compSys is None: # pylint:disable=no-member
@@ -244,9 +250,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         if not self._isComposite: # pylint:disable=no-member
             checkCorType(dim, (int, integer), "dimension of a QuantumSystem has to be an integer")
             checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
-            isPauli = any(term.operator in [sigmam, sigmap, sigmax, sigmay, sigmaz] for term in self.terms.values())
-            checkVal(not (isPauli and (dim!=2)), True,
-                     f'given dimension for quantum system ({self.name}) is {dim} but it has Pauli as term')
+            self._hasConsistentDimensionTerm(dim)
             oldVal = getattr(self, '_QuantumSystem__dimension')
             setAttr(self, '_QuantumSystem__dimension', dim)
             if self._paramUpdated:

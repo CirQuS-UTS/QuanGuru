@@ -79,7 +79,8 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         #: boolean to create either linearly or logarithmically spaced list values (from sweepMin-sweepMax-sweepStep).
         self.logSweep = False
         #: boolean to determine, if two different sweeps are swept simultaneously (same length of list and pair of
-        #: values at the same index are swept) or a multi-parameter (combinatorial) sweep (fix one sweep the other and repeat).
+        #: values at the same index are swept) or a multi-parameter (combinatorial) sweep,
+        #: ie fix one sweep the other & repeat.
         self.combinatorial = False
         #: stores the index of the value (from the _sweepList) currently being assigned by the sweep function. Used by
         #: the default methods but also useful for custom methods. It is calculated by the modular arithmetic in
