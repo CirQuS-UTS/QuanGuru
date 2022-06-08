@@ -1,8 +1,42 @@
 import random as rnd
 import pytest
 from quanguru.QuantumToolbox.operators import sigmaz, number
+from quanguru.classes.QSystem import QuantumSystem
 from quanguru.classes.QTerms import QTerm
-from quanguru.classes.baseClasses import paramBoundBase
+from quanguru.classes.QSystem import QuantumSystem
+
+def test_PauliOperatorDimesionHasToBe2Case1():
+    qs = QuantumSystem()
+    qs.dimension = 3
+    with pytest.raises(ValueError):
+        qs.operator = sigmaz
+
+def test_PauliOperatorDimesionHasToBe2Case2():
+    qs = QuantumSystem()
+    qs.operator = sigmaz
+    with pytest.raises(ValueError):
+        qs.dimension = 3
+
+def test_PauliOperatorDimesionHasToBe2Case3():
+    qSingle1 = QuantumSystem(dimension=rnd.randint(3, 10))
+    qSingle2 = QuantumSystem(dimension=rnd.randint(2, 10))
+
+    qComposite = QuantumSystem(subSys=[qSingle1,  qSingle2])
+
+    couplingTerm = QTerm(superSys=qComposite)
+    couplingTerm.qSystem = (qSingle1, qSingle1, qSingle2)
+    with pytest.raises(ValueError):
+        couplingTerm.operator = (sigmaz, sigmaz, number)
+
+def test_PauliOperatorDimesionHasToBe2Case4():
+    qSingle1 = QuantumSystem()
+    qSingle2 = QuantumSystem()
+
+    qComposite = QuantumSystem(subSys=[qSingle1, qSingle2])
+
+    couplingTerm = qComposite.createTerm(superSys=qComposite, frequency=1, qSystem = (qSingle1, qSingle1), operator = (sigmaz, sigmaz))
+    with pytest.raises(ValueError):
+        qSingle1.dimension = 3
 
 @pytest.mark.parametrize("oper", [sigmaz, number])
 def test_cannotSetWithoutqSystem(oper):
@@ -20,7 +54,7 @@ def test_cannotSetWithoutqSystem(oper):
 
 @pytest.mark.parametrize("oper", [sigmaz, number])
 def test_singleqSystemSingleOper(oper):
-    named1 = paramBoundBase()
+    named1 = QuantumSystem()
     t1 = QTerm(qSystem=named1, operator=oper)
     assert t1.operator == oper
     assert len(t1.subSys) == 0
@@ -41,9 +75,9 @@ def test_singleqSystemSingleOper(oper):
 
 @pytest.mark.parametrize("oper", [sigmaz, number])
 def test_multiqSystemMultiOper(oper):
-    named1 = paramBoundBase()
-    named2 = paramBoundBase()
-    named3 = paramBoundBase()
+    named1 = QuantumSystem()
+    named2 = QuantumSystem()
+    named3 = QuantumSystem()
     with pytest.raises(TypeError):
         t1 = QTerm(superSys=named1, qSystem=[named1, named2], operator=oper)
 
@@ -91,7 +125,7 @@ def test_multiqSystemMultiOper(oper):
 
 @pytest.mark.parametrize("orde", [sigmaz, number])
 def test_singleqSystemSingleOrder(orde):
-    named1 = paramBoundBase()
+    named1 = QuantumSystem()
     t1 = QTerm(qSystem=named1, order=orde)
     assert t1.order == orde
     assert len(t1.subSys) == 0
@@ -112,9 +146,9 @@ def test_singleqSystemSingleOrder(orde):
 
 @pytest.mark.parametrize("orde", [2, 10])
 def test_multiqSystemMultiOrder(orde):
-    named1 = paramBoundBase()
-    named2 = paramBoundBase()
-    named3 = paramBoundBase()
+    named1 = QuantumSystem()
+    named2 = QuantumSystem()
+    named3 = QuantumSystem()
     with pytest.raises(TypeError):
         t1 = QTerm(superSys=named1, qSystem=[named1, named2], order=orde)
 

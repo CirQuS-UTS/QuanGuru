@@ -4,7 +4,7 @@ from quanguru import QuantumSystem, sigmam, Qubit, freeEvolution
 
 # write a compute function for the qubit
 def computeREF(qub, st):
-    qub.qRes.result = 'storedOnce', 1
+    qub.qRes.singleResult = 'storedOnce', 1
 
 def test_computeFunctionCallCount():
     # create a qubit
@@ -25,7 +25,7 @@ def test_computeFunctionCallCount():
     qubit.runSimulation()
 
     # length of results is not 101 but 202
-    assert len(qubit.qRes.results['storedOnce']) == (qubit.simulation.stepCount+1)
+    assert len(qubit.qRes.resultsDict['storedOnce']) == (qubit.simulation.stepCount+1)
 
 def test_noInitialStateRequiredWhenNoTimeEvolution():
     # create a quantum system
