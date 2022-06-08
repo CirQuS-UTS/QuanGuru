@@ -5,12 +5,12 @@ import random
 import quanguru as qg
 
 def comp(sim, st):
-    #sim.qRes.result = ("sz1", expectation(photonNum, st))
-    #sim.qRes.result = ("sz2", expectation(qubSz, st))
+    #sim.qRes.singleResult = ("sz1", expectation(photonNum, st))
+    #sim.qRes.singleResult = ("sz2", expectation(qubSz, st))
     dim = sim.auxObj.dim
     for i in range(dim-2):
-        sim.qRes.result = (str(i) + "real", st.A[i][0].real)
-        sim.qRes.result = (str(i) + "imag", st.A[i][0].imag)
+        sim.qRes.singleResult = (str(i) + "real", st.A[i][0].real)
+        sim.qRes.singleResult = (str(i) + "imag", st.A[i][0].imag)
 
 @pytest.mark.parametrize("bo, multiSweep, multiParam", [(False, False, False), (True, False, False),
                                                         (False, True, False), (True, True, False),
@@ -72,8 +72,8 @@ def test_JCEvolution(bo, multiSweep, multiParam, JC):
                             resRe.append(coef.real)
                             resIm.append(coef.imag)
 
-                    realRes = JC.jc.simulation.results[str(i)+'real'][cind][ind] if multiParam else JC.jc.simulation.results[str(i)+'real'][cind]
-                    imagRes = JC.jc.simulation.results[str(i)+'imag'][cind][ind] if multiParam else JC.jc.simulation.results[str(i)+'imag'][cind]
+                    realRes = JC.jc.simulation.resultsDict[str(i)+'real'][cind][ind] if multiParam else JC.jc.simulation.resultsDict[str(i)+'real'][cind]
+                    imagRes = JC.jc.simulation.resultsDict[str(i)+'imag'][cind][ind] if multiParam else JC.jc.simulation.resultsDict[str(i)+'imag'][cind]
                     assert np.allclose(resRe, realRes)
                     assert np.allclose(resIm, imagRes)
         qg.freeEvolution._freqCoef = 1
