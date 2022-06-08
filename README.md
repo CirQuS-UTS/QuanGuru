@@ -17,6 +17,56 @@ QuantumToolbox consists **purely of Python functions** (no other objects) that c
 The classes module (to be renamed later) contains classes to create flexible, simple, and object-oriented simulation scripts.
 Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be used as a standalone library to carry the same simulations.
 
+## Minimal example
+### 5 steps recipe with classes
+
+#### 1. Define the system/Hamiltonian (and initial state) 
+```python
+import quanguru as qg
+import numpy as np
+
+spinSys = qg.QuantumSystem(frequency=1, operator=qg.sigmaz, dimension=2, alias='first')
+spinSys.initialState = {0:0.2, 1:0.8}
+```
+
+#### 2. Define the protocol/s (optional)
+```python
+freeEvolution = qg.freeEvolution(system=spinSys)
+ry = qg.SpinRotation(system='first', angle=np.pi/2, rotationAxis = 'y')
+ProtocolY = qg.qProtocol(system=spinSys, steps=[ry.hc, freeEvolution, ry])
+```
+
+#### 3. Define "Simulation"
+```python
+spinSys.simulation.addSubSys(spinSys, ProtocolY)
+
+spinSys.totalTime = 8*np.pi
+spinSys.stepCount = 200
+```
+
+#### 4. Define parameter sweeps (optional)
+```python
+spinSys.simulation.Sweep.createSweep(system='first', sweepKey='frequency', sweepList=np.arange(-1, 1, 0.25))
+```
+
+#### 5. Define “compute function/s” (optional)
+```python
+sy = qg.sigmay()
+def compute(sim, args):
+    sim.qRes.singleResult = 'freeEvo', qg.expectation(sy, args[0])
+    sim.qRes.singleResult = 'yRotPro', qg.expectation(sy, args[1])
+
+spinSys.simCompute = compute
+```
+
+#### finally run the simulation and retrieve the results
+```python
+spinSys.runSimulation()
+spinSys.resultsDict['freeEvo']
+```
+
+See [tutorials for more.](https://cirqus-uts.github.io/QuanGuru/classes/Tutorials/1_Qubit/Tutorials.html)
+
 
 ## (Rough) Development Plan
 
