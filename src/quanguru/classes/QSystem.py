@@ -91,7 +91,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         #: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)
         #: or the populations
         self._inpCoef = kwargs.pop("_inpCoef", False)
-        #: a dictionary to store arbitrary composite operators that are shaped and updated internally 
+        #: a dictionary to store arbitrary composite operators that are shaped and updated internally
         self.__compOpers = {}
         #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
