@@ -70,7 +70,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     _instances: int = 0
 
     __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
-                 '__unitary']
+                 '__unitary', '__compOpers']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -91,6 +91,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         #: boolean to determine whether initialState inputs contains complex coefficients (the probability amplitudes)
         #: or the populations
         self._inpCoef = kwargs.pop("_inpCoef", False)
+        #: a dictionary to store arbitrary composite operators that are shaped and updated internally 
+        self.__compOpers = {}
         #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
         self._QuantumSystem__unitary.superSys = self # pylint: disable=no-member
@@ -98,6 +100,21 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self._named__setKwargs(**kwargs) # pylint:disable=no-member
 
     # matrices
+    @property
+    def _compositeOperator(self):
+        r"""
+        A property to store a function pointer (for operator) as key of a dictionary where the value is the internally
+        created composite operator.
+        """
+        for oper, operMat in self._QuantumSystem__compOpers.items():
+            if operMat is None:
+                self._QuantumSystem__compOpers[oper] = QTerm._dimInput(self, oper, 1) # pylint: disable=protected-access
+        return self._QuantumSystem__compOpers
+
+    @_compositeOperator.setter
+    def _compositeOperator(self, oper):
+        self._QuantumSystem__compOpers[oper] = None
+
     def _constructMatrices(self):
         r"""
         The matrices for operators constructed and de-constructed whenever they should be, and this method is used
@@ -393,6 +410,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         super().delMatrices(_exclude=_exclude)
         for ter in self.terms.values():
             _exclude = ter.delMatrices(_exclude=_exclude)
+        for oper in self._QuantumSystem__compOpers.keys():
+            self._QuantumSystem__compOpers[oper] = None
         return _exclude
 
     def __add__(self, other):
