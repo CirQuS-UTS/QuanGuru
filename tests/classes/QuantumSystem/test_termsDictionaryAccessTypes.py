@@ -1,6 +1,11 @@
 import pytest
 import quanguru.classes.QSystem as QSys
 
+def test_createTermKwargs():
+    qs1 = QSys.QuantumSystem()
+    t1ofqs1 = qs1.createTerm(operator=None, alias='term1Ofqs1')
+    assert qs1.getByNameOrAlias('term1Ofqs1') is t1ofqs1
+
 @pytest.mark.parametrize('resetTerms', [False, True])
 def test_termDictionaryWithTermName(resetTerms):
     qsys = QSys.QuantumSystem()
