@@ -9,9 +9,9 @@ sy = qg.sigmay()
 sx = qg.sigmax()
 def comp(simOB, states):
     st = states[0]
-    simOB.qRes.result = ["x", qg.expectation(sx, st)]
-    simOB.qRes.result = ["y", qg.expectation(sy, st)]
-    simOB.qRes.result = ["z", qg.expectation(sz, st)]
+    simOB.qRes.singleResult = ["x", qg.expectation(sx, st)]
+    simOB.qRes.singleResult = ["y", qg.expectation(sy, st)]
+    simOB.qRes.singleResult = ["z", qg.expectation(sz, st)]
 
 @pytest.mark.parametrize("bo", [False, True])
 def test_singleQubitSimpleEvolution(bo, singleQubit):
@@ -24,10 +24,10 @@ def test_singleQubitSimpleEvolution(bo, singleQubit):
         qub.runSimulation(p=bo)
         sim = qub.simulation
         keyName = qub.name + 'Results'
-        assert np.allclose([qg.expectation(sx, sim.states[keyName][i]) for i in range(sim.stepCount+1)], sim.qRes.results['x'])
-        assert np.allclose([singleQubit.sxExpectation(sim.stepSize*i, p0, p0, freq) for i in range(sim.stepCount+1)], sim.qRes.results['x'])
-        assert np.allclose([singleQubit.syExpectation(sim.stepSize*i, p0, p0, freq) for i in range(sim.stepCount+1)], sim.qRes.results['y'])
-        assert np.allclose([singleQubit.szExpectation(p0, p0) for i in range(sim.stepCount+1)], sim.qRes.results['z'])
+        assert np.allclose([qg.expectation(sx, sim.states[keyName][i]) for i in range(sim.stepCount+1)], sim.qRes.resultsDict['x'])
+        assert np.allclose([singleQubit.sxExpectation(sim.stepSize*i, p0, p0, freq) for i in range(sim.stepCount+1)], sim.qRes.resultsDict['x'])
+        assert np.allclose([singleQubit.syExpectation(sim.stepSize*i, p0, p0, freq) for i in range(sim.stepCount+1)], sim.qRes.resultsDict['y'])
+        assert np.allclose([singleQubit.szExpectation(p0, p0) for i in range(sim.stepCount+1)], sim.qRes.resultsDict['z'])
         assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, p0, freq).real for i in range(sim.stepCount+1)], [s.A[0][0].real for s in sim.states[keyName]])
         assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, p0, freq).imag for i in range(sim.stepCount+1)], [s.A[0][0].imag for s in sim.states[keyName]])
         assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, p0, freq).real for i in range(sim.stepCount+1)], [s.A[1][0].real for s in sim.states[keyName]])
@@ -64,9 +64,9 @@ def test_singleQubitSweepEvolution(bo, multiSweep, multiParam, singleQubit):
             for ind in range(int(combWhile)+1):
                 c00 = cList[(j*int(not multiParam) + ind*int(multiParam))*int(multiSweep)][0]
                 c01 = cList[(j*int(not multiParam) + ind*int(multiParam))*int(multiSweep)][1]
-                xExpects = sim.qRes.results['x'][j][ind] if multiParam else sim.qRes.results['x'][j]
-                yExpects = sim.qRes.results['y'][j][ind] if multiParam else sim.qRes.results['y'][j]
-                zExpects = sim.qRes.results['z'][j][ind] if multiParam else sim.qRes.results['z'][j]
+                xExpects = sim.qRes.resultsDict['x'][j][ind] if multiParam else sim.qRes.resultsDict['x'][j]
+                yExpects = sim.qRes.resultsDict['y'][j][ind] if multiParam else sim.qRes.resultsDict['y'][j]
+                zExpects = sim.qRes.resultsDict['z'][j][ind] if multiParam else sim.qRes.resultsDict['z'][j]
                 assert np.allclose([singleQubit.sxExpectation(sim.stepSize*i, c01, c00, f) for i in range(sim.stepCount+1)], xExpects)
                 assert np.allclose([singleQubit.syExpectation(sim.stepSize*i, c01, c00, f) for i in range(sim.stepCount+1)], yExpects)
                 assert np.allclose([singleQubit.szExpectation(c01, c00) for i in range(sim.stepCount+1)], zExpects)

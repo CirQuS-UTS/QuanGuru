@@ -26,8 +26,8 @@ def compute(qsim, states):
     p1 = qsim.qEvolutions[0]
     p2 = qsim.qEvolutions[1]
     for s in range(len(p1.sampleStates)):
-        qsim.qRes.result = ['ex', qg.expectation(jz, p1.sampleStates[s])/jValeu]
-        qsim.qRes.result = ['fd',qg.fidelityPure(p1.sampleStates[s], p2.sampleStates[s])]
-        qsim.qRes.result = ('dl', qg.iprKetNB(p1.sampleStates[s])/((2*jValeu)+1))
+        qsim.qRes.singleResult = ['ex', qg.expectation(jz, p1.sampleStates[s])/jValeu]
+        qsim.qRes.singleResult = ['fd',qg.fidelityPure(p1.sampleStates[s], p2.sampleStates[s])]
+        qsim.qRes.singleResult = ('dl', qg.iprKetNB(p1.sampleStates[s])/((2*jValeu)+1))
 kt.simCompute = compute
 #kt.simulation.run(p=False)

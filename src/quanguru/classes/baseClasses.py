@@ -260,7 +260,7 @@ class computeBase(paramBoundBase):
         Function to call at each step of the time evolution, by default ``None``. It needs to be written in the
         appropriate form  TODO create examples/tutorial and link here.
         It is intended to perform computations on the current state of the system and store the results
-        in the ``self.qRes.results``.
+        in the ``self.qRes.resultsDict``.
         """
         self.preCompute: Callable = None
         r"""
@@ -312,11 +312,11 @@ class computeBase(paramBoundBase):
             self.qRes.alias = [a+"Results" for a in ali if isinstance(a, str)]
 
     @property
-    def results(self) -> Dict:
+    def resultsDict(self) -> Dict:
         r"""
-        returns ``self.qRes.results``.
+        returns ``self.qRes.resultsDict``.
         """
-        return self.qRes.results
+        return self.qRes.resultsDict
 
     @property
     def states(self) -> Dict:
