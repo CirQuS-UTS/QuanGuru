@@ -42,10 +42,10 @@ def randSingQubStateCoefs():
     c1 = c1/totalNorm
     return (c0, c1)
 
-@pytest.mark.parametrize("bo, multiSweep, multiParam", [(False, False, False), (True, False, False),
+@pytest.mark.parametrize("bo, multiSweep, combinatorial", [(False, False, False), (True, False, False),
                                                         (False, True, False), (True, True, False),
                                                         (False, True, True), (True, True, True)])
-def test_singleQubitSweepEvolution(bo, multiSweep, multiParam, singleQubit):
+def test_singleQubitSweepEvolution(bo, multiSweep, combinatorial, singleQubit):
     if not (bo and (platform.system() == 'Windows')):
         qg.freeEvolution._freqCoef = 2*np.pi
         # evolve a single qubits
@@ -57,21 +57,21 @@ def test_singleQubitSweepEvolution(bo, multiSweep, multiParam, singleQubit):
         sim = qub.simulation
         sim.Sweep.createSweep(system=qub.name, sweepKey="frequency", sweepList=freqs)
         if multiSweep:
-            sim.Sweep.createSweep(system=qub.name, sweepKey="initialState", sweepList=stCoefList, multiParam=multiParam)
+            sim.Sweep.createSweep(system=qub.name, sweepKey="initialState", sweepList=stCoefList, combinatorial=combinatorial)
         sim.run(p=bo)
         for j, f in enumerate(freqs):
-            combWhile = multiParam and len(cList)-1
+            combWhile = combinatorial and len(cList)-1
             for ind in range(int(combWhile)+1):
-                c00 = cList[(j*int(not multiParam) + ind*int(multiParam))*int(multiSweep)][0]
-                c01 = cList[(j*int(not multiParam) + ind*int(multiParam))*int(multiSweep)][1]
-                xExpects = sim.qRes.resultsDict['x'][j][ind] if multiParam else sim.qRes.resultsDict['x'][j]
-                yExpects = sim.qRes.resultsDict['y'][j][ind] if multiParam else sim.qRes.resultsDict['y'][j]
-                zExpects = sim.qRes.resultsDict['z'][j][ind] if multiParam else sim.qRes.resultsDict['z'][j]
+                c00 = cList[(j*int(not combinatorial) + ind*int(combinatorial))*int(multiSweep)][0]
+                c01 = cList[(j*int(not combinatorial) + ind*int(combinatorial))*int(multiSweep)][1]
+                xExpects = sim.qRes.resultsDict['x'][j][ind] if combinatorial else sim.qRes.resultsDict['x'][j]
+                yExpects = sim.qRes.resultsDict['y'][j][ind] if combinatorial else sim.qRes.resultsDict['y'][j]
+                zExpects = sim.qRes.resultsDict['z'][j][ind] if combinatorial else sim.qRes.resultsDict['z'][j]
                 assert np.allclose([singleQubit.sxExpectation(sim.stepSize*i, c01, c00, f) for i in range(sim.stepCount+1)], xExpects)
                 assert np.allclose([singleQubit.syExpectation(sim.stepSize*i, c01, c00, f) for i in range(sim.stepCount+1)], yExpects)
                 assert np.allclose([singleQubit.szExpectation(c01, c00) for i in range(sim.stepCount+1)], zExpects)
 
-                states = sim.states[keyName][j][ind] if multiParam else sim.states[keyName][j]
+                states = sim.states[keyName][j][ind] if combinatorial else sim.states[keyName][j]
                 assert np.allclose([qg.expectation(sx, states[i]) for i in range(sim.stepCount+1)], xExpects)
                 assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, c00, f).real for i in range(sim.stepCount+1)], [s.A[0][0].real for s in states])
                 assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, c00, f).imag for i in range(sim.stepCount+1)], [s.A[0][0].imag for s in states])
