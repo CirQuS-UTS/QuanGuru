@@ -58,12 +58,12 @@ gvaluesDicke = simulation.Sweep.createSweep(system=DickeCoupling, sweepKey='freq
 cavDimSizeSweepDigit = simulation.Sweep.createSweep(system=cavityDigital, sweepKey='dimension', sweepList=cavityDimensions)
 cavDimSizeSweepDicke = simulation.Sweep.createSweep(system=cavityDicke, sweepKey='dimension', sweepList=cavityDimensions)
 
-stepSizeSweep = simulation.Sweep.createSweep(system=simulation, sweepKey='stepSize', sweepList=stepSizesDicke, multiParam=True)
+stepSizeSweep = simulation.Sweep.createSweep(system=simulation, sweepKey='stepSize', sweepList=stepSizesDicke, combinatorial=True)
 
 def calcEigStat(op, ob):
     valsProtoc, vecsProtoc = qg.eigenVecVal._eigs(op)
     componentsEigS = qg.eigenVecVal._eigStatEig(vecsProtoc, symp=True)
-    ob.qRes.result = ['vecStat', componentsEigS]
+    ob.qRes.singleResult = ['vecStat', componentsEigS]
     return valsProtoc, vecsProtoc
 
 def calculateDig(protoc):
@@ -90,9 +90,9 @@ def compute(qsim, args):
     cavPhoton = qsim.auxDict['cavPhoton']
     stateDicke = args[0]
     stateDigit = args[1]
-    qsim.qRes.result = ['nIde', qg.expectation(cavPhoton, stateDicke)]
-    qsim.qRes.result = ['nDig', qg.expectation(cavPhoton, stateDigit)]
-    qsim.qRes.result = ['sfid', qg.fidelityPure(stateDicke, stateDigit)]
+    qsim.qRes.singleResult = ['nIde', qg.expectation(cavPhoton, stateDicke)]
+    qsim.qRes.singleResult = ['nDig', qg.expectation(cavPhoton, stateDigit)]
+    qsim.qRes.singleResult = ['sfid', qg.fidelityPure(stateDicke, stateDigit)]
 simulation.compute = compute
 
 simulation.totalTime = 0.8

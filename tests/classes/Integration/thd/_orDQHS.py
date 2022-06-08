@@ -112,12 +112,12 @@ nVals = [2, 3]
 def compute(qsim, args):
     i = 0
     while i in range(len(args)):
-        qsim.qRes.result = ['sfid'+str(i), qg.fidelityPure(args[i], args[i+1])]
+        qsim.qRes.singleResult = ['sfid'+str(i), qg.fidelityPure(args[i], args[i+1])]
         i += 2
 
     for key, val in qsim.subSys.items():
         sz = qsim.auxDict[str(len(val.subSys.values()))+'z']
-        qsim.qRes.result = [key.name.alias[0]+'Exp', qg.expectation(sz, key.currentState)]
+        qsim.qRes.singleResult = [key.name.alias[0]+'Exp', qg.expectation(sz, key.currentState)]
 
 simulation = qg.Simulation()
 simulation.delStates = True

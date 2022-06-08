@@ -124,7 +124,7 @@ class QTerm(paramBoundBase):
                 qSys.removeTerm(self)
 
     @staticmethod
-    def _createTerm(superSys, qSystem, operator, order=None, frequency=None):
+    def _createTerm(superSys, qSystem, operator, order=None, frequency=None, **kwargs):
         r"""
         Factory method to create new QTerm with the given qSystem, operator, and optional orders and frequency.
 
@@ -147,7 +147,7 @@ class QTerm(paramBoundBase):
             Newly created QTerm object
 
         """
-        newSys = QTerm(superSys=superSys)
+        newSys = QTerm(superSys=superSys, **kwargs)
         newSys.qSystem = qSystem
         newSys.operator = operator
         newSys.order = [1 for _ in qSystem] if (isinstance(qSystem, (list, tuple)) and (order is None)) else order
@@ -183,6 +183,8 @@ class QTerm(paramBoundBase):
                                                     f' number of qSystem ({len(self.subSys)})')
             for ind, ter in enumerate(self.subSys.values()):
                 setAttr(ter, attrName, vals[ind])
+        if attrName == '_QTerm__operator':
+            self._isCorrectPauliDim(self.qSystem, vals) #pylint:disable=no-member
         setAttr(self, attrName, vals)
         if self._paramUpdated:
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
@@ -256,6 +258,26 @@ class QTerm(paramBoundBase):
             self._constructMatrices()
 
     @staticmethod
+    def _isOperPauli(oper):
+        r"""
+        Static method to determine if the given operator/s is a Pauli operator.
+        """
+        return oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]
+
+    @staticmethod
+    def _isCorrectPauliDim(qsys, oper, dim=None):
+        r"""
+        Static method to determine if the dimension of a system is consistent with given operator
+        """
+        if isinstance(qsys, (list, tuple)):
+            for ind, qs in enumerate(qsys):
+                QTerm._isCorrectPauliDim(qs, oper[ind], dim)
+        else:
+            dim = qsys.dimension if dim is None else dim
+            checkVal(not (QTerm._isOperPauli(oper) and (not (dim in (2, 1)))), True, #pylint:disable=superfluous-parens
+                     f'dimension ({dim}) of quantum system ({qsys.name}) has to be 2, because it has {oper} as term')
+
+    @staticmethod
     def _dimInput(qsys, oper, order):
         r"""
         Static method to create the composite operator for a given quantum system and operator.
@@ -271,12 +293,10 @@ class QTerm(paramBoundBase):
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)
 
-        if oper not in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
+        if not QTerm._isOperPauli(oper):
             operMat = _matPower(oper(dim), order)
         else:
-            if oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]:
-                checkVal(dim, 2,
-                        f'dimension of the quantum system ({qsys.name}) is {dim} but it has {oper} as term')
+            QTerm._isCorrectPauliDim(qsys, oper, dim)
             operMat = _matPower(oper(), order)
         operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
         return operCompMat

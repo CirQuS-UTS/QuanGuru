@@ -62,7 +62,7 @@ class qResBlank:
         self.__calculated = defaultdict(list)
 
     @property
-    def results(self):
+    def resultsDict(self):
         r"""
         returns the protected attribute ``self._qResBlank__resultsLast``
         """
@@ -122,7 +122,7 @@ class qResBase(qBase):
         self._qResBase__calculated[keyValList[0]].append(keyValList[1]) # pylint: disable=no-member
 
     @property
-    def results(self):
+    def resultsDict(self):
         r"""
         returns the protected attribute ``self._qResBase__resultsLast`` and the setter appends the given value into
         the defaultdict from the given (key, val) list/tuple. Uses the Last, so that it stores the results into proper
@@ -131,11 +131,11 @@ class qResBase(qBase):
         """
         return self._qResBase__resultsLast # pylint: disable=no-member
 
-    @results.setter
-    def result(self, keyValList):
+    @resultsDict.setter
+    def singleResult(self, keyValList):
         self._qResBase__resultsLast[keyValList[0]].append(keyValList[1]) # pylint: disable=no-member
 
-    @results.setter
+    @resultsDict.setter
     def resAverage(self, keyValList):
         r"""
         stores the averaged value of given (key, value) pairs.
@@ -288,7 +288,7 @@ class qResults(qResBase):
         At the end of time evolution, :meth:`~_organise` creates a single list containing all the results/states for
         each key.
         """
-        for key, val in valUni.results.items():
+        for key, val in valUni.resultsDict.items():
             qResults._allResults[keyUni]._qResBase__results[key].append(val) # pylint: disable=no-member
 
         for key1, val1, in valUni.states.items():

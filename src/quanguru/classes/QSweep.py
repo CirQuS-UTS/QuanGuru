@@ -58,7 +58,7 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'multiParam', '_sweepIndex']
+    __slots__ = ['sweepMax', 'sweepMin', 'sweepStep', '_sweepList', 'logSweep', 'combinatorial', '_sweepIndex']
 
     #@sweepInitError
     def __init__(self, **kwargs):
@@ -79,8 +79,9 @@ class _sweep(updateBase): # pylint: disable=too-many-instance-attributes
         #: boolean to create either linearly or logarithmically spaced list values (from sweepMin-sweepMax-sweepStep).
         self.logSweep = False
         #: boolean to determine, if two different sweeps are swept simultaneously (same length of list and pair of
-        #: values at the same index are swept) or a multi-parameter sweep (fix one sweep the other and repeat).
-        self.multiParam = False
+        #: values at the same index are swept) or a multi-parameter (combinatorial) sweep,
+        #: ie fix one sweep the other & repeat.
+        self.combinatorial = False
         #: stores the index of the value (from the _sweepList) currently being assigned by the sweep function. Used by
         #: the default methods but also useful for custom methods. It is calculated by the modular arithmetic in
         #: modularSweep and passed to here by :class:`~Sweep` object containing self in its subSys. It starts from -1
@@ -200,7 +201,7 @@ class Sweep(qBase):
         r"""
         a list of ``sweepList`` length/s of multi-parameter ``_sweep`` object/s in ``subSys`` dictionary, meaning the
         length for simultaneously swept ``_sweep`` objects are not repeated. the values are
-        appended to the list, if it is the first ``sweep`` to be included into ``subSys`` or ``multiParam is True``.
+        appended to the list, if it is the first ``sweep`` to be included into ``subSys`` or ``combinatorial is True``.
         """
         self.__indMultip = 1
         r"""
@@ -312,12 +313,12 @@ class Sweep(qBase):
         r"""
         This method is called inside ``run`` method of ``Simulation`` object/s to update ``inds`` and ``indMultip``
         attributes/properties. The reason for this a bit argued in :meth:`indMultip`, but it is basically to ensure that
-        any changes to ``sweepList/s`` or ``multiParam/s`` are accurately used/reflected (especially on re-runs).
+        any changes to ``sweepList/s`` or ``combinatorial/s`` are accurately used/reflected (especially on re-runs).
         """
         if len(self.subSys) > 0:
             self._Sweep__inds = [] # pylint: disable=assigning-non-slot
             for indx, sweep in enumerate(self.subSys.values()):
-                if ((sweep.multiParam is True) or (indx == 0)):
+                if ((sweep.combinatorial is True) or (indx == 0)):
                     self._Sweep__inds.insert(0, len(sweep.sweepList))
             self._Sweep__indMultip = reduce(lambda x, y: x*y, self._Sweep__inds) # pylint: disable=assigning-non-slot
 
@@ -325,13 +326,13 @@ class Sweep(qBase):
         r"""
         called in modularSweep to run all the ``_sweep``
         objects in a ``Sweep``. indices from a given list ``indList`` are used by the ``runSweep`` method of ``_sweep``
-        objects, and it switches to a new index, if the ``multiParam is True``. This means that the ``_sweeps``
+        objects, and it switches to a new index, if the ``combinatorial is True``. This means that the ``_sweeps``
         **should be created in an order** such that ``_sweep`` objects that run simultaneously **have to be** added to
         ``subSys`` one after the other. Also, for nested Sweeps, the indList should be a properly nested list.
         """
         indx = 0
         for sweep in self.sweeps.values():
-            if sweep.multiParam is True:
+            if sweep.combinatorial is True:
                 indx += 1
             sweep.runSweep(indList[indx])
 

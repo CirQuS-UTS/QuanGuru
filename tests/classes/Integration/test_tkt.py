@@ -14,7 +14,7 @@ def test_tktFromSaved(bo):
         import tests.classes.Integration.tkt._orKT as tk
         tk.kt.runSimulation(p=bo)
         for i in range(len(ex)):
-            assert np.allclose(tk.kt.simulation.results["ex"][i], ex[i])
-            assert np.allclose(tk.kt.simulation.results["fd"][i], fd[i])
-            assert np.allclose(tk.kt.simulation.results["dl"][i], dl[i])
+            assert np.allclose(tk.kt.simulation.resultsDict["ex"][i], ex[i])
+            assert np.allclose(tk.kt.simulation.resultsDict["fd"][i], fd[i])
+            assert np.allclose(tk.kt.simulation.resultsDict["dl"][i], dl[i])
         qg.freeEvolution._freqCoef = 1
