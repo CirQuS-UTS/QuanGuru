@@ -12,10 +12,10 @@ def comp(sim, st):
         sim.qRes.singleResult = (str(i) + "real", st.A[i][0].real)
         sim.qRes.singleResult = (str(i) + "imag", st.A[i][0].imag)
 
-@pytest.mark.parametrize("bo, multiSweep, multiParam", [(False, False, False), (True, False, False),
+@pytest.mark.parametrize("bo, multiSweep, combinatorial", [(False, False, False), (True, False, False),
                                                         (False, True, False), (True, True, False),
                                                         (False, True, True), (True, True, True)])
-def test_JCEvolution(bo, multiSweep, multiParam, JC):
+def test_JCEvolution(bo, multiSweep, combinatorial, JC):
     if not (bo and (platform.system() == 'Windows')):
         qg.freeEvolution._freqCoef = 2 * np.pi
         cavDimList = sorted([random.randint(5, 15) for i in range(4)])
@@ -31,7 +31,7 @@ def test_JCEvolution(bo, multiSweep, multiParam, JC):
         stepSizeList = [0.05*random.random() for k in range(4)]
         sweep = JC.jc.simulation.Sweep.createSweep(system=JC.jc.simulation, sweepKey="stepSize", sweepList=stepSizeList)
         if multiSweep:
-            dimSweep = JC.jc.simulation.Sweep.createSweep(system=JC.cav, sweepKey="dimension", sweepList=cavDimList, multiParam=multiParam)
+            dimSweep = JC.jc.simulation.Sweep.createSweep(system=JC.cav, sweepKey="dimension", sweepList=cavDimList, combinatorial=combinatorial)
             initCavSweep = JC.jc.simulation.Sweep.createSweep(system=JC.cav, sweepKey="initialState", sweepList=initCavList)
             initQubSweep = JC.jc.simulation.Sweep.createSweep(system=JC.qub, sweepKey="initialState", sweepList=initQubList)
         JC.jc.runSimulation(p=bo)
@@ -42,13 +42,13 @@ def test_JCEvolution(bo, multiSweep, multiParam, JC):
         assert len(JC.jc.simulation.Sweep.subSys) == 0
 
         for cind, stepSize in enumerate(stepSizeList):
-            combWhile = multiParam and len(cavDimList)-1
+            combWhile = combinatorial and len(cavDimList)-1
             JC.jc.simStepSize = stepSize
             tlist = JC.jc.simulation.timeList
             for ind in range(int(combWhile)+1):
-                JC.cav.dimension = cavDimList[ind+((not multiParam)*cind*multiSweep)]
-                JC.qub.initialState = initQubList[ind+((not multiParam)*cind*multiSweep)]
-                JC.cav.initialState = initCavList[ind+((not multiParam)*cind*multiSweep)]
+                JC.cav.dimension = cavDimList[ind+((not combinatorial)*cind*multiSweep)]
+                JC.qub.initialState = initQubList[ind+((not combinatorial)*cind*multiSweep)]
+                JC.cav.initialState = initCavList[ind+((not combinatorial)*cind*multiSweep)]
                 inSt = JC.jc.initialState.A
                 for i in range((2*cavDimList[0])-2):
                     n, q = JC.cavQubIndsToState(i)
@@ -72,8 +72,8 @@ def test_JCEvolution(bo, multiSweep, multiParam, JC):
                             resRe.append(coef.real)
                             resIm.append(coef.imag)
 
-                    realRes = JC.jc.simulation.resultsDict[str(i)+'real'][cind][ind] if multiParam else JC.jc.simulation.resultsDict[str(i)+'real'][cind]
-                    imagRes = JC.jc.simulation.resultsDict[str(i)+'imag'][cind][ind] if multiParam else JC.jc.simulation.resultsDict[str(i)+'imag'][cind]
+                    realRes = JC.jc.simulation.resultsDict[str(i)+'real'][cind][ind] if combinatorial else JC.jc.simulation.resultsDict[str(i)+'real'][cind]
+                    imagRes = JC.jc.simulation.resultsDict[str(i)+'imag'][cind][ind] if combinatorial else JC.jc.simulation.resultsDict[str(i)+'imag'][cind]
                     assert np.allclose(resRe, realRes)
                     assert np.allclose(resIm, imagRes)
         qg.freeEvolution._freqCoef = 1

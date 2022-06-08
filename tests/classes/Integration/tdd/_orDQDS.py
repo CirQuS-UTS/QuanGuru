@@ -58,7 +58,7 @@ gvaluesDicke = simulation.Sweep.createSweep(system=DickeCoupling, sweepKey='freq
 cavDimSizeSweepDigit = simulation.Sweep.createSweep(system=cavityDigital, sweepKey='dimension', sweepList=cavityDimensions)
 cavDimSizeSweepDicke = simulation.Sweep.createSweep(system=cavityDicke, sweepKey='dimension', sweepList=cavityDimensions)
 
-stepSizeSweep = simulation.Sweep.createSweep(system=simulation, sweepKey='stepSize', sweepList=stepSizesDicke, multiParam=True)
+stepSizeSweep = simulation.Sweep.createSweep(system=simulation, sweepKey='stepSize', sweepList=stepSizesDicke, combinatorial=True)
 
 def calcEigStat(op, ob):
     valsProtoc, vecsProtoc = qg.eigenVecVal._eigs(op)
