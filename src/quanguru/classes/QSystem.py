@@ -717,24 +717,24 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             cqsys.alias = qsys.name + "_" + cqsys.name
             newSys.addSubSys(cqsys)
         subSysList = list(newSys.subSys.values())
-        termsList = list(newSys.terms.values())#pylint:disable=no-member
-        for ind, ter in enumerate(self.terms.values()):
+        for ter in self.terms.values():
             if isinstance(ter.qSystem, QuantumSystem):
                 qSystemNames = newSys
             else:
                 qSystemNames = []
                 for qsys in ter.qSystem:
-                    qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind-1].name)
-            if ind > len(termsList):
+                    qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind].name)
+
+            if newSys._QuantumSystem__firstTerm is None:#pylint:disable=no-member,protected-access
                 newSys.createTerm(qSystem=qSystemNames, #pylint:disable=no-member
-                                 operator=ter.operator,
-                                 frequency=ter.frequency,
-                                 order=ter.order)
+                                  operator=ter.operator,
+                                  frequency=ter.frequency,
+                                  order=ter.order)
             else:
-                termsList[ind]._named__setKwargs(qSystem=qSystemNames, #pylint:disable=no-member
-                                                 operator=ter.operator,
-                                                 frequency=ter.frequency,
-                                                 order=ter.order)
+                newSys._firstTerm.qSystem=qSystemNames#pylint:disable=no-member,protected-access
+                newSys._firstTerm.operator=ter.operator#pylint:disable=no-member,protected-access
+                newSys._firstTerm.frequency=ter.frequency#pylint:disable=no-member,protected-access
+                newSys._firstTerm.order=ter.order#pylint:disable=no-member,protected-access
         if self.simulation._stateBase__initialStateInput._value is not None:
             newSys.initialState = self.simulation._stateBase__initialStateInput.value #pylint:disable=assigning-non-slot
         if not self._isComposite:
