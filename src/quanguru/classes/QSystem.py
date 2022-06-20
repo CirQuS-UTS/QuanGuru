@@ -168,7 +168,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                  f', initial state is set to {initialState}')
         return initialState
 
-    _createAstate = _createInitialState # pylint:disable=protected-access
+    _createState = _createInitialState # pylint:disable=protected-access
 
     @QSimComp.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
