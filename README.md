@@ -25,9 +25,9 @@ Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be use
 import quanguru as qg
 import numpy as np
 
-spinSys = qg.QuantumSystem(frequency=1,
+spinSys = qg.QuantumSystem(dimension=2,
+                           frequency=1,
                            operator=qg.sigmaz,
-                           dimension=2,
                            alias='first')
 spinSys.initialState = {0:0.2, 1:0.8}
 ```
