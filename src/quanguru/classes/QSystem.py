@@ -168,6 +168,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                  f', initial state is set to {initialState}')
         return initialState
 
+    _createAstate = _createInitialState # pylint:disable=protected-access
+
     @QSimComp.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         r"""
@@ -754,7 +756,6 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             newComp.addSubSys(self.copy())
         return newComp
 
-QuantumSystem._createAstate = QuantumSystem._createInitialState # pylint:disable=protected-access
 
 class Cavity(QuantumSystem): # pylint: disable=too-many-ancestors
     r"""
