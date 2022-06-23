@@ -536,7 +536,7 @@ function. If this is None, it fallbacks to self.superSys, and raises error if se
 <dd><p>The initialState property <code class="docutils literal notranslate"><span class="pre">returns</span> <span class="pre">_stateBase__initialState.value</span></code> if it is not <code class="docutils literal notranslate"><span class="pre">None</span></code>. Otherwise, uses
 first element in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary values to create and assign its value. This assumes that, to be able
 to assign a state to a Simulation, it needs at least one quantum system in its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary, and the
-subSys have method to create the state (<code class="docutils literal notranslate"><span class="pre">_createAstate</span></code>). This requirement, by default, is satisfied by the
+subSys have method to create the state (<code class="docutils literal notranslate"><span class="pre">_createState</span></code>). This requirement, by default, is satisfied by the
 internally created Simulation objects that are attributes of quantum systems and protocols.</p>
 <p>Setter sets <code class="docutils literal notranslate"><span class="pre">_stateBase__initialState.value</span></code> matrix for <code class="docutils literal notranslate"><span class="pre">self</span></code> by using the first element of <code class="docutils literal notranslate"><span class="pre">subSys</span></code>
 dictionary values.</p>

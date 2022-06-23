@@ -283,7 +283,10 @@ Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be use
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quanguru</span> <span class="k">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">spinSys</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">spinSys</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                           <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">,</span>
+                           <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
 <span class="n">spinSys</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}</span>
 </pre></div>
 </div>
@@ -291,8 +294,11 @@ Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be use
 <section id="define-the-protocol-s-optional">
 <h5>2. Define the protocol/s (optional)<a class="headerlink" href="#define-the-protocol-s-optional" title="Permalink to this headline">#</a></h5>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">freeEvolution</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">freeEvolution</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spinSys</span><span class="p">)</span>
-<span class="n">ry</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">SpinRotation</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">rotationAxis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
-<span class="n">ProtocolY</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">qProtocol</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spinSys</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">ry</span><span class="o">.</span><span class="n">hc</span><span class="p">,</span> <span class="n">freeEvolution</span><span class="p">,</span> <span class="n">ry</span><span class="p">])</span>
+<span class="n">ry</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">SpinRotation</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
+                     <span class="n">angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                     <span class="n">rotationAxis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ProtocolY</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">qProtocol</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spinSys</span><span class="p">,</span>
+                         <span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">ry</span><span class="o">.</span><span class="n">hc</span><span class="p">,</span> <span class="n">freeEvolution</span><span class="p">,</span> <span class="n">ry</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
@@ -307,17 +313,21 @@ Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be use
 </section>
 <section id="define-parameter-sweeps-optional">
 <h5>4. Define parameter sweeps (optional)<a class="headerlink" href="#define-parameter-sweeps-optional" title="Permalink to this headline">#</a></h5>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spinSys</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">createSweep</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">sweepKey</span><span class="o">=</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span>
-                                     <span class="n">sweepList</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spinSys</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">createSweep</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
+                          <span class="n">sweepKey</span><span class="o">=</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span>
+                          <span class="n">sweepList</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.25</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="define-compute-function-s-optional">
 <h5>5. Define “compute function/s” (optional)<a class="headerlink" href="#define-compute-function-s-optional" title="Permalink to this headline">#</a></h5>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sy</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span><span class="p">()</span>
+
 <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-    <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;freeEvo&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;yRotPro&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">freeEvo</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">yRotPro</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;freeEvo&#39;</span><span class="p">,</span> <span class="n">freeEvo</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;yRotPro&#39;</span><span class="p">,</span> <span class="n">yRotPro</span>
 
 <span class="n">spinSys</span><span class="o">.</span><span class="n">simCompute</span> <span class="o">=</span> <span class="n">compute</span>
 </pre></div>
