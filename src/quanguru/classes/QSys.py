@@ -576,9 +576,9 @@ class compQSystem(genericQSys):
         Creates the initial state using the ``inp`` input, and this method is for internal use.
         """
         if inp is None:
-            inp = [qsys._createAstate() for qsys in self.subSys.values()]
+            inp = [qsys._createAstate() for qsys in self.subSys.values()] #pylint:disable=protected-access
         elif isinstance(inp, list):
-            inp = [qsys._createAstate(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]
+            inp = [qsys._createAstate(inp[ind]) for ind, qsys in enumerate(self.subSys.values())]#pylint:disable=protected-access
         else:
             raise TypeError('?')
         return linAlg.tensorProd(*inp)

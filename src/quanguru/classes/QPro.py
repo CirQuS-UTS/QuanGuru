@@ -137,7 +137,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
     @QSimComp.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self.simulation._initialStateInput = inp # pylint: disable=protected-access
-        self.simulation._stateBase__initialState.value = self.superSys._createAstate(inp) # pylint:disable=W0212,E1101
+        self.simulation._stateBase__initialState.value = self.superSys._createState(inp) # pylint:disable=W0212,E1101
 
     def createUpdate(self, **kwargs):
         update = Update(**kwargs)

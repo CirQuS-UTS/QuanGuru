@@ -79,38 +79,38 @@ def test_initialStateOfNullSystem():
         qsys.initialState = qSts.densityMatrix([qSts.basis(2, 1), qSts.basis(2, 0)], [0.5, 0.5])
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
+                         #QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_createInitialStateForSingleSystem(cls):
     qsys = cls(dimension=4)
 
-    initState = qsys._createAstate(2)
+    initState = qsys._createState(2)
     assert initState[0] == 0
     assert initState[1] == 0
     assert initState[2] == 1
     assert initState[3] == 0
 
-    initState = qsys._createAstate([1, 3])
+    initState = qsys._createState([1, 3])
     assert initState[0] == 0
     assert initState[1] == 1/np.sqrt(2)
     assert initState[2] == 0
     assert initState[3] == 1/np.sqrt(2)
 
-    initState = qsys._createAstate([0, 1, 3])
+    initState = qsys._createState([0, 1, 3])
     assert initState[0] == 1/np.sqrt(3)
     assert initState[1] == 1/np.sqrt(3)
     assert initState[2] == 0
     assert initState[3] == 1/np.sqrt(3)
 
-    initState = qsys._createAstate({0:0.1, 1:0.2, 2:0.3, 3:0.4})
+    initState = qsys._createState({0:0.1, 1:0.2, 2:0.3, 3:0.4})
     assert np.round(initState[0], 14) == np.round(np.sqrt(0.1), 14)
     assert np.round(initState[1], 14) == np.round(np.sqrt(0.2), 14)
     assert np.round(initState[2], 14) == np.round(np.sqrt(0.3), 14)
     assert np.round(initState[3], 14) == np.round(np.sqrt(0.4), 14)
 
     qsys._inpCoef = True
-    initState = qsys._createAstate({0:0.2*(1+1j), 2:0.2})
+    initState = qsys._createState({0:0.2*(1+1j), 2:0.2})
     assert np.round(initState[0].real, 8) == 0.57735027
     assert np.round(initState[0].imag, 8) == 0.57735027
     assert initState[1] == 0
@@ -118,9 +118,9 @@ def test_createInitialStateForSingleSystem(cls):
     assert initState[3] == 0
 
     with pytest.raises(ValueError):
-        initState = qsys._createAstate(qSts.densityMatrix([qSts.basis(2, 1), qSts.basis(2, 0)], [0.5, 0.5]))
+        initState = qsys._createState(qSts.densityMatrix([qSts.basis(2, 1), qSts.basis(2, 0)], [0.5, 0.5]))
 
-    initState = qsys._createAstate(qSts.densityMatrix([qSts.basis(4, 1), qSts.basis(4, 0)], [0.25, 0.75]))
+    initState = qsys._createState(qSts.densityMatrix([qSts.basis(4, 1), qSts.basis(4, 0)], [0.25, 0.75]))
     print(initState.A)
     for ind1 in range(4):
         for ind2 in range(4):
@@ -135,7 +135,7 @@ def test_createInitialStateForSingleSystem(cls):
                          #[QuantumSystemOld, 'initialState'],
                          #[QuantumSystemOld, '_createAstate'],
                          [QSys.QuantumSystem, 'initialState'],
-                         [QSys.QuantumSystem, '_createAstate']
+                         [QSys.QuantumSystem, '_createState']
                          ])
 def test_initialStateSetterForSingleSystem(cls, mth):
     qsys = cls(dimension=4)
