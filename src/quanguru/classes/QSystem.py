@@ -212,7 +212,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         returns the sum of term Hamiltonian
         """
-        return sum(val.totalHamiltonian for val in self.terms.values() if val.operator is not None)
+        return sum(val.totalHamiltonian for val in self.terms.values() if val._canCreateTotalHamiltonian() is not None)
 
     # dimension methods and properties
     @property

@@ -33,7 +33,7 @@ exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _generi
     ,_totalDim, _dimsBefore, _dimsAfter, _value, _freeEvol, _createUnitary, _gateImplements, _defCreateUnitary, _scale, _computeBase__calculate
     , _computeBase__compute, _currentTime, _timeDependency, _qBase__subSys, _timeBase__bound
     , _paramBoundBase__paramBound, _bound, _paramBoundBase__paramUpdated
-    , _paramUpdatedToFalse, _paramBound, _boundTree
+    , _paramUpdatedToFalse, _paramBound, _boundTree, _canCreateTotalHamiltonian
 
 [SIMILARITIES]
 min-similarity-lines = 7
