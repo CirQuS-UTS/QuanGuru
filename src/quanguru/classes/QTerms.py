@@ -241,6 +241,13 @@ class QTerm(paramBoundBase):
             self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._QTerm__HamiltonianTerm
 
+    def _canCreateTotalHamiltonian(self):
+        try:
+            th = self.totalHamiltonian #pylint:disable=unused-variable
+            return True
+        except: #pylint:disable=bare-except
+            return False
+
     @property
     def _freeMatrix(self):
         r"""
