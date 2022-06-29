@@ -55,11 +55,13 @@ def saveCSV(data, path=None, fileName=None):
         path to the saved CSV file
     """
 
-    ts = datetime.now().strftime('%y%m%d')
+    fullTS = datetime.now()
+    ds = fullTS.strftime('%y%m%d')
+    ts = fullTS.strftime('%H%M%S')
     if fileName is None:
-        fileName = ts
+        fileName = ds + '_' + ts
     else:
-        fileName = ts + "_" + fileName
+        fileName = ds + "_" + fileName + '_' + ts
     path = makeDir(path)
 
     with open(path + '/' + str(fileName) + '.txt', 'w') as csvFile: #pylint:disable=W1514
