@@ -25,15 +25,21 @@ Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be use
 import quanguru as qg
 import numpy as np
 
-spinSys = qg.QuantumSystem(frequency=1, operator=qg.sigmaz, dimension=2, alias='first')
+spinSys = qg.QuantumSystem(dimension=2,
+                           frequency=1,
+                           operator=qg.sigmaz,
+                           alias='first')
 spinSys.initialState = {0:0.2, 1:0.8}
 ```
 
 #### 2. Define the protocol/s (optional)
 ```python
 freeEvolution = qg.freeEvolution(system=spinSys)
-ry = qg.SpinRotation(system='first', angle=np.pi/2, rotationAxis = 'y')
-ProtocolY = qg.qProtocol(system=spinSys, steps=[ry.hc, freeEvolution, ry])
+ry = qg.SpinRotation(system='first',
+                     angle=np.pi/2,
+                     rotationAxis = 'y')
+ProtocolY = qg.qProtocol(system=spinSys,
+                         steps=[ry.hc, freeEvolution, ry])
 ```
 
 #### 3. Define "Simulation"
@@ -46,16 +52,20 @@ spinSys.stepCount = 200
 
 #### 4. Define parameter sweeps (optional)
 ```python
-spinSys.simulation.Sweep.createSweep(system='first', sweepKey='frequency',
-                                     sweepList=np.arange(-1, 1, 0.25))
+spinSys.Sweep.createSweep(system='first',
+                          sweepKey='frequency',
+                          sweepList=np.arange(-1,1,0.25))
 ```
 
 #### 5. Define “compute function/s” (optional)
 ```python
 sy = qg.sigmay()
+
 def compute(sim, args):
-    sim.qRes.singleResult = 'freeEvo', qg.expectation(sy, args[0])
-    sim.qRes.singleResult = 'yRotPro', qg.expectation(sy, args[1])
+    freeEvo = qg.expectation(sy,args[0])
+    yRotPro = qg.expectation(sy, args[1])
+    sim.qRes.singleResult = 'freeEvo', freeEvo
+    sim.qRes.singleResult = 'yRotPro', yRotPro
 
 spinSys.simCompute = compute
 ```
