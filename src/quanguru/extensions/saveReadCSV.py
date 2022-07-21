@@ -138,4 +138,4 @@ def saveQResCSV(qRes, path=None, fileNamePrefix=''):
     for key, val in results.items():
         result = val.resultsDict
         if len(result.keys()) > 0:
-            _saveDictToCSV(result, path, _dateTime(fileNamePrefix+key._allStringSum())) #pylint:disable=protected-access
+            _saveDictToCSV(result, path, fileNamePrefix+key._allStringSum()) #pylint:disable=protected-access
