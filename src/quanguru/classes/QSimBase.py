@@ -182,14 +182,14 @@ class stateBase(computeBase):
     @property
     def initialStateSystem(self):
         if self._initialStateSystem is None:
-            self._initialStateSystem=self.superSys if hasattr(self.superSys,'_createAstate') else self.superSys.superSys
+            self._initialStateSystem=self.superSys if hasattr(self.superSys,'_createState') else self.superSys.superSys
         checkNotVal(self._initialStateSystem, None,
                     'Simulation initialStateSystem/superSys is needed for initial state creation')
         return self._initialStateSystem
 
     @initialStateSystem.setter
     def initialStateSystem(self, qSys):
-        checkNotVal(hasattr(qSys, '_createAstate'), False,
+        checkNotVal(hasattr(qSys, '_createState'), False,
                             f"{qSys.name} is not QuantumSystem, Simulation initialStateSystem should be QuantumSystem")
         setAttr(self, '_initialStateSystem', qSys)
 
@@ -199,7 +199,7 @@ class stateBase(computeBase):
         The initialState property ``returns _stateBase__initialState.value`` if it is not ``None``. Otherwise, uses
         first element in its ``subSys`` dictionary values to create and assign its value. This assumes that, to be able
         to assign a state to a Simulation, it needs at least one quantum system in its ``subSys`` dictionary, and the
-        subSys have method to create the state (``_createAstate``). This requirement, by default, is satisfied by the
+        subSys have method to create the state (``_createState``). This requirement, by default, is satisfied by the
         internally created Simulation objects that are attributes of quantum systems and protocols.
 
         Setter sets ``_stateBase__initialState.value`` matrix for ``self`` by using the first element of ``subSys``
@@ -214,16 +214,18 @@ class stateBase(computeBase):
             #  labels: bug, enhancement
             if isinstance(self._stateBase__initialState._bound, _parameter): # pylint: disable=protected-access
                 # might seem redundant, but required to make sure that bound creates its initial state by calling
-                # _createAstate
+                # _createState
                 self._stateBase__initialState._value = self._timeBase__bound.initialState # pylint: disable=no-member
             else:
-                self._stateBase__initialState.value = self.initialStateSystem._createAstate(self._initialStateInput, self._maxInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
+                initSys = self.initialStateSystem
+                self._stateBase__initialState.value = initSys._createState(self._initialStateInput, self._maxInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
         return self._stateBase__initialState.value # pylint: disable=no-member
 
     @initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
         self._initialStateInput = inp # pylint: disable=no-member
-        self._stateBase__initialState.value = self.initialStateSystem._createAstate(inp, self._maxInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
+        initSys = self.initialStateSystem
+        self._stateBase__initialState.value = initSys._createState(inp, self._maxInput) # pylint: disable=protected-access, no-member, line-too-long # noqa: E501
 
     @property
     def _initialStateInput(self):

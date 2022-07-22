@@ -34,6 +34,30 @@ from datetime import datetime
 import numpy as np
 from ._helpers import makeDir
 
+def _dateTime(fileName):
+    """
+    Function to add data and time-stamp into the file name.
+    Data (as YY/MM/DD) is added as a prefix, and time-stamp (as HH/MM/SS) as suffix
+
+    Parameters
+    ----------
+    fileName : str
+        file name
+
+    Returns
+    -------
+    str
+        file name with data prefix and time-stamp suffix
+    """
+    fullTS = datetime.now()
+    ds = fullTS.strftime('%y%m%d')
+    ts = fullTS.strftime('%H%M%S')
+    if fileName is None:
+        fileName = ds + '_' + ts
+    else:
+        fileName = ds + "_" + fileName + '_' + ts
+    return fileName
+
 def saveCSV(data, path=None, fileName=None):
     """
     Function to write the given data into a CSV file. Single list of data is written as a single row. If the data is
@@ -54,10 +78,7 @@ def saveCSV(data, path=None, fileName=None):
     str
         path to the saved CSV file
     """
-
-    if fileName is None:
-        now = datetime.now()
-        fileName = datetime.timestamp(now)
+    fileName = _dateTime(fileName)
     path = makeDir(path)
 
     with open(path + '/' + str(fileName) + '.txt', 'w') as csvFile: #pylint:disable=W1514
@@ -112,9 +133,9 @@ def _saveDictToCSV(data, path=None, fileName=''):
     for key, val in data.items():
         _recursiveSaveList(val, path, fileName=fileName+key)
 
-def saveQResCSV(qRes, path=None):
+def saveQResCSV(qRes, path=None, fileNamePrefix=''):
     results = qRes.allResults
     for key, val in results.items():
         result = val.resultsDict
         if len(result.keys()) > 0:
-            _saveDictToCSV(result, path, key._allStringSum()) #pylint:disable=protected-access
+            _saveDictToCSV(result, path, fileNamePrefix+key._allStringSum()) #pylint:disable=protected-access

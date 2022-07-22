@@ -29,11 +29,11 @@ exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _generi
     ,_qResBlank__results, _qResBase__results, _qResBlank__average, _qResBase__average, _qResBlank__states, _qResBase__states
     ,_qResBlank__resultsLast, _qResBase__resultsLast, _qResBlank__statesLast, _qResBase__statesLast, _qResBlank__calculated, _qResBase__calculated, _finalise
     ,_named__setKwargs, _paramBoundBase__matrix, _genericQSys__dimension, _genericQSys__dimsBefore, _genericQSys__dimsAfter
-    ,_stateBase__initialStateInput, _createAstate, _initialStateInput, _stateBase__initialState, _indicesForSweep
+    ,_stateBase__initialStateInput, _createState, _initialStateInput, _stateBase__initialState, _indicesForSweep
     ,_totalDim, _dimsBefore, _dimsAfter, _value, _freeEvol, _createUnitary, _gateImplements, _defCreateUnitary, _scale, _computeBase__calculate
     , _computeBase__compute, _currentTime, _timeDependency, _qBase__subSys, _timeBase__bound
     , _paramBoundBase__paramBound, _bound, _paramBoundBase__paramUpdated
-    , _paramUpdatedToFalse, _paramBound, _boundTree
+    , _paramUpdatedToFalse, _paramBound, _boundTree, _canCreateTotalHamiltonian
 
 [SIMILARITIES]
 min-similarity-lines = 7

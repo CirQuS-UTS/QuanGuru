@@ -394,7 +394,7 @@ class named:
         if isinstance(name, named):
             return name
         obj = checkNotVal(self._allInstaces.get(name), None,
-                           "No object with the given name/alias is found!")
+                          f"No object with the given name/alias {name} is found!")
         return obj if isinstance(obj, named) else obj()
 
     def _incrementInstances(self) -> None:
