@@ -49,7 +49,8 @@ from .operators import (
     paritySUM, parityEXP, displacement, squeeze, compositeOp
 )
 from .evolution import (
-    Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _postSO, _prepostSO, evolveOpen, steadyState
+    Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _postSO, _prepostSO, evolveOpen, steadyStateHam,
+    steadyStateLio
 )
 from .functions import (
     expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance, _expectationColArr,
