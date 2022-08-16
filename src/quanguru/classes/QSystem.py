@@ -182,7 +182,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             self.superSys.simulation._stateBase__initialState.value = None # breaks the bound to the other _parameter
 
         if self._isComposite:
-            if not isinstance(inp, (ndarray, spmatrix)):
+            if ((not isinstance(inp, (ndarray, spmatrix))) and (self._createState == self._createInitialState)):
                 checkCorType(inp, (list, tuple), 'Composite state initial state input')
                 checkVal(len(inp), len(self.subSys),f'Number of inputs ({len(inp)}) to initial state should be the'+
                                                    f' same as number of sub-system ({len(self.subSys)}) of {self.name}')
