@@ -127,7 +127,7 @@ def _recursiveSaveList(data, path=None, fileName=None):
         elif isinstance(data[0][0], (float, int, np.complex128)):
             saveCSV(data, path=path, fileName=fileName)
     elif isinstance(data[0], (float, int, np.complex128)):
-        saveCSV(data[0], path=path, fileName=fileName)
+        saveCSV(data, path=path, fileName=fileName)
 
 def _saveDictToCSV(data, path=None, fileName=''):
     for key, val in data.items():
