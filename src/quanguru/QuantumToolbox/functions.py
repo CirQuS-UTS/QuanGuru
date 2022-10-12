@@ -182,7 +182,7 @@ def fidelityPure(state1: Matrix, state2: Matrix) -> float:
         if state2.shape[0] != state2.shape[1]:
             state2 = densityMatrix(state2)
 
-        fid = np.real(trace(state1 @ state2))
+        fid = _fidelityTest(state1, state2)
     return fid
 
 def _fidelityTest(state1: Matrix, state2: Matrix) -> float:
