@@ -30,7 +30,7 @@ from .base import _recurseIfList, named
 from .QSimBase import timeBase
 from .QSweep import Sweep
 from .modularSweep import runSimulation
-from .modularSweep import timeEvolBase
+from .modularSweep import timeEvolBase, timeDependentDefault
 # pylint: disable = cyclic-import
 
 class Simulation(timeBase):
@@ -64,9 +64,10 @@ class Simulation(timeBase):
     _instances: int = 0
     #: default evolution method. You can always assign a different evolution method for an instance of Simulation
     #: class, but by re-assigning this class attribute, you can change the evolution method for all the future instances
-    _evolFuncDefault = timeEvolBase
+    _evolStepFuncDefault = timeEvolBase
+    _evolFuncDefault = timeDependentDefault
 
-    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index']
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', 'evolStepFunc', '__index']
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
@@ -98,6 +99,7 @@ class Simulation(timeBase):
         #: resultant unitary with the ``.initialState``. It is possible to use this with other solution methods where
         #: the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
         #: by matrix exponentiation or the time-dependency is not incorporated by ``timeDependency``.
+        self.evolStepFunc = Simulation._evolStepFuncDefault
         self.evolFunc = Simulation._evolFuncDefault
 
         if system is not None:

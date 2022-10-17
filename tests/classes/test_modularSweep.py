@@ -82,3 +82,34 @@ def test_noInitialStateRequiredWhenNoTimeEvolutionWithOrder():
     # run the simulation
     with pytest.raises(TypeError):
         states = qsys.runSimulation()
+
+### Tests related to issue #211
+def test_runSingleSimulation():
+    """
+    Tests Backwards compatibility. Runs the simulation object of a single quantum system with a time dependent 
+    drive term.
+    """
+    pass
+
+def test_runNestedSimulationsOnMainSimulationClock():
+    """
+    Tests Backwards compatibility. Runs a simulation with multiple different systems and corresponding protocols, all
+    on the same clock (share the same time parameters) as the main simulation.
+    """
+    pass
+
+def test_runUniqueIndependentSimulationsNestedInSimulation():
+    """
+    Tests running multiple simulations with unique time dependencies, time parameters, and initial states under a 
+    single simulation object which sweeps a single parameter. The nested simulations run independently of each other.
+    """
+    pass
+
+def test_runUniqueSequentialSimulationsNestedInSimulation():
+    """
+    Tests running multiple simulations with unique time dependencies, time parameters, and initial states under a 
+    single simulation object which sweeps a single parameter. The nested simulations run sequentially, that is, each
+    simulation runs to completion and passes its final state to the next simulation to use as its initial state.
+    """
+    pass
+
