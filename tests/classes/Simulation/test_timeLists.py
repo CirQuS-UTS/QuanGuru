@@ -17,7 +17,7 @@ def assertHelper(lastAssigned, vals, timeList):
     
     assert len(timeList) == vals['stepCount'] + 1
     assert timeList[1] == vals['stepSize']
-    assert 0 <= vals['totalTime'] - timeList[-1]
+    assert -1e-9 <= vals['totalTime'] - timeList[-1]
     assert abs(vals['totalTime'] - timeList[-1]) < vals['stepSize']
 
 def generateTestVals():
