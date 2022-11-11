@@ -58,7 +58,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         return cls.numberOfExponentiations
 
     __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '__dissipator', '_openSys',
-                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample']
+                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', '_createUnitary']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -270,7 +270,8 @@ class qProtocol(genericProtocol):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = []
+    __slots__ = ["_givenUFunc"]
+
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
@@ -335,7 +336,30 @@ class qProtocol(genericProtocol):
             self._puValues(step, vals)
         return unitary
 
-qProtocol._createUnitary = qProtocol._defCreateUnitary
+    @property
+    def _createUnitary(self):
+        # if there are nested protocols, ask for their unitaries only
+        if self.steps:
+            return self._defCreateUnitary
+        # if there are no nested protocols, use the user defined unitary creation method
+        elif callable(self._givenUFunc):
+            return self._givenUFunc
+        # if neither have been defined, call an error
+        else:
+            raise TypeError("createUnitary has not been properly assigned")        
+        # Potential sources of unintentional behaviour: user assigns both steps and createUnitary
+
+    @_createUnitary.setter
+    def _createUnitary(self, func):
+        self._givenUFunc = func
+
+    @property
+    def createUnitary(self):
+        return self._createUnitary
+
+    @createUnitary.setter
+    def createUnitary(self, func):
+        self._createUnitary = func
 
 class copyStep(qBase):
     label = 'copyStep'
@@ -406,7 +430,7 @@ class freeEvolution(genericProtocol):
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
 
-freeEvolution._createUnitary = freeEvolution.matrixExponentiation
+    _createUnitary = matrixExponentiation
 
 class Gate(genericProtocol):
     label = 'Gate'
