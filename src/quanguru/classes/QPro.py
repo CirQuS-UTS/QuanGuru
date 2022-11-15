@@ -546,48 +546,29 @@ class pulse(genericProtocol):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ["evolProtocol"]
+    __slots__ = ["uSim"]
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
+        self._createUnitary = self.simulateUnitary
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-        self.evolProtocol._createParamBound(self)
-
-        # # Normally, a protocol instance and its simulation object reference each other 
-        # # (the protocol instance's simulation object's protocol is the original protocol)
-        # # Here, we assign this instance's simulation to a new free evolution protocol
-        # self.simulation.removeProtocol(self.simulation.protocols[0])
-
-        # # if kwargs['protocol']
-        # evoPro = kwargsfreeEvolution(system=self.system)
-        # self.simulation.addProtocol(freePro)
-
-        # Simulation parameters which will be constant across all instances
-        self.simulation.initialState = self.system.dimension
-        self.simulation.delStates = True      
-
-    # @property
-    # def evolProtocol(self):
-    #     return self._evolProtocol
-
-    # @evolProtocol.setter
-    # def evolProtocol(self, pro)
-
     def simulateUnitary(self):
-        # Handling for evolProtocol type
-            # None -> evolProtocol = freeEvolution
-            # None -> evol
-
-        #Users should not have to specify a system for evolProtocol
-
+        # #set initial state as identity
+        # self.uSim.initialState = identity(dimension=self.uSim.qSystems[0].dimension)
 
         #Run Simulation
-        self.simulation.run()
+        self.uSim.run()
 
         #Fetch final unitary
-        unitary = self.simulation.protocols[0].currentState
+        unitary = self.uSim.protocols[0].currentState
 
         return unitary
 
-    _createUnitary = simulateUnitary
+    @property
+    def unitarySimulation(self):
+        return self.uSim
+
+    @unitarySimulation.setter
+    def unitarySimulation(self, sim):
+        self.uSim = sim
