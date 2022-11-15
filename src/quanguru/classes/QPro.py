@@ -418,6 +418,7 @@ class freeEvolution(genericProtocol):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
+        self._createUnitary = self.matrixExponentiation
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     _freqCoef = 1 #2 * np.pi
@@ -429,8 +430,6 @@ class freeEvolution(genericProtocol):
                                      collapseOperators=collapseOps, decayRates=decayRates)
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
-
-    _createUnitary = matrixExponentiation
 
 class Gate(genericProtocol):
     label = 'Gate'

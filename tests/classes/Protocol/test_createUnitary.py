@@ -76,15 +76,16 @@ def test_callUnitaryMethod():
         - Upauli(np.pi, [0, 1, 0]) @ Upauli(sim.stepSize*qub.frequency, [0, 0, 1]) @ Upauli(np.pi/2, [1, 0, 0])
     )) < 1e-9
 
-# def test_reassignCreateUnitary():
-#     pros = [qg.freeEvolution(), qg.xGate(), qg.SpinRotation()]
+def test_reassignCreateUnitary():
+    qub = qg.Qubit()
+    pros = [qg.freeEvolution(system=qub), qg.xGate(system=qub), qg.SpinRotation(system=qub)]
 
-#     unitary = np.random.rand(2, 2)
-#     func = lambda self: unitary
+    unitary = np.random.rand(2, 2)
+    func = lambda self, x: unitary
     
-#     for pro in pros:
-#         pro._createUnitary = func
-#         assert np.array_equal(pro.unitary(), unitary)
+    for pro in pros:
+        pro._createUnitary = func
+        assert np.array_equal(pro.unitary(), unitary)
 
 
     
