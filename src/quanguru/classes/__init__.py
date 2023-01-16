@@ -26,7 +26,7 @@ from .base import qBase, named
 from .QSys import QuantumSystemOld, compQSystem, qCoupling, qSystem, QubitOld, SpinOld, CavityOld
 from .QSystem import QuantumSystem, Qubit, Cavity, Spin
 from .QTerms import QTerm
-from .QPro import qProtocol, Gate, freeEvolution, copyStep
+from .QPro import genericProtocol, qProtocol, Gate, freeEvolution, copyStep, qPulse
 from .QSweep import Sweep
 from .QRes import qResults
 from .QSim import Simulation

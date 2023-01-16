@@ -31,11 +31,13 @@ r"""
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
+from .exceptions import attrNotValWarn
 from .base import qBase, addDecorator
 from .baseClasses import updateBase
 from .QSimBase import _parameter
 from .QSimComp import QSimComp
 from .QSweep import Sweep
+from inspect import ismethod
 
 class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attributes
     label = 'genericProtocol'
@@ -58,7 +60,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         return cls.numberOfExponentiations
 
     __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '__dissipator', '_openSys',
-                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', '_createUnitary']
+                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', 'createUnitary']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -245,7 +247,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
             for ind in range(lc):
                 if td:
                     self.timeDependency.runSweep(self.timeDependency._indicesForSweep(ind, *self.timeDependency.inds))
-                unitary = self._createUnitary(collapseOps, decayRates) @ unitary # pylint: disable=no-member
+                unitary = self._genericProtocol__createUnitary(collapseOps, decayRates) @ unitary # pylint: disable=no-member
             self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
@@ -261,6 +263,18 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self._genericProtocol__identity = identity(dimension = dimension**2 if openSys else dimension)# pylint: disable=E0237, E1101
         return self._genericProtocol__identity
 
+    def __createUnitary(self, *args, **kwargs):
+        r"""
+        This is the actual createUnitary function that is called in the time-evolution, it calls ``self.createUnitary`` if it is a
+        callable and does nothing otherwise.
+        """
+        if callable(self.createUnitary):
+            if ismethod(self.createUnitary):
+                return self.createUnitary(*args, **kwargs)
+            else:
+                return self.createUnitary(self, *args, **kwargs)
+        return attrNotValWarn(self.compute, None, 'createUnitary should be callable but '+str(type(self.compute))+'is given')
+
 class qProtocol(genericProtocol):
     label = 'qProtocol'
     #: (**class attribute**) number of instances created internally by the library
@@ -270,10 +284,9 @@ class qProtocol(genericProtocol):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ["_givenUFunc"]
-
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
+        self.createUnitary = self._defCreateUnitary
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def _paramUpdatedToFalse(self):
@@ -336,33 +349,6 @@ class qProtocol(genericProtocol):
             self._puValues(step, vals)
         return unitary
 
-    @property
-    def _createUnitary(self):
-        # if there are nested protocols, ask for their unitaries only
-        if self.steps:
-            return self._defCreateUnitary
-        # if there are no nested protocols, use the user defined unitary creation method
-        elif callable(self._givenUFunc):
-            return self._givenUFunc
-        # if neither have been defined, call an error
-        else:
-            raise TypeError("createUnitary has not been properly assigned")        
-        # Potential sources of unintentional behaviour: user assigns both steps and createUnitary
-
-    @_createUnitary.setter
-    def _createUnitary(self, func):
-        self._givenUFunc = func
-
-    @property
-    def createUnitary(self):
-        return self._createUnitary
-
-    @createUnitary.setter
-    def createUnitary(self, func):
-        self._createUnitary = func
-
-# qProtocol._createUnitary = qProtocol._defCreateUnitary
-
 class copyStep(qBase):
     label = 'copyStep'
     #: (**class attribute**) number of instances created internally by the library
@@ -420,6 +406,7 @@ class freeEvolution(genericProtocol):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
+        self.createUnitary = self.matrixExponentiation
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     _freqCoef = 1 #2 * np.pi
@@ -431,10 +418,6 @@ class freeEvolution(genericProtocol):
                                      collapseOperators=collapseOps, decayRates=decayRates)
         self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return unitary
-
-    _createUnitary = matrixExponentiation
-
-# freeEvolution._createUnitary = freeEvolution.matrixExponentiation
 
 class Gate(genericProtocol):
     label = 'Gate'
@@ -537,7 +520,7 @@ class Update(updateBase):
 
 # Challenges
     # How to implement a sweep of pulse parameters
-class pulse(genericProtocol):
+class qPulse(genericProtocol):
     label = 'pulse'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -550,12 +533,14 @@ class pulse(genericProtocol):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        self._createUnitary = self.simulateUnitary
+        self.createUnitary = self.simulateUnitary
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-    def simulateUnitary(self):
+    def simulateUnitary(self, collapseOps = None, decayRates = None):
         # #set initial state as identity
-        # self.uSim.initialState = identity(dimension=self.uSim.qSystems[0].dimension)
+        qSys = self.uSim.qSystems[0]
+        self.uSim.initialStateSystem = qSys
+        self.uSim.initialState = identity(dimension=qSys.dimension)
 
         #Run Simulation
         self.uSim.run()
