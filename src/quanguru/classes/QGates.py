@@ -83,6 +83,8 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
+    _createUnitary = _rotMat
+
 class xGate(SpinRotation): # pylint: disable=too-many-ancestors
     label = 'xGate'
     #: (**class attribute**) number of instances created internally by the library
@@ -121,5 +123,7 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
             unitary = self.instantFlip(openSys = isinstance(collapseOps, list) or self._isOpen)
         return unitary
 
-SpinRotation._createUnitary = SpinRotation._rotMat # pylint: disable=protected-access
-xGate._createUnitary = xGate._gateImplements
+    _createUnitary = _gateImplements
+
+# SpinRotation._createUnitary = SpinRotation._rotMat # pylint: disable=protected-access
+# xGate._createUnitary = xGate._gateImplements
