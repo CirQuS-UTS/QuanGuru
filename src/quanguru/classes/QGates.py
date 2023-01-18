@@ -42,7 +42,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
         self.__rotationAxis = None
         self._rotationOp = None
         self.phase = 1
-        #self._createUnitary = self._rotMat
+        self.createUnitary = self._rotMat
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -95,7 +95,7 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.rotationAxis = 'x'
-        #self._createUnitary = self._gateImplements
+        self.createUnitary = self._gateImplements
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def instantFlip(self, openSys=False):
@@ -120,6 +120,3 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
         elif self.implementation.lower() in ('instant', 'flip'): # pylint: disable=no-member
             unitary = self.instantFlip(openSys = isinstance(collapseOps, list) or self._isOpen)
         return unitary
-
-SpinRotation._createUnitary = SpinRotation._rotMat # pylint: disable=protected-access
-xGate._createUnitary = xGate._gateImplements
