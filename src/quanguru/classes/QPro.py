@@ -30,7 +30,7 @@ r"""
 """
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
-
+from ..QuantumToolbox.customTypes import Matrix
 from .exceptions import attrNotValWarn
 from .base import qBase, addDecorator
 from .baseClasses import updateBase
@@ -358,6 +358,36 @@ class qProtocol(genericProtocol):
             unitary = step.getUnitary(collapseOps, decayRates) @ unitary
             self._puValues(step, vals)
         return unitary
+
+
+class TransformedProtocol(genericProtocol):
+    r"""
+    Class of protocols that are dependent on another protocol :attr: `TransformedProtocol.origionalProtocol`
+    and posseses a unitary that is simply a transformation of that origional protocols unitary.
+    """
+    label = 'TransformedProtocol'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = ['_originalProtocol', '_transformation']
+
+    def __init__(self, originalProtocol: genericProtocol, transformation: Matrix, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False))
+        self._originalProtocol = originalProtocol
+        self.superSys = originalProtocol.superSys
+        self._transformation = transformation
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    def createUnitary(self, *args, **kwargs):
+        r"""
+        Returns the transformation of the unitary of the origional protocol
+        that the TransformedProtocol is a transformation of.
+        """
+        return self._originalProtocol.unitary @ self.transformation
 
 class copyStep(qBase):
     label = 'copyStep'
