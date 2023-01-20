@@ -293,6 +293,8 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         return TransformedProtocol(originalProtocol=self, transformation=transformation)
 
 
+
+
 class qProtocol(genericProtocol):
     label = 'qProtocol'
     #: (**class attribute**) number of instances created internally by the library
@@ -388,9 +390,12 @@ class TransformedProtocol(genericProtocol):
         self._originalProtocol = originalProtocol
         self.superSys = originalProtocol.superSys
         self._transformation = transformation
+        self.createUnitary = transformUnitary
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-    def createUnitary(self, *args, **kwargs):
+    d
+
+    def transformUnitary(self, collapseOps = None, decayRates = None):
         r"""
         Returns the transformation of the unitary of the origional protocol
         that the TransformedProtocol is a transformation of.
