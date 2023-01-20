@@ -285,6 +285,14 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
                 return self.createUnitary(self, *args, **kwargs)
         return attrNotValWarn(self.compute, None, 'createUnitary should be callable but '+str(type(self.compute))+'is given')
 
+    def createTransformation(self, transformation: Matrix):
+        r"""
+        Simplifies the creation of a new transformed protocol by allowing one to be created in the 
+        original protocol that the transformed protocol creates it's unitary from.
+        """
+        return TransformedProtocol(originalProtocol=self, transformation=transformation)
+
+
 class qProtocol(genericProtocol):
     label = 'qProtocol'
     #: (**class attribute**) number of instances created internally by the library
