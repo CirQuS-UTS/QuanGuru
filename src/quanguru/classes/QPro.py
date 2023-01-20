@@ -527,3 +527,43 @@ class Update(updateBase):
     def _setback(self):
         if self.value != self.memoryValue:
             super()._runUpdate(self.memoryValue)
+
+# Challenges
+    # How to implement a sweep of pulse parameters
+class qPulse(genericProtocol):
+    label = 'pulse'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = ["uSim"]
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False))
+        self.createUnitary = self.simulateUnitary
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    def simulateUnitary(self, collapseOps = None, decayRates = None):
+        # #set initial state as identity
+        qSys = self.uSim.qSystems[0]
+        self.uSim.initialStateSystem = qSys
+        self.uSim.initialState = identity(dimension=qSys.dimension)
+
+        #Run Simulation
+        self.uSim.run()
+
+        #Fetch final unitary
+        unitary = self.uSim.protocols[0].currentState
+
+        return unitary
+
+    @property
+    def unitarySimulation(self):
+        return self.uSim
+
+    @unitarySimulation.setter
+    def unitarySimulation(self, sim):
+        self.uSim = sim
