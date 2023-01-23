@@ -539,7 +539,7 @@ class qPulse(genericProtocol):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ["uSim"]
+    __slots__ = []
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -561,9 +561,18 @@ class qPulse(genericProtocol):
         return unitary
 
     @property
-    def unitarySimulation(self):
-        return self.uSim
+    def uSim(self):
+        return list(self.subSys.values())[0]
 
-    @unitarySimulation.setter
-    def unitarySimulation(self, sim):
-        self.uSim = sim
+    @uSim.setter
+    def uSim(self, sim):
+        self.subSys = sim
+        self._paramUpdated = True
+
+    @genericProtocol._paramUpdated.getter
+    def _paramUpdated(self):# pylint: disable=invalid-overridden-method
+        for subS in self.subSys.values():
+            if subS._paramUpdated:
+                self._paramBoundBase__paramUpdated = True # pylint: disable=assigning-non-slot
+                break
+        return self._paramBoundBase__paramUpdated # pylint: disable=no-member
