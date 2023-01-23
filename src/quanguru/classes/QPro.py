@@ -60,7 +60,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         return cls.numberOfExponentiations
 
     __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '__dissipator', '_openSys',
-                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', 'createUnitary']
+                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', '_createUnitary']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -185,6 +185,16 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
     @fixed.setter
     def fixed(self, boolean):
         self._genericProtocol__fixed = boolean # pylint: disable=assigning-non-slot
+
+    @property
+    def createUnitary(self):
+        return self._createUnitary
+
+    @createUnitary.setter
+    def createUnitary(self, func):
+        self._createUnitary = func
+        self._paramUpdated = True
+
 
     @QSimComp.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
