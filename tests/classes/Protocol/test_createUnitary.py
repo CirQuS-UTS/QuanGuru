@@ -90,3 +90,26 @@ def test_accessToObjOnCall():
     qPro.auxDict['unitary'] = unitary
 
     assert(np.sum(np.abs(qPro.unitary()-unitary)) < 1e-9)
+
+def test_paramUpdating():
+    """
+    Test that when the .createUnitary attribute is reassigned to another function, then the ._paramUpdated attribute is set to True
+    Test that when the .createUnitary attribute is reassigned, the unitary is re-generated upon the next call of .unitary()
+    """
+    qub = qg.Qubit()
+    unitary = np.random.rand(2, 2)
+    func = lambda self, collapseOps, decayRate: self.auxDict['unitary'] * 2
+
+    qPro = qg.genericProtocol(system=qub, createUnitary=func)
+    qPro.auxDict['unitary'] = unitary
+
+    qPro.unitary()
+
+    assert qPro._paramUpdated == False
+
+    func = lambda self, collapseOps, decayRate: self.auxDict['unitary'] * 3
+    qPro.createUnitary = func
+
+    assert qPro._paramUpdated is True
+    assert (np.sum(np.abs(qPro.unitary()-unitary*3)) < 1e-9)
+    assert qPro._paramUpdated is False
