@@ -570,9 +570,12 @@ class qPulse(genericProtocol):
         self._paramUpdated = True
 
     @genericProtocol._paramUpdated.getter
-    def _paramUpdated(self):# pylint: disable=invalid-overridden-method
+    def _paramUpdated(self):
+        if self._paramBoundBase__paramUpdated: 
+            return True
         for subS in self.subSys.values():
-            if subS._paramUpdated:
-                self._paramBoundBase__paramUpdated = True # pylint: disable=assigning-non-slot
-                break
-        return self._paramBoundBase__paramUpdated # pylint: disable=no-member
+            for pro in subS.protocols:
+                if pro._paramBoundBase__paramUpdated:
+                    self._paramBoundBase__paramUpdated = True
+                    return True
+        return self._paramBoundBase__paramUpdated
