@@ -54,7 +54,7 @@ def test_parameterUpdating():
     checks that ._paramUpdated is properly switched to True when
     - any parameters are changed
         - .transformationFunc
-        - ._originalUnitary
+        - .originalProtocol
     - any important parameters in the original protocol are changed
         - i.e. whenever ._paramUpdated is flicked to true in the original
     (This will require combing through current protocol classes to check when paramUpdated should be flicked to True)
@@ -84,7 +84,35 @@ def test_parameterUpdating():
     # Change originalProcess unitary generation
     func2 = lambda self, collapseOps, decayRate: unitary.transpose()
     qPro.createUnitary = func2
-    assert np.allclose(qPro.unitary(), unitary.transpose())
+    assert qTransInitKwargs._paramUpdated is True
+    assert np.allclose(qTransInitKwargs.unitary(), unitary.transpose())
+    assert qTransInitKwargs._paramUpdated is False
+
+    # Change transformation function of transformedProtocol
+    def transform(originalProtocol, unitary):
+        return unitary @ qg.sigmaz()
+
+    qTransInitKwargs.transformationFunc = transform
+    qTransInitKwargs._paramUpdated is True
+    qPro._paramUpdated is False
+    qTransInitKwargs.unitary()
+    qTransInitKwargs._paramUpdated is False
+
+    # change original protocol
+    qPro2 = qg.genericProtocol(system=qub, createUnitary=func)
+    qTransInitKwargs.originalProtocol = qPro2
+    assert qTransInitKwargs._paramUpdated is True
+    qTransInitKwargs.unitary()
+    assert qTransInitKwargs._paramUpdated is False
+
+    # Test getting original protocol doesn't modify the transformedProtocol's ._paramUpdate value
+    qPro2.createUnitary = func2
+    assert qTransInitKwargs._paramUpdated is True
+    qPro2.unitary()
+    assert qTransInitKwargs._paramUpdated is True
+    qTransInitKwargs.unitary()
+    assert qTransInitKwargs._paramUpdated is False
+
 
     pass
 
