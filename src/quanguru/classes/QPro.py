@@ -389,6 +389,9 @@ class transformedProtocol(genericProtocol):
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
+        self._originalProtocol = None
+        self._transformationFunc = None
+        self.transformationFunc = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
         self.createUnitary = self.transformUnitary
         # Ensure super system and paramBound are set up correctly original protocol is provided
@@ -408,7 +411,7 @@ class transformedProtocol(genericProtocol):
     @transformationFunc.setter
     def transformationFunc(self, func: Callable[[genericProtocol, Matrix], Matrix]):
         self._transformationFunc = func
-        self.paramUpdated(True)
+        self._paramUpdated = True
 
     @property
     def originalProtocol(self) -> genericProtocol:
@@ -423,12 +426,12 @@ class transformedProtocol(genericProtocol):
     def originalProtocol(self, val: genericProtocol):
         if self.originalProtocol is not None:
             self.originalProtocol._breakParamBound(self)
-        self.originalProtocol = val
+        self._originalProtocol = val
         self.originalProtocol._createParamBound(self)
         self.system = self.originalProtocol.system
-        self.paramUpdated(True)
+        self._paramUpdated = True
 
-    def transformUnitary(self, **kwargs) -> Matrix:
+    def transformUnitary(self, *args, **kwargs) -> Matrix:
         r"""
         Is a wrapper function that provides a bridge between the createUnitary call of genericProtocol
         and the user made transformationFunc provided by the user.
