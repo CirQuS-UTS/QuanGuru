@@ -49,6 +49,26 @@ def test_instantiation():
     assert qTransInitKwargs.system is qProFunc.system
     assert qTransInitKwargs._paramUpdated is True
 
+def test_transformationFuncParamaters():
+    """
+    Tests that the correct parameters are passed to the user defined transformation function
+    """
+
+    qub = qg.Qubit(frequency=round(random.random(), 2))
+    unitary = unitary = np.random.rand(2, 2)
+    func = lambda self, collapseOps, decayRate: unitary
+
+    qPro = qg.genericProtocol(system=qub, createUnitary=func)
+
+    def checkedTransform(originalProtocol, unitaryOP):
+        assert originalProtocol is qPro
+        assert np.allclose(unitaryOP, originalProtocol._paramBoundBase__matrix)
+        return unitary
+
+    qTrans = qg.transformedProtocol(originalProtocol=qPro, transformationFunc=checkedTransform)
+    qTrans.unitary()  # will run checkedTransform with params given from qTrans
+
+
 def test_parameterUpdating():
     """
     checks that ._paramUpdated is properly switched to True when
@@ -113,9 +133,6 @@ def test_parameterUpdating():
     qTransInitKwargs.unitary()
     assert qTransInitKwargs._paramUpdated is False
 
-
-    pass
-
 def test_unitaryCalls():
     """
     Tests different cases of unitary calls
@@ -129,13 +146,55 @@ def test_unitaryCalls():
         ._paramBoundBase__matrix of the transformed
 
     Tests that the transformed protocol stores the unitary in ._paramBoundBase__matrix after each call of .unitary()
+    Testing that the transformation function is applied correctly to return the expected matrix
+
     """
-    pass
+    # Original unitary not yet generated
+    def transposedTransform(originalProtocol, unitary):
+        return unitary.transpose()
+
+    qub = qg.Qubit(frequency=round(random.random(), 2))
+    unitary = unitary = np.random.rand(2, 2)
+    func = lambda self, collapseOps, decayRate: unitary
+
+    qPro = qg.genericProtocol(system=qub, createUnitary=func)
+    qTrans = qg.transformedProtocol(originalProtocol=qPro, transformationFunc=transposedTransform)
+
+    assert qPro._paramUpdated is True
+    assert qTrans._paramUpdated is True
+
+    assert np.allclose(qTrans.unitary(), unitary.transpose())
+    assert qPro._paramUpdated is False
+    assert qTrans._paramUpdated is False
+    assert np.allclose(qTrans._paramBoundBase__matrix, unitary.transpose())
+
+    # Original unitary needs to be regenerated
+    func2 = lambda self, collapseOps, decayRate: 2 * self._paramBoundBase__matrix
+    qPro.createUnitary = func2
+    assert qPro._paramUpdated is True
+    assert qTrans._paramUpdated is True
+
+    assert np.allclose(qTrans.unitary(), 2 * unitary.transpose())
+    assert qPro._paramUpdated is False
+    assert qTrans._paramUpdated is False
+    assert np.allclose(qTrans._paramBoundBase__matrix, 2 * unitary.transpose())
 
 
-def test_transformationFunc():
-    """
-    Testing that the correct parameters are passed to the user defined transformation function 
-    Testing that the transformation function is applied correctly
-    """
-    pass
+    # Transformed needs to be regenerated but original does not
+    def unitaryTransform(originalProtocol, unitary):
+        return 2 * unitary
+
+    qTrans.transformationFunc = unitaryTransform
+    assert qPro._paramUpdated is False
+    assert qTrans._paramUpdated is True
+
+    assert np.allclose(qTrans.unitary(), 2 * qPro._paramBoundBase__matrix)
+    assert qPro._paramUpdated is False
+    assert qTrans._paramUpdated is False
+    assert np.allclose(qTrans._paramBoundBase__matrix, 2 * qPro._paramBoundBase__matrix)
+
+    # Transformed does not need to be regenerated
+    assert qPro._paramUpdated is False
+    assert qTrans._paramUpdated is False
+    assert np.allclose(qTrans.unitary(), 2 * qPro._paramBoundBase__matrix)
+    assert np.allclose(qTrans._paramBoundBase__matrix, 2 * qPro._paramBoundBase__matrix)
