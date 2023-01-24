@@ -27,7 +27,7 @@ r"""
 import numpy as np # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
-from .functions import fidelityPure
+from .functions import fidelityPure, sortedEigens
 
 from .customTypes import Matrix, matrixList
 
@@ -103,3 +103,13 @@ def iprKetNB(ket: Matrix) -> float:
     if isinstance(ket, spmatrix):
         ket = ket.A
     return 1/np.sum(np.power((np.abs(ket.flatten())), 4))
+
+def iprMatrix(mat1, mat2):
+    IPR = 0
+    vals1, basis1 = sortedEigens(mat1)
+    vals2, basis2 = sortedEigens(mat2)
+    for j in range(len(basis1)):
+        for i in range(len(basis2)):
+            coeff = fidelityPure(basis1[i], basis2[j])**2
+            IPR = IPR + coeff
+    return 1/IPR
