@@ -104,7 +104,23 @@ def iprKetNB(ket: Matrix) -> float:
         ket = ket.A
     return 1/np.sum(np.power((np.abs(ket.flatten())), 4))
 
-def iprMatrix(mat1, mat2):
+def iprMatrix(mat1: Matrix, mat2: Matrix) -> float:
+    r"""
+    Calculates the IPR between two matrices :math:`1/\sum_{n, m}|\langle \psi_{n}|\Phi_{m}\rangle|^{4}` where :math:`\langle \psi_{n}|` is the 
+    nth eigenvector of the first matrix and :math:|\Phi_{m}\rangle` is the mth eigenvector of the second matrix 
+    Parameters
+    ----------
+    mat1 : Matrix
+        a matrix (typically a unitary or hamiltonian)
+    mat2 : Matrix 
+        a matrix (typically a unitary or hamiltonian)
+
+    Returns
+    -------
+    float
+        inverse participation ratio
+
+    """
     IPR = 0
     vals1, basis1 = sortedEigens(mat1)
     vals2, basis2 = sortedEigens(mat2)
