@@ -121,7 +121,7 @@ def iprMatrix(mat1: Matrix, mat2: Matrix) -> float:
         inverse participation ratio
 
     """
-    IPR = 0
+    IPR = 0.
     vals1, basis1 = sortedEigens(mat1)
     vals2, basis2 = sortedEigens(mat2)
     for j in range(len(basis1)):

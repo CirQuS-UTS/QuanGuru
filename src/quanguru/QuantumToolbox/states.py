@@ -233,7 +233,7 @@ def zerosMat(dimension: int, sparse: bool = True) -> Matrix:
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return Zeros if sparse else Zeros.A
 
-def weightedSum(summands: Iterable, weights: Iterable = None) -> Any:
+def weightedSum(summands: Iterable, weights: Iterable = None) -> Any: # type: ignore
     r""" Weighted sum :math:`\sum_{x}w_{x}x` of given list of summands :math:`\{x\}` and weights :math:`\{w_{x}\}`.
 
     Parameters
@@ -328,7 +328,7 @@ def superPos(dimension: int, excitations: supInp, populations: bool = True, spar
 
     return normalise(weightedSum([basis(dimension, excite, sparse) for excite in sts.keys()], list(sts.values())))
 
-def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) -> Matrix:
+def densityMatrix(ket: matrixOrMatrixList, probability: Iterable[Any] = None) -> Matrix: # type: ignore
     r"""
     Computes the `density matrix` for both pure and mixed states.
 
