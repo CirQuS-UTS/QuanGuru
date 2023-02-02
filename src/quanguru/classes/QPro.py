@@ -539,7 +539,7 @@ class qPulse(genericProtocol):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = []
+    __slots__ = ['_uSim']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -547,6 +547,9 @@ class qPulse(genericProtocol):
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def simulateUnitary(self, collapseOps = None, decayRates = None):
+        if len(self.subSys.values()) == 0:
+            raise ValueError('uSim has no subSystems to simulate')
+
         # #set initial state as identity
         qSys = self.uSim.qSystems[0]
         self.uSim.initialStateSystem = qSys
@@ -562,20 +565,18 @@ class qPulse(genericProtocol):
 
     @property
     def uSim(self):
-        return list(self.subSys.values())[0]
+        return self._uSim
 
     @uSim.setter
     def uSim(self, sim):
-        self.subSys = sim
+        # if uSim has been assigned
+        if self._uSim is not None:
+            self._uSim.superSys = None
+            self._uSim._bindToSuperSys = False
+            for protocol in self._uSim.protocols:
+                protocol._breakParamBound(self)
+        
+        sim.superSys = self
+        sim._bindToSuperSys = True
+        self._uSim = sim
         self._paramUpdated = True
-
-    @genericProtocol._paramUpdated.getter
-    def _paramUpdated(self):
-        if self._paramBoundBase__paramUpdated: 
-            return True
-        for subS in self.subSys.values():
-            for pro in subS.protocols:
-                if pro._paramBoundBase__paramUpdated:
-                    self._paramBoundBase__paramUpdated = True
-                    return True
-        return self._paramBoundBase__paramUpdated

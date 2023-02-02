@@ -66,7 +66,7 @@ class Simulation(timeBase):
     #: class, but by re-assigning this class attribute, you can change the evolution method for all the future instances
     _evolFuncDefault = timeEvolBase
 
-    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index']
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index', "_bindToSuperSys"]
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
@@ -103,6 +103,8 @@ class Simulation(timeBase):
         if system is not None:
             self.addQSystems(system)
 
+        self._bindToSuperSys = False
+
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -134,6 +136,15 @@ class Simulation(timeBase):
         """
         return list(self.subSys.keys())
 
+    def _addToSubSys(self, key, value):
+        """
+        Wrapper function for adding to the subSys dictionary. Allows for protocols to be bounded to the superSys if ._bindToSuperSys == True.
+        This was mainly implemented to allow for the functionality of qPulse protocol objects.
+        """
+        if self._bindToSuperSys and isinstance(key, named) and isinstance(self.superSys, named):
+            key._createParamBound(self.superSys)
+        self._qBase__subSys[key] = value
+
     def _freeEvol(self):
         """
         This function is meant purely for internal use. When a quantum system is added to a ``Simulation`` without
@@ -151,9 +162,9 @@ class Simulation(timeBase):
         for key in keys:
             qSys = self.subSys[key]
             if not isinstance(key, named):
-                self.subSys[qSys._freeEvol] = self.subSys.pop(key) # pylint: disable=protected-access
+                self._addToSubSys(qSys._freeEvol, self.subSys.pop(key)) # pylint: disable=protected-access
             else: # this may seem redundant, but this is to keep the order in which the systems are added
-                self.subSys[key] = self.subSys.pop(key)
+                self._addToSubSys(key, self.subSys.pop(key)) # pylint: disable=protected-access
 
     @property
     def qSystems(self):
@@ -202,9 +213,9 @@ class Simulation(timeBase):
             # TODO print a message, if the same system included more than once without giving a protocol
 
             if Protocol is not None: # .pop here is to keep the order in  which the systems are added
-                self._qBase__subSys[Protocol] = subS # pylint: disable=no-member
+                self._addToSubSys(Protocol, subS) # pylint: disable=no-member
             elif subS not in self._qBase__subSys.values(): # pylint: disable=no-member
-                self._qBase__subSys[subS.name] = subS # pylint: disable=no-member
+                self._addToSubSys(subS.name, subS) # pylint: disable=no-member
             #elif subS not in self._qBase__subSys.values(): # pylint: disable=no-member
             #    subS = super().addSubSys(subS, **kwargs)
             #elif (subS.name != Protocol) and (Protocol is not None):
