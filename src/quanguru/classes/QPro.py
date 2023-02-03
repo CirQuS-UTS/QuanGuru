@@ -569,14 +569,20 @@ class qPulse(genericProtocol):
 
     @uSim.setter
     def uSim(self, sim):
+        self.system = None
+
         # if uSim has been assigned
         if self._uSim is not None:
             self._uSim.superSys = None
-            self._uSim._bindToSuperSys = False
+            self._uSim._insideQPulse = False
             for protocol in self._uSim.protocols:
                 protocol._breakParamBound(self)
         
         sim.superSys = self
-        sim._bindToSuperSys = True
+        sim._insideQPulse = True
+        sim._qPulseWarning()
+
+        if len(sim.subSys.values()) > 0: 
+            self.system = sim.subSys.values()[0]
         self._uSim = sim
         self._paramUpdated = True

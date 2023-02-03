@@ -66,7 +66,7 @@ class Simulation(timeBase):
     #: class, but by re-assigning this class attribute, you can change the evolution method for all the future instances
     _evolFuncDefault = timeEvolBase
 
-    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index', "_bindToSuperSys"]
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index', "_insideQPulse"]
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
@@ -103,7 +103,7 @@ class Simulation(timeBase):
         if system is not None:
             self.addQSystems(system)
 
-        self._bindToSuperSys = False
+        self._insideQPulse = False
 
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
@@ -138,12 +138,24 @@ class Simulation(timeBase):
 
     def _addToSubSys(self, key, value):
         """
-        Wrapper function for adding to the subSys dictionary. Allows for protocols to be bounded to the superSys if ._bindToSuperSys == True.
+        Wrapper function for adding to the subSys dictionary. 
         This was mainly implemented to allow for the functionality of qPulse protocol objects.
+        If ._insideQPulse == True:
+            - create a warning if more than key-value pair will be in the subSys
+            - set qPulse.system to the qSystem inside this simulation
+            - paramBound all new protocol assignments 
         """
-        if self._bindToSuperSys and isinstance(key, named) and isinstance(self.superSys, named):
-            key._createParamBound(self.superSys)
         self._qBase__subSys[key] = value
+
+        if self._insideQPulse:
+            if isinstance(key, named):
+                key._createParamBound(self.superSys)
+            self.superSys.system = value
+            self._qPulseWarning()
+
+    def _qPulseWarning(self):
+        if len(self.subSys.values()) > 1:
+            print("Warning: More than 1 protocol:system pair has been added to this Simulation. Unintended behaviours will occur inside of qPulse")
 
     def _freeEvol(self):
         """
