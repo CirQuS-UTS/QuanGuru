@@ -544,6 +544,7 @@ class qPulse(genericProtocol):
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.createUnitary = self.simulateUnitary
+        self._uSim = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def simulateUnitary(self, collapseOps = None, decayRates = None):
@@ -577,12 +578,16 @@ class qPulse(genericProtocol):
             self._uSim._insideQPulse = False
             for protocol in self._uSim.protocols:
                 protocol._breakParamBound(self)
+            for system in self._uSim.subSys.values():
+                system._breakParamBound(self)
+                system.simulation._breakParamBound(self.simulation)
         
-        sim.superSys = self
-        sim._insideQPulse = True
-        sim._qPulseWarning()
-
-        if len(sim.subSys.values()) > 0: 
-            self.system = sim.subSys.values()[0]
         self._uSim = sim
         self._paramUpdated = True
+
+        if sim is not None:
+            if len(sim.subSys.values()) > 0: 
+                self.system = list(sim.subSys.values())[0]        
+            sim.superSys = self
+            sim._insideQPulse = True
+            sim._qPulseWarning()

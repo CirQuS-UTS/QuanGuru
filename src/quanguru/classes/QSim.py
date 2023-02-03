@@ -148,6 +148,7 @@ class Simulation(timeBase):
         self._qBase__subSys[key] = value
 
         if self._insideQPulse:
+            self.superSys._paramUpdated = True
             if isinstance(key, named):
                 key._createParamBound(self.superSys)
             self.superSys.system = value
