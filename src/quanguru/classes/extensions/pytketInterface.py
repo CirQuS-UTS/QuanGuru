@@ -18,13 +18,16 @@
     =======================    ==================   ==============   ================   ===============
 
 """
-from quanguru import genericProtocol, Matrix
+from quanguru import genericProtocol, Matrix, Qubit
 from pytket import Circuit
 
 class pytketCircuit(genericProtocol):
     r"""
     Wraps Pytket Circuits in a way such that they can be used in QuanGuru as protocols. Can be interfaced with as
-    any other protocol would be. This implementation stores a reference to a Pytket Circuit in :attr:`~circuit`
+    any other protocol would be. This implementation stores a reference to a Pytket Circuit in :attr:`~circuit.`
+    It is important to load the Circuit to ensure the representation that will be used is the same as the held circuit.
+    This is done by default on instantiation and if changes are made to the Circuit these can be made to the QuanGuru
+    wrapper by using :meth:`~loadCircuit`.
     """
     label = 'pytketCircuit'
     #: (**class attribute**) number of instances created internally by the library
@@ -41,7 +44,7 @@ class pytketCircuit(genericProtocol):
         self.circuit = None
         self._named__setKwargs(**kwargs)  # pylint: disable=no-member
         self.createUnitary = self.getPytketCircuitUnitary
-        # Ensure super system and paramBound are set up correctly original protocol is provided
+        self.loadCicuit()
 
     @property
     def circuit(self) -> Circuit:
@@ -62,6 +65,21 @@ class pytketCircuit(genericProtocol):
         Matrix
             The circuit's unitary in matrix form
         """
+        if self.circuit is None:
+            raise ValueError("No Circuit has been added for this protocol.")
         return self.circuit.get_unitary()
+
+    def loadCircuit(self):
+        r"""
+        Loads the circuit by ensuring there are the correct number of qubits in the system the protocol acts on
+        and ensures that the unitary is updated and the protocol accurately represents the current state of the Circuit.
+        """
+        if self.circuit is None:
+            self._paramBoundBase__matrix = None
+            self.superSys = None
+            return
+        self.paramUpdated(True)
+        self.unitary() #: This needs to be done now as otherwise changes after loading would also impact the protocol
+        self.superSys = self.circuit.n_qbits * Qubit()
 
 
