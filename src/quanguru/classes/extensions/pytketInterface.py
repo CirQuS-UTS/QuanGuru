@@ -18,8 +18,11 @@
     =======================    ==================   ==============   ================   ===============
 
 """
-from quanguru import genericProtocol, Matrix, Qubit
+from ..QPro import genericProtocol
+from ..QSystem import Qubit
+from ...QuantumToolbox.customTypes import Matrix
 from pytket import Circuit
+
 
 class pytketCircuit(genericProtocol):
     r"""
@@ -42,9 +45,10 @@ class pytketCircuit(genericProtocol):
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.circuit = None
-        self._named__setKwargs(**kwargs)  # pylint: disable=no-member
         self.createUnitary = self.getPytketCircuitUnitary
-        self.loadCicuit()
+        self._named__setKwargs(**kwargs)  # pylint: disable=no-member
+        self.loadCircuit()
+
 
     @property
     def circuit(self) -> Circuit:
@@ -56,8 +60,8 @@ class pytketCircuit(genericProtocol):
     @circuit.setter
     def circuit(self, circ: Circuit):
         self._circuit = circ
-
-    def getPytketCircuitUnitary(self) -> Matrix:
+        self.loadCircuit()
+    def getPytketCircuitUnitary(self, *args) -> Matrix:
         r"""
         Provides interface to using pytket circuits get_unitary method to get the circuits unitary
         Returns
@@ -78,8 +82,8 @@ class pytketCircuit(genericProtocol):
             self._paramBoundBase__matrix = None
             self.superSys = None
             return
-        self.paramUpdated(True)
+        self._paramUpdated = True
+        self.system = self.circuit.n_qubits * Qubit()
         self.unitary() #: This needs to be done now as otherwise changes after loading would also impact the protocol
-        self.superSys = self.circuit.n_qbits * Qubit()
 
 
