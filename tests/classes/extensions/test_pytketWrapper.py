@@ -1,4 +1,6 @@
-import quanguru as qg
+from quanguru.classes.extensions.pytketInterface import pytketCircuit
+from quanguru.classes.QPro import genericProtocol
+
 import random
 import numpy as np
 from pytket import Circuit
@@ -10,48 +12,56 @@ def test_initialisePytketWrapper():
     circ.H(0)
     circ.Rz(0.25, 0)
     circ.CX(1, 0)
-    prot = qg.pytketInterface(circuit=circ)
-    assert isinstance(prot, qg.genericProtocol)
+    prot = pytketCircuit(circuit=circ)
+    assert isinstance(prot, genericProtocol)
     assert prot.circuit is circ
     assert prot._paramUpdated is False
-    assert len(prot.system.subSystem) == 2
+    assert len(prot.system.subSys) == 2
 
 def test_unitaryGenerationPytketCircuits():
     r"""
-    Tests unitaray generation abilities of wrapped circuits
+    Tests unitary generation abilities of wrapped circuits
     """
     circ = Circuit(2, 2)
     circ.H(0)
     circ.Rz(0.25, 0)
     circ.CX(1, 0)
-    prot = qg.pytketInterface(circuit=circ)
-    assert np.isclose(prot.unitary, circ.get_unitary())
+    prot = pytketCircuit(circuit=circ)
+    assert np.allclose(prot.unitary(), circ.get_unitary())
 
 def test_reloadUnitaryGeneration():
     r"""
-    Tests unitaray generation abilities of wrapped circuits to adapt to modified origional circuit
+    Tests unitary generation abilities of wrapped circuits to adapt to modified original circuit
     """
     circ = Circuit(2, 2)
     circ.H(0)
     circ.Rz(0.25, 0)
     circ.CX(1, 0)
-    prot = qg.pytketInterface(circuit=circ)
+    prot = pytketCircuit(circuit=circ)
     unitary = circ.get_unitary()
-    assert np.isclose(prot.unitary, unitary)
+    assert np.allclose(prot.unitary(), unitary)
     circ.Rz(0.5, 0)
-    assert np.isclose(prot.unitary, unitary)
+    assert np.allclose(prot.unitary(), unitary)
     prot.loadCircuit()
-    assert np.isclose(prot.unitary, circ.get_unitary())
+    assert not np.allclose(prot.unitary(), unitary)
+    assert np.allclose(prot.unitary(), circ.get_unitary())
 
 
-def test_circuitIncludingMeasurement:
+def test_circuitIncludingMeasurement():
     r"""
-    Tests unitaray generation abilities of wrapped circuits to adapt to modified origional circuit
+    Tests unitary generation abilities of wrapped circuits to adapt to modified original circuit
     """
-    circ = Circuit(2, 2)
+    circ = Circuit(3, 3)
     circ.H(0)
     circ.Rz(0.25, 0)
+    circ.Measure(2, 2)
     circ.CX(1, 0)
     circ.measure_all()
-    prot = qg.pytketInterface(circuit=circ)
-    assert False
+
+    circMeasureless = Circuit(3, 3)
+    circMeasureless.H(0)
+    circMeasureless.Rz(0.25, 0)
+    circMeasureless.CX(1, 0)
+
+    prot = pytketCircuit(circuit=circ)
+    assert np.allclose(prot.unitary(), circMeasureless.unitary())
