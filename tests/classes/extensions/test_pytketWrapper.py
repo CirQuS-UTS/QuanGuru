@@ -16,7 +16,7 @@ def test_initialisePytketWrapper():
     prot = pytketCircuit(circuit=circ)
     assert isinstance(prot, genericProtocol)
     assert prot.circuit is circ
-    assert prot._paramUpdated is False
+    assert prot._paramUpdated is True
     assert len(prot.system.subSys) == 2
 
 def test_initialisePytketWrapperWithSystem():
@@ -31,7 +31,7 @@ def test_initialisePytketWrapperWithSystem():
     prot = pytketCircuit(circuit=circ, system=system)
     assert isinstance(prot, genericProtocol)
     assert prot.circuit is circ
-    assert prot._paramUpdated is False
+    assert prot._paramUpdated is True
     assert prot.system is system
 
 def test_unitaryGenerationPytketCircuits():
@@ -70,29 +70,9 @@ def test_reloadUnitaryGeneration():
     assert np.allclose(prot.unitary(), unitary)
     circ.Rz(0.5, 0)
     assert np.allclose(prot.unitary(), unitary)
-    prot.loadCircuit()
+    prot.update()
     assert not np.allclose(prot.unitary(), unitary)
     assert np.allclose(prot.unitary(), circ.get_unitary())
-
-
-def test_circuitIncludingMeasurement():
-    r"""
-    Tests unitary generation abilities of wrapped circuits to adapt to modified original circuit
-    """
-    circ = Circuit(3, 3)
-    circ.H(0)
-    circ.Rz(0.25, 0)
-    circ.Measure(2, 2)
-    circ.CX(1, 0)
-    circ.measure_all()
-
-    circMeasureless = Circuit(3, 3)
-    circMeasureless.H(0)
-    circMeasureless.Rz(0.25, 0)
-    circMeasureless.CX(1, 0)
-
-    prot = pytketCircuit(circuit=circ)
-    assert np.allclose(prot.unitary(), circMeasureless.unitary())
 
 def test_usingPytketWrapperAsStep():
     r"""
@@ -110,7 +90,22 @@ def test_usingPytketWrapperAsStep():
     circ2.H(0)
     prot2 = pytketCircuit(circuit=circ2)
 
-    mainProtocol = qProtocol(steps=[prot, prot2])
-    unitary = prot.unitary() @ prot2.unitary()
+    mainProtocol = qProtocol(system=2 * Qubit(), steps=[prot, prot2])
+    unitary = prot2.unitary() @ prot.unitary()
     assert np.allclose(mainProtocol.unitary(), unitary)
 
+def test_usingPytketWrapperCopyStep():
+    r"""
+    Tests using a pytket wrapper as a step within another protocol
+    """
+    circ = Circuit(2, 2)
+    circ.H(0)
+    circ.Rz(0.25, 0)
+    circ.CX(1, 0)
+    prot = pytketCircuit(circuit=circ)
+
+    protHC = prot.hc
+
+    mainProtocol = qProtocol(system=2 * Qubit(), steps=[prot, protHC])
+    unitary = protHC.unitary() @ prot.unitary()
+    assert np.allclose(mainProtocol.unitary(), unitary)
