@@ -5,6 +5,7 @@ from quanguru.classes.QSystem import Qubit
 import random
 import numpy as np
 from pytket import Circuit
+import pytket as pt
 def test_initialisePytketWrapper():
     r"""
     Tests initialisation of a pytket wrapper with a simple pytket circuit
@@ -109,3 +110,14 @@ def test_usingPytketWrapperCopyStep():
     mainProtocol = qProtocol(system=2 * Qubit(), steps=[prot, protHC])
     unitary = protHC.unitary() @ prot.unitary()
     assert np.allclose(mainProtocol.unitary(), unitary)
+
+def test_changeSystemSizePytketWrapper():
+    circ = Circuit(2, 2)
+    circ.H(0)
+    circ.Rz(0.25, 0)
+    circ.CX(1, 0)
+    prot = pytketCircuit(circuit=circ)
+    circ.add_qubit(pt.Qubit(2))
+    prot.update()
+    assert np.allclose(circ.get_unitary(), prot.unitary())
+
