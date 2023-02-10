@@ -45,7 +45,7 @@ class pytketCircuit(genericProtocol):
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self._circuit = None
-        self.createUnitary = self._prepareAndGetPytketCircuitUnitary
+        self.createUnitary = self._getPytketCircuitUnitary
         # Ensure that system is set before circuit by moving it to the front
         # If not done circuit is loaded without system and extra system is created
         if 'system' in kwargs.keys():
@@ -69,13 +69,29 @@ class pytketCircuit(genericProtocol):
         self._circuit = circ
         self.update()
 
+    def unitary(self) -> Matrix:
+        r"""
+        Override unitary() method of genericProtocol to ensure that the system is prepared before running the unitary
+        genereation functionality. Gets the unitary of the protocol/Circuit.
+
+        Returns
+        -------
+        Matrix:
+            the unitary of the protocol
+        """
+        self._preparePytketWrapper()
+        self.system._timeDependency()  # pylint: disable=no-member
+        if self._paramUpdated and not self.fixed or self._paramBoundBase__matrix is None:
+                self._paramBoundBase__matrix = self.getUnitary(None, None) # pylint: disable=assigning-non-slot
+        return self._paramBoundBase__matrix
+
     @genericProtocol.system.setter
     def system(self, supSys):
         self.superSys = supSys # pylint: disable=no-member
         # Overriden so that we know if the system was assigned by user
         self._pytketCircuit__defaultSystem = False
 
-    def _prepareAndGetPytketCircuitUnitary(self, *args) -> Matrix:
+    def _getPytketCircuitUnitary(self, *args) -> Matrix:
         r"""
         Provides interface to using pytket circuits get_unitary method to get the circuits unitary and ensures the
         circuit is prepared for unitary genereation.
@@ -84,7 +100,6 @@ class pytketCircuit(genericProtocol):
         Matrix
             The circuit's unitary in matrix form
         """
-        self.preparePytketWrapper()
         return self.circuit.get_unitary()
 
     def _preparePytketWrapper(self):
@@ -98,4 +113,4 @@ class pytketCircuit(genericProtocol):
         while self.__defaultSystem and self.circuit.n_qubits > len(self.system.subSys):
             self.superSys += Qubit()
         while self.__defaultSystem and self.circuit.n_qubits < len(self.system.subSys):
-            self.superSys += Qubit()
+            self.superSys -= Qubit()
