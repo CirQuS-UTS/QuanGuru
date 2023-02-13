@@ -28,6 +28,9 @@ r"""
     =======================    ==================    ================   ===============
 
 """
+from typing import List
+
+from .. import Matrix
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
@@ -38,6 +41,25 @@ from .QSimComp import QSimComp
 from .QSweep import Sweep
 
 class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attributes
+    r"""
+    A base class for all Protocol classes. Implements all basic unitary creation, system management and state management.
+Protocols contain three key features.
+
+    - Unitary generation methodology -
+      This can be observed in the collection of methods stemming from :meth:`unitary`.
+      The reason for so many methods leading to unitary creation is to ensure excess work is
+      not done in unitary creation and all elements in the protocols system are updated.
+      The :attr:`_createUnitary` points to a function that describes how the unitary is created and should be
+      implemented in subclasses or by the user.
+
+    - System management -
+      Protocols define their own systems in their system property (this wraps the superSys
+      property). In this case the system represents all qSystem objects that the protocol acts upon. Protocols
+      also define a subSys that generally will refer to the steps of the protocol.
+
+    - Simulation abilities - This is largely inherited from QSimComp that provides simulation functionality.
+    This is enhanced by the ability to change the state from within genericProtocol.
+    """
     label = 'genericProtocol'
     #: (**class attribute**) number of instances created internally by the library
     _internalInstances: int = 0
@@ -49,6 +71,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
     #: (**class attribute**) to store number of exponentiations, incremented by _increaseExponentiationCount method
     numberOfExponentiations = 0
 
+    #FIXME: why is this in genericProtocol and not in freeEvolution
     @classmethod
     def _increaseExponentiationCount(cls):
         r"""
@@ -105,20 +128,35 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self._openSys = False
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
+
     @property
-    def hc(self):
+    def hc(self) -> 'copyStep':
+        #FIXME Check
+        r"""
+        Creates a copy step of the Hermitian Conjugate of the protocol.
+        Returns
+        -------
+        The Hermitian Conjugate of the protocol
+        """
         return copyStep(self, hc=True)
 
     @property
-    def dimension(self):
+    def dimension(self) -> int:
+        "Gets the dimension of the protocol. Primarily used for operability with qSystems"
         return 1
 
     @property
-    def _dissipator(self):
+    def _dissipator(self) -> dict:
+        r"""
+        Gets the _genericProtocol__dissipator dictionary for open systems
+        """
         return self._genericProtocol__dissipator
 
     @property
-    def _isOpen(self):
+    def _isOpen(self) -> bool:
+        r"""
+        Gets boolean value of whether or not the system is open
+        """
         subOpen = any((s._isOpen for s in self.subSys.values() if hasattr(s, '_isOpen'))) # pylint: disable=protected-access
         self._openSys = len(self._dissipator) > 0 or subOpen or self._openSys
         for s in self.subSys.values():
@@ -128,6 +166,9 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
 
     @property
     def currentState(self):
+        r"""
+        Gets and sets the value of the current states _parameter object
+        """
         return self._genericProtocol__currentState.value
 
     @currentState.setter
@@ -136,32 +177,70 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
 
     @QSimComp.initialState.setter # pylint: disable=no-member
     def initialState(self, inp):
+
         self.simulation._initialStateInput = inp # pylint: disable=protected-access
         self.simulation._stateBase__initialState.value = self.superSys._createAstate(inp) # pylint:disable=W0212,E1101
 
-    def createUpdate(self, **kwargs):
+    def createUpdate(self, **kwargs) -> 'Update':
+        r"""
+        Creates and adds an update to self. The kwargs passed to this function are directly passed to the new Update.
+
+        Returns
+        -------
+            Update
+              The created update
+        """
         update = Update(**kwargs)
         self.addUpdate(update)
         return update
 
     def addUpdate(self, *args):
+        r"""
+        Adds 0 or more updates that are given as list of arguments to :attr:`self._genericProtocol__updates`
+        Parameters
+        ----------
+        args
+            An arbitary number of updates to be added to selfs updates list
+        """
         for update in args:
             self._genericProtocol__updates.append(update) # pylint: disable=no-member
 
     @property
-    def updates(self):
+    def updates(self) -> List['Update']:
+        r"""
+        Gets list of updates in the protocol from _genericProtocol__updates
+        Returns
+        -------
+        List[Update]
+            List of updates in protocol/step
+        """
         return self._genericProtocol__updates
 
     @property
-    def ratio(self):
+    def ratio(self) -> int:
+        r"""
+        Gets and Sets the ratio of the protocol. Used in Trotterisations to ensure the simulation's step size and protocols
+        step size change in the same ratio
+        Returns
+        -------
+        int
+            The ratio of simulation step size to protocols step size
+        """
         return self._genericProtocol__ratio
 
     @ratio.setter
-    def ratio(self, val):
+    def ratio(self, val: int):
         self._genericProtocol__ratio = val # pylint: disable=assigning-non-slot
 
     @property
     def system(self):
+        #FIXME CHECK
+        r"""
+        Gets and Sets the system that the protocol acts upon.
+        Returns
+        -------
+        The system the protocol acts upon
+        """
         return self.superSys
 
     @system.setter
@@ -169,6 +248,17 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self.superSys = supSys # pylint: disable=no-member
 
     def prepare(self, collapseOps = None, decayRates = None):
+        #FIXME CHECK params
+        r"""
+        Prepares the protocol for simulation by getting the unitary for every step in the protocol. If the system is
+        open, collapse operations and decay rates that should be handled in the function referenced by _createUnitary
+        Parameters
+        ----------
+        collapseOps
+          Describes how the open system evolves due to wave function collapse
+        decayRates
+          Descirbes the decay rates of the open system
+        """
         if self.fixed is True:
             self.getUnitary(collapseOps, decayRates)
 
@@ -178,10 +268,17 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
 
     @property
     def fixed(self):
+        r"""
+        Gets and Sets boolean describing if the parameters for a step are going to remain fixed throughout simulation/sweep.
+        Returns
+        -------
+        bool
+            that descibes if the protocols parameters are fixed
+        """
         return self._genericProtocol__fixed
 
     @fixed.setter
-    def fixed(self, boolean):
+    def fixed(self, boolean: bool):
         self._genericProtocol__fixed = boolean # pylint: disable=assigning-non-slot
 
     @QSimComp.superSys.setter # pylint: disable=no-member
@@ -192,31 +289,58 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
             self.simulation._bound(supSys.simulation) # pylint: disable=protected-access
         self.simulation._qBase__subSys[self] = self.superSys # pylint: disable=protected-access
 
-    def unitary(self):
+    def unitary(self) -> Matrix:
+        r"""
+        Gets the unitary matrix of a protocol by calculating collapse opertaors and decay rates from the dissipator
+        dictionary, calculating the systems time dependency and calling :meth:`getUnitary`. Is optimised to prevent
+        unnecessary recalculation.
+        Returns
+        -------
+        Matrix
+            The unitary of the protocol
+        """
+        # FIXME: Refactor unnecary if statements and unnecesary work in case of matrix not needing to be reformed
+        # +
         collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.keys()]
         decayRates = None if not self._isOpen else list(self._dissipator.values())
         if self.superSys is not None:
             self.superSys._timeDependency() # pylint: disable=no-member
-
         if self._paramUpdated:
             if not self.fixed:
                 self._paramBoundBase__matrix = self.getUnitary(collapseOps, decayRates) # pylint: disable=assigning-non-slot
         elif self._paramBoundBase__matrix is None: # pylint: disable=no-member
-            self._paramBoundBase__matrix = self.getUnitary(collapseOps, decayRates) # pylint: disable=assigning-non-slot
+            self._paramBoundBase__matrix = self.getUnitary(collapseOps, decayRates)  # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def getUnitary(self, collapseOps = None, decayRates = None):
+    #FIXME: why is this separate to unitary?
+    def getUnitary(self, collapseOps = None, decayRates = None) -> Matrix:
+        r"""
+        Gets unitary of the system by applying updates as well as ensuring all steps performed in unitary are complete
+        Parameters
+        ----------
+        collapseOps
+          Describes how the open system evolves due to wave function collapse
+        decayRates
+          Descirbes the decay rates of the open system
+        Returns
+        -------
+        Matrix
+            The unitary of the protocol
+        """
         if collapseOps is None:
             collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.keys()]
             decayRates = None if not self._isOpen else list(self._dissipator.values())
         else:
+            #FIXME why are they added twice if done through unitary
             collapseOps = collapseOps + [ds.jOperMatrix for ds in self._dissipator.keys()]
             decayRates = decayRates + list(self._dissipator.values())
+        #FIXME why are we doing this twice
         if self.superSys is not None:
             self.superSys._timeDependency() # pylint: disable=no-member
 
         for update in self._genericProtocol__updates:
             update.setup()
+        #FIXME why the unnecessary assignment
         self._paramBoundBase__matrix = self._getUnitary(collapseOps, decayRates) # pylint: disable=no-member, assigning-non-slot
         for update in self._genericProtocol__updates:
             update.setback()
@@ -224,9 +348,27 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def _paramUpdatedToFalse(self):
+        r"""
+        Updates _paramBoundBase__paramUpdated to False without flowing on to anything paramBound to the protocol.
+        """
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
 
-    def _defGetUnitary(self, collapseOps = None, decayRates = None):
+    def _defGetUnitary(self, collapseOps = None, decayRates = None) -> Matrix:
+        r"""
+        Evaluates the unitary for the protocol after the following. Updates parameters by running a sweep
+        (if necessary), and updating the unitary based on user's (or inherited classes) :attr:`_createUnitary` methodology.
+        Parameters
+        ----------
+        collapseOps
+          Describes how the open system evolves due to wave function collapse
+        decayRates
+          Descirbes the decay rates of the open system
+        Returns
+        -------
+        Matrix
+            The unitary of the protocol
+        """
+        # FIXME refactor. next 6 lines unnecessary
         runCreate = False
         if self._paramUpdated:
             if not self.fixed:
@@ -235,6 +377,7 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
             runCreate = True
 
         if runCreate:
+            # FIXME change lc and td variable names
             lc = 1
             td = False
             if len(self.timeDependency.sweeps) > 0:
@@ -249,7 +392,19 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
             self._paramBoundBase__matrix = unitary # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
-    def _identity(self, openSys=False):
+    def _identity(self, openSys: bool = False):
+        r"""
+        Gets an identity matrix with dimension of the protocols total dimension (including steps). This dimension is
+        squared if it is an open system.
+        Parameters
+        ----------
+        openSys
+          Boolean describing whether the system is open
+        Returns
+        -------
+        Matrix
+            An identity matrix with the same dimension as the total dimension of the protocol
+        """
         dimension = 0
         if self.superSys is None:
             dimension = list(self.subSys.values())[0]._totalDim#pylint:disable=E0237,E1101
