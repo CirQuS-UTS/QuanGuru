@@ -18,10 +18,16 @@
     =======================    ==================   ==============   ================   ===============
 
 """
-from pytket import Circuit
 from ..QPro import genericProtocol
 from ..QSystem import Qubit
 from ...QuantumToolbox.customTypes import Matrix
+
+try:
+    from pytket import Circuit
+    pytketInstalled = True
+except (ImportError, ModuleNotFoundError):
+    pytketInstalled = False
+    Circuit = None
 
 
 class pytketCircuit(genericProtocol):
@@ -43,6 +49,9 @@ class pytketCircuit(genericProtocol):
     __slots__ = ['_circuit', '__defaultSystem']
 
     def __init__(self, **kwargs):
+        if not pytketInstalled:
+            raise ImportError("You must have pytket installed on your system"
+                              " to use this functionality. (pip install pytket or pip install quanguru[pytket])")
         super().__init__(_internal=kwargs.pop('_internal', False))
         self._circuit = None
         self.createUnitary = self._getPytketCircuitUnitary

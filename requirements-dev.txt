@@ -1,4 +1,5 @@
 matplotlib
+pytket
 
 pylint>=2.4.4
 flake8>=3.8.4
