@@ -62,7 +62,7 @@ class pytketCircuit(genericProtocol):
             self.__defaultSystem = False
 
         self._named__setKwargs(**kwargs)  # pylint: disable=no-member
-        if self.system is None:
+        if self.system is None and self.circuit is not None:
             self.superSys = self.circuit.n_qubits * Qubit()  # superSys used to not change __default system to false
             self.__defaultSystem = True
     @property
@@ -118,6 +118,8 @@ class pytketCircuit(genericProtocol):
         """
         if self.circuit is None:
             raise ValueError("No Circuit has been added for this protocol.")
+        if self.system is None:
+            self.superSys = self.circuit.n_qubits * Qubit()  # superSys used to not change __default system to false
         # Ensure that the system has correct dimension if it is automatically made
         while self.__defaultSystem and self.circuit.n_qubits > len(self.system.subSys): # pylint: disable=no-member
             self.superSys += Qubit()

@@ -6,6 +6,21 @@ import random
 import numpy as np
 from pytket import Circuit
 import pytket as pt
+import pytest
+
+def test_defineEmptyPytketWrapper():
+    r"""
+    Tests that pytket wrappers do not need a circuit to be defined
+    """
+    prot = pytketCircuit()
+    assert prot.system is None
+    assert prot.circuit is None
+    with pytest.raises(ValueError, match='No Circuit has been added for this protocol.'):
+        prot.unitary()
+
+
+
+
 def test_initialisePytketWrapper():
     r"""
     Tests initialisation of a pytket wrapper with a simple pytket circuit
