@@ -4,10 +4,35 @@ from quanguru.classes.QSystem import Qubit
 
 import random
 import numpy as np
-from pytket import Circuit
-import pytket as pt
+
+try:
+    from pytket import Circuit
+    import pytket as pt
+    pytketInstalled = True
+except (ImportError, ModuleNotFoundError):
+    pytketInstalled = False
+
+from functools import wraps
 import pytest
 
+def checkPytketInstalled(func):
+    r"""
+    Function wrapper that ensures pytket is installed before using its api
+    """
+    @wraps(func)
+    def checkInstallation(*args, **kwargs):
+        if pytketInstalled:
+            func(*args, **kwargs)
+    return checkInstallation
+
+def test_pytketInstalled():
+    r"""
+    Tests pytket is installed.
+    If it is not all other tests/classes/extensions/test_pytketWrapper.py tests are unchecked
+    """
+    assert pytketInstalled
+
+@checkPytketInstalled
 def test_defineEmptyPytketWrapper():
     r"""
     Tests that pytket wrappers do not need a circuit to be defined
@@ -20,6 +45,7 @@ def test_defineEmptyPytketWrapper():
 
 
 
+@checkPytketInstalled
 
 def test_initialisePytketWrapper():
     r"""
@@ -34,6 +60,8 @@ def test_initialisePytketWrapper():
     assert prot.circuit is circ
     assert prot._paramUpdated is True
     assert len(prot.system.subSys) == 2
+
+@checkPytketInstalled
 
 def test_initialisePytketWrapperWithSystem():
     r"""
@@ -50,6 +78,9 @@ def test_initialisePytketWrapperWithSystem():
     assert prot._paramUpdated is True
     assert prot.system is system
 
+
+@checkPytketInstalled
+
 def test_unitaryGenerationPytketCircuits():
     r"""
     Tests unitary generation abilities of wrapped circuits
@@ -61,6 +92,8 @@ def test_unitaryGenerationPytketCircuits():
     prot = pytketCircuit(circuit=circ)
     assert np.allclose(prot.unitary(), circ.get_unitary())
 
+
+@checkPytketInstalled
 def test_unitaryGenerationWithSystem():
     r"""
     Tests unitary generation abilities of wrapped circuits from given system
@@ -73,6 +106,8 @@ def test_unitaryGenerationWithSystem():
     prot = pytketCircuit(circuit=circ, system=system)
     assert np.allclose(prot.unitary(), circ.get_unitary())
 
+
+@checkPytketInstalled
 def test_reloadUnitaryGeneration():
     r"""
     Tests unitary generation abilities of wrapped circuits to adapt to modified original circuit
@@ -90,6 +125,8 @@ def test_reloadUnitaryGeneration():
     assert not np.allclose(prot.unitary(), unitary)
     assert np.allclose(prot.unitary(), circ.get_unitary())
 
+
+@checkPytketInstalled
 def test_usingPytketWrapperAsStep():
     r"""
     Tests using a pytket wrapper as a step within another protocol
@@ -110,6 +147,7 @@ def test_usingPytketWrapperAsStep():
     unitary = prot2.unitary() @ prot.unitary()
     assert np.allclose(mainProtocol.unitary(), unitary)
 
+@checkPytketInstalled
 def test_usingPytketWrapperCopyStep():
     r"""
     Tests using a pytket wrapper as a step within another protocol
@@ -126,6 +164,8 @@ def test_usingPytketWrapperCopyStep():
     unitary = protHC.unitary() @ prot.unitary()
     assert np.allclose(mainProtocol.unitary(), unitary)
 
+
+@checkPytketInstalled
 def test_changeSystemSizePytketWrapper():
     circ = Circuit(2, 2)
     circ.H(0)
