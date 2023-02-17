@@ -11,13 +11,17 @@
     .. |x| unicode:: U+274C
     .. |w| unicode:: U+2000
 
-    =======================    ==================   ==============   ================   ===============
-       **Function Name**        **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
-    =======================    ==================   ==============   ================   ===============
-      `pytketCircuit`            |w| |w| |w| |x|      |w| |w| |x|      |w| |w| |x|        |w| |w| |x|
-    =======================    ==================   ==============   ================   ===============
+    =======================          ==================   ==============   ================   ===============
+       **Function Name**               **Docstrings**       **Examples**     **Unit Tests**     **Tutorials**
+    =======================          ==================   ==============   ================   ===============
+      `pytketCircuit`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+      `qiskitCircuit`                    |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+      `externalCircuitToProtocolAdapter` |w| |w| |w| |c|      |w| |w| |x|      |w| |w| |c|        |w| |w| |x|
+
+    =======================           ==================   ==============   ================   ===============
 
 """
+
 from ..QPro import genericProtocol
 from ..QSystem import Qubit
 from ...QuantumToolbox.customTypes import Matrix
@@ -29,14 +33,24 @@ except (ImportError, ModuleNotFoundError):
     pytketInstalled = False
     Circuit = None
 
+try:
+    from qiskit import QuantumCircuit
+    from qiskit.quantum_info import Operator
+
+    qiskitInstalled = True
+except (ImportError, ModuleNotFoundError):
+    qiskitInstalled = False
+    QuantumCircuit = None
+    Operator = None
+
 
 class externalCircuitToProtocolAdapter(genericProtocol, ABC):
     r"""
     Provides adapter for arbitary quantum circuits in a way such that they can be used in QuanGuru as protocols.
     Can be interfaced with as any other protocol would be. This implementation stores a reference to a arbitary Circuit
     in :attr:`~circuit.` It is important to update to ensure the representation that will be used is the same as the
-    held circuit. This is done by default on instantiation and if changes are made to the Circuit these can be made to the QuanGuru
-    wrapper by using :meth:`~update()`.
+    held circuit. This is done by default on instantiation and if changes are made to the Circuit these can be made
+    to the QuanGuru wrapper by using :meth:`~update()`.
     """
     label = 'externalCircuitToProtocolAdapter'
     #: (**class attribute**) number of instances created internally by the library
@@ -172,3 +186,35 @@ class pytketCircuit(externalCircuitToProtocolAdapter):
 
     def getCircuitNumQubits(self) -> int:
         return self.circuit.n_qubits
+
+
+class qiskitCircuit(externalCircuitToProtocolAdapter):
+    r"""
+    Wraps Qiskit Circuits in a way such that they can be used in QuanGuru as protocols. Can be interfaced with as
+    any other protocol would be. This implementation stores a reference to a Qiskit Circuit in :attr:`~circuit.`
+    It is important to update to ensure the representation that will be used is the same as the held circuit.
+    This is done by default on instantiation and if changes are made to the Circuit these can be made to the QuanGuru
+    wrapper by using :meth:`~update()`.
+    """
+    label = 'qiskitCircuit'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = []
+
+    def __init__(self, **kwargs):
+        if not qiskitInstalled:
+            raise ImportError("You must have qiskit installed on your system"
+                              " to use this functionality. (pip install qiskit or pip install quanguru[qiskit])")
+        super().__init__(_internal=kwargs.pop('_internal', False),
+                         circuit=kwargs.pop('circuit', None), system=kwargs.pop('system', None))
+        self._named__setKwargs(**kwargs)  # pylint: disable=no-member
+
+    def _getCircuitUnitary(self, *args) -> Matrix: # pylint: disable=unused-argument
+        return Operator(self.circuit).data
+    def getCircuitNumQubits(self) -> int:
+        return self.circuit.num_qubits

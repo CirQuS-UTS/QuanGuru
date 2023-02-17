@@ -11,4 +11,4 @@
 """
 
 from .couplings import *
-from .pytketInterface import *
+from .CircuitAdapters import *

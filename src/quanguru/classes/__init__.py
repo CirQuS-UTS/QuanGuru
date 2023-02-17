@@ -35,4 +35,4 @@ from .QDrive import *
 from .environment import thermalBath, dissipatorObj
 from .tempConfig import *
 from .extensions.couplings import *
-from .extensions.pytketInterface import *
+from .extensions.CircuitAdapters import *

@@ -1,4 +1,4 @@
-from quanguru.classes.extensions.pytketInterface import pytketCircuit
+from quanguru.classes.extensions.CircuitAdapters import pytketCircuit
 from quanguru.classes.QPro import genericProtocol, qProtocol
 from quanguru.classes.QSystem import Qubit
 
