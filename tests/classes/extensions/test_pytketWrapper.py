@@ -44,9 +44,7 @@ def test_defineEmptyPytketWrapper():
         prot.unitary()
 
 
-
 @checkPytketInstalled
-
 def test_initialisePytketWrapper():
     r"""
     Tests initialisation of a pytket wrapper with a simple pytket circuit
@@ -61,8 +59,8 @@ def test_initialisePytketWrapper():
     assert prot._paramUpdated is True
     assert len(prot.system.subSys) == 2
 
-@checkPytketInstalled
 
+@checkPytketInstalled
 def test_initialisePytketWrapperWithSystem():
     r"""
     Tests initialisation of a pytket wrapper with a simple pytket circuit from a given system
@@ -80,7 +78,6 @@ def test_initialisePytketWrapperWithSystem():
 
 
 @checkPytketInstalled
-
 def test_unitaryGenerationPytketCircuits():
     r"""
     Tests unitary generation abilities of wrapped circuits
