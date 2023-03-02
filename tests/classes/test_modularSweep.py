@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from quanguru import QuantumSystem, sigmam, Qubit, freeEvolution
+from quanguru import QuantumSystem, sigmam, Qubit, freeEvolution, Simulation, genericProtocol, QuantumToolbox
 
 # write a compute function for the qubit
 def computeREF(qub, st):
@@ -82,3 +82,30 @@ def test_noInitialStateRequiredWhenNoTimeEvolutionWithOrder():
     # run the simulation
     with pytest.raises(TypeError):
         states = qsys.runSimulation()
+
+def test_doCompute():
+    def preCompute(obj):
+        obj.auxDict['pre'] += 1
+    def compute(obj, state):
+        obj.auxDict['comp'] += 1
+    def postCompute(obj):
+        obj.auxDict['post'] += 1
+
+    qSim = Simulation(preCompute=preCompute, postCompute=postCompute, compute=compute)
+    qSys = [QuantumSystem(dimension=2, preCompute=preCompute, postCompute=postCompute, compute=compute) for i in range(5)]
+    qPro = [genericProtocol(system=qSys[i], preCompute=preCompute, postCompute=postCompute, compute=compute, createUnitary=lambda a, b, c: QuantumToolbox.identity(2)) for i in range(5)]
+    qSim.auxDict['pre'] = 0
+    qSim.auxDict['comp'] = 0
+    qSim.auxDict['post'] = 0
+
+    for sys, pro in zip(qSys, qPro): 
+        qSim.addQSystems(sys, pro)
+        sys.initialState = QuantumToolbox.basis(2, 0)
+    
+    qSim.totalTime = 5
+    qSim.stepCount = 5
+
+    qSim.run()
+    assert qSim.auxDict['pre'] == 1 + len(qSys) + len(qPro)
+    assert qSim.auxDict['comp'] == (1 + len(qSys) + len(qPro))*(qSim.stepCount+1)
+    assert qSim.auxDict['post'] == 1 + len(qSys) + len(qPro)

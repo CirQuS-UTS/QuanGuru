@@ -240,7 +240,8 @@ class Simulation(timeBase):
             if subS.simulation is not self:
                 if self in subS.simulation._paramBound.values():
                     subS.simulation._paramBound.pop(self.name)
-                subS.simulation._bound(self) # pylint: disable=protected-access
+                subS.simulation._bound(self, re=True) # pylint: disable=protected-access
+                # subS.simulation._bound(self)
         return (subS, Protocol)
 
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
@@ -351,7 +352,7 @@ class Simulation(timeBase):
                     self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
-    def run(self, p=None, coreCount=None, resetRes=True):
+    def run(self, p=None, coreCount=None, resetRes=True, finaliseAll=True):
         r"""
         Call this function to run the simulation. It runs certain other preparation before running the simulation.
 
@@ -375,7 +376,7 @@ class Simulation(timeBase):
         if resetRes:
             for qres in self.qRes.allResults.values():
                 qres._reset() # pylint: disable=protected-access
-        _poolMemory.run(self, p, coreCount)
+        _poolMemory.run(self, p, coreCount, finaliseAll)
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         # TODO Test this
@@ -397,7 +398,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
     reRun = False
 
     @classmethod
-    def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
+    def run(cls, qSim, p, coreCount, finaliseAll): # pylint: disable=too-many-branches
         r"""
         This is the only method in the class, and it carries the tasks described in the class description.
         """
@@ -433,7 +434,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
                 _pool = multiprocessing.Pool(processes=_poolMemory.coreCount) #pylint:disable=consider-using-with
             else:
                 _pool = None
-        runSimulation(qSim, _pool)
+        runSimulation(qSim, _pool, finaliseAll)
 
         if _pool is not None:
             _poolMemory.coreCount = _pool._processes # pylint: disable=protected-access
