@@ -377,7 +377,10 @@ class timeBase(stateBase):
                 self._timeBase__totalTime.value = self._timeBase__stepCount.value * self.stepSize # pylint: disable=E0237
 
         try:
-            self._timeBase__stepCount.value = int((self.totalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+            ### old version
+            # self._timeBase__stepCount.value = int((self.totalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+            ### new version
+            self._timeBase__stepCount.value = int(math.floor(self.totalTime/self.stepSize) + 1) # pylint: disable=assigning-non-slot
         except:  # noqa: E722
             raise ValueError('?') # pylint: disable=raise-missing-from
         return self._timeBase__stepCount.value
@@ -412,7 +415,7 @@ class timeBase(stateBase):
             ### old version
             # self._timeBase__stepCount.value = int((self.totalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
             ### new version
-            self._timeBase__stepCount.value = int(math.floor(self.totalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
+            self._timeBase__stepCount.value = int(math.floor(self.totalTime/stepsize) + 1) # pylint: disable=assigning-non-slot
 
     @property
     def samples(self):
