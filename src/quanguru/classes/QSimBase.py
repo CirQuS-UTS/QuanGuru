@@ -35,6 +35,7 @@ from quanguru.classes.exceptions import checkNotVal
 from .baseClasses import computeBase, paramBoundBase
 from .tempConfig import classConfig
 import mpmath as mp
+import math
 
 def setAttr(obj: paramBoundBase, attrStr: str, val: Any) -> None:
     r"""
@@ -355,7 +356,10 @@ class timeBase(stateBase):
             self._timeBase__stepSize._value = self._timeBase__stepSize._bound._value # pylint: disable=protected-access
         setAttrParam(self, '_timeBase__totalTime', fTime)
         if self.stepSize is not None:
-            self._timeBase__stepCount.value = int((fTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+            ### old version
+            # self._timeBase__stepCount.value = int((fTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+            ### new version
+            self._timeBase__stepCount.value = int(math.floor(fTime/self.stepSize) + 1) # pylint: disable=assigning-non-slot
 
     @property
     def stepCount(self):
@@ -405,7 +409,10 @@ class timeBase(stateBase):
             self._timeBase__totalTime._value = self._timeBase__totalTime._bound._value# pylint: disable=protected-access
         setAttrParam(self, '_timeBase__stepSize', stepsize)
         if self.totalTime is not None:
-            self._timeBase__stepCount.value = int((self.totalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
+            ### old version
+            # self._timeBase__stepCount.value = int((self.totalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
+            ### new version
+            self._timeBase__stepCount.value = int(math.floor(self.totalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
 
     @property
     def samples(self):
