@@ -507,7 +507,7 @@ def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
-def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
+def Jx(j: float, sparse: bool = False, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `X` operator :math:`\hat{J}_{x}` for a given spin quantum number j.
 
@@ -629,7 +629,7 @@ def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = (1/(2j))*(Jp(j, isDim=isDim) - Jm(j, isDim=isDim))
     return n if sparse else n.toarray()
 
-def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
+def Jz(j: float, sparse: bool = False, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `Z` operator :math:`\hat{J}_{z}` for a given spin quantum number j.
 
