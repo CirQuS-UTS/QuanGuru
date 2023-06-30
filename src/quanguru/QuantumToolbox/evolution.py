@@ -46,6 +46,8 @@ from .states import densityMatrix, mat2Vec, vec2Mat, zerosMat
 
 from .customTypes import Matrix
 
+import numpy as np
+import mpmath as mp
 
 # do not delete these
 # from typing import Optional, TypeVar
@@ -87,7 +89,13 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
     if sparse is True:
         liouvillianEXP = slinA.expm(-1j * Hamiltonian * timeStep)
     else:
-        liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep)
+        ### old version
+        # liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep)
+        ### new version
+        if isinstance(timeStep, float) == True: 
+            liouvillianEXP = linA.expm(-1j * Hamiltonian * timeStep) 
+        else: 
+            liouvillianEXP = mp.expm(-1j * Hamiltonian * timeStep) 
     return liouvillianEXP
 
 def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optional[List] = None, # pylint: disable=dangerous-default-value,unsubscriptable-object
@@ -137,7 +145,15 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
         if collapseOperators is not None:
             dimensionOfHilbertSpace = collapseOperators[0].shape[0]
 
-    identity = sp.identity(dimensionOfHilbertSpace, format="csc")
+    ### old version
+    # identity = sp.identity(dimensionOfHilbertSpace, format="csc")
+    ### new version 
+    sparse = sp.issparse(Hamiltonian) 
+    if sparse == True: 
+        identity = sp.identity(dimensionOfHilbertSpace, format="csc") 
+    else: 
+        identity = np.identity(dimensionOfHilbertSpace) 
+        
     liouvillian = zerosMat(dimensionOfHilbertSpace**2)
     if Hamiltonian is not None:
         hamPart1 = _preSO(Hamiltonian, identity)

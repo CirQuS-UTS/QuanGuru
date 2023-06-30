@@ -34,7 +34,7 @@ from scipy.sparse import spmatrix
 from quanguru.classes.exceptions import checkNotVal
 from .baseClasses import computeBase, paramBoundBase
 from .tempConfig import classConfig
-
+import mpmath as mp
 
 def setAttr(obj: paramBoundBase, attrStr: str, val: Any) -> None:
     r"""
@@ -207,7 +207,11 @@ class stateBase(computeBase):
         """
 
         if ((self._stateBase__initialState.value is None) or
-            (self._stateBase__initialState.value.shape[0] != self.initialStateSystem.dimension)): # pylint: disable=no-member
+            ### old version
+            # (self._stateBase__initialState.value.shape[0] != self.initialStateSystem.dimension)): # pylint: disable=no-member
+            ### new version
+            (isinstance(self._stateBase__initialState.value, (ndarray, spmatrix)) and self._stateBase__initialState.value.shape[0] != self.initialStateSystem.dimension) or 
+            (isinstance(self._stateBase__initialState.value, mp.matrix) and self._stateBase__initialState.value.rows != self.initialStateSystem.dimension)): # pylint: disable=no-member 
             # TODO initial state creation has a bug when it relies on .dimension of a protocol
             #  after re-structuring the protocol, this should no longer rely of .dimension of protocol,
             #  which returns 1 and causes this to evaluate everytime anyway.
@@ -248,6 +252,9 @@ class stateBase(computeBase):
             inps = inps.keys()
         elif isinstance(inps, (ndarray, spmatrix)):
             inps = [inps.shape[0]]
+        ### new version (add more for mp.matrix state) 
+        elif isinstance(inps, mp.matrix): 
+            inps = [inps.rows] 
         else:
             raise TypeError(f"Initial state input does not support type {type(inps)}")
 

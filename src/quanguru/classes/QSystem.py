@@ -35,6 +35,8 @@ from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import number, Jz
 
+import mpmath as mp
+
 def _initStDec(_createInitialState):
     r"""
     Decorater to handle different inputs for initial state creation.
@@ -46,6 +48,11 @@ def _initStDec(_createInitialState):
             checkVal(inp.shape[0], obj.dimension, 'Dimension mismatch with the initial state input and the dimesion of'+
                                                    ' the system')
             state = inp
+        ### New version: add condition for mp.matrix 
+        elif isinstance(inp, mp.matrix): 
+            checkVal(inp.rows, obj.dimension, 'Dimension mismatch with the initial state input and the dimesion of'+ 
+                                                    ' the system') 
+            state = inp 
         else:
             # if the input is None, tries using the initialStateInput of the simulation object
             # this is introduced as convenience so that we can call the _createInitialState without any argument

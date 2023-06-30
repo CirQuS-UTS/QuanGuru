@@ -37,6 +37,9 @@ from .QSimBase import _parameter
 from .QSimComp import QSimComp
 from .QSweep import Sweep
 
+import scipy.sparse as sp
+import mpmath as mp
+
 class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attributes
     label = 'genericProtocol'
     #: (**class attribute**) number of instances created internally by the library
@@ -258,7 +261,14 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         #    dimension = self.superSys._totalDim # pylint: disable=E0237, E1101
         #elif self._genericProtocol__identity.shape[0] != self.superSys._totalDim: # pylint: disable=E1101
         #    dimension = self.superSys._totalDim # pylint: disable=E0237, E1101
-        self._genericProtocol__identity = identity(dimension = dimension**2 if openSys else dimension)# pylint: disable=E0237, E1101
+        ### old version
+        # self._genericProtocol__identity = identity(dimension = dimension**2 if openSys else dimension)# pylint: disable=E0237, E1101
+        ### new version
+        sparse = sp.issparse(self.initialState) 
+        if sparse == True: 
+            self._genericProtocol__identity = identity(dimension = dimension**2 if openSys else dimension)# pylint: disable=E0237, E1101 
+        else: 
+            self._genericProtocol__identity = mp.eye(n = dimension**2 if openSys else dimension) 
         return self._genericProtocol__identity
 
 class qProtocol(genericProtocol):
