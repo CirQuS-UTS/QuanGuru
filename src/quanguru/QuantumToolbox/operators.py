@@ -1010,7 +1010,9 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
         opPow = _matPower(op(sparse), power)
     return opPow
 
-def randomH(dimension: int, sparse: bool = True, seedNum: Optional[List] = None, mean: float = 0.0, SD: float = 1.0, normalise: bool = True, symmetric: bool = True):
+def randomH(dimension: int, sparse: bool = True, seedNum: list = [np.random.randint(0,63), np.random.randint(0,63)], 
+            mean: float = 0.0, SD: float = 1.0, normalise: bool = True, symmetric: bool = True):
+    # TODO change the way define defalut values for seedNum
     r"""
     Creates a matrix with random complex number elements from normal (Gaussian) distribution
 
@@ -1039,8 +1041,8 @@ def randomH(dimension: int, sparse: bool = True, seedNum: Optional[List] = None,
 
     """
 
-    if seedNum==None:
-        seedNum = [np.random.randint(0,63), np.random.randint(0,63)]
+    # if seedNum==None:
+    #     seedNum = [np.random.randint(0,63), np.random.randint(0,63)]
     np.random.seed(seed=seedNum[0])
     real = np.random.normal(loc=mean, scale=SD, size=[dimension,dimension])
     np.random.seed(seed=seedNum[1])
