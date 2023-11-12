@@ -106,10 +106,10 @@ def timeDependent(qSim):
         #  if there are multiple sweeps when using sweeps for time-dependency, all of them has to run simultaneously.
         #  if they are combinatorial multi-parameter sweep, the behavior is undefined.
         #  labels: undefined behaviour
-        qSim._timeBase__stepCount._value = qSim.timeDependency.indMultip # pylint: disable=protected-access
-        for pro, sim in qSim.subSys.items(): # pylint: disable=protected-access
-            sim.simulation._timeBase__stepCount._value = sim.simulation.timeDependency.indMultip # pylint: disable=protected-access
-            pro.simulation._timeBase__stepCount._value = pro.simulation.timeDependency.indMultip # pylint: disable=protected-access
+        # qSim._timeBase__stepCount._value = qSim.timeDependency.indMultip # pylint: disable=protected-access
+        # for pro, sim in qSim.subSys.items(): # pylint: disable=protected-access
+        #     sim.simulation._timeBase__stepCount._value = sim.simulation.timeDependency.indMultip # pylint: disable=protected-access
+        #     pro.simulation._timeBase__stepCount._value = pro.simulation.timeDependency.indMultip # pylint: disable=protected-access
     timeEvolDefault(qSim, td)
 
 
@@ -129,7 +129,7 @@ def timeEvolDefault(qSim, td):
             calledFor.append(qsystem)
 
     if callable(qSim.evolFunc):
-        for ind in range(qSim.stepCount):
+        for ind in range(qSim.timeDependency.indMultip):
             qSim._Simulation__index = ind # pylint: disable=protected-access
             if td:
                 qSim.timeDependency.runSweep(qSim.timeDependency._indicesForSweep(ind, *qSim.timeDependency.inds))
