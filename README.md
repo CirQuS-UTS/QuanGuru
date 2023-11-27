@@ -12,6 +12,12 @@ It can already be installed via pip
 pip install quanguru
 ```
 
+Alternatively, if you wish to use the version of quanguru from your local repository, you can install via pip:
+```bash
+pip install -e <path/to/directory>
+```
+This will allow you to access the version or branch that exists in your local forked or cloned repo at any given time.
+
 QuanGuru contains tools for numerical simulations of Quantum systems, and it is composed of two main sub-modules: (i) QuantumToolbox, and (ii) classes (for OOP, module to be renamed later).
 QuantumToolbox consists **purely of Python functions** (no other objects) that create and/or use **matrices**.
 The classes module (to be renamed later) contains classes to create flexible, simple, and object-oriented simulation scripts.
