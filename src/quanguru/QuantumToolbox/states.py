@@ -542,7 +542,7 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
      [1]]
     """
 
-    return denMat.T.reshape(np.prod(np.shape(denMat)), 1)
+    return denMat.reshape(np.prod(np.shape(denMat)), 1)
 
 def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     r"""
@@ -575,7 +575,7 @@ def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
 
     a = vec.shape
     n = int(np.sqrt(a[0]))
-    mat = vec.reshape((n, n)).T
+    mat = vec.reshape((n, n))
     return mat
 
 def BellStates(bs: str = 'Phi+', sparse: bool = True) -> Matrix:
