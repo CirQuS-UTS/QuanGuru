@@ -305,7 +305,7 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     if identity is None:
         identity = sp.identity(operator.shape[0], format="csc")
-    pre = sp.kron(identity, operator, format='csc')
+    pre = sp.kron(operator, identity, format='csc')
     return pre if sp.issparse(operator) else pre.A
 
 def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
@@ -338,7 +338,7 @@ def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     if identity is None:
         identity = sp.identity(operator.shape[0], format="csc")
-    pos = sp.kron(operator.transpose(), identity, format='csc')
+    pos = sp.kron(identity, operator.transpose(), format='csc')
     return pos if sp.issparse(operator) else pos.A
 
 def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
@@ -371,7 +371,7 @@ def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
     """
     if operatorB is None:
         operatorB = operatorA
-    prepost = sp.kron(operatorB.transpose(), operatorA, format='csc')
+    prepost = sp.kron(operatorA, operatorB.transpose(), format='csc')
     return prepost if sp.issparse(operatorA) else prepost.A
 
 def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Optional[Matrix] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object,too-many-arguments # noqa: E501
