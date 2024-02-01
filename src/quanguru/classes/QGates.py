@@ -69,6 +69,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
         else:
             raise ValueError('unknown axis')
 
+# Need to change this function
     def _rotMat(self, collapseOps = None, decayRates = None, openSys=False): #pylint:disable=unused-argument
         if ((self._paramBoundBase__matrix is None) or (self._paramBoundBase__paramUpdated is True)): # pylint: disable=no-member
             sys = list(self.subSys.values())
