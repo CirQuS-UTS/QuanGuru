@@ -26,6 +26,7 @@ from .QSimBase import setAttr
 from ..QuantumToolbox import evolution
 from ..QuantumToolbox import operators #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox import spinRotations #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox import linearAlgebra #pylint: disable=relative-beyond-top-level
 
 class SpinRotation(Gate): # pylint: disable=too-many-ancestors
     label = 'SpinRotation'
@@ -79,7 +80,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
                 flipOpN = operators.compositeOp(rotOp(sys[i+1].dimension, isDim=True),
                                                 sys[i+1]._dimsBefore, sys[i+1]._dimsAfter)
                 flipUn = evolution.Unitary(self.phase*self.angle*flipOpN) @ flipUn
-            self._paramBoundBase__matrix = evolution._prepostSO(flipUn) if (openSys or isinstance(collapseOps, list) or self._isOpen) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
+            self._paramBoundBase__matrix = evolution._prepostSO(operatorA = flipUn, operatorB = hc(flipUn)) if (openSys or isinstance(collapseOps, list) or self._isOpen) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
