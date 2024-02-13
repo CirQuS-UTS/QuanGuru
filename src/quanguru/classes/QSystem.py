@@ -33,7 +33,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz
+from ..QuantumToolbox.operators import number, Jz, randomH
 
 def _initStDec(_createInitialState):
     r"""
@@ -834,3 +834,36 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
         self.dimension  = 2
         self.operator = Jz
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+class RandSys(QuantumSystem):
+    r"""
+    Hamiltonian system with elements randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandSys'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+    
+    # TODO need to fix the setting of seedNum parameter to be able to set in the operator
+    __slots__ = ['__seedNum']
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+        self.operator = randomH
+        self.__seedNum = None
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+    
+    @property
+    def seedNum(self):
+        r"""
+        Gets and sets the seed number
+        """
+        return self.__seedNum
+
+    @seedNum.setter
+    def seedNum(self, value):
+        self._RandSys__seedNum = value # pylint: disable=assigning-non-slot
