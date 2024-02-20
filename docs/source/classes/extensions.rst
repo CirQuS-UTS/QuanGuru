@@ -14,3 +14,4 @@ Extensions (:mod:`quanguru.extensions`)
 
    Modular arithmetic sweep <modularSweep>
    Common Couplings <couplings>
+   Circuit Adapters <CircuitAdapters>

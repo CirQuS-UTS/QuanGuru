@@ -6,7 +6,9 @@
     .. autosummary::
 
         couplings
+        .pytketInterface
 
 """
 
 from .couplings import *
+from .CircuitAdapters import *
