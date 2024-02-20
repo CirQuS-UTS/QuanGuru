@@ -37,6 +37,7 @@ from .baseClasses import updateBase
 from .QSimBase import _parameter
 from .QSimComp import QSimComp
 from .QSweep import Sweep
+from .modularSweep import doCalculate, timeDependent
 from inspect import ismethod
 
 class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attributes
@@ -60,7 +61,8 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         return cls.numberOfExponentiations
 
     __slots__ = ['__currentState', '__inProtocol', '__fixed', '__ratio', '__updates', '__dissipator', '_openSys',
-                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', '_createUnitary']
+                 '_getUnitary', 'timeDependency', '__identity', 'sampleStates', 'stepSample', '_createUnitary',
+                 '_internalDict']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -105,6 +107,8 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self.__dissipator = {}
         #: boolean to determine if it is an open-system simulation.
         self._openSys = False
+        #: internal dictionary for storing additional parameters relevant for unitary creation
+        self._internalDict = {}
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -195,6 +199,33 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self._createUnitary = func
         self._paramUpdated = True
 
+    def __getattribute__(self, __name: str):
+        r"""
+        Custom ``__getattr__`` method to get parameters which might be stored in the _internalDict
+        """
+        try: 
+            obj = super().__getattribute__(__name)
+        except AttributeError as attErr1:
+            try:
+                obj = self._internalDict[__name]
+            except KeyError as exc:
+                raise attErr1 from exc
+        return obj
+
+    def __setattr__(self, __name: str, __value) -> None:
+        r"""
+        Custom ``__setattr__`` method to allow for pulse parameters to be stored in _internalDict, but accessible directly via the object
+        """
+
+        try:
+            obj = super().__setattr__(__name, __value)
+        except AttributeError as attErr1:
+            oldObj = self._internalDict.pop(__name, None)
+            self._internalDict[__name] = __value
+            if oldObj != __value:
+                self._paramUpdated = True
+        else:
+            return obj
 
     @QSimComp.superSys.setter # pylint: disable=no-member
     def superSys(self, supSys):
@@ -527,3 +558,66 @@ class Update(updateBase):
     def _setback(self):
         if self.value != self.memoryValue:
             super()._runUpdate(self.memoryValue)
+
+class qPulse(genericProtocol):
+    label = 'pulse'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = ['_uSim']
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False))
+        self.createUnitary = self.simulateUnitary
+        self._uSim = None
+        self.simulation._stateBase__delStates._bound = False
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    def simulateUnitary(self, collapseOps = None, decayRates = None):
+        if len(self._uSim.subSys.values()) == 0:
+            raise ValueError('uSim has no subSystems to simulate')
+
+        # set initial state as identity
+        self._uSim._freeEvol
+        self._uSim.protocols[0].currentState = identity(dimension=self._uSim.qSystems[0].dimension)
+
+        #Run Simulation
+        self._uSim.delStates = True
+        doCalculate(self._uSim, 'pre')
+        timeDependent(self._uSim)
+        doCalculate(self._uSim, 'post')
+
+        #Fetch final unitary
+        unitary = self.uSim.protocols[0].currentState
+
+        return unitary
+
+    @property
+    def uSim(self):
+        return self._uSim
+
+    @uSim.setter
+    def uSim(self, sim):
+        # if uSim has been assigned
+        if self._uSim is not None:
+            self._uSim.superSys = None
+            self._uSim._insideQPulse = False
+            for protocol in self._uSim.protocols:
+                protocol._breakParamBound(self)
+            for system in self._uSim.subSys.values():
+                system._breakParamBound(self)
+                system.simulation._breakParamBound(self.simulation)
+        
+        self._uSim = sim
+        self._paramUpdated = True
+
+        if sim is not None:
+            if len(sim.subSys.values()) > 0: 
+                self.system = list(sim.subSys.values())[0]        
+            sim.superSys = self
+            sim._insideQPulse = True
+            sim._qPulseWarning()

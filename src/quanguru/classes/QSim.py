@@ -66,7 +66,7 @@ class Simulation(timeBase):
     #: class, but by re-assigning this class attribute, you can change the evolution method for all the future instances
     _evolFuncDefault = timeEvolBase
 
-    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index']
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index', "_insideQPulse"]
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
@@ -103,6 +103,8 @@ class Simulation(timeBase):
         if system is not None:
             self.addQSystems(system)
 
+        self._insideQPulse = False
+
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -134,6 +136,28 @@ class Simulation(timeBase):
         """
         return list(self.subSys.keys())
 
+    def _addToSubSys(self, key, value):
+        """
+        Wrapper function for adding to the subSys dictionary. 
+        This was mainly implemented to allow for the functionality of qPulse protocol objects.
+        If ._insideQPulse == True:
+            - create a warning if more than key-value pair will be in the subSys
+            - set qPulse.system to the qSystem inside this simulation
+            - paramBound all new protocol assignments 
+        """
+        self._qBase__subSys[key] = value
+
+        if self._insideQPulse:
+            self.superSys._paramUpdated = True
+            if isinstance(key, named):
+                key._createParamBound(self.superSys)
+            self.superSys.system = value
+            self._qPulseWarning()
+
+    def _qPulseWarning(self):
+        if len(self.subSys.values()) > 1:
+            print("Warning: More than 1 protocol:system pair has been added to this Simulation. Unintended behaviours will occur inside of qPulse")
+
     def _freeEvol(self):
         """
         This function is meant purely for internal use. When a quantum system is added to a ``Simulation`` without
@@ -151,9 +175,9 @@ class Simulation(timeBase):
         for key in keys:
             qSys = self.subSys[key]
             if not isinstance(key, named):
-                self.subSys[qSys._freeEvol] = self.subSys.pop(key) # pylint: disable=protected-access
+                self._addToSubSys(qSys._freeEvol, self.subSys.pop(key)) # pylint: disable=protected-access
             else: # this may seem redundant, but this is to keep the order in which the systems are added
-                self.subSys[key] = self.subSys.pop(key)
+                self._addToSubSys(key, self.subSys.pop(key)) # pylint: disable=protected-access
 
     @property
     def qSystems(self):
@@ -202,9 +226,9 @@ class Simulation(timeBase):
             # TODO print a message, if the same system included more than once without giving a protocol
 
             if Protocol is not None: # .pop here is to keep the order in  which the systems are added
-                self._qBase__subSys[Protocol] = subS # pylint: disable=no-member
+                self._addToSubSys(Protocol, subS) # pylint: disable=no-member
             elif subS not in self._qBase__subSys.values(): # pylint: disable=no-member
-                self._qBase__subSys[subS.name] = subS # pylint: disable=no-member
+                self._addToSubSys(subS.name, subS) # pylint: disable=no-member
             #elif subS not in self._qBase__subSys.values(): # pylint: disable=no-member
             #    subS = super().addSubSys(subS, **kwargs)
             #elif (subS.name != Protocol) and (Protocol is not None):
@@ -216,7 +240,8 @@ class Simulation(timeBase):
             if subS.simulation is not self:
                 if self in subS.simulation._paramBound.values():
                     subS.simulation._paramBound.pop(self.name)
-                subS.simulation._bound(self) # pylint: disable=protected-access
+                subS.simulation._bound(self, re=True) # pylint: disable=protected-access
+                # subS.simulation._bound(self)
         return (subS, Protocol)
 
     def createQSystems(self, subSysClass, Protocol=None, **kwargs):
@@ -327,7 +352,7 @@ class Simulation(timeBase):
                     self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
-    def run(self, p=None, coreCount=None, resetRes=True):
+    def run(self, p=None, coreCount=None, resetRes=True, finaliseAll=True):
         r"""
         Call this function to run the simulation. It runs certain other preparation before running the simulation.
 
@@ -351,7 +376,7 @@ class Simulation(timeBase):
         if resetRes:
             for qres in self.qRes.allResults.values():
                 qres._reset() # pylint: disable=protected-access
-        _poolMemory.run(self, p, coreCount)
+        _poolMemory.run(self, p, coreCount, finaliseAll)
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         # TODO Test this
@@ -373,7 +398,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
     reRun = False
 
     @classmethod
-    def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
+    def run(cls, qSim, p, coreCount, finaliseAll): # pylint: disable=too-many-branches
         r"""
         This is the only method in the class, and it carries the tasks described in the class description.
         """
@@ -409,7 +434,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
                 _pool = multiprocessing.Pool(processes=_poolMemory.coreCount) #pylint:disable=consider-using-with
             else:
                 _pool = None
-        runSimulation(qSim, _pool)
+        runSimulation(qSim, _pool, finaliseAll)
 
         if _pool is not None:
             _poolMemory.coreCount = _pool._processes # pylint: disable=protected-access
