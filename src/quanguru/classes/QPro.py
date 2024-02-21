@@ -30,7 +30,7 @@ r"""
 """
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
-
+from ..QuantumToolbox.customTypes import Matrix
 from .exceptions import attrNotValWarn
 from .base import qBase, addDecorator
 from .baseClasses import updateBase
@@ -38,6 +38,7 @@ from .QSimBase import _parameter
 from .QSimComp import QSimComp
 from .QSweep import Sweep
 from inspect import ismethod
+from typing import Callable
 
 class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attributes
     label = 'genericProtocol'
@@ -285,6 +286,16 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
                 return self.createUnitary(self, *args, **kwargs)
         return attrNotValWarn(self.compute, None, 'createUnitary should be callable but '+str(type(self.compute))+'is given')
 
+    def createTransformation(self, **kwargs):
+        r"""
+        Simplifies the creation of a new transformed protocol by allowing one to be created in the 
+        original protocol that the transformed protocol creates it's unitary from.
+        """
+        return transformedProtocol(originalProtocol=self, **kwargs)
+
+
+
+
 class qProtocol(genericProtocol):
     label = 'qProtocol'
     #: (**class attribute**) number of instances created internally by the library
@@ -358,6 +369,76 @@ class qProtocol(genericProtocol):
             unitary = step.getUnitary(collapseOps, decayRates) @ unitary
             self._puValues(step, vals)
         return unitary
+
+
+class transformedProtocol(genericProtocol):
+    r"""
+    Class of protocols that are dependent on another protocol :attr: `TransformedProtocol.originalProtocol`
+    and uses a given :attr: `TransformedProtocol.transformationFunc` that defines the transformation from the original
+    protocols unitary to its own unitary
+    """
+    label = 'transformedProtocol'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = ['_originalProtocol', '_transformationFunc']
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False))
+        self._originalProtocol = None
+        self._transformationFunc = None
+        self.transformationFunc = None
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+        self.createUnitary = self.transformUnitary
+        # Ensure super system and paramBound are set up correctly original protocol is provided
+        if self._originalProtocol:
+            self.originalProtocol._createParamBound(self)
+            if not self.system:
+                self.system = self.originalProtocol.system
+
+    @property
+    def transformationFunc(self) -> Callable:
+        r"""
+        Get or set the transformationFunc property. Setting the function will ensure the
+        protocols unitary is recalculated the next time it is accessed.
+        """
+        return self._transformationFunc
+
+    @transformationFunc.setter
+    def transformationFunc(self, func: Callable[[genericProtocol, Matrix], Matrix]):
+        self._transformationFunc = func
+        self._paramUpdated = True
+
+    @property
+    def originalProtocol(self) -> genericProtocol:
+        r"""
+        Gets and sets the originalProtocol property. When setting the property it will remove
+        previous paramBounds and bind to the new protocol instead. It will also update the
+        system property of self and ensure that the next time the unitary is accessed it is recalculated.
+        """
+        return self._originalProtocol
+
+    @originalProtocol.setter
+    def originalProtocol(self, val: genericProtocol):
+        if self.originalProtocol is not None:
+            self.originalProtocol._breakParamBound(self)
+        self._originalProtocol = val
+        self.originalProtocol._createParamBound(self)
+        self.system = self.originalProtocol.system
+        self._paramUpdated = True
+
+    def transformUnitary(self, *args, **kwargs) -> Matrix:
+        r"""
+        Is a wrapper function that provides a bridge between the createUnitary call of genericProtocol
+        and the user made transformationFunc provided by the user.
+        """
+        if not callable(self.transformationFunc):
+            raise TypeError("transformationFunc must be callable (ensure you have set it)")
+        return self.transformationFunc(self._originalProtocol, self._originalProtocol.unitary())
 
 class copyStep(qBase):
     label = 'copyStep'
