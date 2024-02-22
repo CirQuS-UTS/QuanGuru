@@ -241,6 +241,13 @@ class QTerm(paramBoundBase):
             self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._QTerm__HamiltonianTerm
 
+    def _canCreateTotalHamiltonian(self):
+        try:
+            th = self.totalHamiltonian #pylint:disable=unused-variable
+            return True
+        except: #pylint:disable=bare-except
+            return False
+
     @property
     def _freeMatrix(self):
         r"""
@@ -274,7 +281,7 @@ class QTerm(paramBoundBase):
                 QTerm._isCorrectPauliDim(qs, oper[ind], dim)
         else:
             dim = qsys.dimension if dim is None else dim
-            checkVal(not (QTerm._isOperPauli(oper) and (not ((dim == 2) or (dim == 1)))), True, #pylint:disable=superfluous-parens
+            checkVal(not (QTerm._isOperPauli(oper) and not dim in (2, 1)), True,
                      f'dimension ({dim}) of quantum system ({qsys.name}) has to be 2, because it has {oper} as term')
 
     @staticmethod

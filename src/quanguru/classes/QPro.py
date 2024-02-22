@@ -179,7 +179,7 @@ Protocols contain three key features.
     def initialState(self, inp):
 
         self.simulation._initialStateInput = inp # pylint: disable=protected-access
-        self.simulation._stateBase__initialState.value = self.superSys._createAstate(inp) # pylint:disable=W0212,E1101
+        self.simulation._stateBase__initialState.value = self.superSys._createState(inp) # pylint:disable=W0212,E1101
 
     def createUpdate(self, **kwargs) -> 'Update':
         r"""
