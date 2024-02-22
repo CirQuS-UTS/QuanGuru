@@ -404,6 +404,26 @@ def steadyStateLio(Liouvillian_, LioExp: bool = False, allVecVals: bool = False)
 
 def steadyStateHam(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optional[List] = None,
                    decayRates: Optional[List] = None, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
-    # TODO : write docstrings
+    """
+    Steady state solver for that constructs a Liouvillian from given Hamiltonian, a list of jump/collapse operators
+    and a list of the corresponding decay rates. An additional option `double` is used for different definitions of the
+    dissipator.
+
+    Parameters
+    ----------
+    Hamiltonian : Optional[Matrix], optional
+        _description_, by default None
+    collapseOperators : Optional[List], optional
+        _description_, by default None
+    decayRates : Optional[List], optional
+        _description_, by default None
+    _double : bool, optional
+        _description_, by default False
+
+    Returns
+    -------
+    Matrix
+        _description_
+    """
     Liou = Liouvillian(Hamiltonian, collapseOperators=collapseOperators, decayRates=decayRates, _double=_double)
     return steadyStateLio(Liou)
