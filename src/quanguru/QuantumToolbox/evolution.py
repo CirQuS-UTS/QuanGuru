@@ -35,7 +35,7 @@ r"""
 """
 
 from typing import Callable, List, Optional
-
+import numpy as np
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
 import scipy.sparse.linalg as slinA # type: ignore
@@ -136,8 +136,11 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
     else:
         if collapseOperators is not None:
             dimensionOfHilbertSpace = collapseOperators[0].shape[0]
-
+    # sparse = sp.issparse(Hamiltonian)
+    # if sparse == True:
     identity = sp.identity(dimensionOfHilbertSpace, format="csc")
+    # else:
+    #     identity = np.identity(dimensionOfHilbertSpace)
     liouvillian = zerosMat(dimensionOfHilbertSpace**2)
     if Hamiltonian is not None:
         hamPart1 = _preSO(Hamiltonian, identity)
