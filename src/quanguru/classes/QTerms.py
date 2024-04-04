@@ -300,14 +300,13 @@ class QTerm(paramBoundBase):
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)
 
-        # if oper in [qOps.randomH, qOps.coeH, qOps.cueH, qOps.cseH, qOps.goeH, qOps.gueH, qOps.gueHT, qOps.gseH]:
-        #     seedNum = qsys.seedNum
-        #     if oper in [qOps.gseH]:
-        #         dim = int(dim/2)
-        #     operMat = _matPower(oper(dim, seedNum), order)
+        if oper in [qOps.randomH, qOps.coeH, qOps.cueH, qOps.cseH, qOps.goeH, qOps.gueH, qOps.gueHT, qOps.gseH]:
+            seedNum = qsys.seedNum
+            if oper in [qOps.gseH]:
+                dim = int(dim/2)
+            operMat = _matPower(oper(dim, seedNum), order)
 
-        # elif not QTerm._isOperPauli(oper):
-        if not QTerm._isOperPauli(oper):
+        elif not QTerm._isOperPauli(oper):
             operMat = _matPower(oper(dim), order)
         else:
             QTerm._isCorrectPauliDim(qsys, oper, dim)
