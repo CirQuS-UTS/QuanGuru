@@ -24,7 +24,7 @@ from .QSimBase import setAttr
 from .exceptions import checkCorType, checkVal, checkNotVal
 from ..QuantumToolbox import compositeOp, _matMulInputs, _matPower
 from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-top-level
-
+import mpmath as mp
 class QTerm(paramBoundBase):
     r"""
     Class for Hamiltonian terms, both for single system terms and couplings.
@@ -224,7 +224,7 @@ class QTerm(paramBoundBase):
 
     @frequency.setter
     def frequency(self, freq):
-        checkCorType(freq, (int, float, complex, type(None)), 'frequency of a term')
+        checkCorType(freq, (int, float, complex, type(None), mp.ctx_mp_python.mpf), 'frequency of a term')
         setAttr(self, '_QTerm__frequency', 0 if freq == 0.0 else freq)
         for ter in self.subSys.values():
             ter.frequency = freq
@@ -234,7 +234,7 @@ class QTerm(paramBoundBase):
         r"""
         Return the total Hamiltonian (ie frequency*operator) for this term.
         """
-        checkCorType(self.frequency, (int, float, complex),
+        checkCorType(self.frequency, (int, float, complex, mp.ctx_mp_python.mpf),
                      f'frequency of {self.qSystem} term/s have to be a numerical value ({(int, float, complex)})')
         if ((self._QTerm__HamiltonianTerm is None) or (self._paramUpdated) or (self._paramBoundBase__matrix is None)): # pylint: disable=no-member
             self._QTerm__HamiltonianTerm = self.frequency*self._freeMatrix #pylint:disable=assigning-non-slot
@@ -293,7 +293,12 @@ class QTerm(paramBoundBase):
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)
 
-        if not QTerm._isOperPauli(oper):
+        if oper in [qOps.randomH, qOps.coeH, qOps.cueH, qOps.cseH, qOps.goeH, qOps.gueH, qOps.gseH, qOps.gueHT]:
+            seedNum = qsys.seedNum
+            if oper in [qOps.gseH]:
+                dim = int(dim/2)
+            operMat = _matPower(oper(dim, seedNum), order)
+        elif not QTerm._isOperPauli(oper):
             operMat = _matPower(oper(dim), order)
         else:
             QTerm._isCorrectPauliDim(qsys, oper, dim)

@@ -264,11 +264,11 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         ### old version
         # self._genericProtocol__identity = identity(dimension = dimension**2 if openSys else dimension)# pylint: disable=E0237, E1101
         ### new version
-        sparse = sp.issparse(self.initialState) 
-        if sparse == True: 
+        sparse = sp.issparse(self.initialState)
+        if sparse == True:
             self._genericProtocol__identity = identity(dimension = dimension**2 if openSys else dimension)# pylint: disable=E0237, E1101 
-        else: 
-            self._genericProtocol__identity = mp.eye(n = dimension**2 if openSys else dimension) 
+        else:
+            self._genericProtocol__identity = mp.eye(n = dimension**2 if openSys else dimension)
         return self._genericProtocol__identity
 
 class qProtocol(genericProtocol):
