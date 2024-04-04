@@ -73,7 +73,7 @@ r"""
 
 """ #pylint:disable=too-many-lines
 
-from typing import Callable, Optional
+from typing import Callable, Optional, List
 
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
@@ -1010,7 +1010,7 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
         opPow = _matPower(op(sparse), power)
     return opPow
 
-def randomH(dimension: int, sparse: bool = True, seedNum: Optional[list] = None, mean: float = 0.0, SD: float = 1.0, normalise: bool = True, symmetric: bool = True):
+def randomH(dimension: int, sparse: bool = True, seedNum: Optional[List] = None, mean: float = 0.0, SD: float = 1.0, normalise: bool = True, symmetric: bool = True):
     r"""
     Creates a matrix with random complex number elements from normal (Gaussian) distribution
 
