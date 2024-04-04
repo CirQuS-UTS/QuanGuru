@@ -294,6 +294,8 @@ class qProtocol(genericProtocol):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
+    __slots__ = []
+
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.createUnitary = self._defCreateUnitary
