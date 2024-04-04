@@ -80,7 +80,7 @@ import scipy.linalg as linA # type: ignore
 from scipy.sparse.linalg import expm # type: ignore
 import numpy as np # type: ignore
 
-from .linearAlgebra import tensorProd, _matPower
+from .linearAlgebra import tensorProd, _matPower, norm
 
 from .customTypes import Matrix #pylint: disable=relative-beyond-top-level
 
@@ -1009,3 +1009,48 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
     except: # pylint: disable=bare-except # noqa: E722
         opPow = _matPower(op(sparse), power)
     return opPow
+
+def randomH(dimension: int, sparse: bool = True, seedNum: tuple = None, mean: float = 0.0, SD: float = 1.0, normalise: bool = True, symmetric: bool = True):
+    r"""
+    Creates a matrix with random complex number elements from normal (Gaussian) distribution
+
+    Parameters
+    ----------
+    dimension : int
+        dimension of the Hilbert space
+    sparse : bool
+        if True(False), the returned Matrix type will be sparse(array)
+    seedNum: tuple
+        if None, seedNum for both real and imaginary part is randomly chosen
+    mean: float
+        mean of the normal distribution
+    SD: float
+        standard deviation of the normal distribution
+    norm: bool
+        if True(False), the returned matrix will be normalised(unnormalised)
+    symm: bool
+        if True(False), the returned matrix will be symmetrised(non-symmetrised)
+
+    Returns
+    -------
+    Matrix
+        random matrix operator
+
+    """
+
+    if seedNum==None:
+        seedNum = [np.random.randint(0,63), np.random.randint(0,63)]
+    np.random.seed(seed=seedNum[0])
+    real = np.random.normal(loc=mean, scale=SD, size=[dimension,dimension])
+    np.random.seed(seed=seedNum[1])
+    imag = np.random.normal(loc=mean, scale=SD, size=[dimension,dimension])
+    val = real + 1j*imag
+    Hamiltonian = sp.csc_matrix(val, (dimension, dimension), dtype=complex)
+    
+    if symmetric==True:
+        HT = Hamiltonian.transpose()
+        Hamiltonian = Hamiltonian + HT
+    if normalise==True:
+        Hamiltonian = Hamiltonian/norm(Hamiltonian)
+
+    return Hamiltonian if sparse else Hamiltonian.toarray()
