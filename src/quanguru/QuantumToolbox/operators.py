@@ -1010,7 +1010,7 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
         opPow = _matPower(op(sparse), power)
     return opPow
 
-def randomH(dimension: int, sparse: bool = True, seedNum: tuple = None, mean: float = 0.0, SD: float = 1.0, normalise: bool = True, symmetric: bool = True):
+def randomH(dimension: int, sparse: bool = True, seedNum: list = None, mean: float = 0.0, SD: float = 1.0, normalise: bool = True, symmetric: bool = True):
     r"""
     Creates a matrix with random complex number elements from normal (Gaussian) distribution
 
@@ -1020,8 +1020,9 @@ def randomH(dimension: int, sparse: bool = True, seedNum: tuple = None, mean: fl
         dimension of the Hilbert space
     sparse : bool
         if True(False), the returned Matrix type will be sparse(array)
-    seedNum: tuple
-        if None, seedNum for both real and imaginary part is randomly chosen
+    seedNum: list[int, int]
+        set seedNum for random real and imaginary parts
+        if None, seedNum for both real and imaginary parts is randomly chosen
     mean: float
         mean of the normal distribution
     SD: float
