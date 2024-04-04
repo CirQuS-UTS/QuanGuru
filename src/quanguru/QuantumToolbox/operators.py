@@ -1010,7 +1010,7 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
         opPow = _matPower(op(sparse), power)
     return opPow
 
-def randomH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False, 
+def randomH(dimension: int, seedNum: list = [None, None], sparse: bool = False, 
             mean: float = 0.0, SD: float = 1.0, normalise: bool = False, symmetric: bool = False):
     r"""
     Creates a matrix with random complex number elements from normal (Gaussian) distribution
@@ -1021,7 +1021,7 @@ def randomH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False,
         dimension of the Hilbert space
     sparse : bool
         if True(False), the returned Matrix type will be sparse(array)
-    seedNum: tuple
+    seedNum: list
         if None, seedNum for both real and imaginary part is randomly chosen
     mean: float
         mean of the normal distribution
@@ -1112,7 +1112,7 @@ def _build_j_mtx(size) -> np.ndarray:
     j_mtx[inds+1, inds] = 1
     return j_mtx
 
-def coeH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) -> np.ndarray:
+def coeH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
     # sampling unitary Haar-distributed matrix
     u_mtx = haarMtx(dimension,seedNum)
     # mapping to Circular Orthogonal Ensemble
@@ -1121,14 +1121,14 @@ def coeH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) ->
     return Hamiltonian
     # return matrix
 
-def cueH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) -> np.ndarray:
+def cueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
     # sampling unitary Haar-distributed matrix
     matrix = haarMtx(dimension, seedNum)
     Hamiltonian = linA.logm(matrix)/(-1j)
     return Hamiltonian
     # return matrix
 
-# def cseH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) -> np.ndarray:
+# def cseH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
 #     # sampling unitary Haar-distributed matrix of size 2n
 #     u_mtx = haarMtx(2*dimension,seedNum)
 #     # mapping to Circular Symplectic Ensemble
@@ -1141,7 +1141,7 @@ def cueH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) ->
 #     Hamiltonian = linA.logm(matrix)/(-1j)
 #     return Hamiltonian
 
-def cseH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) -> np.ndarray:
+def cseH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
     # sampling unitary Haar-distributed matrix of size 2n
     u_mtx = haarMtx(dimension,seedNum)
     # mapping to Circular Symplectic Ensemble
@@ -1154,13 +1154,13 @@ def cseH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) ->
     Hamiltonian = linA.logm(matrix)/(-1j)
     return Hamiltonian
 
-def goeH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) -> np.ndarray:
+def goeH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
     mtx = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     # symmetrize matrix 
     matrix = (mtx + mtx.transpose())/np.sqrt(2) 
     return matrix
 
-def gueH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) -> np.ndarray:
+def gueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
     # mtx = np.random.randn(dimension,dimension) + 1j*np.random.randn(dimension,dimension) 
     real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
@@ -1169,7 +1169,7 @@ def gueH(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) ->
     matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
     return matrix
 
-def gueHT(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) -> np.ndarray:
+def gueHT(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
     # mtx = np.random.randn(dimension,dimension) + 1j*np.random.randn(dimension,dimension) 
     real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
@@ -1178,7 +1178,7 @@ def gueHT(dimension: int, seedNum: tuple = [None, None], sparse: bool = False) -
     matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
     return matrix.transpose()
 
-def gseH(dimension: int, seedNum: tuple = [None, None, None, None], sparse: bool = False) -> np.ndarray:
+def gseH(dimension: int, seedNum: list = [None, None, None, None], sparse: bool = False) -> np.ndarray:
     xreal = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     ximag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
     x_mtx = xreal + 1j*ximag
