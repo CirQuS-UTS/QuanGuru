@@ -1,6 +1,9 @@
 from numpy import e
 import pytest
-from quanguru.classes.environment import thermalBath
+from quanguru.classes.environment import thermalBath, dissipatorObj
+from quanguru.classes.QSystem import Qubit
+from quanguru import sigmaz
+from numpy import array, allclose
 
 @pytest.mark.parametrize("attribute", ['temperature', 'charFreq'])
 def test_bathParameterSettingMakesParamUpdatedTrue(attribute):
@@ -44,3 +47,37 @@ def test_bathNbar():
     assert thBath._paramUpdated
     assert thBath.nBar == 1/(e-1)
     assert not thBath._paramUpdated
+
+def test_jRateChange():
+    qubit = Qubit(frequency=1)
+    diss = dissipatorObj(system=qubit, jOper=sigmaz, jRate=0.25)
+    diss.addToProtocol(qubit.simulation.protocols[0])
+
+    qubit.stepSize = 1
+
+    ans = array(
+        [[1.        +0.j        , 0.        +0.j        ,
+        0.        +0.j        , 0.        +0.j        ],
+       [0.        +0.j        , 0.19876611+0.30955988j,
+        0.        +0.j        , 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.j        ,
+        0.19876611-0.30955988j, 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.j        ,
+        0.        +0.j        , 1.        +0.j        ]]
+    )
+
+    assert allclose(qubit.simulation.protocols[0].unitary, ans)
+
+    diss.jRate = 0
+
+    ans = array(
+        [[1.        +0.j        , 0.        +0.j        ,
+        0.        +0.j        , 0.        +0.j        ],
+       [0.        +0.j        , 0.54030231+0.84147098j,
+        0.        +0.j        , 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.j        ,
+        0.54030231-0.84147098j, 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.j        ,
+        0.        +0.j        , 1.        +0.j        ]])
+    
+    assert allclose(qubit.simulation.protocols[0].unitary, ans)
