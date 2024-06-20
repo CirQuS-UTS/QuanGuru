@@ -50,7 +50,7 @@ def test_bathNbar():
 
 def test_jRateChange():
     qubit = Qubit(frequency=1)
-    diss = dissipatorObj(system=qubit, jOper=sigmaz, jRate=0.25)
+    diss = dissipatorObj(system=qubit, jOper=sigmaz(), jRate=0.25)
     diss.addToProtocol(qubit.simulation.protocols[0])
 
     qubit.stepSize = 1
@@ -66,7 +66,7 @@ def test_jRateChange():
         0.        +0.j        , 1.        +0.j        ]]
     )
 
-    assert allclose(qubit.simulation.protocols[0].unitary, ans)
+    assert allclose(qubit.simulation.protocols[0].unitary().A, ans)
 
     diss.jRate = 0
 
@@ -80,4 +80,4 @@ def test_jRateChange():
        [0.        +0.j        , 0.        +0.j        ,
         0.        +0.j        , 1.        +0.j        ]])
     
-    assert allclose(qubit.simulation.protocols[0].unitary, ans)
+    assert allclose(qubit.simulation.protocols[0].unitary().A, ans)
