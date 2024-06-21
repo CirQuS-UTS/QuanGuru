@@ -82,7 +82,7 @@ class dissipatorObj(_genericOpen):
         self.addToProtocol(supSys._freeEvol)
 
     def addToProtocol(self, protocol):
-        protocol._genericProtocol__dissipator[self] = self.jRate #pylint:disable=protected-access
+        protocol._genericProtocol__dissipator[self.name] = self #pylint:disable=protected-access
         self._paramBoundBase__paramBound[protocol.name] = protocol # pylint: disable=no-member
 
     @property
