@@ -34,9 +34,24 @@ from datetime import datetime
 import numpy as np
 from ._helpers import makeDir
 
+def _getDateTimeStamps():
+    """
+    Function to get date and time-stamp
+
+    Returns
+    -------
+    tuple(str, str)
+        tuple containing the datestamp and timestamp as strings
+    """
+    fullTS = datetime.now()
+    ds = fullTS.strftime('%y%m%d')
+    ts = fullTS.strftime('%H%M%S')
+
+    return (ds, ts)
+
 def _dateTime(fileName):
     """
-    Function to add data and time-stamp into the file name.
+    Function to add date and time-stamp into the file name.
     Data (as YY/MM/DD) is added as a prefix, and time-stamp (as HH/MM/SS) as suffix
 
     Parameters
@@ -49,16 +64,14 @@ def _dateTime(fileName):
     str
         file name with data prefix and time-stamp suffix
     """
-    fullTS = datetime.now()
-    ds = fullTS.strftime('%y%m%d')
-    ts = fullTS.strftime('%H%M%S')
+    ds, ts = _getDateTimeStamps()
     if fileName is None:
         fileName = ds + '_' + ts
     else:
         fileName = ds + "_" + fileName + '_' + ts
     return fileName
 
-def saveCSV(data, path=None, fileName=None):
+def saveCSV(data, path=None, fileName=None, dateTime=True):
     """
     Function to write the given data into a CSV file. Single list of data is written as a single row. If the data is
     list of list, each list is written as a row. This approach is adopted to make it compatible with step size sweeps
@@ -72,13 +85,18 @@ def saveCSV(data, path=None, fileName=None):
         path to save the CSV file, by default None, which saves into the current working directory
     fileName : str, optional
         name for the CSV file, by default None for which a time stamp is used as the name
+    dateTime : bool, optional
+        whether the filename should be bound by the datestamp and timestamp (according to _dateTime func) at time of 
+        execution
 
     Returns
     -------
     str
         path to the saved CSV file
     """
-    fileName = _dateTime(fileName)
+    if dateTime:
+        fileName = _dateTime(fileName)
+    
     path = makeDir(path)
 
     with open(path + '/' + str(fileName) + '.txt', 'w') as csvFile: #pylint:disable=W1514
@@ -119,23 +137,30 @@ def readCSV(path, datatype=float, realVal=True):
                 data.append(np.real(li) if realVal else li)
     return data if len(data) > 1 else data[0]
 
-def _recursiveSaveList(data, path=None, fileName=None):
+def _recursiveSaveList(data, path=None, fileName=None, dateTimeStamps=None):
     if isinstance(data[0], (list, np.ndarray)):
         if isinstance(data[0][0], (list, np.ndarray)):
             for ind in range(len(data)): #pylint:disable=consider-using-enumerate
-                _recursiveSaveList(data[ind], path=path, fileName=fileName+str(ind))
+                _recursiveSaveList(data[ind], path=path, fileName=fileName+str(ind), dateTimeStamps=dateTimeStamps)
         elif isinstance(data[0][0], (float, int, np.complex128)):
-            saveCSV(data, path=path, fileName=fileName)
+            if dateTimeStamps is not None:
+                fileName = dateTimeStamps[0] + '_' + fileName + '_' + dateTimeStamps[1]
+            saveCSV(data, path=path, fileName=fileName, dateTime=False)
     elif isinstance(data[0], (float, int, np.complex128)):
-        saveCSV(data, path=path, fileName=fileName)
+        if dateTimeStamps is not None:
+            fileName = dateTimeStamps[0] + '_' + fileName + '_' + dateTimeStamps[1]
+        saveCSV(data, path=path, fileName=fileName, dateTime=False)
 
-def _saveDictToCSV(data, path=None, fileName=''):
+def _saveDictToCSV(data, path=None, fileName='', dateTimeStamps=None):
     for key, val in data.items():
-        _recursiveSaveList(val, path, fileName=fileName+key)
+        _recursiveSaveList(val, path, fileName=fileName+key, dateTimeStamps=dateTimeStamps)
 
-def saveQResCSV(qRes, path=None, fileNamePrefix=''):
+def saveQResCSV(qRes, path=None, fileNamePrefix='', dateTime=True):
+    dateTimeStamps = None
+    if dateTime:
+        dateTimeStamps = _getDateTimeStamps()
     results = qRes.allResults
     for key, val in results.items():
         result = val.resultsDict
         if len(result.keys()) > 0:
-            _saveDictToCSV(result, path, fileNamePrefix+key._allStringSum()) #pylint:disable=protected-access
+            _saveDictToCSV(result, path, fileNamePrefix+key._allStringSum(), dateTimeStamps) #pylint:disable=protected-access
