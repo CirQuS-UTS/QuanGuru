@@ -73,7 +73,13 @@ def _runSweepAndPrep(qSim, ind):
 
     for protocol in qSim.subSys.keys():
         if callable(qSim.evolFunc):
-            protocol.currentState = protocol.initialState if not protocol._isOpen else densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
+            shape = protocol.initialState.shape
+            if not protocol._isOpen:
+                protocol.currentState = protocol.initialState
+            elif shape[0] == shape[1]:
+                protocol.currentState = protocol.initialState
+            else:
+                protocol.currentState = densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
 
     qSim.qRes._resetLast() # pylint: disable=protected-access
     qSim._computeBase__calculate("pre")
