@@ -10,10 +10,8 @@ def test_ketInitialStateInOpenSystem():
     sim.stepCount = 1
     sim.stepSize = 1
 
-    sys = qg.QuantumSystem(dimension=5)
-
-    func = func = lambda self, collapseOps, decayRate: qg.identity(5)
-    pro = qg.qProtocol(system=sys, createUnitary=func)
+    sys = qg.QuantumSystem(dimension=5, frequency=1, operator=qg.identity)
+    pro = qg.freeEvolution(system=sys)
     diss = qg.dissipatorObj(system=sys, jOper=qg.identity(5), jRate=1)
     diss.addToProtocol(pro)
 
@@ -37,7 +35,7 @@ def test_ketInitialStateInOpenSystem():
         [0.        , 0.13333334, 0.26666666, 0.4       , 0.53333333]]
     )
 
-    assert allclose(pro.currentState.A, test_state)
+    assert allclose(pro.currentState, test_state)
 
 def test_densityMatrixInitialStateInOpenSystem():
     """
@@ -47,10 +45,8 @@ def test_densityMatrixInitialStateInOpenSystem():
     sim.stepCount = 1
     sim.stepSize = 1
 
-    sys = qg.QuantumSystem(dimension=5)
-
-    func = func = lambda self, collapseOps, decayRate: qg.identity(5)
-    pro = qg.qProtocol(system=sys, createUnitary=func)
+    sys = qg.QuantumSystem(dimension=5, frequency=1, operator=qg.identity)
+    pro = qg.freeEvolution(system=sys)
     diss = qg.dissipatorObj(system=sys, jOper=qg.identity(5), jRate=1)
     diss.addToProtocol(pro)
 
@@ -74,7 +70,7 @@ def test_densityMatrixInitialStateInOpenSystem():
         [ 5., 10., 15., 20., 25.]]
     )
 
-    assert allclose(pro.currentState.A, test_state)
+    assert allclose(pro.currentState, test_state)
 
 def test_nonAllowedInitialStateInOpenSystem():
     """
@@ -84,10 +80,8 @@ def test_nonAllowedInitialStateInOpenSystem():
     sim.stepCount = 1
     sim.stepSize = 1
 
-    sys = qg.QuantumSystem(dimension=5)
-
-    func = func = lambda self, collapseOps, decayRate: qg.identity(5)
-    pro = qg.qProtocol(system=sys, createUnitary=func)
+    sys = qg.QuantumSystem(dimension=5, frequency=1, operator=qg.identity)
+    pro = qg.freeEvolution(system=sys)
     diss = qg.dissipatorObj(system=sys, jOper=qg.identity(5), jRate=1)
     diss.addToProtocol(pro)
 
@@ -118,10 +112,10 @@ def test_1dKetInitialStateInOpenSystem():
     sim.stepCount = 1
     sim.stepSize = 1
 
-    sys = qg.QuantumSystem(dimension=5)
-
-    func = func = lambda self, collapseOps, decayRate: qg.identity(5)
-    pro = qg.qProtocol(system=sys, createUnitary=func)
+    sys = qg.QuantumSystem(dimension=5, frequency=1, operator=qg.identity)
+    pro = qg.freeEvolution(system=sys)
+    diss = qg.dissipatorObj(system=sys, jOper=qg.identity(5), jRate=1)
+    diss.addToProtocol(pro)
 
     sim.addProtocol(pro)
     sim.initialStateSystem = sys
@@ -139,7 +133,7 @@ def test_1dKetInitialStateInOpenSystem():
         [ 5., 10., 15., 20., 25.]]
     )
 
-    assert allclose(pro.currentState.A, test_state)
+    assert allclose(pro.currentState, test_state)
 
 def test_initialStateClosedSystem():
     """
@@ -220,4 +214,4 @@ def test_initialStateClosedSystem():
     for initial_state, final_state in zip(initial_states, final_states):
         sim.initialState = initial_state
         sim.run()
-        assert allclose(pro.currentState.A, final_state)
+        assert allclose(pro.currentState, final_state)
