@@ -33,6 +33,7 @@
 
 """
 
+from numpy import array
 from functools import partial
 from ..QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
 
@@ -73,10 +74,9 @@ def _runSweepAndPrep(qSim, ind):
 
     for protocol in qSim.subSys.keys():
         if callable(qSim.evolFunc):
-            shape = protocol.initialState.shape
-            if not protocol._isOpen:
-                protocol.currentState = protocol.initialState
-            elif shape[0] == shape[1]:
+            shape = array(protocol.initialState).shape
+            isKet = (len(shape) == 1) or (shape[1] == 1)
+            if (not protocol._isOpen) or (not isKet):
                 protocol.currentState = protocol.initialState
             else:
                 protocol.currentState = densityMatrix(protocol.initialState)# pylint: disable=protected-access,line-too-long
