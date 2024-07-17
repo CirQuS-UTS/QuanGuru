@@ -37,7 +37,7 @@ def test_ketInitialStateInOpenSystem():
         [0.        , 0.13333334, 0.26666666, 0.4       , 0.53333333]]
     )
 
-    assert allclose(pro._genericProtocol__currentState, test_state)
+    assert allclose(pro.currentState.A, test_state)
 
 def test_densityMatrixInitialStateInOpenSystem():
     """
@@ -74,7 +74,7 @@ def test_densityMatrixInitialStateInOpenSystem():
         [ 5., 10., 15., 20., 25.]]
     )
 
-    assert allclose(pro._genericProtocol__currentState, test_state)
+    assert allclose(pro.currentState.A, test_state)
 
 def test_nonAllowedInitialStateInOpenSystem():
     """
@@ -139,7 +139,7 @@ def test_1dKetInitialStateInOpenSystem():
         [ 5., 10., 15., 20., 25.]]
     )
 
-    assert allclose(pro._genericProtocol__currentState, test_state)
+    assert allclose(pro.currentState.A, test_state)
 
 def test_initialStateClosedSystem():
     """
@@ -209,11 +209,15 @@ def test_initialStateClosedSystem():
             [1., 1.]]
         ),
         array(
-            [1., 2., 3., 4., 5.]
+            [[1.], 
+            [2.], 
+            [3.], 
+            [4.], 
+            [5.]]
         ),
     ]
 
     for initial_state, final_state in zip(initial_states, final_states):
         sim.initialState = initial_state
         sim.run()
-        assert allclose(pro._genericProtocol__currentState, final_state)
+        assert allclose(pro.currentState.A, final_state)

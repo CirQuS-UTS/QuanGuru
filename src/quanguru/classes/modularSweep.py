@@ -74,10 +74,12 @@ def _runSweepAndPrep(qSim, ind):
 
     for protocol in qSim.subSys.keys():
         if callable(qSim.evolFunc):
-            shape = array(protocol.initialState).shape
+            # if isinstance(protocol.initialState, list): 
+            #     protocol.initialState = array(protocol.initialState)
+            shape = protocol.initialState.shape
             if len(shape) == 1:
                 protocol.initialState = reshape(protocol.initialState, (shape[0], 1))
-                shape = array(protocol.initialState).shape
+                shape = protocol.initialState.shape
             isKet = (shape[1] == 1)
             isDensityMatrix = (shape[0] == shape[1])
             if not protocol._isOpen:
