@@ -86,6 +86,7 @@ def _runSweepAndPrep(qSim, ind):
                 if isDensityMatrix:
                     protocol.currentState = protocol.initialState
                 elif isKet:
+                    print("Initial state is assumed to be a ket: automatically converting to a density matrix")
                     protocol.currentState = densityMatrix(protocol.initialState)
                 else:
                     raise ValueError("Initial state should be a ket (shape = (n, 1)) or density matrix (shape = (shape = (n, n))) for an open system simulation")
