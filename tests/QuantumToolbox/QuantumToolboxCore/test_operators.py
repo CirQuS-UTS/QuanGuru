@@ -1,5 +1,6 @@
 import random as rn
 import numpy as np
+from math import factorial
 import pytest
 from quanguru.QuantumToolbox import linearAlgebra as la#pylint: disable=import-error
 from quanguru.QuantumToolbox import states#pylint: disable=import-error
@@ -80,7 +81,7 @@ def test_displacement():
     # test the photon number distribution
     for n in range(10):
         calc = abs(la.innerProd(displacedVacuum, states.basis(20, n)))**2
-        expc = abs(((np.e**(-(abs(alpha)**2)/2))*((alpha**n)/(np.sqrt(np.math.factorial(n))))))**2
+        expc = abs(((np.e**(-(abs(alpha)**2)/2))*((alpha**n)/(np.sqrt(factorial(n))))))**2
         assert np.round(calc, 5) == np.round(expc, 5)
 
     # test average photon number
