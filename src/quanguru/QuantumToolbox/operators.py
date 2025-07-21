@@ -793,7 +793,7 @@ def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
 
     oper = (alpha * create(dim)) - (np.conj(alpha) * destroy(dim))
     n = expm(oper)
-    return n if sparse else n.A
+    return n if sparse else n.toarray()
 
 def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     r"""
@@ -837,7 +837,7 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
 
     oper = -(alpha * (create(dim)@create(dim))) + (np.conj(alpha) * (destroy(dim)@destroy(dim)))
     n = expm(0.5*oper)
-    return n if sparse else n.A
+    return n if sparse else n.toarray()
 
 def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     r"""
@@ -949,13 +949,13 @@ def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
 
     Examples
     --------
-    >>> compositeOp(operator=sigmaz(), dimB=0, dimA=2).A
+    >>> compositeOp(operator=sigmaz(), dimB=0, dimA=2).toarray()
     [[ 1.  0.  0.  0.]
      [ 0.  1.  0.  0.]
      [ 0.  0. -1.  0.]
      [ 0.  0.  0. -1.]]
 
-    >>> compositeOp(operator=sigmaz(), dimB=2, dimA=0).A
+    >>> compositeOp(operator=sigmaz(), dimB=2, dimA=0).toarray()
     [[ 1.  0.  0.  0.]
      [ 0. -1.  0.  0.]
      [ 0.  0.  1.  0.]

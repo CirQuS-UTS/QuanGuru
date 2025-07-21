@@ -25,7 +25,7 @@ def test_bosonOperators(op, rule):
     # check the value of each element against a given rule, i.e. the definition the matrices
     for _ in range(5):
         dim = rn.randint(2, 20)
-        numOp = op(dim).A
+        numOp = op(dim).toarray()
         checkGivenRuleForAnArray(numOp, rule)
 
 @pytest.mark.parametrize("op, fnc", [['sigmaMinusReference', ops.sigmam], ['sigmaPlusReference', ops.sigmap],
@@ -33,7 +33,7 @@ def test_bosonOperators(op, rule):
                                      ['sigmaZReference', ops.sigmaz]])
 def test_PauliSpinOperators(op, fnc, referenceValues): #pylint:disable=invalid-name
     # check against hard-coded reference arrays
-    assert np.allclose(fnc().A, referenceValues[op])
+    assert np.allclose(fnc().toarray(), referenceValues[op])
 
 @pytest.mark.parametrize("op, bo", [[ops.destroy, 0], [ops.create, 1], [ops.Jp, 0], [ops.Jm, 1]])
 def test_ladderOperatorsOnEdges(op, bo):
@@ -42,7 +42,7 @@ def test_ladderOperatorsOnEdges(op, bo):
         dim = rn.randint(1, 20)
         rOp = op(dim)
         state = states.basis(rOp.shape[0], (rOp.shape[0] - 1)*bo)
-        assert np.allclose((rOp@state).A, states.zerosKet(rOp.shape[0], sparse=False))
+        assert np.allclose((rOp@state).toarray(), states.zerosKet(rOp.shape[0], sparse=False))
 
 @pytest.mark.parametrize("op, bo", [[ops.destroy, -1], [ops.create, 1], [ops.Jp, -1], [ops.Jm, 1]])
 def test_ladderOperatorsOnRndPlaces(op, bo):
@@ -53,7 +53,7 @@ def test_ladderOperatorsOnRndPlaces(op, bo):
         dim = rOp.shape[0]
         sPos = rn.randint(1, dim-2)
         state = states.basis(dim, sPos)
-        assert np.allclose(states.normalise(rOp@state).A, states.basis(dim, sPos+bo).A)
+        assert np.allclose(states.normalise(rOp@state).toarray(), states.basis(dim, sPos+bo).toarray())
 
 @pytest.mark.parametrize("op, rule", [
     [ops.Jp, lambda ind1, ind2, jVal: np.sqrt(((2*jVal)-ind1)*(ind1+1))*(not bool(ind2-ind1-1))],
@@ -64,7 +64,7 @@ def test_higherSpinOperators(op, rule):
     # check the value of each element against a given rule, i.e. the definition the matrices
     for _ in range(5):
         jVal = 0.5*rn.randint(1, 20)
-        jOp = op(jVal).A
+        jOp = op(jVal).toarray()
         checkGivenRuleForAnArray(jOp, rule, jVal)
 
 def test_displacement():
@@ -87,4 +87,4 @@ def test_displacement():
     assert np.round(la.trace(ops.number(20) @ states.densityMatrix(displacedVacuum)), 8).real == np.round(abs(alpha)**2, 8)
 
     # coherent state is the eigenstate of destroy with eigenvalue alpha
-    assert np.allclose((ops.destroy(20)@displacedVacuum).A, (alpha*displacedVacuum).A, atol=1e-04, rtol=1e-04)
+    assert np.allclose((ops.destroy(20)@displacedVacuum).toarray(), (alpha*displacedVacuum).toarray(), atol=1e-04, rtol=1e-04)

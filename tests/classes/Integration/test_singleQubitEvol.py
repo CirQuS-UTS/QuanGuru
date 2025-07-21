@@ -28,10 +28,10 @@ def test_singleQubitSimpleEvolution(bo, singleQubit):
         assert np.allclose([singleQubit.sxExpectation(sim.stepSize*i, p0, p0, freq) for i in range(sim.stepCount+1)], sim.qRes.resultsDict['x'])
         assert np.allclose([singleQubit.syExpectation(sim.stepSize*i, p0, p0, freq) for i in range(sim.stepCount+1)], sim.qRes.resultsDict['y'])
         assert np.allclose([singleQubit.szExpectation(p0, p0) for i in range(sim.stepCount+1)], sim.qRes.resultsDict['z'])
-        assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, p0, freq).real for i in range(sim.stepCount+1)], [s.A[0][0].real for s in sim.states[keyName]])
-        assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, p0, freq).imag for i in range(sim.stepCount+1)], [s.A[0][0].imag for s in sim.states[keyName]])
-        assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, p0, freq).real for i in range(sim.stepCount+1)], [s.A[1][0].real for s in sim.states[keyName]])
-        assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, p0, freq).imag for i in range(sim.stepCount+1)], [s.A[1][0].imag for s in sim.states[keyName]])
+        assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, p0, freq).real for i in range(sim.stepCount+1)], [s.toarray()[0][0].real for s in sim.states[keyName]])
+        assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, p0, freq).imag for i in range(sim.stepCount+1)], [s.toarray()[0][0].imag for s in sim.states[keyName]])
+        assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, p0, freq).real for i in range(sim.stepCount+1)], [s.toarray()[1][0].real for s in sim.states[keyName]])
+        assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, p0, freq).imag for i in range(sim.stepCount+1)], [s.toarray()[1][0].imag for s in sim.states[keyName]])
         qg.freeEvolution._freqCoef = 1
 
 def randSingQubStateCoefs():
@@ -73,8 +73,8 @@ def test_singleQubitSweepEvolution(bo, multiSweep, combinatorial, singleQubit):
 
                 states = sim.states[keyName][j][ind] if combinatorial else sim.states[keyName][j]
                 assert np.allclose([qg.expectation(sx, states[i]) for i in range(sim.stepCount+1)], xExpects)
-                assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, c00, f).real for i in range(sim.stepCount+1)], [s.A[0][0].real for s in states])
-                assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, c00, f).imag for i in range(sim.stepCount+1)], [s.A[0][0].imag for s in states])
-                assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, c01, f).real for i in range(sim.stepCount+1)], [s.A[1][0].real for s in states])
-                assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, c01, f).imag for i in range(sim.stepCount+1)], [s.A[1][0].imag for s in states])
+                assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, c00, f).real for i in range(sim.stepCount+1)], [s.toarray()[0][0].real for s in states])
+                assert np.allclose([singleQubit.analyticalC0(sim.stepSize*i, c00, f).imag for i in range(sim.stepCount+1)], [s.toarray()[0][0].imag for s in states])
+                assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, c01, f).real for i in range(sim.stepCount+1)], [s.toarray()[1][0].real for s in states])
+                assert np.allclose([singleQubit.analyticalC1(sim.stepSize*i, c01, f).imag for i in range(sim.stepCount+1)], [s.toarray()[1][0].imag for s in states])
         qg.freeEvolution._freqCoef = 1

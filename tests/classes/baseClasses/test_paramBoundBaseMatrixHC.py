@@ -9,6 +9,6 @@ from quanguru.QuantumToolbox.linearAlgebra import hc
 def test_HermitianConjuageOfMatrix(oper):
     p1 = paramBoundBase()
     p1._paramBoundBase__matrix = oper(rnd.randint(3, 10))
-    assert np.allclose(p1._hc.A, hc(p1._paramBoundBase__matrix).A)
+    assert np.allclose(p1._hc.toarray(), hc(p1._paramBoundBase__matrix).toarray())
     p1._paramBoundBase__matrix = oper(rnd.randint(3, 10))
-    assert np.allclose(p1._hc.A, hc(p1._paramBoundBase__matrix).A)
+    assert np.allclose(p1._hc.toarray(), hc(p1._paramBoundBase__matrix).toarray())

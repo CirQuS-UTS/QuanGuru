@@ -5,7 +5,7 @@ r"""
     It only contains Python functions to make it familiar with a broader audience, so that anyone without any interest
     in object-oriented programming can still contribute to QuantumToolbox, and the second idea is to use scipy sparse
     (csc matrix) as default.
-    Matrix creations should be sparse as default and return .A (or .toarray()) of the created sparse if sparse=False.
+    Matrix creations should be sparse as default and return .toarray() (or .toarray()) of the created sparse if sparse=False.
     Any function manipulating matrices should be designed to be independent of sparse or array, if possible.
 
     .. currentmodule:: quanguru.QuantumToolbox

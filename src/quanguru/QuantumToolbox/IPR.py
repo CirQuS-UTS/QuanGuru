@@ -101,7 +101,7 @@ def iprKetNB(ket: Matrix) -> float:
     """
 
     if isinstance(ket, spmatrix):
-        ket = ket.A
+        ket = ket.toarray()
     return 1/np.sum(np.power((np.abs(ket.flatten())), 4))
 
 def iprMatrix(mat1: Matrix, mat2: Matrix) -> float:
