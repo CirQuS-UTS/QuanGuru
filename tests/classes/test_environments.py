@@ -66,7 +66,7 @@ def test_jRateChange():
         0.        +0.j        , 1.        +0.j        ]]
     )
 
-    assert allclose(qubit.simulation.protocols[0].unitary().A, ans)
+    assert allclose(qubit.simulation.protocols[0].unitary().toarray(), ans)
 
     diss.jRate = 0
 
@@ -80,4 +80,4 @@ def test_jRateChange():
        [0.        +0.j        , 0.        +0.j        ,
         0.        +0.j        , 1.        +0.j        ]])
     
-    assert allclose(qubit.simulation.protocols[0].unitary().A, ans)
+    assert allclose(qubit.simulation.protocols[0].unitary().toarray(), ans)

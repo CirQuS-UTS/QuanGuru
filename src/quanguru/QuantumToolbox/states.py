@@ -113,7 +113,7 @@ def basis(dimension: int, state: int, sparse: bool = True) -> Matrix:
     rows = [state]
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
-    return n if sparse else n.A
+    return n if sparse else n.toarray()
 
 def completeBasis(dimension: int, sparse: bool = True) -> matrixList:
     r"""
@@ -204,7 +204,7 @@ def zerosKet(dimension: int, sparse: bool = True) -> Matrix:
     rows = [0]
     columns = [0]
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, 1))
-    return Zeros if sparse else Zeros.A
+    return Zeros if sparse else Zeros.toarray()
 
 def zerosMat(dimension: int, sparse: bool = True) -> Matrix:
     r"""
@@ -231,7 +231,7 @@ def zerosMat(dimension: int, sparse: bool = True) -> Matrix:
     rows = [0]
     columns = [0]
     Zeros = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
-    return Zeros if sparse else Zeros.A
+    return Zeros if sparse else Zeros.toarray()
 
 def weightedSum(summands: Iterable, weights: Iterable = None) -> Any: # type: ignore
     r""" Weighted sum :math:`\sum_{x}w_{x}x` of given list of summands :math:`\{x\}` and weights :math:`\{w_{x}\}`.
@@ -514,7 +514,7 @@ def compositeState(dimensions: intList, excitations: List[supInp], sparse: bool 
     """
 
     st = linAlTensorProd(*[superPos(dim, exs) for (dim, exs) in zip(dimensions, excitations)])
-    return st.A if ( (not sparse) and (isinstance(st, spmatrix))) else st
+    return st.toarray() if ( (not sparse) and (isinstance(st, spmatrix))) else st
 
 def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     r"""
@@ -535,7 +535,7 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
     Examples
     --------
     >>> denMat = densityMatrix(ket=basis(dimension=2, state=1, sparse=True))
-    >>> mat2Vec(denMat=denMat).A
+    >>> mat2Vec(denMat=denMat).toarray()
     [[0]
      [0]
      [0]
@@ -563,12 +563,12 @@ def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     Examples
     --------
     >>> denMat = densityMatrix(ket=basis(dimension=2, state=1, sparse=True))
-    >>> print(denMat.A)
+    >>> print(denMat.toarray())
     [[0 0]
      [0 1]]
 
     >>> denVec = mat2Vec(denMat=denMat)
-    >>> vec2mat(vec=denVec).A
+    >>> vec2mat(vec=denVec).toarray()
     [[0 0]
      [0 1]]
     """
@@ -602,22 +602,22 @@ def BellStates(bs: str = 'Phi+', sparse: bool = True) -> Matrix:
 
     Examples
     --------
-    >>> BellStates('Phi+').A
+    >>> BellStates('Phi+').toarray()
     array([[0.70710678],
            [0.        ],
            [0.        ],
            [0.70710678]])
-    >>> BellStates('Phi-').A
+    >>> BellStates('Phi-').toarray()
     array([[ 0.70710678],
            [ 0.        ],
            [ 0.        ],
            [-0.70710678]])
-    >>> BellStates('Psi+').A
+    >>> BellStates('Psi+').toarray()
     array([[0.        ],
            [0.70710678],
            [0.70710678],
            [0.        ]])
-    >>> BellStates('Psi-').A
+    >>> BellStates('Psi-').toarray()
     array([[ 0.        ],
            [ 0.70710678],
            [-0.70710678],
