@@ -37,7 +37,7 @@ from numpy import array, reshape
 from functools import partial
 from ..QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
 
-def runSimulation(qSim, p):
+def runSimulation(qSim, p, finaliseAll):
     # NOTE determine if more samples of a protocol step are requested.
     for protocol, _ in qSim.subSys.items():
         if hasattr(protocol, 'steps'):
@@ -45,21 +45,25 @@ def runSimulation(qSim, p):
                 protocol.stepSample = True
 
     if p is None:
-        nonParalEvol(qSim)
+        nonParalEvol(qSim, finaliseAll)
     else:
-        paralEvol(qSim, p)
+        paralEvol(qSim, p, finaliseAll)
 
 # This is the single process function
-def nonParalEvol(qSim):
+def nonParalEvol(qSim, finaliseAll):
     for ind in range(qSim.Sweep.indMultip):
         _runSweepAndPrep(qSim, ind)
         qSim.qRes._organiseSingleProcRes() # pylint: disable=protected-access
-    qSim.qRes._finaliseAll(qSim.Sweep.inds) # pylint: disable=protected-access
+    if finaliseAll:
+        qSim.qRes._finaliseAll(qSim.Sweep.inds) # pylint: disable=protected-access
 
 # multi-processing functions
-def paralEvol(qSim, p):
+def paralEvol(qSim, p, finaliseAll):
     results = p.map(partial(parallelTimeEvol, qSim), range(qSim.Sweep.indMultip), chunksize=1)
-    qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
+    if finaliseAll:
+        qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
+    else:
+        qSim.qRes._organiseAll(results) # pylint: disable=protected-access
 
 # need this to avoid return part, which is only needed in multi-processing
 def parallelTimeEvol(qSim, ind):
@@ -94,22 +98,28 @@ def _runSweepAndPrep(qSim, ind):
                     raise ValueError("Initial state should be a ket (shape = (n, 1)) or density matrix (shape = (shape = (n, n))) for an open system simulation")
 
     qSim.qRes._resetLast() # pylint: disable=protected-access
-    qSim._computeBase__calculate("pre")
-    for protocol in qSim.subSys.keys():
-        protocol._computeBase__calculate("pre") # pylint: disable=protected-access
-    calledFor = []
-    for protocol, qsystem in qSim.subSys.items():
-        if qsystem not in calledFor:
-            qsystem._computeBase__calculate("pre") # pylint: disable=protected-access
-            calledFor.append(qsystem)
+    doCalculate(qSim, 'pre')
     timeDependent(qSim)
-    qSim._computeBase__calculate("post")
+    doCalculate(qSim, 'post')
+
+def doCalculate(qSim, where: str):
+    qSim._computeBase__calculate(where)
     for protocol in qSim.subSys.keys():
-        protocol._computeBase__calculate("post") # pylint: disable=protected-access
+        protocol._computeBase__calculate(where) # pylint: disable=protected-access
     calledFor = []
     for protocol, qsystem in qSim.subSys.items():
         if qsystem not in calledFor:
-            qsystem._computeBase__calculate("post") # pylint: disable=protected-access
+            qsystem._computeBase__calculate(where) # pylint: disable=protected-access
+            calledFor.append(qsystem)
+
+def doCompute(qSim):
+    qSim._Simulation__compute() # pylint: disable=protected-access
+    for protocol in qSim.subSys.keys():
+        protocol._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
+    calledFor = []
+    for protocol, qsystem in qSim.subSys.items():
+        if qsystem not in calledFor:
+            qsystem._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
             calledFor.append(qsystem)
 
 def timeDependent(qSim):
@@ -136,31 +146,15 @@ def timeDependent(qSim):
 def timeEvolDefault(qSim, td):
     for protocol in qSim.subSys.keys():
         protocol.sampleStates = []
+    
     if callable(qSim.evolFunc):
-        qSim._Simulation__compute() # pylint: disable=protected-access
-    for protocol in qSim.subSys.keys():
-        protocol._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
-    calledFor = []
-    for protocol, qsystem in qSim.subSys.items():
-        if qsystem not in calledFor:
-            qsystem._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
-            calledFor.append(qsystem)
-
-    if callable(qSim.evolFunc):
+        doCompute(qSim)
         for ind in range(qSim.stepCount):
             qSim._Simulation__index = ind # pylint: disable=protected-access
             if td:
                 qSim.timeDependency.runSweep(qSim.timeDependency._indicesForSweep(ind, *qSim.timeDependency.inds))
-
             qSim.evolFunc(qSim)
-            qSim._Simulation__compute() # pylint: disable=protected-access
-            for protocol in qSim.subSys.keys():
-                protocol._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
-            calledFor = []
-            for protocol, qsystem in qSim.subSys.items():
-                if qsystem not in calledFor:
-                    qsystem._computeBase__compute(protocol.currentState) # pylint: disable=protected-access
-                    calledFor.append(qsystem)
+            doCompute(qSim)
 
 def timeEvolBase(qSim):
     for protocol in qSim.subSys.keys(): #pylint:disable=too-many-nested-blocks

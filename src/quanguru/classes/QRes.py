@@ -262,15 +262,18 @@ class qResults(qResBase):
             qRes._qResBase__statesLast = defaultdict(list)
             qRes._qResBase__average = defaultdict(list)
 
+    def _organiseAll(self, results):
+        for res in results:
+            for keyUni, valUni in res.items():
+                self._organise(keyUni, valUni)
+
     def _organiseMultiProcRes(self, results, inds):
         r"""
         multi-processing returns are dictionaries containing :class:`~qResBlank` instances with single time trace
         (see :meth:`~_copyAllResBlank`), this method re-writes the results into corresponding :class:`~qResults` objects
         and re-shapes them into correct sweep and time trace structure. Calls other methods of the class for these.
         """
-        for res in results:
-            for keyUni, valUni in res.items():
-                self._organise(keyUni, valUni)
+        self._organiseAll(results)
         self._finaliseAll(inds)
 
     @classmethod
