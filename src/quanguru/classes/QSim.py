@@ -66,7 +66,7 @@ class Simulation(timeBase):
     #: class, but by re-assigning this class attribute, you can change the evolution method for all the future instances
     _evolFuncDefault = timeEvolBase
 
-    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index']
+    __slots__ = ['Sweep', 'timeDependency', 'evolFunc', '__index', "_showProgress"]
 
     # TODO init error decorators or error decorators for some methods
     def __init__(self, system=None, **kwargs):
@@ -99,6 +99,8 @@ class Simulation(timeBase):
         #: the evolution is obtained by matrix multiplication of state by the unitary, which is not necessarily obtained
         #: by matrix exponentiation or the time-dependency is not incorporated by ``timeDependency``.
         self.evolFunc = Simulation._evolFuncDefault
+
+        self._showProgress = True
 
         if system is not None:
             self.addQSystems(system)
