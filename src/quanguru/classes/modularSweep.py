@@ -37,14 +37,15 @@ from numpy import array, reshape
 from functools import partial
 import time
 import sys
+from datetime import datetime, timedelta
 from ..QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
 
-def runSimulation(qSim, p):
+def runSimulation(qSim, p, showProgress=True):
     """
     Run quantum simulation with optional progress tracking.
     
     This function executes quantum parameter sweeps either in parallel or sequential mode.
-    Progress tracking is automatically enabled and can be controlled through simulation attributes.
+    Progress tracking is controlled by the showProgress parameter.
     
     Parameters
     ----------
@@ -52,13 +53,12 @@ def runSimulation(qSim, p):
         The quantum simulation object containing the system and sweep parameters
     p : multiprocessing.Pool or None
         Pool object for parallel processing. If None, runs sequentially.
+    showProgress : bool, optional
+        Whether to display progress tracking. Default is True.
+        Controls progress for both sequential and parallel runs.
         
     Notes
     -----
-    Progress display can be controlled by setting attributes on the simulation object:
-    - qSim._show_progress : bool (default True) - Controls progress for sequential runs
-    - qSim._show_parallel_progress : bool (default True) - Controls progress for parallel runs
-    
     For parallel processing, progress is displayed in real-time showing:
     - Progress bar with percentage completion
     - Current task count vs total tasks  
@@ -67,15 +67,13 @@ def runSimulation(qSim, p):
     Examples
     --------
     >>> # Enable progress display (default)
-    >>> sim.run(p=True)
+    >>> sim.run(p=True, showProgress=True)
     
-    >>> # Disable parallel progress display
-    >>> sim._show_parallel_progress = False
-    >>> sim.run(p=True)
+    >>> # Disable progress display
+    >>> sim.run(p=True, showProgress=False)
     
-    >>> # Disable sequential progress display  
-    >>> sim._show_progress = False
-    >>> sim.run(p=False)
+    >>> # Progress also works for sequential runs
+    >>> sim.run(p=False, showProgress=True)
     """
     # NOTE determine if more samples of a protocol step are requested.
     for protocol, _ in qSim.subSys.items():
@@ -84,67 +82,68 @@ def runSimulation(qSim, p):
                 protocol.stepSample = True
 
     if p is None:
-        nonParalEvol(qSim)
+        nonParalEvol(qSim, showProgress)
     else:
-        paralEvol(qSim, p)
+        paralEvol(qSim, p, showProgress)
 
 # This is the single process function
-def nonParalEvol(qSim):
+def nonParalEvol(qSim, showProgress=True):
     total_tasks = qSim.Sweep.indMultip
     
-    # Check if progress display is enabled (can be controlled via qSim attribute)
-    show_progress = getattr(qSim, '_show_progress', True)
-    
-    if show_progress and total_tasks > 1:
+    if showProgress and total_tasks > 1:
         print(f"Starting sequential sweep with {total_tasks} parameter combinations...")
         start_time = time.time()
+        start_datetime = datetime.now()
+        print(f"Simulation Start: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
     
     for ind in range(total_tasks):
         _runSweepAndPrep(qSim, ind)
         qSim.qRes._organiseSingleProcRes() # pylint: disable=protected-access
         
         # Show progress for sequential runs
-        if show_progress and total_tasks > 1:
+        if showProgress and total_tasks > 1:
             completed = ind + 1
             progress_percent = (completed / total_tasks) * 100
             elapsed_time = time.time() - start_time
+            current_datetime = datetime.now()
             
             if completed > 0:
                 estimated_total_time = elapsed_time * total_tasks / completed
                 remaining_time = estimated_total_time - elapsed_time
                 
-                # Format time displays
-                elapsed_str = _format_time(elapsed_time)
-                remaining_str = _format_time(remaining_time)
+                # Calculate estimated finish time
+                estimated_finish_time = datetime.now() + timedelta(seconds=remaining_time)
+                finish_time_str = estimated_finish_time.strftime('%Y-%m-%d %H:%M:%S')
                 
                 # Progress bar display
                 bar_length = 40
                 filled_length = int(bar_length * completed // total_tasks)
                 bar = '█' * filled_length + '-' * (bar_length - filled_length)
+
+                final_datetime = datetime.now()
                 
                 # Print progress line (overwrite previous line)
-                sys.stdout.write(f'\r[{bar}] {progress_percent:.1f}% | {completed}/{total_tasks} | '
-                               f'Elapsed: {elapsed_str} | Remaining: {remaining_str}')
+                sys.stdout.write(f'\r[{bar}] {progress_percent:.1f}% | {completed}/{total_tasks} | Estimated Finish Time: {finish_time_str} | Updated: {final_datetime.strftime("%Y-%m-%d %H:%M:%S")}')
                 sys.stdout.flush()
     
     qSim.qRes._finaliseAll(qSim.Sweep.inds) # pylint: disable=protected-access
     
-    # Final newline and completion message for sequential runs
-    if show_progress and total_tasks > 1:
+    # Final completion message for sequential runs
+    if showProgress and total_tasks > 1:
         total_time = time.time() - start_time
+        
         print(f'\nSequential sweep completed in {_format_time(total_time)}')
 
 # multi-processing functions
-def paralEvol(qSim, p):
+def paralEvol(qSim, p, showProgress=True):
     total_tasks = qSim.Sweep.indMultip
     
-    # Check if progress display is enabled (can be controlled via qSim attribute)
-    show_progress = getattr(qSim, '_show_parallel_progress', True)
-    
-    if show_progress:
+    if showProgress:
         print(f"Starting parallel sweep with {total_tasks} parameter combinations...")
         start_time = time.time()
+        start_datetime = datetime.now()
         completed = 0
+        print(f"Simulation Start: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
         
         # Use imap instead of map for iterative results that allow progress tracking
         results = []
@@ -152,6 +151,7 @@ def paralEvol(qSim, p):
             for result in p.imap(partial(parallelTimeEvol, qSim), range(total_tasks), chunksize=1):
                 results.append(result)
                 completed += 1
+                current_datetime = datetime.now()
                 
                 # Update progress
                 progress_percent = (completed / total_tasks) * 100
@@ -161,21 +161,22 @@ def paralEvol(qSim, p):
                     estimated_total_time = elapsed_time * total_tasks / completed
                     remaining_time = estimated_total_time - elapsed_time
                     
-                    # Format time displays
-                    elapsed_str = _format_time(elapsed_time)
-                    remaining_str = _format_time(remaining_time)
+                    # Calculate estimated finish time
+                    estimated_finish_time = datetime.now() + timedelta(seconds=remaining_time)
+                    finish_time_str = estimated_finish_time.strftime('%Y-%m-%d %H:%M:%S')
                     
                     # Progress bar display
                     bar_length = 40
                     filled_length = int(bar_length * completed // total_tasks)
                     bar = '█' * filled_length + '-' * (bar_length - filled_length)
-                    
+
+                    final_datetime = datetime.now()
+
                     # Print progress line (overwrite previous line)
-                    sys.stdout.write(f'\r[{bar}] {progress_percent:.1f}% | {completed}/{total_tasks} | '
-                                   f'Elapsed: {elapsed_str} | Remaining: {remaining_str}')
+                    sys.stdout.write(f'\r[{bar}] {progress_percent:.1f}% | {completed}/{total_tasks} | Estimated Finish Time: {finish_time_str} | Updated: {final_datetime.strftime("%Y-%m-%d %H:%M:%S")}')
                     sys.stdout.flush()
         
-        # Final newline and completion message
+        # Final completion message
         total_time = time.time() - start_time
         print(f'\nParallel sweep completed in {_format_time(total_time)}')
     else:
