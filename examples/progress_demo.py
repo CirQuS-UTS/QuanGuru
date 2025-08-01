@@ -26,6 +26,23 @@ except ImportError as e:
     print("Make sure you're running this from the QuanGuru root directory")
     sys.exit(1)
 
+def compute_expectation(qsys, state):
+    """
+    Compute sigma_x expectation value.
+    
+    This function is defined at module level so it can be pickled
+    for multiprocessing. Local functions inside other functions
+    cannot be pickled.
+    """
+    if not hasattr(qsys, 'resultsDict'):
+        qsys.resultsDict = {}
+    if 'sigma_x' not in qsys.resultsDict:
+        qsys.resultsDict['sigma_x'] = []
+    
+    # Calculate expectation value
+    sigma_x_exp = qg.expectation(qg.sigmax(), state)
+    qsys.resultsDict['sigma_x'].append(sigma_x_exp.real)
+
 def create_demo_simulation():
     """Create a simple qubit simulation with parameter sweeps."""
     print("Setting up quantum simulation...")
@@ -64,18 +81,7 @@ def create_demo_simulation():
         combinatorial=True  # This creates a combinatorial sweep
     )
     
-    # Set up a simple compute function to calculate expectation values
-    def compute_expectation(qsys, state):
-        """Compute sigma_x expectation value."""
-        if not hasattr(qsys, 'resultsDict'):
-            qsys.resultsDict = {}
-        if 'sigma_x' not in qsys.resultsDict:
-            qsys.resultsDict['sigma_x'] = []
-        
-        # Calculate expectation value
-        sigma_x_exp = qg.expectation(qg.sigmax(), state)
-        qsys.resultsDict['sigma_x'].append(sigma_x_exp.real)
-    
+    # Assign the compute function (defined at module level for multiprocessing compatibility)
     qubit.compute = compute_expectation
     
     # Don't store states to save memory
@@ -124,15 +130,15 @@ def demonstrate_progress_features():
     sim.qRes._reset()
     
     # Disable progress tracking
-    sim._showProgress = False
-    # sim._show_parallel_progress = False
+    sim._show_progress = False
+    sim._show_parallel_progress = False
     
     print("Running without progress display...")
     sim.run(p=False)
     print("✓ Execution without progress completed successfully!")
     
     # Re-enable for next demo
-    sim._showProgress = True
+    sim._show_progress = True
     sim._show_parallel_progress = True
     
     print("\n4. Customizing progress display:")
