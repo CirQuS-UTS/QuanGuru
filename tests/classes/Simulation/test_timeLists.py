@@ -97,3 +97,35 @@ def test_calculateTimeListSixDefined():
         assertHelper(order[2], valsForTest, sim.timeList)
             
         del sim
+
+def test_currentTimeOnSweep():
+
+    out = []
+
+    sim = qg.Simulation()
+    sim.totalTime = 1
+    sim.stepSize = 0.5
+
+    sys = qg.QuantumSystem(dimension=2, operator=qg.identity, frequency=1)
+
+    sim.addQSystems(sys)
+
+    some_sweep = sim.Sweep.createSweep(
+        system=sys, 
+        sweepKey='attribute', 
+        sweepMin=0, 
+        sweepMax=1, 
+        sweepStep=0.5
+    )
+
+    def compute(sim, state):
+        out.append(sim._currentTime)
+
+    sim.compute = compute
+
+    sim.initialStateSystem = sys
+    sim.initialState = qg.basis(2, 0)
+
+    sim.run()
+
+    assert out == [0, 0.5, 1.0]*3
