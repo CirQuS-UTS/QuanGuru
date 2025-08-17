@@ -133,7 +133,7 @@ def readCSV(path, datatype=float, realVal=True):
             if datatype != np.complex128:
                 data.append(np.array(list(row), dtype=datatype))
             else:
-                li = np.genfromtxt(list(row), delimiter=',', dtype=np.complex)
+                li = np.genfromtxt(list(row), delimiter=',', dtype=np.complex128)
                 data.append(np.real(li) if realVal else li)
     return data if len(data) > 1 else data[0]
 

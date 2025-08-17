@@ -88,11 +88,11 @@ class QSimComp(computeBase):
         """
         return self._QSimComp__simulation
 
-    def runSimulation(self, p=None, coreCount=None):
+    def runSimulation(self, p=None, coreCount=None, showProgress=True):
         r"""
         an alternative to run the simulation, equivalent to ``self.simulation.run()``
         """
-        return self._QSimComp__simulation.run(p=p, coreCount=coreCount)
+        return self._QSimComp__simulation.run(p=p, coreCount=coreCount, showProgress=showProgress)
 
     @property
     def _initialStateInput(self):

@@ -35,9 +35,45 @@
 
 from numpy import array, reshape
 from functools import partial
+import time
+import sys
 from ..QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
 
-def runSimulation(qSim, p):
+def runSimulation(qSim, p, showProgress=True):
+    """
+    Run quantum simulation with optional parallelisation and progress tracking.
+    
+    This function executes quantum parameter sweeps either in parallel or sequential mode.
+    Progress tracking is controlled by the showProgress parameter.
+    
+    Parameters
+    ----------
+    qSim : Simulation
+        The quantum simulation object containing the system and sweep parameters
+    p : multiprocessing.Pool or None
+        Pool object for parallel processing. If None, runs sequentially.
+    showProgress : bool, optional
+        Whether to display progress tracking. Default is True.
+        Controls progress for both sequential and parallel runs.
+        
+    Notes
+    -----
+    For parallel processing, progress is displayed in real-time showing:
+    - Progress bar with percentage completion
+    - Current task count vs total tasks  
+    - Elapsed time and estimated remaining time
+    
+    Examples
+    --------
+    >>> # Enable progress display (default)
+    >>> sim.run(p=True, showProgress=True)
+    
+    >>> # Disable progress display
+    >>> sim.run(p=True, showProgress=False)
+    
+    >>> # Progress also works for sequential runs
+    >>> sim.run(p=False, showProgress=True)
+    """
     # NOTE determine if more samples of a protocol step are requested.
     for protocol, _ in qSim.subSys.items():
         if hasattr(protocol, 'steps'):
@@ -45,30 +81,112 @@ def runSimulation(qSim, p):
                 protocol.stepSample = True
 
     if p is None:
-        nonParalEvol(qSim)
+        nonParalEvol(qSim, showProgress)
     else:
-        paralEvol(qSim, p)
+        paralEvol(qSim, p, showProgress)
+
 
 # This is the single process function
-def nonParalEvol(qSim):
-    for ind in range(qSim.Sweep.indMultip):
-        _runSweepAndPrep(qSim, ind)
+def nonParalEvol(qSim, showProgress=True):
+    totalTasks = qSim.Sweep.indMultip
+    updateInterval = int(totalTasks/501) + 1
+    printBar = showProgress and totalTasks > 1
+    if printBar:
+        startTime = time.time()
+        printPreamble(totalTasks, startTime, parallel=False)
+
+    for ind in range(totalTasks):
+        runSweepAndPrep(qSim, ind)
         qSim.qRes._organiseSingleProcRes() # pylint: disable=protected-access
+        # Show progress for sequential runs
+        if printBar:
+            completed = ind + 1
+            if completed % updateInterval == 0:
+                printProgress(completed, totalTasks, startTime)
+
+    # Final completion message for sequential runs
+    if printBar:
+        printProgress(1, 1, startTime)
+        printEpilogue(startTime)
+
     qSim.qRes._finaliseAll(qSim.Sweep.inds) # pylint: disable=protected-access
 
 # multi-processing functions
-def paralEvol(qSim, p):
-    results = p.map(partial(parallelTimeEvol, qSim), range(qSim.Sweep.indMultip), chunksize=1)
+def paralEvol(qSim, p, showProgress=True):
+    totalTasks = qSim.Sweep.indMultip
+    if showProgress:
+        startTime = time.time()
+        completed = 0
+        updateInterval = int(totalTasks/501) + 1
+        printPreamble(totalTasks, startTime, parallel=True)
+
+        # Use imap instead of map for iterative results that allow progress tracking
+        results = []
+        with p:
+            for result in p.imap(partial(parallelTimeEvol, qSim), range(totalTasks), chunksize=1):
+                results.append(result)
+                completed += 1
+                if completed % updateInterval == 0:
+                    printProgress(completed, totalTasks, startTime)
+        printProgress(1, 1, startTime)
+        printEpilogue(startTime)
+    else:
+        # Original behavior without progress display
+        results = p.map(partial(parallelTimeEvol, qSim), range(totalTasks), chunksize=1)
     qSim.qRes._organiseMultiProcRes(results, qSim.Sweep.inds) # pylint: disable=protected-access
+
+def printPreamble(totalTasks, startTime, parallel=False):
+    sweepType = 'parallel' if parallel else 'sequential'
+    # Format start time as human-readable string
+    startTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(startTime))
+    sys.stdout.write(
+        f"Starting {sweepType} sweep with {totalTasks} parameter combinations...\n"
+        f"Simulation Start:\t{startTimeStr}\n"
+        f'[{'-'*40}] {0.:.1f}%\n'
+        f'Estimated Finish:\n'
+    )
+    sys.stdout.flush()
+
+
+def printProgress(completed, totalTasks, startTime):
+    sys.stdout.write('\033[F\033[F')
+
+    progress = completed / totalTasks
+    now = time.time()
+    elapsedTime = now - startTime
+    remainingTime = elapsedTime * (1/progress - 1)
+    # Calculate estimated finish time as a timestamp
+    estimatedFinishTime = now + remainingTime
+    finishTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(estimatedFinishTime))
+    # Progress bar display
+    barLength = 40
+    filledLength = int(barLength * progress)
+    bar = '█' * filledLength + '-' * (barLength - filledLength)
+    # Print all lines in one go
+    sys.stdout.write(
+        f'[{bar}] {progress*100:.1f}%\n'
+        f'Estimated Finish:\t{finishTimeStr}\n'
+    )
+    sys.stdout.flush()
+
+
+def printEpilogue(startTime):
+    seconds = time.time() - startTime
+
+    print(
+        '--------------------------------------------'
+        + f'\nSimulation completed in ' + time.strftime('%Hh %Mm %Ss', time.gmtime(seconds))
+    )
+
 
 # need this to avoid return part, which is only needed in multi-processing
 def parallelTimeEvol(qSim, ind):
-    _runSweepAndPrep(qSim, ind)
+    runSweepAndPrep(qSim, ind)
     return qSim.qRes._copyAllResBlank() # pylint: disable=protected-access
 
 # These two functions, respectively, run Sweep and timeDependent (sweep) parameter updates
 # In the timeDependet case, evolFunc of first function is the second function
-def _runSweepAndPrep(qSim, ind):
+def runSweepAndPrep(qSim, ind):
     qSim._Simulation__index = -1 # pylint: disable=protected-access
 
     if len(qSim.Sweep.inds) > 0:
