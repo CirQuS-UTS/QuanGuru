@@ -37,7 +37,6 @@ from numpy import array, reshape
 from functools import partial
 import time
 import sys
-from datetime import datetime, timedelta
 from ..QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
 
 def runSimulation(qSim, p, showProgress=True):
@@ -90,21 +89,24 @@ def runSimulation(qSim, p, showProgress=True):
 # This is the single process function
 def nonParalEvol(qSim, showProgress=True):
     totalTasks = qSim.Sweep.indMultip
-    if showProgress and totalTasks > 1:
+    updateInterval = int(totalTasks/501) + 1
+    printBar = showProgress and totalTasks > 1
+    if printBar:
         startTime = time.time()
-        startDatetime = datetime.now()
-        printPreamble(totalTasks, startDatetime, parallel=False)
+        printPreamble(totalTasks, startTime, parallel=False)
 
     for ind in range(totalTasks):
         runSweepAndPrep(qSim, ind)
         qSim.qRes._organiseSingleProcRes() # pylint: disable=protected-access
         # Show progress for sequential runs
-        if showProgress and totalTasks > 1:
+        if printBar:
             completed = ind + 1
-            printProgress(completed, totalTasks, startTime)
+            if completed % updateInterval == 0:
+                printProgress(completed, totalTasks, startTime)
 
     # Final completion message for sequential runs
-    if showProgress and totalTasks > 1:
+    if printBar:
+        printProgress(1, 1, startTime)
         printEpilogue(startTime)
 
     qSim.qRes._finaliseAll(qSim.Sweep.inds) # pylint: disable=protected-access
@@ -114,9 +116,9 @@ def paralEvol(qSim, p, showProgress=True):
     totalTasks = qSim.Sweep.indMultip
     if showProgress:
         startTime = time.time()
-        startDatetime = datetime.now()
         completed = 0
-        printPreamble(totalTasks, startDatetime, parallel=True)
+        updateInterval = int(totalTasks/501) + 1
+        printPreamble(totalTasks, startTime, parallel=True)
 
         # Use imap instead of map for iterative results that allow progress tracking
         results = []
@@ -124,8 +126,9 @@ def paralEvol(qSim, p, showProgress=True):
             for result in p.imap(partial(parallelTimeEvol, qSim), range(totalTasks), chunksize=1):
                 results.append(result)
                 completed += 1
-                printProgress(completed, totalTasks, startTime)
-
+                if completed % updateInterval == 0:
+                    printProgress(completed, totalTasks, startTime)
+        printProgress(1, 1, startTime)
         printEpilogue(startTime)
     else:
         # Original behavior without progress display
@@ -134,59 +137,45 @@ def paralEvol(qSim, p, showProgress=True):
 
 def printPreamble(totalTasks, startTime, parallel=False):
     sweepType = 'parallel' if parallel else 'sequential'
-    print(f"Starting {sweepType} sweep with {totalTasks} parameter combinations...")
-    print(f"Simulation Start:\t{startTime.strftime('%Y-%m-%d %H:%M:%S')}")
+    # Format start time as human-readable string
+    startTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(startTime))
+    sys.stdout.write(
+        f"Starting {sweepType} sweep with {totalTasks} parameter combinations...\n"
+        f"Simulation Start:\t{startTimeStr}\n"
+        f'[{'-'*40}] {0.:.1f}%\n'
+        f'Estimated Finish:\n'
+    )
+    sys.stdout.flush()
+
 
 def printProgress(completed, totalTasks, startTime):
-    nLines = 3
-    if completed > 1:
-        for _ in range(nLines):
-            sys.stdout.write('\033[F')
-        sys.stdout.flush()
+    sys.stdout.write('\033[F\033[F')
 
-    if completed > 0:
-        progressPercent = (completed / totalTasks) * 100
-        elapsedTime = time.time() - startTime
+    progress = completed / totalTasks
+    now = time.time()
+    elapsedTime = now - startTime
+    remainingTime = elapsedTime * (1/progress - 1)
+    # Calculate estimated finish time as a timestamp
+    estimatedFinishTime = now + remainingTime
+    finishTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(estimatedFinishTime))
+    # Progress bar display
+    barLength = 40
+    filledLength = int(barLength * progress)
+    bar = '█' * filledLength + '-' * (barLength - filledLength)
+    # Print all lines in one go
+    sys.stdout.write(
+        f'[{bar}] {progress*100:.1f}%\n'
+        f'Estimated Finish:\t{finishTimeStr}\n'
+    )
+    sys.stdout.flush()
 
-        estimatedTotalTime = elapsedTime * totalTasks / completed
-        remainingTime = estimatedTotalTime - elapsedTime
-
-        # Calculate estimated finish time
-        estimatedFinishTime = datetime.now() + timedelta(seconds=remainingTime)
-        finishTimeStr = estimatedFinishTime.strftime('%Y-%m-%d %H:%M:%S')
-
-        # Progress bar display
-        barLength = 40
-        filledLength = int(barLength * completed // totalTasks)
-        bar = '█' * filledLength + '-' * (barLength - filledLength)
-
-        finalDatetime = datetime.now()
-
-        # Print all lines in one go
-        sys.stdout.write(
-            f'[{bar}] {progressPercent:.1f}% | {completed}/{totalTasks}\n'
-            f'Estimated Finish:\t{finishTimeStr}\n'
-            f'Last Updated:\t\t{finalDatetime.strftime("%Y-%m-%d %H:%M:%S")}\n'
-        )
-        sys.stdout.flush()
 
 def printEpilogue(startTime):
     seconds = time.time() - startTime
 
-    if seconds < 60:
-        return f"{seconds:.1f}s"
-    elif seconds < 3600:
-        minutes = int(seconds // 60)
-        secs = seconds % 60
-        return f"{minutes}m {secs:.1f}s"
-    else:
-        hours = int(seconds // 3600)
-        minutes = int((seconds % 3600) // 60)
-        secs = seconds % 60
-
     print(
         '--------------------------------------------'
-        + f'\nSimulation completed in {hours}h {minutes}m {secs:.1f}s'
+        + f'\nSimulation completed in ' + time.strftime('%Hh %Mm %Ss', time.gmtime(seconds))
     )
 
 
