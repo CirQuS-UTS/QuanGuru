@@ -69,6 +69,8 @@ def parallelTimeEvol(qSim, ind):
 # These two functions, respectively, run Sweep and timeDependent (sweep) parameter updates
 # In the timeDependet case, evolFunc of first function is the second function
 def _runSweepAndPrep(qSim, ind):
+    qSim._Simulation__index = -1 # pylint: disable=protected-access
+
     if len(qSim.Sweep.inds) > 0:
         qSim.Sweep.runSweep(qSim.Sweep._indicesForSweep(ind, *qSim.Sweep.inds))
 
