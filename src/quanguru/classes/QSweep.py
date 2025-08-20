@@ -329,7 +329,8 @@ class Sweep(qBase):
 
     def prepare(self):
         r"""
-        This method is called inside ``run`` method of ``Simulation`` object/s to update ``inds``, ``inds_intervals``, ``indMultip_intervals`` and ``indMultip`` attributes/properties. The reason for this a bit argued in :meth:`indMultip`, but it is basically to ensure that
+        This method is called inside ``run`` method of ``Simulation`` object/s to update ``inds``, ``inds_intervals``,
+        ``indMultip_intervals`` and ``indMultip`` attributes/properties. The reason for this a bit argued in :meth:`indMultip`, but it is basically to ensure that
         any changes to ``sweepList/s`` or ``combinatorial/s`` are accurately used/reflected (especially on re-runs).
         """
         if len(self.subSys) > 0:
