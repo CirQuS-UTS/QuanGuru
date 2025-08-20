@@ -192,18 +192,20 @@ class Sweep(qBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__inds', '__indMultip']
+    __slots__ = ['__inds', '__indMultip', '__inds_intervals', '__indMultip_intervals']
 
     # TODO init errors
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.__inds = []
+        self.__inds_intervals = []
         r"""
         a list of ``sweepList`` length/s of multi-parameter ``_sweep`` object/s in ``subSys`` dictionary, meaning the
         length for simultaneously swept ``_sweep`` objects are not repeated. the values are
         appended to the list, if it is the first ``sweep`` to be included into ``subSys`` or ``combinatorial is True``.
         """
         self.__indMultip = 1
+        self.__indMultip_intervals = 1
         r"""
         the multiplication of all the indices in ``inds``. This value is used as the loop range by modularSweep.
         """
@@ -215,6 +217,13 @@ class Sweep(qBase):
         ``returns _Sweep__inds`` and there is no setter
         """
         return self._Sweep__inds
+    
+    @property
+    def inds_intervals(self):
+        r"""
+        ``returns _Sweep__inds_intervals`` and there is no setter
+        """
+        return self._Sweep__inds_intervals
 
     @property
     def indMultip(self):
@@ -228,6 +237,15 @@ class Sweep(qBase):
         which is called in ``run`` methods of ``Simulations``, by some modifications in these properties.
         """
         return self._Sweep__indMultip
+    
+    @property
+    def indMultip_intervals(self):
+        r"""
+        ``returns _Sweep__indMultip_intervals``, and there is no setter
+
+        NOTE : Similar to `indMultip`, this property returns a pre-assigned value rather than calculating from the `inds_intervals`.
+        """
+        return self._Sweep__indMultip_intervals
 
     @property
     def sweeps(self):
@@ -311,16 +329,19 @@ class Sweep(qBase):
 
     def prepare(self):
         r"""
-        This method is called inside ``run`` method of ``Simulation`` object/s to update ``inds`` and ``indMultip``
-        attributes/properties. The reason for this a bit argued in :meth:`indMultip`, but it is basically to ensure that
+        This method is called inside ``run`` method of ``Simulation`` object/s to update ``inds``, ``inds_intervals``, ``indMultip_intervals`` and ``indMultip`` attributes/properties. The reason for this a bit argued in :meth:`indMultip`, but it is basically to ensure that
         any changes to ``sweepList/s`` or ``combinatorial/s`` are accurately used/reflected (especially on re-runs).
         """
         if len(self.subSys) > 0:
             self._Sweep__inds = [] # pylint: disable=assigning-non-slot
+            self._Sweep__inds_intervals = []  # pylint: disable=assigning-non-slot
             for indx, sweep in enumerate(self.subSys.values()):
                 if ((sweep.combinatorial is True) or (indx == 0)):
-                    self._Sweep__inds.insert(0, len(sweep.sweepList))
+                    points = len(sweep.sweepList) if sweep.sweepList is not None else 1
+                    self._Sweep__inds.insert(0, points)
+                    self._Sweep__inds_intervals.insert(0, points-1)
             self._Sweep__indMultip = reduce(lambda x, y: x*y, self._Sweep__inds) # pylint: disable=assigning-non-slot
+            self._Sweep__indMultip_intervals = reduce(lambda x, y: x*y, self._Sweep__inds_intervals) # pylint: disable=assigning-non-slot
 
     def runSweep(self, indList):
         r"""

@@ -129,3 +129,27 @@ def test_currentTimeOnSweep():
     sim.run()
 
     assert out == [0, 0.5, 1.0]*3
+
+def test_stepCountAndTimeListOnSweepWithTimeDependecy():
+
+    qub = qg.Qubit(frequency=1, alias='qubit')
+    qub.initialState = qg.basis(qub.dimension, 1)
+
+    qub.stepCount = 10
+    qub.totalTime = 1
+
+    omegaSweep = qub.simulation.timeDependency.createSweep(
+    system=qub,
+    sweepKey='frequency',
+    sweepList=qub.timeList,
+    )
+
+    qub.run()
+
+    assert omegaSweep.sweepList == qub.timeList
+
+
+
+
+
+
