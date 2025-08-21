@@ -67,11 +67,12 @@ def test_showProgressIsTruePrintsToTerminal(showProgress, parallel):
     sim.initialState = [0, 1]
     sim.Sweep.createSweep(system=qsys, sweepKey="frequency", sweepList=[0, 1, 2])
     with patch('quanguru.classes.modularSweep.printProgress') as mock_write:
-        sim.run(p=parallel, showProgress=showProgress)
-        if showProgress: 
-            assert mock_write.called
-        else: 
-            assert not mock_write.called
+        if __name__ == "__main__":
+            sim.run(p=parallel, showProgress=showProgress)
+            if showProgress: 
+                assert mock_write.called
+            else: 
+                assert not mock_write.called
 
 # def test_printPreambleFormat():
 #     """Test the printPreamble function."""
@@ -122,7 +123,3 @@ def test_sequentialProgressOnlyWithSweeps(sweeps):
             assert mock_write.called
         else:
             assert not mock_write.called
-
-if __name__ == "__main__":
-    # Run tests if this file is executed directly
-    pytest.main([__file__, "-v"])

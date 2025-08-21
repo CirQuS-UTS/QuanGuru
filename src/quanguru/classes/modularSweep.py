@@ -138,34 +138,30 @@ def paralEvol(qSim, p, showProgress=True):
 def printPreamble(totalTasks, startTime, parallel=False):
     sweepType = 'parallel' if parallel else 'sequential'
     # Format start time as human-readable string
-    startTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(startTime))
+    startTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(startTime))
     sys.stdout.write(
         f"Starting {sweepType} sweep with {totalTasks} parameter combinations...\n"
         f"Simulation Start:\t{startTimeStr}\n"
-        f'[{'-'*40}] {0.:.1f}%\n'
-        f'Estimated Finish:\n'
+        f'[{"-"*40}] {0.:.1f}% | Estimated Finish:'
     )
     sys.stdout.flush()
 
 
 def printProgress(completed, totalTasks, startTime):
-    sys.stdout.write('\033[F\033[F')
-
     progress = completed / totalTasks
     now = time.time()
     elapsedTime = now - startTime
     remainingTime = elapsedTime * (1/progress - 1)
     # Calculate estimated finish time as a timestamp
     estimatedFinishTime = now + remainingTime
-    finishTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(estimatedFinishTime))
+    finishTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(estimatedFinishTime))
     # Progress bar display
     barLength = 40
     filledLength = int(barLength * progress)
     bar = '█' * filledLength + '-' * (barLength - filledLength)
     # Print all lines in one go
     sys.stdout.write(
-        f'[{bar}] {progress*100:.1f}%\n'
-        f'Estimated Finish:\t{finishTimeStr}\n'
+        f'\r[{bar}] {progress*100:.1f}% | Est. Finish: {finishTimeStr}'
     )
     sys.stdout.flush()
 
@@ -173,9 +169,8 @@ def printProgress(completed, totalTasks, startTime):
 def printEpilogue(startTime):
     seconds = time.time() - startTime
 
-    print(
-        '--------------------------------------------'
-        + f'\nSimulation completed in ' + time.strftime('%Hh %Mm %Ss', time.gmtime(seconds))
+    sys.stdout.write(
+        f'\nSimulation completed in ' + time.strftime('%Hh %Mm %Ss', time.gmtime(seconds))
     )
 
 
