@@ -142,15 +142,12 @@ def printPreamble(totalTasks, startTime, parallel=False):
     sys.stdout.write(
         f"Starting {sweepType} sweep with {totalTasks} parameter combinations...\n"
         f"Simulation Start:\t{startTimeStr}\n"
-        f'[{'-'*40}] {0.:.1f}%\n'
-        f'Estimated Finish:\n'
+        f'[{"-"*40}] {0.:.1f}% | Estimated Finish:'
     )
     sys.stdout.flush()
 
 
 def printProgress(completed, totalTasks, startTime):
-    sys.stdout.write('\033[F\033[F')
-
     progress = completed / totalTasks
     now = time.time()
     elapsedTime = now - startTime
@@ -164,8 +161,7 @@ def printProgress(completed, totalTasks, startTime):
     bar = '█' * filledLength + '-' * (barLength - filledLength)
     # Print all lines in one go
     sys.stdout.write(
-        f'[{bar}] {progress*100:.1f}%\n'
-        f'Estimated Finish:\t{finishTimeStr}\n'
+        f'\r[{bar}] {progress*100:.1f}% | Est. Finish: {finishTimeStr}'
     )
     sys.stdout.flush()
 
@@ -173,9 +169,8 @@ def printProgress(completed, totalTasks, startTime):
 def printEpilogue(startTime):
     seconds = time.time() - startTime
 
-    print(
-        '--------------------------------------------'
-        + f'\nSimulation completed in ' + time.strftime('%Hh %Mm %Ss', time.gmtime(seconds))
+    sys.stdout.write(
+        f'\nSimulation completed in ' + time.strftime('%Hh %Mm %Ss', time.gmtime(seconds))
     )
 
 
