@@ -138,7 +138,7 @@ def paralEvol(qSim, p, showProgress=True):
 def printPreamble(totalTasks, startTime, parallel=False):
     sweepType = 'parallel' if parallel else 'sequential'
     # Format start time as human-readable string
-    startTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(startTime))
+    startTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(startTime))
     sys.stdout.write(
         f"Starting {sweepType} sweep with {totalTasks} parameter combinations...\n"
         f"Simulation Start:\t{startTimeStr}\n"
@@ -154,7 +154,7 @@ def printProgress(completed, totalTasks, startTime):
     remainingTime = elapsedTime * (1/progress - 1)
     # Calculate estimated finish time as a timestamp
     estimatedFinishTime = now + remainingTime
-    finishTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(estimatedFinishTime))
+    finishTimeStr = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(estimatedFinishTime))
     # Progress bar display
     barLength = 40
     filledLength = int(barLength * progress)
