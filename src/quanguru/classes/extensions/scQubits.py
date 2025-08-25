@@ -1,6 +1,6 @@
 import scqubits as scq
-from ..QSys import qSystem 
-from numpy import abs
+from ..QSys import qSystem
+from numpy import abs, diag, ones
 from scipy.sparse import csc_matrix
 
 
@@ -22,6 +22,10 @@ class scQubit(qSystem):
 
         self.scqObj = self.scqType(**scqAttrs)
 
+        @property
+        def groundedHamiltonian(self):
+            return self.scqObj.groundedHamiltonian
+
         # handle the dimension
         # kwargs['dimension'] = kwargs.get('dimension', self._max_dim)
         # if kwargs['dimension'] > (self._max_dim):
@@ -29,6 +33,9 @@ class scQubit(qSystem):
 
         #setting the frequency (can be overwritten by the user)
         self.frequency = 1
+
+        #setting the truncated dimension
+        self.dimension = self.scqObj.truncated_dim
 
         #defining the attributes inherited from parent classes
         remaining_kwargs = {key: kwargs[key] for key in kwargs if key not in scqAttrs}
@@ -38,9 +45,12 @@ class scQubit(qSystem):
         # self._qUniversal__setKwargs(**{key: kwargs[key] for key in kwargs if key not in scqAttrs}) # pylint: disable=no-member
 
         # setting the operator / hamiltonian (this is done after the previous line as self.dimension must be defined for the method to work)
-        self.operator = self.scqHamiltonian
+        if self.scqObj.groundedHamiltonian is True:
+            self.operator = self.scqHamiltonian - diag(self.totalHam[0][0]*ones(self.totalHam.shape[0]))
+        else:
+            self.operator = self.scqHamiltonian
 
-    def scqHamiltonian(self, energy_esys=None):
+    def scqHamiltonian(self, energy_esys=True):
         # #retrieving the hamiltonian in eigenstate basis
         # ham = self.scqObj.matrixelement_table('hamiltonian', evals_count=dimension)
 
@@ -130,6 +140,7 @@ class scqTransmon(scQubit):
         # if (2*self.ncut + 1) < dim:
         #     raise ValueError('(2*ncut + 1) must be greater than or equal to than \'dimension\'. Try changing dimension first')
         scQubit.dimension.fset(self, dim)
+        
     def scqNOperator(self, energy_esys=None):
         r"""This method returns the charge operator matrix
         
