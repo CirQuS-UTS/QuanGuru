@@ -22,9 +22,16 @@ class scQubit(qSystem):
 
         self.scqObj = self.scqType(**scqAttrs)
 
-        @property
-        def groundedHamiltonian(self):
-            return self.scqObj.groundedHamiltonian
+        # @property
+        # def groundedHamiltonian(self):
+        #     """Get the groundedHamiltonian flag"""
+        #     return getattr(self.scqObj, 'groundedHamiltonian', False)
+
+        # @groundedHamiltonian.setter
+        # def groundedHamiltonian(self, value):
+        #     """Set the groundedHamiltonian flag"""
+        #     self.scqObj.groundedHamiltonian = value
+        #     self._udpateScqHam()
 
         # handle the dimension
         # kwargs['dimension'] = kwargs.get('dimension', self._max_dim)
@@ -43,12 +50,9 @@ class scQubit(qSystem):
             if hasattr(self, key):
                 setattr(self, key, value) # pylint: disable=no-member
         # self._qUniversal__setKwargs(**{key: kwargs[key] for key in kwargs if key not in scqAttrs}) # pylint: disable=no-member
+        self.operator = self.scqHamiltonian
 
-        # setting the operator / hamiltonian (this is done after the previous line as self.dimension must be defined for the method to work)
-        if self.scqObj.groundedHamiltonian is True:
-            self.operator = self.scqHamiltonian - diag(self.totalHam[0][0]*ones(self.totalHam.shape[0]))
-        else:
-            self.operator = self.scqHamiltonian
+
 
     def scqHamiltonian(self, energy_esys=True):
         # #retrieving the hamiltonian in eigenstate basis
