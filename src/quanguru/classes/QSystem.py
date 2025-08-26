@@ -791,7 +791,7 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__jValue']
+    __slots__ = ['__jValue', 'timeDependency']
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
@@ -799,7 +799,13 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
         self.operator = Jz
         #: spin quantum number
         self.__jValue = None
+        #: function that can be assigned by the user to update the parameters a function of time. The library passes the
+        #: current time to this function, and any desired parameter can be updated as a function of time.
+        self.timeDependency = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+        
 
     @property
     def jValue(self):
@@ -812,6 +818,21 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
     def jValue(self, value):
         self._Spin__jValue = value # pylint: disable=assigning-non-slot
         self.dimension = int((2*value) + 1)
+
+    def _timeDependency(self, time=None):
+        r"""
+        Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
+        to update the desired parameters (such as frequency of the spin system) as a function of time.
+        """
+        if ((time is None) and (hasattr(self, 'simulation'))):
+            time = self.simulation._currentTime
+
+        if callable(self.timeDependency):
+            self.timeDependency(self, time)
+        
+        # Call the parent implementation to handle subsystems and terms
+        super()._timeDependency(time)
+
 
 class Qubit(Spin): # pylint: disable=too-many-ancestors
     r"""
