@@ -791,7 +791,7 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__jValue', 'timeDependency']
+    __slots__ = ['timeDependency', '__jValue']
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
@@ -802,8 +802,6 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
         #: function that can be assigned by the user to update the parameters a function of time. The library passes the
         #: current time to this function, and any desired parameter can be updated as a function of time.
         self.timeDependency = None
-        self._named__setKwargs(**kwargs) # pylint: disable=no-member
-
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
         
 
