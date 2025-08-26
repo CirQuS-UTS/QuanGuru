@@ -51,17 +51,12 @@ def test_qubitObjectTimeDependencyWithSim():
     qub.timeDependency = qubFrequencyTimeDependency
 
     assert qub.frequency == 1
+
     qubitFreqList = []
     def compute(qsys, args):
         qubitFreqList.append(qsys.frequency)
-
     qub.compute = compute
 
     qub.run()
 
     assert qubitFreqList == [1, 1, 6, 6, 1, 1]
-
-
-test_spinObjectTimeDependency()
-test_qubitObjectTimeDependency()
-test_qubitObjectTimeDependencyWithSim()
