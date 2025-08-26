@@ -1,10 +1,10 @@
 import scqubits as scq
-from ..QSys import qSystem
+from ..QSystem import QuantumSystem
 from numpy import abs, diag, ones
 from scipy.sparse import csc_matrix
 
 
-class scQubit(qSystem):
+class scQubit(QuantumSystem):
 #FIXME the dimension < _maxDim condition in the __init__ function
 
     instances = 0
@@ -14,24 +14,17 @@ class scQubit(qSystem):
     __slots__ = ['scqObj']
 
     def __init__(self, **kwargs):
-        super().__init__(terms=kwargs.pop('terms', None), subSys=kwargs.pop('subSys', None))
-
         # instantiating the scqObj
         scqAttrs = self.scqType.default_params()
-        scqAttrs.update({key: kwargs[key] for key in kwargs if key in scqAttrs})
-
+        keys = scqAttrs.keys()
+        for key in keys:
+            if key in kwargs.keys():
+                scqAttrs[key] = kwargs.pop(key)
+   
         self.scqObj = self.scqType(**scqAttrs)
 
-        # @property
-        # def groundedHamiltonian(self):
-        #     """Get the groundedHamiltonian flag"""
-        #     return getattr(self.scqObj, 'groundedHamiltonian', False)
+        super().__init__(**kwargs)
 
-        # @groundedHamiltonian.setter
-        # def groundedHamiltonian(self, value):
-        #     """Set the groundedHamiltonian flag"""
-        #     self.scqObj.groundedHamiltonian = value
-        #     self._udpateScqHam()
 
         # handle the dimension
         # kwargs['dimension'] = kwargs.get('dimension', self._max_dim)
@@ -45,10 +38,10 @@ class scQubit(qSystem):
         self.dimension = self.scqObj.truncated_dim
 
         #defining the attributes inherited from parent classes
-        remaining_kwargs = {key: kwargs[key] for key in kwargs if key not in scqAttrs}
-        for key, value in remaining_kwargs.items():
-            if hasattr(self, key):
-                setattr(self, key, value) # pylint: disable=no-member
+        # remaining_kwargs = {key: kwargs[key] for key in kwargs if key not in scqAttrs}
+        # for key, value in remaining_kwargs.items():
+        #     if hasattr(self, key):
+        #         setattr(self, key, value) # pylint: disable=no-member
         # self._qUniversal__setKwargs(**{key: kwargs[key] for key in kwargs if key not in scqAttrs}) # pylint: disable=no-member
         self.operator = self.scqHamiltonian
 
@@ -79,7 +72,7 @@ class scQubit(qSystem):
 
     def _udpateScqHam(self):
         self._paramUpdated = True
-        self.firstTerm._paramBoundBase__matrix = None
+        self._firstTerm._paramBoundBase__matrix = None
 
     #abstract method
     @property
