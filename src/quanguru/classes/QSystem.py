@@ -69,7 +69,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
+    __slots__ = ['timeDependency','__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
                  '__unitary', '__compOpers']
 
     def __init__(self, **kwargs):
@@ -93,6 +93,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self._inpCoef = kwargs.pop("_inpCoef", False)
         #: a dictionary to store arbitrary composite operators that are shaped and updated internally
         self.__compOpers = {}
+        #: function that can be assigned by the user to update the parameters a function of time. The library passes the
+        #: current time to this function, and any desired parameter can be updated as a function of time.
+        self.timeDependency = None
         #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
         self._QuantumSystem__unitary.superSys = self # pylint: disable=no-member
@@ -138,11 +141,16 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     def _timeDependency(self, time=None):
         r"""
-        An internal method used to pass down the current time in evolution to all the ``subSys`` and ``terms``. The term
-        objects timeDependency functions are used for updating relevant parameters as a function of time.
+        Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
+        to update the desired parameters (such as frequency of the spin system) as a function of time.
+        Also passes down the current time in evolution to all the ``subSys`` and ``terms``. 
         """
-        if time is None:
+        if ((time is None) and (hasattr(self, 'simulation'))):
             time = self.simulation._currentTime
+    
+        if callable(self.timeDependency):
+            self.timeDependency(self, time)
+
         for sys in self.subSys.values():
             sys._timeDependency(time)
         for ter in self.terms.values():
@@ -791,7 +799,7 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['timeDependency', '__jValue']
+    __slots__ = ['__jValue']
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
@@ -799,12 +807,8 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
         self.operator = Jz
         #: spin quantum number
         self.__jValue = None
-        #: function that can be assigned by the user to update the parameters a function of time. The library passes the
-        #: current time to this function, and any desired parameter can be updated as a function of time.
-        self.timeDependency = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
         
-
     @property
     def jValue(self):
         r"""
@@ -816,21 +820,6 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
     def jValue(self, value):
         self._Spin__jValue = value # pylint: disable=assigning-non-slot
         self.dimension = int((2*value) + 1)
-
-    def _timeDependency(self, time=None):
-        r"""
-        Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
-        to update the desired parameters (such as frequency of the spin system) as a function of time.
-        """
-        if ((time is None) and (hasattr(self, 'simulation'))):
-            time = self.simulation._currentTime
-
-        if callable(self.timeDependency):
-            self.timeDependency(self, time)
-        
-        # Call the parent implementation to handle subsystems and terms
-        super()._timeDependency(time)
-
 
 class Qubit(Spin): # pylint: disable=too-many-ancestors
     r"""
