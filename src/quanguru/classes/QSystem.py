@@ -69,7 +69,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['timeDependency','__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
+    __slots__ = ['timeDependency', '__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
                  '__unitary', '__compOpers']
 
     def __init__(self, **kwargs):
@@ -145,7 +145,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         to update the desired parameters (such as frequency of the spin system) as a function of time.
         Also passes down the current time in evolution to all the ``subSys`` and ``terms``. 
         """
-        if ((time is None) and (hasattr(self, 'simulation'))):
+        if time is None:
             time = self.simulation._currentTime # pylint: disable=no-member
     
         if callable(self.timeDependency):
@@ -808,7 +808,7 @@ class Spin(QuantumSystem): # pylint: disable=too-many-ancestors
         #: spin quantum number
         self.__jValue = None
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
-        
+
     @property
     def jValue(self):
         r"""
