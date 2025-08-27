@@ -146,10 +146,10 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         Also passes down the current time in evolution to all the ``subSys`` and ``terms``. 
         """
         if ((time is None) and (hasattr(self, 'simulation'))):
-            time = self.simulation._currentTime
+            time = self.simulation._currentTime # pylint: disable=no-member
     
         if callable(self.timeDependency):
-            self.timeDependency(self, time)
+            self.timeDependency(self, time) # pylint: disable=assigning-non-slot,not-callable
 
         for sys in self.subSys.values():
             sys._timeDependency(time)
