@@ -101,6 +101,9 @@ def number(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
 @overload
 def number(dimension: int, sparse: Literal[False]) -> ndarray: ...
 
+@overload
+def number(dimension: int, sparse: bool) -> Matrix: ...
+
 def number(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the (bosonic) number :math:`\hat{n} := a^{\dagger}a` operator (in Fock basis).
@@ -142,6 +145,9 @@ def destroy(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
 @overload
 def destroy(dimension: int, sparse: Literal[False]) -> ndarray: ...
 
+@overload
+def destroy(dimension: int, sparse: bool) -> Matrix: ...
+
 def destroy(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the bosonic `annihilation` :math:`\hat{a}` operator (in Fock basis).
@@ -181,6 +187,9 @@ def create(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
 
 @overload
 def create(dimension: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def create(dimension: int, sparse: bool) -> Matrix: ...
 
 def create(dimension: int, sparse: bool = True) -> Matrix:
     r"""
@@ -222,6 +231,9 @@ def identity(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
 @overload
 def identity(dimension: int, sparse: Literal[False]) -> ndarray: ...
 
+@overload
+def identity(dimension: int, sparse: bool) -> Matrix: ...
+
 def identity(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the identity operator :math:`\mathbb{I}`.
@@ -257,6 +269,9 @@ def sigmaz(sparse: Literal[True] = True) -> spmatrix: ...
 
 @overload
 def sigmaz(sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def sigmaz(sparse: bool) -> Matrix: ...
 
 def sigmaz(sparse: bool = True) -> Matrix:
     r"""
@@ -295,6 +310,9 @@ def sigmay(sparse: Literal[True] = True) -> spmatrix: ...
 @overload
 def sigmay(sparse: Literal[False]) -> ndarray: ...
 
+@overload
+def sigmay(sparse: bool) -> Matrix: ...
+
 def sigmay(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma y) :math:`\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}` operator.
@@ -331,6 +349,9 @@ def sigmax(sparse: Literal[True] = True) -> spmatrix: ...
 
 @overload
 def sigmax(sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def sigmax(sparse: bool) -> Matrix: ...
 
 def sigmax(sparse: bool = True) -> Matrix:
     r"""
@@ -369,6 +390,9 @@ def sigmap(sparse: Literal[True] = True) -> spmatrix: ...
 @overload
 def sigmap(sparse: Literal[False]) -> ndarray: ...
 
+@overload
+def sigmap(sparse: bool) -> Matrix: ...
+
 def sigmap(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma +) :math:`\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =
@@ -406,6 +430,9 @@ def sigmam(sparse: Literal[True] = True) -> spmatrix: ...
 @overload
 def sigmam(sparse: Literal[False]) -> ndarray: ...
 
+@overload
+def sigmam(sparse: bool) -> Matrix: ...
+
 def sigmam(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma -) :math:`\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =
@@ -438,10 +465,13 @@ def sigmam(sparse: bool = True) -> Matrix:
     return n if sparse else n.toarray()
 
 @overload
-def Jp(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix: ...
+def Jp(j: float, sparse: Literal[True], isDim: bool = False) -> spmatrix: ...
 
 @overload 
 def Jp(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
+
+@overload
+def Jp(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
 
 def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
@@ -511,6 +541,9 @@ def Jm(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix:
 @overload 
 def Jm(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
 
+@overload
+def Jm(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
+
 def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `lowering` operator
@@ -579,6 +612,9 @@ def Jx(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix:
 @overload 
 def Jx(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
 
+@overload
+def Jx(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
+
 def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `X` operator :math:`\hat{J}_{x}` for a given spin quantum number j.
@@ -645,6 +681,9 @@ def Jy(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix:
 
 @overload
 def Jy(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
+
+@overload
+def Jy(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
 
 def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
@@ -713,6 +752,9 @@ def Jz(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix:
 @overload
 def Jz(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
 
+@overload
+def Jz(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
+
 def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `Z` operator :math:`\hat{J}_{z}` for a given spin quantum number j.
@@ -778,6 +820,9 @@ def Js(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix:
 @overload
 def Js(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
 
+@overload
+def Js(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
+
 def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the total angular momentum (spin) operator
@@ -839,6 +884,9 @@ def displacement(alpha: complex, dim: int, sparse: Literal[True] = True) -> spma
 @overload
 def displacement(alpha: complex, dim: int, sparse: Literal[False]) -> ndarray: ...
 
+@overload
+def displacement(alpha: complex, dim: int, sparse: bool) -> Matrix: ...
+
 def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the displacement operator :math:`\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}`
@@ -896,6 +944,9 @@ def squeeze(alpha: complex, dim: int, sparse: Literal[True] = True) -> spmatrix:
 
 @overload
 def squeeze(alpha: complex, dim: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def squeeze(alpha: complex, dim: int, sparse: bool) -> Matrix: ...
 
 def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     r"""
@@ -991,6 +1042,9 @@ def paritySUM(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
 @overload
 def paritySUM(dimension: int, sparse: Literal[False]) -> ndarray: ...
 
+@overload
+def paritySUM(dimension: int, sparse: bool) -> Matrix: ...
+
 def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates a parity operator by explicitly placing alternating +/- into a matrix.
@@ -1078,6 +1132,9 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: Literal[True] = True
 
 @overload
 def operatorPow(op: Callable, dim: int, power: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def operatorPow(op: Callable, dim: int, power: int, sparse: bool) -> Matrix: ...
 
 def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matrix:
     r"""
