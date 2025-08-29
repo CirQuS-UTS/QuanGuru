@@ -1,6 +1,7 @@
 import scqubits as scq
 from ..QSystem import QuantumSystem
-from numpy import abs, diag, ones
+from ...QuantumToolbox.operators import identity
+import numpy as np
 from scipy.sparse import csc_matrix
 
 
@@ -64,11 +65,17 @@ class scQubit(QuantumSystem):
             If False: return in charge basis 
             Else: return in energy eigenbasis 
         """
+        
         if energy_esys is False:
             return self.scqObj.hamiltonian(energy_esys=False)
         else: 
-            return self.scqObj.hamiltonian(energy_esys=True)  # charge basis
+            H = self.scqObj.hamiltonian(energy_esys=True)
+            # H[np.diag_indices(H.shape[0])] -= (np.arange(H.shape[0])+1)
+            H -= H[0, 0]*identity(H.shape[0])
+            return H
         
+
+
 
     def _udpateScqHam(self):
         self._paramUpdated = True
@@ -138,7 +145,7 @@ class scqTransmon(scQubit):
         #     raise ValueError('(2*ncut + 1) must be greater than or equal to than \'dimension\'. Try changing dimension first')
         scQubit.dimension.fset(self, dim)
         
-    def scqNOperator(self, energy_esys=None):
+    def scqNOperator(self, dim):
         r"""This method returns the charge operator matrix
         
         Parameters:
@@ -147,10 +154,7 @@ class scqTransmon(scQubit):
             If False: return in chrage basis 
             Else: return in energy eigenbasis 
         """
-        if energy_esys is False:
-            return self.scqObj.n_operator(energy_esys=False)
-        else: 
-            return self.scqObj.n_operator(energy_esys=True)  # charge basis
+        return self.scqObj.n_operator(energy_esys=True)  # charge basis
 
 
 
