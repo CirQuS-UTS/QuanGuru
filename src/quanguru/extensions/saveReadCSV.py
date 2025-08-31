@@ -99,7 +99,7 @@ def saveCSV(data, path=None, fileName=None, dateTime=True):
     
     path = makeDir(path)
 
-    with open(path + '/' + str(fileName) + '.txt', 'w') as csvFile: #pylint:disable=W1514
+    with open(path + '/' + str(fileName) + '.txt', 'w', newline='') as csvFile: #pylint:disable=W1514
         csvWriter = csv.writer(csvFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         if isinstance(data[0], (list, np.ndarray)):
             for ind in range(len(data)):
