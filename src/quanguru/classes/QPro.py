@@ -205,8 +205,8 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self.simulation._qBase__subSys[self] = self.superSys # pylint: disable=protected-access
 
     def unitary(self):
-        collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.keys()]
-        decayRates = None if not self._isOpen else list(self._dissipator.values())
+        collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.values()]
+        decayRates = None if not self._isOpen else [ds.jRate for ds in self._dissipator.values()]
         if self.superSys is not None:
             self.superSys._timeDependency() # pylint: disable=no-member
 
@@ -219,11 +219,11 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
 
     def getUnitary(self, collapseOps = None, decayRates = None):
         if collapseOps is None:
-            collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.keys()]
-            decayRates = None if not self._isOpen else list(self._dissipator.values())
+            collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.values()]
+            decayRates = None if not self._isOpen else [ds.jRate for ds in self._dissipator.values()]
         else:
-            collapseOps = collapseOps + [ds.jOperMatrix for ds in self._dissipator.keys()]
-            decayRates = decayRates + list(self._dissipator.values())
+            collapseOps = collapseOps + [ds.jOperMatrix for ds in self._dissipator.values()]
+            decayRates = decayRates + [ds.jRate for ds in self._dissipator.values()]
         if self.superSys is not None:
             self.superSys._timeDependency() # pylint: disable=no-member
 
@@ -293,6 +293,8 @@ class qProtocol(genericProtocol):
     _externalInstances: int = 0
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
+
+    __slots__ = []
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))

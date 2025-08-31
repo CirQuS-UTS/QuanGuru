@@ -30,6 +30,7 @@ r"""
 from numpy import exp, real # type: ignore
 from .states import mat2Vec, vec2Mat
 from .customTypes import Matrix
+from scipy.sparse import spmatrix  # type: ignore
 
 def nBarThermal(angFreq: float, temp: float, hbar: float = 1.0, kb: float = 1.0) -> float:
     r"""
@@ -130,5 +131,5 @@ def HeatCurrent(Lindbladian: Matrix, Hamiltonian: Matrix, denMat: Matrix) -> flo
     """
 
     full = mat2Vec(Lindbladian * vec2Mat(denMat))
-    heatCurrent = real((full * Hamiltonian).tr())
+    heatCurrent = real((full * Hamiltonian).trace())
     return heatCurrent

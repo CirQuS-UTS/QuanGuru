@@ -44,7 +44,7 @@ r"""
 
 """ #pylint:disable=too-many-lines
 
-from typing import List, Tuple
+from typing import List, Tuple, overload, Literal
 from numpy import ndarray # type: ignore
 
 import numpy as np # type: ignore
@@ -190,10 +190,10 @@ def _fidelityTest(state1: Matrix, state2: Matrix) -> float:
     Calculates `fidelity`
     """
     if isinstance(state1, spmatrix):
-        state1 = state1.A
+        state1 = state1.toarray()
 
     if isinstance(state2, spmatrix):
-        state2 = state2.A
+        state2 = state2.toarray()
     matsqrt = lina.sqrtm(state1)
     fid = trace(lina.sqrtm(matsqrt @ state2  @ matsqrt))
     return np.real(fid**2)
@@ -253,7 +253,7 @@ def entropy(densMat: Matrix, base2: bool = False) -> float:
 
     # converts sparse into array (and has to)
     if not isinstance(densMat, np.ndarray):
-        densMat = densMat.A
+        densMat = densMat.toarray()
 
     vals = lina.eig(densMat)[0]
     nzvals = vals[vals != 0]
@@ -304,7 +304,7 @@ def traceDistance(A: Matrix, B: Matrix) -> float:
 
     diff = hc(diff) @ diff
     if hasattr(diff, 'A'):
-        diff = diff.A
+        diff = diff.toarray()
     vals = lina.eig(diff)[0]
     return np.real(0.5 * np.sum(np.sqrt(np.abs(vals))))
 
@@ -341,7 +341,7 @@ def sortedEigens(Mat: Matrix, mag: bool = False) -> Tuple[floatList, List[ndarra
     """
 
     if not isinstance(Mat, np.ndarray):
-        Mat = Mat.A
+        Mat = Mat.toarray()
 
     eigVals, eigVecs = lina.eig(Mat)
     if mag:
@@ -399,7 +399,7 @@ def concurrence(state: Matrix) -> float:
         state = densityMatrix(state)
 
     if not isinstance(state, np.ndarray):
-        state = state.A
+        state = state.toarray()
 
     SySy = tensorProd(sigmay(), sigmay())
     magicConj = SySy @ state.conj() @ SySy
@@ -447,7 +447,16 @@ def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:
     expMat = hc(states) @ operator @ states
     return expMat.diagonal()
 
-def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float:
+@overload
+def standardDev(operator: Matrix, state: Matrix, expect: Literal[False] = False) -> float: ...
+
+@overload
+def standardDev(operator: Matrix, state: Matrix, expect: Literal[True]) -> Tuple[float, float]: ...
+
+@overload
+def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float | Tuple[float, float]: ...
+
+def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float | Tuple[float, float]:
     expSq = (expectation(operator, state))
     SqExp = expectation(_matPower(operator, 2), state)
     return np.sqrt(SqExp - (expSq**2)) if not expect else (np.sqrt(SqExp - (expSq**2)), expSq)

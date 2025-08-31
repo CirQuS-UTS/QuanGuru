@@ -13,7 +13,7 @@ def test_subSystemDimesionsAreRequiredForMatrixCreations():
     comp = qub + cav
 
     with pytest.raises(ValueError):
-        comp.totalHamiltonian.A
+        comp.totalHamiltonian.toarray()
 
 @pytest.mark.parametrize('intType', [int, int64, int32])
 def test_dimensionHasToBeInt(intType):

@@ -142,7 +142,7 @@ def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
     if state.shape[0] != state.shape[1]:
         qmat = _qfuncPure(state, amat)
     else:
-        d, v = la.eig(state.full())
+        d, v = la.eig(state)
         # d[i]   = eigenvalue i
         # v[:,i] = eigenvector i
 

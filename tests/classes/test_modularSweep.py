@@ -1,6 +1,13 @@
 import numpy as np
 import pytest
-from quanguru import QuantumSystem, sigmam, Qubit, freeEvolution
+from quanguru import (
+    QuantumSystem, 
+    sigmam, 
+    Qubit, 
+    freeEvolution,
+    Simulation,
+    identity
+)
 
 # write a compute function for the qubit
 def computeREF(qub, st):
@@ -82,3 +89,34 @@ def test_noInitialStateRequiredWhenNoTimeEvolutionWithOrder():
     # run the simulation
     with pytest.raises(TypeError):
         states = qsys.runSimulation()
+
+@pytest.mark.parametrize("timeDependent", [True, False])
+def test_numberOfComputeFunctionExecutions(timeDependent):
+    Simulation._resetAll()
+    sim = Simulation()
+    sim.stepCount = 10
+    sim.totalTime = 1
+
+    qub = Qubit(frequency=1, alias='qubit')
+    qub.initialState = identity(qub.dimension)
+
+    sim.addSubSys(qub)
+
+    # print(qub.stepCount)
+
+    if timeDependent:
+        sim.timeDependency.createSweep(
+            system=qub,
+            sweepKey='frequency',
+            sweepList=5*np.array(sim.timeList),
+            alias="fSweep"
+        )
+
+    def compute(sim, state):
+        sim.qRes.singleResult = 't', sim._currentTime
+
+    sim.compute = compute
+
+    sim.run()
+
+    assert sim.qRes.resultsDict['t'] == sim.timeList
