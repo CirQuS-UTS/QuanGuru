@@ -69,13 +69,11 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
+    __slots__ = ['__terms', '__dimension', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
                  '__unitary', '__compOpers']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        #: First term is also stored in __firstTerm attribute
-        self.__firstTerm = None
         #: dictionary of the terms
         self.__terms = aliasDict()
         #: dimension of Hilbert space of the quantum system
@@ -604,8 +602,6 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         checkCorType(trm, QTerm, f"addTerms argument/s ({trm.name})")
         supSys = kwargs.pop('superSys', self)
         trm._named__setKwargs(**kwargs) # pylint: disable=W0212
-        if len(self.terms) == 0:
-            self._QuantumSystem__firstTerm = trm #pylint:disable=assigning-non-slot
         self._QuantumSystem__terms[trm.name] = trm  # pylint:disable=no-member
         self._paramUpdated = True
         trm.superSys = supSys
@@ -664,9 +660,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         Property to get the first term of the quantum system.
         """
-        if self._QuantumSystem__firstTerm is None:
+        if len(self._QuantumSystem__terms) == 0:
             self.addTerms(QTerm(qSystem=self))
-        return self._QuantumSystem__firstTerm # pylint:disable=no-member
+        return list(self._QuantumSystem__terms.values())[0] # pylint:disable=no-member
 
     @property
     def frequency(self):
@@ -714,6 +710,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     def copy(self, **kwargs):
         newSys = super().copy()
+        newSys.resetTerms()
         for qsys in self.subSys.values():
             cqsys = qsys.copy()
             cqsys.alias = qsys.name + "_" + cqsys.name
@@ -727,16 +724,13 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                 for qsys in ter.qSystem:
                     qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind].name)
 
-            if newSys._QuantumSystem__firstTerm is None:#pylint:disable=no-member,protected-access
-                newSys.createTerm(qSystem=qSystemNames, #pylint:disable=no-member
-                                  operator=ter.operator,
-                                  frequency=ter.frequency,
-                                  order=ter.order)
-            else:
-                newSys._firstTerm.qSystem=qSystemNames#pylint:disable=no-member,protected-access
-                newSys._firstTerm.operator=ter.operator#pylint:disable=no-member,protected-access
-                newSys._firstTerm.frequency=ter.frequency#pylint:disable=no-member,protected-access
-                newSys._firstTerm.order=ter.order#pylint:disable=no-member,protected-access
+            newSys.createTerm(
+                qSystem=qSystemNames, #pylint:disable=no-member
+                operator=ter.operator,
+                frequency=ter.frequency,
+                order=ter.order
+            )
+
         if self.simulation._stateBase__initialStateInput._value is not None:
             newSys.initialState = self.simulation._stateBase__initialStateInput.value #pylint:disable=assigning-non-slot
         if not self._isComposite:
