@@ -235,6 +235,13 @@ class paramBoundBase(qBase):
                     _exclude = sys.delMatrices(_exclude)
         return _exclude
 
+    def update(self):
+        r"""
+        Sets _paramUpdated to true. This is used when it is necessary to manually instruct an object that something
+        has been updated. This is useful in areas where objects from paramBoundBase need to know when an object that is
+        not inherited from paramBoundBase has been modified.
+        """
+        self._paramUpdated = True
 class computeBase(paramBoundBase):
     r"""
     Implements 3 attributes (and mechanisms) relevant to run-time calculations/computations and result storage.

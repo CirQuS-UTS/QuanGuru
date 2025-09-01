@@ -61,6 +61,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install mypy
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-optional.txt ]; then pip install -r requirements-optional.txt; fi
       - name: Type-hints with mypy
         run: |
           python3 -m mypy
@@ -84,6 +85,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-optional.txt ]; then pip install -r requirements-optional.txt; fi
       - name: core tests
         run: |
           python3 -m pytest -k 'Core'
@@ -110,6 +112,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-optional.txt ]; then pip install -r requirements-optional.txt; fi
       - name: classes unit tests
         run: |
           python3 -m pytest --ignore=tests/QuantumToolboxCore -k 'not Core and not Integration and not QuantumToolbox'
