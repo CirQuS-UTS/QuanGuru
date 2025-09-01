@@ -54,6 +54,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/09_Qubit_computeFunction';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -313,7 +315,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_JaynesCummingsModelDynamics.html">17 - Jaynes-Cummings Dynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">18 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">19 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">19 - Simultaneous Simulation JC and Rabi models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
@@ -392,7 +394,7 @@
 <section id="9---Simulation-with-a-compute-function">
 <h1>9 - Simulation with a compute function<a class="headerlink" href="#9---Simulation-with-a-compute-function" title="Link to this heading">#</a></h1>
 <p>In previous tutorials, we covered the simulation of a single qubit, where we received a list of states from the <code class="docutils literal notranslate"><span class="pre">runSimulation</span></code> method, and used those states to compute some expectation values. In this tutorial, we will show an alternative that computes whatever we want during the evolution. The advantage in this approach is that we don’t have to keep a list of state vectors, which in general takes a lot memory. We, instead, only store some scaler quantities we are interested in.</p>
-<p>Again, here, we will evolve a qubit under the unitary dynamics of its Hamiltonian <span class="math">H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}</span> with the initial state set to the equal superposition of <span class="math">|1\rangle</span> and <span class="math">|0\rangle</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>).</p>
+<p>Again, here, we will evolve a qubit under the unitary dynamics of its Hamiltonian <span class="math notranslate nohighlight">\(H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}\)</span> with the initial state set to the equal superposition of <span class="math notranslate nohighlight">\(|1\rangle\)</span> and <span class="math notranslate nohighlight">\(|0\rangle\)</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -409,7 +411,7 @@
 </div>
 <p>Now, we introduce the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function and focus on its usage through <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects. We will cover more general usages of <code class="docutils literal notranslate"><span class="pre">compute</span></code> function/s in later tutorials, but the example here should suffice for most purposes.</p>
 <p>We write <code class="docutils literal notranslate"><span class="pre">compute</span></code> function/s as generic functions, and store them in the <code class="docutils literal notranslate"><span class="pre">compute</span></code> attribute of <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects. During the time evolution of the system, the library calls the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function/s at each time step of the evolution. When it is called in the background, the library passes the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object as the first argument of the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function, and the state of the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> at the current step of the evolution as the second argument.</p>
-<p>Here, we will set a <code class="docutils literal notranslate"><span class="pre">compute</span></code> function to our <code class="docutils literal notranslate"><span class="pre">Qubit</span></code>, so the library will pass the qubit as the first argument, and its state at each time step as the second argument. Then, inside this function, we can compute anything we want from the state, and, below, we compute the expectation values of <span class="math">\sigma_{x}</span> and <span class="math">\sigma_{z}</span> operators. We still need to store these expectation values in somewhere, and this is where we use the <code class="docutils literal notranslate"><span class="pre">.resultsDict</span></code> attribute. We just call
+<p>Here, we will set a <code class="docutils literal notranslate"><span class="pre">compute</span></code> function to our <code class="docutils literal notranslate"><span class="pre">Qubit</span></code>, so the library will pass the qubit as the first argument, and its state at each time step as the second argument. Then, inside this function, we can compute anything we want from the state, and, below, we compute the expectation values of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{z}\)</span> operators. We still need to store these expectation values in somewhere, and this is where we use the <code class="docutils literal notranslate"><span class="pre">.resultsDict</span></code> attribute. We just call
 <code class="docutils literal notranslate"><span class="pre">.resultsDict['someKey'].append(someValue)</span></code> to store <code class="docutils literal notranslate"><span class="pre">someValue</span></code> with <code class="docutils literal notranslate"><span class="pre">someKey</span></code>, and the library takes care of the rest.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -442,7 +444,7 @@
 </div>
 </div>
 <p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation']</span></code></p>
-<p>As expected, the expectation value of <span class="math">\sigma_{x}</span> oscillates, while the expectation value of <span class="math">\sigma_{z}</span> is constant (since <span class="math">\left[ H, \sigma_{z} \right] = 0</span>)</p>
+<p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates, while the expectation value of <span class="math notranslate nohighlight">\(\sigma_{z}\)</span> is constant (since <span class="math notranslate nohighlight">\(\left[ H, \sigma_{z} \right] = 0\)</span>)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>

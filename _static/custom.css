@@ -25,34 +25,3 @@
 .toggle{
   background: #FBFBFB;
 }
-
-/* Page-specific margin overrides (no <style> tags in .css file) */
-/* reduce overall page width and side gutters */
-.bd-page-width {
-    max-width: 85% !important;
-    width: 85% !important;
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-    margin: 0 auto !important;
-}
-
-/* tighten inner article/container padding */
-.bd-container__inner,
-.bd-article-container {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-}
-
-/* tighten notebook input/output cell gutters */
-div.nbinput.container,
-div.nboutput.container {
-    margin: 2px 4px !important;      /* top/bottom 2px, left/right 4px */
-    width: calc(100% - 8px) !important;
-}
-
-/* shrink prompt column for notebook cells */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 2.5ex !important;
-    padding-top: 2px !important;
-}

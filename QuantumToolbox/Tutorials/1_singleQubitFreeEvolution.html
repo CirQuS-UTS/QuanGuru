@@ -54,6 +54,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'QuantumToolbox/Tutorials/1_singleQubitFreeEvolution';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -371,14 +373,14 @@
 <section id="Single-Qubit-Evolution">
 <h1>Single Qubit Evolution<a class="headerlink" href="#Single-Qubit-Evolution" title="Link to this heading">#</a></h1>
 <p>Single qubit Hamiltonian is:</p>
-<p><span class="math">\large\hat{H}=\frac{w_{q}}{2}\hat{\sigma}_{z}</span></p>
-<p>Unitary time evolution operator <span class="math">|\psi(t)\rangle=U(t)|\psi(0)\rangle \rightarrow i \frac{d}{d t} U(t)=\hat{H} u(t)</span></p>
-<p><span class="math">U(t)=e^{-i \hat{H} t}</span></p>
-<p><span class="math">U(t)=\left[\begin{array}{ll}e^{-i \omega_{0} t / 2} &amp; 0 \\ 0 &amp; e^{i \omega_{q} t / 2}\end{array}\right]</span></p>
+<p><span class="math notranslate nohighlight">\(\large\hat{H}=\frac{w_{q}}{2}\hat{\sigma}_{z}\)</span></p>
+<p>Unitary time evolution operator <span class="math notranslate nohighlight">\(|\psi(t)\rangle=U(t)|\psi(0)\rangle \rightarrow i \frac{d}{d t} U(t)=\hat{H} u(t)\)</span></p>
+<p><span class="math notranslate nohighlight">\(U(t)=e^{-i \hat{H} t}\)</span></p>
+<p><span class="math notranslate nohighlight">\(U(t)=\left[\begin{array}{ll}e^{-i \omega_{0} t / 2} &amp; 0 \\ 0 &amp; e^{i \omega_{q} t / 2}\end{array}\right]\)</span></p>
 </section>
 <section id="Master-equation">
 <h1>Master equation<a class="headerlink" href="#Master-equation" title="Link to this heading">#</a></h1>
-<p><span class="math">\dot{\hat{\rho}}=\hat{\mathcal{L}} \hat{\rho}=-i\left[\hat{H}_{1} \hat{p}\right]+\sum_{i=1}^{n-1} k_{i}\left(\hat{F}_{i} \hat{p} F_{i}^{+}-\frac{1}{2}\left\{\hat{F}_{i}^{+} \hat{F}_{i}, \hat{\rho}\right\}\right)</span></p>
+<p><span class="math notranslate nohighlight">\(\dot{\hat{\rho}}=\hat{\mathcal{L}} \hat{\rho}=-i\left[\hat{H}_{1} \hat{p}\right]+\sum_{i=1}^{n-1} k_{i}\left(\hat{F}_{i} \hat{p} F_{i}^{+}-\frac{1}{2}\left\{\hat{F}_{i}^{+} \hat{F}_{i}, \hat{\rho}\right\}\right)\)</span></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>

@@ -53,6 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'QuantumToolbox/eigenVecVal';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -377,10 +379,10 @@
 <td><p>Calculates eigenvalues and eigenvectors of a given matrix (intended for internal use).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal._eigStat" title="quanguru.QuantumToolbox.eigenVecVal._eigStat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_eigStat</span></code></a>(Mat[, symp])</p></td>
-<td><p>Calculates all the amplitudes <span class="math">|c_{i,k}|^{2}</span> of entries <span class="math">|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\ c_{i,k} \\ \vdots \\c_{\mathcal{D},k} \end{bmatrix}_{\mathcal{D}\times 1}</span> for all the eigenvectors <span class="math">\{|k\rangle\}</span> of a given matrix.</p></td>
+<td><p>Calculates all the amplitudes <span class="math notranslate nohighlight">\(|c_{i,k}|^{2}\)</span> of entries <span class="math notranslate nohighlight">\(|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\ c_{i,k} \\ \vdots \\c_{\mathcal{D},k} \end{bmatrix}_{\mathcal{D}\times 1}\)</span> for all the eigenvectors <span class="math notranslate nohighlight">\(\{|k\rangle\}\)</span> of a given matrix.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal._eigStatEig" title="quanguru.QuantumToolbox.eigenVecVal._eigStatEig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_eigStatEig</span></code></a>(EigVecs[, symp])</p></td>
-<td><p>Calculates all the amplitudes <span class="math">|c_{i,k}|^{2}</span> of entries <span class="math">|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\ c_{i,k} \\ \vdots \\c_{\mathcal{D},k} \end{bmatrix}_{\mathcal{D}\times 1}</span> for a given list of eigenvectors <span class="math">\{|k\rangle\}</span>.</p></td>
+<td><p>Calculates all the amplitudes <span class="math notranslate nohighlight">\(|c_{i,k}|^{2}\)</span> of entries <span class="math notranslate nohighlight">\(|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\ c_{i,k} \\ \vdots \\c_{\mathcal{D},k} \end{bmatrix}_{\mathcal{D}\times 1}\)</span> for a given list of eigenvectors <span class="math notranslate nohighlight">\(\{|k\rangle\}\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal._eigStatSymp" title="quanguru.QuantumToolbox.eigenVecVal._eigStatSymp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_eigStatSymp</span></code></a>(Mat)</p></td>
 <td><p>Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</p></td>
@@ -389,7 +391,7 @@
 <td><p>Intended for internal use, and used in eigenvector statistics calculation of symplectic class.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.eigenVecVal.eigVecStatKet" title="quanguru.QuantumToolbox.eigenVecVal.eigVecStatKet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigVecStatKet</span></code></a>(basis, ket[, symp])</p></td>
-<td><p>Calculates component amplitudes <span class="math">|c_{i,k}|^{2}</span> of a <cite>ket</cite> <span class="math">|k\rangle := \sum_{i}c_{i,k}|i\rangle</span> in a basis <span class="math">\{|i\rangle\}</span>.</p></td>
+<td><p>Calculates component amplitudes <span class="math notranslate nohighlight">\(|c_{i,k}|^{2}\)</span> of a <cite>ket</cite> <span class="math notranslate nohighlight">\(|k\rangle := \sum_{i}c_{i,k}|i\rangle\)</span> in a basis <span class="math notranslate nohighlight">\(\{|i\rangle\}\)</span>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -466,11 +468,11 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal._eigStat">
 <span class="sig-name descname"><span class="pre">_eigStat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#_eigStat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal._eigStat" title="Link to this definition">#</a></dt>
-<dd><p>Calculates all the amplitudes <span class="math">|c_{i,k}|^{2}</span> of entries <span class="math">|k\rangle := \begin{bmatrix} c_{1,k}
+<dd><p>Calculates all the amplitudes <span class="math notranslate nohighlight">\(|c_{i,k}|^{2}\)</span> of entries <span class="math notranslate nohighlight">\(|k\rangle := \begin{bmatrix} c_{1,k}
 \\ \vdots \\
 c_{i,k}
 \\ \vdots \\c_{\mathcal{D},k}
-\end{bmatrix}_{\mathcal{D}\times 1}</span> for all the eigenvectors <span class="math">\{|k\rangle\}</span> of a given matrix.</p>
+\end{bmatrix}_{\mathcal{D}\times 1}\)</span> for all the eigenvectors <span class="math notranslate nohighlight">\(\{|k\rangle\}\)</span> of a given matrix.</p>
 <p>symp is used to calculate eigenvector statistics of systems with degeneracies, corresponding to symplectic class by
 summing every odd entry amplitude with the following even entry amplitude.</p>
 <dl class="field-list simple">
@@ -513,11 +515,11 @@ summing every odd entry amplitude with the following even entry amplitude.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal._eigStatEig">
 <span class="sig-name descname"><span class="pre">_eigStatEig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EigVecs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#_eigStatEig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal._eigStatEig" title="Link to this definition">#</a></dt>
-<dd><p>Calculates all the amplitudes <span class="math">|c_{i,k}|^{2}</span> of entries <span class="math">|k\rangle := \begin{bmatrix} c_{1,k}
+<dd><p>Calculates all the amplitudes <span class="math notranslate nohighlight">\(|c_{i,k}|^{2}\)</span> of entries <span class="math notranslate nohighlight">\(|k\rangle := \begin{bmatrix} c_{1,k}
 \\ \vdots \\
 c_{i,k}
 \\ \vdots \\c_{\mathcal{D},k}
-\end{bmatrix}_{\mathcal{D}\times 1}</span> for a given list of eigenvectors <span class="math">\{|k\rangle\}</span>.</p>
+\end{bmatrix}_{\mathcal{D}\times 1}\)</span> for a given list of eigenvectors <span class="math notranslate nohighlight">\(\{|k\rangle\}\)</span>.</p>
 <p>symp is used to calculate eigenvectors statistics of systems with degeneracies, corresponding to symplectic class by
 summing every odd entry amplitude with the following even entry amplitude.</p>
 <dl class="field-list simple">
@@ -560,8 +562,8 @@ summing every odd entry amplitude with the following even entry amplitude.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.eigenVecVal.eigVecStatKet">
 <span class="sig-name descname"><span class="pre">eigVecStatKet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/eigenVecVal.html#eigVecStatKet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.eigenVecVal.eigVecStatKet" title="Link to this definition">#</a></dt>
-<dd><p>Calculates component amplitudes <span class="math">|c_{i,k}|^{2}</span> of a <cite>ket</cite> <span class="math">|k\rangle := \sum_{i}c_{i,k}|i\rangle</span> in a
-basis <span class="math">\{|i\rangle\}</span>.</p>
+<dd><p>Calculates component amplitudes <span class="math notranslate nohighlight">\(|c_{i,k}|^{2}\)</span> of a <cite>ket</cite> <span class="math notranslate nohighlight">\(|k\rangle := \sum_{i}c_{i,k}|i\rangle\)</span> in a
+basis <span class="math notranslate nohighlight">\(\{|i\rangle\}\)</span>.</p>
 <p>Main use is in eigenvector statistics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

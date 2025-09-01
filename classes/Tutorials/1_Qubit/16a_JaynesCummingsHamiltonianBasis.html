@@ -54,6 +54,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/16a_JaynesCummingsHamiltonianBasis';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -313,7 +315,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_JaynesCummingsModelDynamics.html">17 - Jaynes-Cummings Dynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">18 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">19 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">19 - Simultaneous Simulation JC and Rabi models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
@@ -392,49 +394,49 @@
 <h1>16 - Jaynes-Cummings model of light-matter interaction<a class="headerlink" href="#16---Jaynes-Cummings-model-of-light-matter-interaction" title="Link to this heading">#</a></h1>
 <p>Before demonstrating the Jaynes-Cummings (JC) Hamiltonian in <code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code>, we provide some background for the JC Hamiltonian in this tutorial.</p>
 <p>The JC Hamiltonian is commonly written as</p>
-<p><span class="math">H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}\sigma_{-} + a\sigma_{+})</span></p>
-<p>where <span class="math">\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2</span> are raising/lowering operators for a two-level system, <span class="math">\sigma_{\mu}</span> are the Pauli spin operators with <span class="math">\mu\in\{x,y,z\}</span>, <span class="math">a^{\dagger}</span> and <span class="math">a</span> are the creation and annihilation operators for the field mode, and <span class="math">\omega_{c}</span>, <span class="math">\omega_{q}</span>, and <span class="math">g</span> are the cavity-field, qubit, and coupling (angular-) frequencies, respectively. Note that the above Hamiltonian is written in a common notation where
-the order of the sub-system Hilbert spaces is implicitly defined by the ordering in the coupling. This means, for example, that the composite form of the number operator is written explicitly as <span class="math">(a^{\dagger}a)\otimes 1_{2,2}</span> (similarly, <span class="math">a^{\dagger}\otimes\sigma_{-}</span> and <span class="math">1_{d,d}\otimes\sigma_{z}</span>, where <span class="math">d</span> is the truncation dimension for the cavity operators and <span class="math">\otimes</span> is the tensor product).</p>
+<p><span class="math notranslate nohighlight">\(H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}\sigma_{-} + a\sigma_{+})\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2\)</span> are raising/lowering operators for a two-level system, <span class="math notranslate nohighlight">\(\sigma_{\mu}\)</span> are the Pauli spin operators with <span class="math notranslate nohighlight">\(\mu\in\{x,y,z\}\)</span>, <span class="math notranslate nohighlight">\(a^{\dagger}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> are the creation and annihilation operators for the field mode, and <span class="math notranslate nohighlight">\(\omega_{c}\)</span>, <span class="math notranslate nohighlight">\(\omega_{q}\)</span>, and <span class="math notranslate nohighlight">\(g\)</span> are the cavity-field, qubit, and coupling (angular-) frequencies, respectively. Note that the above Hamiltonian is written in a common notation where
+the order of the sub-system Hilbert spaces is implicitly defined by the ordering in the coupling. This means, for example, that the composite form of the number operator is written explicitly as <span class="math notranslate nohighlight">\((a^{\dagger}a)\otimes 1_{2,2}\)</span> (similarly, <span class="math notranslate nohighlight">\(a^{\dagger}\otimes\sigma_{-}\)</span> and <span class="math notranslate nohighlight">\(1_{d,d}\otimes\sigma_{z}\)</span>, where <span class="math notranslate nohighlight">\(d\)</span> is the truncation dimension for the cavity operators and <span class="math notranslate nohighlight">\(\otimes\)</span> is the tensor product).</p>
 <p>Here, the eigenstates of the qubit are</p>
 <ul class="simple">
-<li><p>Excited state : <span class="math">|e\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue }\frac{1}{2}\omega_{q})</span></p></li>
-<li><p>Ground state: <span class="math">|g\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue }-\frac{1}{2}\omega_{q})</span></p></li>
+<li><p>Excited state : <span class="math notranslate nohighlight">\(|e\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue }\frac{1}{2}\omega_{q})\)</span></p></li>
+<li><p>Ground state: <span class="math notranslate nohighlight">\(|g\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue }-\frac{1}{2}\omega_{q})\)</span></p></li>
 </ul>
-<p>Together with the <span class="math">\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2</span> definition, we have</p>
+<p>Together with the <span class="math notranslate nohighlight">\(\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2\)</span> definition, we have</p>
 <ul class="simple">
-<li><p><span class="math">\sigma_{+} = \left[\begin{array}{ll} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]</span> so that <span class="math">\sigma_{+}|e\rangle = 0</span> and <span class="math">\sigma_{+}|g\rangle = |e\rangle</span></p></li>
-<li><p><span class="math">\sigma_{-} = \left[\begin{array}{ll} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]</span> so that <span class="math">\sigma_{-}|e\rangle = |g\rangle</span> and <span class="math">\sigma_{-}|g\rangle = 0</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{+} = \left[\begin{array}{ll} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]\)</span> so that <span class="math notranslate nohighlight">\(\sigma_{+}|e\rangle = 0\)</span> and <span class="math notranslate nohighlight">\(\sigma_{+}|g\rangle = |e\rangle\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{-} = \left[\begin{array}{ll} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]\)</span> so that <span class="math notranslate nohighlight">\(\sigma_{-}|e\rangle = |g\rangle\)</span> and <span class="math notranslate nohighlight">\(\sigma_{-}|g\rangle = 0\)</span></p></li>
 </ul>
-<p>Finally, the matrix representations of JC Hamiltonian (with <span class="math">d=10</span>) for two different cases of sub-system Hilbert space orders are</p>
+<p>Finally, the matrix representations of JC Hamiltonian (with <span class="math notranslate nohighlight">\(d=10\)</span>) for two different cases of sub-system Hilbert space orders are</p>
 <ul>
-<li><p><span class="math">H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} + \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes\sigma_{-} + a\otimes\sigma_{+})</span></p>
+<li><p><span class="math notranslate nohighlight">\(H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} + \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes\sigma_{-} + a\otimes\sigma_{+})\)</span></p>
 <p><a class="reference internal" href="../../../_images/CavityQubitWithSandPlus.png"><img alt="Cavity first and qubit with sigma-plus/minus operators and plus" src="../../../_images/CavityQubitWithSandPlus.png" style="width: 70.0%;" /></a></p>
 </li>
-<li><p><span class="math">H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a  + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(\sigma_{-}\otimes a^{\dagger} + \sigma_{+}\otimes a)</span></p>
+<li><p><span class="math notranslate nohighlight">\(H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a  + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(\sigma_{-}\otimes a^{\dagger} + \sigma_{+}\otimes a)\)</span></p>
 <p><a class="reference internal" href="../../../_images/QubitCavityWithSandPlus.png"><img alt="Qubit first and qubit with sigma-plus/minus operators and plus" src="../../../_images/QubitCavityWithSandPlus.png" style="width: 70.0%;" /></a></p>
 </li>
 </ul>
-<p>In above convention, we see that the zero-excitation state <span class="math">|0, g\rangle</span> (or, <span class="math">|g, 0\rangle</span> in the qubit first order of sub-spaces) appears at <span class="math">(2, 2)</span> (or, at <span class="math">(d+1, d+1)</span> in the qubit first order of sub-spaces) index of the matrix representation. There are some other <em>counter-intuitive</em> details in above convention, and an alternative convention for JC Hamiltonian is to write the qubit term with a minus (<span class="math">- \frac{1}{2}\hbar\omega_{q}\sigma_{z}</span>) so that the
+<p>In above convention, we see that the zero-excitation state <span class="math notranslate nohighlight">\(|0, g\rangle\)</span> (or, <span class="math notranslate nohighlight">\(|g, 0\rangle\)</span> in the qubit first order of sub-spaces) appears at <span class="math notranslate nohighlight">\((2, 2)\)</span> (or, at <span class="math notranslate nohighlight">\((d+1, d+1)\)</span> in the qubit first order of sub-spaces) index of the matrix representation. There are some other <em>counter-intuitive</em> details in above convention, and an alternative convention for JC Hamiltonian is to write the qubit term with a minus (<span class="math notranslate nohighlight">\(- \frac{1}{2}\hbar\omega_{q}\sigma_{z}\)</span>) so that the
 excited/ground state definition is switched</p>
 <ul class="simple">
-<li><p>Excited state : <span class="math">|g\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue }-\frac{1}{2}\omega_{q})</span></p></li>
-<li><p>Ground state: <span class="math">|e\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue }\frac{1}{2}\omega_{q})</span></p></li>
+<li><p>Excited state : <span class="math notranslate nohighlight">\(|g\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue }-\frac{1}{2}\omega_{q})\)</span></p></li>
+<li><p>Ground state: <span class="math notranslate nohighlight">\(|e\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue }\frac{1}{2}\omega_{q})\)</span></p></li>
 </ul>
-<p>However, in this alternative case, we also need to make some changes for the <span class="math">\sigma_{\pm}</span> operators, otherwise, together with the <span class="math">\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2</span> definition, we have</p>
+<p>However, in this alternative case, we also need to make some changes for the <span class="math notranslate nohighlight">\(\sigma_{\pm}\)</span> operators, otherwise, together with the <span class="math notranslate nohighlight">\(\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2\)</span> definition, we have</p>
 <ul class="simple">
-<li><p><span class="math">\sigma_{+} = \left[\begin{array}{ll} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]</span> so that <span class="math">\sigma_{+}|g\rangle = 0</span> and <span class="math">\sigma_{+}|e\rangle = |g\rangle</span></p></li>
-<li><p><span class="math">\sigma_{-} = \left[\begin{array}{ll} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]</span> so that <span class="math">\sigma_{-}|g\rangle = |e\rangle</span> and <span class="math">\sigma_{-}|e\rangle = 0</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{+} = \left[\begin{array}{ll} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]\)</span> so that <span class="math notranslate nohighlight">\(\sigma_{+}|g\rangle = 0\)</span> and <span class="math notranslate nohighlight">\(\sigma_{+}|e\rangle = |g\rangle\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{-} = \left[\begin{array}{ll} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]\)</span> so that <span class="math notranslate nohighlight">\(\sigma_{-}|g\rangle = |e\rangle\)</span> and <span class="math notranslate nohighlight">\(\sigma_{-}|e\rangle = 0\)</span></p></li>
 </ul>
-<p>Here, we could introduce some unconventional definitions for <span class="math">\sigma_{\pm}</span> by switching the <span class="math">\pm</span> in their definition to <span class="math">\mp</span>, but we have a better alternative that is to replace <span class="math">\sigma_{-}</span> and <span class="math">\sigma_{+}</span> with 2-dimensional truncations of <span class="math">a</span> and <span class="math">a^{\dagger}</span>, respectively. Then, the matrix representations of JC Hamiltonian (with <span class="math">d=10</span>) for two different cases of sub-system Hilbert space orders are</p>
+<p>Here, we could introduce some unconventional definitions for <span class="math notranslate nohighlight">\(\sigma_{\pm}\)</span> by switching the <span class="math notranslate nohighlight">\(\pm\)</span> in their definition to <span class="math notranslate nohighlight">\(\mp\)</span>, but we have a better alternative that is to replace <span class="math notranslate nohighlight">\(\sigma_{-}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{+}\)</span> with 2-dimensional truncations of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(a^{\dagger}\)</span>, respectively. Then, the matrix representations of JC Hamiltonian (with <span class="math notranslate nohighlight">\(d=10\)</span>) for two different cases of sub-system Hilbert space orders are</p>
 <ul>
-<li><p><span class="math">H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} - \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes a_{2,2} + a\otimes a_{2,2}^{\dagger})</span></p>
+<li><p><span class="math notranslate nohighlight">\(H_{JC} = \hbar\omega_{c} a^{\dagger}a\otimes 1_{2,2} - \frac{1}{2}\hbar\omega_{q}1_{d,d}\otimes\sigma_{z} + \hbar g(a^{\dagger}\otimes a_{2,2} + a\otimes a_{2,2}^{\dagger})\)</span></p>
 <p><a class="reference internal" href="../../../_images/CavityQubitWithAandMinus.png"><img alt="Cavity first and qubit with creation/annihilation operators and minus" src="../../../_images/CavityQubitWithAandMinus.png" style="width: 70.0%;" /></a></p>
 </li>
-<li><p><span class="math">H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a  + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(a_{2,2}\otimes a^{\dagger} + a_{2,2}^{\dagger}\otimes a)</span></p>
+<li><p><span class="math notranslate nohighlight">\(H_{JC} = \hbar\omega_{c}1_{2,2} \otimes a^{\dagger}a  + \frac{1}{2}\hbar\omega_{q}\sigma_{z}\otimes 1_{d,d} + \hbar g(a_{2,2}\otimes a^{\dagger} + a_{2,2}^{\dagger}\otimes a)\)</span></p>
 <p><a class="reference internal" href="../../../_images/QubitCavityWithAandMinus.png"><img alt="Qubit first and qubit with creation/annihilation operators and minus" src="../../../_images/QubitCavityWithAandMinus.png" style="width: 70.0%;" /></a></p>
 </li>
 </ul>
-<p>and, in the first case, we have <span class="math">|0, g\rangle</span> at <span class="math">(0, 0)</span>.</p>
+<p>and, in the first case, we have <span class="math notranslate nohighlight">\(|0, g\rangle\)</span> at <span class="math notranslate nohighlight">\((0, 0)\)</span>.</p>
 </section>
 
 

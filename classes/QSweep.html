@@ -53,6 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'classes/QSweep';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -724,7 +726,7 @@ objects, and it switches to a new index, if the <code class="docutils literal no
 <dd><p>method used in modularSweep to calculate indices for each sweepList from the loop counter <code class="docutils literal notranslate"><span class="pre">ìnd</span></code> using the
 total lengths <code class="docutils literal notranslate"><span class="pre">*args</span></code>. It is hard to describe the exact calculation in words, but it is trivial to see from
 the math (TODO) which i will do later.</p>
-<p>the loop counter can at max be <span class="math">(\prod_{i = 1}^{len(args)} args[i]) - 1</span>, and multi-parameter
+<p>the loop counter can at max be <span class="math notranslate nohighlight">\((\prod_{i = 1}^{len(args)} args[i]) - 1\)</span>, and multi-parameter
 sweeps loops the first sweepList while fixing the others. So, at each inp = args[0] the first list should
 start from zero, and the second list moves to next item, and this relation goes up in the chain, e.g. at each
 inp = args[0]*args[1], the index of the third need to be increased, and so on. Therefore, the current index for

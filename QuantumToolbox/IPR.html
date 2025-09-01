@@ -53,6 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'QuantumToolbox/IPR';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -374,10 +376,10 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.IPR.iprKet" title="quanguru.QuantumToolbox.IPR.iprKet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iprKet</span></code></a>(basis, ket)</p></td>
-<td><p>Calculates inverse participation ratio <span class="math">1/(\sum_{i}|c_{i,k}|^{4})</span> of a <cite>ket</cite> <span class="math">|k\rangle = \sum_{i}c_{i,k}|i\rangle</span> in a given basis <span class="math">\{|i\rangle\}</span>.</p></td>
+<td><p>Calculates inverse participation ratio <span class="math notranslate nohighlight">\(1/(\sum_{i}|c_{i,k}|^{4})\)</span> of a <cite>ket</cite> <span class="math notranslate nohighlight">\(|k\rangle = \sum_{i}c_{i,k}|i\rangle\)</span> in a given basis <span class="math notranslate nohighlight">\(\{|i\rangle\}\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.IPR.iprKetNB" title="quanguru.QuantumToolbox.IPR.iprKetNB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iprKetNB</span></code></a>(ket)</p></td>
-<td><p>Calculates the IPR <span class="math">1/\sum_{i}|c_{i,k}|^{4}</span> of a ket <span class="math">|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\ c_{i,k} \\ \vdots \\c_{\mathcal{D},k} \end{bmatrix}_{\mathcal{D}\times 1}</span> by using each entry <span class="math">c_{i,k}</span> as a complex amplitude.</p></td>
+<td><p>Calculates the IPR <span class="math notranslate nohighlight">\(1/\sum_{i}|c_{i,k}|^{4}\)</span> of a ket <span class="math notranslate nohighlight">\(|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\ c_{i,k} \\ \vdots \\c_{\mathcal{D},k} \end{bmatrix}_{\mathcal{D}\times 1}\)</span> by using each entry <span class="math notranslate nohighlight">\(c_{i,k}\)</span> as a complex amplitude.</p></td>
 </tr>
 </tbody>
 </table>
@@ -411,10 +413,10 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.IPR.iprKet">
 <span class="sig-name descname"><span class="pre">iprKet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/IPR.html#iprKet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.IPR.iprKet" title="Link to this definition">#</a></dt>
-<dd><p>Calculates inverse participation ratio <span class="math">1/(\sum_{i}|c_{i,k}|^{4})</span> of a <cite>ket</cite>
-<span class="math">|k\rangle = \sum_{i}c_{i,k}|i\rangle</span> in a given basis <span class="math">\{|i\rangle\}</span>. The complex probability
-amplitudes satisfy <span class="math">\sum_{i}|c_{i,k}|^{2} = 1</span>, therefore IPR = 1 is perfectly localised, and
-IPR = <span class="math">1/\mathcal{D}</span> is uniformly localised in <span class="math">\mathcal{D}</span> dimensional space.</p>
+<dd><p>Calculates inverse participation ratio <span class="math notranslate nohighlight">\(1/(\sum_{i}|c_{i,k}|^{4})\)</span> of a <cite>ket</cite>
+<span class="math notranslate nohighlight">\(|k\rangle = \sum_{i}c_{i,k}|i\rangle\)</span> in a given basis <span class="math notranslate nohighlight">\(\{|i\rangle\}\)</span>. The complex probability
+amplitudes satisfy <span class="math notranslate nohighlight">\(\sum_{i}|c_{i,k}|^{2} = 1\)</span>, therefore IPR = 1 is perfectly localised, and
+IPR = <span class="math notranslate nohighlight">\(1/\mathcal{D}\)</span> is uniformly localised in <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> dimensional space.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -447,10 +449,10 @@ IPR = <span class="math">1/\mathcal{D}</span> is uniformly localised in <span cl
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.IPR.iprKetNB">
 <span class="sig-name descname"><span class="pre">iprKetNB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/IPR.html#iprKetNB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.IPR.iprKetNB" title="Link to this definition">#</a></dt>
-<dd><p>Calculates the IPR <span class="math">1/\sum_{i}|c_{i,k}|^{4}</span> of a ket <span class="math">|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\
+<dd><p>Calculates the IPR <span class="math notranslate nohighlight">\(1/\sum_{i}|c_{i,k}|^{4}\)</span> of a ket <span class="math notranslate nohighlight">\(|k\rangle := \begin{bmatrix} c_{1,k} \\ \vdots \\
 c_{i,k}
 \\ \vdots \\c_{\mathcal{D},k}
-\end{bmatrix}_{\mathcal{D}\times 1}</span> by using each entry <span class="math">c_{i,k}</span> as a complex amplitude.</p>
+\end{bmatrix}_{\mathcal{D}\times 1}\)</span> by using each entry <span class="math notranslate nohighlight">\(c_{i,k}\)</span> as a complex amplitude.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ket</strong> (<em>Matrix</em>) – a ket state</p>
@@ -482,7 +484,7 @@ c_{i,k}
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.IPR.iprMatrix">
 <span class="sig-name descname"><span class="pre">iprMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/IPR.html#iprMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.IPR.iprMatrix" title="Link to this definition">#</a></dt>
-<dd><p>Calculates the IPR between two matrices <span class="math">1/\sum_{n, m}|\langle \psi_{n}|\Phi_{m}\rangle|^{4}</span> where <span class="math">\langle \psi_{n}|</span> is the
+<dd><p>Calculates the IPR between two matrices <span class="math notranslate nohighlight">\(1/\sum_{n, m}|\langle \psi_{n}|\Phi_{m}\rangle|^{4}\)</span> where <span class="math notranslate nohighlight">\(\langle \psi_{n}|\)</span> is the
 nth eigenvector of the first matrix and :math:<a href="#id1"><span class="problematic" id="id2">|</span></a>Phi_{m}rangle` is the mth eigenvector of the second matrix
 :param mat1: a matrix (typically a unitary or hamiltonian)
 :type mat1: Matrix

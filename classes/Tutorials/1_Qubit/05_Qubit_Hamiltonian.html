@@ -54,6 +54,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/05_Qubit_Hamiltonian';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -313,7 +315,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_JaynesCummingsModelDynamics.html">17 - Jaynes-Cummings Dynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">18 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">19 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">19 - Simultaneous Simulation JC and Rabi models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
@@ -398,11 +400,11 @@
 <section id="Single-Term">
 <h2>Single Term<a class="headerlink" href="#Single-Term" title="Link to this heading">#</a></h2>
 <p>Let’s start with a very simple (single qubit) Hamiltonian</p>
-<p><span class="math">H = \frac{1}{2}f_{z}\sigma_{z}</span></p>
+<p><span class="math notranslate nohighlight">\(H = \frac{1}{2}f_{z}\sigma_{z}\)</span></p>
 <p>Here, the <em>relevant</em> information are</p>
 <ul class="simple">
-<li><p>frequency : <span class="math">\frac{1}{2}f_{z}</span> (say 0.5 where <span class="math">f_{z} = 1</span>)</p></li>
-<li><p>operator : <span class="math">\sigma_{z}</span></p></li>
+<li><p>frequency : <span class="math notranslate nohighlight">\(\frac{1}{2}f_{z}\)</span> (say 0.5 where <span class="math notranslate nohighlight">\(f_{z} = 1\)</span>)</p></li>
+<li><p>operator : <span class="math notranslate nohighlight">\(\sigma_{z}\)</span></p></li>
 <li><p>dimension : 2</p></li>
 </ul>
 <p>and, we create a quantum system with this Hamiltonian as below</p>
@@ -437,7 +439,7 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
 </section>
 <section id="Qubit-object-as-a-special-case">
 <h2>Qubit object as a special case<a class="headerlink" href="#Qubit-object-as-a-special-case" title="Link to this heading">#</a></h2>
-<p>For common quantum systems, such as qubit, higher spins, or cavity, we have special classes, and these classes just set some of the information internally to certain default values. For example, <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class internally defaults <code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">=</span> <span class="pre">qg.Jz</span></code>, which also takes care of the <span class="math">\frac{1}{2}</span> factor, meaning we can simply set the frequency <span class="math">f_{z} = 1</span>.</p>
+<p>For common quantum systems, such as qubit, higher spins, or cavity, we have special classes, and these classes just set some of the information internally to certain default values. For example, <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class internally defaults <code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">=</span> <span class="pre">qg.Jz</span></code>, which also takes care of the <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> factor, meaning we can simply set the frequency <span class="math notranslate nohighlight">\(f_{z} = 1\)</span>.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -466,8 +468,8 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
 <section id="Multiple-terms">
 <h2>Multiple terms<a class="headerlink" href="#Multiple-terms" title="Link to this heading">#</a></h2>
 <p>Now, let’s consider a more general case where we have more terms in the Hamiltonian, for example the below Hamiltonian with two terms</p>
-<p><span class="math">H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x}</span></p>
-<p>In this case, we can add a term to our quantum system using the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method, which takes the operator (in this case <span class="math">\sigma_{x}</span>) and the frequency (in this case <span class="math">\omega_{x}</span> say = 1) as inputs. We can, of course, add as many terms as we want.</p>
+<p><span class="math notranslate nohighlight">\(H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x}\)</span></p>
+<p>In this case, we can add a term to our quantum system using the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method, which takes the operator (in this case <span class="math notranslate nohighlight">\(\sigma_{x}\)</span>) and the frequency (in this case <span class="math notranslate nohighlight">\(\omega_{x}\)</span> say = 1) as inputs. We can, of course, add as many terms as we want.</p>
 <p>Let’s use the first quantum system <code class="docutils literal notranslate"><span class="pre">qs</span></code> that we created for the rest.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -545,9 +547,9 @@ than once (in the background) in certain cases, such as dimension sweeps (covere
 </section>
 <section id="Non-linear-terms">
 <h2>Non-linear terms<a class="headerlink" href="#Non-linear-terms" title="Link to this heading">#</a></h2>
-<p>In certain Hamiltonians, we might have a non-linear term where the operator is raised to a certain power. For Pauli matrices, <span class="math">\sigma_{i}^{2} = 1</span> (i.e. the identity matrix) for <span class="math">i \in \{x,y,z\}</span>, but, just for the sake of an example say we have the following Hamiltonian</p>
-<p><span class="math">H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x} + \omega_{y}\sigma_{y}^{2}</span></p>
-<p>Now, we can add another term to our quantum system, just as we did for <span class="math">\sigma_{x}</span> term, but this time with an additional input parameter, namely <code class="docutils literal notranslate"><span class="pre">order</span></code>, to the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method.</p>
+<p>In certain Hamiltonians, we might have a non-linear term where the operator is raised to a certain power. For Pauli matrices, <span class="math notranslate nohighlight">\(\sigma_{i}^{2} = 1\)</span> (i.e. the identity matrix) for <span class="math notranslate nohighlight">\(i \in \{x,y,z\}\)</span>, but, just for the sake of an example say we have the following Hamiltonian</p>
+<p><span class="math notranslate nohighlight">\(H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x} + \omega_{y}\sigma_{y}^{2}\)</span></p>
+<p>Now, we can add another term to our quantum system, just as we did for <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> term, but this time with an additional input parameter, namely <code class="docutils literal notranslate"><span class="pre">order</span></code>, to the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>

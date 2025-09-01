@@ -53,6 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'QuantumToolbox/operators';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -374,7 +376,7 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.identity" title="quanguru.QuantumToolbox.operators.identity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">identity</span></code></a>()</p></td>
-<td><p>Creates the identity operator <span class="math">\mathbb{I}</span>.</p></td>
+<td><p>Creates the identity operator <span class="math notranslate nohighlight">\(\mathbb{I}\)</span>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -382,13 +384,13 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.number" title="quanguru.QuantumToolbox.operators.number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number</span></code></a>()</p></td>
-<td><p>Creates the (bosonic) number <span class="math">\hat{n} := a^{\dagger}a</span> operator (in Fock basis).</p></td>
+<td><p>Creates the (bosonic) number <span class="math notranslate nohighlight">\(\hat{n} := a^{\dagger}a\)</span> operator (in Fock basis).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.destroy" title="quanguru.QuantumToolbox.operators.destroy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">destroy</span></code></a>()</p></td>
-<td><p>Creates the bosonic <cite>annihilation</cite> <span class="math">\hat{a}</span> operator (in Fock basis).</p></td>
+<td><p>Creates the bosonic <cite>annihilation</cite> <span class="math notranslate nohighlight">\(\hat{a}\)</span> operator (in Fock basis).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.create" title="quanguru.QuantumToolbox.operators.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>()</p></td>
-<td><p>Creates the bosonic <cite>creation</cite> <span class="math">\hat{a}^{\dagger}</span> operator (in Fock basis).</p></td>
+<td><p>Creates the bosonic <cite>creation</cite> <span class="math notranslate nohighlight">\(\hat{a}^{\dagger}\)</span> operator (in Fock basis).</p></td>
 </tr>
 </tbody>
 </table>
@@ -396,19 +398,19 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmaz" title="quanguru.QuantumToolbox.operators.sigmaz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmaz</span></code></a>()</p></td>
-<td><p>Creates the <cite>Pauli</cite> (sigma z) <span class="math">\hat{\sigma}_{z} := \begin{bmatrix} 1, \ \ 0 \\ 0, -1 \end{bmatrix}</span> operator.</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma z) <span class="math notranslate nohighlight">\(\hat{\sigma}_{z} := \begin{bmatrix} 1, \ \ 0 \\ 0, -1 \end{bmatrix}\)</span> operator.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmay" title="quanguru.QuantumToolbox.operators.sigmay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmay</span></code></a>()</p></td>
-<td><p>Creates the <cite>Pauli</cite> (sigma y) <span class="math">\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}</span> operator.</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma y) <span class="math notranslate nohighlight">\(\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}\)</span> operator.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmax" title="quanguru.QuantumToolbox.operators.sigmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmax</span></code></a>()</p></td>
-<td><p>Creates the <cite>Pauli</cite> (sigma x) <span class="math">\hat{\sigma}_{x} := \begin{bmatrix} 0, 1 \\ 1, 0 \end{bmatrix}</span> operator.</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma x) <span class="math notranslate nohighlight">\(\hat{\sigma}_{x} := \begin{bmatrix} 0, 1 \\ 1, 0 \end{bmatrix}\)</span> operator.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmap" title="quanguru.QuantumToolbox.operators.sigmap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmap</span></code></a>()</p></td>
-<td><p>Creates the <cite>Pauli</cite> (sigma +) <span class="math">\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) = \begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}</span> operator.</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma +) <span class="math notranslate nohighlight">\(\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) = \begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}\)</span> operator.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.sigmam" title="quanguru.QuantumToolbox.operators.sigmam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmam</span></code></a>()</p></td>
-<td><p>Creates the <cite>Pauli</cite> (sigma -) <span class="math">\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) = \begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}</span> operator.</p></td>
+<td><p>Creates the <cite>Pauli</cite> (sigma -) <span class="math notranslate nohighlight">\(\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) = \begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}\)</span> operator.</p></td>
 </tr>
 </tbody>
 </table>
@@ -416,22 +418,22 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jp" title="quanguru.QuantumToolbox.operators.Jp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jp</span></code></a>()</p></td>
-<td><p>Creates the angular momentum (spin) <cite>raising</cite> operator <span class="math">\hat{J}_{+} := \frac{1}{2}(\hat{J}_{x}+i\hat{J}_{y})</span> for a given spin quantum number j.</p></td>
+<td><p>Creates the angular momentum (spin) <cite>raising</cite> operator <span class="math notranslate nohighlight">\(\hat{J}_{+} := \frac{1}{2}(\hat{J}_{x}+i\hat{J}_{y})\)</span> for a given spin quantum number j.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jm" title="quanguru.QuantumToolbox.operators.Jm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jm</span></code></a>()</p></td>
-<td><p>Creates the angular momentum (spin) <cite>lowering</cite> operator <span class="math">\hat{J}_{-} := \frac{1}{2}(\hat{J}_{x}-i\hat{J}_{y})</span> for a given spin quantum number j.</p></td>
+<td><p>Creates the angular momentum (spin) <cite>lowering</cite> operator <span class="math notranslate nohighlight">\(\hat{J}_{-} := \frac{1}{2}(\hat{J}_{x}-i\hat{J}_{y})\)</span> for a given spin quantum number j.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jx" title="quanguru.QuantumToolbox.operators.Jx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jx</span></code></a>()</p></td>
-<td><p>Creates the angular momentum (spin) <cite>X</cite> operator <span class="math">\hat{J}_{x}</span> for a given spin quantum number j.</p></td>
+<td><p>Creates the angular momentum (spin) <cite>X</cite> operator <span class="math notranslate nohighlight">\(\hat{J}_{x}\)</span> for a given spin quantum number j.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jy" title="quanguru.QuantumToolbox.operators.Jy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jy</span></code></a>()</p></td>
-<td><p>Creates the angular momentum (spin) <cite>Y</cite> operator <span class="math">\hat{J}_{y}</span> for a given spin quantum number j.</p></td>
+<td><p>Creates the angular momentum (spin) <cite>Y</cite> operator <span class="math notranslate nohighlight">\(\hat{J}_{y}\)</span> for a given spin quantum number j.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Jz" title="quanguru.QuantumToolbox.operators.Jz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Jz</span></code></a>()</p></td>
-<td><p>Creates the angular momentum (spin) <cite>Z</cite> operator <span class="math">\hat{J}_{z}</span> for a given spin quantum number j.</p></td>
+<td><p>Creates the angular momentum (spin) <cite>Z</cite> operator <span class="math notranslate nohighlight">\(\hat{J}_{z}\)</span> for a given spin quantum number j.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.Js" title="quanguru.QuantumToolbox.operators.Js"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Js</span></code></a>()</p></td>
-<td><p>Creates the total angular momentum (spin) operator <span class="math">\hat{J}_{s} := \hat{J}_{x}^{2} + \hat{J}_{y}^{2}+ \hat{J}_{z}^{2}</span> for a given spin quantum number j.</p></td>
+<td><p>Creates the total angular momentum (spin) operator <span class="math notranslate nohighlight">\(\hat{J}_{s} := \hat{J}_{x}^{2} + \hat{J}_{y}^{2}+ \hat{J}_{z}^{2}\)</span> for a given spin quantum number j.</p></td>
 </tr>
 </tbody>
 </table>
@@ -439,10 +441,10 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.displacement" title="quanguru.QuantumToolbox.operators.displacement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">displacement</span></code></a>()</p></td>
-<td><p>Creates the displacement operator <span class="math">\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}</span> for a given displacement parameter <span class="math">\alpha</span>.</p></td>
+<td><p>Creates the displacement operator <span class="math notranslate nohighlight">\(\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}\)</span> for a given displacement parameter <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.squeeze" title="quanguru.QuantumToolbox.operators.squeeze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">squeeze</span></code></a>()</p></td>
-<td><p>Creates the squeezing operator <span class="math">\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}</span> for a given squeezing parameter <span class="math">\alpha</span>.</p></td>
+<td><p>Creates the squeezing operator <span class="math notranslate nohighlight">\(\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}\)</span> for a given squeezing parameter <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -450,7 +452,7 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.parityEXP" title="quanguru.QuantumToolbox.operators.parityEXP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parityEXP</span></code></a>(HamiltonianCavity)</p></td>
-<td><p>Creates a parity operator <span class="math">\hat{P}(\hat{H}) := e^{i\pi\hat{H}}</span> by exponenting a given Hamiltonian <span class="math">\hat{H}</span>.</p></td>
+<td><p>Creates a parity operator <span class="math notranslate nohighlight">\(\hat{P}(\hat{H}) := e^{i\pi\hat{H}}\)</span> by exponenting a given Hamiltonian <span class="math notranslate nohighlight">\(\hat{H}\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.paritySUM" title="quanguru.QuantumToolbox.operators.paritySUM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paritySUM</span></code></a>()</p></td>
 <td><p>Creates a parity operator by explicitly placing alternating +/- into a matrix.</p></td>
@@ -461,7 +463,7 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.compositeOp" title="quanguru.QuantumToolbox.operators.compositeOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compositeOp</span></code></a>(operator[, dimB, dimA])</p></td>
-<td><p>Creates a composite operator <span class="math">\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}</span> ,ie tensor product with identities of dimensions before dimB and after dimA</p></td>
+<td><p>Creates a composite operator <span class="math notranslate nohighlight">\(\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}\)</span> ,ie tensor product with identities of dimensions before dimB and after dimA</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.operators.operatorPow" title="quanguru.QuantumToolbox.operators.operatorPow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operatorPow</span></code></a>()</p></td>
 <td><p>Creates a quantum operator for given function reference <cite>op</cite> and raises to a <cite>power</cite>.</p></td>
@@ -616,7 +618,7 @@
 <span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the (bosonic) number <span class="math">\hat{n} := a^{\dagger}a</span> operator (in Fock basis).</p>
+<dd><p>Creates the (bosonic) number <span class="math notranslate nohighlight">\(\hat{n} := a^{\dagger}a\)</span> operator (in Fock basis).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -653,7 +655,7 @@
 <span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the bosonic <cite>annihilation</cite> <span class="math">\hat{a}</span> operator (in Fock basis).</p>
+<dd><p>Creates the bosonic <cite>annihilation</cite> <span class="math notranslate nohighlight">\(\hat{a}\)</span> operator (in Fock basis).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -689,7 +691,7 @@
 <span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the bosonic <cite>creation</cite> <span class="math">\hat{a}^{\dagger}</span> operator (in Fock basis).</p>
+<dd><p>Creates the bosonic <cite>creation</cite> <span class="math notranslate nohighlight">\(\hat{a}^{\dagger}\)</span> operator (in Fock basis).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -725,7 +727,7 @@
 <span class="sig-name descname"><span class="pre">identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the identity operator <span class="math">\mathbb{I}</span>.</p>
+<dd><p>Creates the identity operator <span class="math notranslate nohighlight">\(\mathbb{I}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -762,7 +764,7 @@
 <span class="sig-name descname"><span class="pre">sigmaz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">sigmaz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the <cite>Pauli</cite> (sigma z) <span class="math">\hat{\sigma}_{z} := \begin{bmatrix} 1, \ \ 0 \\ 0, -1 \end{bmatrix}</span> operator.</p>
+<dd><p>Creates the <cite>Pauli</cite> (sigma z) <span class="math notranslate nohighlight">\(\hat{\sigma}_{z} := \begin{bmatrix} 1, \ \ 0 \\ 0, -1 \end{bmatrix}\)</span> operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
@@ -794,7 +796,7 @@
 <span class="sig-name descname"><span class="pre">sigmay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">sigmay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the <cite>Pauli</cite> (sigma y) <span class="math">\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}</span> operator.</p>
+<dd><p>Creates the <cite>Pauli</cite> (sigma y) <span class="math notranslate nohighlight">\(\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}\)</span> operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
@@ -826,7 +828,7 @@
 <span class="sig-name descname"><span class="pre">sigmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">sigmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the <cite>Pauli</cite> (sigma x) <span class="math">\hat{\sigma}_{x} := \begin{bmatrix} 0, 1 \\ 1, 0 \end{bmatrix}</span> operator.</p>
+<dd><p>Creates the <cite>Pauli</cite> (sigma x) <span class="math notranslate nohighlight">\(\hat{\sigma}_{x} := \begin{bmatrix} 0, 1 \\ 1, 0 \end{bmatrix}\)</span> operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
@@ -858,8 +860,8 @@
 <span class="sig-name descname"><span class="pre">sigmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">sigmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the <cite>Pauli</cite> (sigma +) <span class="math">\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =
-\begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}</span> operator.</p>
+<dd><p>Creates the <cite>Pauli</cite> (sigma +) <span class="math notranslate nohighlight">\(\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =
+\begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}\)</span> operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
@@ -890,8 +892,8 @@
 <span class="sig-name descname"><span class="pre">sigmam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">sigmam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the <cite>Pauli</cite> (sigma -) <span class="math">\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =
-\begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}</span> operator.</p>
+<dd><p>Creates the <cite>Pauli</cite> (sigma -) <span class="math notranslate nohighlight">\(\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =
+\begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}\)</span> operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>sparse</strong> (<em>bool</em>) – if True(False), the returned Matrix type will be sparse(array)</p>
@@ -923,7 +925,7 @@
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">Jp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
 <dd><p>Creates the angular momentum (spin) <cite>raising</cite> operator
-<span class="math">\hat{J}_{+} := \frac{1}{2}(\hat{J}_{x}+i\hat{J}_{y})</span> for a given spin quantum number j.</p>
+<span class="math notranslate nohighlight">\(\hat{J}_{+} := \frac{1}{2}(\hat{J}_{x}+i\hat{J}_{y})\)</span> for a given spin quantum number j.</p>
 <p>NOTE This is a direct matrix construction, i.e. it does not use the Jx and Jy functions, and this function is used
 in Jx and Jy implementations</p>
 <dl class="field-list simple">
@@ -982,7 +984,7 @@ in Jx and Jy implementations</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">Jm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
 <dd><p>Creates the angular momentum (spin) <cite>lowering</cite> operator
-<span class="math">\hat{J}_{-} := \frac{1}{2}(\hat{J}_{x}-i\hat{J}_{y})</span> for a given spin quantum number j.</p>
+<span class="math notranslate nohighlight">\(\hat{J}_{-} := \frac{1}{2}(\hat{J}_{x}-i\hat{J}_{y})\)</span> for a given spin quantum number j.</p>
 <p>NOTE This is a direct matrix construction, i.e. it does not use the Jx and Jy functions, and this function is used
 in Jx and Jy implementations</p>
 <dl class="field-list simple">
@@ -1040,8 +1042,8 @@ in Jx and Jy implementations</p>
 <span class="sig-name descname"><span class="pre">Jx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">Jx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the angular momentum (spin) <cite>X</cite> operator <span class="math">\hat{J}_{x}</span> for a given spin quantum number j.</p>
-<p>NOTE This function uses the definition <span class="math">\hat{J}_{x} =\frac{1}{2}(\hat{J}_{p}+\hat{J}_{m})</span> and calls Jp and Jm
+<dd><p>Creates the angular momentum (spin) <cite>X</cite> operator <span class="math notranslate nohighlight">\(\hat{J}_{x}\)</span> for a given spin quantum number j.</p>
+<p>NOTE This function uses the definition <span class="math notranslate nohighlight">\(\hat{J}_{x} =\frac{1}{2}(\hat{J}_{p}+\hat{J}_{m})\)</span> and calls Jp and Jm
 There are no test for this method, it rely on Jp and Jm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1106,8 +1108,8 @@ There are no test for this method, it rely on Jp and Jm</p>
 <span class="sig-name descname"><span class="pre">Jy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">Jy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the angular momentum (spin) <cite>Y</cite> operator <span class="math">\hat{J}_{y}</span> for a given spin quantum number j.</p>
-<p>NOTE This function uses the definition <span class="math">\hat{J}_{y}=\frac{1}{2j}(\hat{J}_{p}-\hat{J}_{m})</span> and calls Jp and Jm
+<dd><p>Creates the angular momentum (spin) <cite>Y</cite> operator <span class="math notranslate nohighlight">\(\hat{J}_{y}\)</span> for a given spin quantum number j.</p>
+<p>NOTE This function uses the definition <span class="math notranslate nohighlight">\(\hat{J}_{y}=\frac{1}{2j}(\hat{J}_{p}-\hat{J}_{m})\)</span> and calls Jp and Jm
 There are no test for this method, it rely on Jp and Jm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1172,7 +1174,7 @@ There are no test for this method, it rely on Jp and Jm</p>
 <span class="sig-name descname"><span class="pre">Jz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">Jz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the angular momentum (spin) <cite>Z</cite> operator <span class="math">\hat{J}_{z}</span> for a given spin quantum number j.</p>
+<dd><p>Creates the angular momentum (spin) <cite>Z</cite> operator <span class="math notranslate nohighlight">\(\hat{J}_{z}\)</span> for a given spin quantum number j.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1231,7 +1233,7 @@ There are no test for this method, it rely on Jp and Jm</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">Js</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
 <dd><p>Creates the total angular momentum (spin) operator
-<span class="math">\hat{J}_{s} := \hat{J}_{x}^{2} + \hat{J}_{y}^{2}+ \hat{J}_{z}^{2}</span> for a given spin quantum number j.</p>
+<span class="math notranslate nohighlight">\(\hat{J}_{s} := \hat{J}_{x}^{2} + \hat{J}_{y}^{2}+ \hat{J}_{z}^{2}\)</span> for a given spin quantum number j.</p>
 <blockquote>
 <div><p>NOTE This function is direct implementation of the defition, meaning it uses Jx, Jy, and Jz functions</p>
 </div></blockquote>
@@ -1289,8 +1291,8 @@ There are no test for this method, it rely on Jp and Jm</p>
 <span class="sig-name descname"><span class="pre">displacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">displacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the displacement operator <span class="math">\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}</span>
-for a given displacement parameter <span class="math">\alpha</span>.</p>
+<dd><p>Creates the displacement operator <span class="math notranslate nohighlight">\(\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}\)</span>
+for a given displacement parameter <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
 <p>NOTE can be implemented without matrix exponentiation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1343,8 +1345,8 @@ for a given displacement parameter <span class="math">\alpha</span>.</p>
 <span class="sig-name descname"><span class="pre">squeeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">squeeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span></dt>
-<dd><p>Creates the squeezing operator <span class="math">\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}</span>
-for a given squeezing parameter <span class="math">\alpha</span>.</p>
+<dd><p>Creates the squeezing operator <span class="math notranslate nohighlight">\(\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}\)</span>
+for a given squeezing parameter <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
 <p>NOTE can be implemented without matrix exponentiation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1385,8 +1387,8 @@ for a given squeezing parameter <span class="math">\alpha</span>.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.parityEXP">
 <span class="sig-name descname"><span class="pre">parityEXP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HamiltonianCavity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#parityEXP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.parityEXP" title="Link to this definition">#</a></dt>
-<dd><p>Creates a parity operator <span class="math">\hat{P}(\hat{H}) := e^{i\pi\hat{H}}</span> by exponenting a given Hamiltonian
-<span class="math">\hat{H}</span>.</p>
+<dd><p>Creates a parity operator <span class="math notranslate nohighlight">\(\hat{P}(\hat{H}) := e^{i\pi\hat{H}}\)</span> by exponenting a given Hamiltonian
+<span class="math notranslate nohighlight">\(\hat{H}\)</span>.</p>
 <p>Keeps sparse/array as sparse/array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1469,7 +1471,7 @@ for a given squeezing parameter <span class="math">\alpha</span>.</p>
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.operators.compositeOp">
 <span class="sig-name descname"><span class="pre">compositeOp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimB</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimA</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/operators.html#compositeOp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.operators.compositeOp" title="Link to this definition">#</a></dt>
 <dd><p>Creates a composite operator
-<span class="math">\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}</span>
+<span class="math notranslate nohighlight">\(\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}\)</span>
 ,ie tensor product with identities of dimensions before dimB and after dimA</p>
 <p>NOTE simply calls and returns <a class="reference internal" href="linearAlgebra.html#quanguru.QuantumToolbox.linearAlgebra.tensorProd" title="quanguru.QuantumToolbox.linearAlgebra.tensorProd"><code class="xref py py-func docutils literal notranslate"><span class="pre">tensorProd</span></code></a></p>
 <dl class="field-list simple">

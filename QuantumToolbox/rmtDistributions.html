@@ -53,6 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'QuantumToolbox/rmtDistributions';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -374,7 +376,7 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.rmtDistributions.EigenVectorDist" title="quanguru.QuantumToolbox.rmtDistributions.EigenVectorDist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EigenVectorDist</span></code></a>(x, dim[, beta])</p></td>
-<td><p>Computes PDF <span class="math">P(x)</span> of eigenvector statistics at x for three universality classes (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension <span class="math">dim</span>.</p></td>
+<td><p>Computes PDF <span class="math notranslate nohighlight">\(P(x)\)</span> of eigenvector statistics at x for three universality classes (COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension <span class="math notranslate nohighlight">\(dim\)</span>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -434,8 +436,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.rmtDistributions.EigenVectorDist">
 <span class="sig-name descname"><span class="pre">EigenVectorDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/rmtDistributions.html#EigenVectorDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.rmtDistributions.EigenVectorDist" title="Link to this definition">#</a></dt>
-<dd><p>Computes PDF <span class="math">P(x)</span> of eigenvector statistics at x for three universality classes
-(COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension <span class="math">dim</span>.</p>
+<dd><p>Computes PDF <span class="math notranslate nohighlight">\(P(x)\)</span> of eigenvector statistics at x for three universality classes
+(COE (beta=1), CUE (beta=2), and CSE (beta=4)) of dimension <span class="math notranslate nohighlight">\(dim\)</span>.</p>
 <p><a class="reference external" href="https://iopscience.iop.org/article/10.1088/0305-4470/21/22/006">Read here more details and derivations.</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -488,7 +490,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>float</em>) – a float larger than zero</p></li>
-<li><p><strong>lam</strong> (<em>float</em>) – Poisson parameter <span class="math">\lambda</span></p></li>
+<li><p><strong>lam</strong> (<em>float</em>) – Poisson parameter <span class="math notranslate nohighlight">\(\lambda\)</span></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

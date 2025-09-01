@@ -54,6 +54,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/17_JaynesCummingsModelDynamics';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -313,7 +315,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">17 - Jaynes-Cummings Dynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">18 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">19 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">19 - Simultaneous Simulation JC and Rabi models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
@@ -393,8 +395,8 @@
 <section id="17---Jaynes-Cummings-Dynamics">
 <h1>17 - Jaynes-Cummings Dynamics<a class="headerlink" href="#17---Jaynes-Cummings-Dynamics" title="Link to this heading">#</a></h1>
 <p>The Jaynes-Cummings Hamiltonian is written as</p>
-<p><span class="math">H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}\sigma_{-} + a\sigma_{+})</span></p>
-<p>where <span class="math">\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2</span> are raising/lowering operators for a two-level system, <span class="math">\sigma_{\mu}</span> are the Pauli spin operators with <span class="math">\mu\in\{x,y,z\}</span>, <span class="math">a^{\dagger}</span> and <span class="math">a</span> are the creation and annihilation operators for the field mode, and <span class="math">\omega_{c}</span>, <span class="math">\omega_{q}</span>, and <span class="math">g</span> are the cavity-field, qubit, and coupling (angular-) frequencies, respectively.</p>
+<p><span class="math notranslate nohighlight">\(H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}\sigma_{-} + a\sigma_{+})\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\sigma_{\pm} = (\sigma_{x} \pm i\sigma_{y})/2\)</span> are raising/lowering operators for a two-level system, <span class="math notranslate nohighlight">\(\sigma_{\mu}\)</span> are the Pauli spin operators with <span class="math notranslate nohighlight">\(\mu\in\{x,y,z\}\)</span>, <span class="math notranslate nohighlight">\(a^{\dagger}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> are the creation and annihilation operators for the field mode, and <span class="math notranslate nohighlight">\(\omega_{c}\)</span>, <span class="math notranslate nohighlight">\(\omega_{q}\)</span>, and <span class="math notranslate nohighlight">\(g\)</span> are the cavity-field, qubit, and coupling (angular-) frequencies, respectively.</p>
 <p>We will use the below parameters in our simulation</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:

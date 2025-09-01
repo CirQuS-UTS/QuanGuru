@@ -54,6 +54,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/12_Qubit_multipleTermsInHamiltonian_multipleSweeps';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -313,7 +315,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_JaynesCummingsModelDynamics.html">17 - Jaynes-Cummings Dynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">18 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">19 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">19 - Simultaneous Simulation JC and Rabi models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
@@ -393,7 +395,7 @@
 <section id="12---Multi-parameter-sweep-(combinatorially)">
 <h1>12 - Multi-parameter sweep (combinatorially)<a class="headerlink" href="#12---Multi-parameter-sweep-(combinatorially)" title="Link to this heading">#</a></h1>
 <p>In the previous tutorial, we covered the simulation of a single qubit with two terms in its Hamiltonian and used a parameter sweep to sweep the frequency of the first term. In this tutorial, we use the same system but now run a multi-parameter sweep, i.e. we sweep the frequencies of both terms. As you will see below, the only changes to the previous example is to creation of an additional sweep and the order in which we create sweeps (the reason is discussed below).</p>
-<p>Again, we will evolve a qubit under the unitary dynamics of the Hamiltonian <span class="math">H=\frac{1}{2}f_{z}\sigma_{z} + f_{x}\sigma_{x} = f_{z}J_{z} + f_{x}\sigma_{x}</span> with the initial state set to the equal superposition of <span class="math">|1\rangle</span> and <span class="math">|0\rangle</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <span class="math">\sigma_{x}</span>.</p>
+<p>Again, we will evolve a qubit under the unitary dynamics of the Hamiltonian <span class="math notranslate nohighlight">\(H=\frac{1}{2}f_{z}\sigma_{z} + f_{x}\sigma_{x} = f_{z}J_{z} + f_{x}\sigma_{x}\)</span> with the initial state set to the equal superposition of <span class="math notranslate nohighlight">\(|1\rangle\)</span> and <span class="math notranslate nohighlight">\(|0\rangle\)</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -422,8 +424,8 @@
 </pre></div>
 </div>
 </div>
-<p>Now, we create the sweeps in a specific order, which can be imagined as nested for-loops. The first sweep we created will become the outer most for-loop, and the next sweep is the inner for-loop (and later sweeps will get nested as inner-loops even further). This effects mainly how the <code class="docutils literal notranslate"><span class="pre">results</span></code> are nested/shaped. The nested-lists created for the <code class="docutils literal notranslate"><span class="pre">results</span></code> of a multi-parameter sweep will be consistent with the nesting of the for-loops. For example, we here want to sweep the <span class="math">f_{x}</span> for
-two values and compare the results. Therefore, we create <span class="math">f_{x}</span> sweep first, so that the shape of <code class="docutils literal notranslate"><span class="pre">results</span></code> will be <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">[</span> <span class="pre">listsForFzSweep</span> <span class="pre">],</span> <span class="pre">[</span> <span class="pre">listsForFzSweep</span> <span class="pre">]</span> <span class="pre">]</span></code>, meaning <code class="docutils literal notranslate"><span class="pre">results[0]</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">listsForFzSweep</span> <span class="pre">]</span></code> will be the results for the first value of <span class="math">f_{x}</span> and <span class="math">f_{z}</span> sweep.</p>
+<p>Now, we create the sweeps in a specific order, which can be imagined as nested for-loops. The first sweep we created will become the outer most for-loop, and the next sweep is the inner for-loop (and later sweeps will get nested as inner-loops even further). This effects mainly how the <code class="docutils literal notranslate"><span class="pre">results</span></code> are nested/shaped. The nested-lists created for the <code class="docutils literal notranslate"><span class="pre">results</span></code> of a multi-parameter sweep will be consistent with the nesting of the for-loops. For example, we here want to sweep the <span class="math notranslate nohighlight">\(f_{x}\)</span> for
+two values and compare the results. Therefore, we create <span class="math notranslate nohighlight">\(f_{x}\)</span> sweep first, so that the shape of <code class="docutils literal notranslate"><span class="pre">results</span></code> will be <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">[</span> <span class="pre">listsForFzSweep</span> <span class="pre">],</span> <span class="pre">[</span> <span class="pre">listsForFzSweep</span> <span class="pre">]</span> <span class="pre">]</span></code>, meaning <code class="docutils literal notranslate"><span class="pre">results[0]</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">listsForFzSweep</span> <span class="pre">]</span></code> will be the results for the first value of <span class="math notranslate nohighlight">\(f_{x}\)</span> and <span class="math notranslate nohighlight">\(f_{z}\)</span> sweep.</p>
 <p>To sweep the second term frequency, we use the <code class="docutils literal notranslate"><span class="pre">secondTerm</span></code> object as the <code class="docutils literal notranslate"><span class="pre">system</span></code> and define the rest of the parameters. One final note is that, in multi-parameter sweeps, you need to label the later sweeps with <code class="docutils literal notranslate"><span class="pre">combinatorial=True</span></code> (reason for this will be explained in later tutorials), as we did for the sweep of the first terms frequency below.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -448,8 +450,8 @@ two values and compare the results. Therefore, we create <span class="math">f_{x
 </pre></div>
 </div>
 </div>
-<p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation'][0]</span></code> for the first <span class="math">f_{x}</span> value, which returns a list of list, each of which is a time trace corresponding to the frequencies swept for <span class="math">f_{z}</span>.</p>
-<p>As expected, the expectation value of <span class="math">\sigma_{x}</span> oscillates with different frequencies.</p>
+<p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation'][0]</span></code> for the first <span class="math notranslate nohighlight">\(f_{x}\)</span> value, which returns a list of list, each of which is a time trace corresponding to the frequencies swept for <span class="math notranslate nohighlight">\(f_{z}\)</span>.</p>
+<p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates with different frequencies.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -478,8 +480,8 @@ Text(0, 0.5, &#39;Time&#39;)
 <img alt="../../../_images/classes_Tutorials_1_Qubit_12_Qubit_multipleTermsInHamiltonian_multipleSweeps_8_1.png" src="../../../_images/classes_Tutorials_1_Qubit_12_Qubit_multipleTermsInHamiltonian_multipleSweeps_8_1.png" />
 </div>
 </div>
-<p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation'][1]</span></code> for the second <span class="math">f_{x}</span> value, which returns a list of list, each of which is a time trace corresponding to the frequencies swept for <span class="math">f_{z}</span>.</p>
-<p>As expected, the expectation value of <span class="math">\sigma_{x}</span> oscillates with different frequencies.</p>
+<p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation'][1]</span></code> for the second <span class="math notranslate nohighlight">\(f_{x}\)</span> value, which returns a list of list, each of which is a time trace corresponding to the frequencies swept for <span class="math notranslate nohighlight">\(f_{z}\)</span>.</p>
+<p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates with different frequencies.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>

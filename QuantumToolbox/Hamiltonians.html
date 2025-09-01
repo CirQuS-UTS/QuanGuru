@@ -53,6 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'QuantumToolbox/Hamiltonians';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -374,16 +376,16 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam" title="quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qubCavFreeHam</span></code></a>(qubFreq, cavFreq, cavDim)</p></td>
-<td><p>Creates Qubit + Cavity Hamiltonian <span class="math">\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}</span> for given frequencies and truncated cavity dimension.</p></td>
+<td><p>Creates Qubit + Cavity Hamiltonian <span class="math notranslate nohighlight">\(\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}\)</span> for given frequencies and truncated cavity dimension.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.RabiHam" title="quanguru.QuantumToolbox.Hamiltonians.RabiHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RabiHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
-<td><p>Creates Rabi Hamiltonian <span class="math">\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})</span> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+<td><p>Creates Rabi Hamiltonian <span class="math notranslate nohighlight">\(\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})\)</span> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.JCHam" title="quanguru.QuantumToolbox.Hamiltonians.JCHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JCHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
-<td><p>Creates Jaynes-Cummings Hamiltonian <span class="math">\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})</span> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+<td><p>Creates Jaynes-Cummings Hamiltonian <span class="math notranslate nohighlight">\(\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})\)</span> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.aJCHam" title="quanguru.QuantumToolbox.Hamiltonians.aJCHam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aJCHam</span></code></a>(qubFreq, cavFreq, g, cavDim)</p></td>
-<td><p>Creates anti-Jaynes-Cummings Hamiltonian <span class="math">\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})</span> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
+<td><p>Creates anti-Jaynes-Cummings Hamiltonian <span class="math notranslate nohighlight">\(\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a} + g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})\)</span> for given frequencies, coupling strength, and truncated cavity dimension.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.Hamiltonians.UJC" title="quanguru.QuantumToolbox.Hamiltonians.UJC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UJC</span></code></a>(wq, wc, g, t, dimC[, sparse])</p></td>
 <td><p>Analytical implementation of the time independante Jaynes-Cummings Unitary evolution</p></td>
@@ -438,10 +440,10 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam">
 <span class="sig-name descname"><span class="pre">qubCavFreeHam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qubFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#qubCavFreeHam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.qubCavFreeHam" title="Link to this definition">#</a></dt>
-<dd><p>Creates Qubit + Cavity Hamiltonian <span class="math">\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}</span>
+<dd><p>Creates Qubit + Cavity Hamiltonian <span class="math notranslate nohighlight">\(\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}\)</span>
 for
 given frequencies and truncated cavity dimension.</p>
-<p>Hilbert space ordering is <span class="math">Qubit\otimes Cavity</span>, i.e. qubit first.</p>
+<p>Hilbert space ordering is <span class="math notranslate nohighlight">\(Qubit\otimes Cavity\)</span>, i.e. qubit first.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -464,8 +466,8 @@ given frequencies and truncated cavity dimension.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.RabiHam">
 <span class="sig-name descname"><span class="pre">RabiHam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qubFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#RabiHam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.RabiHam" title="Link to this definition">#</a></dt>
-<dd><p>Creates Rabi Hamiltonian <span class="math">\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
-+ g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})</span> for given frequencies, coupling strength, and truncated cavity
+<dd><p>Creates Rabi Hamiltonian <span class="math notranslate nohighlight">\(\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
++ g\hat{\sigma}_{x}(\hat{a}^{\dagger} + \hat{a})\)</span> for given frequencies, coupling strength, and truncated cavity
 dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -490,8 +492,8 @@ dimension.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.JCHam">
 <span class="sig-name descname"><span class="pre">JCHam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qubFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#JCHam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.JCHam" title="Link to this definition">#</a></dt>
-<dd><p>Creates Jaynes-Cummings Hamiltonian <span class="math">\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
-+ g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})</span> for given frequencies, coupling strength, and
+<dd><p>Creates Jaynes-Cummings Hamiltonian <span class="math notranslate nohighlight">\(\frac{\omega_{q}}{2}\hat{\sigma}_{z} + \omega_{c}\hat{a}^{\dagger}\hat{a}
++ g(\hat{\sigma}_{-}\hat{a}^{\dagger} + \hat{\sigma}_{+}\hat{a})\)</span> for given frequencies, coupling strength, and
 truncated
 cavity dimension.</p>
 <dl class="field-list simple">
@@ -517,9 +519,9 @@ cavity dimension.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.Hamiltonians.aJCHam">
 <span class="sig-name descname"><span class="pre">aJCHam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qubFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavFreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/Hamiltonians.html#aJCHam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.Hamiltonians.aJCHam" title="Link to this definition">#</a></dt>
-<dd><p>Creates anti-Jaynes-Cummings Hamiltonian <span class="math">\frac{\omega_{q}}{2}\hat{\sigma}_{z} +
+<dd><p>Creates anti-Jaynes-Cummings Hamiltonian <span class="math notranslate nohighlight">\(\frac{\omega_{q}}{2}\hat{\sigma}_{z} +
 \omega_{c}\hat{a}^{\dagger}\hat{a}
-+ g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})</span> for given frequencies, coupling strength, and
++ g(\hat{\sigma}_{+}\hat{a}^{\dagger} + \hat{\sigma}_{-}\hat{a})\)</span> for given frequencies, coupling strength, and
 truncated
 cavity dimension.</p>
 <dl class="field-list simple">

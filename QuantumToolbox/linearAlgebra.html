@@ -53,6 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'QuantumToolbox/linearAlgebra';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -374,22 +376,22 @@
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra.hc" title="quanguru.QuantumToolbox.linearAlgebra.hc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hc</span></code></a>(matrix)</p></td>
-<td><p>Hermitian conjugate <span class="math">M^{\dagger} := (M^{*})^{T}</span> of a matrix <span class="math">M</span>, where * is complex conjugation, and T is transposition.</p></td>
+<td><p>Hermitian conjugate <span class="math notranslate nohighlight">\(M^{\dagger} := (M^{*})^{T}\)</span> of a matrix <span class="math notranslate nohighlight">\(M\)</span>, where * is complex conjugation, and T is transposition.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra.innerProd" title="quanguru.QuantumToolbox.linearAlgebra.innerProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">innerProd</span></code></a>(ket1[, ket2])</p></td>
-<td><p>Computes the inner product <span class="math">\langle ket2 | ket1 \rangle</span> of a ket vector with itself or with another, where <span class="math">\langle ket2| := |ket2 \rangle^{\dagger}</span>.</p></td>
+<td><p>Computes the inner product <span class="math notranslate nohighlight">\(\langle ket2 | ket1 \rangle\)</span> of a ket vector with itself or with another, where <span class="math notranslate nohighlight">\(\langle ket2| := |ket2 \rangle^{\dagger}\)</span>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra.norm" title="quanguru.QuantumToolbox.linearAlgebra.norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code></a>(ket)</p></td>
-<td><p>Norm <span class="math">\sqrt{\langle ket | ket \rangle}</span> of a ket state <span class="math">|ket \rangle</span>, where <span class="math">\langle ket| := |ket \rangle^{\dagger}</span>.</p></td>
+<td><p>Norm <span class="math notranslate nohighlight">\(\sqrt{\langle ket | ket \rangle}\)</span> of a ket state <span class="math notranslate nohighlight">\(|ket \rangle\)</span>, where <span class="math notranslate nohighlight">\(\langle ket| := |ket \rangle^{\dagger}\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra.outerProd" title="quanguru.QuantumToolbox.linearAlgebra.outerProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outerProd</span></code></a>(ket1[, ket2])</p></td>
-<td><p>Computes the outer product <span class="math">|ket2 \rangle\langle ket1|</span> of a ket vector with itself or with another, where <span class="math">\langle ket2| := |ket2 \rangle^{\dagger}</span>.</p></td>
+<td><p>Computes the outer product <span class="math notranslate nohighlight">\(|ket2 \rangle\langle ket1|\)</span> of a ket vector with itself or with another, where <span class="math notranslate nohighlight">\(\langle ket2| := |ket2 \rangle^{\dagger}\)</span>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra.tensorProd" title="quanguru.QuantumToolbox.linearAlgebra.tensorProd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensorProd</span></code></a>(*args)</p></td>
-<td><p>Function to calculate tensor product <span class="math">\otimes_{i} M_{i}</span> of given (any number i of) states (<span class="math">\{M_{i}\}</span> in the given order).</p></td>
+<td><p>Function to calculate tensor product <span class="math notranslate nohighlight">\(\otimes_{i} M_{i}\)</span> of given (any number i of) states (<span class="math notranslate nohighlight">\(\{M_{i}\}\)</span> in the given order).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra.trace" title="quanguru.QuantumToolbox.linearAlgebra.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace</span></code></a>(matrix)</p></td>
-<td><p>Trace <span class="math">Tr(M) := \sum_{i} M_{ii}</span> of a matrix <cite>M</cite>.</p></td>
+<td><p>Trace <span class="math notranslate nohighlight">\(Tr(M) := \sum_{i} M_{ii}\)</span> of a matrix <cite>M</cite>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra.partialTrace" title="quanguru.QuantumToolbox.linearAlgebra.partialTrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partialTrace</span></code></a>(keep, dims, state)</p></td>
 <td><p>Calculates the partial trace of a <cite>density matrix</cite> of composite state.</p></td>
@@ -398,7 +400,7 @@
 <td><p>Calculates the matrix multiplication of the given arbitrary number of inputs in the given order.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra._matPower" title="quanguru.QuantumToolbox.linearAlgebra._matPower"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_matPower</span></code></a>(matrix, power)</p></td>
-<td><p>A recursive function to raise the given matrix to a power, ie for given matrix <span class="math">M</span> and power <span class="math">n</span>, this returns <span class="math">\overbrace{M &#64; M &#64; \cdots &#64; M}^{n times}</span>, where <span class="math">&#64;</span> is the matrix multiplication.</p></td>
+<td><p>A recursive function to raise the given matrix to a power, ie for given matrix <span class="math notranslate nohighlight">\(M\)</span> and power <span class="math notranslate nohighlight">\(n\)</span>, this returns <span class="math notranslate nohighlight">\(\overbrace{M &#64; M &#64; \cdots &#64; M}^{n times}\)</span>, where <span class="math notranslate nohighlight">\(&#64;\)</span> is the matrix multiplication.</p></td>
 </tr>
 </tbody>
 </table>
@@ -474,7 +476,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.linearAlgebra.hc">
 <span class="sig-name descname"><span class="pre">hc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/linearAlgebra.html#hc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.linearAlgebra.hc" title="Link to this definition">#</a></dt>
-<dd><p>Hermitian conjugate <span class="math">M^{\dagger} := (M^{*})^{T}</span> of a matrix <span class="math">M</span>, where * is complex conjugation, and
+<dd><p>Hermitian conjugate <span class="math notranslate nohighlight">\(M^{\dagger} := (M^{*})^{T}\)</span> of a matrix <span class="math notranslate nohighlight">\(M\)</span>, where * is complex conjugation, and
 T is transposition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -516,8 +518,8 @@ T is transposition.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.linearAlgebra.innerProd">
 <span class="sig-name descname"><span class="pre">innerProd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ket1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/linearAlgebra.html#innerProd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.linearAlgebra.innerProd" title="Link to this definition">#</a></dt>
-<dd><p>Computes the inner product <span class="math">\langle ket2 | ket1 \rangle</span> of a ket vector with itself or with another,
-where <span class="math">\langle ket2| := |ket2 \rangle^{\dagger}</span>.</p>
+<dd><p>Computes the inner product <span class="math notranslate nohighlight">\(\langle ket2 | ket1 \rangle\)</span> of a ket vector with itself or with another,
+where <span class="math notranslate nohighlight">\(\langle ket2| := |ket2 \rangle^{\dagger}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -562,8 +564,8 @@ where <span class="math">\langle ket2| := |ket2 \rangle^{\dagger}</span>.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.linearAlgebra.norm">
 <span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/linearAlgebra.html#norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.linearAlgebra.norm" title="Link to this definition">#</a></dt>
-<dd><p>Norm <span class="math">\sqrt{\langle ket | ket \rangle}</span> of a ket state <span class="math">|ket \rangle</span>,
-where <span class="math">\langle ket| := |ket \rangle^{\dagger}</span>.
+<dd><p>Norm <span class="math notranslate nohighlight">\(\sqrt{\langle ket | ket \rangle}\)</span> of a ket state <span class="math notranslate nohighlight">\(|ket \rangle\)</span>,
+where <span class="math notranslate nohighlight">\(\langle ket| := |ket \rangle^{\dagger}\)</span>.
 This function simply returns the square root of <a class="reference internal" href="#quanguru.QuantumToolbox.linearAlgebra.innerProd" title="quanguru.QuantumToolbox.linearAlgebra.innerProd"><code class="xref py py-func docutils literal notranslate"><span class="pre">innerProd</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -600,8 +602,8 @@ This function simply returns the square root of <a class="reference internal" hr
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.linearAlgebra.outerProd">
 <span class="sig-name descname"><span class="pre">outerProd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ket1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/linearAlgebra.html#outerProd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.linearAlgebra.outerProd" title="Link to this definition">#</a></dt>
-<dd><p>Computes the outer product <span class="math">|ket2 \rangle\langle ket1|</span> of a ket vector with itself or with another,
-where <span class="math">\langle ket2| := |ket2 \rangle^{\dagger}</span>.</p>
+<dd><p>Computes the outer product <span class="math notranslate nohighlight">\(|ket2 \rangle\langle ket1|\)</span> of a ket vector with itself or with another,
+where <span class="math notranslate nohighlight">\(\langle ket2| := |ket2 \rangle^{\dagger}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -650,8 +652,8 @@ where <span class="math">\langle ket2| := |ket2 \rangle^{\dagger}</span>.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.linearAlgebra.tensorProd">
 <span class="sig-name descname"><span class="pre">tensorProd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/linearAlgebra.html#tensorProd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.linearAlgebra.tensorProd" title="Link to this definition">#</a></dt>
-<dd><p>Function to calculate tensor product <span class="math">\otimes_{i} M_{i}</span> of given (any number i of)
-states (<span class="math">\{M_{i}\}</span> in the given order).</p>
+<dd><p>Function to calculate tensor product <span class="math notranslate nohighlight">\(\otimes_{i} M_{i}\)</span> of given (any number i of)
+states (<span class="math notranslate nohighlight">\(\{M_{i}\}\)</span> in the given order).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>*args</strong> (<em>Matrix</em>) – state matrices (arbitrary number of them)</p>
@@ -706,7 +708,7 @@ states (<span class="math">\{M_{i}\}</span> in the given order).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.linearAlgebra.trace">
 <span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/linearAlgebra.html#trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.linearAlgebra.trace" title="Link to this definition">#</a></dt>
-<dd><p>Trace <span class="math">Tr(M) := \sum_{i} M_{ii}</span> of a matrix <cite>M</cite>.</p>
+<dd><p>Trace <span class="math notranslate nohighlight">\(Tr(M) := \sum_{i} M_{ii}\)</span> of a matrix <cite>M</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>matrix</strong> (<em>Matrix</em>) – a matrix</p>
@@ -818,9 +820,9 @@ It does not check the correctness of the shapes until the matrix multiplication 
 <dt class="sig sig-object py" id="quanguru.QuantumToolbox.linearAlgebra._matPower">
 <span class="sig-name descname"><span class="pre">_matPower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/quanguru/QuantumToolbox/linearAlgebra.html#_matPower"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.QuantumToolbox.linearAlgebra._matPower" title="Link to this definition">#</a></dt>
 <dd><p>A recursive function to raise the given matrix to a power,
-ie for given matrix <span class="math">M</span> and power <span class="math">n</span>,
-this returns <span class="math">\overbrace{M &#64; M &#64; \cdots &#64; M}^{n times}</span>,
-where <span class="math">&#64;</span> is the matrix multiplication.</p>
+ie for given matrix <span class="math notranslate nohighlight">\(M\)</span> and power <span class="math notranslate nohighlight">\(n\)</span>,
+this returns <span class="math notranslate nohighlight">\(\overbrace{M &#64; M &#64; \cdots &#64; M}^{n times}\)</span>,
+where <span class="math notranslate nohighlight">\(&#64;\)</span> is the matrix multiplication.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

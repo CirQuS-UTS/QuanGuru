@@ -54,6 +54,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/10_Qubit_parameterSweep';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -313,7 +315,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_JaynesCummingsModelDynamics.html">17 - Jaynes-Cummings Dynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">18 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">19 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">19 - Simultaneous Simulation JC and Rabi models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
@@ -394,7 +396,7 @@
 <h1>10 - Single parameter sweep<a class="headerlink" href="#10---Single-parameter-sweep" title="Link to this heading">#</a></h1>
 <p>In the previous tutorial, we covered the simulation of a single qubit with the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function. But, we run the simulation only for a single set of parameters, and, in most cases, we actually want to run the simulation for various different value of a parameter, say the qubit frequency. QuanGuru already provides this functionality, and it is the purpose of this tutorial to show how do we create/define a sweep. As you will see below, we don’t need to change any part of the existing single
 parameter simulation, but we simply add a sweep.</p>
-<p>Again, here, we will evolve the qubit under the unitary dynamics of its Hamiltonian <span class="math">H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}</span> with the initial state set to the equal superposition of <span class="math">|1\rangle</span> and <span class="math">|0\rangle</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <span class="math">\sigma_{x}</span>.</p>
+<p>Again, here, we will evolve the qubit under the unitary dynamics of its Hamiltonian <span class="math notranslate nohighlight">\(H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}\)</span> with the initial state set to the equal superposition of <span class="math notranslate nohighlight">\(|1\rangle\)</span> and <span class="math notranslate nohighlight">\(|0\rangle\)</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -446,7 +448,7 @@ of the other terms in the Hamiltonian (covered in later tutorials).</p>
 </div>
 </div>
 <p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation']</span></code>, but this time it returns a list of list, each of which is a time trace corresponding to the frequencies swept.</p>
-<p>As expected, the expectation value of <span class="math">\sigma_{x}</span> oscillates with different frequencies.</p>
+<p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates with different frequencies.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
