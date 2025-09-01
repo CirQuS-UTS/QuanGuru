@@ -1,0 +1,2055 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>22 - Step 1 : System Description &#8212; QuanGuru 1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f86c6f46" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=d2a3a1a5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/23_Step1_SystemDescription';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Quantum Toolbox (quanguru.QuantumToolbox)" href="../../../QuantumToolbox.html" />
+    <link rel="prev" title="21 - Digital quantum simulation protocol for Heisenberg model" href="22_HeisenbergModelDQS.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="2025/09/01"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">QuanGuru 1 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_nameAndAlias.html">0 - name and alias of QuanGuru objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_SingleQuantumSystem.html">1 - Hamiltonian of a single quantum system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_CompositeQubitSystem.html">2 - How to create composite quantum systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_CouplingQuantumSystems.html">3 - Coupling quantum systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_Qubit_Initial_State.html">4 - Initial state for a Qubit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Qubit_Hamiltonian.html">5 - Hamiltonian of a quantum system (cont.)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Qubit_Unitary_Evolution_SingleTermHamiltonian.html">6 - Simulation of a Qubit with single term Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_Qubit_Unitary_Evolution_TwoTermsHamiltonian.html">7 - Simulation of a Qubit with two terms Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_Qubit_ResultsStatesDictionaries.html">8 - qRes attribute: an intro to Results objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_Qubit_computeFunction.html">9 - Simulation with a compute function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Qubit_parameterSweep.html">10 - Single parameter sweep</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_Qubit_multipleTermsInHamiltonian.html">11 - Sweep and two term Qubit Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_Qubit_multipleTermsInHamiltonian_multipleSweeps.html">12 - Multi-parameter sweep (combinatorially)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_Qubit_multipleTermsInHamiltonian_multipleSweepsSimultaneous.html">13 - Multi-parameter sweep (simultaneously)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_Qubit_timeDependentTerm.html">14 - Time dependent Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_Qubit_timeDependentTerms.html">15 - Time dependent Hamiltonian 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16a_JaynesCummingsHamiltonianBasis.html">16 - Jaynes-Cummings model of light-matter interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16 - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_JaynesCummingsModelDynamics.html">17 - Jaynes-Cummings Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">18 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">19 - Simultaneous Simulation JC and Rabi models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">20 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_HeisenbergModelDQS.html">21 - Digital quantum simulation protocol for Heisenberg model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">22 - Step 1 : System Description</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="Tutorials.html" class="nav-link">Classes Demos</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">22 - Step 1 : System Description</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quanguru</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qg</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<section id="22---Step-1-:-System-Description">
+<h1>22 - Step 1 : System Description<a class="headerlink" href="#22---Step-1-:-System-Description" title="Link to this heading">#</a></h1>
+<p>This tutorial demonstrates all the functionalities provided by the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> and <code class="docutils literal notranslate"><span class="pre">QTerm</span></code> class.</p>
+<section id="Name-and-aliases">
+<h2>Name and aliases<a class="headerlink" href="#Name-and-aliases" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qsys</span> <span class="o">=</span>  <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">alias</span><span class="o">=</span><span class="s1">&#39;firstSystem&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qsys</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">qsys</span><span class="o">.</span><span class="n">alias</span><span class="p">,</span> <span class="n">qsys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+QuantumSystem1 [&#39;firstSystem&#39;] QTerm1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qsys</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">qsys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;QTerm1&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x11a3a9c70&gt;} None
+</pre></div></div>
+</div>
+</section>
+<section id="Hamiltonians">
+<h2>Hamiltonians<a class="headerlink" href="#Hamiltonians" title="Link to this heading">#</a></h2>
+<section id="With-simple-terms">
+<h3>With simple terms<a class="headerlink" href="#With-simple-terms" title="Link to this heading">#</a></h3>
+<p><img class="math" src="../../../_images/math/7d42dfb0e6c339b35aeab973079fc339f7ff5984.png" alt="H_{0} = \frac{1}{\sqrt{2}}(a^{\dagger} + a)"/></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q0</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">create</span><span class="p">)</span>
+
+<span class="n">secondTerm</span> <span class="o">=</span> <span class="n">q0</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">q0</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.         0.70710678 0.         0.        ]
+ [0.70710678 0.         1.         0.        ]
+ [0.         1.         0.         1.22474487]
+ [0.         0.         1.22474487 0.        ]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thirdTerm</span> <span class="o">=</span> <span class="n">q0</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmam</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">/Volumes/T7/Dropbox/Codes/QuanGuru/docs/source/classes/Tutorials/1_Qubit/22_Step1_SystemDescription.ipynb Cell 8</span> in <span class="ansi-cyan-fg">&lt;cell line: 1&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; &lt;a href=&#39;vscode-notebook-cell:/Volumes/T7/Dropbox/Codes/QuanGuru/docs/source/classes/Tutorials/1_Qubit/22_Step1_SystemDescription.ipynb#X10sZmlsZQ%3D%3D?line=0&#39;&gt;1&lt;/a&gt;</span> thirdTerm = q0.createTerm(operator=qg.sigmam, frequency=1)
+
+File <span class="ansi-green-fg">/Volumes/T7/Dropbox/Codes/QuanGuru/src/quanguru/classes/QSystem.py:583</span>, in <span class="ansi-cyan-fg">QuantumSystem.createTerm</span><span class="ansi-blue-fg">(self, operator, frequency, qSystem, order, superSys, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    581</span>     qSystem = self.getByNameOrAlias(qSystem)
+<span class="ansi-green-intense-fg ansi-bold">    582</span> superSys = self if superSys is None else superSys
+<span class="ansi-green-fg">--&gt; 583</span> newTerm = QTerm._createTerm(superSys=superSys, qSystem=qSystem, operator=operator, order=order,#pylint:disable=protected-access
+<span class="ansi-green-intense-fg ansi-bold">    584</span>                             frequency=frequency, **kwargs)
+<span class="ansi-green-intense-fg ansi-bold">    585</span> qObj = self if isinstance(qSystem, (list, tuple)) else qSystem
+<span class="ansi-green-intense-fg ansi-bold">    586</span> qObj.addTerms(newTerm)
+
+File <span class="ansi-green-fg">/Volumes/T7/Dropbox/Codes/QuanGuru/src/quanguru/classes/QTerms.py:152</span>, in <span class="ansi-cyan-fg">QTerm._createTerm</span><span class="ansi-blue-fg">(superSys, qSystem, operator, order, frequency, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    150</span> newSys = QTerm(superSys=superSys, **kwargs)
+<span class="ansi-green-intense-fg ansi-bold">    151</span> newSys.qSystem = qSystem
+<span class="ansi-green-fg">--&gt; 152</span> newSys.operator = operator
+<span class="ansi-green-intense-fg ansi-bold">    153</span> newSys.order = [1 for _ in qSystem] if (isinstance(qSystem, (list, tuple)) and (order is None)) else order
+<span class="ansi-green-intense-fg ansi-bold">    154</span> newSys.frequency = frequency
+
+File <span class="ansi-green-fg">/Volumes/T7/Dropbox/Codes/QuanGuru/src/quanguru/classes/QTerms.py:201</span>, in <span class="ansi-cyan-fg">QTerm.operator</span><span class="ansi-blue-fg">(self, op)</span>
+<span class="ansi-green-intense-fg ansi-bold">    199</span> @operator.setter
+<span class="ansi-green-intense-fg ansi-bold">    200</span> def operator(self, op):
+<span class="ansi-green-fg">--&gt; 201</span>     self._checkAndUpdateParamsWhenMultiple(op, &#39;_QTerm__operator&#39;, &#39;operator&#39;)
+<span class="ansi-green-intense-fg ansi-bold">    202</span>     if ((not isinstance(self.order, (list, tuple))) and isinstance(op, (list, tuple))):
+<span class="ansi-green-intense-fg ansi-bold">    203</span>         checkVal(self.order, 1, f&#39;order value ({self.order}) for a multi term ({len(op)}) system is ambiguous, &#39;+
+<span class="ansi-green-intense-fg ansi-bold">    204</span>                                  &#39;set a list/tuple of order values for each term in {op}&#39;)
+
+File <span class="ansi-green-fg">/Volumes/T7/Dropbox/Codes/QuanGuru/src/quanguru/classes/QTerms.py:187</span>, in <span class="ansi-cyan-fg">QTerm._checkAndUpdateParamsWhenMultiple</span><span class="ansi-blue-fg">(self, vals, attrName, attrPrintName)</span>
+<span class="ansi-green-intense-fg ansi-bold">    185</span>         setAttr(ter, attrName, vals[ind])
+<span class="ansi-green-intense-fg ansi-bold">    186</span> if attrName == &#39;_QTerm__operator&#39;:
+<span class="ansi-green-fg">--&gt; 187</span>     self._isCorrectPauliDim(self.qSystem, vals) #pylint:disable=no-member
+<span class="ansi-green-intense-fg ansi-bold">    188</span> setAttr(self, attrName, vals)
+<span class="ansi-green-intense-fg ansi-bold">    189</span> if self._paramUpdated:
+
+File <span class="ansi-green-fg">/Volumes/T7/Dropbox/Codes/QuanGuru/src/quanguru/classes/QTerms.py:284</span>, in <span class="ansi-cyan-fg">QTerm._isCorrectPauliDim</span><span class="ansi-blue-fg">(qsys, oper, dim)</span>
+<span class="ansi-green-intense-fg ansi-bold">    282</span> else:
+<span class="ansi-green-intense-fg ansi-bold">    283</span>     dim = qsys.dimension if dim is None else dim
+<span class="ansi-green-fg">--&gt; 284</span>     checkVal(not (QTerm._isOperPauli(oper) and not dim in (2, 1)), True,
+<span class="ansi-green-intense-fg ansi-bold">    285</span>              f&#39;dimension ({dim}) of quantum system ({qsys.name}) has to be 2, because it has {oper} as term&#39;)
+
+File <span class="ansi-green-fg">/Volumes/T7/Dropbox/Codes/QuanGuru/src/quanguru/classes/exceptions.py:52</span>, in <span class="ansi-cyan-fg">checkVal</span><span class="ansi-blue-fg">(someObj, val, msg)</span>
+<span class="ansi-green-intense-fg ansi-bold">     50</span> def checkVal(someObj, val, msg):
+<span class="ansi-green-intense-fg ansi-bold">     51</span>     if someObj != val:
+<span class="ansi-green-fg">---&gt; 52</span>         raise ValueError(msg)
+<span class="ansi-green-intense-fg ansi-bold">     53</span>     return someObj
+
+<span class="ansi-red-fg">ValueError</span>: dimension (4) of quantum system (QuantumSystem2) has to be 2, because it has &lt;function sigmam at 0x1156fe050&gt; as term
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q0</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">q0</span><span class="o">.</span><span class="n">stepSize</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q0</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="n">q0</span><span class="o">.</span><span class="n">frequency</span> <span class="ow">is</span> <span class="n">q0</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span>
+    <span class="n">q0</span><span class="o">.</span><span class="n">operator</span> <span class="ow">is</span> <span class="n">q0</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">operator</span><span class="p">,</span>
+    <span class="n">q0</span><span class="o">.</span><span class="n">order</span> <span class="ow">is</span> <span class="n">q0</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
+    <span class="n">q0</span><span class="o">.</span><span class="n">_freeMatrix</span> <span class="ow">is</span> <span class="n">q0</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_freeMatrix</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="n">secondTerm</span><span class="o">.</span><span class="n">frequency</span> <span class="ow">is</span> <span class="n">secondTerm</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span>
+    <span class="n">secondTerm</span><span class="o">.</span><span class="n">operator</span> <span class="ow">is</span> <span class="n">secondTerm</span><span class="o">.</span><span class="n">operator</span><span class="p">,</span>
+    <span class="n">secondTerm</span><span class="o">.</span><span class="n">order</span> <span class="ow">is</span> <span class="n">secondTerm</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">q0</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+True
+True
+True
+True
+True
+True
+[[0.         0.70710678]
+ [0.70710678 0.        ]]
+</pre></div></div>
+</div>
+</section>
+<section id="With-non-trivial-terms">
+<h3>With non-trivial terms<a class="headerlink" href="#With-non-trivial-terms" title="Link to this heading">#</a></h3>
+<p><img class="math" src="../../../_images/math/d38dd803e6437da6a8c51226fa57c7d0c704f345.png" alt="H_{1} = \omega_{1}a^{\dagger} a + \omega_{2} a^{3} (a^{\dagger})^{2}"/></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">w2</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">dimension</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">powOfDestroy</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">powOfCreate</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">q1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="n">dimension</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">w1</span><span class="p">)</span>
+
+<span class="c1"># for the second term, we need to create the term object explicitly then add it to our quantum system</span>
+<span class="c1"># want this to be intentional</span>
+<span class="c1"># create term raises an error</span>
+<span class="c1"># nonLinearTerm = q1.createTerm(qSystem=(q1, q1), operator=(qg.destroy, qg.create), frequency=w2, order=(powOfDestroy, powOfCreate), superSys=q1)</span>
+<span class="n">nonLinearTerm</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QTerm</span><span class="p">(</span><span class="n">qSystem</span><span class="o">=</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q1</span><span class="p">),</span> <span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">create</span><span class="p">),</span> <span class="n">frequency</span><span class="o">=</span><span class="n">w2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="n">powOfDestroy</span><span class="p">,</span> <span class="n">powOfCreate</span><span class="p">),</span> <span class="n">superSys</span><span class="o">=</span><span class="n">q1</span><span class="p">)</span>
+<span class="n">q1</span><span class="o">.</span><span class="n">addTerms</span><span class="p">(</span><span class="n">nonLinearTerm</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">q1</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 0.          6.          0.          0.          0.        ]
+ [ 0.          1.         16.97056275  0.          0.        ]
+ [ 0.          0.          2.          0.          0.        ]
+ [ 0.          0.          0.          3.          0.        ]
+ [ 0.          0.          0.          0.          4.        ]]
+</pre></div></div>
+</div>
+</section>
+<section id="What-if-we-have-only-one-term-?">
+<h3>What if we have only one term ?<a class="headerlink" href="#What-if-we-have-only-one-term-?" title="Link to this heading">#</a></h3>
+<p>$ H_{2} = <span class="math">\omega</span>_{2} a^{3} (a<sup>{:nbsphinx-math:</sup>dagger`})`{2}$</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="n">dimension</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">w2</span><span class="p">)</span>
+
+<span class="c1"># we first modify the qSystem of the _firstTerm</span>
+<span class="c1"># it is crucial that you do this before setting the operator and/or order</span>
+<span class="c1"># otherwise it will raise an error</span>
+<span class="n">q2</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">qSystem</span> <span class="o">=</span> <span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span>
+
+<span class="n">q2</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">create</span><span class="p">)</span>
+<span class="n">q2</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="p">(</span><span class="n">powOfDestroy</span><span class="p">,</span> <span class="n">powOfCreate</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">q2</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 0.          6.          0.          0.          0.        ]
+ [ 0.          0.         16.97056275  0.          0.        ]
+ [ 0.          0.          0.          0.          0.        ]
+ [ 0.          0.          0.          0.          0.        ]
+ [ 0.          0.          0.          0.          0.        ]]
+</pre></div></div>
+</div>
+</section>
+<section id="Why-such-a-strange-syntax-?">
+<h3>Why such a strange syntax ?<a class="headerlink" href="#Why-such-a-strange-syntax-?" title="Link to this heading">#</a></h3>
+<p>Because it enable us to extend similar syntax to couplings, such as the 3 body coupling in below Hamiltonian (for a composite system with 3 subsystems, a spin-1/2, a spin-2, another system with dimension 6). I wrote <img class="math" src="../../../_images/math/8cf2bdf30a8f7cb55e5e6407078b23af36439c64.png" alt="\otimes \mathbb{1}"/> to represent the tensor product with identity operators, which converts bare operators to composite operators.</p>
+<p>$ H_{3} = <span class="math">\omega</span><em>{1}:nbsphinx-math:`sigma`</em>{z}:nbsphinx-math:<cite>otimes `:nbsphinx-math:</cite>mathbb{1}` <span class="math">\otimes `:nbsphinx-math:</span>mathbb{1}` + <span class="math">\mathbb{1}</span> <span class="math">\otimes `:nbsphinx-math:</span>omega`<em>{2}J</em>{z}^{2}:nbsphinx-math:<cite>otimes `:nbsphinx-math:</cite>mathbb{1}` + <span class="math">\mathbb{1}</span> <span class="math">\otimes `:nbsphinx-math:</span>mathbb{1}`:nbsphinx-math:<cite>otimes `:nbsphinx-math:</cite>omega`<em>{3}a^:nbsphinx-math:`dagger `a +
+:nbsphinx-math:`omega`</em>{4}(<span class="math">\sigma</span><em>{+}:nbsphinx-math:`otimes `(J</em>{x}J_{y}) <span class="math">\otimes `(a^{3} (a\ :sup:`{:nbsphinx-math:</span>dagger`})`{2}))$</p>
+<section id="Special-classes-for-common-systems">
+<h4>Special classes for common systems<a class="headerlink" href="#Special-classes-for-common-systems" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Cavity (will implement a maxPhoton attribute) defaults its first term operator to the number</p></li>
+<li><p>Spin implements a jValue attribute and defaults the first term operator to J_z</p></li>
+<li><p>Qubit is the special case of Spin with jValue=0.5 (ie dimension=2)</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">,</span> <span class="n">w3</span><span class="p">,</span> <span class="n">w4</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">spinJ</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">thirdDim</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">w1</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;subSys12&#39;</span><span class="p">)</span>
+<span class="n">spin2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Spin</span><span class="p">(</span><span class="n">jValue</span><span class="o">=</span><span class="n">spinJ</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">w2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;subSys22&#39;</span><span class="p">)</span>
+<span class="n">cavity</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Cavity</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="n">thirdDim</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">w3</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;subSys32&#39;</span><span class="p">)</span>
+
+<span class="n">qComp</span> <span class="o">=</span> <span class="n">qubit</span> <span class="o">+</span> <span class="n">spin2</span> <span class="o">+</span> <span class="n">cavity</span> <span class="c1"># order of this sum is important. It maps to the order of identity and other operators above</span>
+
+<span class="n">couplingTerm</span> <span class="o">=</span> <span class="n">qComp</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">w4</span><span class="p">,</span>
+                                <span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">Jx</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">Jy</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">destroy</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">create</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmap</span><span class="p">),</span>
+                                <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                <span class="n">qSystem</span><span class="o">=</span><span class="p">(</span><span class="n">spin2</span><span class="p">,</span> <span class="n">spin2</span><span class="p">,</span> <span class="n">cavity</span><span class="p">,</span> <span class="n">cavity</span><span class="p">,</span> <span class="n">qubit</span><span class="p">),</span>
+                                <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;couplingTerm&#39;</span><span class="p">)</span>
+<span class="c1"># alias is kwargs</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[4.5+0.j 0. +0.j 0. +0.j ... 0. +0.j 0. +0.j 0. +0.j]
+ [0. +0.j 5.5+0.j 0. +0.j ... 0. +0.j 0. +0.j 0. +0.j]
+ [0. +0.j 0. +0.j 6.5+0.j ... 0. +0.j 0. +0.j 0. +0.j]
+ ...
+ [0. +0.j 0. +0.j 0. +0.j ... 6.5+0.j 0. +0.j 0. +0.j]
+ [0. +0.j 0. +0.j 0. +0.j ... 0. +0.j 7.5+0.j 0. +0.j]
+ [0. +0.j 0. +0.j 0. +0.j ... 0. +0.j 0. +0.j 8.5+0.j]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">alias</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">qSystem</span><span class="p">,</span> <span class="n">couplingTerm</span><span class="o">.</span><span class="n">superSys</span><span class="p">,</span> <span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;couplingTerm&#39;]
+[&lt;quanguru.classes.QSystem.Spin object at 0x12177e240&gt;, &lt;quanguru.classes.QSystem.Spin object at 0x12177e240&gt;, &lt;quanguru.classes.QSystem.Cavity object at 0x1218ddd50&gt;, &lt;quanguru.classes.QSystem.Cavity object at 0x1218ddd50&gt;, &lt;quanguru.classes.QSystem.Qubit object at 0x12177e440&gt;]
+QuantumSystem5
+{&#39;_QTerm5&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x121904f60&gt;, &#39;_QTerm6&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x121905f30&gt;, &#39;_QTerm7&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x121905fe0&gt;, &#39;_QTerm8&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x121906090&gt;, &#39;_QTerm9&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x121906140&gt;}
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span><span class="p">[</span><span class="s1">&#39;_QTerm5&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Jp</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span><span class="p">[</span><span class="s1">&#39;_QTerm5&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">operator</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;function quanguru.QuantumToolbox.operators.Jp(j: float, sparse: bool = True, isDim: bool = False) -&gt; Union[scipy.sparse._base.spmatrix, numpy.ndarray]&gt;
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="TimeDependent-term">
+<h3>TimeDependent term<a class="headerlink" href="#TimeDependent-term" title="Link to this heading">#</a></h3>
+<p><img class="math" src="../../../_images/math/7d8b852a10aaf9de141bdc60f1dc5bb06a12008c.png" alt="H = f_{1}(t)\sigma_z + f_{2}(t)\sigma_x"/></p>
+<p>where</p>
+<p><img class="math" src="../../../_images/math/bf5f0eca3200bb1d97ec5410c9ef6a74518635ca.png" alt="f(1) = \sin(t)"/></p>
+<p>and</p>
+<p><img class="math" src="../../../_images/math/5354a7b744b3242f26a49e97f01e1dc8ab719ede.png" alt="f(2) =  \cos^2(t)"/></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">)</span>
+
+<span class="n">term2</span> <span class="o">=</span> <span class="n">qub1</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;term2&#39;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f1</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="n">qsys</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+<span class="n">qub1</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">timeDependency</span> <span class="o">=</span> <span class="n">f1</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f2</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="n">qsys</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">term2</span><span class="o">.</span><span class="n">timeDependency</span> <span class="o">=</span> <span class="n">f2</span>
+
+<span class="n">qub1</span><span class="o">.</span><span class="n">_timeDependency</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub1</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">term2</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0 1.0
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Terms-and-sub-systems">
+<h2>Terms and sub-systems<a class="headerlink" href="#Terms-and-sub-systems" title="Link to this heading">#</a></h2>
+<p>terms and subSys are aliasDict</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span><span class="p">,</span> <span class="n">qubit</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">cavity</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;QTerm10&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x11e39f3d0&gt;}
+
+{&#39;Qubit1&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x1114fb340&gt;, &#39;Spin1&#39;: &lt;quanguru.classes.QSystem.Spin object at 0x1114fb540&gt;, &#39;Cavity1&#39;: &lt;quanguru.classes.QSystem.Cavity object at 0x11e3546d0&gt;}
+
+{&#39;QTerm7&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x11e39d170&gt;}
+
+{&#39;QTerm8&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x11e39cb40&gt;}
+
+{&#39;QTerm9&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x11e39cd50&gt;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">_termHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qComp</span><span class="o">.</span><span class="n">_subSysHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.+0.j 0.+0.j 0.+0.j ... 0.+0.j 0.+0.j 0.+0.j]
+ [0.+0.j 0.+0.j 0.+0.j ... 0.+0.j 0.+0.j 0.+0.j]
+ [0.+0.j 0.+0.j 0.+0.j ... 0.+0.j 0.+0.j 0.+0.j]
+ ...
+ [0.+0.j 0.+0.j 0.+0.j ... 0.+0.j 0.+0.j 0.+0.j]
+ [0.+0.j 0.+0.j 0.+0.j ... 0.+0.j 0.+0.j 0.+0.j]
+ [0.+0.j 0.+0.j 0.+0.j ... 0.+0.j 0.+0.j 0.+0.j]] [[4.5 0.  0.  ... 0.  0.  0. ]
+ [0.  5.5 0.  ... 0.  0.  0. ]
+ [0.  0.  6.5 ... 0.  0.  0. ]
+ ...
+ [0.  0.  0.  ... 6.5 0.  0. ]
+ [0.  0.  0.  ... 0.  7.5 0. ]
+ [0.  0.  0.  ... 0.  0.  8.5]]
+</pre></div></div>
+</div>
+</section>
+<section id="Dimension-information">
+<h2>Dimension information<a class="headerlink" href="#Dimension-information" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">subSysDimensions</span><span class="p">,</span> <span class="n">qubit</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">cavity</span><span class="o">.</span><span class="n">dimension</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[2, 5, 6] 2 5 6
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">_totalDim</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">_dimsAfter</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">_dimsBefore</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+60 5 6 2
+</pre></div></div>
+</div>
+<section id="composite-operators">
+<h3>composite operators<a class="headerlink" href="#composite-operators" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spin2</span><span class="o">.</span><span class="n">_compositeOperator</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Jx</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">_compositeOperator</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">Jx</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">spin2</span><span class="o">.</span><span class="n">jValue</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">_totalDim</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">_dimsAfter</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">_dimsBefore</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">_compositeOperator</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">Jx</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">cavity</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">_totalDim</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">_dimsAfter</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">_dimsBefore</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">_compositeOperator</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">Jx</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(60, 60)
+36 3 6 2
+(36, 36)
+12 3 2 2
+(12, 12)
+</pre></div></div>
+</div>
+</section>
+<section id="matrix-re-creations">
+<h3>matrix re-creations<a class="headerlink" href="#matrix-re-creations" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newSys</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">create</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+None
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">newSys</span><span class="o">.</span><span class="n">totalHamiltonian</span> <span class="ow">is</span> <span class="n">newSys</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0. 0.]
+ [1. 0.]] True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newSys</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">newSys</span><span class="o">.</span><span class="n">totalHamiltonian</span> <span class="ow">is</span> <span class="n">newSys</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+None
+[[0.         0.         0.         0.        ]
+ [1.         0.         0.         0.        ]
+ [0.         1.41421356 0.         0.        ]
+ [0.         0.         1.73205081 0.        ]] True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newSys</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+  (1, 0)        1.0
+  (2, 1)        1.4142135623730951
+  (3, 2)        1.7320508075688772
+</pre></div></div>
+</div>
+<section id="hc-of-__matrix">
+<h4>hc of __matrix<a class="headerlink" href="#hc-of-__matrix" title="Link to this heading">#</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_hc</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">newSys</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.         1.         0.         0.        ]
+ [0.         0.         1.41421356 0.        ]
+ [0.         0.         0.         1.73205081]
+ [0.         0.         0.         0.        ]]
+[[0.         0.         0.         0.        ]
+ [1.         0.         0.         0.        ]
+ [0.         1.41421356 0.         0.        ]
+ [0.         0.         1.73205081 0.        ]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newSys</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="c1"># distinction is when newSys is in a composite system and the dimension of the another system is changed</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_QTerm__HamiltonianTerm</span><span class="p">,</span> <span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+  (1, 0)        1.0
+  (2, 1)        1.4142135623730951
+  (3, 2)        1.7320508075688772
+
+None
+[[0.         0.         0.         0.         0.        ]
+ [1.         0.         0.         0.         0.        ]
+ [0.         1.41421356 0.         0.         0.        ]
+ [0.         0.         1.73205081 0.         0.        ]
+ [0.         0.         0.         2.         0.        ]]
+
+  (1, 0)        1.0
+  (2, 1)        1.4142135623730951
+  (3, 2)        1.7320508075688772
+  (4, 3)        2.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newSys</span><span class="o">.</span><span class="n">delMatrices</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">,</span>
+      <span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_QTerm__HamiltonianTerm</span><span class="p">,</span>
+      <span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+None
+
+  (1, 0)        2.0
+  (2, 1)        2.8284271247461903
+  (3, 2)        3.4641016151377544
+  (4, 3)        4.0
+
+None
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newSys</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">,</span> <span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_QTerm__HamiltonianTerm</span><span class="p">,</span> <span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_paramBoundBase__matrix</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">totalHamiltonian</span>
+
+<span class="n">newSys</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">,</span> <span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">)</span>
+<span class="n">newSys</span><span class="o">.</span><span class="n">totalHamiltonian</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">,</span> <span class="n">newSys</span><span class="o">.</span><span class="n">_firstTerm</span><span class="o">.</span><span class="n">_paramUpdated</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True True
+  (1, 0)        1.0
+  (2, 1)        1.4142135623730951
+  (3, 2)        1.7320508075688772
+  (4, 3)        2.0
+
+  (1, 0)        1.0
+  (2, 1)        1.4142135623730951
+  (3, 2)        1.7320508075688772
+  (4, 3)        2.0
+True False
+False False
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">newSys</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="n">newSys</span><span class="o">.</span><span class="n">terms</span><span class="p">[</span><span class="s1">&#39;QTerm13&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">_paramBound</span><span class="p">,</span>
+      <span class="n">newSys</span><span class="o">.</span><span class="n">_paramBound</span><span class="p">,</span>
+      <span class="n">newSys</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">_paramBound</span><span class="p">,</span>
+      <span class="n">newSys</span><span class="o">.</span><span class="n">_freeEvol</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+QuantumSystem7
+{&#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e354b80&gt;}
+{&#39;_freeEvolution10&#39;: &lt;quanguru.classes.QPro.freeEvolution object at 0x11149f010&gt;}
+{&#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e354b80&gt;, &#39;_Simulation20&#39;: &lt;quanguru.classes.QSim.Simulation object at 0x11149f120&gt;}
+_Simulation20
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="Composite-system-information">
+<h2>Composite system information<a class="headerlink" href="#Composite-system-information" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">,</span> <span class="n">qubit</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">,</span> <span class="n">cavity</span><span class="o">.</span><span class="n">_isComposite</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True False False False
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">ind</span><span class="p">,</span> <span class="n">qubit</span><span class="o">.</span><span class="n">ind</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">ind</span><span class="p">,</span> <span class="n">cavity</span><span class="o">.</span><span class="n">ind</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0 0 1 2
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qCompCopy</span> <span class="o">=</span> <span class="n">qComp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qCompCopy</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">qCompCopy</span><span class="o">.</span><span class="n">subSys</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">qCompCopy</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qComp</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;QTerm17&#39;: &lt;quanguru.classes.QTerms.QTerm object at 0x11e3be140&gt;}
+{&#39;Qubit2&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x1114fba40&gt;, &#39;Spin2&#39;: &lt;quanguru.classes.QSystem.Spin object at 0x1114fbb40&gt;, &#39;Cavity2&#39;: &lt;quanguru.classes.QSystem.Cavity object at 0x11e354e50&gt;}
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qComp</span><span class="o">.</span><span class="n">removeSubSys</span><span class="p">(</span><span class="n">spin2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span><span class="p">,</span> <span class="n">qComp</span><span class="o">.</span><span class="n">subSysDimensions</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{}
+{&#39;Qubit1&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x1114fb340&gt;, &#39;Cavity1&#39;: &lt;quanguru.classes.QSystem.Cavity object at 0x11e3546d0&gt;}
+[2, 2]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qComp</span><span class="o">.</span><span class="n">resetTerms</span><span class="p">(),</span> <span class="n">qComp</span><span class="o">.</span><span class="n">resetSubSys</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span><span class="p">,</span> <span class="n">qComp</span><span class="o">.</span><span class="n">subSysDimensions</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{}
+{}
+[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="n">internalTerms</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">couplingTerm</span><span class="o">.</span><span class="n">removeSubSys</span><span class="p">(</span><span class="s1">&#39;_QTerm7&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;_QTerm5&#39;, &#39;_QTerm6&#39;, &#39;_QTerm7&#39;, &#39;_QTerm8&#39;, &#39;_QTerm9&#39;])
+dict_keys([&#39;_QTerm5&#39;, &#39;_QTerm6&#39;, &#39;_QTerm8&#39;, &#39;_QTerm9&#39;])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">resetSubSys</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span> <span class="o">=</span> <span class="n">internalTerms</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">couplingTerm</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([])
+dict_keys([&#39;_QTerm5&#39;, &#39;_QTerm6&#39;, &#39;_QTerm7&#39;, &#39;_QTerm8&#39;, &#39;_QTerm9&#39;])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span> <span class="o">=</span> <span class="p">[</span><span class="n">qubit</span><span class="p">,</span> <span class="n">spin2</span><span class="p">,</span> <span class="n">cavity</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span><span class="p">,</span> <span class="n">qComp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="n">qComp</span> <span class="o">+=</span> <span class="mi">4</span><span class="o">*</span><span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;Qubit1&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x1114fb340&gt;, &#39;Spin1&#39;: &lt;quanguru.classes.QSystem.Spin object at 0x1114fb540&gt;, &#39;Cavity1&#39;: &lt;quanguru.classes.QSystem.Cavity object at 0x11e3546d0&gt;} QuantumSystem5
+{&#39;QuantumSystem5&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e3547c0&gt;, &#39;QuantumSystem10&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e354f40&gt;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qComp</span> <span class="o">-=</span> <span class="n">qubit</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span><span class="p">[</span><span class="s1">&#39;QuantumSystem5&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">subSys</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qComp</span><span class="o">.</span><span class="n">subSys</span><span class="p">[</span><span class="s1">&#39;QuantumSystem10&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">subSys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;QuantumSystem5&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e3547c0&gt;, &#39;QuantumSystem10&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e354f40&gt;}
+{&#39;Spin1&#39;: &lt;quanguru.classes.QSystem.Spin object at 0x1114fb540&gt;, &#39;Cavity1&#39;: &lt;quanguru.classes.QSystem.Cavity object at 0x11e3546d0&gt;}
+{&#39;QuantumSystem9&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e354a90&gt;, &#39;QuantumSystem11&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e355030&gt;, &#39;QuantumSystem12&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e355120&gt;, &#39;QuantumSystem13&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x11e355210&gt;}
+</pre></div></div>
+</div>
+</section>
+<section id="Initial-state">
+<h2>Initial state<a class="headerlink" href="#Initial-state" title="Link to this heading">#</a></h2>
+<section id="various-types-of-initial-state-input:-single-number,-list-of-numbers,-dictionary-(inpCoef-False/True),-and-matrix-(with-consistent-dimension)">
+<h3>various types of initial state input: single number, list of numbers, dictionary (inpCoef False/True), and matrix (with consistent dimension)<a class="headerlink" href="#various-types-of-initial-state-input:-single-number,-list-of-numbers,-dictionary-(inpCoef-False/True),-and-matrix-(with-consistent-dimension)" title="Link to this heading">#</a></h3>
+<p>Before diving into the examples, let’s first define certain conventions and notations representing the eigenvectors of <img class="math" src="../../../_images/math/63f8e296d0689572d3979c6617ae800f7ba6fa4d.png" alt="\sigma_{z}"/> operator.</p>
+<p>Matrix form of <img class="math" src="../../../_images/math/63f8e296d0689572d3979c6617ae800f7ba6fa4d.png" alt="\sigma_{z}"/> operator is:</p>
+<p><img class="math" src="../../../_images/math/d1d554061bec457a5bf725d4b03ec7ad72901f57.png" alt="\sigma_{z} = \left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]"/></p>
+<p>and its eigenvectors (with the corresponding eigenvalues) are</p>
+<p><img class="math" src="../../../_images/math/f7aad010b6bff5921eb00bff4eb32682a1000680.png" alt="|0\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue 1)}"/></p>
+<p><img class="math" src="../../../_images/math/e60c663f098baf7460af108ed5deb3c68db42204.png" alt="|1\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue -1)}"/></p>
+<p>The labels, 0 and 1, of the ket states here represent the position of the 1 in the column matrices. In other words, the <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> has 1 at row 0, and the <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> has 1 at row 1. This convention extends naturally and is used for higher dimensional systems such as larger spins or harmonic oscillators. We will refer these as <code class="docutils literal notranslate"><span class="pre">basis</span></code> states, and the <code class="docutils literal notranslate"><span class="pre">basis</span></code> method of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> can be used for the creation of such states, but, here we focus on creating the initial
+states through the <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> object.</p>
+</section>
+</section>
+<section id="1.-Pure-States">
+<h2>1. Pure States<a class="headerlink" href="#1.-Pure-States" title="Link to this heading">#</a></h2>
+<section id="1.1-If-Initial-state-is-a-basis-state">
+<h3>1.1 If Initial state is a basis state<a class="headerlink" href="#1.1-If-Initial-state-is-a-basis-state" title="Link to this heading">#</a></h3>
+<p>In order to set <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> or <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/>, we simply give the respective number as input for the <code class="docutils literal notranslate"><span class="pre">initialState</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[1.]
+ [0.]]
+[[0.]
+ [1.]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">_initialStateInput</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">_maxInput</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1 1
+</pre></div></div>
+</div>
+</section>
+<section id="1.2-If-Initial-state-is-a-superposition-state">
+<h3>1.2 If Initial state is a superposition state<a class="headerlink" href="#1.2-If-Initial-state-is-a-superposition-state" title="Link to this heading">#</a></h3>
+<p>If we want to set some super-position of <img class="math" src="../../../_images/math/3d92fcedf18a05b1f0828fa89175e8c312ab4e7c.png" alt="|0\rangle"/> and <img class="math" src="../../../_images/math/dd178c7087eec406f6ba435d0ec64c01eacfb6a3.png" alt="|1\rangle"/> as the initial state, we can do this in various different ways depending on the superposition state we want to set.</p>
+<section id="1.2.1-If-Initial-state-is-an-equal-superposition-state">
+<h4>1.2.1 If Initial state is an equal superposition state<a class="headerlink" href="#1.2.1-If-Initial-state-is-an-equal-superposition-state" title="Link to this heading">#</a></h4>
+<p>The first method is for the equal superposition state</p>
+<p><img class="math" src="../../../_images/math/dee5bde13c8c37addf10d62df78853533f7d9207.png" alt="\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle )"/></p>
+<p>In this special case, we simply give a list <img class="math" src="../../../_images/math/e51cc6f731b282d5ed7534a42e7553eea460f586.png" alt="[1, 0]"/> (or <img class="math" src="../../../_images/math/8027137b3073a7f5ca4e45ba2d030dcff154eca4.png" alt="[0, 1]"/> the order is not important) of the states, and it is used to create the equal superposition. Note that “equal superposition” here does not mean equal superposition of every basis states, it just means equal superposition of the given input basis states. In other words, for higher dimensional systems, you can create an equal superposition of any number of basis states. For example for a 5 dimensional system,
+<img class="math" src="../../../_images/math/d3fbdb978496e451e2867a6c88d91fee4d1c85a4.png" alt="[1, 0, 3]"/> will create equal superposition of these three basis states.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.70710678]
+ [0.70710678]]
+</pre></div></div>
+</div>
+</section>
+<section id="1.2.2-If-Initial-state-is-an-arbitrary-superposition-state">
+<h4>1.2.2 If Initial state is an arbitrary superposition state<a class="headerlink" href="#1.2.2-If-Initial-state-is-an-arbitrary-superposition-state" title="Link to this heading">#</a></h4>
+<p>The second method for creating a superposition state is by using a dictionary, where <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs represent the <code class="docutils literal notranslate"><span class="pre">basis-state:population/coefficient</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">population/coefficient</span></code> here means that there are also two different ways for this approach.</p>
+<p>Consider the following superposition state</p>
+<p><img class="math" src="../../../_images/math/6b224cfa908f13d154be9f95193f611193a38be7.png" alt="c_{0}|0\rangle + c_{1}|1\rangle"/></p>
+<p>where <img class="math" src="../../../_images/math/cb5448c62c69431617901ff76ecf95172e07d606.png" alt="c_{i}"/> are the complex probability amplitudes, and <img class="math" src="../../../_images/math/8fd3e0ba3666235fb9c97a52b1999467dcd255f3.png" alt="p_{i} = |c_{i}|^{2}"/> are the population, satisfying the normalization condition <img class="math" src="../../../_images/math/55a7dbcaa479741dcf26d2a73a55a28582bfbbec.png" alt="\sum_{i}p_{i} = 1"/>.</p>
+<p>Now, we can create our superposition state either by using the <code class="docutils literal notranslate"><span class="pre">population</span></code> or <code class="docutils literal notranslate"><span class="pre">coefficient</span></code>.</p>
+<section id="1.2.2.1-Initial-state-using-the-populations">
+<h5>1.2.2.1 Initial state using the populations<a class="headerlink" href="#1.2.2.1-Initial-state-using-the-populations" title="Link to this heading">#</a></h5>
+<p>Let’s cover the <code class="docutils literal notranslate"><span class="pre">population</span></code> first, which is the default method. Below is an example where we want <img class="math" src="../../../_images/math/8370c9f99383e68c0a23a5dc177ecd4a264e5891.png" alt="p_{0} = 0.2"/> and <img class="math" src="../../../_images/math/92312604333ebeb923032974d0e4b0440c030783.png" alt="p_{1} = 0.8"/>. Note that the order of the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs does not matter, meaning <code class="docutils literal notranslate"><span class="pre">{0:0.2,</span> <span class="pre">1:0.8}</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">{1:0.8,</span> <span class="pre">0:0.2}</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+<span class="c1"># let&#39;s also convert this initial state into density matrix to confirm:</span>
+<span class="c1"># (i) the populations and (ii) its purity</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.4472136 ]
+ [0.89442719]]
+[[0.2 0.4]
+ [0.4 0.8]]
+1.0000000000000009
+</pre></div></div>
+</div>
+<p>Also note that the populations can be <em>relative</em>, meaning the input does not have to sum to 1, and they will be normalized to sum to one. For example, if we input <img class="math" src="../../../_images/math/2095319c0692b848f0329bdbd6fd9e2e14bbc1e5.png" alt="{0:0.2, 1:0.9}"/>, the total population is <img class="math" src="../../../_images/math/6f5341db72c1316ff8f21b229087685868807332.png" alt="1.1"/>. Therefore, it will be normalized to <img class="math" src="../../../_images/math/b2b2607d020aaa7808e4071b2bd218c58a0dbf26.png" alt="{0:(0.2/1.1), 1:(0.9/1.1)}"/>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.9</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="mf">0.9</span><span class="o">/</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="o">/</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.42640143]
+ [0.90453403]]
+[[0.18181818 0.38569461]
+ [0.38569461 0.81818182]]
+1.0000000000000007
+0.8181818181818181
+0.18181818181818182
+</pre></div></div>
+</div>
+</section>
+<section id="1.2.2.2-If-the-relative-phases-are-important">
+<h5>1.2.2.2 If the relative phases are important<a class="headerlink" href="#1.2.2.2-If-the-relative-phases-are-important" title="Link to this heading">#</a></h5>
+<p>Obviously, the <code class="docutils literal notranslate"><span class="pre">population</span></code> approach ignores the relative phase between the <code class="docutils literal notranslate"><span class="pre">coefficients</span></code>, which might be important for us. In such a case, we can give the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> value pairs as <code class="docutils literal notranslate"><span class="pre">state:coefficient</span></code>, but we also need to set <code class="docutils literal notranslate"><span class="pre">_inpCoef</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> as below, where we compare the <code class="docutils literal notranslate"><span class="pre">population</span></code> and <code class="docutils literal notranslate"><span class="pre">coefficient</span></code> approach. Notice that both cases below creates <img class="math" src="../../../_images/math/8407a7b5c5d37f486d4d8402eb674e1913782dcf.png" alt="p_{0} = 0.66"/> and <img class="math" src="../../../_images/math/c8501678199c40eacaaa082d5729dcac393db537.png" alt="p_{1} = 0.33"/>, but the first one uses the complex probability amplitudes introducing a
+relative phase, which is observed as the complex parts of the off-diagonal elements of the density matrix.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">_inpCoef</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="p">),</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.2</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">qub</span><span class="o">.</span><span class="n">_inpCoef</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.66</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.33</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.57735027+0.57735027j]
+ [0.57735027+0.j        ]]
+[[0.66666667+0.j         0.33333333+0.33333333j]
+ [0.33333333-0.33333333j 0.33333333+0.j        ]]
+(0.9999999999999989+0j)
+[[0.81649658]
+ [0.57735027]]
+[[0.66666667 0.47140452]
+ [0.47140452 0.33333333]]
+1.0
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="Mixed-states-or-any-other-arbitrary-state">
+<h2>Mixed states or any other arbitrary state<a class="headerlink" href="#Mixed-states-or-any-other-arbitrary-state" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">initialState</span></code> also accepts a (ket or density) matrix as input, which makes it possible to set any state we want as the initial state. For example, if we want the initial state to be a mixed state, we can create it using the <code class="docutils literal notranslate"><span class="pre">densityMatrix</span></code> function of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> then set it through again the <code class="docutils literal notranslate"><span class="pre">initialState</span></code> as below, where we also calculate the purity of each mixed state.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mixedState</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">([</span><span class="n">qg</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">qg</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">mixedState</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">mixedState</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">([</span><span class="n">qg</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">qg</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">mixedState</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.5 0. ]
+ [0.  0.5]]
+0.5
+[[0.75 0.  ]
+ [0.   0.25]]
+0.625
+</pre></div></div>
+</div>
+</section>
+<section id="_createState-function-pointer-for-custom-initial-state-creators">
+<h2>_createState function pointer for custom initial state creators<a class="headerlink" href="#_createState-function-pointer-for-custom-initial-state-creators" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">customStateCreator</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">inp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_maxInput</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">qg</span><span class="o">.</span><span class="n">superPos</span><span class="p">(</span><span class="n">qsys</span><span class="o">.</span><span class="n">dimension</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="ow">not</span> <span class="n">qsys</span><span class="o">.</span><span class="n">_inpCoef</span><span class="p">)</span> <span class="k">if</span> <span class="n">_maxInput</span> <span class="o">&lt;</span> <span class="n">qsys</span><span class="o">.</span><span class="n">dimension</span> <span class="k">else</span> <span class="kc">None</span>
+<span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="o">.</span><span class="n">_createState</span> <span class="o">=</span> <span class="n">customStateCreator</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.70710678]
+ [0.70710678]]
+</pre></div></div>
+</div>
+</section>
+<section id="other-aux">
+<h2>other aux<a class="headerlink" href="#other-aux" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>number of <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> instances</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">_instances</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="o">.</span><span class="n">_instances</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="o">.</span><span class="n">_instances</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">Spin</span><span class="o">.</span><span class="n">_instances</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">Cavity</span><span class="o">.</span><span class="n">_instances</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="o">.</span><span class="n">_instances</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3 3
+3 2 2 14
+</pre></div></div>
+</div>
+</section>
+<section id="Compositions">
+<h2>Compositions<a class="headerlink" href="#Compositions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>setting internal simulation operator parameters directly through self</p></li>
+<li><p>unitary of internal freeEvolution (_freeEvol) and addProtocol</p></li>
+<li><p>results</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">simStepSize</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">stepSize</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+2
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">_freeEvol</span><span class="o">.</span><span class="n">unitary</span><span class="p">()</span> <span class="ow">is</span> <span class="n">qub</span><span class="o">.</span><span class="n">unitary</span><span class="p">(),</span> <span class="n">qub</span><span class="o">.</span><span class="n">_freeEvol</span><span class="o">.</span><span class="n">superSys</span> <span class="ow">is</span> <span class="n">qub</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">protocols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="n">qub</span><span class="o">.</span><span class="n">_freeEvol</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="p">),</span> <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">alias</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;quanguru.classes.QRes.qResults&#39;&gt; _qResults98 [&#39;Qubit4Results&#39;] Qubit4
+</pre></div></div>
+</div>
+<section id="cascaded-parameters">
+<h3>cascaded parameters<a class="headerlink" href="#cascaded-parameters" title="Link to this heading">#</a></h3>
+<p>below parameters:</p>
+<ul class="simple">
+<li><p>initial state</p></li>
+<li><p>step size</p></li>
+<li><p>total time</p></li>
+<li><p>step sample</p></li>
+<li><p>step count</p></li>
+</ul>
+<p>are cascaded from simulation -&gt; system -&gt; protocol</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spin1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Spin</span><span class="p">(</span><span class="n">jValue</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">spin2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Spin</span><span class="p">(</span><span class="n">jValue</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">protocol1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">qProtocol</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spin2</span><span class="p">)</span>
+<span class="n">protocol2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">qProtocol</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spin2</span><span class="p">)</span>
+
+<span class="n">simulation</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">subSys</span><span class="o">=</span><span class="n">spin1</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">spin2</span><span class="p">,</span> <span class="n">protocol1</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">spin2</span><span class="p">,</span> <span class="n">protocol2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;quanguru.classes.QSystem.Spin at 0x11e408140&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">initialStateSystem</span> <span class="o">=</span> <span class="n">spin1</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">spin1</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">spin2</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True True
+True True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spin2</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">spin1</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">spin2</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True False
+False False
+True True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">protocol1</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">spin1</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">spin2</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">initialState</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">initialState</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True False
+False False
+False True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">spin1</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">spin2</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True True
+True True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spin2</span><span class="o">.</span><span class="n">stepSize</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">spin1</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">spin2</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True False
+False False
+True True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">protocol1</span><span class="o">.</span><span class="n">stepSize</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">spin1</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">spin2</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spin2</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol1</span><span class="o">.</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">spin2</span><span class="o">.</span><span class="n">stepSize</span> <span class="ow">is</span> <span class="n">protocol2</span><span class="o">.</span><span class="n">stepSize</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True False
+False False
+False True
+</pre></div></div>
+</div>
+</section>
+<section id="internal-vs-external-names">
+<h3>internal vs external names<a class="headerlink" href="#internal-vs-external-names" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="n">spin1</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="n">protocol2</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="n">qg</span><span class="o">.</span><span class="n">Simulation</span><span class="o">.</span><span class="n">_instances</span><span class="p">,</span>
+      <span class="n">qg</span><span class="o">.</span><span class="n">Simulation</span><span class="o">.</span><span class="n">_externalInstances</span><span class="p">,</span>
+      <span class="n">qg</span><span class="o">.</span><span class="n">Simulation</span><span class="o">.</span><span class="n">_internalInstances</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Simulation1
+_Simulation43
+_Simulation48
+49
+1
+48
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="compute-functions">
+<h2>compute functions<a class="headerlink" href="#compute-functions" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">preCompute</span></code>, <code class="docutils literal notranslate"><span class="pre">postCompute</span></code>, <code class="docutils literal notranslate"><span class="pre">compute</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">st</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;computeCall with state: &#39;</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span>
+
+<span class="n">spin1</span><span class="o">.</span><span class="n">compute</span> <span class="o">=</span> <span class="n">compute</span>
+
+<span class="n">spin1</span><span class="o">.</span><span class="n">_computeBase__compute</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+computeCall with state:  1
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="22_HeisenbergModelDQS.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">21 - Digital quantum simulation protocol for Heisenberg model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../../QuantumToolbox.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Quantum Toolbox (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.QuantumToolbox</span></code>)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Name-and-aliases">Name and aliases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Hamiltonians">Hamiltonians</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#With-simple-terms">With simple terms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#With-non-trivial-terms">With non-trivial terms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#What-if-we-have-only-one-term-?">What if we have only one term ?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Why-such-a-strange-syntax-?">Why such a strange syntax ?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#Special-classes-for-common-systems">Special classes for common systems</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#TimeDependent-term">TimeDependent term</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Terms-and-sub-systems">Terms and sub-systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Dimension-information">Dimension information</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-operators">composite operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-re-creations">matrix re-creations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hc-of-__matrix">hc of __matrix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Composite-system-information">Composite system information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Initial-state">Initial state</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#various-types-of-initial-state-input:-single-number,-list-of-numbers,-dictionary-(inpCoef-False/True),-and-matrix-(with-consistent-dimension)">various types of initial state input: single number, list of numbers, dictionary (inpCoef False/True), and matrix (with consistent dimension)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Pure-States">1. Pure States</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#1.1-If-Initial-state-is-a-basis-state">1.1 If Initial state is a basis state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2-If-Initial-state-is-a-superposition-state">1.2 If Initial state is a superposition state</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2.1-If-Initial-state-is-an-equal-superposition-state">1.2.1 If Initial state is an equal superposition state</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2.2-If-Initial-state-is-an-arbitrary-superposition-state">1.2.2 If Initial state is an arbitrary superposition state</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2.2.1-Initial-state-using-the-populations">1.2.2.1 Initial state using the populations</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2.2.2-If-the-relative-phases-are-important">1.2.2.2 If the relative phases are important</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Mixed-states-or-any-other-arbitrary-state">Mixed states or any other arbitrary state</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_createState-function-pointer-for-custom-initial-state-creators">_createState function pointer for custom initial state creators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-aux">other aux</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Compositions">Compositions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cascaded-parameters">cascaded parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#internal-vs-external-names">internal vs external names</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-functions">compute functions</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/classes/Tutorials/1_Qubit/23_Step1_SystemDescription.ipynb"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2020, Cahit Kargi.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
