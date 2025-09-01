@@ -172,7 +172,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
     'sphinx.ext.mathjax',
-    'sphinx.ext.imgmath',
+    # 'sphinx.ext.imgmath',
     'sphinx.ext.viewcode',
     'sphinx.ext.extlinks',
     'sphinx_tabs.tabs',
@@ -183,7 +183,7 @@ extensions = [
     'myst_parser',
     #'recommonmark',
     # 'm2r2',
-    "sphinx.ext.githubpages",
+    # "sphinx.ext.githubpages",
     'IPython.sphinxext.ipython_console_highlighting'
 ]
 
@@ -209,6 +209,15 @@ source_suffix = {
     '.md': 'myst-parser'
 }
 # source_suffix = '.rst'
+
+# Enable MyST extensions so $...$ and $$...$$ math in .md and notebook markdown cells work
+myst_enable_extensions = [
+    "amsmath",
+    "dollarmath"
+]
+
+# Ensure Sphinx uses MathJax (better for inline math in HTML)
+html_math_renderer = "mathjax"
 
 # The master toctree document.
 master_doc = 'index'
