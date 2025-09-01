@@ -156,7 +156,7 @@ pygments_monkeypatch_style("dracula", DraculaStyle)
 
 project = 'QuanGuru'
 copyright = '2020, Cahit Kargi'
-author = 'Cahit Kargi, Joshua Tran'
+author = 'Cahit Kargi'
 
 # The full version, including alpha/beta/rc tags
 release = '1'
@@ -244,6 +244,16 @@ exclude_patterns = []
 # py:function directives.
 add_module_names = False
 
+mathjax3_config = {
+    'tex': {
+        'inlineMath': [['$', '$'], ['\\(', '\\)']],
+        'displayMath': [['$$', '$$'], ['\\[', '\\]']],
+        'processEscapes': True,
+        'processEnvironments': True
+    }
+}
+# Set language to 'english'
+language = 'en'
 
 # -- Options for HTML output -------------------------------------------------
 
