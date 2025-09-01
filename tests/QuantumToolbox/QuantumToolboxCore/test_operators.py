@@ -88,3 +88,11 @@ def test_displacement():
 
     # coherent state is the eigenstate of destroy with eigenvalue alpha
     assert np.allclose((ops.destroy(20)@displacedVacuum).A, (alpha*displacedVacuum).A, atol=1e-04, rtol=1e-04)
+
+def test_goeH():
+
+    # check hermitian
+    assert np.allclose(ops.goeH.T.conj(), ops.goeH)
+    # # check matrix entries are real number only
+    # ops.goeH(dimension=1000)
+
