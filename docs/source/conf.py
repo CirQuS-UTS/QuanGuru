@@ -156,7 +156,7 @@ pygments_monkeypatch_style("dracula", DraculaStyle)
 
 project = 'QuanGuru'
 copyright = '2020, Cahit Kargi'
-author = 'Cahit Kargi'
+author = 'Cahit Kargi, Joshua Tran'
 
 # The full version, including alpha/beta/rc tags
 release = '1'
@@ -181,7 +181,7 @@ extensions = [
     'sphinx_copybutton',
     'nbsphinx',
     #'recommonmark',
-    'm2r2',
+    # 'm2r2',
     "sphinx.ext.githubpages",
     'IPython.sphinxext.ipython_console_highlighting'
 ]
