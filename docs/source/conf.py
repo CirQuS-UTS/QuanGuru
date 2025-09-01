@@ -180,6 +180,7 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx_copybutton',
     'nbsphinx',
+    'myst_parser',
     #'recommonmark',
     # 'm2r2',
     "sphinx.ext.githubpages",
@@ -203,7 +204,10 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'myst-parser'
+}
 # source_suffix = '.rst'
 
 # The master toctree document.
@@ -252,8 +256,7 @@ mathjax3_config = {
         'processEnvironments': True
     }
 }
-# Set language to 'english'
-language = 'en'
+
 
 # -- Options for HTML output -------------------------------------------------
 
