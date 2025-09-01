@@ -1,333 +1,390 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Simulation classes (quanguru.classes.QSim) &#8212; QuanGuru 1 documentation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css?v=572af1d6" />
     <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f86c6f46" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=eef91c61" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <script src="../_static/documentation_options.js?v=d2a3a1a5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/thebelab-helper.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=4ea706d9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'classes/QSim';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="QProtocol classes (quanguru.classes.QPro)" href="QPro.html" />
     <link rel="prev" title="Quantum system classes (quanguru.classes.QTerms)" href="QTerm.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="2025/09/01"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
-
-  <div id="navbar-start">
-    
-    
-<a class="navbar-brand" href="../index.html">
-<p class="title">QuanGuru</p>
-</a>
-
-    
-  </div>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="Tutorials/1_Qubit/Tutorials.html">
-  Classes Tutorials
- </a>
-</li>
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../QuantumToolbox.html">
-  QuantumToolbox
- </a>
-</li>
-
-<li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="../classes.html">
-  Classes (Objects for OOP, module to be renamed later)
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../QuantumToolbox/Tutorials/Tutorials.html">
-  QuantumToolbox Tutorials
- </a>
-</li>
-
+  
+  <dialog id="pst-search-dialog">
     
-</ul>
-      </div>
-      
-    </div>
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
 
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-      </ul>
-      </div>
-      
-    </div>
-  </div>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
-    </nav>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
+      <div class="navbar-item">
 
-    <div class="container-xl">
-      <div class="row">
-          
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="base.html">
-   Base class
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="baseClasses.html">
-   BaseClasses
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QSimBase.html">
-   QSimBase
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QSimComp.html">
-   QSimComp
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QSystem.html">
-   Quantum System Class
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QTerm.html">
-   Term Class
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Simulation Class
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QPro.html">
-   QProtocol Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QRes.html">
-   Results Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QSweep.html">
-   Sweep Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QGates.html">
-   QGates Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="environment.html">
-   Environment Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QDrive.html">
-   QDrive Classes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="exceptions.html">
-   Exceptions
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="extensions.html">
-   Extensions
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="modularSweep.html">
-     Modular arithmetic sweep
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="couplings.html">
-     Common Couplings
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="QSys.html">
-   Old version of Quantum System Classes
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Tutorials/classTutorials/DevTutorials.html">
-   Dev-Demos
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Tutorials/classTutorials/aliasClass.html">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       aliasClass
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Tutorials/classTutorials/keySearch%26aliasDict.html">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       keySearch
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Tutorials/classTutorials/named.html">
-     named
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Tutorials/classTutorials/qBase.html">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       qBase
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Tutorials/classTutorials/updateBase.html">
-     updateBase
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+  
+    
+  
 
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">QuanGuru 1 documentation</p>
+  
+</a></div>
+    
   </div>
-</nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
-            </div>
-            
-          
-
-          
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
-              
-              <div class="toc-item">
-                
-
-<nav id="bd-toc-nav">
+  
+  <div class="col-lg-9 navbar-header-items">
     
-</nav>
-              </div>
-              
-              <div class="toc-item">
-                
-              </div>
-              
-            
-          </div>
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="Tutorials/1_Qubit/Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
           
 
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
           
           
-            
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="Tutorials/1_Qubit/Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
           
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseClasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QSimBase.html">QSimBase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QSimComp.html">QSimComp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QSystem.html">Quantum System Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QTerm.html">Term Class</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Simulation Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QPro.html">QProtocol Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QRes.html">Results Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QSweep.html">Sweep Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QGates.html">QGates Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QDrive.html">QDrive Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="extensions.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="modularSweep.html">Modular arithmetic sweep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couplings.html">Common Couplings</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="QSys.html">Old version of Quantum System Classes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Tutorials/classTutorials/DevTutorials.html">Dev-Demos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/classTutorials/aliasClass.html"><code class="docutils literal notranslate"><span class="pre">aliasClass</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/classTutorials/keySearch%26aliasDict.html"><code class="docutils literal notranslate"><span class="pre">keySearch</span></code></a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/classTutorials/named.html">named</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/classTutorials/qBase.html"><code class="docutils literal notranslate"><span class="pre">qBase</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/classTutorials/updateBase.html">updateBase</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
               
-              <div>
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../classes.html" class="nav-link">Classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes</span></code>)</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Simulation classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSim</span></code>)</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
                 
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="module-quanguru.classes.QSim">
-<span id="simulation-classes-quanguru-classes-qsim"></span><h1>Simulation classes (<a class="reference internal" href="#module-quanguru.classes.QSim" title="quanguru.classes.QSim"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSim</span></code></a>)<a class="headerlink" href="#module-quanguru.classes.QSim" title="Permalink to this headline">#</a></h1>
+<span id="simulation-classes-quanguru-classes-qsim"></span><h1>Simulation classes (<a class="reference internal" href="#module-quanguru.classes.QSim" title="quanguru.classes.QSim"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QSim</span></code></a>)<a class="headerlink" href="#module-quanguru.classes.QSim" title="Link to this heading">#</a></h1>
 <p>Contains <a class="reference internal" href="#quanguru.classes.QSim.Simulation" title="quanguru.classes.QSim.Simulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code></a> and <a class="reference internal" href="#quanguru.classes.QSim._poolMemory" title="quanguru.classes.QSim._poolMemory"><code class="xref py py-class docutils literal notranslate"><span class="pre">_poolMemory</span></code></a> classes.</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quanguru.classes.QSim.Simulation" title="quanguru.classes.QSim.Simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Simulation</span></code></a>([system])</p></td>
 <td><p>Simulation class collects all the pieces together to run a simulation.</p></td>
@@ -337,13 +394,8 @@
 </tr>
 </tbody>
 </table>
-<table class="table">
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 25%" />
-<col style="width: 22%" />
-<col style="width: 21%" />
-</colgroup>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Function Name</strong></p></th>
 <th class="head"><p><strong>Docstrings</strong></p></th>
@@ -364,10 +416,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="QSimBase.html#quanguru.classes.QSimBase.timeBase" title="quanguru.classes.QSimBase.timeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">quanguru.classes.QSimBase.timeBase</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="QSimBase.html#quanguru.classes.QSimBase.timeBase" title="quanguru.classes.QSimBase.timeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">timeBase</span></code></a></p>
 <p>Simulation class collects all the pieces together to run a simulation. Its <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary contains
 <a class="reference internal" href="QPro.html#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols</span></code></a>, <a class="reference internal" href="QSys.html#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">systems</span></code></a>
 as <code class="docutils literal notranslate"><span class="pre">key:value</span></code>, respectively. It has two <code class="xref py py-class docutils literal notranslate"><span class="pre">sweeps</span></code>, meaning 2 of its
@@ -385,38 +438,38 @@ sweeps.</p>
 TODO : errors are not properly implemented yet.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Simulation'</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation.label" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Simulation'</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation.label" title="Link to this definition">#</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._internalInstances">
-<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation._internalInstances" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation._internalInstances" title="Link to this definition">#</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._externalInstances">
-<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation._externalInstances" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation._externalInstances" title="Link to this definition">#</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._instances">
-<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation._instances" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation._instances" title="Link to this definition">#</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._evolFuncDefault">
-<span class="sig-name descname"><span class="pre">_evolFuncDefault</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSim.Simulation._evolFuncDefault" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_evolFuncDefault</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSim.Simulation._evolFuncDefault" title="Link to this definition">#</a></dt>
 <dd><p>default evolution method. You can always assign a different evolution method for an instance of Simulation
 class, but by re-assigning this class attribute, you can change the evolution method for all the future instances</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.Sweep">
-<span class="sig-name descname"><span class="pre">Sweep</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.Sweep" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">Sweep</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.Sweep" title="Link to this definition">#</a></dt>
 <dd><p>sweep object that contains information about the systems and their parameters to be swept.
 TODO create tutorial
 This is used to run the simulation for several parameter sets, i.e. sweeping some parameters. This is an
@@ -427,7 +480,7 @@ multiple parameters.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.timeDependency">
-<span class="sig-name descname"><span class="pre">timeDependency</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.timeDependency" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">timeDependency</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.timeDependency" title="Link to this definition">#</a></dt>
 <dd><p>sweep object that contains information for parameters that will be changed as a function of time. Note that
 this is not the only way to make time-dependent parameters. Actually, the alternative in timeDependency in
 term objects is much better solution than this.
@@ -439,14 +492,14 @@ it can be avoided in other cases. This is required in digital simulations, where
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.__index">
-<span class="sig-name descname"><span class="pre">__index</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.__index" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__index</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.__index" title="Link to this definition">#</a></dt>
 <dd><p>this is counter for the number of steps in the time evolution, so this counter times the step size gives the
 current time in evolution. this is intended purely for internal use.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.evolFunc">
-<span class="sig-name descname"><span class="pre">evolFunc</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.evolFunc" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">evolFunc</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.evolFunc" title="Link to this definition">#</a></dt>
 <dd><p>default function that implements the actual time evolution in each step. TODO Create tutorial.
 This is the default evolution method, which calls <code class="docutils literal notranslate"><span class="pre">.unitary</span></code> attribute on protocols and matrix multiply the
 resultant unitary with the <code class="docutils literal notranslate"><span class="pre">.initialState</span></code>. It is possible to use this with other solution methods where
@@ -456,26 +509,26 @@ by matrix exponentiation or the time-dependency is not incorporated by <code cla
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._currentTime">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_currentTime</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation._currentTime" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_currentTime</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation._currentTime" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current time in time evolution, which is equal to the current number of steps in the evolution times
 the step size.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.timeList">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">timeList</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.timeList" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">timeList</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.timeList" title="Link to this definition">#</a></dt>
 <dd><p>Returns a list of the time points of the time evolution.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.protocols">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocols</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.protocols" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocols</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.protocols" title="Link to this definition">#</a></dt>
 <dd><p>Returns a list of protocols (<code class="docutils literal notranslate"><span class="pre">keys</span> <span class="pre">in</span> <span class="pre">subSys</span></code>) contained in this simulation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._freeEvol">
-<span class="sig-name descname"><span class="pre">_freeEvol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation._freeEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation._freeEvol" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_freeEvol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation._freeEvol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation._freeEvol" title="Link to this definition">#</a></dt>
 <dd><p>This function is meant purely for internal use. When a quantum system is added to a <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> without
 providing a protocol, the key in <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary will be the default case inherited from
 <a class="reference internal" href="base.html#quanguru.classes.base.qBase" title="quanguru.classes.base.qBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qBase</span></code></a>, i.e. name of the quantum system object. This method
@@ -490,34 +543,34 @@ created object but just using the <code class="docutils literal notranslate"><sp
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.qSystems">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qSystems</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.qSystems" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qSystems</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.qSystems" title="Link to this definition">#</a></dt>
 <dd><p>Returns a list of quantum systems (<code class="docutils literal notranslate"><span class="pre">values</span> <span class="pre">in</span> <span class="pre">subSys</span></code>) contained in this simulation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.qEvolutions">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qEvolutions</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.qEvolutions" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qEvolutions</span></span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.qEvolutions" title="Link to this definition">#</a></dt>
 <dd><p>The qEvolutions property returns actual protocols rather than simply returning (<code class="docutils literal notranslate"><span class="pre">keys</span> <span class="pre">in</span> <span class="pre">subSys</span></code>), which
 can be the system name before running the simulation, as in <a class="reference internal" href="#quanguru.classes.QSim.Simulation.protocols" title="quanguru.classes.QSim.Simulation.protocols"><code class="xref py py-meth docutils literal notranslate"><span class="pre">protocols()</span></code></a> property.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.addQSystems">
-<span class="sig-name descname"><span class="pre">addQSystems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.addQSystems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.addQSystems" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">addQSystems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.addQSystems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.addQSystems" title="Link to this definition">#</a></dt>
 <dd><p>Quantum systems and the corresponding protocols are, respectively, stored as the values and keys of <code class="docutils literal notranslate"><span class="pre">subSys</span></code>
 dictionary, so this method extends <code class="xref py py-meth docutils literal notranslate"><span class="pre">addSubSys</span></code> method by an additional
 argument, i.e. <code class="docutils literal notranslate"><span class="pre">Protocol</span></code> to be used as the key, and also by creating the hierarchical</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>subS</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p></li>
 <li><p><strong>Protocol</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – [description], by default None</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>[description]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[type]</p>
 </dd>
 </dl>
@@ -525,81 +578,93 @@ argument, i.e. <code class="docutils literal notranslate"><span class="pre">Prot
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.createQSystems">
-<span class="sig-name descname"><span class="pre">createQSystems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSysClass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.createQSystems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.createQSystems" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">createQSystems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSysClass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.createQSystems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.createQSystems" title="Link to this definition">#</a></dt>
 <dd><p>Create a quantum system of given <code class="docutils literal notranslate"><span class="pre">subSysClass</span></code> class and (optional) add a <code class="docutils literal notranslate"><span class="pre">Protocol</span></code> for it. <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> here
 are used for setting the parameters of newly created quantum system.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.removeQSystems">
-<span class="sig-name descname"><span class="pre">removeQSystems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeQSystems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeQSystems" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">removeQSystems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeQSystems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeQSystems" title="Link to this definition">#</a></dt>
 <dd><p>Remove a quantum system and corresponding sweeps from the simulation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.removeSweep">
-<span class="sig-name descname"><span class="pre">removeSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeSweep" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">removeSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeSweep" title="Link to this definition">#</a></dt>
 <dd><p>Remove a sweep from the simulation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.removeProtocol">
-<span class="sig-name descname"><span class="pre">removeProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Protocol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeProtocol" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">removeProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Protocol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.removeProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.removeProtocol" title="Link to this definition">#</a></dt>
 <dd><p>Remove a protocoal and corresponding sweeps from the simulation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.addProtocol">
-<span class="sig-name descname"><span class="pre">addProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocolRemove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.addProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.addProtocol" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">addProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocolRemove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.addProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.addProtocol" title="Link to this definition">#</a></dt>
 <dd><p>Add a <code class="docutils literal notranslate"><span class="pre">protocol</span></code> for the (optional) <code class="docutils literal notranslate"><span class="pre">system</span></code> and (optional) remove an existing protocol <code class="docutils literal notranslate"><span class="pre">protocolRemove</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.addSubSys">
-<span class="sig-name descname"><span class="pre">addSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.addSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.addSubSys" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">addSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.addSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.addSubSys" title="Link to this definition">#</a></dt>
 <dd><p>Add a quantum system <code class="docutils literal notranslate"><span class="pre">subS</span></code> to the simulation and a (optional) <code class="docutils literal notranslate"><span class="pre">protocol</span></code> for it. <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> can be used for
 setting parameters for the quantum system.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.createSubSys">
-<span class="sig-name descname"><span class="pre">createSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSysClass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.createSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.createSubSys" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">createSubSys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSysClass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.createSubSys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.createSubSys" title="Link to this definition">#</a></dt>
 <dd><p>Create and add a quantum system of a given class <code class="docutils literal notranslate"><span class="pre">subSysClass</span></code> and a (optional) <code class="docutils literal notranslate"><span class="pre">protocol</span></code> for it.
 <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> can be used for setting parameters for the quantum system.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation._removeSubSysExc">
-<span class="sig-name descname"><span class="pre">_removeSubSysExc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation._removeSubSysExc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation._removeSubSysExc" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_removeSubSysExc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subSys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation._removeSubSysExc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation._removeSubSysExc" title="Link to this definition">#</a></dt>
 <dd><p>Remove a quantum system from the simulation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.__compute">
-<span class="sig-name descname"><span class="pre">__compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.__compute" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quanguru.classes.QSim.Simulation.__compute" title="Link to this definition">#</a></dt>
 <dd><p>Internal compute method that passes the states to all the other compute functions of <code class="docutils literal notranslate"><span class="pre">computeBase</span></code> instances.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coreCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resetRes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.run" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coreCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resetRes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showProgress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#Simulation.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim.Simulation.run" title="Link to this definition">#</a></dt>
 <dd><p>Call this function to run the simulation. It runs certain other preparation before running the simulation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>Boolean</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> uses multiprocessing to run sweeps</p></li>
 <li><p><strong>coreCount</strong> (<em>int</em>) – Number of cores used for multiprocessing, uses `` (avaliable number of cores) - 1`` as default.</p></li>
 <li><p><strong>resetRes</strong> (<em>Boolean</em>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, does not delete the results from the previous run of the simulation. <code class="docutils literal notranslate"><span class="pre">True</span></code> by default.</p></li>
+<li><p><strong>showProgress</strong> (<em>Boolean</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, displays progress tracking for parameter sweeps. <code class="docutils literal notranslate"><span class="pre">True</span></code> by default.
+Shows progress bars, time estimates, and completion status for both sequential and parallel runs.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.__firstlineno__">
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">36</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation.__firstlineno__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSim.Simulation.__static_attributes__">
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Sweep',</span> <span class="pre">'__index',</span> <span class="pre">'evolFunc',</span> <span class="pre">'timeDependency')</span></em><a class="headerlink" href="#quanguru.classes.QSim.Simulation.__static_attributes__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quanguru.classes.QSim._poolMemory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_poolMemory</span></span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#_poolMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim._poolMemory" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_poolMemory</span></span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#_poolMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim._poolMemory" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>handles creation and closing of pools for multi-processing (mp), some other small mp settings (such as setting
 set_start_method to fork etc.), and also calls
@@ -609,72 +674,189 @@ This class is introduced to make life a bit easier for user
 etc.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim._poolMemory.coreCount">
-<span class="sig-name descname"><span class="pre">coreCount</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#quanguru.classes.QSim._poolMemory.coreCount" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">coreCount</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#quanguru.classes.QSim._poolMemory.coreCount" title="Link to this definition">#</a></dt>
 <dd><p>stores the number of cores used in multiprocessing</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSim._poolMemory.reRun">
-<span class="sig-name descname"><span class="pre">reRun</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#quanguru.classes.QSim._poolMemory.reRun" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reRun</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#quanguru.classes.QSim._poolMemory.reRun" title="Link to this definition">#</a></dt>
 <dd><p>boolean to ensure that the library does not try setting set_start_method to fork when a simulation is re-run.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quanguru.classes.QSim._poolMemory.run">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coreCount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#_poolMemory.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim._poolMemory.run" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coreCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showProgress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSim.html#_poolMemory.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSim._poolMemory.run" title="Link to this definition">#</a></dt>
 <dd><p>This is the only method in the class, and it carries the tasks described in the class description.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSim._poolMemory.__firstlineno__">
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">364</span></em><a class="headerlink" href="#quanguru.classes.QSim._poolMemory.__firstlineno__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSim._poolMemory.__static_attributes__">
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#quanguru.classes.QSim._poolMemory.__static_attributes__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
 </section>
 
 
-              </div>
+                </article>
               
               
-              <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="QTerm.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Quantum system classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QTerms</span></code>)</p>
-        </div>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="QTerm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Quantum system classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QTerms</span></code>)</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="QPro.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="QPro.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">QProtocol classes (<code class="xref py py-mod docutils literal notranslate"><span class="pre">quanguru.classes.QPro</span></code>)</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
+                </footer>
               
-          </main>
-          
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-      </div>
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.label"><code class="docutils literal notranslate"><span class="pre">Simulation.label</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation._internalInstances"><code class="docutils literal notranslate"><span class="pre">Simulation._internalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation._externalInstances"><code class="docutils literal notranslate"><span class="pre">Simulation._externalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation._instances"><code class="docutils literal notranslate"><span class="pre">Simulation._instances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation._evolFuncDefault"><code class="docutils literal notranslate"><span class="pre">Simulation._evolFuncDefault()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.Sweep"><code class="docutils literal notranslate"><span class="pre">Simulation.Sweep</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.timeDependency"><code class="docutils literal notranslate"><span class="pre">Simulation.timeDependency</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.__index"><code class="docutils literal notranslate"><span class="pre">Simulation.__index</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.evolFunc"><code class="docutils literal notranslate"><span class="pre">Simulation.evolFunc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation._currentTime"><code class="docutils literal notranslate"><span class="pre">Simulation._currentTime</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.timeList"><code class="docutils literal notranslate"><span class="pre">Simulation.timeList</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.protocols"><code class="docutils literal notranslate"><span class="pre">Simulation.protocols</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation._freeEvol"><code class="docutils literal notranslate"><span class="pre">Simulation._freeEvol()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.qSystems"><code class="docutils literal notranslate"><span class="pre">Simulation.qSystems</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.qEvolutions"><code class="docutils literal notranslate"><span class="pre">Simulation.qEvolutions</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.addQSystems"><code class="docutils literal notranslate"><span class="pre">Simulation.addQSystems()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.createQSystems"><code class="docutils literal notranslate"><span class="pre">Simulation.createQSystems()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.removeQSystems"><code class="docutils literal notranslate"><span class="pre">Simulation.removeQSystems()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.removeSweep"><code class="docutils literal notranslate"><span class="pre">Simulation.removeSweep()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.removeProtocol"><code class="docutils literal notranslate"><span class="pre">Simulation.removeProtocol()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.addProtocol"><code class="docutils literal notranslate"><span class="pre">Simulation.addProtocol()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.addSubSys"><code class="docutils literal notranslate"><span class="pre">Simulation.addSubSys()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.createSubSys"><code class="docutils literal notranslate"><span class="pre">Simulation.createSubSys()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation._removeSubSysExc"><code class="docutils literal notranslate"><span class="pre">Simulation._removeSubSysExc()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.__compute"><code class="docutils literal notranslate"><span class="pre">Simulation.__compute()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.run"><code class="docutils literal notranslate"><span class="pre">Simulation.run()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">Simulation.__firstlineno__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim.Simulation.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">Simulation.__static_attributes__</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim._poolMemory"><code class="docutils literal notranslate"><span class="pre">_poolMemory</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim._poolMemory.coreCount"><code class="docutils literal notranslate"><span class="pre">_poolMemory.coreCount</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim._poolMemory.reRun"><code class="docutils literal notranslate"><span class="pre">_poolMemory.reRun</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim._poolMemory.run"><code class="docutils literal notranslate"><span class="pre">_poolMemory.run()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim._poolMemory.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">_poolMemory.__firstlineno__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSim._poolMemory.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">_poolMemory.__static_attributes__</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/QSim.rst"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-<footer class="footer mt-5 mt-md-0">
-  <div class="container">
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
     
-    <div class="footer-item">
-      <p class="copyright">
-    &copy; Copyright 2020, Cahit Kargi.<br>
-</p>
+      © Copyright 2020, Cahit Kargi.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
     </div>
-    
-    <div class="footer-item">
-      <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
-</p>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
     </div>
-    
-  </div>
-</footer>
+  
+</div>
+
+  </footer>
   </body>
 </html>

@@ -1,161 +1,314 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index &#8212; QuanGuru 1 documentation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css?v=572af1d6" />
     <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f86c6f46" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css?v=eef91c61" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <script src="_static/documentation_options.js?v=d2a3a1a5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/thebelab-helper.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/tabs.js"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=4ea706d9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="2025/09/01"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
-
-  <div id="navbar-start">
-    
-    
-<a class="navbar-brand" href="index.html">
-<p class="title">QuanGuru</p>
-</a>
-
-    
-  </div>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="classes/Tutorials/1_Qubit/Tutorials.html">
-  Classes Tutorials
- </a>
-</li>
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="QuantumToolbox.html">
-  QuantumToolbox
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="classes.html">
-  Classes (Objects for OOP, module to be renamed later)
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="QuantumToolbox/Tutorials/Tutorials.html">
-  QuantumToolbox Tutorials
- </a>
-</li>
-
+  
+  <dialog id="pst-search-dialog">
     
-</ul>
-      </div>
-      
-    </div>
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
 
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-      </ul>
-      </div>
-      
-    </div>
-  </div>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
-    </nav>
-    
 
-    <div class="container-xl">
-      <div class="row">
-          
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">QuanGuru 1 documentation</p>
+  
+</a></div>
     
   </div>
-</nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
-            </div>
-            
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="classes/Tutorials/1_Qubit/Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
           
 
-          
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
-          </div>
-          
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
 
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
           
           
-            
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="classes/Tutorials/1_Qubit/Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
           
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
               
-              <div>
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
                 
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
 
 <h1 id="index">Index</h1>
 
@@ -252,6 +405,8 @@
 </li>
       <li><a href="classes/QSys.html#quanguru.classes.QSys.qCoupling.__coupOrdering">__coupOrdering() (qCoupling method)</a>
 </li>
+      <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.__createUnitary">__createUnitary() (genericProtocol method)</a>
+</li>
       <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.__currentState">__currentState (genericProtocol attribute)</a>
 </li>
       <li><a href="classes/base.html#quanguru.classes.base.aliasDict.__delitem__">__delitem__() (aliasDict method)</a>
@@ -282,8 +437,104 @@
 </li>
       <li><a href="classes/base.html#quanguru.classes.base.aliasClass.__eq__">__eq__() (aliasClass method)</a>
 </li>
-      <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.__firstTerm">__firstTerm (QuantumSystem attribute)</a>
+      <li><a href="classes/base.html#quanguru.classes.base._auxiliaryClass.__firstlineno__">__firstlineno__ (_auxiliaryClass attribute)</a>
+
+      <ul>
+        <li><a href="classes/environment.html#quanguru.classes.environment._genericOpen.__firstlineno__">(_genericOpen attribute)</a>
 </li>
+        <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase._parameter.__firstlineno__">(_parameter attribute)</a>
+</li>
+        <li><a href="classes/QSim.html#quanguru.classes.QSim._poolMemory.__firstlineno__">(_poolMemory attribute)</a>
+</li>
+        <li><a href="classes/QSweep.html#quanguru.classes.QSweep._sweep.__firstlineno__">(_sweep attribute)</a>
+</li>
+        <li><a href="classes/base.html#quanguru.classes.base.aliasClass.__firstlineno__">(aliasClass attribute)</a>
+</li>
+        <li><a href="classes/base.html#quanguru.classes.base.aliasDict.__firstlineno__">(aliasDict attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.Cavity.__firstlineno__">(Cavity attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.CavityOld.__firstlineno__">(CavityOld attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.compQSystem.__firstlineno__">(compQSystem attribute)</a>
+</li>
+        <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.computeBase.__firstlineno__">(computeBase attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.copyStep.__firstlineno__">(copyStep attribute)</a>
+</li>
+        <li><a href="classes/environment.html#quanguru.classes.environment.dissipatorObj.__firstlineno__">(dissipatorObj attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.freeEvolution.__firstlineno__">(freeEvolution attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.Gate.__firstlineno__">(Gate attribute)</a>
+</li>
+        <li><a href="classes/QDrive.html#quanguru.classes.QDrive.genericDrive.__firstlineno__">(genericDrive attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.__firstlineno__">(genericProtocol attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.genericQSys.__firstlineno__">(genericQSys attribute)</a>
+</li>
+        <li><a href="classes/base.html#quanguru.classes.base.named.__firstlineno__">(named attribute)</a>
+</li>
+        <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.paramBoundBase.__firstlineno__">(paramBoundBase attribute)</a>
+</li>
+        <li><a href="classes/QDrive.html#quanguru.classes.QDrive.pulse.__firstlineno__">(pulse attribute)</a>
+</li>
+        <li><a href="classes/base.html#quanguru.classes.base.qBase.__firstlineno__">(qBase attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.qCoupling.__firstlineno__">(qCoupling attribute)</a>
+</li>
+        <li><a href="classes/QDrive.html#quanguru.classes.QDrive.qDrive.__firstlineno__">(qDrive attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.qProtocol.__firstlineno__">(qProtocol attribute)</a>
+</li>
+        <li><a href="classes/QRes.html#quanguru.classes.QRes.qResBase.__firstlineno__">(qResBase attribute)</a>
+</li>
+        <li><a href="classes/QRes.html#quanguru.classes.QRes.qResBlank.__firstlineno__">(qResBlank attribute)</a>
+</li>
+        <li><a href="classes/QRes.html#quanguru.classes.QRes.qResults.__firstlineno__">(qResults attribute)</a>
+</li>
+        <li><a href="classes/QSimComp.html#quanguru.classes.QSimComp.QSimComp.__firstlineno__">(QSimComp attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.qSystem.__firstlineno__">(qSystem attribute)</a>
+</li>
+        <li><a href="classes/QTerm.html#quanguru.classes.QTerms.QTerm.__firstlineno__">(QTerm attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.__firstlineno__">(QuantumSystem attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.QuantumSystemOld.__firstlineno__">(QuantumSystemOld attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.Qubit.__firstlineno__">(Qubit attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.QubitOld.__firstlineno__">(QubitOld attribute)</a>
+</li>
+        <li><a href="classes/QSim.html#quanguru.classes.QSim.Simulation.__firstlineno__">(Simulation attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.Spin.__firstlineno__">(Spin attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.SpinOld.__firstlineno__">(SpinOld attribute)</a>
+</li>
+        <li><a href="classes/QGates.html#quanguru.classes.QGates.SpinRotation.__firstlineno__">(SpinRotation attribute)</a>
+</li>
+        <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.stateBase.__firstlineno__">(stateBase attribute)</a>
+</li>
+        <li><a href="classes/QSweep.html#quanguru.classes.QSweep.Sweep.__firstlineno__">(Sweep attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.term.__firstlineno__">(term attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.termTimeDep.__firstlineno__">(termTimeDep attribute)</a>
+</li>
+        <li><a href="classes/environment.html#quanguru.classes.environment.thermalBath.__firstlineno__">(thermalBath attribute)</a>
+</li>
+        <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.timeBase.__firstlineno__">(timeBase attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.Update.__firstlineno__">(Update attribute)</a>
+</li>
+        <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.updateBase.__firstlineno__">(updateBase attribute)</a>
+</li>
+        <li><a href="classes/QGates.html#quanguru.classes.QGates.xGate.__firstlineno__">(xGate attribute)</a>
+</li>
+      </ul></li>
       <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.__fixed">__fixed (genericProtocol attribute)</a>
 </li>
       <li><a href="classes/QTerm.html#quanguru.classes.QTerms.QTerm.__frequency">__frequency (QTerm attribute)</a>
@@ -426,6 +677,104 @@
         <li><a href="classes/QRes.html#quanguru.classes.QRes.qResBlank.__statesLast">(qResBlank attribute)</a>
 </li>
       </ul></li>
+      <li><a href="classes/base.html#quanguru.classes.base._auxiliaryClass.__static_attributes__">__static_attributes__ (_auxiliaryClass attribute)</a>
+
+      <ul>
+        <li><a href="classes/environment.html#quanguru.classes.environment._genericOpen.__static_attributes__">(_genericOpen attribute)</a>
+</li>
+        <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase._parameter.__static_attributes__">(_parameter attribute)</a>
+</li>
+        <li><a href="classes/QSim.html#quanguru.classes.QSim._poolMemory.__static_attributes__">(_poolMemory attribute)</a>
+</li>
+        <li><a href="classes/QSweep.html#quanguru.classes.QSweep._sweep.__static_attributes__">(_sweep attribute)</a>
+</li>
+        <li><a href="classes/base.html#quanguru.classes.base.aliasClass.__static_attributes__">(aliasClass attribute)</a>
+</li>
+        <li><a href="classes/base.html#quanguru.classes.base.aliasDict.__static_attributes__">(aliasDict attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.Cavity.__static_attributes__">(Cavity attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.CavityOld.__static_attributes__">(CavityOld attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.compQSystem.__static_attributes__">(compQSystem attribute)</a>
+</li>
+        <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.computeBase.__static_attributes__">(computeBase attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.copyStep.__static_attributes__">(copyStep attribute)</a>
+</li>
+        <li><a href="classes/environment.html#quanguru.classes.environment.dissipatorObj.__static_attributes__">(dissipatorObj attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.freeEvolution.__static_attributes__">(freeEvolution attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.Gate.__static_attributes__">(Gate attribute)</a>
+</li>
+        <li><a href="classes/QDrive.html#quanguru.classes.QDrive.genericDrive.__static_attributes__">(genericDrive attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.__static_attributes__">(genericProtocol attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.genericQSys.__static_attributes__">(genericQSys attribute)</a>
+</li>
+        <li><a href="classes/base.html#quanguru.classes.base.named.__static_attributes__">(named attribute)</a>
+</li>
+        <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.paramBoundBase.__static_attributes__">(paramBoundBase attribute)</a>
+</li>
+        <li><a href="classes/QDrive.html#quanguru.classes.QDrive.pulse.__static_attributes__">(pulse attribute)</a>
+</li>
+        <li><a href="classes/base.html#quanguru.classes.base.qBase.__static_attributes__">(qBase attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.qCoupling.__static_attributes__">(qCoupling attribute)</a>
+</li>
+        <li><a href="classes/QDrive.html#quanguru.classes.QDrive.qDrive.__static_attributes__">(qDrive attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.qProtocol.__static_attributes__">(qProtocol attribute)</a>
+</li>
+        <li><a href="classes/QRes.html#quanguru.classes.QRes.qResBase.__static_attributes__">(qResBase attribute)</a>
+</li>
+        <li><a href="classes/QRes.html#quanguru.classes.QRes.qResBlank.__static_attributes__">(qResBlank attribute)</a>
+</li>
+        <li><a href="classes/QRes.html#quanguru.classes.QRes.qResults.__static_attributes__">(qResults attribute)</a>
+</li>
+        <li><a href="classes/QSimComp.html#quanguru.classes.QSimComp.QSimComp.__static_attributes__">(QSimComp attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.qSystem.__static_attributes__">(qSystem attribute)</a>
+</li>
+        <li><a href="classes/QTerm.html#quanguru.classes.QTerms.QTerm.__static_attributes__">(QTerm attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.__static_attributes__">(QuantumSystem attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.QuantumSystemOld.__static_attributes__">(QuantumSystemOld attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.Qubit.__static_attributes__">(Qubit attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.QubitOld.__static_attributes__">(QubitOld attribute)</a>
+</li>
+        <li><a href="classes/QSim.html#quanguru.classes.QSim.Simulation.__static_attributes__">(Simulation attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.Spin.__static_attributes__">(Spin attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.SpinOld.__static_attributes__">(SpinOld attribute)</a>
+</li>
+        <li><a href="classes/QGates.html#quanguru.classes.QGates.SpinRotation.__static_attributes__">(SpinRotation attribute)</a>
+</li>
+        <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.stateBase.__static_attributes__">(stateBase attribute)</a>
+</li>
+        <li><a href="classes/QSweep.html#quanguru.classes.QSweep.Sweep.__static_attributes__">(Sweep attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.term.__static_attributes__">(term attribute)</a>
+</li>
+        <li><a href="classes/QSys.html#quanguru.classes.QSys.termTimeDep.__static_attributes__">(termTimeDep attribute)</a>
+</li>
+        <li><a href="classes/environment.html#quanguru.classes.environment.thermalBath.__static_attributes__">(thermalBath attribute)</a>
+</li>
+        <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.timeBase.__static_attributes__">(timeBase attribute)</a>
+</li>
+        <li><a href="classes/QPro.html#quanguru.classes.QPro.Update.__static_attributes__">(Update attribute)</a>
+</li>
+        <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.updateBase.__static_attributes__">(updateBase attribute)</a>
+</li>
+        <li><a href="classes/QGates.html#quanguru.classes.QGates.xGate.__static_attributes__">(xGate attribute)</a>
+</li>
+      </ul></li>
       <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.timeBase.__stepCount">__stepCount (timeBase attribute)</a>
 </li>
       <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.timeBase.__stepSize">__stepSize (timeBase attribute)</a>
@@ -462,6 +811,8 @@
         <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.__unitary">(QuantumSystem attribute)</a>
 </li>
       </ul></li>
+      <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.timeBase.__updated">__updated (timeBase attribute)</a>
+</li>
       <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.__updates">__updates (genericProtocol attribute)</a>
 </li>
       <li><a href="classes/base.html#quanguru.classes.base.named._allInstaces">_allInstaces (named attribute)</a>
@@ -489,6 +840,8 @@
       <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.paramBoundBase._breakParamBound">_breakParamBound() (paramBoundBase method)</a>
 </li>
       <li><a href="classes/QSys.html#quanguru.classes.QSys._calculateDef">_calculateDef() (in module quanguru.classes.QSys)</a>
+</li>
+      <li><a href="classes/QTerm.html#quanguru.classes.QTerms.QTerm._canCreateTotalHamiltonian">_canCreateTotalHamiltonian() (QTerm method)</a>
 </li>
       <li><a href="classes/QTerm.html#quanguru.classes.QTerms.QTerm._checkAndUpdateParamsWhenMultiple">_checkAndUpdateParamsWhenMultiple() (QTerm method)</a>
 </li>
@@ -526,20 +879,14 @@
 </li>
       <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.paramBoundBase._createParamBound">_createParamBound() (paramBoundBase method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._createState">_createState() (QuantumSystem method)</a>
 </li>
       <li><a href="classes/QTerm.html#quanguru.classes.QTerms.QTerm._createTerm">_createTerm() (QTerm static method)</a>
 </li>
-      <li><a href="classes/QPro.html#quanguru.classes.QPro.freeEvolution._createUnitary">_createUnitary() (freeEvolution method)</a>
-
-      <ul>
-        <li><a href="classes/QPro.html#quanguru.classes.QPro.qProtocol._createUnitary">(qProtocol method)</a>
+      <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol._createUnitary">_createUnitary (genericProtocol attribute)</a>
 </li>
-        <li><a href="classes/QGates.html#quanguru.classes.QGates.SpinRotation._createUnitary">(SpinRotation method)</a>
-</li>
-        <li><a href="classes/QGates.html#quanguru.classes.QGates.xGate._createUnitary">(xGate method)</a>
-</li>
-      </ul></li>
       <li><a href="classes/QSim.html#quanguru.classes.QSim.Simulation._currentTime">_currentTime (Simulation property)</a>
 </li>
       <li><a href="classes/QPro.html#quanguru.classes.QPro.qProtocol._defCreateUnitary">_defCreateUnitary() (qProtocol method)</a>
@@ -664,8 +1011,6 @@
         <li><a href="classes/QGates.html#quanguru.classes.QGates.xGate._externalInstances">(xGate attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions._fidelityTest">_fidelityTest() (in module quanguru.QuantumToolbox.functions)</a>
 </li>
       <li><a href="classes/QRes.html#quanguru.classes.QRes.qResults._finalise">_finalise() (qResults method)</a>
@@ -1006,8 +1351,6 @@
 </li>
       <li><a href="classes/QGates.html#quanguru.classes.QGates.SpinRotation._rotMat">_rotMat() (SpinRotation method)</a>
 </li>
-      <li><a href="classes/modularSweep.html#quanguru.classes.modularSweep._runSweepAndPrep">_runSweepAndPrep() (in module quanguru.classes.modularSweep)</a>
-</li>
       <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.updateBase._runUpdate">_runUpdate() (updateBase method)</a>
 </li>
       <li><a href="classes/QDrive.html#quanguru.classes.QDrive.pulse._scale">_scale (pulse attribute)</a>
@@ -1053,6 +1396,8 @@
       <li><a href="classes/QSweep.html#quanguru.classes.QSweep._sweep._updateBase__function">_updateBase__function (_sweep attribute)</a>
 </li>
       <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem._updateDimension">_updateDimension() (QuantumSystem method)</a>
+</li>
+      <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.timeBase._updateUpdated">_updateUpdated() (timeBase method)</a>
 </li>
       <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase._parameter._value">_value (_parameter attribute)</a>
 </li>
@@ -1208,8 +1553,6 @@
 </li>
       <li><a href="QuantumToolbox/functions.html#quanguru.QuantumToolbox.functions.concurrence">concurrence() (in module quanguru.QuantumToolbox.functions)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="classes/base.html#quanguru.classes.base.aliasDict.copy">copy() (aliasDict method)</a>
 
       <ul>
@@ -1222,6 +1565,8 @@
         <li><a href="classes/QSys.html#quanguru.classes.QSys.termTimeDep.copy">(termTimeDep method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="classes/QPro.html#quanguru.classes.QPro.copyStep">copyStep (class in quanguru.classes.QPro)</a>
 </li>
       <li><a href="classes/QSim.html#quanguru.classes.QSim._poolMemory.coreCount">coreCount (_poolMemory attribute)</a>
@@ -1253,6 +1598,8 @@
       <li><a href="classes/QSys.html#quanguru.classes.QSys.compQSystem.createSysCoupling">createSysCoupling() (compQSystem method)</a>
 </li>
       <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.createTerm">createTerm() (QuantumSystem method)</a>
+</li>
+      <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.createUnitary">createUnitary (genericProtocol property)</a>
 </li>
       <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.createUpdate">createUpdate() (genericProtocol method)</a>
 </li>
@@ -1469,6 +1816,8 @@
       <li><a href="QuantumToolbox/IPR.html#quanguru.QuantumToolbox.IPR.iprKet">iprKet() (in module quanguru.QuantumToolbox.IPR)</a>
 </li>
       <li><a href="QuantumToolbox/IPR.html#quanguru.QuantumToolbox.IPR.iprKetNB">iprKetNB() (in module quanguru.QuantumToolbox.IPR)</a>
+</li>
+      <li><a href="QuantumToolbox/IPR.html#quanguru.QuantumToolbox.IPR.iprMatrix">iprMatrix() (in module quanguru.QuantumToolbox.IPR)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1797,12 +2146,12 @@
 </li>
       <li><a href="QuantumToolbox/rmtDistributions.html#quanguru.QuantumToolbox.rmtDistributions.Poissonian">Poissonian() (in module quanguru.QuantumToolbox.rmtDistributions)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="classes/base.html#quanguru.classes.base.aliasDict.pop">pop() (aliasDict method)</a>
 </li>
       <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.computeBase.postCompute">postCompute (computeBase attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.computeBase.preCompute">preCompute (computeBase attribute)</a>
 </li>
       <li><a href="classes/QPro.html#quanguru.classes.QPro.genericProtocol.prepare">prepare() (genericProtocol method)</a>
@@ -1811,6 +2160,12 @@
         <li><a href="classes/QSweep.html#quanguru.classes.QSweep.Sweep.prepare">(Sweep method)</a>
 </li>
       </ul></li>
+      <li><a href="classes/modularSweep.html#quanguru.classes.modularSweep.printEpilogue">printEpilogue() (in module quanguru.classes.modularSweep)</a>
+</li>
+      <li><a href="classes/modularSweep.html#quanguru.classes.modularSweep.printPreamble">printPreamble() (in module quanguru.classes.modularSweep)</a>
+</li>
+      <li><a href="classes/modularSweep.html#quanguru.classes.modularSweep.printProgress">printProgress() (in module quanguru.classes.modularSweep)</a>
+</li>
       <li><a href="classes/QSim.html#quanguru.classes.QSim.Simulation.protocols">protocols (Simulation property)</a>
 </li>
       <li><a href="classes/QDrive.html#quanguru.classes.QDrive.pulse">pulse (class in quanguru.classes.QDrive)</a>
@@ -2161,10 +2516,10 @@
         <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.removeTerm">(QuantumSystem method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="classes/QSim.html#quanguru.classes.QSim._poolMemory.reRun">reRun (_poolMemory attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="classes/QRes.html#quanguru.classes.QRes.qResBase.resAverage">resAverage (qResBase property)</a>
 </li>
       <li><a href="classes/base.html#quanguru.classes.base.qBase.resetSubSys">resetSubSys() (qBase method)</a>
@@ -2203,6 +2558,8 @@
         <li><a href="classes/QSweep.html#quanguru.classes.QSweep.Sweep.runSweep">(Sweep method)</a>
 </li>
       </ul></li>
+      <li><a href="classes/modularSweep.html#quanguru.classes.modularSweep.runSweepAndPrep">runSweepAndPrep() (in module quanguru.classes.modularSweep)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -2275,8 +2632,6 @@
 </li>
       <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.stateBase">stateBase (class in quanguru.classes.QSimBase)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="classes/baseClasses.html#quanguru.classes.baseClasses.computeBase.states">states (computeBase property)</a>
 
       <ul>
@@ -2285,7 +2640,11 @@
         <li><a href="classes/QRes.html#quanguru.classes.QRes.qResBlank.states">(qResBlank property)</a>
 </li>
       </ul></li>
-      <li><a href="QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution.steadyState">steadyState() (in module quanguru.QuantumToolbox.evolution)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution.steadyStateHam">steadyStateHam() (in module quanguru.QuantumToolbox.evolution)</a>
+</li>
+      <li><a href="QuantumToolbox/evolution.html#quanguru.QuantumToolbox.evolution.steadyStateLio">steadyStateLio() (in module quanguru.QuantumToolbox.evolution)</a>
 </li>
       <li><a href="classes/QSimBase.html#quanguru.classes.QSimBase.timeBase.stepCount">stepCount (timeBase property)</a>
 </li>
@@ -2391,6 +2750,8 @@
 
       <ul>
         <li><a href="classes/QTerm.html#quanguru.classes.QTerms.QTerm.timeDependency">(QTerm attribute)</a>
+</li>
+        <li><a href="classes/QSystem.html#quanguru.classes.QSystem.QuantumSystem.timeDependency">(QuantumSystem attribute)</a>
 </li>
         <li><a href="classes/QSim.html#quanguru.classes.QSim.Simulation.timeDependency">(Simulation attribute)</a>
 </li>
@@ -2534,37 +2895,75 @@
 
 
 
-              </div>
+                </article>
               
               
-              <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
 </div>
+                </footer>
               
-          </main>
-          
-
-      </div>
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-<footer class="footer mt-5 mt-md-0">
-  <div class="container">
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
     
-    <div class="footer-item">
-      <p class="copyright">
-    &copy; Copyright 2020, Cahit Kargi.<br>
-</p>
+      © Copyright 2020, Cahit Kargi.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
     </div>
-    
-    <div class="footer-item">
-      <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
-</p>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
     </div>
-    
-  </div>
-</footer>
+  
+</div>
+
+  </footer>
   </body>
 </html>

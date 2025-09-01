@@ -1,161 +1,341 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>quanguru.classes.QSim &#8212; QuanGuru 1 documentation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css?v=572af1d6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f86c6f46" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/documentation_options.js?v=d2a3a1a5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/thebelab-helper.js"></script>
-    <script src="../../../_static/clipboard.min.js"></script>
-    <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/quanguru/classes/QSim';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="2025/09/01"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
-
-  <div id="navbar-start">
-    
-    
-<a class="navbar-brand" href="../../../index.html">
-<p class="title">QuanGuru</p>
-</a>
-
-    
-  </div>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
-  Classes Tutorials
- </a>
-</li>
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
-  QuantumToolbox
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../classes.html">
-  Classes (Objects for OOP, module to be renamed later)
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-  QuantumToolbox Tutorials
- </a>
-</li>
-
+  
+  <dialog id="pst-search-dialog">
     
-</ul>
-      </div>
-      
-    </div>
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
 
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-      </ul>
-      </div>
-      
-    </div>
-  </div>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
-    </nav>
-    
 
-    <div class="container-xl">
-      <div class="row">
-          
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">QuanGuru 1 documentation</p>
+  
+</a></div>
     
   </div>
-</nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
-            </div>
-            
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
           
 
-          
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
-          </div>
-          
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
 
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
           
           
-            
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
           
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
               
-              <div>
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">quanguru.classes.QSim</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
                 
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for quanguru.classes.QSim</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains :class:`Simulation` and :class:`_poolMemory` classes.</span>
@@ -181,19 +361,21 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">multiprocessing</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span>
 
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">_recurseIfList</span><span class="p">,</span> <span class="n">named</span>
-<span class="kn">from</span> <span class="nn">.QSimBase</span> <span class="kn">import</span> <span class="n">timeBase</span>
-<span class="kn">from</span> <span class="nn">.QSweep</span> <span class="kn">import</span> <span class="n">Sweep</span>
-<span class="kn">from</span> <span class="nn">.modularSweep</span> <span class="kn">import</span> <span class="n">runSimulation</span>
-<span class="kn">from</span> <span class="nn">.modularSweep</span> <span class="kn">import</span> <span class="n">timeEvolBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">_recurseIfList</span><span class="p">,</span> <span class="n">named</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.QSimBase</span><span class="w"> </span><span class="kn">import</span> <span class="n">timeBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.QSweep</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sweep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.modularSweep</span><span class="w"> </span><span class="kn">import</span> <span class="n">runSimulation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.modularSweep</span><span class="w"> </span><span class="kn">import</span> <span class="n">timeEvolBase</span>
 <span class="c1"># pylint: disable = cyclic-import</span>
 
-<div class="viewcode-block" id="Simulation"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation">[docs]</a><span class="k">class</span> <span class="nc">Simulation</span><span class="p">(</span><span class="n">timeBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Simulation">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Simulation</span><span class="p">(</span><span class="n">timeBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simulation class collects all the pieces together to run a simulation. Its ``subSys`` dictionary contains</span>
 <span class="sd">    :class:`protocols &lt;quanguru.classes.QPro.genericProtocol&gt;`, :class:`quantum systems</span>
 <span class="sd">    &lt;quanguru.classes.QSys.genericQSys&gt;`</span>
@@ -228,7 +410,7 @@
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sweep&#39;</span><span class="p">,</span> <span class="s1">&#39;timeDependency&#39;</span><span class="p">,</span> <span class="s1">&#39;evolFunc&#39;</span><span class="p">,</span> <span class="s1">&#39;__index&#39;</span><span class="p">]</span>
 
     <span class="c1"># TODO init error decorators or error decorators for some methods</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1">#self._reClass = qBaseSim</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_internal</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_internal&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
 
@@ -265,8 +447,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_named__setKwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_currentTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_currentTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the current time in time evolution, which is equal to the current number of steps in the evolution times</span>
 <span class="sd">        the step size.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -280,21 +462,23 @@
         <span class="k">return</span> <span class="n">time</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">timeList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">timeList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of the time points of the time evolution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">stepSize</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stepCount</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">protocols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">protocols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of protocols (``keys in subSys``) contained in this simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-<div class="viewcode-block" id="Simulation._freeEvol"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation._freeEvol">[docs]</a>    <span class="k">def</span> <span class="nf">_freeEvol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Simulation._freeEvol">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation._freeEvol">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_freeEvol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is meant purely for internal use. When a quantum system is added to a ``Simulation`` without</span>
 <span class="sd">        providing a protocol, the key in ``subSys`` dictionary will be the default case inherited from</span>
 <span class="sd">        :class:`qBase &lt;quanguru.classes.base.qBase&gt;`, i.e. name of the quantum system object. This method</span>
@@ -314,16 +498,17 @@
             <span class="k">else</span><span class="p">:</span> <span class="c1"># this may seem redundant, but this is to keep the order in which the systems are added</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">qSystems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">qSystems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of quantum systems (``values in subSys``) contained in this simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">qEvolutions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">qEvolutions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The qEvolutions property returns actual protocols rather than simply returning (``keys in subSys``), which</span>
 <span class="sd">        can be the system name before running the simulation, as in :meth:`protocols` property.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -331,8 +516,10 @@
         <span class="n">qPros</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">qPros</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">qPros</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">qPros</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Simulation.addQSystems"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.addQSystems">[docs]</a>    <span class="k">def</span> <span class="nf">addQSystems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Simulation.addQSystems">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.addQSystems">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addQSystems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Quantum systems and the corresponding protocols are, respectively, stored as the values and keys of ``subSys``</span>
 <span class="sd">        dictionary, so this method extends :meth:`addSubSys &lt;quanguru.classes.QUni.qUniversal&gt;` method by an additional</span>
 <span class="sd">        argument, i.e. ``Protocol`` to be used as the key, and also by creating the hierarchical</span>
@@ -378,17 +565,23 @@
                 <span class="n">subS</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># pylint: disable=protected-access</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Simulation.createQSystems"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.createQSystems">[docs]</a>    <span class="k">def</span> <span class="nf">createQSystems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSysClass</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Simulation.createQSystems">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.createQSystems">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">createQSystems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSysClass</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a quantum system of given ``subSysClass`` class and (optional) add a ``Protocol`` for it. ``kwargs`` here</span>
 <span class="sd">        are used for setting the parameters of newly created quantum system.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">newSys</span><span class="p">,</span> <span class="n">Protocol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addQSystems</span><span class="p">(</span><span class="n">subSysClass</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">newSys</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Simulation.removeQSystems"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.removeQSystems">[docs]</a>    <span class="nd">@_recurseIfList</span>
-    <span class="k">def</span> <span class="nf">removeQSystems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Simulation.removeQSystems">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.removeQSystems">[docs]</a>
+    <span class="nd">@_recurseIfList</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">removeQSystems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove a quantum system and corresponding sweeps from the simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">#for key, subSys in self._qBase__subSys.items(): # pylint: disable=no-member</span>
@@ -397,9 +590,12 @@
         <span class="c1">#print(subS.name + &#39; and its protocol &#39; + key.name + &#39; is removed from qSystems of &#39; + self.name)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">removeSweep</span><span class="p">([</span><span class="n">subS</span><span class="p">,</span> <span class="n">subS</span><span class="o">.</span><span class="n">simulation</span><span class="p">,</span> <span class="n">subS</span><span class="o">.</span><span class="n">_freeEvol</span><span class="p">,</span> <span class="n">subS</span><span class="o">.</span><span class="n">_freeEvol</span><span class="o">.</span><span class="n">simulation</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="Simulation.removeSweep"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.removeSweep">[docs]</a>    <span class="nd">@_recurseIfList</span>
-    <span class="k">def</span> <span class="nf">removeSweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Simulation.removeSweep">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.removeSweep">[docs]</a>
+    <span class="nd">@_recurseIfList</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">removeSweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove a sweep from the simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">removeSweep</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
@@ -407,9 +603,12 @@
         <span class="k">if</span> <span class="p">((</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">Simulation</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">)):</span>
             <span class="n">system</span><span class="o">.</span><span class="n">removeSweep</span><span class="p">(</span><span class="n">system</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Simulation.removeProtocol"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.removeProtocol">[docs]</a>    <span class="nd">@_recurseIfList</span>
-    <span class="k">def</span> <span class="nf">removeProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Simulation.removeProtocol">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.removeProtocol">[docs]</a>
+    <span class="nd">@_recurseIfList</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">removeProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove a protocoal and corresponding sweeps from the simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># FIXME what if freeEvol case, protocol then corresponds to qsys.name before simulation run</span>
@@ -420,8 +619,11 @@
             <span class="k">if</span> <span class="n">qsys</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qSystems</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">removeSweep</span><span class="p">(</span><span class="n">qsys</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Simulation.addProtocol"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.addProtocol">[docs]</a>    <span class="k">def</span> <span class="nf">addProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">protocolRemove</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Simulation.addProtocol">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.addProtocol">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">protocolRemove</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a ``protocol`` for the (optional) ``system`` and (optional) remove an existing protocol ``protocolRemove``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO Decorate this</span>
@@ -446,9 +648,12 @@
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">protocol</span></div>
 
+
     <span class="c1"># overwriting methods from qBase</span>
-<div class="viewcode-block" id="Simulation.addSubSys"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.addSubSys">[docs]</a>    <span class="k">def</span> <span class="nf">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="c1"># pylint: disable=arguments-differ,arguments-renamed</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Simulation.addSubSys">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.addSubSys">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subS</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="c1"># pylint: disable=arguments-differ,arguments-renamed</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a quantum system ``subS`` to the simulation and a (optional) ``protocol`` for it. ``kwargs`` can be used for</span>
 <span class="sd">        setting parameters for the quantum system.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -456,8 +661,11 @@
         <span class="n">newSys</span><span class="p">,</span> <span class="n">Protocol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addQSystems</span><span class="p">(</span><span class="n">subS</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">newSys</span></div>
 
-<div class="viewcode-block" id="Simulation.createSubSys"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.createSubSys">[docs]</a>    <span class="k">def</span> <span class="nf">createSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSysClass</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="c1"># pylint: disable=arguments-differ</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Simulation.createSubSys">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.createSubSys">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">createSubSys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSysClass</span><span class="p">,</span> <span class="n">Protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="c1"># pylint: disable=arguments-differ</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create and add a quantum system of a given class ``subSysClass`` and a (optional) ``protocol`` for it.</span>
 <span class="sd">        ``kwargs`` can be used for setting parameters for the quantum system.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -465,15 +673,19 @@
         <span class="n">newSys</span><span class="p">,</span> <span class="n">Protocol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createQSystems</span><span class="p">(</span><span class="n">newSys</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">newSys</span></div>
 
-<div class="viewcode-block" id="Simulation._removeSubSysExc"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation._removeSubSysExc">[docs]</a>    <span class="nd">@_recurseIfList</span>
-    <span class="k">def</span> <span class="nf">_removeSubSysExc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=arguments-differ, dangerous-default-value</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Simulation._removeSubSysExc">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation._removeSubSysExc">[docs]</a>
+    <span class="nd">@_recurseIfList</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_removeSubSysExc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subSys</span><span class="p">,</span> <span class="n">_exclude</span><span class="o">=</span><span class="p">[]):</span> <span class="c1"># pylint: disable=arguments-differ, dangerous-default-value</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove a quantum system from the simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">removeQSystems</span><span class="p">(</span><span class="n">subSys</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__compute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__compute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Internal compute method that passes the states to all the other compute functions of ``computeBase`` instances.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">states</span> <span class="o">=</span> <span class="p">[]</span>
@@ -486,8 +698,10 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">protocol</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;Results&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">currentState</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_computeBase__compute</span><span class="p">(</span><span class="n">states</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
 
-<div class="viewcode-block" id="Simulation.run"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coreCount</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resetRes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Simulation.run">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim.Simulation.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coreCount</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resetRes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">showProgress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Call this function to run the simulation. It runs certain other preparation before running the simulation.</span>
 
 <span class="sd">        Parameters</span>
@@ -498,6 +712,9 @@
 <span class="sd">            Number of cores used for multiprocessing, uses `` (avaliable number of cores) - 1`` as default.</span>
 <span class="sd">        resetRes: Boolean</span>
 <span class="sd">            If ``False``, does not delete the results from the previous run of the simulation. ``True`` by default.</span>
+<span class="sd">        showProgress: Boolean</span>
+<span class="sd">            If ``True``, displays progress tracking for parameter sweeps. ``True`` by default.</span>
+<span class="sd">            Shows progress bars, time estimates, and completion status for both sequential and parallel runs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addQSystems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="p">)</span>
@@ -510,15 +727,19 @@
         <span class="k">if</span> <span class="n">resetRes</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">qres</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">allResults</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="n">qres</span><span class="o">.</span><span class="n">_reset</span><span class="p">()</span> <span class="c1"># pylint: disable=protected-access</span>
-        <span class="n">_poolMemory</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">coreCount</span><span class="p">)</span>
+        <span class="n">_poolMemory</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">coreCount</span><span class="p">,</span> <span class="n">showProgress</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">allResults</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">_qResBase__states</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
         <span class="c1"># TODO Test this</span>
         <span class="n">sdict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span>
-        <span class="k">return</span> <span class="n">sdict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;Results&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">sdict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;Results&quot;</span><span class="p">]</span></div></div>
+        <span class="k">return</span> <span class="n">sdict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;Results&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">superSys</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">sdict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;Results&quot;</span><span class="p">]</span></div>
+</div>
 
-<div class="viewcode-block" id="_poolMemory"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim._poolMemory">[docs]</a><span class="k">class</span> <span class="nc">_poolMemory</span><span class="p">:</span> <span class="c1"># pylint: disable=too-few-public-methods</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="_poolMemory">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim._poolMemory">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">_poolMemory</span><span class="p">:</span> <span class="c1"># pylint: disable=too-few-public-methods</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    handles creation and closing of pools for multi-processing (mp), some other small mp settings (such as setting</span>
 <span class="sd">    set_start_method to fork etc.), and also calls</span>
 <span class="sd">    :meth:`~runSimulation: method inside its only method :meth:`~run`.</span>
@@ -531,9 +752,11 @@
     <span class="c1">#: boolean to ensure that the library does not try setting set_start_method to fork when a simulation is re-run.</span>
     <span class="n">reRun</span> <span class="o">=</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="_poolMemory.run"><a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim._poolMemory.run">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">qSim</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">coreCount</span><span class="p">):</span> <span class="c1"># pylint: disable=too-many-branches</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="_poolMemory.run">
+<a class="viewcode-back" href="../../../classes/QSim.html#quanguru.classes.QSim._poolMemory.run">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">qSim</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">coreCount</span><span class="p">,</span> <span class="n">showProgress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span> <span class="c1"># pylint: disable=too-many-branches</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This is the only method in the class, and it carries the tasks described in the class description.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="p">((</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;Windows&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">reRun</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">)):</span>
@@ -568,45 +791,85 @@
                 <span class="n">_pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">_poolMemory</span><span class="o">.</span><span class="n">coreCount</span><span class="p">)</span> <span class="c1">#pylint:disable=consider-using-with</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">_pool</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">runSimulation</span><span class="p">(</span><span class="n">qSim</span><span class="p">,</span> <span class="n">_pool</span><span class="p">)</span>
+        <span class="n">runSimulation</span><span class="p">(</span><span class="n">qSim</span><span class="p">,</span> <span class="n">_pool</span><span class="p">,</span> <span class="n">showProgress</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">_pool</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_poolMemory</span><span class="o">.</span><span class="n">coreCount</span> <span class="o">=</span> <span class="n">_pool</span><span class="o">.</span><span class="n">_processes</span> <span class="c1"># pylint: disable=protected-access</span>
             <span class="n">_pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="n">_pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div></div>
+            <span class="n">_pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div>
+</div>
+
 </pre></div>
 
-              </div>
+                </article>
               
               
-              <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
 </div>
+                </footer>
               
-          </main>
-          
-
-      </div>
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-<footer class="footer mt-5 mt-md-0">
-  <div class="container">
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
     
-    <div class="footer-item">
-      <p class="copyright">
-    &copy; Copyright 2020, Cahit Kargi.<br>
-</p>
+      © Copyright 2020, Cahit Kargi.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
     </div>
-    
-    <div class="footer-item">
-      <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
-</p>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
     </div>
-    
-  </div>
-</footer>
+  
+</div>
+
+  </footer>
   </body>
 </html>

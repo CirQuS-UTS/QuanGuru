@@ -1,161 +1,341 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>quanguru.QuantumToolbox.operators &#8212; QuanGuru 1 documentation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css?v=572af1d6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f86c6f46" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/documentation_options.js?v=d2a3a1a5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/thebelab-helper.js"></script>
-    <script src="../../../_static/clipboard.min.js"></script>
-    <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/quanguru/QuantumToolbox/operators';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="2025/09/01"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
-
-  <div id="navbar-start">
-    
-    
-<a class="navbar-brand" href="../../../index.html">
-<p class="title">QuanGuru</p>
-</a>
-
-    
-  </div>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
-  Classes Tutorials
- </a>
-</li>
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../QuantumToolbox.html">
-  QuantumToolbox
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../classes.html">
-  Classes (Objects for OOP, module to be renamed later)
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-  QuantumToolbox Tutorials
- </a>
-</li>
-
+  
+  <dialog id="pst-search-dialog">
     
-</ul>
-      </div>
-      
-    </div>
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
 
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-      </ul>
-      </div>
-      
-    </div>
-  </div>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
-    </nav>
-    
 
-    <div class="container-xl">
-      <div class="row">
-          
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">QuanGuru 1 documentation</p>
+  
+</a></div>
     
   </div>
-</nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
-            </div>
-            
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
           
 
-          
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
-          </div>
-          
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
 
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
           
           
-            
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
           
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
               
-              <div>
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">quanguru.QuantumToolbox.operators</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
                 
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for quanguru.QuantumToolbox.operators</h1><div class="highlight"><pre>
 <span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Contains methods to functions to create and/or manipulate quantum operators</span>
@@ -232,16 +412,18 @@
 
 <span class="sd">&quot;&quot;&quot;</span> <span class="c1">#pylint:disable=too-many-lines</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndarray</span> <span class="c1"># type: ignore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">spmatrix</span> <span class="c1"># type: ignore</span>
 
-<span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span> <span class="c1"># type: ignore</span>
-<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">linA</span> <span class="c1"># type: ignore</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">expm</span> <span class="c1"># type: ignore</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># type: ignore</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span> <span class="c1"># type: ignore</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">linA</span> <span class="c1"># type: ignore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">expm</span> <span class="c1"># type: ignore</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> <span class="c1"># type: ignore</span>
 
-<span class="kn">from</span> <span class="nn">.linearAlgebra</span> <span class="kn">import</span> <span class="n">tensorProd</span><span class="p">,</span> <span class="n">_matPower</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.linearAlgebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensorProd</span><span class="p">,</span> <span class="n">_matPower</span>
 
-<span class="kn">from</span> <span class="nn">.customTypes</span> <span class="kn">import</span> <span class="n">Matrix</span> <span class="c1">#pylint: disable=relative-beyond-top-level</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.customTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Matrix</span> <span class="c1">#pylint: disable=relative-beyond-top-level</span>
 
 
 <span class="c1"># do not delete these</span>
@@ -252,9 +434,19 @@
 <span class="c1"># These type aliases are used in type hinting of below methods</span>
 <span class="c1"># Matrix = TypeVar(&#39;Matrix&#39;, spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)</span>
 
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">number</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
 
-<div class="viewcode-block" id="number"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.number">[docs]</a><span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">number</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">number</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="number">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.number">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">number</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the (bosonic) number :math:`\hat{n} := a^{\dagger}a` operator (in Fock basis).</span>
 
 <span class="sd">    Parameters</span>
@@ -288,8 +480,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="destroy"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.destroy">[docs]</a><span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="destroy">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.destroy">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the bosonic `annihilation` :math:`\hat{a}` operator (in Fock basis).</span>
 
 <span class="sd">    Parameters</span>
@@ -322,8 +526,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="create">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.create">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the bosonic `creation` :math:`\hat{a}^{\dagger}` operator (in Fock basis).</span>
 
 <span class="sd">    Parameters</span>
@@ -356,8 +572,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="identity"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.identity">[docs]</a><span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="identity">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.identity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the identity operator :math:`\mathbb{I}`.</span>
 
 <span class="sd">    Parameters</span>
@@ -384,11 +612,22 @@
 <span class="sd">     [0. 1. 0.]</span>
 <span class="sd">     [0. 0. 1.]]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csc&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="sigmaz"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmaz">[docs]</a><span class="k">def</span> <span class="nf">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="sigmaz">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmaz">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmaz</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` (sigma z) :math:`\hat{\sigma}_{z} := \begin{bmatrix} 1, \ \ 0 \\ 0, -1 \end{bmatrix}` operator.</span>
 
 <span class="sd">    Parameters</span>
@@ -418,8 +657,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="sigmay"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmay">[docs]</a><span class="k">def</span> <span class="nf">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="sigmay">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmay">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmay</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` (sigma y) :math:`\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}` operator.</span>
 
 <span class="sd">    Parameters</span>
@@ -449,8 +700,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="sigmax"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmax">[docs]</a><span class="k">def</span> <span class="nf">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="sigmax">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmax">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmax</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` (sigma x) :math:`\hat{\sigma}_{x} := \begin{bmatrix} 0, 1 \\ 1, 0 \end{bmatrix}` operator.</span>
 
 <span class="sd">    Parameters</span>
@@ -480,8 +743,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="sigmap"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmap">[docs]</a><span class="k">def</span> <span class="nf">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="sigmap">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmap">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmap</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` (sigma +) :math:`\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =</span>
 <span class="sd">    \begin{bmatrix} 0, 1 \\ 0, 0 \end{bmatrix}` operator.</span>
 
@@ -511,8 +786,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="sigmam"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmam">[docs]</a><span class="k">def</span> <span class="nf">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="sigmam">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.sigmam">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmam</span><span class="p">(</span><span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the `Pauli` (sigma -) :math:`\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =</span>
 <span class="sd">    \begin{bmatrix} 0, 0 \\ 1, 0 \end{bmatrix}` operator.</span>
 
@@ -542,8 +829,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Jp"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jp">[docs]</a><span class="k">def</span> <span class="nf">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span> 
+<span class="k">def</span><span class="w"> </span><span class="nf">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="Jp">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `raising` operator</span>
 <span class="sd">    :math:`\hat{J}_{+} := \frac{1}{2}(\hat{J}_{x}+i\hat{J}_{y})` for a given spin quantum number j.</span>
 
@@ -604,8 +903,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Jm"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jm">[docs]</a><span class="k">def</span> <span class="nf">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span> 
+<span class="k">def</span><span class="w"> </span><span class="nf">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="Jm">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jm">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `lowering` operator</span>
 <span class="sd">    :math:`\hat{J}_{-} := \frac{1}{2}(\hat{J}_{x}-i\hat{J}_{y})` for a given spin quantum number j.</span>
 
@@ -666,8 +977,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Jx"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jx">[docs]</a><span class="k">def</span> <span class="nf">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span> 
+<span class="k">def</span><span class="w"> </span><span class="nf">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="Jx">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jx">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `X` operator :math:`\hat{J}_{x}` for a given spin quantum number j.</span>
 
 <span class="sd">    NOTE This function uses the definition :math:`\hat{J}_{x} =\frac{1}{2}(\hat{J}_{p}+\hat{J}_{m})` and calls Jp and Jm</span>
@@ -724,11 +1047,23 @@
 <span class="sd">    (3, 4)	1.0</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">n</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span> <span class="o">+</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span> <span class="o">+</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Jy"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jy">[docs]</a><span class="k">def</span> <span class="nf">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="Jy">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jy">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `Y` operator :math:`\hat{J}_{y}` for a given spin quantum number j.</span>
 
 <span class="sd">    NOTE This function uses the definition :math:`\hat{J}_{y}=\frac{1}{2j}(\hat{J}_{p}-\hat{J}_{m})` and calls Jp and Jm</span>
@@ -785,11 +1120,23 @@
 <span class="sd">    (3, 4)	-1j</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="n">j</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span> <span class="o">-</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="n">j</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">Jp</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span> <span class="o">-</span> <span class="n">Jm</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Jz"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jz">[docs]</a><span class="k">def</span> <span class="nf">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="Jz">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Jz">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the angular momentum (spin) `Z` operator :math:`\hat{J}_{z}` for a given spin quantum number j.</span>
 
 <span class="sd">    Parameters</span>
@@ -847,8 +1194,20 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Js"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Js">[docs]</a><span class="k">def</span> <span class="nf">Js</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Js</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Js</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Js</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="Js">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.Js">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Js</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the total angular momentum (spin) operator</span>
 <span class="sd">    :math:`\hat{J}_{s} := \hat{J}_{x}^{2} + \hat{J}_{y}^{2}+ \hat{J}_{z}^{2}` for a given spin quantum number j.</span>
 
@@ -898,12 +1257,24 @@
 <span class="sd">    (4, 4)	(6+0j)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jx</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jy</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>\
-        <span class="o">+</span> <span class="p">(</span><span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">Jx</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jx</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">Jy</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jy</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>\
+        <span class="o">+</span> <span class="p">(</span><span class="n">Jz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">)</span><span class="nd">@Jz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isDim</span><span class="o">=</span><span class="n">isDim</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="displacement"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.displacement">[docs]</a><span class="k">def</span> <span class="nf">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="displacement">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.displacement">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">displacement</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the displacement operator :math:`\hat{D}(\alpha) := e^{\alpha a^{\dagger} - \alpha^{*}a}`</span>
 <span class="sd">    for a given displacement parameter :math:`\alpha`.</span>
 
@@ -950,12 +1321,24 @@
 <span class="sd">    (3, 3)	(0.02280183542861464+0j)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">oper</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">create</span><span class="p">(</span><span class="n">dim</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">destroy</span><span class="p">(</span><span class="n">dim</span><span class="p">))</span>
+    <span class="n">oper</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">create</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">destroy</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="n">oper</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">A</span></div>
+    <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="squeeze"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.squeeze">[docs]</a><span class="k">def</span> <span class="nf">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="squeeze">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.squeeze">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">squeeze</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the squeezing operator :math:`\hat{S}(\alpha) := e^{\frac{1}{2}(\alpha^{*}a^{2} - \alpha a^{\dagger 2})}`</span>
 <span class="sd">    for a given squeezing parameter :math:`\alpha`.</span>
 
@@ -996,10 +1379,13 @@
 
     <span class="n">oper</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="n">create</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="nd">@create</span><span class="p">(</span><span class="n">dim</span><span class="p">)))</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">destroy</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="nd">@destroy</span><span class="p">(</span><span class="n">dim</span><span class="p">)))</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">oper</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">A</span></div>
+    <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="parityEXP"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.parityEXP">[docs]</a><span class="k">def</span> <span class="nf">parityEXP</span><span class="p">(</span><span class="n">HamiltonianCavity</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="parityEXP">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.parityEXP">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parityEXP</span><span class="p">(</span><span class="n">HamiltonianCavity</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a parity operator :math:`\hat{P}(\hat{H}) := e^{i\pi\hat{H}}` by exponenting a given Hamiltonian</span>
 <span class="sd">    :math:`\hat{H}`.</span>
 
@@ -1042,8 +1428,20 @@
     <span class="n">parEX</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">HamiltonianCavity</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">expm</span><span class="p">(</span><span class="n">parEX</span><span class="p">)</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">linA</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">parEX</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="paritySUM"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.paritySUM">[docs]</a><span class="k">def</span> <span class="nf">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="paritySUM">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.paritySUM">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">paritySUM</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a parity operator by explicitly placing alternating +/- into a matrix.</span>
 
 <span class="sd">    Parameters</span>
@@ -1084,8 +1482,11 @@
     <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">n</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="compositeOp"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.compositeOp">[docs]</a><span class="k">def</span> <span class="nf">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">dimB</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dimA</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="compositeOp">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.compositeOp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compositeOp</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">dimB</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dimA</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a composite operator</span>
 <span class="sd">    :math:`\hat{O}_{comp} = \mathbb{I}_{dimB\times dimB}\otimes\hat{O}_{single}\otimes\mathbb{I}_{dimA\times dimA}`</span>
 <span class="sd">    ,ie tensor product with identities of dimensions before dimB and after dimA</span>
@@ -1108,13 +1509,13 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; compositeOp(operator=sigmaz(), dimB=0, dimA=2).A</span>
+<span class="sd">    &gt;&gt;&gt; compositeOp(operator=sigmaz(), dimB=0, dimA=2).toarray()</span>
 <span class="sd">    [[ 1.  0.  0.  0.]</span>
 <span class="sd">     [ 0.  1.  0.  0.]</span>
 <span class="sd">     [ 0.  0. -1.  0.]</span>
 <span class="sd">     [ 0.  0.  0. -1.]]</span>
 
-<span class="sd">    &gt;&gt;&gt; compositeOp(operator=sigmaz(), dimB=2, dimA=0).A</span>
+<span class="sd">    &gt;&gt;&gt; compositeOp(operator=sigmaz(), dimB=2, dimA=0).toarray()</span>
 <span class="sd">    [[ 1.  0.  0.  0.]</span>
 <span class="sd">     [ 0. -1.  0.  0.]</span>
 <span class="sd">     [ 0.  0.  1.  0.]</span>
@@ -1124,8 +1525,20 @@
 
     <span class="k">return</span> <span class="n">tensorProd</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="n">dimB</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">dimA</span><span class="p">]</span> <span class="k">if</span> <span class="p">((</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">))])</span></div>
 
-<div class="viewcode-block" id="operatorPow"><a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.operatorPow">[docs]</a><span class="k">def</span> <span class="nf">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">spmatrix</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span> <span class="o">...</span>
+
+<div class="viewcode-block" id="operatorPow">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.operatorPow">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">operatorPow</span><span class="p">(</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a quantum operator for given function reference `op` and raises to a `power`.</span>
 
 <span class="sd">    Parameters</span>
@@ -1168,39 +1581,78 @@
     <span class="k">except</span><span class="p">:</span> <span class="c1"># pylint: disable=bare-except # noqa: E722</span>
         <span class="n">opPow</span> <span class="o">=</span> <span class="n">_matPower</span><span class="p">(</span><span class="n">op</span><span class="p">(</span><span class="n">sparse</span><span class="p">),</span> <span class="n">power</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">opPow</span></div>
+
 </pre></div>
 
-              </div>
+                </article>
               
               
-              <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
 </div>
+                </footer>
               
-          </main>
-          
-
-      </div>
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-<footer class="footer mt-5 mt-md-0">
-  <div class="container">
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
     
-    <div class="footer-item">
-      <p class="copyright">
-    &copy; Copyright 2020, Cahit Kargi.<br>
-</p>
+      © Copyright 2020, Cahit Kargi.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
     </div>
-    
-    <div class="footer-item">
-      <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
-</p>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
     </div>
-    
-  </div>
-</footer>
+  
+</div>
+
+  </footer>
   </body>
 </html>
