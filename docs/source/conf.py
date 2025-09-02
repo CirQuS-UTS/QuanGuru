@@ -274,6 +274,11 @@ mathjax3_config = {
 #
 html_theme = "pydata_sphinx_theme"
 
+# Use a fixed docs title (omit the version) shown in the top-left/header
+html_title = "Quanguru"
+# Short title used in some themes/places (keep consistent)
+html_short_title = "Quanguru"
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -306,6 +311,7 @@ latex_elements = {
 html_static_path = ['static']
 templates_path = ['templates']
 html_css_files = ['style.css', 'custom.css', 'gallery.css']
+html_js_files = ['conditional_source.js']
 
 # html_logo = 'images/logo.png'
 # html_favicon = 'images/favicon.ico'
