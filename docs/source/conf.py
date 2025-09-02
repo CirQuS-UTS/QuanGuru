@@ -213,7 +213,7 @@ source_suffix = {
 # Enable MyST extensions so $...$ and $$...$$ math in .md and notebook markdown cells work
 myst_enable_extensions = [
     "amsmath",
-    "dollarmath"
+    "dollarmath",
 ]
 
 # Ensure Sphinx uses MathJax (better for inline math in HTML)
