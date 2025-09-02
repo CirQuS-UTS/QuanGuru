@@ -1,3 +1,4 @@
+
 .toggle .header {
     display: block;
     clear: both;
@@ -55,4 +56,23 @@ div.nbinput.container div.prompt,
 div.nboutput.container div.prompt {
     width: 2.5ex !important;
     padding-top: 2px !important;
+}
+
+/* Prevent flicker: hide the original "This Page" / "Show Source" block
+   until our JS replaces it with a single "Download notebook" link. */
+.sidebar-secondary-item > div[role="note"] {
+    visibility: hidden;
+}
+
+/* Hide the header search button (we provide a left-sidebar search) */
+.bd-header .search-button-field { display: none !important; }
+
+/* Style for the cloned sidebar search box */
+.sidebar-search { padding-bottom: 10px; }
+.sidebar-search .bd-search { display: block; }
+.sidebar-search .bd-search input[type="search"] { width: 100%; }
+
+/* Nudge the top-left site title slightly to the right */
+.bd-header .navbar-brand.logo .logo__title {
+    margin-left: 22px;
 }

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>QuanGuru documentation &#8212; QuanGuru 1 documentation</title>
+    <title>QuanGuru documentation &#8212; Quanguru</title>
   
   
   
@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/style.css?v=ce33d648" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f86c6f46" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd63f27" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css?v=eef91c61" />
   
   <!-- So that users can add custom icons -->
@@ -56,13 +56,14 @@
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script src="_static/conditional_source.js?v=ea6749ea"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Classes Demos" href="classes/Tutorials/1_Qubit/Tutorials.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/01"/>
+    <meta name="docbuild:last-update" content="2025/09/02"/>
   </head>
   
   
@@ -124,7 +125,7 @@
   
   
   
-    <p class="title logo__title">QuanGuru 1 documentation</p>
+    <p class="title logo__title">Quanguru</p>
   
 </a></div>
     
@@ -327,6 +328,117 @@
 <li class="toctree-l1"><a class="reference internal" href="QuantumToolbox/Tutorials/Tutorials.html">QuantumToolbox Tutorials</a></li>
 </ul>
 </div>
+<section class="tex2jax_ignore mathjax_ignore" id="quanguru-a-python-package-for-numerical-analyses-of-quantum-systems">
+<h2>QuanGuru - A Python package for numerical analyses of quantum systems<a class="headerlink" href="#quanguru-a-python-package-for-numerical-analyses-of-quantum-systems" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml"><img alt="main" src="https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/main.yml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml"><img alt="development" src="https://github.com/CirQuS-UTS/QuanGuru/actions/workflows/development.yml/badge.svg" /></a></p>
+<p>QuanGuru is a Python library for numerical analyses of Quantum systems.
+It is still under-development, and the rough development plan is provided below.
+The <a class="reference external" href="https://github.com/CirQuS-UTS/QuanGuru">github repo is in here</a> and the <a class="reference external" href="https://cirqus-uts.github.io/QuanGuru/">documentation are in here</a>.
+It can already be installed via pip</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>quanguru
+</pre></div>
+</div>
+<p>QuanGuru contains tools for numerical simulations of Quantum systems, and it is composed of two main sub-modules: (i) QuantumToolbox, and (ii) classes (for OOP, module to be renamed later).
+QuantumToolbox consists <strong>purely of Python functions</strong> (no other objects) that create and/or use <strong>matrices</strong>.
+The classes module (to be renamed later) contains classes to create flexible, simple, and object-oriented simulation scripts.
+Classes uses QuantumToolbox for matrix operations, and QuantumToolbox can be used as a standalone library to carry the same simulations.</p>
+<section id="minimal-example">
+<h3>Minimal example<a class="headerlink" href="#minimal-example" title="Link to this heading">#</a></h3>
+<section id="steps-recipe-with-classes">
+<h4>5 steps recipe with classes<a class="headerlink" href="#steps-recipe-with-classes" title="Link to this heading">#</a></h4>
+<section id="define-the-system-hamiltonian-and-initial-state">
+<h5>1. Define the system/Hamiltonian (and initial state)<a class="headerlink" href="#define-the-system-hamiltonian-and-initial-state" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quanguru</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qg</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">spinSys</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                           <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">,</span>
+                           <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">spinSys</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="define-the-protocol-s-optional">
+<h5>2. Define the protocol/s (optional)<a class="headerlink" href="#define-the-protocol-s-optional" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">freeEvolution</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">freeEvolution</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spinSys</span><span class="p">)</span>
+<span class="n">ry</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">SpinRotation</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
+                     <span class="n">angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                     <span class="n">rotationAxis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ProtocolY</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">qProtocol</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">spinSys</span><span class="p">,</span>
+                         <span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">ry</span><span class="o">.</span><span class="n">hc</span><span class="p">,</span> <span class="n">freeEvolution</span><span class="p">,</span> <span class="n">ry</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="define-simulation">
+<h5>3. Define “Simulation”<a class="headerlink" href="#define-simulation" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spinSys</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">addSubSys</span><span class="p">(</span><span class="n">spinSys</span><span class="p">,</span> <span class="n">ProtocolY</span><span class="p">)</span>
+
+<span class="n">spinSys</span><span class="o">.</span><span class="n">totalTime</span> <span class="o">=</span> <span class="mi">8</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">spinSys</span><span class="o">.</span><span class="n">stepCount</span> <span class="o">=</span> <span class="mi">200</span>
+</pre></div>
+</div>
+</section>
+<section id="define-parameter-sweeps-optional">
+<h5>4. Define parameter sweeps (optional)<a class="headerlink" href="#define-parameter-sweeps-optional" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spinSys</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">createSweep</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
+                          <span class="n">sweepKey</span><span class="o">=</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span>
+                          <span class="n">sweepList</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.25</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="define-compute-function-s-optional">
+<h5>5. Define “compute function/s” (optional)<a class="headerlink" href="#define-compute-function-s-optional" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sy</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="n">freeEvo</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">yRotPro</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;freeEvo&#39;</span><span class="p">,</span> <span class="n">freeEvo</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">qRes</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="s1">&#39;yRotPro&#39;</span><span class="p">,</span> <span class="n">yRotPro</span>
+
+<span class="n">spinSys</span><span class="o">.</span><span class="n">simCompute</span> <span class="o">=</span> <span class="n">compute</span>
+</pre></div>
+</div>
+</section>
+<section id="finally-run-the-simulation-and-retrieve-the-results">
+<h5>Finally run the simulation and retrieve the results<a class="headerlink" href="#finally-run-the-simulation-and-retrieve-the-results" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spinSys</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">()</span>
+<span class="n">spinSys</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;freeEvo&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://cirqus-uts.github.io/QuanGuru/classes/Tutorials/1_Qubit/Tutorials.html">tutorials for more.</a></p>
+</section>
+</section>
+</section>
+<section id="rough-development-plan">
+<h3>(Rough) Development Plan<a class="headerlink" href="#rough-development-plan" title="Link to this heading">#</a></h3>
+<p>QuantumToolbox is already simple enough and stable.
+In parallel to the developments of classes, further additions and improvements are going to be implemented in QuantumToolbox.
+There are already other functions (for special state creations, eigen-value statistics etc.) in another private repo.</p>
+<section id="short-term-plan-for-the-improvements-on-current-code">
+<h4>1. Short term plan for the improvements on current code<a class="headerlink" href="#short-term-plan-for-the-improvements-on-current-code" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Complete the migration from gitlab (private server) to github, meaning re-establish CI/CD, pages, wiki, issues, etc.</p></li>
+<li><p>Restructuring and writing docstring for QPro, QGate, QSim, and extensions</p></li>
+<li><p>Improve the tutorials, further improvements in docstring, and more tests</p></li>
+</ol>
+</section>
+<section id="version-1">
+<h4>2. Version 1<a class="headerlink" href="#version-1" title="Link to this heading">#</a></h4>
+<p>At this point, we should have a stable version with enough documentation and tests for the version 1.</p>
+</section>
+<section id="future-development">
+<h4>3. Future development<a class="headerlink" href="#future-development" title="Link to this heading">#</a></h4>
+<p>Further additions have to be with proper tests, tutorials, docstring etc.</p>
+<ol class="arabic simple">
+<li><p>Implementation of SCQubits and QDrive.</p></li>
+<li><p>Interfacing to other libraries.</p></li>
+</ol>
+</section>
+</section>
+</section>
 </section>
 
 
@@ -358,6 +470,38 @@
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru-a-python-package-for-numerical-analyses-of-quantum-systems">QuanGuru - A Python package for numerical analyses of quantum systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal-example">Minimal example</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-recipe-with-classes">5 steps recipe with classes</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-system-hamiltonian-and-initial-state">1. Define the system/Hamiltonian (and initial state)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-protocol-s-optional">2. Define the protocol/s (optional)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#define-simulation">3. Define “Simulation”</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#define-parameter-sweeps-optional">4. Define parameter sweeps (optional)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#define-compute-function-s-optional">5. Define “compute function/s” (optional)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#finally-run-the-simulation-and-retrieve-the-results">Finally run the simulation and retrieve the results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rough-development-plan">(Rough) Development Plan</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#short-term-plan-for-the-improvements-on-current-code">1. Short term plan for the improvements on current code</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1">2. Version 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#future-development">3. Future development</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
