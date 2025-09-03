@@ -172,7 +172,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
     'sphinx.ext.mathjax',
-    'sphinx.ext.imgmath',
+    # 'sphinx.ext.imgmath',
     'sphinx.ext.viewcode',
     'sphinx.ext.extlinks',
     'sphinx_tabs.tabs',
@@ -180,9 +180,10 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx_copybutton',
     'nbsphinx',
+    'myst_parser',
     #'recommonmark',
-    'm2r2',
-    "sphinx.ext.githubpages",
+    # 'm2r2',
+    # "sphinx.ext.githubpages",
     'IPython.sphinxext.ipython_console_highlighting'
 ]
 
@@ -203,8 +204,20 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'myst-parser'
+}
 # source_suffix = '.rst'
+
+# Enable MyST extensions so $...$ and $$...$$ math in .md and notebook markdown cells work
+myst_enable_extensions = [
+    "amsmath",
+    "dollarmath",
+]
+
+# Ensure Sphinx uses MathJax (better for inline math in HTML)
+html_math_renderer = "mathjax"
 
 # The master toctree document.
 master_doc = 'index'
@@ -244,6 +257,15 @@ exclude_patterns = []
 # py:function directives.
 add_module_names = False
 
+mathjax3_config = {
+    'tex': {
+        'inlineMath': [['$', '$'], ['\\(', '\\)']],
+        'displayMath': [['$$', '$$'], ['\\[', '\\]']],
+        'processEscapes': True,
+        'processEnvironments': True
+    }
+}
+
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -251,6 +273,11 @@ add_module_names = False
 # a list of builtin themes.
 #
 html_theme = "pydata_sphinx_theme"
+
+# Use a fixed docs title (omit the version) shown in the top-left/header
+html_title = "Quanguru"
+# Short title used in some themes/places (keep consistent)
+html_short_title = "Quanguru"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -284,6 +311,7 @@ latex_elements = {
 html_static_path = ['static']
 templates_path = ['templates']
 html_css_files = ['style.css', 'custom.css', 'gallery.css']
+html_js_files = ['conditional_source.js']
 
 # html_logo = 'images/logo.png'
 # html_favicon = 'images/favicon.ico'
