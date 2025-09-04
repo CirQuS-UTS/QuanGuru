@@ -132,7 +132,6 @@ class genericQSys(QSimComp):
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def __add__(self, other):
-        print(isinstance(other, qSystem))
         r"""
         With this method, ``+`` creates a composite quantum system between ``self`` and the ``other`` quantum system.
         """
