@@ -6,8 +6,14 @@ import numpy as np
 class scQubit(QuantumSystem):
 #FIXME the dimension < _maxDim condition in the __init__ function
 
-    instances = 0
     label = 'scQubit'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
     scqType = None
 
     __slots__ = ['scqObj', '__ncut', '__listener']
@@ -56,11 +62,11 @@ class scQubit(QuantumSystem):
             raise ValueError('dimension must be odd for scqubits qubits')
         self.scqObj.ncut = (dim - 1)//2
 
-    def eigenstate(self, n=0):
+    def eigenstate(self, n):
         r"""
         This method returns the eigenvalues and eigenstates of the qubit Hamiltonian
         """
-        return self.scqObj.numberbasis_wavefunction(esys=None, which=n)
+        return self.scqObj.numberbasis_wavefunction(esys=None, which=n).amplitudes.reshape(self.dimension, 1)
 
     def __getattribute__(self, __name: str):
         r"""
