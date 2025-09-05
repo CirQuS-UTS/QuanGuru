@@ -321,6 +321,10 @@ html_last_updated_fmt = '%Y/%m/%d'
 autosummary_generate = True
 autosummary_generate_overwrite = False
 
+nbsphinx_thumbnails = {
+    '**': '_static/Quanguru_logo_2.png',
+}
+
 # autodoc_default_options = {
 #     'inherited-members': None,
 # }
