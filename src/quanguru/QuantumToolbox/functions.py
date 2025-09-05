@@ -44,7 +44,7 @@ r"""
 
 """ #pylint:disable=too-many-lines
 
-from typing import List, Tuple
+from typing import List, Tuple, overload, Literal
 from numpy import ndarray # type: ignore
 
 import numpy as np # type: ignore
@@ -447,7 +447,16 @@ def _expectationColArr(operator: Matrix, states: ndarray) -> floatList:
     expMat = hc(states) @ operator @ states
     return expMat.diagonal()
 
-def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float:
+@overload
+def standardDev(operator: Matrix, state: Matrix, expect: Literal[False] = False) -> float: ...
+
+@overload
+def standardDev(operator: Matrix, state: Matrix, expect: Literal[True]) -> Tuple[float, float]: ...
+
+@overload
+def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float | Tuple[float, float]: ...
+
+def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float | Tuple[float, float]:
     expSq = (expectation(operator, state))
     SqExp = expectation(_matPower(operator, 2), state)
     return np.sqrt(SqExp - (expSq**2)) if not expect else (np.sqrt(SqExp - (expSq**2)), expSq)

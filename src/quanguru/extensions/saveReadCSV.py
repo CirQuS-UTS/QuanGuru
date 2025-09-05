@@ -99,12 +99,12 @@ def saveCSV(data, path=None, fileName=None, dateTime=True):
     
     path = makeDir(path)
 
-    with open(path + '/' + str(fileName) + '.txt', 'w') as csvFile: #pylint:disable=W1514
+    with open(path + '/' + str(fileName) + '.txt', 'w', newline='') as csvFile: #pylint:disable=W1514
         csvWriter = csv.writer(csvFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         if isinstance(data[0], (list, np.ndarray)):
             for ind in range(len(data)):
                 csvWriter.writerow([data[ind][ind2] for ind2 in range(len(data[ind]))])
-        elif isinstance(data[0], (float, int, np.complex128)):
+        elif isinstance(data[0], (float, int, np.complex128, np.integer, np.floating)):
             csvWriter.writerow([data[ind2] for ind2 in range(len(data))])
 
     return path
@@ -142,11 +142,11 @@ def _recursiveSaveList(data, path=None, fileName=None, dateTimeStamps=None):
         if isinstance(data[0][0], (list, np.ndarray)):
             for ind in range(len(data)): #pylint:disable=consider-using-enumerate
                 _recursiveSaveList(data[ind], path=path, fileName=fileName+str(ind), dateTimeStamps=dateTimeStamps)
-        elif isinstance(data[0][0], (float, int, np.complex128)):
+        elif isinstance(data[0][0], (float, int, np.complex128, np.integer, np.floating)):
             if dateTimeStamps is not None:
                 fileName = dateTimeStamps[0] + '_' + fileName + '_' + dateTimeStamps[1]
             saveCSV(data, path=path, fileName=fileName, dateTime=False)
-    elif isinstance(data[0], (float, int, np.complex128)):
+    elif isinstance(data[0], (float, int, np.complex128, np.integer, np.floating)):
         if dateTimeStamps is not None:
             fileName = dateTimeStamps[0] + '_' + fileName + '_' + dateTimeStamps[1]
         saveCSV(data, path=path, fileName=fileName, dateTime=False)

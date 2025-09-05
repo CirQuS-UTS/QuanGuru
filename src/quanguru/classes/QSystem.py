@@ -69,13 +69,11 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
+    __slots__ = ['timeDependency', '__terms', '__dimension', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
                  '__unitary', '__compOpers']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        #: First term is also stored in __firstTerm attribute
-        self.__firstTerm = None
         #: dictionary of the terms
         self.__terms = aliasDict()
         #: dimension of Hilbert space of the quantum system
@@ -93,6 +91,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self._inpCoef = kwargs.pop("_inpCoef", False)
         #: a dictionary to store arbitrary composite operators that are shaped and updated internally
         self.__compOpers = {}
+        #: function that can be assigned by the user to update the parameters a function of time. The library passes the
+        #: current time to this function, and any desired parameter can be updated as a function of time.
+        self.timeDependency = None
         #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
         self._QuantumSystem__unitary.superSys = self # pylint: disable=no-member
@@ -138,11 +139,16 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     def _timeDependency(self, time=None):
         r"""
-        An internal method used to pass down the current time in evolution to all the ``subSys`` and ``terms``. The term
-        objects timeDependency functions are used for updating relevant parameters as a function of time.
+        Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
+        to update the desired parameters (such as frequency of the spin system) as a function of time.
+        Also passes down the current time in evolution to all the ``subSys`` and ``terms``. 
         """
         if time is None:
-            time = self.simulation._currentTime
+            time = self.simulation._currentTime # pylint: disable=no-member
+    
+        if callable(self.timeDependency):
+            self.timeDependency(self, time) # pylint: disable=assigning-non-slot,not-callable
+
         for sys in self.subSys.values():
             sys._timeDependency(time)
         for ter in self.terms.values():
@@ -604,8 +610,6 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         checkCorType(trm, QTerm, f"addTerms argument/s ({trm.name})")
         supSys = kwargs.pop('superSys', self)
         trm._named__setKwargs(**kwargs) # pylint: disable=W0212
-        if len(self.terms) == 0:
-            self._QuantumSystem__firstTerm = trm #pylint:disable=assigning-non-slot
         self._QuantumSystem__terms[trm.name] = trm  # pylint:disable=no-member
         self._paramUpdated = True
         trm.superSys = supSys
@@ -664,9 +668,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         Property to get the first term of the quantum system.
         """
-        if self._QuantumSystem__firstTerm is None:
+        if len(self._QuantumSystem__terms) == 0:
             self.addTerms(QTerm(qSystem=self))
-        return self._QuantumSystem__firstTerm # pylint:disable=no-member
+        return list(self._QuantumSystem__terms.values())[0] # pylint:disable=no-member
 
     @property
     def frequency(self):
@@ -714,6 +718,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     def copy(self, **kwargs):
         newSys = super().copy()
+        newSys.resetTerms()
         for qsys in self.subSys.values():
             cqsys = qsys.copy()
             cqsys.alias = qsys.name + "_" + cqsys.name
@@ -727,16 +732,13 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                 for qsys in ter.qSystem:
                     qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind].name)
 
-            if newSys._QuantumSystem__firstTerm is None:#pylint:disable=no-member,protected-access
-                newSys.createTerm(qSystem=qSystemNames, #pylint:disable=no-member
-                                  operator=ter.operator,
-                                  frequency=ter.frequency,
-                                  order=ter.order)
-            else:
-                newSys._firstTerm.qSystem=qSystemNames#pylint:disable=no-member,protected-access
-                newSys._firstTerm.operator=ter.operator#pylint:disable=no-member,protected-access
-                newSys._firstTerm.frequency=ter.frequency#pylint:disable=no-member,protected-access
-                newSys._firstTerm.order=ter.order#pylint:disable=no-member,protected-access
+            newSys.createTerm(
+                qSystem=qSystemNames, #pylint:disable=no-member
+                operator=ter.operator,
+                frequency=ter.frequency,
+                order=ter.order
+            )
+
         if self.simulation._stateBase__initialStateInput._value is not None:
             newSys.initialState = self.simulation._stateBase__initialStateInput.value #pylint:disable=assigning-non-slot
         if not self._isComposite:
