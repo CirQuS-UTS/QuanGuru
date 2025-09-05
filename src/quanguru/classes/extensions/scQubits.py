@@ -1,9 +1,7 @@
-import scqubits as scq
+from scqubits import Transmon, TunableTransmon
+from scqubits.core.central_dispatch import DispatchClient, CENTRAL_DISPATCH
 from ..QSystem import QuantumSystem
-from ...QuantumToolbox.operators import identity
 import numpy as np
-from scipy.sparse import csc_matrix
-
 
 class scQubit(QuantumSystem):
 #FIXME the dimension < _maxDim condition in the __init__ function
@@ -12,7 +10,7 @@ class scQubit(QuantumSystem):
     label = 'scQubit'
     scqType = None
 
-    __slots__ = ['scqObj']
+    __slots__ = ['scqObj', '__ncut', '__listener']
 
     def __init__(self, **kwargs):
         # instantiating the scqObj
@@ -26,180 +24,86 @@ class scQubit(QuantumSystem):
 
         super().__init__(**kwargs)
 
+        self.__listener = DispatchClient()
+        self.__listener.receive = self._paramUpdatedHandler
+        CENTRAL_DISPATCH.register("QUANTUMSYSTEM_UPDATE", self.__listener)
 
-        # handle the dimension
-        # kwargs['dimension'] = kwargs.get('dimension', self._max_dim)
-        # if kwargs['dimension'] > (self._max_dim):
-        #     raise ValueError('\'dimension\' must be less than or equal to than (' + self._max_dim_label + ')')
-
-        #setting the frequency (can be overwritten by the user)
+        self._QuantumSystem__compSys = False
         self.frequency = 1
-
-        #setting the truncated dimension
-        self.dimension = self.scqObj.truncated_dim
-
-        #defining the attributes inherited from parent classes
-        # remaining_kwargs = {key: kwargs[key] for key in kwargs if key not in scqAttrs}
-        # for key, value in remaining_kwargs.items():
-        #     if hasattr(self, key):
-        #         setattr(self, key, value) # pylint: disable=no-member
-        # self._qUniversal__setKwargs(**{key: kwargs[key] for key in kwargs if key not in scqAttrs}) # pylint: disable=no-member
+        self.__ncut = 0
+        self.dimension = 2*self.scqObj.ncut + 1
         self.operator = self.scqHamiltonian
 
-
-
-    def scqHamiltonian(self, energy_esys=True):
-        # #retrieving the hamiltonian in eigenstate basis
-        # ham = self.scqObj.matrixelement_table('hamiltonian', evals_count=dimension)
-
-        # # setting small elements to zero such that using a sparse matrix is justifiable
-        # ham[abs(ham) < 10e-15] = 0
-
-        # return csc_matrix(ham)
-
-        r"""This method returns the qubit Hamiltonian
-        
-        Parameters:
-        -----------
-        energy_esys : bool, optional
-            If False: return in charge basis 
-            Else: return in energy eigenbasis 
+    def _paramUpdatedHandler(self, event, sender):
         """
-        
-        if energy_esys is False:
-            return self.scqObj.hamiltonian(energy_esys=False)
-        else: 
-            H = self.scqObj.hamiltonian(energy_esys=True)
-            # H[np.diag_indices(H.shape[0])] -= (np.arange(H.shape[0])+1)
-            H -= H[0, 0]*identity(H.shape[0])
-            return H
-        
+        Callback function to handle parameter updates from scqubits objects pertaining to the Hamiltonian
+        """
+        if sender is self.scqObj:
+            self._paramUpdated = True
+            if self._scQubit__ncut != self.scqObj.ncut:
+                self._scQubit__ncut = self.scqObj.ncut
+                QuantumSystem.dimension.fset(self, 2*self._scQubit__ncut + 1)
 
+    def scqHamiltonian(self, dim):
+        r"""
+        This method returns the qubit Hamiltonian
+        """
+        return self.scqObj.hamiltonian()
 
+    @QuantumSystem.dimension.setter
+    def dimension(self, dim):
+        if dim % 2 == 0:
+            raise ValueError('dimension must be odd for scqubits qubits')
+        self.scqObj.ncut = (dim - 1)//2
 
-    def _udpateScqHam(self):
-        self._paramUpdated = True
-        self._firstTerm._paramBoundBase__matrix = None
+    def eigenstate(self, n=0):
+        r"""
+        This method returns the eigenvalues and eigenstates of the qubit Hamiltonian
+        """
+        return self.scqObj.numberbasis_wavefunction(esys=None, which=n)
 
-    #abstract method
-    @property
-    def _max_dim(self):
-        pass  
-    
+    def __getattribute__(self, __name: str):
+        r"""
+        Custom ``__getattribute__`` method to get the parameters related to the internal scqObj object through self
+        """
+        try:
+            obj = super().__getattribute__(__name)
+        except AttributeError as attErr1:
+            try:
+                obj = getattr(self.scqObj, __name)
+            except AttributeError as exc:
+                raise attErr1 from exc
+        return obj
+
+    def __setattr__(self, __name: str, __value) -> None:
+        r"""
+        Custom ``__setattr__`` method to set the parameters related to the internal scqObj object through self
+        """
+        try:
+            obj = super().__setattr__(__name, __value)
+        except AttributeError as attErr1:
+            try:
+                obj = setattr(self.scqObj, __name, __value)
+            except AttributeError as exc:
+                raise attErr1 from exc
+        return obj
+
 class scqTransmon(scQubit):
-#FIXME ncut and dimension error checking
 
     instances = 0
     label = 'scqTransmon'
     _max_dim_label = '2*ncut + 1'
-    scqType = scq.Transmon
+    scqType = Transmon
 
     __slots__ = []
-      
-    @property
-    def _max_dim(self):
-        return self.scqObj.ncut*2+1
-    
-    @property
-    def EJ(self):
-        return self.scqObj.EJ
 
-    @EJ.setter
-    def EJ(self, EJ):
-        self.scqObj.EJ = EJ
-        self._udpateScqHam()
-
-    @property
-    def EC(self):
-        return self.scqObj.EC
-
-    @EC.setter
-    def EC(self, EC):
-        self.scqObj.EC = EC
-        self._udpateScqHam()
-
-    @property
-    def ng(self):
-        return self.scqObj.ng
-
-    @ng.setter
-    def ng(self, ng):
-        self.scqObj.ng = ng
-        self._udpateScqHam()
-
-    @property
-    def ncut(self):
-        return self.scqObj.ncut
-
-    # add a setter for self.dimension to ensure that (2*ncut + 1) > dimension
-    @ncut.setter
-    def ncut(self, ncut):
-        # if (2*ncut + 1) < self.dimension:
-        #     raise ValueError('(2*ncut + 1) must be greater than or equal to than \'dimension\'. Try changing dimension first')
-        self.scqObj.ncut = ncut
-        self._udpateScqHam()
-
-    @scQubit.dimension.setter
-    def dimension(self, dim):
-        # if (2*self.ncut + 1) < dim:
-        #     raise ValueError('(2*ncut + 1) must be greater than or equal to than \'dimension\'. Try changing dimension first')
-        scQubit.dimension.fset(self, dim)
-        
-    def scqNOperator(self, dim):
-        r"""This method returns the charge operator matrix
-        
-        Parameters:
-        -----------
-        energy_esys : bool, optional
-            If False: return in chrage basis 
-            Else: return in energy eigenbasis 
-        """
-        return self.scqObj.n_operator(energy_esys=True)  # charge basis
-
-
-
+    #TODO add static method for finding EJ and EC...
+    # (override the find_EJ_EC static method in scqubits.Transmon class) using numerical optimisation
 
 class scqTunableTransmon(scqTransmon):
     
     instances = 0
     label = 'scqTunableTransmon'
-    scqType = scq.TunableTransmon
+    scqType = TunableTransmon
 
     __slots__ = []
-
-    @property
-    def EJmax(self):
-        return self.scqObj.EJmax
-
-    @EJmax.setter
-    def EJmax(self, EJmax):
-        self.scqObj.EJmax = EJmax
-        self._udpateScqHam()
-
-    @property
-    def d(self):
-        return self.scqObj.d
-
-    @d.setter
-    def d(self, d):
-        self.scqObj.d = d
-        self._udpateScqHam()
-
-    @property
-    def flux(self):
-        return self.scqObj.flux
-
-    @flux.setter
-    def flux(self, flux):
-        self.scqObj.flux = flux
-        self._udpateScqHam()
-
-    # Override EJ property since it's calculated differently for tunable transmon
-    @property
-    def EJ(self):
-        return self.scqObj.EJ
-
-    # Remove the inherited EJ setter since EJ is calculated from EJmax, d, and flux
-    @scqTransmon.EJ.deleter
-    def EJ(self):
-        pass  # EJ is read-only for tunable transmon
