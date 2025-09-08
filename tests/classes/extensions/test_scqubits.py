@@ -138,3 +138,45 @@ def test_eigenstate():
 
         assert allclose(state, comp)
 
+def test_find_EJ_EC():
+    """
+    Test the static method find_EJ_EC()
+    """
+    ω01 = 6.28e9 
+    α = -223e6
+    EJ, EC = scqTransmon.find_EJ_EC(ω01, α)
+    tmon = scqTransmon(EJ=EJ, EC=EC, ng=0.0, ncut=30)
+    assert allclose(tmon.E01(), ω01) and allclose(tmon.anharmonicity(), α)
+
+    ω01 = 23.78
+    α = -1.45
+    EJ, EC = scqTransmon.find_EJ_EC(ω01, α)
+    tmon = scqTransmon(EJ=EJ, EC=EC, ng=0.0, ncut=30)
+    assert allclose(tmon.E01(), ω01) and allclose(tmon.anharmonicity(), α)
+
+    # Invalid Inputs 
+
+    try:
+        ω01 = -1.0 
+        α = -0.1
+        scqTransmon.find_EJ_EC(ω01, α)
+    except ValueError as e:
+        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+
+
+    try:
+        ω01 = 6.28 
+        α = 0.1
+        scqTransmon.find_EJ_EC(ω01, α)
+    except ValueError as e:
+        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+
+    try:
+        ω01 = 1.0
+        α = -2.0
+        scqTransmon.find_EJ_EC(ω01, α)
+    except ValueError as e:
+        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+
+
+
