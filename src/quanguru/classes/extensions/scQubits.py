@@ -119,25 +119,12 @@ class scqTransmon(scQubit):
         if ω01 < 0 or α > 0 or abs(α) > abs(ω01):
             raise ValueError(f'Invalid transmon properties ω01={ω01}, anharmonicity={α}')
 
-        
         EJ = (ω01 + (-α))**2 / (8*(-α))
         EC = np.abs(α)
-        # if not quiet:
-        #     print('Estimates:')
-        #     print(f'EJ    = {EJ}')
-        #     print(f'EC    = {EC}')
-        #     print(f'EJ/EC = {EJ/EC}')
 
         x = scipy.optimize.fsolve(budget, [EJ, EC])
         tmon = Transmon(EJ=x[0], EC=x[1], ng=0, ncut=30)
 
-        # if not quiet:
-            # print('Computation:')
-            # print(f'EJ    = {x[0]}')
-            # print(f'EC    = {x[1]}')
-            # print(f'EJ/EC = {x[0]/x[1]}')
-            # print(f'ω01   = {tmon.E01()}')
-            # print(f'α     = {tmon.anharmonicity()}')
         return tmon.EJ, tmon.EC
     
 
