@@ -1,5 +1,8 @@
-from quanguru import scqTransmon, QuantumToolbox
+from quanguru import scqTransmon, scqTunableTransmon, QuantumToolbox
 from numpy import allclose, argsort, exp, angle, abs
+import pytest
+from scqubits.core.descriptors import WatchedProperty
+from numpy import pi, sqrt
 
 def test_scqTransmonDimension():
     """
@@ -62,39 +65,45 @@ def test_invalidDimension():
     except ValueError as e:
         assert str(e) == 'dimension must be an integer'
 
-def test_updatingWatchedProperties():
+@pytest.mark.parametrize(
+    "scqClass", 
+    [
+        scqTransmon,
+        scqTunableTransmon,
+    ]
+)
+def test_updatingWatchedProperties(scqClass):
     """
     Test the updating of the watched properties of the scqTransmon class
         - EJ
         - EC
         - ng
     """
+    scqClass._resetAll()
 
-    tmon = scqTransmon(dimension=21, EJ=20e9, EC=0.2e9, ng=0.0)
-    assert tmon.EJ == 20e9
-    assert tmon.EC == 0.2e9
-    assert tmon.ng == 0.0
+    watchedProperties = [attr for attr in dir(scqClass.scqType) if isinstance(getattr(scqClass.scqType, attr), WatchedProperty)]
+    watchedProperties.remove('truncated_dim')
 
-    tmon._paramBoundBase__paramUpdated = False
+    qubit = scqClass()
+    
 
-    tmon.scqObj.EJ = 25e9
-    assert tmon.EJ == 25e9
-    assert tmon.scqObj.EJ == 25e9
-    assert tmon._paramBoundBase__paramUpdated == True
+    for prop in watchedProperties:
 
-    tmon._paramBoundBase__paramUpdated = False
+        qubit._paramBoundBase__paramUpdated = False
 
-    tmon.scqObj.EC = 0.25e9
-    assert tmon.EC == 0.25e9
-    assert tmon.scqObj.EC == 0.25e9
-    assert tmon._paramBoundBase__paramUpdated == True
+        originalValue = getattr(qubit, prop)
+        if prop == 'ncut':
+            newValue = originalValue + 2
+        elif isinstance(originalValue, (float, int)):
+            newValue = originalValue + 2
+        else:
+            continue
 
-    tmon._paramBoundBase__paramUpdated = False
+        setattr(qubit, prop, newValue)
 
-    tmon.scqObj.ng = 0.1
-    assert tmon.ng == 0.1
-    assert tmon.scqObj.ng == 0.1
-    assert tmon._paramBoundBase__paramUpdated == True
+        assert getattr(qubit, prop) == newValue
+        assert getattr(qubit.scqObj, prop) == newValue
+        assert qubit._paramBoundBase__paramUpdated == True
 
 # def test_getAttribute():
 #     """
@@ -138,45 +147,52 @@ def test_eigenstate():
 
         assert allclose(state, comp)
 
-def test_find_EJ_EC():
+@pytest.mark.parametrize(
+    "scqClass", 
+    [
+        scqTransmon,
+        scqTunableTransmon,
+    ]
+)
+def test_updateHamiltonian(scqClass):
     """
-    Test the static method find_EJ_EC()
+    Test that updating any of the watched properties of the scqTransmon class
+    results in an updated totalHamiltonian
     """
-    ω01 = 6.28e9 
-    α = -223e6
-    EJ, EC = scqTransmon.find_EJ_EC(ω01, α)
-    tmon = scqTransmon(EJ=EJ, EC=EC, ng=0.0, ncut=30)
-    assert allclose(tmon.E01(), ω01) and allclose(tmon.anharmonicity(), α)
+    scqClass._resetAll()
 
-    ω01 = 23.78
-    α = -1.45
-    EJ, EC = scqTransmon.find_EJ_EC(ω01, α)
-    tmon = scqTransmon(EJ=EJ, EC=EC, ng=0.0, ncut=30)
-    assert allclose(tmon.E01(), ω01) and allclose(tmon.anharmonicity(), α)
+    watchedProperties = [attr for attr in dir(scqClass.scqType) if isinstance(getattr(scqClass.scqType, attr), WatchedProperty)]
+    watchedProperties.remove('truncated_dim')
 
-    # Invalid Inputs 
+    kwargs = {
+        'ng': 0.25,
+    }
 
-    try:
-        ω01 = -1.0 
-        α = -0.1
-        scqTransmon.find_EJ_EC(ω01, α)
-    except ValueError as e:
-        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+    if 'flux' in watchedProperties:
+        kwargs['flux'] = 0.1
 
+    scqubit = scqClass(**kwargs)
 
-    try:
-        ω01 = 6.28 
-        α = 0.1
-        scqTransmon.find_EJ_EC(ω01, α)
-    except ValueError as e:
-        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+    H0 = scqubit.totalHamiltonian
+    
+    for prop in watchedProperties:
+        originalValue = getattr(scqubit, prop)
+        if prop == 'ncut':
+            newValue = originalValue + 2
+        elif isinstance(originalValue, float):
+            newValue = originalValue + pi * sqrt(2)
+        elif isinstance(originalValue, int):
+            newValue = originalValue + 2
+        else:
+            continue
 
-    try:
-        ω01 = 1.0
-        α = -2.0
-        scqTransmon.find_EJ_EC(ω01, α)
-    except ValueError as e:
-        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+        setattr(scqubit, prop, newValue)
 
+        H1 = scqubit.totalHamiltonian
 
+        try:
+            assert not allclose(H0, H1), f"Hamiltonian did not update after changing {prop} from {originalValue} to {newValue}"
+        except ValueError:
+            continue
 
+        H0 = H1

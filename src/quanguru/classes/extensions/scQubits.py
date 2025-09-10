@@ -108,20 +108,20 @@ class scqTransmon(scQubit):
 
 
     @staticmethod
-    def find_EJ_EC(ω01, α):
+    def find_EJ_EC(omega01, alpha):
         """
         Computes and returns approximated values of EJ and EC for a transmon given
-        gap ω01 and anharmonicity
+        gap omega01 and anharmonicity
         """
         def budget(x):
             tmon = Transmon(EJ=x[0], EC=x[1], ng=0, ncut=30)
-            return [tmon.E01() - ω01, α - tmon.anharmonicity()]
+            return [tmon.E01() - omega01, alpha - tmon.anharmonicity()]
         
-        if ω01 < 0 or α > 0 or abs(α) > abs(ω01):
-            raise ValueError(f'Invalid transmon properties ω01={ω01}, anharmonicity={α}')
+        if omega01 < 0 or alpha > 0 or abs(alpha) > abs(omega01):
+            raise ValueError(f'Invalid transmon properties omega01={omega01}, anharmonicity={alpha}')
 
-        EJ = (ω01 + (-α))**2 / (8*(-α))
-        EC = np.abs(α)
+        EJ = (omega01 + (-alpha))**2 / (8*(-alpha))
+        EC = np.abs(alpha)
 
         x = scipy.optimize.fsolve(budget, [EJ, EC])
         tmon = Transmon(EJ=x[0], EC=x[1], ng=0, ncut=30)
