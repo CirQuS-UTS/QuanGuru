@@ -48,6 +48,7 @@ class scQubit(QuantumSystem):
         """
         if sender is self.scqObj:
             self._paramUpdated = True
+            self._firstTerm._paramBoundBase__matrix = None
             if self._scQubit__ncut != self.scqObj.ncut:
                 self._scQubit__ncut = self.scqObj.ncut
                 QuantumSystem.dimension.fset(self, 2*self._scQubit__ncut + 1)
