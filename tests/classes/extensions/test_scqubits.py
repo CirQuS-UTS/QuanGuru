@@ -209,43 +209,38 @@ def test_find_EJ_EC():
     """
     Test the static method find_EJ_EC()
     """
-    ω01 = 6.28e9 
-    α = -223e6
-    EJ, EC = scqTransmon.find_EJ_EC(ω01, α)
+    omega01 = 6.28e9 
+    alpha = -223e6
+    EJ, EC = scqTransmon.find_EJ_EC(omega01, alpha)
     tmon = scqTransmon(EJ=EJ, EC=EC, ng=0.0, ncut=30)
-    assert allclose(tmon.E01(), ω01) and allclose(tmon.anharmonicity(), α)
+    assert allclose(tmon.E01(), omega01) and allclose(tmon.anharmonicity(), alpha)
 
-    ω01 = 23.78
-    α = -1.45
-    EJ, EC = scqTransmon.find_EJ_EC(ω01, α)
+    omega01 = 23.78
+    alpha = -1.45
+    EJ, EC = scqTransmon.find_EJ_EC(omega01, alpha)
     tmon = scqTransmon(EJ=EJ, EC=EC, ng=0.0, ncut=30)
-    assert allclose(tmon.E01(), ω01) and allclose(tmon.anharmonicity(), α)
+    assert allclose(tmon.E01(), omega01) and allclose(tmon.anharmonicity(), alpha)
 
     # Invalid Inputs 
 
     try:
-        ω01 = -1.0 
-        α = -0.1
-        scqTransmon.find_EJ_EC(ω01, α)
+        omega01 = -1.0 
+        alpha = -0.1
+        scqTransmon.find_EJ_EC(omega01, alpha)
     except ValueError as e:
-        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+        assert str(e) == f'Invalid transmon properties omega01={omega01}, anharmonicity={alpha}'
 
 
     try:
-        ω01 = 6.28 
-        α = 0.1
-        scqTransmon.find_EJ_EC(ω01, α)
+        omega01 = 6.28 
+        alpha = 0.1
+        scqTransmon.find_EJ_EC(omega01, alpha)
     except ValueError as e:
-        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+        assert str(e) == f'Invalid transmon properties omega01={omega01}, anharmonicity={alpha}'
 
     try:
-        ω01 = 1.0
-        α = -2.0
-        scqTransmon.find_EJ_EC(ω01, α)
+        omega01 = 1.0
+        alpha = -2.0
+        scqTransmon.find_EJ_EC(omega01, alpha)
     except ValueError as e:
-        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
-
-
-
-
-test_scqTransmonDimension()
+        assert str(e) == f'Invalid transmon properties omega01={omega01}, anharmonicity={alpha}'
