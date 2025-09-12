@@ -3,6 +3,7 @@ from scqubits.core.central_dispatch import DispatchClient, CENTRAL_DISPATCH
 from ..QSystem import QuantumSystem
 import numpy as np
 import scipy.optimize
+import warnings
 
 
 class scQubit(QuantumSystem):
@@ -21,16 +22,22 @@ class scQubit(QuantumSystem):
     __slots__ = ['scqObj', '__ncut', '__listener']
 
     def __init__(self, **kwargs):
-        # instantiating the scqObj
+
+        if 'ncut' in kwargs and 'dimension' in kwargs:
+            warnings.warn(
+                "When initialising both ncut and dimension, the value for dimension takes precedence, "
+                + "and ncut is set accordingly via ncut = (dim - 1)//2."
+            )
+
         scqAttrs = self.scqType.default_params()
         keys = scqAttrs.keys()
         for key in keys:
             if key in kwargs.keys():
                 scqAttrs[key] = kwargs.pop(key)
-   
         self.scqObj = self.scqType(**scqAttrs)
 
         super().__init__(**kwargs)
+
 
         self.__listener = DispatchClient()
         self.__listener.receive = self._paramUpdatedHandler

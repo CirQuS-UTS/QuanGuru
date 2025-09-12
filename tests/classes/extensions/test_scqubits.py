@@ -1,3 +1,4 @@
+import pytest
 from quanguru import scqTransmon, scqTunableTransmon, QuantumToolbox
 from numpy import allclose, argsort, exp, angle, abs
 import pytest
@@ -40,6 +41,13 @@ def test_scqTransmonDimension():
     assert tmon.dimension == 11
     assert tmon.ncut == 5
     assert tmon.totalHamiltonian.shape[0] == 11
+
+    scqTransmon._resetAll()
+    with pytest.warns(UserWarning, match="dimension takes precedence"):
+        tmon = scqTransmon(EJ=10e9, EC=0.1e9, ng=0.0, ncut=5, dimension=21)
+    assert tmon.dimension == 21
+    assert tmon.ncut == 10
+    assert tmon.totalHamiltonian.shape[0] == 21
 
 def test_invalidDimension():
     """
@@ -196,3 +204,48 @@ def test_updateHamiltonian(scqClass):
             continue
 
         H0 = H1
+
+def test_find_EJ_EC():
+    """
+    Test the static method find_EJ_EC()
+    """
+    ω01 = 6.28e9 
+    α = -223e6
+    EJ, EC = scqTransmon.find_EJ_EC(ω01, α)
+    tmon = scqTransmon(EJ=EJ, EC=EC, ng=0.0, ncut=30)
+    assert allclose(tmon.E01(), ω01) and allclose(tmon.anharmonicity(), α)
+
+    ω01 = 23.78
+    α = -1.45
+    EJ, EC = scqTransmon.find_EJ_EC(ω01, α)
+    tmon = scqTransmon(EJ=EJ, EC=EC, ng=0.0, ncut=30)
+    assert allclose(tmon.E01(), ω01) and allclose(tmon.anharmonicity(), α)
+
+    # Invalid Inputs 
+
+    try:
+        ω01 = -1.0 
+        α = -0.1
+        scqTransmon.find_EJ_EC(ω01, α)
+    except ValueError as e:
+        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+
+
+    try:
+        ω01 = 6.28 
+        α = 0.1
+        scqTransmon.find_EJ_EC(ω01, α)
+    except ValueError as e:
+        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+
+    try:
+        ω01 = 1.0
+        α = -2.0
+        scqTransmon.find_EJ_EC(ω01, α)
+    except ValueError as e:
+        assert str(e) == f'Invalid transmon properties ω01={ω01}, anharmonicity={α}'
+
+
+
+
+test_scqTransmonDimension()
