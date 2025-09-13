@@ -134,7 +134,6 @@ class scqTransmon(scQubit):
 
         return x[0], x[1]
     
-
 class scqTunableTransmon(scqTransmon):
     
     instances = 0
