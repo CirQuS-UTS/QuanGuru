@@ -131,9 +131,8 @@ class scqTransmon(scQubit):
         EC = np.abs(alpha)
 
         x = scipy.optimize.fsolve(budget, [EJ, EC])
-        tmon = Transmon(EJ=x[0], EC=x[1], ng=0, ncut=30)
 
-        return tmon.EJ, tmon.EC
+        return x[0], x[1]
     
 
 class scqTunableTransmon(scqTransmon):
