@@ -21,7 +21,7 @@ class scQubit(QuantumSystem):
 
     scqType = None
 
-    __slots__ = ['_scqObj', '__listener', '_watchedProperties']
+    __slots__ = ['_scqObj', '_watchedProperties']
 
     def __init__(self, **kwargs):
 
