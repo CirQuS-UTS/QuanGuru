@@ -30,11 +30,6 @@ def test_scqTransmonDimension():
     assert tmon.ncut == 20
     assert tmon.totalHamiltonian.shape[0] == 41
 
-    tmon.scqObj.ncut = 25
-    assert tmon.dimension == 51
-    assert tmon.ncut == 25
-    assert tmon.totalHamiltonian.shape[0] == 51
-
     scqTransmon._resetAll()
 
     tmon = scqTransmon(EJ=10e9, EC=0.1e9, ng=0.0, ncut=5)
@@ -110,22 +105,8 @@ def test_updatingWatchedProperties(scqClass):
         setattr(qubit, prop, newValue)
 
         assert getattr(qubit, prop) == newValue
-        assert getattr(qubit.scqObj, prop) == newValue
+        assert getattr(qubit._scqObj, prop) == newValue
         assert qubit._paramBoundBase__paramUpdated == True
-
-# def test_getAttribute():
-#     """
-#     Test the __getattribute__ method of the scqTransmon class
-#         - getting attributes from the scqTransmon class
-#         - getting attributes from the QuantumSystem class
-#         - getting attributes from the scqubit.Transmon class
-#     """
-#     tmon = scqTransmon(dimension=21, EJ=20e9, EC=0.2e9, ng=0.0)
-
-#     assert tmon.ncut == 10
-#     assert tmon.EJ == 20e9
-#     assert tmon.EC == 0.2e9
-#     assert tmon.ng == 0.0
 
 def test_eigenstate():
     """
@@ -169,7 +150,7 @@ def test_updateHamiltonian(scqClass):
     """
     scqClass._resetAll()
 
-    watchedProperties = [attr for attr in dir(scqClass.scqType) if isinstance(getattr(scqClass.scqType, attr), WatchedProperty)]
+    watchedProperties = scqClass()._watchedProperties
     watchedProperties.remove('truncated_dim')
 
     kwargs = {

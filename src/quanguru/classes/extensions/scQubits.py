@@ -1,6 +1,8 @@
 from scqubits import Transmon, TunableTransmon
+from scqubits.core.descriptors import WatchedProperty
 from scqubits.core.central_dispatch import DispatchClient, CENTRAL_DISPATCH
 from ..QSystem import QuantumSystem
+from ..QSimBase import setAttr
 import numpy as np
 import scipy.optimize
 import warnings
@@ -19,7 +21,7 @@ class scQubit(QuantumSystem):
 
     scqType = None
 
-    __slots__ = ['scqObj', '__ncut', '__listener']
+    __slots__ = ['_scqObj', '__listener', '_watchedProperties']
 
     def __init__(self, **kwargs):
 
@@ -29,54 +31,41 @@ class scQubit(QuantumSystem):
                 + "and ncut is set accordingly via ncut = (dim - 1)//2."
             )
 
+        # instantiate the internal scqubits object with default parameters
+        # (overridden by any kwargs that match the scqubits parameters)
         scqAttrs = self.scqType.default_params()
         keys = scqAttrs.keys()
         for key in keys:
             if key in kwargs.keys():
                 scqAttrs[key] = kwargs.pop(key)
-        self.scqObj = self.scqType(**scqAttrs)
+   
+        self._scqObj = self.scqType(**scqAttrs)
+        self._watchedProperties = [attr for attr in dir(self.scqType) if isinstance(getattr(self.scqType, attr), WatchedProperty)]
 
         super().__init__(**kwargs)
 
-
-        self.__listener = DispatchClient()
-        self.__listener.receive = self._paramUpdatedHandler
-        CENTRAL_DISPATCH.register("QUANTUMSYSTEM_UPDATE", self.__listener)
-
         self._QuantumSystem__compSys = False
         self.frequency = 1
-        self.__ncut = 0
-        self.dimension = 2*self.scqObj.ncut + 1
         self.operator = self.scqHamiltonian
-
-    def _paramUpdatedHandler(self, event, sender):
-        """
-        Callback function to handle parameter updates from scqubits objects pertaining to the Hamiltonian
-        """
-        if sender is self.scqObj:
-            self._paramUpdated = True
-            self._firstTerm._paramBoundBase__matrix = None
-            if self._scQubit__ncut != self.scqObj.ncut:
-                self._scQubit__ncut = self.scqObj.ncut
-                QuantumSystem.dimension.fset(self, 2*self._scQubit__ncut + 1)
+        QuantumSystem.dimension.fset(self, kwargs.pop('dimension', 2*self.ncut + 1))
 
     def scqHamiltonian(self, dim):
         r"""
         This method returns the qubit Hamiltonian
         """
-        return self.scqObj.hamiltonian()
+        return self._scqObj.hamiltonian()
 
     @QuantumSystem.dimension.setter
     def dimension(self, dim):
         if dim % 2 == 0:
             raise ValueError('dimension must be odd for scqubits qubits')
-        self.scqObj.ncut = (dim - 1)//2
+        self.ncut = (dim - 1)//2
 
     def eigenstate(self, n):
         r"""
         This method returns the eigenvalues and eigenstates of the qubit Hamiltonian
         """
-        return self.scqObj.numberbasis_wavefunction(esys=None, which=n).amplitudes.reshape(self.dimension, 1)
+        return self._scqObj.numberbasis_wavefunction(esys=None, which=n).amplitudes.reshape(self.dimension, 1)
 
     def __getattribute__(self, __name: str):
         r"""
@@ -86,7 +75,7 @@ class scQubit(QuantumSystem):
             obj = super().__getattribute__(__name)
         except AttributeError as attErr1:
             try:
-                obj = getattr(self.scqObj, __name)
+                obj = getattr(self._scqObj, __name)
             except AttributeError as exc:
                 raise attErr1 from exc
         return obj
@@ -99,7 +88,13 @@ class scQubit(QuantumSystem):
             obj = super().__setattr__(__name, __value)
         except AttributeError as attErr1:
             try:
-                obj = setattr(self.scqObj, __name, __value)
+                val = getattr(self._scqObj, __name)
+                obj = setattr(self._scqObj, __name, __value)
+                if val != __value and __name in self._watchedProperties:
+                    self._paramUpdated = True
+                    self._firstTerm._paramBoundBase__matrix = None
+                    if __name == 'ncut':
+                        QuantumSystem.dimension.fset(self, 2*self.ncut + 1)
             except AttributeError as exc:
                 raise attErr1 from exc
         return obj
