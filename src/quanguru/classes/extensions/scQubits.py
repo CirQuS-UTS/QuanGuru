@@ -146,7 +146,7 @@ class scqTunableTransmon(scqTransmon):
 
         def cost(flux):
             tempTmon = TunableTransmon(flux=flux, **kwargs)
-            return (tempTmon.E01() - omega01)**2
+            return np.abs(tempTmon.E01() - omega01)
         
         E01_max = TunableTransmon(**kwargs, flux=0).E01()
         E01_min = TunableTransmon(**kwargs, flux=0.5).E01()
