@@ -2,7 +2,6 @@ from scqubits import Transmon, TunableTransmon
 from scqubits.core.descriptors import WatchedProperty
 from scqubits.core.central_dispatch import DispatchClient, CENTRAL_DISPATCH
 from ..QSystem import QuantumSystem
-from ..QSimBase import setAttr
 import numpy as np
 import scipy.optimize
 import warnings
@@ -112,10 +111,9 @@ class scqTransmon(scQubit):
     @staticmethod
     def find_EJ_EC(omega01, alpha):
         """
-        Computes and returns approximated values of EJ and EC for a transmon given
-        gap omega01 and anharmonicity
+        Determines required values of EJ and EC for a transmon given transition frequency, :math:`\omega_01`, and anharmonicity, :math:`\alpha`.
         """
-        def budget(x):
+        def cost(x):
             tmon = Transmon(EJ=x[0], EC=x[1], ng=0, ncut=30)
             return [tmon.E01() - omega01, alpha - tmon.anharmonicity()]
         
@@ -125,7 +123,7 @@ class scqTransmon(scQubit):
         EJ = (omega01 + (-alpha))**2 / (8*(-alpha))
         EC = np.abs(alpha)
 
-        x = scipy.optimize.fsolve(budget, [EJ, EC])
+        x = scipy.optimize.fsolve(cost, [EJ, EC])
 
         return x[0], x[1]
     
@@ -136,3 +134,26 @@ class scqTunableTransmon(scqTransmon):
     scqType = TunableTransmon
 
     __slots__ = []
+
+    def find_flux(self, omega01):
+        """
+        Determines the value of flux, :math:`\Phi/\Phi_0`, required to tune the first transition frequency to :math:`\omega_01`
+        """
+        kwargs = TunableTransmon.default_params()
+        for key in kwargs.keys():
+            kwargs[key] = getattr(self, key)
+        kwargs.pop('flux')
+
+        def cost(flux):
+            tempTmon = TunableTransmon(flux=flux, **kwargs)
+            return (tempTmon.E01() - omega01)**2
+        
+        E01_max = TunableTransmon(**kwargs, flux=0).E01()
+        E01_min = TunableTransmon(**kwargs, flux=0.5).E01()
+
+        if omega01 < E01_min or omega01 > E01_max:
+            raise ValueError(f'Frequency outside of reachable range: {E01_min:.2e} < omega01 < {E01_max:.2e}')
+
+        x = scipy.optimize.minimize(cost, x0=[0.1], bounds=([0, 0.5],))
+
+        return x.x[0]
