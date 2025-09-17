@@ -1,4 +1,4 @@
-import quanguru as qg
+from quanguru import Qubit, SpinRotation
 import random
 import numpy as np
 
@@ -6,7 +6,7 @@ def test_SpinRotation():
     """
     Test that the SpinRotation class correctly creates its superoperator
     """
-    sysQub = qg.Qubit(frequency=round(random.random(), 2))
+    sysQub = Qubit(frequency=round(random.random(), 2))
     angle = round(random.random()*2*np.pi, 2)
 
     c = np.cos(angle/2)
@@ -24,9 +24,9 @@ def test_SpinRotation():
                     [0, np.exp(1j*angle/2)]])
 
 
-    SOX = qg.SpinRotation(system = sysQub, angle=angle, rotationAxis='x')._rotMat(openSys=False).A
-    SOY = qg.SpinRotation(system = sysQub, angle=angle, rotationAxis='y')._rotMat(openSys=False).A
-    SOZ = qg.SpinRotation(system = sysQub, angle=angle, rotationAxis='z')._rotMat(openSys=False).A
+    SOX = SpinRotation(system = sysQub, angle=angle, rotationAxis='x')._rotMat(openSys=False).toarray()
+    SOY = SpinRotation(system = sysQub, angle=angle, rotationAxis='y')._rotMat(openSys=False).toarray()
+    SOZ = SpinRotation(system = sysQub, angle=angle, rotationAxis='z')._rotMat(openSys=False).toarray()
 
     assert np.isclose(SOX,spinX).all()
     assert np.isclose(SOY,spinY).all()
@@ -37,7 +37,7 @@ def test_SpinRotationSO():
     """
     Test that the SpinRotation class correctly creates its superoperator
     """
-    sysQub = qg.Qubit(frequency=round(random.random(), 2))
+    sysQub = Qubit(frequency=round(random.random(), 2))
     angle = round(random.random()*2*np.pi, 2)
 
     c = np.cos(angle/2)
@@ -60,9 +60,9 @@ def test_SpinRotationSO():
                       [0, 0, 0, 1]])
 
 
-    SOX = qg.SpinRotation(system = sysQub, angle=angle, rotationAxis='x')._rotMat(openSys=True).A
-    SOY = qg.SpinRotation(system = sysQub, angle=angle, rotationAxis='y')._rotMat(openSys=True).A
-    SOZ = qg.SpinRotation(system = sysQub, angle=angle, rotationAxis='z')._rotMat(openSys=True).A
+    SOX = SpinRotation(system = sysQub, angle=angle, rotationAxis='x')._rotMat(openSys=True).toarray()
+    SOY = SpinRotation(system = sysQub, angle=angle, rotationAxis='y')._rotMat(openSys=True).toarray()
+    SOZ = SpinRotation(system = sysQub, angle=angle, rotationAxis='z')._rotMat(openSys=True).toarray()
 
     assert np.isclose(SOX,spinX).all()
     assert np.isclose(SOY,spinY).all()
