@@ -46,7 +46,7 @@ from .states import (
 )
 from .operators import (
     number, destroy, create, identity, sigmaz, sigmay, sigmax, sigmap, sigmam, Jz, Jp, Jm, Jx, Jy, Js, operatorPow,
-    paritySUM, parityEXP, displacement, squeeze, compositeOp, randomH, goeH, gueH, gueHT
+    paritySUM, parityEXP, displacement, squeeze, compositeOp, goeH, gueH, gueHT
 )
 from .evolution import (
     Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _postSO, _prepostSO, evolveOpen, steadyStateHam,
