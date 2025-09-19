@@ -301,10 +301,10 @@ class QTerm(paramBoundBase):
             dim = 0.5*(dim-1)
 
         if oper in [qOps.randomH, qOps.goeH, qOps.gueH, qOps.gueHT]:
-            seedNum = qsys.seedNum
+            seedNums = qsys.seedNums
             # if oper in [qOps.gseH]:
             #     dim = int(dim/2)
-            operMat = _matPower(oper(dim, seedNum), order)
+            operMat = _matPower(oper(dim, seedNums), order)
 
         elif not QTerm._isOperPauli(oper):
             operMat = _matPower(oper(dim), order)

@@ -1,9 +1,11 @@
 import pytest
 import quanguru.classes.QSystem as QSys
-import random as rnd
+from random import randint
 
-def test_randomMatrix():
-    # test if the random totalHamiltonian without seed number is generated randomly 
+def test_seedNumsInstantiation():
+    """
+    Test that the seedNums attribute is set to a random value upon instantiation if not provided.
+    """
     dim = 10
     H1 = QSys.RandGOE(dimension=dim, frequency=1)
     H2 = QSys.RandGOE(dimension=dim, frequency=1)
@@ -15,28 +17,33 @@ def test_randomMatrix():
     H6 = QSys.RandGUEt(dimension=dim, frequency=1)
     assert not (H5.totalHamiltonian == H6.totalHamiltonian).all()
 
+def test_seedNumsChange():
+    """
+    Test that changing the seedNums attribute changes the generated totalHamiltonian.
+    """
+    dim = 10
     # test if the random totalHamiltonian is generated correctly with the given seed number
-    seedNum = [rnd.randint(1, 1000), rnd.randint(1, 1000)]
-    GOE1 = QSys.RandGOE(dimension=dim, frequency=1, seedNum=seedNum)
-    GOE2 = QSys.RandGOE(dimension=dim, frequency=1, seedNum=seedNum)
+    seedNums = [randint(1, 1000), randint(1, 1000)]
+    GOE1 = QSys.RandGOE(dimension=dim, frequency=1, seedNums=seedNums)
+    GOE2 = QSys.RandGOE(dimension=dim, frequency=1, seedNums=seedNums)
     assert (GOE1.totalHamiltonian == GOE2.totalHamiltonian).all()
-    GUE1 = QSys.RandGUE(dimension=dim, frequency=1, seedNum=seedNum)
-    GUE2 = QSys.RandGUE(dimension=dim, frequency=1, seedNum=seedNum)
+    GUE1 = QSys.RandGUE(dimension=dim, frequency=1, seedNums=seedNums)
+    GUE2 = QSys.RandGUE(dimension=dim, frequency=1, seedNums=seedNums)
     assert (GUE1.totalHamiltonian == GUE2.totalHamiltonian).all()
-    GUEt1 = QSys.RandGUEt(dimension=dim, frequency=1, seedNum=seedNum)
-    GUEt2 = QSys.RandGUEt(dimension=dim, frequency=1, seedNum=seedNum)
+    GUEt1 = QSys.RandGUEt(dimension=dim, frequency=1, seedNums=seedNums)
+    GUEt2 = QSys.RandGUEt(dimension=dim, frequency=1, seedNums=seedNums)
     assert (GUEt1.totalHamiltonian == GUEt2.totalHamiltonian).all()
     # change the seed number and check if the totalHamiltonian is changed
-    seedNum2 = [rnd.randint(1, 1000), rnd.randint(1, 1000)]
-    GOE3 = QSys.RandGOE(dimension=dim, frequency=1, seedNum=seedNum2)
-    GOE1.seedNum = seedNum2
-    assert not (GOE1.totalHamiltonian == GOE1.totalHamiltonian).all()
+    seedNums2 = [randint(1, 1000), randint(1, 1000)]
+    GOE3 = QSys.RandGOE(dimension=dim, frequency=1, seedNums=seedNums2)
+    GOE1.seedNums = seedNums2
+    assert not (GOE1.totalHamiltonian == GOE2.totalHamiltonian).all()
     assert (GOE1.totalHamiltonian == GOE3.totalHamiltonian).all()
-    GUE3 = QSys.RandGUE(dimension=dim, frequency=1, seedNum=seedNum2)
-    GUE1.seedNum = seedNum2
+    GUE3 = QSys.RandGUE(dimension=dim, frequency=1, seedNums=seedNums2)
+    GUE1.seedNums = seedNums2
     assert not (GUE1.totalHamiltonian == GUE2.totalHamiltonian).all()
     assert (GUE1.totalHamiltonian == GUE3.totalHamiltonian).all()
-    GUEt3 = QSys.RandGUEt(dimension=dim, frequency=1, seedNum=seedNum2)
-    GUEt1.seedNum = seedNum2
+    GUEt3 = QSys.RandGUEt(dimension=dim, frequency=1, seedNums=seedNums2)
+    GUEt1.seedNums = seedNums2
     assert not (GUEt1.totalHamiltonian == GUEt2.totalHamiltonian).all()
     assert (GUEt1.totalHamiltonian == GUEt3.totalHamiltonian).all()
