@@ -23,6 +23,7 @@ class scQubit(QuantumSystem):
     __slots__ = ['_scqObj', '_watchedProperties']
 
     def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
 
         if 'ncut' in kwargs and 'dimension' in kwargs:
             warnings.warn(
@@ -41,12 +42,11 @@ class scQubit(QuantumSystem):
         self._scqObj = self.scqType(**scqAttrs)
         self._watchedProperties = [attr for attr in dir(self.scqType) if isinstance(getattr(self.scqType, attr), WatchedProperty)]
 
-        super().__init__(**kwargs)
-
         self._QuantumSystem__compSys = False
         self.frequency = 1
         self.operator = self.scqHamiltonian
-        QuantumSystem.dimension.fset(self, kwargs.pop('dimension', 2*self.ncut + 1))
+
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def scqHamiltonian(self, dim):
         r"""
@@ -54,7 +54,11 @@ class scQubit(QuantumSystem):
         """
         return self._scqObj.hamiltonian()
 
-    @QuantumSystem.dimension.setter
+    @property
+    def dimension(self):
+        return 2*self.ncut + 1
+
+    @dimension.setter
     def dimension(self, dim):
         if dim % 2 == 0:
             raise ValueError('dimension must be odd for scqubits qubits')
@@ -92,8 +96,6 @@ class scQubit(QuantumSystem):
                 if val != __value and __name in self._watchedProperties:
                     self._paramUpdated = True
                     self._firstTerm._paramBoundBase__matrix = None
-                    if __name == 'ncut':
-                        QuantumSystem.dimension.fset(self, 2*self.ncut + 1)
             except AttributeError as exc:
                 raise attErr1 from exc
         return obj
@@ -106,7 +108,6 @@ class scqTransmon(scQubit):
     scqType = Transmon
 
     __slots__ = []
-
 
     @staticmethod
     def find_EJ_EC(omega01, alpha):
