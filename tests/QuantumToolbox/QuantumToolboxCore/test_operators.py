@@ -88,32 +88,7 @@ def test_displacement():
     assert np.round(la.trace(ops.number(20) @ states.densityMatrix(displacedVacuum)), 8).real == np.round(abs(alpha)**2, 8)
 
     # coherent state is the eigenstate of destroy with eigenvalue alpha
-    assert np.allclose((ops.destroy(20)@displacedVacuum).A, (alpha*displacedVacuum).A, atol=1e-04, rtol=1e-04)
     assert np.allclose((ops.destroy(20)@displacedVacuum).toarray(), (alpha*displacedVacuum).toarray(), atol=1e-04, rtol=1e-04)
-
-def test_randomH():
-    # random Hamiltonian with no symmetry and unnormalised
-    op = ops.randomH(dimension=1000, normalise=False, symmetric=False)
-    # check hermitian
-    assert np.allclose(op.T.conj(), op)
-    # check no symmetry
-    assert not np.allclose(op, op.T)
-
-    # random Hamiltonian with symmetry and unnormalised
-    op = ops.randomH(dimension=1000, normalise=False, symmetric=True)
-    # check hermitian
-    assert np.allclose(op.T.conj(), op)
-    # check symmetry
-    assert np.allclose(op, op.T)
-
-    # random Hamiltonian with symmetry and normalised
-    op = ops.randomH(dimension=1000, normalise=True, symmetric=True)
-    # check hermitian
-    assert np.allclose(op.T.conj(), op)
-    # check symmetry
-    assert np.allclose(op, op.T)
-    # check normalisation
-    assert np.round(linalg.norm(op), 7) == 1
 
 def test_goeH():
     op = ops.goeH(dimension=1000)

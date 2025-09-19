@@ -300,7 +300,7 @@ class QTerm(paramBoundBase):
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)
 
-        elif oper in [qOps.goeH, qOps.gueH, qOps.gueHT]:
+        if oper in [qOps.goeH, qOps.gueH, qOps.gueHT]:
             seedNums = qsys.seedNums
             # if oper in [qOps.gseH]:
             #     dim = int(dim/2)

@@ -884,6 +884,8 @@ class RandGOE(RandSystem):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
     
+    __slots__ = []
+
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self.operator = goeH
@@ -902,7 +904,8 @@ class RandGUE(RandSystem):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
     
-    __slots__ = ['__seedNums']
+    __slots__ = []
+
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self.operator = gueH
@@ -921,7 +924,8 @@ class RandGUEt(RandSystem):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
     
-    __slots__ = ['__seedNums']
+    __slots__ = []
+    
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self.operator = gueHT
