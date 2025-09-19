@@ -33,7 +33,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz, randomH, goeH, gueH, gueHT
+from ..QuantumToolbox.operators import number, Jz, goeH, gueH, gueHT
 
 def _initStDec(_createInitialState):
     r"""
