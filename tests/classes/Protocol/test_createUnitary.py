@@ -57,7 +57,7 @@ def test_callDefaultUnitaryMethod():
     sim.addProtocol(freeEvolqub, qub)
 
     assert np.sum(np.abs(freeEvolqub.unitary()-Upauli(sim.stepSize*qub.frequency, [0, 0, 1]))) < 1e-9
-    assert np.sum(np.abs(freeEvolsys.unitary()-qg.Unitary(sys.totalHamiltonian.A))) < 1e-9
+    assert np.sum(np.abs(freeEvolsys.unitary()-qg.Unitary(sys.totalHamiltonian.toarray()))) < 1e-9
 
     #testing x gate
     sim.addProtocol(x, qub)

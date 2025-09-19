@@ -77,7 +77,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
     Examples
     --------
-    >>> Unitary(2*np.pi*sigmaz(), 1).A
+    >>> Unitary(2*np.pi*sigmaz(), 1).toarray()
     array([[1.+2.4492936e-16j, 0.+0.0000000e+00j],
            [0.+0.0000000e+00j, 1.-2.4492936e-16j]])
 
@@ -118,7 +118,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
 
     Examples
     --------
-    >>> Liouvillian(2*np.pi*sigmaz(), [2*np.pi*sigmaz()], [1]).A
+    >>> Liouvillian(2*np.pi*sigmaz(), [2*np.pi*sigmaz()], [1]).toarray()
     array([[  0.         +0.j        ,   0.         +0.j        ,
               0.         +0.j        ,   0.         +0.j        ],
            [  0.         +0.j        , -78.95683521+12.56637061j,
@@ -194,11 +194,11 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
 
     Examples
     --------
-    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [], []).A
+    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [], []).toarray()
     array([[1.+2.4492936e-16j, 0.+0.0000000e+00j],
            [0.+0.0000000e+00j, 1.-2.4492936e-16j]])
 
-    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [2*np.pi*sigmaz()], [1]).A
+    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [2*np.pi*sigmaz()], [1]).toarray()
     array([[1.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
             0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j],
            [0.00000000e+00+0.00000000e+00j, 5.12250228e-35-2.50930241e-50j,
@@ -253,13 +253,13 @@ def dissipator(operatorA: Matrix, operatorB: Optional[Matrix] = None,
 
     Examples
     --------
-    >>> dissipator(sigmaz()).A
+    >>> dissipator(sigmaz()).toarray()
     array([[ 0.,  0.,  0.,  0.],
            [ 0., -2.,  0.,  0.],
            [ 0.,  0., -2.,  0.],
            [ 0.,  0.,  0.,  0.]])
 
-    >>> dissipator(sigmam()).A
+    >>> dissipator(sigmam()).toarray()
     array([[-1. ,  0. ,  0. ,  0. ],
            [ 0. , -0.5,  0. ,  0. ],
            [ 0. ,  0. , -0.5,  0. ],
@@ -298,7 +298,7 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Examples
     --------
-    >>> evolution._preSO(sigmam()).A
+    >>> evolution._preSO(sigmam()).toarray()
     array([[0., 0., 0., 0.],
            [1., 0., 0., 0.],
            [0., 0., 0., 0.],
@@ -309,7 +309,7 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     if identity is None:
         identity = sp.identity(operator.shape[0], format="csc")
     pre = sp.kron(identity, operator, format='csc')
-    return pre if sp.issparse(operator) else pre.A
+    return pre if sp.issparse(operator) else pre.toarray()
 
 def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     r"""
@@ -331,7 +331,7 @@ def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Examples
     --------
-    >>> evolution._postSO(sigmam()).A
+    >>> evolution._postSO(sigmam()).toarray()
     array([[0., 0., 1., 0.],
            [0., 0., 0., 1.],
            [0., 0., 0., 0.],
@@ -342,7 +342,7 @@ def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     if identity is None:
         identity = sp.identity(operator.shape[0], format="csc")
     pos = sp.kron(operator.transpose(), identity, format='csc')
-    return pos if sp.issparse(operator) else pos.A
+    return pos if sp.issparse(operator) else pos.toarray()
 
 def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
     r"""
@@ -365,7 +365,7 @@ def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
 
     Examples
     --------
-    >>> evolution._prepostSO(sigmam()).A
+    >>> evolution._prepostSO(sigmam()).toarray()
     array([[0, 0, 0, 0],
            [0, 0, 0, 0],
            [0, 0, 0, 0],
@@ -375,7 +375,7 @@ def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
     if operatorB is None:
         operatorB = operatorA
     prepost = sp.kron(operatorB.transpose(), operatorA, format='csc')
-    return prepost if sp.issparse(operatorA) else prepost.A
+    return prepost if sp.issparse(operatorA) else prepost.toarray()
 
 def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Optional[Matrix] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object,too-many-arguments # noqa: E501
                collapseOperators: Optional[List] = None, decayRates: Optional[List] = None,

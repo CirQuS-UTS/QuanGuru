@@ -9,8 +9,8 @@ def comp(sim, st):
     #sim.qRes.singleResult = ("sz2", expectation(qubSz, st))
     dim = sim.auxObj.dim
     for i in range(dim-2):
-        sim.qRes.singleResult = (str(i) + "real", st.A[i][0].real)
-        sim.qRes.singleResult = (str(i) + "imag", st.A[i][0].imag)
+        sim.qRes.singleResult = (str(i) + "real", st.toarray()[i][0].real)
+        sim.qRes.singleResult = (str(i) + "imag", st.toarray()[i][0].imag)
 
 @pytest.mark.parametrize("bo, multiSweep, combinatorial", [(False, False, False), (True, False, False),
                                                         (False, True, False), (True, True, False),
@@ -49,7 +49,7 @@ def test_JCEvolution(bo, multiSweep, combinatorial, JC):
                 JC.cav.dimension = cavDimList[ind+((not combinatorial)*cind*multiSweep)]
                 JC.qub.initialState = initQubList[ind+((not combinatorial)*cind*multiSweep)]
                 JC.cav.initialState = initCavList[ind+((not combinatorial)*cind*multiSweep)]
-                inSt = JC.jc.initialState.A
+                inSt = JC.jc.initialState.toarray()
                 for i in range((2*cavDimList[0])-2):
                     n, q = JC.cavQubIndsToState(i)
                     ind2 = JC.cavQubStateToInds(n + (- 1)**(not q), not q) if ((n + (- 1)**(not q)) >= 0) else 1

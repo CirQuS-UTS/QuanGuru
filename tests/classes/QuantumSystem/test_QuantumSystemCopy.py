@@ -19,4 +19,4 @@ def test_copyMultiBodyCoupledCompositeSystem():
 
     copySys = qComp.copy()
 
-    assert np.allclose(copySys.totalHamiltonian.A, qComp.totalHamiltonian.A)
+    assert np.allclose(copySys.totalHamiltonian.toarray(), qComp.totalHamiltonian.toarray())
