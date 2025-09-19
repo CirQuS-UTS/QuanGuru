@@ -1010,54 +1010,6 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
         opPow = _matPower(op(sparse), power)
     return opPow
 
-def randomH(dimension: int, seedNum: list = [None, None], sparse: bool = False, 
-            mean: float = 0.0, SD: float = 1.0, normalise: bool = False, symmetric: bool = False):
-    r"""
-    Creates a matrix with random complex number elements from normal (Gaussian) distribution
-
-    Parameters
-    ----------
-    dimension : int
-        dimension of the Hilbert space
-    sparse : bool
-        if True(False), the returned Matrix type will be sparse(array)
-    seedNum: list
-        if None, seedNum for both real and imaginary part is randomly chosen
-    mean: float
-        mean of the normal distribution
-    SD: float
-        standard deviation of the normal distribution
-    norm: bool
-        if True(False), the returned matrix will be normalised(unnormalised)
-    symm: bool
-        if True(False), the returned matrix will be symmetrised(non-symmetrised)
-
-    Returns
-    -------
-    Matrix
-        random matrix operator
-
-    """
-    
-    real = np.random.default_rng(seed=seedNum[0]).normal(mean, SD, (dimension,dimension))
-    imag = np.random.default_rng(seed=seedNum[1]).normal(mean, SD, (dimension,dimension))
-    
-    val = real + 1j*imag
-    # Hamiltonian = sp.csc_matrix(val, (dimension, dimension), dtype=complex)
-    H = np.array(val, dtype=complex)
-
-    # to make the complex hamiltonian be Hermitian
-    Hamiltonian = H + H.T.conj()
-    
-    if symmetric==True:
-        HT = Hamiltonian.T
-        Hamiltonian = Hamiltonian + HT
-    if normalise==True:
-        Hamiltonian = Hamiltonian/norm(Hamiltonian)
-
-    # return Hamiltonian as an array
-    return Hamiltonian
-
 # ## old version ##
 # def haarMtx(dimension,seedNum) -> np.ndarray:
 #     """Samples Haar-distributed matrices.
@@ -1140,13 +1092,13 @@ def randomH(dimension: int, seedNum: list = [None, None], sparse: bool = False,
 #     Hamiltonian = linA.logm(matrix)/(-1j)
 #     return Hamiltonian
 
-def goeH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
+def goeH(dimension: int, seedNum: list = [None, None]) -> np.ndarray:
     mtx = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     # symmetrize matrix 
     matrix = (mtx + mtx.transpose())/np.sqrt(2) 
     return matrix
 
-def gueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray: 
+def gueH(dimension: int, seedNum: list = [None, None]) -> np.ndarray: 
     real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
     mtx = real + 1j*imag
@@ -1154,7 +1106,7 @@ def gueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> 
     matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
     return matrix
 
-def gueHT(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
+def gueHT(dimension: int, seedNum: list = [None, None]) -> np.ndarray:
     real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
     mtx = real + 1j*imag
@@ -1163,7 +1115,7 @@ def gueHT(dimension: int, seedNum: list = [None, None], sparse: bool = False) ->
     return matrix.transpose()
 
 # TODO: check and review GSE implementation
-# def gseH(dimension: int, seedNum: list = [None, None, None, None], sparse: bool = False) -> np.ndarray:
+# def gseH(dimension: int, seedNum: list = [None, None, None, None]) -> np.ndarray:
 #     xreal = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
 #     ximag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
 #     x_mtx = xreal + 1j*ximag
