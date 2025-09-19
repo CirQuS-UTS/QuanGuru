@@ -290,32 +290,39 @@ class QTerm(paramBoundBase):
         Static method to create the composite operator for a given quantum system and operator.
         This method is used in _constructMatrices, where the system and operator are passed.
         """
+        opMat = QTerm._callOp(qsys, oper) #pylint:disable=assigning-non-slot
+        opMat = _matPower(opMat, order)
+        opMat = compositeOp(opMat, dimB=qsys._dimsBefore, dimA=qsys._dimsAfter)
+        return opMat
+
+    @staticmethod
+    def _callOp(qsys, oper):
+        r"""
+        Static method to call the operator function passing appropriate information from the quantum system.
+        """
         dim = qsys.dimension
         checkNotVal(dim, 1, f'{qsys.name} is not given a dimension')
-        dimB = qsys._dimsBefore
-        dimA = qsys._dimsAfter
         if not callable(oper):
             raise TypeError(f'{qsys.name} term/s is not given a (callable) operator')
 
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)
 
-        if oper in [qOps.goeH, qOps.gueH, qOps.gueHT]:
-            seedNums = qsys.seedNums
-            # if oper in [qOps.gseH]:
-            #     dim = int(dim/2)
-            operMat = _matPower(oper(dim, seedNums), order)
+        # if oper in [qOps.goeH, qOps.gueH, qOps.gueHT]:
+        #     seedNums = qsys.seedNums
+        #     # if oper in [qOps.gseH]:
+        #     #     dim = int(dim/2)
+        #     operMat = oper(dim, seedNums)
 
-        elif not QTerm._isOperPauli(oper):
-            operMat = _matPower(oper(dim), order)
+        if not QTerm._isOperPauli(oper):
+            kwargs = {val: getattr(qsys, key) for key, val in qsys.opArgs.items()}
+            operMat = oper(dim, **kwargs)
 
         else:
             QTerm._isCorrectPauliDim(qsys, oper, dim)
-            operMat = _matPower(oper(), order)
-
-        operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
+            operMat = oper()
         
-        return operCompMat
+        return operMat
 
     def _constructMatrices(self):
         r"""
@@ -324,7 +331,7 @@ class QTerm(paramBoundBase):
         """
         if all(hasattr(self.qSystem, attr) for attr in ["dimension", "_dimsBefore", "_dimsAfter"]):
             if len(self.subSys) == 0:
-                self._paramBoundBase__matrix = self._dimInput(self.qSystem, self.operator, self.order) #pylint:disable=assigning-non-slot
+                self._paramBoundBase__matrix = self._dimInput(self.qSystem, self.operator, self.order) # pylint: disable=assigning-non-slot
             else:
                 self._paramBoundBase__matrix=sum(ter._constructMatrices() for ter in self.subSys.values()) #pylint:disable=protected-access,assigning-non-slot
         elif isinstance(self.qSystem, (list, tuple)):

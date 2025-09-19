@@ -70,7 +70,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     _instances: int = 0
 
     __slots__ = ['timeDependency', '__terms', '__dimension', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
-                 '__unitary', '__compOpers']
+                 '__unitary', '__compOpers', 'opArgs']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
@@ -91,6 +91,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self._inpCoef = kwargs.pop("_inpCoef", False)
         #: a dictionary to store arbitrary composite operators that are shaped and updated internally
         self.__compOpers = {}
+        #: dictionary mapping attribute names to kwargs passed to the operator
+        self.opArgs = {}
         #: function that can be assigned by the user to update the parameters a function of time. The library passes the
         #: current time to this function, and any desired parameter can be updated as a function of time.
         self.timeDependency = None
@@ -856,6 +858,7 @@ class RandSystem(QuantumSystem):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
         self.__seedNums = kwargs.pop('seedNums', [random.randint(1000), random.randint(1000)])
+        self.opArgs = {'seedNums': 'seedNum'}
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property

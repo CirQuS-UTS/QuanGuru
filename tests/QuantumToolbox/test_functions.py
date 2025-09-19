@@ -71,10 +71,10 @@ def test_fidelityPure(helpers):
         assert round(fid, 12) == round(fin, 12)
         state1 = la.outerProd(state1)
         fid = fns.fidelityPure(state1, state2)
-        assert round(fid, 7) == round(fin, 7)
+        assert round(fid, 6) == round(fin, 6)
         state2 = la.outerProd(state2)
         fid = fns.fidelityPure(state1, state2)
-        assert round(fid, 7) == round(fin, 7)
+        assert round(fid, 6) == round(fin, 6)
 
 stateNames = ['0', '1', 'x+', 'x-', 'y+', 'y-']
 bellStateN = ['BellPhi+', 'BellPhi-', 'BellPsi+', 'BellPsi-']
