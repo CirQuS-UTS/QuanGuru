@@ -1,5 +1,5 @@
-import pytest
 import quanguru.classes.QSystem as QSys
+from quanguru.QuantumToolbox.operators import goeH, gueH, gueHT
 from random import randint
 
 def test_seedNumsInstantiation():
@@ -16,6 +16,19 @@ def test_seedNumsInstantiation():
     H5 = QSys.RandGUEt(dimension=dim, frequency=1)
     H6 = QSys.RandGUEt(dimension=dim, frequency=1)
     assert not (H5.totalHamiltonian == H6.totalHamiltonian).all()
+
+def test_seedNumsPassedToOperator():
+    """
+    Test that the seedNums attribute is passed to the operator function on .totalHamiltonian call.
+    """
+    dim = 10
+    seedNums = [randint(1, 1000), randint(1, 1000)]
+
+    GOE1 = QSys.RandGOE(dimension=dim, frequency=1, seedNums=seedNums)
+    assert (GOE1.totalHamiltonian == goeH(dim, seedNums)).all()
+
+    GUE1 = QSys.RandGUE(dimension=dim, frequency=1, seedNums=seedNums)
+    assert (GUE1.totalHamiltonian == gueH(dim, seedNums)).all()
 
 def test_seedNumsChange():
     """
