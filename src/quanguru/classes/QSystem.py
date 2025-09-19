@@ -931,7 +931,6 @@ class RandGUEt(RandSystem):
         self.operator = gueHT
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
-# TODO: check and review GSE implementation
 # class RandGSE(QuantumSystem):
 #     r"""
 #     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.

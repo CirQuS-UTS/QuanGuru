@@ -1284,7 +1284,6 @@ def gueHT(dimension: int, seedNum: list = [None, None]) -> np.ndarray:
     matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
     return matrix.transpose()
 
-# TODO: check and review GSE implementation
 # def gseH(dimension: int, seedNum: list = [None, None, None, None]) -> np.ndarray:
 #     xreal = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
 #     ximag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
