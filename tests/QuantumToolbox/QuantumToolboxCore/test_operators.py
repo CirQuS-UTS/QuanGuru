@@ -133,11 +133,11 @@ def test_gueH():
     val, vec = linalg.eig(op)
     assert np.allclose(round(IPR.iprKetNB(vec), 2), 0.50, atol=0.01)
 
-def test_gseH():
-    op = ops.gseH(dimension=1000)
-    # check dimension of matrix (2*dim, 2*dim)
-    assert op.shape == (2000, 2000)
-    # check hermitian
-    assert np.allclose(op.T.conj(), op)
-    # check no symmetry
-    assert not np.allclose(op, op.T)
+# def test_gseH():
+#     op = ops.gseH(dimension=1000)
+#     # check dimension of matrix (2*dim, 2*dim)
+#     assert op.shape == (2000, 2000)
+#     # check hermitian
+#     assert np.allclose(op.T.conj(), op)
+#     # check no symmetry
+#     assert not np.allclose(op, op.T)

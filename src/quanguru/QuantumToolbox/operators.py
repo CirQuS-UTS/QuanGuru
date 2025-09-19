@@ -1146,8 +1146,7 @@ def goeH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> 
     matrix = (mtx + mtx.transpose())/np.sqrt(2) 
     return matrix
 
-def gueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
-    # mtx = np.random.randn(dimension,dimension) + 1j*np.random.randn(dimension,dimension) 
+def gueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray: 
     real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
     mtx = real + 1j*imag
@@ -1156,7 +1155,6 @@ def gueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> 
     return matrix
 
 def gueHT(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
-    # mtx = np.random.randn(dimension,dimension) + 1j*np.random.randn(dimension,dimension) 
     real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
     mtx = real + 1j*imag
@@ -1164,17 +1162,18 @@ def gueHT(dimension: int, seedNum: list = [None, None], sparse: bool = False) ->
     matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
     return matrix.transpose()
 
-def gseH(dimension: int, seedNum: list = [None, None, None, None], sparse: bool = False) -> np.ndarray:
-    xreal = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
-    ximag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
-    x_mtx = xreal + 1j*ximag
-    yreal = np.random.default_rng(seed=seedNum[2]).normal(size=(dimension,dimension))
-    yimag = np.random.default_rng(seed=seedNum[3]).normal(size=(dimension,dimension))
-    y_mtx = yreal + 1j*yimag
+# TODO: check and review GSE implementation
+# def gseH(dimension: int, seedNum: list = [None, None, None, None], sparse: bool = False) -> np.ndarray:
+#     xreal = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+#     ximag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
+#     x_mtx = xreal + 1j*ximag
+#     yreal = np.random.default_rng(seed=seedNum[2]).normal(size=(dimension,dimension))
+#     yimag = np.random.default_rng(seed=seedNum[3]).normal(size=(dimension,dimension))
+#     y_mtx = yreal + 1j*yimag
     
-    # [X Y; -conj(Y) conj(X)]
-    mtx = np.block([[x_mtx               , y_mtx],
-                    [-np.conjugate(y_mtx), np.conjugate(x_mtx)]])
-    # hermitian matrix 
-    matrix = (mtx + mtx.transpose().conj())
-    return matrix
+#     # [X Y; -conj(Y) conj(X)]
+#     mtx = np.block([[x_mtx               , y_mtx],
+#                     [-np.conjugate(y_mtx), np.conjugate(x_mtx)]])
+#     # hermitian matrix 
+#     matrix = (mtx + mtx.transpose().conj())
+#     return matrix

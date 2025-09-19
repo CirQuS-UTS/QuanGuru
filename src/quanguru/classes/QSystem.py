@@ -33,7 +33,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz, randomH, goeH, gueH, gseH, gueHT
+from ..QuantumToolbox.operators import number, Jz, randomH, goeH, gueH, gueHT
 
 def _initStDec(_createInitialState):
     r"""
@@ -867,6 +867,7 @@ class RandSys(QuantumSystem):
     @seedNum.setter
     def seedNum(self, value):
         self._RandSys__seedNum = value # pylint: disable=assigning-non-slot
+        self._firstTerm._paramBoundBase__matrix = True # pylint: disable=assigning-non-slot
 
 # ## old version ##
 # class RandCOE(QuantumSystem):
@@ -882,7 +883,6 @@ class RandSys(QuantumSystem):
 #     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
 #     _instances: int = 0
     
-#     # TODO need to fix the setting of seedNum parameter to be able to set in the operator
 #     __slots__ = ['__seedNum']
 #     def __init__(self, **kwargs):
 #         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -915,7 +915,6 @@ class RandSys(QuantumSystem):
 #     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
 #     _instances: int = 0
     
-#     # TODO need to fix the setting of seedNum parameter to be able to set in the operator
 #     __slots__ = ['__seedNum']
 #     def __init__(self, **kwargs):
 #         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -948,7 +947,6 @@ class RandSys(QuantumSystem):
 #     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
 #     _instances: int = 0
     
-#     # TODO need to fix the setting of seedNum parameter to be able to set in the operator
 #     __slots__ = ['__seedNum']
 #     def __init__(self, **kwargs):
 #         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -981,7 +979,6 @@ class RandGOE(QuantumSystem):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
     
-    # TODO need to fix the setting of seedNum parameter to be able to set in the operator
     __slots__ = ['__seedNum']
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -996,9 +993,12 @@ class RandGOE(QuantumSystem):
         Gets and sets the seed number
         """
         return self._RandGOE__seedNum
+
     @seedNum.setter
     def seedNum(self, value):
         self._RandGOE__seedNum = value # pylint: disable=assigning-non-slot
+        self._paramUpdated = True # pylint: disable=assigning-non-slot
+        self._firstTerm._paramBoundBase__matrix = True # pylint: disable=assigning-non-slot
 
 class RandGUE(QuantumSystem):
     r"""
@@ -1013,7 +1013,6 @@ class RandGUE(QuantumSystem):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
     
-    # TODO need to fix the setting of seedNum parameter to be able to set in the operator
     __slots__ = ['__seedNum']
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -1028,9 +1027,12 @@ class RandGUE(QuantumSystem):
         Gets and sets the seed number
         """
         return self._RandGUE__seedNum
+    
     @seedNum.setter
     def seedNum(self, value):
         self._RandGUE__seedNum = value # pylint: disable=assigning-non-slot
+        self._paramUpdated = True # pylint: disable=assigning-non-slot
+        self._firstTerm._paramBoundBase__matrix = True # pylint: disable=assigning-non-slot
 
 class RandGUEt(QuantumSystem):
     r"""
@@ -1045,7 +1047,6 @@ class RandGUEt(QuantumSystem):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
     
-    # TODO need to fix the setting of seedNum parameter to be able to set in the operator
     __slots__ = ['__seedNum']
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -1060,38 +1061,41 @@ class RandGUEt(QuantumSystem):
         Gets and sets the seed number
         """
         return self._RandGUEt__seedNum
+    
     @seedNum.setter
     def seedNum(self, value):
         self._RandGUEt__seedNum = value # pylint: disable=assigning-non-slot
+        self._paramUpdated = True # pylint: disable=assigning-non-slot
+        self._firstTerm._paramBoundBase__matrix = True # pylint: disable=assigning-non-slot
 
-class RandGSE(QuantumSystem):
-    r"""
-    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
-    """
-    #: (**class attribute**) class label used in default naming
-    label = 'RandGSE'
-    #: (**class attribute**) number of instances created internally by the library
-    _internalInstances: int = 0
-    #: (**class attribute**) number of instances created explicitly by the user
-    _externalInstances: int = 0
-    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
-    _instances: int = 0
+# TODO: check and review GSE implementation
+# class RandGSE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandGSE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
     
-    # TODO need to fix the setting of seedNum parameter to be able to set in the operator
-    __slots__ = ['__seedNum']
-    def __init__(self, **kwargs):
-        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
-        self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
-        self.operator = gseH
-        self.__seedNum = None
-        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = gseH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
     
-    @property
-    def seedNum(self):
-        r"""
-        Gets and sets the seed number
-        """
-        return self._RandGSE__seedNum
-    @seedNum.setter
-    def seedNum(self, value):
-        self._RandGSE__seedNum = value # pylint: disable=assigning-non-slot
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandGSE__seedNum
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandGSE__seedNum = value # pylint: disable=assigning-non-slot
