@@ -21,7 +21,7 @@
 
 import warnings
 from typing import Any
-from numpy import ndarray, integer
+from numpy import ndarray, integer, random
 from scipy.sparse import spmatrix
 
 from .base import addDecorator, _recurseIfList, aliasDict
@@ -984,7 +984,7 @@ class RandGOE(QuantumSystem):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
         self.operator = goeH
-        self.__seedNum = None
+        self.__seedNum = kwargs.pop('seedNum', [random.randint(1000), random.randint(1000)])
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
     
     @property
@@ -1018,7 +1018,7 @@ class RandGUE(QuantumSystem):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
         self.operator = gueH
-        self.__seedNum = None
+        self.__seedNum = kwargs.pop('seedNum', [random.randint(1000), random.randint(1000)])
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
     
     @property
@@ -1052,7 +1052,7 @@ class RandGUEt(QuantumSystem):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
         self.operator = gueHT
-        self.__seedNum = None
+        self.__seedNum = kwargs.pop('seedNum', [random.randint(1000), random.randint(1000)])
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
     
     @property
