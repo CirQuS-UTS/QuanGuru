@@ -24,7 +24,7 @@ r"""
 
 from .base import qBase, named
 from .QSys import QuantumSystemOld, compQSystem, qCoupling, qSystem, QubitOld, SpinOld, CavityOld
-from .QSystem import QuantumSystem, Qubit, Cavity, Spin
+from .QSystem import QuantumSystem, Qubit, Cavity, Spin, RandGOE, RandGUE, RandGUEt
 from .QTerms import QTerm
 from .QPro import genericProtocol, qProtocol, Gate, freeEvolution, copyStep
 from .QSweep import Sweep

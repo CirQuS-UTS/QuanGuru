@@ -76,13 +76,12 @@ r"""
 from typing import Callable, overload, Literal
 from numpy import ndarray # type: ignore
 from scipy.sparse import spmatrix # type: ignore
-
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
 from scipy.sparse.linalg import expm # type: ignore
 import numpy as np # type: ignore
 
-from .linearAlgebra import tensorProd, _matPower
+from .linearAlgebra import tensorProd, _matPower, norm
 
 from .customTypes import Matrix #pylint: disable=relative-beyond-top-level
 
@@ -1180,3 +1179,123 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
     except: # pylint: disable=bare-except # noqa: E722
         opPow = _matPower(op(sparse), power)
     return opPow
+
+# ## old version ##
+# def haarMtx(dimension,seedNum) -> np.ndarray:
+#     """Samples Haar-distributed matrices.
+
+#     Samples Haar-distributed matrices that are useful to generate
+#     random matrices for COE, CUE and CSE ensembles.
+
+#     Args:
+#         n (int): matrix size.
+
+#     Returns:
+#         numpy array containing Haar-distributed random matrix.
+#     """
+    
+#     # rng = np.random.default_rng(seed)
+#     #rseed = rng.integers(10000000,size=1)[0]
+    
+#     # n by n random complex matrix
+#     x_mtx_real = np.random.default_rng(seed=seedNum[0]).standard_normal(size=(dimension,dimension))
+#     x_mtx_imag = (1j)*np.random.default_rng(seed=seedNum[1]).standard_normal(size=(dimension, dimension))
+#     # orthonormalizing matrix using QR algorithm
+#     q_mtx, _ = np.linalg.qr(x_mtx_real + x_mtx_imag)
+#     # the resulting Q is Haar-distributed
+#     return q_mtx
+
+# def _build_j_mtx(size) -> np.ndarray:
+#     """Creates an useful matrix to sample CSE matrices.
+
+#     Creates matrix J of zeros but with the upper-diagonal
+#     set to -1 and the lower-diagonal set to 1. This matrix
+#     is useful in the sampling algorithm of CSE matrices.
+
+#     Returns:
+#         numpy array containing J matrix.
+
+#     References:
+#         - Killip, R. and Zozhan, R.
+#             Matrix Models and Eigenvalue Statistics for Truncations of
+#             Classical Ensembles of Random Unitary Matrices.
+#             Communications in Mathematical Physics. 349 (2017): 991-1027.
+#         - "Circular ensemble". Wikipedia.
+#             en.wikipedia.org/wiki/Circular_ensemble
+#     """
+#     size = 2*size
+#     j_mtx = np.zeros((size,size))
+#     # selecting indices
+#     inds = np.arange(size-1)
+#     # selecting upper-diagonal indices
+#     j_mtx[inds, inds+1] = -1
+#     # selecting lower-diagonal indices
+#     j_mtx[inds+1, inds] = 1
+#     return j_mtx
+
+# def coeH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
+#     # sampling unitary Haar-distributed matrix
+#     u_mtx = haarMtx(dimension,seedNum)
+#     # mapping to Circular Orthogonal Ensemble
+#     matrix = np.matmul(u_mtx.transpose(), u_mtx)
+#     Hamiltonian = linA.logm(matrix)/(-1j)
+#     return Hamiltonian
+#     # return matrix
+
+# def cueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
+#     # sampling unitary Haar-distributed matrix
+#     matrix = haarMtx(dimension, seedNum)
+#     Hamiltonian = linA.logm(matrix)/(-1j)
+#     return Hamiltonian
+#     # return matrix
+
+# def cseH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
+#     # sampling unitary Haar-distributed matrix of size 2n
+#     u_mtx = haarMtx(dimension,seedNum)
+#     # mapping to Circular Symplectic Ensemble
+#     j_mtx = _build_j_mtx(int(dimension/2))
+#     # U_R = J * U^T * J^T
+#     u_r_aux = np.matmul(j_mtx, u_mtx.transpose())
+#     u_r_mtx = np.matmul(u_r_aux, j_mtx.transpose())
+#     # A = U^R * U
+#     matrix = np.matmul(u_r_mtx, u_mtx)
+#     Hamiltonian = linA.logm(matrix)/(-1j)
+#     return Hamiltonian
+
+def goeH(dimension: int, seedNum: list = [None, None]) -> np.ndarray:
+    mtx = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+    # symmetrize matrix 
+    matrix = (mtx + mtx.transpose())/np.sqrt(2) 
+    return matrix
+
+def gueH(dimension: int, seedNum: list = [None, None]) -> np.ndarray: 
+    real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+    imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
+    mtx = real + 1j*imag
+    # hermitian matrix 
+    matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
+    return matrix
+
+def gueHT(dimension: int, seedNum: list = [None, None]) -> np.ndarray:
+    real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+    imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
+    mtx = real + 1j*imag
+    # hermitian matrix 
+    matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
+    return matrix.transpose()
+
+# TODO: check and review GSE implementation
+# def gseH(dimension: int, seedNum: list = [None, None, None, None]) -> np.ndarray:
+#     xreal = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+#     ximag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
+#     x_mtx = xreal + 1j*ximag
+#     yreal = np.random.default_rng(seed=seedNum[2]).normal(size=(dimension,dimension))
+#     yimag = np.random.default_rng(seed=seedNum[3]).normal(size=(dimension,dimension))
+#     y_mtx = yreal + 1j*yimag
+    
+#     # [X Y; -conj(Y) conj(X)]
+#     mtx = np.block([[x_mtx               , y_mtx],
+#                     [-np.conjugate(y_mtx), np.conjugate(x_mtx)]])
+#     # hermitian matrix 
+#     matrix = (mtx + mtx.transpose().conj())
+#     return matrix

@@ -3,9 +3,9 @@ import numpy as np
 from math import factorial
 import pytest
 from quanguru.QuantumToolbox import linearAlgebra as la#pylint: disable=import-error
-from quanguru.QuantumToolbox import states#pylint: disable=import-error
+from quanguru.QuantumToolbox import states, IPR#pylint: disable=import-error
 from quanguru.QuantumToolbox import operators as ops #pylint: disable=import-error
-
+from scipy import linalg
 
 def checkGivenRuleForAnArray(cOp, rule, *args):
     # assert correctness of elements in a matrix by comparing against a given rule that calculated the expected value
@@ -89,3 +89,32 @@ def test_displacement():
 
     # coherent state is the eigenstate of destroy with eigenvalue alpha
     assert np.allclose((ops.destroy(20)@displacedVacuum).toarray(), (alpha*displacedVacuum).toarray(), atol=1e-04, rtol=1e-04)
+
+def test_goeH():
+    op = ops.goeH(dimension=1000)
+    # check hermitian
+    assert np.allclose(op.T.conj(), op)
+    # check matrix entries are real number only
+    assert np.allclose(op.imag, np.zeros(op.shape))
+    # check IPR of eigenvectors
+    val, vec = linalg.eig(op)
+    assert np.allclose(round(IPR.iprKetNB(vec), 2), 0.33, atol=0.01)
+
+def test_gueH():
+    op = ops.gueH(dimension=1000)
+    # check hermitian
+    assert np.allclose(op.T.conj(), op)
+    # check no symmetry
+    assert not np.allclose(op, op.T)
+    # check IPR of eigenvectors
+    val, vec = linalg.eig(op)
+    assert np.allclose(round(IPR.iprKetNB(vec), 2), 0.50, atol=0.01)
+
+# def test_gseH():
+#     op = ops.gseH(dimension=1000)
+#     # check dimension of matrix (2*dim, 2*dim)
+#     assert op.shape == (2000, 2000)
+#     # check hermitian
+#     assert np.allclose(op.T.conj(), op)
+#     # check no symmetry
+#     assert not np.allclose(op, op.T)

@@ -21,7 +21,7 @@
 
 import warnings
 from typing import Any
-from numpy import ndarray, integer
+from numpy import ndarray, integer, random
 from scipy.sparse import spmatrix
 
 from .base import addDecorator, _recurseIfList, aliasDict
@@ -33,7 +33,7 @@ from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz
+from ..QuantumToolbox.operators import number, Jz, goeH, gueH, gueHT
 
 def _initStDec(_createInitialState):
     r"""
@@ -836,3 +836,226 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
         self.dimension  = 2
         self.operator = Jz
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+class RandSystem(QuantumSystem):
+    r"""
+    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandSystem'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = ['__seedNums']
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+        self.__seedNums = kwargs.pop('seedNums', [random.randint(1000), random.randint(1000)])
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def seedNums(self):
+        r"""
+        Gets and sets the seed number
+        """
+        return self._RandSystem__seedNums
+
+    @seedNums.setter
+    def seedNums(self, value):
+        self._RandSystem__seedNums = value # pylint: disable=assigning-non-slot
+        self._paramUpdated = True # pylint: disable=assigning-non-slot
+        self._firstTerm._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
+
+class RandGOE(RandSystem):
+    r"""
+    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandGOE'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+    
+    __slots__ = []
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self.operator = goeH
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+class RandGUE(RandSystem):
+    r"""
+    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandGUE'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+    
+    __slots__ = []
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self.operator = gueH
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+class RandGUEt(RandSystem):
+    r"""
+    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandGUEt'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+    
+    __slots__ = []
+    
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self.operator = gueHT
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+# TODO: check and review GSE implementation
+# class RandGSE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandGSE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
+    
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = gseH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+    
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandGSE__seedNum
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandGSE__seedNum = value # pylint: disable=assigning-non-slot
+
+# ## old version ##
+# class RandCOE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandCOE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
+    
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = coeH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+    
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandCOE__seedNum
+
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandCOE__seedNum = value # pylint: disable=assigning-non-slot
+
+# class RandCUE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandCUE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
+    
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = cueH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+    
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandCUE__seedNum
+
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandCUE__seedNum = value # pylint: disable=assigning-non-slot
+
+# class RandCSE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandCSE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
+    
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = cseH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+    
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandCSE__seedNum
+
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandCSE__seedNum = value # pylint: disable=assigning-non-slot
