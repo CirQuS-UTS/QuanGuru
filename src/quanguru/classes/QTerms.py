@@ -24,6 +24,8 @@ from .QSimBase import setAttr
 from .exceptions import checkCorType, checkVal, checkNotVal
 from ..QuantumToolbox import compositeOp, _matMulInputs, _matPower
 from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-top-level
+from numpy import ndarray
+from scipy.sparse import spmatrix
 
 class QTerm(paramBoundBase):
     r"""
@@ -184,7 +186,21 @@ class QTerm(paramBoundBase):
             for ind, ter in enumerate(self.subSys.values()):
                 setAttr(ter, attrName, vals[ind])
         if attrName == '_QTerm__operator':
-            self._isCorrectPauliDim(self.qSystem, vals) #pylint:disable=no-member
+            # Handle matrix operator validation
+            if isinstance(vals, (list, tuple)):
+                # Multiple operators (coupling terms)
+                for ind, val in enumerate(vals):
+                    if self._isMatrixOperator(val):
+                        self._checkMatrixDimensionCompatibility(val, self.qSystem[ind])
+                    else:
+                        self._isCorrectPauliDim(self.qSystem[ind], val)
+            else:
+                # Single operator
+                if self._isMatrixOperator(vals):
+                    self._checkMatrixDimensionCompatibility(vals, self.qSystem)
+                else:
+                    # Existing Pauli validation for callable operators
+                    self._isCorrectPauliDim(self.qSystem, vals) #pylint:disable=no-member
         setAttr(self, attrName, vals)
         if self._paramUpdated:
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
@@ -272,6 +288,78 @@ class QTerm(paramBoundBase):
         return oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]
 
     @staticmethod
+    def _isMatrixOperator(oper):
+        r"""
+        Static method to determine if the given operator is a matrix (ndarray or spmatrix).
+        """
+        return isinstance(oper, (ndarray, spmatrix))
+
+    @staticmethod
+    def _validateMatrix(matrix, qsys_name="system"):
+        r"""
+        Static method to validate that a matrix is square and has dimension > 1.
+        
+        Parameters
+        ----------
+        matrix : ndarray or spmatrix
+            Matrix to validate
+        qsys_name : str
+            Name of the quantum system for error messages
+        
+        Returns
+        -------
+        int
+            Dimension of the matrix
+            
+        Raises
+        ------
+        ValueError
+            If matrix is not square or dimension is not > 1
+        """
+        if matrix.shape[0] != matrix.shape[1]:
+            raise ValueError(f'Matrix operator for {qsys_name} must be square, but got shape {matrix.shape}')
+        
+        dim = matrix.shape[0]
+        if dim <= 1:
+            raise ValueError(f'Matrix operator for {qsys_name} must have dimension > 1, but got dimension {dim}')
+        
+        return dim
+
+    @staticmethod
+    def _checkMatrixDimensionCompatibility(matrix, qsys):
+        r"""
+        Static method to check matrix dimension compatibility with quantum system.
+        
+        Parameters
+        ----------
+        matrix : ndarray or spmatrix
+            Matrix operator to check
+        qsys : QuantumSystem
+            Quantum system to check compatibility with
+            
+        Returns
+        -------
+        int
+            Matrix dimension
+            
+        Raises
+        ------
+        ValueError
+            If dimensions are incompatible
+        """
+        matrix_dim = QTerm._validateMatrix(matrix, qsys.name)
+        
+        if qsys.dimension == 1:
+            # qSystem dimension = 1, set it to match the matrix dimension
+            qsys.dimension = matrix_dim
+        elif qsys.dimension != matrix_dim:
+            # qSystem dimension != 1, check that dimensions match
+            raise ValueError(f'Matrix operator dimension ({matrix_dim}) does not match quantum system '
+                           f'{qsys.name} dimension ({qsys.dimension})')
+        
+        return matrix_dim
+
+    @staticmethod
     def _isCorrectPauliDim(qsys, oper, dim=None):
         r"""
         Static method to determine if the dimension of a system is consistent with given operator
@@ -290,32 +378,46 @@ class QTerm(paramBoundBase):
         Static method to create the composite operator for a given quantum system and operator.
         This method is used in _constructMatrices, where the system and operator are passed.
         """
+        opMat = QTerm._callOp(qsys, oper) #pylint:disable=assigning-non-slot
+        opMat = _matPower(opMat, order)
+        opMat = compositeOp(opMat, dimB=qsys._dimsBefore, dimA=qsys._dimsAfter)
+        return opMat
+
+    @staticmethod
+    def _callOp(qsys, oper):
+        r"""
+        Static method to call the operator function or return the matrix operator directly.
+        """
         dim = qsys.dimension
         checkNotVal(dim, 1, f'{qsys.name} is not given a dimension')
-        dimB = qsys._dimsBefore
-        dimA = qsys._dimsAfter
+        
+        # Check if operator is a matrix
+        if QTerm._isMatrixOperator(oper):
+            # Matrix operator - return it directly after validation
+            return oper
+        
+        # Callable operator - existing logic
         if not callable(oper):
-            raise TypeError(f'{qsys.name} term/s is not given a (callable) operator')
+            raise TypeError(f'{qsys.name} term/s is not given a (callable) operator or matrix')
 
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)
 
-        if oper in [qOps.goeH, qOps.gueH, qOps.gueHT]:
-            seedNums = qsys.seedNums
-            # if oper in [qOps.gseH]:
-            #     dim = int(dim/2)
-            operMat = _matPower(oper(dim, seedNums), order)
+        # if oper in [qOps.goeH, qOps.gueH, qOps.gueHT]:
+        #     seedNums = qsys.seedNums
+        #     # if oper in [qOps.gseH]:
+        #     #     dim = int(dim/2)
+        #     operMat = oper(dim, seedNums)
 
-        elif not QTerm._isOperPauli(oper):
-            operMat = _matPower(oper(dim), order)
+        if not QTerm._isOperPauli(oper):
+            kwargs = {val: getattr(qsys, key) for key, val in qsys.opArgs.items()}
+            operMat = oper(dim, **kwargs)
 
         else:
             QTerm._isCorrectPauliDim(qsys, oper, dim)
-            operMat = _matPower(oper(), order)
-
-        operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
+            operMat = oper()
         
-        return operCompMat
+        return operMat
 
     def _constructMatrices(self):
         r"""
@@ -324,7 +426,7 @@ class QTerm(paramBoundBase):
         """
         if all(hasattr(self.qSystem, attr) for attr in ["dimension", "_dimsBefore", "_dimsAfter"]):
             if len(self.subSys) == 0:
-                self._paramBoundBase__matrix = self._dimInput(self.qSystem, self.operator, self.order) #pylint:disable=assigning-non-slot
+                self._paramBoundBase__matrix = self._dimInput(self.qSystem, self.operator, self.order) # pylint: disable=assigning-non-slot
             else:
                 self._paramBoundBase__matrix=sum(ter._constructMatrices() for ter in self.subSys.values()) #pylint:disable=protected-access,assigning-non-slot
         elif isinstance(self.qSystem, (list, tuple)):

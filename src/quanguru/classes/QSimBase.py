@@ -34,7 +34,8 @@ from scipy.sparse import spmatrix
 from quanguru.classes.exceptions import checkNotVal
 from .baseClasses import computeBase, paramBoundBase
 from .tempConfig import classConfig
-
+from numpy import array_equal, ndarray
+from scipy.sparse import spmatrix, issparse
 
 def setAttr(obj: paramBoundBase, attrStr: str, val: Any) -> None:
     r"""
@@ -42,7 +43,27 @@ def setAttr(obj: paramBoundBase, attrStr: str, val: Any) -> None:
     Especially useful for multi parameter sweeps (see :class:`~_sweep`).
     """
     oldVal = getattr(obj, attrStr)
-    if val != oldVal:
+    
+    # Handle numpy arrays and sparse matrices comparison safely
+    try:
+        valIsMatrix = isinstance(val, (ndarray, spmatrix))
+        oldValIsMatrix = isinstance(oldVal, (ndarray, spmatrix))
+        if valIsMatrix and oldValIsMatrix:
+            # For matrices, use array_equal for comparison
+            oldVal_array = oldVal.toarray() if issparse(oldVal) else oldVal
+            val_array = val.toarray() if issparse(val) else val
+            different = not array_equal(val_array, oldVal_array)
+        elif valIsMatrix or oldValIsMatrix:
+            # One is matrix, one is not - they're different
+            different = True
+        else:
+            # Standard comparison for non-matrix types
+            different = (val != oldVal)
+    except ValueError:
+        # If comparison fails for any reason, assume they're different
+        different = True
+    
+    if different:
         setattr(obj, attrStr, val)
         setattr(obj, '_paramUpdated', True)
 
