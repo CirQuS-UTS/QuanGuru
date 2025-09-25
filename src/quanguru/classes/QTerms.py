@@ -24,6 +24,8 @@ from .QSimBase import setAttr
 from .exceptions import checkCorType, checkVal, checkNotVal
 from ..QuantumToolbox import compositeOp, _matMulInputs, _matPower
 from ..QuantumToolbox import operators as qOps #pylint: disable=relative-beyond-top-level
+from numpy import ndarray
+from scipy.sparse import spmatrix
 
 class QTerm(paramBoundBase):
     r"""
@@ -184,7 +186,21 @@ class QTerm(paramBoundBase):
             for ind, ter in enumerate(self.subSys.values()):
                 setAttr(ter, attrName, vals[ind])
         if attrName == '_QTerm__operator':
-            self._isCorrectPauliDim(self.qSystem, vals) #pylint:disable=no-member
+            # Handle matrix operator validation
+            if isinstance(vals, (list, tuple)):
+                # Multiple operators (coupling terms)
+                for ind, val in enumerate(vals):
+                    if self._isMatrixOperator(val):
+                        self._checkMatrixDimensionCompatibility(val, self.qSystem[ind])
+                    else:
+                        self._isCorrectPauliDim(self.qSystem[ind], val)
+            else:
+                # Single operator
+                if self._isMatrixOperator(vals):
+                    self._checkMatrixDimensionCompatibility(vals, self.qSystem)
+                else:
+                    # Existing Pauli validation for callable operators
+                    self._isCorrectPauliDim(self.qSystem, vals) #pylint:disable=no-member
         setAttr(self, attrName, vals)
         if self._paramUpdated:
             self._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
@@ -272,6 +288,78 @@ class QTerm(paramBoundBase):
         return oper in [qOps.sigmam, qOps.sigmap, qOps.sigmax, qOps.sigmay, qOps.sigmaz]
 
     @staticmethod
+    def _isMatrixOperator(oper):
+        r"""
+        Static method to determine if the given operator is a matrix (ndarray or spmatrix).
+        """
+        return isinstance(oper, (ndarray, spmatrix))
+
+    @staticmethod
+    def _validateMatrix(matrix, qsys_name="system"):
+        r"""
+        Static method to validate that a matrix is square and has dimension > 1.
+        
+        Parameters
+        ----------
+        matrix : ndarray or spmatrix
+            Matrix to validate
+        qsys_name : str
+            Name of the quantum system for error messages
+        
+        Returns
+        -------
+        int
+            Dimension of the matrix
+            
+        Raises
+        ------
+        ValueError
+            If matrix is not square or dimension is not > 1
+        """
+        if matrix.shape[0] != matrix.shape[1]:
+            raise ValueError(f'Matrix operator for {qsys_name} must be square, but got shape {matrix.shape}')
+        
+        dim = matrix.shape[0]
+        if dim <= 1:
+            raise ValueError(f'Matrix operator for {qsys_name} must have dimension > 1, but got dimension {dim}')
+        
+        return dim
+
+    @staticmethod
+    def _checkMatrixDimensionCompatibility(matrix, qsys):
+        r"""
+        Static method to check matrix dimension compatibility with quantum system.
+        
+        Parameters
+        ----------
+        matrix : ndarray or spmatrix
+            Matrix operator to check
+        qsys : QuantumSystem
+            Quantum system to check compatibility with
+            
+        Returns
+        -------
+        int
+            Matrix dimension
+            
+        Raises
+        ------
+        ValueError
+            If dimensions are incompatible
+        """
+        matrix_dim = QTerm._validateMatrix(matrix, qsys.name)
+        
+        if qsys.dimension == 1:
+            # qSystem dimension = 1, set it to match the matrix dimension
+            qsys.dimension = matrix_dim
+        elif qsys.dimension != matrix_dim:
+            # qSystem dimension != 1, check that dimensions match
+            raise ValueError(f'Matrix operator dimension ({matrix_dim}) does not match quantum system '
+                           f'{qsys.name} dimension ({qsys.dimension})')
+        
+        return matrix_dim
+
+    @staticmethod
     def _isCorrectPauliDim(qsys, oper, dim=None):
         r"""
         Static method to determine if the dimension of a system is consistent with given operator
@@ -298,12 +386,19 @@ class QTerm(paramBoundBase):
     @staticmethod
     def _callOp(qsys, oper):
         r"""
-        Static method to call the operator function passing appropriate information from the quantum system.
+        Static method to call the operator function or return the matrix operator directly.
         """
         dim = qsys.dimension
         checkNotVal(dim, 1, f'{qsys.name} is not given a dimension')
+        
+        # Check if operator is a matrix
+        if QTerm._isMatrixOperator(oper):
+            # Matrix operator - return it directly after validation
+            return oper
+        
+        # Callable operator - existing logic
         if not callable(oper):
-            raise TypeError(f'{qsys.name} term/s is not given a (callable) operator')
+            raise TypeError(f'{qsys.name} term/s is not given a (callable) operator or matrix')
 
         if oper in [qOps.Jz, qOps.Jy, qOps.Jx, qOps.Jm, qOps.Jp, qOps.Js]:
             dim = 0.5*(dim-1)

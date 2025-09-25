@@ -252,6 +252,31 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             isConsistent = isConsistent and self.superSys._hasConsistentDimensionTerm(dim) #pylint:disable=protected-access
         return isConsistent
 
+    def _hasMatrixOperators(self):
+        r"""
+        Check if any terms have matrix operators (ndarray or spmatrix) rather than callable functions.
+        If dimension is being changed and matrix operators exist, this should raise an error.
+        """
+        from .QTerms import QTerm  # Import here to avoid circular import
+        
+        # Check terms in this system
+        for term in self.terms.values():
+            if isinstance(term.operator, (list, tuple)):
+                # Multiple operators (coupling terms)
+                if any(QTerm._isMatrixOperator(op) for op in term.operator): #pylint:disable=protected-access
+                    return True
+            else:
+                # Single operator
+                if QTerm._isMatrixOperator(term.operator): #pylint:disable=protected-access
+                    return True
+        
+        # Check terms in sub-systems (recursive)
+        for subsys in self.subSys.values():
+            if subsys._hasMatrixOperators():
+                return True
+                
+        return False
+
     @dimension.setter
     def dimension(self, dim):
         if self._QuantumSystem__compSys is None: # pylint:disable=no-member
@@ -260,8 +285,14 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         if not self._isComposite: # pylint:disable=no-member
             checkCorType(dim, (int, integer), "dimension of a QuantumSystem has to be an integer")
             checkVal(dim>0, True, "dimension of a QuantumSystem has to be larger than 0")
-            self._hasConsistentDimensionTerm(dim)
+            
             oldVal = getattr(self, '_QuantumSystem__dimension')
+            
+            # Check if any terms have matrix operators and dimension is changing
+            if oldVal != dim and self._hasMatrixOperators():
+                raise ValueError(f'Cannot change dimension of {self.name} from {oldVal} to {dim} because it has terms with matrix operators. Matrix operators have fixed dimensions.')
+            
+            self._hasConsistentDimensionTerm(dim)
             setAttr(self, '_QuantumSystem__dimension', dim)
             if self._paramUpdated:
                 self.delMatrices(_exclude=[])
