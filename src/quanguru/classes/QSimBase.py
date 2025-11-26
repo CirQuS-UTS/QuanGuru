@@ -445,7 +445,7 @@ class timeBase(stateBase):
         This method is used internally at appropriate places to create bound between different simulation instances in
         the intended hierarchical order. For example, when a :class:`quantum system <quanguru.classes.QSys.genericQSys>`
         is added to ``subSys`` of explicitly created :class:`Simulation <quanguru.classes.Simulation.Simulation>`,
-        The parameters of any :class:`protocol.simulation <quanguru.classes.QPro.genericProtocol>` for that system will
+        The parameters of any :class:`protocol.simulation <quanguru.classes.QProtocol.genericProtocol>` for that system will
         be bound to ``(quantum system).simulation`` which will be bound to explicitly created Simulation. This method
         creates such a bound between two ``Simulation`` objects, and it is used in appropriate places of the library.
         Such a bound is broken or not created at all, if a parameter is explicitly assigned for a protocol or system.

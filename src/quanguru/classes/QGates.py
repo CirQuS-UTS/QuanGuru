@@ -21,7 +21,7 @@
     =======================    ==================    ================   ===============
 """
 
-from .QPro import Gate
+from .QProtocol import Gate
 from .QSimBase import setAttr
 from ..QuantumToolbox import evolution
 from ..QuantumToolbox import operators #pylint: disable=relative-beyond-top-level

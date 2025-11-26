@@ -56,7 +56,7 @@
 # from .QSimComp import QSimComp
 # from .QSimBase import setAttr
 # #from quanguru.classes.exceptions import qSystemInitErrors, qCouplingInitErrors
-# from .QPro import freeEvolution
+# from .QProtocol import freeEvolution
 
 # def _initStDec(_createAstate):
 #     r"""

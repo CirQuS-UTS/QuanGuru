@@ -26,14 +26,14 @@ from .QSim import Simulation # pylint: disable=import-outside-toplevel
 class QSimComp(computeBase):
     r"""
     Inhereted by the :class:`quantum systems <quanguru.classes.QSys.genericQSys>` and
-    :class:`protocols <quanguru.classes.QPro.genericProtocol>` and has a
+    :class:`protocols <quanguru.classes.QProtocol.genericProtocol>` and has a
     simulation attribute which is an instance of :class:`Simulation <quanguru.classes.Simulation.Simulation>`. The goal
     for such an attribute is to increase possible ways of running a
     :class:`Simulation <quanguru.classes.Simulation.Simulation>`.
 
     NOTE : This class branches the inheritance started by :class:`paramBoundBase`, and this branch extends to
     :class:`quantum systems <quanguru.classes.QSys.genericQSys>` and
-    :class:`protocols <quanguru.classes.QPro.genericProtocol>`.
+    :class:`protocols <quanguru.classes.QProtocol.genericProtocol>`.
     """
     #: (**class attribute**) class label used in default naming
     label = 'QSimComp'

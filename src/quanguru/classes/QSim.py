@@ -36,7 +36,7 @@ from .modularSweep import timeEvolBase
 class Simulation(timeBase):
     """
     Simulation class collects all the pieces together to run a simulation. Its ``subSys`` dictionary contains
-    :class:`protocols <quanguru.classes.QPro.genericProtocol>`, :class:`quantum systems
+    :class:`protocols <quanguru.classes.QProtocol.genericProtocol>`, :class:`quantum systems
     <quanguru.classes.QSys.genericQSys>`
     as ``key:value``, respectively. It has two :class:`sweeps <quanguru.classes.Sweep.Sweep>`, meaning 2 of its
     attributes
