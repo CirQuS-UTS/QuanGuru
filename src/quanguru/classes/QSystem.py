@@ -26,7 +26,7 @@ from scipy.sparse import spmatrix
 
 from .base import addDecorator, _recurseIfList, aliasDict
 from .QSimComp import QSimComp
-from .QPro import freeEvolution
+from .QProtocol import freeEvolution
 from .QSimBase import setAttr
 from .QTerms import QTerm
 from .exceptions import checkVal, checkNotVal, checkCorType
