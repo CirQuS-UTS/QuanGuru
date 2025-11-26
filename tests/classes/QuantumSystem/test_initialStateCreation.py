@@ -3,7 +3,6 @@ import random as rnd
 import pytest
 import quanguru.classes.QSystem as QSys
 import quanguru.QuantumToolbox.states as qSts
-from quanguru.classes.QSys import QuantumSystemOld
 from quanguru.QuantumToolbox.linearAlgebra import tensorProd
 
 def test_initialStateInputLargerThanDimesion():

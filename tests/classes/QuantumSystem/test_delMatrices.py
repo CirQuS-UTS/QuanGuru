@@ -1,7 +1,6 @@
 import random as rnd
 import pytest
 import quanguru.classes.QSystem as QSys
-from quanguru.classes.QSys import QuantumSystemOld
 
 def addMatrices(listOfObj, listOfMatrices, listOfInitialStates, _except):
     for ind, qsys in enumerate(listOfObj):
@@ -20,7 +19,6 @@ def createAndAssert(listOfObj, listOfMatrices, exceptList):
     assertMatrixVals(listOfObj, False, exceptList)
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_delMatrixAfterRemoveSubSysWithDummyMatrix(cls):
