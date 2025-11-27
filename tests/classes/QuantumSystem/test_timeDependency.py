@@ -98,7 +98,8 @@ def test_qubitObjectTimeDependencyWithSim():
     qub.simStepSize = 1
 
     def driveAmplitude(t, A, tr, tf): 
-        return A if tr <= t < tr + tf else 0.0
+        # return A if tr <= t < tr + tf else 0.0
+        return A*t**2
 
     def qubFrequencyTimeDependency(qsys, ti):
         qsys.frequency = 1 + driveAmplitude(ti, 5, 2, 2) 
@@ -113,4 +114,4 @@ def test_qubitObjectTimeDependencyWithSim():
 
     qub.run()
 
-    assert qubitFreqList == [1, 1, 6, 6, 1, 1]
+    assert qubitFreqList == [1, 1, 6, 21, 46, 81]
