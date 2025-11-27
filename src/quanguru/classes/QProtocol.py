@@ -207,8 +207,8 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
     def unitary(self):
         collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.values()]
         decayRates = None if not self._isOpen else [ds.jRate for ds in self._dissipator.values()]
-        if self.superSys is not None:
-            self.superSys._timeDependency() # pylint: disable=no-member
+        # if self.superSys is not None:
+        #     self.superSys._timeDependency() # pylint: disable=no-member
 
         if self._paramUpdated:
             if not self.fixed:
@@ -224,8 +224,8 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         else:
             collapseOps = collapseOps + [ds.jOperMatrix for ds in self._dissipator.values()]
             decayRates = decayRates + [ds.jRate for ds in self._dissipator.values()]
-        if self.superSys is not None:
-            self.superSys._timeDependency() # pylint: disable=no-member
+        # if self.superSys is not None:
+        #     self.superSys._timeDependency() # pylint: disable=no-member
 
         for update in self._genericProtocol__updates:
             update.setup()
