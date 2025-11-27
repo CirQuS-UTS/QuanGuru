@@ -10,8 +10,9 @@ QuanGuru documentation
     QuantumToolbox <QuantumToolbox>
     Classes (Objects for OOP, module to be renamed later) <classes>
     QuantumToolbox Tutorials <QuantumToolbox/Tutorials/Tutorials>
-
-.. mdinclude:: ../../README.md
+    
+.. include:: ../../README.md
+   :parser: myst_parser.sphinx_
 
 .. Hiding - Indices and tables
     :ref:`genindex`
