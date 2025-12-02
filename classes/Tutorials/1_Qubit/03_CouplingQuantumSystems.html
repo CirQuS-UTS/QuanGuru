@@ -35,9 +35,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -147,27 +147,6 @@
   </a>
 </li>
 
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
-    QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-    QuantumToolbox Tutorials
-  </a>
-</li>
-
   </ul>
 </nav></div>
       
@@ -244,27 +223,6 @@
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
-    QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-    QuantumToolbox Tutorials
   </a>
 </li>
 
@@ -513,7 +471,7 @@ array([[ 1.5,  0. ,  0. ,  0. ,  0. ,  0. ,  0. ,  0. ],
 <p><span class="math notranslate nohighlight">\(f_{fb}\sigma_{x,1}\sigma_{y,2}\sigma_{z,3}\)</span></p>
 <p><code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> supports such many body terms, and we can create the above term as</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">couplingXYZ</span> <span class="o">=</span> <span class="n">threeQub</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="p">[</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">],</span>
@@ -541,7 +499,7 @@ array([[ 1.5,  0. ,  0. ,  0. ,  0. ,  0. ,  0. ,  0. ],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">tensorProd</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">())</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>

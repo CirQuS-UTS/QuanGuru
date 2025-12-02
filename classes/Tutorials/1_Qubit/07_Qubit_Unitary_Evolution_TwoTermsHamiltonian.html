@@ -35,9 +35,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -147,27 +147,6 @@
   </a>
 </li>
 
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
-    QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-    QuantumToolbox Tutorials
-  </a>
-</li>
-
   </ul>
 </nav></div>
       
@@ -244,27 +223,6 @@
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
-    QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
-    QuantumToolbox Tutorials
   </a>
 </li>
 
@@ -383,7 +341,7 @@
                 <article class="bd-article">
                   
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quanguru</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qg</span>
@@ -396,8 +354,8 @@
 <h1>7 - Simulation of a Qubit with two terms Hamiltonian<a class="headerlink" href="#7---Simulation-of-a-Qubit-with-two-terms-Hamiltonian" title="Link to this heading">#</a></h1>
 <p>In previous tutorials, we covered how to set an initial state to a quantum system and how to describe its Hamiltonian.</p>
 <p>Here, we will evolve the quantum system under the unitary dynamics of its Hamiltonian. First, we create a quantum system and describe its Hamiltonian <span class="math notranslate nohighlight">\(H=f_{z}J_{z} + f_{x}\sigma_{x}\)</span> and, for the sake of the example, we won’t use the special <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">Jz</span><span class="p">)</span>
@@ -409,9 +367,18 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+C:\Users\26191128\OneDrive - UTS\Documents\Quanguru (Everything)\QuanGuru\src\quanguru\classes\QSystem.py:353: UserWarning: QuantumSystem3 type (whether it is a single or composite system) is ambiguousIf it is intentional, please ignore this
+  warnings.warn(f&#39;{self.name} type (whether it is a single or composite system) is ambiguous&#39;+\
+</pre></div></div>
+</div>
 <p>Now, let’s set its initial state to <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">1</span>
@@ -420,7 +387,7 @@
 </div>
 <p>Finally, let’s set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>), which is basically the sampling rate of the dynamics.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">simTotalTime</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
@@ -430,7 +397,7 @@
 </div>
 <p>At this point, all the essential information are set, and we can run the simulation by <code class="docutils literal notranslate"><span class="pre">qub.runSimulation()</span></code>, which returns the list of states for the time evolution of our <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="n">qub</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">()</span>
@@ -439,7 +406,7 @@
 </div>
 <p>Given the time trace of states, we can calculate any quantity that we want, and, below, we calculate the expectation values of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{z}\)</span> operators.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigmaX</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
@@ -453,7 +420,7 @@
 </div>
 <p>Finally, let’s plot the expectation values as a function of time.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">expectations</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\langle \sigma_</span><span class="si">{x}</span><span class="s2"> \rangle$&quot;</span><span class="p">)</span>
@@ -462,31 +429,36 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Expectation values&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Text(0.5, 0, &#39;Time&#39;)
-</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/classes_Tutorials_1_Qubit_07_Qubit_Unitary_Evolution_TwoTermsHamiltonian_12_1.png" src="../../../_images/classes_Tutorials_1_Qubit_07_Qubit_Unitary_Evolution_TwoTermsHamiltonian_12_1.png" />
+<img alt="../../../_images/classes_Tutorials_1_Qubit_07_Qubit_Unitary_Evolution_TwoTermsHamiltonian_12_0.png" src="../../../_images/classes_Tutorials_1_Qubit_07_Qubit_Unitary_Evolution_TwoTermsHamiltonian_12_0.png" />
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">expectations</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\langle \sigma_</span><span class="si">{x}</span><span class="s2"> \rangle$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">expectations</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\langle \sigma_</span><span class="si">{z}</span><span class="s2"> \rangle$&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Expectation values&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/classes_Tutorials_1_Qubit_07_Qubit_Unitary_Evolution_TwoTermsHamiltonian_13_0.png" src="../../../_images/classes_Tutorials_1_Qubit_07_Qubit_Unitary_Evolution_TwoTermsHamiltonian_13_0.png" />
 </div>
 </div>
 </section>
