@@ -1,0 +1,78 @@
+
+.toggle .header {
+    display: block;
+    clear: both;
+    background-color: #785EF0;
+    color: #f9f9f9;
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 5px;
+    margin-bottom: 20px;
+}
+
+.toggle .header:before {
+    float: left;
+    content: "▶ ";
+    font-size: 20px;
+
+}
+
+.toggle .header.open:before {
+    float: left;
+    content: "▼ ";
+    font-size: 20px;
+}
+
+.toggle{
+  background: #FBFBFB;
+}
+
+/* Page-specific margin overrides (no <style> tags in .css file) */
+/* reduce overall page width and side gutters */
+.bd-page-width {
+    max-width: 85% !important;
+    width: 85% !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+    margin: 0 auto !important;
+}
+
+/* tighten inner article/container padding */
+.bd-container__inner,
+.bd-article-container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+/* tighten notebook input/output cell gutters */
+div.nbinput.container,
+div.nboutput.container {
+    margin: 2px 4px !important;      /* top/bottom 2px, left/right 4px */
+    width: calc(100% - 8px) !important;
+}
+
+/* shrink prompt column for notebook cells */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 2.5ex !important;
+    padding-top: 2px !important;
+}
+
+/* Prevent flicker: hide the original "This Page" / "Show Source" block
+   until our JS replaces it with a single "Download notebook" link. */
+.sidebar-secondary-item > div[role="note"] {
+    visibility: hidden;
+}
+
+/* Hide the header search button (we provide a left-sidebar search) */
+.bd-header .search-button-field { display: none !important; }
+
+/* Style for the cloned sidebar search box */
+.sidebar-search { padding-bottom: 10px; }
+.sidebar-search .bd-search { display: block; }
+.sidebar-search .bd-search input[type="search"] { width: 100%; }
+
+/* Nudge the top-left site title slightly to the right */
+.bd-header .navbar-brand.logo .logo__title {
+    margin-left: 22px;
+}

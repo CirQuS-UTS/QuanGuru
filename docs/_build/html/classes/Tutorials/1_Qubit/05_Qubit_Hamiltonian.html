@@ -1,0 +1,717 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5 - Hamiltonian of a quantum system (cont.) &#8212; Quanguru</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=d2a3a1a5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/05_Qubit_Hamiltonian';</script>
+    <script src="../../../_static/conditional_source.js?v=ea6749ea"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="6 - Simulation of a Qubit with single term Hamiltonian" href="06_Qubit_Unitary_Evolution_SingleTermHamiltonian.html" />
+    <link rel="prev" title="4 - Initial state for a Qubit" href="04_Qubit_Initial_State.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="2025/09/08"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Quanguru</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_nameAndAlias.html">0 - name and alias of QuanGuru objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_SingleQuantumSystem.html">1 - Hamiltonian of a single quantum system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_CompositeQubitSystem.html">2 - How to create composite quantum systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_CouplingQuantumSystems.html">3 - Coupling quantum systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_Qubit_Initial_State.html">4 - Initial state for a Qubit</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5 - Hamiltonian of a quantum system (cont.)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Qubit_Unitary_Evolution_SingleTermHamiltonian.html">6 - Simulation of a Qubit with single term Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_Qubit_Unitary_Evolution_TwoTermsHamiltonian.html">7 - Simulation of a Qubit with two terms Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_Qubit_ResultsStatesDictionaries.html">8 - qRes attribute: an intro to Results objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_Qubit_computeFunction.html">9 - Simulation with a compute function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Qubit_parameterSweep.html">10 - Single parameter sweep</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_Qubit_multipleTermsInHamiltonian.html">11 - Sweep and two term Qubit Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_Qubit_multipleTermsInHamiltonian_multipleSweeps.html">12 - Multi-parameter sweep (combinatorially)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_Qubit_multipleTermsInHamiltonian_multipleSweepsSimultaneous.html">13 - Multi-parameter sweep (simultaneously)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_Qubit_timeDependentTerm.html">14 - Time dependent Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_Qubit_timeDependentTerms.html">15 - Time dependent Hamiltonian 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16a_JaynesCummingsHamiltonianBasis.html">16a - Jaynes-Cummings model of light-matter interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16b - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_JaynesCummingsModelDynamics.html">17 - Jaynes-Cummings Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">19 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">20 - Simultaneous Simulation JC and Rabi models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">21 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_HeisenbergModelDQS.html">22 - Digital quantum simulation protocol for Heisenberg model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_Step1_SystemDescription.html">23 - Step 1 : System Description</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="Tutorials.html" class="nav-link">Classes Demos</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">5 - Hamiltonian of a quantum system (cont.)</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quanguru</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qg</span>
+
+<span class="c1"># QuanGuru uses sparse matrices by default,</span>
+<span class="c1"># but sparse matrices are not easily readable when we print them</span>
+<span class="c1"># so, in below examples, we use .toarray() to print them as arrays</span>
+</pre></div>
+</div>
+</div>
+<section id="5---Hamiltonian-of-a-quantum-system-(cont.)">
+<h1>5 - Hamiltonian of a quantum system (cont.)<a class="headerlink" href="#5---Hamiltonian-of-a-quantum-system-(cont.)" title="Link to this heading">#</a></h1>
+<p>This tutorial demonstrates how to describe the Hamiltonian of a quantum system in QuanGuru.</p>
+<p>In this example, we use the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> object to create a quantum system and describe the desired Hamiltonian.</p>
+<section id="Single-Term">
+<h2>Single Term<a class="headerlink" href="#Single-Term" title="Link to this heading">#</a></h2>
+<p>Let’s start with a very simple (single qubit) Hamiltonian</p>
+<p><span class="math notranslate nohighlight">\(H = \frac{1}{2}f_{z}\sigma_{z}\)</span></p>
+<p>Here, the <em>relevant</em> information are</p>
+<ul class="simple">
+<li><p>frequency : <span class="math notranslate nohighlight">\(\frac{1}{2}f_{z}\)</span> (say 0.5 where <span class="math notranslate nohighlight">\(f_{z} = 1\)</span>)</p></li>
+<li><p>operator : <span class="math notranslate nohighlight">\(\sigma_{z}\)</span></p></li>
+<li><p>dimension : 2</p></li>
+</ul>
+<p>and, we create a quantum system with this Hamiltonian as below</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># note that you don&#39;t have to specify all these information at instantiation,</span>
+<span class="c1"># but, if you are using QuantumSystem class, it is required that you at least specify one of them.</span>
+<span class="n">qs</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># print the _freeMatrix of the system, which is just the bare matrix for the operator</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">_freeMatrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="c1"># print the total-Hamiltonian of the system</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 1  0]
+ [ 0 -1]]
+[[ 0.5  0. ]
+ [ 0.  -0.5]]
+</pre></div></div>
+</div>
+<p>Notice that the <code class="docutils literal notranslate"><span class="pre">operator</span></code> of the <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> is the function <code class="docutils literal notranslate"><span class="pre">qg.sigmaz</span></code> (from <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code>), and it does not have the parenthesis <code class="docutils literal notranslate"><span class="pre">qg.sigmaz()</span></code>, which would invoke/call the functino to create the matrix form of the operator. Make sure to pass the function without the parenthesis. The <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> objects call these functions in the background to create the matrices, and the reason for passing the function but not the matrix is that the function may need to be called more
+than once (in the background) in certain cases, such as dimension sweeps (covered in later tutorials).</p>
+</section>
+<section id="Qubit-object-as-a-special-case">
+<h2>Qubit object as a special case<a class="headerlink" href="#Qubit-object-as-a-special-case" title="Link to this heading">#</a></h2>
+<p>For common quantum systems, such as qubit, higher spins, or cavity, we have special classes, and these classes just set some of the information internally to certain default values. For example, <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class internally defaults <code class="docutils literal notranslate"><span class="pre">dimension</span> <span class="pre">=</span> <span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">=</span> <span class="pre">qg.Jz</span></code>, which also takes care of the <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> factor, meaning we can simply set the frequency <span class="math notranslate nohighlight">\(f_{z} = 1\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># note that Jz differs by a factor of 0.5</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">_freeMatrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="c1"># print the totalHamiltonian of the system</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 0.5  0. ]
+ [ 0.  -0.5]]
+[[ 0.5  0. ]
+ [ 0.  -0.5]]
+</pre></div></div>
+</div>
+</section>
+<section id="Multiple-terms">
+<h2>Multiple terms<a class="headerlink" href="#Multiple-terms" title="Link to this heading">#</a></h2>
+<p>Now, let’s consider a more general case where we have more terms in the Hamiltonian, for example the below Hamiltonian with two terms</p>
+<p><span class="math notranslate nohighlight">\(H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x}\)</span></p>
+<p>In this case, we can add a term to our quantum system using the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method, which takes the operator (in this case <span class="math notranslate nohighlight">\(\sigma_{x}\)</span>) and the frequency (in this case <span class="math notranslate nohighlight">\(\omega_{x}\)</span> say = 1) as inputs. We can, of course, add as many terms as we want.</p>
+<p>Let’s use the first quantum system <code class="docutils literal notranslate"><span class="pre">qs</span></code> that we created for the rest.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add term method returns an object for term</span>
+<span class="c1"># again note that the operator is the function qg.sigmax not the function call qg.sigmax()</span>
+<span class="n">secondTerm</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># actually, the quantum systems create an internal term for their first term</span>
+<span class="c1"># and, we can reach the object itself</span>
+<span class="n">firstTerm</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">_firstTerm</span>
+
+<span class="c1"># Now the _freeMatrix is still the operator of the first term that we added</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">_freeMatrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="c1"># but the totalHamiltonian is the summation of all the terms</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="c1"># and individual terms contain/create the matrix corresponding to their operator</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">firstTerm</span><span class="o">.</span><span class="n">_freeMatrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">secondTerm</span><span class="o">.</span><span class="n">_freeMatrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 1  0]
+ [ 0 -1]]
+[[ 0.5  1. ]
+ [ 1.  -0.5]]
+[[ 1  0]
+ [ 0 -1]]
+[[0 1]
+ [1 0]]
+</pre></div></div>
+</div>
+<p>As shown above, the terms of the Hamiltonian are also implemented as individual objects. The advantage of this approach is that we can individually address/set/update each terms, operator, frequency, and order (see below), making it them easier to sweep (covered in later tutorials). Also note that, as long as we use a single term, we don’t need to access/modify the first term directly, because the quantum system objects acts like their first term.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># changing the frequency of the first term through the qs</span>
+<span class="n">qs</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">firstTerm</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span> <span class="c1"># this returns the frequency*operator (in this case, 2*sigmax())</span>
+
+<span class="c1"># above is equivalent short hand to</span>
+<span class="n">firstTerm</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">firstTerm</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span> <span class="c1"># this returns the frequency*operator (in this case, 1*sigmax())</span>
+
+<span class="c1"># we can also change operator of a term, and let&#39;s change the second term to sigmay</span>
+<span class="n">secondTerm</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">secondTerm</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span> <span class="c1"># this returns the frequency*operator (in this case, 1*sigmay())</span>
+
+<span class="c1"># lets set it back to sigmax and verify</span>
+<span class="n">secondTerm</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">secondTerm</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span> <span class="c1"># this returns the frequency*operator (in this case, 1*sigmay())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 2  0]
+ [ 0 -2]]
+[[ 1  0]
+ [ 0 -1]]
+[[0.+0.j 0.-1.j]
+ [0.+1.j 0.+0.j]]
+[[0 1]
+ [1 0]]
+</pre></div></div>
+</div>
+</section>
+<section id="Non-linear-terms">
+<h2>Non-linear terms<a class="headerlink" href="#Non-linear-terms" title="Link to this heading">#</a></h2>
+<p>In certain Hamiltonians, we might have a non-linear term where the operator is raised to a certain power. For Pauli matrices, <span class="math notranslate nohighlight">\(\sigma_{i}^{2} = 1\)</span> (i.e. the identity matrix) for <span class="math notranslate nohighlight">\(i \in \{x,y,z\}\)</span>, but, just for the sake of an example say we have the following Hamiltonian</p>
+<p><span class="math notranslate nohighlight">\(H = \frac{1}{2}\omega_{z}\sigma_{z} + \omega_{x}\sigma_{x} + \omega_{y}\sigma_{y}^{2}\)</span></p>
+<p>Now, we can add another term to our quantum system, just as we did for <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> term, but this time with an additional input parameter, namely <code class="docutils literal notranslate"><span class="pre">order</span></code>, to the <code class="docutils literal notranslate"><span class="pre">addTerm</span></code> method.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thirdTerm</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmay</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Now the _freeMatrix is still the operator of the first term that we added</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">_freeMatrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="c1"># but the totalHamiltonian is the summation of all the terms</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="c1"># matrix of the third term is the matrix corresponding to operator (sigmay) raised to the order</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">thirdTerm</span><span class="o">.</span><span class="n">_freeMatrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="c1"># the total-Hamiltonian of the term</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">thirdTerm</span><span class="o">.</span><span class="n">totalHamiltonian</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 1  0]
+ [ 0 -1]]
+[[3.+0.j 1.+0.j]
+ [1.+0.j 1.+0.j]]
+[[1.+0.j 0.+0.j]
+ [0.+0.j 1.+0.j]]
+[[2.+0.j 0.+0.j]
+ [0.+0.j 2.+0.j]]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04_Qubit_Initial_State.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">4 - Initial state for a Qubit</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06_Qubit_Unitary_Evolution_SingleTermHamiltonian.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">6 - Simulation of a Qubit with single term Hamiltonian</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Single-Term">Single Term</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Qubit-object-as-a-special-case">Qubit object as a special case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Multiple-terms">Multiple terms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Non-linear-terms">Non-linear terms</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/classes/Tutorials/1_Qubit/05_Qubit_Hamiltonian.ipynb"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2020, Cahit Kargi.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

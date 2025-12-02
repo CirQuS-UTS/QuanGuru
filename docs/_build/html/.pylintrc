@@ -1,0 +1,39 @@
+[MASTER]
+
+disable=C0114,C0115,C0116
+ignore-patterns=test_.*?py,conftest.py
+
+[BASIC]
+
+module-rgx=[a-zA-Z]{1,30}|[_]+[a-z]+[a-zA-Z]*[_]*$
+function-rgx=[a-z]+[a-z]*$|[a-z]+[A-Z]*[a-zA-Z]*$|[A-Z][a-z]*[a-zA-Z]*$|[_]+[a-z]+[A-Z]*[a-zA-Z]*$|test_+[a-z]+[A-Z]*[a-zA-Z]*$|[_]+[a-z]+[a-zA-Z]*[_]*$
+variable-rgx=[a-z]+[a-z0-9]*$|[a-z]+[A-Z0-9]*[a-zA-Z0-9]*$|[A-Z][a-z0-9]*[a-zA-Z0-9]*$|[_]+[a-z]+[A-Z0-9]*[a-zA-Z0-9]*$|__
+argument-rgx=[a-z]+[a-z0-9]*$|[a-z]+[A-Z0-9]*[a-zA-Z0-9]*$|[A-Z][a-z0-9]*[a-zA-Z0-9]*$|[_]+[a-z]+[A-Z0-9]*[a-zA-Z0-9]*$
+class-rgx=[a-z]+[a-z]*$|[a-z]+[A-Z]*[a-zA-Z]*$|[A-Z][a-z]*[a-zA-Z]*$|[_]+[a-z]+[A-Z]*[a-zA-Z]*$
+method-rgx=[a-z]+[a-z]*$|[a-z]+[A-Z]*[a-zA-Z]*$|[A-Z][a-z]*[a-zA-Z]*$|[_]+[a-z]+[A-Z]*[a-zA-Z]*$|[_]+[a-z]+[a-zA-Z]*[_]*$
+attr-rgx=[a-z]+[a-z]*$|[a-z]+[A-Z]*[a-zA-Z]*$|[A-Z][a-z]*[a-zA-Z]*$|[_]+[a-z]+[A-Z]*[a-zA-Z]*$
+const-rgx=[a-z]+[a-z]*$|[a-z]+[A-Z]*[a-zA-Z]*$|[A-Z][a-z]*[a-zA-Z]*$|[_]+[a-z]+[A-Z]*[a-zA-Z]*$|[_]+[a-z]+[A-Z]*[a-zA-Z]*[_]*$
+
+[FORMAT]
+
+max-line-length=120
+
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+notes=
+
+[CLASSES]
+
+exclude-protected=_asdict,_fields,_replace,_source,_make, _paramUpdated, _allBools, _genericProtocol__inProtocol, _genericQSys__unitary
+    ,_qResBlank__results, _qResBase__results, _qResBlank__average, _qResBase__average, _qResBlank__states, _qResBase__states
+    ,_qResBlank__resultsLast, _qResBase__resultsLast, _qResBlank__statesLast, _qResBase__statesLast, _qResBlank__calculated, _qResBase__calculated, _finalise
+    ,_named__setKwargs, _paramBoundBase__matrix, _genericQSys__dimension, _genericQSys__dimsBefore, _genericQSys__dimsAfter
+    ,_stateBase__initialStateInput, _createAstate, _initialStateInput, _stateBase__initialState, _Simulation__w, _indicesForSweep
+    ,_totalDim, _dimsBefore, _dimsAfter, _value, _freeEvol, _createUnitary, _gateImplements, _defCreateUnitary, _scale, _computeBase__calculate
+    ,_computeBase__calculateMeth, _computeBase__compute, _currentTime, _timeDependency, _qBase__subSys, _timeBase__bound
+    ,_genericQSys__HamMatrix, _compQSystem__couplingMatrix, _paramBoundBase__paramBound, _bound, _paramBoundBase__paramUpdated
+    ,_paramBoundBase__runParamUpdated, _genericProtocol__creating, _paramUpdatedToFalse, _paramBound, _boundTree, try, _alias, _alias__name
+
+[SIMILARITIES]
+min-similarity-lines = 5

@@ -1,0 +1,815 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4 - Initial state for a Qubit &#8212; Quanguru</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=d2a3a1a5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'classes/Tutorials/1_Qubit/04_Qubit_Initial_State';</script>
+    <script src="../../../_static/conditional_source.js?v=ea6749ea"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="5 - Hamiltonian of a quantum system (cont.)" href="05_Qubit_Hamiltonian.html" />
+    <link rel="prev" title="3 - Coupling quantum systems" href="03_CouplingQuantumSystems.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="2025/09/08"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Quanguru</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Tutorials.html">
+    Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_nameAndAlias.html">0 - name and alias of QuanGuru objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_SingleQuantumSystem.html">1 - Hamiltonian of a single quantum system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_CompositeQubitSystem.html">2 - How to create composite quantum systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_CouplingQuantumSystems.html">3 - Coupling quantum systems</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4 - Initial state for a Qubit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Qubit_Hamiltonian.html">5 - Hamiltonian of a quantum system (cont.)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Qubit_Unitary_Evolution_SingleTermHamiltonian.html">6 - Simulation of a Qubit with single term Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_Qubit_Unitary_Evolution_TwoTermsHamiltonian.html">7 - Simulation of a Qubit with two terms Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_Qubit_ResultsStatesDictionaries.html">8 - qRes attribute: an intro to Results objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_Qubit_computeFunction.html">9 - Simulation with a compute function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Qubit_parameterSweep.html">10 - Single parameter sweep</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_Qubit_multipleTermsInHamiltonian.html">11 - Sweep and two term Qubit Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_Qubit_multipleTermsInHamiltonian_multipleSweeps.html">12 - Multi-parameter sweep (combinatorially)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_Qubit_multipleTermsInHamiltonian_multipleSweepsSimultaneous.html">13 - Multi-parameter sweep (simultaneously)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_Qubit_timeDependentTerm.html">14 - Time dependent Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_Qubit_timeDependentTerms.html">15 - Time dependent Hamiltonian 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16a_JaynesCummingsHamiltonianBasis.html">16a - Jaynes-Cummings model of light-matter interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16b_JaynesCummingsHamiltonianQuanGuru.html">16b - Jaynes-Cummings Hamiltonian (in QuanGuru)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_JaynesCummingsModelDynamics.html">17 - Jaynes-Cummings Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_JaynesCummingsModelOpenSystemDynamics.html">18 - Jaynes-Cummings Open System Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_JaynesCummingsModelSmoothPulse.html">19 - Jaynes-Cummings Unitary Fidelity with Smooth Control Pulse</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="20_SimultaneousSimulation.html">20 - Simultaneous Simulation JC and Rabi models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_SimultaneousSimulationRabiJCandDigitalProtocols.html">21 - Simultaneous Simulation JC and Rabi models and 1st and 2nd order DQSs of Rabi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_HeisenbergModelDQS.html">22 - Digital quantum simulation protocol for Heisenberg model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_Step1_SystemDescription.html">23 - Step 1 : System Description</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="Tutorials.html" class="nav-link">Classes Demos</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">4 - Initial state for a Qubit</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quanguru</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qg</span>
+
+<span class="c1"># QuanGuru uses sparse matrices by default,</span>
+<span class="c1"># but sparse matrices are not easily readable when we print them</span>
+<span class="c1"># so, in below examples, we use .toarray() to print them as arrays</span>
+</pre></div>
+</div>
+</div>
+<section id="4---Initial-state-for-a-Qubit">
+<h1>4 - Initial state for a Qubit<a class="headerlink" href="#4---Initial-state-for-a-Qubit" title="Link to this heading">#</a></h1>
+<p>This tutorial shows various ways to set the initial state of a qubit.</p>
+<p>We start by creating a qubit</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Before diving into the examples, let’s first define certain conventions and notations representing the eigenvectors of <span class="math notranslate nohighlight">\(\sigma_{z}\)</span> operator.</p>
+<p>Matrix form of <span class="math notranslate nohighlight">\(\sigma_{z}\)</span> operator is:</p>
+<p><span class="math notranslate nohighlight">\(\sigma_{z} = \left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]\)</span></p>
+<p>and its eigenvectors (with the corresponding eigenvalues) are</p>
+<p><span class="math notranslate nohighlight">\(|0\rangle = \left[\begin{array}{ll} 1 \\ 0 \end{array}\right] \text{ (with eigenvalue 1)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(|1\rangle = \left[\begin{array}{ll} 0 \\ 1 \end{array}\right] \text{ (with eigenvalue -1)}\)</span></p>
+<p>The labels, 0 and 1, of the ket states here represent the position of the 1 in the column matrices. In other words, the <span class="math notranslate nohighlight">\(|0\rangle\)</span> has 1 at row 0, and the <span class="math notranslate nohighlight">\(|1\rangle\)</span> has 1 at row 1. This convention extends naturally and is used for higher dimensional systems such as larger spins or harmonic oscillators. We will refer these as <code class="docutils literal notranslate"><span class="pre">basis</span></code> states, and the <code class="docutils literal notranslate"><span class="pre">basis</span></code> method of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> can be used for the creation of such states, but, here we focus on creating the initial
+states through the <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> object.</p>
+<section id="1.-Pure-States">
+<h2>1. Pure States<a class="headerlink" href="#1.-Pure-States" title="Link to this heading">#</a></h2>
+<section id="1.1-If-Initial-state-is-a-basis-state">
+<h3>1.1 If Initial state is a basis state<a class="headerlink" href="#1.1-If-Initial-state-is-a-basis-state" title="Link to this heading">#</a></h3>
+<p>In order to set <span class="math notranslate nohighlight">\(|0\rangle\)</span> or <span class="math notranslate nohighlight">\(|1\rangle\)</span>, we simply give the respective number as input for the <code class="docutils literal notranslate"><span class="pre">initialState</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[1.]
+ [0.]]
+[[0.]
+ [1.]]
+</pre></div></div>
+</div>
+</section>
+<section id="1.2-If-Initial-state-is-a-superposition-state">
+<h3>1.2 If Initial state is a superposition state<a class="headerlink" href="#1.2-If-Initial-state-is-a-superposition-state" title="Link to this heading">#</a></h3>
+<p>If we want to set some super-position of <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> as the initial state, we can do this in various different ways depending on the superposition state we want to set.</p>
+<section id="1.2.1-If-Initial-state-is-an-equal-superposition-state">
+<h4>1.2.1 If Initial state is an equal superposition state<a class="headerlink" href="#1.2.1-If-Initial-state-is-an-equal-superposition-state" title="Link to this heading">#</a></h4>
+<p>The first method is for the equal superposition state</p>
+<p><span class="math notranslate nohighlight">\(\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle )\)</span></p>
+<p>In this special case, we simply give a list <span class="math notranslate nohighlight">\([1, 0]\)</span> (or <span class="math notranslate nohighlight">\([0, 1]\)</span> the order is not important) of the states, and it is used to create the equal superposition. Note that “equal superposition” here does not mean equal superposition of every basis states, it just means equal superposition of the given input basis states. In other words, for higher dimensional systems, you can create an equal superposition of any number of basis states. For example for a 5 dimensional system,
+<span class="math notranslate nohighlight">\([1, 0, 3]\)</span> will create equal superposition of these three basis states.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.70710678]
+ [0.70710678]]
+</pre></div></div>
+</div>
+</section>
+<section id="1.2.2-If-Initial-state-is-an-arbitrary-superposition-state">
+<h4>1.2.2 If Initial state is an arbitrary superposition state<a class="headerlink" href="#1.2.2-If-Initial-state-is-an-arbitrary-superposition-state" title="Link to this heading">#</a></h4>
+<p>The second method for creating a superposition state is by using a dictionary, where <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs represent the <code class="docutils literal notranslate"><span class="pre">basis-state:population/coefficient</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">population/coefficient</span></code> here means that there are also two different ways for this approach.</p>
+<p>Consider the following superposition state</p>
+<p><span class="math notranslate nohighlight">\(c_{0}|0\rangle + c_{1}|1\rangle\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(c_{i}\)</span> are the complex probability amplitudes, and <span class="math notranslate nohighlight">\(p_{i} = |c_{i}|^{2}\)</span> are the population, satisfying the normalization condition <span class="math notranslate nohighlight">\(\sum_{i}p_{i} = 1\)</span>.</p>
+<p>Now, we can create our superposition state either by using the <code class="docutils literal notranslate"><span class="pre">population</span></code> or <code class="docutils literal notranslate"><span class="pre">coefficient</span></code>.</p>
+<section id="1.2.2.1-Initial-state-using-the-populations">
+<h5>1.2.2.1 Initial state using the populations<a class="headerlink" href="#1.2.2.1-Initial-state-using-the-populations" title="Link to this heading">#</a></h5>
+<p>Let’s cover the <code class="docutils literal notranslate"><span class="pre">population</span></code> first, which is the default method. Below is an example where we want <span class="math notranslate nohighlight">\(p_{0} = 0.2\)</span> and <span class="math notranslate nohighlight">\(p_{1} = 0.8\)</span>. Note that the order of the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs does not matter, meaning <code class="docutils literal notranslate"><span class="pre">{0:0.2,</span> <span class="pre">1:0.8}</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">{1:0.8,</span> <span class="pre">0:0.2}</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+<span class="c1"># let&#39;s also convert this initial state into density matrix to confirm:</span>
+<span class="c1"># (i) the populations and (ii) its purity</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.4472136 ]
+ [0.89442719]]
+[[0.2 0.4]
+ [0.4 0.8]]
+1.0000000000000009
+</pre></div></div>
+</div>
+<p>Also note that the populations can be <em>relative</em>, meaning the input does not have to sum to 1, and they will be normalized to sum to one. For example, if we input <span class="math notranslate nohighlight">\({0:0.2, 1:0.9}\)</span>, the total population is <span class="math notranslate nohighlight">\(1.1\)</span>. Therefore, it will be normalized to <span class="math notranslate nohighlight">\({0:(0.2/1.1), 1:(0.9/1.1)}\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.9</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="mf">0.9</span><span class="o">/</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="o">/</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.42640143]
+ [0.90453403]]
+[[0.18181818 0.38569461]
+ [0.38569461 0.81818182]]
+1.0000000000000007
+0.8181818181818181
+0.18181818181818182
+</pre></div></div>
+</div>
+</section>
+<section id="1.2.2.2-If-the-relative-phases-are-important">
+<h5>1.2.2.2 If the relative phases are important<a class="headerlink" href="#1.2.2.2-If-the-relative-phases-are-important" title="Link to this heading">#</a></h5>
+<p>Obviously, the <code class="docutils literal notranslate"><span class="pre">population</span></code> approach ignores the relative phase between the <code class="docutils literal notranslate"><span class="pre">coefficients</span></code>, which might be important for us. In such a case, we can give the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> value pairs as <code class="docutils literal notranslate"><span class="pre">state:coefficient</span></code>, but we also need to set <code class="docutils literal notranslate"><span class="pre">_inpCoef</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> as below, where we compare the <code class="docutils literal notranslate"><span class="pre">population</span></code> and <code class="docutils literal notranslate"><span class="pre">coefficient</span></code> approach. Notice that both cases below creates <span class="math notranslate nohighlight">\(p_{0} = 0.66\)</span> and <span class="math notranslate nohighlight">\(p_{1} = 0.33\)</span>, but the first one uses the complex probability amplitudes introducing a
+relative phase, which is observed as the complex parts of the off-diagonal elements of the density matrix.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">_inpCoef</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="p">),</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.2</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">qub</span><span class="o">.</span><span class="n">_inpCoef</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.66</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.33</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.57735027+0.57735027j]
+ [0.57735027+0.j        ]]
+[[0.66666667+0.j         0.33333333+0.33333333j]
+ [0.33333333-0.33333333j 0.33333333+0.j        ]]
+(0.9999999999999989+0j)
+[[0.81649658]
+ [0.57735027]]
+[[0.66666667 0.47140452]
+ [0.47140452 0.33333333]]
+1.0
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="Mixed-states-or-any-other-arbitrary-state">
+<h2>Mixed states or any other arbitrary state<a class="headerlink" href="#Mixed-states-or-any-other-arbitrary-state" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">initialState</span></code> also accepts a (ket or density) matrix as input, which makes it possible to set any state we want as the initial state. For example, if we want the initial state to be a mixed state, we can create it using the <code class="docutils literal notranslate"><span class="pre">densityMatrix</span></code> function of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> then set it through again the <code class="docutils literal notranslate"><span class="pre">initialState</span></code> as below, where we also calculate the purity of each mixed state.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mixedState</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">([</span><span class="n">qg</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">qg</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">mixedState</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">mixedState</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">([</span><span class="n">qg</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">qg</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">mixedState</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.5 0. ]
+ [0.  0.5]]
+0.5
+[[0.75 0.  ]
+ [0.   0.25]]
+0.625
+</pre></div></div>
+</div>
+<p>Note that all the other methods covered above can also be achieved similarly by using the <code class="docutils literal notranslate"><span class="pre">superPos</span></code> function of <code class="docutils literal notranslate"><span class="pre">QuantumToolbox</span></code> as below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># basis state</span>
+<span class="n">ket1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">ket1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># equal superposition</span>
+<span class="n">ket0</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">ket0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># arbitrary superposition with populations</span>
+<span class="n">ket0</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.33</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.66</span><span class="p">})</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">ket0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># arbitrary superposition with complex probability amplitudes</span>
+<span class="n">ket0</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">superPos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="p">),</span> <span class="mi">1</span><span class="p">:</span><span class="mf">0.2</span><span class="p">},</span> <span class="n">populations</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="n">ket0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">denMat</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">densityMatrix</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">initialState</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">denMat</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">qg</span><span class="o">.</span><span class="n">purity</span><span class="p">(</span><span class="n">denMat</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.]
+ [1.]]
+[[0. 0.]
+ [0. 1.]]
+1.0
+[[0.70710678]
+ [0.70710678]]
+[[0.5 0.5]
+ [0.5 0.5]]
+0.9999999999999996
+[[0.57735027]
+ [0.81649658]]
+[[0.33333333 0.47140452]
+ [0.47140452 0.66666667]]
+1.0
+[[0.57735027+0.57735027j]
+ [0.57735027+0.j        ]]
+[[0.66666667+0.j         0.33333333+0.33333333j]
+ [0.33333333-0.33333333j 0.33333333+0.j        ]]
+(0.9999999999999989+0j)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_CouplingQuantumSystems.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3 - Coupling quantum systems</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05_Qubit_Hamiltonian.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">5 - Hamiltonian of a quantum system (cont.)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Pure-States">1. Pure States</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#1.1-If-Initial-state-is-a-basis-state">1.1 If Initial state is a basis state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2-If-Initial-state-is-a-superposition-state">1.2 If Initial state is a superposition state</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2.1-If-Initial-state-is-an-equal-superposition-state">1.2.1 If Initial state is an equal superposition state</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2.2-If-Initial-state-is-an-arbitrary-superposition-state">1.2.2 If Initial state is an arbitrary superposition state</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2.2.1-Initial-state-using-the-populations">1.2.2.1 Initial state using the populations</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#1.2.2.2-If-the-relative-phases-are-important">1.2.2.2 If the relative phases are important</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Mixed-states-or-any-other-arbitrary-state">Mixed states or any other arbitrary state</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/classes/Tutorials/1_Qubit/04_Qubit_Initial_State.ipynb"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2020, Cahit Kargi.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
