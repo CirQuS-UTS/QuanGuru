@@ -35,9 +35,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/12/03"/>
+    <meta name="docbuild:last-update" content="2025/09/08"/>
   </head>
   
   
@@ -147,6 +147,27 @@
   </a>
 </li>
 
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -223,6 +244,27 @@
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
   </a>
 </li>
 
@@ -353,11 +395,7 @@
 </div>
 <section id="20---Simultaneous-Simulation-JC-and-Rabi-models">
 <h1>20 - Simultaneous Simulation JC and Rabi models<a class="headerlink" href="#20---Simultaneous-Simulation-JC-and-Rabi-models" title="Link to this heading">#</a></h1>
-<p>The Rabi Hamiltonian (also called the quantum Rabi model) is written as:</p>
-<p><span class="math notranslate nohighlight">\(H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}+ a)(\sigma_{+} + \sigma_{-})\)</span></p>
-<p>Previously, we have looked at the Jaynes-Cummings model descibed by: <span class="math notranslate nohighlight">\(H_{JC} = \hbar\omega_{c} a^{\dagger}a + \frac{1}{2}\hbar\omega_{q}\sigma_{z} + \hbar g(a^{\dagger}\sigma_{-} + a\sigma_{+})\)</span></p>
-<p>The JC model is derived from the Rabi model by applying the Rotating Wave Approximation (RWA), which drops the counter-rotating (anti-resonant) terms $ a^{<span class="math">\dagger</span>} <span class="math">\sigma</span>_{+}$ and <span class="math notranslate nohighlight">\(a \sigma_{-}\)</span> under the assumption that <span class="math notranslate nohighlight">\(g ≪ \omega_{c}, \omega_{q}\)</span>.</p>
-<p>In this tutorial we will demonstrate how to simultaneously simulate both quantum systems to compare the two models. ​</p>
+<p>This is a tutorial for open system dynamics of JC.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -390,22 +428,15 @@
 </pre></div>
 </div>
 </div>
-<p>Rather than redefining a new qubit and cavity for the Rabi model, we use the <code class="docutils literal notranslate"><span class="pre">copy()</span></code> method to duplicate the <code class="docutils literal notranslate"><span class="pre">JCSystem</span></code> structure. This preserves all system parameters (<code class="docutils literal notranslate"><span class="pre">frequency</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension</span></code>) and creates independent copies (modifications to one don’t affect the other).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">RabiSystem</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rabi model also consists of a qubit and cavity</span>
+<span class="n">RabiSystem</span> <span class="o">=</span> <span class="n">JCSystem</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">QuanGuru</span></code> provides convenient methods for common interaction Hamiltonians:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">JC(g)</span></code>: Adds Jaynes-Cummings coupling <span class="math notranslate nohighlight">\(g(a^{\dagger}\sigma_{-} + a\sigma_{+})\)</span></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Rabi(g)</span></code>: Adds quantum Rabi coupling <span class="math notranslate nohighlight">\(g(a^{\dagger} + a)(\sigma_{+} + \sigma_{-})\)</span></p></li>
-</ul>
-<p>These methods automatically handle operator ordering and composite system structure.</p>
-<p>An example of how to construct these manually is on the next tutorial.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -417,13 +448,6 @@
 </pre></div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> object manages multiple systems:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">subSys=[JCSystem,</span> <span class="pre">RabiSystem]</span></code>: Both systems evolve in parallel</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">initialStateSystem=JCSystem</span></code>: Specifies which system’s Hilbert space the initial state refers to</p></li>
-</ul>
-<p>The initial state is automatically mapped to both systems.</p>
-<p>The sweep uses <code class="docutils literal notranslate"><span class="pre">system=[CavityJC,</span> <span class="pre">&quot;Cavity2&quot;]</span></code> to simultaneously vary the cavity frequency in both models. The string <code class="docutils literal notranslate"><span class="pre">&quot;Cavity2&quot;</span></code> refers to the cavity in the copied Rabi system (automatically named during copy).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -439,7 +463,6 @@
 <span class="n">simulation</span><span class="o">.</span><span class="n">initialStateSystem</span> <span class="o">=</span> <span class="n">JCSystem</span>
 <span class="n">simulation</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
-<span class="c1"># need to include both systems in the frequency sweep</span>
 <span class="n">freqSweep</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">createSweep</span><span class="p">(</span>
                     <span class="n">system</span><span class="o">=</span><span class="p">[</span><span class="n">CavityJC</span><span class="p">,</span> <span class="s2">&quot;Cavity2&quot;</span><span class="p">],</span>
                     <span class="n">sweepKey</span><span class="o">=</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span>
@@ -449,17 +472,11 @@
 </pre></div>
 </div>
 </div>
-<p>We can create a composite operator in the extended Hilbert space so that measurement can be made without needing to project the state in the compute function.</p>
-<p>Here, we create the composite qubit Pauli-Z operator <span class="math notranslate nohighlight">\(\langle \sigma_{z} \rangle\)</span> acting on the full qubit <span class="math notranslate nohighlight">\(\otimes\)</span> cavity space. This gives +1 for <span class="math notranslate nohighlight">\(\vert e \rangle\)</span> and -1 for <span class="math notranslate nohighlight">\(\vert g \rangle\)</span>. We compute this for each model.</p>
-<p>We also compute the fidelity between the states from the JC and Rabi models using <code class="docutils literal notranslate"><span class="pre">qg.fidelityPure</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">singleResult</span></code> property stores individual results at each time step, automatically organizing them by sweep parameters.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># create sigma Z operator in the extended Hilbert space</span>
-<span class="n">compositeSZ</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">compositeOp</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">(),</span>   <span class="n">dimA</span><span class="o">=</span><span class="n">cavityDim</span><span class="p">)</span>
-
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">compositeSZ</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">compositeOp</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">(),</span>   <span class="n">dimA</span><span class="o">=</span><span class="n">cavityDim</span><span class="p">)</span>
 <span class="c1"># calculate the desired results and store</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="n">stateJC</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -469,15 +486,14 @@
     <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;zRabi&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">compositeSZ</span><span class="p">,</span> <span class="n">stateRabi</span><span class="p">)]</span>
     <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;zJC&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">compositeSZ</span><span class="p">,</span> <span class="n">stateJC</span><span class="p">)]</span>
 
-    <span class="c1"># fidelityPure computes and returns fidelity between two states</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fidelityJC&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">stateRabi</span><span class="p">,</span> <span class="n">stateJC</span><span class="p">)]</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">singleResult</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fidJC&#39;</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">fidelityPure</span><span class="p">(</span><span class="n">stateRabi</span><span class="p">,</span> <span class="n">stateJC</span><span class="p">)]</span>
 
 <span class="n">simulation</span><span class="o">.</span><span class="n">compute</span> <span class="o">=</span> <span class="n">compute</span>
 </pre></div>
 </div>
 </div>
 <p>IMPORTANT NOTE FOR WINDOWS USERS : MULTI-PROCESSING (p=True) DOES NOT WORK WITH NOTEBOOK</p>
-<p>You can use a python script, but you will need to make sure that the critical parts of the code are under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code></p>
+<p>You can use a python script, but you will need to make sure that the critical parts of the code are under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> We are going to add further tutorials for this later.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -491,17 +507,6 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Starting sequential sweep with 81 parameter combinations...
-Simulation Start:       2025-11-30 18:01:32
-[████████████████████████████████████████] 100.0% | Est. Finish: 2025-11-30 18:01:43
-Simulation completed in 00h 00m 10s
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -511,22 +516,15 @@ Simulation completed in 00h 00m 10s
 []
 </pre></div></div>
 </div>
-<p>The JC model plot shows:</p>
-<ul class="simple">
-<li><p><strong>On-resonance</strong>: Complete Rabi oscillations with period <span class="math notranslate nohighlight">\(\sim \pi/g\)</span></p></li>
-<li><p><strong>Off-resonance</strong>: Reduced oscillation amplitude with increased frequency</p></li>
-<li><p><strong>Chevron pattern</strong>: Characteristic JC detuning dependence</p></li>
-<li><p><strong>Symmetry</strong>: Pattern is symmetric about resonance due to RWA energy conservation</p></li>
-</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot sigma Z expectation value as a function of time and cavity frequency for the JC model</span>
-<span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;zJC&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Frequency $\omega_</span><span class="si">{c}</span><span class="s2">$&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Frequency $\omega_</span><span class="si">{c}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -544,25 +542,18 @@ Text(0, 0.5, &#39;Time&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_15_1.png" src="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_15_1.png" />
+<img alt="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_10_1.png" src="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_10_1.png" />
 </div>
 </div>
-<p>The Rabi model plot shows:</p>
-<ul class="simple">
-<li><p><strong>Similar overall pattern</strong> to JC model at these parameters</p></li>
-<li><p><strong>Slight asymmetry</strong>: Counter-rotating terms break perfect symmetry</p></li>
-<li><p><strong>Modified oscillation frequency</strong>: Anti-resonant terms shift dynamics</p></li>
-<li><p><strong>Bloch-Siegert shift</strong>: Small frequency correction from <span class="math notranslate nohighlight">\(a^{\dagger}\sigma_{+}\)</span> and <span class="math notranslate nohighlight">\(a\sigma_{-}\)</span></p></li>
-</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot sigma Z expectation value as a function of time and cavity frequency for the Rabi model</span>
-<span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;zRabi&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Frequency $\omega_</span><span class="si">{c}</span><span class="s2">$&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Frequency $\omega_</span><span class="si">{c}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -580,32 +571,18 @@ Text(0, 0.5, &#39;Time&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_17_1.png" src="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_17_1.png" />
+<img alt="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_11_1.png" src="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_11_1.png" />
 </div>
 </div>
-<p>The fidelity plot compares the JC and Rabi states at the same time and cavity frequency.</p>
-<p>High fidelity indicates the RWA (JC model) reproduces the full Rabi dynamics.</p>
-<p>When the cavity frequency is comparable to the coupling (<span class="math notranslate nohighlight">\(\omega_{c} \approx g\)</span>), the counter-rotating terms no longer oscillate fast enough to average out and we see:</p>
-<ul class="simple">
-<li><p>Drops in fidelity (JC and Rabi model disagree)</p></li>
-<li><p>The chevron symmetry distorts</p></li>
-<li><p>Bloch–Siegert shift becomes non-negligible</p></li>
-</ul>
-<p>When <span class="math notranslate nohighlight">\(\omega_{c}\)</span> (and <span class="math notranslate nohighlight">\(\omega_{q}\)</span>) $ :nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>gg <a href="#id3"><span class="problematic" id="id4">`</span></a>g$, the fast oscillations of the counter-rotating terms suppress their net effect and the RWA holds. In this reigime, we observe:</p>
-<ul class="simple">
-<li><p>High fidelity persists even when not on resonance.</p></li>
-<li><p>JC and Rabi chevrons closely match with minimal asymmetries.</p></li>
-<li><p>Bloch–Siegert corrections are small and often within numerical/plot resolution.</p></li>
-</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the fidelity between JC and Rabi model as a function of time and cavity frequency</span>
-<span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;fidelityJC&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Frequency $\omega_</span><span class="si">{c}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweep</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">simulation</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;fidJC&#39;</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Frequency $\omega_</span><span class="si">{c}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -623,7 +600,7 @@ Text(0, 0.5, &#39;Time&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_19_1.png" src="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_19_1.png" />
+<img alt="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_12_1.png" src="../../../_images/classes_Tutorials_1_Qubit_20_SimultaneousSimulation_12_1.png" />
 </div>
 </div>
 </section>

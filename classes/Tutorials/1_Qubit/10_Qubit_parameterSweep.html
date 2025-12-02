@@ -35,9 +35,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/12/03"/>
+    <meta name="docbuild:last-update" content="2025/09/08"/>
   </head>
   
   
@@ -147,6 +147,27 @@
   </a>
 </li>
 
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -223,6 +244,27 @@
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
   </a>
 </li>
 
@@ -397,7 +439,7 @@ of the other terms in the Hamiltonian (covered in later tutorials).</p>
 <p>Also, for parameter sweeps, QuanGuru can carry out parallel-processing, which means that each simulation for a set of parameters will run on the different cores of your cpu. For this, we simply set <code class="docutils literal notranslate"><span class="pre">p=True</span></code> when we call the <code class="docutils literal notranslate"><span class="pre">runSimulation</span></code>.</p>
 <p>IMPORTANT NOTE FOR WINDOWS USERS : MULTI-PROCESSING (p=True) DOES NOT WORK WITH NOTEBOOK</p>
 <p>You can use a python script, but you will need to make sure that the critical parts of the code are under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> We are going to add further tutorials for this later.</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
@@ -405,17 +447,6 @@ of the other terms in the Hamiltonian (covered in later tutorials).</p>
 <span class="n">states</span> <span class="o">=</span> <span class="n">qub</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;Windows&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Starting sequential sweep with 100 parameter combinations...
-Simulation Start:       2025-11-28 11:05:23
-[████████████████████████████████████████] 100.0% | Est. Finish: 2025-11-28 11:05:32
-Simulation completed in 00h 00m 09s
-</pre></div></div>
 </div>
 <p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation']</span></code>, but this time it returns a list of list, each of which is a time trace corresponding to the frequencies swept.</p>
 <p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates with different frequencies.</p>
@@ -445,6 +476,14 @@ Text(0, 0.5, &#39;Time&#39;)
 </div>
 <div class="output_area docutils container">
 <img alt="../../../_images/classes_Tutorials_1_Qubit_10_Qubit_parameterSweep_8_1.png" src="../../../_images/classes_Tutorials_1_Qubit_10_Qubit_parameterSweep_8_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>

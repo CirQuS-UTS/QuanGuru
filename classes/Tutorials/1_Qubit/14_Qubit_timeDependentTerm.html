@@ -35,9 +35,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/12/03"/>
+    <meta name="docbuild:last-update" content="2025/09/08"/>
   </head>
   
   
@@ -147,6 +147,27 @@
   </a>
 </li>
 
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -223,6 +244,27 @@
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
   </a>
 </li>
 
@@ -341,7 +383,7 @@
                 <article class="bd-article">
                   
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quanguru</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qg</span>
@@ -356,28 +398,11 @@
 <p>Here, we use the below single qubit Hamiltonian,</p>
 <p><span class="math notranslate nohighlight">\(H=f_{z}J_{z} + f_{x}(t)\sigma_{x}\)</span></p>
 <p>where the second term will be time dependent.</p>
-<p>For the sake of the example, we won’t use the special <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class.</p>
-<section id="Define-the-system-and-parameters">
-<h2>Define the system and parameters<a class="headerlink" href="#Define-the-system-and-parameters" title="Link to this heading">#</a></h2>
-<p>We create a single qubit whose static Hamiltonian is set by <span class="math notranslate nohighlight">\(J_{z}\)</span> with frequency <span class="math notranslate nohighlight">\(f_{z}=\texttt{qubFreq}\)</span>. Then we add a second term with operator <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> and make its frequency time dependent.</p>
-<p>The relevant information are:</p>
-<ul class="simple">
-<li><p>frequency: <code class="docutils literal notranslate"><span class="pre">qubFreq</span></code> for the static term and a time-dependent frequency for the drive</p></li>
-<li><p>operator: <code class="docutils literal notranslate"><span class="pre">Jz</span></code> for the qubit and <code class="docutils literal notranslate"><span class="pre">sigma_x</span></code> for the drive</p></li>
-<li><p>dimension: <code class="docutils literal notranslate"><span class="pre">2</span></code> for a qubit</p></li>
-</ul>
-<p>We also compute useful derived quantities:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\Omega_R = g\,A\)</span> is the Rabi frequency set by coupling strength and drive amplitude</p></li>
-<li><p><span class="math notranslate nohighlight">\(\Delta = f_{z} - f_{\text{drive}}\)</span> is the detuning</p></li>
-<li><p><span class="math notranslate nohighlight">\(\Omega = \sqrt{\Omega_R^2 + \Delta^2}\)</span> is the generalized Rabi frequency</p></li>
-</ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define parameters</span>
-<span class="n">qubFreq</span> <span class="o">=</span> <span class="mi">1</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qubFreq</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">driveFreq</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">driveAmp</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">drivePhase</span> <span class="o">=</span> <span class="mi">0</span>
@@ -389,33 +414,28 @@
 </pre></div>
 </div>
 </div>
-<p>We set the initial state to <code class="docutils literal notranslate"><span class="pre">1</span></code> (excited state for the qubit) and choose a total simulation time of one drive period with a small step size. We then provide a <code class="docutils literal notranslate"><span class="pre">compute</span></code> function that records the expectation value <span class="math notranslate nohighlight">\(\langle\sigma_x\rangle\)</span> at each time step.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the qubit and set its parameters</span>
-<span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">Jz</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">Jz</span><span class="p">)</span>
 <span class="n">qub</span><span class="o">.</span><span class="n">dimension</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">qub</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">qubFreq</span>
 
-<span class="c1"># add the drive term</span>
+<span class="c1"># add the drive terms</span>
 <span class="n">secondTerm</span> <span class="o">=</span> <span class="n">qub</span><span class="o">.</span><span class="n">createTerm</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">)</span>
 <span class="n">secondTerm</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">driveFreq</span>
 
-<span class="c1"># set the initial state</span>
 <span class="n">qub</span><span class="o">.</span><span class="n">initialState</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="c1"># set the simulation time and step size</span>
 <span class="n">qub</span><span class="o">.</span><span class="n">simTotalTime</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 <span class="n">qub</span><span class="o">.</span><span class="n">simStepSize</span> <span class="o">=</span> <span class="mf">0.01</span>
 
 <span class="c1"># create the operators for which we compute the expectation values</span>
 <span class="n">sigmaX</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
 
-<span class="c1"># write a compute function that takes two arguments: 1) a QuantumSystem (qsys) and 2) a state</span>
+<span class="c1"># write a compute function that takes two arguments: (i) a quantum-system (qsys) and (ii) a state</span>
 <span class="c1"># compute whatever we want and store in .resultsDict</span>
-<span class="c1"># here we compute the expectation value of sigmaX and store it in &#39;sigmax expectation&#39; resultsDict entry</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="n">qsys</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
     <span class="n">qsys</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">expectation</span><span class="p">(</span><span class="n">sigmaX</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
 
@@ -424,28 +444,8 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-C:\Users\Josh\Desktop\Masters Project\QuanGuru Code\QuanGuru\src\quanguru\classes\QSystem.py:353: UserWarning: QuantumSystem1 type (whether it is a single or composite system) is ambiguousIf it is intentional, please ignore this
-  warnings.warn(f&#39;{self.name} type (whether it is a single or composite system) is ambiguous&#39;+\
-</pre></div></div>
-</div>
-</section>
-<section id="Time-dependent-term-via-a-callback">
-<h2>Time-dependent term via a callback<a class="headerlink" href="#Time-dependent-term-via-a-callback" title="Link to this heading">#</a></h2>
-<p>We implement time dependence by assigning a function to the <code class="docutils literal notranslate"><span class="pre">timeDependency</span></code> attribute of the term. This function receives two arguments:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">st</span></code>: the term (or system) whose attributes we will update</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ti</span></code>: the current simulation time</p></li>
-</ul>
-<p>Inside the function, we set <code class="docutils literal notranslate"><span class="pre">st.frequency</span></code> to a cosine modulation with drive frequency and phase:</p>
-<p><span class="math notranslate nohighlight">\(f_{x}(t) = gA\cos(2\pi f_{\text{drive}}\,t + \phi)\)</span></p>
-<p>This approach is flexible and can be applied to any <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code> or <code class="docutils literal notranslate"><span class="pre">Term</span></code> object.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">secondTermTime</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="n">ti</span><span class="p">):</span>
@@ -455,61 +455,63 @@ C:\Users\Josh\Desktop\Masters Project\QuanGuru Code\QuanGuru\src\quanguru\classe
 </pre></div>
 </div>
 </div>
-<p>At this point, all the essential information are set, and we can run the simulation by <code class="docutils literal notranslate"><span class="pre">qub.runSimulation()</span></code>, which returns the list of states for the time evolution of our <code class="docutils literal notranslate"><span class="pre">QuantumSystem</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="n">qub</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<p>We verify that the number of propagator exponentiations equals the step count, which confirms the integrator advanced at the requested resolution.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The number of exponentiations should be equal to the step count</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">_freeEvol</span><span class="o">.</span><span class="n">numberOfExponentiations</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">_freeEvol</span><span class="o">.</span><span class="n">numberOfExponentiations</span> <span class="o">==</span> <span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">stepCount</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">_freeEvol</span><span class="o">.</span><span class="n">numberOfExponentiations</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-628 True
+(1258, 630)
 </pre></div></div>
 </div>
-<p>Finally, we plot <span class="math notranslate nohighlight">\(\langle\sigma_x\rangle\)</span> against time.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">qub</span><span class="o">.</span><span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;sigmax expectation&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Sigma X Expectation Value $\langle\sigma_x\rangle$&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Text(0, 0.5, &#39;Sigma X Expectation Value $\\langle\\sigma_x\\rangle$&#39;)
+[&lt;matplotlib.lines.Line2D at 0x20f72eba5b0&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/classes_Tutorials_1_Qubit_14_Qubit_timeDependentTerm_13_1.png" src="../../../_images/classes_Tutorials_1_Qubit_14_Qubit_timeDependentTerm_13_1.png" />
+<img alt="../../../_images/classes_Tutorials_1_Qubit_14_Qubit_timeDependentTerm_7_1.png" src="../../../_images/classes_Tutorials_1_Qubit_14_Qubit_timeDependentTerm_7_1.png" />
 </div>
 </div>
-</section>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
 </section>
 
 
@@ -550,19 +552,6 @@ Text(0, 0.5, &#39;Sigma X Expectation Value $\\langle\\sigma_x\\rangle$&#39;)
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Define-the-system-and-parameters">Define the system and parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Time-dependent-term-via-a-callback">Time-dependent term via a callback</a></li>
-</ul>
-  </nav></div>
 
   <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">

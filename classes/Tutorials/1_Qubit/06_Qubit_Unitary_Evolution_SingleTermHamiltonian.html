@@ -35,9 +35,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/12/03"/>
+    <meta name="docbuild:last-update" content="2025/09/08"/>
   </head>
   
   
@@ -147,6 +147,27 @@
   </a>
 </li>
 
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -223,6 +244,27 @@
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
   </a>
 </li>
 
@@ -354,7 +396,7 @@
 <h1>6 - Simulation of a Qubit with single term Hamiltonian<a class="headerlink" href="#6---Simulation-of-a-Qubit-with-single-term-Hamiltonian" title="Link to this heading">#</a></h1>
 <p>In previous tutorials, we covered how to set an initial state to a quantum system and how to describe its Hamiltonian.</p>
 <p>Here, we will evolve the quantum system under the unitary dynamics of its Hamiltonian. First, we create a quantum system and describe its Hamiltonian <span class="math notranslate nohighlight">\(H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}\)</span> and, for the sake of the example, we won’t use the special <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class.</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
@@ -363,15 +405,6 @@
 <span class="n">qub</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-C:\Users\26191128\OneDrive - UTS\Documents\Quanguru (Everything)\QuanGuru\src\quanguru\classes\QSystem.py:353: UserWarning: QuantumSystem1 type (whether it is a single or composite system) is ambiguousIf it is intentional, please ignore this
-  warnings.warn(f&#39;{self.name} type (whether it is a single or composite system) is ambiguous&#39;+\
-</pre></div></div>
 </div>
 <p>Now, let’s set its initial state to the equal superposition of <span class="math notranslate nohighlight">\(|1\rangle\)</span> and <span class="math notranslate nohighlight">\(|0\rangle\)</span>.</p>
 <div class="nbinput nblast docutils container">
@@ -417,7 +450,7 @@ C:\Users\26191128\OneDrive - UTS\Documents\Quanguru (Everything)\QuanGuru\src\qu
 </div>
 <p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates, while the expectation value of <span class="math notranslate nohighlight">\(\sigma_{z}\)</span> is constant (since <span class="math notranslate nohighlight">\(\left[ H, \sigma_{z} \right] = 0\)</span>)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">expectations</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\langle \sigma_</span><span class="si">{x}</span><span class="s2"> \rangle$&quot;</span><span class="p">)</span>
@@ -430,7 +463,7 @@ C:\Users\26191128\OneDrive - UTS\Documents\Quanguru (Everything)\QuanGuru\src\qu
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">

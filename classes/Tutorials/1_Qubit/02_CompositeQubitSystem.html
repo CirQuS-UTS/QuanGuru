@@ -35,9 +35,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=ce33d648" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=bfd63f27" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css?v=eef91c61" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/12/03"/>
+    <meta name="docbuild:last-update" content="2025/09/08"/>
   </head>
   
   
@@ -147,6 +147,27 @@
   </a>
 </li>
 
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -223,6 +244,27 @@
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
+    QuantumToolbox
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP, module to be renamed later)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../QuantumToolbox/Tutorials/Tutorials.html">
+    QuantumToolbox Tutorials
   </a>
 </li>
 
@@ -378,7 +420,7 @@ Hilbert space as further explained below.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;quanguru.classes.QSystem.Qubit at 0x18d27277a50&gt;
+&lt;quanguru.classes.QSystem.Qubit at 0x7fa70450a4f0&gt;
 </pre></div></div>
 </div>
 <p>In above cell, we first created <code class="docutils literal notranslate"><span class="pre">qub1</span></code> then <code class="docutils literal notranslate"><span class="pre">qub2</span></code>. The order of creation as above does not have any special meaning other than the names of the <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> objects, which will be named <code class="docutils literal notranslate"><span class="pre">Qubit1</span></code> and <code class="docutils literal notranslate"><span class="pre">Qubit2</span></code>, respectively. When we add them as sub-systems to the composite quantum system <code class="docutils literal notranslate"><span class="pre">twoQub1</span></code>, we passed them in a list. Their order in this list, however, determines the structures of the Hilbert space. Below, we examine the structure of the Hilbert space from the composite operators
@@ -397,7 +439,7 @@ Hilbert space as further explained below.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit2&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1F050&gt;, &#39;Qubit1&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D27277A50&gt;}
+{&#39;Qubit2&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450a5e0&gt;, &#39;Qubit1&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450a4f0&gt;}
 </pre></div></div>
 </div>
 <p>As expected, <code class="docutils literal notranslate"><span class="pre">Qubit2</span></code> is the first item of the <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>.</p>
@@ -435,7 +477,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 <p><span class="math notranslate nohighlight">\(\sigma_{z}\otimes1 = \left[\begin{array}{llll}1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; -1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; -1 \end{array}\right]\)</span></p>
 <p>Let’s print and verify. But, recall from the previous tutorials that <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> objects use the two dimensional <span class="math notranslate nohighlight">\(J_{z}\)</span> to incorporate the <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> factor of the Hamiltonian, so the values will be half.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># freeMat is just the (composite) operator of the system</span>
@@ -464,7 +506,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 <h2>Create a composite quantum system using the <span class="math notranslate nohighlight">\(+\)</span> operator<a class="headerlink" href="#Create-a-composite-quantum-system-using-the-+-operator" title="Link to this heading">#</a></h2>
 <p>Above examples highlight the basics of composite quantum systems, and we now focus on alternative ways for composite system creation. We will take an incremental approach and simplify the above composite system creation step-by-step. First step is that we actually don’t have to create a composite system first then add the sub-systems, we can do them in a single line as below.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub3</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">()</span>
@@ -485,7 +527,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit3&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1F450&gt;, &#39;Qubit4&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1F550&gt;}
+{&#39;Qubit3&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450a400&gt;, &#39;Qubit4&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450a7c0&gt;}
 1 2
 2 1
 [[ 0.5  0.   0.   0. ]
@@ -500,7 +542,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <p>It is shorter than the previous code but not much cleaner, and we can do better. We can use the <span class="math notranslate nohighlight">\(+\)</span> operator as below</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub5</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">Qubit</span><span class="p">()</span>
@@ -521,7 +563,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit6&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1FB50&gt;, &#39;Qubit5&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1FA50&gt;}
+{&#39;Qubit6&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450a9a0&gt;, &#39;Qubit5&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450a8b0&gt;}
 1 2
 2 1
 [[ 0.5  0.   0.   0. ]
@@ -550,12 +592,12 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit7&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1E850&gt;, &#39;Qubit8&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1F350&gt;}
+{&#39;Qubit7&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450a6d0&gt;, &#39;Qubit8&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450aa90&gt;}
 </pre></div></div>
 </div>
 <p>This short-hand is quite useful and clean, and notice that, in this case, the order of the sub-systems will match their creation order. But, the problem is that we now don’t have any explicit references to our sub-systems, <code class="docutils literal notranslate"><span class="pre">Qubit7</span></code> and <code class="docutils literal notranslate"><span class="pre">Qubit8</span></code>, if we need them. Here, we want to print the <code class="docutils literal notranslate"><span class="pre">_dimsBefore</span></code> and <code class="docutils literal notranslate"><span class="pre">_dimsAfter</span></code> and <code class="docutils literal notranslate"><span class="pre">freeMat</span></code>, and knowing the name of our quantum systems and the fact that they are stored in the <code class="docutils literal notranslate"><span class="pre">subSys</span></code> dictionary, we can achieve this as below</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub7</span> <span class="o">=</span> <span class="n">twoQub4</span><span class="o">.</span><span class="n">subSys</span><span class="p">[</span><span class="s1">&#39;Qubit7&#39;</span><span class="p">]</span>
@@ -605,7 +647,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit9&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1F850&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50050&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50250&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50350&gt;}
+{&#39;Qubit9&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ac70&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ad60&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ab80&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ae50&gt;}
 </pre></div></div>
 </div>
 </section>
@@ -633,7 +675,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit9&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1F850&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50050&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50250&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50350&gt;, &#39;Qubit13&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50450&gt;}
+{&#39;Qubit9&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ac70&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ad60&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ab80&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ae50&gt;, &#39;Qubit13&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f130&gt;}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -654,7 +696,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit9&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1F850&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50050&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50250&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50350&gt;, &#39;Qubit13&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50450&gt;, &#39;Qubit14&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53E1FE50&gt;}
+{&#39;Qubit9&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ac70&gt;, &#39;Qubit10&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ad60&gt;, &#39;Qubit11&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ab80&gt;, &#39;Qubit12&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70450ae50&gt;, &#39;Qubit13&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f130&gt;, &#39;Qubit14&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f5e0&gt;}
 0.2
 0.2
 0.2
@@ -686,7 +728,7 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;QuantumSystem6&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x0000018D53F50650&gt;, &#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x0000018D53F50A50&gt;}
+{&#39;QuantumSystem6&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x7fa70443e2e0&gt;, &#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x7fa70443e200&gt;}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -703,8 +745,8 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Qubit15&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50750&gt;, &#39;Qubit16&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50850&gt;}
-{&#39;Qubit17&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50950&gt;, &#39;Qubit18&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50B50&gt;}
+{&#39;Qubit15&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f400&gt;, &#39;Qubit16&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f220&gt;}
+{&#39;Qubit17&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f6d0&gt;, &#39;Qubit18&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f7c0&gt;}
 </pre></div></div>
 </div>
 <p>Notice that, in this case, our composite quantum system <code class="docutils literal notranslate"><span class="pre">fourQubit2</span></code> has two sub-systems that are themselves composite systems. This because <code class="docutils literal notranslate"><span class="pre">2*qg.Qubit()</span></code> creates a composite system, meaning that we add two composite systems to create <code class="docutils literal notranslate"><span class="pre">fourQubit2</span></code>.</p>
@@ -765,9 +807,9 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;QuantumSystem6&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x0000018D53F50650&gt;, &#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x0000018D53F50A50&gt;}
-{&#39;Qubit15&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50750&gt;, &#39;Qubit16&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50850&gt;}
-{&#39;Qubit17&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50950&gt;, &#39;Qubit18&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50B50&gt;}
+{&#39;QuantumSystem6&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x7fa70443e2e0&gt;, &#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x7fa70443e200&gt;}
+{&#39;Qubit15&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f400&gt;, &#39;Qubit16&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f220&gt;}
+{&#39;Qubit17&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f6d0&gt;, &#39;Qubit18&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f7c0&gt;}
 16
          4 1 4
                  2 1 8
@@ -802,8 +844,8 @@ default values (i.e. when the system is not in composite or no system before/aft
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x0000018D53F50A50&gt;}
-{&#39;Qubit17&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50950&gt;, &#39;Qubit18&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x0000018D53F50B50&gt;}
+{&#39;QuantumSystem7&#39;: &lt;quanguru.classes.QSystem.QuantumSystem object at 0x7fa70443e200&gt;}
+{&#39;Qubit17&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f6d0&gt;, &#39;Qubit18&#39;: &lt;quanguru.classes.QSystem.Qubit object at 0x7fa70444f7c0&gt;}
 4
          4 1 1
                  2 1 2
