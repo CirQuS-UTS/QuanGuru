@@ -62,7 +62,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -138,6 +138,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
@@ -148,13 +155,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -238,6 +238,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
@@ -248,13 +255,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -974,16 +974,6 @@ operator.</p>
 <dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSystem.Spin" title="quanguru.classes.QSystem.Spin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Spin</span></code></a></p>
 <p>Spin 1/2 special case of Spin class, i.e. a Qubit.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QSystem.Qubit.__firstlineno__">
-<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">818</span></em><a class="headerlink" href="#quanguru.classes.QSystem.Qubit.__firstlineno__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quanguru.classes.QSystem.Qubit.__static_attributes__">
-<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('_QuantumSystem__compSys',</span> <span class="pre">'dimension',</span> <span class="pre">'operator')</span></em><a class="headerlink" href="#quanguru.classes.QSystem.Qubit.__static_attributes__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.Qubit.label">
 <span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Qubit'</span></em><a class="headerlink" href="#quanguru.classes.QSystem.Qubit.label" title="Link to this definition">#</a></dt>
 <dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
@@ -1004,6 +994,191 @@ operator.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quanguru.classes.QSystem.Qubit._instances">
 <span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.Qubit._instances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.Qubit.__firstlineno__">
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">818</span></em><a class="headerlink" href="#quanguru.classes.QSystem.Qubit.__firstlineno__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.Qubit.__static_attributes__">
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('_QuantumSystem__compSys',</span> <span class="pre">'dimension',</span> <span class="pre">'operator')</span></em><a class="headerlink" href="#quanguru.classes.QSystem.Qubit.__static_attributes__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RandSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#RandSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSystem.QuantumSystem" title="quanguru.classes.QSystem.QuantumSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantumSystem</span></code></a></p>
+<p>Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RandSystem'</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem.label" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem._internalInstances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem._externalInstances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem._instances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem.__seedNums">
+<span class="sig-name descname"><span class="pre">__seedNums</span></span><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem.__seedNums" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem.seedNums">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">seedNums</span></span><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem.seedNums" title="Link to this definition">#</a></dt>
+<dd><p>Gets and sets the seed number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem.__firstlineno__">
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">840</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem.__firstlineno__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandSystem.__static_attributes__">
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('_QuantumSystem__compSys',</span> <span class="pre">'_RandSystem__seedNums',</span> <span class="pre">'__seedNums',</span> <span class="pre">'_paramUpdated')</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandSystem.__static_attributes__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGOE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RandGOE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#RandGOE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.RandGOE" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSystem.RandSystem" title="quanguru.classes.QSystem.RandSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandSystem</span></code></a></p>
+<p>Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGOE.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RandGOE'</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGOE.label" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGOE._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGOE._internalInstances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGOE._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGOE._externalInstances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGOE._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGOE._instances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGOE.__firstlineno__">
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">874</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGOE.__firstlineno__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGOE.__static_attributes__">
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('operator',)</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGOE.__static_attributes__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RandGUE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#RandGUE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.RandGUE" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSystem.RandSystem" title="quanguru.classes.QSystem.RandSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandSystem</span></code></a></p>
+<p>Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUE.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RandGUE'</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUE.label" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUE._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUE._internalInstances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUE._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUE._externalInstances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUE._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUE._instances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUE.__firstlineno__">
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">894</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUE.__firstlineno__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUE.__static_attributes__">
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('operator',)</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUE.__static_attributes__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUEt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RandGUEt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSystem.html#RandGUEt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSystem.RandGUEt" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quanguru.classes.QSystem.RandSystem" title="quanguru.classes.QSystem.RandSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandSystem</span></code></a></p>
+<p>Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUEt.__firstlineno__">
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">914</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUEt.__firstlineno__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUEt.__static_attributes__">
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('operator',)</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUEt.__static_attributes__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUEt.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RandGUEt'</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUEt.label" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) class label used in default naming</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUEt._internalInstances">
+<span class="sig-name descname"><span class="pre">_internalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUEt._internalInstances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created internally by the library</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUEt._externalInstances">
+<span class="sig-name descname"><span class="pre">_externalInstances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUEt._externalInstances" title="Link to this definition">#</a></dt>
+<dd><p>(<strong>class attribute</strong>) number of instances created explicitly by the user</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanguru.classes.QSystem.RandGUEt._instances">
+<span class="sig-name descname"><span class="pre">_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#quanguru.classes.QSystem.RandGUEt._instances" title="Link to this definition">#</a></dt>
 <dd><p>(<strong>class attribute</strong>) number of total instances = _internalInstances + _externalInstances</p>
 </dd></dl>
 
@@ -1143,12 +1318,50 @@ operator.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit"><code class="docutils literal notranslate"><span class="pre">Qubit</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">Qubit.__firstlineno__</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">Qubit.__static_attributes__</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit.label"><code class="docutils literal notranslate"><span class="pre">Qubit.label</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit._internalInstances"><code class="docutils literal notranslate"><span class="pre">Qubit._internalInstances</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit._externalInstances"><code class="docutils literal notranslate"><span class="pre">Qubit._externalInstances</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit._instances"><code class="docutils literal notranslate"><span class="pre">Qubit._instances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">Qubit.__firstlineno__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.Qubit.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">Qubit.__static_attributes__</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem"><code class="docutils literal notranslate"><span class="pre">RandSystem</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem.label"><code class="docutils literal notranslate"><span class="pre">RandSystem.label</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem._internalInstances"><code class="docutils literal notranslate"><span class="pre">RandSystem._internalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem._externalInstances"><code class="docutils literal notranslate"><span class="pre">RandSystem._externalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem._instances"><code class="docutils literal notranslate"><span class="pre">RandSystem._instances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem.__seedNums"><code class="docutils literal notranslate"><span class="pre">RandSystem.__seedNums</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem.seedNums"><code class="docutils literal notranslate"><span class="pre">RandSystem.seedNums</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">RandSystem.__firstlineno__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandSystem.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">RandSystem.__static_attributes__</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGOE"><code class="docutils literal notranslate"><span class="pre">RandGOE</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGOE.label"><code class="docutils literal notranslate"><span class="pre">RandGOE.label</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGOE._internalInstances"><code class="docutils literal notranslate"><span class="pre">RandGOE._internalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGOE._externalInstances"><code class="docutils literal notranslate"><span class="pre">RandGOE._externalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGOE._instances"><code class="docutils literal notranslate"><span class="pre">RandGOE._instances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGOE.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">RandGOE.__firstlineno__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGOE.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">RandGOE.__static_attributes__</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUE"><code class="docutils literal notranslate"><span class="pre">RandGUE</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUE.label"><code class="docutils literal notranslate"><span class="pre">RandGUE.label</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUE._internalInstances"><code class="docutils literal notranslate"><span class="pre">RandGUE._internalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUE._externalInstances"><code class="docutils literal notranslate"><span class="pre">RandGUE._externalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUE._instances"><code class="docutils literal notranslate"><span class="pre">RandGUE._instances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUE.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">RandGUE.__firstlineno__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUE.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">RandGUE.__static_attributes__</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUEt"><code class="docutils literal notranslate"><span class="pre">RandGUEt</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUEt.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">RandGUEt.__firstlineno__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUEt.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">RandGUEt.__static_attributes__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUEt.label"><code class="docutils literal notranslate"><span class="pre">RandGUEt.label</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUEt._internalInstances"><code class="docutils literal notranslate"><span class="pre">RandGUEt._internalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUEt._externalInstances"><code class="docutils literal notranslate"><span class="pre">RandGUEt._externalInstances</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quanguru.classes.QSystem.RandGUEt._instances"><code class="docutils literal notranslate"><span class="pre">RandGUEt._instances</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -141,6 +141,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
@@ -151,13 +158,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -241,6 +241,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
@@ -251,13 +258,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -397,7 +397,7 @@
 <p>In previous tutorials, we covered how to set an initial state to a quantum system and how to describe its Hamiltonian.</p>
 <p>Here, we will evolve the quantum system under the unitary dynamics of its Hamiltonian. First, we create a quantum system and describe its Hamiltonian <span class="math notranslate nohighlight">\(H=\frac{1}{2}f_{z}\sigma_{z} = f_{z}J_{z}\)</span> and, for the sake of the example, we won’t use the special <code class="docutils literal notranslate"><span class="pre">Qubit</span></code> class.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QuantumSystem</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">Jz</span><span class="p">)</span>
@@ -450,7 +450,7 @@
 </div>
 <p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates, while the expectation value of <span class="math notranslate nohighlight">\(\sigma_{z}\)</span> is constant (since <span class="math notranslate nohighlight">\(\left[ H, \sigma_{z} \right] = 0\)</span>)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">expectations</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\langle \sigma_</span><span class="si">{x}</span><span class="s2"> \rangle$&quot;</span><span class="p">)</span>
@@ -463,7 +463,7 @@
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">

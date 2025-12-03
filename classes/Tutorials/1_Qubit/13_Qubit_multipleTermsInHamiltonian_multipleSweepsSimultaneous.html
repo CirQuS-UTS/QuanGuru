@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -141,6 +141,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
@@ -151,13 +158,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -241,6 +241,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="Tutorials.html">
     Classes Tutorials
@@ -251,13 +258,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -383,7 +383,7 @@
                 <article class="bd-article">
                   
   <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quanguru</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qg</span>
@@ -399,7 +399,7 @@
 simulation. All the rest of the simulation is the same, we just remove <code class="docutils literal notranslate"><span class="pre">combinatorial=True</span></code>, but we then need to make some relevant changes to <code class="docutils literal notranslate"><span class="pre">sweepList</span></code> as discussed below.</p>
 <p>Again, we will evolve a qubit under the unitary dynamics of the Hamiltonian <span class="math notranslate nohighlight">\(H=\frac{1}{2}f_{z}\sigma_{z} + f_{x}\sigma_{x} = f_{z}J_{z} + f_{x}\sigma_{x}\)</span> with the initial state set to the equal superposition of <span class="math notranslate nohighlight">\(|1\rangle\)</span> and <span class="math notranslate nohighlight">\(|0\rangle\)</span>. We also set the total simulation time (with <code class="docutils literal notranslate"><span class="pre">simTotalTime</span></code>) and the step size (<code class="docutils literal notranslate"><span class="pre">simStepSize</span></code>) as well as the <code class="docutils literal notranslate"><span class="pre">compute</span></code> function where we compute the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the qubit and set its initial state and frequency</span>
@@ -428,7 +428,7 @@ simulation. All the rest of the simulation is the same, we just remove <code cla
 </div>
 <p>The sweeps are created similarly to the previous tutorial, but we removed <code class="docutils literal notranslate"><span class="pre">combinatorial=True</span></code>. Now, the sweeps will not create a nested-loop (to run the simulation for every parameter combination), but they will run simultaneously inside the same loop, therefore, the lengths of the <code class="docutils literal notranslate"><span class="pre">sweepList</span></code> need to be the same. Also, since they run simultaneously inside the same loop, the order in which they are created does not matter.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a sweep for the the second term</span>
@@ -441,8 +441,8 @@ simulation. All the rest of the simulation is the same, we just remove <code cla
 <p>At this point, all the essential information are set, and we can run the simulation by <code class="docutils literal notranslate"><span class="pre">qub.runSimulation()</span></code>. We again set <code class="docutils literal notranslate"><span class="pre">simDelState</span> <span class="pre">=</span> <span class="pre">True</span></code> (to discard the states) and <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">True</span></code> (for multi-processing of the sweep).</p>
 <p>IMPORTANT NOTE FOR WINDOWS USERS : MULTI-PROCESSING (p=True) DOES NOT WORK WITH NOTEBOOK</p>
 <p>You can use a python script, but you will need to make sure that the critical parts of the code are under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> We are going to add further tutorials for this later.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qub</span><span class="o">.</span><span class="n">simDelStates</span> <span class="o">=</span> <span class="kc">True</span>
@@ -450,10 +450,21 @@ simulation. All the rest of the simulation is the same, we just remove <code cla
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting sequential sweep with 100 parameter combinations...
+Simulation Start:       2025-11-28 11:14:45
+[████████████████████████████████████████] 100.0% | Est. Finish: 2025-11-28 11:14:54
+Simulation completed in 00h 00m 09s
+</pre></div></div>
+</div>
 <p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation']</span></code>, which returns a list of list, each of which is a time trace corresponding to the frequencies swept for <span class="math notranslate nohighlight">\(f_{z}\)</span> and <span class="math notranslate nohighlight">\(f_{x}\)</span>.</p>
 <p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates with different frequencies.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">qub</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">timeList</span><span class="p">,</span> <span class="n">freqSweepFirstTerm</span><span class="o">.</span><span class="n">sweepList</span><span class="p">)</span>
@@ -465,7 +476,7 @@ simulation. All the rest of the simulation is the same, we just remove <code cla
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -482,14 +493,6 @@ Text(0, 0.5, &#39;Time&#39;)
 </div>
 <p>Now, we receive the <code class="docutils literal notranslate"><span class="pre">results</span></code> that we stored again as <code class="docutils literal notranslate"><span class="pre">qub.resultsDict['sigmax</span> <span class="pre">expectation'][1]</span></code> for the second <span class="math notranslate nohighlight">\(f_{x}\)</span> value, which returns a list of list, each of which is a time trace corresponding to the frequencies swept for <span class="math notranslate nohighlight">\(f_{z}\)</span>.</p>
 <p>As expected, the expectation value of <span class="math notranslate nohighlight">\(\sigma_{x}\)</span> oscillates with different frequencies.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
 </section>
 
 

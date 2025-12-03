@@ -59,7 +59,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -136,6 +136,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
   </a>
@@ -145,13 +152,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -234,6 +234,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
   </a>
@@ -243,13 +250,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -632,6 +632,8 @@
 
     <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">qSim</span><span class="o">.</span><span class="n">evolFunc</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">qSim</span><span class="o">.</span><span class="n">stepCount</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">system</span> <span class="ow">in</span> <span class="n">qSim</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">system</span><span class="o">.</span><span class="n">_timeDependency</span><span class="p">()</span>
             <span class="n">qSim</span><span class="o">.</span><span class="n">_Simulation__index</span> <span class="o">=</span> <span class="n">ind</span> <span class="c1"># pylint: disable=protected-access</span>
             <span class="k">if</span> <span class="n">td</span><span class="p">:</span>
                 <span class="n">qSim</span><span class="o">.</span><span class="n">timeDependency</span><span class="o">.</span><span class="n">runSweep</span><span class="p">(</span><span class="n">qSim</span><span class="o">.</span><span class="n">timeDependency</span><span class="o">.</span><span class="n">_indicesForSweep</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="o">*</span><span class="n">qSim</span><span class="o">.</span><span class="n">timeDependency</span><span class="o">.</span><span class="n">inds</span><span class="p">))</span>

@@ -5,10 +5,10 @@ QuanGuru documentation
 .. toctree::
     :titlesonly:
     :maxdepth: 2
-
+    
+    Classes (Objects for OOP) <classes>
     Classes Tutorials <classes/Tutorials/1_Qubit/Tutorials>
     QuantumToolbox <QuantumToolbox>
-    Classes (Objects for OOP, module to be renamed later) <classes>
     QuantumToolbox Tutorials <QuantumToolbox/Tutorials/Tutorials>
     
 .. include:: ../../README.md

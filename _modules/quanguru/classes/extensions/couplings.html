@@ -59,7 +59,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -136,6 +136,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../../classes/Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
   </a>
@@ -145,13 +152,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -234,6 +234,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../../classes/Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
   </a>
@@ -243,13 +250,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -365,83 +365,9 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">..QSys</span><span class="w"> </span><span class="kn">import</span> <span class="n">compQSystem</span><span class="p">,</span> <span class="n">QubitOld</span><span class="p">,</span> <span class="n">CavityOld</span><span class="p">,</span> <span class="n">SpinOld</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..QSystem</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumSystem</span><span class="p">,</span> <span class="n">Qubit</span><span class="p">,</span> <span class="n">Cavity</span><span class="p">,</span> <span class="n">Spin</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..QTerms</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTerm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">...QuantumToolbox.operators</span><span class="w"> </span><span class="kn">import</span> <span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">destroy</span><span class="p">,</span> <span class="n">Jp</span><span class="p">,</span> <span class="n">Jm</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">,</span> <span class="n">Jx</span>
-
-
-<div class="viewcode-block" id="checkCavQubOld">
-<a class="viewcode-back" href="../../../../classes/couplings.html#quanguru.classes.extensions.couplings.checkCavQubOld">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">checkCavQubOld</span><span class="p">(</span><span class="n">coupler</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">couplerDecorator</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="n">subSys1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subSys2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys1</span><span class="p">,</span> <span class="p">(</span><span class="n">QubitOld</span><span class="p">,</span> <span class="n">SpinOld</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys2</span><span class="p">,</span> <span class="n">CavityOld</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Jaynes-Cummings requires a qubit and a cavity&#39;</span><span class="p">)</span>
-            <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[</span><span class="n">subSys2</span><span class="p">,</span> <span class="n">subSys1</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys2</span><span class="p">,</span> <span class="p">(</span><span class="n">QubitOld</span><span class="p">,</span> <span class="n">SpinOld</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subSys1</span><span class="p">,</span> <span class="n">CavityOld</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Jaynes-Cummings requires a qubit and a cavity&#39;</span><span class="p">)</span>
-            <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[</span><span class="n">subSys1</span><span class="p">,</span> <span class="n">subSys2</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="p">((</span><span class="n">subSys1</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subSys2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)):</span>
-            <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">subSys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="p">(</span><span class="n">CavityOld</span><span class="p">,</span> <span class="n">QubitOld</span><span class="p">,</span> <span class="n">SpinOld</span><span class="p">)):</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">qsystems</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">qsystems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">qsystems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
-                        <span class="n">qsystems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">qsystems</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                        <span class="k">break</span>
-            <span class="k">return</span> <span class="n">couplerDecorator</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="o">*</span><span class="n">qsystems</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">coupler</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="o">*</span><span class="n">qsystems</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">couplerDecorator</span></div>
-
-
-
-<div class="viewcode-block" id="JCold">
-<a class="viewcode-back" href="../../../../classes/couplings.html#quanguru.classes.extensions.couplings.JCold">[docs]</a>
-<span class="nd">@checkCavQubOld</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">JCold</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="n">subSys1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subSys2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[</span><span class="n">subSys1</span><span class="p">,</span> <span class="n">subSys2</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">qsystems</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">operator</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">]:</span> <span class="c1"># pylint: disable=comparison-with-callable</span>
-        <span class="n">couplingObj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">(</span><span class="n">qsystems</span><span class="p">,</span> <span class="p">[</span><span class="n">destroy</span><span class="p">,</span> <span class="n">Jp</span><span class="p">],</span> <span class="n">qsystems</span><span class="p">,</span>
-                                            <span class="p">[</span><span class="n">create</span><span class="p">,</span> <span class="n">Jm</span><span class="p">],</span> <span class="n">superSys</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="o">=</span><span class="n">couplingStrength</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">couplingObj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">(</span><span class="n">qsystems</span><span class="p">,</span> <span class="p">[</span><span class="n">destroy</span><span class="p">,</span> <span class="n">create</span><span class="p">],</span> <span class="n">superSys</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span>
-                                            <span class="n">couplingStrength</span><span class="o">=</span><span class="n">couplingStrength</span><span class="p">)</span>
-        <span class="n">couplingObj</span><span class="o">.</span><span class="n">addTerm</span><span class="p">(</span><span class="n">qsystems</span><span class="p">,</span> <span class="p">[</span><span class="n">create</span><span class="p">,</span> <span class="n">destroy</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">couplingObj</span></div>
-
-
-
-<div class="viewcode-block" id="RabiOld">
-<a class="viewcode-back" href="../../../../classes/couplings.html#quanguru.classes.extensions.couplings.RabiOld">[docs]</a>
-<span class="nd">@checkCavQubOld</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">RabiOld</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="n">subSys1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subSys2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[</span><span class="n">subSys1</span><span class="p">,</span> <span class="n">subSys2</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">qsystems</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">operator</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">]:</span> <span class="c1"># pylint: disable=comparison-with-callable</span>
-        <span class="n">couplingObj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">(</span><span class="n">qsystems</span><span class="p">,</span> <span class="p">[</span><span class="n">destroy</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">],</span> <span class="n">qsystems</span><span class="p">,</span>
-                                            <span class="p">[</span><span class="n">create</span><span class="p">,</span> <span class="n">sigmax</span><span class="p">],</span> <span class="n">superSys</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="o">=</span><span class="n">couplingStrength</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">couplingObj</span></div>
-
-
-
-<div class="viewcode-block" id="DickeOld">
-<a class="viewcode-back" href="../../../../classes/couplings.html#quanguru.classes.extensions.couplings.DickeOld">[docs]</a>
-<span class="nd">@checkCavQubOld</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">DickeOld</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="p">,</span> <span class="n">subSys1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subSys2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">qsystems</span> <span class="o">=</span> <span class="p">[</span><span class="n">subSys1</span><span class="p">,</span> <span class="n">subSys2</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">qsystems</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">operator</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sigmaz</span><span class="p">,</span> <span class="n">Jz</span><span class="p">]:</span> <span class="c1"># pylint: disable=comparison-with-callable</span>
-        <span class="n">couplingObj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">createSysCoupling</span><span class="p">(</span><span class="n">qsystems</span><span class="p">,</span> <span class="p">[</span><span class="n">destroy</span><span class="p">,</span> <span class="n">Jx</span><span class="p">],</span> <span class="n">qsystems</span><span class="p">,</span>
-                                            <span class="p">[</span><span class="n">create</span><span class="p">,</span> <span class="n">Jx</span><span class="p">],</span> <span class="n">superSys</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">couplingStrength</span><span class="o">=</span><span class="n">couplingStrength</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">couplingObj</span></div>
-
-
-<span class="n">compQSystem</span><span class="o">.</span><span class="n">JC</span> <span class="o">=</span> <span class="n">JCold</span>
-<span class="n">compQSystem</span><span class="o">.</span><span class="n">Rabi</span> <span class="o">=</span> <span class="n">RabiOld</span>
-<span class="n">compQSystem</span><span class="o">.</span><span class="n">Dicke</span> <span class="o">=</span> <span class="n">DickeOld</span>
 
 
 <div class="viewcode-block" id="checkCavQub">

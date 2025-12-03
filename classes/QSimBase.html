@@ -62,7 +62,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -138,6 +138,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
@@ -148,13 +155,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -238,6 +238,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
@@ -248,13 +255,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -798,9 +798,9 @@ be improved.</p>
 <dt class="sig sig-object py" id="quanguru.classes.QSimBase.timeBase._bound">
 <span class="sig-name descname"><span class="pre">_bound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_stateBase__delStates',</span> <span class="pre">'_stateBase__initialState',</span> <span class="pre">'_stateBase__initialStateInput']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quanguru/classes/QSimBase.html#timeBase._bound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quanguru.classes.QSimBase.timeBase._bound" title="Link to this definition">#</a></dt>
 <dd><p>This method is used internally at appropriate places to create bound between different simulation instances in
-the intended hierarchical order. For example, when a <a class="reference internal" href="QSys.html#quanguru.classes.QSys.genericQSys" title="quanguru.classes.QSys.genericQSys"><code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">system</span></code></a>
+the intended hierarchical order. For example, when a <code class="xref py py-class docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">system</span></code>
 is added to <code class="docutils literal notranslate"><span class="pre">subSys</span></code> of explicitly created <code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code>,
-The parameters of any <a class="reference internal" href="QPro.html#quanguru.classes.QPro.genericProtocol" title="quanguru.classes.QPro.genericProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocol.simulation</span></code></a> for that system will
+The parameters of any <code class="xref py py-class docutils literal notranslate"><span class="pre">protocol.simulation</span></code> for that system will
 be bound to <code class="docutils literal notranslate"><span class="pre">(quantum</span> <span class="pre">system).simulation</span></code> which will be bound to explicitly created Simulation. This method
 creates such a bound between two <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> objects, and it is used in appropriate places of the library.
 Such a bound is broken or not created at all, if a parameter is explicitly assigned for a protocol or system.</p>

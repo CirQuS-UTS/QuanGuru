@@ -59,7 +59,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="2025/09/08"/>
+    <meta name="docbuild:last-update" content="2025/12/03"/>
   </head>
   
   
@@ -136,6 +136,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
   </a>
@@ -145,13 +152,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -234,6 +234,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../classes.html">
+    Classes (Objects for OOP)
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../classes/Tutorials/1_Qubit/Tutorials.html">
     Classes Tutorials
   </a>
@@ -243,13 +250,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../QuantumToolbox.html">
     QuantumToolbox
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../classes.html">
-    Classes (Objects for OOP, module to be renamed later)
   </a>
 </li>
 
@@ -416,13 +416,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Literal</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndarray</span> <span class="c1"># type: ignore</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">spmatrix</span> <span class="c1"># type: ignore</span>
-
 <span class="kn">import</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span> <span class="c1"># type: ignore</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">linA</span> <span class="c1"># type: ignore</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">expm</span> <span class="c1"># type: ignore</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> <span class="c1"># type: ignore</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.linearAlgebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensorProd</span><span class="p">,</span> <span class="n">_matPower</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.linearAlgebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensorProd</span><span class="p">,</span> <span class="n">_matPower</span><span class="p">,</span> <span class="n">norm</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.customTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Matrix</span> <span class="c1">#pylint: disable=relative-beyond-top-level</span>
 
@@ -1583,6 +1582,134 @@
         <span class="n">opPow</span> <span class="o">=</span> <span class="n">_matPower</span><span class="p">(</span><span class="n">op</span><span class="p">(</span><span class="n">sparse</span><span class="p">),</span> <span class="n">power</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">opPow</span></div>
 
+
+<span class="c1"># ## old version ##</span>
+<span class="c1"># def haarMtx(dimension,seedNum) -&gt; np.ndarray:</span>
+<span class="c1">#     &quot;&quot;&quot;Samples Haar-distributed matrices.</span>
+
+<span class="c1">#     Samples Haar-distributed matrices that are useful to generate</span>
+<span class="c1">#     random matrices for COE, CUE and CSE ensembles.</span>
+
+<span class="c1">#     Args:</span>
+<span class="c1">#         n (int): matrix size.</span>
+
+<span class="c1">#     Returns:</span>
+<span class="c1">#         numpy array containing Haar-distributed random matrix.</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+    
+<span class="c1">#     # rng = np.random.default_rng(seed)</span>
+<span class="c1">#     #rseed = rng.integers(10000000,size=1)[0]</span>
+    
+<span class="c1">#     # n by n random complex matrix</span>
+<span class="c1">#     x_mtx_real = np.random.default_rng(seed=seedNum[0]).standard_normal(size=(dimension,dimension))</span>
+<span class="c1">#     x_mtx_imag = (1j)*np.random.default_rng(seed=seedNum[1]).standard_normal(size=(dimension, dimension))</span>
+<span class="c1">#     # orthonormalizing matrix using QR algorithm</span>
+<span class="c1">#     q_mtx, _ = np.linalg.qr(x_mtx_real + x_mtx_imag)</span>
+<span class="c1">#     # the resulting Q is Haar-distributed</span>
+<span class="c1">#     return q_mtx</span>
+
+<span class="c1"># def _build_j_mtx(size) -&gt; np.ndarray:</span>
+<span class="c1">#     &quot;&quot;&quot;Creates an useful matrix to sample CSE matrices.</span>
+
+<span class="c1">#     Creates matrix J of zeros but with the upper-diagonal</span>
+<span class="c1">#     set to -1 and the lower-diagonal set to 1. This matrix</span>
+<span class="c1">#     is useful in the sampling algorithm of CSE matrices.</span>
+
+<span class="c1">#     Returns:</span>
+<span class="c1">#         numpy array containing J matrix.</span>
+
+<span class="c1">#     References:</span>
+<span class="c1">#         - Killip, R. and Zozhan, R.</span>
+<span class="c1">#             Matrix Models and Eigenvalue Statistics for Truncations of</span>
+<span class="c1">#             Classical Ensembles of Random Unitary Matrices.</span>
+<span class="c1">#             Communications in Mathematical Physics. 349 (2017): 991-1027.</span>
+<span class="c1">#         - &quot;Circular ensemble&quot;. Wikipedia.</span>
+<span class="c1">#             en.wikipedia.org/wiki/Circular_ensemble</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     size = 2*size</span>
+<span class="c1">#     j_mtx = np.zeros((size,size))</span>
+<span class="c1">#     # selecting indices</span>
+<span class="c1">#     inds = np.arange(size-1)</span>
+<span class="c1">#     # selecting upper-diagonal indices</span>
+<span class="c1">#     j_mtx[inds, inds+1] = -1</span>
+<span class="c1">#     # selecting lower-diagonal indices</span>
+<span class="c1">#     j_mtx[inds+1, inds] = 1</span>
+<span class="c1">#     return j_mtx</span>
+
+<span class="c1"># def coeH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -&gt; np.ndarray:</span>
+<span class="c1">#     # sampling unitary Haar-distributed matrix</span>
+<span class="c1">#     u_mtx = haarMtx(dimension,seedNum)</span>
+<span class="c1">#     # mapping to Circular Orthogonal Ensemble</span>
+<span class="c1">#     matrix = np.matmul(u_mtx.transpose(), u_mtx)</span>
+<span class="c1">#     Hamiltonian = linA.logm(matrix)/(-1j)</span>
+<span class="c1">#     return Hamiltonian</span>
+<span class="c1">#     # return matrix</span>
+
+<span class="c1"># def cueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -&gt; np.ndarray:</span>
+<span class="c1">#     # sampling unitary Haar-distributed matrix</span>
+<span class="c1">#     matrix = haarMtx(dimension, seedNum)</span>
+<span class="c1">#     Hamiltonian = linA.logm(matrix)/(-1j)</span>
+<span class="c1">#     return Hamiltonian</span>
+<span class="c1">#     # return matrix</span>
+
+<span class="c1"># def cseH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -&gt; np.ndarray:</span>
+<span class="c1">#     # sampling unitary Haar-distributed matrix of size 2n</span>
+<span class="c1">#     u_mtx = haarMtx(dimension,seedNum)</span>
+<span class="c1">#     # mapping to Circular Symplectic Ensemble</span>
+<span class="c1">#     j_mtx = _build_j_mtx(int(dimension/2))</span>
+<span class="c1">#     # U_R = J * U^T * J^T</span>
+<span class="c1">#     u_r_aux = np.matmul(j_mtx, u_mtx.transpose())</span>
+<span class="c1">#     u_r_mtx = np.matmul(u_r_aux, j_mtx.transpose())</span>
+<span class="c1">#     # A = U^R * U</span>
+<span class="c1">#     matrix = np.matmul(u_r_mtx, u_mtx)</span>
+<span class="c1">#     Hamiltonian = linA.logm(matrix)/(-1j)</span>
+<span class="c1">#     return Hamiltonian</span>
+
+<div class="viewcode-block" id="goeH">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.goeH">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">goeH</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seedNum</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="n">mtx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span><span class="n">dimension</span><span class="p">))</span>
+    <span class="c1"># symmetrize matrix </span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">mtx</span> <span class="o">+</span> <span class="n">mtx</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> 
+    <span class="k">return</span> <span class="n">matrix</span></div>
+
+
+<div class="viewcode-block" id="gueH">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.gueH">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">gueH</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seedNum</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span> 
+    <span class="n">real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span><span class="n">dimension</span><span class="p">))</span>
+    <span class="n">imag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span><span class="n">dimension</span><span class="p">))</span>
+    <span class="n">mtx</span> <span class="o">=</span> <span class="n">real</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">imag</span>
+    <span class="c1"># hermitian matrix </span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">mtx</span> <span class="o">+</span> <span class="n">mtx</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> 
+    <span class="k">return</span> <span class="n">matrix</span></div>
+
+
+<div class="viewcode-block" id="gueHT">
+<a class="viewcode-back" href="../../../QuantumToolbox/operators.html#quanguru.QuantumToolbox.operators.gueHT">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">gueHT</span><span class="p">(</span><span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seedNum</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="n">real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span><span class="n">dimension</span><span class="p">))</span>
+    <span class="n">imag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span><span class="n">dimension</span><span class="p">))</span>
+    <span class="n">mtx</span> <span class="o">=</span> <span class="n">real</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">imag</span>
+    <span class="c1"># hermitian matrix </span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">mtx</span> <span class="o">+</span> <span class="n">mtx</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> 
+    <span class="k">return</span> <span class="n">matrix</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div>
+
+
+<span class="c1"># def gseH(dimension: int, seedNum: list = [None, None, None, None]) -&gt; np.ndarray:</span>
+<span class="c1">#     xreal = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))</span>
+<span class="c1">#     ximag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))</span>
+<span class="c1">#     x_mtx = xreal + 1j*ximag</span>
+<span class="c1">#     yreal = np.random.default_rng(seed=seedNum[2]).normal(size=(dimension,dimension))</span>
+<span class="c1">#     yimag = np.random.default_rng(seed=seedNum[3]).normal(size=(dimension,dimension))</span>
+<span class="c1">#     y_mtx = yreal + 1j*yimag</span>
+    
+<span class="c1">#     # [X Y; -conj(Y) conj(X)]</span>
+<span class="c1">#     mtx = np.block([[x_mtx               , y_mtx],</span>
+<span class="c1">#                     [-np.conjugate(y_mtx), np.conjugate(x_mtx)]])</span>
+<span class="c1">#     # hermitian matrix </span>
+<span class="c1">#     matrix = (mtx + mtx.transpose().conj())</span>
+<span class="c1">#     return matrix</span>
 </pre></div>
 
                 </article>
