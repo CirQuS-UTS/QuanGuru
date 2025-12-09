@@ -389,6 +389,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
                 except: #pylint:disable=bare-except # noqa: E722
                     pass
 
+        _pool = None  # Initialize _pool to prevent possibly-used-before-assignment
         if p is True:
             if coreCount is None:
                 if _poolMemory.coreCount is None:
@@ -407,7 +408,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
         elif p is not None:
             # FIXME if p is not a pool, this should raise error
             _pool = multiprocessing.Pool(processes=p._processes) # pylint: disable=protected-access,consider-using-with
-        elif p is None:
+        else:  # p is None
             if _poolMemory.coreCount is not None:
                 _pool = multiprocessing.Pool(processes=_poolMemory.coreCount) #pylint:disable=consider-using-with
             else:

@@ -35,16 +35,14 @@ r"""
 """
 
 from typing import Callable, List, Optional
-import numpy as np
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
 import scipy.sparse.linalg as slinA # type: ignore
 
-from .linearAlgebra import hc
-from .functions import sortedEigens
-from .states import densityMatrix, mat2Vec, vec2Mat, zerosMat, normalise
-
 from .customTypes import Matrix
+from .functions import sortedEigens
+from .linearAlgebra import hc
+from .states import densityMatrix, mat2Vec, vec2Mat, zerosMat, normalise
 
 
 # do not delete these
@@ -138,7 +136,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
             dimensionOfHilbertSpace = collapseOperators[0].shape[0]
     # sparse = sp.issparse(Hamiltonian)
     # if sparse == True:
-    identity = sp.identity(dimensionOfHilbertSpace, format="csc")
+    identity = sp.identity(dimensionOfHilbertSpace, format="csc") # pylint:disable=possibly-used-before-assignment
     # else:
     #     identity = np.identity(dimensionOfHilbertSpace)
     liouvillian = zerosMat(dimensionOfHilbertSpace**2)
@@ -209,6 +207,8 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
             0.00000000e+00+0.00000000e+00j, 1.00000000e+00+0.00000000e+00j]])
     """
 
+    sparse = None
+    liouvillianEXP = None
     if Hamiltonian is not None:
         sparse = sp.issparse(Hamiltonian)
     else:
@@ -377,7 +377,7 @@ def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
     prepost = sp.kron(operatorB.transpose(), operatorA, format='csc')
     return prepost if sp.issparse(operatorA) else prepost.toarray()
 
-def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Optional[Matrix] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object,too-many-arguments # noqa: E501
+def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Optional[Matrix] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object,too-many-arguments,too-many-positional-arguments # noqa: E501
                collapseOperators: Optional[List] = None, decayRates: Optional[List] = None,
                calcFunc: Optional[Callable] = None, delStates: Optional[bool] = False, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
     # TODO : write docstrings
@@ -400,8 +400,8 @@ def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Opti
             resultList.append(denMat)
     return resultList
 
-def steadyStateLio(Liouvillian_, LioExp: bool = False, allVecVals: bool = False):
-    vals, vecs = sortedEigens(Liouvillian_, mag=True)
+def steadyStateLio(liouvillianOp, LioExp: bool = False, allVecVals: bool = False):
+    vals, vecs = sortedEigens(liouvillianOp, mag=True)
     eigMat = normalise(vec2Mat(vecs[-1*int(LioExp)]))
     return eigMat if not allVecVals else [vals, vecs]
 

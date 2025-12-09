@@ -134,7 +134,7 @@ def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
 
     X, Y = meshgrid(vec, vec)
     amat = 0.5 * g * (X + Y * 1j)
-    qmat = zeros(size(amat))
+    qmat = zeros(size(amat)) # type: ignore[assignment]
 
     if not isinstance(state, np.ndarray):
         state = state.toarray()
@@ -146,11 +146,11 @@ def HusimiQ(state: Matrix, vec: ndOrList, g: float = np.sqrt(2)) -> ndarray:
         # d[i]   = eigenvalue i
         # v[:,i] = eigenvector i
 
-        qmat = zeros(np.shape(amat))
+        qmat = zeros(np.shape(amat))  # type: ignore[assignment]
         for k in arange(0, len(d)):
             qmat1 = _qfuncPure(v[:, k], amat)
             qmat += real(d[k] * qmat1)
-    qmat = 0.25 * qmat * g ** 2
+    qmat = 0.25 * qmat * g ** 2 # type: ignore[assignment]
     return qmat
 
 

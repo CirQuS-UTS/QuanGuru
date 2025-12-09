@@ -33,10 +33,11 @@
 
 """
 
-from numpy import array, reshape
 from functools import partial
 import time
 import sys
+
+from numpy import reshape
 from ..QuantumToolbox import densityMatrix, mat2Vec, vec2Mat
 
 def runSimulation(qSim, p, showProgress=True):
@@ -158,10 +159,10 @@ def printProgress(completed, totalTasks, startTime):
     # Progress bar display
     barLength = 40
     filledLength = int(barLength * progress)
-    bar = '█' * filledLength + '-' * (barLength - filledLength)
+    progressBar = '█' * filledLength + '-' * (barLength - filledLength)
     # Print all lines in one go
     sys.stdout.write(
-        f'\r[{bar}] {progress*100:.1f}% | Est. Finish: {finishTimeStr}'
+        f'\r[{progressBar}] {progress*100:.1f}% | Est. Finish: {finishTimeStr}'
     )
     sys.stdout.flush()
 
@@ -170,7 +171,7 @@ def printEpilogue(startTime):
     seconds = time.time() - startTime
 
     sys.stdout.write(
-        f'\nSimulation completed in ' + time.strftime('%Hh %Mm %Ss', time.gmtime(seconds))
+        '\nSimulation completed in ' + time.strftime('%Hh %Mm %Ss', time.gmtime(seconds))
     )
 
 
@@ -181,32 +182,40 @@ def parallelTimeEvol(qSim, ind):
 
 # These two functions, respectively, run Sweep and timeDependent (sweep) parameter updates
 # In the timeDependet case, evolFunc of first function is the second function
-def runSweepAndPrep(qSim, ind):
+def runSweepAndPrep(qSim, ind): #pylint:disable=too-many-branches
     qSim._Simulation__index = -1 # pylint: disable=protected-access
 
     if len(qSim.Sweep.inds) > 0:
-        qSim.Sweep.runSweep(qSim.Sweep._indicesForSweep(ind, *qSim.Sweep.inds))
+        qSim.Sweep.runSweep(qSim.Sweep._indicesForSweep(ind, *qSim.Sweep.inds))  # pylint: disable=protected-access
 
     for protocol in qSim.subSys.keys():
         if callable(qSim.evolFunc):
-            # if isinstance(protocol.initialState, list): 
+            # if isinstance(protocol.initialState, list):
             #     protocol.initialState = array(protocol.initialState)
             shape = protocol.initialState.shape
             if len(shape) == 1:
-                protocol.initialState = reshape(protocol.initialState, (shape[0], 1))
+                protocol.initialState = reshape(
+                    protocol.initialState, (shape[0], 1)
+                )
                 shape = protocol.initialState.shape
-            isKet = (shape[1] == 1)
-            isDensityMatrix = (shape[0] == shape[1])
-            if not protocol._isOpen:
+            isKet = shape[1] == 1
+            isDensityMatrix = shape[0] == shape[1]
+            if not protocol._isOpen:  # pylint: disable=protected-access
                 protocol.currentState = protocol.initialState
             else:
                 if isDensityMatrix:
                     protocol.currentState = protocol.initialState
                 elif isKet:
-                    print("Initial state is assumed to be a ket: automatically converting to a density matrix")
+                    print(
+                        "Initial state is assumed to be a ket: "
+                        "automatically converting to a density matrix"
+                    )
                     protocol.currentState = densityMatrix(protocol.initialState)
                 else:
-                    raise ValueError("Initial state should be a ket (shape = (n, 1)) or density matrix (shape = (shape = (n, n))) for an open system simulation")
+                    raise ValueError(
+                        "Initial state should be a ket (shape = (n, 1)) or "
+                        "density matrix (shape = (n, n)) for an open system simulation"
+                    )
 
     qSim.qRes._resetLast() # pylint: disable=protected-access
     qSim._computeBase__calculate("pre")

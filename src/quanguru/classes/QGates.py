@@ -102,6 +102,7 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
     def instantFlip(self, openSys=False):
         if ((self._paramBoundBase__matrix is None) or (self._paramBoundBase__paramUpdated is True)): # pylint: disable=no-member
             sys = list(self.subSys.values())
+            rotOp = None
             if self.rotationAxis.lower() == 'x':
                 rotOp = spinRotations.xRotation
             elif self.rotationAxis.lower() == 'y':
@@ -116,6 +117,7 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def _gateImplements(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
+        unitary = None
         if self.implementation is None:
             unitary = self._rotMat(openSys = isinstance(collapseOps, list) or self._isOpen)
         elif self.implementation.lower() in ('instant', 'flip'): # pylint: disable=no-member

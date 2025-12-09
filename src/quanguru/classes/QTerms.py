@@ -314,7 +314,7 @@ class QTerm(paramBoundBase):
             operMat = _matPower(oper(), order)
 
         operCompMat = compositeOp(operMat, dimB=dimB, dimA=dimA)
-        
+
         return operCompMat
 
     def _constructMatrices(self):

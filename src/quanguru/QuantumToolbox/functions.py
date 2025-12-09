@@ -457,7 +457,7 @@ def standardDev(operator: Matrix, state: Matrix, expect: Literal[True]) -> Tuple
 def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float | Tuple[float, float]: ...
 
 def standardDev(operator: Matrix, state: Matrix, expect: bool = False) -> float | Tuple[float, float]:
-    expSq = (expectation(operator, state))
+    expSq = expectation(operator, state)
     SqExp = expectation(_matPower(operator, 2), state)
     return np.sqrt(SqExp - (expSq**2)) if not expect else (np.sqrt(SqExp - (expSq**2)), expSq)
 

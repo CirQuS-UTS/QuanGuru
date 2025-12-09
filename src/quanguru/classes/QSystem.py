@@ -17,7 +17,7 @@
       `QuantumSystem`            |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
     =======================    ==================    ================   ===============
 
-"""
+""" # pylint: disable=too-many-lines
 
 import warnings
 from typing import Any
@@ -121,8 +121,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         The matrices for operators constructed and de-constructed whenever they should be, and this method is used
         internally in various places when the matrices are needed to be constructed.
         """
-        noSubSys = (len(self.subSys) == 0)
-        noTerms = (len(self.terms) == 0)
+        noSubSys = len(self.subSys) == 0
+        noTerms = len(self.terms) == 0
         selfComp = self._isComposite
         if (noSubSys and noTerms):
             if selfComp is False:
@@ -141,11 +141,11 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
         to update the desired parameters (such as frequency of the spin system) as a function of time.
-        Also passes down the current time in evolution to all the ``subSys`` and ``terms``. 
+        Also passes down the current time in evolution to all the ``subSys`` and ``terms``.
         """
         if time is None:
             time = self.simulation._currentTime # pylint: disable=no-member
-    
+
         if callable(self.timeDependency):
             self.timeDependency(self, time) # pylint: disable=assigning-non-slot,not-callable
 
@@ -432,6 +432,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         """
         other = self.getByNameOrAlias(other)
         checkCorType(other, QuantumSystem, "{other} is not an instance of QuantumSystem")
+        newComp = None
         if ((self._QuantumSystem__compSys in (True, None)) and (not other._isComposite)):
             self.addSubSys(other.copy() if (other is self) else other)
             newComp = self
@@ -551,7 +552,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     # TODO THESE NEEDS TESTS
 
-    def createTerm(self, operator, frequency=None, qSystem=None, order=None, superSys=None, **kwargs): #pylint:disable=too-many-arguments
+    def createTerm(self, operator, frequency=None, qSystem=None, order=None, superSys=None, **kwargs): #pylint:disable=too-many-arguments,too-many-positional-arguments
         r"""
         Method to create a new term with the given parameters and also set the given kwargs to the new term.
 
@@ -718,7 +719,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     def copy(self, **kwargs):
         newSys = super().copy()
-        newSys.resetTerms()
+        newSys.resetTerms()  # pylint: disable=no-member
         for qsys in self.subSys.values():
             cqsys = qsys.copy()
             cqsys.alias = qsys.name + "_" + cqsys.name
@@ -732,8 +733,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                 for qsys in ter.qSystem:
                     qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind].name)
 
-            newSys.createTerm(
-                qSystem=qSystemNames, #pylint:disable=no-member
+            newSys.createTerm(  # pylint: disable=no-member
+                qSystem=qSystemNames,
                 operator=ter.operator,
                 frequency=ter.frequency,
                 order=ter.order
@@ -883,7 +884,7 @@ class RandGOE(RandSystem):
     _externalInstances: int = 0
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
-    
+
     __slots__ = []
 
     def __init__(self, **kwargs):
@@ -903,7 +904,7 @@ class RandGUE(RandSystem):
     _externalInstances: int = 0
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
-    
+
     __slots__ = []
 
     def __init__(self, **kwargs):
@@ -923,9 +924,9 @@ class RandGUEt(RandSystem):
     _externalInstances: int = 0
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
-    
+
     __slots__ = []
-    
+
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
         self.operator = gueHT
@@ -943,7 +944,7 @@ class RandGUEt(RandSystem):
 #     _externalInstances: int = 0
 #     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
 #     _instances: int = 0
-    
+
 #     __slots__ = ['__seedNum']
 #     def __init__(self, **kwargs):
 #         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -951,7 +952,7 @@ class RandGUEt(RandSystem):
 #         self.operator = gseH
 #         self.__seedNum = None
 #         self._named__setKwargs(**kwargs) # pylint: disable=no-member
-    
+
 #     @property
 #     def seedNum(self):
 #         r"""
@@ -975,7 +976,7 @@ class RandGUEt(RandSystem):
 #     _externalInstances: int = 0
 #     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
 #     _instances: int = 0
-    
+
 #     __slots__ = ['__seedNum']
 #     def __init__(self, **kwargs):
 #         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -983,7 +984,7 @@ class RandGUEt(RandSystem):
 #         self.operator = coeH
 #         self.__seedNum = None
 #         self._named__setKwargs(**kwargs) # pylint: disable=no-member
-    
+
 #     @property
 #     def seedNum(self):
 #         r"""
@@ -1007,7 +1008,7 @@ class RandGUEt(RandSystem):
 #     _externalInstances: int = 0
 #     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
 #     _instances: int = 0
-    
+
 #     __slots__ = ['__seedNum']
 #     def __init__(self, **kwargs):
 #         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -1015,7 +1016,7 @@ class RandGUEt(RandSystem):
 #         self.operator = cueH
 #         self.__seedNum = None
 #         self._named__setKwargs(**kwargs) # pylint: disable=no-member
-    
+
 #     @property
 #     def seedNum(self):
 #         r"""
@@ -1039,7 +1040,7 @@ class RandGUEt(RandSystem):
 #     _externalInstances: int = 0
 #     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
 #     _instances: int = 0
-    
+
 #     __slots__ = ['__seedNum']
 #     def __init__(self, **kwargs):
 #         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
@@ -1047,7 +1048,7 @@ class RandGUEt(RandSystem):
 #         self.operator = cseH
 #         self.__seedNum = None
 #         self._named__setKwargs(**kwargs) # pylint: disable=no-member
-    
+
 #     @property
 #     def seedNum(self):
 #         r"""
