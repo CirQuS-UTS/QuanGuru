@@ -106,8 +106,10 @@ def iprKetNB(ket: Matrix) -> float:
 
 def iprMatrix(mat1: Matrix, mat2: Matrix) -> float:
     r"""
-    Calculates the IPR between two matrices :math:`1/\sum_{n, m}|\langle \psi_{n}|\Phi_{m}\rangle|^{4}` where :math:`\langle \psi_{n}|` is the 
-    nth eigenvector of the first matrix and :math:|\Phi_{m}\rangle` is the mth eigenvector of the second matrix 
+    Calculates the IPR between two matrices
+    :math:`1/\sum_{n, m}|\langle \psi_{n}|\Phi_{m}\rangle|^{4}` where
+    :math:`\langle \psi_{n}|` is the nth eigenvector of the first matrix and
+    :math:`|\Phi_{m}\rangle` is the mth eigenvector of the second matrix
     Parameters
     ----------
     mat1 : Matrix
@@ -122,8 +124,8 @@ def iprMatrix(mat1: Matrix, mat2: Matrix) -> float:
 
     """
     IPR = 0.
-    vals1, basis1 = sortedEigens(mat1)
-    vals2, basis2 = sortedEigens(mat2)
+    _vals1, basis1 = sortedEigens(mat1)
+    _vals2, basis2 = sortedEigens(mat2)
     for j in range(len(basis1)):
         for i in range(len(basis2)):
             coeff = fidelityPure(basis1[i], basis2[j])**2

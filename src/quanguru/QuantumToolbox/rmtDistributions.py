@@ -59,21 +59,21 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
     # TODO
     """
 
+    coef = None
+    dist = None
     if beta == 1:
         coef = np.e**(gammaln(dim/2) - gammaln((dim-1)/2))
         dist = ((1 - x)**((dim-3)/2))/(np.sqrt(np.pi*x))
     elif beta == 2:
-        coef = (dim - 1)
+        coef = dim - 1
         dist = (1 - x)**(dim - 2)
     elif beta == 4:
         coef = (dim - 1)*(dim - 2)
         dist = x*((1-x)**(dim - 1))
     val = coef*dist
-    if val > 10**30:
-        val = 10**30
+    val = min(val, 10**30)
 
-    if val < 10**-30:
-        val = 10**-30
+    val = max(val, 10**(-30))
 
     return val if val != 0 else 10**-30
 
@@ -101,7 +101,7 @@ def WignerDyson(x: float, beta: int = 1) -> float:
     --------
     # TODO
     """
-
+    val = 0.0
     if beta == 1:
         val = (np.pi/2)*(x**beta)*np.exp(-np.pi*(x**2)*0.25)
     elif beta == 2:

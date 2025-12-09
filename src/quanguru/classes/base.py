@@ -42,7 +42,8 @@ import inspect
 import warnings
 import weakref
 from itertools import chain
-from typing import Callable, Hashable, Dict, Optional, List, Union, Any, Tuple, Mapping
+from collections.abc import Hashable
+from typing import Callable, Dict, Optional, List, Union, Any, Tuple, Mapping
 
 from .exceptions import raiseAttrType, checkNotVal, checkCorType
 
@@ -462,6 +463,7 @@ class named:
             2. internal, ``if _internal is True``
             3. external, ``if _internal is False``
         """
+        insCount = 0
         if _internal is None:
             insCount = cls._instances
         elif _internal is True:

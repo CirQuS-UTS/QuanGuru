@@ -351,7 +351,7 @@ def partialTrace(keep: ndOrListInt, dims: ndOrListInt, state: Matrix) -> ndarray
 
     rho = state
     if rho.shape[0] != rho.shape[1]:
-        rho = (rho @ hc(rho))
+        rho = rho @ hc(rho)
 
     keep = np.asarray(keep)
     dims = np.asarray(dims)

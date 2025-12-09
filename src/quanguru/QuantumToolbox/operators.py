@@ -81,7 +81,7 @@ import scipy.linalg as linA # type: ignore
 from scipy.sparse.linalg import expm # type: ignore
 import numpy as np # type: ignore
 
-from .linearAlgebra import tensorProd, _matPower, norm
+from .linearAlgebra import tensorProd, _matPower
 
 from .customTypes import Matrix #pylint: disable=relative-beyond-top-level
 
@@ -466,7 +466,7 @@ def sigmam(sparse: bool = True) -> Matrix:
 @overload
 def Jp(j: float, sparse: Literal[True], isDim: bool = False) -> spmatrix: ...
 
-@overload 
+@overload
 def Jp(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
 
 @overload
@@ -537,7 +537,7 @@ def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
 @overload
 def Jm(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix: ...
 
-@overload 
+@overload
 def Jm(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
 
 @overload
@@ -608,7 +608,7 @@ def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
 @overload
 def Jx(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix: ...
 
-@overload 
+@overload
 def Jx(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
 
 @overload
@@ -873,8 +873,9 @@ def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     (4, 4)	(6+0j)
     """
 
-    n = (Jx(j, sparse=True, isDim=isDim)@Jx(j, sparse=True, isDim=isDim)) + (Jy(j, sparse=True, isDim=isDim)@Jy(j, sparse=True, isDim=isDim))\
-        + (Jz(j, sparse=True, isDim=isDim)@Jz(j, sparse=True, isDim=isDim))
+    n = ((Jx(j, sparse=True, isDim=isDim)@Jx(j, sparse=True, isDim=isDim)) +
+         (Jy(j, sparse=True, isDim=isDim)@Jy(j, sparse=True, isDim=isDim)) +
+         (Jz(j, sparse=True, isDim=isDim)@Jz(j, sparse=True, isDim=isDim)))
     return n if sparse else n.toarray()
 
 @overload
@@ -1032,7 +1033,7 @@ def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     """
 
     sparse = sp.isspmatrix(HamiltonianCavity)
-    parEX = ((1j * np.pi) * HamiltonianCavity)
+    parEX = 1j * np.pi * HamiltonianCavity
     return expm(parEX) if sparse else linA.expm(parEX)
 
 @overload
@@ -1193,10 +1194,10 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
 #     Returns:
 #         numpy array containing Haar-distributed random matrix.
 #     """
-    
+
 #     # rng = np.random.default_rng(seed)
 #     #rseed = rng.integers(10000000,size=1)[0]
-    
+
 #     # n by n random complex matrix
 #     x_mtx_real = np.random.default_rng(seed=seedNum[0]).standard_normal(size=(dimension,dimension))
 #     x_mtx_imag = (1j)*np.random.default_rng(seed=seedNum[1]).standard_normal(size=(dimension, dimension))
@@ -1262,26 +1263,32 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
 #     Hamiltonian = linA.logm(matrix)/(-1j)
 #     return Hamiltonian
 
-def goeH(dimension: int, seedNum: list = [None, None]) -> np.ndarray:
+def goeH(dimension: int, seedNum: list | None = None) -> np.ndarray:
+    if seedNum is None:
+        seedNum = [None, None]
     mtx = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
-    # symmetrize matrix 
-    matrix = (mtx + mtx.transpose())/np.sqrt(2) 
+    # symmetrize matrix
+    matrix = (mtx + mtx.transpose())/np.sqrt(2)
     return matrix
 
-def gueH(dimension: int, seedNum: list = [None, None]) -> np.ndarray: 
+def gueH(dimension: int, seedNum: list | None = None) -> np.ndarray:
+    if seedNum is None:
+        seedNum = [None, None]
     real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
     mtx = real + 1j*imag
-    # hermitian matrix 
-    matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
+    # hermitian matrix
+    matrix = (mtx + mtx.transpose().conj())/np.sqrt(2)
     return matrix
 
-def gueHT(dimension: int, seedNum: list = [None, None]) -> np.ndarray:
+def gueHT(dimension: int, seedNum: list | None = None) -> np.ndarray:
+    if seedNum is None:
+        seedNum = [None, None]
     real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
     imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
     mtx = real + 1j*imag
-    # hermitian matrix 
-    matrix = (mtx + mtx.transpose().conj())/np.sqrt(2) 
+    # hermitian matrix
+    matrix = (mtx + mtx.transpose().conj())/np.sqrt(2)
     return matrix.transpose()
 
 # def gseH(dimension: int, seedNum: list = [None, None, None, None]) -> np.ndarray:
@@ -1291,10 +1298,10 @@ def gueHT(dimension: int, seedNum: list = [None, None]) -> np.ndarray:
 #     yreal = np.random.default_rng(seed=seedNum[2]).normal(size=(dimension,dimension))
 #     yimag = np.random.default_rng(seed=seedNum[3]).normal(size=(dimension,dimension))
 #     y_mtx = yreal + 1j*yimag
-    
+
 #     # [X Y; -conj(Y) conj(X)]
 #     mtx = np.block([[x_mtx               , y_mtx],
 #                     [-np.conjugate(y_mtx), np.conjugate(x_mtx)]])
-#     # hermitian matrix 
+#     # hermitian matrix
 #     matrix = (mtx + mtx.transpose().conj())
 #     return matrix

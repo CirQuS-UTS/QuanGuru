@@ -28,6 +28,8 @@ r"""
     =======================    ==================    ================   ===============
 
 """
+from inspect import ismethod
+
 from ..QuantumToolbox import evolution as lio #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.operators import identity #pylint: disable=relative-beyond-top-level
 
@@ -37,7 +39,6 @@ from .baseClasses import updateBase
 from .QSimBase import _parameter
 from .QSimComp import QSimComp
 from .QSweep import Sweep
-from inspect import ismethod
 
 class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attributes
     label = 'genericProtocol'
@@ -275,15 +276,18 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
 
     def __createUnitary(self, *args, **kwargs):
         r"""
-        This is the actual createUnitary function that is called in the time-evolution, it calls ``self.createUnitary`` if it is a
+        This is the actual createUnitary function that is called in the
+        time-evolution, it calls ``self.createUnitary`` if it is a
         callable and does nothing otherwise.
         """
         if callable(self.createUnitary):
             if ismethod(self.createUnitary):
                 return self.createUnitary(*args, **kwargs)
-            else:
-                return self.createUnitary(self, *args, **kwargs)
-        return attrNotValWarn(self.compute, None, 'createUnitary should be callable but '+str(type(self.compute))+'is given')
+            return self.createUnitary(self, *args, **kwargs)
+        return attrNotValWarn(
+            self.compute, None,
+            'createUnitary should be callable but '+str(type(self.compute))+'is given'
+        )
 
 class qProtocol(genericProtocol):
     label = 'qProtocol'

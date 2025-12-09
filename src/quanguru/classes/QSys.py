@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 # """
 #     Contains classes for Quantum systems.
 
@@ -41,7 +43,7 @@
 #       `_calculateDef`            |w| |w| |w| |c|       |w| |w| |x|        |w| |w| |x|
 #     =======================    ==================    ================   ===============
 
-# """ #pylint: disable=too-many-lines
+# """ # pylint: disable=too-many-lines
 
 # from collections import OrderedDict
 # from numpy import (int64, int32, int16, ndarray)

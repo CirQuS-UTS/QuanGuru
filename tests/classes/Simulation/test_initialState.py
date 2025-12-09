@@ -102,7 +102,9 @@ def test_nonAllowedInitialStateInOpenSystem():
     except ValueError as e:
         errorStr = str(e)
     
-    assert errorStr == "Initial state should be a ket (shape = (n, 1)) or density matrix (shape = (shape = (n, n))) for an open system simulation"
+    print(errorStr)
+
+    assert errorStr == "Initial state should be a ket (shape = (n, 1)) or density matrix (shape = (n, n)) for an open system simulation"
 
 def test_1dKetInitialStateInOpenSystem():
     """

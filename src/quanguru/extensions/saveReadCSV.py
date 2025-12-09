@@ -86,7 +86,7 @@ def saveCSV(data, path=None, fileName=None, dateTime=True):
     fileName : str, optional
         name for the CSV file, by default None for which a time stamp is used as the name
     dateTime : bool, optional
-        whether the filename should be bound by the datestamp and timestamp (according to _dateTime func) at time of 
+        whether the filename should be bound by the datestamp and timestamp (according to _dateTime func) at time of
         execution
 
     Returns
@@ -96,7 +96,7 @@ def saveCSV(data, path=None, fileName=None, dateTime=True):
     """
     if dateTime:
         fileName = _dateTime(fileName)
-    
+
     path = makeDir(path)
 
     with open(path + '/' + str(fileName) + '.txt', 'w', newline='') as csvFile: #pylint:disable=W1514
