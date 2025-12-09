@@ -129,7 +129,6 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
     """
     # TODO : Liouvillian docs need to be updated.
     #  functions are generalized.
-    dimensionOfHilbertSpace = None
     if Hamiltonian is not None:
         dimensionOfHilbertSpace = Hamiltonian.shape[0]
     else:
@@ -137,7 +136,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
             dimensionOfHilbertSpace = collapseOperators[0].shape[0]
     # sparse = sp.issparse(Hamiltonian)
     # if sparse == True:
-    identity = sp.identity(dimensionOfHilbertSpace, format="csc")
+    identity = sp.identity(dimensionOfHilbertSpace, format="csc") # pylint:disable=possibly-used-before-assignment
     # else:
     #     identity = np.identity(dimensionOfHilbertSpace)
     liouvillian = zerosMat(dimensionOfHilbertSpace**2)

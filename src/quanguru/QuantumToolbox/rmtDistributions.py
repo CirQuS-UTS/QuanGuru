@@ -59,8 +59,6 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
     # TODO
     """
 
-    coef = None
-    dist = None
     if beta == 1:
         coef = np.e**(gammaln(dim/2) - gammaln((dim-1)/2))
         dist = ((1 - x)**((dim-3)/2))/(np.sqrt(np.pi*x))
@@ -70,7 +68,7 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
     elif beta == 4:
         coef = (dim - 1)*(dim - 2)
         dist = x*((1-x)**(dim - 1))
-    val = coef*dist
+    val = coef*dist # pylint:disable=possibly-used-before-assignment
     val = min(val, 10**30)
 
     val = max(val, 10**(-30))
