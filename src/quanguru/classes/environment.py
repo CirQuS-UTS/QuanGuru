@@ -160,7 +160,7 @@ class thermalBath(_genericOpen): # pylint:disable=too-few-public-methods
 
     @_genericOpen.subSys.setter
     def subSys(self, subS):
-        _genericOpen.subSys.fset(self, subS)
+        _genericOpen.subSys.fset(self, subS) # pylint: disable=no-member
         subS._dissipatorObj__bath = self #pylint:disable=protected-access
         self._paramBoundBase__paramBound[subS.name] = subS # pylint: disable=no-member
 
