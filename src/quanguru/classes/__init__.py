@@ -36,3 +36,5 @@ from .environment import thermalBath, dissipatorObj
 from .tempConfig import *
 from .extensions.couplings import *
 from .extensions.scQubits import *
+
+from .settings import *

@@ -1,11 +1,9 @@
 from scqubits import Transmon, TunableTransmon
 from scqubits.core.descriptors import WatchedProperty
-from scqubits.core.central_dispatch import DispatchClient, CENTRAL_DISPATCH
 from ..QSystem import QuantumSystem
 import numpy as np
 import scipy.optimize
 import warnings
-
 
 class scQubit(QuantumSystem):
 #FIXME the dimension < _maxDim condition in the __init__ function
