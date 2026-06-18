@@ -17,23 +17,23 @@
       `QuantumSystem`            |w| |w| |w| |c|       |w| |w| |c|        |w| |w| |c|
     =======================    ==================    ================   ===============
 
-"""
+""" # pylint: disable=too-many-lines
 
 import warnings
 from typing import Any
-from numpy import ndarray, integer
+from numpy import ndarray, integer, random
 from scipy.sparse import spmatrix
 
 from .base import addDecorator, _recurseIfList, aliasDict
 from .QSimComp import QSimComp
-from .QPro import freeEvolution
+from .QProtocol import freeEvolution
 from .QSimBase import setAttr
 from .QTerms import QTerm
 from .exceptions import checkVal, checkNotVal, checkCorType
 
 from ..QuantumToolbox.linearAlgebra import tensorProd #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox.states import superPos #pylint: disable=relative-beyond-top-level
-from ..QuantumToolbox.operators import number, Jz
+from ..QuantumToolbox.operators import number, Jz, goeH, gueH, gueHT
 
 def _initStDec(_createInitialState):
     r"""
@@ -69,13 +69,11 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__terms', '__dimension', '__firstTerm', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
+    __slots__ = ['timeDependency', '__terms', '__dimension', '__compSys', '__dimsBefore', '__dimsAfter', '_inpCoef',
                  '__unitary', '__compOpers']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
-        #: First term is also stored in __firstTerm attribute
-        self.__firstTerm = None
         #: dictionary of the terms
         self.__terms = aliasDict()
         #: dimension of Hilbert space of the quantum system
@@ -93,6 +91,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         self._inpCoef = kwargs.pop("_inpCoef", False)
         #: a dictionary to store arbitrary composite operators that are shaped and updated internally
         self.__compOpers = {}
+        #: function that can be assigned by the user to update the parameters a function of time. The library passes the
+        #: current time to this function, and any desired parameter can be updated as a function of time.
+        self.timeDependency = None
         #: an internal :class:`~freeEvolution` protocol, this is the default evolution when a simulation is run.
         self.__unitary = freeEvolution(_internal=True)
         self._QuantumSystem__unitary.superSys = self # pylint: disable=no-member
@@ -120,8 +121,8 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         The matrices for operators constructed and de-constructed whenever they should be, and this method is used
         internally in various places when the matrices are needed to be constructed.
         """
-        noSubSys = (len(self.subSys) == 0)
-        noTerms = (len(self.terms) == 0)
+        noSubSys = len(self.subSys) == 0
+        noTerms = len(self.terms) == 0
         selfComp = self._isComposite
         if (noSubSys and noTerms):
             if selfComp is False:
@@ -138,11 +139,16 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     def _timeDependency(self, time=None):
         r"""
-        An internal method used to pass down the current time in evolution to all the ``subSys`` and ``terms``. The term
-        objects timeDependency functions are used for updating relevant parameters as a function of time.
+        Internal method that passes the current time to ``timeDependency`` method that needs to be defined by the user
+        to update the desired parameters (such as frequency of the spin system) as a function of time.
+        Also passes down the current time in evolution to all the ``subSys`` and ``terms``.
         """
         if time is None:
-            time = self.simulation._currentTime
+            time = self.simulation._currentTime # pylint: disable=no-member
+
+        if callable(self.timeDependency):
+            self.timeDependency(self, time) # pylint: disable=assigning-non-slot,not-callable
+
         for sys in self.subSys.values():
             sys._timeDependency(time)
         for ter in self.terms.values():
@@ -182,7 +188,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
             self.superSys.simulation._stateBase__initialState.value = None # breaks the bound to the other _parameter
 
         if self._isComposite:
-            if not isinstance(inp, (ndarray, spmatrix)):
+            if ((not isinstance(inp, (ndarray, spmatrix))) and (self._createState == self._createInitialState)):
                 checkCorType(inp, (list, tuple), 'Composite state initial state input')
                 checkVal(len(inp), len(self.subSys),f'Number of inputs ({len(inp)}) to initial state should be the'+
                                                    f' same as number of sub-system ({len(self.subSys)}) of {self.name}')
@@ -212,7 +218,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         returns the sum of term Hamiltonian
         """
-        return sum(val.totalHamiltonian for val in self.terms.values() if val.operator is not None)
+        return sum(val.totalHamiltonian for val in self.terms.values() if val._canCreateTotalHamiltonian() is not None)
 
     # dimension methods and properties
     @property
@@ -426,6 +432,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         """
         other = self.getByNameOrAlias(other)
         checkCorType(other, QuantumSystem, "{other} is not an instance of QuantumSystem")
+        newComp = None
         if ((self._QuantumSystem__compSys in (True, None)) and (not other._isComposite)):
             self.addSubSys(other.copy() if (other is self) else other)
             newComp = self
@@ -545,7 +552,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     # TODO THESE NEEDS TESTS
 
-    def createTerm(self, operator, frequency=None, qSystem=None, order=None, superSys=None, **kwargs): #pylint:disable=too-many-arguments
+    def createTerm(self, operator, frequency=None, qSystem=None, order=None, superSys=None, **kwargs): #pylint:disable=too-many-arguments,too-many-positional-arguments
         r"""
         Method to create a new term with the given parameters and also set the given kwargs to the new term.
 
@@ -604,8 +611,6 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         checkCorType(trm, QTerm, f"addTerms argument/s ({trm.name})")
         supSys = kwargs.pop('superSys', self)
         trm._named__setKwargs(**kwargs) # pylint: disable=W0212
-        if len(self.terms) == 0:
-            self._QuantumSystem__firstTerm = trm #pylint:disable=assigning-non-slot
         self._QuantumSystem__terms[trm.name] = trm  # pylint:disable=no-member
         self._paramUpdated = True
         trm.superSys = supSys
@@ -664,9 +669,9 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
         r"""
         Property to get the first term of the quantum system.
         """
-        if self._QuantumSystem__firstTerm is None:
+        if len(self._QuantumSystem__terms) == 0:
             self.addTerms(QTerm(qSystem=self))
-        return self._QuantumSystem__firstTerm # pylint:disable=no-member
+        return list(self._QuantumSystem__terms.values())[0] # pylint:disable=no-member
 
     @property
     def frequency(self):
@@ -714,6 +719,7 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
 
     def copy(self, **kwargs):
         newSys = super().copy()
+        newSys.resetTerms()  # pylint: disable=no-member
         for qsys in self.subSys.values():
             cqsys = qsys.copy()
             cqsys.alias = qsys.name + "_" + cqsys.name
@@ -727,16 +733,13 @@ class QuantumSystem(QSimComp): # pylint:disable=too-many-instance-attributes
                 for qsys in ter.qSystem:
                     qSystemNames.append(qsys.name + "_" + subSysList[qsys.ind].name)
 
-            if newSys._QuantumSystem__firstTerm is None:#pylint:disable=no-member,protected-access
-                newSys.createTerm(qSystem=qSystemNames, #pylint:disable=no-member
-                                  operator=ter.operator,
-                                  frequency=ter.frequency,
-                                  order=ter.order)
-            else:
-                newSys._firstTerm.qSystem=qSystemNames#pylint:disable=no-member,protected-access
-                newSys._firstTerm.operator=ter.operator#pylint:disable=no-member,protected-access
-                newSys._firstTerm.frequency=ter.frequency#pylint:disable=no-member,protected-access
-                newSys._firstTerm.order=ter.order#pylint:disable=no-member,protected-access
+            newSys.createTerm(  # pylint: disable=no-member
+                qSystem=qSystemNames,
+                operator=ter.operator,
+                frequency=ter.frequency,
+                order=ter.order
+            )
+
         if self.simulation._stateBase__initialStateInput._value is not None:
             newSys.initialState = self.simulation._stateBase__initialStateInput.value #pylint:disable=assigning-non-slot
         if not self._isComposite:
@@ -834,3 +837,225 @@ class Qubit(Spin): # pylint: disable=too-many-ancestors
         self.dimension  = 2
         self.operator = Jz
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+class RandSystem(QuantumSystem):
+    r"""
+    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandSystem'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = ['__seedNums']
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+        self.__seedNums = kwargs.pop('seedNums', [random.randint(1000), random.randint(1000)])
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    @property
+    def seedNums(self):
+        r"""
+        Gets and sets the seed number
+        """
+        return self._RandSystem__seedNums
+
+    @seedNums.setter
+    def seedNums(self, value):
+        self._RandSystem__seedNums = value # pylint: disable=assigning-non-slot
+        self._paramUpdated = True # pylint: disable=assigning-non-slot
+        self._firstTerm._paramBoundBase__matrix = None # pylint: disable=assigning-non-slot
+
+class RandGOE(RandSystem):
+    r"""
+    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandGOE'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = []
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self.operator = goeH
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+class RandGUE(RandSystem):
+    r"""
+    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandGUE'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = []
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self.operator = gueH
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+class RandGUEt(RandSystem):
+    r"""
+    Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+    """
+    #: (**class attribute**) class label used in default naming
+    label = 'RandGUEt'
+    #: (**class attribute**) number of instances created internally by the library
+    _internalInstances: int = 0
+    #: (**class attribute**) number of instances created explicitly by the user
+    _externalInstances: int = 0
+    #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+    _instances: int = 0
+
+    __slots__ = []
+
+    def __init__(self, **kwargs):
+        super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+        self.operator = gueHT
+        self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+# class RandGSE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandGSE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
+
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = gseH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandGSE__seedNum
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandGSE__seedNum = value # pylint: disable=assigning-non-slot
+
+# ## old version ##
+# class RandCOE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandCOE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
+
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = coeH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandCOE__seedNum
+
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandCOE__seedNum = value # pylint: disable=assigning-non-slot
+
+# class RandCUE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandCUE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
+
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = cueH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandCUE__seedNum
+
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandCUE__seedNum = value # pylint: disable=assigning-non-slot
+
+# class RandCSE(QuantumSystem):
+#     r"""
+#     Hamiltonian system with elements are randomly drawn from normal (Gaussian) distribution.
+#     """
+#     #: (**class attribute**) class label used in default naming
+#     label = 'RandCSE'
+#     #: (**class attribute**) number of instances created internally by the library
+#     _internalInstances: int = 0
+#     #: (**class attribute**) number of instances created explicitly by the user
+#     _externalInstances: int = 0
+#     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
+#     _instances: int = 0
+
+#     __slots__ = ['__seedNum']
+#     def __init__(self, **kwargs):
+#         super().__init__(_internal=kwargs.pop('_internal', False), _inpCoef=kwargs.pop("_inpCoef", False))
+#         self._QuantumSystem__compSys = False #pylint:disable=assigning-non-slot
+#         self.operator = cseH
+#         self.__seedNum = None
+#         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+#     @property
+#     def seedNum(self):
+#         r"""
+#         Gets and sets the seed number
+#         """
+#         return self._RandCSE__seedNum
+
+#     @seedNum.setter
+#     def seedNum(self, value):
+#         self._RandCSE__seedNum = value # pylint: disable=assigning-non-slot

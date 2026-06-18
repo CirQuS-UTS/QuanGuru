@@ -9,14 +9,14 @@ def comp(sim, states):
     st = states[0]
     sim.qRes.singleResult = ("sz1", qg.expectation(qub1Sz, st))
     sim.qRes.singleResult = ("sz2", qg.expectation(qub2Sz, st))
-    sim.qRes.singleResult = ("c00real", st.A[0][0].real)
-    sim.qRes.singleResult = ("c00imag", st.A[0][0].imag)
-    sim.qRes.singleResult = ("c10real", st.A[1][0].real)
-    sim.qRes.singleResult = ("c10imag", st.A[1][0].imag)
-    sim.qRes.singleResult = ("c01real", st.A[2][0].real)
-    sim.qRes.singleResult = ("c01imag", st.A[2][0].imag)
-    sim.qRes.singleResult = ("c11real", st.A[3][0].real)
-    sim.qRes.singleResult = ("c11imag", st.A[3][0].imag)
+    sim.qRes.singleResult = ("c00real", st.toarray()[0][0].real)
+    sim.qRes.singleResult = ("c00imag", st.toarray()[0][0].imag)
+    sim.qRes.singleResult = ("c10real", st.toarray()[1][0].real)
+    sim.qRes.singleResult = ("c10imag", st.toarray()[1][0].imag)
+    sim.qRes.singleResult = ("c01real", st.toarray()[2][0].real)
+    sim.qRes.singleResult = ("c01imag", st.toarray()[2][0].imag)
+    sim.qRes.singleResult = ("c11real", st.toarray()[3][0].real)
+    sim.qRes.singleResult = ("c11imag", st.toarray()[3][0].imag)
 
 def test_twoQubitExchange(twoQubitsExchange):
     qg.freeEvolution._freqCoef = 1

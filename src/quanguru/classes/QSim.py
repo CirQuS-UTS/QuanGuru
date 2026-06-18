@@ -36,7 +36,7 @@ from .modularSweep import timeEvolBase
 class Simulation(timeBase):
     """
     Simulation class collects all the pieces together to run a simulation. Its ``subSys`` dictionary contains
-    :class:`protocols <quanguru.classes.QPro.genericProtocol>`, :class:`quantum systems
+    :class:`protocols <quanguru.classes.QProtocol.genericProtocol>`, :class:`quantum systems
     <quanguru.classes.QSys.genericQSys>`
     as ``key:value``, respectively. It has two :class:`sweeps <quanguru.classes.Sweep.Sweep>`, meaning 2 of its
     attributes
@@ -327,7 +327,7 @@ class Simulation(timeBase):
                     self.qRes.states[protocol.name+'Results'].append(protocol.currentState)
         super()._computeBase__compute(states) # pylint: disable=no-member
 
-    def run(self, p=None, coreCount=None, resetRes=True):
+    def run(self, p=None, coreCount=None, resetRes=True, showProgress=True):
         r"""
         Call this function to run the simulation. It runs certain other preparation before running the simulation.
 
@@ -339,6 +339,9 @@ class Simulation(timeBase):
             Number of cores used for multiprocessing, uses `` (avaliable number of cores) - 1`` as default.
         resetRes: Boolean
             If ``False``, does not delete the results from the previous run of the simulation. ``True`` by default.
+        showProgress: Boolean
+            If ``True``, displays progress tracking for parameter sweeps. ``True`` by default.
+            Shows progress bars, time estimates, and completion status for both sequential and parallel runs.
         """
         if len(self.subSys.values()) == 0:
             self.addQSystems(self.superSys)
@@ -351,7 +354,7 @@ class Simulation(timeBase):
         if resetRes:
             for qres in self.qRes.allResults.values():
                 qres._reset() # pylint: disable=protected-access
-        _poolMemory.run(self, p, coreCount)
+        _poolMemory.run(self, p, coreCount, showProgress)
         for key, val in self.qRes.states.items():
             self.qRes.allResults[key]._qResBase__states[key] = val
         # TODO Test this
@@ -373,7 +376,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
     reRun = False
 
     @classmethod
-    def run(cls, qSim, p, coreCount): # pylint: disable=too-many-branches
+    def run(cls, qSim, p, coreCount, showProgress=True): # pylint: disable=too-many-branches
         r"""
         This is the only method in the class, and it carries the tasks described in the class description.
         """
@@ -386,6 +389,7 @@ class _poolMemory: # pylint: disable=too-few-public-methods
                 except: #pylint:disable=bare-except # noqa: E722
                     pass
 
+        _pool = None  # Initialize _pool to prevent possibly-used-before-assignment
         if p is True:
             if coreCount is None:
                 if _poolMemory.coreCount is None:
@@ -404,12 +408,12 @@ class _poolMemory: # pylint: disable=too-few-public-methods
         elif p is not None:
             # FIXME if p is not a pool, this should raise error
             _pool = multiprocessing.Pool(processes=p._processes) # pylint: disable=protected-access,consider-using-with
-        elif p is None:
+        else:  # p is None
             if _poolMemory.coreCount is not None:
                 _pool = multiprocessing.Pool(processes=_poolMemory.coreCount) #pylint:disable=consider-using-with
             else:
                 _pool = None
-        runSimulation(qSim, _pool)
+        runSimulation(qSim, _pool, showProgress)
 
         if _pool is not None:
             _poolMemory.coreCount = _pool._processes # pylint: disable=protected-access

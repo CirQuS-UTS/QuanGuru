@@ -3,7 +3,6 @@ import random as rnd
 import pytest
 import quanguru.classes.QSystem as QSys
 import quanguru.QuantumToolbox.states as qSts
-from quanguru.classes.QSys import QuantumSystemOld
 from quanguru.QuantumToolbox.linearAlgebra import tensorProd
 
 def test_initialStateInputLargerThanDimesion():
@@ -121,7 +120,7 @@ def test_createInitialStateForSingleSystem(cls):
         initState = qsys._createState(qSts.densityMatrix([qSts.basis(2, 1), qSts.basis(2, 0)], [0.5, 0.5]))
 
     initState = qsys._createState(qSts.densityMatrix([qSts.basis(4, 1), qSts.basis(4, 0)], [0.25, 0.75]))
-    print(initState.A)
+    print(initState.toarray())
     for ind1 in range(4):
         for ind2 in range(4):
             if ((ind1 == 0) and (ind2 == 0)):
@@ -243,7 +242,7 @@ def test_createInitialStateForCompositeSystemThroughCompositeSystem1Layer(cls):
     st2 = qSts.superPos(someRandInt2, [0, 1])
     st3 = qSts.superPos(3, {0:0.25, 1:0.75})
     st4 = qSts.basis(3, 0)
-    stTensor = tensorProd(st1, st2, st3, st4).A
+    stTensor = tensorProd(st1, st2, st3, st4).toarray()
 
     # add the subSystems for the composite system
     qsystem.addSubSys([asystem1, asystem2, asystem3, asystem4])
@@ -251,29 +250,29 @@ def test_createInitialStateForCompositeSystemThroughCompositeSystem1Layer(cls):
     # call the create initial state function with a proper input
     qsystem.initialState = [1, [0, 1], {0:0.25, 1:0.75}, st4]
 
-    initStateCreated = qsystem.initialState.A
+    initStateCreated = qsystem.initialState.toarray()
     initStateTarget = stTensor
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem1.initialState.A
-    initStateTarget = st1.A
+    initStateCreated = asystem1.initialState.toarray()
+    initStateTarget = st1.toarray()
     print(initStateCreated)
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem2.initialState.A
-    initStateTarget = st2.A
+    initStateCreated = asystem2.initialState.toarray()
+    initStateTarget = st2.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem3.initialState.A
-    initStateTarget = st3.A
+    initStateCreated = asystem3.initialState.toarray()
+    initStateTarget = st3.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem4.initialState.A
-    initStateTarget = st4.A
+    initStateCreated = asystem4.initialState.toarray()
+    initStateTarget = st4.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
@@ -298,7 +297,7 @@ def test_createInitialStateForCompositeSystemThroughSubSystems1Layer(cls):
     st2 = qSts.superPos(someRandInt2, [0, 1])
     st3 = qSts.superPos(3, {0:0.25, 1:0.75})
     st4 = qSts.basis(3, 0)
-    stTensor = tensorProd(st1, st2, st3, st4).A
+    stTensor = tensorProd(st1, st2, st3, st4).toarray()
 
     # add the subSystems for the composite system
     qsystem.addSubSys([asystem1, asystem2, asystem3, asystem4])
@@ -309,29 +308,29 @@ def test_createInitialStateForCompositeSystemThroughSubSystems1Layer(cls):
     asystem3.initialState = {0:0.25, 1:0.75}
     asystem4.initialState = st4
 
-    initStateCreated = qsystem.initialState.A
+    initStateCreated = qsystem.initialState.toarray()
     initStateTarget = stTensor
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem1.initialState.A
-    initStateTarget = st1.A
+    initStateCreated = asystem1.initialState.toarray()
+    initStateTarget = st1.toarray()
     print(initStateCreated)
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem2.initialState.A
-    initStateTarget = st2.A
+    initStateCreated = asystem2.initialState.toarray()
+    initStateTarget = st2.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem3.initialState.A
-    initStateTarget = st3.A
+    initStateCreated = asystem3.initialState.toarray()
+    initStateTarget = st3.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem4.initialState.A
-    initStateTarget = st4.A
+    initStateCreated = asystem4.initialState.toarray()
+    initStateTarget = st4.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
@@ -358,7 +357,7 @@ def test_createInitialStateForCompositeSystemThroughCompositeSystem2Layers(cls):
     st2 = qSts.superPos(someRandInt2, [0, 1])
     st3 = qSts.superPos(3, {0:0.25, 1:0.75})
     st4 = qSts.basis(3, 0)
-    stTensor = tensorProd(st1, st2, st3, st4).A
+    stTensor = tensorProd(st1, st2, st3, st4).toarray()
 
     # add the subSystems for the composite system
     qsystem1.addSubSys([asystem1, asystem2])
@@ -368,29 +367,29 @@ def test_createInitialStateForCompositeSystemThroughCompositeSystem2Layers(cls):
     # call the create initial state function with a proper input
     qsystem.initialState = [[1, [0, 1]], [{0:0.25, 1:0.75}, st4]]
 
-    initStateCreated = qsystem.initialState.A
+    initStateCreated = qsystem.initialState.toarray()
     initStateTarget = stTensor
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem1.initialState.A
-    initStateTarget = st1.A
+    initStateCreated = asystem1.initialState.toarray()
+    initStateTarget = st1.toarray()
     print(initStateCreated)
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem2.initialState.A
-    initStateTarget = st2.A
+    initStateCreated = asystem2.initialState.toarray()
+    initStateTarget = st2.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem3.initialState.A
-    initStateTarget = st3.A
+    initStateCreated = asystem3.initialState.toarray()
+    initStateTarget = st3.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem4.initialState.A
-    initStateTarget = st4.A
+    initStateCreated = asystem4.initialState.toarray()
+    initStateTarget = st4.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
@@ -417,7 +416,7 @@ def test_createInitialStateForCompositeSystemThroughSubSystems2Layers(cls):
     st2 = qSts.superPos(someRandInt2, [0, 1])
     st3 = qSts.superPos(3, {0:0.25, 1:0.75})
     st4 = qSts.basis(3, 0)
-    stTensor = tensorProd(st1, st2, st3, st4).A
+    stTensor = tensorProd(st1, st2, st3, st4).toarray()
 
     # add the subSystems for the composite system
     qsystem1.addSubSys([asystem1, asystem2])
@@ -430,29 +429,29 @@ def test_createInitialStateForCompositeSystemThroughSubSystems2Layers(cls):
     asystem3.initialState = {0:0.25, 1:0.75}
     asystem4.initialState = st4
 
-    initStateCreated = qsystem.initialState.A
+    initStateCreated = qsystem.initialState.toarray()
     initStateTarget = stTensor
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem1.initialState.A
-    initStateTarget = st1.A
+    initStateCreated = asystem1.initialState.toarray()
+    initStateTarget = st1.toarray()
     print(initStateCreated)
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem2.initialState.A
-    initStateTarget = st2.A
+    initStateCreated = asystem2.initialState.toarray()
+    initStateTarget = st2.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem3.initialState.A
-    initStateTarget = st3.A
+    initStateCreated = asystem3.initialState.toarray()
+    initStateTarget = st3.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem4.initialState.A
-    initStateTarget = st4.A
+    initStateCreated = asystem4.initialState.toarray()
+    initStateTarget = st4.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
@@ -479,7 +478,7 @@ def test_createInitialStateForCompositeSystemThroughMixed2Layers(cls):
     st2 = qSts.superPos(someRandInt2, [0, 1])
     st3 = qSts.superPos(3, {0:0.25, 1:0.75})
     st4 = qSts.basis(3, 0)
-    stTensor = tensorProd(st1, st2, st3, st4).A
+    stTensor = tensorProd(st1, st2, st3, st4).toarray()
 
     # add the subSystems for the composite system
     qsystem1.addSubSys([asystem1, asystem2])
@@ -491,28 +490,28 @@ def test_createInitialStateForCompositeSystemThroughMixed2Layers(cls):
     asystem2.initialState = [0, 1]
     qsystem2.initialState = [{0:0.25, 1:0.75}, st4]
 
-    initStateCreated = qsystem.initialState.A
+    initStateCreated = qsystem.initialState.toarray()
     initStateTarget = stTensor
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem1.initialState.A
-    initStateTarget = st1.A
+    initStateCreated = asystem1.initialState.toarray()
+    initStateTarget = st1.toarray()
     print(initStateCreated)
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem2.initialState.A
-    initStateTarget = st2.A
+    initStateCreated = asystem2.initialState.toarray()
+    initStateTarget = st2.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem3.initialState.A
-    initStateTarget = st3.A
+    initStateCreated = asystem3.initialState.toarray()
+    initStateTarget = st3.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])
 
-    initStateCreated = asystem4.initialState.A
-    initStateTarget = st4.A
+    initStateCreated = asystem4.initialState.toarray()
+    initStateTarget = st4.toarray()
     for ind in range(len(initStateTarget)):
         assert np.allclose(initStateCreated[ind], initStateTarget[ind])

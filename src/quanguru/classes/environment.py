@@ -82,7 +82,7 @@ class dissipatorObj(_genericOpen):
         self.addToProtocol(supSys._freeEvol)
 
     def addToProtocol(self, protocol):
-        protocol._genericProtocol__dissipator[self] = self.jRate #pylint:disable=protected-access
+        protocol._genericProtocol__dissipator[self.name] = self #pylint:disable=protected-access
         self._paramBoundBase__paramBound[protocol.name] = protocol # pylint: disable=no-member
 
     @property
@@ -104,8 +104,10 @@ class dissipatorObj(_genericOpen):
     @jOperMatrix.setter
     def jOperMatrix(self, jOpMat):
         if ((jOpMat is None) or self._paramUpdated):
-            setAttr(self, '_paramBoundBase__matrix',
-                    compositeOp(self.jOper, dimA=self.superSys._dimsAfter, dimB=self.superSys._dimsBefore)) # pylint:disable=no-member
+            oper = self.jOper
+            if self.jOper.shape[0] != ((self.superSys.dimension*self.superSys._dimsAfter*self.superSys._dimsBefore)**2): # pylint:disable=no-member
+                oper = compositeOp(self.jOper, dimA=self.superSys._dimsAfter, dimB=self.superSys._dimsBefore) # pylint:disable=no-member
+            setAttr(self, '_paramBoundBase__matrix', oper) # pylint:disable=no-member
             self._paramBoundBase__paramUpdated = False # pylint:disable=assigning-non-slot
 
     @jOper.setter
@@ -158,7 +160,7 @@ class thermalBath(_genericOpen): # pylint:disable=too-few-public-methods
 
     @_genericOpen.subSys.setter
     def subSys(self, subS):
-        _genericOpen.subSys.fset(self, subS)
+        _genericOpen.subSys.fset(self, subS) # pylint: disable=no-member
         subS._dissipatorObj__bath = self #pylint:disable=protected-access
         self._paramBoundBase__paramBound[subS.name] = subS # pylint: disable=no-member
 

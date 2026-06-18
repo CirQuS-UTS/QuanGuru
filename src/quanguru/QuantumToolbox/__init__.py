@@ -2,11 +2,13 @@ r"""
     QuantumToolbox consists **purely of Python functions** (no other objects) that create and/or use **matrices**.
     **Bold** parts of the previous sentence highlight two main ideas of QuantumToolbox.
 
-    It only contains Python functions to make it familiar with a broader audience, so that anyone without any interest
-    in object-oriented programming can still contribute to QuantumToolbox, and the second idea is to use scipy sparse
-    (csc matrix) as default.
-    Matrix creations should be sparse as default and return .A (or .toarray()) of the created sparse if sparse=False.
-    Any function manipulating matrices should be designed to be independent of sparse or array, if possible.
+    It only contains Python functions to make it familiar with a broader audience, so that anyone
+    without any interest in object-oriented programming can still contribute to QuantumToolbox, and
+    the second idea is to use scipy sparse (csc matrix) as default.
+    Matrix creations should be sparse as default and return .toarray() (or .toarray()) of the
+    created sparse if sparse=False.
+    Any function manipulating matrices should be designed to be independent of sparse or array, if
+    possible.
 
     .. currentmodule:: quanguru.QuantumToolbox
 
@@ -46,10 +48,11 @@ from .states import (
 )
 from .operators import (
     number, destroy, create, identity, sigmaz, sigmay, sigmax, sigmap, sigmam, Jz, Jp, Jm, Jx, Jy, Js, operatorPow,
-    paritySUM, parityEXP, displacement, squeeze, compositeOp
+    paritySUM, parityEXP, displacement, squeeze, compositeOp, goeH, gueH, gueHT
 )
 from .evolution import (
-    Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _postSO, _prepostSO, evolveOpen, steadyState
+    Unitary, Liouvillian, LiouvillianExp, dissipator, _preSO, _postSO, _prepostSO, evolveOpen, steadyStateHam,
+    steadyStateLio
 )
 from .functions import (
     expectation, fidelityPure, entropy, sortedEigens, concurrence, traceDistance, _expectationColArr,

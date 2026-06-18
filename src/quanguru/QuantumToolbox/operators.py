@@ -73,8 +73,9 @@ r"""
 
 """ #pylint:disable=too-many-lines
 
-from typing import Callable
-
+from typing import Callable, overload, Literal
+from numpy import ndarray # type: ignore
+from scipy.sparse import spmatrix # type: ignore
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
 from scipy.sparse.linalg import expm # type: ignore
@@ -93,6 +94,14 @@ from .customTypes import Matrix #pylint: disable=relative-beyond-top-level
 # These type aliases are used in type hinting of below methods
 # Matrix = TypeVar('Matrix', spmatrix, ndarray)       # Type which is either spmatrix or nparray (created using TypeVar)
 
+@overload
+def number(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def number(dimension: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def number(dimension: int, sparse: bool) -> Matrix: ...
 
 def number(dimension: int, sparse: bool = True) -> Matrix:
     r"""
@@ -129,6 +138,15 @@ def number(dimension: int, sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
+@overload
+def destroy(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def destroy(dimension: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def destroy(dimension: int, sparse: bool) -> Matrix: ...
+
 def destroy(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the bosonic `annihilation` :math:`\hat{a}` operator (in Fock basis).
@@ -162,6 +180,15 @@ def destroy(dimension: int, sparse: bool = True) -> Matrix:
     columns = range(1, dimension)
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
+
+@overload
+def create(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def create(dimension: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def create(dimension: int, sparse: bool) -> Matrix: ...
 
 def create(dimension: int, sparse: bool = True) -> Matrix:
     r"""
@@ -197,6 +224,15 @@ def create(dimension: int, sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(dimension, dimension))
     return n if sparse else n.toarray()
 
+@overload
+def identity(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def identity(dimension: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def identity(dimension: int, sparse: bool) -> Matrix: ...
+
 def identity(dimension: int, sparse: bool = True) -> Matrix:
     r"""
     Creates the identity operator :math:`\mathbb{I}`.
@@ -225,8 +261,16 @@ def identity(dimension: int, sparse: bool = True) -> Matrix:
      [0. 1. 0.]
      [0. 0. 1.]]
     """
-
     return sp.identity(dimension, format="csc") if sparse else np.identity(dimension)
+
+@overload
+def sigmaz(sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def sigmaz(sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def sigmaz(sparse: bool) -> Matrix: ...
 
 def sigmaz(sparse: bool = True) -> Matrix:
     r"""
@@ -259,6 +303,15 @@ def sigmaz(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
+@overload
+def sigmay(sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def sigmay(sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def sigmay(sparse: bool) -> Matrix: ...
+
 def sigmay(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma y) :math:`\hat{\sigma}_{y} := \begin{bmatrix} 0, -i \\ i,\ \ 0 \end{bmatrix}` operator.
@@ -289,6 +342,15 @@ def sigmay(sparse: bool = True) -> Matrix:
     columns = [1, 0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
+
+@overload
+def sigmax(sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def sigmax(sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def sigmax(sparse: bool) -> Matrix: ...
 
 def sigmax(sparse: bool = True) -> Matrix:
     r"""
@@ -321,6 +383,15 @@ def sigmax(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
+@overload
+def sigmap(sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def sigmap(sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def sigmap(sparse: bool) -> Matrix: ...
+
 def sigmap(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma +) :math:`\hat{\sigma}_{+} := \frac{1}{2}(\hat{\sigma}_{x} +i\hat{\sigma}_{y}) =
@@ -352,6 +423,15 @@ def sigmap(sparse: bool = True) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
 
+@overload
+def sigmam(sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def sigmam(sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def sigmam(sparse: bool) -> Matrix: ...
+
 def sigmam(sparse: bool = True) -> Matrix:
     r"""
     Creates the `Pauli` (sigma -) :math:`\hat{\sigma}_{-} := \frac{1}{2}(\hat{\sigma}_{x} - i\hat{\sigma}_{y}) =
@@ -382,6 +462,15 @@ def sigmam(sparse: bool = True) -> Matrix:
     columns = [0]
     n = sp.csc_matrix((data, (rows, columns)), shape=(2, 2))
     return n if sparse else n.toarray()
+
+@overload
+def Jp(j: float, sparse: Literal[True], isDim: bool = False) -> spmatrix: ...
+
+@overload
+def Jp(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
+
+@overload
+def Jp(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
 
 def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
@@ -445,6 +534,15 @@ def Jp(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
+@overload
+def Jm(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix: ...
+
+@overload
+def Jm(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
+
+@overload
+def Jm(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
+
 def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `lowering` operator
@@ -507,6 +605,15 @@ def Jm(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
+@overload
+def Jx(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix: ...
+
+@overload
+def Jx(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
+
+@overload
+def Jx(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
+
 def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the angular momentum (spin) `X` operator :math:`\hat{J}_{x}` for a given spin quantum number j.
@@ -565,8 +672,17 @@ def Jx(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     (3, 4)	1.0
     """
 
-    n = 0.5*(Jp(j, isDim=isDim) + Jm(j, isDim=isDim))
+    n = 0.5*(Jp(j, sparse=True, isDim=isDim) + Jm(j, sparse=True, isDim=isDim))
     return n if sparse else n.toarray()
+
+@overload
+def Jy(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix: ...
+
+@overload
+def Jy(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
+
+@overload
+def Jy(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
 
 def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
@@ -626,8 +742,17 @@ def Jy(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     (3, 4)	-1j
     """
 
-    n = (1/(2j))*(Jp(j, isDim=isDim) - Jm(j, isDim=isDim))
+    n = (1/(2j))*(Jp(j, sparse=True, isDim=isDim) - Jm(j, sparse=True, isDim=isDim))
     return n if sparse else n.toarray()
+
+@overload
+def Jz(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix: ...
+
+@overload
+def Jz(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
+
+@overload
+def Jz(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
 
 def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
@@ -688,6 +813,15 @@ def Jz(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     n = sp.csc_matrix((data, (rows, columns)), shape=(d, d))
     return n if sparse else n.toarray()
 
+@overload
+def Js(j: float, sparse: Literal[True] = True, isDim: bool = False) -> spmatrix: ...
+
+@overload
+def Js(j: float, sparse: Literal[False], isDim: bool = False) -> ndarray: ...
+
+@overload
+def Js(j: float, sparse: bool, isDim: bool = False) -> Matrix: ...
+
 def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     r"""
     Creates the total angular momentum (spin) operator
@@ -739,9 +873,19 @@ def Js(j: float, sparse: bool = True, isDim: bool = False) -> Matrix:
     (4, 4)	(6+0j)
     """
 
-    n = (Jx(j, isDim=isDim)@Jx(j, isDim=isDim)) + (Jy(j, isDim=isDim)@Jy(j, isDim=isDim))\
-        + (Jz(j, isDim=isDim)@Jz(j, isDim=isDim))
+    n = ((Jx(j, sparse=True, isDim=isDim)@Jx(j, sparse=True, isDim=isDim)) +
+         (Jy(j, sparse=True, isDim=isDim)@Jy(j, sparse=True, isDim=isDim)) +
+         (Jz(j, sparse=True, isDim=isDim)@Jz(j, sparse=True, isDim=isDim)))
     return n if sparse else n.toarray()
+
+@overload
+def displacement(alpha: complex, dim: int, sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def displacement(alpha: complex, dim: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def displacement(alpha: complex, dim: int, sparse: bool) -> Matrix: ...
 
 def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     r"""
@@ -791,9 +935,18 @@ def displacement(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     (3, 3)	(0.02280183542861464+0j)
     """
 
-    oper = (alpha * create(dim)) - (np.conj(alpha) * destroy(dim))
+    oper = (alpha * create(dim, sparse=True)) - (np.conj(alpha) * destroy(dim, sparse=True))
     n = expm(oper)
-    return n if sparse else n.A
+    return n if sparse else n.toarray()
+
+@overload
+def squeeze(alpha: complex, dim: int, sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def squeeze(alpha: complex, dim: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def squeeze(alpha: complex, dim: int, sparse: bool) -> Matrix: ...
 
 def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
     r"""
@@ -837,7 +990,7 @@ def squeeze(alpha: complex, dim: int, sparse: bool = True) -> Matrix:
 
     oper = -(alpha * (create(dim)@create(dim))) + (np.conj(alpha) * (destroy(dim)@destroy(dim)))
     n = expm(0.5*oper)
-    return n if sparse else n.A
+    return n if sparse else n.toarray()
 
 def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     r"""
@@ -880,8 +1033,17 @@ def parityEXP(HamiltonianCavity: Matrix) -> Matrix:
     """
 
     sparse = sp.isspmatrix(HamiltonianCavity)
-    parEX = ((1j * np.pi) * HamiltonianCavity)
+    parEX = 1j * np.pi * HamiltonianCavity
     return expm(parEX) if sparse else linA.expm(parEX)
+
+@overload
+def paritySUM(dimension: int, sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def paritySUM(dimension: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def paritySUM(dimension: int, sparse: bool) -> Matrix: ...
 
 def paritySUM(dimension: int, sparse: bool = True) -> Matrix:
     r"""
@@ -949,13 +1111,13 @@ def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
 
     Examples
     --------
-    >>> compositeOp(operator=sigmaz(), dimB=0, dimA=2).A
+    >>> compositeOp(operator=sigmaz(), dimB=0, dimA=2).toarray()
     [[ 1.  0.  0.  0.]
      [ 0.  1.  0.  0.]
      [ 0.  0. -1.  0.]
      [ 0.  0.  0. -1.]]
 
-    >>> compositeOp(operator=sigmaz(), dimB=2, dimA=0).A
+    >>> compositeOp(operator=sigmaz(), dimB=2, dimA=0).toarray()
     [[ 1.  0.  0.  0.]
      [ 0. -1.  0.  0.]
      [ 0.  0.  1.  0.]
@@ -964,6 +1126,15 @@ def compositeOp(operator: Matrix, dimB: int = 1, dimA: int = 1) -> Matrix:
     """
 
     return tensorProd(*[a for a in [dimB, operator, dimA] if ((not isinstance(a, int)) or (a > 1))])
+
+@overload
+def operatorPow(op: Callable, dim: int, power: int, sparse: Literal[True] = True) -> spmatrix: ...
+
+@overload
+def operatorPow(op: Callable, dim: int, power: int, sparse: Literal[False]) -> ndarray: ...
+
+@overload
+def operatorPow(op: Callable, dim: int, power: int, sparse: bool) -> Matrix: ...
 
 def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matrix:
     r"""
@@ -1009,3 +1180,128 @@ def operatorPow(op: Callable, dim: int, power: int, sparse: bool = True) -> Matr
     except: # pylint: disable=bare-except # noqa: E722
         opPow = _matPower(op(sparse), power)
     return opPow
+
+# ## old version ##
+# def haarMtx(dimension,seedNum) -> np.ndarray:
+#     """Samples Haar-distributed matrices.
+
+#     Samples Haar-distributed matrices that are useful to generate
+#     random matrices for COE, CUE and CSE ensembles.
+
+#     Args:
+#         n (int): matrix size.
+
+#     Returns:
+#         numpy array containing Haar-distributed random matrix.
+#     """
+
+#     # rng = np.random.default_rng(seed)
+#     #rseed = rng.integers(10000000,size=1)[0]
+
+#     # n by n random complex matrix
+#     x_mtx_real = np.random.default_rng(seed=seedNum[0]).standard_normal(size=(dimension,dimension))
+#     x_mtx_imag = (1j)*np.random.default_rng(seed=seedNum[1]).standard_normal(size=(dimension, dimension))
+#     # orthonormalizing matrix using QR algorithm
+#     q_mtx, _ = np.linalg.qr(x_mtx_real + x_mtx_imag)
+#     # the resulting Q is Haar-distributed
+#     return q_mtx
+
+# def _build_j_mtx(size) -> np.ndarray:
+#     """Creates an useful matrix to sample CSE matrices.
+
+#     Creates matrix J of zeros but with the upper-diagonal
+#     set to -1 and the lower-diagonal set to 1. This matrix
+#     is useful in the sampling algorithm of CSE matrices.
+
+#     Returns:
+#         numpy array containing J matrix.
+
+#     References:
+#         - Killip, R. and Zozhan, R.
+#             Matrix Models and Eigenvalue Statistics for Truncations of
+#             Classical Ensembles of Random Unitary Matrices.
+#             Communications in Mathematical Physics. 349 (2017): 991-1027.
+#         - "Circular ensemble". Wikipedia.
+#             en.wikipedia.org/wiki/Circular_ensemble
+#     """
+#     size = 2*size
+#     j_mtx = np.zeros((size,size))
+#     # selecting indices
+#     inds = np.arange(size-1)
+#     # selecting upper-diagonal indices
+#     j_mtx[inds, inds+1] = -1
+#     # selecting lower-diagonal indices
+#     j_mtx[inds+1, inds] = 1
+#     return j_mtx
+
+# def coeH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
+#     # sampling unitary Haar-distributed matrix
+#     u_mtx = haarMtx(dimension,seedNum)
+#     # mapping to Circular Orthogonal Ensemble
+#     matrix = np.matmul(u_mtx.transpose(), u_mtx)
+#     Hamiltonian = linA.logm(matrix)/(-1j)
+#     return Hamiltonian
+#     # return matrix
+
+# def cueH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
+#     # sampling unitary Haar-distributed matrix
+#     matrix = haarMtx(dimension, seedNum)
+#     Hamiltonian = linA.logm(matrix)/(-1j)
+#     return Hamiltonian
+#     # return matrix
+
+# def cseH(dimension: int, seedNum: list = [None, None], sparse: bool = False) -> np.ndarray:
+#     # sampling unitary Haar-distributed matrix of size 2n
+#     u_mtx = haarMtx(dimension,seedNum)
+#     # mapping to Circular Symplectic Ensemble
+#     j_mtx = _build_j_mtx(int(dimension/2))
+#     # U_R = J * U^T * J^T
+#     u_r_aux = np.matmul(j_mtx, u_mtx.transpose())
+#     u_r_mtx = np.matmul(u_r_aux, j_mtx.transpose())
+#     # A = U^R * U
+#     matrix = np.matmul(u_r_mtx, u_mtx)
+#     Hamiltonian = linA.logm(matrix)/(-1j)
+#     return Hamiltonian
+
+def goeH(dimension: int, seedNum: list | None = None) -> np.ndarray:
+    if seedNum is None:
+        seedNum = [None, None]
+    mtx = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+    # symmetrize matrix
+    matrix = (mtx + mtx.transpose())/np.sqrt(2)
+    return matrix
+
+def gueH(dimension: int, seedNum: list | None = None) -> np.ndarray:
+    if seedNum is None:
+        seedNum = [None, None]
+    real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+    imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
+    mtx = real + 1j*imag
+    # hermitian matrix
+    matrix = (mtx + mtx.transpose().conj())/np.sqrt(2)
+    return matrix
+
+def gueHT(dimension: int, seedNum: list | None = None) -> np.ndarray:
+    if seedNum is None:
+        seedNum = [None, None]
+    real = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+    imag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
+    mtx = real + 1j*imag
+    # hermitian matrix
+    matrix = (mtx + mtx.transpose().conj())/np.sqrt(2)
+    return matrix.transpose()
+
+# def gseH(dimension: int, seedNum: list = [None, None, None, None]) -> np.ndarray:
+#     xreal = np.random.default_rng(seed=seedNum[0]).normal(size=(dimension,dimension))
+#     ximag = np.random.default_rng(seed=seedNum[1]).normal(size=(dimension,dimension))
+#     x_mtx = xreal + 1j*ximag
+#     yreal = np.random.default_rng(seed=seedNum[2]).normal(size=(dimension,dimension))
+#     yimag = np.random.default_rng(seed=seedNum[3]).normal(size=(dimension,dimension))
+#     y_mtx = yreal + 1j*yimag
+
+#     # [X Y; -conj(Y) conj(X)]
+#     mtx = np.block([[x_mtx               , y_mtx],
+#                     [-np.conjugate(y_mtx), np.conjugate(x_mtx)]])
+#     # hermitian matrix
+#     matrix = (mtx + mtx.transpose().conj())
+#     return matrix

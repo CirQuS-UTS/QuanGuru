@@ -181,7 +181,7 @@ def aJCHam(qubFreq: float, cavFreq: float, g: float, cavDim: int) -> Matrix:
     AJCHamil = cavHam + qubHam + couplingAJC
     return AJCHamil
 
-def UJC(wq: float, wc: float, g: float, t: float, dimC: int, sparse=False) -> Matrix: #pylint:disable=too-many-arguments
+def UJC(wq: float, wc: float, g: float, t: float, dimC: int, sparse=False) -> Matrix: #pylint:disable=too-many-positional-arguments,too-many-arguments
     """ Analytical implementation of the time independante Jaynes-Cummings Unitary evolution
         see Stenholm 1973 (https://doi.org/10.1016/0370-1573(73)90011-2)
         #TODO: explain the basis

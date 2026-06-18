@@ -312,22 +312,44 @@ class timeBase(stateBase):
     #: (**class attribute**) number of total instances = _internalInstances + _externalInstances
     _instances: int = 0
 
-    __slots__ = ['__totalTime', '__stepSize', '__samples', '__stepCount', '__bound']
+    __slots__ = ['__totalTime', '__stepSize', '__samples', '__stepCount', '__bound', '__updated']
 
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         #: _parameter storing the total time of simulation
-        self.__totalTime = _parameter()
+        self.__totalTime = _parameter()  # pylint: disable=assigning-non-slot
         #: _parameter storing the step size of simulation
-        self.__stepSize = _parameter()
+        self.__stepSize = _parameter()  # pylint: disable=assigning-non-slot
         #: _parameter storing number of samples in each step, by default 1.
-        self.__samples = _parameter(1)
+        self.__samples = _parameter(1)  # pylint: disable=assigning-non-slot
         #: _parameter storing the number of steps, i.e totalTime/stepSize.
-        self.__stepCount = _parameter()
+        self.__stepCount = _parameter()  # pylint: disable=assigning-non-slot
+        #: _updated storing the two most recent time parameters which were updated (totalTime/stepSize/stepCount)
+        self.__updated = [None, None]  # pylint: disable=assigning-non-slot
         #: if bound to another object, meaning the _parameters of this gets their value from the others _parameters,
         #: this attribute is a reference to another. Else None.
-        self.__bound = None
+        self.__bound = None  # pylint: disable=assigning-non-slot
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
+
+    def _updateUpdated(self, paramName):
+        if paramName != self._timeBase__updated[0]:
+            self._timeBase__updated = [paramName] + [self._timeBase__updated[0]] # pylint: disable=assigning-non-slot
+        if self._timeBase__updated[1] is not None:
+            if 'stepCount' not in self._timeBase__updated:
+                setAttrParam(
+                    self, '_timeBase__stepCount',
+                    int(self._timeBase__totalTime.value/self._timeBase__stepSize.value)
+                )
+            if 'stepSize' not in self._timeBase__updated:
+                setAttrParam(
+                    self, '_timeBase__stepSize',
+                    self._timeBase__totalTime.value/self._timeBase__stepCount.value
+                )
+            if 'totalTime' not in self._timeBase__updated:
+                setAttrParam(
+                    self, '_timeBase__totalTime',
+                    self._timeBase__stepCount.value*self._timeBase__stepSize.value
+                )
 
     @property
     def totalTime(self):
@@ -347,8 +369,7 @@ class timeBase(stateBase):
         if self._timeBase__stepSize._bound not in (None, False):# pylint: disable=protected-access
             self._timeBase__stepSize._value = self._timeBase__stepSize._bound._value # pylint: disable=protected-access
         setAttrParam(self, '_timeBase__totalTime', fTime)
-        if self.stepSize is not None:
-            self._timeBase__stepCount.value = int((fTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
+        self._updateUpdated('totalTime')
 
     @property
     def stepCount(self):
@@ -361,14 +382,6 @@ class timeBase(stateBase):
         use of these parameters, such as not forcing to define at least 2 of 3 timeBase parameters, if it already
         has a ``_bound`` and can obtain the second one from the ``_bound``.
         """
-        if self.totalTime is None:
-            if not ((self.stepSize is None) and (self._timeBase__stepCount.value is None)):
-                self._timeBase__totalTime.value = self._timeBase__stepCount.value * self.stepSize # pylint: disable=E0237
-
-        try:
-            self._timeBase__stepCount.value = int((self.totalTime//self.stepSize) + 1) # pylint: disable=assigning-non-slot
-        except:  # noqa: E722
-            raise ValueError('?') # pylint: disable=raise-missing-from
         return self._timeBase__stepCount.value
 
     @stepCount.setter
@@ -376,8 +389,7 @@ class timeBase(stateBase):
         if self._timeBase__totalTime._bound not in (None, False):# pylint: disable=protected-access
             self._timeBase__totalTime._value = self._timeBase__totalTime._bound._value# pylint: disable=protected-access
         setAttrParam(self, '_timeBase__stepCount', num)
-        if self.totalTime is not None:
-            self._timeBase__stepSize.value = self.totalTime/num # pylint: disable=assigning-non-slot
+        self._updateUpdated('stepCount')
 
     @property
     def stepSize(self):
@@ -397,8 +409,7 @@ class timeBase(stateBase):
         if self._timeBase__totalTime._bound not in (None, False):# pylint: disable=protected-access
             self._timeBase__totalTime._value = self._timeBase__totalTime._bound._value# pylint: disable=protected-access
         setAttrParam(self, '_timeBase__stepSize', stepsize)
-        if self.totalTime is not None:
-            self._timeBase__stepCount.value = int((self.totalTime//stepsize) + 1) # pylint: disable=assigning-non-slot
+        self._updateUpdated('stepSize')
 
     @property
     def samples(self):
@@ -440,13 +451,16 @@ class timeBase(stateBase):
                params=['_stateBase__delStates', '_stateBase__initialState', '_stateBase__initialStateInput'],
                re=False):
         r"""
-        This method is used internally at appropriate places to create bound between different simulation instances in
-        the intended hierarchical order. For example, when a :class:`quantum system <quanguru.classes.QSys.genericQSys>`
-        is added to ``subSys`` of explicitly created :class:`Simulation <quanguru.classes.Simulation.Simulation>`,
-        The parameters of any :class:`protocol.simulation <quanguru.classes.QPro.genericProtocol>` for that system will
-        be bound to ``(quantum system).simulation`` which will be bound to explicitly created Simulation. This method
-        creates such a bound between two ``Simulation`` objects, and it is used in appropriate places of the library.
-        Such a bound is broken or not created at all, if a parameter is explicitly assigned for a protocol or system.
+        This method is used internally at appropriate places to create bound between
+        different simulation instances in the intended hierarchical order. For example,
+        when a :class:`quantum system <quanguru.classes.QSys.genericQSys>` is added to
+        ``subSys`` of explicitly created :class:`Simulation <quanguru.classes.Simulation.Simulation>`,
+        The parameters of any :class:`protocol.simulation <quanguru.classes.QProtocol.genericProtocol>`
+        for that system will be bound to ``(quantum system).simulation`` which will be
+        bound to explicitly created Simulation. This method creates such a bound between
+        two ``Simulation`` objects, and it is used in appropriate places of the library.
+        Such a bound is broken or not created at all, if a parameter is explicitly
+        assigned for a protocol or system.
 
         - if self _parameter attributes have bound False (meaning set a value before)
 

@@ -130,5 +130,5 @@ def HeatCurrent(Lindbladian: Matrix, Hamiltonian: Matrix, denMat: Matrix) -> flo
     """
 
     full = mat2Vec(Lindbladian * vec2Mat(denMat))
-    heatCurrent = real((full * Hamiltonian).tr())
+    heatCurrent = real((full * Hamiltonian).trace())
     return heatCurrent
