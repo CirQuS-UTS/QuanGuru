@@ -55,16 +55,16 @@ def test_jRateChange():
 
     qubit.stepSize = 1
 
-    ans = array(
-        [[1.        +0.j        , 0.        +0.j        ,
+    ans = array([
+        [1.        +0.j        , 0.        +0.j        ,
         0.        +0.j        , 0.        +0.j        ],
-       [0.        +0.j        , 0.19876611+0.30955988j,
+       [0.        +0.j        , 0.32770991+0.51037795j,
         0.        +0.j        , 0.        +0.j        ],
        [0.        +0.j        , 0.        +0.j        ,
-        0.19876611-0.30955988j, 0.        +0.j        ],
+        0.32770991-0.51037795j, 0.        +0.j        ],
        [0.        +0.j        , 0.        +0.j        ,
-        0.        +0.j        , 1.        +0.j        ]]
-    )
+        0.        +0.j        , 1.        +0.j        ]
+    ])
 
     assert allclose(qubit.simulation.protocols[0].unitary().toarray(), ans)
 

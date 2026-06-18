@@ -206,16 +206,17 @@ class genericProtocol(QSimComp): # pylint: disable = too-many-instance-attribute
         self.simulation._qBase__subSys[self] = self.superSys # pylint: disable=protected-access
 
     def unitary(self):
-        collapseOps = None if not self._isOpen else [ds.jOperMatrix for ds in self._dissipator.values()]
-        decayRates = None if not self._isOpen else [ds.jRate for ds in self._dissipator.values()]
+        # Adds a wrapper around genUnitary to avoid unnecessary exponentiations when the 
+        # unitary is called multiple times without any parameter change in between
+
         # if self.superSys is not None:
         #     self.superSys._timeDependency() # pylint: disable=no-member
 
         if self._paramUpdated:
             if not self.fixed:
-                self._paramBoundBase__matrix = self.getUnitary(collapseOps, decayRates) # pylint: disable=assigning-non-slot
+                self._paramBoundBase__matrix = self.getUnitary() # pylint: disable=assigning-non-slot
         elif self._paramBoundBase__matrix is None: # pylint: disable=no-member
-            self._paramBoundBase__matrix = self.getUnitary(collapseOps, decayRates) # pylint: disable=assigning-non-slot
+            self._paramBoundBase__matrix = self.getUnitary() # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def getUnitary(self, collapseOps = None, decayRates = None):
@@ -360,8 +361,9 @@ class qProtocol(genericProtocol):
     def _defCreateUnitary(self, collapseOps = None, decayRates = None):
         unitary = self._identity(openSys=self._isOpen) # pylint: disable=no-member
         for step in self.steps.values():
+            # seems like the _puValues() calls are trying to preserve the _paramUpdated values of the steps which may be changed during the getUnitary call of the step?)
             vals = self._puValues(step, [])
-            unitary = step.getUnitary(collapseOps, decayRates) @ unitary
+            unitary = step.getUnitary(collapseOps, decayRates) @ unitary # NOTE genUnitary always re-exponentiates the step, which might be inefficient if the step is used more than once in the same protocol or in different protocol/s. 
             self._puValues(step, vals)
         return unitary
 
@@ -398,6 +400,7 @@ class copyStep(qBase):
         pass
 
     def getUnitary(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
+        # self.superSys.getUnitary(collapseOps, decayRates)
         self.superSys.unitary()
         return self.superSys._hc if self.hc else self.superSys._paramBoundBase__matrix #pylint:disable=protected-access
 
