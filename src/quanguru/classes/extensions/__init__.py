@@ -6,7 +6,9 @@
     .. autosummary::
 
         couplings
+        scQubits
 
 """
 
 from .couplings import *
+from .scQubits import *
