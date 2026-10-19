@@ -38,6 +38,7 @@ from typing import Callable, List, Optional
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
 import scipy.sparse.linalg as slinA # type: ignore
+from warnings import warn
 
 from .customTypes import Matrix
 from .functions import sortedEigens
@@ -216,7 +217,16 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
             sparse = sp.issparse(collapseOperators[0])
 
     if isinstance(collapseOperators, list):
-        liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates, _double=_double)
+        # liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates, _double=_double)
+        HamLiouvillian = Liouvillian(Hamiltonian, None, None, _double=_double)
+        collapseLiouvillian = Liouvillian(None, collapseOperators, decayRates, _double=_double)
+        liouvillian = HamLiouvillian + collapseLiouvillian if timeStep > 0 else HamLiouvillian - collapseLiouvillian
+        if timeStep < 0:
+            warn("Negative time step given. Unitary part will be subtracted from the dissipator part instead of being added.")
+        # if timeStep <0:
+        #     print("Negative time step given. Unitary part will be subtracted from the dissipator part instead of being added.")
+        # else:
+        #     print("Positive time step given. Unitary part will be added to the dissipator part.")
         if exp is True:
             if sparse is True:
                 liouvillianEXP = slinA.expm(liouvillian * timeStep)
