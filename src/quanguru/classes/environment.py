@@ -105,7 +105,7 @@ class dissipatorObj(_genericOpen):
     def jOperMatrix(self, jOpMat):
         if ((jOpMat is None) or self._paramUpdated):
             oper = self.jOper
-            if self.jOper.shape[0] != ((self.superSys.dimension*self.superSys._dimsAfter*self.superSys._dimsBefore)**2): # pylint:disable=no-member
+            if self.jOper.shape[0] != ((self.superSys.dimension*self.superSys._dimsAfter*self.superSys._dimsBefore)): # pylint:disable=no-member
                 oper = compositeOp(self.jOper, dimA=self.superSys._dimsAfter, dimB=self.superSys._dimsBefore) # pylint:disable=no-member
             setAttr(self, '_paramBoundBase__matrix', oper) # pylint:disable=no-member
             self._paramBoundBase__paramUpdated = False # pylint:disable=assigning-non-slot
