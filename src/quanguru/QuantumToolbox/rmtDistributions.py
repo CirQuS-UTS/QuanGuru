@@ -67,7 +67,7 @@ def EigenVectorDist(x: float, dim: int, beta: int = 1) -> float:
         dist = (1 - x)**(dim - 2)
     elif beta == 4:
         coef = (dim - 1)*(dim - 2)
-        dist = x*((1-x)**(dim - 1))
+        dist = x*((1-x)**(dim - 3))
     val = coef*dist # pylint:disable=possibly-used-before-assignment
     val = min(val, 10**30)
 
