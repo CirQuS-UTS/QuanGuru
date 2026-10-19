@@ -59,8 +59,8 @@ class _singleQubit: #pylint:disable=too-many-instance-attributes
         self.Hamiltonian = 0.5*self.frequency*self.sz
 
         self.initialState = states.superPos(2, {0: initialC1, 1: initialC0}, populations=False)
-        self.initialC0 = self.initialState.A[1][0] #pylint:disable=invalid-name
-        self.initialC1 = self.initialState.A[0][0] #pylint:disable=invalid-name
+        self.initialC0 = self.initialState.toarray()[1][0] #pylint:disable=invalid-name
+        self.initialC1 = self.initialState.toarray()[0][0] #pylint:disable=invalid-name
 
     # creates the unitary time evolution operator
     def unitary(self):

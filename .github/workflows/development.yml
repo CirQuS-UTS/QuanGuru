@@ -21,9 +21,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
-      - name: "TODO to Issue"
-        uses: "alstr/todo-to-issue-action@v4.6.3"
-        id: "todo"
+      # - name: "TODO to Issue"
+      #   uses: "alstr/todo-to-issue-action@v4.6.3"
+      #   id: "todo"
       - name: check modified files
         id: check_files
         run: |
@@ -55,7 +55,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
+          python-version: '3.13'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -78,7 +78,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
+          python-version: '3.13'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -104,7 +104,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
+          python-version: '3.13'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip

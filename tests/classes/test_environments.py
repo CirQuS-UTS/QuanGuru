@@ -1,6 +1,9 @@
 from numpy import e
 import pytest
-from quanguru.classes.environment import thermalBath
+from quanguru.classes.environment import thermalBath, dissipatorObj
+from quanguru.classes.QSystem import Qubit
+from quanguru import sigmaz, Cavity, tensorProd, destroy
+from numpy import array, allclose
 
 @pytest.mark.parametrize("attribute", ['temperature', 'charFreq'])
 def test_bathParameterSettingMakesParamUpdatedTrue(attribute):
@@ -44,3 +47,55 @@ def test_bathNbar():
     assert thBath._paramUpdated
     assert thBath.nBar == 1/(e-1)
     assert not thBath._paramUpdated
+
+def test_jRateChange():
+    qubit = Qubit(frequency=1)
+    diss = dissipatorObj(system=qubit, jOper=sigmaz(), jRate=0.25)
+    diss.addToProtocol(qubit.simulation.protocols[0])
+
+    qubit.stepSize = 1
+
+    ans = array([
+        [1.        +0.j        , 0.        +0.j        ,
+        0.        +0.j        , 0.        +0.j        ],
+       [0.        +0.j        , 0.32770991+0.51037795j,
+        0.        +0.j        , 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.j        ,
+        0.32770991-0.51037795j, 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.j        ,
+        0.        +0.j        , 1.        +0.j        ]
+    ])
+
+    assert allclose(qubit.simulation.protocols[0].unitary().toarray(), ans)
+
+    diss.jRate = 0
+
+    ans = array(
+        [[1.        +0.j        , 0.        +0.j        ,
+        0.        +0.j        , 0.        +0.j        ],
+       [0.        +0.j        , 0.54030231+0.84147098j,
+        0.        +0.j        , 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.j        ,
+        0.54030231-0.84147098j, 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.j        ,
+        0.        +0.j        , 1.        +0.j        ]])
+    
+    assert allclose(qubit.simulation.protocols[0].unitary().toarray(), ans)
+
+def test_jOperDimMatchesTotalSystem():
+    Qubit._resetAll()
+    qubit, cavity = Qubit(), Cavity(dimension=5)
+    total_sys = qubit + cavity
+
+    diss = dissipatorObj(system=qubit, jOper=sigmaz(), jRate=1)
+
+    assert diss.jOperMatrix.shape[0] == total_sys.dimension
+
+def test_CompositejOperDimMatchesTotalSystem():
+    Qubit._resetAll()
+    qubit, cavity = Qubit(), Cavity(dimension=5)
+    total_sys = qubit + cavity
+
+    diss = dissipatorObj(system=qubit, jOper=tensorProd(sigmaz(), destroy(5)))
+
+    assert diss.jOperMatrix.shape[0] == total_sys.dimension

@@ -2,7 +2,6 @@ import pytest
 from numpy import int64, int32
 import random as rnd
 import quanguru.classes.QSystem as QSys
-from quanguru.classes.QSys import QuantumSystemOld
 import quanguru.QuantumToolbox.operators as QOps
 from quanguru.classes.QTerms import QTerm
 
@@ -13,7 +12,7 @@ def test_subSystemDimesionsAreRequiredForMatrixCreations():
     comp = qub + cav
 
     with pytest.raises(ValueError):
-        comp.totalHamiltonian.A
+        comp.totalHamiltonian.toarray()
 
 @pytest.mark.parametrize('intType', [int, int64, int32])
 def test_dimensionHasToBeInt(intType):
@@ -89,7 +88,6 @@ def test_dimensionChangeReCreatesTheOperator():
 
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_dimensionValues(cls):
@@ -124,7 +122,6 @@ def test_dimensionValues(cls):
     assert asystem3.dimension == 3
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_dimensionABValues(cls):
@@ -178,7 +175,6 @@ def test_dimensionABValues(cls):
     assert asystem4._dimsBefore == asystem1.dimension*asystem2.dimension*asystem3.dimension
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_totalDim(cls):
@@ -199,7 +195,6 @@ def test_totalDim(cls):
     assert asystem3._totalDim == someRandInt1*someRandInt2*3
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_addingSameSubSysAgainDoNotChangeDimensions(cls):
@@ -215,7 +210,6 @@ def test_addingSameSubSysAgainDoNotChangeDimensions(cls):
     assert asystem1._dimsBefore == 1
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_nestedDimensionBeforeAfterSetsProperly(cls):
@@ -278,7 +272,6 @@ def test_nestedDimensionBeforeAfterSetsProperly(cls):
     assert asystem4._dimsBefore == ranInts[0]*ranInts[1]*ranInts[2]
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_nestedDimensionBeforeAfterSetsAndUpdatesProperly(cls):

@@ -21,11 +21,12 @@
     =======================    ==================    ================   ===============
 """
 
-from .QPro import Gate
+from .QProtocol import Gate
 from .QSimBase import setAttr
 from ..QuantumToolbox import evolution
 from ..QuantumToolbox import operators #pylint: disable=relative-beyond-top-level
 from ..QuantumToolbox import spinRotations #pylint: disable=relative-beyond-top-level
+from ..QuantumToolbox import linearAlgebra #pylint: disable=relative-beyond-top-level
 
 class SpinRotation(Gate): # pylint: disable=too-many-ancestors
     label = 'SpinRotation'
@@ -42,7 +43,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
         self.__rotationAxis = None
         self._rotationOp = None
         self.phase = 1
-        #self._createUnitary = self._rotMat
+        self.createUnitary = self._rotMat
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     @property
@@ -79,7 +80,7 @@ class SpinRotation(Gate): # pylint: disable=too-many-ancestors
                 flipOpN = operators.compositeOp(rotOp(sys[i+1].dimension, isDim=True),
                                                 sys[i+1]._dimsBefore, sys[i+1]._dimsAfter)
                 flipUn = evolution.Unitary(self.phase*self.angle*flipOpN) @ flipUn
-            self._paramBoundBase__matrix = evolution._prepostSO(flipUn) if (openSys or isinstance(collapseOps, list) or self._isOpen) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
+            self._paramBoundBase__matrix = evolution._prepostSO(operatorA = flipUn, operatorB = linearAlgebra.hc(flipUn)) if (openSys or isinstance(collapseOps, list) or self._isOpen) else flipUn # pylint: disable=assigning-non-slot,line-too-long,protected-access
         self._paramBoundBase__paramUpdated = False # pylint: disable=assigning-non-slot
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
@@ -95,12 +96,13 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
     def __init__(self, **kwargs):
         super().__init__(_internal=kwargs.pop('_internal', False))
         self.rotationAxis = 'x'
-        #self._createUnitary = self._gateImplements
+        self.createUnitary = self._gateImplements
         self._named__setKwargs(**kwargs) # pylint: disable=no-member
 
     def instantFlip(self, openSys=False):
         if ((self._paramBoundBase__matrix is None) or (self._paramBoundBase__paramUpdated is True)): # pylint: disable=no-member
             sys = list(self.subSys.values())
+            rotOp = None
             if self.rotationAxis.lower() == 'x':
                 rotOp = spinRotations.xRotation
             elif self.rotationAxis.lower() == 'y':
@@ -115,11 +117,9 @@ class xGate(SpinRotation): # pylint: disable=too-many-ancestors
         return self._paramBoundBase__matrix # pylint: disable=no-member
 
     def _gateImplements(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
+        unitary = None
         if self.implementation is None:
             unitary = self._rotMat(openSys = isinstance(collapseOps, list) or self._isOpen)
         elif self.implementation.lower() in ('instant', 'flip'): # pylint: disable=no-member
             unitary = self.instantFlip(openSys = isinstance(collapseOps, list) or self._isOpen)
         return unitary
-
-SpinRotation._createUnitary = SpinRotation._rotMat # pylint: disable=protected-access
-xGate._createUnitary = xGate._gateImplements

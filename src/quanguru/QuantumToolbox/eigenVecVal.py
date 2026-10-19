@@ -62,7 +62,7 @@ def _eigs(Mat: Matrix) -> tuple:
     # TODO
     """
     if isinstance(Mat, spmatrix):
-        Mat = Mat.A
+        Mat = Mat.toarray()
     return lina.eig(Mat)
 
 def _eigStat(Mat: Matrix, symp: bool = False) -> floatList:

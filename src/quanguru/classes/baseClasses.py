@@ -291,6 +291,7 @@ class computeBase(paramBoundBase):
         (if callable, does nothing otherwise) ``self.preCompute``
         or ``self.postCompute`` depending on the given string `where`.
         """
+        meth = None
         if where == "pre":
             meth = self.preCompute
         elif where == "post":

@@ -35,13 +35,13 @@ floatList = List[float]                             # Type for a list of floats
 matrixList = List[Matrix]                           # Type for a list Matrix types
 
 #: Type from the union the types; int, intList, and dict[int;float]
-supInp = Union[Dict[int, float], intList, int]      # Type from the union the types int, intList, and dict[int;float] #pylint:disable=unsubscriptable-object, C0301  # noqa: E501
+supInp = Union[Dict[int, float], intList, int]      # Type from the union the types int, intList, and dict[int;float] #pylint:disable=unsubscriptable-object,invalid-name C0301  # noqa: E501
 
 #: Type from the union of ndarray and intList with integer elements
-ndOrListInt = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements #pylint:disable=unsubscriptable-object, C0301  # noqa: E501
+ndOrListInt = Union[ndarray, intList]              # Type from the union of ndarray and intList with integer elements #pylint:disable=unsubscriptable-object,invalid-name C0301  # noqa: E501
 
 #: Type from union of ndarray and list
-ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list #pylint:disable=unsubscriptable-object
+ndOrList = Union[ndarray, list]                     # Type from union of ndarray and list #pylint:disable=unsubscriptable-object,invalid-name
 
 #: Type from union of ndarray and list
-matrixOrMatrixList = Union[Matrix, matrixList]      # Type from union of ndarray and list #pylint:disable=unsubscriptable-object
+matrixOrMatrixList = Union[Matrix, matrixList]      # Type from union of ndarray and list #pylint:disable=unsubscriptable-object,invalid-name

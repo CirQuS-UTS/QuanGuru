@@ -76,7 +76,7 @@ def compute(sim, args):
 spinSys.simCompute = compute
 ```
 
-#### finally run the simulation and retrieve the results
+#### Finally run the simulation and retrieve the results
 ```python
 spinSys.runSimulation()
 spinSys.resultsDict['freeEvo']

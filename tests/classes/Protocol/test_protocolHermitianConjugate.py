@@ -12,4 +12,4 @@ def test_HermitianConjugateCopyStep():
     spinSys.simTotalTime = 1
     spinSys.simStepSize = 1
 
-    assert np.allclose(ProtocolY.unitary().A, (ry.unitary() @ spinSys.unitary() @ qg.hc(ry.unitary()) ).A)
+    assert np.allclose(ProtocolY.unitary().toarray(), (ry.unitary() @ spinSys.unitary() @ qg.hc(ry.unitary()) ).toarray())

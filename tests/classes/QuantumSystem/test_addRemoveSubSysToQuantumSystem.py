@@ -1,7 +1,6 @@
 import random as rnd
 import pytest
 import quanguru.classes.QSystem as QSys
-from quanguru.classes.QSys import QuantumSystemOld
 
 def test_addSubSysDoesNotAllowCircularAddition():
     qs1 = QSys.QuantumSystem()
@@ -10,7 +9,6 @@ def test_addSubSysDoesNotAllowCircularAddition():
         qs1.addSubSys(qs2)
 
 @pytest.mark.parametrize("cls", [
-                         QuantumSystemOld,
                          QSys.QuantumSystem
                          ])
 def test_addAndremoveSubSysMethods(cls):

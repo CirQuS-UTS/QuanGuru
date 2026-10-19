@@ -27,7 +27,7 @@ r"""
 import numpy as np # type: ignore
 from scipy.sparse import spmatrix # type: ignore
 
-from .functions import fidelityPure
+from .functions import fidelityPure, sortedEigens
 
 from .customTypes import Matrix, matrixList
 
@@ -101,5 +101,33 @@ def iprKetNB(ket: Matrix) -> float:
     """
 
     if isinstance(ket, spmatrix):
-        ket = ket.A
+        ket = ket.toarray()
     return 1/np.sum(np.power((np.abs(ket.flatten())), 4))
+
+def iprMatrix(mat1: Matrix, mat2: Matrix) -> float:
+    r"""
+    Calculates the IPR between two matrices
+    :math:`1/\sum_{n, m}|\langle \psi_{n}|\Phi_{m}\rangle|^{4}` where
+    :math:`\langle \psi_{n}|` is the nth eigenvector of the first matrix and
+    :math:`|\Phi_{m}\rangle` is the mth eigenvector of the second matrix
+    Parameters
+    ----------
+    mat1 : Matrix
+        a matrix (typically a unitary or hamiltonian)
+    mat2 : Matrix 
+        a matrix (typically a unitary or hamiltonian)
+
+    Returns
+    -------
+    float
+        inverse participation ratio
+
+    """
+    IPR = 0.
+    _vals1, basis1 = sortedEigens(mat1)
+    _vals2, basis2 = sortedEigens(mat2)
+    for j in range(len(basis1)):
+        for i in range(len(basis2)):
+            coeff = fidelityPure(basis1[i], basis2[j])**2
+            IPR = IPR + coeff
+    return 1/IPR

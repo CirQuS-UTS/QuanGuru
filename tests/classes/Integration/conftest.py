@@ -80,8 +80,8 @@ class _JC:
         dim = sim.auxObj.dim
         #dim = st.shape[0] # FIXME This causes bug in _reShape
         for i in range(dim-2):
-            sim.qRes.singleResult = (str(i) + "real", st.A[i][0].real)
-            sim.qRes.singleResult = (str(i) + "imag", st.A[i][0].imag)
+            sim.qRes.singleResult = (str(i) + "real", st.toarray()[i][0].real)
+            sim.qRes.singleResult = (str(i) + "imag", st.toarray()[i][0].imag)
     # implement the analytical solutions
     @staticmethod
     def quanGenRabiFreq(g, detun=0, n=0):

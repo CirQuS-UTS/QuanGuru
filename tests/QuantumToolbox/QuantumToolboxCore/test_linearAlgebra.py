@@ -147,13 +147,13 @@ def test_outerProductWithOther(columnMats, elements):
                                   [oper, 4, oper], [operEx1, 3, operEx2], [operEx3, operEx1, operEx2]])
 def test_tensorProduct(mats):
     # the function is recursive, here it is tested by doing the same thing in a for loop
-    tenProd = la.tensorProd(*mats).A
+    tenProd = la.tensorProd(*mats).toarray()
     totalProd = 1
     for arg in mats:
         if isinstance(arg, int):
             arg = sp.identity(arg, format="csc")
         totalProd = sp.kron(totalProd, arg, format='csc')
-    dif = tenProd - totalProd.A
+    dif = tenProd - totalProd.toarray()
     assert np.allclose(dif, np.zeros(shape=tenProd.shape))
 
 @pytest.mark.parametrize("mats", [[cMatEx1, cMatEx1, cMatEx1, cMatEx1], [cMatEx1, cMatEx2, cMatEx1, cMatEx2],
@@ -196,27 +196,27 @@ def test_matrixPowerRaising(sp):
     oper3 = qOps.destroy(8, sparse=sp)
 
     if sp:
-        assert np.allclose(la._matPower(oper1, 1).A, oper1.A)
-        assert np.allclose(la._matPower(oper2, 1).A, oper2.A)
-        assert np.allclose(la._matPower(oper3, 1).A, oper3.A)
+        assert np.allclose(la._matPower(oper1, 1).toarray(), oper1.toarray())
+        assert np.allclose(la._matPower(oper2, 1).toarray(), oper2.toarray())
+        assert np.allclose(la._matPower(oper3, 1).toarray(), oper3.toarray())
     else:
         assert np.allclose(la._matPower(oper1, 1), oper1)
         assert np.allclose(la._matPower(oper2, 1), oper2)
         assert np.allclose(la._matPower(oper3, 1), oper3)
 
     if sp:
-        assert np.allclose(la._matPower(oper1, 2).A, (oper1@oper1).A)
-        assert np.allclose(la._matPower(oper2, 2).A, (oper2@oper2).A)
-        assert np.allclose(la._matPower(oper3, 2).A, (oper3@oper3).A)
+        assert np.allclose(la._matPower(oper1, 2).toarray(), (oper1@oper1).toarray())
+        assert np.allclose(la._matPower(oper2, 2).toarray(), (oper2@oper2).toarray())
+        assert np.allclose(la._matPower(oper3, 2).toarray(), (oper3@oper3).toarray())
     else:
         assert np.allclose(la._matPower(oper1, 2), (oper1@oper1))
         assert np.allclose(la._matPower(oper2, 2), (oper2@oper2))
         assert np.allclose(la._matPower(oper3, 2), (oper3@oper3))
 
     if sp:
-        assert np.allclose(la._matPower(oper1, 3).A, (oper1@oper1@oper1).A)
-        assert np.allclose(la._matPower(oper2, 3).A, (oper2@oper2@oper2).A)
-        assert np.allclose(la._matPower(oper3, 3).A, (oper3@oper3@oper3).A)
+        assert np.allclose(la._matPower(oper1, 3).toarray(), (oper1@oper1@oper1).toarray())
+        assert np.allclose(la._matPower(oper2, 3).toarray(), (oper2@oper2@oper2).toarray())
+        assert np.allclose(la._matPower(oper3, 3).toarray(), (oper3@oper3@oper3).toarray())
     else:
         assert np.allclose(la._matPower(oper1, 3), (oper1@oper1@oper1))
         assert np.allclose(la._matPower(oper2, 3), (oper2@oper2@oper2))

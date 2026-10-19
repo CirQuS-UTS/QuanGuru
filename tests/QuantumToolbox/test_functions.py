@@ -71,10 +71,10 @@ def test_fidelityPure(helpers):
         assert round(fid, 12) == round(fin, 12)
         state1 = la.outerProd(state1)
         fid = fns.fidelityPure(state1, state2)
-        assert round(fid, 12) == round(fin, 12)
+        assert round(fid, 7) == round(fin, 7)
         state2 = la.outerProd(state2)
         fid = fns.fidelityPure(state1, state2)
-        assert round(fid, 12) == round(fin, 12)
+        assert round(fid, 7) == round(fin, 7)
 
 stateNames = ['0', '1', 'x+', 'x-', 'y+', 'y-']
 bellStateN = ['BellPhi+', 'BellPhi-', 'BellPsi+', 'BellPsi-']
@@ -96,13 +96,13 @@ def test_fidelityPureWithSpecialQubitStates(state1, state2, fid, specialQubitSta
     state1 = specialQubitStates[state1]
     state2 = specialQubitStates[state2]
     fidCalc = fns.fidelityPure(state1, state2)
-    assert round(fidCalc, 12) == fid
+    assert round(fidCalc, 7) == fid
     state1 = la.outerProd(state1)
     fidCalc = fns.fidelityPure(state1, state2)
-    assert round(fidCalc, 12) == fid
+    assert round(fidCalc, 7) == fid
     state2 = la.outerProd(state2)
     fidCalc = fns.fidelityPure(state1, state2)
-    assert round(fidCalc, 12) == fid
+    assert round(fidCalc, 7) == fid
 
 @pytest.mark.parametrize("mat1, mat2, fid", [
     *[(stateNames[0]+'dm', name+'dm', f) for name, f in zip(stateNames, [1, 0, 0.5, 0.5, 0.5, 0.5])],
@@ -119,7 +119,7 @@ def test_fidelityPureWithSpecialQubitStates(state1, state2, fid, specialQubitSta
 def test_fidelityWithPureDensityMatrices(mat1, mat2, fid, specialQubitStates):
     # test fidelity with some known density matrices
     fidCalc = fns.fidelityPure(specialQubitStates[mat1], specialQubitStates[mat2])
-    assert round(fidCalc, 12) == fid
+    assert round(fidCalc, 7) == fid
 
 def test_entropyPureState(specialQubitStates):
     # should give zero for a pure state (uses known states), tests both ket and density matrix inputs

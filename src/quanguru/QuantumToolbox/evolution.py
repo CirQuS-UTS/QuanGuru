@@ -35,16 +35,15 @@ r"""
 """
 
 from typing import Callable, List, Optional
-
 import scipy.sparse as sp # type: ignore
 import scipy.linalg as linA # type: ignore
 import scipy.sparse.linalg as slinA # type: ignore
-
-from .linearAlgebra import hc
-from .functions import sortedEigens
-from .states import densityMatrix, mat2Vec, vec2Mat, zerosMat
+from warnings import warn
 
 from .customTypes import Matrix
+from .functions import sortedEigens
+from .linearAlgebra import hc
+from .states import densityMatrix, mat2Vec, vec2Mat, zerosMat, normalise
 
 
 # do not delete these
@@ -77,7 +76,7 @@ def Unitary(Hamiltonian: Matrix, timeStep: float = 1.0) -> Matrix:
 
     Examples
     --------
-    >>> Unitary(2*np.pi*sigmaz(), 1).A
+    >>> Unitary(2*np.pi*sigmaz(), 1).toarray()
     array([[1.+2.4492936e-16j, 0.+0.0000000e+00j],
            [0.+0.0000000e+00j, 1.-2.4492936e-16j]])
 
@@ -118,7 +117,7 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
 
     Examples
     --------
-    >>> Liouvillian(2*np.pi*sigmaz(), [2*np.pi*sigmaz()], [1]).A
+    >>> Liouvillian(2*np.pi*sigmaz(), [2*np.pi*sigmaz()], [1]).toarray()
     array([[  0.         +0.j        ,   0.         +0.j        ,
               0.         +0.j        ,   0.         +0.j        ],
            [  0.         +0.j        , -78.95683521+12.56637061j,
@@ -136,8 +135,11 @@ def Liouvillian(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optiona
     else:
         if collapseOperators is not None:
             dimensionOfHilbertSpace = collapseOperators[0].shape[0]
-
-    identity = sp.identity(dimensionOfHilbertSpace, format="csc")
+    # sparse = sp.issparse(Hamiltonian)
+    # if sparse == True:
+    identity = sp.identity(dimensionOfHilbertSpace, format="csc") # pylint:disable=possibly-used-before-assignment
+    # else:
+    #     identity = np.identity(dimensionOfHilbertSpace)
     liouvillian = zerosMat(dimensionOfHilbertSpace**2)
     if Hamiltonian is not None:
         hamPart1 = _preSO(Hamiltonian, identity)
@@ -191,11 +193,11 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
 
     Examples
     --------
-    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [], []).A
+    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [], []).toarray()
     array([[1.+2.4492936e-16j, 0.+0.0000000e+00j],
            [0.+0.0000000e+00j, 1.-2.4492936e-16j]])
 
-    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [2*np.pi*sigmaz()], [1]).A
+    >>> LiouvillianExp(2*np.pi*sigmaz(), 1, [2*np.pi*sigmaz()], [1]).toarray()
     array([[1.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
             0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j],
            [0.00000000e+00+0.00000000e+00j, 5.12250228e-35-2.50930241e-50j,
@@ -206,6 +208,8 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
             0.00000000e+00+0.00000000e+00j, 1.00000000e+00+0.00000000e+00j]])
     """
 
+    sparse = None
+    liouvillianEXP = None
     if Hamiltonian is not None:
         sparse = sp.issparse(Hamiltonian)
     else:
@@ -213,7 +217,16 @@ def LiouvillianExp(Hamiltonian: Optional[Matrix] = None, timeStep: float = 1.0,#
             sparse = sp.issparse(collapseOperators[0])
 
     if isinstance(collapseOperators, list):
-        liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates, _double=_double)
+        # liouvillian = Liouvillian(Hamiltonian, collapseOperators, decayRates, _double=_double)
+        HamLiouvillian = Liouvillian(Hamiltonian, None, None, _double=_double)
+        collapseLiouvillian = Liouvillian(None, collapseOperators, decayRates, _double=_double)
+        liouvillian = HamLiouvillian + collapseLiouvillian if timeStep > 0 else HamLiouvillian - collapseLiouvillian
+        if timeStep < 0:
+            warn("Negative time step given. Unitary part will be subtracted from the dissipator part instead of being added.")
+        # if timeStep <0:
+        #     print("Negative time step given. Unitary part will be subtracted from the dissipator part instead of being added.")
+        # else:
+        #     print("Positive time step given. Unitary part will be added to the dissipator part.")
         if exp is True:
             if sparse is True:
                 liouvillianEXP = slinA.expm(liouvillian * timeStep)
@@ -250,13 +263,13 @@ def dissipator(operatorA: Matrix, operatorB: Optional[Matrix] = None,
 
     Examples
     --------
-    >>> dissipator(sigmaz()).A
+    >>> dissipator(sigmaz()).toarray()
     array([[ 0.,  0.,  0.,  0.],
            [ 0., -2.,  0.,  0.],
            [ 0.,  0., -2.,  0.],
            [ 0.,  0.,  0.,  0.]])
 
-    >>> dissipator(sigmam()).A
+    >>> dissipator(sigmam()).toarray()
     array([[-1. ,  0. ,  0. ,  0. ],
            [ 0. , -0.5,  0. ,  0. ],
            [ 0. ,  0. , -0.5,  0. ],
@@ -295,7 +308,7 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Examples
     --------
-    >>> evolution._preSO(sigmam()).A
+    >>> evolution._preSO(sigmam()).toarray()
     array([[0., 0., 0., 0.],
            [1., 0., 0., 0.],
            [0., 0., 0., 0.],
@@ -306,7 +319,7 @@ def _preSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     if identity is None:
         identity = sp.identity(operator.shape[0], format="csc")
     pre = sp.kron(identity, operator, format='csc')
-    return pre if sp.issparse(operator) else pre.A
+    return pre if sp.issparse(operator) else pre.toarray()
 
 def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     r"""
@@ -328,7 +341,7 @@ def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
 
     Examples
     --------
-    >>> evolution._postSO(sigmam()).A
+    >>> evolution._postSO(sigmam()).toarray()
     array([[0., 0., 1., 0.],
            [0., 0., 0., 1.],
            [0., 0., 0., 0.],
@@ -339,7 +352,7 @@ def _postSO(operator: Matrix, identity: Matrix = None) -> Matrix:
     if identity is None:
         identity = sp.identity(operator.shape[0], format="csc")
     pos = sp.kron(operator.transpose(), identity, format='csc')
-    return pos if sp.issparse(operator) else pos.A
+    return pos if sp.issparse(operator) else pos.toarray()
 
 def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
     r"""
@@ -362,7 +375,7 @@ def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
 
     Examples
     --------
-    >>> evolution._prepostSO(sigmam()).A
+    >>> evolution._prepostSO(sigmam()).toarray()
     array([[0, 0, 0, 0],
            [0, 0, 0, 0],
            [0, 0, 0, 0],
@@ -372,9 +385,9 @@ def _prepostSO(operatorA: Matrix, operatorB: Optional[Matrix] = None) -> Matrix:
     if operatorB is None:
         operatorB = operatorA
     prepost = sp.kron(operatorB.transpose(), operatorA, format='csc')
-    return prepost if sp.issparse(operatorA) else prepost.A
+    return prepost if sp.issparse(operatorA) else prepost.toarray()
 
-def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Optional[Matrix] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object,too-many-arguments # noqa: E501
+def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Optional[Matrix] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object,too-many-arguments,too-many-positional-arguments # noqa: E501
                collapseOperators: Optional[List] = None, decayRates: Optional[List] = None,
                calcFunc: Optional[Callable] = None, delStates: Optional[bool] = False, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
     # TODO : write docstrings
@@ -397,10 +410,13 @@ def evolveOpen(initialState, totalTime, timeStep: float = 1.0, Hamiltonian: Opti
             resultList.append(denMat)
     return resultList
 
-def steadyState(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optional[List] = None,# pylint: disable=dangerous-default-value,unsubscriptable-object # noqa: E501
-               decayRates: Optional[List] = None, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
+def steadyStateLio(liouvillianOp, LioExp: bool = False, allVecVals: bool = False):
+    vals, vecs = sortedEigens(liouvillianOp, mag=True)
+    eigMat = normalise(vec2Mat(vecs[-1*int(LioExp)]))
+    return eigMat if not allVecVals else [vals, vecs]
+
+def steadyStateHam(Hamiltonian: Optional[Matrix] = None, collapseOperators: Optional[List] = None,
+                   decayRates: Optional[List] = None, _double: bool = False) -> Matrix: # pylint: disable=dangerous-default-value
     # TODO : write docstrings
-    Liou = LiouvillianExp(Hamiltonian, timeStep=1, collapseOperators=collapseOperators, decayRates=decayRates,
-                          _double=_double)
-    vals, vecs = sortedEigens(Liou, mag=True)
-    return vals, vecs
+    Liou = Liouvillian(Hamiltonian, collapseOperators=collapseOperators, decayRates=decayRates, _double=_double)
+    return steadyStateLio(Liou)

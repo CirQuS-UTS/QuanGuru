@@ -1,6 +1,8 @@
 import numpy as np
 import pytest
 import quanguru.QuantumToolbox.evolution as evo#pylint: disable=import-error
+from quanguru import sigmam, sigmaz
+from numpy import array
 
 sigmaOpers = ["sigmaMinusReference", "sigmaPlusReference", "sigmaZReference"]
 
@@ -35,3 +37,13 @@ dissipatorExpects = [np.array([[-1, 0, 0, 0], [0, -0.5, 0, 0], [0, 0, -0.5, 0], 
 def test_dissipator(op, expect, referenceValues):
     # test the dissipator for sigma -, +, and Z operators by comparing expected results
     assert np.allclose(evo.dissipator(referenceValues[op]), expect)
+
+def test_NegativeTimeLiouvillianExp():
+    gen = evo.LiouvillianExp(Hamiltonian=sigmaz().toarray(), timeStep=-1, collapseOperators=[sigmam().toarray()], decayRates=[1/2])
+    exp = array([
+        [ 0.60653066+0.j        ,  0.        +0.j        ,          0.        +0.j        ,  0.        +0.j        ],
+        [ 0.        +0.j        , -0.32409548-0.70816155j,          0.        +0.j        ,  0.        +0.j        ],
+        [ 0.        +0.j        ,  0.        +0.j        ,         -0.32409548+0.70816155j,  0.        +0.j        ],
+        [ 0.39346934+0.j        ,  0.        +0.j        ,          0.        +0.j        ,  1.        +0.j        ]
+    ])
+    assert np.allclose(gen, exp)
