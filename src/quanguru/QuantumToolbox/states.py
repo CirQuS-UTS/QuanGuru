@@ -542,7 +542,7 @@ def mat2Vec(denMat: Matrix) -> Matrix: # pylint: disable=invalid-name
      [1]]
     """
 
-    return denMat.T.reshape(np.prod(np.shape(denMat)), 1)
+    return denMat.T.reshape(np.prod(np.shape(denMat)), 1) # type: ignore[arg-type]
 
 def vec2Mat(vec: Matrix) -> Matrix: # pylint: disable=invalid-name
     r"""
