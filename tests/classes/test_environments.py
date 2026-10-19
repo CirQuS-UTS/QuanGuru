@@ -2,7 +2,7 @@ from numpy import e
 import pytest
 from quanguru.classes.environment import thermalBath, dissipatorObj
 from quanguru.classes.QSystem import Qubit
-from quanguru import sigmaz
+from quanguru import sigmaz, Cavity, tensorProd, destroy
 from numpy import array, allclose
 
 @pytest.mark.parametrize("attribute", ['temperature', 'charFreq'])
@@ -81,3 +81,21 @@ def test_jRateChange():
         0.        +0.j        , 1.        +0.j        ]])
     
     assert allclose(qubit.simulation.protocols[0].unitary().toarray(), ans)
+
+def test_jOperDimMatchesTotalSystem():
+    Qubit._resetAll()
+    qubit, cavity = Qubit(), Cavity(dimension=5)
+    total_sys = qubit + cavity
+
+    diss = dissipatorObj(system=qubit, jOper=sigmaz(), jRate=1)
+
+    assert diss.jOperMatrix.shape[0] == total_sys.dimension
+
+def test_CompositejOperDimMatchesTotalSystem():
+    Qubit._resetAll()
+    qubit, cavity = Qubit(), Cavity(dimension=5)
+    total_sys = qubit + cavity
+
+    diss = dissipatorObj(system=qubit, jOper=tensorProd(sigmaz(), destroy(5)))
+
+    assert diss.jOperMatrix.shape[0] == total_sys.dimension
