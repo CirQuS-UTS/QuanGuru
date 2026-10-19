@@ -158,3 +158,98 @@ def testTrotterSecondOrderStepLiouvillian():
     ])
 
     assert allclose(lioEXP, lioGEN)
+
+def test_NegativeEvolution():
+    """Test that under negative evolution the Liouvillian is correctly generated for a simple system with a single dissipator and single step."""
+
+    QuantumSystem._resetAll()
+    
+    kappa = 1
+    omega = 1
+    stepSize = 0.01
+
+    qubit = QuantumSystem(frequency=0, operator=sigmaz, dimension=2)
+
+    qubit.createTerm(
+        operator=sigmay,
+        frequency=omega/sqrt(2),
+        alias='x'
+    )
+
+    step = freeEvolution(superSys=qubit, ratio=-1)
+
+    diss_obj = dissipatorObj(
+        system=qubit, 
+        jOper=sigmap(), 
+        jRate=kappa, 
+    )
+    diss_obj.addToProtocol(step)
+
+    sim = Simulation()
+    sim.addProtocol(step)
+
+    sim.stepSize = stepSize
+    
+    lioEXP = step.unitary().toarray()
+
+    lioGEN = array([
+        [ 9.99950250e-01+0.j,  7.01800655e-03+0.j,  7.01800655e-03+0.j, 9.99958490e-03+0.j],
+        [-7.05318504e-03+0.j,  9.94962812e-01+0.j, -4.96669823e-05+0.j, 6.98282806e-03+0.j],
+        [-7.05318504e-03+0.j, -4.96669823e-05+0.j,  9.94962812e-01+0.j, 6.98282806e-03+0.j],
+        [ 4.97498993e-05+0.j, -7.01800655e-03+0.j, -7.01800655e-03+0.j, 9.90000415e-01+0.j]
+    ])
+
+    assert allclose(lioEXP, lioGEN)
+
+def test_NegativeEvolutionHigherOrder():
+    """Test that under negative evolution the Liouvillian is correctly generated for a simple system with a single dissipator."""
+
+    QuantumSystem._resetAll()
+    
+    kappa = 1
+    omega = 1
+    stepSize = 0.01
+
+    qubit = QuantumSystem(frequency=0, operator=sigmaz, dimension=2)
+
+    qubit.createTerm(
+        operator=sigmax, 
+        frequency=omega/sqrt(2), 
+        alias='x'
+    )
+    qubit.createTerm(
+        operator=sigmay,
+        frequency=omega/sqrt(2),
+        alias='y'
+    )
+
+    step_x = freeEvolution(superSys=qubit, ratio=1/2)
+    step_x.createUpdate(system=['y'], key='frequency', value=0)
+
+    step_y = freeEvolution(superSys=qubit, ratio=-1)
+    step_y.createUpdate(system=['x'], key='frequency', value=0)
+
+    diss_obj = dissipatorObj(
+        system=qubit, 
+        jOper=sigmap(), 
+        jRate=kappa, 
+    )
+    diss_obj.addToProtocol(step_x)
+    diss_obj.addToProtocol(step_y)
+
+    sim = Simulation()
+    pro = qProtocol(superSys=qubit, steps=[step_x, step_y, step_x], alias='trotter')
+    sim.addProtocol(pro)
+
+    sim.stepSize = stepSize
+    
+    lioEXP = pro.unitary().toarray()
+
+    lioGEN = array([
+        [ 9.99900998e-01+3.35425082e-21j,  6.96539411e-03-6.96526438e-03j, 6.96539411e-03+6.96526438e-03j,  1.98989300e-02-6.74238261e-21j],
+        [-7.03539953e-03-7.03526849e-03j,  9.89951121e-01+3.38813179e-21j, -1.25597782e-07-9.86304287e-05j,  6.89538869e-03+6.89526026e-03j],
+        [-7.03539953e-03+7.03526849e-03j, -1.25597782e-07+9.86304287e-05j, 9.89951121e-01+1.35525272e-20j,  6.89538869e-03-6.89526026e-03j],
+        [ 9.90016927e-05-6.74238261e-21j, -6.96539411e-03+6.96526438e-03j, -6.96539411e-03-6.96526438e-03j,  9.80101070e-01+1.01305144e-20j]
+    ])
+
+    assert allclose(lioEXP, lioGEN)
