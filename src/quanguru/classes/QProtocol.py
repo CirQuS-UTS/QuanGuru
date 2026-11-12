@@ -401,11 +401,13 @@ class copyStep(qBase):
 
     def getUnitary(self, collapseOps = None, decayRates = None): #pylint:disable=unused-argument
         # self.superSys.getUnitary(collapseOps, decayRates)
-        self.superSys.unitary()
+        if self.superSys._paramBoundBase__matrix is None:
+            self.superSys.unitary()
         return self.superSys._hc if self.hc else self.superSys._paramBoundBase__matrix #pylint:disable=protected-access
 
     def unitary(self): #pylint:disable=unused-argument
-        self.superSys.unitary()
+        if self.superSys._paramBoundBase__matrix is None:
+            self.superSys.unitary()
         return self.superSys._hc if self.hc else self.superSys._paramBoundBase__matrix #pylint:disable=protected-access
 
     @property
